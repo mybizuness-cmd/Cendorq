@@ -95,7 +95,6 @@ export default function Icon() {
                 <div
                     style={{
                         position: "relative",
-                        zIndex: 2,
                         display: "flex",
                         width: 238,
                         height: 238,
