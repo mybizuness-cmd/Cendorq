@@ -13,70 +13,61 @@ const BRAND_NAME = "Cendorq";
 const CATEGORY_LINE = "Search Presence OS";
 
 export const metadata = buildMetadata({
-  title: "Search Presence OS",
+  title: "Become the strongest answer across evolving search",
   description:
-    "Cendorq helps businesses become the strongest answer across evolving search through stronger signal, sharper strategy, stronger infrastructure, and stronger ongoing command.",
+    "Cendorq helps businesses strengthen signal, strategy, infrastructure, and continuity so they can become and remain the strongest answer across evolving search.",
   path: "/",
   keywords: [
     "cendorq homepage",
     "search presence os",
-    "ai search visibility",
-    "answer engine visibility",
-    "search presence strategy",
     "search presence scan",
     "visibility blueprint",
     "presence infrastructure",
     "presence command",
+    "ai search visibility",
+    "answer engine visibility",
   ],
   image: {
-    alt: "Cendorq homepage — Search Presence OS for businesses that need to become the strongest answer across evolving search.",
+    alt: "Cendorq homepage - Search Presence OS for businesses that need to become and remain the strongest answer across evolving search.",
   },
 });
 
 const HERO_READOUTS = [
+  { label: "Entry layer", value: "Search Presence Scan" },
+  { label: "Strategy layer", value: "Visibility Blueprint" },
+  { label: "Build layer", value: "Presence Infrastructure" },
+  { label: "Continuity layer", value: "Presence Command" },
+] as const;
+
+const CORE_PROMISES = [
   {
-    label: "Best first move",
-    value: "Search Presence Scan",
+    title: "Cendorq is not a vague marketing promise.",
+    copy:
+      "It is a search-presence decision system built to help a business become easier to understand, easier to trust, easier to prefer, and harder to replace across evolving search environments.",
   },
   {
-    label: "Core strategy layer",
-    value: "Visibility Blueprint",
+    title: "The sequence is part of the product.",
+    copy:
+      "Search Presence Scan, Visibility Blueprint, Presence Infrastructure, and Presence Command do different jobs. The route is stronger when a business enters the right layer at the right time instead of jumping into the loudest-looking one.",
   },
   {
-    label: "Implementation layer",
-    value: "Presence Infrastructure",
-  },
-  {
-    label: "Continuity layer",
-    value: "Presence Command",
+    title: "Decision quality comes before heavier spend.",
+    copy:
+      "The strongest next move is not always the deepest one. The strongest next move is the layer that matches the business's real stage of clarity, readiness, and continuity need.",
   },
 ] as const;
 
-const CORE_POINTS = [
-  {
-    title: "This is not generic marketing polish.",
-    copy:
-      "Cendorq is built to help the business become the strongest answer across evolving search, recommendation, and comparison environments, not just look busier online.",
-  },
-  {
-    title: "The sequence is the product.",
-    copy:
-      "First signal, then explanation, then concentrated strengthening, then recurring command. That order is how the platform protects businesses from buying the wrong depth too early.",
-  },
-  {
-    title: "Decision quality comes before heavier force.",
-    copy:
-      "The strongest move is not always the biggest-looking one. It is the next layer that matches the business's actual stage of clarity, readiness, and continuity need.",
-  },
-] as const;
-
-const LAYER_PREVIEWS = [
+const SYSTEM_LAYERS = [
   {
     eyebrow: "Layer 01",
     title: "Search Presence Scan",
+    strap: "First serious signal",
     copy:
-      "The first serious signal layer for businesses that need a cleaner read before they spend deeper.",
-    outcome: "Clarifies what feels weak before the wrong fix gets chosen.",
+      "The structured entry layer for businesses that need a stronger first read before deeper pressure gets applied.",
+    bestFor:
+      "Businesses that know something feels weak but still need the cleanest first interpretation before they pay for deeper depth.",
+    outcome:
+      "Creates a stronger first signal and reduces the chance of wasting money on the wrong next move.",
     href: "/free-check",
     cta: "Start Search Presence Scan",
     highlighted: true,
@@ -84,110 +75,115 @@ const LAYER_PREVIEWS = [
   {
     eyebrow: "Layer 02",
     title: "Visibility Blueprint",
+    strap: "Strategic explanation",
     copy:
-      "The deeper explanation layer for businesses that already know first signal alone is not enough.",
-    outcome: "Explains what is weakening visibility, preference, and response.",
+      "The deeper explanation layer for businesses that need clearer reasoning about what is weakening visibility, trust, preference, and response.",
+    bestFor:
+      "Businesses that already know the problem is serious enough that first signal alone is not enough anymore.",
+    outcome:
+      "Improves strategic clarity before concentrated strengthening begins.",
     href: "/pricing/full-diagnosis",
     cta: "View Visibility Blueprint",
   },
   {
     eyebrow: "Layer 03",
     title: "Presence Infrastructure",
+    strap: "Concentrated strengthening",
     copy:
-      "The concentrated strengthening layer for businesses that are already clear enough to build with force.",
-    outcome: "Strengthens the structural visibility foundation instead of reinforcing guesswork.",
+      "The structural strengthening layer for businesses that already know what deserves focused implementation work.",
+    bestFor:
+      "Businesses with enough clarity to strengthen specific structural systems instead of staying trapped in vague effort.",
+    outcome:
+      "Builds a stronger visibility foundation instead of reinforcing guesswork.",
     href: "/pricing/optimization",
     cta: "View Presence Infrastructure",
   },
   {
     eyebrow: "Layer 04",
     title: "Presence Command",
+    strap: "Recurring continuity",
     copy:
-      "The recurring continuity layer for businesses that need compounding strategic control over time.",
-    outcome: "Maintains, adapts, and compounds a path that is already clear enough to run.",
+      "The recurring operating layer for businesses ready to compound through monitoring, adaptation, and ongoing strategic control.",
+    bestFor:
+      "Businesses that are already clear enough to benefit from continuity rather than more early-stage interpretation.",
+    outcome:
+      "Maintains, adapts, and compounds a path that is already strong enough to operate over time.",
     href: "/pricing/monthly-partner",
     cta: "View Presence Command",
   },
 ] as const;
 
-const PRESSURE_SIGNALS = [
+const DECISION_RULES = [
   {
-    title: "People find you but still do not trust you enough.",
+    title: "Start with Search Presence Scan",
     copy:
-      "The business may be visible, but not yet credible, differentiated, or preference-worthy at the moment comparison happens.",
+      "when the business still needs a cleaner first read before strategy or implementation depth is justified.",
   },
   {
-    title: "People do not understand the offer fast enough.",
+    title: "Move into Visibility Blueprint",
     copy:
-      "The business may know what it does, but the market may still be reading a weaker or slower version of that truth.",
+      "when the business already knows first signal is not enough and needs a deeper explanation of what is suppressing visibility and response.",
   },
   {
-    title: "You keep doing more without getting clearer.",
+    title: "Use Presence Infrastructure",
     copy:
-      "That usually means the business is adding force before the sequence is properly solved.",
+      "when the path is already clear enough that concentrated structural strengthening is the real next move.",
+  },
+  {
+    title: "Use Presence Command",
+    copy:
+      "when the business is already clear enough to benefit from recurring continuity instead of more early-stage interpretation.",
+  },
+] as const;
+
+const TRUST_BOUNDARIES = [
+  {
+    label: "No fake certainty",
+    value:
+      "Cendorq improves decision quality, structural strength, and search-presence control. It does not promise guaranteed rankings, guaranteed leads, or guaranteed revenue.",
+  },
+  {
+    label: "No random escalation",
+    value:
+      "The system is intentionally sequenced to reduce waste created by entering the wrong depth too early.",
+  },
+  {
+    label: "No vague bundle logic",
+    value:
+      "Search Presence Scan, Visibility Blueprint, Presence Infrastructure, and Presence Command stay distinct because each layer has a different job.",
   },
 ] as const;
 
 const FAQS = [
   {
-    question: "What is Cendorq in simple terms?",
+    question: "What is Cendorq in plain English?",
     answer:
-      "Cendorq is a search-presence operating system built to help businesses become the strongest answer across evolving search environments by improving signal, strategy, structure, and continuity in the right order.",
+      "Cendorq is a search-presence operating system that helps a business become easier to trust, easier to understand, easier to prefer, and more likely to be treated as the strongest answer across evolving search.",
   },
   {
     question: "Where should most businesses start?",
     answer:
-      "Most businesses should start with Search Presence Scan because it creates a cleaner first signal before deeper strategy, implementation, or recurring command is chosen.",
+      "Most businesses should start with Search Presence Scan because it creates a stronger first signal before deeper strategic or implementation layers are chosen.",
   },
   {
-    question: "Why not jump straight to the deepest layer?",
+    question: "Why not jump straight to the biggest-looking layer?",
     answer:
-      "Because a heavier-looking layer is not automatically the stronger one. If the business is still unclear, deeper force can reinforce the wrong assumption faster.",
-  },
-  {
-    question: "What is the point of the full system path?",
-    answer:
-      "The system path exists to improve decision quality at every stage so the business can move deeper only when the previous layer has done enough to justify the next one.",
-  },
-] as const;
-
-const NEXT_STEPS = [
-  {
-    title: "Start with signal",
-    copy:
-      "Use Search Presence Scan when the business still needs the cleanest first read before spending deeper.",
-    href: "/free-check",
-    cta: "Start Search Presence Scan",
-    highlighted: true,
-  },
-  {
-    title: "Learn the sequence",
-    copy:
-      "Use Diagnosis when the business needs to understand how the system path works before choosing the wrong layer.",
-    href: "/diagnosis",
-    cta: "See how it works",
-  },
-  {
-    title: "Compare all four layers",
-    copy:
-      "Use System Layers when the business needs a side-by-side decision view across the entire Cendorq path.",
-    href: "/pricing",
-    cta: "Compare system layers",
+      "Because a deeper layer only becomes stronger when the business has earned the clarity needed to use it well. Entering the wrong depth too early usually creates waste, confusion, or misdirected effort.",
   },
 ] as const;
 
 export default function HomePage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: `${BRAND_NAME} Search Presence OS`,
+    title: "Cendorq",
     description:
-      "Search Presence OS for businesses that need to become the strongest answer across evolving search.",
+      "Cendorq helps businesses become and remain the strongest answer across evolving search through stronger signal, sharper strategy, stronger infrastructure, and stronger continuity.",
     path: "/",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: `${BRAND_NAME} Search Presence OS`,
+    title: "Cendorq Search Presence OS",
     description:
-      "A structured system for strengthening signal, strategy, infrastructure, and continuity across evolving search environments.",
+      "A structured search-presence system that helps businesses strengthen signal, explanation, infrastructure, and recurring command across evolving search.",
     path: "/",
     serviceType: "Search Presence OS",
   });
@@ -210,33 +206,31 @@ export default function HomePage() {
           <span className="text-white/20">/</span>
           <span className="text-white/70">{CATEGORY_LINE}</span>
           <span className="text-white/20">/</span>
-          <span className="text-cyan-100">Home</span>
+          <span className="text-cyan-100">Homepage</span>
         </div>
       </section>
 
-      <section className="relative z-10 grid gap-10 pt-10 lg:grid-cols-[0.94fr_1.06fr] lg:items-start">
+      <section className="relative z-10 grid gap-10 pt-10 lg:grid-cols-[0.93fr_1.07fr] lg:items-start">
         <div>
           <TopChip>Search Presence OS</TopChip>
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl xl:text-7xl">
             Become the strongest answer
-            <span className="system-gradient-text block">
-              before the market decides for you.
-            </span>
+            <span className="system-gradient-text block">across evolving search.</span>
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} helps businesses strengthen signal, strategy, infrastructure, and ongoing command so they can become and remain the answer customers and search systems trust first.
+            Cendorq helps businesses strengthen signal, strategy, infrastructure, and continuity so they can become easier to trust, easier to prefer, and harder to replace across evolving search environments.
           </p>
 
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            This is not about doing more random marketing. It is about reading the business correctly, choosing the right layer at the right time, and building a cleaner path that can actually compound.
+            This is not generic marketing help. It is a controlled search-presence system designed to improve the quality of the next decision before heavier action is chosen.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <AuthorityPill>Signal before force</AuthorityPill>
             <AuthorityPill>Explanation before build</AuthorityPill>
-            <AuthorityPill>Continuity after clarity</AuthorityPill>
+            <AuthorityPill>Right layer, right time</AuthorityPill>
           </div>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -255,60 +249,63 @@ export default function HomePage() {
           </div>
 
           <div className="system-panel-authority mt-8 rounded-[1.8rem] p-5 sm:p-6">
-            <p className="system-eyebrow">What Cendorq is really doing</p>
+            <p className="system-eyebrow">What this homepage should do</p>
             <h2 className="mt-4 text-2xl font-semibold text-white">
-              It helps the business choose the correct next move before deeper pressure begins.
+              Make the whole system legible before the business enters the wrong layer.
             </h2>
             <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
-              The strongest path is not the loudest one. It is the one that matches the actual stage of the business, improves decision quality first, and reduces waste caused by buying the wrong depth too early.
+              The homepage should help a serious business understand what Cendorq is, why the sequence matters, what each layer is responsible for, and where to begin without creating false urgency or vague promises.
             </p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <GuideTile label="Primary objective" value="Improve decision quality before heavier commitment" />
-              <GuideTile label="Main protection" value="Prevent the wrong layer from looking like the right one" />
+              <GuideTile label="Primary objective" value="Clarify the system before deeper commitment" />
+              <GuideTile label="Main failure avoided" value="Entering the wrong depth too early" />
             </div>
           </div>
         </div>
 
-        <div className="grid gap-4">
-          <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-              <div className="max-w-2xl">
-                <TopChip>Platform posture</TopChip>
-                <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                  Read the business clearly before prescribing stronger pressure.
-                </h2>
-                <p className="mt-5 text-base leading-8 text-slate-300">
-                  The Cendorq path starts with first signal, deepens into explanation, strengthens the highest-priority structural layers, and only then moves into ongoing command when continuity is justified.
-                </p>
+        <div className="relative">
+          <div className="absolute inset-0 rounded-[2rem] bg-cyan-400/10 blur-3xl" />
+          <div className="system-panel-authority relative rounded-[2rem] p-5 sm:p-6 md:p-7">
+            <div className="system-grid-wide absolute inset-0 opacity-[0.08]" />
+            <div className="system-scan-line pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-cyan-300 to-transparent" />
+            <div className="relative z-10">
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                <div className="max-w-2xl">
+                  <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-200">
+                    <span className="system-pulse-dot inline-flex h-2 w-2 rounded-full bg-cyan-300" />
+                    System route active
+                  </div>
+                  <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                    The route is strongest when each layer keeps its job clear.
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
+                    Search Presence Scan creates first signal. Visibility Blueprint deepens explanation. Presence Infrastructure strengthens what already deserves concentrated work. Presence Command compounds through recurring continuity.
+                  </p>
+                </div>
+
+                <div className="grid min-w-0 gap-3 sm:grid-cols-2 lg:w-[22rem]">
+                  {HERO_READOUTS.map((item, index) => (
+                    <ReadoutTile key={item.label} label={item.label} value={item.value} highlighted={index === 0} />
+                  ))}
+                </div>
               </div>
 
-              <div className="grid min-w-0 gap-3 sm:grid-cols-2 lg:w-[22rem]">
-                {HERO_READOUTS.map((item, index) => (
-                  <ReadoutTile
-                    key={item.label}
-                    label={item.label}
-                    value={item.value}
-                    highlighted={index === 0}
-                  />
+              <div className="mt-6">
+                <div className="flex items-center justify-between text-[11px] font-medium uppercase tracking-[0.22em] text-slate-400">
+                  <span>Sequence posture</span>
+                  <span>Decision quality before escalation</span>
+                </div>
+                <div className="system-status-bar mt-2 h-2">
+                  <span style={{ width: "91%" }} />
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-3">
+                {CORE_PROMISES.map((item, index) => (
+                  <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
                 ))}
               </div>
             </div>
-
-            <div className="mt-6">
-              <div className="flex items-center justify-between text-[11px] font-medium uppercase tracking-[0.22em] text-slate-400">
-                <span>System rule</span>
-                <span>Sequence before escalation</span>
-              </div>
-              <div className="system-status-bar mt-2 h-2">
-                <span style={{ width: "88%" }} />
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-3">
-            {CORE_POINTS.map((item, index) => (
-              <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
-            ))}
           </div>
         </div>
       </section>
@@ -317,33 +314,42 @@ export default function HomePage() {
         <div className="max-w-3xl">
           <TopChip>System layers</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Four layers. Four different responsibilities. One cleaner path.
+            Four layers. Four different responsibilities. One stronger system.
           </h2>
         </div>
-
         <div className="mt-10 grid gap-5 xl:grid-cols-2">
-          {LAYER_PREVIEWS.map((item) => (
-            <LayerPreviewCard key={item.title} {...item} />
+          {SYSTEM_LAYERS.map((item, index) => (
+            <LayerCardView
+              key={item.title}
+              eyebrow={item.eyebrow}
+              title={item.title}
+              strap={item.strap}
+              copy={item.copy}
+              bestFor={item.bestFor}
+              outcome={item.outcome}
+              href={item.href}
+              cta={item.cta}
+              highlighted={index === 0}
+            />
           ))}
         </div>
       </section>
 
       <section className="relative z-10 mt-20 grid gap-6 lg:grid-cols-[1.04fr_0.96fr]">
         <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8 md:p-10">
-          <TopChip>Why businesses come here</TopChip>
+          <TopChip>Decision rules</TopChip>
           <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Most businesses do not need more random effort. They need a cleaner read.
+            The strongest next move usually becomes clear when the business asks the right stage question.
           </h2>
           <div className="mt-8 grid gap-4">
-            {PRESSURE_SIGNALS.map((item, index) => (
+            {DECISION_RULES.map((item, index) => (
               <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
             ))}
           </div>
         </div>
-
-        <div className="grid gap-5">
-          {NEXT_STEPS.map((item, index) => (
-            <NextMoveCard key={item.title} {...item} highlighted={index === 0} />
+        <div className="grid gap-4">
+          {TRUST_BOUNDARIES.map((item, index) => (
+            <TrustTile key={item.label} label={item.label} value={item.value} highlighted={index === 0} />
           ))}
         </div>
       </section>
@@ -352,11 +358,10 @@ export default function HomePage() {
         <div className="max-w-3xl">
           <TopChip>Practical questions</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            The system gets stronger when the real questions are answered directly.
+            The system becomes easier to trust when the main questions are answered clearly.
           </h2>
         </div>
-
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {FAQS.map((item, index) => (
             <FaqCard key={item.question} question={item.question} answer={item.answer} highlighted={index === 0} />
           ))}
@@ -370,20 +375,14 @@ export default function HomePage() {
             Start with Search Presence Scan unless the business already clearly needs deeper explanation.
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300">
-            The strongest first move for most businesses is still Search Presence Scan. That creates a cleaner first signal, lowers the chance of mis-sequencing, and gives the platform a more trustworthy basis for the next decision.
+            Most businesses should begin with the first serious signal layer. That keeps the path clean, improves the quality of the next decision, and reduces the chance of paying for the wrong kind of depth too early.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/free-check"
-              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
-            >
+            <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
               Start Search Presence Scan
             </Link>
-            <Link
-              href="/diagnosis"
-              className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
-            >
-              See how the system works
+            <Link href="/diagnosis" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
+              See how it works
             </Link>
           </div>
         </div>
@@ -405,11 +404,7 @@ function HomeAtmosphere() {
 }
 
 function TopChip({ children }: { children: ReactNode }) {
-  return (
-    <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em]">
-      {children}
-    </div>
-  );
+  return <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em]">{children}</div>;
 }
 
 function AuthorityPill({ children }: { children: ReactNode }) {
@@ -425,15 +420,7 @@ function GuideTile({ label, value }: { label: string; value: string }) {
   );
 }
 
-function ReadoutTile({
-  label,
-  value,
-  highlighted = false,
-}: {
-  label: string;
-  value: string;
-  highlighted?: boolean;
-}) {
+function ReadoutTile({ label, value, highlighted = false }: { label: string; value: string; highlighted?: boolean }) {
   return (
     <div className={highlighted ? "system-chip rounded-[1.3rem] p-4" : "system-surface rounded-[1.3rem] p-4"}>
       <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{label}</div>
@@ -442,15 +429,7 @@ function ReadoutTile({
   );
 }
 
-function ReasonCard({
-  title,
-  copy,
-  highlighted = false,
-}: {
-  title: string;
-  copy: string;
-  highlighted?: boolean;
-}) {
+function ReasonCard({ title, copy, highlighted = false }: { title: string; copy: string; highlighted?: boolean }) {
   return (
     <article className={highlighted ? "system-panel-authority rounded-[1.7rem] p-6" : "system-surface rounded-[1.7rem] p-6"}>
       <h3 className="text-2xl font-semibold tracking-tight text-white">{title}</h3>
@@ -459,37 +438,21 @@ function ReasonCard({
   );
 }
 
-function LayerPreviewCard({
-  eyebrow,
-  title,
-  copy,
-  outcome,
-  href,
-  cta,
-  highlighted = false,
-}: {
-  eyebrow: string;
-  title: string;
-  copy: string;
-  outcome: string;
-  href: string;
-  cta: string;
-  highlighted?: boolean;
-}) {
+function LayerCardView({ eyebrow, title, strap, copy, bestFor, outcome, href, cta, highlighted = false }: { eyebrow: string; title: string; strap: string; copy: string; bestFor: string; outcome: string; href: string; cta: string; highlighted?: boolean }) {
   return (
     <article className={highlighted ? "system-panel-authority rounded-[1.85rem] p-6 sm:p-7" : "system-surface rounded-[1.85rem] p-6 sm:p-7"}>
-      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">{eyebrow}</div>
+      <div className="flex items-center justify-between gap-4">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">{eyebrow}</div>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{strap}</div>
+      </div>
       <h3 className="mt-4 text-3xl font-semibold tracking-tight text-white">{title}</h3>
       <p className="mt-4 text-sm leading-7 text-slate-300">{copy}</p>
-      <div className="system-surface mt-5 rounded-[1.15rem] p-4">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">Primary outcome</div>
-        <div className="mt-2 text-sm leading-7 text-slate-200">{outcome}</div>
+      <div className="mt-5 grid gap-3">
+        <DetailPanel label="Best for" value={bestFor} />
+        <DetailPanel label="Primary outcome" value={outcome} />
       </div>
       <div className="mt-6">
-        <Link
-          href={href}
-          className={highlighted ? "system-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition" : "system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition"}
-        >
+        <Link href={href} className={highlighted ? "system-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition" : "system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition"}>
           {cta}
         </Link>
       </div>
@@ -497,48 +460,29 @@ function LayerPreviewCard({
   );
 }
 
-function FaqCard({
-  question,
-  answer,
-  highlighted = false,
-}: {
-  question: string;
-  answer: string;
-  highlighted?: boolean;
-}) {
+function DetailPanel({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="system-surface rounded-[1.1rem] p-4">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{label}</div>
+      <div className="mt-2 text-sm leading-7 text-slate-200">{value}</div>
+    </div>
+  );
+}
+
+function TrustTile({ label, value, highlighted = false }: { label: string; value: string; highlighted?: boolean }) {
+  return (
+    <div className={highlighted ? "system-chip rounded-[1.45rem] p-5" : "system-surface rounded-[1.45rem] p-5"}>
+      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{label}</div>
+      <div className="mt-3 text-base font-semibold leading-7 text-white">{value}</div>
+    </div>
+  );
+}
+
+function FaqCard({ question, answer, highlighted = false }: { question: string; answer: string; highlighted?: boolean }) {
   return (
     <article className={highlighted ? "system-panel-authority rounded-[1.7rem] p-5" : "system-surface rounded-[1.7rem] p-5"}>
       <h3 className="text-2xl font-semibold tracking-tight text-white">{question}</h3>
       <p className="mt-4 text-sm leading-7 text-slate-300">{answer}</p>
-    </article>
-  );
-}
-
-function NextMoveCard({
-  title,
-  copy,
-  href,
-  cta,
-  highlighted = false,
-}: {
-  title: string;
-  copy: string;
-  href: string;
-  cta: string;
-  highlighted?: boolean;
-}) {
-  return (
-    <article className={highlighted ? "system-panel-authority rounded-[1.8rem] p-6" : "system-surface rounded-[1.8rem] p-6"}>
-      <h3 className="text-2xl font-semibold tracking-tight text-white">{title}</h3>
-      <p className="mt-4 text-sm leading-7 text-slate-300">{copy}</p>
-      <div className="mt-6">
-        <Link
-          href={href}
-          className={highlighted ? "system-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition" : "system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition"}
-        >
-          {cta}
-        </Link>
-      </div>
     </article>
   );
 }
