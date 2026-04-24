@@ -11,7 +11,9 @@ type BasicCredentials = {
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
-    const isProtectedConsoleRoute = pathname === INTERNAL_CONSOLE_PREFIX || pathname.startsWith(`${INTERNAL_CONSOLE_PREFIX}/`);
+    const isProtectedConsoleRoute =
+        pathname === INTERNAL_CONSOLE_PREFIX ||
+        pathname.startsWith(`${INTERNAL_CONSOLE_PREFIX}/`);
 
     let response: NextResponse;
 
@@ -36,7 +38,7 @@ async function protectConsoleRoute(request: NextRequest) {
         url.searchParams.delete("logout");
 
         const response = NextResponse.redirect(url);
-        clearConsoleCookie(response);
+        clearConsoleCookie(response, request);
         return response;
     }
 
@@ -52,13 +54,13 @@ async function protectConsoleRoute(request: NextRequest) {
         url.searchParams.delete("access");
 
         const response = NextResponse.redirect(url);
-        setConsoleCookie(response, expectedSessionToken!);
+        setConsoleCookie(response, expectedSessionToken!, request);
         return response;
     }
 
     if (accessKey && hasValidBearerToken(request, accessKey)) {
         const response = NextResponse.next();
-        setConsoleCookie(response, expectedSessionToken!);
+        setConsoleCookie(response, expectedSessionToken!, request);
         return response;
     }
 
@@ -66,7 +68,7 @@ async function protectConsoleRoute(request: NextRequest) {
         const response = NextResponse.next();
 
         if (expectedSessionToken) {
-            setConsoleCookie(response, expectedSessionToken);
+            setConsoleCookie(response, expectedSessionToken, request);
         }
 
         return response;
@@ -91,7 +93,10 @@ function applySecurityHeaders(
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     response.headers.set("X-Content-Type-Options", "nosniff");
     response.headers.set("X-Frame-Options", "DENY");
-    response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    response.headers.set(
+        "Permissions-Policy",
+        "camera=(), microphone=(), geolocation=()",
+    );
     response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
     response.headers.set("Cross-Origin-Resource-Policy", "same-origin");
     response.headers.set("X-DNS-Prefetch-Control", "off");
@@ -104,11 +109,20 @@ function applySecurityHeaders(
     }
 
     if (options.internal) {
-        response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet");
-        response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+        response.headers.set(
+            "X-Robots-Tag",
+            "noindex, nofollow, noarchive, nosnippet",
+        );
+        response.headers.set(
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+        );
         response.headers.set("Pragma", "no-cache");
         response.headers.set("Expires", "0");
-        response.headers.set("Vary", appendVaryHeader(response.headers.get("Vary"), ["Authorization", "Cookie"]));
+        response.headers.set(
+            "Vary",
+            appendVaryHeader(response.headers.get("Vary"), ["Authorization", "Cookie"]),
+        );
     }
 }
 
@@ -134,28 +148,43 @@ function misconfiguredConsoleResponse() {
     );
 }
 
-function setConsoleCookie(response: NextResponse, value: string) {
+function setConsoleCookie(
+    response: NextResponse,
+    value: string,
+    request: NextRequest,
+) {
     response.cookies.set({
         name: CONSOLE_COOKIE_NAME,
         value,
         httpOnly: true,
         sameSite: "lax",
-        secure: true,
+        secure: shouldUseSecureCookies(request),
         path: INTERNAL_CONSOLE_PREFIX,
         maxAge: CONSOLE_COOKIE_TTL_SECONDS,
     });
 }
 
-function clearConsoleCookie(response: NextResponse) {
+function clearConsoleCookie(response: NextResponse, request: NextRequest) {
     response.cookies.set({
         name: CONSOLE_COOKIE_NAME,
         value: "",
         httpOnly: true,
         sameSite: "lax",
-        secure: true,
+        secure: shouldUseSecureCookies(request),
         path: INTERNAL_CONSOLE_PREFIX,
         expires: new Date(0),
     });
+}
+
+function shouldUseSecureCookies(request: NextRequest) {
+    if (request.nextUrl.protocol === "https:") {
+        return true;
+    }
+
+    const nodeEnv = (process.env.NODE_ENV || "").toLowerCase();
+    const vercelEnv = (process.env.VERCEL_ENV || "").toLowerCase();
+
+    return nodeEnv === "production" || vercelEnv === "production";
 }
 
 function getBasicCredentials(): BasicCredentials | null {
@@ -198,10 +227,7 @@ function hasValidBasicAuth(request: NextRequest, credentials: BasicCredentials) 
         const username = decoded.slice(0, separatorIndex);
         const password = decoded.slice(separatorIndex + 1);
 
-        return (
-            username === credentials.username &&
-            password === credentials.password
-        );
+        return username === credentials.username && password === credentials.password;
     } catch {
         return false;
     }
