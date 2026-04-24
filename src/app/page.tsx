@@ -13,13 +13,15 @@ const BRAND_NAME = "Cendorq";
 const CATEGORY_LINE = "Search Presence OS";
 
 export const metadata = buildMetadata({
-  title: "Become the strongest answer across evolving search",
+  title: "Become the strongest answer customers and search systems trust first",
   description:
-    "Cendorq helps businesses strengthen signal, strategy, infrastructure, and continuity so they can become and remain the strongest answer across evolving search.",
+    "Cendorq helps businesses strengthen visibility, trust, positioning, and response through a clear system: Free Search Presence Snapshot, Search Presence Scan, Visibility Blueprint, Presence Infrastructure, and Presence Command.",
   path: "/",
   keywords: [
     "cendorq homepage",
     "search presence os",
+    "answer presence",
+    "search presence snapshot",
     "search presence scan",
     "visibility blueprint",
     "presence infrastructure",
@@ -28,129 +30,142 @@ export const metadata = buildMetadata({
     "answer engine visibility",
   ],
   image: {
-    alt: "Cendorq homepage - Search Presence OS for businesses that need to become and remain the strongest answer across evolving search.",
+    alt: "Cendorq homepage — a clear Search Presence OS that helps businesses become the strongest answer customers and search systems trust first.",
   },
 });
 
 const HERO_READOUTS = [
-  { label: "Entry layer", value: "Search Presence Scan" },
-  { label: "Strategy layer", value: "Visibility Blueprint" },
-  { label: "Build layer", value: "Presence Infrastructure" },
-  { label: "Continuity layer", value: "Presence Command" },
+  { label: "Start here", value: "Free Search Presence Snapshot" },
+  { label: "Paid first step", value: "Search Presence Scan" },
+  { label: "Flagship strategy", value: "Visibility Blueprint" },
+  { label: "Long-term layer", value: "Presence Command" },
 ] as const;
 
-const CORE_PROMISES = [
+const PROBLEM_BLOCKS = [
   {
-    title: "Cendorq is not a vague marketing promise.",
+    title: "Customers do not trust what they do not understand quickly.",
     copy:
-      "It is a search-presence decision system built to help a business become easier to understand, easier to trust, easier to prefer, and harder to replace across evolving search environments.",
+      "Many businesses are stronger than they look, but their website, positioning, proof, and structure do not help customers understand that fast enough.",
   },
   {
-    title: "The sequence is part of the product.",
+    title: "Search systems cannot favor what the business has not made clear enough.",
     copy:
-      "Search Presence Scan, Visibility Blueprint, Presence Infrastructure, and Presence Command do different jobs. The route is stronger when a business enters the right layer at the right time instead of jumping into the loudest-looking one.",
+      "If the business is hard to classify, hard to trust, or hard to compare favorably, stronger visibility usually becomes harder instead of easier.",
   },
   {
-    title: "Decision quality comes before heavier spend.",
+    title: "The wrong next move can waste months.",
     copy:
-      "The strongest next move is not always the deepest one. The strongest next move is the layer that matches the business's real stage of clarity, readiness, and continuity need.",
+      "A business can easily spend on more activity, more redesign, or more optimization before it has a clear read on what is actually weakening visibility and response.",
   },
 ] as const;
 
 const SYSTEM_LAYERS = [
   {
-    eyebrow: "Layer 01",
-    title: "Search Presence Scan",
-    strap: "First serious signal",
+    eyebrow: "Free entry",
+    title: "Search Presence Snapshot",
+    strap: "Fast first signal",
+    price: "Free",
     copy:
-      "The structured entry layer for businesses that need a stronger first read before deeper pressure gets applied.",
+      "A fast first look that helps the business understand whether the real problem is trust, clarity, positioning, action friction, or broader visibility weakness.",
     bestFor:
-      "Businesses that know something feels weak but still need the cleanest first interpretation before they pay for deeper depth.",
+      "Businesses that want a serious first signal before they commit to paid diagnostic depth.",
     outcome:
-      "Creates a stronger first signal and reduces the chance of wasting money on the wrong next move.",
+      "A clearer first direction and a recommendation on whether the next move should be Search Presence Scan.",
     href: "/free-check",
-    cta: "Start Search Presence Scan",
+    cta: "Start Free Snapshot",
     highlighted: true,
   },
   {
-    eyebrow: "Layer 02",
-    title: "Visibility Blueprint",
-    strap: "Strategic explanation",
+    eyebrow: "Paid layer 01",
+    title: "Search Presence Scan",
+    strap: "First serious read",
+    price: "$195",
     copy:
-      "The deeper explanation layer for businesses that need clearer reasoning about what is weakening visibility, trust, preference, and response.",
+      "A paid first diagnostic that helps the business understand what is most likely weakening visibility, trust, positioning, and response before bigger money is spent.",
     bestFor:
-      "Businesses that already know the problem is serious enough that first signal alone is not enough anymore.",
+      "Businesses that know something feels weak but still need the clearest first explanation before they choose deeper strategy or implementation.",
     outcome:
-      "Improves strategic clarity before concentrated strengthening begins.",
+      "A structured first report and a clean recommendation on whether to stay light or move into Visibility Blueprint.",
+    href: "/pricing",
+    cta: "See pricing and scope",
+  },
+  {
+    eyebrow: "Paid layer 02",
+    title: "Visibility Blueprint",
+    strap: "Flagship strategy",
+    price: "$2,500",
+    copy:
+      "A deeper strategic explanation of what is really holding the business back and what deserves attention first.",
+    bestFor:
+      "Businesses that already know first signal is not enough and need a real answer before they make bigger changes.",
+    outcome:
+      "A clear issue map, stronger priorities, and a smarter next-step plan before concentrated work begins.",
     href: "/pricing/full-diagnosis",
     cta: "View Visibility Blueprint",
   },
   {
-    eyebrow: "Layer 03",
+    eyebrow: "Paid layer 03",
     title: "Presence Infrastructure",
-    strap: "Concentrated strengthening",
+    strap: "Structural strengthening",
+    price: "From $6,000",
     copy:
-      "The structural strengthening layer for businesses that already know what deserves focused implementation work.",
+      "The build layer that strengthens the parts of the business that need to become easier to understand, trust, and choose.",
     bestFor:
-      "Businesses with enough clarity to strengthen specific structural systems instead of staying trapped in vague effort.",
+      "Businesses that already know what needs to be fixed and are ready for concentrated structural work.",
     outcome:
-      "Builds a stronger visibility foundation instead of reinforcing guesswork.",
+      "A stronger website, offer structure, trust architecture, and answer-readiness foundation.",
     href: "/pricing/optimization",
     cta: "View Presence Infrastructure",
   },
   {
-    eyebrow: "Layer 04",
+    eyebrow: "Paid layer 04",
     title: "Presence Command",
-    strap: "Recurring continuity",
+    strap: "Ongoing control",
+    price: "From $2,500/mo",
     copy:
-      "The recurring operating layer for businesses ready to compound through monitoring, adaptation, and ongoing strategic control.",
+      "The recurring layer for businesses that need monitoring, refinement, and strategic continuity as search and AI environments keep changing.",
     bestFor:
-      "Businesses that are already clear enough to benefit from continuity rather than more early-stage interpretation.",
+      "Businesses that already know the direction and now need ongoing control rather than another early-stage diagnosis.",
     outcome:
-      "Maintains, adapts, and compounds a path that is already strong enough to operate over time.",
+      "Long-term consistency, stronger adaptation, and cleaner operational discipline over time.",
     href: "/pricing/monthly-partner",
     cta: "View Presence Command",
   },
 ] as const;
 
-const DECISION_RULES = [
+const WHY_SEQUENCE_MATTERS = [
   {
-    title: "Start with Search Presence Scan",
+    title: "The system is designed to stop customers from buying the wrong depth too early.",
     copy:
-      "when the business still needs a cleaner first read before strategy or implementation depth is justified.",
+      "The strongest layer is not the biggest-looking one. It is the layer that matches how clear the business already is today.",
   },
   {
-    title: "Move into Visibility Blueprint",
+    title: "The best next move changes as the business becomes clearer.",
     copy:
-      "when the business already knows first signal is not enough and needs a deeper explanation of what is suppressing visibility and response.",
+      "Some businesses need first signal. Some need deeper strategy. Some need structural work. Some need ongoing command. The sequence protects all four.",
   },
   {
-    title: "Use Presence Infrastructure",
+    title: "Decision quality comes before heavier spend.",
     copy:
-      "when the path is already clear enough that concentrated structural strengthening is the real next move.",
-  },
-  {
-    title: "Use Presence Command",
-    copy:
-      "when the business is already clear enough to benefit from recurring continuity instead of more early-stage interpretation.",
+      "Cendorq is built to help the business make better decisions before it commits to bigger work, bigger budgets, or recurring support.",
   },
 ] as const;
 
 const TRUST_BOUNDARIES = [
   {
-    label: "No fake certainty",
+    label: "No fake guarantees",
     value:
-      "Cendorq improves decision quality, structural strength, and search-presence control. It does not promise guaranteed rankings, guaranteed leads, or guaranteed revenue.",
+      "Cendorq helps customers make stronger visibility decisions. It does not promise guaranteed rankings, guaranteed leads, or guaranteed revenue.",
   },
   {
-    label: "No random escalation",
+    label: "Clear pricing ladder",
     value:
-      "The system is intentionally sequenced to reduce waste created by entering the wrong depth too early.",
+      "The system stays easier to understand when every stage has a clear role, clear reason, and clear price range.",
   },
   {
-    label: "No vague bundle logic",
+    label: "Customers understand the route inside out",
     value:
-      "Search Presence Scan, Visibility Blueprint, Presence Infrastructure, and Presence Command stay distinct because each layer has a different job.",
+      "The homepage should make it obvious where to start, what each stage does, and what happens next without overwhelming the customer.",
   },
 ] as const;
 
@@ -158,17 +173,17 @@ const FAQS = [
   {
     question: "What is Cendorq in plain English?",
     answer:
-      "Cendorq is a search-presence operating system that helps a business become easier to trust, easier to understand, easier to prefer, and more likely to be treated as the strongest answer across evolving search.",
+      "Cendorq is a Search Presence OS that helps businesses become easier to understand, easier to trust, and easier to choose across search, local, and AI-driven discovery.",
   },
   {
-    question: "Where should most businesses start?",
+    question: "Where should most customers start?",
     answer:
-      "Most businesses should start with Search Presence Scan because it creates a stronger first signal before deeper strategic or implementation layers are chosen.",
+      "Most customers should start with Free Search Presence Snapshot, then move into Search Presence Scan if the business needs a more serious first diagnostic.",
   },
   {
-    question: "Why not jump straight to the biggest-looking layer?",
+    question: "Why not jump straight into the biggest package?",
     answer:
-      "Because a deeper layer only becomes stronger when the business has earned the clarity needed to use it well. Entering the wrong depth too early usually creates waste, confusion, or misdirected effort.",
+      "Because the wrong depth at the wrong time wastes money. The strongest next move is the one that matches how clear the business already is.",
   },
 ] as const;
 
@@ -176,14 +191,14 @@ export default function HomePage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq",
     description:
-      "Cendorq helps businesses become and remain the strongest answer across evolving search through stronger signal, sharper strategy, stronger infrastructure, and stronger continuity.",
+      "Cendorq helps businesses become the strongest answer customers and search systems trust first through a clear Search Presence OS.",
     path: "/",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
     title: "Cendorq Search Presence OS",
     description:
-      "A structured search-presence system that helps businesses strengthen signal, explanation, infrastructure, and recurring command across evolving search.",
+      "A clear system that helps businesses strengthen visibility, trust, positioning, and response through Snapshot, Scan, Blueprint, Infrastructure, and Command.",
     path: "/",
     serviceType: "Search Presence OS",
   });
@@ -216,20 +231,20 @@ export default function HomePage() {
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl xl:text-7xl">
             Become the strongest answer
-            <span className="system-gradient-text block">across evolving search.</span>
+            <span className="system-gradient-text block">customers and search systems trust first.</span>
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Cendorq helps businesses strengthen signal, strategy, infrastructure, and continuity so they can become easier to trust, easier to prefer, and harder to replace across evolving search environments.
+            Cendorq helps businesses strengthen visibility, trust, positioning, and response through a clear system: Free Search Presence Snapshot, Search Presence Scan, Visibility Blueprint, Presence Infrastructure, and Presence Command.
           </p>
 
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            This is not generic marketing help. It is a controlled search-presence system designed to improve the quality of the next decision before heavier action is chosen.
+            Customers understand the system inside out when the route is simple: start with the clearest first signal, move deeper only when it makes sense, and never pay for the wrong next move too early.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <AuthorityPill>Signal before force</AuthorityPill>
-            <AuthorityPill>Explanation before build</AuthorityPill>
+            <AuthorityPill>Clear first step</AuthorityPill>
+            <AuthorityPill>Better decisions before bigger spend</AuthorityPill>
             <AuthorityPill>Right layer, right time</AuthorityPill>
           </div>
 
@@ -238,23 +253,23 @@ export default function HomePage() {
               href="/free-check"
               className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
             >
-              Start Search Presence Scan
+              Start Free Snapshot
             </Link>
             <Link
-              href="/pricing"
+              href="/diagnosis"
               className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
             >
-              Compare system layers
+              See how the system works
             </Link>
           </div>
 
           <div className="system-panel-authority mt-8 rounded-[1.8rem] p-5 sm:p-6">
             <p className="system-eyebrow">What this homepage should do</p>
             <h2 className="mt-4 text-2xl font-semibold text-white">
-              Make the whole system legible before the business enters the wrong layer.
+              Help the customer understand the whole system before the customer enters the wrong layer.
             </h2>
             <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
-              The homepage should help a serious business understand what Cendorq is, why the sequence matters, what each layer is responsible for, and where to begin without creating false urgency or vague promises.
+              The homepage should make Cendorq easy to understand, easy to trust, and easy to act on. That means naming the problem clearly, showing the full route simply, and making the starting point obvious.
             </p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               <GuideTile label="Primary objective" value="Clarify the system before deeper commitment" />
@@ -273,13 +288,13 @@ export default function HomePage() {
                 <div className="max-w-2xl">
                   <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-200">
                     <span className="system-pulse-dot inline-flex h-2 w-2 rounded-full bg-cyan-300" />
-                    System route active
+                    Conversion-first route active
                   </div>
                   <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                    The route is strongest when each layer keeps its job clear.
+                    The route becomes stronger when customers understand what each stage is actually for.
                   </h2>
                   <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
-                    Search Presence Scan creates first signal. Visibility Blueprint deepens explanation. Presence Infrastructure strengthens what already deserves concentrated work. Presence Command compounds through recurring continuity.
+                    Free Search Presence Snapshot gives the first signal. Search Presence Scan gives the first serious read. Visibility Blueprint gives the deeper explanation. Infrastructure strengthens the business. Command keeps it strong.
                   </p>
                 </div>
 
@@ -292,16 +307,16 @@ export default function HomePage() {
 
               <div className="mt-6">
                 <div className="flex items-center justify-between text-[11px] font-medium uppercase tracking-[0.22em] text-slate-400">
-                  <span>Sequence posture</span>
-                  <span>Decision quality before escalation</span>
+                  <span>Route rule</span>
+                  <span>Clarity before escalation</span>
                 </div>
                 <div className="system-status-bar mt-2 h-2">
-                  <span style={{ width: "91%" }} />
+                  <span style={{ width: "92%" }} />
                 </div>
               </div>
 
               <div className="mt-6 grid gap-4 md:grid-cols-3">
-                {CORE_PROMISES.map((item, index) => (
+                {PROBLEM_BLOCKS.map((item, index) => (
                   <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
                 ))}
               </div>
@@ -314,7 +329,7 @@ export default function HomePage() {
         <div className="max-w-3xl">
           <TopChip>System layers</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Four layers. Four different responsibilities. One stronger system.
+            One system. Five steps. The right depth at the right time.
           </h2>
         </div>
         <div className="mt-10 grid gap-5 xl:grid-cols-2">
@@ -324,6 +339,7 @@ export default function HomePage() {
               eyebrow={item.eyebrow}
               title={item.title}
               strap={item.strap}
+              price={item.price}
               copy={item.copy}
               bestFor={item.bestFor}
               outcome={item.outcome}
@@ -337,12 +353,12 @@ export default function HomePage() {
 
       <section className="relative z-10 mt-20 grid gap-6 lg:grid-cols-[1.04fr_0.96fr]">
         <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8 md:p-10">
-          <TopChip>Decision rules</TopChip>
+          <TopChip>Why sequence matters</TopChip>
           <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            The strongest next move usually becomes clear when the business asks the right stage question.
+            The best next move usually becomes clear when the business stops trying to buy the largest-looking offer first.
           </h2>
           <div className="mt-8 grid gap-4">
-            {DECISION_RULES.map((item, index) => (
+            {WHY_SEQUENCE_MATTERS.map((item, index) => (
               <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
             ))}
           </div>
@@ -358,7 +374,7 @@ export default function HomePage() {
         <div className="max-w-3xl">
           <TopChip>Practical questions</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            The system becomes easier to trust when the main questions are answered clearly.
+            The system converts better when the main questions are answered in plain English.
           </h2>
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -372,17 +388,17 @@ export default function HomePage() {
         <div className="system-panel-authority rounded-[2rem] p-6 text-center sm:p-8 md:p-10">
           <TopChip>Best next move</TopChip>
           <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Start with Search Presence Scan unless the business already clearly needs deeper explanation.
+            Start with the clearest first move.
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300">
-            Most businesses should begin with the first serious signal layer. That keeps the path clean, improves the quality of the next decision, and reduces the chance of paying for the wrong kind of depth too early.
+            Most customers should begin with Free Search Presence Snapshot. From there, Search Presence Scan becomes the first serious paid step, Visibility Blueprint becomes the deeper strategy layer, and the system grows only when the business is ready.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
-              Start Search Presence Scan
+              Start Free Snapshot
             </Link>
-            <Link href="/diagnosis" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
-              See how it works
+            <Link href="/pricing" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
+              Compare pricing and scope
             </Link>
           </div>
         </div>
@@ -438,7 +454,7 @@ function ReasonCard({ title, copy, highlighted = false }: { title: string; copy:
   );
 }
 
-function LayerCardView({ eyebrow, title, strap, copy, bestFor, outcome, href, cta, highlighted = false }: { eyebrow: string; title: string; strap: string; copy: string; bestFor: string; outcome: string; href: string; cta: string; highlighted?: boolean }) {
+function LayerCardView({ eyebrow, title, strap, price, copy, bestFor, outcome, href, cta, highlighted = false }: { eyebrow: string; title: string; strap: string; price: string; copy: string; bestFor: string; outcome: string; href: string; cta: string; highlighted?: boolean }) {
   return (
     <article className={highlighted ? "system-panel-authority rounded-[1.85rem] p-6 sm:p-7" : "system-surface rounded-[1.85rem] p-6 sm:p-7"}>
       <div className="flex items-center justify-between gap-4">
@@ -446,6 +462,7 @@ function LayerCardView({ eyebrow, title, strap, copy, bestFor, outcome, href, ct
         <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{strap}</div>
       </div>
       <h3 className="mt-4 text-3xl font-semibold tracking-tight text-white">{title}</h3>
+      <div className="mt-3 inline-flex rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1 text-sm font-semibold text-cyan-100">{price}</div>
       <p className="mt-4 text-sm leading-7 text-slate-300">{copy}</p>
       <div className="mt-5 grid gap-3">
         <DetailPanel label="Best for" value={bestFor} />
