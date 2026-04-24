@@ -11,7 +11,6 @@ export type StoredFreeCheckSubmission = {
 };
 
 declare global {
-    // eslint-disable-next-line no-var
     var __cendorqFreeCheckStore: StoredFreeCheckSubmission[] | undefined;
 }
 
