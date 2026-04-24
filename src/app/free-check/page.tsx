@@ -12,96 +12,114 @@ import { FreeCheckTrustStrip } from "@/components/free-check/free-check-trust-st
 import Link from "next/link";
 
 export const metadata = buildMetadata({
-  title: "Search Presence Scan",
+  title: "Free Search Presence Snapshot",
   description:
-    "Start the Cendorq Search Presence Scan to build a stronger first signal before deeper strategy, implementation, or recurring command is chosen.",
+    "Start with the free Cendorq Search Presence Snapshot to get a stronger first signal before Search Presence Scan, Visibility Blueprint, or deeper implementation is chosen.",
   path: "/free-check",
   keywords: [
-    "search presence scan",
-    "cendorq free check",
-    "business visibility intake",
+    "free search presence snapshot",
+    "cendorq free snapshot",
+    "free visibility snapshot",
+    "business visibility first signal",
     "search presence intake",
-    "visibility first signal",
     "ai search visibility intake",
   ],
   image: {
-    alt: "Cendorq Search Presence Scan - the first serious signal layer for businesses that need a stronger first read before deeper pressure is applied.",
+    alt: "Cendorq Free Search Presence Snapshot — the free first-signal entry point for businesses that need a clearer starting direction.",
   },
 });
 
 const FAQS = [
   {
-    question: "What is Search Presence Scan in simple terms?",
+    question: "What is Free Search Presence Snapshot in simple terms?",
     answer:
-      "It is the first serious review layer inside Cendorq. It helps the business get a cleaner first read on what may be weakening trust, clarity, positioning, discoverability, and response before deeper action is chosen.",
+      "It is the free first-signal entry point inside Cendorq. It helps the business get a clearer first look at whether the real problem is trust, clarity, positioning, action friction, or broader visibility weakness.",
   },
   {
     question: "Who should start here?",
     answer:
-      "Most businesses should start here if they know something feels weak but still need a stronger first explanation before strategy, implementation, or recurring continuity becomes justified.",
+      "Most customers should start here when they want a serious first direction without jumping straight into paid diagnostic depth too early.",
   },
   {
     question: "What happens after submission?",
     answer:
-      "The business enters the system with a stronger first signal. From there, the next move becomes easier to judge, whether that means staying at first-read level or moving into Visibility Blueprint.",
+      "The business receives a clearer first direction. If the signal shows a stronger need, the next step is usually Search Presence Scan, which becomes the first serious paid diagnostic layer.",
   },
 ] as const;
 
 const ROUTE_MEANING = [
   {
-    title: "This route protects the business from buying the wrong next move too early.",
+    title: "This route gives customers a clear first signal without pretending a free form can replace premium strategy.",
     copy:
-      "The strongest first move for most businesses is not more force. It is a stronger first read that clarifies what deserves deeper attention before money gets pushed into the wrong layer.",
+      "The goal is not to give away the deepest work for free. The goal is to help the customer understand what kind of problem is most likely sitting underneath the surface before the wrong next move gets chosen.",
   },
   {
-    title: "This intake is built for serious owners, not vanity-audit theater.",
+    title: "This route is built to qualify seriousness and improve the next decision.",
     copy:
-      "The goal is to capture enough real business signal that the platform can reason more accurately about trust, clarity, positioning, and action friction without pretending shallow input is enough.",
+      "A better first signal helps both the customer and the system. It reduces confusion, improves fit, and makes it much easier to decide whether Search Presence Scan is the right next step.",
   },
   {
-    title: "A better intake creates a better decision system.",
+    title: "This route should feel simple to understand and serious enough to trust.",
     copy:
-      "The more honest and specific the signal is here, the easier it becomes to choose whether the business should stay lighter, move into deeper explanation, or later earn stronger implementation pressure.",
+      "Customers understand the system inside out when the free entry point is clear, honest, and focused on direction instead of vanity-audit theater.",
   },
 ] as const;
 
 const NEXT_PATH_SIGNALS = [
   {
-    title: "Stay at first-signal level",
+    title: "Stay at free-signal level",
     copy:
-      "when the business still needs a cleaner read before any deeper route should be assumed.",
+      "when the business only needs a first direction and is not ready for a deeper paid diagnostic yet.",
   },
   {
-    title: "Move into Visibility Blueprint",
+    title: "Move into Search Presence Scan",
     copy:
-      "when the intake becomes strong enough that a deeper explanation of what is weakening visibility, preference, and response is justified.",
+      "when the first signal shows the business needs a more serious read on what is weakening visibility, trust, positioning, and response.",
   },
   {
-    title: "Do not jump straight into heavier force",
+    title: "Move into Visibility Blueprint later",
     copy:
-      "unless the business is already unusually clear about what deserves concentrated strengthening and why.",
+      "when Search Presence Scan makes it clear the business needs a deeper strategic explanation before implementation begins.",
+  },
+] as const;
+
+const WHAT_CUSTOMERS_GET = [
+  {
+    label: "Clearer starting direction",
+    value:
+      "A first read on whether the business is most likely dealing with trust, clarity, positioning, action friction, or broader visibility weakness.",
+  },
+  {
+    label: "Better next-step fit",
+    value:
+      "A clearer sense of whether the business should stay light, move into Search Presence Scan, or plan for deeper strategy later.",
+  },
+  {
+    label: "Lower-risk entry point",
+    value:
+      "A stronger first move for customers who need direction before they need premium diagnostic depth.",
   },
 ] as const;
 
 export default function FreeCheckPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Search Presence Scan",
+    title: "Free Search Presence Snapshot",
     description:
-      "The first serious signal layer inside Cendorq for businesses that need a stronger first read before deeper pressure is applied.",
+      "The free first-signal layer inside Cendorq for businesses that need a clearer starting direction before paid diagnostic depth is chosen.",
     path: "/free-check",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Search Presence Scan",
+    title: "Cendorq Free Search Presence Snapshot",
     description:
-      "A structured first-read intake designed to improve the quality of the next decision before strategy, implementation, or recurring command is chosen.",
+      "A structured free first-read intake designed to improve the quality of the next decision before Search Presence Scan, Visibility Blueprint, or implementation is chosen.",
     path: "/free-check",
-    serviceType: "Initial search-presence review",
+    serviceType: "Free visibility first-signal intake",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "/" },
-    { name: "Search Presence Scan", path: "/free-check" },
+    { name: "Free Search Presence Snapshot", path: "/free-check" },
   ]);
 
   const faqJsonLd = buildFaqJsonLd(FAQS);
@@ -125,7 +143,7 @@ export default function FreeCheckPage() {
           </div>
 
           <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Search Presence Scan exists to create a stronger first signal before deeper depth is chosen.
+            Free Search Presence Snapshot exists to give the customer a stronger starting direction before paid diagnostic depth begins.
           </h2>
 
           <div className="mt-8 grid gap-4">
@@ -137,7 +155,11 @@ export default function FreeCheckPage() {
 
         <div className="grid gap-4">
           {NEXT_PATH_SIGNALS.map((item, index) => (
-            <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
+            <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 1} />
+          ))}
+
+          {WHAT_CUSTOMERS_GET.map((item, index) => (
+            <InfoCard key={item.label} label={item.label} value={item.value} highlighted={index === 0} />
           ))}
         </div>
       </section>
@@ -152,7 +174,7 @@ export default function FreeCheckPage() {
             Practical questions
           </div>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            The route gets stronger when the business understands what this layer is for.
+            The route gets stronger when customers understand what the free entry point is actually for.
           </h2>
         </div>
 
@@ -169,23 +191,23 @@ export default function FreeCheckPage() {
             Strongest next move after this
           </div>
           <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Most businesses should move into Visibility Blueprint before heavier implementation or recurring command.
+            Most serious customers should move into Search Presence Scan before Visibility Blueprint or heavier implementation.
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300">
-            The first signal exists to improve the next decision. If the business is already clear enough after this layer, Visibility Blueprint is usually the strongest next step because it deepens explanation before stronger force begins.
+            The free layer exists to improve the next decision, not replace deeper diagnostic work. When the first signal shows the business needs more clarity, Search Presence Scan becomes the strongest next step because it turns the first signal into a serious paid read.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              href="/pricing/full-diagnosis"
+              href="/pricing"
               className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
             >
-              View Visibility Blueprint
+              Compare pricing and scope
             </Link>
             <Link
-              href="/pricing"
+              href="/pricing/full-diagnosis"
               className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
             >
-              Review full system path
+              View Visibility Blueprint
             </Link>
           </div>
         </div>
@@ -218,6 +240,23 @@ function ReasonCard({
     <article className={highlighted ? "system-panel-authority rounded-[1.7rem] p-6" : "system-surface rounded-[1.7rem] p-6"}>
       <h3 className="text-2xl font-semibold tracking-tight text-white">{title}</h3>
       <p className="mt-4 text-sm leading-7 text-slate-300">{copy}</p>
+    </article>
+  );
+}
+
+function InfoCard({
+  label,
+  value,
+  highlighted = false,
+}: {
+  label: string;
+  value: string;
+  highlighted?: boolean;
+}) {
+  return (
+    <article className={highlighted ? "system-chip rounded-[1.7rem] p-5" : "system-surface rounded-[1.7rem] p-5"}>
+      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{label}</div>
+      <p className="mt-3 text-sm leading-7 text-slate-200">{value}</p>
     </article>
   );
 }
