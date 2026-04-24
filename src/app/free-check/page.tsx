@@ -14,18 +14,18 @@ import Link from "next/link";
 export const metadata = buildMetadata({
   title: "Search Presence Scan",
   description:
-    "Start the Cendorq Search Presence Scan to identify whether trust, clarity, positioning, action friction, discoverability, or recommendation visibility weakness may be suppressing results.",
+    "Start the Cendorq Search Presence Scan to build a stronger first signal before deeper strategy, implementation, or recurring command is chosen.",
   path: "/free-check",
   keywords: [
     "search presence scan",
-    "free visibility check",
     "cendorq free check",
+    "business visibility intake",
     "search presence intake",
-    "visibility intake form",
-    "first signal business scan",
+    "visibility first signal",
+    "ai search visibility intake",
   ],
   image: {
-    alt: "Cendorq Search Presence Scan — the first serious signal layer for businesses that need a stronger first read before deeper pressure is applied.",
+    alt: "Cendorq Search Presence Scan - the first serious signal layer for businesses that need a stronger first read before deeper pressure is applied.",
   },
 });
 
@@ -33,12 +33,12 @@ const FAQS = [
   {
     question: "What is Search Presence Scan in simple terms?",
     answer:
-      "It is the first serious review layer. It helps the business get a cleaner read on what may be weakening trust, clarity, positioning, action, discoverability, and recommendation visibility before deeper pressure is chosen.",
+      "It is the first serious review layer inside Cendorq. It helps the business get a cleaner first read on what may be weakening trust, clarity, positioning, discoverability, and response before deeper action is chosen.",
   },
   {
     question: "Who should start here?",
     answer:
-      "Most businesses should start here if they know something feels weak but still need a cleaner first explanation before deeper strategy or concentrated implementation is chosen.",
+      "Most businesses should start here if they know something feels weak but still need a stronger first explanation before strategy, implementation, or recurring continuity becomes justified.",
   },
   {
     question: "What happens after submission?",
@@ -47,21 +47,39 @@ const FAQS = [
   },
 ] as const;
 
-const POST_SUBMISSION_GUIDE = [
+const ROUTE_MEANING = [
   {
-    title: "What this route is protecting",
+    title: "This route protects the business from buying the wrong next move too early.",
     copy:
-      "It protects the business from buying a heavier layer before the first real signal is clear enough to justify the next move.",
+      "The strongest first move for most businesses is not more force. It is a stronger first read that clarifies what deserves deeper attention before money gets pushed into the wrong layer.",
   },
   {
-    title: "What the form is trying to surface",
+    title: "This intake is built for serious owners, not vanity-audit theater.",
     copy:
-      "It is trying to surface whether the core weakness is more about trust, clarity, positioning, action friction, discoverability, or answer-system inclusion pressure.",
+      "The goal is to capture enough real business signal that the platform can reason more accurately about trust, clarity, positioning, and action friction without pretending shallow input is enough.",
   },
   {
-    title: "What usually comes next",
+    title: "A better intake creates a better decision system.",
     copy:
-      "If the signal is strong enough, Visibility Blueprint is usually the strongest next layer because it deepens explanation before concentrated strengthening begins.",
+      "The more honest and specific the signal is here, the easier it becomes to choose whether the business should stay lighter, move into deeper explanation, or later earn stronger implementation pressure.",
+  },
+] as const;
+
+const NEXT_PATH_SIGNALS = [
+  {
+    title: "Stay at first-signal level",
+    copy:
+      "when the business still needs a cleaner read before any deeper route should be assumed.",
+  },
+  {
+    title: "Move into Visibility Blueprint",
+    copy:
+      "when the intake becomes strong enough that a deeper explanation of what is weakening visibility, preference, and response is justified.",
+  },
+  {
+    title: "Do not jump straight into heavier force",
+    copy:
+      "unless the business is already unusually clear about what deserves concentrated strengthening and why.",
   },
 ] as const;
 
@@ -72,6 +90,7 @@ export default function FreeCheckPage() {
       "The first serious signal layer inside Cendorq for businesses that need a stronger first read before deeper pressure is applied.",
     path: "/free-check",
   });
+
   const serviceJsonLd = buildServiceJsonLd({
     title: "Cendorq Search Presence Scan",
     description:
@@ -79,15 +98,18 @@ export default function FreeCheckPage() {
     path: "/free-check",
     serviceType: "Initial search-presence review",
   });
+
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "/" },
     { name: "Search Presence Scan", path: "/free-check" },
   ]);
+
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-12 text-white sm:px-6 md:py-16 xl:py-20">
       <FreeCheckAtmosphere />
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
@@ -95,48 +117,48 @@ export default function FreeCheckPage() {
 
       <FreeCheckIntro />
       <FreeCheckTrustStrip />
-      <FreeCheckForm />
 
-      <section className="relative z-10 mt-20 grid gap-6 lg:grid-cols-[1.04fr_0.96fr]">
+      <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-[1.04fr_0.96fr]">
         <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8 md:p-10">
           <div className="system-chip inline-flex items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-            Why this route matters
+            Route meaning
           </div>
 
           <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Search Presence Scan is not a throwaway form. It is the first serious filter in the system.
+            Search Presence Scan exists to create a stronger first signal before deeper depth is chosen.
           </h2>
 
           <div className="mt-8 grid gap-4">
-            {POST_SUBMISSION_GUIDE.map((item, index) => (
-              <article
-                key={item.title}
-                className={
-                  index === 0
-                    ? "system-panel-authority rounded-[1.7rem] p-6"
-                    : "system-surface rounded-[1.7rem] p-6"
-                }
-              >
-                <h3 className="text-2xl font-semibold tracking-tight text-white">{item.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-slate-300">{item.copy}</p>
-              </article>
+            {ROUTE_MEANING.map((item, index) => (
+              <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
             ))}
           </div>
         </div>
 
-        <div className="grid gap-5">
+        <div className="grid gap-4">
+          {NEXT_PATH_SIGNALS.map((item, index) => (
+            <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 mt-12">
+        <FreeCheckForm />
+      </section>
+
+      <section className="relative z-10 mt-20">
+        <div className="max-w-3xl">
+          <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
+            Practical questions
+          </div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
+            The route gets stronger when the business understands what this layer is for.
+          </h2>
+        </div>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {FAQS.map((item, index) => (
-            <article
-              key={item.question}
-              className={
-                index === 0
-                  ? "system-panel-authority rounded-[1.7rem] p-5"
-                  : "system-surface rounded-[1.7rem] p-5"
-              }
-            >
-              <h3 className="text-2xl font-semibold tracking-tight text-white">{item.question}</h3>
-              <p className="mt-4 text-sm leading-7 text-slate-300">{item.answer}</p>
-            </article>
+            <FaqCard key={item.question} question={item.question} answer={item.answer} highlighted={index === 0} />
           ))}
         </div>
       </section>
@@ -180,5 +202,39 @@ function FreeCheckAtmosphere() {
       <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-300/8 blur-3xl sm:h-[26rem] sm:w-[26rem]" />
       <div className="system-grid-wide absolute inset-0 opacity-[0.03]" />
     </div>
+  );
+}
+
+function ReasonCard({
+  title,
+  copy,
+  highlighted = false,
+}: {
+  title: string;
+  copy: string;
+  highlighted?: boolean;
+}) {
+  return (
+    <article className={highlighted ? "system-panel-authority rounded-[1.7rem] p-6" : "system-surface rounded-[1.7rem] p-6"}>
+      <h3 className="text-2xl font-semibold tracking-tight text-white">{title}</h3>
+      <p className="mt-4 text-sm leading-7 text-slate-300">{copy}</p>
+    </article>
+  );
+}
+
+function FaqCard({
+  question,
+  answer,
+  highlighted = false,
+}: {
+  question: string;
+  answer: string;
+  highlighted?: boolean;
+}) {
+  return (
+    <article className={highlighted ? "system-panel-authority rounded-[1.7rem] p-5" : "system-surface rounded-[1.7rem] p-5"}>
+      <h3 className="text-2xl font-semibold tracking-tight text-white">{question}</h3>
+      <p className="mt-4 text-sm leading-7 text-slate-300">{answer}</p>
+    </article>
   );
 }
