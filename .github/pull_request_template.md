@@ -24,6 +24,11 @@ Does this change touch the public buyer path?
 - [ ] CTAs still favor the Free Scan when the user is not ready for deeper work.
 - [ ] Public language stays plain, strong, and easy to understand.
 
+## Copy quality check
+
+- [ ] `docs/copy-quality-checklist.md` was used for public copy, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language changes.
+- [ ] No copy quality checklist is needed because this change does not affect public language, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language.
+
 ## Accessibility check
 
 - [ ] `docs/accessibility-checklist.md` was used for public UI, layout, copy, component, or navigation changes.
@@ -49,7 +54,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, accessibility, performance, search discovery, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, accessibility, performance, search discovery, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
