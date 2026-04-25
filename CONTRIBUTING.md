@@ -56,14 +56,22 @@ Use the pull request template and answer the quality gates:
 - buyer-path impact
 - conversion check
 - production safety check
+- release history check
+- accessibility check when public UI changes
 - required validation
 - post-deploy smoke check when relevant
 
 CODEOWNERS routes production-sensitive changes to the repository owner. Keep that review routing intact.
 
+## Accessibility
+
+Use `docs/accessibility-checklist.md` for buyer-path, public page, layout, copy, component, and navigation changes.
+
+Public UI changes should stay readable, keyboard-friendly, mobile-safe, and easy to act on.
+
 ## Release history
 
-Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, or production validation.
+Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, accessibility expectations, or production validation.
 
 Keep changelog notes short, buyer-focused, and production-aware.
 
@@ -90,6 +98,7 @@ Do not remove or weaken:
 - `SECURITY.md`
 - `docs/production-guide.md`
 - `docs/release-checklist.md`
+- `docs/accessibility-checklist.md`
 - `docs/incident-response.md`
 - `.github/CODEOWNERS`
 - `.github/dependabot.yml`
@@ -130,4 +139,4 @@ Follow `SECURITY.md` for security-sensitive work. Dependency and GitHub Actions 
 
 ## Merge standard
 
-A change is ready when it protects the buyer path, passes CI, keeps public language aligned, updates release history when meaningful, and does not weaken production checks.
+A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for accessibility when relevant, updates release history when meaningful, and does not weaken production checks.
