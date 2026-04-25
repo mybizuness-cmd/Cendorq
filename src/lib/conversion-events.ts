@@ -1,11 +1,14 @@
 export type ConversionEventName =
+  | "cta_click"
   | "mobile_dock_click"
   | "free_scan_step_view"
   | "free_scan_step_continue"
   | "free_scan_step_back"
+  | "free_scan_step_jump"
   | "free_scan_submit_attempt"
   | "free_scan_submit_success"
   | "free_scan_submit_error"
+  | "free_scan_validation_error"
   | "free_scan_progress_restored"
   | "free_scan_progress_cleared";
 
