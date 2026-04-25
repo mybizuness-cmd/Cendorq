@@ -7,6 +7,7 @@ const requiredFiles = [
   "README.md",
   "SECURITY.md",
   "CONTRIBUTING.md",
+  ".env.example",
   ".nvmrc",
   ".node-version",
   ".github/CODEOWNERS",
@@ -103,6 +104,13 @@ for (const file of requiredFiles) {
   }
 }
 
+const envExample = read(".env.example");
+for (const phrase of ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=development", "VERCEL_ENV=development", "VERCEL_GIT_COMMIT_SHA=local", "GITHUB_SHA=local", "NEXT_TELEMETRY_DISABLED=1", "Do not commit real secrets"]) {
+  if (!envExample.includes(phrase)) {
+    failures.push(`.env.example is missing required safe environment detail: ${phrase}`);
+  }
+}
+
 if (read(".nvmrc").trim() !== "24") {
   failures.push(".nvmrc must pin Node 24.");
 }
@@ -161,7 +169,7 @@ for (const phrase of ["Buyer-path impact", "Conversion check", "Production safet
 }
 
 const readme = read("README.md");
-for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9"]) {
+for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example"]) {
   if (!readme.includes(phrase)) {
     failures.push(`README is missing required production entry guidance: ${phrase}`);
   }
@@ -311,7 +319,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
