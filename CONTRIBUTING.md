@@ -8,7 +8,7 @@ The homepage has one job:
 
 > Get the right customer to start the Free Scan.
 
-Every public change should improve clarity, trust, desire, action, speed, mobile experience, copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment safety, or production reliability. If a change adds confusion, clutter, delay, data risk, dependency risk, deployment risk, discoverability risk, weak copy, or mixed intent, do not ship it.
+Every public change should improve clarity, trust, desire, action, speed, mobile experience, copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment safety, observability, or production reliability. If a change adds confusion, clutter, delay, data risk, dependency risk, deployment risk, diagnostic noise, discoverability risk, weak copy, or mixed intent, do not ship it.
 
 ## Protected buyer path
 
@@ -62,6 +62,7 @@ Use the pull request template and answer the quality gates:
 - search discovery check when metadata, crawler files, canonical routes, redirects, or trust files change
 - dependency check when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling change
 - deployment environment check when hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration change
+- observability and diagnostics check when health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility change
 - production safety check
 - release history check
 - required validation
@@ -111,9 +112,15 @@ Use `docs/deployment-environment-checklist.md` for hosting, domain, DNS, environ
 
 Deployment changes should stay predictable, reversible, production-safe, and easy to verify.
 
+## Observability and diagnostics
+
+Use `docs/observability-diagnostics-checklist.md` for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, and operational visibility changes.
+
+Diagnostic changes should stay useful, privacy-safe, actionable, and easy to recover from.
+
 ## Release history
 
-Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, copy quality expectations, privacy expectations, accessibility expectations, performance expectations, search discovery expectations, dependency expectations, deployment environment expectations, or production validation.
+Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, copy quality expectations, privacy expectations, accessibility expectations, performance expectations, search discovery expectations, dependency expectations, deployment environment expectations, observability expectations, or production validation.
 
 Keep changelog notes short, buyer-focused, and production-aware.
 
@@ -147,6 +154,7 @@ Do not remove or weaken:
 - `docs/search-discovery-checklist.md`
 - `docs/dependency-checklist.md`
 - `docs/deployment-environment-checklist.md`
+- `docs/observability-diagnostics-checklist.md`
 - `docs/incident-response.md`
 - `.github/CODEOWNERS`
 - `.github/dependabot.yml`
@@ -187,4 +195,4 @@ Follow `SECURITY.md` for security-sensitive work. Dependency and GitHub Actions 
 
 ## Merge standard
 
-A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for copy quality, privacy, accessibility, performance, search discovery, dependency safety, and deployment environment when relevant, updates release history when meaningful, and does not weaken production checks.
+A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment environment, and observability when relevant, updates release history when meaningful, and does not weaken production checks.
