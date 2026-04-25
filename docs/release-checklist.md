@@ -4,6 +4,8 @@ Use this checklist before and after production releases.
 
 The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, or production safety gates.
 
+For production failures, smoke-check failures, or buyer-path regressions, use [`docs/incident-response.md`](incident-response.md).
+
 ## Release principle
 
 The homepage has one job:
@@ -86,6 +88,7 @@ If production weakens, breaks, or becomes unclear:
 - Run the production smoke check.
 - Confirm the Free Scan path and canonical routes are restored.
 - Open a production safety issue if the failure exposed a missing guard.
+- Follow the incident response runbook if impact is active or unclear.
 
 ## Scheduled checks
 
@@ -97,6 +100,7 @@ If a scheduled smoke check fails:
 - Check whether the issue is site behavior, hosting, network, or workflow-related.
 - Fix the smallest safe surface.
 - Run the smoke check again after the fix.
+- Use the incident response runbook when the failure is reproducible or customer-facing.
 
 ## Release notes standard
 
