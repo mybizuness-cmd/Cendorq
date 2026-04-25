@@ -41,7 +41,7 @@ Use `.env.example` as the safe local template. Copy it to `.env.local` only when
 
 Never commit real secrets, private tokens, customer data, or private keys.
 
-## Editor baseline
+## Editor and Git baseline
 
 `.editorconfig` keeps local editor behavior aligned across contributors:
 
@@ -50,6 +50,12 @@ Never commit real secrets, private tokens, customer data, or private keys.
 - final newlines
 - trimmed trailing whitespace outside Markdown
 - two-space indentation by default
+
+`.gitattributes` keeps Git behavior predictable across operating systems:
+
+- normalizes text files to LF
+- keeps common binary assets out of text diffs
+- keeps source, Markdown, JSON, and workflow files stable as text
 
 ## Core commands
 
