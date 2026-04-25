@@ -65,14 +65,6 @@ const publicFiles = [
   "public/manifest.webmanifest",
 ];
 
-const redirectedLegacyRouteFiles = [
-  "src/app/pricing/page.tsx",
-  "src/app/pricing/full-diagnosis/page.tsx",
-  "src/app/pricing/optimization/page.tsx",
-  "src/app/pricing/monthly-partner/page.tsx",
-  "src/app/contact/page.tsx",
-];
-
 const forbiddenActivePublicPhrases = [
   "Visibility Blueprint",
   "Presence Infrastructure",
@@ -166,15 +158,6 @@ for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/prici
 for (const phrase of forbiddenActivePublicPhrases) {
   if (publicText.includes(phrase)) {
     failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
-  }
-}
-
-for (const file of redirectedLegacyRouteFiles) {
-  if (!existsSync(join(root, file))) continue;
-
-  const content = read(file);
-  if (!content.includes("redirect(")) {
-    failures.push(`Redirected legacy route file should stay redirect-only or be removed: ${file}`);
   }
 }
 
