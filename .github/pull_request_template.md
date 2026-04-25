@@ -17,6 +17,11 @@ Does this change touch the public buyer path?
 - [ ] Connect
 - [ ] No public buyer-path impact
 
+## Offer integrity check
+
+- [ ] `docs/offer-integrity-checklist.md` was used for Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, or offer-positioning changes.
+- [ ] No offer integrity checklist is needed because this change does not affect Plans, offers, pricing, scope, guarantees, packages, comparisons, or offer positioning.
+
 ## Lead intake check
 
 - [ ] `docs/lead-intake-checklist.md` was used for Free Scan, Connect, form, field, validation, success state, error state, routing, or buyer handoff changes.
@@ -89,7 +94,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
