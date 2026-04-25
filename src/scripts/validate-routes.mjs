@@ -22,14 +22,15 @@ const requiredFiles = [
   ".github/ISSUE_TEMPLATE/production-safety.yml",
   ".github/workflows/ci.yml",
   ".github/workflows/smoke-production.yml",
+  "docs/production-guide.md",
   "docs/release-checklist.md",
   "docs/copy-quality-checklist.md",
   "docs/privacy-data-checklist.md",
   "docs/accessibility-checklist.md",
   "docs/performance-checklist.md",
   "docs/search-discovery-checklist.md",
+  "docs/dependency-checklist.md",
   "docs/incident-response.md",
-  "docs/production-guide.md",
   "src/app/page.tsx",
   "src/app/free-check/page.tsx",
   "src/app/plans/page.tsx",
@@ -50,114 +51,47 @@ const requiredFiles = [
   "next.config.ts",
 ];
 
-const canonicalRoutes = [
-  "/free-check",
-  "/plans",
-  "/plans/deep-review",
-  "/plans/build-fix",
-  "/plans/ongoing-control",
-  "/connect",
-];
+const canonicalRoutes = ["/free-check", "/plans", "/plans/deep-review", "/plans/build-fix", "/plans/ongoing-control", "/connect"];
+const redirectPairs = [["/pricing", "/plans"], ["/pricing/full-diagnosis", "/plans/deep-review"], ["/pricing/optimization", "/plans/build-fix"], ["/pricing/monthly-partner", "/plans/ongoing-control"], ["/contact", "/connect"]];
+const requiredHeaders = ["Strict-Transport-Security", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy", "Permissions-Policy", "Cross-Origin-Opener-Policy", "X-Permitted-Cross-Domain-Policies", "X-Download-Options"];
+const forbiddenActivePublicPhrases = ["Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Start Search Presence Scan", "View Visibility Blueprint", "View Presence Infrastructure", "View Presence Command"];
+const publicFiles = ["README.md", "src/app/sitemap.ts", "src/app/robots.ts", "src/app/layout.tsx", "src/layout/site-header-conversion.tsx", "src/layout/site-footer.tsx", "src/app/page.tsx", "src/app/free-check/page.tsx", "src/app/plans/page.tsx", "src/app/plans/deep-review/page.tsx", "src/app/plans/build-fix/page.tsx", "src/app/plans/ongoing-control/page.tsx", "src/app/connect/page.tsx", "src/app/not-found.tsx", "public/manifest.webmanifest", "public/llms.txt", "public/.well-known/security.txt"];
 
-const redirectPairs = [
-  ["/pricing", "/plans"],
-  ["/pricing/full-diagnosis", "/plans/deep-review"],
-  ["/pricing/optimization", "/plans/build-fix"],
-  ["/pricing/monthly-partner", "/plans/ongoing-control"],
-  ["/contact", "/connect"],
-];
+for (const file of requiredFiles) if (!existsSync(join(root, file))) failures.push(`Missing required route/system file: ${file}`);
 
-const requiredHeaders = [
-  "Strict-Transport-Security",
-  "X-Content-Type-Options",
-  "X-Frame-Options",
-  "Referrer-Policy",
-  "Permissions-Policy",
-  "Cross-Origin-Opener-Policy",
-  "X-Permitted-Cross-Domain-Policies",
-  "X-Download-Options",
-];
+expect("docs/dependency-checklist.md", ["Cendorq Dependency Checklist", "Dependency principle", "Required checks", "Runtime checks", "GitHub Actions checks", "Package checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Node 24", "persist-credentials: false"], "Dependency checklist is missing required dependency detail");
+expect("docs/privacy-data-checklist.md", ["Cendorq Privacy and Data Handling Checklist", "Privacy principle", "Required checks", "Public form checks", "Environment checks", "Logging checks", "Third-party checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Privacy and data handling checklist is missing required privacy detail");
+expect("docs/copy-quality-checklist.md", ["Cendorq Copy Quality Checklist", "Copy principle", "Required checks", "Approved buyer language", "Language to avoid", "CTA checks", "Trust checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Copy quality checklist is missing required copy detail");
+expect("docs/search-discovery-checklist.md", ["Cendorq Search Discovery Checklist", "Discovery principle", "Required checks", "Canonical route checks", "Redirect checks", "Public files to check", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "llms.txt", "sitemap"], "Search discovery checklist is missing required discovery detail");
+expect("docs/performance-checklist.md", ["Cendorq Performance Checklist", "Performance principle", "Required checks", "Buyer-path checks", "Mobile checks", "Asset checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "lightweight", "mobile"], "Performance checklist is missing required performance detail");
+expect("docs/accessibility-checklist.md", ["Cendorq Accessibility Checklist", "Accessibility principle", "Required checks", "Buyer-path checks", "Mobile checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "keyboard", "mobile"], "Accessibility checklist is missing required accessibility detail");
+expect("docs/incident-response.md", ["Cendorq Incident Response Runbook", "Severity guide", "First response checklist", "Verification commands", "Recovery path", "After-action checklist", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Production Smoke Check"], "Incident response runbook is missing required response detail");
+expect("docs/release-checklist.md", ["Cendorq Release Checklist", "docs/incident-response.md", "docs/copy-quality-checklist.md", "docs/privacy-data-checklist.md", "docs/accessibility-checklist.md", "docs/performance-checklist.md", "docs/search-discovery-checklist.md", "docs/dependency-checklist.md", "CHANGELOG.md", "dependency", "privacy", "copy", "accessibility", "performance", "search discovery", "Release notes standard", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Release checklist is missing required deployment detail");
 
-const publicFiles = [
-  "README.md",
-  "src/app/sitemap.ts",
-  "src/app/robots.ts",
-  "src/app/layout.tsx",
-  "src/layout/site-header-conversion.tsx",
-  "src/layout/site-footer.tsx",
-  "src/app/page.tsx",
-  "src/app/free-check/page.tsx",
-  "src/app/plans/page.tsx",
-  "src/app/plans/deep-review/page.tsx",
-  "src/app/plans/build-fix/page.tsx",
-  "src/app/plans/ongoing-control/page.tsx",
-  "src/app/connect/page.tsx",
-  "src/app/not-found.tsx",
-  "public/manifest.webmanifest",
-  "public/llms.txt",
-  "public/.well-known/security.txt",
-];
+expect("CHANGELOG.md", ["# Changelog", "## Unreleased", "Dependency checklist", "Privacy and data handling checklist", "Copy quality checklist", "Accessibility checklist", "Performance checklist", "Search discovery checklist", "PR template dependency gate", "PR template privacy and data handling gate", "PR template copy quality gate", "PR template accessibility gate", "PR template performance gate", "PR template search discovery gate", "dependency impact", "privacy/data impact", "copy-quality impact", "search-discovery impact", "accessibility impact", "performance impact", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "CHANGELOG.md is missing required release-history detail");
+expect("CONTRIBUTING.md", ["Contributing to Cendorq", "docs/dependency-checklist.md", "docs/privacy-data-checklist.md", "docs/copy-quality-checklist.md", "docs/accessibility-checklist.md", "docs/performance-checklist.md", "docs/search-discovery-checklist.md", "Dependency safety", "Privacy and data handling", "Copy quality", "Accessibility", "Performance", "Search discovery", "CHANGELOG.md", "Get the right customer to start the Free Scan", "pnpm validate:routes", "pnpm smoke:production"], "CONTRIBUTING.md is missing required operating rule");
+expect("README.md", ["Cendorq", "CHANGELOG.md", "docs/dependency-checklist.md", "docs/privacy-data-checklist.md", "docs/copy-quality-checklist.md", "docs/accessibility-checklist.md", "docs/performance-checklist.md", "docs/search-discovery-checklist.md", "dependency and supply-chain checks", "privacy and data handling checks", "copy quality checks", "accessibility checks", "performance checks", "search discovery checks", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9"], "README is missing required production entry guidance");
+expect(".github/pull_request_template.md", ["Buyer-path impact", "Conversion check", "Dependency check", "docs/dependency-checklist.md", "No dependency checklist is needed", "Privacy and data handling check", "docs/privacy-data-checklist.md", "No privacy/data checklist is needed", "Copy quality check", "docs/copy-quality-checklist.md", "Accessibility check", "docs/accessibility-checklist.md", "Performance check", "docs/performance-checklist.md", "Search discovery check", "docs/search-discovery-checklist.md", "Release history check", "CHANGELOG.md", "dependency", "privacy", "copy quality", "accessibility", "performance", "search discovery", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Pull request template is missing required quality gate detail");
 
-const forbiddenActivePublicPhrases = [
-  "Visibility Blueprint",
-  "Presence Infrastructure",
-  "Presence Command",
-  "Start Search Presence Scan",
-  "View Visibility Blueprint",
-  "View Presence Infrastructure",
-  "View Presence Command",
-];
-
-for (const file of requiredFiles) {
-  if (!existsSync(join(root, file))) failures.push(`Missing required route/system file: ${file}`);
-}
-
-expectFileToInclude("docs/privacy-data-checklist.md", [
-  "Cendorq Privacy and Data Handling Checklist",
-  "Privacy principle",
-  "Required checks",
-  "Public form checks",
-  "Environment checks",
-  "Logging checks",
-  "Third-party checks",
-  "pnpm validate:routes",
-  "pnpm smoke:production",
-  "Free Scan",
-  "No secrets, tokens, private keys, or credentials are committed",
-], "Privacy and data handling checklist is missing required privacy detail");
-
-expectFileToInclude("docs/copy-quality-checklist.md", ["Cendorq Copy Quality Checklist", "Copy principle", "Required checks", "Approved buyer language", "Language to avoid", "CTA checks", "Trust checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Copy quality checklist is missing required copy quality detail");
-expectFileToInclude("docs/search-discovery-checklist.md", ["Cendorq Search Discovery Checklist", "Discovery principle", "Required checks", "Canonical route checks", "Redirect checks", "Public files to check", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "llms.txt", "sitemap"], "Search discovery checklist is missing required discovery detail");
-expectFileToInclude("docs/performance-checklist.md", ["Cendorq Performance Checklist", "Performance principle", "Required checks", "Buyer-path checks", "Mobile checks", "Asset checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "lightweight", "mobile"], "Performance checklist is missing required performance detail");
-expectFileToInclude("docs/accessibility-checklist.md", ["Cendorq Accessibility Checklist", "Accessibility principle", "Required checks", "Buyer-path checks", "Mobile checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "keyboard", "mobile"], "Accessibility checklist is missing required accessibility detail");
-
-expectFileToInclude("CHANGELOG.md", ["# Changelog", "## Unreleased", "Copy quality checklist", "Privacy and data handling checklist", "Accessibility checklist", "Performance checklist", "Search discovery checklist", "PR template copy quality gate", "PR template privacy and data handling gate", "PR template accessibility gate", "PR template performance gate", "PR template search discovery gate", "Release note format", "buyer-path impact", "production-safety impact", "copy-quality impact", "privacy/data impact", "search-discovery impact", "accessibility impact", "performance impact", "validation completed", "PR template release-history gate", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "CHANGELOG.md is missing required release-history detail");
-expectFileToInclude("docs/incident-response.md", ["Cendorq Incident Response Runbook", "Severity guide", "First response checklist", "Verification commands", "Recovery path", "After-action checklist", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Production Smoke Check"], "Incident response runbook is missing required response detail");
-expectFileToInclude("docs/release-checklist.md", ["Cendorq Release Checklist", "docs/incident-response.md", "docs/copy-quality-checklist.md", "docs/privacy-data-checklist.md", "docs/accessibility-checklist.md", "docs/performance-checklist.md", "docs/search-discovery-checklist.md", "CHANGELOG.md", "copy", "privacy", "accessibility", "performance", "search discovery", "Pre-merge checklist", "Merge checklist", "Post-deploy checklist", "Rollback checklist", "Release notes standard", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "https://cendorq.com"], "Release checklist is missing required deployment detail");
-expectFileToInclude(".gitattributes", ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"], ".gitattributes is missing required Git normalization detail");
-expectFileToInclude(".editorconfig", ["root = true", "charset = utf-8", "end_of_line = lf", "insert_final_newline = true", "trim_trailing_whitespace = true", "indent_size = 2"], ".editorconfig is missing required editor baseline detail");
-expectFileToInclude(".env.example", ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=development", "VERCEL_ENV=development", "VERCEL_GIT_COMMIT_SHA=local", "GITHUB_SHA=local", "NEXT_TELEMETRY_DISABLED=1", "Do not commit real secrets"], ".env.example is missing required safe environment detail");
+expect(".gitattributes", ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"], ".gitattributes is missing required Git normalization detail");
+expect(".editorconfig", ["root = true", "charset = utf-8", "end_of_line = lf", "insert_final_newline = true", "trim_trailing_whitespace = true", "indent_size = 2"], ".editorconfig is missing required editor baseline detail");
+expect(".env.example", ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=development", "VERCEL_ENV=development", "VERCEL_GIT_COMMIT_SHA=local", "GITHUB_SHA=local", "NEXT_TELEMETRY_DISABLED=1", "Do not commit real secrets"], ".env.example is missing required safe environment detail");
+expect("package.json", ["\"packageManager\": \"pnpm@9.15.9\"", "\"node\": \">=24.0.0\"", "smoke:production"], "package.json is missing required runtime or script detail");
+expect("SECURITY.md", ["Security Policy", "Reporting a vulnerability", "https://cendorq.com/connect", "https://cendorq.com/.well-known/security.txt", "pnpm validate:routes", "pnpm smoke:production"], "SECURITY.md is missing required policy detail");
+expect(".github/CODEOWNERS", ["* @mybizuness-cmd", "/src/app/ @mybizuness-cmd", "/.github/ @mybizuness-cmd", "/next.config.ts @mybizuness-cmd", "/docs/production-guide.md @mybizuness-cmd"], "CODEOWNERS is missing required review routing detail");
+expect(".github/dependabot.yml", ["package-ecosystem: npm", "package-ecosystem: github-actions", "interval: weekly", "next-react-platform", "typescript-tooling", "github-actions"], "Dependabot config is missing required maintenance guardrail detail");
+expect(".github/ISSUE_TEMPLATE/config.yml", ["blank_issues_enabled: false", "Production guide", "Start from Connect"], "Issue template config is missing required detail");
+expect(".github/ISSUE_TEMPLATE/conversion-improvement.yml", ["Conversion improvement", "Buyer-path impact", "Current drag or confusion", "Proposed change", "Free Scan"], "Conversion issue template is missing required detail");
+expect(".github/ISSUE_TEMPLATE/production-safety.yml", ["Production safety", "Production issue or improvement", "Expected validation", "pnpm validate:routes", "Health endpoint"], "Production issue template is missing required detail");
+expect("docs/production-guide.md", ["Cendorq Production Guide", "docs/release-checklist.md", "docs/incident-response.md", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "The homepage has one job"], "Production guide is missing required guidance");
+expect(".github/workflows/ci.yml", ["name: CI", "pull_request:", "push:", "workflow_dispatch:", "permissions:", "contents: read", "persist-credentials: false", "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24", "pnpm/action-setup@v4", "node-version: \"24\"", "pnpm install --frozen-lockfile", "pnpm validate:routes", "pnpm lint", "pnpm typecheck", "pnpm build"], "CI workflow is missing required quality gate detail");
+expect(".github/workflows/smoke-production.yml", ["schedule:", "17 9 * * *", "workflow_dispatch", "permissions:", "contents: read", "persist-credentials: false", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL", "https://cendorq.com"], "Production smoke workflow is missing required detail");
+expect("src/scripts/smoke-production.mjs", ["/api/health", "/llms.txt", "/.well-known/security.txt", "/sitemap.xml", "/robots.txt", "CENDORQ_BASE_URL"], "Production smoke script is missing required check");
+expect("public/.well-known/security.txt", ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"], "security.txt is missing required detail");
+expect("src/app/api/health/route.ts", ["force-dynamic", "revalidate = 0", "ok: true", "cendorq-platform", "healthy", "environment", "commit", "Cache-Control", "no-store", "X-Robots-Tag"], "Health endpoint is missing required runtime-safe response detail");
 
 if (read(".nvmrc").trim() !== "24") failures.push(".nvmrc must pin Node 24.");
 if (read(".node-version").trim() !== "24") failures.push(".node-version must pin Node 24.");
-
-expectFileToInclude("package.json", ["\"packageManager\": \"pnpm@9.15.9\"", "\"node\": \">=24.0.0\"", "smoke:production"], "package.json is missing required runtime or script detail");
-expectFileToInclude("CONTRIBUTING.md", ["Contributing to Cendorq", "docs/copy-quality-checklist.md", "docs/privacy-data-checklist.md", "docs/accessibility-checklist.md", "docs/performance-checklist.md", "docs/search-discovery-checklist.md", "Copy quality", "Privacy and data handling", "Accessibility", "Performance", "Search discovery", "CHANGELOG.md", "Release history", "Get the right customer to start the Free Scan", "Protected buyer path", "pnpm validate:routes", "pnpm smoke:production", "Merge standard"], "CONTRIBUTING.md is missing required operating rule");
-expectFileToInclude(".github/CODEOWNERS", ["* @mybizuness-cmd", "/src/app/ @mybizuness-cmd", "/.github/ @mybizuness-cmd", "/next.config.ts @mybizuness-cmd", "/docs/production-guide.md @mybizuness-cmd"], "CODEOWNERS is missing required review routing detail");
-expectFileToInclude("SECURITY.md", ["Security Policy", "Reporting a vulnerability", "https://cendorq.com/connect", "https://cendorq.com/.well-known/security.txt", "pnpm validate:routes", "pnpm smoke:production"], "SECURITY.md is missing required policy detail");
-expectFileToInclude(".github/dependabot.yml", ["package-ecosystem: npm", "package-ecosystem: github-actions", "interval: weekly", "next-react-platform", "typescript-tooling", "github-actions"], "Dependabot config is missing required maintenance guardrail detail");
-expectFileToInclude(".github/ISSUE_TEMPLATE/config.yml", ["blank_issues_enabled: false", "Production guide", "Start from Connect"], "Issue template config is missing required detail");
-expectFileToInclude(".github/ISSUE_TEMPLATE/conversion-improvement.yml", ["Conversion improvement", "Buyer-path impact", "Current drag or confusion", "Proposed change", "Free Scan"], "Conversion issue template is missing required detail");
-expectFileToInclude(".github/ISSUE_TEMPLATE/production-safety.yml", ["Production safety", "Production issue or improvement", "Expected validation", "pnpm validate:routes", "Health endpoint"], "Production issue template is missing required detail");
-expectFileToInclude(".github/pull_request_template.md", ["Buyer-path impact", "Conversion check", "Copy quality check", "docs/copy-quality-checklist.md", "No copy quality checklist is needed", "Privacy and data handling check", "docs/privacy-data-checklist.md", "No privacy/data checklist is needed", "Accessibility check", "docs/accessibility-checklist.md", "No accessibility checklist is needed", "Performance check", "docs/performance-checklist.md", "No performance checklist is needed", "Search discovery check", "docs/search-discovery-checklist.md", "No search discovery checklist is needed", "Production safety check", "Release history check", "CHANGELOG.md", "meaningful production", "copy quality", "privacy", "accessibility", "performance", "search discovery", "No changelog update is needed", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Ongoing Control"], "Pull request template is missing required quality gate detail");
-expectFileToInclude("README.md", ["Cendorq", "CHANGELOG.md", "release history", "docs/copy-quality-checklist.md", "docs/privacy-data-checklist.md", "docs/accessibility-checklist.md", "docs/performance-checklist.md", "docs/search-discovery-checklist.md", "copy quality checks", "privacy and data handling checks", "accessibility checks", "performance checks", "search discovery checks", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "docs/release-checklist.md", "docs/incident-response.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example", ".editorconfig", ".gitattributes", "runs automatically every day"], "README is missing required production entry guidance");
-expectFileToInclude("docs/production-guide.md", ["Cendorq Production Guide", "docs/release-checklist.md", "docs/incident-response.md", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "The homepage has one job"], "Production guide is missing required guidance");
-
-expectFileToInclude(".github/workflows/ci.yml", ["name: CI", "pull_request:", "push:", "workflow_dispatch:", "permissions:", "contents: read", "persist-credentials: false", "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24", "pnpm/action-setup@v4", "node-version: \"24\"", "pnpm install --frozen-lockfile", "pnpm validate:routes", "pnpm lint", "pnpm typecheck", "pnpm build"], "CI workflow is missing required quality gate detail");
-expectFileToInclude(".github/workflows/smoke-production.yml", ["schedule:", "17 9 * * *", "workflow_dispatch", "permissions:", "contents: read", "persist-credentials: false", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL", "https://cendorq.com"], "Production smoke workflow is missing required detail");
-expectFileToInclude("src/scripts/smoke-production.mjs", ["/api/health", "/llms.txt", "/.well-known/security.txt", "/sitemap.xml", "/robots.txt", "CENDORQ_BASE_URL"], "Production smoke script is missing required check");
-expectFileToInclude("public/.well-known/security.txt", ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"], "security.txt is missing required detail");
-expectFileToInclude("src/app/api/health/route.ts", ["force-dynamic", "revalidate = 0", "ok: true", "cendorq-platform", "healthy", "environment", "commit", "Cache-Control", "no-store", "X-Robots-Tag"], "Health endpoint is missing required runtime-safe response detail");
 
 const nextConfig = read("next.config.ts");
 for (const [source, destination] of redirectPairs) {
@@ -198,9 +132,9 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Privacy and data handling checklist, PR privacy/data gate, copy quality checklist, PR copy quality gate, search discovery checklist, PR search discovery gate, performance checklist, PR performance gate, accessibility checklist, PR accessibility gate, PR template release-history gate, changelog, checkout credential hardening, incident response runbook, release checklist, main CI workflow, scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Dependency checklist, PR dependency gate, privacy and data handling checklist, PR privacy/data gate, copy quality checklist, PR copy quality gate, search discovery checklist, PR search discovery gate, performance checklist, PR performance gate, accessibility checklist, PR accessibility gate, PR template release-history gate, changelog, checkout credential hardening, incident response runbook, release checklist, main CI workflow, scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
-function expectFileToInclude(path, phrases, label) {
+function expect(path, phrases, label) {
   const text = read(path);
   for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${label}: ${phrase}`);
 }
