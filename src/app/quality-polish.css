@@ -1,0 +1,87 @@
+/* Final interaction polish: accessibility, motion safety, and mobile anchor behavior. */
+
+html {
+  scroll-padding-top: 7rem;
+}
+
+body {
+  -webkit-tap-highlight-color: rgba(103, 232, 249, 0.14);
+}
+
+main,
+section,
+article,
+header,
+footer {
+  scroll-margin-top: 7rem;
+}
+
+button,
+a,
+[role="button"],
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid rgba(103, 232, 249, 0.95);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 5px rgba(34, 211, 238, 0.12);
+}
+
+input,
+select,
+textarea {
+  scroll-margin-top: 8rem;
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: rgba(251, 113, 133, 0.48) !important;
+  box-shadow: 0 0 0 4px rgba(251, 113, 133, 0.1) !important;
+}
+
+@media (max-width: 1023px) {
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  main,
+  section,
+  article,
+  header,
+  footer {
+    scroll-margin-top: 6rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    scroll-margin-top: 7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
