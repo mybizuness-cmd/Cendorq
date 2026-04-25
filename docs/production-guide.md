@@ -1,0 +1,152 @@
+# Cendorq Production Guide
+
+Cendorq is built around one protected buyer path:
+
+1. Free Scan
+2. Plans
+3. Deep Review
+4. Build Fix
+5. Ongoing Control
+6. Connect
+
+The homepage should stay focused on getting the right customer into the Free Scan. Do not turn the homepage back into a dashboard, route console, pricing comparison, or multi-offer page.
+
+## Before merging
+
+Run the same checks GitHub CI runs:
+
+```bash
+pnpm validate:routes
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+These checks protect:
+
+- canonical buyer routes
+- production hardening headers
+- plain-language buyer labels
+- manifest shortcuts
+- llms.txt context
+- security.txt
+- health endpoint
+- production smoke script
+- manual smoke workflow
+
+## After deployment
+
+Run the production smoke check against the deployed URL:
+
+```bash
+CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+```
+
+or:
+
+```bash
+pnpm smoke:production https://cendorq.com
+```
+
+You can also run the manual GitHub Actions workflow:
+
+- Actions
+- Production Smoke Check
+- Run workflow
+- Enter deployed URL
+
+## Critical public routes
+
+These routes must stay healthy:
+
+- `/`
+- `/free-check`
+- `/plans`
+- `/plans/deep-review`
+- `/plans/build-fix`
+- `/plans/ongoing-control`
+- `/connect`
+
+Legacy routes should redirect only:
+
+- `/pricing` -> `/plans`
+- `/pricing/full-diagnosis` -> `/plans/deep-review`
+- `/pricing/optimization` -> `/plans/build-fix`
+- `/pricing/monthly-partner` -> `/plans/ongoing-control`
+- `/contact` -> `/connect`
+
+## Discovery and trust files
+
+These files are intentional and should stay present:
+
+- `/robots.txt`
+- `/sitemap.xml`
+- `/llms.txt`
+- `/.well-known/security.txt`
+- `/manifest.webmanifest`
+
+They support crawler clarity, browser metadata, AI-readable context, and public trust hygiene.
+
+## Health endpoint
+
+`/api/health` is the production health endpoint.
+
+It should stay:
+
+- dynamic
+- no-store
+- noindex
+- lightweight
+- safe to expose publicly
+
+Expected shape:
+
+```json
+{
+  "ok": true,
+  "service": "cendorq-platform",
+  "status": "healthy",
+  "environment": "...",
+  "commit": "...",
+  "timestamp": "..."
+}
+```
+
+## Language rules
+
+Use plain buyer language:
+
+- Free Scan
+- Deep Review
+- Build Fix
+- Ongoing Control
+- make the business easier to understand
+- make the business easier to trust
+- make the business easier to choose
+- stop guessing before spending more
+
+Avoid reviving old public labels:
+
+- Visibility Blueprint
+- Presence Infrastructure
+- Presence Command
+- Start Search Presence Scan
+
+## Homepage rule
+
+The homepage has one job:
+
+Get the right customer to start the Free Scan.
+
+Keep it short, strong, premium, and conversion-focused. Every homepage block should either improve trust, clarity, desire, or action. If it does not, remove it or reduce it.
+
+## Safe production posture
+
+Do not weaken:
+
+- strict route validation
+- Node 24 CI
+- production security headers
+- API no-store/noindex behavior
+- smoke checks
+- Free Scan funnel focus
