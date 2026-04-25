@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 
 const requiredFiles = [
+  "README.md",
   "src/app/page.tsx",
   "src/app/free-check/page.tsx",
   "src/app/plans/page.tsx",
@@ -55,6 +56,7 @@ const requiredHeaders = [
 ];
 
 const publicFiles = [
+  "README.md",
   "src/app/sitemap.ts",
   "src/app/robots.ts",
   "src/app/layout.tsx",
@@ -88,6 +90,13 @@ const failures = [];
 for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
+  }
+}
+
+const readme = read("README.md");
+for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production"]) {
+  if (!readme.includes(phrase)) {
+    failures.push(`README is missing required production entry guidance: ${phrase}`);
   }
 }
 
@@ -240,7 +249,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
