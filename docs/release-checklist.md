@@ -20,6 +20,8 @@ For package updates, lockfile changes, GitHub Actions updates, runtime pins, dep
 
 For hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, or deployment configuration changes, use [`docs/deployment-environment-checklist.md`](deployment-environment-checklist.md).
 
+For health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changes, use [`docs/observability-diagnostics-checklist.md`](observability-diagnostics-checklist.md).
+
 Record meaningful production changes in [`CHANGELOG.md`](../CHANGELOG.md).
 
 ## Release principle
@@ -47,6 +49,7 @@ Before merging a production change:
 - Confirm privacy and data handling were checked for public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integration changes.
 - Confirm dependency safety was checked for package, lockfile, GitHub Actions, runtime pin, dependency automation, or tooling changes.
 - Confirm deployment environment safety was checked for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, or deployment configuration changes.
+- Confirm observability and diagnostics were checked for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changes.
 - Confirm no secrets, private customer data, private keys, or tokens were committed.
 - Confirm the homepage does not gain clutter, dashboard behavior, route-console behavior, or competing CTAs.
 - Confirm canonical routes are still the source of truth.
@@ -80,6 +83,7 @@ Before merging the PR:
 - Confirm privacy expectations were considered when public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed.
 - Confirm dependency expectations were considered when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling changed.
 - Confirm deployment environment expectations were considered when hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changed.
+- Confirm observability expectations were considered when health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changed.
 - Confirm search discovery expectations were considered when metadata, crawler files, canonical routes, redirects, or trust surfaces changed.
 - Confirm accessibility expectations were considered when public UI changed.
 - Confirm performance expectations were considered when public UI, assets, scripts, or component behavior changed.
@@ -147,6 +151,7 @@ For meaningful releases, note in `CHANGELOG.md`:
 - privacy/data impact when forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed
 - dependency impact when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling changed
 - deployment-environment impact when hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changed
+- observability impact when health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changed
 - search-discovery impact when metadata, crawler files, canonical routes, redirects, or trust surfaces changed
 - accessibility impact when public UI changed
 - performance impact when public UI, assets, scripts, or component behavior changed
