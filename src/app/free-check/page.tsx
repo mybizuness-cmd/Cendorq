@@ -1,3 +1,5 @@
+import { FreeCheckProgressGuard } from "@/components/free-check/free-check-progress-guard";
+import { GuidedFreeCheckForm } from "@/components/free-check/guided-free-check-form-v2";
 import {
   buildBreadcrumbJsonLd,
   buildFaqJsonLd,
@@ -6,7 +8,6 @@ import {
   buildWebPageJsonLd,
   toJsonLd,
 } from "@/lib/seo";
-import { GuidedFreeCheckForm } from "@/components/free-check/guided-free-check-form-v2";
 
 export const metadata = buildMetadata({
   title: "Free Search Presence Scan | Cendorq",
@@ -88,6 +89,7 @@ export default function FreeCheckPage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
       <FreeCheckAtmosphere />
+      <FreeCheckProgressGuard />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} />
