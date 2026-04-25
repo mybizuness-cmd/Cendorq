@@ -8,6 +8,8 @@ For production failures, smoke-check failures, or buyer-path regressions, use [`
 
 For public copy, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language changes, use [`docs/copy-quality-checklist.md`](copy-quality-checklist.md).
 
+For public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integration changes, use [`docs/privacy-data-checklist.md`](privacy-data-checklist.md).
+
 For public UI, layout, copy, component, or navigation changes, use [`docs/accessibility-checklist.md`](accessibility-checklist.md).
 
 For public page, component, asset, animation, or script changes, use [`docs/performance-checklist.md`](performance-checklist.md).
@@ -38,6 +40,8 @@ Before merging a production change:
   - Connect
 - Confirm public copy is plain, premium, clear, credible, and easy to choose.
 - Confirm no old public labels were revived in active public surfaces.
+- Confirm privacy and data handling were checked for public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integration changes.
+- Confirm no secrets, private customer data, private keys, or tokens were committed.
 - Confirm the homepage does not gain clutter, dashboard behavior, route-console behavior, or competing CTAs.
 - Confirm canonical routes are still the source of truth.
 - Confirm legacy public URLs still redirect into the current buyer path.
@@ -67,6 +71,7 @@ Before merging the PR:
 - Confirm no secrets, private customer data, private keys, or tokens were committed.
 - Confirm public copy remains plain, direct, and buyer-friendly.
 - Confirm copy quality expectations were considered when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed.
+- Confirm privacy expectations were considered when public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed.
 - Confirm search discovery expectations were considered when metadata, crawler files, canonical routes, redirects, or trust surfaces changed.
 - Confirm accessibility expectations were considered when public UI changed.
 - Confirm performance expectations were considered when public UI, assets, scripts, or component behavior changed.
@@ -131,6 +136,7 @@ For meaningful releases, note in `CHANGELOG.md`:
 - buyer-path impact
 - production-safety impact
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
+- privacy/data impact when forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed
 - search-discovery impact when metadata, crawler files, canonical routes, redirects, or trust surfaces changed
 - accessibility impact when public UI changed
 - performance impact when public UI, assets, scripts, or component behavior changed

@@ -29,6 +29,11 @@ Does this change touch the public buyer path?
 - [ ] `docs/copy-quality-checklist.md` was used for public copy, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language changes.
 - [ ] No copy quality checklist is needed because this change does not affect public language, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language.
 
+## Privacy and data handling check
+
+- [ ] `docs/privacy-data-checklist.md` was used for public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integration changes.
+- [ ] No privacy/data checklist is needed because this change does not affect public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations.
+
 ## Accessibility check
 
 - [ ] `docs/accessibility-checklist.md` was used for public UI, layout, copy, component, or navigation changes.
@@ -54,7 +59,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, accessibility, performance, search discovery, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
