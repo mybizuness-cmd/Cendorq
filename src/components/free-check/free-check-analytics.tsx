@@ -11,9 +11,10 @@ export function FreeCheckAnalytics() {
   useEffect(() => {
     const root = document.getElementById("free-check-intake");
     if (!root) return;
+    const rootElement = root;
 
     const captureStep = () => {
-      const stepText = findCurrentStep(root);
+      const stepText = findCurrentStep(rootElement);
       if (!stepText || stepText === lastStepRef.current) return;
       lastStepRef.current = stepText;
       trackConversionEvent("free_scan_step_view", {
@@ -23,7 +24,7 @@ export function FreeCheckAnalytics() {
     };
 
     const observer = new MutationObserver(captureStep);
-    observer.observe(root, { childList: true, subtree: true, characterData: true, attributes: true });
+    observer.observe(rootElement, { childList: true, subtree: true, characterData: true, attributes: true });
     captureStep();
 
     function handleClick(event: MouseEvent) {
@@ -33,7 +34,7 @@ export function FreeCheckAnalytics() {
       if (!(button instanceof HTMLButtonElement)) return;
 
       const text = normalizeText(button.textContent || "");
-      const stepText = lastStepRef.current || findCurrentStep(root);
+      const stepText = lastStepRef.current || findCurrentStep(rootElement);
 
       if (text === "Continue") {
         trackConversionEvent("free_scan_step_continue", { step: stepText });
@@ -47,16 +48,16 @@ export function FreeCheckAnalytics() {
     }
 
     function handleSubmit() {
-      trackConversionEvent("free_scan_submit_attempt", { step: lastStepRef.current || findCurrentStep(root) });
+      trackConversionEvent("free_scan_submit_attempt", { step: lastStepRef.current || findCurrentStep(rootElement) });
     }
 
-    root.addEventListener("click", handleClick, { capture: true });
-    root.addEventListener("submit", handleSubmit, { capture: true });
+    rootElement.addEventListener("click", handleClick, { capture: true });
+    rootElement.addEventListener("submit", handleSubmit, { capture: true });
 
     return () => {
       observer.disconnect();
-      root.removeEventListener("click", handleClick, { capture: true });
-      root.removeEventListener("submit", handleSubmit, { capture: true });
+      rootElement.removeEventListener("click", handleClick, { capture: true });
+      rootElement.removeEventListener("submit", handleSubmit, { capture: true });
     };
   }, []);
 
