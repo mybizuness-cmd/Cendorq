@@ -14,7 +14,7 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Changed
 
-- No public buyer-path changes.
+- Added a PR template release-history gate so meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes explicitly consider `CHANGELOG.md` before merge.
 
 ### Fixed
 
