@@ -106,33 +106,8 @@ for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) failures.push(`Missing required route/system file: ${file}`);
 }
 
-expectFileToInclude("docs/incident-response.md", [
-  "Cendorq Incident Response Runbook",
-  "Severity guide",
-  "First response checklist",
-  "Verification commands",
-  "Recovery path",
-  "After-action checklist",
-  "pnpm validate:routes",
-  "pnpm smoke:production",
-  "Free Scan",
-  "Production Smoke Check",
-], "Incident response runbook is missing required response detail");
-
-expectFileToInclude("docs/release-checklist.md", [
-  "Cendorq Release Checklist",
-  "docs/incident-response.md",
-  "Pre-merge checklist",
-  "Merge checklist",
-  "Post-deploy checklist",
-  "Rollback checklist",
-  "Release notes standard",
-  "pnpm validate:routes",
-  "pnpm smoke:production",
-  "Free Scan",
-  "https://cendorq.com",
-], "Release checklist is missing required deployment detail");
-
+expectFileToInclude("docs/incident-response.md", ["Cendorq Incident Response Runbook", "Severity guide", "First response checklist", "Verification commands", "Recovery path", "After-action checklist", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Production Smoke Check"], "Incident response runbook is missing required response detail");
+expectFileToInclude("docs/release-checklist.md", ["Cendorq Release Checklist", "docs/incident-response.md", "Pre-merge checklist", "Merge checklist", "Post-deploy checklist", "Rollback checklist", "Release notes standard", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "https://cendorq.com"], "Release checklist is missing required deployment detail");
 expectFileToInclude(".gitattributes", ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"], ".gitattributes is missing required Git normalization detail");
 expectFileToInclude(".editorconfig", ["root = true", "charset = utf-8", "end_of_line = lf", "insert_final_newline = true", "trim_trailing_whitespace = true", "indent_size = 2"], ".editorconfig is missing required editor baseline detail");
 expectFileToInclude(".env.example", ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=development", "VERCEL_ENV=development", "VERCEL_GIT_COMMIT_SHA=local", "GITHUB_SHA=local", "NEXT_TELEMETRY_DISABLED=1", "Do not commit real secrets"], ".env.example is missing required safe environment detail");
@@ -149,12 +124,11 @@ expectFileToInclude(".github/ISSUE_TEMPLATE/config.yml", ["blank_issues_enabled:
 expectFileToInclude(".github/ISSUE_TEMPLATE/conversion-improvement.yml", ["Conversion improvement", "Buyer-path impact", "Current drag or confusion", "Proposed change", "Free Scan"], "Conversion issue template is missing required detail");
 expectFileToInclude(".github/ISSUE_TEMPLATE/production-safety.yml", ["Production safety", "Production issue or improvement", "Expected validation", "pnpm validate:routes", "Health endpoint"], "Production issue template is missing required detail");
 expectFileToInclude(".github/pull_request_template.md", ["Buyer-path impact", "Conversion check", "Production safety check", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Ongoing Control"], "Pull request template is missing required quality gate detail");
-
 expectFileToInclude("README.md", ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "docs/release-checklist.md", "docs/incident-response.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example", ".editorconfig", ".gitattributes", "runs automatically every day"], "README is missing required production entry guidance");
 expectFileToInclude("docs/production-guide.md", ["Cendorq Production Guide", "docs/release-checklist.md", "docs/incident-response.md", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "The homepage has one job"], "Production guide is missing required guidance");
 
-expectFileToInclude(".github/workflows/ci.yml", ["name: CI", "pull_request:", "push:", "workflow_dispatch:", "permissions:", "contents: read", "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24", "pnpm/action-setup@v4", "node-version: \"24\"", "pnpm install --frozen-lockfile", "pnpm validate:routes", "pnpm lint", "pnpm typecheck", "pnpm build"], "CI workflow is missing required quality gate detail");
-expectFileToInclude(".github/workflows/smoke-production.yml", ["schedule:", "17 9 * * *", "workflow_dispatch", "permissions:", "contents: read", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL", "https://cendorq.com"], "Production smoke workflow is missing required detail");
+expectFileToInclude(".github/workflows/ci.yml", ["name: CI", "pull_request:", "push:", "workflow_dispatch:", "permissions:", "contents: read", "persist-credentials: false", "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24", "pnpm/action-setup@v4", "node-version: \"24\"", "pnpm install --frozen-lockfile", "pnpm validate:routes", "pnpm lint", "pnpm typecheck", "pnpm build"], "CI workflow is missing required quality gate detail");
+expectFileToInclude(".github/workflows/smoke-production.yml", ["schedule:", "17 9 * * *", "workflow_dispatch", "permissions:", "contents: read", "persist-credentials: false", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL", "https://cendorq.com"], "Production smoke workflow is missing required detail");
 expectFileToInclude("src/scripts/smoke-production.mjs", ["/api/health", "/llms.txt", "/.well-known/security.txt", "/sitemap.xml", "/robots.txt", "CENDORQ_BASE_URL"], "Production smoke script is missing required check");
 expectFileToInclude("public/.well-known/security.txt", ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"], "security.txt is missing required detail");
 expectFileToInclude("src/app/api/health/route.ts", ["force-dynamic", "revalidate = 0", "ok: true", "cendorq-platform", "healthy", "environment", "commit", "Cache-Control", "no-store", "X-Robots-Tag"], "Health endpoint is missing required runtime-safe response detail");
@@ -198,7 +172,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Incident response runbook, release checklist, main CI workflow, scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Checkout credential hardening, incident response runbook, release checklist, main CI workflow, scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function expectFileToInclude(path, phrases, label) {
   const text = read(path);
