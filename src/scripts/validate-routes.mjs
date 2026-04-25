@@ -5,6 +5,7 @@ const root = process.cwd();
 
 const requiredFiles = [
   "README.md",
+  ".github/dependabot.yml",
   ".github/pull_request_template.md",
   ".github/ISSUE_TEMPLATE/config.yml",
   ".github/ISSUE_TEMPLATE/conversion-improvement.yml",
@@ -95,6 +96,11 @@ for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
   }
+}
+
+const dependabot = read(".github/dependabot.yml");
+for (const phrase of ["package-ecosystem: npm", "package-ecosystem: github-actions", "interval: weekly", "next-react-platform", "typescript-tooling", "github-actions"]) {
+  if (!dependabot.includes(phrase)) failures.push(`Dependabot config is missing required maintenance guardrail detail: ${phrase}`);
 }
 
 const issueConfig = read(".github/ISSUE_TEMPLATE/config.yml");
@@ -275,7 +281,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
