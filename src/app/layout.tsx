@@ -5,6 +5,7 @@ import { absoluteUrl, siteConfig, toJsonLd } from "@/lib/seo";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
+import "./quality-polish.css";
 
 const siteUrl = new URL(siteConfig.siteUrl);
 const siteOrigin = siteUrl.origin;
