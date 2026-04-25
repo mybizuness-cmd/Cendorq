@@ -11,6 +11,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Added
 
 - Release history baseline.
+- Lead intake checklist for Free Scan, Connect, form, field, validation, success state, error state, routing, and buyer handoff changes.
 - Conversion quality checklist for homepage, public buyer-path, CTA, plan, trust cue, layout hierarchy, friction reduction, and offer-positioning changes.
 - Visual quality checklist for public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and premium-feel changes.
 - Copy quality checklist for public page copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes.
@@ -25,6 +26,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Changed
 
 - Added a PR template release-history gate so meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes explicitly consider `CHANGELOG.md` before merge.
+- Added a PR template lead intake gate so Free Scan, Connect, form, field, validation, success state, error state, routing, and buyer handoff changes explicitly consider `docs/lead-intake-checklist.md` before merge.
 - Added a PR template conversion quality gate so homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, and offer-positioning changes explicitly consider `docs/conversion-quality-checklist.md` before merge.
 - Added a PR template visual quality gate so public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and premium-feel changes explicitly consider `docs/visual-quality-checklist.md` before merge.
 - Added a PR template copy quality gate so public copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes explicitly consider `docs/copy-quality-checklist.md` before merge.
@@ -52,6 +54,7 @@ For future release notes, include:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- lead-intake impact when Free Scan, Connect, forms, fields, validation, success states, error states, routing, or buyer handoff changed
 - conversion-quality impact when homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer-positioning changed
 - visual-quality impact when public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium feel changed
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
