@@ -17,112 +17,33 @@ Does this change touch the public buyer path?
 - [ ] Connect
 - [ ] No public buyer-path impact
 
-## Manual QA and acceptance check
+## Checklist gates
 
+Use every checklist that applies.
+
+- [ ] `docs/final-hardening-sweep.md` was used for major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone changes.
+- [ ] `docs/backend-handoff-checklist.md` was used for backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations.
 - [ ] `docs/manual-qa-acceptance-checklist.md` was used for final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, or post-change signoff.
-- [ ] No manual QA checklist is needed because this change does not affect final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, or post-change signoff.
-
-## Content freshness check
-
 - [ ] `docs/content-freshness-checklist.md` was used for public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, or outdated buyer-path assumptions.
-- [ ] No content freshness checklist is needed because this change does not affect public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, or buyer-path assumptions.
-
-## Configuration safety check
-
 - [ ] `docs/configuration-safety-checklist.md` was used for environment variables, public/private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, or production safety changes.
-- [ ] No configuration safety checklist is needed because this change does not affect environment variables, public/private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, or production safety.
-
-## Integration readiness check
-
 - [ ] `docs/integration-readiness-checklist.md` was used for third-party services, API handoffs, payment providers, AI services, email/CRM handoffs, webhooks, external scripts, service keys, integration failures, or production-support expectations.
-- [ ] No integration readiness checklist is needed because this change does not affect third-party services, API handoffs, payments, AI services, email/CRM handoffs, webhooks, external scripts, service keys, integration failures, or production-support expectations.
-
-## Analytics and tracking check
-
 - [ ] `docs/analytics-tracking-checklist.md` was used for analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, or buyer-path reporting.
-- [ ] No analytics/tracking checklist is needed because this change does not affect analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, or buyer-path reporting.
-
-## Policy and legal surface check
-
 - [ ] `docs/policy-legal-surface-checklist.md` was used for public policy pages, terms language, privacy language, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, or legal-adjacent public content.
-- [ ] No policy/legal checklist is needed because this change does not affect policy pages, terms, privacy, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, or legal-adjacent public content.
-
-## Trust and credibility check
-
 - [ ] `docs/trust-credibility-checklist.md` was used for public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, or confidence-building content.
-- [ ] No trust/credibility checklist is needed because this change does not affect public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, or confidence-building content.
-
-## Route and link integrity check
-
 - [ ] `docs/route-link-integrity-checklist.md` was used for navigation, internal links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connection changes.
-- [ ] No route/link checklist is needed because this change does not affect navigation, internal links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connections.
-
-## Offer integrity check
-
 - [ ] `docs/offer-integrity-checklist.md` was used for Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, or offer-positioning changes.
-- [ ] No offer integrity checklist is needed because this change does not affect Plans, offers, pricing, scope, guarantees, packages, comparisons, or offer positioning.
-
-## Lead intake check
-
 - [ ] `docs/lead-intake-checklist.md` was used for Free Scan, Connect, form, field, validation, success state, error state, routing, or buyer handoff changes.
-- [ ] No lead intake checklist is needed because this change does not affect Free Scan, Connect, forms, fields, validation, success states, error states, routing, or buyer handoff.
-
-## Conversion quality check
-
 - [ ] `docs/conversion-quality-checklist.md` was used for homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer-positioning changes.
-- [ ] No conversion quality checklist is needed because this change does not affect homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer positioning.
-
-## Visual quality check
-
 - [ ] `docs/visual-quality-checklist.md` was used for public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium-feel changes.
-- [ ] No visual quality checklist is needed because this change does not affect public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium feel.
-
-## Conversion check
-
-- [ ] The homepage still has one job: get the right customer to start the Free Scan.
-- [ ] No homepage clutter, dashboard behavior, route-console behavior, or multi-offer confusion was added.
-- [ ] CTAs still favor the Free Scan when the user is not ready for deeper work.
-- [ ] Public language stays plain, strong, and easy to understand.
-
-## Copy quality check
-
 - [ ] `docs/copy-quality-checklist.md` was used for public copy, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language changes.
-- [ ] No copy quality checklist is needed because this change does not affect public language, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language.
-
-## Privacy and data handling check
-
 - [ ] `docs/privacy-data-checklist.md` was used for public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integration changes.
-- [ ] No privacy/data checklist is needed because this change does not affect public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations.
-
-## Accessibility check
-
 - [ ] `docs/accessibility-checklist.md` was used for public UI, layout, copy, component, or navigation changes.
-- [ ] No accessibility checklist is needed because this change does not affect public UI or buyer-path usability.
-
-## Performance check
-
 - [ ] `docs/performance-checklist.md` was used for public UI, layout, component, asset, animation, or script changes.
-- [ ] No performance checklist is needed because this change does not affect public UI weight, speed, assets, scripts, or buyer-path performance.
-
-## Search discovery check
-
 - [ ] `docs/search-discovery-checklist.md` was used for metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, or public trust surface changes.
-- [ ] No search discovery checklist is needed because this change does not affect metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, or public trust surfaces.
-
-## Dependency check
-
 - [ ] `docs/dependency-checklist.md` was used for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, or tooling changes.
-- [ ] No dependency checklist is needed because this change does not affect packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling.
-
-## Deployment environment check
-
 - [ ] `docs/deployment-environment-checklist.md` was used for hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changes.
-- [ ] No deployment environment checklist is needed because this change does not affect hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration.
-
-## Observability and diagnostics check
-
 - [ ] `docs/observability-diagnostics-checklist.md` was used for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changes.
-- [ ] No observability checklist is needed because this change does not affect health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility.
+- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, or public trust surfaces.
 
 ## Production safety check
 
@@ -134,7 +55,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, final hardening, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
