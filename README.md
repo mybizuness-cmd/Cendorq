@@ -41,6 +41,16 @@ Use `.env.example` as the safe local template. Copy it to `.env.local` only when
 
 Never commit real secrets, private tokens, customer data, or private keys.
 
+## Editor baseline
+
+`.editorconfig` keeps local editor behavior aligned across contributors:
+
+- UTF-8
+- LF line endings
+- final newlines
+- trimmed trailing whitespace outside Markdown
+- two-space indentation by default
+
 ## Core commands
 
 ```bash
