@@ -24,6 +24,7 @@ const requiredFiles = [
   ".github/workflows/smoke-production.yml",
   "docs/production-guide.md",
   "docs/release-checklist.md",
+  "docs/configuration-safety-checklist.md",
   "docs/integration-readiness-checklist.md",
   "docs/analytics-tracking-checklist.md",
   "docs/policy-legal-surface-checklist.md",
@@ -62,89 +63,26 @@ const requiredFiles = [
   "next.config.ts",
 ];
 
-const canonicalRoutes = [
-  "/free-check",
-  "/plans",
-  "/plans/deep-review",
-  "/plans/build-fix",
-  "/plans/ongoing-control",
-  "/connect",
-];
-
-const redirectPairs = [
-  ["/pricing", "/plans"],
-  ["/pricing/full-diagnosis", "/plans/deep-review"],
-  ["/pricing/optimization", "/plans/build-fix"],
-  ["/pricing/monthly-partner", "/plans/ongoing-control"],
-  ["/contact", "/connect"],
-];
-
-const requiredHeaders = [
-  "Strict-Transport-Security",
-  "X-Content-Type-Options",
-  "X-Frame-Options",
-  "Referrer-Policy",
-  "Permissions-Policy",
-  "Cross-Origin-Opener-Policy",
-  "X-Permitted-Cross-Domain-Policies",
-  "X-Download-Options",
-];
-
-const publicFiles = [
-  "README.md",
-  "src/app/sitemap.ts",
-  "src/app/robots.ts",
-  "src/app/layout.tsx",
-  "src/layout/site-header-conversion.tsx",
-  "src/layout/site-footer.tsx",
-  "src/app/page.tsx",
-  "src/app/free-check/page.tsx",
-  "src/app/plans/page.tsx",
-  "src/app/plans/deep-review/page.tsx",
-  "src/app/plans/build-fix/page.tsx",
-  "src/app/plans/ongoing-control/page.tsx",
-  "src/app/connect/page.tsx",
-  "src/app/not-found.tsx",
-  "public/manifest.webmanifest",
-  "public/llms.txt",
-  "public/.well-known/security.txt",
-];
-
-const forbiddenActivePublicPhrases = [
-  "Visibility Blueprint",
-  "Presence Infrastructure",
-  "Presence Command",
-  "Start Search Presence Scan",
-  "View Visibility Blueprint",
-  "View Presence Infrastructure",
-  "View Presence Command",
-];
+const canonicalRoutes = ["/free-check", "/plans", "/plans/deep-review", "/plans/build-fix", "/plans/ongoing-control", "/connect"];
+const redirectPairs = [["/pricing", "/plans"], ["/pricing/full-diagnosis", "/plans/deep-review"], ["/pricing/optimization", "/plans/build-fix"], ["/pricing/monthly-partner", "/plans/ongoing-control"], ["/contact", "/connect"]];
+const requiredHeaders = ["Strict-Transport-Security", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy", "Permissions-Policy", "Cross-Origin-Opener-Policy", "X-Permitted-Cross-Domain-Policies", "X-Download-Options"];
+const publicFiles = ["README.md", "src/app/sitemap.ts", "src/app/robots.ts", "src/app/layout.tsx", "src/layout/site-header-conversion.tsx", "src/layout/site-footer.tsx", "src/app/page.tsx", "src/app/free-check/page.tsx", "src/app/plans/page.tsx", "src/app/plans/deep-review/page.tsx", "src/app/plans/build-fix/page.tsx", "src/app/plans/ongoing-control/page.tsx", "src/app/connect/page.tsx", "src/app/not-found.tsx", "public/manifest.webmanifest", "public/llms.txt", "public/.well-known/security.txt"];
+const forbiddenActivePublicPhrases = ["Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Start Search Presence Scan", "View Visibility Blueprint", "View Presence Infrastructure", "View Presence Command"];
 
 for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) failures.push(`Missing required route/system file: ${file}`);
 }
 
-expect("docs/integration-readiness-checklist.md", [
-  "Cendorq Integration Readiness Checklist",
-  "Integration principle",
-  "Required checks",
-  "API handoff checks",
-  "Payment and checkout checks",
-  "AI service checks",
-  "Email, CRM, and notification checks",
-  "pnpm validate:routes",
-  "pnpm smoke:production",
-  "Free Scan",
-  "hardcoded credentials",
-], "Integration readiness checklist is missing required integration detail");
+expect("docs/configuration-safety-checklist.md", ["Cendorq Configuration Safety Checklist", "Configuration principle", "Required checks", "Environment variable checks", "Public/private config checks", "Drift checks", "Failure-state checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "hardcoded credentials"], "Configuration safety checklist is missing required configuration detail");
+expect("docs/integration-readiness-checklist.md", ["Cendorq Integration Readiness Checklist", "Integration principle", "Required checks", "API handoff checks", "Payment and checkout checks", "AI service checks", "Email, CRM, and notification checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "hardcoded credentials"], "Integration readiness checklist is missing required integration detail");
 expect("docs/analytics-tracking-checklist.md", ["Cendorq Analytics and Tracking Checklist", "Analytics principle", "Required checks", "Event naming checks", "Script and pixel checks", "Privacy checks", "Buyer-path measurement checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "hidden tracking"], "Analytics and tracking checklist is missing required analytics detail");
-expect("docs/policy-legal-surface-checklist.md", ["Cendorq Policy and Legal Surface Checklist", "Policy principle", "Required checks", "Privacy and data-use checks", "Terms and disclaimer checks", "Security contact checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "fake compliance claims"], "Policy and legal surface checklist is missing required policy detail");
-expect("docs/trust-credibility-checklist.md", ["Cendorq Trust and Credibility Checklist", "Trust principle", "Required checks", "Claim checks", "Proof checks", "Security and privacy confidence checks", "Red flags", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "guaranteed rankings"], "Trust and credibility checklist is missing required trust detail");
-expect("docs/route-link-integrity-checklist.md", ["Cendorq Route and Link Integrity Checklist", "Route and link principle", "Required checks", "Canonical route checks", "Redirect checks", "Link text checks", "Dead-end checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Connect", "/pricing", "/contact"], "Route and link integrity checklist is missing required route/link detail");
-expect("docs/offer-integrity-checklist.md", ["Cendorq Offer Integrity Checklist", "Offer integrity principle", "Required checks", "Plan clarity checks", "Scope checks", "Guarantee and claim checks", "Pricing and comparison checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "Offer integrity checklist is missing required offer detail");
+expect("docs/policy-legal-surface-checklist.md", ["Cendorq Policy and Legal Surface Checklist", "Policy principle", "Required checks", "Privacy and data-use checks", "Terms and disclaimer checks", "Security contact checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Policy and legal surface checklist is missing required policy detail");
+expect("docs/trust-credibility-checklist.md", ["Cendorq Trust and Credibility Checklist", "Trust principle", "Required checks", "Claim checks", "Proof checks", "Security and privacy confidence checks", "Red flags", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Trust and credibility checklist is missing required trust detail");
+expect("docs/route-link-integrity-checklist.md", ["Cendorq Route and Link Integrity Checklist", "Route and link principle", "Required checks", "Canonical route checks", "Redirect checks", "Link text checks", "Dead-end checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Connect"], "Route and link integrity checklist is missing required route/link detail");
+expect("docs/offer-integrity-checklist.md", ["Cendorq Offer Integrity Checklist", "Offer integrity principle", "Required checks", "Plan clarity checks", "Scope checks", "Guarantee and claim checks", "Pricing and comparison checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Offer integrity checklist is missing required offer detail");
 expect("docs/lead-intake-checklist.md", ["Cendorq Lead Intake Checklist", "Lead intake principle", "Required checks", "Field checks", "Validation checks", "Success and handoff checks", "Privacy checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Connect"], "Lead intake checklist is missing required lead detail");
-expect("docs/visual-quality-checklist.md", ["Cendorq Visual Quality Checklist", "Visual quality principle", "Required checks", "Layout checks", "Mobile checks", "Visual polish checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "premium", "mobile"], "Visual quality checklist is missing required visual detail");
-expect("docs/conversion-quality-checklist.md", ["Cendorq Conversion Quality Checklist", "Conversion principle", "Required checks", "Homepage checks", "Plan checks", "Trust checks", "Friction checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "Conversion quality checklist is missing required conversion detail");
+expect("docs/visual-quality-checklist.md", ["Cendorq Visual Quality Checklist", "Visual quality principle", "Required checks", "Layout checks", "Mobile checks", "Visual polish checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Visual quality checklist is missing required visual detail");
+expect("docs/conversion-quality-checklist.md", ["Cendorq Conversion Quality Checklist", "Conversion principle", "Required checks", "Homepage checks", "Plan checks", "Trust checks", "Friction checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Conversion quality checklist is missing required conversion detail");
 expect("docs/observability-diagnostics-checklist.md", ["Cendorq Observability and Diagnostics Checklist", "Observability principle", "Required checks", "Health check checks", "Smoke check checks", "Logging checks", "Incident signal checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Observability and diagnostics checklist is missing required detail");
 expect("docs/deployment-environment-checklist.md", ["Cendorq Deployment Environment Checklist", "Deployment principle", "Required checks", "Domain and URL checks", "Environment checks", "Header and redirect checks", "Smoke and rollback checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Deployment environment checklist is missing required detail");
 expect("docs/dependency-checklist.md", ["Cendorq Dependency Checklist", "Dependency principle", "Required checks", "Runtime checks", "GitHub Actions checks", "Package checks", "pnpm validate:routes", "pnpm smoke:production", "Node 24"], "Dependency checklist is missing required detail");
@@ -156,8 +94,8 @@ expect("docs/accessibility-checklist.md", ["Cendorq Accessibility Checklist", "A
 expect("docs/incident-response.md", ["Cendorq Incident Response Runbook", "Severity guide", "First response checklist", "Verification commands", "Recovery path", "After-action checklist", "pnpm validate:routes", "pnpm smoke:production", "Production Smoke Check"], "Incident response runbook is missing required detail");
 expect("docs/release-checklist.md", ["Cendorq Release Checklist", "docs/incident-response.md", "CHANGELOG.md", "Release notes standard", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Release checklist is missing required detail");
 
-expect("CHANGELOG.md", ["# Changelog", "## Unreleased", "Integration readiness checklist", "PR template integration readiness gate", "integration-readiness impact", "Analytics and tracking checklist", "PR template analytics and tracking gate", "analytics/tracking impact", "Policy and legal surface checklist", "PR template policy and legal surface gate", "policy/legal impact", "Trust and credibility checklist", "PR template trust and credibility gate", "trust/credibility impact", "Route and link integrity checklist", "PR template route and link integrity gate", "route/link impact", "Offer integrity checklist", "PR template offer integrity gate", "offer-integrity impact", "Lead intake checklist", "PR template lead intake gate", "lead-intake impact", "Visual quality checklist", "PR template visual quality gate", "visual-quality impact", "Conversion quality checklist", "PR template conversion quality gate", "conversion-quality impact", "Observability and diagnostics checklist", "Deployment environment checklist", "Dependency checklist", "Privacy and data handling checklist", "Copy quality checklist", "Accessibility checklist", "Performance checklist", "Search discovery checklist", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "CHANGELOG.md is missing required release-history detail");
-expect(".github/pull_request_template.md", ["Buyer-path impact", "Integration readiness check", "docs/integration-readiness-checklist.md", "No integration readiness checklist is needed", "Analytics and tracking check", "docs/analytics-tracking-checklist.md", "No analytics/tracking checklist is needed", "Policy and legal surface check", "docs/policy-legal-surface-checklist.md", "No policy/legal checklist is needed", "Trust and credibility check", "docs/trust-credibility-checklist.md", "No trust/credibility checklist is needed", "Route and link integrity check", "docs/route-link-integrity-checklist.md", "No route/link checklist is needed", "Offer integrity check", "docs/offer-integrity-checklist.md", "No offer integrity checklist is needed", "Lead intake check", "docs/lead-intake-checklist.md", "No lead intake checklist is needed", "Visual quality check", "docs/visual-quality-checklist.md", "No visual quality checklist is needed", "Conversion quality check", "docs/conversion-quality-checklist.md", "No conversion quality checklist is needed", "Release history check", "CHANGELOG.md", "integration readiness", "analytics/tracking", "policy/legal", "trust/credibility", "route/link integrity", "offer integrity", "lead intake", "visual quality", "conversion quality", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Pull request template is missing required integration gate detail");
+expect("CHANGELOG.md", ["# Changelog", "## Unreleased", "Configuration safety checklist", "PR template configuration safety gate", "configuration-safety impact", "Integration readiness checklist", "PR template integration readiness gate", "integration-readiness impact", "Analytics and tracking checklist", "PR template analytics and tracking gate", "analytics/tracking impact", "Policy and legal surface checklist", "Trust and credibility checklist", "Route and link integrity checklist", "Offer integrity checklist", "Lead intake checklist", "Visual quality checklist", "Conversion quality checklist", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "CHANGELOG.md is missing required release-history detail");
+expect(".github/pull_request_template.md", ["Buyer-path impact", "Configuration safety check", "docs/configuration-safety-checklist.md", "No configuration safety checklist is needed", "Integration readiness check", "docs/integration-readiness-checklist.md", "No integration readiness checklist is needed", "Analytics and tracking check", "docs/analytics-tracking-checklist.md", "No analytics/tracking checklist is needed", "Release history check", "CHANGELOG.md", "configuration safety", "integration readiness", "analytics/tracking", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Pull request template is missing required configuration gate detail");
 expect("CONTRIBUTING.md", ["Contributing to Cendorq", "CHANGELOG.md", "Get the right customer to start the Free Scan", "pnpm validate:routes", "pnpm smoke:production"], "CONTRIBUTING.md is missing required operating detail");
 expect("README.md", ["Cendorq", "CHANGELOG.md", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9"], "README is missing required production entry guidance");
 expect(".gitattributes", ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"], ".gitattributes is missing required Git normalization detail");
@@ -212,7 +150,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Integration readiness checklist, PR integration gate, analytics and tracking checklist, PR analytics/tracking gate, policy and legal surface checklist, PR policy/legal gate, trust and credibility checklist, PR trust gate, route and link integrity checklist, PR route/link gate, offer integrity checklist, PR offer integrity gate, lead intake checklist, PR lead intake gate, visual quality checklist, PR visual quality gate, conversion quality checklist, PR conversion quality gate, observability and diagnostics checklist, PR observability gate, deployment environment checklist, PR deployment environment gate, dependency checklist, PR dependency gate, privacy and data handling checklist, PR privacy/data gate, copy quality checklist, PR copy quality gate, search discovery checklist, PR search discovery gate, performance checklist, PR performance gate, accessibility checklist, PR accessibility gate, PR template release-history gate, changelog, incident response runbook, release checklist, main CI workflow, scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Configuration safety checklist, PR configuration gate, integration readiness checklist, PR integration gate, analytics and tracking checklist, PR analytics/tracking gate, policy and legal surface checklist, PR policy/legal gate, trust and credibility checklist, PR trust gate, route and link integrity checklist, PR route/link gate, offer integrity checklist, PR offer integrity gate, lead intake checklist, PR lead intake gate, visual quality checklist, PR visual quality gate, conversion quality checklist, PR conversion quality gate, observability and diagnostics checklist, PR observability gate, deployment environment checklist, PR deployment environment gate, dependency checklist, PR dependency gate, privacy and data handling checklist, PR privacy/data gate, copy quality checklist, PR copy quality gate, search discovery checklist, PR search discovery gate, performance checklist, PR performance gate, accessibility checklist, PR accessibility gate, PR template release-history gate, changelog, incident response runbook, release checklist, main CI workflow, scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function expect(path, phrases, label) {
   const text = read(path);
