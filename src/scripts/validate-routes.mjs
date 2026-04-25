@@ -19,6 +19,7 @@ const requiredFiles = [
   "src/layout/site-footer.tsx",
   "public/manifest.webmanifest",
   "public/llms.txt",
+  "public/.well-known/security.txt",
   "next.config.ts",
 ];
 
@@ -66,6 +67,7 @@ const publicFiles = [
   "src/app/not-found.tsx",
   "public/manifest.webmanifest",
   "public/llms.txt",
+  "public/.well-known/security.txt",
 ];
 
 const forbiddenActivePublicPhrases = [
@@ -83,6 +85,13 @@ const failures = [];
 for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
+  }
+}
+
+const securityTxt = read("public/.well-known/security.txt");
+for (const phrase of ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"]) {
+  if (!securityTxt.includes(phrase)) {
+    failures.push(`security.txt is missing required detail: ${phrase}`);
   }
 }
 
@@ -110,14 +119,14 @@ for (const header of requiredHeaders) {
   }
 }
 
-for (const discoveryRoute of ["/robots.txt", "/sitemap.xml", "/llms.txt"]) {
+for (const discoveryRoute of ["/robots.txt", "/sitemap.xml", "/llms.txt", "/.well-known/security.txt"]) {
   if (!nextConfig.includes(`source: "${discoveryRoute}"`)) {
-    failures.push(`Crawler cache headers must cover ${discoveryRoute}.`);
+    failures.push(`Crawler/security cache headers must cover ${discoveryRoute}.`);
   }
 }
 
 if (!nextConfig.includes("text/plain; charset=utf-8")) {
-  failures.push("llms.txt must be served with an explicit text/plain UTF-8 content type.");
+  failures.push("Plain text discovery files must be served with an explicit text/plain UTF-8 content type.");
 }
 
 const sitemap = read("src/app/sitemap.ts");
@@ -202,7 +211,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Canonical buyer path, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
