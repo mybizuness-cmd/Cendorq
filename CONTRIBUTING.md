@@ -8,7 +8,7 @@ The homepage has one job:
 
 > Get the right customer to start the Free Scan.
 
-Every public change should improve clarity, trust, desire, action, speed, mobile experience, accessibility, performance, or production reliability. If a change adds confusion, clutter, delay, or mixed intent, do not ship it.
+Every public change should improve clarity, trust, desire, action, speed, mobile experience, accessibility, performance, search discovery, or production reliability. If a change adds confusion, clutter, delay, discoverability risk, or mixed intent, do not ship it.
 
 ## Protected buyer path
 
@@ -57,6 +57,7 @@ Use the pull request template and answer the quality gates:
 - conversion check
 - accessibility check when public UI changes
 - performance check when public UI, asset, script, or component behavior changes
+- search discovery check when metadata, crawler files, canonical routes, redirects, or trust files change
 - production safety check
 - release history check
 - required validation
@@ -76,9 +77,15 @@ Use `docs/performance-checklist.md` for buyer-path, public page, layout, compone
 
 Public UI changes should stay fast, lightweight, mobile-safe, and easy to act on.
 
+## Search discovery
+
+Use `docs/search-discovery-checklist.md` for metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, and public trust surface changes.
+
+Discovery changes should stay plain, accurate, canonical, and buyer-focused.
+
 ## Release history
 
-Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, accessibility expectations, performance expectations, or production validation.
+Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, accessibility expectations, performance expectations, search discovery expectations, or production validation.
 
 Keep changelog notes short, buyer-focused, and production-aware.
 
@@ -107,6 +114,7 @@ Do not remove or weaken:
 - `docs/release-checklist.md`
 - `docs/accessibility-checklist.md`
 - `docs/performance-checklist.md`
+- `docs/search-discovery-checklist.md`
 - `docs/incident-response.md`
 - `.github/CODEOWNERS`
 - `.github/dependabot.yml`
@@ -147,4 +155,4 @@ Follow `SECURITY.md` for security-sensitive work. Dependency and GitHub Actions 
 
 ## Merge standard
 
-A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for accessibility and performance when relevant, updates release history when meaningful, and does not weaken production checks.
+A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for accessibility, performance, and search discovery when relevant, updates release history when meaningful, and does not weaken production checks.

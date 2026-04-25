@@ -10,6 +10,8 @@ For public UI, layout, copy, component, or navigation changes, use [`docs/access
 
 For public page, component, asset, animation, or script changes, use [`docs/performance-checklist.md`](performance-checklist.md).
 
+For metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, or public trust surface changes, use [`docs/search-discovery-checklist.md`](search-discovery-checklist.md).
+
 Record meaningful production changes in [`CHANGELOG.md`](../CHANGELOG.md).
 
 ## Release principle
@@ -37,6 +39,7 @@ Before merging a production change:
 - Confirm canonical routes are still the source of truth.
 - Confirm legacy public URLs still redirect into the current buyer path.
 - Confirm crawler and trust files still make sense.
+- Confirm search discovery was checked for metadata, crawler, canonical route, redirect, sitemap, robots, `llms.txt`, manifest, health, or trust-surface changes.
 - Confirm the health endpoint remains lightweight, dynamic, no-store, and noindex.
 - Confirm accessibility was checked for public UI and buyer-path changes.
 - Confirm performance was checked for public UI, asset, script, animation, and buyer-path changes.
@@ -60,6 +63,7 @@ Before merging the PR:
 - Confirm CODEOWNERS review routing is intact.
 - Confirm no secrets, private customer data, private keys, or tokens were committed.
 - Confirm public copy remains plain, direct, and buyer-friendly.
+- Confirm search discovery expectations were considered when metadata, crawler files, canonical routes, redirects, or trust surfaces changed.
 - Confirm accessibility expectations were considered when public UI changed.
 - Confirm performance expectations were considered when public UI, assets, scripts, or component behavior changed.
 - Confirm release history is updated when the change is meaningful.
@@ -122,6 +126,7 @@ For meaningful releases, note in `CHANGELOG.md`:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- search-discovery impact when metadata, crawler files, canonical routes, redirects, or trust surfaces changed
 - accessibility impact when public UI changed
 - performance impact when public UI, assets, scripts, or component behavior changed
 - validation completed

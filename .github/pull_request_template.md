@@ -34,6 +34,11 @@ Does this change touch the public buyer path?
 - [ ] `docs/performance-checklist.md` was used for public UI, layout, component, asset, animation, or script changes.
 - [ ] No performance checklist is needed because this change does not affect public UI weight, speed, assets, scripts, or buyer-path performance.
 
+## Search discovery check
+
+- [ ] `docs/search-discovery-checklist.md` was used for metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, or public trust surface changes.
+- [ ] No search discovery checklist is needed because this change does not affect metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, or public trust surfaces.
+
 ## Production safety check
 
 - [ ] Canonical routes are still protected.
@@ -44,7 +49,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, accessibility, performance, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, accessibility, performance, search discovery, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
