@@ -8,7 +8,7 @@ The homepage has one job:
 
 > Get the right customer to start the Free Scan.
 
-Every public change should improve clarity, trust, desire, action, speed, mobile experience, copy quality, privacy, accessibility, performance, search discovery, or production reliability. If a change adds confusion, clutter, delay, data risk, discoverability risk, weak copy, or mixed intent, do not ship it.
+Every public change should improve clarity, trust, desire, action, speed, mobile experience, copy quality, privacy, accessibility, performance, search discovery, dependency safety, or production reliability. If a change adds confusion, clutter, delay, data risk, dependency risk, discoverability risk, weak copy, or mixed intent, do not ship it.
 
 ## Protected buyer path
 
@@ -60,6 +60,7 @@ Use the pull request template and answer the quality gates:
 - accessibility check when public UI changes
 - performance check when public UI, asset, script, or component behavior changes
 - search discovery check when metadata, crawler files, canonical routes, redirects, or trust files change
+- dependency check when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling change
 - production safety check
 - release history check
 - required validation
@@ -97,9 +98,15 @@ Use `docs/search-discovery-checklist.md` for metadata, crawler files, canonical 
 
 Discovery changes should stay plain, accurate, canonical, and buyer-focused.
 
+## Dependency safety
+
+Use `docs/dependency-checklist.md` for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, and tooling changes.
+
+Dependency changes should stay intentional, reviewable, production-safe, and aligned with Node 24 CI.
+
 ## Release history
 
-Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, copy quality expectations, privacy expectations, accessibility expectations, performance expectations, search discovery expectations, or production validation.
+Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, copy quality expectations, privacy expectations, accessibility expectations, performance expectations, search discovery expectations, dependency expectations, or production validation.
 
 Keep changelog notes short, buyer-focused, and production-aware.
 
@@ -131,6 +138,7 @@ Do not remove or weaken:
 - `docs/accessibility-checklist.md`
 - `docs/performance-checklist.md`
 - `docs/search-discovery-checklist.md`
+- `docs/dependency-checklist.md`
 - `docs/incident-response.md`
 - `.github/CODEOWNERS`
 - `.github/dependabot.yml`
@@ -171,4 +179,4 @@ Follow `SECURITY.md` for security-sensitive work. Dependency and GitHub Actions 
 
 ## Merge standard
 
-A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for copy quality, privacy, accessibility, performance, and search discovery when relevant, updates release history when meaningful, and does not weaken production checks.
+A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for copy quality, privacy, accessibility, performance, search discovery, and dependency safety when relevant, updates release history when meaningful, and does not weaken production checks.
