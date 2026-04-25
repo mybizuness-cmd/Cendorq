@@ -18,6 +18,7 @@ const requiredFiles = [
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
   "src/scripts/smoke-production.mjs",
+  ".github/workflows/smoke-production.yml",
   "public/manifest.webmanifest",
   "public/llms.txt",
   "public/.well-known/security.txt",
@@ -86,6 +87,13 @@ const failures = [];
 for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
+  }
+}
+
+const smokeWorkflow = read(".github/workflows/smoke-production.yml");
+for (const phrase of ["workflow_dispatch", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL"]) {
+  if (!smokeWorkflow.includes(phrase)) {
+    failures.push(`Manual smoke workflow is missing required detail: ${phrase}`);
   }
 }
 
@@ -224,7 +232,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Canonical buyer path, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
