@@ -17,6 +17,7 @@ const requiredFiles = [
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
   "public/manifest.webmanifest",
+  "public/llms.txt",
   "next.config.ts",
 ];
 
@@ -63,6 +64,7 @@ const publicFiles = [
   "src/app/connect/page.tsx",
   "src/app/not-found.tsx",
   "public/manifest.webmanifest",
+  "public/llms.txt",
 ];
 
 const forbiddenActivePublicPhrases = [
@@ -148,6 +150,19 @@ if (!manifest.includes("Start Free Scan") || !manifest.includes("Compare Plans")
   failures.push("Manifest shortcuts must include Start Free Scan, Compare Plans, and Connect.");
 }
 
+const llms = read("public/llms.txt");
+for (const route of canonicalRoutes) {
+  if (!llms.includes(route)) {
+    failures.push(`llms.txt does not include canonical route: ${route}`);
+  }
+}
+
+for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "make the business easier to understand", "make the business easier to trust", "make the business easier to choose"]) {
+  if (!llms.includes(phrase)) {
+    failures.push(`llms.txt does not include required positioning phrase: ${phrase}`);
+  }
+}
+
 const publicText = publicFiles.map((file) => `\n/* ${file} */\n${read(file)}`).join("\n");
 for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner"]) {
   if (publicText.includes(route)) {
@@ -156,7 +171,7 @@ for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/prici
 }
 
 for (const phrase of forbiddenActivePublicPhrases) {
-  if (publicText.includes(phrase)) {
+  if (publicText.includes(phrase) && !llms.includes(`- ${phrase}`)) {
     failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
   }
 }
@@ -173,7 +188,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Canonical buyer path, llms.txt, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
