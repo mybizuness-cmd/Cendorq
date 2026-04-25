@@ -32,6 +32,11 @@ Does this change touch the public buyer path?
 - [ ] `/api/health` remains dynamic, no-store, noindex, and lightweight.
 - [ ] No old public labels were revived in active surfaces.
 
+## Release history check
+
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes.
+- [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
+
 ## Required validation
 
 Run before merge or confirm CI passed:
