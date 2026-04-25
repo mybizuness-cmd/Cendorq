@@ -1,0 +1,62 @@
+name: Production safety
+about: Report or plan work affecting routes, CI, crawler files, health checks, headers, or deploy verification.
+title: "Production: "
+labels: ["production"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for production posture, routing, SEO/discovery files, CI, smoke checks, health checks, security headers, and protected repo workflow work.
+  - type: textarea
+    id: issue
+    attributes:
+      label: Production issue or improvement
+      description: What production behavior needs attention?
+    validations:
+      required: true
+  - type: checkboxes
+    id: area
+    attributes:
+      label: Area touched
+      options:
+        - label: Canonical routes
+        - label: Legacy redirects
+        - label: CI validation
+        - label: Production smoke checks
+        - label: Health endpoint
+        - label: robots.txt
+        - label: sitemap.xml
+        - label: llms.txt
+        - label: security.txt
+        - label: manifest.webmanifest
+        - label: Headers or caching
+        - label: Documentation or templates
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk if ignored
+      description: What breaks, weakens, or becomes unclear if this is not handled?
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Expected validation
+      value: |
+        pnpm validate:routes
+        pnpm lint
+        pnpm typecheck
+        pnpm build
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety_rules
+    attributes:
+      label: Safety rules
+      options:
+        - label: This does not weaken the Free Scan buyer path.
+          required: true
+        - label: This does not revive old public labels in active surfaces.
+          required: true
+        - label: This keeps production checks or improves them.
+          required: true
