@@ -11,6 +11,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Added
 
 - Release history baseline.
+- Manual QA and acceptance checklist for final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, and post-change signoff.
 - Content freshness checklist for public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, and outdated buyer-path assumptions.
 - Configuration safety checklist for environment variables, public and private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, and production safety changes.
 - Integration readiness checklist for third-party services, API handoffs, payment providers, AI services, email or CRM handoffs, webhooks, external scripts, service keys, integration failures, and production-support expectations.
@@ -34,6 +35,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Changed
 
 - Added a PR template release-history gate so meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes explicitly consider `CHANGELOG.md` before merge.
+- Added a PR template manual QA and acceptance gate so final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, and post-change signoff explicitly consider `docs/manual-qa-acceptance-checklist.md` before merge.
 - Added a PR template content freshness gate so public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, and outdated buyer-path assumptions explicitly consider `docs/content-freshness-checklist.md` before merge.
 - Added a PR template configuration safety gate so environment variables, public and private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, and production safety changes explicitly consider `docs/configuration-safety-checklist.md` before merge.
 - Added a PR template integration readiness gate so third-party services, API handoffs, payment providers, AI services, email or CRM handoffs, webhooks, external scripts, service keys, integration failures, and production-support expectations explicitly consider `docs/integration-readiness-checklist.md` before merge.
@@ -70,6 +72,7 @@ For future release notes, include:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- manual-QA impact when final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, or post-change signoff changed
 - content-freshness impact when public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, or buyer-path assumptions changed
 - configuration-safety impact when environment variables, public/private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, or production safety changed
 - integration-readiness impact when third-party services, API handoffs, payment providers, AI services, email or CRM handoffs, webhooks, external scripts, service keys, integration failures, or production-support expectations changed
