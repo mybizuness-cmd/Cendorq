@@ -154,6 +154,19 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/llms.txt",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, stale-while-revalidate=86400",
+          },
+          {
+            key: "Content-Type",
+            value: "text/plain; charset=utf-8",
+          },
+        ],
+      },
+      {
         source: "/intake-console",
         headers: [
           {

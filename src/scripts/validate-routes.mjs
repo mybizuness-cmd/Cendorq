@@ -102,8 +102,14 @@ for (const header of requiredHeaders) {
   }
 }
 
-if (!nextConfig.includes("/robots.txt") || !nextConfig.includes("/sitemap.xml")) {
-  failures.push("Crawler cache headers must cover robots.txt and sitemap.xml.");
+for (const discoveryRoute of ["/robots.txt", "/sitemap.xml", "/llms.txt"]) {
+  if (!nextConfig.includes(`source: "${discoveryRoute}"`)) {
+    failures.push(`Crawler cache headers must cover ${discoveryRoute}.`);
+  }
+}
+
+if (!nextConfig.includes("text/plain; charset=utf-8")) {
+  failures.push("llms.txt must be served with an explicit text/plain UTF-8 content type.");
 }
 
 const sitemap = read("src/app/sitemap.ts");
@@ -188,7 +194,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path, llms.txt, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Canonical buyer path, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
