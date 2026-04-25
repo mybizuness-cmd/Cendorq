@@ -36,6 +36,17 @@ const redirectPairs = [
   ["/contact", "/connect"],
 ];
 
+const requiredHeaders = [
+  "Strict-Transport-Security",
+  "X-Content-Type-Options",
+  "X-Frame-Options",
+  "Referrer-Policy",
+  "Permissions-Policy",
+  "Cross-Origin-Opener-Policy",
+  "X-Permitted-Cross-Domain-Policies",
+  "X-Download-Options",
+];
+
 const publicFiles = [
   "src/app/sitemap.ts",
   "src/app/robots.ts",
@@ -61,6 +72,16 @@ for (const [source, destination] of redirectPairs) {
   if (!nextConfig.includes(`destination: "${destination}"`)) {
     failures.push(`Missing redirect destination in next.config.ts: ${destination}`);
   }
+}
+
+for (const header of requiredHeaders) {
+  if (!nextConfig.includes(`key: "${header}"`)) {
+    failures.push(`Missing production hardening header: ${header}`);
+  }
+}
+
+if (!nextConfig.includes("/robots.txt") || !nextConfig.includes("/sitemap.xml")) {
+  failures.push("Crawler cache headers must cover robots.txt and sitemap.xml.");
 }
 
 const sitemap = read("src/app/sitemap.ts");
@@ -115,7 +136,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path is protected.");
+console.log("Route validation passed. Canonical buyer path and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
