@@ -6,126 +6,87 @@ import {
   buildWebPageJsonLd,
   toJsonLd,
 } from "@/lib/seo";
-import { FreeCheckForm } from "@/components/free-check/free-check-form";
-import { FreeCheckIntro } from "@/components/free-check/free-check-intro";
-import { FreeCheckTrustStrip } from "@/components/free-check/free-check-trust-strip";
-import Link from "next/link";
+import { GuidedFreeCheckForm } from "@/components/free-check/guided-free-check-form";
 
 export const metadata = buildMetadata({
-  title: "Free Search Presence Snapshot",
+  title: "Free Search Presence Scan | Cendorq",
   description:
-    "Start with the free Cendorq Search Presence Snapshot to get a stronger first signal before Search Presence Scan, Visibility Blueprint, or deeper implementation is chosen.",
+    "Start the guided Cendorq free scan and find what is making the business harder to understand, trust, or choose before spending more.",
   path: "/free-check",
   keywords: [
-    "free search presence snapshot",
-    "cendorq free snapshot",
-    "free visibility snapshot",
-    "business visibility first signal",
-    "search presence intake",
+    "free search presence scan",
+    "cendorq free scan",
+    "business visibility scan",
+    "website trust scan",
+    "business clarity scan",
     "ai search visibility intake",
   ],
   image: {
-    alt: "Cendorq Free Search Presence Snapshot — the free first-signal entry point for businesses that need a clearer starting direction.",
+    alt: "Cendorq guided free search presence scan.",
   },
 });
 
+const SCAN_PROMISES = [
+  {
+    title: "Find what is making people hesitate",
+    copy:
+      "See whether people may be confused, unsure, comparing you away, or failing to understand why they should choose you.",
+  },
+  {
+    title: "Avoid paying for the wrong fix",
+    copy:
+      "Before you buy deeper work, get a cleaner first read on what is actually weakening the business online.",
+  },
+  {
+    title: "Know the next right move",
+    copy:
+      "The scan helps point the business toward the next step that makes sense instead of pushing every offer at once.",
+  },
+] as const;
+
 const FAQS = [
   {
-    question: "What is Free Search Presence Snapshot in simple terms?",
+    question: "Is this really free?",
     answer:
-      "It is the free first-signal entry point inside Cendorq. It helps the business get a clearer first look at whether the real problem is trust, clarity, positioning, action friction, or broader visibility weakness.",
+      "Yes. The free scan is the first guided step. It helps you see what may be making the business harder to understand, trust, or choose.",
   },
   {
-    question: "Who should start here?",
+    question: "Why is the scan split into steps?",
     answer:
-      "Most customers should start here when they want a serious first direction without jumping straight into paid diagnostic depth too early.",
+      "A giant form creates friction. The guided scan asks for the right information in the right order so it feels easier to finish and produces a stronger first read.",
   },
   {
-    question: "What happens after submission?",
+    question: "What happens after I submit it?",
     answer:
-      "The business receives a clearer first direction. If the signal shows a stronger need, the next step is usually Search Presence Scan, which becomes the first serious paid diagnostic layer.",
-  },
-] as const;
-
-const ROUTE_MEANING = [
-  {
-    title: "This route gives customers a clear first signal without pretending a free form can replace premium strategy.",
-    copy:
-      "The goal is not to give away the deepest work for free. The goal is to help the customer understand what kind of problem is most likely sitting underneath the surface before the wrong next move gets chosen.",
-  },
-  {
-    title: "This route is built to qualify seriousness and improve the next decision.",
-    copy:
-      "A better first signal helps both the customer and the system. It reduces confusion, improves fit, and makes it much easier to decide whether Search Presence Scan is the right next step.",
-  },
-  {
-    title: "This route should feel simple to understand and serious enough to trust.",
-    copy:
-      "Customers understand the system inside out when the free entry point is clear, honest, and focused on direction instead of vanity-audit theater.",
-  },
-] as const;
-
-const NEXT_PATH_SIGNALS = [
-  {
-    title: "Stay at free-signal level",
-    copy:
-      "when the business only needs a first direction and is not ready for a deeper paid diagnostic yet.",
-  },
-  {
-    title: "Move into Search Presence Scan",
-    copy:
-      "when the first signal shows the business needs a more serious read on what is weakening visibility, trust, positioning, and response.",
-  },
-  {
-    title: "Move into Visibility Blueprint later",
-    copy:
-      "when Search Presence Scan makes it clear the business needs a deeper strategic explanation before implementation begins.",
-  },
-] as const;
-
-const WHAT_CUSTOMERS_GET = [
-  {
-    label: "Clearer starting direction",
-    value:
-      "A first read on whether the business is most likely dealing with trust, clarity, positioning, action friction, or broader visibility weakness.",
-  },
-  {
-    label: "Better next-step fit",
-    value:
-      "A clearer sense of whether the business should stay light, move into Search Presence Scan, or plan for deeper strategy later.",
-  },
-  {
-    label: "Lower-risk entry point",
-    value:
-      "A stronger first move for customers who need direction before they need premium diagnostic depth.",
+      "The business gets captured into the Cendorq scan system. If the answers show a deeper problem, the next move becomes easier to understand.",
   },
 ] as const;
 
 export default function FreeCheckPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Free Search Presence Snapshot",
+    title: "Cendorq Free Search Presence Scan",
     description:
-      "The free first-signal layer inside Cendorq for businesses that need a clearer starting direction before paid diagnostic depth is chosen.",
+      "A guided free scan for businesses that need to find what is making people hesitate before spending more.",
     path: "/free-check",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Free Search Presence Snapshot",
+    title: "Cendorq Free Search Presence Scan",
     description:
-      "A structured free first-read intake designed to improve the quality of the next decision before Search Presence Scan, Visibility Blueprint, or implementation is chosen.",
+      "A premium guided intake that helps businesses identify what may be hurting trust, clarity, choice, and action before deeper work begins.",
     path: "/free-check",
-    serviceType: "Free visibility first-signal intake",
+    serviceType: "Free Search Presence Scan",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "/" },
-    { name: "Free Search Presence Snapshot", path: "/free-check" },
+    { name: "Free Search Presence Scan", path: "/free-check" },
   ]);
 
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-12 text-white sm:px-6 md:py-16 xl:py-20">
+    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
       <FreeCheckAtmosphere />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
@@ -133,84 +94,55 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <FreeCheckIntro />
-      <FreeCheckTrustStrip />
-
-      <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-[1.04fr_0.96fr]">
-        <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8 md:p-10">
-          <div className="system-chip inline-flex items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-            Route meaning
+      <section className="relative z-10 grid gap-8 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
+        <div>
+          <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
+            Guided free scan
           </div>
 
-          <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Free Search Presence Snapshot exists to give the customer a stronger starting direction before paid diagnostic depth begins.
-          </h2>
+          <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[4.6rem]">
+            Find out why people are not choosing you fast enough.
+          </h1>
 
-          <div className="mt-8 grid gap-4">
-            {ROUTE_MEANING.map((item, index) => (
-              <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
+          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
+            Cendorq walks you through a short, premium scan that helps reveal what may be making the business harder to understand, harder to trust, or easier to ignore.
+          </p>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {SCAN_PROMISES.map((item) => (
+              <PromiseCard key={item.title} title={item.title} copy={item.copy} />
             ))}
           </div>
         </div>
 
-        <div className="grid gap-4">
-          {NEXT_PATH_SIGNALS.map((item, index) => (
-            <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 1} />
-          ))}
-
-          {WHAT_CUSTOMERS_GET.map((item, index) => (
-            <InfoCard key={item.label} label={item.label} value={item.value} highlighted={index === 0} />
-          ))}
+        <div className="system-panel-authority relative overflow-hidden rounded-[2.25rem] p-6 sm:p-8">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.14),transparent_35%),radial-gradient(circle_at_90%_0%,rgba(56,189,248,0.1),transparent_30%)]" />
+          <div className="relative z-10">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
+              What this scan does
+            </div>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              It turns confusion into a clear first direction.
+            </h2>
+            <p className="mt-4 text-base leading-8 text-slate-300">
+              Customers judge the business before they call, book, or buy. This scan helps identify where that judgment may be breaking down.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <MiniPoint label="People may not get it" value="The offer may be too hard to understand quickly." />
+              <MiniPoint label="People may not trust it" value="The page may not create enough confidence fast enough." />
+              <MiniPoint label="People may compare away" value="Competitors may feel easier, safer, or clearer." />
+              <MiniPoint label="People may not act" value="The next step may not feel obvious or worth it." />
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="relative z-10 mt-12">
-        <FreeCheckForm />
-      </section>
+      <GuidedFreeCheckForm className="relative z-10 mt-12" />
 
-      <section className="relative z-10 mt-20">
-        <div className="max-w-3xl">
-          <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-            Practical questions
-          </div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            The route gets stronger when customers understand what the free entry point is actually for.
-          </h2>
-        </div>
-
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {FAQS.map((item, index) => (
-            <FaqCard key={item.question} question={item.question} answer={item.answer} highlighted={index === 0} />
-          ))}
-        </div>
-      </section>
-
-      <section className="relative z-10 mt-20">
-        <div className="system-panel-authority rounded-[2rem] p-6 text-center sm:p-8 md:p-10">
-          <div className="system-chip inline-flex items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-            Strongest next move after this
-          </div>
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Most serious customers should move into Search Presence Scan before Visibility Blueprint or heavier implementation.
-          </h2>
-          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300">
-            The free layer exists to improve the next decision, not replace deeper diagnostic work. When the first signal shows the business needs more clarity, Search Presence Scan becomes the strongest next step because it turns the first signal into a serious paid read.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/pricing"
-              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
-            >
-              Compare pricing and scope
-            </Link>
-            <Link
-              href="/pricing/full-diagnosis"
-              className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
-            >
-              View Visibility Blueprint
-            </Link>
-          </div>
-        </div>
+      <section className="relative z-10 mt-12 grid gap-4 md:grid-cols-3">
+        {FAQS.map((item) => (
+          <FaqCard key={item.question} question={item.question} answer={item.answer} />
+        ))}
       </section>
     </main>
   );
@@ -222,58 +154,34 @@ function FreeCheckAtmosphere() {
       <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
       <div className="absolute -right-8 top-28 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
       <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-300/8 blur-3xl sm:h-[26rem] sm:w-[26rem]" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.03]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.025]" />
     </div>
   );
 }
 
-function ReasonCard({
-  title,
-  copy,
-  highlighted = false,
-}: {
-  title: string;
-  copy: string;
-  highlighted?: boolean;
-}) {
+function PromiseCard({ title, copy }: { title: string; copy: string }) {
   return (
-    <article className={highlighted ? "system-panel-authority rounded-[1.7rem] p-6" : "system-surface rounded-[1.7rem] p-6"}>
-      <h3 className="text-2xl font-semibold tracking-tight text-white">{title}</h3>
-      <p className="mt-4 text-sm leading-7 text-slate-300">{copy}</p>
+    <article className="system-surface rounded-[1.35rem] p-4 sm:p-5">
+      <h3 className="text-base font-semibold tracking-tight text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-300">{copy}</p>
     </article>
   );
 }
 
-function InfoCard({
-  label,
-  value,
-  highlighted = false,
-}: {
-  label: string;
-  value: string;
-  highlighted?: boolean;
-}) {
+function MiniPoint({ label, value }: { label: string; value: string }) {
   return (
-    <article className={highlighted ? "system-chip rounded-[1.7rem] p-5" : "system-surface rounded-[1.7rem] p-5"}>
-      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{label}</div>
-      <p className="mt-3 text-sm leading-7 text-slate-200">{value}</p>
-    </article>
+    <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-4">
+      <div className="text-sm font-semibold text-white">{label}</div>
+      <div className="mt-2 text-sm leading-6 text-slate-300">{value}</div>
+    </div>
   );
 }
 
-function FaqCard({
-  question,
-  answer,
-  highlighted = false,
-}: {
-  question: string;
-  answer: string;
-  highlighted?: boolean;
-}) {
+function FaqCard({ question, answer }: { question: string; answer: string }) {
   return (
-    <article className={highlighted ? "system-panel-authority rounded-[1.7rem] p-5" : "system-surface rounded-[1.7rem] p-5"}>
-      <h3 className="text-2xl font-semibold tracking-tight text-white">{question}</h3>
-      <p className="mt-4 text-sm leading-7 text-slate-300">{answer}</p>
+    <article className="system-surface rounded-[1.5rem] p-5">
+      <h3 className="text-xl font-semibold tracking-tight text-white">{question}</h3>
+      <p className="mt-3 text-sm leading-7 text-slate-300">{answer}</p>
     </article>
   );
 }
