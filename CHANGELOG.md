@@ -18,6 +18,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Search discovery checklist for metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, and public trust surface changes.
 - Dependency checklist for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, and tooling changes.
 - Deployment environment checklist for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, and deployment configuration changes.
+- Observability and diagnostics checklist for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, and operational visibility changes.
 
 ### Changed
 
@@ -29,6 +30,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Added a PR template search discovery gate so metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, and public trust surface changes explicitly consider `docs/search-discovery-checklist.md` before merge.
 - Added a PR template dependency gate so package, lockfile, GitHub Actions, runtime pin, dependency automation, and tooling changes explicitly consider `docs/dependency-checklist.md` before merge.
 - Added a PR template deployment environment gate so hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, and deployment configuration changes explicitly consider `docs/deployment-environment-checklist.md` before merge.
+- Added a PR template observability and diagnostics gate so health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, and operational visibility changes explicitly consider `docs/observability-diagnostics-checklist.md` before merge.
 
 ### Fixed
 
@@ -50,6 +52,7 @@ For future release notes, include:
 - privacy/data impact when forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed
 - dependency impact when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling changed
 - deployment-environment impact when hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changed
+- observability impact when health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changed
 - search-discovery impact when metadata, crawler files, canonical routes, redirects, or trust surfaces changed
 - accessibility impact when public UI changed
 - performance impact when public UI, assets, scripts, or component behavior changed
