@@ -6,7 +6,7 @@ import {
   buildWebPageJsonLd,
   toJsonLd,
 } from "@/lib/seo";
-import { GuidedFreeCheckForm } from "@/components/free-check/guided-free-check-form";
+import { GuidedFreeCheckForm } from "@/components/free-check/guided-free-check-form-v2";
 
 export const metadata = buildMetadata({
   title: "Free Search Presence Scan | Cendorq",

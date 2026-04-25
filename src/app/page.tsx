@@ -33,25 +33,25 @@ export const metadata = buildMetadata({
 
 const HERO_POINTS = [
   "Free guided scan",
+  "Built to expose hesitation",
   "Clear next move",
-  "Built to stop guessing",
 ] as const;
 
-const PROBLEMS = [
+const DECISION_BREAKS = [
   {
-    title: "People do not get it fast enough",
+    title: "They do not understand fast enough",
     copy:
-      "If the business takes too much work to understand, people leave before they ever see the value.",
+      "If the business takes work to understand, people leave before they ever see the value.",
   },
   {
-    title: "People do not trust it enough",
+    title: "They do not trust fast enough",
     copy:
       "If the page does not feel clear, strong, and believable, even good customers hesitate.",
   },
   {
-    title: "People choose someone easier",
+    title: "They choose the easier option",
     copy:
-      "If competitors feel safer or simpler, the better business can still lose the decision.",
+      "If a competitor feels safer, clearer, or simpler, the better business can still lose the decision.",
   },
 ] as const;
 
@@ -59,17 +59,17 @@ const SCAN_STEPS = [
   {
     label: "01",
     title: "Show the business",
-    copy: "Name the business, website, location, and category so the scan starts in the real world.",
+    copy: "Name the website, location, category, and offer so the scan starts with the real thing customers see.",
   },
   {
     label: "02",
-    title: "Explain the offer",
-    copy: "Say what you sell and who should want it in plain words people understand fast.",
+    title: "Name the pressure",
+    copy: "Tell us what feels weak: low calls, weak trust, poor bookings, confusion, or people choosing competitors.",
   },
   {
     label: "03",
-    title: "Name the problem",
-    copy: "Tell us what feels weak: confusion, low trust, poor bookings, lost leads, or being compared away.",
+    title: "Get the first read",
+    copy: "The scan helps reveal what may be blocking trust, clarity, and action before you spend more.",
   },
 ] as const;
 
@@ -123,12 +123,12 @@ export default function HomePage() {
         <div>
           <TopChip>{CATEGORY_LINE}</TopChip>
 
-          <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[4.9rem]">
-            Find out why people are not choosing you fast enough.
+          <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[4.85rem]">
+            Find what is making people hesitate before they choose you.
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} gives your business a free guided scan that helps reveal what may be making people confused, unsure, hesitant, or more likely to choose someone else.
+            {BRAND_NAME} gives your business a free guided scan that helps reveal why people may be confused, unsure, comparing you away, or leaving before they act.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -139,7 +139,7 @@ export default function HomePage() {
               Start free scan
             </Link>
             <p className="max-w-sm text-sm leading-6 text-slate-400">
-              No giant form. No sales maze. Just the first step toward a clearer business read.
+              The safest first move before paying for deeper strategy, rebuilds, or ongoing support.
             </p>
           </div>
 
@@ -156,14 +156,14 @@ export default function HomePage() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.14),transparent_35%),radial-gradient(circle_at_90%_10%,rgba(56,189,248,0.1),transparent_30%)]" />
             <div className="system-grid-wide absolute inset-0 opacity-[0.06]" />
             <div className="relative z-10">
-              <TopChip>What the scan looks for</TopChip>
+              <TopChip>What the scan exposes</TopChip>
 
               <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                The problem is usually not “more marketing.” It is the decision people make before they contact you.
+                The problem is not always traffic. Often, it is the split-second decision people make before they contact you.
               </h2>
 
               <div className="mt-6 grid gap-3">
-                {PROBLEMS.map((item) => (
+                {DECISION_BREAKS.map((item) => (
                   <ProblemCard key={item.title} title={item.title} copy={item.copy} />
                 ))}
               </div>
@@ -174,12 +174,12 @@ export default function HomePage() {
 
       <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
         <div>
-          <TopChip>How it guides you</TopChip>
+          <TopChip>Guided, not overwhelming</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            A premium scan broken into simple steps.
+            A high-level scan broken into simple steps.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-8 text-slate-300">
-            People should not have to decode a complicated system before they can ask for help. The scan takes them by the hand and collects the right details in the right order.
+            The scan does not throw a wall of fields at people. It guides the right customer through the right questions so the first read is easier to finish and more useful.
           </p>
         </div>
 
@@ -194,10 +194,10 @@ export default function HomePage() {
         <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
           <TopChip>Why start here</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Before the business spends more, it needs to know what is actually making people hesitate.
+            Before the business spends more, it needs to know what is making people pause.
           </h2>
           <p className="mt-4 text-base leading-8 text-slate-300">
-            The free scan is not positioned as cheap work. It is the safest first move for a serious business that wants the next decision to be clearer, smarter, and harder to waste.
+            The free scan is not a weak offer. It is the smartest first move for a serious business that wants to stop guessing, avoid the wrong fix, and choose the next step with more confidence.
           </p>
           <div className="mt-7">
             <Link
