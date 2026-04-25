@@ -59,6 +59,11 @@ Does this change touch the public buyer path?
 - [ ] `docs/deployment-environment-checklist.md` was used for hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changes.
 - [ ] No deployment environment checklist is needed because this change does not affect hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration.
 
+## Observability and diagnostics check
+
+- [ ] `docs/observability-diagnostics-checklist.md` was used for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changes.
+- [ ] No observability checklist is needed because this change does not affect health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility.
+
 ## Production safety check
 
 - [ ] Canonical routes are still protected.
@@ -69,7 +74,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
