@@ -12,6 +12,7 @@ Cendorq is built around one protected buyer path:
 The homepage should stay focused on getting the right customer into the Free Scan. Do not turn the homepage back into a dashboard, route console, pricing comparison, or multi-offer page.
 
 For release-specific steps, use [`docs/release-checklist.md`](release-checklist.md).
+For production failures, use [`docs/incident-response.md`](incident-response.md).
 
 ## Before merging
 
@@ -36,6 +37,7 @@ These checks protect:
 - production smoke script
 - manual and scheduled smoke workflow
 - release checklist
+- incident response runbook
 
 ## After deployment
 
@@ -59,6 +61,8 @@ You can also run the manual GitHub Actions workflow:
 - Enter deployed URL
 
 The production smoke workflow also runs automatically every day against `https://cendorq.com`.
+
+If smoke checks fail or production weakens, follow the incident response runbook before making broad changes.
 
 ## Critical public routes
 
@@ -156,3 +160,4 @@ Do not weaken:
 - smoke checks
 - Free Scan funnel focus
 - release checklist discipline
+- incident response discipline
