@@ -7,6 +7,7 @@ const requiredFiles = [
   "README.md",
   "SECURITY.md",
   "CONTRIBUTING.md",
+  ".gitattributes",
   ".editorconfig",
   ".env.example",
   ".nvmrc",
@@ -105,6 +106,13 @@ for (const file of requiredFiles) {
   }
 }
 
+const gitAttributes = read(".gitattributes");
+for (const phrase of ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"]) {
+  if (!gitAttributes.includes(phrase)) {
+    failures.push(`.gitattributes is missing required Git normalization detail: ${phrase}`);
+  }
+}
+
 const editorConfig = read(".editorconfig");
 for (const phrase of ["root = true", "charset = utf-8", "end_of_line = lf", "insert_final_newline = true", "trim_trailing_whitespace = true", "indent_size = 2"]) {
   if (!editorConfig.includes(phrase)) {
@@ -119,19 +127,12 @@ for (const phrase of ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=developm
   }
 }
 
-if (read(".nvmrc").trim() !== "24") {
-  failures.push(".nvmrc must pin Node 24.");
-}
-
-if (read(".node-version").trim() !== "24") {
-  failures.push(".node-version must pin Node 24.");
-}
+if (read(".nvmrc").trim() !== "24") failures.push(".nvmrc must pin Node 24.");
+if (read(".node-version").trim() !== "24") failures.push(".node-version must pin Node 24.");
 
 const packageJson = read("package.json");
 for (const phrase of ["\"packageManager\": \"pnpm@9.15.9\"", "\"node\": \">=24.0.0\"", "smoke:production"]) {
-  if (!packageJson.includes(phrase)) {
-    failures.push(`package.json is missing required runtime or script detail: ${phrase}`);
-  }
+  if (!packageJson.includes(phrase)) failures.push(`package.json is missing required runtime or script detail: ${phrase}`);
 }
 
 const contributing = read("CONTRIBUTING.md");
@@ -171,163 +172,112 @@ for (const phrase of ["Production safety", "Production issue or improvement", "E
 
 const prTemplate = read(".github/pull_request_template.md");
 for (const phrase of ["Buyer-path impact", "Conversion check", "Production safety check", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Ongoing Control"]) {
-  if (!prTemplate.includes(phrase)) {
-    failures.push(`Pull request template is missing required quality gate detail: ${phrase}`);
-  }
+  if (!prTemplate.includes(phrase)) failures.push(`Pull request template is missing required quality gate detail: ${phrase}`);
 }
 
 const readme = read("README.md");
-for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example", ".editorconfig"]) {
-  if (!readme.includes(phrase)) {
-    failures.push(`README is missing required production entry guidance: ${phrase}`);
-  }
+for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example", ".editorconfig", ".gitattributes"]) {
+  if (!readme.includes(phrase)) failures.push(`README is missing required production entry guidance: ${phrase}`);
 }
 
 const productionGuide = read("docs/production-guide.md");
 for (const phrase of ["Cendorq Production Guide", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "The homepage has one job"]) {
-  if (!productionGuide.includes(phrase)) {
-    failures.push(`Production guide is missing required guidance: ${phrase}`);
-  }
+  if (!productionGuide.includes(phrase)) failures.push(`Production guide is missing required guidance: ${phrase}`);
 }
 
 const smokeWorkflow = read(".github/workflows/smoke-production.yml");
 for (const phrase of ["workflow_dispatch", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL"]) {
-  if (!smokeWorkflow.includes(phrase)) {
-    failures.push(`Manual smoke workflow is missing required detail: ${phrase}`);
-  }
+  if (!smokeWorkflow.includes(phrase)) failures.push(`Manual smoke workflow is missing required detail: ${phrase}`);
 }
 
 const smokeScript = read("src/scripts/smoke-production.mjs");
 for (const phrase of ["/api/health", "/llms.txt", "/.well-known/security.txt", "/sitemap.xml", "/robots.txt", "CENDORQ_BASE_URL"] ) {
-  if (!smokeScript.includes(phrase)) {
-    failures.push(`Production smoke script is missing required check: ${phrase}`);
-  }
+  if (!smokeScript.includes(phrase)) failures.push(`Production smoke script is missing required check: ${phrase}`);
 }
 
 const securityTxt = read("public/.well-known/security.txt");
 for (const phrase of ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"]) {
-  if (!securityTxt.includes(phrase)) {
-    failures.push(`security.txt is missing required detail: ${phrase}`);
-  }
+  if (!securityTxt.includes(phrase)) failures.push(`security.txt is missing required detail: ${phrase}`);
 }
 
 const healthRoute = read("src/app/api/health/route.ts");
 for (const phrase of ["force-dynamic", "revalidate = 0", "ok: true", "cendorq-platform", "healthy", "environment", "commit", "Cache-Control", "no-store", "X-Robots-Tag"]) {
-  if (!healthRoute.includes(phrase)) {
-    failures.push(`Health endpoint is missing required runtime-safe response detail: ${phrase}`);
-  }
+  if (!healthRoute.includes(phrase)) failures.push(`Health endpoint is missing required runtime-safe response detail: ${phrase}`);
 }
 
 const nextConfig = read("next.config.ts");
 for (const [source, destination] of redirectPairs) {
-  if (!nextConfig.includes(`source: "${source}"`)) {
-    failures.push(`Missing redirect source in next.config.ts: ${source}`);
-  }
-
-  if (!nextConfig.includes(`destination: "${destination}"`)) {
-    failures.push(`Missing redirect destination in next.config.ts: ${destination}`);
-  }
+  if (!nextConfig.includes(`source: "${source}"`)) failures.push(`Missing redirect source in next.config.ts: ${source}`);
+  if (!nextConfig.includes(`destination: "${destination}"`)) failures.push(`Missing redirect destination in next.config.ts: ${destination}`);
 }
 
 for (const header of requiredHeaders) {
-  if (!nextConfig.includes(`key: "${header}"`)) {
-    failures.push(`Missing production hardening header: ${header}`);
-  }
+  if (!nextConfig.includes(`key: "${header}"`)) failures.push(`Missing production hardening header: ${header}`);
 }
 
 for (const discoveryRoute of ["/robots.txt", "/sitemap.xml", "/llms.txt", "/.well-known/security.txt"]) {
-  if (!nextConfig.includes(`source: "${discoveryRoute}"`)) {
-    failures.push(`Crawler/security cache headers must cover ${discoveryRoute}.`);
-  }
+  if (!nextConfig.includes(`source: "${discoveryRoute}"`)) failures.push(`Crawler/security cache headers must cover ${discoveryRoute}.`);
 }
 
-if (!nextConfig.includes("text/plain; charset=utf-8")) {
-  failures.push("Plain text discovery files must be served with an explicit text/plain UTF-8 content type.");
-}
+if (!nextConfig.includes("text/plain; charset=utf-8")) failures.push("Plain text discovery files must be served with an explicit text/plain UTF-8 content type.");
 
 const sitemap = read("src/app/sitemap.ts");
 for (const route of canonicalRoutes) {
-  if (!sitemap.includes(`path: "${route}"`)) {
-    failures.push(`Sitemap does not include canonical route: ${route}`);
-  }
+  if (!sitemap.includes(`path: "${route}"`)) failures.push(`Sitemap does not include canonical route: ${route}`);
 }
 
 for (const legacyRoute of ["/pricing", "/contact"]) {
-  if (sitemap.includes(`path: "${legacyRoute}"`)) {
-    failures.push(`Sitemap should not list redirected legacy route: ${legacyRoute}`);
-  }
+  if (sitemap.includes(`path: "${legacyRoute}"`)) failures.push(`Sitemap should not list redirected legacy route: ${legacyRoute}`);
 }
 
 const robots = read("src/app/robots.ts");
 for (const route of canonicalRoutes) {
-  if (!robots.includes(`"${route}"`)) {
-    failures.push(`Robots allowlist does not include canonical route: ${route}`);
-  }
+  if (!robots.includes(`"${route}"`)) failures.push(`Robots allowlist does not include canonical route: ${route}`);
 }
 
 for (const legacyRoute of ["/pricing", "/contact"]) {
-  if (robots.includes(`"${legacyRoute}"`)) {
-    failures.push(`Robots allowlist should not include redirected legacy route: ${legacyRoute}`);
-  }
+  if (robots.includes(`"${legacyRoute}"`)) failures.push(`Robots allowlist should not include redirected legacy route: ${legacyRoute}`);
 }
 
 const layout = read("src/app/layout.tsx");
 for (const route of ["/plans/deep-review", "/plans/build-fix", "/plans/ongoing-control"]) {
-  if (!layout.includes(`path: "${route}"`)) {
-    failures.push(`Structured data catalog does not include: ${route}`);
-  }
+  if (!layout.includes(`path: "${route}"`)) failures.push(`Structured data catalog does not include: ${route}`);
 }
 
 const manifest = read("public/manifest.webmanifest");
 for (const route of ["/free-check?source=app-install", "/free-check?source=app-shortcut", "/plans?source=app-shortcut", "/connect?source=app-shortcut"]) {
-  if (!manifest.includes(`"${route}"`)) {
-    failures.push(`Manifest does not include buyer-path route: ${route}`);
-  }
+  if (!manifest.includes(`"${route}"`)) failures.push(`Manifest does not include buyer-path route: ${route}`);
 }
 
-if (!manifest.includes("Start Free Scan") || !manifest.includes("Compare Plans") || !manifest.includes("Connect")) {
-  failures.push("Manifest shortcuts must include Start Free Scan, Compare Plans, and Connect.");
-}
+if (!manifest.includes("Start Free Scan") || !manifest.includes("Compare Plans") || !manifest.includes("Connect")) failures.push("Manifest shortcuts must include Start Free Scan, Compare Plans, and Connect.");
 
 const llms = read("public/llms.txt");
 for (const route of canonicalRoutes) {
-  if (!llms.includes(route)) {
-    failures.push(`llms.txt does not include canonical route: ${route}`);
-  }
+  if (!llms.includes(route)) failures.push(`llms.txt does not include canonical route: ${route}`);
 }
 
 for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "make the business easier to understand", "make the business easier to trust", "make the business easier to choose"]) {
-  if (!llms.includes(phrase)) {
-    failures.push(`llms.txt does not include required positioning phrase: ${phrase}`);
-  }
+  if (!llms.includes(phrase)) failures.push(`llms.txt does not include required positioning phrase: ${phrase}`);
 }
 
 const publicText = publicFiles.map((file) => `\n/* ${file} */\n${read(file)}`).join("\n");
 for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner"]) {
-  if (publicText.includes(route)) {
-    failures.push(`Active public navigation/metadata should not reference legacy pricing route: ${route}`);
-  }
+  if (publicText.includes(route)) failures.push(`Active public navigation/metadata should not reference legacy pricing route: ${route}`);
 }
 
 for (const phrase of forbiddenActivePublicPhrases) {
-  if (publicText.includes(phrase) && !llms.includes(`- ${phrase}`)) {
-    failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
-  }
+  if (publicText.includes(phrase) && !llms.includes(`- ${phrase}`)) failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
 }
 
-if (!publicText.includes("Free Scan") || !publicText.includes("Deep Review") || !publicText.includes("Build Fix") || !publicText.includes("Ongoing Control")) {
-  failures.push("Public buyer path labels are incomplete. Expected Free Scan, Deep Review, Build Fix, and Ongoing Control.");
-}
+if (!publicText.includes("Free Scan") || !publicText.includes("Deep Review") || !publicText.includes("Build Fix") || !publicText.includes("Ongoing Control")) failures.push("Public buyer path labels are incomplete. Expected Free Scan, Deep Review, Build Fix, and Ongoing Control.");
 
 if (failures.length) {
   console.error("Route validation failed:");
-  for (const failure of failures) {
-    console.error(`- ${failure}`);
-  }
+  for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Route validation passed. Editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
