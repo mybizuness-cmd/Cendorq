@@ -24,6 +24,7 @@ const requiredFiles = [
   ".github/workflows/smoke-production.yml",
   "docs/production-guide.md",
   "docs/release-checklist.md",
+  "docs/ai-agent-handoff.md",
   "docs/final-hardening-sweep.md",
   "docs/backend-handoff-checklist.md",
   "docs/manual-qa-acceptance-checklist.md",
@@ -74,8 +75,9 @@ const publicFiles = ["README.md", "src/app/sitemap.ts", "src/app/robots.ts", "sr
 const forbiddenActivePublicPhrases = ["Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Start Search Presence Scan", "View Visibility Blueprint", "View Presence Infrastructure", "View Presence Command"];
 
 const checklistExpectations = [
+  ["docs/ai-agent-handoff.md", ["Cendorq AI Agent Handoff Guide", "Current project context", "Current readiness state", "Validation baseline", "Important protected files", "Working rules for the next agent", "Backend ZIP handoff expectations", "Recommended next-session prompt", "What to do before saying the handoff is complete", "Free Scan", "pnpm validate:routes"]],
   ["docs/final-hardening-sweep.md", ["Cendorq Final Hardening Sweep", "Three independent deep analyses", "Five independent hardening passes", "Buyer-path and conversion review", "Production safety and operations review", "Maintenance and future-backend review", "Required evidence before merge", "pnpm validate:routes", "pnpm smoke:production"]],
-  ["docs/backend-handoff-checklist.md", ["Cendorq Backend Handoff Checklist", "Backend handoff principle", "Required pre-handoff checks", "ZIP intake checks", "Security and privacy checks", "Data handling checks", "Operational checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
+  ["docs/backend-handoff-checklist.md", ["Cendorq Backend Handoff Checklist", "Backend handoff principle", "Required pre-handoff checks", "ZIP intake checks", "Security and privacy checks", "Data handling checks", "AI-agent handoff checks", "Operational checks", "docs/ai-agent-handoff.md", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
   ["docs/manual-qa-acceptance-checklist.md", ["Cendorq Manual QA and Acceptance Checklist", "Manual QA principle", "Required checks", "Browser and viewport checks", "Buyer-path walkthrough", "Regression checks", "Acceptance criteria checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
   ["docs/content-freshness-checklist.md", ["Cendorq Content Freshness Checklist", "Content freshness principle", "Required checks", "Stale-label checks", "Screenshot and example checks", "Plan and offer freshness checks", "Release-history checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
   ["docs/configuration-safety-checklist.md", ["Cendorq Configuration Safety Checklist", "Configuration principle", "Required checks", "Environment variable checks", "Public/private config checks", "Drift checks", "Failure-state checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
@@ -103,8 +105,8 @@ const checklistExpectations = [
 for (const file of requiredFiles) if (!existsSync(join(root, file))) failures.push(`Missing required route/system file: ${file}`);
 for (const [path, phrases] of checklistExpectations) expect(path, phrases, `${path} is missing required detail`);
 
-expect("CHANGELOG.md", ["# Changelog", "## Unreleased", "Final hardening sweep guide", "Backend handoff checklist", "PR template final hardening gate", "PR template backend handoff gate", "final-hardening impact", "backend-handoff impact", "Manual QA and acceptance checklist", "Content freshness checklist", "Configuration safety checklist", "Integration readiness checklist", "Analytics and tracking checklist", "Policy and legal surface checklist", "Trust and credibility checklist", "Route and link integrity checklist", "Offer integrity checklist", "Lead intake checklist", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "CHANGELOG.md is missing required release-history detail");
-expect(".github/pull_request_template.md", ["Buyer-path impact", "Checklist gates", "docs/final-hardening-sweep.md", "docs/backend-handoff-checklist.md", "docs/manual-qa-acceptance-checklist.md", "docs/content-freshness-checklist.md", "docs/configuration-safety-checklist.md", "Production safety check", "Release history check", "CHANGELOG.md", "final hardening", "backend handoff", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Pull request template is missing required final hardening gate detail");
+expect("CHANGELOG.md", ["# Changelog", "## Unreleased", "AI-agent handoff guide", "PR template AI-agent handoff gate", "AI-agent-handoff impact", "Final hardening sweep guide", "Backend handoff checklist", "PR template final hardening gate", "PR template backend handoff gate", "final-hardening impact", "backend-handoff impact", "Manual QA and acceptance checklist", "Content freshness checklist", "Configuration safety checklist", "Integration readiness checklist", "Analytics and tracking checklist", "Policy and legal surface checklist", "Trust and credibility checklist", "Route and link integrity checklist", "Offer integrity checklist", "Lead intake checklist", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "CHANGELOG.md is missing required release-history detail");
+expect(".github/pull_request_template.md", ["Buyer-path impact", "Checklist gates", "docs/ai-agent-handoff.md", "docs/final-hardening-sweep.md", "docs/backend-handoff-checklist.md", "docs/manual-qa-acceptance-checklist.md", "docs/content-freshness-checklist.md", "docs/configuration-safety-checklist.md", "Production safety check", "Release history check", "CHANGELOG.md", "AI-agent handoff", "final hardening", "backend handoff", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Pull request template is missing required AI-agent handoff gate detail");
 expect("CONTRIBUTING.md", ["Contributing to Cendorq", "CHANGELOG.md", "Get the right customer to start the Free Scan", "pnpm validate:routes", "pnpm smoke:production"], "CONTRIBUTING.md is missing required operating detail");
 expect("README.md", ["Cendorq", "CHANGELOG.md", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9"], "README is missing required production entry guidance");
 expect(".gitattributes", ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"], ".gitattributes is missing required Git normalization detail");
@@ -159,7 +161,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Final hardening sweep, backend handoff checklist, compact PR checklist gates, changelog release-history detail, buyer path, governance checklists, canonical routes, production files, runtime pins, smoke checks, and production hardening are protected.");
+console.log("Route validation passed. AI-agent handoff, final hardening sweep, backend handoff checklist, compact PR checklist gates, changelog release-history detail, buyer path, governance checklists, canonical routes, production files, runtime pins, smoke checks, and production hardening are protected.");
 
 function expect(path, phrases, label) {
   const text = read(path);
