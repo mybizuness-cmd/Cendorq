@@ -17,6 +17,11 @@ Does this change touch the public buyer path?
 - [ ] Connect
 - [ ] No public buyer-path impact
 
+## Analytics and tracking check
+
+- [ ] `docs/analytics-tracking-checklist.md` was used for analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, or buyer-path reporting.
+- [ ] No analytics/tracking checklist is needed because this change does not affect analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, or buyer-path reporting.
+
 ## Policy and legal surface check
 
 - [ ] `docs/policy-legal-surface-checklist.md` was used for public policy pages, terms language, privacy language, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, or legal-adjacent public content.
@@ -109,7 +114,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
