@@ -6,6 +6,9 @@ const root = process.cwd();
 const requiredFiles = [
   "README.md",
   ".github/pull_request_template.md",
+  ".github/ISSUE_TEMPLATE/config.yml",
+  ".github/ISSUE_TEMPLATE/conversion-improvement.yml",
+  ".github/ISSUE_TEMPLATE/production-safety.yml",
   "src/app/page.tsx",
   "src/app/free-check/page.tsx",
   "src/app/plans/page.tsx",
@@ -92,6 +95,21 @@ for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
   }
+}
+
+const issueConfig = read(".github/ISSUE_TEMPLATE/config.yml");
+for (const phrase of ["blank_issues_enabled: false", "Production guide", "Start from Connect"]) {
+  if (!issueConfig.includes(phrase)) failures.push(`Issue template config is missing required detail: ${phrase}`);
+}
+
+const conversionIssue = read(".github/ISSUE_TEMPLATE/conversion-improvement.yml");
+for (const phrase of ["Conversion improvement", "Buyer-path impact", "Current drag or confusion", "Proposed change", "Free Scan"]) {
+  if (!conversionIssue.includes(phrase)) failures.push(`Conversion issue template is missing required detail: ${phrase}`);
+}
+
+const productionIssue = read(".github/ISSUE_TEMPLATE/production-safety.yml");
+for (const phrase of ["Production safety", "Production issue or improvement", "Expected validation", "pnpm validate:routes", "Health endpoint"]) {
+  if (!productionIssue.includes(phrase)) failures.push(`Production issue template is missing required detail: ${phrase}`);
 }
 
 const prTemplate = read(".github/pull_request_template.md");
@@ -257,7 +275,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
