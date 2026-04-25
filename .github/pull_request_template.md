@@ -17,6 +17,11 @@ Does this change touch the public buyer path?
 - [ ] Connect
 - [ ] No public buyer-path impact
 
+## Integration readiness check
+
+- [ ] `docs/integration-readiness-checklist.md` was used for third-party services, API handoffs, payment providers, AI services, email/CRM handoffs, webhooks, external scripts, service keys, integration failures, or production-support expectations.
+- [ ] No integration readiness checklist is needed because this change does not affect third-party services, API handoffs, payments, AI services, email/CRM handoffs, webhooks, external scripts, service keys, integration failures, or production-support expectations.
+
 ## Analytics and tracking check
 
 - [ ] `docs/analytics-tracking-checklist.md` was used for analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, or buyer-path reporting.
@@ -114,7 +119,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
