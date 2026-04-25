@@ -90,7 +90,7 @@ The production smoke workflow can also be run manually from GitHub Actions and r
 
 ## Production guide
 
-Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, releases, or incidents:
+Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, or incidents:
 
 - [`docs/production-guide.md`](docs/production-guide.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
@@ -101,6 +101,7 @@ Read the production operating guide before changing routes, public labels, crawl
 - [`docs/search-discovery-checklist.md`](docs/search-discovery-checklist.md)
 - [`docs/dependency-checklist.md`](docs/dependency-checklist.md)
 - [`docs/deployment-environment-checklist.md`](docs/deployment-environment-checklist.md)
+- [`docs/observability-diagnostics-checklist.md`](docs/observability-diagnostics-checklist.md)
 - [`docs/incident-response.md`](docs/incident-response.md)
 - [`CHANGELOG.md`](CHANGELOG.md)
 
@@ -115,6 +116,7 @@ The guides cover:
 - search discovery checks
 - dependency and supply-chain checks
 - deployment environment checks
+- observability and diagnostics checks
 - post-deploy smoke checks
 - release checklist
 - rollback checklist
