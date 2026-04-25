@@ -11,6 +11,8 @@ Use this section for changes that have merged but are not yet included in a name
 ### Added
 
 - Release history baseline.
+- Final hardening sweep guide for three independent deep analyses and five independent hardening passes before major readiness, launch-adjacent, backend-prep, or production milestone changes.
+- Backend handoff checklist for backend ZIP files, API routes, databases, services, background jobs, authentication, payments, AI services, email, CRM, storage, webhooks, and server-side integrations.
 - Manual QA and acceptance checklist for final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, and post-change signoff.
 - Content freshness checklist for public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, and outdated buyer-path assumptions.
 - Configuration safety checklist for environment variables, public and private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, and production safety changes.
@@ -34,7 +36,9 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Changed
 
-- Added a PR template release-history gate so meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes explicitly consider `CHANGELOG.md` before merge.
+- Added a compact PR template checklist-gate section so the full readiness system is easier to scan and maintain.
+- Added a PR template final hardening gate so major readiness, launch-adjacent, broad hardening, backend-prep, and production milestone changes explicitly consider `docs/final-hardening-sweep.md` before merge.
+- Added a PR template backend handoff gate so backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, and server-side integrations explicitly consider `docs/backend-handoff-checklist.md` before merge.
 - Added a PR template manual QA and acceptance gate so final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, and post-change signoff explicitly consider `docs/manual-qa-acceptance-checklist.md` before merge.
 - Added a PR template content freshness gate so public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, and outdated buyer-path assumptions explicitly consider `docs/content-freshness-checklist.md` before merge.
 - Added a PR template configuration safety gate so environment variables, public and private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, and production safety changes explicitly consider `docs/configuration-safety-checklist.md` before merge.
@@ -72,6 +76,8 @@ For future release notes, include:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- final-hardening impact when major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone work changed
+- backend-handoff impact when backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations changed
 - manual-QA impact when final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, or post-change signoff changed
 - content-freshness impact when public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, or buyer-path assumptions changed
 - configuration-safety impact when environment variables, public/private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, or production safety changed
