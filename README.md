@@ -82,13 +82,7 @@ These routes must stay healthy:
 - `/plans/ongoing-control`
 - `/connect`
 
-Legacy routes redirect into the current buyer path:
-
-- `/pricing` -> `/plans`
-- `/pricing/full-diagnosis` -> `/plans/deep-review`
-- `/pricing/optimization` -> `/plans/build-fix`
-- `/pricing/monthly-partner` -> `/plans/ongoing-control`
-- `/contact` -> `/connect`
+Legacy public URLs redirect into the current buyer path. Keep the canonical pages above as the source of truth.
 
 ## Production assets
 
