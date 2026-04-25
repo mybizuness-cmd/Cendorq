@@ -11,6 +11,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Added
 
 - Release history baseline.
+- Configuration safety checklist for environment variables, public and private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, and production safety changes.
 - Integration readiness checklist for third-party services, API handoffs, payment providers, AI services, email or CRM handoffs, webhooks, external scripts, service keys, integration failures, and production-support expectations.
 - Analytics and tracking checklist for analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, and buyer-path reporting.
 - Policy and legal surface checklist for public policy pages, terms language, privacy language, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, and legal-adjacent public content.
@@ -32,6 +33,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Changed
 
 - Added a PR template release-history gate so meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes explicitly consider `CHANGELOG.md` before merge.
+- Added a PR template configuration safety gate so environment variables, public and private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, and production safety changes explicitly consider `docs/configuration-safety-checklist.md` before merge.
 - Added a PR template integration readiness gate so third-party services, API handoffs, payment providers, AI services, email or CRM handoffs, webhooks, external scripts, service keys, integration failures, and production-support expectations explicitly consider `docs/integration-readiness-checklist.md` before merge.
 - Added a PR template analytics and tracking gate so analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, and buyer-path reporting explicitly consider `docs/analytics-tracking-checklist.md` before merge.
 - Added a PR template policy and legal surface gate so public policy pages, terms language, privacy language, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, and legal-adjacent public content explicitly consider `docs/policy-legal-surface-checklist.md` before merge.
@@ -66,6 +68,7 @@ For future release notes, include:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- configuration-safety impact when environment variables, public/private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, or production safety changed
 - integration-readiness impact when third-party services, API handoffs, payment providers, AI services, email or CRM handoffs, webhooks, external scripts, service keys, integration failures, or production-support expectations changed
 - analytics/tracking impact when analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, or buyer-path reporting changed
 - policy/legal impact when policy pages, terms, privacy, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, or legal-adjacent public content changed
