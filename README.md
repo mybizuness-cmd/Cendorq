@@ -22,6 +22,18 @@ The homepage has one job: get the right customer to start the **Free Scan**.
 - ESLint
 - PostCSS
 - Node 24 CI
+- pnpm 9.15.9
+
+## Runtime
+
+Use Node 24 and pnpm 9.15.9.
+
+Runtime pins are kept in:
+
+- `.nvmrc`
+- `.node-version`
+- `package.json` `packageManager`
+- `package.json` `engines.node`
 
 ## Core commands
 
