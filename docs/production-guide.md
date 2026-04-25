@@ -11,6 +11,8 @@ Cendorq is built around one protected buyer path:
 
 The homepage should stay focused on getting the right customer into the Free Scan. Do not turn the homepage back into a dashboard, route console, pricing comparison, or multi-offer page.
 
+For release-specific steps, use [`docs/release-checklist.md`](release-checklist.md).
+
 ## Before merging
 
 Run the same checks GitHub CI runs:
@@ -32,7 +34,8 @@ These checks protect:
 - security.txt
 - health endpoint
 - production smoke script
-- manual smoke workflow
+- manual and scheduled smoke workflow
+- release checklist
 
 ## After deployment
 
@@ -54,6 +57,8 @@ You can also run the manual GitHub Actions workflow:
 - Production Smoke Check
 - Run workflow
 - Enter deployed URL
+
+The production smoke workflow also runs automatically every day against `https://cendorq.com`.
 
 ## Critical public routes
 
@@ -150,3 +155,4 @@ Do not weaken:
 - API no-store/noindex behavior
 - smoke checks
 - Free Scan funnel focus
+- release checklist discipline
