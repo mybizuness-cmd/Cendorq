@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   quality:
-    name: Lint, typecheck, and build
+    name: Route guard, lint, typecheck, and build
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -41,6 +41,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Validate canonical routes
+        run: pnpm validate:routes
 
       - name: Run lint
         run: pnpm lint

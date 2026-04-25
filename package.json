@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
+    "validate:routes": "node ./src/scripts/validate-routes.mjs",
     "normalize:whitespace": "node ./src/scripts/normalize-whitespace.mjs"
   },
   "dependencies": {
