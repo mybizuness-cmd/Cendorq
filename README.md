@@ -95,6 +95,7 @@ Read the production operating guide before changing routes, public labels, crawl
 - [`docs/production-guide.md`](docs/production-guide.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
 - [`docs/incident-response.md`](docs/incident-response.md)
+- [`CHANGELOG.md`](CHANGELOG.md)
 
 The guides cover:
 
@@ -104,6 +105,7 @@ The guides cover:
 - release checklist
 - rollback checklist
 - incident response
+- release history
 - critical route list
 - discovery and trust files
 - health endpoint expectations
