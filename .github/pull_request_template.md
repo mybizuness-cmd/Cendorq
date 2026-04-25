@@ -17,6 +17,11 @@ Does this change touch the public buyer path?
 - [ ] Connect
 - [ ] No public buyer-path impact
 
+## Route and link integrity check
+
+- [ ] `docs/route-link-integrity-checklist.md` was used for navigation, internal links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connection changes.
+- [ ] No route/link checklist is needed because this change does not affect navigation, internal links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connections.
+
 ## Offer integrity check
 
 - [ ] `docs/offer-integrity-checklist.md` was used for Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, or offer-positioning changes.
@@ -94,7 +99,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
