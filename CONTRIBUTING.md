@@ -61,6 +61,12 @@ Use the pull request template and answer the quality gates:
 
 CODEOWNERS routes production-sensitive changes to the repository owner. Keep that review routing intact.
 
+## Release history
+
+Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, or production validation.
+
+Keep changelog notes short, buyer-focused, and production-aware.
+
 ## Public route rules
 
 Do not remove or weaken the critical routes:
@@ -80,8 +86,11 @@ Legacy public URLs should redirect into the current buyer path. The canonical ro
 Do not remove or weaken:
 
 - `README.md`
+- `CHANGELOG.md`
 - `SECURITY.md`
 - `docs/production-guide.md`
+- `docs/release-checklist.md`
+- `docs/incident-response.md`
 - `.github/CODEOWNERS`
 - `.github/dependabot.yml`
 - `.github/pull_request_template.md`
@@ -121,4 +130,4 @@ Follow `SECURITY.md` for security-sensitive work. Dependency and GitHub Actions 
 
 ## Merge standard
 
-A change is ready when it protects the buyer path, passes CI, keeps public language aligned, and does not weaken production checks.
+A change is ready when it protects the buyer path, passes CI, keeps public language aligned, updates release history when meaningful, and does not weaken production checks.
