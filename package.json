@@ -13,6 +13,7 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
     "validate:routes": "node ./src/scripts/validate-routes.mjs",
+    "smoke:production": "node ./src/scripts/smoke-production.mjs",
     "normalize:whitespace": "node ./src/scripts/normalize-whitespace.mjs"
   },
   "dependencies": {
