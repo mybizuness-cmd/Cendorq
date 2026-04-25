@@ -54,7 +54,25 @@ const publicFiles = [
   "src/app/layout.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
+  "src/app/page.tsx",
+  "src/app/free-check/page.tsx",
+  "src/app/plans/page.tsx",
+  "src/app/plans/deep-review/page.tsx",
+  "src/app/plans/build-fix/page.tsx",
+  "src/app/plans/ongoing-control/page.tsx",
+  "src/app/connect/page.tsx",
+  "src/app/not-found.tsx",
   "public/manifest.webmanifest",
+];
+
+const forbiddenActivePublicPhrases = [
+  "Visibility Blueprint",
+  "Presence Infrastructure",
+  "Presence Command",
+  "Start Search Presence Scan",
+  "View Visibility Blueprint",
+  "View Presence Infrastructure",
+  "View Presence Command",
 ];
 
 const failures = [];
@@ -133,7 +151,13 @@ if (!manifest.includes("Start Free Scan") || !manifest.includes("Compare Plans")
 const publicText = publicFiles.map((file) => `\n/* ${file} */\n${read(file)}`).join("\n");
 for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner"]) {
   if (publicText.includes(route)) {
-    failures.push(`Public navigation/metadata should not reference legacy pricing route: ${route}`);
+    failures.push(`Active public navigation/metadata should not reference legacy pricing route: ${route}`);
+  }
+}
+
+for (const phrase of forbiddenActivePublicPhrases) {
+  if (publicText.includes(phrase)) {
+    failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
   }
 }
 
@@ -149,7 +173,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path, manifest, and production hardening are protected.");
+console.log("Route validation passed. Canonical buyer path, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
