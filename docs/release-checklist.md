@@ -6,6 +6,8 @@ The goal is simple: ship without weakening the buyer path, public language, trus
 
 For production failures, smoke-check failures, or buyer-path regressions, use [`docs/incident-response.md`](incident-response.md).
 
+For public UI, layout, copy, component, or navigation changes, use [`docs/accessibility-checklist.md`](accessibility-checklist.md).
+
 Record meaningful production changes in [`CHANGELOG.md`](../CHANGELOG.md).
 
 ## Release principle
@@ -34,6 +36,7 @@ Before merging a production change:
 - Confirm legacy public URLs still redirect into the current buyer path.
 - Confirm crawler and trust files still make sense.
 - Confirm the health endpoint remains lightweight, dynamic, no-store, and noindex.
+- Confirm accessibility was checked for public UI and buyer-path changes.
 - Confirm `CHANGELOG.md` is updated for meaningful production changes.
 
 Run locally when practical:
@@ -54,6 +57,7 @@ Before merging the PR:
 - Confirm CODEOWNERS review routing is intact.
 - Confirm no secrets, private customer data, private keys, or tokens were committed.
 - Confirm public copy remains plain, direct, and buyer-friendly.
+- Confirm accessibility expectations were considered when public UI changed.
 - Confirm release history is updated when the change is meaningful.
 
 ## Post-deploy checklist
@@ -114,6 +118,7 @@ For meaningful releases, note in `CHANGELOG.md`:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- accessibility impact when public UI changed
 - validation completed
 - post-deploy smoke result
 

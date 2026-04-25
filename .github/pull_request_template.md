@@ -24,6 +24,11 @@ Does this change touch the public buyer path?
 - [ ] CTAs still favor the Free Scan when the user is not ready for deeper work.
 - [ ] Public language stays plain, strong, and easy to understand.
 
+## Accessibility check
+
+- [ ] `docs/accessibility-checklist.md` was used for public UI, layout, copy, component, or navigation changes.
+- [ ] No accessibility checklist is needed because this change does not affect public UI or buyer-path usability.
+
 ## Production safety check
 
 - [ ] Canonical routes are still protected.
@@ -34,7 +39,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, accessibility, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation

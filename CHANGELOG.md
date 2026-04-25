@@ -11,10 +11,12 @@ Use this section for changes that have merged but are not yet included in a name
 ### Added
 
 - Release history baseline.
+- Accessibility checklist for buyer-path, public page, layout, copy, component, and navigation changes.
 
 ### Changed
 
 - Added a PR template release-history gate so meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes explicitly consider `CHANGELOG.md` before merge.
+- Added a PR template accessibility gate so public UI and buyer-path usability changes explicitly consider `docs/accessibility-checklist.md` before merge.
 
 ### Fixed
 
@@ -32,6 +34,7 @@ For future release notes, include:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- accessibility impact when public UI changed
 - validation completed
 - post-deploy smoke result when applicable
 
