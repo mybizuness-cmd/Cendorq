@@ -15,12 +15,11 @@ const CATEGORY_LINE = "Search Presence OS";
 export const metadata = buildMetadata({
   title: "Get found, understood, and trusted before customers move on",
   description:
-    "Cendorq helps businesses strengthen visibility, trust, positioning, and response through a clear system: Free Search Presence Snapshot, Search Presence Scan, Visibility Blueprint, Presence Infrastructure, and Presence Command.",
+    "Cendorq helps businesses see what is making them harder to find, harder to trust, or harder to choose, then move into the right next step through a clear Search Presence OS.",
   path: "/",
   keywords: [
     "cendorq homepage",
     "search presence os",
-    "answer presence",
     "search presence snapshot",
     "search presence scan",
     "visibility blueprint",
@@ -35,9 +34,9 @@ export const metadata = buildMetadata({
 });
 
 const HERO_POINTS = [
-  "Start with a free first signal.",
-  "Move deeper only when it makes sense.",
-  "Fix the real problem before spending bigger money.",
+  "Start with a free first read.",
+  "See the real problem before spending more.",
+  "Move into the right next step only when it makes sense.",
 ] as const;
 
 const STARTING_PATH = [
@@ -46,7 +45,7 @@ const STARTING_PATH = [
     title: "Search Presence Snapshot",
     price: "Free",
     copy:
-      "A fast first look that helps you see whether the main weakness is trust, clarity, positioning, action friction, or broader visibility.",
+      "A quick first look that helps show whether the main weakness is trust, clarity, positioning, action friction, or broader visibility.",
     href: "/free-check",
     cta: "Start free snapshot",
     highlighted: true,
@@ -56,7 +55,7 @@ const STARTING_PATH = [
     title: "Search Presence Scan",
     price: "$195",
     copy:
-      "The first serious paid read for businesses that need a clearer explanation before they spend more.",
+      "The first paid read for businesses that need a clearer explanation before they spend more money.",
     href: "/pricing",
     cta: "See scan and pricing",
   },
@@ -83,7 +82,7 @@ const STARTING_PATH = [
     title: "Presence Command",
     price: "From $2,500/mo",
     copy:
-      "The recurring operating layer for businesses that need continuity, adaptation, and ongoing control.",
+      "The ongoing operating layer for businesses that need continuity, adaptation, and recurring support.",
     href: "/pricing/monthly-partner",
     cta: "View command",
   },
@@ -91,14 +90,14 @@ const STARTING_PATH = [
 
 const CORE_PROBLEMS = [
   {
-    title: "The business is stronger than the website makes it look.",
+    title: "The business is better than the current online read.",
     copy:
       "Customers hesitate when the business feels hard to understand, hard to compare, or hard to trust fast enough.",
   },
   {
-    title: "Search systems cannot rank what the business has not made clear.",
+    title: "More activity does not fix a weak message.",
     copy:
-      "If the business is vague, weakly positioned, or poorly structured, more activity usually does not fix the real issue.",
+      "If the business is vague, weakly positioned, or poorly structured, more content, more ads, or more posting usually does not fix the real issue.",
   },
   {
     title: "The wrong next move wastes time and money.",
@@ -109,16 +108,19 @@ const CORE_PROBLEMS = [
 
 const WHY_CENDORQ = [
   {
-    title: "Clear first step",
-    copy: "Most customers should start with Free Search Presence Snapshot, not with the biggest-looking offer.",
+    title: "Start in the right place",
+    copy:
+      "Most businesses should begin with Free Search Presence Snapshot, not with the biggest-looking offer.",
   },
   {
-    title: "Clear route",
-    copy: "Every layer has one job, one reason, and one next move. That makes the system easier to trust and easier to buy correctly.",
+    title: "Buy the right depth",
+    copy:
+      "Each layer has one job, one reason, and one next move. That makes the system easier to trust and easier to buy correctly.",
   },
   {
-    title: "Clear boundaries",
-    copy: "No fake guarantees. No vague bundle language. No forcing customers into the wrong depth too early.",
+    title: "Stay clear, not vague",
+    copy:
+      "No fake guarantees. No bundle blur. No pushing customers into the wrong depth too early.",
   },
 ] as const;
 
@@ -168,17 +170,17 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
+      <section className="relative z-10 grid gap-8 lg:grid-cols-[1.04fr_0.96fr] lg:items-start">
         <div>
-          <TopChip>Search Presence OS</TopChip>
+          <TopChip>{CATEGORY_LINE}</TopChip>
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl xl:text-[4.6rem]">
-            Get found, understood,
-            <span className="system-gradient-text block">and trusted before customers move on.</span>
+            Make the business easier to
+            <span className="system-gradient-text block">find, trust, and choose.</span>
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Cendorq helps businesses strengthen visibility, trust, positioning, and response through a clear step-by-step system. Customers understand the route inside out when the first move is obvious and the next move is earned.
+            {BRAND_NAME} helps businesses see what is making them harder to understand or harder to trust online, then move into the right next step without guessing.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -211,21 +213,21 @@ export default function HomePage() {
             <div className="relative z-10">
               <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-200">
                 <span className="system-pulse-dot inline-flex h-2 w-2 rounded-full bg-cyan-300" />
-                Start here
+                Best place to start
               </div>
 
               <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
                 Most businesses should not start with the deepest layer.
               </h2>
               <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
-                Start with the clearest first signal. Then move into deeper strategy, stronger build work, or ongoing command only when the business actually needs it.
+                Start with the free first signal. Then move into deeper strategy, build work, or ongoing support only when the business truly needs it.
               </p>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <GuideTile label="Best first step" value="Free Search Presence Snapshot" />
                 <GuideTile label="Best paid first step" value="Search Presence Scan" />
-                <GuideTile label="Why this converts better" value="Customers choose faster when the route is simple." />
-                <GuideTile label="Main mistake avoided" value="Buying the wrong depth too early." />
+                <GuideTile label="Why this works" value="You stop guessing and start with the real problem." />
+                <GuideTile label="Main mistake avoided" value="Paying for the wrong depth too early." />
               </div>
             </div>
           </div>
@@ -234,14 +236,15 @@ export default function HomePage() {
 
       <section className="relative z-10 mt-16">
         <div className="max-w-3xl">
-          <TopChip>Pick the right depth</TopChip>
+          <TopChip>Choose the right next step</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            One system. Five steps. The right job at the right time.
+            One system. Five steps. One clear job at each layer.
           </h2>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
-            Each layer does one job. That makes the path easier to understand, easier to trust, and easier to buy correctly.
+            Each layer exists for a different job. That makes the path easier to understand, easier to trust, and easier to buy correctly.
           </p>
         </div>
+
         <div className="mt-8 grid gap-5 xl:grid-cols-2">
           {STARTING_PATH.map((item, index) => (
             <LayerCardView
@@ -260,10 +263,11 @@ export default function HomePage() {
 
       <section className="relative z-10 mt-16 grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
         <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8 md:p-10">
-          <TopChip>Why businesses get stuck</TopChip>
+          <TopChip>What usually goes wrong</TopChip>
           <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            The business usually does not need more noise first. It needs a clearer read first.
+            Most businesses do not need more noise first. They need a clearer read first.
           </h2>
+
           <div className="mt-8 grid gap-4">
             {CORE_PROBLEMS.map((item, index) => (
               <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
@@ -285,6 +289,7 @@ export default function HomePage() {
             Clear answers make the next move easier.
           </h2>
         </div>
+
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {FAQS.map((item, index) => (
             <FaqCard key={item.question} question={item.question} answer={item.answer} highlighted={index === 0} />
@@ -302,11 +307,17 @@ export default function HomePage() {
             Most customers should begin with Free Search Presence Snapshot. If the business needs a stronger first paid read, the next step is Search Presence Scan.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
+            <Link
+              href="/free-check"
+              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
+            >
               Start free snapshot
             </Link>
-            <Link href="/diagnosis" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
-              See how it works
+            <Link
+              href="/pricing"
+              className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
+            >
+              Compare the system
             </Link>
           </div>
         </div>
@@ -328,7 +339,11 @@ function HomeAtmosphere() {
 }
 
 function TopChip({ children }: { children: ReactNode }) {
-  return <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em]">{children}</div>;
+  return (
+    <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em]">
+      {children}
+    </div>
+  );
 }
 
 function GuideTile({ label, value }: { label: string; value: string }) {
@@ -357,7 +372,23 @@ function ReasonCard({ title, copy, highlighted = false }: { title: string; copy:
   );
 }
 
-function LayerCardView({ label, title, price, copy, href, cta, highlighted = false }: { label: string; title: string; price: string; copy: string; href: string; cta: string; highlighted?: boolean }) {
+function LayerCardView({
+  label,
+  title,
+  price,
+  copy,
+  href,
+  cta,
+  highlighted = false,
+}: {
+  label: string;
+  title: string;
+  price: string;
+  copy: string;
+  href: string;
+  cta: string;
+  highlighted?: boolean;
+}) {
   return (
     <article className={highlighted ? "system-panel-authority rounded-[1.85rem] p-6 sm:p-7" : "system-surface rounded-[1.85rem] p-6 sm:p-7"}>
       <div className="flex items-center justify-between gap-4">
@@ -367,7 +398,10 @@ function LayerCardView({ label, title, price, copy, href, cta, highlighted = fal
       <h3 className="mt-4 text-3xl font-semibold tracking-tight text-white">{title}</h3>
       <p className="mt-4 text-sm leading-7 text-slate-300">{copy}</p>
       <div className="mt-6">
-        <Link href={href} className={highlighted ? "system-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition" : "system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition"}>
+        <Link
+          href={href}
+          className={highlighted ? "system-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition" : "system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition"}
+        >
           {cta}
         </Link>
       </div>
