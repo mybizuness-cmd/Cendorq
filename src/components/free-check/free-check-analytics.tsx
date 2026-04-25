@@ -1,7 +1,7 @@
 "use client";
 
 import { trackConversionEvent } from "@/lib/conversion-events";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type MutableRefObject } from "react";
 
 const STEP_LABELS = ["Business basics", "Market context", "Offer and buyer", "Problem pressure"] as const;
 
@@ -75,7 +75,7 @@ export function announceFreeScanValidationError(payload: { step: string; errorCo
   trackConversionEvent("free_scan_validation_error", payload);
 }
 
-function captureStep(root: HTMLElement, lastStepRef: React.MutableRefObject<string>) {
+function captureStep(root: HTMLElement, lastStepRef: MutableRefObject<string>) {
   const stepText = findCurrentStep(root);
   if (!stepText || stepText === lastStepRef.current) return;
 
@@ -86,7 +86,7 @@ function captureStep(root: HTMLElement, lastStepRef: React.MutableRefObject<stri
   });
 }
 
-function captureValidation(root: HTMLElement, step: string, signatureRef: React.MutableRefObject<string>) {
+function captureValidation(root: HTMLElement, step: string, signatureRef: MutableRefObject<string>) {
   const validationErrors = [...root.querySelectorAll("p")]
     .map((node) => normalizeText(node.textContent || ""))
     .filter(isValidationMessage);
@@ -103,7 +103,7 @@ function captureValidation(root: HTMLElement, step: string, signatureRef: React.
   });
 }
 
-function captureLifecycle(root: HTMLElement, signatureRef: React.MutableRefObject<string>) {
+function captureLifecycle(root: HTMLElement, signatureRef: MutableRefObject<string>) {
   const success = root.querySelector(".system-note-success");
   if (success) {
     const text = normalizeText(success.textContent || "");
