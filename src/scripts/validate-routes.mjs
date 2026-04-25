@@ -16,6 +16,7 @@ const requiredFiles = [
   "src/app/layout.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
+  "public/manifest.webmanifest",
   "next.config.ts",
 ];
 
@@ -53,6 +54,7 @@ const publicFiles = [
   "src/app/layout.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
+  "public/manifest.webmanifest",
 ];
 
 const failures = [];
@@ -117,6 +119,17 @@ for (const route of ["/plans/deep-review", "/plans/build-fix", "/plans/ongoing-c
   }
 }
 
+const manifest = read("public/manifest.webmanifest");
+for (const route of ["/free-check?source=app-install", "/free-check?source=app-shortcut", "/plans?source=app-shortcut", "/connect?source=app-shortcut"]) {
+  if (!manifest.includes(`"${route}"`)) {
+    failures.push(`Manifest does not include buyer-path route: ${route}`);
+  }
+}
+
+if (!manifest.includes("Start Free Scan") || !manifest.includes("Compare Plans") || !manifest.includes("Connect")) {
+  failures.push("Manifest shortcuts must include Start Free Scan, Compare Plans, and Connect.");
+}
+
 const publicText = publicFiles.map((file) => `\n/* ${file} */\n${read(file)}`).join("\n");
 for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner"]) {
   if (publicText.includes(route)) {
@@ -136,7 +149,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path and production hardening are protected.");
+console.log("Route validation passed. Canonical buyer path, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
