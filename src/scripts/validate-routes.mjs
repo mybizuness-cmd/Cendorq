@@ -5,6 +5,7 @@ const root = process.cwd();
 
 const requiredFiles = [
   "README.md",
+  ".github/pull_request_template.md",
   "src/app/page.tsx",
   "src/app/free-check/page.tsx",
   "src/app/plans/page.tsx",
@@ -90,6 +91,13 @@ const failures = [];
 for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
+  }
+}
+
+const prTemplate = read(".github/pull_request_template.md");
+for (const phrase of ["Buyer-path impact", "Conversion check", "Production safety check", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Ongoing Control"]) {
+  if (!prTemplate.includes(phrase)) {
+    failures.push(`Pull request template is missing required quality gate detail: ${phrase}`);
   }
 }
 
@@ -249,7 +257,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
