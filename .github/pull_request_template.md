@@ -54,6 +54,11 @@ Does this change touch the public buyer path?
 - [ ] `docs/dependency-checklist.md` was used for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, or tooling changes.
 - [ ] No dependency checklist is needed because this change does not affect packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling.
 
+## Deployment environment check
+
+- [ ] `docs/deployment-environment-checklist.md` was used for hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changes.
+- [ ] No deployment environment checklist is needed because this change does not affect hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration.
+
 ## Production safety check
 
 - [ ] Canonical routes are still protected.
@@ -64,7 +69,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
