@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Production guide
+    url: https://github.com/mybizuness-cmd/Cendorq/blob/main/docs/production-guide.md
+    about: Read the protected buyer path, validation, and deployment guide before opening work.
+  - name: Start from Connect
+    url: https://cendorq.com/connect
+    about: Use the public contact path for non-repository requests.
