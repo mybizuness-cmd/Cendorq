@@ -11,6 +11,9 @@ on:
         default: "https://cendorq.com"
         type: string
 
+permissions:
+  contents: read
+
 concurrency:
   group: smoke-production-${{ github.workflow }}-${{ github.event_name }}-${{ github.event.inputs.base_url || 'https://cendorq.com' }}
   cancel-in-progress: true
