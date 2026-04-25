@@ -1,0 +1,55 @@
+name: Conversion improvement
+about: Propose a change that may improve clarity, trust, desire, or action.
+title: "Conversion: "
+labels: ["conversion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for homepage, buyer-path, copy, CTA, layout, interaction, and page-strength improvements.
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: What should improve for the customer?
+      placeholder: Make the Free Scan path clearer, reduce hesitation, strengthen trust, improve mobile action, etc.
+    validations:
+      required: true
+  - type: checkboxes
+    id: buyer_path
+    attributes:
+      label: Buyer-path impact
+      options:
+        - label: Homepage
+        - label: Free Scan
+        - label: Plans
+        - label: Deep Review
+        - label: Build Fix
+        - label: Ongoing Control
+        - label: Connect
+        - label: No public buyer-path impact
+  - type: textarea
+    id: current_drag
+    attributes:
+      label: Current drag or confusion
+      description: What is slowing clarity, trust, desire, or action?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_change
+    attributes:
+      label: Proposed change
+      description: Keep it clear, specific, and conversion-focused.
+    validations:
+      required: true
+  - type: checkboxes
+    id: conversion_rules
+    attributes:
+      label: Conversion rules
+      options:
+        - label: This keeps the homepage focused on the Free Scan if homepage is touched.
+          required: true
+        - label: This avoids dashboard, route-console, or multi-offer clutter.
+          required: true
+        - label: This uses plain buyer language.
+          required: true
