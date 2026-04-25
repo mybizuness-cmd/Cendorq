@@ -35,6 +35,12 @@ Runtime pins are kept in:
 - `package.json` `packageManager`
 - `package.json` `engines.node`
 
+## Environment
+
+Use `.env.example` as the safe local template. Copy it to `.env.local` only when local development needs environment values.
+
+Never commit real secrets, private tokens, customer data, or private keys.
+
 ## Core commands
 
 ```bash
