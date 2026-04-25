@@ -8,7 +8,7 @@ The homepage has one job:
 
 > Get the right customer to start the Free Scan.
 
-Every public change should improve clarity, trust, desire, action, speed, mobile experience, accessibility, performance, search discovery, or production reliability. If a change adds confusion, clutter, delay, discoverability risk, or mixed intent, do not ship it.
+Every public change should improve clarity, trust, desire, action, speed, mobile experience, copy quality, accessibility, performance, search discovery, or production reliability. If a change adds confusion, clutter, delay, discoverability risk, weak copy, or mixed intent, do not ship it.
 
 ## Protected buyer path
 
@@ -55,6 +55,7 @@ Use the pull request template and answer the quality gates:
 
 - buyer-path impact
 - conversion check
+- copy quality check when public language, CTAs, headings, metadata, trust messaging, or plan descriptions change
 - accessibility check when public UI changes
 - performance check when public UI, asset, script, or component behavior changes
 - search discovery check when metadata, crawler files, canonical routes, redirects, or trust files change
@@ -64,6 +65,12 @@ Use the pull request template and answer the quality gates:
 - post-deploy smoke check when relevant
 
 CODEOWNERS routes production-sensitive changes to the repository owner. Keep that review routing intact.
+
+## Copy quality
+
+Use `docs/copy-quality-checklist.md` for public page copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes.
+
+Public copy should stay plain, premium, clear, credible, and easy to choose.
 
 ## Accessibility
 
@@ -85,7 +92,7 @@ Discovery changes should stay plain, accurate, canonical, and buyer-focused.
 
 ## Release history
 
-Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, accessibility expectations, performance expectations, search discovery expectations, or production validation.
+Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, copy quality expectations, accessibility expectations, performance expectations, search discovery expectations, or production validation.
 
 Keep changelog notes short, buyer-focused, and production-aware.
 
@@ -112,6 +119,7 @@ Do not remove or weaken:
 - `SECURITY.md`
 - `docs/production-guide.md`
 - `docs/release-checklist.md`
+- `docs/copy-quality-checklist.md`
 - `docs/accessibility-checklist.md`
 - `docs/performance-checklist.md`
 - `docs/search-discovery-checklist.md`
@@ -155,4 +163,4 @@ Follow `SECURITY.md` for security-sensitive work. Dependency and GitHub Actions 
 
 ## Merge standard
 
-A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for accessibility, performance, and search discovery when relevant, updates release history when meaningful, and does not weaken production checks.
+A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for copy quality, accessibility, performance, and search discovery when relevant, updates release history when meaningful, and does not weaken production checks.
