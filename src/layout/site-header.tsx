@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
@@ -124,7 +122,7 @@ const SYSTEM_STAGES: readonly StageItem[] = [
     },
 ] as const;
 
-const HEADER_PILLARS = [
+const HOMEPAGE_PILLARS = [
     "Signal first",
     "Explanation before force",
     "Infrastructure before scale",
@@ -134,6 +132,7 @@ const HEADER_PILLARS = [
 export function SiteHeader() {
     const pathname = usePathname();
     const safePathname = pathname || "/";
+    const isHomepage = safePathname === "/";
     const [mobileOpen, setMobileOpen] = useState(false);
 
     useEffect(() => {
@@ -190,7 +189,12 @@ export function SiteHeader() {
             </div>
 
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
-                <div className="flex min-h-[5.65rem] items-center justify-between gap-4 py-3">
+                <div
+                    className={[
+                        "flex items-center justify-between gap-4 py-3",
+                        isHomepage ? "min-h-[5.4rem]" : "min-h-[4.25rem]",
+                    ].join(" ")}
+                >
                     <div className="flex min-w-0 items-center gap-4">
                         <Link
                             href="/"
@@ -210,7 +214,9 @@ export function SiteHeader() {
                         </Link>
 
                         <div className="hidden xl:flex">
-                            <HeaderPill>{HEADER_PILLARS[0]}</HeaderPill>
+                            <HeaderPill>
+                                {isHomepage ? HOMEPAGE_PILLARS[0] : currentRoute.label}
+                            </HeaderPill>
                         </div>
                     </div>
 
@@ -227,13 +233,15 @@ export function SiteHeader() {
                     </nav>
 
                     <div className="hidden items-center gap-3 lg:flex">
-                        <div className="hidden min-w-[18rem] xl:block">
-                            <RoutePanel
-                                label={currentRoute.label}
-                                note={currentRoute.note}
-                                pressure={currentRoute.pressure}
-                            />
-                        </div>
+                        {isHomepage ? (
+                            <div className="hidden min-w-[18rem] xl:block">
+                                <RoutePanel
+                                    label={currentRoute.label}
+                                    note={currentRoute.note}
+                                    pressure={currentRoute.pressure}
+                                />
+                            </div>
+                        ) : null}
 
                         <Link
                             href={secondaryCta.href}
@@ -262,72 +270,86 @@ export function SiteHeader() {
                     </button>
                 </div>
 
-                <div className="hidden border-t border-white/6 pb-4 pt-4 xl:block">
-                    <div className="grid gap-4 xl:grid-cols-[1.08fr_0.92fr] xl:items-start">
-                        <div>
+                {isHomepage ? (
+                    <>
+                        <div className="hidden border-t border-white/6 pb-4 pt-4 xl:block">
+                            <div className="grid gap-4 xl:grid-cols-[1.08fr_0.92fr] xl:items-start">
+                                <div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {HOMEPAGE_PILLARS.map((item) => (
+                                            <HeaderPill key={item}>{item}</HeaderPill>
+                                        ))}
+                                    </div>
+
+                                    <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                                        {SYSTEM_STAGES.map((item, index) => {
+                                            const state = getStageState({
+                                                pathname: safePathname,
+                                                stageHref: item.href,
+                                                index,
+                                                activeStageIndex,
+                                                suggestedStageHref,
+                                            });
+
+                                            return (
+                                                <StageLink
+                                                    key={item.href}
+                                                    href={item.href}
+                                                    title={item.title}
+                                                    description={item.description}
+                                                    step={item.step}
+                                                    state={state}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                <div className="grid gap-3 xl:grid-cols-2">
+                                    <StatusCard
+                                        label="Current route"
+                                        value={currentRoute.label}
+                                        copy={currentRoute.note}
+                                        highlighted
+                                    />
+                                    <StatusCard
+                                        label="Next best move"
+                                        value={nextBestMove.label}
+                                        copy={nextBestMove.note}
+                                    />
+                                    <StatusCard
+                                        label="Route pressure"
+                                        value={currentRoute.pressure}
+                                        copy="The header keeps the user oriented to what this layer is supposed to do."
+                                    />
+                                    <StatusCard
+                                        label="Primary lane"
+                                        value={primaryCta.label}
+                                        copy="The strongest next click for this stage."
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="hidden pb-4 pt-2 lg:block xl:hidden">
                             <div className="flex flex-wrap gap-2">
-                                {HEADER_PILLARS.map((item) => (
+                                {HOMEPAGE_PILLARS.map((item) => (
                                     <HeaderPill key={item}>{item}</HeaderPill>
                                 ))}
                             </div>
-
-                            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                                {SYSTEM_STAGES.map((item, index) => {
-                                    const state = getStageState({
-                                        pathname: safePathname,
-                                        stageHref: item.href,
-                                        index,
-                                        activeStageIndex,
-                                        suggestedStageHref,
-                                    });
-
-                                    return (
-                                        <StageLink
-                                            key={item.href}
-                                            href={item.href}
-                                            title={item.title}
-                                            description={item.description}
-                                            step={item.step}
-                                            state={state}
-                                        />
-                                    );
-                                })}
-                            </div>
                         </div>
-
-                        <div className="grid gap-3 xl:grid-cols-2">
-                            <StatusCard
-                                label="Current route"
-                                value={currentRoute.label}
-                                copy={currentRoute.note}
-                                highlighted
-                            />
-                            <StatusCard
-                                label="Next best move"
-                                value={nextBestMove.label}
-                                copy={nextBestMove.note}
-                            />
-                            <StatusCard
-                                label="Route pressure"
-                                value={currentRoute.pressure}
-                                copy="The header keeps the user oriented to what this layer is supposed to do."
-                            />
-                            <StatusCard
-                                label="Primary lane"
-                                value={primaryCta.label}
-                                copy="The highest-probability action based on the current stage."
-                            />
+                    </>
+                ) : (
+                    <div className="hidden border-t border-white/6 py-3 lg:block">
+                        <div className="flex flex-wrap items-center gap-3">
+                            <HeaderPill>{currentRoute.label}</HeaderPill>
+                            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                /
+                            </span>
+                            <span className="max-w-3xl text-sm text-slate-300">{currentRoute.note}</span>
                         </div>
                     </div>
-                </div>
-
-                <div className="hidden pb-4 pt-2 lg:block xl:hidden">
-                    <div className="flex flex-wrap gap-2">
-                        {HEADER_PILLARS.map((item) => (
-                            <HeaderPill key={item}>{item}</HeaderPill>
-                        ))}
-                    </div>
-                </div>
+                )}
 
                 {mobileOpen ? (
                     <div id="mobile-site-nav" className="pb-4 lg:hidden">
@@ -356,50 +378,58 @@ export function SiteHeader() {
                                 </div>
 
                                 <div className="flex flex-wrap gap-2">
-                                    {HEADER_PILLARS.map((item) => (
-                                        <HeaderPill key={item}>{item}</HeaderPill>
-                                    ))}
+                                    {isHomepage ? (
+                                        HOMEPAGE_PILLARS.map((item) => (
+                                            <HeaderPill key={item}>{item}</HeaderPill>
+                                        ))
+                                    ) : (
+                                        <HeaderPill>{currentRoute.label}</HeaderPill>
+                                    )}
                                 </div>
 
-                                <section>
-                                    <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
-                                        System path
-                                    </div>
+                                {isHomepage ? (
+                                    <section>
+                                        <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                                            System path
+                                        </div>
 
-                                    <div className="mt-3 grid gap-2">
-                                        {SYSTEM_STAGES.map((item, index) => {
-                                            const state = getStageState({
-                                                pathname: safePathname,
-                                                stageHref: item.href,
-                                                index,
-                                                activeStageIndex,
-                                                suggestedStageHref,
-                                            });
+                                        <div className="mt-3 grid gap-2">
+                                            {SYSTEM_STAGES.map((item, index) => {
+                                                const state = getStageState({
+                                                    pathname: safePathname,
+                                                    stageHref: item.href,
+                                                    index,
+                                                    activeStageIndex,
+                                                    suggestedStageHref,
+                                                });
 
-                                            return (
-                                                <MobileNavLink
-                                                    key={item.href}
-                                                    href={item.href}
-                                                    active={state === "active"}
-                                                    emphasized={state === "suggested"}
-                                                    ariaLabel={buildStageAriaLabel(item.title, state)}
-                                                >
-                                                    <div className="flex items-start justify-between gap-3">
-                                                        <div className="flex flex-col items-start">
-                                                            <span className="text-sm font-semibold">{item.title}</span>
-                                                            <span className="mt-1 text-xs font-medium tracking-normal text-slate-400">
-                                                                {item.description}
+                                                return (
+                                                    <MobileNavLink
+                                                        key={item.href}
+                                                        href={item.href}
+                                                        active={state === "active"}
+                                                        emphasized={state === "suggested"}
+                                                        ariaLabel={buildStageAriaLabel(item.title, state)}
+                                                    >
+                                                        <div className="flex items-start justify-between gap-3">
+                                                            <div className="flex flex-col items-start">
+                                                                <span className="text-sm font-semibold">
+                                                                    {item.title}
+                                                                </span>
+                                                                <span className="mt-1 text-xs font-medium tracking-normal text-slate-400">
+                                                                    {item.description}
+                                                                </span>
+                                                            </div>
+                                                            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                                                {item.step}
                                                             </span>
                                                         </div>
-                                                        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                                                            {item.step}
-                                                        </span>
-                                                    </div>
-                                                </MobileNavLink>
-                                            );
-                                        })}
-                                    </div>
-                                </section>
+                                                    </MobileNavLink>
+                                                );
+                                            })}
+                                        </div>
+                                    </section>
+                                ) : null}
 
                                 <section>
                                     <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
@@ -569,8 +599,8 @@ function MobileNavLink({
                 active
                     ? "border-cyan-300/18 bg-cyan-300/10 text-cyan-100"
                     : emphasized
-                        ? "border-white/14 bg-white/[0.05] text-white"
-                        : "border-white/10 bg-white/[0.03] text-slate-200 hover:border-cyan-300/22 hover:bg-white/[0.05] hover:text-white",
+                      ? "border-white/14 bg-white/[0.05] text-white"
+                      : "border-white/10 bg-white/[0.03] text-slate-200 hover:border-cyan-300/22 hover:bg-white/[0.05] hover:text-white",
             ].join(" ")}
         >
             {children}
@@ -602,7 +632,7 @@ function StageLink({
                 state === "complete" && "border-white/12 bg-white/[0.045]",
                 state === "suggested" && "border-white/14 bg-white/[0.05]",
                 state === "idle" &&
-                "border-white/10 bg-white/[0.03] hover:border-cyan-300/22 hover:bg-white/[0.05]",
+                    "border-white/10 bg-white/[0.03] hover:border-cyan-300/22 hover:bg-white/[0.05]",
             ]
                 .filter(Boolean)
                 .join(" ")}
@@ -933,46 +963,27 @@ function getStageState({
     activeStageIndex: number;
     suggestedStageHref: string;
 }): StageState {
-    if (isStageActive(pathname, stageHref)) {
-        return "active";
-    }
-
-    if (activeStageIndex >= 0 && index < activeStageIndex) {
-        return "complete";
-    }
-
-    if (activeStageIndex === -1 && suggestedStageHref === stageHref) {
-        return "suggested";
-    }
-
+    if (isStageActive(pathname, stageHref)) return "active";
+    if (activeStageIndex >= 0 && index < activeStageIndex) return "complete";
+    if (activeStageIndex === -1 && suggestedStageHref === stageHref) return "suggested";
     return "idle";
 }
 
 function isNavActive(pathname: string, item: NavItem) {
-    const match = item.match || "startsWith";
-
-    if (match === "exact") {
-        return pathname === item.href;
+    if (item.match === "startsWith") {
+        return pathname === item.href || pathname.startsWith(`${item.href}/`);
     }
 
-    if (item.href === "/") {
-        return pathname === "/";
-    }
-
-    return pathname === item.href || pathname.startsWith(`${item.href}/`);
+    return pathname === item.href;
 }
 
-function isStageActive(pathname: string, href: string) {
-    if (href === "/pricing") {
-        return pathname === href;
-    }
-
-    return pathname === href || pathname.startsWith(`${href}/`);
+function isStageActive(pathname: string, stageHref: string) {
+    return pathname === stageHref || pathname.startsWith(`${stageHref}/`);
 }
 
 function buildStageAriaLabel(title: string, state: StageState) {
     if (state === "active") return `${title}, current stage`;
     if (state === "complete") return `${title}, completed stage`;
-    if (state === "suggested") return `${title}, suggested stage`;
+    if (state === "suggested") return `${title}, suggested next stage`;
     return title;
 }
