@@ -87,9 +87,9 @@ for (const file of requiredFiles) {
 }
 
 const healthRoute = read("src/app/api/health/route.ts");
-for (const phrase of ["ok: true", "cendorq-platform", "healthy", "Cache-Control", "no-store"]) {
+for (const phrase of ["force-dynamic", "revalidate = 0", "ok: true", "cendorq-platform", "healthy", "environment", "commit", "Cache-Control", "no-store", "X-Robots-Tag"]) {
   if (!healthRoute.includes(phrase)) {
-    failures.push(`Health endpoint is missing required response detail: ${phrase}`);
+    failures.push(`Health endpoint is missing required runtime-safe response detail: ${phrase}`);
   }
 }
 
@@ -202,7 +202,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path, health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Canonical buyer path, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
