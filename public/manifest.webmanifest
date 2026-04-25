@@ -1,0 +1,58 @@
+{
+  "name": "Cendorq — Search Presence OS",
+  "short_name": "Cendorq",
+  "description": "Start the free scan, find what is making people hesitate, and choose the right next move before spending more.",
+  "start_url": "/free-check?source=app-install",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icon",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-icon",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start Free Scan",
+      "short_name": "Free Scan",
+      "description": "Start the guided Cendorq free scan.",
+      "url": "/free-check?source=app-shortcut",
+      "icons": [{ "src": "/icon", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Compare Plans",
+      "short_name": "Plans",
+      "description": "Compare Deep Review, Build Fix, and Ongoing Control.",
+      "url": "/plans?source=app-shortcut",
+      "icons": [{ "src": "/icon", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Connect",
+      "short_name": "Connect",
+      "description": "Choose the right Cendorq lane.",
+      "url": "/connect?source=app-shortcut",
+      "icons": [{ "src": "/icon", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}
