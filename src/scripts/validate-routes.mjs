@@ -6,6 +6,7 @@ const root = process.cwd();
 const requiredFiles = [
   "README.md",
   "SECURITY.md",
+  ".github/CODEOWNERS",
   ".github/dependabot.yml",
   ".github/pull_request_template.md",
   ".github/ISSUE_TEMPLATE/config.yml",
@@ -97,6 +98,11 @@ for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
   }
+}
+
+const codeowners = read(".github/CODEOWNERS");
+for (const phrase of ["* @mybizuness-cmd", "/src/app/ @mybizuness-cmd", "/.github/ @mybizuness-cmd", "/next.config.ts @mybizuness-cmd", "/docs/production-guide.md @mybizuness-cmd"]) {
+  if (!codeowners.includes(phrase)) failures.push(`CODEOWNERS is missing required review routing detail: ${phrase}`);
 }
 
 const securityPolicy = read("SECURITY.md");
@@ -287,7 +293,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
