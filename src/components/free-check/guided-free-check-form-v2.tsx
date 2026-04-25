@@ -119,6 +119,12 @@ const LABELS: Record<keyof FormValues, { label: string; helper: string; placehol
   notes: { label: "Anything else we should know?", helper: "Optional. Add what keeps getting misunderstood.", placeholder: "Add what changed, what you tried, or what feels off." },
 };
 
+const SUCCESS_NEXT_STEPS = [
+  "Your answers are saved into the scan system.",
+  "The business can now be read through trust, clarity, comparison, and action pressure.",
+  "If the scan shows a deeper issue, the next move becomes easier to choose.",
+] as const;
+
 export function GuidedFreeCheckForm({ className }: { className?: string }) {
   const [step, setStep] = useState<StepNumber>(0);
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
@@ -338,13 +344,39 @@ function renderInput(field: keyof FormValues, values: FormValues, onChange: (eve
 }
 
 function SuccessState({ state }: { state: Extract<SubmitState, { kind: "success" }> }) {
+  const nextMove = successNextMove(state.routingHint);
+
   return (
-    <div className="system-note-success mt-6 rounded-[1.6rem] p-5">
-      <h3 className="text-xl font-semibold text-white">Your scan has been received.</h3>
-      <p className="mt-2 text-sm leading-7 text-slate-200">{state.message}</p>
-      <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-        {state.reportPath ? <Link href={state.reportPath} className="system-button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">View scan report</Link> : null}
-        <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">See plans</Link>
+    <div className="system-note-success mt-6 overflow-hidden rounded-[1.8rem] p-0">
+      <div className="relative p-5 sm:p-6">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(103,232,249,0.16),transparent_35%)]" />
+        <div className="relative z-10">
+          <div className="inline-flex rounded-full border border-emerald-200/20 bg-emerald-200/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-100">
+            Scan received
+          </div>
+          <h3 className="mt-4 text-2xl font-semibold tracking-tight text-white">Your scan is in. The next step is clearer now.</h3>
+          <p className="mt-3 text-sm leading-7 text-slate-200">{state.message}</p>
+
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            {SUCCESS_NEXT_STEPS.map((item) => (
+              <div key={item} className="rounded-[1.2rem] border border-white/10 bg-white/[0.045] px-4 py-4 text-sm font-semibold leading-6 text-white">
+                {item}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 rounded-[1.35rem] border border-cyan-300/16 bg-cyan-300/10 p-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-100">Recommended direction</div>
+            <div className="mt-2 text-lg font-semibold text-white">{nextMove.title}</div>
+            <p className="mt-2 text-sm leading-7 text-slate-200">{nextMove.copy}</p>
+          </div>
+
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            {state.reportPath ? <Link href={state.reportPath} className="system-button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">View scan report</Link> : null}
+            <Link href={nextMove.href} className="system-button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">{nextMove.cta}</Link>
+            <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">Compare all plans</Link>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -352,12 +384,60 @@ function SuccessState({ state }: { state: Extract<SubmitState, { kind: "success"
 
 function ErrorState({ state }: { state: Extract<SubmitState, { kind: "error" }> }) {
   return (
-    <div className="system-note-danger mt-6 rounded-[1.6rem] p-5">
-      <h3 className="text-lg font-semibold text-white">Something needs attention.</h3>
-      <p className="mt-2 text-sm leading-7 text-rose-100">{state.message}</p>
+    <div className="system-note-danger mt-6 rounded-[1.8rem] p-5 sm:p-6">
+      <div className="inline-flex rounded-full border border-rose-200/20 bg-rose-200/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-rose-100">
+        Scan not sent yet
+      </div>
+      <h3 className="mt-4 text-2xl font-semibold tracking-tight text-white">Nothing is lost. Fix the issue and send it again.</h3>
+      <p className="mt-3 text-sm leading-7 text-rose-100">{state.message}</p>
       {state.details.length ? <div className="mt-4 grid gap-2">{state.details.map((detail) => <div key={detail} className="rounded-[1rem] border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-rose-100">{detail}</div>)}</div> : null}
+      <div className="mt-5 grid gap-3 md:grid-cols-3">
+        <RecoveryTile value="Your typed answers stay protected while you fix the issue." />
+        <RecoveryTile value="Check the highlighted fields or try again if the connection failed." />
+        <RecoveryTile value="The safest next move is still to complete the scan first." />
+      </div>
     </div>
   );
+}
+
+function RecoveryTile({ value }: { value: string }) {
+  return <div className="rounded-[1.15rem] border border-white/10 bg-white/[0.04] px-4 py-4 text-sm font-semibold leading-6 text-white">{value}</div>;
+}
+
+function successNextMove(routingHint: RoutingHint) {
+  if (routingHint === "command-review") {
+    return {
+      title: "Ongoing Control may be the stronger conversation.",
+      copy: "Use this when the business already has enough pressure to need continued direction, updates, and control.",
+      href: "/plans/ongoing-control",
+      cta: "See Ongoing Control",
+    };
+  }
+
+  if (routingHint === "infrastructure-review") {
+    return {
+      title: "Build Fix may be the strongest next path.",
+      copy: "Use this when the business likely needs stronger pages, clearer wording, better trust, or a cleaner action path.",
+      href: "/plans/build-fix",
+      cta: "See Build Fix",
+    };
+  }
+
+  if (routingHint === "blueprint-candidate") {
+    return {
+      title: "Deep Review may be the right deeper step.",
+      copy: "Use this when the scan shows the business needs a sharper explanation of what is weakening trust, clarity, and choice.",
+      href: "/plans/deep-review",
+      cta: "See Deep Review",
+    };
+  }
+
+  return {
+    title: "Start with the first read before spending deeper.",
+    copy: "The free scan is built to keep the next move safer when the business still needs a clearer first signal.",
+    href: "/plans",
+    cta: "Compare plans",
+  };
 }
 
 function validateFields(values: FormValues, fields: Array<keyof FormValues>) {
