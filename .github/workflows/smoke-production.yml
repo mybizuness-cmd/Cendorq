@@ -1,6 +1,8 @@
 name: Production Smoke Check
 
 on:
+  schedule:
+    - cron: "17 9 * * *"
   workflow_dispatch:
     inputs:
       base_url:
@@ -10,7 +12,7 @@ on:
         type: string
 
 concurrency:
-  group: smoke-production-${{ github.ref }}-${{ inputs.base_url }}
+  group: smoke-production-${{ github.workflow }}-${{ github.event_name }}-${{ github.event.inputs.base_url || 'https://cendorq.com' }}
   cancel-in-progress: true
 
 jobs:
@@ -22,7 +24,7 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: "1"
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-      CENDORQ_BASE_URL: ${{ inputs.base_url }}
+      CENDORQ_BASE_URL: ${{ github.event.inputs.base_url || 'https://cendorq.com' }}
 
     steps:
       - name: Checkout repository

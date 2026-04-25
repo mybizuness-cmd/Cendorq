@@ -101,30 +101,22 @@ const forbiddenActivePublicPhrases = [
 const failures = [];
 
 for (const file of requiredFiles) {
-  if (!existsSync(join(root, file))) {
-    failures.push(`Missing required route/system file: ${file}`);
-  }
+  if (!existsSync(join(root, file))) failures.push(`Missing required route/system file: ${file}`);
 }
 
 const gitAttributes = read(".gitattributes");
 for (const phrase of ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"]) {
-  if (!gitAttributes.includes(phrase)) {
-    failures.push(`.gitattributes is missing required Git normalization detail: ${phrase}`);
-  }
+  if (!gitAttributes.includes(phrase)) failures.push(`.gitattributes is missing required Git normalization detail: ${phrase}`);
 }
 
 const editorConfig = read(".editorconfig");
 for (const phrase of ["root = true", "charset = utf-8", "end_of_line = lf", "insert_final_newline = true", "trim_trailing_whitespace = true", "indent_size = 2"]) {
-  if (!editorConfig.includes(phrase)) {
-    failures.push(`.editorconfig is missing required editor baseline detail: ${phrase}`);
-  }
+  if (!editorConfig.includes(phrase)) failures.push(`.editorconfig is missing required editor baseline detail: ${phrase}`);
 }
 
 const envExample = read(".env.example");
 for (const phrase of ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=development", "VERCEL_ENV=development", "VERCEL_GIT_COMMIT_SHA=local", "GITHUB_SHA=local", "NEXT_TELEMETRY_DISABLED=1", "Do not commit real secrets"]) {
-  if (!envExample.includes(phrase)) {
-    failures.push(`.env.example is missing required safe environment detail: ${phrase}`);
-  }
+  if (!envExample.includes(phrase)) failures.push(`.env.example is missing required safe environment detail: ${phrase}`);
 }
 
 if (read(".nvmrc").trim() !== "24") failures.push(".nvmrc must pin Node 24.");
@@ -176,7 +168,7 @@ for (const phrase of ["Buyer-path impact", "Conversion check", "Production safet
 }
 
 const readme = read("README.md");
-for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example", ".editorconfig", ".gitattributes"]) {
+for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example", ".editorconfig", ".gitattributes", "runs automatically every day"]) {
   if (!readme.includes(phrase)) failures.push(`README is missing required production entry guidance: ${phrase}`);
 }
 
@@ -186,8 +178,8 @@ for (const phrase of ["Cendorq Production Guide", "pnpm validate:routes", "pnpm 
 }
 
 const smokeWorkflow = read(".github/workflows/smoke-production.yml");
-for (const phrase of ["workflow_dispatch", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL"]) {
-  if (!smokeWorkflow.includes(phrase)) failures.push(`Manual smoke workflow is missing required detail: ${phrase}`);
+for (const phrase of ["schedule:", "17 9 * * *", "workflow_dispatch", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL", "https://cendorq.com"]) {
+  if (!smokeWorkflow.includes(phrase)) failures.push(`Production smoke workflow is missing required detail: ${phrase}`);
 }
 
 const smokeScript = read("src/scripts/smoke-production.mjs");
@@ -277,7 +269,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");

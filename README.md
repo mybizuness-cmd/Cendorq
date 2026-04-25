@@ -86,6 +86,8 @@ or:
 pnpm smoke:production https://cendorq.com
 ```
 
+The production smoke workflow can also be run manually from GitHub Actions and runs automatically every day against `https://cendorq.com`.
+
 ## Production guide
 
 Read the production operating guide before changing routes, public labels, crawler files, health checks, or homepage funnel structure:
