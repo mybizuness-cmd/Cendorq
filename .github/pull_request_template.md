@@ -22,6 +22,11 @@ Does this change touch the public buyer path?
 - [ ] `docs/conversion-quality-checklist.md` was used for homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer-positioning changes.
 - [ ] No conversion quality checklist is needed because this change does not affect homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer positioning.
 
+## Visual quality check
+
+- [ ] `docs/visual-quality-checklist.md` was used for public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium-feel changes.
+- [ ] No visual quality checklist is needed because this change does not affect public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium feel.
+
 ## Conversion check
 
 - [ ] The homepage still has one job: get the right customer to start the Free Scan.
@@ -79,7 +84,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, conversion quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
