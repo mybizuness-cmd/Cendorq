@@ -6,6 +6,8 @@ The goal is simple: ship without weakening the buyer path, public language, trus
 
 For production failures, smoke-check failures, or buyer-path regressions, use [`docs/incident-response.md`](incident-response.md).
 
+Record meaningful production changes in [`CHANGELOG.md`](../CHANGELOG.md).
+
 ## Release principle
 
 The homepage has one job:
@@ -32,6 +34,7 @@ Before merging a production change:
 - Confirm legacy public URLs still redirect into the current buyer path.
 - Confirm crawler and trust files still make sense.
 - Confirm the health endpoint remains lightweight, dynamic, no-store, and noindex.
+- Confirm `CHANGELOG.md` is updated for meaningful production changes.
 
 Run locally when practical:
 
@@ -51,6 +54,7 @@ Before merging the PR:
 - Confirm CODEOWNERS review routing is intact.
 - Confirm no secrets, private customer data, private keys, or tokens were committed.
 - Confirm public copy remains plain, direct, and buyer-friendly.
+- Confirm release history is updated when the change is meaningful.
 
 ## Post-deploy checklist
 
@@ -104,7 +108,7 @@ If a scheduled smoke check fails:
 
 ## Release notes standard
 
-For meaningful releases, note:
+For meaningful releases, note in `CHANGELOG.md`:
 
 - what changed
 - why it changed
