@@ -8,6 +8,8 @@ For production failures, smoke-check failures, or buyer-path regressions, use [`
 
 For public UI, layout, copy, component, or navigation changes, use [`docs/accessibility-checklist.md`](accessibility-checklist.md).
 
+For public page, component, asset, animation, or script changes, use [`docs/performance-checklist.md`](performance-checklist.md).
+
 Record meaningful production changes in [`CHANGELOG.md`](../CHANGELOG.md).
 
 ## Release principle
@@ -37,6 +39,7 @@ Before merging a production change:
 - Confirm crawler and trust files still make sense.
 - Confirm the health endpoint remains lightweight, dynamic, no-store, and noindex.
 - Confirm accessibility was checked for public UI and buyer-path changes.
+- Confirm performance was checked for public UI, asset, script, animation, and buyer-path changes.
 - Confirm `CHANGELOG.md` is updated for meaningful production changes.
 
 Run locally when practical:
@@ -58,6 +61,7 @@ Before merging the PR:
 - Confirm no secrets, private customer data, private keys, or tokens were committed.
 - Confirm public copy remains plain, direct, and buyer-friendly.
 - Confirm accessibility expectations were considered when public UI changed.
+- Confirm performance expectations were considered when public UI, assets, scripts, or component behavior changed.
 - Confirm release history is updated when the change is meaningful.
 
 ## Post-deploy checklist
@@ -119,6 +123,7 @@ For meaningful releases, note in `CHANGELOG.md`:
 - buyer-path impact
 - production-safety impact
 - accessibility impact when public UI changed
+- performance impact when public UI, assets, scripts, or component behavior changed
 - validation completed
 - post-deploy smoke result
 
