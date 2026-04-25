@@ -6,6 +6,7 @@ const root = process.cwd();
 const requiredFiles = [
   "README.md",
   "SECURITY.md",
+  "CONTRIBUTING.md",
   ".github/CODEOWNERS",
   ".github/dependabot.yml",
   ".github/pull_request_template.md",
@@ -98,6 +99,11 @@ for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
   }
+}
+
+const contributing = read("CONTRIBUTING.md");
+for (const phrase of ["Contributing to Cendorq", "Get the right customer to start the Free Scan", "Protected buyer path", "pnpm validate:routes", "pnpm smoke:production", "Merge standard"]) {
+  if (!contributing.includes(phrase)) failures.push(`CONTRIBUTING.md is missing required operating rule: ${phrase}`);
 }
 
 const codeowners = read(".github/CODEOWNERS");
@@ -293,7 +299,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
