@@ -19,10 +19,10 @@ const THEME_COLOR = "#020617";
 
 const KNOWLEDGE_AREAS = [
   "Search Presence OS",
-  "Search Presence Scan",
-  "Visibility Blueprint",
-  "Presence Infrastructure",
-  "Presence Command",
+  "Free Search Presence Scan",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "AI search visibility",
   "Answer engine visibility",
   "Business visibility strategy",
@@ -31,28 +31,28 @@ const KNOWLEDGE_AREAS = [
 
 const LAYER_CATALOG = [
   {
-    name: "Search Presence Scan",
+    name: "Free Scan",
     path: "/free-check",
     description:
-      "First-signal intake layer for businesses that need a stronger initial read before deeper action.",
+      "Guided first-read layer for businesses that need to find what is making people hesitate before spending more.",
   },
   {
-    name: "Visibility Blueprint",
-    path: "/pricing/full-diagnosis",
+    name: "Deep Review",
+    path: "/plans/deep-review",
     description:
-      "Strategic explanation layer for businesses that need a deeper interpretation before concentrated strengthening.",
+      "Deeper explanation layer for businesses that need to know what is broken and why before bigger changes begin.",
   },
   {
-    name: "Presence Infrastructure",
-    path: "/pricing/optimization",
+    name: "Build Fix",
+    path: "/plans/build-fix",
     description:
-      "One-time concentrated implementation layer for businesses ready for structural strengthening.",
+      "Focused improvement layer for businesses ready to strengthen the pages, message, trust, and action path customers judge first.",
   },
   {
-    name: "Presence Command",
-    path: "/pricing/monthly-partner",
+    name: "Ongoing Control",
+    path: "/plans/ongoing-control",
     description:
-      "Recurring continuity layer for businesses ready to compound through ongoing strategic direction.",
+      "Continued direction layer for businesses ready to keep improving as customers, search, and competitors change.",
   },
 ] as const;
 
@@ -71,10 +71,10 @@ export const metadata: Metadata = {
   keywords: [
     "Cendorq",
     "Search Presence OS",
-    "search presence scan",
-    "visibility blueprint",
-    "presence infrastructure",
-    "presence command",
+    "free search presence scan",
+    "deep review",
+    "build fix",
+    "ongoing control",
     "AI search visibility",
     "answer engine visibility",
     "business search presence",
@@ -281,7 +281,7 @@ function buildStructuredData() {
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       "@id": OFFER_CATALOG_ID,
-      name: "Cendorq System Layers",
+      name: "Cendorq Plans",
       itemListElement: LAYER_CATALOG.map((item) => ({
         "@type": "Offer",
         itemOffered: {
