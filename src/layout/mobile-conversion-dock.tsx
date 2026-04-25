@@ -1,5 +1,6 @@
 "use client";
 
+import { trackConversionEvent } from "@/lib/conversion-events";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
@@ -32,6 +33,7 @@ export function MobileConversionDock() {
           </div>
           <Link
             href={action.href}
+            onClick={() => trackConversionEvent("mobile_dock_click", { label: action.label, href: action.href })}
             className="system-button-primary inline-flex shrink-0 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.98]"
           >
             {action.label}
