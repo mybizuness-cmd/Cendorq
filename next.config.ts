@@ -39,8 +39,23 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/plans",
-        destination: "/pricing",
+        source: "/pricing",
+        destination: "/plans",
+        permanent: true,
+      },
+      {
+        source: "/pricing/full-diagnosis",
+        destination: "/plans/deep-review",
+        permanent: true,
+      },
+      {
+        source: "/pricing/optimization",
+        destination: "/plans/build-fix",
+        permanent: true,
+      },
+      {
+        source: "/pricing/monthly-partner",
+        destination: "/plans/ongoing-control",
         permanent: true,
       },
       {
@@ -50,17 +65,17 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/full-diagnosis",
-        destination: "/pricing/full-diagnosis",
+        destination: "/plans/deep-review",
         permanent: true,
       },
       {
         source: "/optimization",
-        destination: "/pricing/optimization",
+        destination: "/plans/build-fix",
         permanent: true,
       },
       {
         source: "/monthly-partner",
-        destination: "/pricing/monthly-partner",
+        destination: "/plans/ongoing-control",
         permanent: true,
       },
     ];
