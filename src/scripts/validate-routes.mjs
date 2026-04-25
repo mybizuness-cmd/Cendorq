@@ -17,6 +17,7 @@ const requiredFiles = [
   "src/app/layout.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
+  "src/scripts/smoke-production.mjs",
   "public/manifest.webmanifest",
   "public/llms.txt",
   "public/.well-known/security.txt",
@@ -86,6 +87,18 @@ for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) {
     failures.push(`Missing required route/system file: ${file}`);
   }
+}
+
+const smokeScript = read("src/scripts/smoke-production.mjs");
+for (const phrase of ["/api/health", "/llms.txt", "/.well-known/security.txt", "/sitemap.xml", "/robots.txt", "CENDORQ_BASE_URL"] ) {
+  if (!smokeScript.includes(phrase)) {
+    failures.push(`Production smoke script is missing required check: ${phrase}`);
+  }
+}
+
+const packageJson = read("package.json");
+if (!packageJson.includes("smoke:production")) {
+  failures.push("package.json must expose the smoke:production script.");
 }
 
 const securityTxt = read("public/.well-known/security.txt");
@@ -211,7 +224,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Canonical buyer path, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Canonical buyer path, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
