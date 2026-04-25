@@ -49,6 +49,11 @@ Does this change touch the public buyer path?
 - [ ] `docs/search-discovery-checklist.md` was used for metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, or public trust surface changes.
 - [ ] No search discovery checklist is needed because this change does not affect metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, or public trust surfaces.
 
+## Dependency check
+
+- [ ] `docs/dependency-checklist.md` was used for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, or tooling changes.
+- [ ] No dependency checklist is needed because this change does not affect packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling.
+
 ## Production safety check
 
 - [ ] Canonical routes are still protected.
@@ -59,7 +64,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
