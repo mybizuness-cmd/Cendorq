@@ -29,6 +29,11 @@ Does this change touch the public buyer path?
 - [ ] `docs/accessibility-checklist.md` was used for public UI, layout, copy, component, or navigation changes.
 - [ ] No accessibility checklist is needed because this change does not affect public UI or buyer-path usability.
 
+## Performance check
+
+- [ ] `docs/performance-checklist.md` was used for public UI, layout, component, asset, animation, or script changes.
+- [ ] No performance checklist is needed because this change does not affect public UI weight, speed, assets, scripts, or buyer-path performance.
+
 ## Production safety check
 
 - [ ] Canonical routes are still protected.
@@ -39,7 +44,7 @@ Does this change touch the public buyer path?
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, accessibility, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, trust-file, workflow, release, incident, accessibility, performance, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
