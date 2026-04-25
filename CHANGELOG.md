@@ -11,6 +11,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Added
 
 - Release history baseline.
+- AI-agent handoff guide for ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, and project continuity.
 - Final hardening sweep guide for three independent deep analyses and five independent hardening passes before major readiness, launch-adjacent, backend-prep, or production milestone changes.
 - Backend handoff checklist for backend ZIP files, API routes, databases, services, background jobs, authentication, payments, AI services, email, CRM, storage, webhooks, and server-side integrations.
 - Manual QA and acceptance checklist for final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, and post-change signoff.
@@ -37,6 +38,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Changed
 
 - Added a compact PR template checklist-gate section so the full readiness system is easier to scan and maintain.
+- Added a PR template AI-agent handoff gate so ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, and project continuity explicitly consider `docs/ai-agent-handoff.md` before merge.
 - Added a PR template final hardening gate so major readiness, launch-adjacent, broad hardening, backend-prep, and production milestone changes explicitly consider `docs/final-hardening-sweep.md` before merge.
 - Added a PR template backend handoff gate so backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, and server-side integrations explicitly consider `docs/backend-handoff-checklist.md` before merge.
 - Added a PR template manual QA and acceptance gate so final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, and post-change signoff explicitly consider `docs/manual-qa-acceptance-checklist.md` before merge.
@@ -76,6 +78,7 @@ For future release notes, include:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- AI-agent-handoff impact when ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, or project continuity changed
 - final-hardening impact when major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone work changed
 - backend-handoff impact when backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations changed
 - manual-QA impact when final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, or post-change signoff changed

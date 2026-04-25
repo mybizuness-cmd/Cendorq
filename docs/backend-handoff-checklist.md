@@ -2,7 +2,7 @@
 
 Use this checklist when backend ZIP files, API routes, databases, services, background jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations are introduced.
 
-The goal is simple: connect backend work only after the public buyer path, configuration, integration, privacy, and operational guardrails are ready.
+The goal is simple: connect backend work only after the public buyer path, configuration, integration, privacy, operational, and AI-agent handoff guardrails are ready.
 
 ## Backend handoff principle
 
@@ -32,7 +32,7 @@ Before unpacking or merging backend ZIP work, confirm:
 - Database or storage assumptions are documented.
 - Error states are buyer-friendly and recoverable.
 - Health and smoke checks are updated when runtime behavior changes.
-- Privacy, policy, integration, analytics, and observability checklists are considered.
+- Privacy, policy, integration, analytics, observability, and AI-agent handoff expectations are considered.
 
 ## ZIP intake checks
 
@@ -66,6 +66,19 @@ For data handling, confirm:
 - Customer-sensitive information is not included in examples.
 - Submitted form content is not sent to third parties unnecessarily.
 - Analytics events do not include private form content.
+
+## AI-agent handoff checks
+
+Before handing backend work to another AI agent, ChatGPT chat, or developer, confirm:
+
+- `docs/ai-agent-handoff.md` is current.
+- The latest branch or PR status is clear.
+- The current validation status is clear.
+- The next intended backend step is stated.
+- The backend ZIP intake status is stated.
+- Required files to read first are listed.
+- Known risks, open questions, and non-goals are written plainly.
+- Future work is not described as already complete.
 
 ## Operational checks
 
