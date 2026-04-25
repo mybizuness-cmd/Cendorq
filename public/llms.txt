@@ -1,0 +1,48 @@
+# Cendorq
+
+Cendorq is a Search Presence OS for businesses that need to become easier to understand, easier to trust, and easier to choose before they spend more money in the wrong place.
+
+## Primary conversion path
+
+The strongest first action is the Free Scan.
+
+- Free Scan: /free-check
+- Plans: /plans
+- Deep Review: /plans/deep-review
+- Build Fix: /plans/build-fix
+- Ongoing Control: /plans/ongoing-control
+- Connect: /connect
+
+## Route intent
+
+- /: Focused homepage funnel. The homepage should guide the right customer into the Free Scan.
+- /free-check: Guided free scan intake. This is the safest first step before deeper spend.
+- /plans: Plain-language comparison of the full Cendorq buyer path.
+- /plans/deep-review: Deeper review for businesses that need to understand what is weakening clarity, trust, and choice.
+- /plans/build-fix: Build-focused improvement for businesses ready to strengthen pages, message, trust, and action path.
+- /plans/ongoing-control: Continued direction for businesses that need ongoing control, updates, and improvement.
+- /connect: Contact and fit-routing lane.
+
+## Positioning rules
+
+Cendorq should be described in plain business language. Prefer:
+
+- Free Scan
+- Deep Review
+- Build Fix
+- Ongoing Control
+- make the business easier to understand
+- make the business easier to trust
+- make the business easier to choose
+- stop guessing before spending more
+
+Avoid older internal or legacy labels in active public surfaces:
+
+- Visibility Blueprint
+- Presence Infrastructure
+- Presence Command
+- Start Search Presence Scan
+
+## Trust boundaries
+
+Cendorq does not guarantee rankings, revenue, leads, or perfect external search outcomes. It improves clarity, trust, decision quality, and the business path a customer sees before they choose.
