@@ -1,0 +1,21 @@
+# Default repository owner
+* @mybizuness-cmd
+
+# Production-critical application surfaces
+/src/app/ @mybizuness-cmd
+/src/layout/ @mybizuness-cmd
+/src/scripts/ @mybizuness-cmd
+/next.config.ts @mybizuness-cmd
+/package.json @mybizuness-cmd
+/pnpm-lock.yaml @mybizuness-cmd
+
+# Public discovery and trust assets
+/public/manifest.webmanifest @mybizuness-cmd
+/public/llms.txt @mybizuness-cmd
+/public/.well-known/security.txt @mybizuness-cmd
+
+# Governance, CI, and production operating docs
+/.github/ @mybizuness-cmd
+/README.md @mybizuness-cmd
+/SECURITY.md @mybizuness-cmd
+/docs/production-guide.md @mybizuness-cmd
