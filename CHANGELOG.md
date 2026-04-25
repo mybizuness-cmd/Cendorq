@@ -12,6 +12,7 @@ Use this section for changes that have merged but are not yet included in a name
 
 - Release history baseline.
 - Conversion quality checklist for homepage, public buyer-path, CTA, plan, trust cue, layout hierarchy, friction reduction, and offer-positioning changes.
+- Visual quality checklist for public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and premium-feel changes.
 - Copy quality checklist for public page copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes.
 - Privacy and data handling checklist for public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, and integration changes.
 - Accessibility checklist for buyer-path, public page, layout, copy, component, and navigation changes.
@@ -25,6 +26,7 @@ Use this section for changes that have merged but are not yet included in a name
 
 - Added a PR template release-history gate so meaningful production, buyer-path, trust-file, workflow, release, incident, or validation changes explicitly consider `CHANGELOG.md` before merge.
 - Added a PR template conversion quality gate so homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, and offer-positioning changes explicitly consider `docs/conversion-quality-checklist.md` before merge.
+- Added a PR template visual quality gate so public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and premium-feel changes explicitly consider `docs/visual-quality-checklist.md` before merge.
 - Added a PR template copy quality gate so public copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes explicitly consider `docs/copy-quality-checklist.md` before merge.
 - Added a PR template privacy and data handling gate so public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, and integration changes explicitly consider `docs/privacy-data-checklist.md` before merge.
 - Added a PR template accessibility gate so public UI and buyer-path usability changes explicitly consider `docs/accessibility-checklist.md` before merge.
@@ -51,6 +53,7 @@ For future release notes, include:
 - buyer-path impact
 - production-safety impact
 - conversion-quality impact when homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer-positioning changed
+- visual-quality impact when public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium feel changed
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
 - privacy/data impact when forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed
 - dependency impact when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling changed
