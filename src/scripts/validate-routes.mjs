@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
+const failures = [];
 
 const requiredFiles = [
   "README.md",
@@ -18,6 +19,8 @@ const requiredFiles = [
   ".github/ISSUE_TEMPLATE/config.yml",
   ".github/ISSUE_TEMPLATE/conversion-improvement.yml",
   ".github/ISSUE_TEMPLATE/production-safety.yml",
+  ".github/workflows/ci.yml",
+  ".github/workflows/smoke-production.yml",
   "src/app/page.tsx",
   "src/app/free-check/page.tsx",
   "src/app/plans/page.tsx",
@@ -32,7 +35,6 @@ const requiredFiles = [
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
   "src/scripts/smoke-production.mjs",
-  ".github/workflows/smoke-production.yml",
   "docs/production-guide.md",
   "public/manifest.webmanifest",
   "public/llms.txt",
@@ -98,126 +100,222 @@ const forbiddenActivePublicPhrases = [
   "View Presence Command",
 ];
 
-const failures = [];
-
 for (const file of requiredFiles) {
-  if (!existsSync(join(root, file))) failures.push(`Missing required route/system file: ${file}`);
+  if (!existsSync(join(root, file))) {
+    failures.push(`Missing required route/system file: ${file}`);
+  }
 }
 
-const gitAttributes = read(".gitattributes");
-for (const phrase of ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"]) {
-  if (!gitAttributes.includes(phrase)) failures.push(`.gitattributes is missing required Git normalization detail: ${phrase}`);
-}
+expectFileToInclude(".gitattributes", [
+  "* text=auto eol=lf",
+  "*.png binary",
+  "*.webp binary",
+  "*.json text eol=lf",
+  "*.tsx text eol=lf",
+  "*.yml text eol=lf",
+], ".gitattributes is missing required Git normalization detail");
 
-const editorConfig = read(".editorconfig");
-for (const phrase of ["root = true", "charset = utf-8", "end_of_line = lf", "insert_final_newline = true", "trim_trailing_whitespace = true", "indent_size = 2"]) {
-  if (!editorConfig.includes(phrase)) failures.push(`.editorconfig is missing required editor baseline detail: ${phrase}`);
-}
+expectFileToInclude(".editorconfig", [
+  "root = true",
+  "charset = utf-8",
+  "end_of_line = lf",
+  "insert_final_newline = true",
+  "trim_trailing_whitespace = true",
+  "indent_size = 2",
+], ".editorconfig is missing required editor baseline detail");
 
-const envExample = read(".env.example");
-for (const phrase of ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=development", "VERCEL_ENV=development", "VERCEL_GIT_COMMIT_SHA=local", "GITHUB_SHA=local", "NEXT_TELEMETRY_DISABLED=1", "Do not commit real secrets"]) {
-  if (!envExample.includes(phrase)) failures.push(`.env.example is missing required safe environment detail: ${phrase}`);
-}
+expectFileToInclude(".env.example", [
+  "CENDORQ_BASE_URL=https://cendorq.com",
+  "NODE_ENV=development",
+  "VERCEL_ENV=development",
+  "VERCEL_GIT_COMMIT_SHA=local",
+  "GITHUB_SHA=local",
+  "NEXT_TELEMETRY_DISABLED=1",
+  "Do not commit real secrets",
+], ".env.example is missing required safe environment detail");
 
 if (read(".nvmrc").trim() !== "24") failures.push(".nvmrc must pin Node 24.");
 if (read(".node-version").trim() !== "24") failures.push(".node-version must pin Node 24.");
 
-const packageJson = read("package.json");
-for (const phrase of ["\"packageManager\": \"pnpm@9.15.9\"", "\"node\": \">=24.0.0\"", "smoke:production"]) {
-  if (!packageJson.includes(phrase)) failures.push(`package.json is missing required runtime or script detail: ${phrase}`);
-}
+expectFileToInclude("package.json", [
+  "\"packageManager\": \"pnpm@9.15.9\"",
+  "\"node\": \">=24.0.0\"",
+  "smoke:production",
+], "package.json is missing required runtime or script detail");
 
-const contributing = read("CONTRIBUTING.md");
-for (const phrase of ["Contributing to Cendorq", "Get the right customer to start the Free Scan", "Protected buyer path", "pnpm validate:routes", "pnpm smoke:production", "Merge standard"]) {
-  if (!contributing.includes(phrase)) failures.push(`CONTRIBUTING.md is missing required operating rule: ${phrase}`);
-}
+expectFileToInclude("CONTRIBUTING.md", [
+  "Contributing to Cendorq",
+  "Get the right customer to start the Free Scan",
+  "Protected buyer path",
+  "pnpm validate:routes",
+  "pnpm smoke:production",
+  "Merge standard",
+], "CONTRIBUTING.md is missing required operating rule");
 
-const codeowners = read(".github/CODEOWNERS");
-for (const phrase of ["* @mybizuness-cmd", "/src/app/ @mybizuness-cmd", "/.github/ @mybizuness-cmd", "/next.config.ts @mybizuness-cmd", "/docs/production-guide.md @mybizuness-cmd"]) {
-  if (!codeowners.includes(phrase)) failures.push(`CODEOWNERS is missing required review routing detail: ${phrase}`);
-}
+expectFileToInclude(".github/CODEOWNERS", [
+  "* @mybizuness-cmd",
+  "/src/app/ @mybizuness-cmd",
+  "/.github/ @mybizuness-cmd",
+  "/next.config.ts @mybizuness-cmd",
+  "/docs/production-guide.md @mybizuness-cmd",
+], "CODEOWNERS is missing required review routing detail");
 
-const securityPolicy = read("SECURITY.md");
-for (const phrase of ["Security Policy", "Reporting a vulnerability", "https://cendorq.com/connect", "https://cendorq.com/.well-known/security.txt", "pnpm validate:routes", "pnpm smoke:production"]) {
-  if (!securityPolicy.includes(phrase)) failures.push(`SECURITY.md is missing required policy detail: ${phrase}`);
-}
+expectFileToInclude("SECURITY.md", [
+  "Security Policy",
+  "Reporting a vulnerability",
+  "https://cendorq.com/connect",
+  "https://cendorq.com/.well-known/security.txt",
+  "pnpm validate:routes",
+  "pnpm smoke:production",
+], "SECURITY.md is missing required policy detail");
 
-const dependabot = read(".github/dependabot.yml");
-for (const phrase of ["package-ecosystem: npm", "package-ecosystem: github-actions", "interval: weekly", "next-react-platform", "typescript-tooling", "github-actions"]) {
-  if (!dependabot.includes(phrase)) failures.push(`Dependabot config is missing required maintenance guardrail detail: ${phrase}`);
-}
+expectFileToInclude(".github/dependabot.yml", [
+  "package-ecosystem: npm",
+  "package-ecosystem: github-actions",
+  "interval: weekly",
+  "next-react-platform",
+  "typescript-tooling",
+  "github-actions",
+], "Dependabot config is missing required maintenance guardrail detail");
 
-const issueConfig = read(".github/ISSUE_TEMPLATE/config.yml");
-for (const phrase of ["blank_issues_enabled: false", "Production guide", "Start from Connect"]) {
-  if (!issueConfig.includes(phrase)) failures.push(`Issue template config is missing required detail: ${phrase}`);
-}
+expectFileToInclude(".github/ISSUE_TEMPLATE/config.yml", [
+  "blank_issues_enabled: false",
+  "Production guide",
+  "Start from Connect",
+], "Issue template config is missing required detail");
 
-const conversionIssue = read(".github/ISSUE_TEMPLATE/conversion-improvement.yml");
-for (const phrase of ["Conversion improvement", "Buyer-path impact", "Current drag or confusion", "Proposed change", "Free Scan"]) {
-  if (!conversionIssue.includes(phrase)) failures.push(`Conversion issue template is missing required detail: ${phrase}`);
-}
+expectFileToInclude(".github/ISSUE_TEMPLATE/conversion-improvement.yml", [
+  "Conversion improvement",
+  "Buyer-path impact",
+  "Current drag or confusion",
+  "Proposed change",
+  "Free Scan",
+], "Conversion issue template is missing required detail");
 
-const productionIssue = read(".github/ISSUE_TEMPLATE/production-safety.yml");
-for (const phrase of ["Production safety", "Production issue or improvement", "Expected validation", "pnpm validate:routes", "Health endpoint"]) {
-  if (!productionIssue.includes(phrase)) failures.push(`Production issue template is missing required detail: ${phrase}`);
-}
+expectFileToInclude(".github/ISSUE_TEMPLATE/production-safety.yml", [
+  "Production safety",
+  "Production issue or improvement",
+  "Expected validation",
+  "pnpm validate:routes",
+  "Health endpoint",
+], "Production issue template is missing required detail");
 
-const prTemplate = read(".github/pull_request_template.md");
-for (const phrase of ["Buyer-path impact", "Conversion check", "Production safety check", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Ongoing Control"]) {
-  if (!prTemplate.includes(phrase)) failures.push(`Pull request template is missing required quality gate detail: ${phrase}`);
-}
+expectFileToInclude(".github/pull_request_template.md", [
+  "Buyer-path impact",
+  "Conversion check",
+  "Production safety check",
+  "pnpm validate:routes",
+  "pnpm smoke:production",
+  "Free Scan",
+  "Ongoing Control",
+], "Pull request template is missing required quality gate detail");
 
-const readme = read("README.md");
-for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example", ".editorconfig", ".gitattributes", "runs automatically every day"]) {
-  if (!readme.includes(phrase)) failures.push(`README is missing required production entry guidance: ${phrase}`);
-}
+expectFileToInclude("README.md", [
+  "Cendorq",
+  "Free Scan",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "docs/production-guide.md",
+  "pnpm validate:routes",
+  "pnpm smoke:production",
+  "Node 24",
+  "pnpm 9.15.9",
+  ".env.example",
+  ".editorconfig",
+  ".gitattributes",
+  "runs automatically every day",
+], "README is missing required production entry guidance");
 
-const productionGuide = read("docs/production-guide.md");
-for (const phrase of ["Cendorq Production Guide", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "The homepage has one job"]) {
-  if (!productionGuide.includes(phrase)) failures.push(`Production guide is missing required guidance: ${phrase}`);
-}
+expectFileToInclude("docs/production-guide.md", [
+  "Cendorq Production Guide",
+  "pnpm validate:routes",
+  "pnpm smoke:production",
+  "Free Scan",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "The homepage has one job",
+], "Production guide is missing required guidance");
 
-const smokeWorkflow = read(".github/workflows/smoke-production.yml");
-for (const phrase of ["schedule:", "17 9 * * *", "workflow_dispatch", "base_url", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL", "https://cendorq.com"]) {
-  if (!smokeWorkflow.includes(phrase)) failures.push(`Production smoke workflow is missing required detail: ${phrase}`);
-}
+expectFileToInclude(".github/workflows/ci.yml", [
+  "name: CI",
+  "pull_request:",
+  "push:",
+  "workflow_dispatch:",
+  "permissions:",
+  "contents: read",
+  "FORCE_JAVASCRIPT_ACTIONS_TO_NODE24",
+  "pnpm/action-setup@v4",
+  "node-version: \"24\"",
+  "pnpm install --frozen-lockfile",
+  "pnpm validate:routes",
+  "pnpm lint",
+  "pnpm typecheck",
+  "pnpm build",
+], "CI workflow is missing required quality gate detail");
 
-const smokeScript = read("src/scripts/smoke-production.mjs");
-for (const phrase of ["/api/health", "/llms.txt", "/.well-known/security.txt", "/sitemap.xml", "/robots.txt", "CENDORQ_BASE_URL"] ) {
-  if (!smokeScript.includes(phrase)) failures.push(`Production smoke script is missing required check: ${phrase}`);
-}
+expectFileToInclude(".github/workflows/smoke-production.yml", [
+  "schedule:",
+  "17 9 * * *",
+  "workflow_dispatch",
+  "permissions:",
+  "contents: read",
+  "base_url",
+  "pnpm smoke:production",
+  "node-version: \"24\"",
+  "CENDORQ_BASE_URL",
+  "https://cendorq.com",
+], "Production smoke workflow is missing required detail");
 
-const securityTxt = read("public/.well-known/security.txt");
-for (const phrase of ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"]) {
-  if (!securityTxt.includes(phrase)) failures.push(`security.txt is missing required detail: ${phrase}`);
-}
+expectFileToInclude("src/scripts/smoke-production.mjs", [
+  "/api/health",
+  "/llms.txt",
+  "/.well-known/security.txt",
+  "/sitemap.xml",
+  "/robots.txt",
+  "CENDORQ_BASE_URL",
+], "Production smoke script is missing required check");
 
-const healthRoute = read("src/app/api/health/route.ts");
-for (const phrase of ["force-dynamic", "revalidate = 0", "ok: true", "cendorq-platform", "healthy", "environment", "commit", "Cache-Control", "no-store", "X-Robots-Tag"]) {
-  if (!healthRoute.includes(phrase)) failures.push(`Health endpoint is missing required runtime-safe response detail: ${phrase}`);
-}
+expectFileToInclude("public/.well-known/security.txt", [
+  "Contact: https://cendorq.com/connect",
+  "Canonical: https://cendorq.com/.well-known/security.txt",
+  "Policy: https://cendorq.com/terms",
+  "Expires:",
+], "security.txt is missing required detail");
+
+expectFileToInclude("src/app/api/health/route.ts", [
+  "force-dynamic",
+  "revalidate = 0",
+  "ok: true",
+  "cendorq-platform",
+  "healthy",
+  "environment",
+  "commit",
+  "Cache-Control",
+  "no-store",
+  "X-Robots-Tag",
+], "Health endpoint is missing required runtime-safe response detail");
 
 const nextConfig = read("next.config.ts");
 for (const [source, destination] of redirectPairs) {
   if (!nextConfig.includes(`source: "${source}"`)) failures.push(`Missing redirect source in next.config.ts: ${source}`);
   if (!nextConfig.includes(`destination: "${destination}"`)) failures.push(`Missing redirect destination in next.config.ts: ${destination}`);
 }
-
 for (const header of requiredHeaders) {
   if (!nextConfig.includes(`key: "${header}"`)) failures.push(`Missing production hardening header: ${header}`);
 }
-
 for (const discoveryRoute of ["/robots.txt", "/sitemap.xml", "/llms.txt", "/.well-known/security.txt"]) {
   if (!nextConfig.includes(`source: "${discoveryRoute}"`)) failures.push(`Crawler/security cache headers must cover ${discoveryRoute}.`);
 }
-
-if (!nextConfig.includes("text/plain; charset=utf-8")) failures.push("Plain text discovery files must be served with an explicit text/plain UTF-8 content type.");
+if (!nextConfig.includes("text/plain; charset=utf-8")) {
+  failures.push("Plain text discovery files must be served with an explicit text/plain UTF-8 content type.");
+}
 
 const sitemap = read("src/app/sitemap.ts");
 for (const route of canonicalRoutes) {
   if (!sitemap.includes(`path: "${route}"`)) failures.push(`Sitemap does not include canonical route: ${route}`);
 }
-
 for (const legacyRoute of ["/pricing", "/contact"]) {
   if (sitemap.includes(`path: "${legacyRoute}"`)) failures.push(`Sitemap should not list redirected legacy route: ${legacyRoute}`);
 }
@@ -226,7 +324,6 @@ const robots = read("src/app/robots.ts");
 for (const route of canonicalRoutes) {
   if (!robots.includes(`"${route}"`)) failures.push(`Robots allowlist does not include canonical route: ${route}`);
 }
-
 for (const legacyRoute of ["/pricing", "/contact"]) {
   if (robots.includes(`"${legacyRoute}"`)) failures.push(`Robots allowlist should not include redirected legacy route: ${legacyRoute}`);
 }
@@ -240,14 +337,14 @@ const manifest = read("public/manifest.webmanifest");
 for (const route of ["/free-check?source=app-install", "/free-check?source=app-shortcut", "/plans?source=app-shortcut", "/connect?source=app-shortcut"]) {
   if (!manifest.includes(`"${route}"`)) failures.push(`Manifest does not include buyer-path route: ${route}`);
 }
-
-if (!manifest.includes("Start Free Scan") || !manifest.includes("Compare Plans") || !manifest.includes("Connect")) failures.push("Manifest shortcuts must include Start Free Scan, Compare Plans, and Connect.");
+if (!manifest.includes("Start Free Scan") || !manifest.includes("Compare Plans") || !manifest.includes("Connect")) {
+  failures.push("Manifest shortcuts must include Start Free Scan, Compare Plans, and Connect.");
+}
 
 const llms = read("public/llms.txt");
 for (const route of canonicalRoutes) {
   if (!llms.includes(route)) failures.push(`llms.txt does not include canonical route: ${route}`);
 }
-
 for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "make the business easier to understand", "make the business easier to trust", "make the business easier to choose"]) {
   if (!llms.includes(phrase)) failures.push(`llms.txt does not include required positioning phrase: ${phrase}`);
 }
@@ -256,12 +353,14 @@ const publicText = publicFiles.map((file) => `\n/* ${file} */\n${read(file)}`).j
 for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner"]) {
   if (publicText.includes(route)) failures.push(`Active public navigation/metadata should not reference legacy pricing route: ${route}`);
 }
-
 for (const phrase of forbiddenActivePublicPhrases) {
-  if (publicText.includes(phrase) && !llms.includes(`- ${phrase}`)) failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
+  if (publicText.includes(phrase) && !llms.includes(`- ${phrase}`)) {
+    failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
+  }
 }
-
-if (!publicText.includes("Free Scan") || !publicText.includes("Deep Review") || !publicText.includes("Build Fix") || !publicText.includes("Ongoing Control")) failures.push("Public buyer path labels are incomplete. Expected Free Scan, Deep Review, Build Fix, and Ongoing Control.");
+if (!publicText.includes("Free Scan") || !publicText.includes("Deep Review") || !publicText.includes("Build Fix") || !publicText.includes("Ongoing Control")) {
+  failures.push("Public buyer path labels are incomplete. Expected Free Scan, Deep Review, Build Fix, and Ongoing Control.");
+}
 
 if (failures.length) {
   console.error("Route validation failed:");
@@ -269,7 +368,14 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Main CI workflow, scheduled production smoke check, Git normalization baseline, editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+
+function expectFileToInclude(path, phrases, label) {
+  const text = read(path);
+  for (const phrase of phrases) {
+    if (!text.includes(phrase)) failures.push(`${label}: ${phrase}`);
+  }
+}
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
