@@ -7,6 +7,7 @@ const requiredFiles = [
   "README.md",
   "SECURITY.md",
   "CONTRIBUTING.md",
+  ".editorconfig",
   ".env.example",
   ".nvmrc",
   ".node-version",
@@ -104,6 +105,13 @@ for (const file of requiredFiles) {
   }
 }
 
+const editorConfig = read(".editorconfig");
+for (const phrase of ["root = true", "charset = utf-8", "end_of_line = lf", "insert_final_newline = true", "trim_trailing_whitespace = true", "indent_size = 2"]) {
+  if (!editorConfig.includes(phrase)) {
+    failures.push(`.editorconfig is missing required editor baseline detail: ${phrase}`);
+  }
+}
+
 const envExample = read(".env.example");
 for (const phrase of ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=development", "VERCEL_ENV=development", "VERCEL_GIT_COMMIT_SHA=local", "GITHUB_SHA=local", "NEXT_TELEMETRY_DISABLED=1", "Do not commit real secrets"]) {
   if (!envExample.includes(phrase)) {
@@ -169,7 +177,7 @@ for (const phrase of ["Buyer-path impact", "Conversion check", "Production safet
 }
 
 const readme = read("README.md");
-for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example"]) {
+for (const phrase of ["Cendorq", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "docs/production-guide.md", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9", ".env.example", ".editorconfig"]) {
   if (!readme.includes(phrase)) {
     failures.push(`README is missing required production entry guidance: ${phrase}`);
   }
@@ -319,7 +327,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
+console.log("Route validation passed. Editor baseline, environment template, runtime pins, contributor rules, review ownership routing, repository security policy, Dependabot maintenance, issue intake gates, PR quality gate, README, canonical buyer path, production guide, manual smoke workflow, production smoke script, security contact, runtime health endpoint, llms.txt delivery, plain-language surfaces, manifest, and production hardening are protected.");
 
 function read(path) {
   return readFileSync(join(root, path), "utf8");
