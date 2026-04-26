@@ -93,19 +93,44 @@ async function checkTextRoute({ path, expect }) {
 
 async function checkRedirectRoute({ path, destination }) {
   const url = new URL(path, baseUrl);
-  const response = await fetch(url, { redirect: "follow" }).catch((error) => ({ error }));
+  const redirectResponse = await fetch(url, { redirect: "manual" }).catch((error) => ({ error }));
 
-  if ("error" in response) {
-    failures.push(`${path} could not be fetched for redirect verification: ${response.error.message}`);
+  if ("error" in redirectResponse) {
+    failures.push(`${path} could not be fetched for redirect verification: ${redirectResponse.error.message}`);
     return;
   }
 
-  if (!response.ok) {
-    failures.push(`${path} returned ${response.status} during redirect verification`);
+  if (!isRedirectStatus(redirectResponse.status)) {
+    failures.push(`${path} expected redirect status but returned ${redirectResponse.status}`);
     return;
   }
 
-  const finalUrl = new URL(response.url);
+  const locationHeader = redirectResponse.headers.get("location") || "";
+  if (!locationHeader) {
+    failures.push(`${path} returned redirect status ${redirectResponse.status} without a Location header`);
+    return;
+  }
+
+  const targetUrl = new URL(locationHeader, url);
+  const targetPath = normalizePathname(targetUrl.pathname);
+  if (targetPath !== destination) {
+    failures.push(`${path} expected Location path ${destination} but got ${targetPath}`);
+    return;
+  }
+
+  const followResponse = await fetch(url, { redirect: "follow" }).catch((error) => ({ error }));
+
+  if ("error" in followResponse) {
+    failures.push(`${path} could not be fetched after redirect follow: ${followResponse.error.message}`);
+    return;
+  }
+
+  if (!followResponse.ok) {
+    failures.push(`${path} returned ${followResponse.status} during redirect follow`);
+    return;
+  }
+
+  const finalUrl = new URL(followResponse.url);
   if (normalizePathname(finalUrl.pathname) !== destination) {
     failures.push(`${path} should resolve to ${destination} but resolved to ${finalUrl.pathname}`);
   }
@@ -152,6 +177,10 @@ async function checkOptionsRoute({ path, allow }) {
 
   const allowHeader = response.headers.get("allow") || "";
   if (allowHeader !== allow) failures.push(`${path} OPTIONS expected Allow=${allow} but got ${allowHeader || "empty"}`);
+}
+
+function isRedirectStatus(status) {
+  return status === 301 || status === 302 || status === 303 || status === 307 || status === 308;
 }
 
 function normalizeBaseUrl(value) {
