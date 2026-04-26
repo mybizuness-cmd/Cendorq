@@ -48,26 +48,8 @@ const ROUTES: readonly RouteDefinition[] = [
         includeInProduction: true,
     },
     {
-        path: "/diagnosis",
-        priority: 0.83,
-        changeFrequency: "weekly",
-        includeInProduction: true,
-    },
-    {
         path: "/connect",
         priority: 0.76,
-        changeFrequency: "monthly",
-        includeInProduction: true,
-    },
-    {
-        path: "/faq",
-        priority: 0.72,
-        changeFrequency: "monthly",
-        includeInProduction: true,
-    },
-    {
-        path: "/profile",
-        priority: 0.68,
         changeFrequency: "monthly",
         includeInProduction: true,
     },
