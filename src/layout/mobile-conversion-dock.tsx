@@ -56,7 +56,7 @@ function buildDockAction(pathname: string): DockAction {
   if (pathname.startsWith("/plans/deep-review")) {
     return {
       href: "/plans/build-fix",
-      label: "See build fix",
+      label: "See Build Fix",
       support: "Need action next?",
     };
   }
@@ -64,16 +64,16 @@ function buildDockAction(pathname: string): DockAction {
   if (pathname.startsWith("/plans/build-fix")) {
     return {
       href: "/plans/ongoing-control",
-      label: "See ongoing",
+      label: "See Ongoing",
       support: "Need control next?",
     };
   }
 
   if (pathname.startsWith("/plans/ongoing-control")) {
     return {
-      href: "/contact",
+      href: "/connect",
       label: "Talk fit",
-      support: "Ongoing control",
+      support: "Ongoing Control",
     };
   }
 
@@ -85,7 +85,7 @@ function buildDockAction(pathname: string): DockAction {
     };
   }
 
-  if (pathname.startsWith("/contact")) {
+  if (pathname.startsWith("/connect")) {
     return {
       href: "/free-check",
       label: "Start scan",
