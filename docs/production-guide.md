@@ -28,8 +28,10 @@ pnpm build
 These checks protect:
 
 - canonical buyer routes
+- legacy public-route redirects
 - production hardening headers
 - plain-language buyer labels
+- sitemap and robots canonical route focus
 - manifest shortcuts
 - llms.txt context
 - security.txt
@@ -76,13 +78,31 @@ These routes must stay healthy:
 - `/plans/ongoing-control`
 - `/connect`
 
-Legacy routes should redirect only:
+Policy and trust routes may remain public when current:
+
+- `/privacy`
+- `/terms`
+- `/disclaimer`
+
+## Legacy public routes
+
+Legacy routes should redirect only into the current buyer path:
 
 - `/pricing` -> `/plans`
 - `/pricing/full-diagnosis` -> `/plans/deep-review`
 - `/pricing/optimization` -> `/plans/build-fix`
 - `/pricing/monthly-partner` -> `/plans/ongoing-control`
 - `/contact` -> `/connect`
+- `/how-it-works` -> `/plans`
+- `/diagnosis` -> `/plans/deep-review`
+- `/profile` -> `/plans`
+- `/faq` -> `/plans`
+- `/freecheck` -> `/free-check`
+- `/full-diagnosis` -> `/plans/deep-review`
+- `/optimization` -> `/plans/build-fix`
+- `/monthly-partner` -> `/plans/ongoing-control`
+
+Do not list redirected legacy routes in sitemap entries, robots allowlists, navigation, footer links, metadata, manifest shortcuts, or active CTA destinations.
 
 ## Discovery and trust files
 
@@ -126,9 +146,11 @@ Expected shape:
 Use plain buyer language:
 
 - Free Scan
+- Plans
 - Deep Review
 - Build Fix
 - Ongoing Control
+- Connect
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
@@ -157,6 +179,7 @@ Do not weaken:
 - Node 24 CI
 - production security headers
 - API no-store/noindex behavior
+- legacy redirect checks
 - smoke checks
 - Free Scan funnel focus
 - release checklist discipline
