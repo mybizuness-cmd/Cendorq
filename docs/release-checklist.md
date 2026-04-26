@@ -2,9 +2,21 @@
 
 Use this checklist before and after production releases.
 
-The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, legacy route behavior, or production safety gates.
+The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, legacy route behavior, production safety gates, closed intelligence, data quality, pure signal authority, adaptive learning, or resilience.
 
 For production failures, smoke-check failures, or buyer-path regressions, use [`docs/incident-response.md`](incident-response.md).
+
+For closed intelligence, public/private boundary, report access, private scoring, AI-agent evidence, or direct database exposure changes, use [`docs/closed-intelligence-operating-standard.md`](closed-intelligence-operating-standard.md).
+
+For source-aware, confidence-scored, freshness-aware, externally observed, self-reported, AI-generated, or human-reviewed data changes, use [`docs/data-quality-governance-standard.md`](data-quality-governance-standard.md).
+
+For raw, exploration, operational, authority, rejected, outcome-linked, or long-term memory changes, use [`docs/learning-memory-standard.md`](learning-memory-standard.md).
+
+For pure signal, authority eligibility, confidence, freshness, source quality, evidence strength, manipulation risk, or signal promotion/demotion changes, use [`docs/pure-signal-authority-standard.md`](pure-signal-authority-standard.md).
+
+For evolving pure signal definitions, drift detection, candidate rules, safe experimentation, backtesting, foresight watchlists, or adaptive signal standards, use [`docs/adaptive-signal-evolution-standard.md`](adaptive-signal-evolution-standard.md).
+
+For safe degradation, backups, vendor changes, resilience, continuity, rollback, recovery, downtime, platform shifts, or long-horizon survival changes, use [`docs/resilience-continuity-standard.md`](resilience-continuity-standard.md).
 
 For public copy, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language changes, use [`docs/copy-quality-checklist.md`](copy-quality-checklist.md).
 
@@ -34,6 +46,23 @@ The homepage has one job:
 
 Every release must preserve that focus.
 
+## Intelligence principle
+
+The public surface sells the outcome. The private system holds the engine.
+
+Every release must preserve:
+
+- closed intelligence
+- public/private boundary
+- no direct database exposure
+- protected reports and evidence
+- evidence-gated AI-agent findings
+- data quality
+- learning memory separation
+- pure signal authority
+- adaptive signal evolution
+- resilience and continuity
+
 ## Pre-merge checklist
 
 Before merging a production change:
@@ -48,6 +77,12 @@ Before merging a production change:
   - Connect
 - Confirm public copy is plain, premium, clear, credible, and easy to choose.
 - Confirm no old public labels were revived in active public surfaces.
+- Confirm closed intelligence was checked for private scoring, private reports, AI-agent prompts, client evidence, direct database exposure, public report indexes, or public evidence indexes.
+- Confirm data quality was checked for source labels, confidence, freshness, evidence, self-reported data, externally observed data, AI-generated data, and human-reviewed data.
+- Confirm learning memory was checked for raw, exploration, operational, authority, and rejected memory boundaries.
+- Confirm pure signal authority was checked for source quality, evidence strength, freshness, independence, consistency, context completeness, manipulation risk, privacy class, outcome linkage, and authority eligibility.
+- Confirm adaptive signal evolution was checked for versioned standards, drift detection, safe experiments, candidate rules, promotion, demotion, and rollback.
+- Confirm resilience was checked for safe degradation, recovery, vendor risk, backup expectations, no-downtime behavior, and platform shifts.
 - Confirm privacy and data handling were checked for public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integration changes.
 - Confirm dependency safety was checked for package, lockfile, GitHub Actions, runtime pin, dependency automation, or tooling changes.
 - Confirm deployment environment safety was checked for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, or deployment configuration changes.
@@ -82,6 +117,10 @@ Before merging the PR:
 - Confirm CODEOWNERS review routing is intact.
 - Confirm no secrets, private customer data, private keys, or tokens were committed.
 - Confirm public copy remains plain, direct, and buyer-friendly.
+- Confirm closed intelligence gates were answered for private scoring, data access, reports, evidence, AI-agent prompts, and public/private boundary.
+- Confirm data quality and learning gates were answered when data, reports, scores, signals, memory, or AI-agent outputs changed.
+- Confirm pure signal and adaptive evolution gates were answered when signal definitions, source weighting, confidence, freshness, promotion, demotion, or authority memory changed.
+- Confirm resilience gates were answered when storage, vendors, recovery, downtime, platform shifts, backups, or continuity changed.
 - Confirm copy quality expectations were considered when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed.
 - Confirm privacy expectations were considered when public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed.
 - Confirm dependency expectations were considered when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling changed.
@@ -145,6 +184,9 @@ If production weakens, breaks, or becomes unclear:
 - Run the production smoke check.
 - Confirm the Free Scan path and canonical routes are restored.
 - Confirm legacy route redirects are restored.
+- Confirm closed intelligence was not weakened or exposed.
+- Confirm private data, reports, evidence, score inputs, and memory were not exposed.
+- Confirm data-quality and learning-memory boundaries were not corrupted.
 - Open a production safety issue if the failure exposed a missing guard.
 - Follow the incident response runbook if impact is active or unclear.
 
@@ -168,6 +210,12 @@ For meaningful releases, note in `CHANGELOG.md`:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- closed-intelligence impact when private scoring, reports, evidence, AI-agent prompts, database access, or public/private boundaries changed
+- data-quality impact when source labels, confidence, freshness, evidence, or signal classes changed
+- learning-memory impact when raw, exploration, operational, authority, rejected, or outcome memory changed
+- pure-signal impact when authority eligibility, promotion, demotion, confidence, source quality, evidence strength, or manipulation risk changed
+- adaptive-evolution impact when signal standards, drift detection, candidate rules, safe experiments, backtesting, or foresight watchlists changed
+- resilience impact when backups, recovery, safe degradation, vendors, rollback, downtime, or continuity changed
 - route/link impact when navigation, canonical routes, redirects, legacy routes, sitemap links, crawler-facing routes, or buyer-path connections changed
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
 - privacy/data impact when forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed
