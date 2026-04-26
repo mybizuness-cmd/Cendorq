@@ -65,6 +65,19 @@ For package changes, confirm:
 - The package is maintained and reasonable for production use.
 - The package does not introduce avoidable security, privacy, or performance risk.
 
+## Major CSS and build-tooling checks
+
+For Tailwind, PostCSS, ESLint, or other build-tooling major upgrades, confirm:
+
+- The branch is current with `main` before review.
+- Route validation passes before visual confidence is assumed.
+- Lint passes under the new rule engine.
+- Typecheck passes under the current TypeScript and Next versions.
+- Production build completes with the same public buyer path intact.
+- Global CSS imports, PostCSS configuration, Tailwind configuration, and generated utility behavior remain compatible.
+- Public pages still render the same core layout, spacing, hierarchy, and responsive behavior after deployment smoke checks.
+- No major CSS/tooling upgrade is merged only because install succeeds.
+
 ## Validation expectation
 
 Run the standard checks:
