@@ -1,22 +1,22 @@
 export const plans = [
   {
-    name: "Search Presence Scan",
+    name: "Free Scan",
     summary:
-      "The first serious signal layer for businesses that need a clearer read before they buy the wrong next step.",
+      "The safest first read for businesses that need to find what makes customers hesitate before spending more.",
   },
   {
-    name: "Visibility Blueprint",
+    name: "Deep Review",
     summary:
-      "The deeper strategy layer for businesses that need clear explanation before stronger implementation pressure.",
+      "The deeper diagnosis layer for businesses that need to understand what is weakening clarity, trust, and choice before bigger action.",
   },
   {
-    name: "Presence Infrastructure",
+    name: "Build Fix",
     summary:
-      "Concentrated one-time strengthening for businesses that already know what deserves real structural work.",
+      "Focused improvement for businesses ready to strengthen the pages, message, trust, and action path customers judge first.",
   },
   {
-    name: "Presence Command",
+    name: "Ongoing Control",
     summary:
-      "Recurring operating continuity for businesses ready to maintain, adapt, and compound from stronger clarity.",
+      "Continued direction for businesses ready to keep improving as customers, search, and competitors change.",
   },
 ] as const;
