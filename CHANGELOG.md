@@ -48,7 +48,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Internal command center standard for the private Cendorq control panel, automation command deck, scan automation, Deep Review automation, Build Fix control, Ongoing Control cycles, report center, data-quality board, and smart insight layer.
 - Score threshold operating standard for internal score bands, 65-69 watch-grade, 70-79 operational-grade, 80-89 strong operational-grade, 90-100 authority-grade candidate, routing thresholds, alerts, automation levels, and no-clutter public score display.
 - Public drift validation for active SEO defaults, share images, report recommendations, signal summaries, intelligence summaries, active header, footer, mobile dock, manifest, and AI-readable public context.
-- Free Scan intake validation for form source, page metadata, validation defaults, routing labels, intelligence labels, and report recommendations.
+- Free Scan intake validation for form source, page metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations.
 
 ### Changed
 
@@ -66,6 +66,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Aligned homepage, layout structured metadata, and Free Scan page metadata with the current Free Scan language.
 - Expanded public drift and route validation to block retired scan labels in active public surfaces.
 - Defaulted normalized Free Scan intake source to `free-check` while preserving explicit legacy source compatibility for older callers.
+- Tightened Free Scan next-move wording to use Ongoing Control, Build Fix, and Deep Review language directly.
 
 ### Fixed
 
@@ -76,6 +77,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Fixed homepage, layout, and Free Scan metadata drift from retired scan naming to current Free Scan naming.
 - Fixed intake-source drift so unknown Free Scan submissions now normalize to the current `free-check` source instead of the retired scan source.
 - Fixed validation coverage so Free Scan intake consistency is now checked inside the main route validation chain.
+- Fixed Free Scan form next-move language that still sounded like generic support/build/review wording instead of current plan language.
 
 ### Security
 
@@ -103,7 +105,7 @@ For future release notes, include:
 - internal-command-center impact when dashboard, console, automation command deck, scan automation, paid diagnosis, Build Fix, Ongoing Control, report center, data-quality board, or insight layer changed
 - score-threshold impact when score bands, routing thresholds, alerts, automation levels, report labels, public score labels, or authority-grade candidates changed
 - public-drift impact when active header, footer, mobile dock, metadata, share images, reports, signals, intelligence summaries, manifest, sitemap, robots, or `llms.txt` changed
-- Free Scan intake impact when Free Scan form source, metadata, validation defaults, routing labels, intelligence labels, or report recommendations changed
+- Free Scan intake impact when Free Scan form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, or report recommendations changed
 - AI-agent-handoff impact when ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, or project continuity changed
 - final-hardening impact when major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone work changed
 - backend-handoff impact when backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations changed
