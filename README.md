@@ -15,7 +15,7 @@ The homepage has one job: get the right customer to start the **Free Scan**.
 
 ## Stack
 
-- Next.js 15
+- Next.js 16
 - React 19
 - TypeScript
 - Tailwind CSS 3
@@ -117,6 +117,8 @@ pnpm typecheck
 pnpm build
 ```
 
+`pnpm validate:routes` includes `validate-production-smoke-coverage.mjs`, which protects strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and the no-fake-submission smoke rule from disappearing quietly.
+
 After deployment, run:
 
 ```bash
@@ -133,10 +135,11 @@ The production smoke workflow can also be run manually from GitHub Actions and r
 
 ## Production guide
 
-Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, incidents, private intelligence, AI-agent workflows, reports, evidence, data quality, learning memory, pure signals, adaptive signal standards, resilience, continuity, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, or backend data access:
+Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, incidents, private intelligence, AI-agent workflows, reports, evidence, data quality, learning memory, pure signals, adaptive signal standards, resilience, continuity, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, production verification status, or backend data access:
 
 - [`docs/production-guide.md`](docs/production-guide.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
+- [`docs/production-verification-status.md`](docs/production-verification-status.md)
 - [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md)
 - [`docs/data-quality-governance-standard.md`](docs/data-quality-governance-standard.md)
 - [`docs/learning-memory-standard.md`](docs/learning-memory-standard.md)
@@ -179,6 +182,10 @@ The guides cover:
 - system synchronization QA
 - internal command center
 - score threshold operating rules
+- production verification status
+- strict redirect status and `Location` header smoke checks
+- Free Scan API `OPTIONS` and protected Free Scan API read behavior
+- smoke coverage validation guard
 - legacy public routes and redirects
 - pre-merge checks
 - copy quality checks

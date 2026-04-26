@@ -33,6 +33,7 @@ Use every checklist that applies.
 - [ ] `docs/system-synchronization-qa-standard.md` was used when standards, validation, README, SECURITY, release checklist, PR template, CHANGELOG, public routes, backend architecture, reports, or AI-agent workflows changed.
 - [ ] `docs/internal-command-center-standard.md` was used for internal dashboard, intake console, command center, automation command deck, scan automation, Deep Review automation, Build Fix control, Ongoing Control cycles, report center, data-quality board, or smart insight layer changes.
 - [ ] `docs/score-threshold-operating-standard.md` was used for score bands, 65-69 watch-grade, 70-79 operational-grade, 80-89 strong operational-grade, 90-100 authority-grade candidate, routing thresholds, alerts, automation levels, public score labels, or report score display changes.
+- [ ] `docs/production-verification-status.md` was used for strict legacy redirect smoke behavior, Free Scan API `OPTIONS`, protected Free Scan API read behavior, no-fake-submission smoke discipline, production smoke workflow expectations, or production verification status changes.
 - [ ] `docs/ai-agent-handoff.md` was used for ChatGPT-to-ChatGPT handoff, AI-agent continuation, master handoff instructions, backend handoff summary, next-session prompt, or future-session continuity.
 - [ ] `docs/final-hardening-sweep.md` was used for major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone changes.
 - [ ] `docs/backend-handoff-checklist.md` was used for backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations.
@@ -56,7 +57,7 @@ Use every checklist that applies.
 - [ ] `docs/dependency-checklist.md` was used for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, or tooling changes.
 - [ ] `docs/deployment-environment-checklist.md` was used for hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changes.
 - [ ] `docs/observability-diagnostics-checklist.md` was used for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changes.
-- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, AI-agent handoff, closed intelligence, data access, reports, evidence, public/private boundary, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, or public trust surfaces.
+- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, AI-agent handoff, closed intelligence, data access, reports, evidence, public/private boundary, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, production verification status, or public trust surfaces.
 
 ## Closed intelligence check
 
@@ -96,6 +97,7 @@ Use every checklist that applies.
 - [ ] Standards, validation, README, SECURITY, release checklist, PR template, CHANGELOG, public routes, backend architecture, reports, and AI-agent workflows remain synchronized where affected.
 - [ ] No standard was added without a matching operating path.
 - [ ] No validator rule was added without matching documentation.
+- [ ] No production verification rule was added without matching smoke coverage and documentation.
 - [ ] No public route, link, sitemap entry, robots rule, or CTA promotes legacy labels or protected private surfaces.
 
 ## Internal command center and score threshold check
@@ -109,13 +111,16 @@ Use every checklist that applies.
 
 - [ ] Canonical routes are still protected.
 - [ ] Legacy URLs still redirect into the current buyer path.
+- [ ] Strict legacy redirect smoke checks still verify redirect status and `Location` before following.
+- [ ] Free Scan API `OPTIONS` smoke coverage remains intact and does not create fake submissions.
+- [ ] Protected Free Scan API read behavior remains closed by default for unauthenticated production reads.
 - [ ] Discovery files still make sense: robots.txt, sitemap.xml, llms.txt, security.txt, manifest.
 - [ ] `/api/health` remains dynamic, no-store, noindex, and lightweight.
 - [ ] No old public labels were revived in active surfaces.
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, closed intelligence, data-access, report, evidence, AI-agent, data quality, learning memory, pure signal, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score threshold, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, closed intelligence, data-access, report, evidence, AI-agent, data quality, learning memory, pure signal, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score threshold, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, production verification status, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation

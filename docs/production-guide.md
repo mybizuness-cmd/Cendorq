@@ -12,6 +12,7 @@ Cendorq is built around one protected buyer path:
 The homepage should stay focused on getting the right customer into the Free Scan. Do not turn the homepage back into a dashboard, route console, pricing comparison, or multi-offer page.
 
 For release-specific steps, use [`docs/release-checklist.md`](release-checklist.md).
+For production verification status, use [`docs/production-verification-status.md`](production-verification-status.md).
 For production failures, use [`docs/incident-response.md`](incident-response.md).
 
 ## Operating standards
@@ -50,6 +51,7 @@ These checks protect:
 
 - canonical buyer routes
 - legacy public-route redirects
+- strict redirect status and `Location` header smoke coverage
 - production hardening headers
 - plain-language buyer labels
 - sitemap and robots canonical route focus
@@ -58,6 +60,10 @@ These checks protect:
 - security.txt
 - health endpoint
 - production smoke script
+- production verification status
+- Free Scan API `OPTIONS` smoke coverage
+- protected Free Scan API read behavior
+- no-fake-submission smoke discipline
 - manual and scheduled smoke workflow
 - release checklist
 - incident response runbook
@@ -137,6 +143,8 @@ Legacy routes should redirect only into the current buyer path:
 
 Do not list redirected legacy routes in sitemap entries, robots allowlists, navigation, footer links, metadata, manifest shortcuts, or active CTA destinations.
 
+Production smoke must verify each legacy URL returns a real redirect status and a `Location` header before following it into the current buyer path. Do not weaken this into final-destination-only validation.
+
 ## Discovery and trust files
 
 These files are intentional and should stay present:
@@ -181,6 +189,14 @@ Expected shape:
   "timestamp": "..."
 }
 ```
+
+## Free Scan API smoke rule
+
+Production smoke verifies `OPTIONS /api/free-check` returns the allowed methods without creating fake submissions.
+
+For non-local production URLs, production smoke also verifies unauthenticated `GET /api/free-check` stays protected with the expected `401` response. Localhost remains excluded from protected-read smoke so local development does not require production secrets.
+
+Do not weaken the Free Scan API read boundary, remove the `OPTIONS` check, or create fake Free Scan submissions during smoke checks.
 
 ## Language rules
 
@@ -253,6 +269,10 @@ Do not weaken:
 - API no-store/noindex behavior
 - legacy redirect checks
 - smoke checks
+- production verification status protection
+- Free Scan API `OPTIONS` smoke coverage
+- protected Free Scan API read behavior
+- no-fake-submission smoke discipline
 - Free Scan funnel focus
 - release checklist discipline
 - incident response discipline
