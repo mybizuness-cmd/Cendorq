@@ -43,6 +43,13 @@ For environment variable changes, confirm:
 - The variable is not duplicated under multiple names.
 - The variable is not required in environments where it is unused.
 
+Current public URL variables must stay clear:
+
+- `NEXT_PUBLIC_SITE_URL` is the canonical public site URL used by SEO metadata, sitemap, robots, and structured data.
+- `CENDORQ_BASE_URL` is the public smoke/deployment verification target used by production smoke checks.
+- Both values may default to `https://cendorq.com` in safe examples.
+- Do not put secrets, admin keys, customer data, or private endpoint URLs in either public URL variable.
+
 ## Public/private config checks
 
 For config exposure changes, confirm:
@@ -63,6 +70,8 @@ Before merging, check for drift between:
 - health endpoint expectations
 - README or production docs
 - integration setup notes
+- `NEXT_PUBLIC_SITE_URL` usage in SEO, sitemap, robots, and structured metadata
+- `CENDORQ_BASE_URL` usage in smoke checks and deployment verification
 
 ## Failure-state checks
 
