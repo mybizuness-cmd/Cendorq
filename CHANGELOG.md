@@ -41,6 +41,12 @@ Use this section for changes that have merged but are not yet included in a name
 - Pure signal authority standard for source quality, evidence strength, freshness, independence, consistency, context completeness, manipulation risk, privacy class, outcome linkage, authority eligibility, promotion, and demotion.
 - Adaptive signal evolution standard for versioned pure-signal definitions, drift detection, candidate rules, safe experiments, backtesting, foresight watchlists, promotion guardrails, demotion, and reversible evolution.
 - Resilience and continuity standard for safe degradation, backups, vendor-risk awareness, recovery, rollback, abuse handling, legal/privacy shifts, long-horizon survival, and continuity.
+- Maximum protection standard for deny-by-default access, secret protection, anti-exfiltration, threat modeling, prompt-injection containment, report/evidence protection, emergency controls, and partner isolation.
+- Foundation hardening standard for no-regression base architecture, route integrity, validation safety, backend readiness, report readiness, AI-agent readiness, and protected public/private boundaries.
+- Foundation elevation standard for compounding clarity, conversion, scalability, automation, validation coverage, maintainability, simplicity, and long-horizon foundation improvement.
+- System synchronization QA standard for keeping standards, validation, README, SECURITY, release checklist, PR template, CHANGELOG, public routes, backend architecture, reports, and AI-agent workflows coordinated.
+- Internal command center standard for the private Cendorq control panel, automation command deck, scan automation, Deep Review automation, Build Fix control, Ongoing Control cycles, report center, data-quality board, and smart insight layer.
+- Score threshold operating standard for internal score bands, 65-69 watch-grade, 70-79 operational-grade, 80-89 strong operational-grade, 90-100 authority-grade candidate, routing thresholds, alerts, automation levels, and no-clutter public score display.
 
 ### Changed
 
@@ -49,40 +55,19 @@ Use this section for changes that have merged but are not yet included in a name
 - Expanded route validation to protect legacy public-route governance, redirect smoke checks, sitemap exclusions, and robots allowlist exclusions.
 - Updated README, production guide, release checklist, route/link checklist, and search discovery checklist with the current legacy public-route policy.
 - Added a compact PR template checklist-gate section so the full readiness system is easier to scan and maintain.
-- Added a PR template AI-agent handoff gate so ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, and project continuity explicitly consider `docs/ai-agent-handoff.md` before merge.
-- Added a PR template final hardening gate so major readiness, launch-adjacent, broad hardening, backend-prep, and production milestone changes explicitly consider `docs/final-hardening-sweep.md` before merge.
-- Added a PR template backend handoff gate so backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, and server-side integrations explicitly consider `docs/backend-handoff-checklist.md` before merge.
-- Added a PR template manual QA and acceptance gate so final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, and post-change signoff explicitly consider `docs/manual-qa-acceptance-checklist.md` before merge.
-- Added a PR template content freshness gate so public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, and outdated buyer-path assumptions explicitly consider `docs/content-freshness-checklist.md` before merge.
-- Added a PR template configuration safety gate so environment variables, public and private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, and production safety changes explicitly consider `docs/configuration-safety-checklist.md` before merge.
-- Added a PR template integration readiness gate so third-party services, API handoffs, payment providers, AI services, email or CRM handoffs, webhooks, external scripts, service keys, integration failures, and production-support expectations explicitly consider `docs/integration-readiness-checklist.md` before merge.
-- Added a PR template analytics and tracking gate so analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, and buyer-path reporting explicitly consider `docs/analytics-tracking-checklist.md` before merge.
-- Added a PR template policy and legal surface gate so public policy pages, terms language, privacy language, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, and legal-adjacent public content explicitly consider `docs/policy-legal-surface-checklist.md` before merge.
-- Added a PR template trust and credibility gate so public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, and confidence-building content explicitly consider `docs/trust-credibility-checklist.md` before merge.
-- Added a PR template route and link integrity gate so navigation, internal links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, and buyer-path connection changes explicitly consider `docs/route-link-integrity-checklist.md` before merge.
-- Added a PR template offer integrity gate so Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, and offer-positioning changes explicitly consider `docs/offer-integrity-checklist.md` before merge.
-- Added a PR template lead intake gate so Free Scan, Connect, form, field, validation, success state, error state, routing, and buyer handoff changes explicitly consider `docs/lead-intake-checklist.md` before merge.
-- Added a PR template conversion quality gate so homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, and offer-positioning changes explicitly consider `docs/conversion-quality-checklist.md` before merge.
-- Added a PR template visual quality gate so public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and premium-feel changes explicitly consider `docs/visual-quality-checklist.md` before merge.
-- Added a PR template copy quality gate so public copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes explicitly consider `docs/copy-quality-checklist.md` before merge.
-- Added a PR template privacy and data handling gate so public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, and integration changes explicitly consider `docs/privacy-data-checklist.md` before merge.
-- Added a PR template accessibility gate so public UI and buyer-path usability changes explicitly consider `docs/accessibility-checklist.md` before merge.
-- Added a PR template performance gate so public UI, asset, script, animation, and buyer-path performance changes explicitly consider `docs/performance-checklist.md` before merge.
-- Added a PR template search discovery gate so metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, and public trust surface changes explicitly consider `docs/search-discovery-checklist.md` before merge.
-- Added a PR template dependency gate so package, lockfile, GitHub Actions, runtime pin, dependency automation, and tooling changes explicitly consider `docs/dependency-checklist.md` before merge.
-- Added a PR template deployment environment gate so hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, and deployment configuration changes explicitly consider `docs/deployment-environment-checklist.md` before merge.
-- Added a PR template observability and diagnostics gate so health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, and operational visibility changes explicitly consider `docs/observability-diagnostics-checklist.md` before merge.
-- Expanded `pnpm validate:routes` to also enforce closed intelligence, data quality, learning memory, pure signal authority, adaptive signal evolution, resilience, and private operating intelligence standards.
-- Synced README, SECURITY, release checklist, and PR template with the full intelligence standards so future changes must account for data quality, learning memory, pure signals, adaptive evolution, resilience, reports, evidence, and closed database posture.
+- Expanded `pnpm validate:routes` to also enforce closed intelligence, data quality, learning memory, pure signal authority, adaptive signal evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization QA, internal command center, score thresholds, and private operating intelligence standards.
+- Synced README, SECURITY, release checklist, and PR template with the full operating standards so future changes must account for closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, reports, evidence, and closed database posture.
+- Sharpened homepage, Free Scan, plan positioning, plan sales-page flow, and SEO defaults around current Cendorq language: plain buyer language, clearer conversion path, protected public/private boundary, stronger organic discovery, and no fake guarantees.
 
 ### Fixed
 
 - Fixed stale public-route exposure by moving additional legacy URLs into explicit redirects and by preventing legacy routes from being promoted by discovery surfaces.
+- Corrected plan routing so Ongoing Control points toward the current Connect path instead of legacy contact language.
 
 ### Security
 
 - No secret, credential, private runtime value, or private buyer-data behavior changes.
-- Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, and resilience/continuity expectations.
+- Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, resilience/continuity, maximum protection, foundation hardening, system synchronization, internal command center boundaries, and score-threshold discipline.
 
 ## Release note format
 
@@ -98,6 +83,12 @@ For future release notes, include:
 - pure-signal impact when source quality, evidence strength, freshness, independence, consistency, context completeness, manipulation risk, privacy class, outcome linkage, authority eligibility, promotion, or demotion changed
 - adaptive-evolution impact when pure-signal definitions, signal versions, drift detection, candidate rules, safe experiments, backtesting, foresight watchlists, promotion guardrails, demotion, rollback, or reversible evolution changed
 - resilience impact when safe degradation, backups, vendor-risk awareness, recovery, rollback, downtime, platform shifts, abuse handling, legal/privacy shifts, long-horizon survival, or continuity changed
+- maximum-protection impact when deny-by-default access, secrets, exfiltration, threat model, prompt-injection containment, report protection, evidence protection, emergency controls, or partner isolation changed
+- foundation-hardening impact when base architecture, route integrity, validation, backend readiness, report readiness, AI-agent readiness, or no-regression foundation rules changed
+- foundation-elevation impact when clarity, conversion, scalability, automation, validation coverage, maintainability, simplicity, or long-horizon compounding changed
+- system-synchronization impact when standards, validation, README, SECURITY, release checklist, PR template, CHANGELOG, public routes, backend architecture, reports, or AI-agent workflows changed
+- internal-command-center impact when dashboard, console, automation command deck, scan automation, paid diagnosis, Build Fix, Ongoing Control, report center, data-quality board, or insight layer changed
+- score-threshold impact when score bands, routing thresholds, alerts, automation levels, report labels, public score labels, or authority-grade candidates changed
 - AI-agent-handoff impact when ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, or project continuity changed
 - final-hardening impact when major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone work changed
 - backend-handoff impact when backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations changed
