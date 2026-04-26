@@ -41,6 +41,25 @@ Use `.env.example` as the safe local template. Copy it to `.env.local` only when
 
 Never commit real secrets, private tokens, customer data, or private keys.
 
+## Closed intelligence operating norm
+
+Cendorq is public where it must convert and private where it must protect intelligence.
+
+The public surface sells the outcome. The private system holds the engine.
+
+The closed intelligence operating standard is protected in [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md).
+
+This means:
+
+- public pages may explain the buyer path and high-level outcome
+- private systems hold scoring, evidence, reports, AI-agent prompts, and operating logic
+- client reports and evidence must not be publicly indexed
+- database access must stay behind controlled server-side services
+- direct client-side database credentials are not allowed
+- exact scoring logic, private report schemas, and private agent chains stay protected
+- every serious AI-agent finding must be evidence-gated
+- meaningful changes must preserve the public/private boundary
+
 ## Editor and Git baseline
 
 `.editorconfig` keeps local editor behavior aligned across contributors:
@@ -90,10 +109,11 @@ The production smoke workflow can also be run manually from GitHub Actions and r
 
 ## Production guide
 
-Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, or incidents:
+Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, incidents, private intelligence, AI-agent workflows, reports, evidence, or backend data access:
 
 - [`docs/production-guide.md`](docs/production-guide.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
+- [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md)
 - [`docs/route-link-integrity-checklist.md`](docs/route-link-integrity-checklist.md)
 - [`docs/search-discovery-checklist.md`](docs/search-discovery-checklist.md)
 - [`docs/copy-quality-checklist.md`](docs/copy-quality-checklist.md)
@@ -109,6 +129,10 @@ Read the production operating guide before changing routes, public labels, crawl
 The guides cover:
 
 - protected buyer path
+- closed intelligence
+- public/private boundary
+- protected reports and evidence
+- private database posture
 - legacy public routes and redirects
 - pre-merge checks
 - copy quality checks
