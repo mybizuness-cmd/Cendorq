@@ -30,6 +30,12 @@ expect("src/components/free-check/guided-free-check-form-v2.tsx", [
   "Premium free scan",
   "Scan received",
   "Compare all plans",
+  "Possible Ongoing Control fit",
+  "Possible Build Fix fit",
+  "Likely Deep Review fit",
+  "See Ongoing Control",
+  "See Build Fix",
+  "See Deep Review",
 ]);
 
 expect("src/lib/validation/free-check.ts", [
@@ -78,6 +84,9 @@ for (const phrase of [
   "Visibility Blueprint",
   "Presence Infrastructure",
   "Presence Command",
+  "Possible ongoing support fit",
+  "Possible build fit",
+  "Likely deep review fit",
 ]) {
   if (publicIntakeText.includes(phrase)) failures.push(`Free Scan intake public text contains retired phrase: ${phrase}`);
 }
@@ -88,7 +97,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. Form source, metadata, validation defaults, routing labels, intelligence labels, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. Form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
