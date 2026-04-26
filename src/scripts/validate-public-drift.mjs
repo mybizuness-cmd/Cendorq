@@ -19,6 +19,7 @@ const activePublicFiles = [
   "src/app/twitter-image.tsx",
   "src/app/sitemap.ts",
   "src/app/robots.ts",
+  "src/layout/site-header.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
   "src/layout/mobile-conversion-dock.tsx",
@@ -85,6 +86,10 @@ for (const route of forbiddenActiveRoutes) {
   if (combined.includes(route)) failures.push(`Forbidden old public route found in active surfaces: ${route}`);
 }
 
+expect("src/layout/site-header.tsx", [
+  "export { SiteHeader } from \"./site-header-conversion\";",
+]);
+
 expect("src/lib/seo.ts", [
   "Cendorq helps businesses find what makes customers hesitate",
   "Cendorq — Search Presence OS",
@@ -125,7 +130,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. SEO defaults, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header, footer, and mobile dock use the current Cendorq buyer path.");
+console.log("Public drift validation passed. SEO defaults, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, and mobile dock use the current Cendorq buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
