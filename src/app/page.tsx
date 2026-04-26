@@ -15,7 +15,7 @@ const CATEGORY_LINE = "Search Presence OS";
 export const metadata = buildMetadata({
   title: "Free Search Presence Scan | Cendorq",
   description:
-    "Start the Cendorq free scan and find what is making people hesitate, compare, leave, or choose someone else before spending more.",
+    "Start the Cendorq free scan and find what is making customers hesitate, compare, leave, or choose someone else before spending more.",
   path: "/",
   keywords: [
     "cendorq free scan",
@@ -32,26 +32,26 @@ export const metadata = buildMetadata({
 });
 
 const HERO_POINTS = [
-  "Free guided scan",
-  "Built to expose hesitation",
+  "Free first read",
+  "No fake guarantees",
   "Clear next move",
 ] as const;
 
 const DECISION_BREAKS = [
   {
-    title: "They do not understand fast enough",
+    title: "They do not get it",
     copy:
-      "If the business takes work to understand, people leave before they ever see the value.",
+      "If the offer takes too much work to understand, people leave before they see why you are worth choosing.",
   },
   {
-    title: "They do not trust fast enough",
+    title: "They do not trust it",
     copy:
-      "If the page does not feel clear, strong, and believable, even good customers hesitate.",
+      "If the page feels thin, vague, outdated, or unsupported, good customers pause and keep looking.",
   },
   {
-    title: "They choose the easier option",
+    title: "They choose the easier business",
     copy:
-      "If a competitor feels safer, clearer, or simpler, the better business can still lose the decision.",
+      "If a competitor feels clearer, safer, or faster to act on, they can win even when you are better.",
   },
 ] as const;
 
@@ -59,17 +59,17 @@ const SCAN_STEPS = [
   {
     label: "01",
     title: "Show the business",
-    copy: "Name the website, location, category, and offer so the scan starts with the real thing customers see.",
+    copy: "Website, location, category, and offer. The real things customers judge first.",
   },
   {
     label: "02",
     title: "Name the pressure",
-    copy: "Tell us what feels weak: low calls, weak trust, poor bookings, confusion, or people choosing competitors.",
+    copy: "Low calls, weak bookings, poor trust, confusion, or competitors getting picked instead.",
   },
   {
     label: "03",
-    title: "Get the first read",
-    copy: "The scan helps reveal what may be blocking trust, clarity, and action before you spend more.",
+    title: "Get the first direction",
+    copy: "See where the decision may be breaking before paying for deeper work.",
   },
 ] as const;
 
@@ -77,17 +77,17 @@ const FAQS = [
   {
     question: "Who should start here?",
     answer:
-      "Start here if the business looks better in real life than it feels online, or if people are visiting but not choosing you fast enough.",
+      "Start here if the business is good, but the website, search presence, or customer path is not making people choose fast enough.",
   },
   {
-    question: "What does the free scan help with?",
+    question: "What does the free scan look for?",
     answer:
-      "It helps spot what may be hurting the decision: unclear words, weak trust, confusing offers, poor flow, or competitors feeling easier to choose.",
+      "It looks for the simple things that cost decisions: unclear words, weak trust, confusing offers, poor flow, missing proof, or competitors feeling easier to choose.",
   },
   {
-    question: "Why not start with the paid work?",
+    question: "Why not start with paid work?",
     answer:
-      "Because the wrong fix wastes money. The free scan helps find the first problem before deeper work is chosen.",
+      "Because guessing is expensive. The free scan helps find the first pressure point before you pay for deeper review, fixes, or ongoing control.",
   },
 ] as const;
 
@@ -124,11 +124,11 @@ export default function HomePage() {
           <TopChip>{CATEGORY_LINE}</TopChip>
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[4.85rem]">
-            Find what is making people hesitate before they choose you.
+            Stop losing customers before they even call.
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} gives your business a free guided scan that helps reveal why people may be confused, unsure, comparing you away, or leaving before they act.
+            {BRAND_NAME} finds what makes people hesitate, compare you away, or pick someone else — before you spend more on ads, SEO, redesigns, or random fixes.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -139,7 +139,7 @@ export default function HomePage() {
               Start free scan
             </Link>
             <p className="max-w-sm text-sm leading-6 text-slate-400">
-              The safest first move before paying for deeper strategy, rebuilds, or ongoing support.
+              A safer first move when the problem is real, but the cause is not clear yet.
             </p>
           </div>
 
@@ -156,10 +156,10 @@ export default function HomePage() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.14),transparent_35%),radial-gradient(circle_at_90%_10%,rgba(56,189,248,0.1),transparent_30%)]" />
             <div className="system-grid-wide absolute inset-0 opacity-[0.06]" />
             <div className="relative z-10">
-              <TopChip>What the scan exposes</TopChip>
+              <TopChip>What usually breaks</TopChip>
 
               <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                The problem is not always traffic. Often, it is the split-second decision people make before they contact you.
+                More traffic does not fix a business people do not understand, trust, or choose.
               </h2>
 
               <div className="mt-6 grid gap-3">
@@ -174,12 +174,12 @@ export default function HomePage() {
 
       <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
         <div>
-          <TopChip>Guided, not overwhelming</TopChip>
+          <TopChip>Simple on purpose</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            A high-level scan broken into simple steps.
+            Answer a few plain questions. Get a sharper first read.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-8 text-slate-300">
-            The scan does not throw a wall of fields at people. It guides the right customer through the right questions so the first read is easier to finish and more useful.
+            No maze. No bloated audit. The scan collects the details that help reveal where trust, clarity, and action may be breaking.
           </p>
         </div>
 
@@ -192,12 +192,12 @@ export default function HomePage() {
 
       <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-[1fr_0.85fr] lg:items-start">
         <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
-          <TopChip>Why start here</TopChip>
+          <TopChip>Before you spend more</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Before the business spends more, it needs to know what is making people pause.
+            Know what is costing the decision first.
           </h2>
           <p className="mt-4 text-base leading-8 text-slate-300">
-            The free scan is not a weak offer. It is the smartest first move for a serious business that wants to stop guessing, avoid the wrong fix, and choose the next step with more confidence.
+            Cendorq is built for business owners who do not want another guess. Start with the scan, find the pressure, then choose the right depth: review, fix, or ongoing control.
           </p>
           <div className="mt-7">
             <Link
