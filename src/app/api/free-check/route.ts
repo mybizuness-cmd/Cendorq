@@ -70,7 +70,6 @@ const LEGACY_STORAGE_FILES = [
 ] as const;
 
 const ADMIN_HEADER = "x-intake-admin-key";
-const OPEN_READS_ENV = "ALLOW_OPEN_INTAKE_READS";
 const MAX_REQUEST_BYTES = 32_000;
 const SUBMISSION_COOLDOWN_MS = 45_000;
 const MAX_GET_LIMIT = 200;
@@ -215,16 +214,14 @@ export async function POST(request: NextRequest) {
 }
 
 function canReadEntries(request: NextRequest) {
-  if (shouldAllowOpenConsoleReads()) return true;
+  if (shouldAllowLocalConsoleReads()) return true;
   const configuredKey = configuredReadKey();
   if (!configuredKey) return false;
   const providedKey = cleanQueryValue(request.headers.get(ADMIN_HEADER) ?? "", 200);
   return providedKey ? safeEqual(providedKey, configuredKey) : false;
 }
 
-function shouldAllowOpenConsoleReads() {
-  const explicitOpenReadFlag = cleanQueryValue(process.env[OPEN_READS_ENV] ?? "", 20).toLowerCase();
-  if (explicitOpenReadFlag === "1" || explicitOpenReadFlag === "true") return true;
+function shouldAllowLocalConsoleReads() {
   return cleanQueryValue(process.env.NODE_ENV ?? "", 20).toLowerCase() !== "production";
 }
 
