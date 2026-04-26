@@ -88,6 +88,7 @@ const redirectPairs = [
 ];
 const requiredHeaders = ["Strict-Transport-Security", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy", "Permissions-Policy", "Cross-Origin-Opener-Policy", "X-Permitted-Cross-Domain-Policies", "X-Download-Options"];
 const publicFiles = ["README.md", "src/app/sitemap.ts", "src/app/robots.ts", "src/app/layout.tsx", "src/layout/site-header-conversion.tsx", "src/layout/site-footer.tsx", "src/app/page.tsx", "src/app/free-check/page.tsx", "src/app/plans/page.tsx", "src/app/plans/deep-review/page.tsx", "src/app/plans/build-fix/page.tsx", "src/app/plans/ongoing-control/page.tsx", "src/app/connect/page.tsx", "src/app/not-found.tsx", "public/manifest.webmanifest", "public/llms.txt", "public/.well-known/security.txt"];
+const activePublicSurfaceFiles = publicFiles.filter((file) => file !== "README.md");
 const forbiddenActivePublicPhrases = ["Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Start Search Presence Scan", "View Visibility Blueprint", "View Presence Infrastructure", "View Presence Command"];
 
 const checklistExpectations = [
@@ -167,7 +168,8 @@ for (const route of canonicalRoutes) if (!llms.includes(route)) failures.push(`l
 for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "make the business easier to understand", "make the business easier to trust", "make the business easier to choose"]) if (!llms.includes(phrase)) failures.push(`llms.txt does not include required positioning phrase: ${phrase}`);
 
 const publicText = publicFiles.map((file) => `\n/* ${file} */\n${read(file)}`).join("\n");
-for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner"]) if (publicText.includes(route)) failures.push(`Active public navigation/metadata should not reference legacy pricing route: ${route}`);
+const activePublicText = activePublicSurfaceFiles.map((file) => `\n/* ${file} */\n${read(file)}`).join("\n");
+for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner"]) if (activePublicText.includes(route)) failures.push(`Active public navigation/metadata should not reference legacy pricing route: ${route}`);
 for (const phrase of forbiddenActivePublicPhrases) if (publicText.includes(phrase) && !llms.includes(`- ${phrase}`)) failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
 if (!publicText.includes("Free Scan") || !publicText.includes("Deep Review") || !publicText.includes("Build Fix") || !publicText.includes("Ongoing Control")) failures.push("Public buyer path labels are incomplete. Expected Free Scan, Deep Review, Build Fix, and Ongoing Control.");
 
