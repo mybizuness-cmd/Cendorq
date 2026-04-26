@@ -367,10 +367,10 @@ function humanizePressure(value: SignalPressure) {
 }
 
 function humanizeRoutingHint(value: RoutingHint) {
-    if (value === "scan-only") return "scan-only";
-    if (value === "blueprint-candidate") return "Visibility Blueprint candidate";
-    if (value === "infrastructure-review") return "Presence Infrastructure review";
-    return "Presence Command review";
+    if (value === "scan-only") return "Free Scan only";
+    if (value === "blueprint-candidate") return "Deep Review candidate";
+    if (value === "infrastructure-review") return "Build Fix review";
+    return "Ongoing Control review";
 }
 
 function humanizeFlag(flag: string) {
