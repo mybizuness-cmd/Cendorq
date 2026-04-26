@@ -47,6 +47,7 @@ const requiredFiles = [
   "docs/dependency-checklist.md",
   "docs/deployment-environment-checklist.md",
   "docs/observability-diagnostics-checklist.md",
+  "docs/production-verification-status.md",
   "docs/incident-response.md",
   "src/app/page.tsx",
   "src/app/free-check/page.tsx",
@@ -175,6 +176,7 @@ expect("CHANGELOG.md", ["AI-agent handoff guide", "Final hardening sweep guide",
 expect(".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check", "Foundation hardening and elevation check", "System synchronization check", "Internal command center and score threshold check", "pnpm validate:routes"], "PR template is missing current gates");
 expect("docs/production-guide.md", ["The public surface sells the outcome. The private system holds the engine.", "Internal command center rule", "Score threshold rule", "Safe production posture"], "Production guide is missing current operating rules");
 expect("docs/release-checklist.md", ["closed intelligence", "data quality", "learning memory", "pure signal", "maximum protection", "foundation hardening", "foundation elevation", "system synchronization", "internal command center", "score threshold"], "Release checklist is missing full standard coverage");
+expect("docs/production-verification-status.md", ["Production Verification Status", "strict legacy redirects", "Free Scan API `OPTIONS`", "protected Free Scan API read behavior", "validate-production-smoke-coverage.mjs", "Do not create fake Free Scan submissions during smoke checks"], "Production verification status doc is missing protected smoke status coverage");
 expect("src/layout/site-header.tsx", ["export { SiteHeader } from \"./site-header-conversion\";"], "Legacy header must remain a current-header shim");
 expect("src/lib/seo.ts", ["Cendorq helps businesses find what makes customers hesitate", "Cendorq — Search Presence OS", "Start with the Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "SEO defaults are not aligned with current positioning");
 expect("src/app/layout.tsx", ["Free Scan", "Cendorq Plans", "Search Presence OS"], "Layout structured metadata is not aligned with current positioning");
@@ -237,7 +239,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Current buyer path, legacy redirects, active public drift rules, SEO defaults, structured metadata, header shim, Free Scan intake gate, production smoke coverage gate, Free Scan API smoke check, discovery files, runtime pins, CI gates, smoke checks, operating docs, and protection standards are synchronized.");
+console.log("Route validation passed. Current buyer path, legacy redirects, active public drift rules, SEO defaults, structured metadata, header shim, Free Scan intake gate, production verification status, production smoke coverage gate, Free Scan API smoke check, discovery files, runtime pins, CI gates, smoke checks, operating docs, and protection standards are synchronized.");
 
 function expect(path, phrases, label) {
   const text = read(path);
