@@ -7,10 +7,11 @@ on:
   push:
     branches:
       - main
+      - tailwind-4-dedicated-migration
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -31,7 +32,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          persist-credentials: false
+          persist-credentials: true
 
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
@@ -47,10 +48,15 @@ jobs:
       - name: Generate Tailwind 4 lockfile for migration review
         run: |
           pnpm install --lockfile-only --ignore-scripts
-          echo "__PNPM_LOCK_BASE64_BEGIN__"
-          base64 -w 0 pnpm-lock.yaml
-          echo
-          echo "__PNPM_LOCK_BASE64_END__"
+          if [ "${GITHUB_EVENT_NAME}" = "push" ] && [ "${GITHUB_REF_NAME}" = "tailwind-4-dedicated-migration" ]; then
+            if ! git diff --quiet -- pnpm-lock.yaml; then
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add pnpm-lock.yaml
+              git commit -m "Regenerate Tailwind 4 lockfile"
+              git push
+            fi
+          fi
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
