@@ -20,11 +20,6 @@ const PRIVATE_DISALLOWLIST = [
     "/api/",
     "/intake-console",
     "/_next/",
-    "/diagnosis",
-    "/profile",
-    "/faq",
-    "/pricing",
-    "/how-it-works",
 ] as const satisfies readonly RulePath[];
 
 const PRIORITY_BOTS = [
