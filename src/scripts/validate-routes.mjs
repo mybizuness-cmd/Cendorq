@@ -69,7 +69,23 @@ const requiredFiles = [
 ];
 
 const canonicalRoutes = ["/free-check", "/plans", "/plans/deep-review", "/plans/build-fix", "/plans/ongoing-control", "/connect"];
-const redirectPairs = [["/pricing", "/plans"], ["/pricing/full-diagnosis", "/plans/deep-review"], ["/pricing/optimization", "/plans/build-fix"], ["/pricing/monthly-partner", "/plans/ongoing-control"], ["/contact", "/connect"]];
+const policyRoutes = ["/privacy", "/terms", "/disclaimer"];
+const legacyDiscoveryRoutes = ["/pricing", "/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner", "/contact", "/how-it-works", "/diagnosis", "/profile", "/faq"];
+const redirectPairs = [
+  ["/pricing", "/plans"],
+  ["/pricing/full-diagnosis", "/plans/deep-review"],
+  ["/pricing/optimization", "/plans/build-fix"],
+  ["/pricing/monthly-partner", "/plans/ongoing-control"],
+  ["/contact", "/connect"],
+  ["/how-it-works", "/plans"],
+  ["/diagnosis", "/plans/deep-review"],
+  ["/profile", "/plans"],
+  ["/faq", "/plans"],
+  ["/freecheck", "/free-check"],
+  ["/full-diagnosis", "/plans/deep-review"],
+  ["/optimization", "/plans/build-fix"],
+  ["/monthly-partner", "/plans/ongoing-control"],
+];
 const requiredHeaders = ["Strict-Transport-Security", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy", "Permissions-Policy", "Cross-Origin-Opener-Policy", "X-Permitted-Cross-Domain-Policies", "X-Download-Options"];
 const publicFiles = ["README.md", "src/app/sitemap.ts", "src/app/robots.ts", "src/app/layout.tsx", "src/layout/site-header-conversion.tsx", "src/layout/site-footer.tsx", "src/app/page.tsx", "src/app/free-check/page.tsx", "src/app/plans/page.tsx", "src/app/plans/deep-review/page.tsx", "src/app/plans/build-fix/page.tsx", "src/app/plans/ongoing-control/page.tsx", "src/app/connect/page.tsx", "src/app/not-found.tsx", "public/manifest.webmanifest", "public/llms.txt", "public/.well-known/security.txt"];
 const forbiddenActivePublicPhrases = ["Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Start Search Presence Scan", "View Visibility Blueprint", "View Presence Infrastructure", "View Presence Command"];
@@ -85,7 +101,7 @@ const checklistExpectations = [
   ["docs/analytics-tracking-checklist.md", ["Cendorq Analytics and Tracking Checklist", "Analytics principle", "Required checks", "Event naming checks", "Script and pixel checks", "Privacy checks", "Buyer-path measurement checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
   ["docs/policy-legal-surface-checklist.md", ["Cendorq Policy and Legal Surface Checklist", "Policy principle", "Required checks", "Privacy and data-use checks", "Terms and disclaimer checks", "Security contact checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
   ["docs/trust-credibility-checklist.md", ["Cendorq Trust and Credibility Checklist", "Trust principle", "Required checks", "Claim checks", "Proof checks", "Security and privacy confidence checks", "Red flags", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
-  ["docs/route-link-integrity-checklist.md", ["Cendorq Route and Link Integrity Checklist", "Route and link principle", "Required checks", "Canonical route checks", "Redirect checks", "Link text checks", "Dead-end checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Connect"]],
+  ["docs/route-link-integrity-checklist.md", ["Cendorq Route and Link Integrity Checklist", "Route and link principle", "Required checks", "Canonical route checks", "Redirect checks", "Link text checks", "Dead-end checks", "legacy", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Connect"]],
   ["docs/offer-integrity-checklist.md", ["Cendorq Offer Integrity Checklist", "Offer integrity principle", "Required checks", "Plan clarity checks", "Scope checks", "Guarantee and claim checks", "Pricing and comparison checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
   ["docs/lead-intake-checklist.md", ["Cendorq Lead Intake Checklist", "Lead intake principle", "Required checks", "Field checks", "Validation checks", "Success and handoff checks", "Privacy checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan", "Connect"]],
   ["docs/visual-quality-checklist.md", ["Cendorq Visual Quality Checklist", "Visual quality principle", "Required checks", "Layout checks", "Mobile checks", "Visual polish checks", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
@@ -95,20 +111,20 @@ const checklistExpectations = [
   ["docs/dependency-checklist.md", ["Cendorq Dependency Checklist", "Dependency principle", "Required checks", "Runtime checks", "GitHub Actions checks", "Package checks", "pnpm validate:routes", "pnpm smoke:production", "Node 24"]],
   ["docs/privacy-data-checklist.md", ["Cendorq Privacy and Data Handling Checklist", "Privacy principle", "Required checks", "Public form checks", "Environment checks", "Logging checks", "Third-party checks", "pnpm validate:routes", "pnpm smoke:production"]],
   ["docs/copy-quality-checklist.md", ["Cendorq Copy Quality Checklist", "Copy principle", "Required checks", "Approved buyer language", "Language to avoid", "CTA checks", "Trust checks", "pnpm validate:routes", "pnpm smoke:production"]],
-  ["docs/search-discovery-checklist.md", ["Cendorq Search Discovery Checklist", "Discovery principle", "Required checks", "Canonical route checks", "Redirect checks", "Public files to check", "pnpm validate:routes", "pnpm smoke:production", "llms.txt", "sitemap"]],
+  ["docs/search-discovery-checklist.md", ["Cendorq Search Discovery Checklist", "Discovery principle", "Required checks", "Canonical route checks", "Redirect checks", "Public files to check", "legacy", "pnpm validate:routes", "pnpm smoke:production", "llms.txt", "sitemap"]],
   ["docs/performance-checklist.md", ["Cendorq Performance Checklist", "Performance principle", "Required checks", "Buyer-path checks", "Mobile checks", "Asset checks", "pnpm validate:routes", "pnpm smoke:production"]],
   ["docs/accessibility-checklist.md", ["Cendorq Accessibility Checklist", "Accessibility principle", "Required checks", "Buyer-path checks", "Mobile checks", "pnpm validate:routes", "pnpm smoke:production"]],
   ["docs/incident-response.md", ["Cendorq Incident Response Runbook", "Severity guide", "First response checklist", "Verification commands", "Recovery path", "After-action checklist", "pnpm validate:routes", "pnpm smoke:production", "Production Smoke Check"]],
-  ["docs/release-checklist.md", ["Cendorq Release Checklist", "docs/incident-response.md", "CHANGELOG.md", "Release notes standard", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
+  ["docs/release-checklist.md", ["Cendorq Release Checklist", "docs/incident-response.md", "CHANGELOG.md", "legacy route", "Release notes standard", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"]],
 ];
 
 for (const file of requiredFiles) if (!existsSync(join(root, file))) failures.push(`Missing required route/system file: ${file}`);
 for (const [path, phrases] of checklistExpectations) expect(path, phrases, `${path} is missing required detail`);
 
-expect("CHANGELOG.md", ["# Changelog", "## Unreleased", "AI-agent handoff guide", "PR template AI-agent handoff gate", "AI-agent-handoff impact", "Final hardening sweep guide", "Backend handoff checklist", "PR template final hardening gate", "PR template backend handoff gate", "final-hardening impact", "backend-handoff impact", "Manual QA and acceptance checklist", "Content freshness checklist", "Configuration safety checklist", "Integration readiness checklist", "Analytics and tracking checklist", "Policy and legal surface checklist", "Trust and credibility checklist", "Route and link integrity checklist", "Offer integrity checklist", "Lead intake checklist", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "CHANGELOG.md is missing required release-history detail");
+expect("CHANGELOG.md", ["# Changelog", "## Unreleased", "legacy public-route governance", "redirect smoke checks", "AI-agent handoff guide", "PR template AI-agent handoff gate", "AI-agent-handoff impact", "Final hardening sweep guide", "Backend handoff checklist", "PR template final hardening gate", "PR template backend handoff gate", "final-hardening impact", "backend-handoff impact", "Manual QA and acceptance checklist", "Content freshness checklist", "Configuration safety checklist", "Integration readiness checklist", "Analytics and tracking checklist", "Policy and legal surface checklist", "Trust and credibility checklist", "Route and link integrity checklist", "Offer integrity checklist", "Lead intake checklist", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "CHANGELOG.md is missing required release-history detail");
 expect(".github/pull_request_template.md", ["Buyer-path impact", "Checklist gates", "docs/ai-agent-handoff.md", "docs/final-hardening-sweep.md", "docs/backend-handoff-checklist.md", "docs/manual-qa-acceptance-checklist.md", "docs/content-freshness-checklist.md", "docs/configuration-safety-checklist.md", "Production safety check", "Release history check", "CHANGELOG.md", "AI-agent handoff", "final hardening", "backend handoff", "pnpm validate:routes", "pnpm smoke:production", "Free Scan"], "Pull request template is missing required AI-agent handoff gate detail");
 expect("CONTRIBUTING.md", ["Contributing to Cendorq", "CHANGELOG.md", "Get the right customer to start the Free Scan", "pnpm validate:routes", "pnpm smoke:production"], "CONTRIBUTING.md is missing required operating detail");
-expect("README.md", ["Cendorq", "CHANGELOG.md", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9"], "README is missing required production entry guidance");
+expect("README.md", ["Cendorq", "CHANGELOG.md", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "legacy public routes", "pnpm validate:routes", "pnpm smoke:production", "Node 24", "pnpm 9.15.9"], "README is missing required production entry guidance");
 expect(".gitattributes", ["* text=auto eol=lf", "*.png binary", "*.webp binary", "*.json text eol=lf", "*.tsx text eol=lf", "*.yml text eol=lf"], ".gitattributes is missing required Git normalization detail");
 expect(".editorconfig", ["root = true", "charset = utf-8", "end_of_line = lf", "insert_final_newline = true", "trim_trailing_whitespace = true", "indent_size = 2"], ".editorconfig is missing required editor baseline detail");
 expect(".env.example", ["CENDORQ_BASE_URL=https://cendorq.com", "NODE_ENV=development", "NEXT_TELEMETRY_DISABLED=1", "Do not commit real secrets"], ".env.example is missing required safe environment detail");
@@ -118,7 +134,7 @@ expect(".github/CODEOWNERS", ["* @mybizuness-cmd", "/src/app/ @mybizuness-cmd", 
 expect(".github/dependabot.yml", ["package-ecosystem: npm", "package-ecosystem: github-actions", "interval: weekly"], "Dependabot config is missing required maintenance guardrail detail");
 expect(".github/workflows/ci.yml", ["name: CI", "pull_request:", "push:", "workflow_dispatch:", "permissions:", "contents: read", "persist-credentials: false", "node-version: \"24\"", "pnpm install --frozen-lockfile", "pnpm validate:routes", "pnpm lint", "pnpm typecheck", "pnpm build"], "CI workflow is missing required quality gate detail");
 expect(".github/workflows/smoke-production.yml", ["schedule:", "workflow_dispatch", "permissions:", "contents: read", "persist-credentials: false", "pnpm smoke:production", "node-version: \"24\"", "CENDORQ_BASE_URL", "https://cendorq.com"], "Production smoke workflow is missing required detail");
-expect("src/scripts/smoke-production.mjs", ["/api/health", "/llms.txt", "/.well-known/security.txt", "/sitemap.xml", "/robots.txt", "CENDORQ_BASE_URL"], "Production smoke script is missing required check");
+expect("src/scripts/smoke-production.mjs", ["redirectChecks", "/api/health", "/llms.txt", "/.well-known/security.txt", "/sitemap.xml", "/robots.txt", "/diagnosis", "/profile", "/faq", "CENDORQ_BASE_URL"], "Production smoke script is missing required route or redirect check");
 expect("public/.well-known/security.txt", ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"], "security.txt is missing required detail");
 expect("src/app/api/health/route.ts", ["force-dynamic", "revalidate = 0", "ok: true", "Cache-Control", "no-store", "X-Robots-Tag"], "Health endpoint is missing required runtime-safe response detail");
 
@@ -135,12 +151,12 @@ for (const discoveryRoute of ["/robots.txt", "/sitemap.xml", "/llms.txt", "/.wel
 if (!nextConfig.includes("text/plain; charset=utf-8")) failures.push("Plain text discovery files must be served with an explicit text/plain UTF-8 content type.");
 
 const sitemap = read("src/app/sitemap.ts");
-for (const route of canonicalRoutes) if (!sitemap.includes(`path: "${route}"`)) failures.push(`Sitemap does not include canonical route: ${route}`);
-for (const legacyRoute of ["/pricing", "/contact"]) if (sitemap.includes(`path: "${legacyRoute}"`)) failures.push(`Sitemap should not list redirected legacy route: ${legacyRoute}`);
+for (const route of [...canonicalRoutes, ...policyRoutes]) if (!sitemap.includes(`path: "${route}"`)) failures.push(`Sitemap does not include current public route: ${route}`);
+for (const legacyRoute of legacyDiscoveryRoutes) if (sitemap.includes(`path: "${legacyRoute}"`) || sitemap.includes(`"${legacyRoute}"`)) failures.push(`Sitemap should not list redirected or legacy public route: ${legacyRoute}`);
 
 const robots = read("src/app/robots.ts");
-for (const route of canonicalRoutes) if (!robots.includes(`"${route}"`)) failures.push(`Robots allowlist does not include canonical route: ${route}`);
-for (const legacyRoute of ["/pricing", "/contact"]) if (robots.includes(`"${legacyRoute}"`)) failures.push(`Robots allowlist should not include redirected legacy route: ${legacyRoute}`);
+for (const route of [...canonicalRoutes, ...policyRoutes]) if (!robots.includes(`"${route}"`)) failures.push(`Robots allowlist does not include current public route: ${route}`);
+for (const legacyRoute of legacyDiscoveryRoutes) if (robots.includes(`"${legacyRoute}"`)) failures.push(`Robots allowlist should not include redirected or legacy public route: ${legacyRoute}`);
 
 const manifest = read("public/manifest.webmanifest");
 for (const route of ["/free-check?source=app-install", "/free-check?source=app-shortcut", "/plans?source=app-shortcut", "/connect?source=app-shortcut"]) if (!manifest.includes(`"${route}"`)) failures.push(`Manifest does not include buyer-path route: ${route}`);
@@ -161,7 +177,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. AI-agent handoff, final hardening sweep, backend handoff checklist, compact PR checklist gates, changelog release-history detail, buyer path, governance checklists, canonical routes, production files, runtime pins, smoke checks, and production hardening are protected.");
+console.log("Route validation passed. AI-agent handoff, final hardening sweep, backend handoff checklist, compact PR checklist gates, changelog release-history detail, buyer path, legacy redirects, governance checklists, canonical routes, production files, runtime pins, smoke checks, and production hardening are protected.");
 
 function expect(path, phrases, label) {
   const text = read(path);
