@@ -144,6 +144,8 @@ const activePublicFiles = [
 ];
 
 const forbiddenActivePhrases = [
+  "Free Search Presence Scan",
+  "free search presence scan",
   "Visibility Blueprint",
   "Presence Infrastructure",
   "Presence Command",
@@ -172,6 +174,7 @@ expect("docs/production-guide.md", ["The public surface sells the outcome. The p
 expect("docs/release-checklist.md", ["closed intelligence", "data quality", "learning memory", "pure signal", "maximum protection", "foundation hardening", "foundation elevation", "system synchronization", "internal command center", "score threshold"], "Release checklist is missing full standard coverage");
 expect("src/layout/site-header.tsx", ["export { SiteHeader } from \"./site-header-conversion\";"], "Legacy header must remain a current-header shim");
 expect("src/lib/seo.ts", ["Cendorq helps businesses find what makes customers hesitate", "Cendorq — Search Presence OS", "Start with the Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "SEO defaults are not aligned with current positioning");
+expect("src/app/layout.tsx", ["Free Scan", "Cendorq Plans", "Search Presence OS"], "Layout structured metadata is not aligned with current positioning");
 expect("public/.well-known/security.txt", ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"], "security.txt is missing required detail");
 expect("src/app/api/health/route.ts", ["force-dynamic", "revalidate = 0", "ok: true", "Cache-Control", "no-store", "X-Robots-Tag"], "Health endpoint is missing runtime-safe behavior");
 expect(".github/workflows/ci.yml", ["node-version: \"24\"", "pnpm install --frozen-lockfile", "pnpm validate:routes", "pnpm lint", "pnpm typecheck", "pnpm build"], "CI workflow is missing quality gates");
@@ -227,7 +230,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Current buyer path, legacy redirects, active public drift rules, SEO defaults, header shim, discovery files, runtime pins, CI gates, smoke checks, operating docs, and protection standards are synchronized.");
+console.log("Route validation passed. Current buyer path, legacy redirects, active public drift rules, SEO defaults, structured metadata, header shim, discovery files, runtime pins, CI gates, smoke checks, operating docs, and protection standards are synchronized.");
 
 function expect(path, phrases, label) {
   const text = read(path);
