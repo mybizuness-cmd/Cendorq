@@ -93,12 +93,20 @@ expect("src/layout/site-header.tsx", [
 ]);
 
 expect("src/lib/seo.ts", [
+  "process.env.NEXT_PUBLIC_SITE_URL",
   "Cendorq helps businesses find what makes customers hesitate",
   "Cendorq — Search Presence OS",
   "Start with the Free Scan",
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
+]);
+
+expect("src/app/sitemap.ts", [
+  "process.env.NEXT_PUBLIC_SITE_URL",
+  "shouldExposeSitemap",
+  "isProductionLike",
+  "isPlaceholderHost",
 ]);
 
 expect("src/app/layout.tsx", [
@@ -132,13 +140,31 @@ expect("public/llms.txt", [
   "make the business easier to choose",
 ]);
 
+expect("docs/configuration-safety-checklist.md", [
+  "`NEXT_PUBLIC_SITE_URL` is the canonical public site URL used by SEO metadata, sitemap, robots, and structured data.",
+  "`CENDORQ_BASE_URL` is the public smoke/deployment verification target used by production smoke checks.",
+  "Do not put secrets, admin keys, customer data, or private endpoint URLs in either public URL variable.",
+]);
+
+expect("docs/deployment-environment-checklist.md", [
+  "`NEXT_PUBLIC_SITE_URL` is set to the canonical public origin used by SEO metadata, sitemap, robots, and structured data.",
+  "`CENDORQ_BASE_URL` is set to the deployed origin that production smoke checks should verify.",
+  "`NEXT_PUBLIC_SITE_URL` and `CENDORQ_BASE_URL` are documented together when public URL assumptions change.",
+]);
+
+expect("docs/search-discovery-checklist.md", [
+  "`NEXT_PUBLIC_SITE_URL` controls canonical metadata, sitemap output, robots host behavior, and structured data origin.",
+  "`CENDORQ_BASE_URL` controls production smoke target selection and should match the intended deployed origin.",
+  "Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.",
+]);
+
 if (failures.length) {
   console.error("Public drift validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, and mobile dock use the current Cendorq buyer path.");
+console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Cendorq buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
