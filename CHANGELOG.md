@@ -53,6 +53,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Production verification status guidance for strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and no-fake-submission smoke discipline.
 - Incident-response smoke failure playbooks for strict redirects, Free Scan API `OPTIONS`, protected read behavior, health checks, and discovery/trust files.
 - Production smoke workflow target preflight so manual and scheduled checks fail clearly before running against an invalid URL.
+- Public site URL configuration documentation for `NEXT_PUBLIC_SITE_URL` and `CENDORQ_BASE_URL` so SEO, sitemap, robots, structured data, smoke checks, and deployment verification use clear, safe public URL assumptions.
 
 ### Changed
 
@@ -74,6 +75,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Updated the Free Scan API route to use current Free Scan language, write to `free-check-intakes.v3.json`, preserve legacy storage/source compatibility, and keep console reads protected.
 - Synced README, production guide, and PR template with protected production verification status guidance.
 - Hardened production smoke workflow validation to protect read-only permissions, concurrency, timeout, URL preflight, frozen install, Node 24, and smoke execution.
+- Synchronized configuration, deployment, and search-discovery checklists with the public URL split between `NEXT_PUBLIC_SITE_URL` and `CENDORQ_BASE_URL`.
 
 ### Fixed
 
@@ -88,6 +90,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Fixed Free Scan API route user-facing errors, success messages, report lookup messages, and storage failure messages that still used retired scan naming.
 - Fixed production smoke coverage so the Free Scan API surface is checked safely through `OPTIONS` without creating fake intake records.
 - Fixed Free Scan production intake read boundary by removing the open-read escape hatch while preserving local development reads and configured admin-key reads.
+- Fixed configuration documentation drift by documenting `NEXT_PUBLIC_SITE_URL` alongside `CENDORQ_BASE_URL` and protecting the public URL guidance through validation.
 
 ### Security
 
