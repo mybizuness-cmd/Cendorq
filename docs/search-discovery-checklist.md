@@ -28,6 +28,9 @@ Before merging discovery-related changes, confirm:
 - Sitemap entries point to active canonical routes and current policy/trust routes only.
 - Robots guidance does not block important public buyer routes.
 - Metadata uses current buyer language.
+- `NEXT_PUBLIC_SITE_URL` controls canonical metadata, sitemap output, robots host behavior, and structured data origin.
+- `CENDORQ_BASE_URL` controls production smoke target selection and should match the intended deployed origin.
+- Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.
 - `llms.txt` stays plain, accurate, and current.
 - `security.txt` points to the correct public contact and policy surfaces.
 - `manifest.webmanifest` shortcuts point to useful buyer-path actions.
