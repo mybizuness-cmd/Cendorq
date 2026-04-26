@@ -64,6 +64,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Removed retired package labels from `llms.txt` so public AI-readable context stays clean while validation enforces retired-label prevention privately.
 - Aligned homepage, layout structured metadata, and Free Scan page metadata with the current Free Scan language.
 - Expanded public drift and route validation to block retired scan labels in active public surfaces.
+- Defaulted normalized Free Scan intake source to `free-check` while preserving explicit legacy source compatibility for older callers.
 
 ### Fixed
 
@@ -72,6 +73,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Fixed active header drift that still promoted legacy support routes and older scan naming.
 - Fixed route validation drift that depended on retired public labels being listed inside `llms.txt`.
 - Fixed homepage, layout, and Free Scan metadata drift from retired scan naming to current Free Scan naming.
+- Fixed intake-source drift so unknown Free Scan submissions now normalize to the current `free-check` source instead of the retired scan source.
 
 ### Security
 
@@ -111,7 +113,7 @@ For future release notes, include:
 - trust/credibility impact when public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, or confidence-building content changed
 - route/link impact when navigation, links, buttons, anchors, redirects, legacy routes, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connections changed
 - offer-integrity impact when Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, or offer-positioning changed
-- lead-intake impact when Free Scan, Connect, forms, fields, validation, success states, error states, routing, or buyer handoff changed
+- lead-intake impact when Free Scan, Connect, forms, fields, validation, success states, routing, or buyer handoff changed
 - conversion-quality impact when homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer-positioning changed
 - visual-quality impact when public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium feel changed
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
