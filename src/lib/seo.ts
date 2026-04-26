@@ -83,7 +83,6 @@ export const siteConfig: SiteConfig = {
     defaultKeywords: [
         "Cendorq",
         "Search Presence OS",
-        "free search presence scan",
         "free business scan",
         "website trust scan",
         "business clarity scan",
