@@ -15,6 +15,18 @@ const checks = [
   { path: "/.well-known/security.txt", expect: ["Contact:", "https://cendorq.com/connect"] },
 ];
 
+const redirectChecks = [
+  { path: "/pricing", destination: "/plans" },
+  { path: "/pricing/full-diagnosis", destination: "/plans/deep-review" },
+  { path: "/pricing/optimization", destination: "/plans/build-fix" },
+  { path: "/pricing/monthly-partner", destination: "/plans/ongoing-control" },
+  { path: "/contact", destination: "/connect" },
+  { path: "/how-it-works", destination: "/plans" },
+  { path: "/diagnosis", destination: "/plans/deep-review" },
+  { path: "/profile", destination: "/plans" },
+  { path: "/faq", destination: "/plans" },
+];
+
 const jsonChecks = [
   {
     path: "/api/health",
@@ -30,6 +42,10 @@ const failures = [];
 
 for (const check of checks) {
   await checkTextRoute(check);
+}
+
+for (const check of redirectChecks) {
+  await checkRedirectRoute(check);
 }
 
 for (const check of jsonChecks) {
@@ -64,6 +80,26 @@ async function checkTextRoute({ path, expect }) {
   }
 }
 
+async function checkRedirectRoute({ path, destination }) {
+  const url = new URL(path, baseUrl);
+  const response = await fetch(url, { redirect: "follow" }).catch((error) => ({ error }));
+
+  if ("error" in response) {
+    failures.push(`${path} could not be fetched for redirect verification: ${response.error.message}`);
+    return;
+  }
+
+  if (!response.ok) {
+    failures.push(`${path} returned ${response.status} during redirect verification`);
+    return;
+  }
+
+  const finalUrl = new URL(response.url);
+  if (normalizePathname(finalUrl.pathname) !== destination) {
+    failures.push(`${path} should resolve to ${destination} but resolved to ${finalUrl.pathname}`);
+  }
+}
+
 async function checkJsonRoute({ path, expect }) {
   const url = new URL(path, baseUrl);
   const response = await fetch(url, { redirect: "follow" }).catch((error) => ({ error }));
@@ -93,4 +129,9 @@ function normalizeBaseUrl(value) {
   const trimmed = value.trim().replace(/\/+$/, "");
   if (!trimmed) return "http://localhost:3000";
   return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
+function normalizePathname(value) {
+  const normalized = value.replace(/\/+$/, "");
+  return normalized || "/";
 }
