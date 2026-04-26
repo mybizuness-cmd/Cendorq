@@ -48,13 +48,14 @@ Use this section for changes that have merged but are not yet included in a name
 - Internal command center standard for the private Cendorq control panel, automation command deck, scan automation, Deep Review automation, Build Fix control, Ongoing Control cycles, report center, data-quality board, and smart insight layer.
 - Score threshold operating standard for internal score bands, 65-69 watch-grade, 70-79 operational-grade, 80-89 strong operational-grade, 90-100 authority-grade candidate, routing thresholds, alerts, automation levels, and no-clutter public score display.
 - Public drift validation for active SEO defaults, share images, report recommendations, signal summaries, intelligence summaries, active header, footer, mobile dock, manifest, and AI-readable public context.
-- Free Scan intake validation for form source, page metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations.
+- Free Scan intake validation for form source, page metadata, validation defaults, routing labels, intelligence labels, next-move wording, API route language, storage naming, and report recommendations.
+- Free Scan API OPTIONS smoke coverage so production smoke checks the intake API surface without creating fake submissions.
 
 ### Changed
 
 - Hardened legacy public-route governance so `/diagnosis`, `/profile`, `/faq`, `/how-it-works`, old pricing paths, and old shorthand routes redirect into the current buyer path instead of remaining discoverable as active routes.
 - Kept sitemap and robots discovery surfaces focused on current buyer-path routes and current policy/trust pages rather than redirected legacy routes.
-- Expanded route validation to protect legacy public-route governance, redirect smoke checks, sitemap exclusions, robots allowlist exclusions, active public-label drift, SEO defaults, the header shim, and public discovery surfaces.
+- Expanded route validation to protect legacy public-route governance, redirect smoke checks, sitemap exclusions, robots allowlist exclusions, active public-label drift, SEO defaults, the header shim, public discovery surfaces, Free Scan intake validation, and Free Scan API smoke coverage.
 - Updated README, production guide, release checklist, route/link checklist, and search discovery checklist with the current legacy public-route policy.
 - Added a compact PR template checklist-gate section so the full readiness system is easier to scan and maintain.
 - Expanded `pnpm validate:routes` to also enforce public drift validation, Free Scan intake validation, closed intelligence, data quality, learning memory, pure signal authority, adaptive signal evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization QA, internal command center, score thresholds, and private operating intelligence standards.
@@ -67,6 +68,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Expanded public drift and route validation to block retired scan labels in active public surfaces.
 - Defaulted normalized Free Scan intake source to `free-check` while preserving explicit legacy source compatibility for older callers.
 - Tightened Free Scan next-move wording to use Ongoing Control, Build Fix, and Deep Review language directly.
+- Updated the Free Scan API route to use current Free Scan language, write to `free-check-intakes.v3.json`, preserve legacy storage/source compatibility, and keep console reads protected.
 
 ### Fixed
 
@@ -78,11 +80,13 @@ Use this section for changes that have merged but are not yet included in a name
 - Fixed intake-source drift so unknown Free Scan submissions now normalize to the current `free-check` source instead of the retired scan source.
 - Fixed validation coverage so Free Scan intake consistency is now checked inside the main route validation chain.
 - Fixed Free Scan form next-move language that still sounded like generic support/build/review wording instead of current plan language.
+- Fixed Free Scan API route user-facing errors, success messages, report lookup messages, and storage failure messages that still used retired scan naming.
+- Fixed production smoke coverage so the Free Scan API surface is checked safely through `OPTIONS` without creating fake intake records.
 
 ### Security
 
 - No secret, credential, private runtime value, or private buyer-data behavior changes.
-- Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, resilience/continuity, maximum protection, foundation hardening, system synchronization, internal command center boundaries, score-threshold discipline, Free Scan intake consistency, and public-surface drift prevention.
+- Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, resilience/continuity, maximum protection, foundation hardening, system synchronization, internal command center boundaries, score-threshold discipline, Free Scan intake consistency, Free Scan API no-store behavior, protected console reads, and public-surface drift prevention.
 
 ## Release note format
 
@@ -105,7 +109,7 @@ For future release notes, include:
 - internal-command-center impact when dashboard, console, automation command deck, scan automation, paid diagnosis, Build Fix, Ongoing Control, report center, data-quality board, or insight layer changed
 - score-threshold impact when score bands, routing thresholds, alerts, automation levels, report labels, public score labels, or authority-grade candidates changed
 - public-drift impact when active header, footer, mobile dock, metadata, share images, reports, signals, intelligence summaries, manifest, sitemap, robots, or `llms.txt` changed
-- Free Scan intake impact when Free Scan form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, or report recommendations changed
+- Free Scan intake impact when Free Scan form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, API route language, storage naming, or report recommendations changed
 - AI-agent-handoff impact when ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, or project continuity changed
 - final-hardening impact when major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone work changed
 - backend-handoff impact when backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations changed
