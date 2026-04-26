@@ -129,10 +129,13 @@ function buildDecisionMoment(signals: SignalResult, scoring: ScoreResult, confid
     return "The business has enough signal for a strong next-step decision without forcing premature escalation.";
   }
   if (signals.routingHint === "blueprint-candidate") {
-    return "The strongest decision moment is whether the business should move into Visibility Blueprint before implementation pressure increases.";
+    return "The strongest decision moment is whether the business should move into Deep Review before bigger fix pressure increases.";
   }
   if (signals.routingHint === "infrastructure-review") {
-    return "The business is showing implementation-relevant pressure, but the system should still protect explanation before force.";
+    return "The business is showing Build Fix pressure, but the system should still protect diagnosis before heavier action.";
+  }
+  if (signals.routingHint === "command-review") {
+    return "The business is showing possible Ongoing Control pressure, but the base should be stable before recurring work begins.";
   }
   return "The strongest decision moment is improving first-signal quality so the next recommendation can be trusted more confidently.";
 }
@@ -158,10 +161,10 @@ function buildExplanationTrace(
 }
 
 function humanizeRoutingHint(value: SignalResult["routingHint"]) {
-  if (value === "scan-only") return "Search Presence Scan only";
-  if (value === "blueprint-candidate") return "Visibility Blueprint candidate";
-  if (value === "infrastructure-review") return "Presence Infrastructure review";
-  return "Presence Command review";
+  if (value === "scan-only") return "Free Scan only";
+  if (value === "blueprint-candidate") return "Deep Review candidate";
+  if (value === "infrastructure-review") return "Build Fix review";
+  return "Ongoing Control review";
 }
 
 function looksBusinessEmail(email: string) {
