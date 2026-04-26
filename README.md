@@ -49,6 +49,15 @@ The public surface sells the outcome. The private system holds the engine.
 
 The closed intelligence operating standard is protected in [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md).
 
+Full intelligence-quality standards are protected in:
+
+- [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md)
+- [`docs/data-quality-governance-standard.md`](docs/data-quality-governance-standard.md)
+- [`docs/learning-memory-standard.md`](docs/learning-memory-standard.md)
+- [`docs/pure-signal-authority-standard.md`](docs/pure-signal-authority-standard.md)
+- [`docs/adaptive-signal-evolution-standard.md`](docs/adaptive-signal-evolution-standard.md)
+- [`docs/resilience-continuity-standard.md`](docs/resilience-continuity-standard.md)
+
 This means:
 
 - public pages may explain the buyer path and high-level outcome
@@ -59,6 +68,11 @@ This means:
 - exact scoring logic, private report schemas, and private agent chains stay protected
 - every serious AI-agent finding must be evidence-gated
 - meaningful changes must preserve the public/private boundary
+- data quality is source-aware, confidence-scored, freshness-aware, and evidence-linked where possible
+- learning memory separates raw, exploration, operational, authority, and rejected memory
+- pure signal rules determine whether data can influence durable reports, scores, playbooks, and benchmarks
+- adaptive signal evolution lets Cendorq evolve safely without uncontrolled production self-modification
+- resilience standards require safe degradation, recovery, vendor-risk awareness, and long-horizon continuity
 
 ## Editor and Git baseline
 
@@ -109,11 +123,16 @@ The production smoke workflow can also be run manually from GitHub Actions and r
 
 ## Production guide
 
-Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, incidents, private intelligence, AI-agent workflows, reports, evidence, or backend data access:
+Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, incidents, private intelligence, AI-agent workflows, reports, evidence, data quality, learning memory, pure signals, adaptive signal standards, resilience, continuity, or backend data access:
 
 - [`docs/production-guide.md`](docs/production-guide.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
 - [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md)
+- [`docs/data-quality-governance-standard.md`](docs/data-quality-governance-standard.md)
+- [`docs/learning-memory-standard.md`](docs/learning-memory-standard.md)
+- [`docs/pure-signal-authority-standard.md`](docs/pure-signal-authority-standard.md)
+- [`docs/adaptive-signal-evolution-standard.md`](docs/adaptive-signal-evolution-standard.md)
+- [`docs/resilience-continuity-standard.md`](docs/resilience-continuity-standard.md)
 - [`docs/route-link-integrity-checklist.md`](docs/route-link-integrity-checklist.md)
 - [`docs/search-discovery-checklist.md`](docs/search-discovery-checklist.md)
 - [`docs/copy-quality-checklist.md`](docs/copy-quality-checklist.md)
@@ -133,6 +152,11 @@ The guides cover:
 - public/private boundary
 - protected reports and evidence
 - private database posture
+- data quality
+- learning memory
+- pure signal authority
+- adaptive signal evolution
+- resilience and continuity
 - legacy public routes and redirects
 - pre-merge checks
 - copy quality checks
