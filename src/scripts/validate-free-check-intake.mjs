@@ -28,6 +28,10 @@ expect("src/app/api/free-check/route.ts", [
   "The Free Scan has been captured successfully.",
   "This business already had a recent Free Scan in the system.",
   "The intake storage layer was not able to save the Free Scan right now.",
+  "function shouldAllowLocalConsoleReads()",
+  "return cleanQueryValue(process.env.NODE_ENV ?? \"\", 20).toLowerCase() !== \"production\";",
+  "const READ_KEY_ENV_CANDIDATES = [\"INTAKE_CONSOLE_READ_KEY\", \"INTAKE_ADMIN_KEY\"] as const;",
+  "safeEqual(providedKey, configuredKey)",
 ]);
 
 expect("src/app/free-check/page.tsx", [
@@ -79,6 +83,16 @@ expect("src/lib/reports/free-check-report.ts", [
   "Ongoing Control may become the right path",
 ]);
 
+const apiRouteText = read("src/app/api/free-check/route.ts");
+for (const phrase of [
+  "ALLOW_OPEN_INTAKE_READS",
+  "OPEN_READS_ENV",
+  "shouldAllowOpenConsoleReads",
+  "explicitOpenReadFlag",
+]) {
+  if (apiRouteText.includes(phrase)) failures.push(`Free Scan API route contains forbidden open-read escape hatch: ${phrase}`);
+}
+
 const publicIntakeText = [
   "src/app/api/free-check/route.ts",
   "src/app/free-check/page.tsx",
@@ -118,7 +132,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. API route language, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. API route language, protected read boundary, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
