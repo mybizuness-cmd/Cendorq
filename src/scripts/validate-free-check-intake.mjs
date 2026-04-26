@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 
 const files = [
+  "src/app/api/free-check/route.ts",
   "src/app/free-check/page.tsx",
   "src/components/free-check/guided-free-check-form-v2.tsx",
   "src/lib/validation/free-check.ts",
@@ -16,6 +17,18 @@ const files = [
 for (const file of files) {
   if (!existsSync(join(root, file))) failures.push(`Missing Free Scan intake file: ${file}`);
 }
+
+expect("src/app/api/free-check/route.ts", [
+  "CURRENT_STORAGE_FILE = \"free-check-intakes.v3.json\"",
+  "The requested Free Scan entry was not found.",
+  "Unable to load Free Scan entries.",
+  "submit the Free Scan again",
+  "Submit the Free Scan with real business information.",
+  "The Free Scan needs stronger signal before it can be accepted.",
+  "The Free Scan has been captured successfully.",
+  "This business already had a recent Free Scan in the system.",
+  "The intake storage layer was not able to save the Free Scan right now.",
+]);
 
 expect("src/app/free-check/page.tsx", [
   "title: \"Free Scan | Cendorq\"",
@@ -67,6 +80,7 @@ expect("src/lib/reports/free-check-report.ts", [
 ]);
 
 const publicIntakeText = [
+  "src/app/api/free-check/route.ts",
   "src/app/free-check/page.tsx",
   "src/components/free-check/guided-free-check-form-v2.tsx",
   "src/lib/reports/free-check-report.ts",
@@ -81,6 +95,13 @@ for (const phrase of [
   "Free Search Presence Scan",
   "free search presence scan",
   "Search Presence Scan only",
+  "Search Presence Scan entries",
+  "Search Presence Scan entry",
+  "Search Presence Scan route",
+  "Search Presence Scan needs",
+  "Search Presence Scan has",
+  "submit the Search Presence Scan",
+  "save the Search Presence Scan",
   "Visibility Blueprint",
   "Presence Infrastructure",
   "Presence Command",
@@ -97,7 +118,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. Form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. API route language, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
