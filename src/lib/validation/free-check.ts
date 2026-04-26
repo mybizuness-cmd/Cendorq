@@ -294,9 +294,8 @@ export function buildRoutingHint(
 }
 
 function normalizeSource(value: string | undefined) {
-    return value === "free-check" || value === "search-presence-scan"
-        ? value
-        : "search-presence-scan";
+    if (value === "search-presence-scan") return "search-presence-scan";
+    return "free-check";
 }
 
 function cleanString(value: unknown, maxLength: number) {
