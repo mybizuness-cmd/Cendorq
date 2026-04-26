@@ -1,6 +1,6 @@
 # Security Policy
 
-Cendorq takes production safety, closed intelligence, data quality, and responsible disclosure seriously.
+Cendorq takes production safety, closed intelligence, data quality, maximum protection, internal command center boundaries, score threshold discipline, and responsible disclosure seriously.
 
 ## Reporting a vulnerability
 
@@ -38,6 +38,9 @@ In scope:
 - signed report access and private report surfaces
 - least-privilege access expectations
 - data quality, pure signal, and learning-memory protection risks
+- maximum protection posture
+- internal command center access and private operating boundaries
+- score threshold governance and internal routing discipline
 
 Out of scope:
 
@@ -90,6 +93,9 @@ The repository protects:
 - learning memory separation
 - adaptive signal evolution
 - resilience and continuity
+- maximum protection standard
+- internal command center boundaries
+- score threshold operating discipline
 
 ## Closed intelligence and data protection
 
@@ -109,12 +115,14 @@ Security-sensitive changes must not expose:
 - client evidence
 - raw competitor datasets
 - private outcome memory
+- internal command center controls
+- score threshold internals
 
 Reports and sensitive intelligence should be controlled through signed report access, authenticated internal tools, or another approved server-side access boundary.
 
 Data quality is part of security. Weak, noisy, stale, manipulated, or hallucinated data can contaminate long-term learning and should be labeled, confidence-scored, freshness-aware, and separated from authority memory unless it earns authority.
 
-Pure signal standards, adaptive signal evolution, and learning memory must not create direct public access, secret leakage, report leakage, or new unaudited data paths.
+Pure signal standards, adaptive signal evolution, learning memory, maximum protection, internal command center controls, and score threshold operations must not create direct public access, secret leakage, report leakage, or new unaudited data paths.
 
 ## Public language safety
 
