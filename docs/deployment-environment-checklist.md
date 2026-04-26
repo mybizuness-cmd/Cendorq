@@ -43,6 +43,8 @@ Before merging deployment environment changes, confirm:
 For domain, base URL, or DNS-related changes, confirm:
 
 - `https://cendorq.com` remains the production default unless intentionally changed.
+- `NEXT_PUBLIC_SITE_URL` is set to the canonical public origin used by SEO metadata, sitemap, robots, and structured data.
+- `CENDORQ_BASE_URL` is set to the deployed origin that production smoke checks should verify.
 - Smoke checks use the intended base URL.
 - Metadata, sitemap, robots, `llms.txt`, and security contact surfaces stay aligned.
 - Legacy public URLs still redirect only into the current buyer path.
@@ -58,6 +60,7 @@ For environment variable changes, confirm:
 - Server-only values are not accidentally exposed to the browser.
 - Production deployment can be verified without leaking secrets.
 - Private intake console reads require the configured admin boundary in production.
+- `NEXT_PUBLIC_SITE_URL` and `CENDORQ_BASE_URL` are documented together when public URL assumptions change.
 
 ## Header and redirect checks
 
