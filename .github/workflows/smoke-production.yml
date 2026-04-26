@@ -49,5 +49,33 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Validate production smoke target
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const rawValue = process.env.CENDORQ_BASE_URL;
+          const value = rawValue?.trim();
+
+          if (!value) {
+            console.error("CENDORQ_BASE_URL is required for production smoke checks.");
+            process.exit(1);
+          }
+
+          let parsed;
+          try {
+            parsed = new URL(value);
+          } catch (error) {
+            console.error(`CENDORQ_BASE_URL must be a valid URL. Received: ${value}`);
+            process.exit(1);
+          }
+
+          if (!["http:", "https:"].includes(parsed.protocol)) {
+            console.error(`CENDORQ_BASE_URL must use http or https. Received: ${parsed.protocol}`);
+            process.exit(1);
+          }
+
+          console.log(`::notice title=Production smoke target::${parsed.origin}`);
+          NODE
+
       - name: Run production smoke check
         run: pnpm smoke:production
