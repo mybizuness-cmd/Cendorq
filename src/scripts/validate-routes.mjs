@@ -73,6 +73,7 @@ const requiredFiles = [
   "src/lib/intelligence/free-check-intelligence.ts",
   "src/scripts/smoke-production.mjs",
   "src/scripts/validate-public-drift.mjs",
+  "src/scripts/validate-free-check-intake.mjs",
   "src/scripts/validate-closed-intelligence.mjs",
   "public/manifest.webmanifest",
   "public/llms.txt",
@@ -165,7 +166,7 @@ for (const file of [...requiredFiles, ...standards]) {
   if (!existsSync(join(root, file))) failures.push(`Missing required file: ${file}`);
 }
 
-expect("package.json", ["\"packageManager\": \"pnpm@9.15.9\"", "\"node\": \">=24.0.0\"", "validate-public-drift.mjs", "validate-closed-intelligence.mjs", "smoke:production"], "package.json is missing runtime or validation wiring");
+expect("package.json", ["\"packageManager\": \"pnpm@9.15.9\"", "\"node\": \">=24.0.0\"", "validate-public-drift.mjs", "validate-free-check-intake.mjs", "validate-closed-intelligence.mjs", "smoke:production"], "package.json is missing runtime or validation wiring");
 expect("README.md", ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "closed intelligence", "maximum protection", "internal command center", "score thresholds", "pnpm validate:routes", "pnpm smoke:production"], "README is missing synchronized operating guidance");
 expect("SECURITY.md", ["closed intelligence", "no direct database exposure", "least-privilege", "maximum protection", "internal command center", "score threshold", "https://cendorq.com/connect"], "SECURITY.md is missing synchronized protection guidance");
 expect("CHANGELOG.md", ["AI-agent handoff guide", "Final hardening sweep guide", "Backend handoff checklist", "Manual QA and acceptance checklist", "Closed intelligence operating standard", "Internal command center standard", "Score threshold operating standard", "Sharpened homepage", "SEO defaults"], "CHANGELOG.md is missing release-history coverage");
@@ -175,6 +176,7 @@ expect("docs/release-checklist.md", ["closed intelligence", "data quality", "lea
 expect("src/layout/site-header.tsx", ["export { SiteHeader } from \"./site-header-conversion\";"], "Legacy header must remain a current-header shim");
 expect("src/lib/seo.ts", ["Cendorq helps businesses find what makes customers hesitate", "Cendorq — Search Presence OS", "Start with the Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "SEO defaults are not aligned with current positioning");
 expect("src/app/layout.tsx", ["Free Scan", "Cendorq Plans", "Search Presence OS"], "Layout structured metadata is not aligned with current positioning");
+expect("src/scripts/validate-free-check-intake.mjs", ["Free Scan intake validation passed", "source: \\\"free-check\\\"", "return \\\"free-check\\\";"], "Free Scan intake validator is missing required gate detail");
 expect("public/.well-known/security.txt", ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"], "security.txt is missing required detail");
 expect("src/app/api/health/route.ts", ["force-dynamic", "revalidate = 0", "ok: true", "Cache-Control", "no-store", "X-Robots-Tag"], "Health endpoint is missing runtime-safe behavior");
 expect(".github/workflows/ci.yml", ["node-version: \"24\"", "pnpm install --frozen-lockfile", "pnpm validate:routes", "pnpm lint", "pnpm typecheck", "pnpm build"], "CI workflow is missing quality gates");
@@ -230,7 +232,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Current buyer path, legacy redirects, active public drift rules, SEO defaults, structured metadata, header shim, discovery files, runtime pins, CI gates, smoke checks, operating docs, and protection standards are synchronized.");
+console.log("Route validation passed. Current buyer path, legacy redirects, active public drift rules, SEO defaults, structured metadata, header shim, Free Scan intake gate, discovery files, runtime pins, CI gates, smoke checks, operating docs, and protection standards are synchronized.");
 
 function expect(path, phrases, label) {
   const text = read(path);
