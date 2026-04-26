@@ -38,6 +38,13 @@ const jsonChecks = [
   },
 ];
 
+const optionChecks = [
+  {
+    path: "/api/free-check",
+    allow: "GET,POST,OPTIONS",
+  },
+];
+
 const failures = [];
 
 for (const check of checks) {
@@ -50,6 +57,10 @@ for (const check of redirectChecks) {
 
 for (const check of jsonChecks) {
   await checkJsonRoute(check);
+}
+
+for (const check of optionChecks) {
+  await checkOptionsRoute(check);
 }
 
 if (failures.length) {
@@ -123,6 +134,24 @@ async function checkJsonRoute({ path, expect }) {
   for (const [key, value] of Object.entries(expect)) {
     if (payload[key] !== value) failures.push(`${path} expected ${key}=${String(value)} but got ${String(payload[key])}`);
   }
+}
+
+async function checkOptionsRoute({ path, allow }) {
+  const url = new URL(path, baseUrl);
+  const response = await fetch(url, { method: "OPTIONS", redirect: "follow" }).catch((error) => ({ error }));
+
+  if ("error" in response) {
+    failures.push(`${path} OPTIONS could not be fetched: ${response.error.message}`);
+    return;
+  }
+
+  if (response.status !== 204) {
+    failures.push(`${path} OPTIONS expected 204 but returned ${response.status}`);
+    return;
+  }
+
+  const allowHeader = response.headers.get("allow") || "";
+  if (allowHeader !== allow) failures.push(`${path} OPTIONS expected Allow=${allow} but got ${allowHeader || "empty"}`);
 }
 
 function normalizeBaseUrl(value) {
