@@ -10,9 +10,6 @@ const PUBLIC_ALLOWLIST = [
     "/plans/deep-review",
     "/plans/build-fix",
     "/plans/ongoing-control",
-    "/diagnosis",
-    "/profile",
-    "/faq",
     "/connect",
     "/privacy",
     "/terms",
@@ -23,6 +20,11 @@ const PRIVATE_DISALLOWLIST = [
     "/api/",
     "/intake-console",
     "/_next/",
+    "/diagnosis",
+    "/profile",
+    "/faq",
+    "/pricing",
+    "/how-it-works",
 ] as const satisfies readonly RulePath[];
 
 const PRIORITY_BOTS = [
