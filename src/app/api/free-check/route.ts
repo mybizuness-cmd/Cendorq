@@ -429,7 +429,7 @@ function normalizeDecisionValue(value: unknown): ScoreDecision | null {
 }
 
 function normalizeScoreTierValue(value: unknown): ScoreTier | null {
-  return value === "weak" || value === "developing" || value === "strong" ? value : null;
+  return value === "low" || value === "mid" || value === "high" ? value : null;
 }
 
 function normalizeConfidenceLevelValue(value: unknown): ConfidenceLevel | null {
