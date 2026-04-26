@@ -14,6 +14,27 @@ The homepage should stay focused on getting the right customer into the Free Sca
 For release-specific steps, use [`docs/release-checklist.md`](release-checklist.md).
 For production failures, use [`docs/incident-response.md`](incident-response.md).
 
+## Operating standards
+
+Before changing production behavior, use the standard that matches the change:
+
+- [`docs/closed-intelligence-operating-standard.md`](closed-intelligence-operating-standard.md)
+- [`docs/data-quality-governance-standard.md`](data-quality-governance-standard.md)
+- [`docs/learning-memory-standard.md`](learning-memory-standard.md)
+- [`docs/pure-signal-authority-standard.md`](pure-signal-authority-standard.md)
+- [`docs/adaptive-signal-evolution-standard.md`](adaptive-signal-evolution-standard.md)
+- [`docs/resilience-continuity-standard.md`](resilience-continuity-standard.md)
+- [`docs/maximum-protection-standard.md`](maximum-protection-standard.md)
+- [`docs/foundation-hardening-standard.md`](foundation-hardening-standard.md)
+- [`docs/foundation-elevation-standard.md`](foundation-elevation-standard.md)
+- [`docs/system-synchronization-qa-standard.md`](system-synchronization-qa-standard.md)
+- [`docs/internal-command-center-standard.md`](internal-command-center-standard.md)
+- [`docs/score-threshold-operating-standard.md`](score-threshold-operating-standard.md)
+
+Core operating rule:
+
+> The public surface sells the outcome. The private system holds the engine.
+
 ## Before merging
 
 Run the same checks GitHub CI runs:
@@ -40,6 +61,18 @@ These checks protect:
 - manual and scheduled smoke workflow
 - release checklist
 - incident response runbook
+- closed intelligence
+- data quality
+- learning memory
+- pure signal authority
+- adaptive signal evolution
+- resilience and continuity
+- maximum protection
+- foundation hardening
+- foundation elevation
+- system synchronization QA
+- internal command center boundaries
+- score threshold discipline
 
 ## After deployment
 
@@ -116,6 +149,14 @@ These files are intentional and should stay present:
 
 They support crawler clarity, browser metadata, AI-readable context, and public trust hygiene.
 
+Discovery should open the right public pages to search and AI discovery while keeping private surfaces closed:
+
+- no public report index
+- no public evidence index
+- no internal command center indexing
+- no API indexing except safe health behavior
+- no private scoring, prompts, score thresholds, or authority memory in public discovery files
+
 ## Health endpoint
 
 `/api/health` is the production health endpoint.
@@ -171,6 +212,37 @@ Get the right customer to start the Free Scan.
 
 Keep it short, strong, premium, and conversion-focused. Every homepage block should either improve trust, clarity, desire, or action. If it does not, remove it or reduce it.
 
+## Internal command center rule
+
+The internal command center is private by default.
+
+It may manage:
+
+- Free Scan review
+- Deep Review automation
+- Build Fix control
+- Ongoing Control cycles
+- report center
+- automation command deck
+- data-quality and learning board
+- score threshold routing
+- smart insights
+
+It must not expose private reports, evidence, score inputs, authority memory, prompts, customer history, internal notes, or automation controls publicly.
+
+## Score threshold rule
+
+Use scores internally to drive routing, alerts, automation, and review posture.
+
+Public pages should translate scores into simple action language instead of cluttering the customer experience with raw numbers.
+
+Protected internal bands:
+
+- 65-69 watch-grade
+- 70-79 operational-grade
+- 80-89 strong operational-grade
+- 90-100 authority-grade candidate
+
 ## Safe production posture
 
 Do not weaken:
@@ -184,3 +256,14 @@ Do not weaken:
 - Free Scan funnel focus
 - release checklist discipline
 - incident response discipline
+- closed intelligence
+- data quality
+- learning memory separation
+- pure signal authority
+- adaptive evolution safety
+- maximum protection
+- foundation hardening
+- foundation elevation
+- system synchronization
+- internal command center boundaries
+- score threshold discipline
