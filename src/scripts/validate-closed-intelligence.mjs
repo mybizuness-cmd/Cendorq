@@ -11,6 +11,7 @@ const requiredFiles = [
   "docs/pure-signal-authority-standard.md",
   "docs/adaptive-signal-evolution-standard.md",
   "docs/resilience-continuity-standard.md",
+  "docs/maximum-protection-standard.md",
   "README.md",
   "SECURITY.md",
   "docs/release-checklist.md",
@@ -155,6 +156,35 @@ const resilienceExpectations = [
   "recover without losing trust",
 ];
 
+const maximumProtectionExpectations = [
+  "Cendorq Maximum Protection Standard",
+  "highest-protection operating posture",
+  "Protect the engine.",
+  "Protect the data.",
+  "Protect the memory.",
+  "Protect the reports.",
+  "Protect the learning loop.",
+  "Data classification",
+  "Public",
+  "Internal",
+  "Confidential",
+  "Restricted",
+  "Default posture: deny by default.",
+  "Secret management",
+  "Exfiltration prevention",
+  "Threat model",
+  "Prompt-injection and AI-agent containment",
+  "Report protection",
+  "Evidence protection",
+  "Supply-chain and dependency protection",
+  "Database protection",
+  "Auditability",
+  "Emergency controls",
+  "Partner and embed protection",
+  "Public doctrine boundary",
+  "Maximum-protection review triggers",
+];
+
 const repoExpectationMap = [
   ["README.md", [
     "closed intelligence",
@@ -165,6 +195,7 @@ const repoExpectationMap = [
     "docs/pure-signal-authority-standard.md",
     "docs/adaptive-signal-evolution-standard.md",
     "docs/resilience-continuity-standard.md",
+    "docs/maximum-protection-standard.md",
   ]],
   ["SECURITY.md", [
     "closed intelligence",
@@ -173,6 +204,7 @@ const repoExpectationMap = [
     "least-privilege",
     "data quality",
     "pure signal",
+    "maximum protection",
   ]],
   ["docs/release-checklist.md", [
     "closed intelligence",
@@ -183,6 +215,7 @@ const repoExpectationMap = [
     "learning memory",
     "pure signal",
     "resilience",
+    "maximum protection",
   ]],
   [".github/pull_request_template.md", [
     "Closed intelligence check",
@@ -196,6 +229,7 @@ const repoExpectationMap = [
     "authority memory",
     "pure signal",
     "resilience",
+    "Maximum protection check",
   ]],
   ["CHANGELOG.md", [
     "Closed intelligence operating standard",
@@ -206,6 +240,7 @@ const repoExpectationMap = [
     "Pure signal authority standard",
     "Adaptive signal evolution standard",
     "Resilience and continuity standard",
+    "Maximum protection standard",
   ]],
 ];
 
@@ -219,6 +254,7 @@ expect("docs/learning-memory-standard.md", learningMemoryExpectations, "Learning
 expect("docs/pure-signal-authority-standard.md", pureSignalExpectations, "Pure signal authority standard is missing required rule");
 expect("docs/adaptive-signal-evolution-standard.md", adaptiveSignalExpectations, "Adaptive signal evolution standard is missing required rule");
 expect("docs/resilience-continuity-standard.md", resilienceExpectations, "Resilience and continuity standard is missing required rule");
+expect("docs/maximum-protection-standard.md", maximumProtectionExpectations, "Maximum protection standard is missing required rule");
 
 for (const [file, phrases] of repoExpectationMap) {
   expect(file, phrases, `${file} is missing intelligence enforcement detail`);
@@ -230,7 +266,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Intelligence validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, and private operating intelligence are enforced.");
+console.log("Intelligence validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
