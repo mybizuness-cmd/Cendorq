@@ -2,7 +2,7 @@
 
 Use this checklist before and after production releases.
 
-The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, or production safety gates.
+The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, legacy route behavior, or production safety gates.
 
 For production failures, smoke-check failures, or buyer-path regressions, use [`docs/incident-response.md`](incident-response.md).
 
@@ -14,7 +14,9 @@ For public UI, layout, copy, component, or navigation changes, use [`docs/access
 
 For public page, component, asset, animation, or script changes, use [`docs/performance-checklist.md`](performance-checklist.md).
 
-For metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, or public trust surface changes, use [`docs/search-discovery-checklist.md`](search-discovery-checklist.md).
+For metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, legacy route handling, or public trust surface changes, use [`docs/search-discovery-checklist.md`](search-discovery-checklist.md).
+
+For route, link, redirect, canonical route, legacy route, navigation, footer, CTA, or 404 changes, use [`docs/route-link-integrity-checklist.md`](route-link-integrity-checklist.md).
 
 For package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, or tooling changes, use [`docs/dependency-checklist.md`](dependency-checklist.md).
 
@@ -54,6 +56,7 @@ Before merging a production change:
 - Confirm the homepage does not gain clutter, dashboard behavior, route-console behavior, or competing CTAs.
 - Confirm canonical routes are still the source of truth.
 - Confirm legacy public URLs still redirect into the current buyer path.
+- Confirm legacy routes are not promoted by sitemap entries or robots allowlists.
 - Confirm crawler and trust files still make sense.
 - Confirm search discovery was checked for metadata, crawler, canonical route, redirect, sitemap, robots, `llms.txt`, manifest, health, or trust-surface changes.
 - Confirm the health endpoint remains lightweight, dynamic, no-store, and noindex.
@@ -84,6 +87,7 @@ Before merging the PR:
 - Confirm dependency expectations were considered when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling changed.
 - Confirm deployment environment expectations were considered when hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changed.
 - Confirm observability expectations were considered when health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changed.
+- Confirm route/link expectations were considered when canonical routes, legacy routes, navigation, footer links, CTAs, redirects, or 404 behavior changed.
 - Confirm search discovery expectations were considered when metadata, crawler files, canonical routes, redirects, or trust surfaces changed.
 - Confirm accessibility expectations were considered when public UI changed.
 - Confirm performance expectations were considered when public UI, assets, scripts, or component behavior changed.
@@ -114,6 +118,22 @@ Confirm these production surfaces are healthy:
 - `/llms.txt`
 - `/.well-known/security.txt`
 
+Confirm these legacy public routes resolve into the current buyer path:
+
+- `/pricing`
+- `/pricing/full-diagnosis`
+- `/pricing/optimization`
+- `/pricing/monthly-partner`
+- `/contact`
+- `/how-it-works`
+- `/diagnosis`
+- `/profile`
+- `/faq`
+- `/freecheck`
+- `/full-diagnosis`
+- `/optimization`
+- `/monthly-partner`
+
 ## Rollback checklist
 
 If production weakens, breaks, or becomes unclear:
@@ -124,6 +144,7 @@ If production weakens, breaks, or becomes unclear:
 - Redeploy.
 - Run the production smoke check.
 - Confirm the Free Scan path and canonical routes are restored.
+- Confirm legacy route redirects are restored.
 - Open a production safety issue if the failure exposed a missing guard.
 - Follow the incident response runbook if impact is active or unclear.
 
@@ -147,12 +168,13 @@ For meaningful releases, note in `CHANGELOG.md`:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- route/link impact when navigation, canonical routes, redirects, legacy routes, sitemap links, crawler-facing routes, or buyer-path connections changed
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
 - privacy/data impact when forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed
 - dependency impact when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling changed
 - deployment-environment impact when hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changed
 - observability impact when health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changed
-- search-discovery impact when metadata, crawler files, canonical routes, redirects, or trust surfaces changed
+- search-discovery impact when metadata, crawler files, canonical routes, redirects, legacy routes, or trust surfaces changed
 - accessibility impact when public UI changed
 - performance impact when public UI, assets, scripts, or component behavior changed
 - validation completed

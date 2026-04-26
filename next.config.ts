@@ -44,7 +44,22 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/how-it-works",
-        destination: "/diagnosis",
+        destination: "/plans",
+        permanent: true,
+      },
+      {
+        source: "/diagnosis",
+        destination: "/plans/deep-review",
+        permanent: true,
+      },
+      {
+        source: "/profile",
+        destination: "/plans",
+        permanent: true,
+      },
+      {
+        source: "/faq",
+        destination: "/plans",
         permanent: true,
       },
       {
