@@ -133,36 +133,36 @@ export function buildFreeCheckReportSnapshot(entry: FreeCheckReportInput): FreeC
 function recommendRoute(routingHint: ReportRoutingHint) {
   if (routingHint === "command-review") {
     return {
-      title: "Presence Command may become viable after the path is stabilized.",
-      copy: "The signal suggests the business may eventually benefit from recurring strategic continuity, but the platform should still protect sequence and keep explanation quality high before over-escalating.",
-      href: "/pricing/monthly-partner",
-      cta: "Review Presence Command",
+      title: "Ongoing Control may become the right path after the base is stable.",
+      copy: "The signal suggests the business may eventually benefit from continued direction, monitoring, and improvement. Sequence still matters: the base should be clear enough before ongoing work begins.",
+      href: "/plans/ongoing-control",
+      cta: "Review Ongoing Control",
     };
   }
 
   if (routingHint === "infrastructure-review") {
     return {
-      title: "Presence Infrastructure pressure is visible, but explanation still protects the path.",
-      copy: "Implementation-relevant pressure is appearing already, but the strongest controlled next move is usually Visibility Blueprint so concentrated work lands on the right weakness.",
-      href: "/pricing/full-diagnosis",
-      cta: "Review Visibility Blueprint",
+      title: "Build Fix pressure is visible, but the cause still matters.",
+      copy: "Implementation pressure is appearing already. If the weakness is clear, Build Fix may be right. If not, Deep Review protects the path before bigger work begins.",
+      href: "/plans/build-fix",
+      cta: "Review Build Fix",
     };
   }
 
   if (routingHint === "blueprint-candidate") {
     return {
-      title: "Visibility Blueprint is the strongest next system layer.",
-      copy: "The intake has enough signal quality to justify deeper explanation before the business spends harder in the wrong place.",
-      href: "/pricing/full-diagnosis",
-      cta: "Open Visibility Blueprint",
+      title: "Deep Review is the strongest next step.",
+      copy: "The intake has enough signal quality to justify a deeper diagnosis before the business spends harder in the wrong place.",
+      href: "/plans/deep-review",
+      cta: "Open Deep Review",
     };
   }
 
   return {
-    title: "Search Presence Scan should keep strengthening the first signal.",
-    copy: "The strongest next move is still improving signal quality, not escalating into heavier layers before the business is understood cleanly enough.",
+    title: "Free Scan should keep strengthening the first signal.",
+    copy: "The strongest next move is still improving first-read signal quality, not escalating before the business is understood clearly enough.",
     href: "/free-check",
-    cta: "Refine Search Presence Scan",
+    cta: "Refine Free Scan",
   };
 }
 
@@ -178,7 +178,7 @@ function buildPriorityActions(entry: FreeCheckReportInput) {
   const actions: string[] = [];
 
   if (entry.scoreModules.trustAuthority < 60) {
-    actions.push("Strengthen trust architecture so the business feels more credible, current, and safer to choose.");
+    actions.push("Strengthen trust so the business feels more credible, current, and safer to choose.");
   }
   if (entry.scoreModules.recommendationVisibility < 65) {
     actions.push("Clarify the business explanation so answer systems and human readers can identify the offer, audience, and fit faster.");
@@ -194,7 +194,7 @@ function buildPriorityActions(entry: FreeCheckReportInput) {
   }
 
   if (actions.length === 0) {
-    actions.push("The business has enough baseline structure to justify a deeper strategic explanation instead of another vague first-pass recommendation.");
+    actions.push("The business has enough baseline structure to justify a deeper diagnosis instead of another vague first-pass recommendation.");
   }
 
   return actions.slice(0, 5);
