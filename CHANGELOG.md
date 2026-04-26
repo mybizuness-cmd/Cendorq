@@ -50,6 +50,9 @@ Use this section for changes that have merged but are not yet included in a name
 - Public drift validation for active SEO defaults, share images, report recommendations, signal summaries, intelligence summaries, active header, footer, mobile dock, manifest, and AI-readable public context.
 - Free Scan intake validation for form source, page metadata, validation defaults, routing labels, intelligence labels, next-move wording, API route language, storage naming, and report recommendations.
 - Free Scan API OPTIONS smoke coverage so production smoke checks the intake API surface without creating fake submissions.
+- Production verification status guidance for strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and no-fake-submission smoke discipline.
+- Incident-response smoke failure playbooks for strict redirects, Free Scan API `OPTIONS`, protected read behavior, health checks, and discovery/trust files.
+- Production smoke workflow target preflight so manual and scheduled checks fail clearly before running against an invalid URL.
 
 ### Changed
 
@@ -69,6 +72,8 @@ Use this section for changes that have merged but are not yet included in a name
 - Defaulted normalized Free Scan intake source to `free-check` while preserving explicit legacy source compatibility for older callers.
 - Tightened Free Scan next-move wording to use Ongoing Control, Build Fix, and Deep Review language directly.
 - Updated the Free Scan API route to use current Free Scan language, write to `free-check-intakes.v3.json`, preserve legacy storage/source compatibility, and keep console reads protected.
+- Synced README, production guide, and PR template with protected production verification status guidance.
+- Hardened production smoke workflow validation to protect read-only permissions, concurrency, timeout, URL preflight, frozen install, Node 24, and smoke execution.
 
 ### Fixed
 
@@ -82,11 +87,13 @@ Use this section for changes that have merged but are not yet included in a name
 - Fixed Free Scan form next-move language that still sounded like generic support/build/review wording instead of current plan language.
 - Fixed Free Scan API route user-facing errors, success messages, report lookup messages, and storage failure messages that still used retired scan naming.
 - Fixed production smoke coverage so the Free Scan API surface is checked safely through `OPTIONS` without creating fake intake records.
+- Fixed Free Scan production intake read boundary by removing the open-read escape hatch while preserving local development reads and configured admin-key reads.
 
 ### Security
 
 - No secret, credential, private runtime value, or private buyer-data behavior changes.
 - Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, resilience/continuity, maximum protection, foundation hardening, system synchronization, internal command center boundaries, score-threshold discipline, Free Scan intake consistency, Free Scan API no-store behavior, protected console reads, and public-surface drift prevention.
+- Removed the Free Scan production open-read escape hatch so unauthenticated intake reads remain closed by default in production.
 
 ## Release note format
 
