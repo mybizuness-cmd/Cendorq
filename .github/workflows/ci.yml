@@ -44,6 +44,14 @@ jobs:
           node-version: "24"
           cache: pnpm
 
+      - name: Generate Tailwind 4 lockfile for migration review
+        run: |
+          pnpm install --lockfile-only --ignore-scripts
+          echo "__PNPM_LOCK_BASE64_BEGIN__"
+          base64 -w 0 pnpm-lock.yaml
+          echo
+          echo "__PNPM_LOCK_BASE64_END__"
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
