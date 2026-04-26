@@ -62,6 +62,8 @@ Use this section for changes that have merged but are not yet included in a name
 - Aligned active header navigation with the current buyer path: Free Scan, Plans, Deep Review, Build Fix, and Connect.
 - Replaced the stale legacy header implementation with a current-header shim so there is only one active header language system.
 - Removed retired package labels from `llms.txt` so public AI-readable context stays clean while validation enforces retired-label prevention privately.
+- Aligned homepage, layout structured metadata, and Free Scan page metadata with the current Free Scan language.
+- Expanded public drift and route validation to block retired scan labels in active public surfaces.
 
 ### Fixed
 
@@ -69,6 +71,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Corrected plan routing so Ongoing Control points toward the current Connect path instead of legacy contact language.
 - Fixed active header drift that still promoted legacy support routes and older scan naming.
 - Fixed route validation drift that depended on retired public labels being listed inside `llms.txt`.
+- Fixed homepage, layout, and Free Scan metadata drift from retired scan naming to current Free Scan naming.
 
 ### Security
 
