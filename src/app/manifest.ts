@@ -41,32 +41,32 @@ const ICON_DEFINITIONS = [
 
 const SHORTCUTS: readonly ShortcutDefinition[] = [
     {
-        name: "Start Search Presence Scan",
-        shortName: "Start Scan",
+        name: "Start Free Scan",
+        shortName: "Free Scan",
         description:
-            "Begin with the first serious business signal before moving into a deeper layer.",
+            "Start with the safest first read before spending more on the wrong fix.",
         url: "/free-check",
     },
     {
-        name: "View Visibility Blueprint",
-        shortName: "Blueprint",
-        description:
-            "Review the deeper strategic explanation layer before concentrated strengthening begins.",
-        url: "/pricing/full-diagnosis",
-    },
-    {
-        name: "Compare System Layers",
+        name: "Compare Plans",
         shortName: "Plans",
         description:
-            "Compare Search Presence Scan, Visibility Blueprint, Presence Infrastructure, and Presence Command.",
-        url: "/pricing",
+            "Compare Free Scan, Deep Review, Build Fix, and Ongoing Control.",
+        url: "/plans",
     },
     {
-        name: "Ask Which Layer Fits",
-        shortName: "Contact",
+        name: "See Deep Review",
+        shortName: "Deep Review",
         description:
-            "Use the direct communication lane when the business is clear enough to ask the right question.",
-        url: "/contact",
+            "Use Deep Review when the business needs the cause before bigger action.",
+        url: "/plans/deep-review",
+    },
+    {
+        name: "Connect With Cendorq",
+        shortName: "Connect",
+        description:
+            "Use the direct communication lane when fit, scope, or context needs discussion.",
+        url: "/connect",
     },
 ] as const;
 
@@ -129,7 +129,7 @@ function resolveDescription(description: string) {
         return cleanedDescription;
     }
 
-    return "Cendorq helps businesses strengthen search presence through stronger signal, stronger strategy, stronger infrastructure, and stronger ongoing command.";
+    return "Cendorq helps businesses find what makes customers hesitate, compare, leave, or choose someone else before spending more.";
 }
 
 function cleanString(value: string | undefined | null) {
