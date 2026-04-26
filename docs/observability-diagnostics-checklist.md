@@ -23,6 +23,9 @@ Before merging observability or diagnostics changes, confirm:
 
 - Health checks remain lightweight and safe to expose.
 - Smoke checks verify the production buyer path and discovery files.
+- Smoke checks verify strict legacy redirects, not only final followed destinations.
+- Smoke checks verify Free Scan API `OPTIONS` support without creating fake submissions.
+- Production smoke checks verify unauthenticated Free Scan API reads stay protected.
 - Logs help diagnose issues without exposing private data.
 - Error states are understandable and not overly technical.
 - Diagnostics do not reveal secrets, tokens, private customer data, or internals.
@@ -49,6 +52,10 @@ For smoke-check changes, confirm:
 
 - Critical public routes are still checked.
 - Discovery and trust files are still checked.
+- Legacy redirects are checked with a real redirect status and `Location` header before following.
+- Free Scan API `OPTIONS` still returns `204` and `Allow: GET,POST,OPTIONS`.
+- Non-local production smoke confirms unauthenticated `GET /api/free-check` returns the protected `401` response.
+- Protected-read smoke checks do not run against localhost development.
 - Failures are clear enough to act on.
 - The production base URL is explicit and safe.
 - Scheduled and manual workflows stay usable.
