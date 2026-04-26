@@ -34,9 +34,14 @@ Use this section for changes that have merged but are not yet included in a name
 - Dependency checklist for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, and tooling changes.
 - Deployment environment checklist for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, and deployment configuration changes.
 - Observability and diagnostics checklist for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, and operational visibility changes.
+- Redirect smoke checks for legacy public routes so production verification confirms old URLs resolve into the current buyer path.
 
 ### Changed
 
+- Hardened legacy public-route governance so `/diagnosis`, `/profile`, `/faq`, `/how-it-works`, old pricing paths, and old shorthand routes redirect into the current buyer path instead of remaining discoverable as active routes.
+- Kept sitemap and robots discovery surfaces focused on current buyer-path routes and current policy/trust pages rather than redirected legacy routes.
+- Expanded route validation to protect legacy public-route governance, redirect smoke checks, sitemap exclusions, and robots allowlist exclusions.
+- Updated README, production guide, release checklist, route/link checklist, and search discovery checklist with the current legacy public-route policy.
 - Added a compact PR template checklist-gate section so the full readiness system is easier to scan and maintain.
 - Added a PR template AI-agent handoff gate so ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, and project continuity explicitly consider `docs/ai-agent-handoff.md` before merge.
 - Added a PR template final hardening gate so major readiness, launch-adjacent, broad hardening, backend-prep, and production milestone changes explicitly consider `docs/final-hardening-sweep.md` before merge.
@@ -64,11 +69,11 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Fixed
 
-- No production fixes in this entry.
+- Fixed stale public-route exposure by moving additional legacy URLs into explicit redirects and by preventing legacy routes from being promoted by discovery surfaces.
 
 ### Security
 
-- No security-sensitive behavior changes in this entry.
+- No secret, credential, private runtime value, or private buyer-data behavior changes.
 
 ## Release note format
 
@@ -88,7 +93,7 @@ For future release notes, include:
 - analytics/tracking impact when analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, or buyer-path reporting changed
 - policy/legal impact when policy pages, terms, privacy, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, or legal-adjacent public content changed
 - trust/credibility impact when public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, or confidence-building content changed
-- route/link impact when navigation, links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connections changed
+- route/link impact when navigation, links, buttons, anchors, redirects, legacy routes, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connections changed
 - offer-integrity impact when Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, or offer-positioning changed
 - lead-intake impact when Free Scan, Connect, forms, fields, validation, success states, error states, routing, or buyer handoff changed
 - conversion-quality impact when homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer-positioning changed
@@ -98,7 +103,7 @@ For future release notes, include:
 - dependency impact when packages, lockfiles, GitHub Actions, runtime pins, dependency automation, or tooling changed
 - deployment-environment impact when hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changed
 - observability impact when health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changed
-- search-discovery impact when metadata, crawler files, canonical routes, redirects, or trust surfaces changed
+- search-discovery impact when metadata, crawler files, canonical routes, redirects, legacy routes, or trust surfaces changed
 - accessibility impact when public UI changed
 - performance impact when public UI, assets, scripts, or component behavior changed
 - validation completed
