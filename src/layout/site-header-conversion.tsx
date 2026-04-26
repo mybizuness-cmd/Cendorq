@@ -13,11 +13,11 @@ const BRAND_NAME = "Cendorq";
 const CATEGORY_LINE = "Search Presence OS";
 
 const PRIMARY_NAV: readonly NavItem[] = [
-  { label: "Start Here", href: "/free-check", description: "Begin with the guided free scan.", match: "startsWith" },
-  { label: "How It Works", href: "/diagnosis", description: "See how we find what is making people hesitate.", match: "exact" },
+  { label: "Free Scan", href: "/free-check", description: "Start with the safest first read.", match: "startsWith" },
   { label: "Plans", href: "/plans", description: "Compare the next moves in plain English.", match: "startsWith" },
-  { label: "Proof & Profile", href: "/profile", description: "Understand the Cendorq point of view.", match: "exact" },
-  { label: "FAQ", href: "/faq", description: "Get clear answers before choosing the next step.", match: "exact" },
+  { label: "Deep Review", href: "/plans/deep-review", description: "Find what is weakening clarity, trust, and choice.", match: "exact" },
+  { label: "Build Fix", href: "/plans/build-fix", description: "Strengthen the pages, message, trust, and action path.", match: "exact" },
+  { label: "Connect", href: "/connect", description: "Use the direct communication lane when fit or scope needs discussion.", match: "exact" },
 ] as const;
 
 const TRUST_NAV: readonly NavItem[] = [
@@ -28,7 +28,7 @@ const TRUST_NAV: readonly NavItem[] = [
 
 const PLAN_NAV = [
   { label: "Free Scan", href: "/free-check", description: "Find what is making people hesitate." },
-  { label: "Deep Review", href: "/plans/deep-review", description: "Know what is broken and why." },
+  { label: "Deep Review", href: "/plans/deep-review", description: "Know what is weak and why." },
   { label: "Build Fix", href: "/plans/build-fix", description: "Strengthen the pages, message, and path." },
   { label: "Ongoing Control", href: "/plans/ongoing-control", description: "Keep improving as the market changes." },
 ] as const;
@@ -108,7 +108,7 @@ export function SiteHeader() {
                 <div className="system-surface rounded-[1.35rem] p-4">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">{isHomepage ? "Start here" : currentRoute.eyebrow}</div>
                   <h2 className="mt-2 text-xl font-semibold tracking-tight text-white">{isHomepage ? "Find what is making people hesitate." : currentRoute.label}</h2>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">{isHomepage ? "The homepage has one job: move the right business into the guided free scan." : currentRoute.note}</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-300">{isHomepage ? "The homepage has one job: move the right business into the guided Free Scan." : currentRoute.note}</p>
                 </div>
 
                 <Link href={primaryCta.href} className="system-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition">{primaryCta.label}</Link>
@@ -134,7 +134,7 @@ function HomeConversionStrip() {
           <HeaderPill>No giant form</HeaderPill>
           <HeaderPill>Clear next move</HeaderPill>
         </div>
-        <p className="max-w-xl text-sm leading-6 text-slate-400">Start with the free scan before spending more on the wrong fix.</p>
+        <p className="max-w-xl text-sm leading-6 text-slate-400">Start with the Free Scan before spending more on the wrong fix.</p>
       </div>
     </div>
   );
@@ -192,26 +192,26 @@ function MobileNavLink({ href, active, children, compact = false }: { href: stri
 
 function buildPrimaryCta(pathname: string): Action {
   if (pathname.startsWith("/free-check")) return { href: "/free-check#free-check-intake", label: "Start scan" };
+  if (pathname.startsWith("/plans/ongoing-control")) return { href: "/connect", label: "Talk fit" };
   return { href: "/free-check", label: "Start free scan" };
 }
 
 function buildSecondaryCta(pathname: string): Action {
-  if (pathname.startsWith("/plans/build-fix")) return { href: "/plans/deep-review", label: "See deep review" };
-  if (pathname.startsWith("/plans")) return { href: "/diagnosis", label: "How it works" };
+  if (pathname.startsWith("/plans/build-fix")) return { href: "/plans/deep-review", label: "See Deep Review" };
+  if (pathname.startsWith("/plans/ongoing-control")) return { href: "/plans", label: "Compare plans" };
+  if (pathname.startsWith("/plans")) return { href: "/free-check", label: "Start Free Scan" };
   if (pathname.startsWith("/free-check")) return { href: "/plans", label: "View plans" };
-  return { href: "/diagnosis", label: "How it works" };
+  if (pathname.startsWith("/connect")) return { href: "/free-check", label: "Start Free Scan" };
+  return { href: "/plans", label: "View plans" };
 }
 
 function buildCurrentRoute(pathname: string): RouteContext {
-  if (pathname.startsWith("/free-check")) return { eyebrow: "Guided scan", label: "Free Search Presence Scan", note: "A step-by-step first read for businesses that need to know why people hesitate." };
-  if (pathname.startsWith("/plans/deep-review")) return { eyebrow: "Plan", label: "Deep Review", note: "Find what is broken, why it matters, and what should happen next." };
+  if (pathname.startsWith("/free-check")) return { eyebrow: "Guided scan", label: "Free Scan", note: "A simple first read for businesses that need to know why people hesitate." };
+  if (pathname.startsWith("/plans/deep-review")) return { eyebrow: "Plan", label: "Deep Review", note: "Find what is weak, why it matters, and what should happen next." };
   if (pathname.startsWith("/plans/build-fix")) return { eyebrow: "Plan", label: "Build Fix", note: "Strengthen the pages, message, trust, and path people use before they act." };
   if (pathname.startsWith("/plans/ongoing-control")) return { eyebrow: "Plan", label: "Ongoing Control", note: "Keep improving the business presence as search, competitors, and customers change." };
-  if (pathname === "/plans") return { eyebrow: "Plans", label: "Plans", note: "Compare the next steps in plain English after the free scan." };
-  if (pathname.startsWith("/diagnosis")) return { eyebrow: "How it works", label: "How It Works", note: "See the path Cendorq uses to find what is making people hesitate." };
-  if (pathname.startsWith("/profile")) return { eyebrow: "Profile", label: "Proof & Profile", note: "The Cendorq point of view and way of working." };
-  if (pathname.startsWith("/faq")) return { eyebrow: "Answers", label: "FAQ", note: "Clear answers that help the next move feel easier." };
-  if (pathname.startsWith("/contact")) return { eyebrow: "Contact", label: "Contact", note: "Use the direct lane when fit, scope, or context needs discussion." };
+  if (pathname === "/plans") return { eyebrow: "Plans", label: "Plans", note: "Compare the next steps in plain English after the Free Scan." };
+  if (pathname.startsWith("/connect")) return { eyebrow: "Connect", label: "Connect", note: "Use the direct lane when fit, scope, or context needs discussion." };
   if (pathname.startsWith("/privacy")) return { eyebrow: "Trust page", label: "Privacy", note: "Data boundaries and privacy posture." };
   if (pathname.startsWith("/terms")) return { eyebrow: "Trust page", label: "Terms", note: "Service scope and boundaries." };
   if (pathname.startsWith("/disclaimer")) return { eyebrow: "Trust page", label: "Disclaimer", note: "Outcome limits and claim boundaries." };
