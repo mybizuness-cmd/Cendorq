@@ -1,5 +1,6 @@
 const rawBaseUrl = process.env.CENDORQ_BASE_URL || process.argv[2] || "http://localhost:3000";
 const baseUrl = normalizeBaseUrl(rawBaseUrl);
+const isLocalBaseUrl = isLocalhostBaseUrl(baseUrl);
 
 const checks = [
   { path: "/", expect: ["Cendorq"] },
@@ -45,6 +46,14 @@ const optionChecks = [
   },
 ];
 
+const protectedReadChecks = [
+  {
+    path: "/api/free-check",
+    expectedStatus: 401,
+    expectError: "The intake console is not authorized to read submissions.",
+  },
+];
+
 const failures = [];
 
 for (const check of checks) {
@@ -61,6 +70,10 @@ for (const check of jsonChecks) {
 
 for (const check of optionChecks) {
   await checkOptionsRoute(check);
+}
+
+for (const check of protectedReadChecks) {
+  await checkProtectedReadRoute(check);
 }
 
 if (failures.length) {
@@ -179,6 +192,32 @@ async function checkOptionsRoute({ path, allow }) {
   if (allowHeader !== allow) failures.push(`${path} OPTIONS expected Allow=${allow} but got ${allowHeader || "empty"}`);
 }
 
+async function checkProtectedReadRoute({ path, expectedStatus, expectError }) {
+  if (isLocalBaseUrl) return;
+
+  const url = new URL(path, baseUrl);
+  const response = await fetch(url, { method: "GET", redirect: "follow" }).catch((error) => ({ error }));
+
+  if ("error" in response) {
+    failures.push(`${path} protected read could not be fetched: ${response.error.message}`);
+    return;
+  }
+
+  if (response.status !== expectedStatus) {
+    failures.push(`${path} protected read expected ${expectedStatus} but returned ${response.status}`);
+    return;
+  }
+
+  const payload = await response.json().catch(() => null);
+  if (!payload || typeof payload !== "object") {
+    failures.push(`${path} protected read did not return JSON.`);
+    return;
+  }
+
+  if (payload.ok !== false) failures.push(`${path} protected read should return ok=false.`);
+  if (payload.error !== expectError) failures.push(`${path} protected read returned unexpected error message.`);
+}
+
 function isRedirectStatus(status) {
   return status === 301 || status === 302 || status === 303 || status === 307 || status === 308;
 }
@@ -187,6 +226,11 @@ function normalizeBaseUrl(value) {
   const trimmed = value.trim().replace(/\/+$/, "");
   if (!trimmed) return "http://localhost:3000";
   return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
+function isLocalhostBaseUrl(value) {
+  const parsed = new URL(value);
+  return parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1" || parsed.hostname === "0.0.0.0";
 }
 
 function normalizePathname(value) {
