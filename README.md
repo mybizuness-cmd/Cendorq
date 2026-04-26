@@ -39,17 +39,15 @@ Runtime pins are kept in:
 
 Use `.env.example` as the safe local template. Copy it to `.env.local` only when local development needs environment values.
 
-Never commit real secrets, private tokens, customer data, or private keys.
+Never commit real secrets, private tokens, customer data, private keys, report tokens, service-role credentials, or private prompts.
 
-## Closed intelligence operating norm
+## Operating doctrine
 
 Cendorq is public where it must convert and private where it must protect intelligence.
 
 The public surface sells the outcome. The private system holds the engine.
 
-The closed intelligence operating standard is protected in [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md).
-
-Full intelligence-quality standards are protected in:
+Full operating standards are protected in:
 
 - [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md)
 - [`docs/data-quality-governance-standard.md`](docs/data-quality-governance-standard.md)
@@ -57,6 +55,12 @@ Full intelligence-quality standards are protected in:
 - [`docs/pure-signal-authority-standard.md`](docs/pure-signal-authority-standard.md)
 - [`docs/adaptive-signal-evolution-standard.md`](docs/adaptive-signal-evolution-standard.md)
 - [`docs/resilience-continuity-standard.md`](docs/resilience-continuity-standard.md)
+- [`docs/maximum-protection-standard.md`](docs/maximum-protection-standard.md)
+- [`docs/foundation-hardening-standard.md`](docs/foundation-hardening-standard.md)
+- [`docs/foundation-elevation-standard.md`](docs/foundation-elevation-standard.md)
+- [`docs/system-synchronization-qa-standard.md`](docs/system-synchronization-qa-standard.md)
+- [`docs/internal-command-center-standard.md`](docs/internal-command-center-standard.md)
+- [`docs/score-threshold-operating-standard.md`](docs/score-threshold-operating-standard.md)
 
 This means:
 
@@ -73,6 +77,12 @@ This means:
 - pure signal rules determine whether data can influence durable reports, scores, playbooks, and benchmarks
 - adaptive signal evolution lets Cendorq evolve safely without uncontrolled production self-modification
 - resilience standards require safe degradation, recovery, vendor-risk awareness, and long-horizon continuity
+- maximum protection requires deny-by-default access, secret protection, anti-exfiltration, prompt-injection containment, auditability, and emergency controls
+- foundation hardening protects the base before new features are built on top of it
+- foundation elevation forces the base to become clearer, safer, more scalable, more converting, and easier to build on every time it is touched
+- system synchronization keeps docs, validation, release gates, PR gates, and future architecture telling the same truth
+- internal command center work must make Cendorq easier to operate without exposing the private engine
+- score thresholds guide internal routing and automation while public pages stay simple and uncluttered
 
 ## Editor and Git baseline
 
@@ -123,7 +133,7 @@ The production smoke workflow can also be run manually from GitHub Actions and r
 
 ## Production guide
 
-Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, incidents, private intelligence, AI-agent workflows, reports, evidence, data quality, learning memory, pure signals, adaptive signal standards, resilience, continuity, or backend data access:
+Read the production operating guide before changing routes, public labels, crawler files, health checks, homepage funnel structure, copy, privacy, accessibility, performance, search discovery, dependencies, deployment environment, observability, releases, incidents, private intelligence, AI-agent workflows, reports, evidence, data quality, learning memory, pure signals, adaptive signal standards, resilience, continuity, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, or backend data access:
 
 - [`docs/production-guide.md`](docs/production-guide.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
@@ -133,6 +143,12 @@ Read the production operating guide before changing routes, public labels, crawl
 - [`docs/pure-signal-authority-standard.md`](docs/pure-signal-authority-standard.md)
 - [`docs/adaptive-signal-evolution-standard.md`](docs/adaptive-signal-evolution-standard.md)
 - [`docs/resilience-continuity-standard.md`](docs/resilience-continuity-standard.md)
+- [`docs/maximum-protection-standard.md`](docs/maximum-protection-standard.md)
+- [`docs/foundation-hardening-standard.md`](docs/foundation-hardening-standard.md)
+- [`docs/foundation-elevation-standard.md`](docs/foundation-elevation-standard.md)
+- [`docs/system-synchronization-qa-standard.md`](docs/system-synchronization-qa-standard.md)
+- [`docs/internal-command-center-standard.md`](docs/internal-command-center-standard.md)
+- [`docs/score-threshold-operating-standard.md`](docs/score-threshold-operating-standard.md)
 - [`docs/route-link-integrity-checklist.md`](docs/route-link-integrity-checklist.md)
 - [`docs/search-discovery-checklist.md`](docs/search-discovery-checklist.md)
 - [`docs/copy-quality-checklist.md`](docs/copy-quality-checklist.md)
@@ -157,6 +173,12 @@ The guides cover:
 - pure signal authority
 - adaptive signal evolution
 - resilience and continuity
+- maximum protection
+- foundation hardening
+- foundation elevation
+- system synchronization QA
+- internal command center
+- score threshold operating rules
 - legacy public routes and redirects
 - pre-merge checks
 - copy quality checks
