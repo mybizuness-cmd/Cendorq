@@ -36,12 +36,7 @@ Cendorq should be described in plain business language. Prefer:
 - make the business easier to choose
 - stop guessing before spending more
 
-Avoid older internal or legacy labels in active public surfaces:
-
-- Visibility Blueprint
-- Presence Infrastructure
-- Presence Command
-- Start Search Presence Scan
+Do not use old internal labels or retired package names in active public surfaces.
 
 ## Trust boundaries
 
