@@ -11,8 +11,8 @@ const CATEGORY_LINE = "Search Presence OS";
 
 const PRIMARY_LINKS: readonly FooterLinkItem[] = [
   { label: "Start Free Scan", href: "/free-check" },
-  { label: "How It Works", href: "/diagnosis" },
-  { label: "Plans", href: "/plans" },
+  { label: "Compare Plans", href: "/plans" },
+  { label: "Deep Review", href: "/plans/deep-review" },
   { label: "Connect", href: "/connect" },
 ];
 
@@ -24,15 +24,15 @@ const PLAN_LINKS: readonly FooterLinkItem[] = [
 ];
 
 const TRUST_LINKS: readonly FooterLinkItem[] = [
-  { label: "FAQ", href: "/faq" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
   { label: "Disclaimer", href: "/disclaimer" },
+  { label: "Connect", href: "/connect" },
 ];
 
 const ROUTING_POINTS = [
   "Unsure what is wrong? Start free.",
-  "Know the problem needs explanation? Use Deep Review.",
+  "Need the cause? Use Deep Review.",
   "Ready to improve the weak points? Use Build Fix.",
   "Need continued control? Use Ongoing Control.",
 ] as const;
