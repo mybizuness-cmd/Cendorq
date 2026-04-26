@@ -10,18 +10,16 @@ import "./quality-polish.css";
 
 const siteUrl = new URL(siteConfig.siteUrl);
 const siteOrigin = siteUrl.origin;
-
 const BRAND_NAME = siteConfig.name;
 const ORGANIZATION_ID = `${siteOrigin}#organization`;
 const WEBSITE_ID = `${siteOrigin}#website`;
 const SERVICE_ID = `${siteOrigin}#service`;
 const OFFER_CATALOG_ID = `${siteOrigin}#offer-catalog`;
-
 const THEME_COLOR = "#020617";
 
 const KNOWLEDGE_AREAS = [
   "Search Presence OS",
-  "Free Search Presence Scan",
+  "Free Scan",
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
@@ -35,26 +33,22 @@ const LAYER_CATALOG = [
   {
     name: "Free Scan",
     path: "/free-check",
-    description:
-      "Guided first-read layer for businesses that need to find what is making people hesitate before spending more.",
+    description: "Guided first-read layer for businesses that need to find what is making people hesitate before spending more.",
   },
   {
     name: "Deep Review",
     path: "/plans/deep-review",
-    description:
-      "Deeper explanation layer for businesses that need to know what is broken and why before bigger changes begin.",
+    description: "Deeper explanation layer for businesses that need to know what is weak and why before bigger changes begin.",
   },
   {
     name: "Build Fix",
     path: "/plans/build-fix",
-    description:
-      "Focused improvement layer for businesses ready to strengthen the pages, message, trust, and action path customers judge first.",
+    description: "Focused improvement layer for businesses ready to strengthen the pages, message, trust, and action path customers judge first.",
   },
   {
     name: "Ongoing Control",
     path: "/plans/ongoing-control",
-    description:
-      "Continued direction layer for businesses ready to keep improving as customers, search, and competitors change.",
+    description: "Continued direction layer for businesses ready to keep improving as customers, search, and competitors change.",
   },
 ] as const;
 
@@ -62,10 +56,7 @@ const contactEmail = normalizeEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL);
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
+  title: { default: siteConfig.name, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
   applicationName: siteConfig.name,
   referrer: "origin-when-cross-origin",
@@ -73,7 +64,9 @@ export const metadata: Metadata = {
   keywords: [
     "Cendorq",
     "Search Presence OS",
-    "free search presence scan",
+    "free business scan",
+    "business clarity scan",
+    "customer hesitation analysis",
     "deep review",
     "build fix",
     "ongoing control",
@@ -85,20 +78,10 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.legalName || siteConfig.name }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   category: "business",
-  formatDetection: {
-    telephone: false,
-    address: false,
-    email: false,
-  },
-  appleWebApp: {
-    capable: true,
-    title: siteConfig.shortName,
-    statusBarStyle: "black-translucent",
-  },
+  formatDetection: { telephone: false, address: false, email: false },
+  appleWebApp: { capable: true, title: siteConfig.shortName, statusBarStyle: "black-translucent" },
   openGraph: {
     type: "website",
     url: siteOrigin,
@@ -106,31 +89,13 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     locale: "en_US",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.name} — Search Presence OS`,
-      },
-    ],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${siteConfig.name} — Search Presence OS` }],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: ["/twitter-image"],
-  },
+  twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description, images: ["/twitter-image"] },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
   icons: {
     icon: [
@@ -155,51 +120,16 @@ export const viewport: Viewport = {
 
 const structuredData = buildStructuredData();
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html
-      lang="en-US"
-      className="h-full scroll-smooth bg-slate-950"
-      suppressHydrationWarning
-    >
+    <html lang="en-US" className="h-full scroll-smooth bg-slate-950" suppressHydrationWarning>
       <body className="min-h-screen bg-slate-950 pb-24 text-white antialiased selection:bg-cyan-300/20 selection:text-white [font-synthesis-weight:none] [text-rendering:optimizeLegibility] lg:pb-0">
         <ConversionClickTracker />
-
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950"
-        >
-          Skip to content
-        </a>
-
-        <noscript>
-          <div className="border-b border-amber-300/20 bg-amber-300/10 px-4 py-3 text-center text-sm text-amber-100">
-            JavaScript is disabled. Some interactive Cendorq experiences may be limited.
-          </div>
-        </noscript>
-
-        {structuredData.map((entry, index) => (
-          <script
-            key={`structured-data-${index}`}
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: toJsonLd(entry),
-            }}
-          />
-        ))}
-
-        <div
-          className="relative min-h-screen overflow-x-clip bg-slate-950"
-          data-brand="cendorq"
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-          >
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950">Skip to content</a>
+        <noscript><div className="border-b border-amber-300/20 bg-amber-300/10 px-4 py-3 text-center text-sm text-amber-100">JavaScript is disabled. Some interactive Cendorq experiences may be limited.</div></noscript>
+        {structuredData.map((entry, index) => <script key={`structured-data-${index}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(entry) }} />)}
+        <div className="relative min-h-screen overflow-x-clip bg-slate-950" data-brand="cendorq">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.09),transparent_28%),radial-gradient(circle_at_top_right,rgba(56,189,248,0.08),transparent_24%),radial-gradient(circle_at_bottom_center,rgba(34,211,238,0.05),transparent_34%)]" />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.018),transparent_18%,transparent_82%,rgba(255,255,255,0.014))]" />
             <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-cyan-400/8 blur-3xl sm:h-96 sm:w-96" />
@@ -208,18 +138,12 @@ export default function RootLayout({
             <div className="system-grid-wide absolute inset-0 opacity-[0.02]" />
             <div className="system-scan-line absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent" />
           </div>
-
           <div className="relative z-10 flex min-h-screen flex-col">
             <SiteHeader />
-
-            <main id="main-content" className="relative z-10 flex-1">
-              {children}
-            </main>
-
+            <main id="main-content" className="relative z-10 flex-1">{children}</main>
             <SiteFooter />
           </div>
         </div>
-
         <MobileConversionDock />
       </body>
     </html>
@@ -238,35 +162,9 @@ function buildStructuredData() {
     logo: absoluteUrl("/icon"),
     image: absoluteUrl("/opengraph-image"),
     knowsAbout: [...KNOWLEDGE_AREAS],
-    ...(contactEmail
-      ? {
-        email: contactEmail,
-        contactPoint: [
-          {
-            "@type": "ContactPoint",
-            contactType: "sales",
-            email: contactEmail,
-            areaServed: "Worldwide",
-            availableLanguage: ["en"],
-          },
-        ],
-      }
-      : {}),
+    ...(contactEmail ? { email: contactEmail, contactPoint: [{ "@type": "ContactPoint", contactType: "sales", email: contactEmail, areaServed: "Worldwide", availableLanguage: ["en"] }] } : {}),
   };
-
-  const website = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": WEBSITE_ID,
-    name: BRAND_NAME,
-    url: siteConfig.siteUrl,
-    description: siteConfig.description,
-    inLanguage: "en-US",
-    publisher: {
-      "@id": ORGANIZATION_ID,
-    },
-  };
-
+  const website = { "@context": "https://schema.org", "@type": "WebSite", "@id": WEBSITE_ID, name: BRAND_NAME, url: siteConfig.siteUrl, description: siteConfig.description, inLanguage: "en-US", publisher: { "@id": ORGANIZATION_ID } };
   const service = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -275,29 +173,11 @@ function buildStructuredData() {
     url: siteConfig.siteUrl,
     description: siteConfig.description,
     areaServed: "Worldwide",
-    provider: {
-      "@id": ORGANIZATION_ID,
-    },
-    brand: {
-      "@id": ORGANIZATION_ID,
-    },
+    provider: { "@id": ORGANIZATION_ID },
+    brand: { "@id": ORGANIZATION_ID },
     serviceType: "Search Presence OS",
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      "@id": OFFER_CATALOG_ID,
-      name: "Cendorq Plans",
-      itemListElement: LAYER_CATALOG.map((item) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: item.name,
-          description: item.description,
-          url: absoluteUrl(item.path),
-        },
-      })),
-    },
+    hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq Plans", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
   };
-
   return [organization, website, service] as const;
 }
 
