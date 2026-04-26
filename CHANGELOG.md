@@ -35,6 +35,12 @@ Use this section for changes that have merged but are not yet included in a name
 - Deployment environment checklist for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, and deployment configuration changes.
 - Observability and diagnostics checklist for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, and operational visibility changes.
 - Redirect smoke checks for legacy public routes so production verification confirms old URLs resolve into the current buyer path.
+- Closed intelligence operating standard for closed-by-default database posture, protected reports, public/private boundary, evidence-gated AI agents, private operating intelligence, and no direct database exposure.
+- Data quality governance standard for source-aware, confidence-scored, freshness-aware, evidence-linked, self-reported, externally observed, AI-generated, and human-reviewed data.
+- Learning memory standard for raw, exploration, operational, authority, rejected, outcome-linked, and no-downtime learning memory.
+- Pure signal authority standard for source quality, evidence strength, freshness, independence, consistency, context completeness, manipulation risk, privacy class, outcome linkage, authority eligibility, promotion, and demotion.
+- Adaptive signal evolution standard for versioned pure-signal definitions, drift detection, candidate rules, safe experiments, backtesting, foresight watchlists, promotion guardrails, demotion, and reversible evolution.
+- Resilience and continuity standard for safe degradation, backups, vendor-risk awareness, recovery, rollback, abuse handling, legal/privacy shifts, long-horizon survival, and continuity.
 
 ### Changed
 
@@ -66,6 +72,8 @@ Use this section for changes that have merged but are not yet included in a name
 - Added a PR template dependency gate so package, lockfile, GitHub Actions, runtime pin, dependency automation, and tooling changes explicitly consider `docs/dependency-checklist.md` before merge.
 - Added a PR template deployment environment gate so hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, and deployment configuration changes explicitly consider `docs/deployment-environment-checklist.md` before merge.
 - Added a PR template observability and diagnostics gate so health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, and operational visibility changes explicitly consider `docs/observability-diagnostics-checklist.md` before merge.
+- Expanded `pnpm validate:routes` to also enforce closed intelligence, data quality, learning memory, pure signal authority, adaptive signal evolution, resilience, and private operating intelligence standards.
+- Synced README, SECURITY, release checklist, and PR template with the full intelligence standards so future changes must account for data quality, learning memory, pure signals, adaptive evolution, resilience, reports, evidence, and closed database posture.
 
 ### Fixed
 
@@ -74,6 +82,7 @@ Use this section for changes that have merged but are not yet included in a name
 ### Security
 
 - No secret, credential, private runtime value, or private buyer-data behavior changes.
+- Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, and resilience/continuity expectations.
 
 ## Release note format
 
@@ -83,6 +92,12 @@ For future release notes, include:
 - why it changed
 - buyer-path impact
 - production-safety impact
+- closed-intelligence impact when private scoring, reports, evidence, AI-agent prompts, database access, or public/private boundaries changed
+- data-quality impact when source labels, confidence, freshness, evidence, self-reported data, externally observed data, AI-generated data, or human-reviewed data changed
+- learning-memory impact when raw, exploration, operational, authority, rejected, outcome-linked, or no-downtime learning memory changed
+- pure-signal impact when source quality, evidence strength, freshness, independence, consistency, context completeness, manipulation risk, privacy class, outcome linkage, authority eligibility, promotion, or demotion changed
+- adaptive-evolution impact when pure-signal definitions, signal versions, drift detection, candidate rules, safe experiments, backtesting, foresight watchlists, promotion guardrails, demotion, rollback, or reversible evolution changed
+- resilience impact when safe degradation, backups, vendor-risk awareness, recovery, rollback, downtime, platform shifts, abuse handling, legal/privacy shifts, long-horizon survival, or continuity changed
 - AI-agent-handoff impact when ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, or project continuity changed
 - final-hardening impact when major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone work changed
 - backend-handoff impact when backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations changed
