@@ -56,6 +56,7 @@ const requiredFiles = [
   "src/app/plans/ongoing-control/page.tsx",
   "src/app/connect/page.tsx",
   "src/app/api/health/route.ts",
+  "src/app/api/free-check/route.ts",
   "src/app/sitemap.ts",
   "src/app/robots.ts",
   "src/app/manifest.ts",
@@ -176,7 +177,9 @@ expect("docs/release-checklist.md", ["closed intelligence", "data quality", "lea
 expect("src/layout/site-header.tsx", ["export { SiteHeader } from \"./site-header-conversion\";"], "Legacy header must remain a current-header shim");
 expect("src/lib/seo.ts", ["Cendorq helps businesses find what makes customers hesitate", "Cendorq — Search Presence OS", "Start with the Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "SEO defaults are not aligned with current positioning");
 expect("src/app/layout.tsx", ["Free Scan", "Cendorq Plans", "Search Presence OS"], "Layout structured metadata is not aligned with current positioning");
-expect("src/scripts/validate-free-check-intake.mjs", ["Free Scan intake validation passed", "source: \\\"free-check\\\"", "return \\\"free-check\\\";"], "Free Scan intake validator is missing required gate detail");
+expect("src/app/api/free-check/route.ts", ["CURRENT_STORAGE_FILE = \"free-check-intakes.v3.json\"", "The Free Scan has been captured successfully.", "The requested Free Scan entry was not found.", "Allow: \"GET,POST,OPTIONS\""], "Free Scan API route is missing current language or OPTIONS support");
+expect("src/scripts/validate-free-check-intake.mjs", ["Free Scan intake validation passed", "src/app/api/free-check/route.ts", "source: \\\"free-check\\\"", "return \\\"free-check\\\";"], "Free Scan intake validator is missing required gate detail");
+expect("src/scripts/smoke-production.mjs", ["/api/free-check", "OPTIONS", "GET,POST,OPTIONS", "checkOptionsRoute"], "Production smoke script is missing Free Scan API OPTIONS coverage");
 expect("public/.well-known/security.txt", ["Contact: https://cendorq.com/connect", "Canonical: https://cendorq.com/.well-known/security.txt", "Policy: https://cendorq.com/terms", "Expires:"], "security.txt is missing required detail");
 expect("src/app/api/health/route.ts", ["force-dynamic", "revalidate = 0", "ok: true", "Cache-Control", "no-store", "X-Robots-Tag"], "Health endpoint is missing runtime-safe behavior");
 expect(".github/workflows/ci.yml", ["node-version: \"24\"", "pnpm install --frozen-lockfile", "pnpm validate:routes", "pnpm lint", "pnpm typecheck", "pnpm build"], "CI workflow is missing quality gates");
@@ -232,7 +235,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. Current buyer path, legacy redirects, active public drift rules, SEO defaults, structured metadata, header shim, Free Scan intake gate, discovery files, runtime pins, CI gates, smoke checks, operating docs, and protection standards are synchronized.");
+console.log("Route validation passed. Current buyer path, legacy redirects, active public drift rules, SEO defaults, structured metadata, header shim, Free Scan intake gate, Free Scan API smoke check, discovery files, runtime pins, CI gates, smoke checks, operating docs, and protection standards are synchronized.");
 
 function expect(path, phrases, label) {
   const text = read(path);
