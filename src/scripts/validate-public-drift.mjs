@@ -41,6 +41,8 @@ const requiredCurrentLanguage = [
 ];
 
 const forbiddenActiveLanguage = [
+  "Free Search Presence Scan",
+  "free search presence scan",
   "Visibility Blueprint",
   "Presence Infrastructure",
   "Presence Command",
@@ -99,6 +101,12 @@ expect("src/lib/seo.ts", [
   "Ongoing Control",
 ]);
 
+expect("src/app/layout.tsx", [
+  "Free Scan",
+  "Cendorq Plans",
+  "Search Presence OS",
+]);
+
 expect("src/app/opengraph-image.tsx", [
   "Stop losing customers",
   "Free scan first",
@@ -130,7 +138,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. SEO defaults, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, and mobile dock use the current Cendorq buyer path.");
+console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, and mobile dock use the current Cendorq buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
