@@ -6,6 +6,11 @@ const failures = [];
 
 const requiredFiles = [
   "docs/closed-intelligence-operating-standard.md",
+  "docs/data-quality-governance-standard.md",
+  "docs/learning-memory-standard.md",
+  "docs/pure-signal-authority-standard.md",
+  "docs/adaptive-signal-evolution-standard.md",
+  "docs/resilience-continuity-standard.md",
   "README.md",
   "SECURITY.md",
   "docs/release-checklist.md",
@@ -15,57 +20,169 @@ const requiredFiles = [
 
 const operatingStandardExpectations = [
   "Cendorq Closed Intelligence Operating Standard",
-  "public where it must convert and private where it must protect intelligence",
   "The public surface sells the outcome.",
   "The private system holds the engine.",
   "The database must be closed by default.",
-  "No user, competitor, crawler, partner, public page, browser, or unauthenticated process should be able to query or browse the database directly.",
-  "All database access must go through controlled application services, internal tools, or approved automation paths.",
   "no public database browser",
   "no direct client-side database credentials",
   "no anonymous read access to private business records",
   "no public report index",
   "no public client evidence index",
   "least-privilege service roles",
-  "private server-side environment variables only",
   "signed report access where reports are exposed",
-  "audit trail for internal report and intake access",
-  "Public/private boundary",
-  "Public must not include",
-  "exact scoring formulas",
-  "private AI prompts",
-  "raw competitor datasets",
-  "client reports without access control",
-  "direct database endpoints",
   "AI agents are a private workforce",
   "Every AI-agent workflow must be evidence-gated.",
   "Reports are protected business intelligence.",
   "Cendorq must become evidence-backed, not just AI-written.",
-  "Competitors may be allowed to understand the public category, but not the private machine.",
   "Three-pass independent review norm",
   "Five-pass elevation norm",
-  "GitHub execution rule",
-  "Data architecture direction",
+];
+
+const dataQualityExpectations = [
+  "Cendorq Data Quality Governance Standard",
+  "Cendorq must compound from trustworthy data, not just more data.",
+  "source-aware",
+  "confidence-scored",
+  "freshness-aware",
+  "evidence-linked when possible",
+  "marked when self-reported",
+  "marked when externally observed",
+  "marked when AI-generated",
+  "marked when human-reviewed",
+  "Signal confidence levels",
+  "Freshness rules",
+  "Source quality rules",
+  "Outside data ingestion rule",
+  "AI-answer data rule",
+  "Data contamination risks",
+  "Anti-contamination controls",
+  "Exploration zone",
+  "Authority zone",
+  "Let weak signals inform exploration, not authority.",
+  "Let strong, source-backed, outcome-linked signals compound the moat.",
+];
+
+const learningMemoryExpectations = [
+  "Cendorq Learning Memory Standard",
+  "Learn broadly.",
+  "Promote carefully.",
+  "Compound only from trusted memory.",
+  "Raw memory",
+  "Exploration memory",
+  "Operational memory",
+  "Authority memory",
+  "Rejected memory",
+  "Promotion ladder",
+  "Purity gates",
+  "Fast learning without contamination",
+  "Outcome-linked learning",
+  "Data decay",
+  "Conflict handling",
+  "Manipulation defense",
+  "No-downtime learning principle",
+  "Learning must not create a new attack surface.",
+];
+
+const pureSignalExpectations = [
+  "Cendorq Pure Signal Authority Standard",
+  "A pure signal is not a perfect signal.",
+  "Pure signals earn authority.",
+  "source quality",
+  "evidence strength",
+  "freshness",
+  "independence",
+  "consistency",
+  "context completeness",
+  "manipulation risk",
+  "privacy class",
+  "outcome linkage",
+  "authority eligibility",
+  "Pure signal score",
+  "authority-grade",
+  "operational-grade",
+  "exploration-grade",
+  "reject or quarantine",
+  "Promotion from exploration to operational to authority memory should be explicit and reversible.",
+];
+
+const adaptiveSignalExpectations = [
+  "Cendorq Adaptive Signal Evolution Standard",
+  "The definition of a pure signal is versioned, testable, and allowed to evolve.",
+  "Current standard",
+  "Candidate standard",
+  "Experimental standard",
+  "Deprecated standard",
+  "Versioning rule",
+  "Anticipation rule",
+  "Healthy prediction range",
+  "Drift detection",
+  "Controlled evolution workflow",
+  "Promotion guardrails",
+  "Demotion rule",
+  "Self-evolving does not mean uncontrolled self-modifying production behavior.",
+  "Safe experimentation",
+  "Replay and backtesting",
+  "Foresight watchlists",
+  "No-downtime evolution",
+  "Sense early.",
+  "Experiment privately.",
+  "Validate carefully.",
+  "Promote reversibly.",
+];
+
+const resilienceExpectations = [
+  "Cendorq Resilience and Continuity Standard",
+  "Cendorq must degrade safely, recover quickly, preserve private intelligence, and keep the buyer path protected.",
+  "product resilience",
+  "data resilience",
+  "security resilience",
+  "AI-agent resilience",
+  "report resilience",
+  "infrastructure resilience",
+  "vendor resilience",
+  "market resilience",
+  "legal/privacy resilience",
+  "operational continuity",
+  "long-horizon memory resilience",
+  "Safe degradation examples",
+  "Backups must protect private data",
+  "When AI outputs conflict with evidence, evidence wins.",
+  "Production systems should be designed for safe change.",
+  "Build so it can",
+  "learn without poisoning itself",
+  "evolve without losing control",
+  "fail without leaking data",
+  "recover without losing trust",
 ];
 
 const repoExpectationMap = [
   ["README.md", [
     "closed intelligence",
-    "public surface sells the outcome",
     "private system holds the engine",
     "docs/closed-intelligence-operating-standard.md",
+    "docs/data-quality-governance-standard.md",
+    "docs/learning-memory-standard.md",
+    "docs/pure-signal-authority-standard.md",
+    "docs/adaptive-signal-evolution-standard.md",
+    "docs/resilience-continuity-standard.md",
   ]],
   ["SECURITY.md", [
     "closed intelligence",
     "no direct database exposure",
     "signed report",
     "least-privilege",
+    "data quality",
+    "pure signal",
   ]],
   ["docs/release-checklist.md", [
     "closed intelligence",
     "public/private boundary",
     "direct database exposure",
     "AI-agent evidence",
+    "data quality",
+    "learning memory",
+    "pure signal",
+    "resilience",
   ]],
   [".github/pull_request_template.md", [
     "Closed intelligence check",
@@ -73,31 +190,47 @@ const repoExpectationMap = [
     "direct database exposure",
     "AI-agent evidence",
     "client reports",
+    "Data quality and learning check",
+    "confidence",
+    "freshness",
+    "authority memory",
+    "pure signal",
+    "resilience",
   ]],
   ["CHANGELOG.md", [
     "Closed intelligence operating standard",
     "closed-by-default database",
     "public/private boundary",
+    "Data quality governance standard",
+    "Learning memory standard",
+    "Pure signal authority standard",
+    "Adaptive signal evolution standard",
+    "Resilience and continuity standard",
   ]],
 ];
 
 for (const file of requiredFiles) {
-  if (!existsSync(join(root, file))) failures.push(`Missing closed-intelligence required file: ${file}`);
+  if (!existsSync(join(root, file))) failures.push(`Missing intelligence standard required file: ${file}`);
 }
 
 expect("docs/closed-intelligence-operating-standard.md", operatingStandardExpectations, "Closed intelligence operating standard is missing required rule");
+expect("docs/data-quality-governance-standard.md", dataQualityExpectations, "Data quality governance standard is missing required rule");
+expect("docs/learning-memory-standard.md", learningMemoryExpectations, "Learning memory standard is missing required rule");
+expect("docs/pure-signal-authority-standard.md", pureSignalExpectations, "Pure signal authority standard is missing required rule");
+expect("docs/adaptive-signal-evolution-standard.md", adaptiveSignalExpectations, "Adaptive signal evolution standard is missing required rule");
+expect("docs/resilience-continuity-standard.md", resilienceExpectations, "Resilience and continuity standard is missing required rule");
 
 for (const [file, phrases] of repoExpectationMap) {
-  expect(file, phrases, `${file} is missing closed-intelligence enforcement detail`);
+  expect(file, phrases, `${file} is missing intelligence enforcement detail`);
 }
 
 if (failures.length) {
-  console.error("Closed intelligence validation failed:");
+  console.error("Intelligence validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Closed intelligence validation passed. Public/private boundaries, closed database posture, protected reports, evidence-gated AI agents, and private operating intelligence are enforced.");
+console.log("Intelligence validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
