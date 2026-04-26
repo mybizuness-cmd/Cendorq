@@ -480,13 +480,13 @@ function buildQualityScore(values: FormValues) {
 function buildNextMove(score: number, values: FormValues) {
   const text = `${values.primaryOffer} ${values.audience} ${values.biggestIssue} ${values.notes}`.toLowerCase();
   if (score >= 86 && /(ongoing|monthly|monitor|maintain|manage|support)/.test(text)) {
-    return { routingHint: "command-review" as RoutingHint, title: "Possible ongoing support fit", copy: "The business may need continued control if the problem keeps changing." };
+    return { routingHint: "command-review" as RoutingHint, title: "Possible Ongoing Control fit", copy: "The business may need continued direction if the problem keeps changing or requires recurring control." };
   }
   if (score >= 78 && /(website|booking|calls|leads|trust|confusing|unclear|conversion|choose)/.test(text)) {
-    return { routingHint: "infrastructure-review" as RoutingHint, title: "Possible build fit", copy: "The business may need stronger pages, clearer messaging, or a better path to action." };
+    return { routingHint: "infrastructure-review" as RoutingHint, title: "Possible Build Fix fit", copy: "The business may need stronger pages, clearer messaging, or a better path to action." };
   }
   if (score >= 60) {
-    return { routingHint: "blueprint-candidate" as RoutingHint, title: "Likely deep review fit", copy: "There may be enough detail here to decide what is holding the business back." };
+    return { routingHint: "blueprint-candidate" as RoutingHint, title: "Likely Deep Review fit", copy: "There may be enough detail here to decide what is holding the business back." };
   }
   return { routingHint: "scan-only" as RoutingHint, title: "Keep building the first read", copy: "A little more clear detail will make the scan more useful." };
 }
