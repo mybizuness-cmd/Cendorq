@@ -1,6 +1,6 @@
 # Security Policy
 
-Cendorq takes production safety and responsible disclosure seriously.
+Cendorq takes production safety, closed intelligence, data quality, and responsible disclosure seriously.
 
 ## Reporting a vulnerability
 
@@ -33,6 +33,11 @@ In scope:
 - public API health behavior
 - repository CI and production validation workflows
 - dependency and GitHub Actions maintenance risks
+- closed intelligence boundaries
+- no direct database exposure
+- signed report access and private report surfaces
+- least-privilege access expectations
+- data quality, pure signal, and learning-memory protection risks
 
 Out of scope:
 
@@ -75,6 +80,41 @@ The repository protects:
 - production smoke checks
 - issue and pull request quality gates
 - Dependabot maintenance config
+- closed intelligence
+- private scoring and private report schemas
+- AI-agent evidence gates
+- no direct database exposure
+- signed report access expectations
+- least-privilege access expectations
+- data quality and pure signal standards
+- learning memory separation
+- adaptive signal evolution
+- resilience and continuity
+
+## Closed intelligence and data protection
+
+Cendorq's private engine must stay private.
+
+Security-sensitive changes must not expose:
+
+- direct database access
+- public database browsers
+- client-side database credentials
+- public report indexes
+- public evidence indexes
+- private scoring logic
+- private AI-agent prompts
+- private report schemas
+- client reports
+- client evidence
+- raw competitor datasets
+- private outcome memory
+
+Reports and sensitive intelligence should be controlled through signed report access, authenticated internal tools, or another approved server-side access boundary.
+
+Data quality is part of security. Weak, noisy, stale, manipulated, or hallucinated data can contaminate long-term learning and should be labeled, confidence-scored, freshness-aware, and separated from authority memory unless it earns authority.
+
+Pure signal standards, adaptive signal evolution, and learning memory must not create direct public access, secret leakage, report leakage, or new unaudited data paths.
 
 ## Public language safety
 
