@@ -28,8 +28,20 @@ expect(smokePath, [
 expect(workflowPath, [
   "workflow_dispatch",
   "schedule:",
+  "permissions:",
+  "contents: read",
+  "concurrency:",
+  "cancel-in-progress: true",
+  "timeout-minutes: 10",
+  "persist-credentials: false",
   "CENDORQ_BASE_URL:",
   "https://cendorq.com",
+  "Validate production smoke target",
+  "CENDORQ_BASE_URL is required for production smoke checks.",
+  "CENDORQ_BASE_URL must be a valid URL.",
+  "CENDORQ_BASE_URL must use http or https.",
+  "::notice title=Production smoke target::",
+  "pnpm install --frozen-lockfile",
   "pnpm smoke:production",
   "node-version: \"24\"",
 ]);
@@ -52,7 +64,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, and protected Free Scan read checks are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
