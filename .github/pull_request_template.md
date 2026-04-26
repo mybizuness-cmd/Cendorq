@@ -21,6 +21,7 @@ Does this change touch the public buyer path?
 
 Use every checklist that applies.
 
+- [ ] `docs/closed-intelligence-operating-standard.md` was used for database access, reports, evidence, private scoring, AI-agent evidence, client reports, private operating intelligence, public/private boundary, or direct database exposure changes.
 - [ ] `docs/ai-agent-handoff.md` was used for ChatGPT-to-ChatGPT handoff, AI-agent continuation, master handoff instructions, backend handoff summary, next-session prompt, or future-session continuity.
 - [ ] `docs/final-hardening-sweep.md` was used for major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone changes.
 - [ ] `docs/backend-handoff-checklist.md` was used for backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations.
@@ -44,7 +45,16 @@ Use every checklist that applies.
 - [ ] `docs/dependency-checklist.md` was used for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, or tooling changes.
 - [ ] `docs/deployment-environment-checklist.md` was used for hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changes.
 - [ ] `docs/observability-diagnostics-checklist.md` was used for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changes.
-- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, AI-agent handoff, or public trust surfaces.
+- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, AI-agent handoff, closed intelligence, data access, reports, evidence, public/private boundary, or public trust surfaces.
+
+## Closed intelligence check
+
+- [ ] This change does not expose private scoring, exact scoring weights, private report schemas, private AI-agent prompts, private agent chains, client reports, client evidence, raw competitor datasets, or protected operating intelligence.
+- [ ] This change does not introduce direct database exposure, public database browsing, client-side database credentials, anonymous private-record reads, a public report index, or a public client evidence index.
+- [ ] Any report access remains controlled through signed report access, authenticated console access, or another approved server-side access boundary.
+- [ ] Any AI-agent evidence workflow keeps serious findings evidence-gated with source/context, confidence, business impact, and recommended fix.
+- [ ] Any public copy explains outcomes only and does not disclose private engine mechanics.
+- [ ] Any data, report, evidence, or backend access change preserves least-privilege access and auditability expectations.
 
 ## Production safety check
 
@@ -56,7 +66,7 @@ Use every checklist that applies.
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, AI-agent handoff, final hardening, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, closed intelligence, data-access, report, evidence, AI-agent, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
