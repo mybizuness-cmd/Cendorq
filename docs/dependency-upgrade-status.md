@@ -1,6 +1,6 @@
 # Dependency Upgrade Status
 
-This note records the current dependency foundation state after the April 26, 2026 hardening pass.
+This note records the current dependency foundation state after the April 26, 2026 hardening and Tailwind 4 migration pass.
 
 ## Verified merged upgrades
 
@@ -9,32 +9,36 @@ The following dependency and tooling upgrades were merged only after GitHub Acti
 - GitHub Actions setup actions upgraded to v6.
 - Next platform upgraded to Next `16.2.4` and `eslint-config-next` `16.2.4`.
 - TypeScript upgraded to `6.0.3` with a CSS side-effect import declaration.
+- Tailwind migrated to Tailwind CSS `4.2.4`.
+- Tailwind PostCSS integration migrated to `@tailwindcss/postcss` `4.2.4`.
+- `pnpm-lock.yaml` regenerated through pnpm for the Tailwind 4 migration.
 
-## Current stable styling foundation
+## Current styling foundation
 
-Tailwind remains on the stable 3.x line because the grouped Tailwind 4 build-tooling PR failed the production build gate.
+Tailwind now runs on the Tailwind 4 line.
 
-Tailwind 4 is not a routine dependency bump for this project. It requires a focused migration that includes:
+The migration included:
 
+- `tailwindcss` major version update
 - `@tailwindcss/postcss`
-- synchronized `pnpm-lock.yaml`
+- regenerated `pnpm-lock.yaml`
 - `postcss.config.mjs` migration
-- `tailwind.config.ts` compatibility review
-- visual regression review
-- production build verification
-- post-deploy smoke verification
+- `tailwind.config.ts` compatibility update
+- standard route validation
+- lint
+- typecheck
+- production build
 
-## Guardrail added
+## Guardrail retained
 
-Dependabot now separates Tailwind into its own `tailwind-major-migration` group instead of grouping it with routine build tooling.
+Dependabot still separates Tailwind into its own `tailwind-major-migration` group instead of grouping it with routine build tooling.
 
 Routine build tooling remains separate for:
 
 - `postcss`
-- `autoprefixer`
 - `eslint`
 
-This prevents a major Tailwind migration from being hidden inside a routine dependency PR.
+This prevents future major Tailwind migrations from being hidden inside routine dependency PRs.
 
 ## Required rule
 

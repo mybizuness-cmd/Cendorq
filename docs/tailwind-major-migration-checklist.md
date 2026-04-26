@@ -4,11 +4,29 @@ Tailwind major upgrades are design-system migrations, not routine dependency bum
 
 Do not merge a Tailwind major upgrade just because install, lint, or typecheck passes. The public Cendorq experience depends on layout, spacing, hierarchy, responsive behavior, conversion clarity, and trust polish staying intact.
 
+## Current status
+
+Tailwind 4 has been migrated through the dedicated migration path.
+
+The completed migration included:
+
+- `tailwindcss` upgraded to `4.2.4`
+- `@tailwindcss/postcss` added for the Tailwind 4 PostCSS plugin path
+- `pnpm-lock.yaml` regenerated through pnpm
+- `postcss.config.mjs` migrated
+- `tailwind.config.ts` compatibility updated
+- standard route validation passed
+- lint passed
+- typecheck passed
+- production build passed
+
+Keep this checklist for future Tailwind major migrations.
+
 ## Why this exists
 
-A grouped build-tooling PR proved Tailwind 4 is not a simple bump for this project. The production build failed because Tailwind 4 moved the PostCSS plugin into a separate package.
+A grouped build-tooling PR proved Tailwind major upgrades are not simple bumps for this project. Tailwind 4 required the separate PostCSS plugin path and a synchronized lockfile/config migration.
 
-Tailwind 4 migration must be handled as its own focused PR.
+Future Tailwind major migrations must still be handled as focused PRs.
 
 ## Required migration scope
 
