@@ -1,12 +1,12 @@
 # Cendorq Search Discovery Checklist
 
-Use this checklist for metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, and public trust surface changes.
+Use this checklist for metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, legacy route handling, and public trust surface changes.
 
-The goal is simple: keep Cendorq easy for search engines, AI systems, crawlers, scanners, and serious buyers to understand.
+The goal is simple: keep Cendorq easy for search engines, AI systems, crawlers, scanners, and serious buyers to understand without promoting stale public routes.
 
 ## Discovery principle
 
-Search discovery supports trust and conversion. If public metadata, crawler files, or canonical routes become confusing, the buyer path is weakened.
+Search discovery supports trust and conversion. If public metadata, crawler files, legacy route handling, or canonical routes become confusing, the buyer path is weakened.
 
 Protect the core path:
 
@@ -23,7 +23,9 @@ Before merging discovery-related changes, confirm:
 
 - Canonical buyer routes remain the source of truth.
 - Legacy routes redirect into the current buyer path.
-- Sitemap entries point to active canonical routes only.
+- Legacy routes are not listed as active sitemap entries.
+- Legacy routes are not promoted in robots allowlists.
+- Sitemap entries point to active canonical routes and current policy/trust routes only.
 - Robots guidance does not block important public buyer routes.
 - Metadata uses current buyer language.
 - `llms.txt` stays plain, accurate, and current.
@@ -45,6 +47,12 @@ These routes must stay healthy and discoverable:
 - `/plans/ongoing-control`
 - `/connect`
 
+Policy and trust routes may remain discoverable when their content is current:
+
+- `/privacy`
+- `/terms`
+- `/disclaimer`
+
 ## Redirect checks
 
 Legacy routes should redirect only into the current buyer path:
@@ -54,6 +62,14 @@ Legacy routes should redirect only into the current buyer path:
 - `/pricing/optimization` -> `/plans/build-fix`
 - `/pricing/monthly-partner` -> `/plans/ongoing-control`
 - `/contact` -> `/connect`
+- `/how-it-works` -> `/plans`
+- `/diagnosis` -> `/plans/deep-review`
+- `/profile` -> `/plans`
+- `/faq` -> `/plans`
+- `/freecheck` -> `/free-check`
+- `/full-diagnosis` -> `/plans/deep-review`
+- `/optimization` -> `/plans/build-fix`
+- `/monthly-partner` -> `/plans/ongoing-control`
 
 ## Public files to check
 
