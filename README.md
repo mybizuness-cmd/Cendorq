@@ -94,11 +94,12 @@ Read the production operating guide before changing routes, public labels, crawl
 
 - [`docs/production-guide.md`](docs/production-guide.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
+- [`docs/route-link-integrity-checklist.md`](docs/route-link-integrity-checklist.md)
+- [`docs/search-discovery-checklist.md`](docs/search-discovery-checklist.md)
 - [`docs/copy-quality-checklist.md`](docs/copy-quality-checklist.md)
 - [`docs/privacy-data-checklist.md`](docs/privacy-data-checklist.md)
 - [`docs/accessibility-checklist.md`](docs/accessibility-checklist.md)
 - [`docs/performance-checklist.md`](docs/performance-checklist.md)
-- [`docs/search-discovery-checklist.md`](docs/search-discovery-checklist.md)
 - [`docs/dependency-checklist.md`](docs/dependency-checklist.md)
 - [`docs/deployment-environment-checklist.md`](docs/deployment-environment-checklist.md)
 - [`docs/observability-diagnostics-checklist.md`](docs/observability-diagnostics-checklist.md)
@@ -108,6 +109,7 @@ Read the production operating guide before changing routes, public labels, crawl
 The guides cover:
 
 - protected buyer path
+- legacy public routes and redirects
 - pre-merge checks
 - copy quality checks
 - privacy and data handling checks
@@ -141,7 +143,31 @@ These routes must stay healthy:
 - `/plans/ongoing-control`
 - `/connect`
 
-Legacy public URLs redirect into the current buyer path. Keep the canonical pages above as the source of truth.
+Policy and trust routes may stay public when current:
+
+- `/privacy`
+- `/terms`
+- `/disclaimer`
+
+## Legacy public routes
+
+Legacy public routes redirect into the current buyer path. They should not be listed in sitemap entries, robots allowlists, navigation, footer links, metadata, manifest shortcuts, or active CTA destinations.
+
+Protected redirects include:
+
+- `/pricing` -> `/plans`
+- `/pricing/full-diagnosis` -> `/plans/deep-review`
+- `/pricing/optimization` -> `/plans/build-fix`
+- `/pricing/monthly-partner` -> `/plans/ongoing-control`
+- `/contact` -> `/connect`
+- `/how-it-works` -> `/plans`
+- `/diagnosis` -> `/plans/deep-review`
+- `/profile` -> `/plans`
+- `/faq` -> `/plans`
+- `/freecheck` -> `/free-check`
+- `/full-diagnosis` -> `/plans/deep-review`
+- `/optimization` -> `/plans/build-fix`
+- `/monthly-partner` -> `/plans/ongoing-control`
 
 ## Production assets
 
@@ -159,9 +185,11 @@ These files are intentional and protected:
 Use plain buyer language:
 
 - Free Scan
+- Plans
 - Deep Review
 - Build Fix
 - Ongoing Control
+- Connect
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
