@@ -13,21 +13,22 @@ const BRAND_NAME = "Cendorq";
 const CATEGORY_LINE = "Search Presence OS";
 
 export const metadata = buildMetadata({
-  title: "Free Search Presence Scan | Cendorq",
+  title: "Free Scan | Cendorq",
   description:
-    "Start the Cendorq free scan and find what is making customers hesitate, compare, leave, or choose someone else before spending more.",
+    "Start the Cendorq Free Scan and find what is making customers hesitate, compare, leave, or choose someone else before spending more.",
   path: "/",
   keywords: [
     "cendorq free scan",
-    "search presence scan",
+    "free business scan",
     "business visibility scan",
     "website trust scan",
     "business clarity scan",
+    "customer hesitation analysis",
     "ai search visibility",
     "answer engine visibility",
   ],
   image: {
-    alt: "Cendorq free search presence scan homepage.",
+    alt: "Cendorq Free Scan homepage.",
   },
 });
 
@@ -93,18 +94,18 @@ const FAQS = [
 
 export default function HomePage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Free Search Presence Scan",
+    title: "Cendorq Free Scan",
     description:
-      "A focused conversion funnel that sends businesses into a guided free scan before deeper work is chosen.",
+      "A focused conversion funnel that sends businesses into a guided Free Scan before deeper work is chosen.",
     path: "/",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Free Search Presence Scan",
+    title: "Cendorq Free Scan",
     description:
-      "A guided free scan that helps businesses find what may be making people hesitate, leave, compare, or choose someone else.",
+      "A guided Free Scan that helps businesses find what may be making people hesitate, leave, compare, or choose someone else.",
     path: "/",
-    serviceType: "Free Search Presence Scan",
+    serviceType: "Free Scan",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }]);
