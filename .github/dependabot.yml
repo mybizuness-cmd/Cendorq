@@ -8,7 +8,7 @@ updates:
       day: monday
       time: "10:00"
       timezone: Etc/UTC
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 6
     labels:
       - dependencies
       - maintenance
@@ -27,12 +27,14 @@ updates:
           - typescript
           - "@types/*"
           - "@typescript-eslint/*"
-      build-tooling:
+      routine-build-tooling:
         patterns:
-          - tailwindcss
           - postcss
           - autoprefixer
           - eslint
+      tailwind-major-migration:
+        patterns:
+          - tailwindcss
 
   - package-ecosystem: github-actions
     directory: /
