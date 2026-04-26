@@ -58,9 +58,17 @@ const requiredFiles = [
   "src/app/api/health/route.ts",
   "src/app/sitemap.ts",
   "src/app/robots.ts",
+  "src/app/manifest.ts",
+  "src/app/opengraph-image.tsx",
+  "src/app/twitter-image.tsx",
   "src/app/layout.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
+  "src/layout/mobile-conversion-dock.tsx",
+  "src/lib/plans.ts",
+  "src/lib/reports/free-check-report.ts",
+  "src/lib/signals/free-check-signal.ts",
+  "src/lib/intelligence/free-check-intelligence.ts",
   "src/scripts/smoke-production.mjs",
   "public/manifest.webmanifest",
   "public/llms.txt",
@@ -87,9 +95,9 @@ const redirectPairs = [
   ["/monthly-partner", "/plans/ongoing-control"],
 ];
 const requiredHeaders = ["Strict-Transport-Security", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy", "Permissions-Policy", "Cross-Origin-Opener-Policy", "X-Permitted-Cross-Domain-Policies", "X-Download-Options"];
-const publicFiles = ["README.md", "src/app/sitemap.ts", "src/app/robots.ts", "src/app/layout.tsx", "src/layout/site-header-conversion.tsx", "src/layout/site-footer.tsx", "src/app/page.tsx", "src/app/free-check/page.tsx", "src/app/plans/page.tsx", "src/app/plans/deep-review/page.tsx", "src/app/plans/build-fix/page.tsx", "src/app/plans/ongoing-control/page.tsx", "src/app/connect/page.tsx", "src/app/not-found.tsx", "public/manifest.webmanifest", "public/llms.txt", "public/.well-known/security.txt"];
+const publicFiles = ["README.md", "src/app/sitemap.ts", "src/app/robots.ts", "src/app/manifest.ts", "src/app/opengraph-image.tsx", "src/app/twitter-image.tsx", "src/app/layout.tsx", "src/layout/site-header-conversion.tsx", "src/layout/site-footer.tsx", "src/layout/mobile-conversion-dock.tsx", "src/app/page.tsx", "src/app/free-check/page.tsx", "src/app/plans/page.tsx", "src/app/plans/deep-review/page.tsx", "src/app/plans/build-fix/page.tsx", "src/app/plans/ongoing-control/page.tsx", "src/app/connect/page.tsx", "src/app/not-found.tsx", "src/lib/plans.ts", "src/lib/reports/free-check-report.ts", "src/lib/signals/free-check-signal.ts", "src/lib/intelligence/free-check-intelligence.ts", "public/manifest.webmanifest", "public/llms.txt", "public/.well-known/security.txt"];
 const activePublicSurfaceFiles = publicFiles.filter((file) => file !== "README.md");
-const forbiddenActivePublicPhrases = ["Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Start Search Presence Scan", "View Visibility Blueprint", "View Presence Infrastructure", "View Presence Command"];
+const forbiddenActivePublicPhrases = ["Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Start Search Presence Scan", "View Visibility Blueprint", "View Presence Infrastructure", "View Presence Command", "Search Presence Scan only", "Strongest answer system", "Strongest answer strategy"];
 
 const checklistExpectations = [
   ["docs/ai-agent-handoff.md", ["Cendorq AI Agent Handoff Guide", "Current project context", "Current readiness state", "Validation baseline", "Important protected files", "Working rules for the next agent", "Backend ZIP handoff expectations", "Recommended next-session prompt", "What to do before saying the handoff is complete", "Free Scan", "pnpm validate:routes"]],
@@ -169,7 +177,7 @@ for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control"
 
 const publicText = publicFiles.map((file) => `\n/* ${file} */\n${read(file)}`).join("\n");
 const activePublicText = activePublicSurfaceFiles.map((file) => `\n/* ${file} */\n${read(file)}`).join("\n");
-for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner"]) if (activePublicText.includes(route)) failures.push(`Active public navigation/metadata should not reference legacy pricing route: ${route}`);
+for (const route of ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner", "/contact"]) if (activePublicText.includes(route)) failures.push(`Active public navigation/metadata should not reference legacy route: ${route}`);
 for (const phrase of forbiddenActivePublicPhrases) if (publicText.includes(phrase) && !llms.includes(`- ${phrase}`)) failures.push(`Active public surfaces should use plain buyer language instead of legacy phrase: ${phrase}`);
 if (!publicText.includes("Free Scan") || !publicText.includes("Deep Review") || !publicText.includes("Build Fix") || !publicText.includes("Ongoing Control")) failures.push("Public buyer path labels are incomplete. Expected Free Scan, Deep Review, Build Fix, and Ongoing Control.");
 
@@ -179,7 +187,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Route validation passed. AI-agent handoff, final hardening sweep, backend handoff checklist, compact PR checklist gates, changelog release-history detail, buyer path, legacy redirects, governance checklists, canonical routes, production files, runtime pins, smoke checks, and production hardening are protected.");
+console.log("Route validation passed. AI-agent handoff, final hardening sweep, backend handoff checklist, compact PR checklist gates, changelog release-history detail, buyer path, legacy redirects, governance checklists, canonical routes, production files, runtime pins, smoke checks, active public label drift, and production hardening are protected.");
 
 function expect(path, phrases, label) {
   const text = read(path);
