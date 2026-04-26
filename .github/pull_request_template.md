@@ -22,6 +22,11 @@ Does this change touch the public buyer path?
 Use every checklist that applies.
 
 - [ ] `docs/closed-intelligence-operating-standard.md` was used for database access, reports, evidence, private scoring, AI-agent evidence, client reports, private operating intelligence, public/private boundary, or direct database exposure changes.
+- [ ] `docs/data-quality-governance-standard.md` was used for source labels, confidence, freshness, evidence, self-reported data, externally observed data, AI-generated data, human-reviewed data, or authority memory changes.
+- [ ] `docs/learning-memory-standard.md` was used for raw, exploration, operational, authority, rejected, outcome-linked, or no-downtime learning memory changes.
+- [ ] `docs/pure-signal-authority-standard.md` was used for pure signal, source quality, evidence strength, freshness, independence, consistency, context completeness, manipulation risk, privacy class, outcome linkage, authority eligibility, promotion, or demotion changes.
+- [ ] `docs/adaptive-signal-evolution-standard.md` was used for versioned pure-signal definitions, drift detection, candidate rules, safe experiments, backtesting, foresight watchlists, promotion guardrails, demotion, rollback, or reversible evolution changes.
+- [ ] `docs/resilience-continuity-standard.md` was used for safe degradation, backups, vendor-risk awareness, recovery, rollback, abuse handling, platform shifts, legal/privacy shifts, long-horizon survival, or continuity changes.
 - [ ] `docs/ai-agent-handoff.md` was used for ChatGPT-to-ChatGPT handoff, AI-agent continuation, master handoff instructions, backend handoff summary, next-session prompt, or future-session continuity.
 - [ ] `docs/final-hardening-sweep.md` was used for major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone changes.
 - [ ] `docs/backend-handoff-checklist.md` was used for backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations.
@@ -45,7 +50,7 @@ Use every checklist that applies.
 - [ ] `docs/dependency-checklist.md` was used for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, or tooling changes.
 - [ ] `docs/deployment-environment-checklist.md` was used for hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changes.
 - [ ] `docs/observability-diagnostics-checklist.md` was used for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changes.
-- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, AI-agent handoff, closed intelligence, data access, reports, evidence, public/private boundary, or public trust surfaces.
+- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, AI-agent handoff, closed intelligence, data access, reports, evidence, public/private boundary, data quality, learning memory, pure signals, adaptive evolution, resilience, or public trust surfaces.
 
 ## Closed intelligence check
 
@@ -55,6 +60,15 @@ Use every checklist that applies.
 - [ ] Any AI-agent evidence workflow keeps serious findings evidence-gated with source/context, confidence, business impact, and recommended fix.
 - [ ] Any public copy explains outcomes only and does not disclose private engine mechanics.
 - [ ] Any data, report, evidence, or backend access change preserves least-privilege access and auditability expectations.
+
+## Data quality and learning check
+
+- [ ] Any gathered data remains source-aware, confidence-scored, freshness-aware, and evidence-linked when possible.
+- [ ] Self-reported, externally observed, AI-generated, and human-reviewed data are labeled separately where relevant.
+- [ ] Weak or low-confidence data is kept in exploration and does not become authority memory without promotion.
+- [ ] Any pure signal promotion considers source quality, evidence strength, freshness, independence, consistency, context completeness, manipulation risk, privacy class, outcome linkage, and authority eligibility.
+- [ ] Any adaptive signal change is versioned, tested, reversible, and does not create uncontrolled self-modifying production behavior.
+- [ ] Any resilience-sensitive change preserves safe degradation, rollback, recovery, private data protection, vendor-risk awareness, and no-downtime expectations.
 
 ## Production safety check
 
@@ -66,7 +80,7 @@ Use every checklist that applies.
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, closed intelligence, data-access, report, evidence, AI-agent, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, closed intelligence, data-access, report, evidence, AI-agent, data quality, learning memory, pure signal, adaptive evolution, resilience, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
