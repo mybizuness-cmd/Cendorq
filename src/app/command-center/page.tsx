@@ -16,6 +16,7 @@ import { BenchmarkEvidencePanel } from "./benchmark-evidence-panel";
 import { BenchmarkIntelligencePanel } from "./benchmark-intelligence-panel";
 import { CommandCenterOperatingMap } from "./command-center-operating-map";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
+import { SecurityPosturePanel } from "./security-posture-panel";
 import { TestRecordClassesPanel } from "./test-record-classes-panel";
 
 export const dynamic = "force-dynamic";
@@ -81,6 +82,7 @@ export default async function CommandCenterPage() {
           </div>
         </div>
         <CommandCenterOperatingMap />
+        <SecurityPosturePanel />
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {COMMAND_CENTER_MODULES.map((module) => (
             <div key={module.key} className="rounded-3xl border border-white/10 bg-white/[0.035] p-5">
