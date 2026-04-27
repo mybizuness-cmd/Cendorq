@@ -220,13 +220,37 @@ validateTextFile("docs/benchmark-evidence-readiness-standard.md", [
   "Cendorq remains the source of truth.",
 ]);
 
+validateTextFile("src/lib/command-center/report-truth-methodology.ts", [
+  "REPORT_TRUTH_METHODOLOGY",
+  "ReportTruthMethodology",
+  "Cendorq Trust Clarity Methodology",
+  "scorePrinciples",
+  "requiredEvidenceLinks",
+  "optimizationProofChecks",
+  "customerOutputGates",
+  "monthlyControlChecks",
+  "unsupported claim blocked",
+  "getReportTruthMethodology",
+]);
+validateHelperSafety("src/lib/command-center/report-truth-methodology.ts");
+
+validateTextFile("docs/report-truth-methodology-standard.md", [
+  "Report Truth Methodology Standard",
+  "Every important claim should be tied to evidence",
+  "Trust Clarity method",
+  "No unsupported report claims.",
+  "No unverified optimization recommendation.",
+  "No AI output treated as truth without source evidence.",
+  "Cendorq remains the source of truth.",
+]);
+
 if (failures.length) {
   console.error("Command Center readiness validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, benchmark intelligence, test record separation, AI manager version registry, and benchmark evidence foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, versioned, and protected from client/runtime value exposure.");
+console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, benchmark intelligence, test record separation, AI manager version registry, benchmark evidence, and report truth methodology foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, versioned, and protected from client/runtime value exposure.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
