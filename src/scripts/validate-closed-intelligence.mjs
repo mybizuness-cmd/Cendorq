@@ -32,6 +32,7 @@ const requiredFiles = [
   "docs/command-center-file-storage-readiness.md",
   "docs/command-center-billing-readiness.md",
   "docs/command-center-delivery-readiness.md",
+  "docs/command-center-automation-readiness.md",
   ".github/pull_request_template.md",
   "CHANGELOG.md",
   "src/app/command-center/page.tsx",
@@ -39,6 +40,7 @@ const requiredFiles = [
   "src/app/api/command-center/readiness/route.ts",
   "src/lib/command-center/access.ts",
   "src/lib/command-center/auth-readiness.ts",
+  "src/lib/command-center/automation-readiness.ts",
   "src/lib/command-center/billing-readiness.ts",
   "src/lib/command-center/config-status.ts",
   "src/lib/command-center/database-readiness.ts",
@@ -60,6 +62,7 @@ const repoExpectations = [
   ["docs/command-center-file-storage-readiness.md", ["Command Center File Storage Readiness", "Files are private operational assets", "FILE_STORAGE_PROVIDER", "FILE_STORAGE_SERVER_TOKEN", "Do not expose file storage values", "server-side upload authorization", "private object storage", "signed download flow", "No public file listing."]],
   ["docs/command-center-billing-readiness.md", ["Command Center Billing Readiness", "Billing state can influence operations", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "Do not expose billing values", "webhook signature verification", "subscription status sync", "payment status sync", "No unverified billing webhooks."]],
   ["docs/command-center-delivery-readiness.md", ["Command Center Delivery Readiness", "Cendorq remains the source of truth", "REPORT_DELIVERY_PROVIDER", "REPORT_DELIVERY_SERVER_TOKEN", "provider-neutral delivery channel", "server-side delivery authorization", "report delivery status tracking", "No vendor lock-in as the source of truth."]],
+  ["docs/command-center-automation-readiness.md", ["Command Center Automation Readiness", "Automation must be observable", "AUTOMATION_SIGNING_SECRET", "server-side execution only", "idempotency keys", "signed inbound events", "retry-safe processing", "No unverified inbound events."]],
   [".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check"]],
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
   ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES", "COMMAND_CENTER_READINESS_CHECKS", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName"]],
@@ -67,6 +70,7 @@ const repoExpectations = [
   ["src/app/api/command-center/readiness/route.ts", ["resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "getCommandCenterConfigStatus", "summarizeCommandCenterConfigStatus", "no-store", "not authorized", "summary", "checks"]],
   ["src/lib/command-center/access.ts", ["resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "COMMAND_CENTER_PREVIEW_KEY", "allowed: false", "mode: \"closed\"", "mode: \"preview\""]],
   ["src/lib/command-center/auth-readiness.ts", ["getCommandCenterAuthReadiness", "CommandCenterAuthReadiness", "AUTH_PROVIDER", "AUTH_SECRET", "identity verification", "server-side session validation", "role mapping", "permission enforcement", "access decision recording", "closed-by-default fallback", "hasServerConfigValue"]],
+  ["src/lib/command-center/automation-readiness.ts", ["getCommandCenterAutomationReadiness", "CommandCenterAutomationReadiness", "AUTOMATION_SIGNING_SECRET", "server-side execution only", "idempotency keys", "signed inbound events", "retry-safe processing", "failure recording", "hasServerConfigValue"]],
   ["src/lib/command-center/billing-readiness.ts", ["getCommandCenterBillingReadiness", "CommandCenterBillingReadiness", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "server-side checkout creation", "webhook signature verification", "subscription status sync", "payment status sync", "failure-state tracking", "hasServerConfigValue"]],
   ["src/lib/command-center/config-status.ts", ["getCommandCenterConfigStatus", "summarizeCommandCenterConfigStatus", "missingServerConfig", "configuredCount", "requiredCount", "protectedTables", "hasServerConfigValue"]],
   ["src/lib/command-center/database-readiness.ts", ["getCommandCenterDatabaseReadiness", "CommandCenterDatabaseReadiness", "DATABASE_URL", "missingServerConfig", "migrationCount: 5", "protectedSchemaAreas", "hasServerConfigValue"]],
@@ -91,7 +95,7 @@ for (const routePath of ["src/app/command-center/page.tsx", "src/app/command-cen
 }
 
 const readinessApi = existsSync(join(root, "src/app/api/command-center/readiness/route.ts")) ? read("src/app/api/command-center/readiness/route.ts") : "";
-for (const forbidden of ["value:", "secret:", "DATABASE_URL:", "STRIPE_SECRET_KEY:", "AUTH_SECRET:", "FILE_STORAGE_SERVER_TOKEN:", "REPORT_DELIVERY_SERVER_TOKEN:", "process.env.DATABASE_URL", "process.env.STRIPE_SECRET_KEY", "process.env.AUTH_SECRET", "process.env.FILE_STORAGE_SERVER_TOKEN", "process.env.REPORT_DELIVERY_SERVER_TOKEN"]) {
+for (const forbidden of ["value:", "secret:", "DATABASE_URL:", "STRIPE_SECRET_KEY:", "AUTH_SECRET:", "FILE_STORAGE_SERVER_TOKEN:", "REPORT_DELIVERY_SERVER_TOKEN:", "AUTOMATION_SIGNING_SECRET:", "process.env.DATABASE_URL", "process.env.STRIPE_SECRET_KEY", "process.env.AUTH_SECRET", "process.env.FILE_STORAGE_SERVER_TOKEN", "process.env.REPORT_DELIVERY_SERVER_TOKEN", "process.env.AUTOMATION_SIGNING_SECRET"]) {
   if (readinessApi.includes(forbidden)) failures.push(`Command Center readiness API contains forbidden secret-value behavior: ${forbidden}`);
 }
 
@@ -103,6 +107,11 @@ for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "docum
 const authReadiness = existsSync(join(root, "src/lib/command-center/auth-readiness.ts")) ? read("src/lib/command-center/auth-readiness.ts") : "";
 for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client", "return env", "secretValue", "process.env.AUTH_SECRET"]) {
   if (authReadiness.includes(forbidden)) failures.push(`Command Center auth readiness contains forbidden value exposure behavior: ${forbidden}`);
+}
+
+const automationReadiness = existsSync(join(root, "src/lib/command-center/automation-readiness.ts")) ? read("src/lib/command-center/automation-readiness.ts") : "";
+for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client", "return env", "secretValue", "process.env.AUTOMATION_SIGNING_SECRET"]) {
+  if (automationReadiness.includes(forbidden)) failures.push(`Command Center automation readiness contains forbidden value exposure behavior: ${forbidden}`);
 }
 
 const billingReadiness = existsSync(join(root, "src/lib/command-center/billing-readiness.ts")) ? read("src/lib/command-center/billing-readiness.ts") : "";
@@ -146,7 +155,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, Command Center incident playbook, Command Center release gate, Command Center implementation plan, database readiness, auth readiness, file storage readiness, billing readiness, delivery readiness, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, Command Center incident playbook, Command Center release gate, Command Center implementation plan, database readiness, auth readiness, file storage readiness, billing readiness, delivery readiness, automation readiness, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
