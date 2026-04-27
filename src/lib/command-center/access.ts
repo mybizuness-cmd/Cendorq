@@ -1,5 +1,3 @@
-import { timingSafeEqual } from "node:crypto";
-
 export type CommandCenterAccessState = {
   allowed: boolean;
   mode: "closed" | "preview";
@@ -38,7 +36,7 @@ export function resolveCommandCenterAccessState(headerValue: string | null): Com
   const configuredPreviewKey = process.env.COMMAND_CENTER_PREVIEW_KEY?.trim();
   if (!isStrongPreviewKey(configuredPreviewKey)) return { allowed: false, mode: "closed" };
   if (!headerValue) return { allowed: false, mode: "closed" };
-  if (!safeEqual(headerValue.trim(), configuredPreviewKey)) return { allowed: false, mode: "closed" };
+  if (!timingSafePreviewKeyEqual(headerValue.trim(), configuredPreviewKey)) return { allowed: false, mode: "closed" };
   return { allowed: true, mode: "preview" };
 }
 
@@ -46,9 +44,13 @@ function isStrongPreviewKey(value: string | undefined) {
   return typeof value === "string" && value.length >= MINIMUM_PREVIEW_KEY_LENGTH;
 }
 
-function safeEqual(candidate: string, expected: string) {
-  const candidateBuffer = Buffer.from(candidate);
-  const expectedBuffer = Buffer.from(expected);
-  if (candidateBuffer.length !== expectedBuffer.length) return false;
-  return timingSafeEqual(candidateBuffer, expectedBuffer);
+function timingSafePreviewKeyEqual(candidate: string, expected: string) {
+  if (candidate.length !== expected.length) return false;
+
+  let mismatch = 0;
+  for (let index = 0; index < expected.length; index += 1) {
+    mismatch |= candidate.charCodeAt(index) ^ expected.charCodeAt(index);
+  }
+
+  return mismatch === 0;
 }
