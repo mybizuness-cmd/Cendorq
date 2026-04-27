@@ -6,10 +6,12 @@ const failures = [];
 const foundationSchemaPath = "db/migrations/0001_command_center_foundation.sql";
 const deliverySchemaPath = "db/migrations/0002_command_center_delivery_automation.sql";
 const intelligenceSchemaPath = "db/migrations/0003_command_center_signal_intelligence.sql";
+const governanceSchemaPath = "db/migrations/0004_command_center_data_governance.sql";
 
 validateFoundationSchema();
 validateDeliverySchema();
 validateIntelligenceSchema();
+validateGovernanceSchema();
 
 if (failures.length) {
   console.error("Command Center schema validation failed:");
@@ -17,7 +19,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center schema validation passed. Database foundation covers users, businesses, contacts, intake, reports, projects, tasks, files, notes, monthly cycles, subscriptions, payments, activity events, audit logs, provider-neutral integrations, outbound messages, report deliveries, automation events, private signal classification, evidence records, learning memory, outcome measurements, indexes, timestamps, and private-source-of-truth constraints.");
+console.log("Command Center schema validation passed. Database foundation covers users, businesses, contacts, intake, reports, projects, tasks, files, notes, monthly cycles, subscriptions, payments, activity events, audit logs, provider-neutral integrations, outbound messages, report deliveries, automation events, private signal classification, evidence records, learning memory, outcome measurements, data governance, consent records, privacy requests, retention actions, backup exports, webhook key rotation, incident records, system checks, indexes, timestamps, and private-source-of-truth constraints.");
 
 function validateFoundationSchema() {
   if (!existsSync(join(root, foundationSchemaPath))) {
@@ -202,6 +204,70 @@ function validateIntelligenceSchema() {
   ]) {
     if (schema.toLowerCase().includes(forbidden.toLowerCase())) {
       failures.push(`Command Center intelligence schema contains forbidden public-intelligence phrase: ${forbidden}`);
+    }
+  }
+}
+
+function validateGovernanceSchema() {
+  if (!existsSync(join(root, governanceSchemaPath))) {
+    failures.push(`Missing Command Center data governance migration: ${governanceSchemaPath}`);
+    return;
+  }
+
+  const schema = read(governanceSchemaPath);
+
+  for (const table of [
+    "consent_records",
+    "privacy_requests",
+    "data_retention_policies",
+    "data_retention_actions",
+    "backup_exports",
+    "webhook_security_keys",
+    "incident_records",
+    "system_checks",
+  ]) {
+    if (!schema.includes(`create table if not exists ${table}`)) {
+      failures.push(`Command Center governance schema missing table: ${table}`);
+    }
+  }
+
+  for (const phrase of [
+    "data governance and operational safety foundation",
+    "governance records stay private by default",
+    "consent_records_anchor_check",
+    "free_scan_submission",
+    "marketing_email",
+    "privacy_requests_status_due_idx",
+    "data_retention_policies_entity_status_idx",
+    "backup_exports_type_status_idx",
+    "webhook_security_keys_status_rotation_idx",
+    "incident_records_status_severity_idx",
+    "system_checks_status_next_idx",
+    "production_smoke_failure",
+    "data_integrity",
+    "database_backup",
+    "migration_snapshot",
+    "checksum_sha256",
+    "secret_env_name text not null",
+    "consent_records_set_updated_at",
+    "privacy_requests_set_updated_at",
+    "backup_exports_set_updated_at",
+    "webhook_security_keys_set_updated_at",
+    "incident_records_set_updated_at",
+    "system_checks_set_updated_at",
+  ]) {
+    if (!schema.includes(phrase)) failures.push(`Command Center governance schema missing required phrase: ${phrase}`);
+  }
+
+  for (const forbidden of [
+    "NEXT_PUBLIC_SECRET",
+    "NEXT_PUBLIC_WEBHOOK",
+    "public consent index",
+    "public privacy request index",
+    "public backup export",
+  ]) {
+    if (schema.toLowerCase().includes(forbidden.toLowerCase())) {
+      failures.push(`Command Center governance schema contains forbidden public-governance phrase: ${forbidden}`);
     }
   }
 }
