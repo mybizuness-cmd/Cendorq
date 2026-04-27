@@ -15,6 +15,7 @@ import { AiManagerVersionRegistryPanel } from "./ai-manager-version-registry-pan
 import { BenchmarkEvidencePanel } from "./benchmark-evidence-panel";
 import { BenchmarkIntelligencePanel } from "./benchmark-intelligence-panel";
 import { CommandCenterOperatingMap } from "./command-center-operating-map";
+import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
 import { SecurityPosturePanel } from "./security-posture-panel";
 import { TestRecordClassesPanel } from "./test-record-classes-panel";
@@ -83,6 +84,7 @@ export default async function CommandCenterPage() {
         </div>
         <CommandCenterOperatingMap />
         <SecurityPosturePanel />
+        <OperatorReadinessMatrix />
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {COMMAND_CENTER_MODULES.map((module) => (
             <div key={module.key} className="rounded-3xl border border-white/10 bg-white/[0.035] p-5">
