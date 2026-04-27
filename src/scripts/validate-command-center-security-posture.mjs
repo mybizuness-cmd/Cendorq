@@ -32,7 +32,7 @@ validateTextFile("src/lib/command-center/security-posture.ts", [
 ]);
 
 validateTextFile("src/lib/command-center/access.ts", [
-  "timingSafeEqual",
+  "timingSafePreviewKeyEqual",
   "getCommandCenterAccessPolicy",
   "defaultMode: \"closed\"",
   "minimumPreviewKeyLength: MINIMUM_PREVIEW_KEY_LENGTH",
@@ -41,7 +41,7 @@ validateTextFile("src/lib/command-center/access.ts", [
   "clientSideBypassAllowed: false",
   "MINIMUM_PREVIEW_KEY_LENGTH = 32",
   "isStrongPreviewKey",
-  "safeEqual",
+  "mismatch |= candidate.charCodeAt(index) ^ expected.charCodeAt(index)",
   "allowed: false, mode: \"closed\"",
   "allowed: true, mode: \"preview\"",
 ]);
