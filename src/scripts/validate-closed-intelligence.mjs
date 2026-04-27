@@ -27,6 +27,7 @@ const requiredFiles = [
   "docs/command-center-incident-playbook.md",
   "docs/command-center-release-gate.md",
   "docs/command-center-implementation-plan.md",
+  "docs/command-center-database-readiness.md",
   ".github/pull_request_template.md",
   "CHANGELOG.md",
   "src/app/command-center/page.tsx",
@@ -34,6 +35,7 @@ const requiredFiles = [
   "src/app/api/command-center/readiness/route.ts",
   "src/lib/command-center/access.ts",
   "src/lib/command-center/config-status.ts",
+  "src/lib/command-center/database-readiness.ts",
   "src/lib/command-center/modules.ts",
   "src/lib/command-center/readiness.ts",
 ];
@@ -45,6 +47,7 @@ const repoExpectations = [
   ["docs/command-center-incident-playbook.md", ["Command Center Incident Playbook", "closed by default", "private Command Center route", "readiness route", "migration validation", "Do not open the route just to make smoke pass.", "Do not weaken the authorization boundary.", "Do not disable the validator.", "pnpm validate:routes", "CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production"]],
   ["docs/command-center-release-gate.md", ["Command Center Release Gate", "closed-by-default", "Command Center routes stay closed by default", "readiness route stays protected", "Migration files remain sequential", "Production smoke coverage", "Do not merge if", "CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production"]],
   ["docs/command-center-implementation-plan.md", ["Command Center Implementation Plan", "Build source of truth first", "Phase 1: Production database connection", "Phase 2: Private authentication and authorization", "Phase 3: Read-only Command Home", "Phase 4: Intake Inbox", "Phase 5: Clients and Reports", "Phase 6: Projects, Tasks, and Ongoing Control", "Phase 7: File Vault", "Phase 8: Payments and Subscriptions", "Phase 9: Report delivery and integrations", "Phase 10: Intelligence and outcomes", "Phase 11: Automation", "Source of truth stays in Cendorq."]],
+  ["docs/command-center-database-readiness.md", ["Command Center Database Readiness", "private source of truth", "DATABASE_URL", "Do not expose this value", "managed Postgres", "Migrations must be applied intentionally", "no public database reads exist", "No direct database exposure through client code."]],
   [".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check"]],
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
   ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES", "COMMAND_CENTER_READINESS_CHECKS", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName"]],
@@ -52,6 +55,7 @@ const repoExpectations = [
   ["src/app/api/command-center/readiness/route.ts", ["resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "getCommandCenterConfigStatus", "summarizeCommandCenterConfigStatus", "no-store", "not authorized", "summary", "checks"]],
   ["src/lib/command-center/access.ts", ["resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "COMMAND_CENTER_PREVIEW_KEY", "allowed: false", "mode: \"closed\"", "mode: \"preview\""]],
   ["src/lib/command-center/config-status.ts", ["getCommandCenterConfigStatus", "summarizeCommandCenterConfigStatus", "missingServerConfig", "configuredCount", "requiredCount", "protectedTables", "hasServerConfigValue"]],
+  ["src/lib/command-center/database-readiness.ts", ["getCommandCenterDatabaseReadiness", "CommandCenterDatabaseReadiness", "DATABASE_URL", "missingServerConfig", "migrationCount: 5", "protectedSchemaAreas", "hasServerConfigValue"]],
   ["src/lib/command-center/modules.ts", ["COMMAND_CENTER_MODULES", "Command Home", "Intake Inbox", "Clients", "Reports", "Projects", "Tasks", "File Vault", "Ongoing Control", "Payments", "Analytics", "Delivery", "Automation", "Intelligence", "Governance", "Access Control", "Audit Log", "Settings", "requiredPermission", "schemaAnchors"]],
   ["src/lib/command-center/readiness.ts", ["COMMAND_CENTER_READINESS_CHECKS", "durable-postgres", "private-auth-provider", "file-object-storage", "stripe-billing", "report-delivery-provider", "automation-event-security", "governance-controls", "production-smoke-readiness", "migration-operations", "requiredServerConfig", "protectedTables"]],
 ];
@@ -85,6 +89,11 @@ for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch
   if (configStatus.includes(forbidden)) failures.push(`Command Center config status contains forbidden value exposure behavior: ${forbidden}`);
 }
 
+const databaseReadiness = existsSync(join(root, "src/lib/command-center/database-readiness.ts")) ? read("src/lib/command-center/database-readiness.ts") : "";
+for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client", "return env", "connectionString", "process.env.DATABASE_URL"]) {
+  if (databaseReadiness.includes(forbidden)) failures.push(`Command Center database readiness contains forbidden value exposure behavior: ${forbidden}`);
+}
+
 const moduleMap = existsSync(join(root, "src/lib/command-center/modules.ts")) ? read("src/lib/command-center/modules.ts") : "";
 for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client"]) {
   if (moduleMap.includes(forbidden)) failures.push(`Command Center module map contains forbidden runtime/client behavior: ${forbidden}`);
@@ -101,7 +110,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, Command Center incident playbook, Command Center release gate, Command Center implementation plan, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, Command Center incident playbook, Command Center release gate, Command Center implementation plan, database readiness, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
