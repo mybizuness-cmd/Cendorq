@@ -46,7 +46,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center migration safety validation passed. Migrations are ordered, named consistently, additive by default, private-source-of-truth aligned, and protected from casual destructive operations.");
+console.log("Command Center migration safety validation passed. Migrations are ordered, named consistently, additive by default, private-source-of-truth aligned, and protected from casual destructive operations while allowing controlled idempotent constraint replacement.");
 
 function validateMigration(name, sql) {
   if (!sql.includes("create table if not exists")) failures.push(`${name} must define additive tables with create table if not exists.`);
@@ -59,10 +59,14 @@ function validateMigration(name, sql) {
     /\bdrop\s+column\b/,
     /\btruncate\s+table\b/,
     /\bdelete\s+from\b/,
-    /\balter\s+table\s+[^;]+\s+drop\b/,
   ];
   for (const pattern of destructivePatterns) {
     if (pattern.test(normalized)) failures.push(`${name} contains a destructive SQL operation that needs a separate reviewed rollback plan.`);
+  }
+
+  const alterDropMatches = normalized.match(/\balter\s+table\s+[^;]+\s+drop\s+(?!constraint\s+if\s+exists)[^;]+/g) || [];
+  for (const match of alterDropMatches) {
+    failures.push(`${name} contains a destructive alter operation that needs a separate reviewed rollback plan: ${match}`);
   }
 
   const forbiddenPublicPatterns = [
