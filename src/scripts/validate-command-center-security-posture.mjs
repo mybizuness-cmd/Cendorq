@@ -46,6 +46,24 @@ validateTextFile("src/lib/command-center/access.ts", [
   "allowed: true, mode: \"preview\"",
 ]);
 
+validateTextFile("src/lib/command-center/auth-readiness.ts", [
+  "COMMAND_CENTER_AUTH_ALLOWED_PROVIDERS",
+  "COMMAND_CENTER_AUTH_CONFIG_KEYS",
+  "AUTH_PROVIDER",
+  "AUTH_SECRET",
+  "MINIMUM_AUTH_SECRET_LENGTH = 32",
+  "providerAllowed",
+  "authSecretShape",
+  "defaultAccess: \"deny\"",
+  "sessionValidation: \"server-side-required\"",
+  "rolePolicy: \"least-privilege\"",
+  "auditPolicy: \"record-access-decisions\"",
+  "clientOnlyProtectionAllowed: false",
+  "publicBypassAllowed: false",
+  "session revocation path",
+  "service access rotation path",
+]);
+
 validateTextFile("src/lib/command-center/database-config.ts", [
   "getCommandCenterDatabaseConfigState",
   "COMMAND_CENTER_DATABASE_CONFIG_KEYS",
@@ -67,6 +85,7 @@ validateTextFile("src/lib/command-center/database-readiness.ts", [
 for (const path of [
   "src/lib/command-center/security-posture.ts",
   "src/lib/command-center/access.ts",
+  "src/lib/command-center/auth-readiness.ts",
   "src/lib/command-center/database-config.ts",
   "src/lib/command-center/database-readiness.ts",
 ]) {
@@ -79,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, and preserves review-gated private operation boundaries.");
+console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps auth and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, and preserves review-gated private operation boundaries.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -96,7 +115,7 @@ function validateTextFile(path, phrases) {
 function validateHelperSafety(path) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "allowed: true, mode: \"closed\""]) {
+  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "clientOnlyProtectionAllowed: true", "publicBypassAllowed: true", "allowed: true, mode: \"closed\""]) {
     if (text.includes(forbidden)) failures.push(`${path} contains forbidden security behavior: ${forbidden}`);
   }
 }
