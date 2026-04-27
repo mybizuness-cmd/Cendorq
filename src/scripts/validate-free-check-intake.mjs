@@ -12,12 +12,23 @@ const files = [
   "src/lib/signals/free-check-signal.ts",
   "src/lib/intelligence/free-check-intelligence.ts",
   "src/lib/reports/free-check-report.ts",
+  "src/lib/storage/file-backed-envelope.ts",
   "docs/durable-intake-storage-standard.md",
 ];
 
 for (const file of files) {
   if (!existsSync(join(root, file))) failures.push(`Missing Free Scan intake file: ${file}`);
 }
+
+expect("src/lib/storage/file-backed-envelope.ts", [
+  "export type FileBackedEnvelope<TEntry>",
+  "loadFileBackedEnvelope",
+  "saveFileBackedEnvelope",
+  "legacyStorageFiles",
+  "normalizeEntry",
+  "sortEntries",
+  "createTempId",
+]);
 
 expect("docs/durable-intake-storage-standard.md", [
   "not the final durable customer-data system",
@@ -142,7 +153,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
