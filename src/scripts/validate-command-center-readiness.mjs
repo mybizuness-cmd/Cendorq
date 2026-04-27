@@ -173,13 +173,37 @@ validateTextFile("docs/benchmark-test-run-separation-standard.md", [
   "No live customer record overwritten by a test run.",
 ]);
 
+validateTextFile("src/lib/command-center/ai-manager-version-registry.ts", [
+  "AI_MANAGER_VERSION_REGISTRY",
+  "AiManagerVersionRegistryItem",
+  "promptPolicyVersion",
+  "evaluationPolicyVersion",
+  "scoringPolicyVersion",
+  "reportPolicyVersion",
+  "requiredRegressionSuites",
+  "promotionGates",
+  "retirementTriggers",
+  "getApprovedAiManagerVersion",
+]);
+validateHelperSafety("src/lib/command-center/ai-manager-version-registry.ts");
+
+validateTextFile("docs/ai-manager-version-registry-standard.md", [
+  "AI Manager Version Registry Standard",
+  "The AI manager can evolve, but it must evolve safely.",
+  "A newer model, prompt, or policy is not automatically better until it passes regression checks.",
+  "No model upgrade without regression checks.",
+  "No customer-facing output from an unapproved version.",
+  "No hidden prompt or policy change.",
+  "Cendorq remains the source of truth.",
+]);
+
 if (failures.length) {
   console.error("Command Center readiness validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, benchmark intelligence, and test record separation foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, and protected from client/runtime value exposure.");
+console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, benchmark intelligence, test record separation, and AI manager version registry foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, versioned, and protected from client/runtime value exposure.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
