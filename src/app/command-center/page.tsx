@@ -14,6 +14,7 @@ import { getCommandCenterReadinessSummary } from "@/lib/command-center/readiness
 import { AiManagerVersionRegistryPanel } from "./ai-manager-version-registry-panel";
 import { BenchmarkEvidencePanel } from "./benchmark-evidence-panel";
 import { BenchmarkIntelligencePanel } from "./benchmark-intelligence-panel";
+import { CommandCenterOperatingMap } from "./command-center-operating-map";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
 import { TestRecordClassesPanel } from "./test-record-classes-panel";
 
@@ -79,6 +80,7 @@ export default async function CommandCenterPage() {
             <Metric label="Ready" value={foundation.ready ? "Yes" : "No"} />
           </div>
         </div>
+        <CommandCenterOperatingMap />
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {COMMAND_CENTER_MODULES.map((module) => (
             <div key={module.key} className="rounded-3xl border border-white/10 bg-white/[0.035] p-5">
