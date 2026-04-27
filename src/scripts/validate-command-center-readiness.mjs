@@ -120,13 +120,40 @@ validateTextFile("docs/command-center-plan-control-standard.md", [
   "Cendorq remains the source of truth.",
 ]);
 
+validateTextFile("src/lib/command-center/benchmark-intelligence.ts", [
+  "BENCHMARK_INTELLIGENCE_CONTROLS",
+  "BenchmarkIntelligenceControl",
+  "targetReferenceCount: 5",
+  "requiredEvidenceTypes",
+  "comparisonAreas",
+  "aiReviewChecks",
+  "selfEvolutionSignals",
+  "local-service",
+  "professional-service",
+  "health-wellness",
+  "home-service",
+  "ecommerce",
+]);
+validateHelperSafety("src/lib/command-center/benchmark-intelligence.ts");
+
+validateTextFile("docs/benchmark-intelligence-standard.md", [
+  "Cendorq Benchmark Intelligence Standard",
+  "five approved benchmark businesses per category",
+  "Every source should be stored with enough metadata to verify where the observation came from and when it was reviewed.",
+  "The AI manager should evaluate its own work before customer-facing output is approved.",
+  "Model and agent evolution",
+  "No benchmark without source evidence.",
+  "No model upgrade without regression checks.",
+  "Cendorq remains the source of truth.",
+]);
+
 if (failures.length) {
   console.error("Command Center readiness validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, and plan control foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, and protected from client/runtime value exposure.");
+console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, and benchmark intelligence foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, and protected from client/runtime value exposure.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
