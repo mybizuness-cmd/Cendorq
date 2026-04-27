@@ -26,6 +26,7 @@ const requiredFiles = [
   "docs/release-checklist.md",
   ".github/pull_request_template.md",
   "CHANGELOG.md",
+  "src/app/command-center/page.tsx",
 ];
 
 const repoExpectations = [
@@ -34,6 +35,7 @@ const repoExpectations = [
   ["docs/release-checklist.md", ["closed intelligence", "data quality", "learning memory", "pure signal", "resilience", "maximum protection"]],
   [".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check"]],
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
+  ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "COMMAND_CENTER_PREVIEW_KEY", "No customer records", "private intelligence", "access controls are configured"]],
 ];
 
 for (const file of requiredFiles) {
@@ -48,13 +50,18 @@ for (const [path, phrases] of repoExpectations) {
   expect(path, phrases, `${path} is missing synchronized operating detail`);
 }
 
+const commandCenterRoute = existsSync(join(root, "src/app/command-center/page.tsx")) ? read("src/app/command-center/page.tsx") : "";
+for (const forbidden of ["export const revalidate = 60", "index: true", "follow: true", "fetch(\"/api/free-check\"", "localStorage", "sessionStorage"]) {
+  if (commandCenterRoute.includes(forbidden)) failures.push(`Command Center route contains forbidden public/client data behavior: ${forbidden}`);
+}
+
 if (failures.length) {
   console.error("Operating standards validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
