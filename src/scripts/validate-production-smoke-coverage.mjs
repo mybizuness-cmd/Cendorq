@@ -23,6 +23,19 @@ expect(smokePath, [
   "The intake console is not authorized to read submissions.",
   "if (isLocalBaseUrl) return;",
   "payload.ok !== false",
+  "closedCommandCenterChecks",
+  "/command-center",
+  "/command-center/intake",
+  "Private Command Center",
+  "Closed by default.",
+  "No customer records",
+  "checkClosedCommandCenterRoute",
+  "protectedCommandCenterApiChecks",
+  "/api/command-center/readiness",
+  "The Command Center readiness endpoint is not authorized.",
+  "checkProtectedJsonErrorRoute",
+  "Private configuration checklist",
+  "Schema anchors",
 ]);
 
 expect(workflowPath, [
@@ -54,6 +67,7 @@ for (const phrase of [
   "Presence Command",
   "console.log(payload)",
   "ALLOW_OPEN_INTAKE_READS",
+  "COMMAND_CENTER_PREVIEW_KEY",
 ]) {
   if (smokeText.includes(phrase)) failures.push(`Production smoke script contains forbidden or risky phrase: ${phrase}`);
 }
@@ -64,7 +78,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
