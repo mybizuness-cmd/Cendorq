@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { COMMAND_CENTER_MODULES } from "@/lib/command-center/modules";
 import { COMMAND_CENTER_READINESS_CHECKS } from "@/lib/command-center/readiness";
+import { getCommandCenterReadinessSummary } from "@/lib/command-center/readiness-summary";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -44,6 +45,8 @@ export default async function CommandCenterPage() {
     );
   }
 
+  const foundation = getCommandCenterReadinessSummary();
+
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-20 text-white">
       <section className="mx-auto max-w-6xl">
@@ -53,6 +56,12 @@ export default async function CommandCenterPage() {
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
             The source-of-truth foundations are ready. Dashboard modules remain gated until production auth and durable database configuration are active.
           </p>
+          <div className="mt-8 grid gap-4 md:grid-cols-4">
+            <Metric label="Areas" value={foundation.totalAreas} />
+            <Metric label="Configured" value={foundation.configuredAreas} />
+            <Metric label="Missing" value={foundation.missingAreas} />
+            <Metric label="Ready" value={foundation.ready ? "Yes" : "No"} />
+          </div>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {COMMAND_CENTER_MODULES.map((module) => (
@@ -95,5 +104,14 @@ export default async function CommandCenterPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: number | string }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{label}</p>
+      <p className="mt-2 text-2xl font-semibold text-white">{value}</p>
+    </div>
   );
 }
