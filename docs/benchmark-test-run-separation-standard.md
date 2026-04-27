@@ -8,6 +8,8 @@ The system should learn from strong reference data and test runs without polluti
 
 Benchmark records, synthetic records, regression records, and live customer records must be clearly separated.
 
+This separation must stay easy to validate as the Command Center grows.
+
 ## Record classes
 
 Cendorq should distinguish these record classes:
