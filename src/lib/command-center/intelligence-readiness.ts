@@ -4,9 +4,19 @@ export type CommandCenterIntelligenceReadiness = {
   missingServerConfig: readonly string[];
   protectedTables: readonly string[];
   requiredCapabilities: readonly string[];
+  reviewOwnerShape: "present" | "missing";
+  classificationPolicy: "evidence-gated";
+  memoryPromotionPolicy: "human-reviewed-reversible";
+  rawIntelligenceAccess: "private-only";
+  customerSummaryPolicy: "client-safe-separated-from-raw";
+  promptInjectionPolicy: "external-content-untrusted";
+  publicRawIntelligenceAllowed: false;
+  aiAutopromotionAllowed: false;
+  unsupportedSignalAuthorityAllowed: false;
+  customerUnsafeSummaryAllowed: false;
 };
 
-const REQUIRED_INTELLIGENCE_CONFIG = ["INTELLIGENCE_REVIEW_OWNER"] as const;
+export const COMMAND_CENTER_INTELLIGENCE_CONFIG_KEYS = ["INTELLIGENCE_REVIEW_OWNER"] as const;
 
 const PROTECTED_INTELLIGENCE_TABLES = [
   "signal_taxonomies",
@@ -26,17 +36,34 @@ const REQUIRED_CAPABILITIES = [
   "private memory status tracking",
   "client-safe summary separation",
   "audit trail",
+  "prompt-injection resistant source handling",
+  "raw intelligence private by default",
+  "reversible memory promotion",
+  "unsupported signal authority blocker",
+  "stale intelligence review path",
+  "source reliability review",
 ] as const;
 
 export function getCommandCenterIntelligenceReadiness(env: NodeJS.ProcessEnv = process.env): CommandCenterIntelligenceReadiness {
-  const missingServerConfig = REQUIRED_INTELLIGENCE_CONFIG.filter((name) => !hasServerConfigValue(env, name));
+  const missingServerConfig = COMMAND_CENTER_INTELLIGENCE_CONFIG_KEYS.filter((name) => !hasServerConfigValue(env, name));
+  const reviewOwnerShape = hasServerConfigValue(env, "INTELLIGENCE_REVIEW_OWNER") ? "present" : "missing";
 
   return {
-    configured: missingServerConfig.length === 0,
-    requiredServerConfig: REQUIRED_INTELLIGENCE_CONFIG,
+    configured: missingServerConfig.length === 0 && reviewOwnerShape === "present",
+    requiredServerConfig: COMMAND_CENTER_INTELLIGENCE_CONFIG_KEYS,
     missingServerConfig,
     protectedTables: PROTECTED_INTELLIGENCE_TABLES,
     requiredCapabilities: REQUIRED_CAPABILITIES,
+    reviewOwnerShape,
+    classificationPolicy: "evidence-gated",
+    memoryPromotionPolicy: "human-reviewed-reversible",
+    rawIntelligenceAccess: "private-only",
+    customerSummaryPolicy: "client-safe-separated-from-raw",
+    promptInjectionPolicy: "external-content-untrusted",
+    publicRawIntelligenceAllowed: false,
+    aiAutopromotionAllowed: false,
+    unsupportedSignalAuthorityAllowed: false,
+    customerUnsafeSummaryAllowed: false,
   };
 }
 
