@@ -8,12 +8,14 @@ const deliverySchemaPath = "db/migrations/0002_command_center_delivery_automatio
 const intelligenceSchemaPath = "db/migrations/0003_command_center_signal_intelligence.sql";
 const governanceSchemaPath = "db/migrations/0004_command_center_data_governance.sql";
 const accessControlSchemaPath = "db/migrations/0005_command_center_access_control.sql";
+const migrationStandardPath = "docs/command-center-migration-operating-standard.md";
 
 validateFoundationSchema();
 validateDeliverySchema();
 validateIntelligenceSchema();
 validateGovernanceSchema();
 validateAccessControlSchema();
+validateMigrationStandard();
 
 if (failures.length) {
   console.error("Command Center schema validation failed:");
@@ -21,7 +23,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center schema validation passed. Database foundation covers users, businesses, contacts, intake, reports, projects, tasks, files, notes, monthly cycles, subscriptions, payments, activity events, audit logs, provider-neutral integrations, outbound messages, report deliveries, automation events, private signal classification, evidence records, learning memory, outcome measurements, data governance, consent records, privacy requests, retention actions, backup exports, webhook key rotation, incident records, system checks, access control, role permissions, user overrides, invitations, session events, service access metadata, indexes, timestamps, and private-source-of-truth constraints.");
+console.log("Command Center schema validation passed. Database foundation covers users, businesses, contacts, intake, reports, projects, tasks, files, notes, monthly cycles, subscriptions, payments, activity events, audit logs, provider-neutral integrations, outbound messages, report deliveries, automation events, private signal classification, evidence records, learning memory, outcome measurements, data governance, consent records, privacy requests, retention actions, backup exports, webhook key rotation, incident records, system checks, access control, role permissions, user overrides, invitations, session events, service access metadata, migration operating safety, indexes, timestamps, and private-source-of-truth constraints.");
 
 function validateFoundationSchema() {
   if (!existsSync(join(root, foundationSchemaPath))) {
@@ -94,6 +96,16 @@ function validateAccessControlSchema() {
     if (!schema.includes(phrase)) failures.push(`Command Center access control schema missing required phrase: ${phrase}`);
   for (const forbidden of ["invite_token_hash", "key_hash", "NEXT_PUBLIC_AUTH"])
     if (schema.toLowerCase().includes(forbidden.toLowerCase())) failures.push(`Command Center access control schema contains forbidden credential-storage phrase: ${forbidden}`);
+}
+
+function validateMigrationStandard() {
+  if (!existsSync(join(root, migrationStandardPath))) {
+    failures.push(`Missing Command Center migration operating standard: ${migrationStandardPath}`);
+    return;
+  }
+  const text = read(migrationStandardPath);
+  for (const phrase of ["Database migrations are not casual edits.", "ordered", "reviewable", "repeatable", "production-safe", "non-destructive by default", "Current migration set", "0001_command_center_foundation.sql", "0005_command_center_access_control.sql", "Destructive change rule", "Provider rule", "Dashboard dependency rule", "Production migration application should be done through a controlled migration command", "Rollback thinking"])
+    if (!text.includes(phrase)) failures.push(`Command Center migration standard missing required phrase: ${phrase}`);
 }
 
 function read(path) {
