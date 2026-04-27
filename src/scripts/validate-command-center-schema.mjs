@@ -5,9 +5,11 @@ const root = process.cwd();
 const failures = [];
 const foundationSchemaPath = "db/migrations/0001_command_center_foundation.sql";
 const deliverySchemaPath = "db/migrations/0002_command_center_delivery_automation.sql";
+const intelligenceSchemaPath = "db/migrations/0003_command_center_signal_intelligence.sql";
 
 validateFoundationSchema();
 validateDeliverySchema();
+validateIntelligenceSchema();
 
 if (failures.length) {
   console.error("Command Center schema validation failed:");
@@ -15,7 +17,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center schema validation passed. Database foundation covers users, businesses, contacts, intake, reports, projects, tasks, files, notes, monthly cycles, subscriptions, payments, activity events, audit logs, provider-neutral integrations, outbound messages, report deliveries, automation events, indexes, timestamps, and private-source-of-truth constraints.");
+console.log("Command Center schema validation passed. Database foundation covers users, businesses, contacts, intake, reports, projects, tasks, files, notes, monthly cycles, subscriptions, payments, activity events, audit logs, provider-neutral integrations, outbound messages, report deliveries, automation events, private signal classification, evidence records, learning memory, outcome measurements, indexes, timestamps, and private-source-of-truth constraints.");
 
 function validateFoundationSchema() {
   if (!existsSync(join(root, foundationSchemaPath))) {
@@ -141,6 +143,65 @@ function validateDeliverySchema() {
   ]) {
     if (schema.toLowerCase().includes(forbidden.toLowerCase())) {
       failures.push(`Command Center delivery schema contains forbidden vendor-lock phrase: ${forbidden}`);
+    }
+  }
+}
+
+function validateIntelligenceSchema() {
+  if (!existsSync(join(root, intelligenceSchemaPath))) {
+    failures.push(`Missing Command Center signal intelligence migration: ${intelligenceSchemaPath}`);
+    return;
+  }
+
+  const schema = read(intelligenceSchemaPath);
+
+  for (const table of [
+    "signal_taxonomies",
+    "signal_tags",
+    "intelligence_classifications",
+    "evidence_records",
+    "intelligence_memory_items",
+    "intelligence_memory_links",
+    "outcome_measurements",
+  ]) {
+    if (!schema.includes(`create table if not exists ${table}`)) {
+      failures.push(`Command Center intelligence schema missing table: ${table}`);
+    }
+  }
+
+  for (const phrase of [
+    "private signal intelligence foundation",
+    "must never expose raw intelligence",
+    "buyer_hesitation",
+    "conversion_blocker",
+    "authority_signal",
+    "evidence_excerpt",
+    "client_safe_summary",
+    "evidence_records_type_reliability_idx",
+    "intelligence_memory_items_type_status_idx",
+    "intelligence_memory_links_anchor_check",
+    "outcome_measurements_business_metric_idx",
+    "support_count integer not null default 0",
+    "support_strength integer not null default 0",
+    "signal_taxonomies_set_updated_at",
+    "intelligence_classifications_set_updated_at",
+    "evidence_records_set_updated_at",
+    "intelligence_memory_items_set_updated_at",
+    "outcome_measurements_set_updated_at",
+  ]) {
+    if (!schema.includes(phrase)) failures.push(`Command Center intelligence schema missing required phrase: ${phrase}`);
+  }
+
+  for (const forbidden of [
+    "public intelligence index",
+    "public evidence index",
+    "NEXT_PUBLIC_LEARNING",
+    "NEXT_PUBLIC_INTELLIGENCE",
+    "expose raw intelligence",
+    "expose prompts",
+  ]) {
+    if (schema.toLowerCase().includes(forbidden.toLowerCase())) {
+      failures.push(`Command Center intelligence schema contains forbidden public-intelligence phrase: ${forbidden}`);
     }
   }
 }
