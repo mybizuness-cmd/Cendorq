@@ -40,7 +40,7 @@ export function resolveCommandCenterAccessState(headerValue: string | null): Com
   return { allowed: true, mode: "preview" };
 }
 
-function isStrongPreviewKey(value: string | undefined) {
+function isStrongPreviewKey(value: string | undefined): value is string {
   return typeof value === "string" && value.length >= MINIMUM_PREVIEW_KEY_LENGTH;
 }
 
