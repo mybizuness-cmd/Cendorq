@@ -29,6 +29,7 @@ const requiredFiles = [
   "docs/command-center-implementation-plan.md",
   "docs/command-center-database-readiness.md",
   "docs/command-center-auth-readiness.md",
+  "docs/command-center-file-storage-readiness.md",
   ".github/pull_request_template.md",
   "CHANGELOG.md",
   "src/app/command-center/page.tsx",
@@ -38,6 +39,7 @@ const requiredFiles = [
   "src/lib/command-center/auth-readiness.ts",
   "src/lib/command-center/config-status.ts",
   "src/lib/command-center/database-readiness.ts",
+  "src/lib/command-center/file-storage-readiness.ts",
   "src/lib/command-center/modules.ts",
   "src/lib/command-center/readiness.ts",
 ];
@@ -51,6 +53,7 @@ const repoExpectations = [
   ["docs/command-center-implementation-plan.md", ["Command Center Implementation Plan", "Build source of truth first", "Phase 1: Production database connection", "Phase 2: Private authentication and authorization", "Phase 3: Read-only Command Home", "Phase 4: Intake Inbox", "Phase 5: Clients and Reports", "Phase 6: Projects, Tasks, and Ongoing Control", "Phase 7: File Vault", "Phase 8: Payments and Subscriptions", "Phase 9: Report delivery and integrations", "Phase 10: Intelligence and outcomes", "Phase 11: Automation", "Source of truth stays in Cendorq."]],
   ["docs/command-center-database-readiness.md", ["Command Center Database Readiness", "private source of truth", "DATABASE_URL", "Do not expose this value", "managed Postgres", "Migrations must be applied intentionally", "no public database reads exist", "No direct database exposure through client code."]],
   ["docs/command-center-auth-readiness.md", ["Command Center Auth Readiness", "Authentication verifies identity", "AUTH_PROVIDER", "AUTH_SECRET", "closed-by-default fallback", "Preview gate rule", "Clerk", "Cendorq authorization state internally", "No client-only protection for sensitive data."]],
+  ["docs/command-center-file-storage-readiness.md", ["Command Center File Storage Readiness", "Files are private operational assets", "FILE_STORAGE_PROVIDER", "FILE_STORAGE_SERVER_TOKEN", "Do not expose file storage values", "server-side upload authorization", "private object storage", "signed download flow", "No public file listing."]],
   [".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check"]],
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
   ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES", "COMMAND_CENTER_READINESS_CHECKS", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName"]],
@@ -60,6 +63,7 @@ const repoExpectations = [
   ["src/lib/command-center/auth-readiness.ts", ["getCommandCenterAuthReadiness", "CommandCenterAuthReadiness", "AUTH_PROVIDER", "AUTH_SECRET", "identity verification", "server-side session validation", "role mapping", "permission enforcement", "access decision recording", "closed-by-default fallback", "hasServerConfigValue"]],
   ["src/lib/command-center/config-status.ts", ["getCommandCenterConfigStatus", "summarizeCommandCenterConfigStatus", "missingServerConfig", "configuredCount", "requiredCount", "protectedTables", "hasServerConfigValue"]],
   ["src/lib/command-center/database-readiness.ts", ["getCommandCenterDatabaseReadiness", "CommandCenterDatabaseReadiness", "DATABASE_URL", "missingServerConfig", "migrationCount: 5", "protectedSchemaAreas", "hasServerConfigValue"]],
+  ["src/lib/command-center/file-storage-readiness.ts", ["getCommandCenterFileStorageReadiness", "CommandCenterFileStorageReadiness", "FILE_STORAGE_PROVIDER", "FILE_STORAGE_SERVER_TOKEN", "server-side upload authorization", "private object storage", "file owner tracking", "signed download flow", "no public file listing", "hasServerConfigValue"]],
   ["src/lib/command-center/modules.ts", ["COMMAND_CENTER_MODULES", "Command Home", "Intake Inbox", "Clients", "Reports", "Projects", "Tasks", "File Vault", "Ongoing Control", "Payments", "Analytics", "Delivery", "Automation", "Intelligence", "Governance", "Access Control", "Audit Log", "Settings", "requiredPermission", "schemaAnchors"]],
   ["src/lib/command-center/readiness.ts", ["COMMAND_CENTER_READINESS_CHECKS", "durable-postgres", "private-auth-provider", "file-object-storage", "stripe-billing", "report-delivery-provider", "automation-event-security", "governance-controls", "production-smoke-readiness", "migration-operations", "requiredServerConfig", "protectedTables"]],
 ];
@@ -79,7 +83,7 @@ for (const routePath of ["src/app/command-center/page.tsx", "src/app/command-cen
 }
 
 const readinessApi = existsSync(join(root, "src/app/api/command-center/readiness/route.ts")) ? read("src/app/api/command-center/readiness/route.ts") : "";
-for (const forbidden of ["value:", "secret:", "DATABASE_URL:", "STRIPE_SECRET_KEY:", "AUTH_SECRET:", "process.env.DATABASE_URL", "process.env.STRIPE_SECRET_KEY", "process.env.AUTH_SECRET"]) {
+for (const forbidden of ["value:", "secret:", "DATABASE_URL:", "STRIPE_SECRET_KEY:", "AUTH_SECRET:", "FILE_STORAGE_SERVER_TOKEN:", "process.env.DATABASE_URL", "process.env.STRIPE_SECRET_KEY", "process.env.AUTH_SECRET", "process.env.FILE_STORAGE_SERVER_TOKEN"]) {
   if (readinessApi.includes(forbidden)) failures.push(`Command Center readiness API contains forbidden secret-value behavior: ${forbidden}`);
 }
 
@@ -103,6 +107,11 @@ for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch
   if (databaseReadiness.includes(forbidden)) failures.push(`Command Center database readiness contains forbidden value exposure behavior: ${forbidden}`);
 }
 
+const fileStorageReadiness = existsSync(join(root, "src/lib/command-center/file-storage-readiness.ts")) ? read("src/lib/command-center/file-storage-readiness.ts") : "";
+for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client", "return env", "secretValue", "process.env.FILE_STORAGE_SERVER_TOKEN"]) {
+  if (fileStorageReadiness.includes(forbidden)) failures.push(`Command Center file storage readiness contains forbidden value exposure behavior: ${forbidden}`);
+}
+
 const moduleMap = existsSync(join(root, "src/lib/command-center/modules.ts")) ? read("src/lib/command-center/modules.ts") : "";
 for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client"]) {
   if (moduleMap.includes(forbidden)) failures.push(`Command Center module map contains forbidden runtime/client behavior: ${forbidden}`);
@@ -119,7 +128,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, Command Center incident playbook, Command Center release gate, Command Center implementation plan, database readiness, auth readiness, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, Command Center incident playbook, Command Center release gate, Command Center implementation plan, database readiness, auth readiness, file storage readiness, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
