@@ -31,6 +31,21 @@ validateTextFile("src/lib/command-center/security-posture.ts", [
   "zero risk",
 ]);
 
+validateTextFile("src/lib/command-center/access.ts", [
+  "timingSafePreviewKeyEqual",
+  "getCommandCenterAccessPolicy",
+  "defaultMode: \"closed\"",
+  "minimumPreviewKeyLength: MINIMUM_PREVIEW_KEY_LENGTH",
+  "comparisonMode: \"timing-safe\"",
+  "publicAccessAllowed: false",
+  "clientSideBypassAllowed: false",
+  "MINIMUM_PREVIEW_KEY_LENGTH = 32",
+  "isStrongPreviewKey",
+  "mismatch |= candidate.charCodeAt(index) ^ expected.charCodeAt(index)",
+  "allowed: false, mode: \"closed\"",
+  "allowed: true, mode: \"preview\"",
+]);
+
 validateTextFile("src/lib/command-center/database-config.ts", [
   "getCommandCenterDatabaseConfigState",
   "COMMAND_CENTER_DATABASE_CONFIG_KEYS",
@@ -51,6 +66,7 @@ validateTextFile("src/lib/command-center/database-readiness.ts", [
 
 for (const path of [
   "src/lib/command-center/security-posture.ts",
+  "src/lib/command-center/access.ts",
   "src/lib/command-center/database-config.ts",
   "src/lib/command-center/database-readiness.ts",
 ]) {
@@ -63,7 +79,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps database configuration server-only, blocks public exposure, and preserves review-gated private operation boundaries.");
+console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, and preserves review-gated private operation boundaries.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -80,7 +96,7 @@ function validateTextFile(path, phrases) {
 function validateHelperSafety(path) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true"]) {
+  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "allowed: true, mode: \"closed\""]) {
     if (text.includes(forbidden)) failures.push(`${path} contains forbidden security behavior: ${forbidden}`);
   }
 }
