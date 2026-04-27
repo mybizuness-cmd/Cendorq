@@ -27,6 +27,7 @@ const requiredFiles = [
   ".github/pull_request_template.md",
   "CHANGELOG.md",
   "src/app/command-center/page.tsx",
+  "src/lib/command-center/access.ts",
   "src/lib/command-center/modules.ts",
 ];
 
@@ -36,7 +37,8 @@ const repoExpectations = [
   ["docs/release-checklist.md", ["closed intelligence", "data quality", "learning memory", "pure signal", "resilience", "maximum protection"]],
   [".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check"]],
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
-  ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "COMMAND_CENTER_PREVIEW_KEY", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES"]],
+  ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName"]],
+  ["src/lib/command-center/access.ts", ["resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "COMMAND_CENTER_PREVIEW_KEY", "allowed: false", "mode: \"closed\"", "mode: \"preview\""]],
   ["src/lib/command-center/modules.ts", ["COMMAND_CENTER_MODULES", "Command Home", "Intake Inbox", "Clients", "Reports", "Projects", "Tasks", "File Vault", "Ongoing Control", "Payments", "Analytics", "Delivery", "Automation", "Intelligence", "Governance", "Access Control", "Audit Log", "Settings", "requiredPermission", "schemaAnchors"]],
 ];
 
@@ -53,8 +55,13 @@ for (const [path, phrases] of repoExpectations) {
 }
 
 const commandCenterRoute = existsSync(join(root, "src/app/command-center/page.tsx")) ? read("src/app/command-center/page.tsx") : "";
-for (const forbidden of ["export const revalidate = 60", "\n    index: true", "\n    follow: true", "\n      index: true", "\n      follow: true", "fetch(\"/api/free-check\"", "localStorage", "sessionStorage"]) {
+for (const forbidden of ["export const revalidate = 60", "\n    index: true", "\n    follow: true", "\n      index: true", "\n      follow: true", "fetch(\"/api/free-check\"", "localStorage", "sessionStorage", "process.env.COMMAND_CENTER_PREVIEW_KEY"]) {
   if (commandCenterRoute.includes(forbidden)) failures.push(`Command Center route contains forbidden public/client data behavior: ${forbidden.trim()}`);
+}
+
+const accessGate = existsSync(join(root, "src/lib/command-center/access.ts")) ? read("src/lib/command-center/access.ts") : "";
+for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "document.cookie", "allowed: true, mode: \"closed\""]) {
+  if (accessGate.includes(forbidden)) failures.push(`Command Center access gate contains forbidden behavior: ${forbidden}`);
 }
 
 const moduleMap = existsSync(join(root, "src/lib/command-center/modules.ts")) ? read("src/lib/command-center/modules.ts") : "";
@@ -68,7 +75,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, protected module map, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);

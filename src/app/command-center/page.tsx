@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 
+import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { COMMAND_CENTER_MODULES } from "@/lib/command-center/modules";
 
 export const dynamic = "force-dynamic";
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 
 export default async function CommandCenterPage() {
   const headerList = await headers();
-  const accessState = resolveAccessState(headerList.get("x-cendorq-command-center-preview"));
+  const accessState = resolveCommandCenterAccessState(headerList.get(commandCenterPreviewHeaderName()));
 
   if (!accessState.allowed) {
     return (
@@ -69,11 +70,4 @@ export default async function CommandCenterPage() {
       </section>
     </main>
   );
-}
-
-function resolveAccessState(value: string | null) {
-  const configuredPreviewKey = process.env.COMMAND_CENTER_PREVIEW_KEY?.trim();
-  if (!configuredPreviewKey) return { allowed: false };
-  if (!value) return { allowed: false };
-  return { allowed: value === configuredPreviewKey };
 }
