@@ -15,7 +15,7 @@ export type AiManagerVersionRegistryItem = {
   retirementTriggers: readonly string[];
 };
 
-export const AI_MANAGER_VERSION_REGISTRY = [
+export const AI_MANAGER_VERSION_REGISTRY: readonly AiManagerVersionRegistryItem[] = [
   {
     key: "default-candidate",
     label: "Default Candidate AI Manager",
@@ -30,7 +30,7 @@ export const AI_MANAGER_VERSION_REGISTRY = [
     promotionGates: ["unsupported-claim check", "evidence-link check", "customer-safe-language check", "operator approval", "regression comparison"],
     retirementTriggers: ["quality regression", "unsafe output", "unsupported claim increase", "policy mismatch", "better approved version available"],
   },
-] as const satisfies readonly AiManagerVersionRegistryItem[];
+];
 
 export function getAiManagerVersionRegistry() {
   return AI_MANAGER_VERSION_REGISTRY;
