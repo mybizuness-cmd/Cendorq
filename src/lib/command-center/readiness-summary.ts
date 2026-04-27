@@ -22,7 +22,7 @@ export type CommandCenterReadinessSummaryItem = {
   configured: boolean;
   requiredCount: number;
   missingCount: number;
-  protectedTableCount: number;
+  scopeCount: number;
   capabilityCount: number;
 };
 
@@ -32,6 +32,15 @@ export type CommandCenterReadinessSummary = {
   configuredAreas: number;
   missingAreas: number;
   items: readonly CommandCenterReadinessSummaryItem[];
+};
+
+type ReadinessForSummary = {
+  configured: boolean;
+  requiredServerConfig: readonly string[];
+  missingServerConfig: readonly string[];
+  protectedTables?: readonly string[];
+  protectedSchemaAreas?: readonly string[];
+  requiredCapabilities?: readonly string[];
 };
 
 export function getCommandCenterReadinessSummary(env: NodeJS.ProcessEnv = process.env): CommandCenterReadinessSummary {
@@ -58,22 +67,13 @@ export function getCommandCenterReadinessSummary(env: NodeJS.ProcessEnv = proces
   };
 }
 
-function toSummaryItem(
-  area: CommandCenterReadinessArea,
-  readiness: {
-    configured: boolean;
-    requiredServerConfig: readonly string[];
-    missingServerConfig: readonly string[];
-    protectedTables: readonly string[];
-    requiredCapabilities: readonly string[];
-  },
-): CommandCenterReadinessSummaryItem {
+function toSummaryItem(area: CommandCenterReadinessArea, readiness: ReadinessForSummary): CommandCenterReadinessSummaryItem {
   return {
     area,
     configured: readiness.configured,
     requiredCount: readiness.requiredServerConfig.length,
     missingCount: readiness.missingServerConfig.length,
-    protectedTableCount: readiness.protectedTables.length,
-    capabilityCount: readiness.requiredCapabilities.length,
+    scopeCount: (readiness.protectedTables ?? readiness.protectedSchemaAreas ?? []).length,
+    capabilityCount: (readiness.requiredCapabilities ?? []).length,
   };
 }
