@@ -27,6 +27,7 @@ const requiredFiles = [
   ".github/pull_request_template.md",
   "CHANGELOG.md",
   "src/app/command-center/page.tsx",
+  "src/lib/command-center/modules.ts",
 ];
 
 const repoExpectations = [
@@ -35,7 +36,8 @@ const repoExpectations = [
   ["docs/release-checklist.md", ["closed intelligence", "data quality", "learning memory", "pure signal", "resilience", "maximum protection"]],
   [".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check"]],
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
-  ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "COMMAND_CENTER_PREVIEW_KEY", "No customer records", "private intelligence", "access controls are configured"]],
+  ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "COMMAND_CENTER_PREVIEW_KEY", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES"]],
+  ["src/lib/command-center/modules.ts", ["COMMAND_CENTER_MODULES", "Command Home", "Intake Inbox", "Clients", "Reports", "Projects", "Tasks", "File Vault", "Ongoing Control", "Payments", "Analytics", "Delivery", "Automation", "Intelligence", "Governance", "Access Control", "Audit Log", "Settings", "requiredPermission", "schemaAnchors"]],
 ];
 
 for (const file of requiredFiles) {
@@ -55,13 +57,18 @@ for (const forbidden of ["export const revalidate = 60", "\n    index: true", "\
   if (commandCenterRoute.includes(forbidden)) failures.push(`Command Center route contains forbidden public/client data behavior: ${forbidden.trim()}`);
 }
 
+const moduleMap = existsSync(join(root, "src/lib/command-center/modules.ts")) ? read("src/lib/command-center/modules.ts") : "";
+for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client"]) {
+  if (moduleMap.includes(forbidden)) failures.push(`Command Center module map contains forbidden runtime/client behavior: ${forbidden}`);
+}
+
 if (failures.length) {
   console.error("Operating standards validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, protected module map, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
