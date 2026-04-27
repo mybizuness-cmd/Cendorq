@@ -10,6 +10,8 @@ type RouteDefinition = Readonly<{
     includeInProduction: boolean;
 }>;
 
+const FALLBACK_SITE_URL = "https://www.cendorq.com";
+
 const ROUTES: readonly RouteDefinition[] = [
     {
         path: "/",
@@ -89,7 +91,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 
 function shouldExposeSitemap() {
-    const siteUrl = safeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+    const siteUrl = safeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL) || new URL(FALLBACK_SITE_URL);
     const vercelEnv = cleanEnv(process.env.VERCEL_ENV);
     const nodeEnv = cleanEnv(process.env.NODE_ENV);
 
@@ -97,7 +99,6 @@ function shouldExposeSitemap() {
         nodeEnv === "production" && (vercelEnv === "production" || !vercelEnv);
 
     const isPlaceholderHost =
-        !siteUrl ||
         siteUrl.hostname === "localhost" ||
         siteUrl.hostname === "127.0.0.1" ||
         siteUrl.hostname.endsWith(".local") ||
