@@ -87,7 +87,25 @@ export default async function CommandCenterPage() {
               Metadata only. This view lists required server-side configuration names and protected data areas without reading values, secrets, or customer records.
             </p>
           </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {foundation.items.map((item) => (
+              <div key={item.area} className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <p className="text-base font-semibold capitalize text-white">{item.area}</p>
+                  <span className="rounded-full border border-cyan-200/20 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100">
+                    {item.configured ? "ready" : "pending"}
+                  </span>
+                </div>
+                <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
+                  <MiniMetric label="Required" value={item.requiredCount} />
+                  <MiniMetric label="Missing" value={item.missingCount} />
+                  <MiniMetric label="Scope" value={item.scopeCount} />
+                  <MiniMetric label="Checks" value={item.capabilityCount} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {COMMAND_CENTER_READINESS_CHECKS.map((check) => (
               <div key={check.key} className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
                 <div className="flex items-start justify-between gap-4">
@@ -112,6 +130,15 @@ function Metric({ label, value }: { label: string; value: number | string }) {
     <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{label}</p>
       <p className="mt-2 text-2xl font-semibold text-white">{value}</p>
+    </div>
+  );
+}
+
+function MiniMetric({ label, value }: { label: string; value: number | string }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
+      <p className="mt-1 text-lg font-semibold text-white">{value}</p>
     </div>
   );
 }
