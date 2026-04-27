@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { getCommandCenterConfigStatus, summarizeCommandCenterConfigStatus } from "@/lib/command-center/config-status";
+import { getCommandCenterReadinessSummary } from "@/lib/command-center/readiness-summary";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,8 +22,9 @@ export async function GET(request: NextRequest) {
 
   const checks = getCommandCenterConfigStatus();
   const summary = summarizeCommandCenterConfigStatus(checks);
+  const foundation = getCommandCenterReadinessSummary();
 
-  return jsonNoStore({ ok: true, summary, checks }, 200);
+  return jsonNoStore({ ok: true, summary, foundation, checks }, 200);
 }
 
 function jsonNoStore(payload: unknown, status: number) {
