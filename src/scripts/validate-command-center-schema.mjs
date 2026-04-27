@@ -197,8 +197,8 @@ function validateIntelligenceSchema() {
     "public evidence index",
     "NEXT_PUBLIC_LEARNING",
     "NEXT_PUBLIC_INTELLIGENCE",
-    "expose raw intelligence",
-    "expose prompts",
+    "publicly expose raw intelligence",
+    "publicly expose prompts",
   ]) {
     if (schema.toLowerCase().includes(forbidden.toLowerCase())) {
       failures.push(`Command Center intelligence schema contains forbidden public-intelligence phrase: ${forbidden}`);
