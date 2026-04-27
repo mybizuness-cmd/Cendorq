@@ -4,9 +4,18 @@ export type CommandCenterGovernanceReadiness = {
   missingServerConfig: readonly string[];
   protectedTables: readonly string[];
   requiredCapabilities: readonly string[];
+  contactShape: "present" | "missing" | "invalid";
+  privacyRequestPolicy: "private-tracked-response-required";
+  retentionPolicy: "reviewed-before-delete-or-export";
+  backupPolicy: "tracked-private-exports-only";
+  incidentPolicy: "recorded-with-containment-owner";
+  publicGovernanceRecordAccessAllowed: false;
+  untrackedPrivacyRequestAllowed: false;
+  untrackedBackupExportAllowed: false;
+  destructiveRetentionWithoutReviewAllowed: false;
 };
 
-const REQUIRED_GOVERNANCE_CONFIG = ["GOVERNANCE_CONTACT_EMAIL"] as const;
+export const COMMAND_CENTER_GOVERNANCE_CONFIG_KEYS = ["GOVERNANCE_CONTACT_EMAIL"] as const;
 
 const PROTECTED_GOVERNANCE_TABLES = [
   "consent_records",
@@ -27,18 +36,38 @@ const REQUIRED_CAPABILITIES = [
   "incident recording",
   "system check visibility",
   "audit trail",
+  "private governance record access",
+  "containment owner assignment",
+  "destructive retention review gate",
+  "backup export review gate",
+  "privacy response due-date tracking",
 ] as const;
 
 export function getCommandCenterGovernanceReadiness(env: NodeJS.ProcessEnv = process.env): CommandCenterGovernanceReadiness {
-  const missingServerConfig = REQUIRED_GOVERNANCE_CONFIG.filter((name) => !hasServerConfigValue(env, name));
+  const missingServerConfig = COMMAND_CENTER_GOVERNANCE_CONFIG_KEYS.filter((name) => !hasServerConfigValue(env, name));
+  const contactShape = getGovernanceContactShape(env.GOVERNANCE_CONTACT_EMAIL);
 
   return {
-    configured: missingServerConfig.length === 0,
-    requiredServerConfig: REQUIRED_GOVERNANCE_CONFIG,
+    configured: missingServerConfig.length === 0 && contactShape === "present",
+    requiredServerConfig: COMMAND_CENTER_GOVERNANCE_CONFIG_KEYS,
     missingServerConfig,
     protectedTables: PROTECTED_GOVERNANCE_TABLES,
     requiredCapabilities: REQUIRED_CAPABILITIES,
+    contactShape,
+    privacyRequestPolicy: "private-tracked-response-required",
+    retentionPolicy: "reviewed-before-delete-or-export",
+    backupPolicy: "tracked-private-exports-only",
+    incidentPolicy: "recorded-with-containment-owner",
+    publicGovernanceRecordAccessAllowed: false,
+    untrackedPrivacyRequestAllowed: false,
+    untrackedBackupExportAllowed: false,
+    destructiveRetentionWithoutReviewAllowed: false,
   };
+}
+
+function getGovernanceContactShape(value: string | undefined) {
+  if (typeof value !== "string" || value.trim().length === 0) return "missing";
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? "present" : "invalid";
 }
 
 function hasServerConfigValue(env: NodeJS.ProcessEnv, name: string) {
