@@ -12,6 +12,7 @@ type LoadFileBackedEnvelopeInput<TEntry> = Readonly<{
   legacyStorageFiles?: readonly string[];
   normalizeEntry: (value: unknown) => TEntry | null;
   sortEntries: (entries: TEntry[]) => TEntry[];
+  createTempId?: () => string;
 }>;
 
 type SaveFileBackedEnvelopeInput<TEntry> = Readonly<{
@@ -27,6 +28,7 @@ export async function loadFileBackedEnvelope<TEntry>({
   legacyStorageFiles = [],
   normalizeEntry,
   sortEntries,
+  createTempId,
 }: LoadFileBackedEnvelopeInput<TEntry>): Promise<FileBackedEnvelope<TEntry>> {
   await ensureStorageDir(storageDir);
 
@@ -35,7 +37,12 @@ export async function loadFileBackedEnvelope<TEntry>({
 
   for (const filePath of legacyStorageFiles) {
     const legacy = await readEnvelopeFile({ filePath, normalizeEntry, sortEntries });
-    if (legacy) return legacy;
+    if (!legacy) continue;
+
+    if (createTempId) {
+      await saveFileBackedEnvelope({ storageDir, storageFile, envelope: legacy, createTempId });
+    }
+    return legacy;
   }
 
   return { version: 3, entries: [] };
