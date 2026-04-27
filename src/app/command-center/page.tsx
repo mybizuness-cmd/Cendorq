@@ -11,6 +11,8 @@ import { getCommandCenterPlanControls, type CommandCenterPlanControl } from "@/l
 import { COMMAND_CENTER_READINESS_CHECKS } from "@/lib/command-center/readiness";
 import { getCommandCenterReadinessSummary } from "@/lib/command-center/readiness-summary";
 
+import { BenchmarkIntelligencePanel } from "./benchmark-intelligence-panel";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -139,6 +141,7 @@ export default async function CommandCenterPage() {
             ))}
           </div>
         </div>
+        <BenchmarkIntelligencePanel />
         <div className="mt-10 rounded-[2rem] border border-cyan-200/10 bg-cyan-200/[0.035] p-6 md:p-8">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
