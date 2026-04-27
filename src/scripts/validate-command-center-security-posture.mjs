@@ -16,6 +16,17 @@ validateTextFile("docs/maximum-protection-standard.md", [
   "Every major change should reduce or contain these threats, not expand them.",
 ]);
 
+validateTextFile("src/app/command-center/page.tsx", [
+  "resolveCommandCenterAccessState",
+  "ClosedCommandCenterPanel",
+  "CommandCenterHeroPanel",
+  "SecurityPosturePanel",
+  "OperatorReadinessMatrix",
+  "CommandCenterPanelIndex",
+  "ReadinessChecklistPanel",
+]);
+validateCommandCenterRouteShell("src/app/command-center/page.tsx");
+
 validateTextFile("src/lib/command-center/security-posture.ts", [
   "COMMAND_CENTER_SECURITY_POSTURE",
   "maximum-practical-defense-in-depth",
@@ -208,6 +219,7 @@ validateTextFile("src/lib/command-center/database-readiness.ts", [
 ]);
 
 for (const path of [
+  "src/app/command-center/page.tsx",
   "src/lib/command-center/security-posture.ts",
   "src/lib/command-center/panel-registry.ts",
   "src/lib/command-center/access.ts",
@@ -230,7 +242,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps cockpit panels private-gated and metadata-only, keeps auth, files, billing, delivery, automation, governance, intelligence, and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, protects private file storage boundaries, requires verified billing state changes, requires approved-output delivery, requires signed idempotent automation, keeps governance records private and reviewed, keeps raw intelligence private and evidence-gated, preserves Cendorq as source of truth, and preserves review-gated private operation boundaries.");
+console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps the Command Center route as a composition shell, keeps cockpit panels private-gated and metadata-only, keeps auth, files, billing, delivery, automation, governance, intelligence, and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, protects private file storage boundaries, requires verified billing state changes, requires approved-output delivery, requires signed idempotent automation, keeps governance records private and reviewed, keeps raw intelligence private and evidence-gated, preserves Cendorq as source of truth, and preserves review-gated private operation boundaries.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -241,6 +253,26 @@ function validateTextFile(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing required phrase: ${phrase}`);
+  }
+}
+
+function validateCommandCenterRouteShell(path) {
+  if (!existsSync(join(root, path))) return;
+  const text = read(path);
+  const routeSpecificForbidden = [
+    "function Metric(",
+    "function MiniMetric(",
+    "function HistoryCard(",
+    "function ListCard(",
+    "rounded-[2rem] border border-white/10 bg-white/[0.04]",
+    "No customer records, private intelligence",
+    "Customer Output Approval</p>",
+    "Controlled command queue</h2>",
+    "Private configuration checklist</h2>",
+  ];
+
+  for (const forbidden of routeSpecificForbidden) {
+    if (text.includes(forbidden)) failures.push(`${path} regressed from composition shell with inline UI: ${forbidden}`);
   }
 }
 
