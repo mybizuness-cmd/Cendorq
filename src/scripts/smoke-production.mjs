@@ -54,6 +54,27 @@ const protectedReadChecks = [
   },
 ];
 
+const closedCommandCenterChecks = [
+  {
+    path: "/command-center",
+    expect: ["Private Command Center", "Closed by default.", "No customer records"],
+    forbid: ["Private configuration checklist", "Schema anchors", "DATABASE_URL", "STRIPE_SECRET_KEY"],
+  },
+  {
+    path: "/command-center/intake",
+    expect: ["Private Command Center", "Intake Inbox is closed by default.", "No customer records"],
+    forbid: ["Schema anchors", "requiredPermission", "DATABASE_URL", "STRIPE_SECRET_KEY"],
+  },
+];
+
+const protectedCommandCenterApiChecks = [
+  {
+    path: "/api/command-center/readiness",
+    expectedStatus: 401,
+    expectError: "The Command Center readiness endpoint is not authorized.",
+  },
+];
+
 const failures = [];
 
 for (const check of checks) {
@@ -74,6 +95,14 @@ for (const check of optionChecks) {
 
 for (const check of protectedReadChecks) {
   await checkProtectedReadRoute(check);
+}
+
+for (const check of closedCommandCenterChecks) {
+  await checkClosedCommandCenterRoute(check);
+}
+
+for (const check of protectedCommandCenterApiChecks) {
+  await checkProtectedJsonErrorRoute(check);
 }
 
 if (failures.length) {
@@ -195,27 +224,54 @@ async function checkOptionsRoute({ path, allow }) {
 async function checkProtectedReadRoute({ path, expectedStatus, expectError }) {
   if (isLocalBaseUrl) return;
 
+  await checkProtectedJsonErrorRoute({ path, expectedStatus, expectError });
+}
+
+async function checkClosedCommandCenterRoute({ path, expect, forbid }) {
+  const url = new URL(path, baseUrl);
+  const response = await fetch(url, { redirect: "follow" }).catch((error) => ({ error }));
+
+  if ("error" in response) {
+    failures.push(`${path} closed Command Center route could not be fetched: ${response.error.message}`);
+    return;
+  }
+
+  if (!response.ok) {
+    failures.push(`${path} closed Command Center route returned ${response.status}`);
+    return;
+  }
+
+  const text = await response.text();
+  for (const phrase of expect) {
+    if (!text.includes(phrase)) failures.push(`${path} closed Command Center route missing expected phrase: ${phrase}`);
+  }
+  for (const phrase of forbid) {
+    if (text.includes(phrase)) failures.push(`${path} closed Command Center route exposed forbidden phrase: ${phrase}`);
+  }
+}
+
+async function checkProtectedJsonErrorRoute({ path, expectedStatus, expectError }) {
   const url = new URL(path, baseUrl);
   const response = await fetch(url, { method: "GET", redirect: "follow" }).catch((error) => ({ error }));
 
   if ("error" in response) {
-    failures.push(`${path} protected read could not be fetched: ${response.error.message}`);
+    failures.push(`${path} protected JSON route could not be fetched: ${response.error.message}`);
     return;
   }
 
   if (response.status !== expectedStatus) {
-    failures.push(`${path} protected read expected ${expectedStatus} but returned ${response.status}`);
+    failures.push(`${path} protected JSON route expected ${expectedStatus} but returned ${response.status}`);
     return;
   }
 
   const payload = await response.json().catch(() => null);
   if (!payload || typeof payload !== "object") {
-    failures.push(`${path} protected read did not return JSON.`);
+    failures.push(`${path} protected JSON route did not return JSON.`);
     return;
   }
 
-  if (payload.ok !== false) failures.push(`${path} protected read should return ok=false.`);
-  if (payload.error !== expectError) failures.push(`${path} protected read returned unexpected error message.`);
+  if (payload.ok !== false) failures.push(`${path} protected JSON route should return ok=false.`);
+  if (payload.error !== expectError) failures.push(`${path} protected JSON route returned unexpected error message.`);
 }
 
 function isRedirectStatus(status) {
