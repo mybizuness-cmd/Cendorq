@@ -1,12 +1,12 @@
 # Cendorq Deployment Environment Checklist
 
-Use this checklist for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, and deployment configuration changes.
+Use this checklist for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, intake-console, and deployment configuration changes.
 
 The goal is simple: keep production predictable, safe to deploy, and easy to verify.
 
 ## Deployment principle
 
-Deployment configuration supports trust. If a hosting, domain, redirect, header, or environment change makes production harder to verify or easier to break, the buyer path is weakened.
+Deployment configuration supports trust. If a hosting, domain, redirect, header, intake, or environment change makes production harder to verify or easier to break, the buyer path is weakened.
 
 Protect the core path:
 
@@ -42,7 +42,8 @@ Before merging deployment environment changes, confirm:
 
 For domain, base URL, or DNS-related changes, confirm:
 
-- `https://cendorq.com` remains the production default unless intentionally changed.
+- `https://www.cendorq.com` remains the canonical production URL unless intentionally changed.
+- `https://cendorq.com` remains the apex redirect context unless intentionally changed.
 - `NEXT_PUBLIC_SITE_URL` is set to the canonical public origin used by SEO metadata, sitemap, robots, and structured data.
 - `CENDORQ_BASE_URL` is set to the deployed origin that production smoke checks should verify.
 - Smoke checks use the intended base URL.
@@ -60,7 +61,23 @@ For environment variable changes, confirm:
 - Server-only values are not accidentally exposed to the browser.
 - Production deployment can be verified without leaking secrets.
 - Private intake console reads require the configured admin boundary in production.
+- `INTAKE_CONSOLE_READ_KEY` is set in production before anyone relies on protected intake-console reads.
+- `INTAKE_CONSOLE_READ_KEY` is long, random, server-only, and never committed.
+- `INTAKE_ADMIN_KEY` is only used as a server-only alias when the deployment standard prefers it.
 - `NEXT_PUBLIC_SITE_URL` and `CENDORQ_BASE_URL` are documented together when public URL assumptions change.
+
+## Intake backend readiness checks
+
+For Free Scan intake production readiness, confirm:
+
+- Public `POST /api/free-check` accepts only validated Free Scan payloads.
+- Public `OPTIONS /api/free-check` returns `204` with `Allow: GET,POST,OPTIONS`.
+- Production `GET /api/free-check` without the admin header returns protected `401`.
+- Protected reads require the `x-intake-admin-key` header with the configured server-only key.
+- Smoke checks do not create fake Free Scan submissions.
+- Intake storage is not treated as durable customer infrastructure until a real persistence layer is intentionally selected.
+- Local file-backed intake storage is acceptable only as a temporary early production bridge.
+- Any future durable storage migration must preserve validation, duplicate detection, scoring, report snapshots, no-store responses, and protected-read behavior.
 
 ## Header and redirect checks
 
@@ -97,7 +114,7 @@ pnpm build
 For production-impacting deployment changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
