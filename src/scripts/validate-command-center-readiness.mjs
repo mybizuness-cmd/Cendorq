@@ -72,7 +72,7 @@ validateTextFile("src/lib/command-center/readiness-summary.ts", [
   "getCommandCenterAutomationReadiness",
   "getCommandCenterGovernanceReadiness",
   "getCommandCenterIntelligenceReadiness",
-  "protectedTableCount",
+  "scopeCount",
   "capabilityCount",
 ]);
 validateHelperSafety("src/lib/command-center/readiness-summary.ts");
