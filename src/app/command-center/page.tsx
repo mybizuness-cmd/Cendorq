@@ -11,6 +11,7 @@ import { getCommandCenterPlanControls, type CommandCenterPlanControl } from "@/l
 import { COMMAND_CENTER_READINESS_CHECKS } from "@/lib/command-center/readiness";
 import { getCommandCenterReadinessSummary } from "@/lib/command-center/readiness-summary";
 
+import { AiManagerVersionRegistryPanel } from "./ai-manager-version-registry-panel";
 import { BenchmarkEvidencePanel } from "./benchmark-evidence-panel";
 import { BenchmarkIntelligencePanel } from "./benchmark-intelligence-panel";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
@@ -146,6 +147,7 @@ export default async function CommandCenterPage() {
         <BenchmarkIntelligencePanel />
         <BenchmarkEvidencePanel />
         <ReportTruthMethodologyPanel />
+        <AiManagerVersionRegistryPanel />
         <div className="mt-10 rounded-[2rem] border border-cyan-200/10 bg-cyan-200/[0.035] p-6 md:p-8">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
