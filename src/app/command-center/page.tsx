@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { COMMAND_CENTER_MODULES } from "@/lib/command-center/modules";
+import { COMMAND_CENTER_READINESS_CHECKS } from "@/lib/command-center/readiness";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -36,7 +37,7 @@ export default async function CommandCenterPage() {
             It will stay closed until production authentication, database access, and authorization controls are configured.
           </p>
           <div className="mt-8 rounded-2xl border border-amber-300/20 bg-amber-300/10 p-5 text-sm leading-7 text-amber-100">
-            No customer records, private intelligence, files, reports, evidence, payment data, automation controls, or dashboard modules are exposed from this route.
+            No customer records, private intelligence, files, reports, evidence, payment data, automation controls, readiness checks, or dashboard modules are exposed from this route.
           </div>
         </section>
       </main>
@@ -66,6 +67,31 @@ export default async function CommandCenterPage() {
               <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">{module.requiredPermission}</p>
             </div>
           ))}
+        </div>
+        <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 md:p-8">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Readiness</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">Private configuration checklist</h2>
+            </div>
+            <p className="max-w-2xl text-sm leading-6 text-slate-400">
+              Metadata only. This view lists required server-side configuration names and protected data areas without reading values, secrets, or customer records.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {COMMAND_CENTER_READINESS_CHECKS.map((check) => (
+              <div key={check.key} className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <p className="text-base font-semibold text-white">{check.label}</p>
+                  <span className="rounded-full border border-amber-200/20 bg-amber-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-amber-100">
+                    {check.status}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-slate-400">{check.description}</p>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{check.category}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </main>
