@@ -147,13 +147,39 @@ validateTextFile("docs/benchmark-intelligence-standard.md", [
   "Cendorq remains the source of truth.",
 ]);
 
+validateTextFile("src/lib/command-center/test-record-classes.ts", [
+  "COMMAND_CENTER_RECORD_CLASS_POLICIES",
+  "CommandCenterRecordClassPolicy",
+  "benchmark-reference",
+  "synthetic-test",
+  "regression-test",
+  "live-customer",
+  "archived-benchmark",
+  "canTriggerDelivery",
+  "countsAsRevenue",
+  "countsAsProgress",
+]);
+validateHelperSafety("src/lib/command-center/test-record-classes.ts");
+
+validateTextFile("docs/benchmark-test-run-separation-standard.md", [
+  "Benchmark Test Run Separation Standard",
+  "Benchmark records, synthetic records, regression records, and live customer records must be clearly separated.",
+  "benchmark reference",
+  "synthetic test",
+  "regression test",
+  "live customer",
+  "No benchmark record treated as a customer record.",
+  "No synthetic record delivered to a customer.",
+  "No live customer record overwritten by a test run.",
+]);
+
 if (failures.length) {
   console.error("Command Center readiness validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, and benchmark intelligence foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, and protected from client/runtime value exposure.");
+console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, benchmark intelligence, and test record separation foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, and protected from client/runtime value exposure.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
