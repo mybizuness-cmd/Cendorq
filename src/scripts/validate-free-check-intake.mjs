@@ -12,11 +12,21 @@ const files = [
   "src/lib/signals/free-check-signal.ts",
   "src/lib/intelligence/free-check-intelligence.ts",
   "src/lib/reports/free-check-report.ts",
+  "docs/durable-intake-storage-standard.md",
 ];
 
 for (const file of files) {
   if (!existsSync(join(root, file))) failures.push(`Missing Free Scan intake file: ${file}`);
 }
+
+expect("docs/durable-intake-storage-standard.md", [
+  "not the final durable customer-data system",
+  "real persistence layer outside local runtime files",
+  "protected admin reads",
+  "Production smoke must not create fake Free Scan submissions.",
+  "Do not remove the protected read boundary to make migration easier.",
+  "Durable intake storage is complete only when:",
+]);
 
 expect("src/app/api/free-check/route.ts", [
   "CURRENT_STORAGE_FILE = \"free-check-intakes.v3.json\"",
@@ -132,7 +142,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. API route language, protected read boundary, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
