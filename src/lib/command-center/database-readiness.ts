@@ -1,3 +1,5 @@
+import { getCommandCenterDatabaseConfigState } from "./database-config";
+
 export type CommandCenterDatabaseReadiness = {
   configured: boolean;
   provider: "postgres" | "unknown";
@@ -5,9 +7,11 @@ export type CommandCenterDatabaseReadiness = {
   missingServerConfig: readonly string[];
   migrationCount: number;
   protectedSchemaAreas: readonly string[];
+  safeConnectionShape: "present" | "missing" | "invalid";
+  serverOnly: true;
+  migrationPolicy: "intentional-operator-controlled";
+  publicExposureAllowed: false;
 };
-
-const REQUIRED_DATABASE_CONFIG = ["DATABASE_URL"] as const;
 
 const PROTECTED_SCHEMA_AREAS = [
   "core operations",
@@ -18,19 +22,18 @@ const PROTECTED_SCHEMA_AREAS = [
 ] as const;
 
 export function getCommandCenterDatabaseReadiness(env: NodeJS.ProcessEnv = process.env): CommandCenterDatabaseReadiness {
-  const missingServerConfig = REQUIRED_DATABASE_CONFIG.filter((name) => !hasServerConfigValue(env, name));
+  const configState = getCommandCenterDatabaseConfigState(env);
 
   return {
-    configured: missingServerConfig.length === 0,
-    provider: missingServerConfig.length === 0 ? "postgres" : "unknown",
-    requiredServerConfig: REQUIRED_DATABASE_CONFIG,
-    missingServerConfig,
+    configured: configState.configured,
+    provider: configState.provider,
+    requiredServerConfig: configState.requiredServerConfig,
+    missingServerConfig: configState.missingServerConfig,
     migrationCount: 5,
     protectedSchemaAreas: PROTECTED_SCHEMA_AREAS,
+    safeConnectionShape: configState.safeConnectionShape,
+    serverOnly: configState.serverOnly,
+    migrationPolicy: configState.migrationPolicy,
+    publicExposureAllowed: configState.publicExposureAllowed,
   };
-}
-
-function hasServerConfigValue(env: NodeJS.ProcessEnv, name: string) {
-  const value = env[name];
-  return typeof value === "string" && value.trim().length > 0;
 }
