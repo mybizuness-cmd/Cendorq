@@ -197,13 +197,36 @@ validateTextFile("docs/ai-manager-version-registry-standard.md", [
   "Cendorq remains the source of truth.",
 ]);
 
+validateTextFile("src/lib/command-center/benchmark-evidence.ts", [
+  "BENCHMARK_EVIDENCE_READINESS",
+  "BenchmarkEvidenceReadiness",
+  "targetSourcesPerBenchmark: 5",
+  "requiredMetadata",
+  "evidenceRequirements",
+  "source evidence present",
+  "category fit confirmed",
+  "stale source",
+  "getBenchmarkEvidenceReadiness",
+]);
+validateHelperSafety("src/lib/command-center/benchmark-evidence.ts");
+
+validateTextFile("docs/benchmark-evidence-readiness-standard.md", [
+  "Benchmark Evidence Readiness Standard",
+  "Benchmark intelligence must be source-backed.",
+  "The default target is five source observations per benchmark.",
+  "No benchmark without source evidence.",
+  "No stale benchmark treated as an active reference.",
+  "No benchmark used as proof by itself.",
+  "Cendorq remains the source of truth.",
+]);
+
 if (failures.length) {
   console.error("Command Center readiness validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, benchmark intelligence, test record separation, and AI manager version registry foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, versioned, and protected from client/runtime value exposure.");
+console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, plan control foundations, benchmark intelligence, test record separation, AI manager version registry, and benchmark evidence foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, self-reviewing, versioned, and protected from client/runtime value exposure.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
