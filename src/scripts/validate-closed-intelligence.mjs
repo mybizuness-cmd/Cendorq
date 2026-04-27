@@ -24,6 +24,7 @@ const requiredFiles = [
   "README.md",
   "SECURITY.md",
   "docs/release-checklist.md",
+  "docs/command-center-incident-playbook.md",
   ".github/pull_request_template.md",
   "CHANGELOG.md",
   "src/app/command-center/page.tsx",
@@ -39,6 +40,7 @@ const repoExpectations = [
   ["README.md", ["docs/closed-intelligence-operating-standard.md", "docs/maximum-protection-standard.md", "docs/foundation-hardening-standard.md", "docs/foundation-elevation-standard.md", "docs/system-synchronization-qa-standard.md"]],
   ["SECURITY.md", ["closed intelligence", "no direct database exposure", "least-privilege", "maximum protection"]],
   ["docs/release-checklist.md", ["closed intelligence", "data quality", "learning memory", "pure signal", "resilience", "maximum protection"]],
+  ["docs/command-center-incident-playbook.md", ["Command Center Incident Playbook", "closed by default", "private Command Center route", "readiness route", "migration validation", "Do not open the route just to make smoke pass.", "Do not weaken the authorization boundary.", "Do not disable the validator.", "pnpm validate:routes", "CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production"]],
   [".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check"]],
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
   ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES", "COMMAND_CENTER_READINESS_CHECKS", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName"]],
@@ -95,7 +97,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, Command Center incident playbook, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
