@@ -156,6 +156,25 @@ validateTextFile("src/lib/command-center/governance-readiness.ts", [
   "backup export review gate",
 ]);
 
+validateTextFile("src/lib/command-center/intelligence-readiness.ts", [
+  "COMMAND_CENTER_INTELLIGENCE_CONFIG_KEYS",
+  "INTELLIGENCE_REVIEW_OWNER",
+  "reviewOwnerShape",
+  "classificationPolicy: \"evidence-gated\"",
+  "memoryPromotionPolicy: \"human-reviewed-reversible\"",
+  "rawIntelligenceAccess: \"private-only\"",
+  "customerSummaryPolicy: \"client-safe-separated-from-raw\"",
+  "promptInjectionPolicy: \"external-content-untrusted\"",
+  "publicRawIntelligenceAllowed: false",
+  "aiAutopromotionAllowed: false",
+  "unsupportedSignalAuthorityAllowed: false",
+  "customerUnsafeSummaryAllowed: false",
+  "prompt-injection resistant source handling",
+  "raw intelligence private by default",
+  "reversible memory promotion",
+  "unsupported signal authority blocker",
+]);
+
 validateTextFile("src/lib/command-center/database-config.ts", [
   "getCommandCenterDatabaseConfigState",
   "COMMAND_CENTER_DATABASE_CONFIG_KEYS",
@@ -183,6 +202,7 @@ for (const path of [
   "src/lib/command-center/delivery-readiness.ts",
   "src/lib/command-center/automation-readiness.ts",
   "src/lib/command-center/governance-readiness.ts",
+  "src/lib/command-center/intelligence-readiness.ts",
   "src/lib/command-center/database-config.ts",
   "src/lib/command-center/database-readiness.ts",
 ]) {
@@ -195,7 +215,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps auth, files, billing, delivery, automation, governance, and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, protects private file storage boundaries, requires verified billing state changes, requires approved-output delivery, requires signed idempotent automation, keeps governance records private and reviewed, preserves Cendorq as source of truth, and preserves review-gated private operation boundaries.");
+console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps auth, files, billing, delivery, automation, governance, intelligence, and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, protects private file storage boundaries, requires verified billing state changes, requires approved-output delivery, requires signed idempotent automation, keeps governance records private and reviewed, keeps raw intelligence private and evidence-gated, preserves Cendorq as source of truth, and preserves review-gated private operation boundaries.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -212,7 +232,7 @@ function validateTextFile(path, phrases) {
 function validateHelperSafety(path) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "clientOnlyProtectionAllowed: true", "publicBypassAllowed: true", "publicListingAllowed: true", "clientDirectUploadAllowed: true", "clientDirectDownloadAllowed: true", "clientBillingMutationAllowed: true", "unverifiedWebhookAllowed: true", "publicBillingRecordAccessAllowed: true", "vendorLockInAllowed: true", "clientDirectSendAllowed: true", "unapprovedCustomerDeliveryAllowed: true", "publicDeliveryRecordAccessAllowed: true", "clientExecutionAllowed: true", "unsignedInboundEventAllowed: true", "nonIdempotentExecutionAllowed: true", "publicAutomationRecordAccessAllowed: true", "publicGovernanceRecordAccessAllowed: true", "untrackedPrivacyRequestAllowed: true", "untrackedBackupExportAllowed: true", "destructiveRetentionWithoutReviewAllowed: true", "allowed: true, mode: \"closed\""]) {
+  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "clientOnlyProtectionAllowed: true", "publicBypassAllowed: true", "publicListingAllowed: true", "clientDirectUploadAllowed: true", "clientDirectDownloadAllowed: true", "clientBillingMutationAllowed: true", "unverifiedWebhookAllowed: true", "publicBillingRecordAccessAllowed: true", "vendorLockInAllowed: true", "clientDirectSendAllowed: true", "unapprovedCustomerDeliveryAllowed: true", "publicDeliveryRecordAccessAllowed: true", "clientExecutionAllowed: true", "unsignedInboundEventAllowed: true", "nonIdempotentExecutionAllowed: true", "publicAutomationRecordAccessAllowed: true", "publicGovernanceRecordAccessAllowed: true", "untrackedPrivacyRequestAllowed: true", "untrackedBackupExportAllowed: true", "destructiveRetentionWithoutReviewAllowed: true", "publicRawIntelligenceAllowed: true", "aiAutopromotionAllowed: true", "unsupportedSignalAuthorityAllowed: true", "customerUnsafeSummaryAllowed: true", "allowed: true, mode: \"closed\""]) {
     if (text.includes(forbidden)) failures.push(`${path} contains forbidden security behavior: ${forbidden}`);
   }
 }
