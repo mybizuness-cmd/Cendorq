@@ -25,6 +25,8 @@ export type CommandCenterModule = {
   schemaAnchors: readonly string[];
   requiredPermission: string;
   status: "shell" | "planned";
+  buildPhase: number;
+  buildPriority: "now" | "next" | "later";
 };
 
 export const COMMAND_CENTER_MODULES = [
@@ -36,6 +38,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["businesses", "activity_events", "system_checks", "incident_records"],
     requiredPermission: "command_center.view",
     status: "shell",
+    buildPhase: 3,
+    buildPriority: "now",
   },
   {
     key: "intake-inbox",
@@ -45,6 +49,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["intake_submissions", "businesses", "contacts", "reports"],
     requiredPermission: "intake.read",
     status: "planned",
+    buildPhase: 4,
+    buildPriority: "now",
   },
   {
     key: "clients",
@@ -54,6 +60,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["businesses", "contacts", "notes", "activity_events"],
     requiredPermission: "clients.read",
     status: "planned",
+    buildPhase: 5,
+    buildPriority: "next",
   },
   {
     key: "reports",
@@ -63,6 +71,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["reports", "report_deliveries", "outbound_messages", "evidence_records"],
     requiredPermission: "reports.read",
     status: "planned",
+    buildPhase: 5,
+    buildPriority: "next",
   },
   {
     key: "projects",
@@ -72,6 +82,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["projects", "tasks", "monthly_cycles", "outcome_measurements"],
     requiredPermission: "projects.read",
     status: "planned",
+    buildPhase: 6,
+    buildPriority: "next",
   },
   {
     key: "tasks",
@@ -81,6 +93,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["tasks", "projects", "activity_events"],
     requiredPermission: "tasks.read",
     status: "planned",
+    buildPhase: 6,
+    buildPriority: "next",
   },
   {
     key: "file-vault",
@@ -90,6 +104,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["command_center_files", "evidence_records", "backup_exports"],
     requiredPermission: "files.read",
     status: "planned",
+    buildPhase: 7,
+    buildPriority: "later",
   },
   {
     key: "ongoing-control",
@@ -99,6 +115,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["monthly_cycles", "projects", "reports", "outcome_measurements"],
     requiredPermission: "ongoing_control.read",
     status: "planned",
+    buildPhase: 6,
+    buildPriority: "next",
   },
   {
     key: "payments",
@@ -108,6 +126,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["subscriptions", "payments", "activity_events"],
     requiredPermission: "payments.read",
     status: "planned",
+    buildPhase: 8,
+    buildPriority: "later",
   },
   {
     key: "analytics",
@@ -117,6 +137,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["intake_submissions", "outcome_measurements", "intelligence_classifications", "payments"],
     requiredPermission: "analytics.read",
     status: "planned",
+    buildPhase: 10,
+    buildPriority: "later",
   },
   {
     key: "delivery",
@@ -126,6 +148,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["outbound_messages", "report_deliveries", "integration_connections"],
     requiredPermission: "delivery.read",
     status: "planned",
+    buildPhase: 9,
+    buildPriority: "later",
   },
   {
     key: "automation",
@@ -135,6 +159,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["automation_events", "integration_connections", "system_checks"],
     requiredPermission: "automation.read",
     status: "planned",
+    buildPhase: 11,
+    buildPriority: "later",
   },
   {
     key: "intelligence",
@@ -144,6 +170,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["signal_taxonomies", "signal_tags", "intelligence_classifications", "intelligence_memory_items", "intelligence_memory_links"],
     requiredPermission: "intelligence.read",
     status: "planned",
+    buildPhase: 10,
+    buildPriority: "later",
   },
   {
     key: "governance",
@@ -153,6 +181,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["consent_records", "privacy_requests", "data_retention_actions", "backup_exports", "incident_records"],
     requiredPermission: "governance.read",
     status: "planned",
+    buildPhase: 10,
+    buildPriority: "later",
   },
   {
     key: "access-control",
@@ -162,6 +192,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["role_permission_grants", "user_permission_overrides", "command_center_invitations", "command_center_sessions", "access_events"],
     requiredPermission: "access_control.read",
     status: "planned",
+    buildPhase: 2,
+    buildPriority: "now",
   },
   {
     key: "audit-log",
@@ -171,6 +203,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["audit_logs", "access_events", "activity_events"],
     requiredPermission: "audit.read",
     status: "planned",
+    buildPhase: 2,
+    buildPriority: "now",
   },
   {
     key: "settings",
@@ -180,6 +214,8 @@ export const COMMAND_CENTER_MODULES = [
     schemaAnchors: ["integration_connections", "access_policy_checks", "system_checks"],
     requiredPermission: "settings.read",
     status: "planned",
+    buildPhase: 2,
+    buildPriority: "now",
   },
 ] as const satisfies readonly CommandCenterModule[];
 
