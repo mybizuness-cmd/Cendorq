@@ -1,3 +1,6 @@
+const PREVIEW_HEADER = "x-cendorq-command-center-preview";
+const MINIMUM_PREVIEW_KEY_LENGTH = 32;
+
 export type CommandCenterAccessState = {
   allowed: boolean;
   mode: "closed" | "preview";
@@ -12,9 +15,6 @@ export type CommandCenterAccessPolicy = {
   publicAccessAllowed: false;
   clientSideBypassAllowed: false;
 };
-
-const PREVIEW_HEADER = "x-cendorq-command-center-preview";
-const MINIMUM_PREVIEW_KEY_LENGTH = 32;
 
 export function commandCenterPreviewHeaderName() {
   return PREVIEW_HEADER;
