@@ -30,6 +30,7 @@ const requiredFiles = [
   "src/app/command-center/[...module]/page.tsx",
   "src/lib/command-center/access.ts",
   "src/lib/command-center/modules.ts",
+  "src/lib/command-center/readiness.ts",
 ];
 
 const repoExpectations = [
@@ -38,10 +39,11 @@ const repoExpectations = [
   ["docs/release-checklist.md", ["closed intelligence", "data quality", "learning memory", "pure signal", "resilience", "maximum protection"]],
   [".github/pull_request_template.md", ["Closed intelligence check", "Data quality and learning check", "Maximum protection check"]],
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
-  ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName"]],
+  ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES", "COMMAND_CENTER_READINESS_CHECKS", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName"]],
   ["src/app/command-center/[...module]/page.tsx", ["CommandCenterModulePage", "notFound", "getCommandCenterModule", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "index: false", "follow: false", "No customer records", "Schema anchors", "requiredPermission"]],
   ["src/lib/command-center/access.ts", ["resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "COMMAND_CENTER_PREVIEW_KEY", "allowed: false", "mode: \"closed\"", "mode: \"preview\""]],
   ["src/lib/command-center/modules.ts", ["COMMAND_CENTER_MODULES", "Command Home", "Intake Inbox", "Clients", "Reports", "Projects", "Tasks", "File Vault", "Ongoing Control", "Payments", "Analytics", "Delivery", "Automation", "Intelligence", "Governance", "Access Control", "Audit Log", "Settings", "requiredPermission", "schemaAnchors"]],
+  ["src/lib/command-center/readiness.ts", ["COMMAND_CENTER_READINESS_CHECKS", "durable-postgres", "private-auth-provider", "file-object-storage", "stripe-billing", "report-delivery-provider", "automation-event-security", "governance-controls", "production-smoke-readiness", "migration-operations", "requiredServerConfig", "protectedTables"]],
 ];
 
 for (const file of requiredFiles) {
@@ -73,13 +75,18 @@ for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch
   if (moduleMap.includes(forbidden)) failures.push(`Command Center module map contains forbidden runtime/client behavior: ${forbidden}`);
 }
 
+const readinessMap = existsSync(join(root, "src/lib/command-center/readiness.ts")) ? read("src/lib/command-center/readiness.ts") : "";
+for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client", "process.env."]) {
+  if (readinessMap.includes(forbidden)) failures.push(`Command Center readiness map contains forbidden runtime/client/secret behavior: ${forbidden}`);
+}
+
 if (failures.length) {
   console.error("Operating standards validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
