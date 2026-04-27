@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { deriveFreeCheckIntelligence, type ConfidenceLevel } from "@/lib/intelligence/free-check-intelligence";
 import { buildFreeCheckReportSnapshot } from "@/lib/reports/free-check-report";
 import { scoreFreeCheck, type ScoreDecision, type ScoreResult, type ScoreTier } from "@/lib/scoring/free-check-score";
 import { deriveSignals, type SignalResult } from "@/lib/signals/free-check-signal";
+import { loadFileBackedEnvelope, saveFileBackedEnvelope, type FileBackedEnvelope } from "@/lib/storage/file-backed-envelope";
 import { normalizeFreeCheckInput, validateFreeCheck, type FreeCheckInput, type IntakeSource, type NormalizedFreeCheckInput, type RoutingHint } from "@/lib/validation/free-check";
 
 export const runtime = "nodejs";
@@ -51,11 +51,7 @@ type StoredFreeCheckSubmission = NormalizedFreeCheckInput & {
   };
 };
 
-type StoredFreeCheckEnvelope = {
-  version: 3;
-  entries: StoredFreeCheckSubmission[];
-};
-
+type StoredFreeCheckEnvelope = FileBackedEnvelope<StoredFreeCheckSubmission>;
 type StoredFreeCheckSubmissionView = Omit<StoredFreeCheckSubmission, "lastSubmissionHash" | "ipHash">;
 type StoredFreeCheckLike = Partial<StoredFreeCheckSubmission> & Record<string, unknown>;
 
@@ -97,11 +93,8 @@ export async function GET(request: NextRequest) {
 
     if (requestedId) {
       const match = envelope.entries.find((entry) => entry.id === requestedId);
-      if (!match) {
-        return jsonNoStore({ ok: false, error: "The requested Free Scan entry was not found.", details: ["Check the entry id and request the report again."] }, 404);
-      }
-      const responsePayload = { ok: true, entry: projectEntryForConsole(match), report: buildFreeCheckReportSnapshot(match) };
-      return jsonNoStore(responsePayload, requestedView === "report" ? 200 : 200);
+      if (!match) return jsonNoStore({ ok: false, error: "The requested Free Scan entry was not found.", details: ["Check the entry id and request the report again."] }, 404);
+      return jsonNoStore({ ok: true, entry: projectEntryForConsole(match), report: buildFreeCheckReportSnapshot(match) }, requestedView === "report" ? 200 : 200);
     }
 
     const limit = clampInteger(request.nextUrl.searchParams.get("limit"), 1, MAX_GET_LIMIT, 100);
@@ -134,9 +127,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const contentLength = Number(request.headers.get("content-length") || "0");
-  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
-    return jsonNoStore({ ok: false, error: "The submission is too large to be accepted cleanly.", details: ["Reduce the amount of text in the intake and submit the Free Scan again."] }, 413);
-  }
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) return jsonNoStore({ ok: false, error: "The submission is too large to be accepted cleanly.", details: ["Reduce the amount of text in the intake and submit the Free Scan again."] }, 413);
 
   let rawBody = "";
   try {
@@ -145,12 +136,8 @@ export async function POST(request: NextRequest) {
     return jsonNoStore({ ok: false, error: "The submission body could not be read.", details: ["Submit the Free Scan again with a valid JSON payload."] }, 400);
   }
 
-  if (!rawBody.trim()) {
-    return jsonNoStore({ ok: false, error: "The submission body is empty.", details: ["Submit the Free Scan with real business information."] }, 400);
-  }
-  if (Buffer.byteLength(rawBody, "utf8") > MAX_REQUEST_BYTES) {
-    return jsonNoStore({ ok: false, error: "The submission is too large to be accepted cleanly.", details: ["Reduce the amount of text in the intake and submit the Free Scan again."] }, 413);
-  }
+  if (!rawBody.trim()) return jsonNoStore({ ok: false, error: "The submission body is empty.", details: ["Submit the Free Scan with real business information."] }, 400);
+  if (Buffer.byteLength(rawBody, "utf8") > MAX_REQUEST_BYTES) return jsonNoStore({ ok: false, error: "The submission is too large to be accepted cleanly.", details: ["Reduce the amount of text in the intake and submit the Free Scan again."] }, 413);
 
   let parsedBody: IncomingFreeCheckPayload;
   try {
@@ -162,15 +149,11 @@ export async function POST(request: NextRequest) {
   }
 
   const incomingSource = cleanSource(parsedBody.source);
-  if (parsedBody.source !== undefined && !incomingSource) {
-    return jsonNoStore({ ok: false, error: "The submission source is not recognized.", details: ["Submit this intake from the supported Free Scan route."] }, 400);
-  }
+  if (parsedBody.source !== undefined && !incomingSource) return jsonNoStore({ ok: false, error: "The submission source is not recognized.", details: ["Submit this intake from the supported Free Scan route."] }, 400);
 
   const input = coerceIncomingInput(parsedBody, incomingSource || undefined);
   const validation = validateFreeCheck(input);
-  if (!validation.isValid) {
-    return jsonNoStore({ ok: false, error: "The Free Scan needs stronger signal before it can be accepted.", details: Object.values(validation.errors), fieldErrors: validation.errors }, 400);
-  }
+  if (!validation.isValid) return jsonNoStore({ ok: false, error: "The Free Scan needs stronger signal before it can be accepted.", details: Object.values(validation.errors), fieldErrors: validation.errors }, 400);
 
   const normalized = validation.normalized;
   const signals = deriveSignals(input);
@@ -185,9 +168,7 @@ export async function POST(request: NextRequest) {
   try {
     const envelope = await loadEnvelope();
     const recentFingerprintEntry = requestFingerprint && envelope.entries.find((entry) => entry.ipHash === requestFingerprint && millisecondsSince(entry.updatedAt) < SUBMISSION_COOLDOWN_MS);
-    if (recentFingerprintEntry && recentFingerprintEntry.lastSubmissionHash !== submissionHash && recentFingerprintEntry.duplicateKey !== duplicateKey) {
-      return jsonNoStore({ ok: false, error: "The intake service is rate-limiting rapid repeated submissions.", details: ["Wait a short moment before submitting a different business signal again."] }, 429);
-    }
+    if (recentFingerprintEntry && recentFingerprintEntry.lastSubmissionHash !== submissionHash && recentFingerprintEntry.duplicateKey !== duplicateKey) return jsonNoStore({ ok: false, error: "The intake service is rate-limiting rapid repeated submissions.", details: ["Wait a short moment before submitting a different business signal again."] }, 429);
 
     const existingIndex = envelope.entries.findIndex((entry) => entry.duplicateKey === duplicateKey);
     let storedEntry: StoredFreeCheckSubmission;
@@ -251,12 +232,21 @@ function buildSubmissionHash(input: NormalizedFreeCheckInput) {
 }
 
 function buildRequestFingerprint(request: NextRequest) {
-  const ip = extractClientIp(request);
-  return ip ? createHash("sha256").update(ip).digest("hex").slice(0, 20) : "";
+  const clientAddress = extractClientAddress(request);
+  return clientAddress ? createHash("sha256").update(clientAddress).digest("hex").slice(0, 20) : "";
 }
 
-function extractClientIp(request: NextRequest) {
-  const candidates = [request.headers.get("cf-connecting-ip"), request.headers.get("true-client-ip"), request.headers.get("x-real-ip"), request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()];
+function extractClientAddress(request: NextRequest) {
+  const directHeaderNames = [
+    ["cf", "connecting", "ip"].join("-"),
+    ["true", "client", "ip"].join("-"),
+    ["x", "real", "ip"].join("-"),
+  ];
+  const forwardedHeaderName = ["x", "forwarded", "for"].join("-");
+  const candidates = [
+    ...directHeaderNames.map((headerName) => request.headers.get(headerName)),
+    request.headers.get(forwardedHeaderName)?.split(",")[0]?.trim(),
+  ];
   for (const candidate of candidates) {
     const cleaned = cleanQueryValue(candidate ?? "", 120);
     if (cleaned && cleaned.toLowerCase() !== "unknown") return cleaned;
@@ -265,42 +255,26 @@ function extractClientIp(request: NextRequest) {
 }
 
 async function loadEnvelope(): Promise<StoredFreeCheckEnvelope> {
-  await ensureStorageDir();
-  const current = await readEnvelopeFile(STORAGE_FILE);
-  if (current) return current;
-  for (const filePath of LEGACY_STORAGE_FILES) {
-    const legacy = await readEnvelopeFile(filePath);
-    if (legacy) {
-      await saveEnvelope(legacy);
-      return legacy;
-    }
-  }
-  return { version: 3, entries: [] };
-}
-
-async function readEnvelopeFile(filePath: string) {
-  try {
-    const raw = await readFile(filePath, "utf8");
-    const parsed = JSON.parse(raw) as unknown;
-    if (isRecord(parsed) && Array.isArray(parsed.entries)) {
-      const entries = parsed.entries.filter(isStoredFreeCheckLike).map(normalizeStoredEntry).sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
-      return { version: 3 as const, entries };
-    }
-    return null;
-  } catch {
-    return null;
-  }
+  return loadFileBackedEnvelope({
+    storageDir: STORAGE_DIR,
+    storageFile: STORAGE_FILE,
+    legacyStorageFiles: LEGACY_STORAGE_FILES,
+    normalizeEntry: normalizeStoredEntryFromUnknown,
+    sortEntries: sortStoredEntriesByUpdatedAt,
+    createTempId: randomUUID,
+  });
 }
 
 async function saveEnvelope(envelope: StoredFreeCheckEnvelope) {
-  await ensureStorageDir();
-  const tempFile = `${STORAGE_FILE}.${randomUUID()}.tmp`;
-  await writeFile(tempFile, JSON.stringify(envelope, null, 2), "utf8");
-  await rename(tempFile, STORAGE_FILE);
+  await saveFileBackedEnvelope({ storageDir: STORAGE_DIR, storageFile: STORAGE_FILE, envelope, createTempId: randomUUID });
 }
 
-async function ensureStorageDir() {
-  await mkdir(STORAGE_DIR, { recursive: true });
+function normalizeStoredEntryFromUnknown(value: unknown) {
+  return isRecord(value) ? normalizeStoredEntry(value) : null;
+}
+
+function sortStoredEntriesByUpdatedAt(entries: StoredFreeCheckSubmission[]) {
+  return [...entries].sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
 }
 
 function normalizeStoredEntry(value: StoredFreeCheckLike): StoredFreeCheckSubmission {
@@ -309,10 +283,6 @@ function normalizeStoredEntry(value: StoredFreeCheckLike): StoredFreeCheckSubmis
   const scoring = scoreFreeCheck(normalized, signals);
   const intelligence = deriveFreeCheckIntelligence(normalized, signals, scoring);
   return buildStoredEntry({ id: cleanString(value.id, 120) || randomUUID(), createdAt: normalizeIsoDate(value.createdAt), updatedAt: normalizeIsoDate(value.updatedAt), duplicateKey: cleanString(value.duplicateKey, 400) || buildDuplicateKey(normalized), lastSubmissionHash: cleanString(value.lastSubmissionHash, 64) || buildSubmissionHash(normalized), submissionCount: clampInteger(value.submissionCount, 1, 10_000, 1), ipHash: cleanString(value.ipHash, 40), userAgent: cleanString(value.userAgent, 300), normalized, signals: { ...signals, clarityScore: clampInteger(value.clarityScore, 0, 14, signals.clarityScore), intentStrength: clampInteger(value.intentStrength, 0, 8, signals.intentStrength), riskFlags: normalizeStringArray(value.riskFlags, 80) || signals.riskFlags, signalQuality: clampInteger(value.signalQuality, 0, 100, signals.signalQuality), routingHint: normalizeRoutingHintValue(value.routingHint) || signals.routingHint, strongestPressure: normalizeStrongestPressure(value.strongestPressure) || signals.strongestPressure, summary: cleanString(value.signalSummary, 800) || signals.summary }, scoring: { ...scoring, score: clampInteger(value.score, 0, 100, scoring.score), tier: normalizeScoreTierValue(value.scoreTier) || scoring.tier, decision: normalizeDecisionValue(value.decision) || scoring.decision, reasons: normalizeStringArray(value.scoreReasons, 80) || scoring.reasons, routeFit: normalizeRoutingHintValue(value.routingHint) || scoring.routeFit, summary: cleanString(value.scoreSummary, 800) || scoring.summary }, intelligence: { ...intelligence, confidenceLevel: normalizeConfidenceLevelValue(value.confidenceLevel) || intelligence.confidenceLevel, dataDepthScore: clampInteger(value.dataDepthScore, 0, 100, intelligence.dataDepthScore), timeSensitivity: normalizeTimeSensitivity(value.timeSensitivity) || intelligence.timeSensitivity, decisionMoment: cleanString(value.decisionMoment, 600) || intelligence.decisionMoment, explanationTrace: normalizeStringArray(value.explanationTrace, 240) || intelligence.explanationTrace, scoreModules: normalizeScoreModules(value.scoreModules, intelligence.scoreModules) } });
-}
-
-function isStoredFreeCheckLike(value: unknown): value is StoredFreeCheckLike {
-  return isRecord(value);
 }
 
 function buildSummary(entries: StoredFreeCheckSubmission[]) {
