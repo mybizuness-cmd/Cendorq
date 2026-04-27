@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
+import { getAiManagerCommandHistoryPolicy } from "@/lib/command-center/ai-manager-command-history";
 import { getAiManagerCommandPolicies } from "@/lib/command-center/ai-manager-command-queue";
 import { COMMAND_CENTER_MODULES } from "@/lib/command-center/modules";
 import { COMMAND_CENTER_READINESS_CHECKS } from "@/lib/command-center/readiness";
@@ -39,7 +40,7 @@ export default async function CommandCenterPage() {
             It will stay closed until production authentication, database access, and authorization controls are configured.
           </p>
           <div className="mt-8 rounded-2xl border border-amber-300/20 bg-amber-300/10 p-5 text-sm leading-7 text-amber-100">
-            No customer records, private intelligence, files, reports, evidence, payment data, automation controls, readiness checks, AI manager controls, or dashboard modules are exposed from this route.
+            No customer records, private intelligence, files, reports, evidence, payment data, automation controls, readiness checks, AI manager controls, AI history, or dashboard modules are exposed from this route.
           </div>
         </section>
       </main>
@@ -48,6 +49,7 @@ export default async function CommandCenterPage() {
 
   const foundation = getCommandCenterReadinessSummary();
   const aiCommands = getAiManagerCommandPolicies();
+  const aiHistory = getAiManagerCommandHistoryPolicy();
 
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-20 text-white">
@@ -109,6 +111,27 @@ export default async function CommandCenterPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+        <div className="mt-10 rounded-[2rem] border border-emerald-200/10 bg-emerald-200/[0.03] p-6 md:p-8">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-200">AI History</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">Command audit trail</h2>
+            </div>
+            <p className="max-w-2xl text-sm leading-6 text-slate-400">
+              Every future AI command should record request context, model and policy labels, review details, blocked reasons, and final decisions before anything can become customer-facing.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-4 lg:grid-cols-4">
+            <HistoryCard title="Required fields" items={aiHistory.requiredFields.slice(0, 6)} />
+            <HistoryCard title="Review fields" items={aiHistory.reviewFields.slice(0, 6)} />
+            <HistoryCard title="Blocked reasons" items={aiHistory.blockedReasonTypes.slice(0, 6)} />
+            <HistoryCard title="Audit events" items={aiHistory.auditEvents.slice(0, 6)} />
+          </div>
+          <div className="mt-5 rounded-3xl border border-white/10 bg-slate-950/60 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Retention states</p>
+            <p className="mt-2 text-sm leading-6 text-slate-300">{aiHistory.retentionStates.join(" · ")}</p>
           </div>
         </div>
         <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 md:p-8">
@@ -173,6 +196,19 @@ function MiniMetric({ label, value }: { label: string; value: number | string })
     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
       <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
       <p className="mt-1 text-lg font-semibold text-white">{value}</p>
+    </div>
+  );
+}
+
+function HistoryCard({ title, items }: { title: string; items: readonly string[] }) {
+  return (
+    <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
+      <p className="text-sm font-semibold text-white">{title}</p>
+      <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-400">
+        {items.map((item) => (
+          <li key={item}>• {item}</li>
+        ))}
+      </ul>
     </div>
   );
 }
