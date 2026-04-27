@@ -61,13 +61,29 @@ for (const item of readinessFiles) {
   validateHelperSafety(item.helper);
 }
 
+validateTextFile("src/lib/command-center/readiness-summary.ts", [
+  "getCommandCenterReadinessSummary",
+  "CommandCenterReadinessSummary",
+  "getCommandCenterDatabaseReadiness",
+  "getCommandCenterAuthReadiness",
+  "getCommandCenterFileStorageReadiness",
+  "getCommandCenterBillingReadiness",
+  "getCommandCenterDeliveryReadiness",
+  "getCommandCenterAutomationReadiness",
+  "getCommandCenterGovernanceReadiness",
+  "getCommandCenterIntelligenceReadiness",
+  "scopeCount",
+  "capabilityCount",
+]);
+validateHelperSafety("src/lib/command-center/readiness-summary.ts");
+
 if (failures.length) {
   console.error("Command Center readiness validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command Center readiness validation passed. Database, auth, file storage, billing, delivery, automation, governance, and intelligence readiness foundations are present, metadata-only, server-oriented, and protected from client/runtime value exposure.");
+console.log("Command Center readiness validation passed. Database, auth, file storage, billing, delivery, automation, governance, intelligence, and consolidated readiness summary foundations are present, metadata-only, server-oriented, and protected from client/runtime value exposure.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
