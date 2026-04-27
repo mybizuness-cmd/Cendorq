@@ -5,7 +5,6 @@ import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from 
 import { getAiManagerCommandHistoryPolicy } from "@/lib/command-center/ai-manager-command-history";
 import { getAiManagerCommandPolicies } from "@/lib/command-center/ai-manager-command-queue";
 import { getCustomerOutputApprovalPolicies, type CustomerOutputApprovalPolicy } from "@/lib/command-center/customer-output-approval";
-import { COMMAND_CENTER_MODULES } from "@/lib/command-center/modules";
 import { getOptimizationMethodLibrary, type OptimizationMethod } from "@/lib/command-center/optimization-method-library";
 import { getCommandCenterPlanControls, type CommandCenterPlanControl } from "@/lib/command-center/plan-control";
 import { COMMAND_CENTER_READINESS_CHECKS } from "@/lib/command-center/readiness";
@@ -16,6 +15,7 @@ import { BenchmarkEvidencePanel } from "./benchmark-evidence-panel";
 import { BenchmarkIntelligencePanel } from "./benchmark-intelligence-panel";
 import { CommandCenterOperatingMap } from "./command-center-operating-map";
 import { CommandCenterPanelIndex } from "./panel-index";
+import { ModuleRoadmapPanel } from "./module-roadmap-panel";
 import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
 import { SecurityPosturePanel } from "./security-posture-panel";
@@ -87,24 +87,7 @@ export default async function CommandCenterPage() {
         <SecurityPosturePanel />
         <OperatorReadinessMatrix />
         <CommandCenterPanelIndex />
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {COMMAND_CENTER_MODULES.map((module) => (
-            <div key={module.key} className="rounded-3xl border border-white/10 bg-white/[0.035] p-5">
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-base font-semibold text-white">{module.label}</p>
-                <span className="rounded-full border border-cyan-200/20 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100">
-                  {module.buildPriority}
-                </span>
-              </div>
-              <p className="mt-2 text-sm leading-6 text-slate-400">{module.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em]">
-                <span className="rounded-full border border-white/10 px-2.5 py-1 text-slate-400">phase {module.buildPhase}</span>
-                <span className="rounded-full border border-white/10 px-2.5 py-1 text-slate-400">{module.status}</span>
-                <span className="rounded-full border border-white/10 px-2.5 py-1 text-slate-400">{module.requiredPermission}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ModuleRoadmapPanel />
         <div className="mt-10 rounded-[2rem] border border-violet-200/10 bg-violet-200/[0.035] p-6 md:p-8">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
