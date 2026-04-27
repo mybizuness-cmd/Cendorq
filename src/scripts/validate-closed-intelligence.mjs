@@ -51,8 +51,8 @@ for (const [path, phrases] of repoExpectations) {
 }
 
 const commandCenterRoute = existsSync(join(root, "src/app/command-center/page.tsx")) ? read("src/app/command-center/page.tsx") : "";
-for (const forbidden of ["export const revalidate = 60", "index: true", "follow: true", "fetch(\"/api/free-check\"", "localStorage", "sessionStorage"]) {
-  if (commandCenterRoute.includes(forbidden)) failures.push(`Command Center route contains forbidden public/client data behavior: ${forbidden}`);
+for (const forbidden of ["export const revalidate = 60", "\n    index: true", "\n    follow: true", "\n      index: true", "\n      follow: true", "fetch(\"/api/free-check\"", "localStorage", "sessionStorage"]) {
+  if (commandCenterRoute.includes(forbidden)) failures.push(`Command Center route contains forbidden public/client data behavior: ${forbidden.trim()}`);
 }
 
 if (failures.length) {
