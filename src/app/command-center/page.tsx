@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 
+import { COMMAND_CENTER_MODULES } from "@/lib/command-center/modules";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -17,23 +19,6 @@ export const metadata: Metadata = {
     },
   },
 };
-
-const MODULES = [
-  "Intake Inbox",
-  "Clients",
-  "Reports",
-  "Projects",
-  "Tasks",
-  "File Vault",
-  "Ongoing Control",
-  "Payments",
-  "Analytics",
-  "Automation",
-  "Intelligence",
-  "Governance",
-  "Access Control",
-  "Audit Log",
-] as const;
 
 export default async function CommandCenterPage() {
   const headerList = await headers();
@@ -68,10 +53,16 @@ export default async function CommandCenterPage() {
           </p>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {MODULES.map((module) => (
-            <div key={module} className="rounded-3xl border border-white/10 bg-white/[0.035] p-5">
-              <p className="text-base font-semibold text-white">{module}</p>
-              <p className="mt-2 text-sm leading-6 text-slate-400">Schema-backed module. Implementation opens only after access control and database wiring are active.</p>
+          {COMMAND_CENTER_MODULES.map((module) => (
+            <div key={module.key} className="rounded-3xl border border-white/10 bg-white/[0.035] p-5">
+              <div className="flex items-start justify-between gap-4">
+                <p className="text-base font-semibold text-white">{module.label}</p>
+                <span className="rounded-full border border-cyan-200/20 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100">
+                  {module.status}
+                </span>
+              </div>
+              <p className="mt-2 text-sm leading-6 text-slate-400">{module.description}</p>
+              <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">{module.requiredPermission}</p>
             </div>
           ))}
         </div>
