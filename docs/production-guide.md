@@ -12,6 +12,7 @@ Cendorq is built around one protected buyer path:
 The homepage should stay focused on getting the right customer into the Free Scan. Do not turn the homepage back into a dashboard, route console, pricing comparison, or multi-offer page.
 
 For release-specific steps, use [`docs/release-checklist.md`](release-checklist.md).
+For deployment environment checks, use [`docs/deployment-environment-checklist.md`](deployment-environment-checklist.md).
 For production verification status, use [`docs/production-verification-status.md`](production-verification-status.md).
 For production failures, use [`docs/incident-response.md`](incident-response.md).
 
@@ -35,6 +36,17 @@ Before changing production behavior, use the standard that matches the change:
 Core operating rule:
 
 > The public surface sells the outcome. The private system holds the engine.
+
+## Canonical production host
+
+Production currently uses:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://www.cendorq.com
+CENDORQ_BASE_URL=https://www.cendorq.com
+```
+
+The apex domain `https://cendorq.com` redirects to the canonical `www` host. Run strict production smoke against `https://www.cendorq.com` unless the canonical host is intentionally changed.
 
 ## Before merging
 
@@ -82,16 +94,16 @@ These checks protect:
 
 ## After deployment
 
-Run the production smoke check against the deployed URL:
+Run the production smoke check against the deployed canonical URL:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 or:
 
 ```bash
-pnpm smoke:production https://cendorq.com
+pnpm smoke:production https://www.cendorq.com
 ```
 
 You can also run the manual GitHub Actions workflow:
@@ -99,9 +111,9 @@ You can also run the manual GitHub Actions workflow:
 - Actions
 - Production Smoke Check
 - Run workflow
-- Enter deployed URL
+- Enter deployed URL: `https://www.cendorq.com`
 
-The production smoke workflow also runs automatically every day against `https://cendorq.com`.
+The production smoke workflow also runs automatically every day against `https://www.cendorq.com`.
 
 If smoke checks fail or production weakens, follow the incident response runbook before making broad changes.
 
@@ -190,13 +202,43 @@ Expected shape:
 }
 ```
 
-## Free Scan API smoke rule
+## Free Scan API production rule
 
 Production smoke verifies `OPTIONS /api/free-check` returns the allowed methods without creating fake submissions.
 
 For non-local production URLs, production smoke also verifies unauthenticated `GET /api/free-check` stays protected with the expected `401` response. Localhost remains excluded from protected-read smoke so local development does not require production secrets.
 
+Production protected reads require:
+
+```txt
+x-intake-admin-key: <configured server-only INTAKE_CONSOLE_READ_KEY>
+```
+
+Set `INTAKE_CONSOLE_READ_KEY` in the production hosting environment before relying on the protected intake console. Keep it long, random, server-only, and never committed.
+
+`INTAKE_ADMIN_KEY` is supported only as a server-only alias when the deployment standard prefers that name.
+
 Do not weaken the Free Scan API read boundary, remove the `OPTIONS` check, or create fake Free Scan submissions during smoke checks.
+
+## Intake storage posture
+
+The current Free Scan API stores early intake data through a local runtime file-backed envelope.
+
+Treat this as an early production bridge, not the final durable customer-data system.
+
+Before scaling intake volume or treating submissions as durable business records, choose and implement a real persistence layer that preserves:
+
+- validation
+- duplicate detection
+- scoring
+- signal intelligence
+- report snapshots
+- no-store responses
+- protected admin reads
+- production smoke behavior
+- private/public boundary separation
+
+Do not expose raw intake records publicly. Do not add public report indexes. Do not weaken protected reads to make dashboards easier.
 
 ## Language rules
 
