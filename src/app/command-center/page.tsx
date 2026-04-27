@@ -5,7 +5,7 @@ import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from 
 import { getAiManagerCommandHistoryPolicy } from "@/lib/command-center/ai-manager-command-history";
 import { getAiManagerCommandPolicies } from "@/lib/command-center/ai-manager-command-queue";
 import { getCustomerOutputApprovalPolicies, type CustomerOutputApprovalPolicy } from "@/lib/command-center/customer-output-approval";
-import { getOptimizationMethodLibrary, type OptimizationMethod } from "@/lib/command-center/optimization-method-library";
+import { getOptimizationMethodLibrary } from "@/lib/command-center/optimization-method-library";
 import { getCommandCenterPlanControls } from "@/lib/command-center/plan-control";
 import { COMMAND_CENTER_READINESS_CHECKS } from "@/lib/command-center/readiness";
 import { getCommandCenterReadinessSummary } from "@/lib/command-center/readiness-summary";
@@ -17,6 +17,7 @@ import { CommandCenterOperatingMap } from "./command-center-operating-map";
 import { CommandCenterPanelIndex } from "./panel-index";
 import { ModuleRoadmapPanel } from "./module-roadmap-panel";
 import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
+import { OptimizationLibraryPanel } from "./optimization-library-panel";
 import { PlanControlPanel } from "./plan-control-panel";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
 import { SecurityPosturePanel } from "./security-posture-panel";
@@ -90,22 +91,7 @@ export default async function CommandCenterPage() {
         <CommandCenterPanelIndex />
         <ModuleRoadmapPanel />
         <PlanControlPanel plans={planControls} />
-        <div className="mt-10 rounded-[2rem] border border-fuchsia-200/10 bg-fuchsia-200/[0.03] p-6 md:p-8">
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-fuchsia-200">Optimization Library</p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">Evidence-backed method controls</h2>
-            </div>
-            <p className="max-w-2xl text-sm leading-6 text-slate-400">
-              Metadata only. Each approved method shows plan scope, problem signals, required evidence, proof checks, expected outcomes, and customer-safe output rules so recommendations stay practical, reviewed, and plan-scoped.
-            </p>
-          </div>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            {optimizationMethods.map((method) => (
-              <OptimizationMethodCard key={method.key} method={method} />
-            ))}
-          </div>
-        </div>
+        <OptimizationLibraryPanel methods={optimizationMethods} />
         <div className="mt-10 rounded-[2rem] border border-rose-200/10 bg-rose-200/[0.03] p-6 md:p-8">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
@@ -239,35 +225,6 @@ function MiniMetric({ label, value }: { label: string; value: number | string })
       <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
       <p className="mt-1 text-lg font-semibold text-white">{value}</p>
     </div>
-  );
-}
-
-function OptimizationMethodCard({ method }: { method: OptimizationMethod }) {
-  return (
-    <article className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-lg font-semibold text-white">{method.label}</p>
-          <p className="mt-2 text-sm leading-6 text-slate-400">Approved method: {method.key}</p>
-        </div>
-        <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em]">
-          {method.planScopes.map((scope) => (
-            <span key={scope} className="rounded-full border border-fuchsia-200/20 bg-fuchsia-200/10 px-2.5 py-1 text-fuchsia-100">
-              {scope}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <ListCard title="Problem signals" items={method.problemSignals} />
-        <ListCard title="Required evidence" items={method.requiredEvidence} />
-        <ListCard title="Proof checks" items={method.proofChecks} />
-        <ListCard title="Expected outcomes" items={method.expectedOutcomes} />
-      </div>
-      <div className="mt-4">
-        <ListCard title="Customer-safe rules" items={method.customerSafeOutputRules} />
-      </div>
-    </article>
   );
 }
 
