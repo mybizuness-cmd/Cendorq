@@ -69,11 +69,15 @@ export default async function CommandCenterPage() {
               <div className="flex items-start justify-between gap-4">
                 <p className="text-base font-semibold text-white">{module.label}</p>
                 <span className="rounded-full border border-cyan-200/20 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100">
-                  {module.status}
+                  {module.buildPriority}
                 </span>
               </div>
               <p className="mt-2 text-sm leading-6 text-slate-400">{module.description}</p>
-              <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">{module.requiredPermission}</p>
+              <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em]">
+                <span className="rounded-full border border-white/10 px-2.5 py-1 text-slate-400">phase {module.buildPhase}</span>
+                <span className="rounded-full border border-white/10 px-2.5 py-1 text-slate-400">{module.status}</span>
+                <span className="rounded-full border border-white/10 px-2.5 py-1 text-slate-400">{module.requiredPermission}</span>
+              </div>
             </div>
           ))}
         </div>
