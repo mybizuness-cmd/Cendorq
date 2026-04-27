@@ -64,6 +64,24 @@ validateTextFile("src/lib/command-center/auth-readiness.ts", [
   "service access rotation path",
 ]);
 
+validateTextFile("src/lib/command-center/file-storage-readiness.ts", [
+  "COMMAND_CENTER_FILE_STORAGE_ALLOWED_PROVIDERS",
+  "COMMAND_CENTER_FILE_STORAGE_CONFIG_KEYS",
+  "FILE_STORAGE_PROVIDER",
+  "FILE_STORAGE_SERVER_TOKEN",
+  "MINIMUM_FILE_STORAGE_SERVER_TOKEN_LENGTH = 32",
+  "providerAllowed",
+  "serverTokenShape",
+  "objectVisibility: \"private\"",
+  "uploadAuthorization: \"server-side-required\"",
+  "downloadPolicy: \"signed-or-authenticated\"",
+  "publicListingAllowed: false",
+  "clientDirectUploadAllowed: false",
+  "clientDirectDownloadAllowed: false",
+  "download access recording",
+  "revocation path",
+]);
+
 validateTextFile("src/lib/command-center/database-config.ts", [
   "getCommandCenterDatabaseConfigState",
   "COMMAND_CENTER_DATABASE_CONFIG_KEYS",
@@ -86,6 +104,7 @@ for (const path of [
   "src/lib/command-center/security-posture.ts",
   "src/lib/command-center/access.ts",
   "src/lib/command-center/auth-readiness.ts",
+  "src/lib/command-center/file-storage-readiness.ts",
   "src/lib/command-center/database-config.ts",
   "src/lib/command-center/database-readiness.ts",
 ]) {
@@ -98,7 +117,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps auth and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, and preserves review-gated private operation boundaries.");
+console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps auth, files, and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, protects private file storage boundaries, and preserves review-gated private operation boundaries.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -115,7 +134,7 @@ function validateTextFile(path, phrases) {
 function validateHelperSafety(path) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "clientOnlyProtectionAllowed: true", "publicBypassAllowed: true", "allowed: true, mode: \"closed\""]) {
+  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "clientOnlyProtectionAllowed: true", "publicBypassAllowed: true", "publicListingAllowed: true", "clientDirectUploadAllowed: true", "clientDirectDownloadAllowed: true", "allowed: true, mode: \"closed\""]) {
     if (text.includes(forbidden)) failures.push(`${path} contains forbidden security behavior: ${forbidden}`);
   }
 }
