@@ -101,6 +101,25 @@ validateTextFile("src/lib/command-center/billing-readiness.ts", [
   "billing event replay protection",
 ]);
 
+validateTextFile("src/lib/command-center/delivery-readiness.ts", [
+  "COMMAND_CENTER_DELIVERY_ALLOWED_PROVIDERS",
+  "COMMAND_CENTER_DELIVERY_CONFIG_KEYS",
+  "REPORT_DELIVERY_PROVIDER",
+  "REPORT_DELIVERY_SERVER_TOKEN",
+  "MINIMUM_DELIVERY_SERVER_TOKEN_LENGTH = 32",
+  "providerAllowed",
+  "serverTokenShape",
+  "deliveryAuthorization: \"server-side-required\"",
+  "customerSendPolicy: \"review-approved-output-only\"",
+  "sourceOfTruth: \"cendorq\"",
+  "vendorLockInAllowed: false",
+  "clientDirectSendAllowed: false",
+  "unapprovedCustomerDeliveryAllowed: false",
+  "publicDeliveryRecordAccessAllowed: false",
+  "approved output requirement",
+  "provider failure containment",
+]);
+
 validateTextFile("src/lib/command-center/database-config.ts", [
   "getCommandCenterDatabaseConfigState",
   "COMMAND_CENTER_DATABASE_CONFIG_KEYS",
@@ -125,6 +144,7 @@ for (const path of [
   "src/lib/command-center/auth-readiness.ts",
   "src/lib/command-center/file-storage-readiness.ts",
   "src/lib/command-center/billing-readiness.ts",
+  "src/lib/command-center/delivery-readiness.ts",
   "src/lib/command-center/database-config.ts",
   "src/lib/command-center/database-readiness.ts",
 ]) {
@@ -137,7 +157,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps auth, files, billing, and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, protects private file storage boundaries, requires verified billing state changes, and preserves review-gated private operation boundaries.");
+console.log("Command Center security posture validation passed. The system uses maximum practical defense-in-depth language, denies absolute security guarantees, keeps auth, files, billing, delivery, and database configuration server-only, blocks public exposure, hardens preview access with strong secret requirements and timing-safe comparison, enforces least-privilege auth readiness, protects private file storage boundaries, requires verified billing state changes, requires approved-output delivery, preserves Cendorq as source of truth, and preserves review-gated private operation boundaries.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -154,7 +174,7 @@ function validateTextFile(path, phrases) {
 function validateHelperSafety(path) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "clientOnlyProtectionAllowed: true", "publicBypassAllowed: true", "publicListingAllowed: true", "clientDirectUploadAllowed: true", "clientDirectDownloadAllowed: true", "clientBillingMutationAllowed: true", "unverifiedWebhookAllowed: true", "publicBillingRecordAccessAllowed: true", "allowed: true, mode: \"closed\""]) {
+  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "use client", "secretValue", "unhackable: true", "absoluteGuaranteeClaimAllowed: true", "publicExposureAllowed: true", "clientSideBypassAllowed: true", "clientOnlyProtectionAllowed: true", "publicBypassAllowed: true", "publicListingAllowed: true", "clientDirectUploadAllowed: true", "clientDirectDownloadAllowed: true", "clientBillingMutationAllowed: true", "unverifiedWebhookAllowed: true", "publicBillingRecordAccessAllowed: true", "vendorLockInAllowed: true", "clientDirectSendAllowed: true", "unapprovedCustomerDeliveryAllowed: true", "publicDeliveryRecordAccessAllowed: true", "allowed: true, mode: \"closed\""]) {
     if (text.includes(forbidden)) failures.push(`${path} contains forbidden security behavior: ${forbidden}`);
   }
 }
