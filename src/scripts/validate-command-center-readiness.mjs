@@ -77,13 +77,56 @@ validateTextFile("src/lib/command-center/readiness-summary.ts", [
 ]);
 validateHelperSafety("src/lib/command-center/readiness-summary.ts");
 
+validateTextFile("src/lib/command-center/modules.ts", [
+  "buildPhase",
+  "buildPriority",
+  "\"now\" | \"next\" | \"later\"",
+  "buildPriority: \"now\"",
+  "buildPriority: \"next\"",
+  "buildPriority: \"later\"",
+  "buildPhase: 2",
+  "buildPhase: 11",
+]);
+validateHelperSafety("src/lib/command-center/modules.ts");
+
+validateTextFile("src/lib/command-center/plan-control.ts", [
+  "COMMAND_CENTER_PLAN_CONTROLS",
+  "CommandCenterPlanControl",
+  "free-scan",
+  "deep-review",
+  "build-fix",
+  "ongoing-control",
+  "editableAreas",
+  "previewOutputs",
+  "testRunTypes",
+  "generatedRecordTypes",
+  "approvalGates",
+  "aiManagerCapabilities",
+  "proofStandards",
+  "unsupported claims blocked",
+  "customer value verified",
+]);
+validateHelperSafety("src/lib/command-center/plan-control.ts");
+
+validateTextFile("docs/command-center-plan-control-standard.md", [
+  "Command Center Plan Control Standard",
+  "Every plan should be controllable, testable, previewable, and evidence-backed",
+  "AI cannot be treated as the source of truth without evidence, review, and approval.",
+  "The Command Center should become the private operating brain for Cendorq.",
+  "Every report claim should be tied to evidence.",
+  "Fix work should be traceable to tasks, evidence, quality checks, and customer value.",
+  "No customer-facing output without approval.",
+  "No unsupported report claims.",
+  "Cendorq remains the source of truth.",
+]);
+
 if (failures.length) {
   console.error("Command Center readiness validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command Center readiness validation passed. Database, auth, file storage, billing, delivery, automation, governance, intelligence, and consolidated readiness summary foundations are present, metadata-only, server-oriented, and protected from client/runtime value exposure.");
+console.log("Command Center readiness validation passed. Readiness foundations, module build-order metadata, and plan control foundations are present, metadata-only, server-oriented, evidence-backed, approval-gated, and protected from client/runtime value exposure.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
