@@ -28,7 +28,9 @@ const requiredFiles = [
   "CHANGELOG.md",
   "src/app/command-center/page.tsx",
   "src/app/command-center/[...module]/page.tsx",
+  "src/app/api/command-center/readiness/route.ts",
   "src/lib/command-center/access.ts",
+  "src/lib/command-center/config-status.ts",
   "src/lib/command-center/modules.ts",
   "src/lib/command-center/readiness.ts",
 ];
@@ -41,7 +43,9 @@ const repoExpectations = [
   ["CHANGELOG.md", ["Closed intelligence operating standard", "Data quality governance standard", "Learning memory standard", "Pure signal authority standard", "Adaptive signal evolution standard", "Resilience and continuity standard", "Maximum protection standard"]],
   ["src/app/command-center/page.tsx", ["Private Command Center", "Closed by default.", "robots", "index: false", "follow: false", "No customer records", "private intelligence", "access controls are configured", "COMMAND_CENTER_MODULES", "COMMAND_CENTER_READINESS_CHECKS", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName"]],
   ["src/app/command-center/[...module]/page.tsx", ["CommandCenterModulePage", "notFound", "getCommandCenterModule", "resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "index: false", "follow: false", "No customer records", "Schema anchors", "requiredPermission"]],
+  ["src/app/api/command-center/readiness/route.ts", ["resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "getCommandCenterConfigStatus", "summarizeCommandCenterConfigStatus", "no-store", "not authorized", "summary", "checks"]],
   ["src/lib/command-center/access.ts", ["resolveCommandCenterAccessState", "commandCenterPreviewHeaderName", "COMMAND_CENTER_PREVIEW_KEY", "allowed: false", "mode: \"closed\"", "mode: \"preview\""]],
+  ["src/lib/command-center/config-status.ts", ["getCommandCenterConfigStatus", "summarizeCommandCenterConfigStatus", "missingServerConfig", "configuredCount", "requiredCount", "protectedTables", "hasServerConfigValue"]],
   ["src/lib/command-center/modules.ts", ["COMMAND_CENTER_MODULES", "Command Home", "Intake Inbox", "Clients", "Reports", "Projects", "Tasks", "File Vault", "Ongoing Control", "Payments", "Analytics", "Delivery", "Automation", "Intelligence", "Governance", "Access Control", "Audit Log", "Settings", "requiredPermission", "schemaAnchors"]],
   ["src/lib/command-center/readiness.ts", ["COMMAND_CENTER_READINESS_CHECKS", "durable-postgres", "private-auth-provider", "file-object-storage", "stripe-billing", "report-delivery-provider", "automation-event-security", "governance-controls", "production-smoke-readiness", "migration-operations", "requiredServerConfig", "protectedTables"]],
 ];
@@ -50,13 +54,8 @@ for (const file of requiredFiles) {
   if (!existsSync(join(root, file))) failures.push(`Missing required operating file: ${file}`);
 }
 
-for (const [path, title, phrases] of standards) {
-  expect(path, [title, ...phrases], `${path} is missing required standard detail`);
-}
-
-for (const [path, phrases] of repoExpectations) {
-  expect(path, phrases, `${path} is missing synchronized operating detail`);
-}
+for (const [path, title, phrases] of standards) expect(path, [title, ...phrases], `${path} is missing required standard detail`);
+for (const [path, phrases] of repoExpectations) expect(path, phrases, `${path} is missing synchronized operating detail`);
 
 for (const routePath of ["src/app/command-center/page.tsx", "src/app/command-center/[...module]/page.tsx"]) {
   const route = existsSync(join(root, routePath)) ? read(routePath) : "";
@@ -65,9 +64,19 @@ for (const routePath of ["src/app/command-center/page.tsx", "src/app/command-cen
   }
 }
 
+const readinessApi = existsSync(join(root, "src/app/api/command-center/readiness/route.ts")) ? read("src/app/api/command-center/readiness/route.ts") : "";
+for (const forbidden of ["value:", "secret:", "DATABASE_URL:", "STRIPE_SECRET_KEY:", "process.env.DATABASE_URL", "process.env.STRIPE_SECRET_KEY"]) {
+  if (readinessApi.includes(forbidden)) failures.push(`Command Center readiness API contains forbidden secret-value behavior: ${forbidden}`);
+}
+
 const accessGate = existsSync(join(root, "src/lib/command-center/access.ts")) ? read("src/lib/command-center/access.ts") : "";
 for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "document.cookie", "allowed: true, mode: \"closed\""]) {
   if (accessGate.includes(forbidden)) failures.push(`Command Center access gate contains forbidden behavior: ${forbidden}`);
+}
+
+const configStatus = existsSync(join(root, "src/lib/command-center/config-status.ts")) ? read("src/lib/command-center/config-status.ts") : "";
+for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client", "return value", "configuredValue", "secretValue"]) {
+  if (configStatus.includes(forbidden)) failures.push(`Command Center config status contains forbidden value exposure behavior: ${forbidden}`);
 }
 
 const moduleMap = existsSync(join(root, "src/lib/command-center/modules.ts")) ? read("src/lib/command-center/modules.ts") : "";
@@ -86,13 +95,11 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, and private operating intelligence are enforced.");
+console.log("Operating standards validation passed. Closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, synchronization QA, internal command center, score thresholds, private route closure, centralized access gate, protected module map, closed module routes, metadata-only readiness map, protected config status, protected readiness API, and private operating intelligence are enforced.");
 
 function expect(path, phrases, label) {
   const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${label}: ${phrase}`);
-  }
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${label}: ${phrase}`);
 }
 
 function read(path) {
