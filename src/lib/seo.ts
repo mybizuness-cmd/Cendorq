@@ -59,7 +59,7 @@ export type ServiceJsonLdInput = Readonly<{
     serviceType?: string;
 }>;
 
-const FALLBACK_SITE_URL = "https://cendorq.example";
+const FALLBACK_SITE_URL = "https://www.cendorq.com";
 const DEFAULT_OG_IMAGE_PATH = "/opengraph-image";
 const ORGANIZATION_HASH = "#organization";
 const WEBSITE_HASH = "#website";

@@ -5,6 +5,7 @@ import { SiteHeader } from "@/layout/site-header-conversion";
 import { absoluteUrl, siteConfig, toJsonLd } from "@/lib/seo";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import "./tailwind.css";
 import "./globals.css";
 import "./quality-polish.css";
 
