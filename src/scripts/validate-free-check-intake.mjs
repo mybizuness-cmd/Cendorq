@@ -41,6 +41,12 @@ expect("docs/durable-intake-storage-standard.md", [
 
 expect("src/app/api/free-check/route.ts", [
   "CURRENT_STORAGE_FILE = \"free-check-intakes.v3.json\"",
+  "loadFileBackedEnvelope",
+  "saveFileBackedEnvelope",
+  "type FileBackedEnvelope",
+  "type StoredFreeCheckEnvelope = FileBackedEnvelope<StoredFreeCheckSubmission>;",
+  "normalizeStoredEntryFromUnknown",
+  "sortStoredEntriesByUpdatedAt",
   "The requested Free Scan entry was not found.",
   "Unable to load Free Scan entries.",
   "submit the Free Scan again",
@@ -110,8 +116,9 @@ for (const phrase of [
   "OPEN_READS_ENV",
   "shouldAllowOpenConsoleReads",
   "explicitOpenReadFlag",
+  "from \"node:fs/promises\"",
 ]) {
-  if (apiRouteText.includes(phrase)) failures.push(`Free Scan API route contains forbidden open-read escape hatch: ${phrase}`);
+  if (apiRouteText.includes(phrase)) failures.push(`Free Scan API route contains forbidden storage/read escape hatch: ${phrase}`);
 }
 
 const publicIntakeText = [
@@ -153,7 +160,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam usage, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
