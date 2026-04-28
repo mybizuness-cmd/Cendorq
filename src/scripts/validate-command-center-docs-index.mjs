@@ -22,6 +22,12 @@ validateTextFile(docsIndexPath, [
   "src/lib/command-center/enterprise-operating-standard.ts",
   "src/lib/command-center/audit-defense-system.ts",
   "src/lib/command-center/most-pristine-system-standard.ts",
+  "src/lib/command-center/audit-report-record-contracts.ts",
+  "src/lib/command-center/scale-resilience-standard.ts",
+  "src/lib/command-center/customer-platform-standard.ts",
+  "src/lib/command-center/customer-command-experience-standard.ts",
+  "src/lib/command-center/conversion-moat-standard.ts",
+  "src/lib/command-center/insights-conversation-standard.ts",
   "src/lib/command-center/readiness-summary.ts",
   "src/lib/command-center/database-readiness.ts",
   "src/lib/command-center/auth-readiness.ts",
@@ -40,10 +46,16 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
   "src/scripts/validate-most-pristine-system-standard.mjs",
+  "src/scripts/validate-report-record-contracts.mjs",
+  "src/scripts/validate-scale-resilience-standard.mjs",
+  "src/scripts/validate-customer-platform-standard.mjs",
+  "src/scripts/validate-customer-experience-standard.mjs",
+  "src/scripts/validate-conversion-moat-standard.mjs",
+  "src/scripts/validate-insights-conversation-standard.mjs",
   "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-production-smoke-coverage.mjs",
-  "must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, or non-public quality-review details",
+  "must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details",
 ]);
 
 validateTextFile(runbookPath, [
@@ -63,6 +75,12 @@ validateTextFile(packagePath, [
   "validate-enterprise-operating-standard.mjs",
   "validate-audit-defense-system.mjs",
   "validate-most-pristine-system-standard.mjs",
+  "validate-report-record-contracts.mjs",
+  "validate-scale-resilience-standard.mjs",
+  "validate-customer-platform-standard.mjs",
+  "validate-customer-experience-standard.mjs",
+  "validate-conversion-moat-standard.mjs",
+  "validate-insights-conversation-standard.mjs",
 ]);
 
 if (failures.length) {
@@ -71,7 +89,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, validation registry, report truth engine, report growth system, controlled market learning, enterprise operating standard, audit defense system, most-pristine system standard, runbook references, and guardrail validators remain discoverable without exposing secrets or live private data.");
+console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, validation registry, report truth engine, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, runbook references, and guardrail validators remain discoverable without exposing secrets or live private data.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
