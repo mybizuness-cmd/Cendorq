@@ -1,6 +1,6 @@
 # Command Center Docs Index
 
-This private documentation index keeps the Command Center operating standards easy to find without exposing private records, evidence, intelligence, secrets, reports, prompts, scoring internals, or customer data.
+This private documentation index keeps the Command Center operating standards easy to find without exposing private records, evidence, intelligence, secrets, reports, prompts, scoring internals, customer data, or private customer conversation contents.
 
 ## Core standards
 
@@ -19,6 +19,12 @@ This private documentation index keeps the Command Center operating standards ea
 - Enterprise operating standard: `src/lib/command-center/enterprise-operating-standard.ts`
 - Audit defense system: `src/lib/command-center/audit-defense-system.ts`
 - Most-pristine system standard: `src/lib/command-center/most-pristine-system-standard.ts`
+- Audit/report record contracts: `src/lib/command-center/audit-report-record-contracts.ts`
+- Scale resilience standard: `src/lib/command-center/scale-resilience-standard.ts`
+- Customer platform standard: `src/lib/command-center/customer-platform-standard.ts`
+- Customer command experience standard: `src/lib/command-center/customer-command-experience-standard.ts`
+- Conversion moat standard: `src/lib/command-center/conversion-moat-standard.ts`
+- Insights conversation standard: `src/lib/command-center/insights-conversation-standard.ts`
 - Readiness summary: `src/lib/command-center/readiness-summary.ts`
 - Database readiness: `src/lib/command-center/database-readiness.ts`
 - Auth readiness: `src/lib/command-center/auth-readiness.ts`
@@ -42,10 +48,16 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-enterprise-operating-standard.mjs`
 - `src/scripts/validate-audit-defense-system.mjs`
 - `src/scripts/validate-most-pristine-system-standard.mjs`
+- `src/scripts/validate-report-record-contracts.mjs`
+- `src/scripts/validate-scale-resilience-standard.mjs`
+- `src/scripts/validate-customer-platform-standard.mjs`
+- `src/scripts/validate-customer-experience-standard.mjs`
+- `src/scripts/validate-conversion-moat-standard.mjs`
+- `src/scripts/validate-insights-conversation-standard.mjs`
 - `src/scripts/validate-command-center-operator-runbook.mjs`
 - `src/scripts/validate-command-center-docs-index.mjs`
 - `src/scripts/validate-production-smoke-coverage.mjs`
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, or validator is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, or validator is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
