@@ -91,12 +91,22 @@ export function SupportRequestForm() {
       });
 
       const data = (await response.json().catch(() => null)) as SupportRequestApiResponse | null;
-      if (!response.ok || !data || data.ok === false) {
+      if (!response.ok || !data) {
         setState({
           kind: "error",
-          message: data?.error ?? "The support request could not be submitted cleanly.",
-          details: Array.isArray(data?.details) ? data.details : [],
-          fieldErrors: data?.fieldErrors ?? {},
+          message: "The support request could not be submitted cleanly.",
+          details: [],
+          fieldErrors: {},
+        });
+        return;
+      }
+
+      if (!data.ok) {
+        setState({
+          kind: "error",
+          message: data.error ?? "The support request could not be submitted cleanly.",
+          details: Array.isArray(data.details) ? data.details : [],
+          fieldErrors: data.fieldErrors ?? {},
         });
         return;
       }
