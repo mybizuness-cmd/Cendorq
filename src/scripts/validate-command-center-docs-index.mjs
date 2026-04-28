@@ -17,6 +17,7 @@ validateTextFile(docsIndexPath, [
   "src/lib/command-center/panel-registry.ts",
   "src/lib/command-center/validation-registry.ts",
   "src/lib/command-center/report-truth-engine.ts",
+  "src/lib/command-center/report-growth-system.ts",
   "src/lib/command-center/readiness-summary.ts",
   "src/lib/command-center/database-readiness.ts",
   "src/lib/command-center/auth-readiness.ts",
@@ -58,7 +59,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, validation registry, report truth engine, runbook references, and guardrail validators remain discoverable without exposing secrets or live private data.");
+console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, validation registry, report truth engine, report growth system, runbook references, and guardrail validators remain discoverable without exposing secrets or live private data.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
