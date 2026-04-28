@@ -91,6 +91,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Market learning or self-evolution may have become unsupported, privacy-unsafe, unreviewed, unversioned, or vulnerable to agent drift.",
   },
   {
+    key: "enterprise-operating-standard",
+    label: "Enterprise operating standard",
+    scriptPath: "src/scripts/validate-enterprise-operating-standard.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "strict-but-not-paralyzing governance across security, AI, data protection, report integrity, market learning, commercial leverage, brand trust, and resilience",
+    failureMeaning: "The system may be under-protected, over-blocked, commercially misaligned, legally careless, or missing enterprise audit expectations.",
+  },
+  {
     key: "operator-runbook",
     label: "Operator runbook",
     scriptPath: "src/scripts/validate-command-center-operator-runbook.mjs",
