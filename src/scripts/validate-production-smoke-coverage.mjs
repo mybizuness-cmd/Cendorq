@@ -6,9 +6,11 @@ const failures = [];
 const smokePath = "src/scripts/smoke-production.mjs";
 const workflowPath = ".github/workflows/smoke-production.yml";
 const packagePath = "package.json";
+const runbookPath = "docs/command-center-operator-runbook.md";
+const docsIndexPath = "docs/command-center-docs-index.md";
 
-for (const file of [smokePath, workflowPath, packagePath]) {
-  if (!existsSync(join(root, file))) failures.push(`Missing production smoke file: ${file}`);
+for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath]) {
+  if (!existsSync(join(root, file))) failures.push(`Missing production smoke dependency: ${file}`);
 }
 
 expect(smokePath, [
@@ -70,6 +72,18 @@ expect(packagePath, [
   "validate-production-smoke-coverage.mjs",
 ]);
 
+expect(runbookPath, [
+  "# Command Center Operator Runbook",
+  "docs/command-center-docs-index.md",
+  "validate-command-center-docs-index.mjs",
+]);
+
+expect(docsIndexPath, [
+  "# Command Center Docs Index",
+  "docs/command-center-operator-runbook.md",
+  "validate-command-center-operator-runbook.mjs",
+]);
+
 const smokeText = read(smokePath);
 for (const phrase of [
   "Search Presence Scan",
@@ -89,7 +103,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, operator runbook validation, docs index validation, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
