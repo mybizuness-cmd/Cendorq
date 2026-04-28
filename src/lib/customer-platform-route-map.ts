@@ -5,6 +5,7 @@ export type CustomerPlatformRouteKey =
   | "dashboardReports"
   | "dashboardBilling"
   | "dashboardNotifications"
+  | "dashboardSupport"
   | "freeCheck"
   | "plans";
 
@@ -65,6 +66,13 @@ export const CUSTOMER_PLATFORM_ROUTES = [
     path: "/dashboard/notifications",
     label: "Notification center",
     purpose: "Verified customer notification center for lifecycle alerts, security prompts, billing actions, report readiness, and support states.",
+    access: "verified-customer",
+  },
+  {
+    key: "dashboardSupport",
+    path: "/dashboard/support",
+    label: "Support and corrections",
+    purpose: "Verified customer support center for report questions, correction requests, billing help, security concerns, and plan guidance.",
     access: "verified-customer",
   },
   {
@@ -133,6 +141,13 @@ export const CUSTOMER_PLATFORM_STAGES = [
     customerPromise: "See important account, report, billing, support, and security alerts without noise or hidden risk.",
     conversionRole: "Keep customers moving through the right next step while preserving trust, suppression, and safety boundaries.",
   },
+  {
+    key: "support-protected",
+    label: "Support protected",
+    route: "dashboardSupport",
+    customerPromise: "Ask for help, corrections, billing guidance, or security review through a protected, documented support path.",
+    conversionRole: "Protect trust, reduce disputes, and keep high-intent customers moving with service instead of pressure.",
+  },
 ] as const satisfies readonly CustomerPlatformStage[];
 
 export const CUSTOMER_PLATFORM_ROUTE_GUARDS = [
@@ -142,6 +157,9 @@ export const CUSTOMER_PLATFORM_ROUTE_GUARDS = [
   "report vault access requires matching customer and business boundary",
   "notification center access requires authenticated customer ownership and route authorization",
   "notification center must not render raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals",
+  "support center access requires authenticated customer ownership and route authorization",
+  "support center must not promise refunds, legal outcomes, report changes, billing changes, or guaranteed results without approval",
+  "support center must preserve correction path, billing help, security review, and escalation visibility",
   "provider signup and email/password signup must remain available",
   "Cendorq Support <support@cendorq.com> remains the transactional sender identity",
   "welcome email is one-time only after verified account creation",
