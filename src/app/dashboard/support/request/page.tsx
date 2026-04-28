@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
+import { SupportRequestForm } from "@/components/customer-support/support-request-form";
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, CUSTOMER_SUPPORT_INTAKE_RISK_RULES } from "@/lib/customer-support-intake-architecture";
 
 export const metadata = buildMetadata({
@@ -8,14 +9,6 @@ export const metadata = buildMetadata({
   path: "/dashboard/support/request",
   noIndex: true,
 });
-
-const FIELD_EXAMPLES = [
-  "Business or account context",
-  "Request type",
-  "Affected report, plan, billing, or security area",
-  "Safe customer description",
-  "Safety acknowledgement",
-] as const;
 
 const SAFETY_BANNERS = [
   "Do not paste passwords, raw tokens, secret keys, private keys, or payment details.",
@@ -59,24 +52,8 @@ export default function SupportRequestPage() {
         ))}
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
-        <article className="system-panel-authority rounded-[2rem] p-6">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Request builder</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">The form should collect only what support needs.</h2>
-          <div className="mt-6 grid gap-3">
-            {FIELD_EXAMPLES.map((field, index) => (
-              <div key={field} className="rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-4">
-                <div className="flex items-start gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cyan-300 text-xs font-black text-slate-950">{index + 1}</div>
-                  <div>
-                    <div className="text-sm font-semibold text-white">{field}</div>
-                    <p className="mt-1 text-xs leading-6 text-slate-400">Validated before routing to support request records and audit events.</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </article>
+      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+        <SupportRequestForm />
 
         <aside className="grid gap-5">
           <article className="system-surface rounded-[2rem] p-6">
