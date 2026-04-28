@@ -13,6 +13,7 @@ const requiredScripts = [
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
+  "src/scripts/validate-command-center-validation-registry.mjs",
   "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-optimization-method-library.mjs",
