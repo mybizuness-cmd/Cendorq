@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
+import { NextRequest } from "next/server";
+import { randomUUID } from "node:crypto";
 import path from "node:path";
 
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, type CustomerSupportIntakeType } from "@/lib/customer-support-intake-architecture";
+import { cleanGatewayString, jsonNoStore, optionsNoStore, verifyAdminReadAccess, verifyCustomerSupportContext } from "@/lib/customer-access-gateway-runtime";
 import { loadFileBackedEnvelope, saveFileBackedEnvelope, type FileBackedEnvelope } from "@/lib/storage/file-backed-envelope";
 
 export const runtime = "nodejs";
@@ -34,26 +35,19 @@ type SupportRequestView = Omit<StoredSupportRequest, "customerIdHash">;
 
 const STORAGE_DIR = path.join(process.cwd(), ".cendorq-runtime");
 const STORAGE_FILE = path.join(STORAGE_DIR, "customer-support-requests.v3.json");
-const ADMIN_HEADER = "x-support-admin-key";
-const CUSTOMER_CONTEXT_HEADER = "x-cendorq-customer-context";
 const MAX_REQUEST_BYTES = 20_000;
 const MAX_GET_LIMIT = 100;
 const SUPPORT_ADMIN_KEY_ENV_CANDIDATES = ["SUPPORT_CONSOLE_READ_KEY", "INTAKE_ADMIN_KEY"] as const;
-const CUSTOMER_CONTEXT_KEY_ENV = "CUSTOMER_SUPPORT_CONTEXT_KEY";
 const SUPPORT_REQUEST_TYPES = ["report-question", "correction-request", "billing-help", "security-concern", "plan-guidance"] as const satisfies readonly CustomerSupportIntakeType[];
-const NO_STORE_HEADERS = {
-  "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-  Pragma: "no-cache",
-  Expires: "0",
-} as const;
 
 export async function OPTIONS() {
-  return new NextResponse(null, { status: 204, headers: { Allow: "GET,POST,OPTIONS", ...NO_STORE_HEADERS } });
+  return optionsNoStore("GET,POST,OPTIONS");
 }
 
 export async function GET(request: NextRequest) {
-  if (!canReadEntries(request)) {
-    return jsonNoStore({ ok: false, error: "The support console is not authorized to read requests.", details: ["Provide the configured support admin header before requesting stored support entries."] }, 401);
+  const adminAccess = verifyAdminReadAccess(request, SUPPORT_ADMIN_KEY_ENV_CANDIDATES);
+  if (!adminAccess.ok) {
+    return jsonNoStore({ ok: false, error: adminAccess.safeMessage, details: ["Provide the configured support admin header before requesting stored support entries."] }, 401);
   }
 
   try {
@@ -84,9 +78,9 @@ export async function POST(request: NextRequest) {
   const contentLength = Number(request.headers.get("content-length") || "0");
   if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) return jsonNoStore({ ok: false, error: "The support request is too large to process safely.", details: ["Shorten the safe description and submit again."] }, 413);
 
-  const contextCheck = verifyCustomerContext(request);
-  if (!contextCheck.ok) {
-    return jsonNoStore({ ok: false, error: "Verified customer context is required before submitting support requests.", details: ["Open support from the authenticated customer dashboard and try again."] }, 401);
+  const contextCheck = verifyCustomerSupportContext(request);
+  if (!contextCheck.ok || !contextCheck.customerIdHash) {
+    return jsonNoStore({ ok: false, error: contextCheck.safeMessage, details: ["Open support from the authenticated customer dashboard and try again."] }, 401);
   }
 
   let rawBody = "";
@@ -165,30 +159,6 @@ async function saveEnvelope(envelope: SupportEnvelope) {
   await saveFileBackedEnvelope({ storageDir: STORAGE_DIR, storageFile: STORAGE_FILE, envelope, createTempId: randomUUID });
 }
 
-function verifyCustomerContext(request: NextRequest) {
-  const configuredKey = cleanQueryValue(process.env[CUSTOMER_CONTEXT_KEY_ENV] ?? "", 200);
-  if (!configuredKey && process.env.NODE_ENV !== "production") return { ok: true as const, customerIdHash: "local-development-context" };
-  const providedKey = cleanQueryValue(request.headers.get(CUSTOMER_CONTEXT_HEADER) ?? "", 200);
-  if (!configuredKey || !providedKey || !safeEqual(providedKey, configuredKey)) return { ok: false as const, customerIdHash: "" };
-  return { ok: true as const, customerIdHash: createHash("sha256").update(providedKey).digest("hex").slice(0, 24) };
-}
-
-function canReadEntries(request: NextRequest) {
-  if (process.env.NODE_ENV !== "production") return true;
-  const configuredKey = configuredReadKey();
-  if (!configuredKey) return false;
-  const providedKey = cleanQueryValue(request.headers.get(ADMIN_HEADER) ?? "", 200);
-  return providedKey ? safeEqual(providedKey, configuredKey) : false;
-}
-
-function configuredReadKey() {
-  for (const envName of SUPPORT_ADMIN_KEY_ENV_CANDIDATES) {
-    const value = cleanQueryValue(process.env[envName] ?? "", 200);
-    if (value) return value;
-  }
-  return "";
-}
-
 function evaluateSupportRisk(text: string, requestType: CustomerSupportIntakeType) {
   const lower = text.toLowerCase();
   const riskFlags: string[] = [];
@@ -262,12 +232,11 @@ function containsAny(value: string, needles: readonly string[]) {
 }
 
 function cleanString(value: unknown, maxLength: number) {
-  if (typeof value !== "string") return "";
-  return value.normalize("NFKC").replace(/<[^>]*>/g, " ").replace(/[\u0000-\u001F\u007F]/g, " ").replace(/[\u200B-\u200D\uFEFF]/g, "").replace(/\s+/g, " ").trim().slice(0, maxLength);
+  return cleanGatewayString(value, maxLength);
 }
 
 function cleanQueryValue(value: unknown, maxLength: number) {
-  return cleanString(value, maxLength);
+  return cleanGatewayString(value, maxLength);
 }
 
 function clampInteger(value: unknown, min: number, max: number, fallback: number) {
@@ -282,17 +251,6 @@ function normalizeIsoDate(value: unknown) {
   return Number.isNaN(date.getTime()) ? "" : date.toISOString();
 }
 
-function safeEqual(left: string, right: string) {
-  const leftBuffer = Buffer.from(left);
-  const rightBuffer = Buffer.from(right);
-  if (leftBuffer.length !== rightBuffer.length) return false;
-  return timingSafeEqual(leftBuffer, rightBuffer);
-}
-
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function jsonNoStore(payload: unknown, status: number) {
-  return NextResponse.json(payload, { status, headers: NO_STORE_HEADERS });
 }
