@@ -12,6 +12,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Access gate: `src/lib/command-center/access.ts`
 - Security posture: `src/lib/command-center/security-posture.ts`
 - Panel registry: `src/lib/command-center/panel-registry.ts`
+- Validation registry: `src/lib/command-center/validation-registry.ts`
 - Readiness summary: `src/lib/command-center/readiness-summary.ts`
 - Database readiness: `src/lib/command-center/database-readiness.ts`
 - Auth readiness: `src/lib/command-center/auth-readiness.ts`
@@ -29,7 +30,9 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-command-center-security-posture.mjs`
 - `src/scripts/validate-command-center-panel-registry.mjs`
 - `src/scripts/validate-command-center-panel-safety.mjs`
+- `src/scripts/validate-command-center-validation-registry.mjs`
 - `src/scripts/validate-command-center-operator-runbook.mjs`
+- `src/scripts/validate-command-center-docs-index.mjs`
 - `src/scripts/validate-production-smoke-coverage.mjs`
 
 ## Maintenance rule
