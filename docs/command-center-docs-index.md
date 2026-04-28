@@ -15,6 +15,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Validation registry: `src/lib/command-center/validation-registry.ts`
 - Report truth engine: `src/lib/command-center/report-truth-engine.ts`
 - Report growth system: `src/lib/command-center/report-growth-system.ts`
+- Controlled market learning: `src/lib/command-center/controlled-market-learning.ts`
 - Readiness summary: `src/lib/command-center/readiness-summary.ts`
 - Database readiness: `src/lib/command-center/database-readiness.ts`
 - Auth readiness: `src/lib/command-center/auth-readiness.ts`
@@ -34,6 +35,7 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-command-center-panel-safety.mjs`
 - `src/scripts/validate-command-center-validation-registry.mjs`
 - `src/scripts/validate-report-truth-engine.mjs`
+- `src/scripts/validate-controlled-market-learning.mjs`
 - `src/scripts/validate-command-center-operator-runbook.mjs`
 - `src/scripts/validate-command-center-docs-index.mjs`
 - `src/scripts/validate-production-smoke-coverage.mjs`
