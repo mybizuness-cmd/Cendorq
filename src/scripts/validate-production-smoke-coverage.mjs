@@ -9,8 +9,10 @@ const packagePath = "package.json";
 const runbookPath = "docs/command-center-operator-runbook.md";
 const docsIndexPath = "docs/command-center-docs-index.md";
 const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
+const reportTruthEnginePath = "src/lib/command-center/report-truth-engine.ts";
+const reportGrowthSystemPath = "src/lib/command-center/report-growth-system.ts";
 
-for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath]) {
+for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath, reportTruthEnginePath, reportGrowthSystemPath]) {
   if (!existsSync(join(root, file))) failures.push(`Missing production smoke dependency: ${file}`);
 }
 
@@ -69,6 +71,7 @@ expect(packagePath, [
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
   "validate-command-center-validation-registry.mjs",
+  "validate-report-truth-engine.mjs",
   "validate-command-center-operator-runbook.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
@@ -78,14 +81,18 @@ expect(runbookPath, [
   "# Command Center Operator Runbook",
   "docs/command-center-docs-index.md",
   "validate-command-center-validation-registry.mjs",
+  "validate-report-truth-engine.mjs",
   "validate-command-center-docs-index.mjs",
 ]);
 
 expect(docsIndexPath, [
   "# Command Center Docs Index",
   "src/lib/command-center/validation-registry.ts",
+  "src/lib/command-center/report-truth-engine.ts",
+  "src/lib/command-center/report-growth-system.ts",
   "docs/command-center-operator-runbook.md",
   "validate-command-center-validation-registry.mjs",
+  "validate-report-truth-engine.mjs",
   "validate-command-center-operator-runbook.mjs",
 ]);
 
@@ -94,7 +101,31 @@ expect(validationRegistryPath, [
   "protectedBoundary",
   "failureMeaning",
   "validate-command-center-validation-registry.mjs",
+  "validate-report-truth-engine.mjs",
   "validate-production-smoke-coverage.mjs",
+]);
+
+expect(reportTruthEnginePath, [
+  "REPORT_TRUTH_RULES",
+  "BUSINESS_ENRICHMENT_RULES",
+  "REPORT_METRIC_RULES",
+  "REPORT_CONVERSION_RULES",
+  "minimum-input-enrichment",
+  "calculation inputs, formula label, evidence references, confidence level, and rounding policy",
+  "must never claim 100% certainty, perfect accuracy, or guaranteed outcomes",
+]);
+
+expect(reportGrowthSystemPath, [
+  "REPORT_GROWTH_SYSTEM_RULES",
+  "PLAN_REPORT_DEPTH_RULES",
+  "PLATFORM_REVENUE_SIGNAL_RULES",
+  "Truthful high-conversion reporting",
+  "Every report must look official and Cendorq-branded",
+  "analyzed business logo above or beside the business name",
+  "Full Diagnosis must be thorough and extensive",
+  "social and platform activity",
+  "Every business study must consider social media and other platform activity",
+  "bread and butter",
 ]);
 
 const smokeText = read(smokePath);
@@ -116,7 +147,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, validation registry visibility, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, validation registry visibility, report truth and growth system validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
