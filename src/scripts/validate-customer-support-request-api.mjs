@@ -11,10 +11,12 @@ expect("src/app/api/customer/support/request/route.ts", [
   "runtime = \"nodejs\"",
   "dynamic = \"force-dynamic\"",
   "GET,POST,OPTIONS",
-  "NO_STORE_HEADERS",
+  "cleanGatewayString",
+  "jsonNoStore",
+  "optionsNoStore",
+  "verifyAdminReadAccess",
+  "verifyCustomerSupportContext",
   "MAX_REQUEST_BYTES = 20_000",
-  "CUSTOMER_CONTEXT_HEADER",
-  "CUSTOMER_SUPPORT_CONTEXT_KEY",
   "Verified customer context is required before submitting support requests.",
   "CUSTOMER_SUPPORT_INTAKE_FLOWS",
   "customerOwnershipRequired: true",
@@ -34,6 +36,13 @@ expect("src/app/api/customer/support/request/route.ts", [
   "customerIdHash: _customerIdHash",
 ]);
 
+expect("src/lib/customer-access-gateway-runtime.ts", [
+  "CUSTOMER_ACCESS_NO_STORE_HEADERS",
+  "verifyCustomerSupportContext",
+  "verifyAdminReadAccess",
+  "cleanGatewayString",
+]);
+
 expect("src/lib/customer-support-intake-architecture.ts", [
   "CUSTOMER_SUPPORT_INTAKE_FLOWS",
   "CUSTOMER_SUPPORT_INTAKE_RISK_RULES",
@@ -50,6 +59,15 @@ expect("package.json", [
 ]);
 
 forbidden("src/app/api/customer/support/request/route.ts", [
+  "NO_STORE_HEADERS =",
+  "CUSTOMER_CONTEXT_HEADER =",
+  "CUSTOMER_CONTEXT_KEY_ENV =",
+  "function verifyCustomerContext",
+  "function canReadEntries",
+  "function configuredReadKey",
+  "function safeEqual",
+  "timingSafeEqual",
+  "createHash",
   "rawPayloadStored: true",
   "customerOwnershipRequired: false",
   "supportAuditRequired: false",
