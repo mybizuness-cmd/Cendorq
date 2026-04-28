@@ -65,6 +65,9 @@ export default function SupportCenterPage() {
           <Link href="/dashboard/support/request" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
             Start protected request
           </Link>
+          <Link href="/dashboard/support/status" className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
+            View support status
+          </Link>
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
             Back to dashboard
           </Link>
@@ -104,9 +107,14 @@ export default function SupportCenterPage() {
               </div>
             ))}
           </div>
-          <Link href="/dashboard/support/request" className="mt-6 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
-            Open protected request intake
-          </Link>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link href="/dashboard/support/request" className="inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+              Open protected request intake
+            </Link>
+            <Link href="/dashboard/support/status" className="inline-flex rounded-2xl border border-cyan-300/25 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
+              Track request status
+            </Link>
+          </div>
         </article>
 
         <aside className="system-surface rounded-[2rem] p-6">
