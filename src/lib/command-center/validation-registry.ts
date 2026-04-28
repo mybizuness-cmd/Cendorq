@@ -96,8 +96,17 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     scriptPath: "src/scripts/validate-enterprise-operating-standard.mjs",
     category: "security",
     requiredInValidateRoutes: true,
-    protectedBoundary: "strict-but-not-paralyzing governance across security, AI, data protection, report integrity, market learning, commercial leverage, brand trust, and resilience",
+    protectedBoundary: "strict-but-not-paralyzing governance across security, AI, data protection, report integrity, market learning, commercial leverage, audit defense, brand trust, and resilience",
     failureMeaning: "The system may be under-protected, over-blocked, commercially misaligned, legally careless, or missing enterprise audit expectations.",
+  },
+  {
+    key: "audit-defense-system",
+    label: "Audit defense system",
+    scriptPath: "src/scripts/validate-audit-defense-system.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "claim substantiation, consent and scope records, terms alignment, release approvals, evidence retention, legal-review triggers, correction paths, and dispute-readiness metadata",
+    failureMeaning: "Cendorq may be missing audit-ready proof, claim substantiation, consent, terms alignment, correction history, or release gating needed to reduce liability risk.",
   },
   {
     key: "operator-runbook",
