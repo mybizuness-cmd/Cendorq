@@ -17,11 +17,13 @@ validateTextFile(standardPath, [
   "Enterprise security baseline",
   "Controlled market compounding",
   "Commercial leverage with trust",
+  "Liability minimization defense",
   "Brand trust standard",
   "Resilience and recovery",
   "Security control pass",
   "AI governance pass",
   "Report integrity pass",
+  "Audit defense pass",
   "Market leverage pass",
   "Executive alignment pass",
   "block public exposure, unsupported claims, unsafe AI actions, customer-data leakage, unreviewed method changes, and security regressions by default",
@@ -32,6 +34,12 @@ validateTextFile(standardPath, [
   "Security must be designed around identity, access control, input validation, output encoding, secrets management, logging, monitoring, change control, incident response, and recovery",
   "Market learning must not expose customer data, overfit to anecdotes, make unsupported forecasts, or change production behavior without review",
   "Pricing, plans, guarantees, sales copy, and next-plan recommendations must stay truthful, explainable, evidence-backed, and legally reviewable",
+  "reduce liability as far as practical through claim substantiation, clear customer terms, consent capture, privacy controls, correction windows, evidence retention, audit trails, legal-review gates, refund/guarantee clarity, and documented approval of customer-facing claims",
+  "Liability controls must protect Cendorq without weakening truthful conversion, customer trust, report usefulness, speed, product quality, or transparent guarantees about the review process",
+  "claim substantiation record",
+  "customer consent trail",
+  "terms/privacy alignment",
+  "material error correction path",
   "Every customer-facing surface must look official, consistent, premium, accessible, and trustworthy",
   "Cendorq must assume failures can happen and keep detection, rollback, incident response, evidence correction, and recovery procedures ready",
 ]);
@@ -49,6 +57,9 @@ validateForbidden(standardPath, [
   "absolute security claims allowed",
   "innovation freeze required",
   "guaranteed outcomes allowed",
+  "claiming zero liability allowed",
+  "promising legal immunity allowed",
+  "unsupported marketing claims allowed",
 ]);
 
 if (failures.length) {
@@ -57,7 +68,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Enterprise operating standard validation passed. Cendorq remains strict enough to protect intelligence, data, reports, AI, security, and customer trust while allowing approved evidence-backed leverage, experimentation, expansion, and self-improvement.");
+console.log("Enterprise operating standard validation passed. Cendorq remains strict enough to protect intelligence, data, reports, AI, security, audit defense, and customer trust while allowing approved evidence-backed leverage, experimentation, expansion, and self-improvement.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
