@@ -109,6 +109,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Cendorq may be missing audit-ready proof, claim substantiation, consent, terms alignment, correction history, or release gating needed to reduce liability risk.",
   },
   {
+    key: "most-pristine-system-standard",
+    label: "Most-pristine system standard",
+    scriptPath: "src/scripts/validate-most-pristine-system-standard.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "no-weak-link quality across frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, and customer experience",
+    failureMeaning: "One or more visible or invisible system layers may have fallen below the Cendorq most-pristine quality bar.",
+  },
+  {
     key: "operator-runbook",
     label: "Operator runbook",
     scriptPath: "src/scripts/validate-command-center-operator-runbook.mjs",
