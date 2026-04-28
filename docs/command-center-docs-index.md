@@ -14,6 +14,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Panel registry: `src/lib/command-center/panel-registry.ts`
 - Validation registry: `src/lib/command-center/validation-registry.ts`
 - Report truth engine: `src/lib/command-center/report-truth-engine.ts`
+- Report growth system: `src/lib/command-center/report-growth-system.ts`
 - Readiness summary: `src/lib/command-center/readiness-summary.ts`
 - Database readiness: `src/lib/command-center/database-readiness.ts`
 - Auth readiness: `src/lib/command-center/auth-readiness.ts`
