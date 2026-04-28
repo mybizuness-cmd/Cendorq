@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const docsIndexPath = "docs/command-center-docs-index.md";
+const runbookPath = "docs/command-center-operator-runbook.md";
 const packagePath = "package.json";
 
 validateTextFile(docsIndexPath, [
@@ -27,8 +28,17 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-operator-runbook.mjs",
+  "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-production-smoke-coverage.mjs",
   "must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, or scoring weights",
+]);
+
+validateTextFile(runbookPath, [
+  "# Command Center Operator Runbook",
+  "Keep every validation guard wired into `validate:routes`.",
+  "validate-command-center-operator-runbook.mjs",
+  "validate-command-center-docs-index.mjs",
+  "Vercel is green.",
 ]);
 
 validateTextFile(packagePath, [
@@ -42,7 +52,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, and guardrail validators remain discoverable without exposing secrets or live private data.");
+console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, runbook references, and guardrail validators remain discoverable without exposing secrets or live private data.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
