@@ -14,6 +14,7 @@ const requiredScripts = [
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
+  "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-optimization-method-library.mjs",
@@ -38,6 +39,8 @@ if (!failures.length) {
     "protectedBoundary",
     "failureMeaning",
     "getCommandCenterValidationRegistry",
+    "report-truth-engine",
+    "evidence-first reports, minimum-input enrichment, traceable calculations, confidence labels, and plan conversion rules",
   ]);
 
   for (const scriptPath of requiredScripts) {
@@ -58,7 +61,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Every registered guardrail script exists, is listed in validate:routes, and exposes protected-boundary and failure-meaning metadata.");
+console.log("Command Center validation registry validation passed. Every registered guardrail script exists, is listed in validate:routes, and exposes protected-boundary and failure-meaning metadata, including the report truth engine guardrail.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
