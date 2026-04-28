@@ -18,6 +18,7 @@ const requiredScripts = [
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
+  "src/scripts/validate-most-pristine-system-standard.mjs",
   "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-optimization-method-library.mjs",
@@ -46,10 +47,12 @@ if (!failures.length) {
     "controlled-market-learning",
     "enterprise-operating-standard",
     "audit-defense-system",
+    "most-pristine-system-standard",
     "evidence-first reports, minimum-input enrichment, traceable calculations, confidence labels, plan conversion rules, and report growth standards",
     "market trend learning, Cendorq leverage discovery, privacy-safe aggregation, review-gated self-evolution, and strict agent boundaries",
     "strict-but-not-paralyzing governance across security, AI, data protection, report integrity, market learning, commercial leverage, audit defense, brand trust, and resilience",
     "claim substantiation, consent and scope records, terms alignment, release approvals, evidence retention, legal-review triggers, correction paths, and dispute-readiness metadata",
+    "no-weak-link quality across frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, and customer experience",
   ]);
 
   for (const scriptPath of requiredScripts) {
@@ -70,7 +73,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Every registered guardrail script exists, is listed in validate:routes, and exposes protected-boundary and failure-meaning metadata, including report truth, controlled market learning, enterprise operating, and audit defense guardrails.");
+console.log("Command Center validation registry validation passed. Every registered guardrail script exists, is listed in validate:routes, and exposes protected-boundary and failure-meaning metadata, including report truth, controlled market learning, enterprise operating, audit defense, and most-pristine guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
