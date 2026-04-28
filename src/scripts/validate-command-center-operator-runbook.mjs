@@ -22,6 +22,7 @@ validateTextFile(runbookPath, [
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
   "validate-command-center-validation-registry.mjs",
+  "validate-report-truth-engine.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
   "No visible cockpit panel should be merged without a matching registry entry.",
@@ -33,7 +34,9 @@ validateTextFile(docsIndexPath, [
   "docs/command-center-operator-runbook.md",
   "docs/maximum-protection-standard.md",
   "src/lib/command-center/validation-registry.ts",
+  "src/lib/command-center/report-truth-engine.ts",
   "validate-command-center-validation-registry.mjs",
+  "validate-report-truth-engine.mjs",
   "validate-command-center-operator-runbook.mjs",
   "validate-command-center-docs-index.mjs",
 ]);
@@ -44,6 +47,7 @@ validateTextFile(packagePath, [
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
   "validate-command-center-validation-registry.mjs",
+  "validate-report-truth-engine.mjs",
   "validate-command-center-operator-runbook.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
@@ -55,7 +59,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, and validation-chain operating standards.");
+console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, report-truth, and validation-chain operating standards.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
