@@ -12,8 +12,11 @@ const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const reportTruthEnginePath = "src/lib/command-center/report-truth-engine.ts";
 const reportGrowthSystemPath = "src/lib/command-center/report-growth-system.ts";
 const controlledMarketLearningPath = "src/lib/command-center/controlled-market-learning.ts";
+const enterpriseOperatingStandardPath = "src/lib/command-center/enterprise-operating-standard.ts";
+const auditDefenseSystemPath = "src/lib/command-center/audit-defense-system.ts";
+const mostPristineSystemStandardPath = "src/lib/command-center/most-pristine-system-standard.ts";
 
-for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath, reportTruthEnginePath, reportGrowthSystemPath, controlledMarketLearningPath]) {
+for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath, reportTruthEnginePath, reportGrowthSystemPath, controlledMarketLearningPath, enterpriseOperatingStandardPath, auditDefenseSystemPath, mostPristineSystemStandardPath]) {
   if (!existsSync(join(root, file))) failures.push(`Missing production smoke dependency: ${file}`);
 }
 
@@ -74,6 +77,9 @@ expect(packagePath, [
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
   "validate-controlled-market-learning.mjs",
+  "validate-enterprise-operating-standard.mjs",
+  "validate-audit-defense-system.mjs",
+  "validate-most-pristine-system-standard.mjs",
   "validate-command-center-operator-runbook.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
@@ -93,10 +99,16 @@ expect(docsIndexPath, [
   "src/lib/command-center/report-truth-engine.ts",
   "src/lib/command-center/report-growth-system.ts",
   "src/lib/command-center/controlled-market-learning.ts",
+  "src/lib/command-center/enterprise-operating-standard.ts",
+  "src/lib/command-center/audit-defense-system.ts",
+  "src/lib/command-center/most-pristine-system-standard.ts",
   "docs/command-center-operator-runbook.md",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
   "validate-controlled-market-learning.mjs",
+  "validate-enterprise-operating-standard.mjs",
+  "validate-audit-defense-system.mjs",
+  "validate-most-pristine-system-standard.mjs",
   "validate-command-center-operator-runbook.mjs",
 ]);
 
@@ -107,6 +119,9 @@ expect(validationRegistryPath, [
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
   "validate-controlled-market-learning.mjs",
+  "validate-enterprise-operating-standard.mjs",
+  "validate-audit-defense-system.mjs",
+  "validate-most-pristine-system-standard.mjs",
   "validate-production-smoke-coverage.mjs",
 ]);
 
@@ -144,6 +159,32 @@ expect(controlledMarketLearningPath, [
   "new service lines, report modules, vertical offers, platform integrations, data products, or subscription controls",
 ]);
 
+expect(enterpriseOperatingStandardPath, [
+  "ENTERPRISE_OPERATING_RULES",
+  "Liability minimization defense",
+  "Audit defense pass",
+  "reduce liability as far as practical through claim substantiation",
+  "strict-but-not-paralyzing",
+]);
+
+expect(auditDefenseSystemPath, [
+  "AUDIT_DEFENSE_CONTROLS",
+  "AUDIT_DEFENSE_RELEASE_GATES",
+  "Claim substantiation record",
+  "Customer consent and scope record",
+  "must not promise rankings, traffic, leads, conversions, revenue, platform outcomes, perfect accuracy, or immunity from liability",
+]);
+
+expect(mostPristineSystemStandardPath, [
+  "MOST_PRISTINE_SYSTEM_REQUIREMENTS",
+  "MOST_PRISTINE_RELEASE_PASSES",
+  "Frontend most-pristine standard",
+  "Backend most-pristine standard",
+  "Report most-pristine standard",
+  "No weak link pass",
+  "Does every visible and invisible layer meet the same most-pristine standard",
+]);
+
 const smokeText = read(smokePath);
 for (const phrase of [
   "Search Presence Scan",
@@ -163,7 +204,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, validation registry visibility, report truth and growth system validation, controlled market learning validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, validation registry visibility, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
