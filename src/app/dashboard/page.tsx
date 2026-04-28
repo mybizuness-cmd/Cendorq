@@ -36,7 +36,7 @@ export default function CustomerDashboardPage() {
               Your Cendorq dashboard is where the business becomes clearer.
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              Track Free Scan status, see evidence-backed findings, open your report vault, manage billing, view important notifications, request support, and move to the next plan only when the proof and stage make sense.
+              Track Free Scan status, see evidence-backed findings, open your report vault, manage billing, view important notifications, request support, track support status, and move to the next plan only when the proof and stage make sense.
             </p>
           </div>
           <div className="rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/10 p-5 lg:w-80">
@@ -103,11 +103,12 @@ export default function CustomerDashboardPage() {
         </aside>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3 lg:grid-cols-5">
+      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
         <DashboardLink href="/dashboard/reports" title="Open report vault" copy="View Free Scan, Deep Review, Build Fix, and Ongoing Control outputs as they become available." />
         <DashboardLink href="/dashboard/billing" title="Manage billing and plans" copy="See plan state, invoices, entitlements, and upgrade paths without friction." />
         <DashboardLink href="/dashboard/notifications" title="Open notification center" copy="Review account, report, billing, support, and security alerts without raw private data exposure." />
         <DashboardLink href="/dashboard/support" title="Open support center" copy="Request report help, correction review, billing guidance, security review, or plan guidance safely." />
+        <DashboardLink href="/dashboard/support/status" title="Track support status" copy="View customer-safe request status, approved next actions, and support follow-through without internal data exposure." />
         <DashboardLink href="/plans" title="Compare plans" copy="Understand which next step fits your current stage and what each plan unlocks." />
       </section>
     </main>
