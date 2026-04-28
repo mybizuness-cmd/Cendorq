@@ -73,6 +73,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "A required validator is missing, unwired, or no longer represented in the validation registry.",
   },
   {
+    key: "report-truth-engine",
+    label: "Report truth engine",
+    scriptPath: "src/scripts/validate-report-truth-engine.mjs",
+    category: "ai",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "evidence-first reports, minimum-input enrichment, traceable calculations, confidence labels, and plan conversion rules",
+    failureMeaning: "Report generation can no longer be proven evidence-backed, calculation-traceable, uncertainty-labeled, and truthful about plan recommendations.",
+  },
+  {
     key: "operator-runbook",
     label: "Operator runbook",
     scriptPath: "src/scripts/validate-command-center-operator-runbook.mjs",
