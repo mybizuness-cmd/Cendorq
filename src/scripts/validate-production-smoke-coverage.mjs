@@ -11,8 +11,9 @@ const docsIndexPath = "docs/command-center-docs-index.md";
 const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const reportTruthEnginePath = "src/lib/command-center/report-truth-engine.ts";
 const reportGrowthSystemPath = "src/lib/command-center/report-growth-system.ts";
+const controlledMarketLearningPath = "src/lib/command-center/controlled-market-learning.ts";
 
-for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath, reportTruthEnginePath, reportGrowthSystemPath]) {
+for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath, reportTruthEnginePath, reportGrowthSystemPath, controlledMarketLearningPath]) {
   if (!existsSync(join(root, file))) failures.push(`Missing production smoke dependency: ${file}`);
 }
 
@@ -72,6 +73,7 @@ expect(packagePath, [
   "validate-command-center-panel-safety.mjs",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
+  "validate-controlled-market-learning.mjs",
   "validate-command-center-operator-runbook.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
@@ -90,9 +92,11 @@ expect(docsIndexPath, [
   "src/lib/command-center/validation-registry.ts",
   "src/lib/command-center/report-truth-engine.ts",
   "src/lib/command-center/report-growth-system.ts",
+  "src/lib/command-center/controlled-market-learning.ts",
   "docs/command-center-operator-runbook.md",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
+  "validate-controlled-market-learning.mjs",
   "validate-command-center-operator-runbook.mjs",
 ]);
 
@@ -102,6 +106,7 @@ expect(validationRegistryPath, [
   "failureMeaning",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
+  "validate-controlled-market-learning.mjs",
   "validate-production-smoke-coverage.mjs",
 ]);
 
@@ -128,6 +133,17 @@ expect(reportGrowthSystemPath, [
   "bread and butter",
 ]);
 
+expect(controlledMarketLearningPath, [
+  "CONTROLLED_MARKET_LEARNING_RULES",
+  "SELF_EVOLUTION_CONTROL_RULES",
+  "CENDORQ_LEVERAGE_RULES",
+  "After enough businesses are studied",
+  "what is working now, what is weakening, what is emerging",
+  "No learned pattern can change customer-facing reports, pricing, plan promises, scoring, recommendations, or AI behavior until it is reviewed, versioned, tested, and approved",
+  "Agents must stay inside the approved report truth engine, report growth system, validation registry, customer-output approval, and AI command history policies",
+  "new service lines, report modules, vertical offers, platform integrations, data products, or subscription controls",
+]);
+
 const smokeText = read(smokePath);
 for (const phrase of [
   "Search Presence Scan",
@@ -147,7 +163,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, validation registry visibility, report truth and growth system validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, validation registry visibility, report truth and growth system validation, controlled market learning validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
