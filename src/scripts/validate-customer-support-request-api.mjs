@@ -17,6 +17,14 @@ expect("src/app/api/customer/support/request/route.ts", [
   "verifyAdminReadAccess",
   "requireCustomerSession",
   "requireVerifiedEmail: true",
+  "allowedOrigins: configuredSupportAllowedOrigins()",
+  "SUPPORT_ALLOWED_ORIGIN_ENV_CANDIDATES",
+  "CUSTOMER_APP_ORIGINS",
+  "CENDORQ_APP_ORIGIN",
+  "VERCEL_PROJECT_PRODUCTION_URL",
+  "configuredSupportAllowedOrigins",
+  "splitOriginList",
+  "normalizeOrigin",
   "MAX_REQUEST_BYTES = 20_000",
   "Open support from the authenticated customer dashboard and try again.",
   "CUSTOMER_SUPPORT_INTAKE_FLOWS",
@@ -45,6 +53,7 @@ expect("src/lib/customer-access-gateway-runtime.ts", [
 
 expect("src/lib/customer-session-auth-runtime.ts", [
   "requireCustomerSession",
+  "checkRequestOrigin",
   "CUSTOMER_SESSION_AUTH_RUNTIME_GUARDS",
 ]);
 
@@ -67,6 +76,7 @@ forbidden("src/app/api/customer/support/request/route.ts", [
   "verifyCustomerSupportContext",
   "x-cendorq-customer-context",
   "CUSTOMER_SUPPORT_CONTEXT_KEY",
+  "allowedOrigins: []",
   "NO_STORE_HEADERS =",
   "CUSTOMER_CONTEXT_HEADER =",
   "CUSTOMER_CONTEXT_KEY_ENV =",

@@ -39,6 +39,7 @@ const STORAGE_FILE = path.join(STORAGE_DIR, "customer-support-requests.v3.json")
 const MAX_REQUEST_BYTES = 20_000;
 const MAX_GET_LIMIT = 100;
 const SUPPORT_ADMIN_KEY_ENV_CANDIDATES = ["SUPPORT_CONSOLE_READ_KEY", "INTAKE_ADMIN_KEY"] as const;
+const SUPPORT_ALLOWED_ORIGIN_ENV_CANDIDATES = ["CUSTOMER_APP_ORIGINS", "CENDORQ_APP_ORIGIN", "VERCEL_PROJECT_PRODUCTION_URL"] as const;
 const SUPPORT_REQUEST_TYPES = ["report-question", "correction-request", "billing-help", "security-concern", "plan-guidance"] as const satisfies readonly CustomerSupportIntakeType[];
 
 export async function OPTIONS() {
@@ -81,6 +82,7 @@ export async function POST(request: NextRequest) {
 
   const sessionAccess = requireCustomerSession(request, {
     requireVerifiedEmail: true,
+    allowedOrigins: configuredSupportAllowedOrigins(),
   });
   if (!sessionAccess.ok || !sessionAccess.customerIdHash) {
     return jsonNoStore({ ok: false, error: sessionAccess.safeMessage, details: ["Open support from the authenticated customer dashboard and try again."] }, 401);
@@ -160,6 +162,25 @@ async function loadEnvelope(): Promise<SupportEnvelope> {
 
 async function saveEnvelope(envelope: SupportEnvelope) {
   await saveFileBackedEnvelope({ storageDir: STORAGE_DIR, storageFile: STORAGE_FILE, envelope, createTempId: randomUUID });
+}
+
+function configuredSupportAllowedOrigins() {
+  const origins = SUPPORT_ALLOWED_ORIGIN_ENV_CANDIDATES.flatMap((envName) => splitOriginList(process.env[envName] ?? ""));
+  return [...new Set(origins.map(normalizeOrigin).filter(Boolean))];
+}
+
+function splitOriginList(value: string) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function normalizeOrigin(value: string) {
+  const cleaned = cleanGatewayString(value, 300);
+  if (!cleaned) return "";
+  if (cleaned.startsWith("http://") || cleaned.startsWith("https://")) return cleaned.replace(/\/$/, "");
+  return `https://${cleaned}`.replace(/\/$/, "");
 }
 
 function evaluateSupportRisk(text: string, requestType: CustomerSupportIntakeType) {
