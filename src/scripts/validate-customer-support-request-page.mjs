@@ -16,14 +16,29 @@ expect("src/app/dashboard/support/request/page.tsx", [
   "noIndex: true",
   "Protected support intake",
   "Start with a safe summary, then route the request correctly.",
+  "SupportRequestForm",
   "CUSTOMER_SUPPORT_INTAKE_FLOWS",
   "CUSTOMER_SUPPORT_INTAKE_RISK_RULES",
   "Do not paste passwords, raw tokens, secret keys, private keys, or payment details.",
   "Do not paste raw evidence dumps, raw security payloads, or private report internals.",
   "Correction, refund, billing, report-change, legal, or outcome commitments require the correct approval path.",
-  "Request builder",
   "Safety before submit",
   "Risk routing",
+]);
+
+expect("src/components/customer-support/support-request-form.tsx", [
+  "use client",
+  "SupportRequestForm",
+  "CUSTOMER_SUPPORT_INTAKE_FLOWS",
+  "requestType",
+  "businessContext",
+  "safeDescription",
+  "customerAcknowledgement",
+  "/api/customer/support/request",
+  "Submit protected request",
+  "The support request service could not be reached right now.",
+  "Do not include passwords, raw tokens, payment data, secrets, private keys, raw evidence dumps, raw security payloads, or private report internals.",
+  "I confirm this request does not include passwords, raw tokens, payment details, secrets, private keys, raw evidence dumps, raw security payloads, or private report internals.",
 ]);
 
 expect("src/lib/customer-support-intake-architecture.ts", [
@@ -47,6 +62,20 @@ forbidden("src/app/dashboard/support/request/page.tsx", [
   "raw evidence is shown",
   "passwords are accepted",
   "payment data is accepted",
+]);
+
+forbidden("src/components/customer-support/support-request-form.tsx", [
+  "dangerouslySetInnerHTML",
+  "localStorage",
+  "sessionStorage",
+  "x-cendorq-customer-context",
+  "CUSTOMER_SUPPORT_CONTEXT_KEY",
+  "NEXT_PUBLIC_CUSTOMER_SUPPORT_CONTEXT_KEY",
+  "x-support-admin-key",
+  "password accepted",
+  "payment data accepted",
+  "refund approved",
+  "legal outcome guaranteed",
 ]);
 
 if (failures.length) {
