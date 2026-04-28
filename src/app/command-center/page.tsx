@@ -27,6 +27,7 @@ import { ReadinessChecklistPanel } from "./readiness-checklist-panel";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
 import { SecurityPosturePanel } from "./security-posture-panel";
 import { TestRecordClassesPanel } from "./test-record-classes-panel";
+import { ValidationRegistryPanel } from "./validation-registry-panel";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -66,6 +67,7 @@ export default async function CommandCenterPage() {
         <SecurityPosturePanel />
         <OperatorReadinessMatrix />
         <CommandCenterPanelIndex />
+        <ValidationRegistryPanel />
         <ModuleRoadmapPanel />
         <PlanControlPanel plans={planControls} />
         <OptimizationLibraryPanel methods={optimizationMethods} />

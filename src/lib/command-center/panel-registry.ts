@@ -51,6 +51,16 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     protectionNote: "Shows config counts and blocked paths only; no secret values.",
   },
   {
+    key: "validation-registry",
+    label: "Validation registry",
+    order: 45,
+    layer: "security",
+    visibility: "private-gated",
+    dataExposure: "metadata-only",
+    operatorPurpose: "Show which validation scripts protect each private cockpit boundary.",
+    protectionNote: "Shows guardrail metadata only; no logs, secrets, or live validation output.",
+  },
+  {
     key: "module-roadmap",
     label: "Module roadmap",
     order: 50,

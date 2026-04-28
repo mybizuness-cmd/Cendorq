@@ -12,6 +12,7 @@ const expectedPanels = [
   ["CommandCenterOperatingMap", "operating-map"],
   ["SecurityPosturePanel", "security-posture"],
   ["OperatorReadinessMatrix", "operator-readiness-matrix"],
+  ["ValidationRegistryPanel", "validation-registry"],
   ["ModuleRoadmapPanel", "module-roadmap"],
   ["PlanControlPanel", "plan-control"],
   ["OptimizationLibraryPanel", "optimization-library"],

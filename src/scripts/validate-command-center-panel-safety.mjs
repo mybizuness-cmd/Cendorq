@@ -25,6 +25,7 @@ const requiredPanelFiles = [
   "report-truth-methodology-panel.tsx",
   "security-posture-panel.tsx",
   "test-record-classes-panel.tsx",
+  "validation-registry-panel.tsx",
 ];
 
 const forbiddenPanelBehavior = [
