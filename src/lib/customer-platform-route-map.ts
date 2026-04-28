@@ -6,6 +6,7 @@ export type CustomerPlatformRouteKey =
   | "dashboardBilling"
   | "dashboardNotifications"
   | "dashboardSupport"
+  | "dashboardSupportStatus"
   | "freeCheck"
   | "plans";
 
@@ -73,6 +74,13 @@ export const CUSTOMER_PLATFORM_ROUTES = [
     path: "/dashboard/support",
     label: "Support and corrections",
     purpose: "Verified customer support center for report questions, correction requests, billing help, security concerns, and plan guidance.",
+    access: "verified-customer",
+  },
+  {
+    key: "dashboardSupportStatus",
+    path: "/dashboard/support/status",
+    label: "Support status",
+    purpose: "Verified customer support status center for customer-safe request status, approved next actions, and safe support follow-through.",
     access: "verified-customer",
   },
   {
@@ -148,6 +156,13 @@ export const CUSTOMER_PLATFORM_STAGES = [
     customerPromise: "Ask for help, corrections, billing guidance, or security review through a protected, documented support path.",
     conversionRole: "Protect trust, reduce disputes, and keep high-intent customers moving with service instead of pressure.",
   },
+  {
+    key: "support-status-visible",
+    label: "Support status visible",
+    route: "dashboardSupportStatus",
+    customerPromise: "Track request status through customer-safe fields without exposing internal notes, raw evidence, billing data, or security details.",
+    conversionRole: "Reduce anxiety, keep customers moving, and preserve trust after support submission.",
+  },
 ] as const satisfies readonly CustomerPlatformStage[];
 
 export const CUSTOMER_PLATFORM_ROUTE_GUARDS = [
@@ -158,6 +173,8 @@ export const CUSTOMER_PLATFORM_ROUTE_GUARDS = [
   "notification center access requires authenticated customer ownership and route authorization",
   "notification center must not render raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals",
   "support center access requires authenticated customer ownership and route authorization",
+  "support status access requires authenticated customer ownership, session authorization, and customer-safe projection",
+  "support status must not render raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
   "support center must not promise refunds, legal outcomes, report changes, billing changes, or guaranteed results without approval",
   "support center must preserve correction path, billing help, security review, and escalation visibility",
   "provider signup and email/password signup must remain available",
