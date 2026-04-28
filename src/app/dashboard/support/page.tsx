@@ -62,7 +62,10 @@ export default function SupportCenterPage() {
           Cendorq support is designed for report questions, correction requests, billing help, account security, and plan guidance while preserving audit records, safe summaries, support visibility, and approval boundaries.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/dashboard" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+          <Link href="/dashboard/support/request" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+            Start protected request
+          </Link>
+          <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
             Back to dashboard
           </Link>
           <Link href="/dashboard/notifications" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
@@ -101,6 +104,9 @@ export default function SupportCenterPage() {
               </div>
             ))}
           </div>
+          <Link href="/dashboard/support/request" className="mt-6 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+            Open protected request intake
+          </Link>
         </article>
 
         <aside className="system-surface rounded-[2rem] p-6">
