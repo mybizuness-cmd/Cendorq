@@ -15,9 +15,10 @@ expect("src/app/api/customer/support/request/route.ts", [
   "jsonNoStore",
   "optionsNoStore",
   "verifyAdminReadAccess",
-  "verifyCustomerSupportContext",
+  "requireCustomerSession",
+  "requireVerifiedEmail: true",
   "MAX_REQUEST_BYTES = 20_000",
-  "Verified customer context is required before submitting support requests.",
+  "Open support from the authenticated customer dashboard and try again.",
   "CUSTOMER_SUPPORT_INTAKE_FLOWS",
   "customerOwnershipRequired: true",
   "supportAuditRequired: true",
@@ -38,9 +39,13 @@ expect("src/app/api/customer/support/request/route.ts", [
 
 expect("src/lib/customer-access-gateway-runtime.ts", [
   "CUSTOMER_ACCESS_NO_STORE_HEADERS",
-  "verifyCustomerSupportContext",
   "verifyAdminReadAccess",
   "cleanGatewayString",
+]);
+
+expect("src/lib/customer-session-auth-runtime.ts", [
+  "requireCustomerSession",
+  "CUSTOMER_SESSION_AUTH_RUNTIME_GUARDS",
 ]);
 
 expect("src/lib/customer-support-intake-architecture.ts", [
@@ -59,6 +64,9 @@ expect("package.json", [
 ]);
 
 forbidden("src/app/api/customer/support/request/route.ts", [
+  "verifyCustomerSupportContext",
+  "x-cendorq-customer-context",
+  "CUSTOMER_SUPPORT_CONTEXT_KEY",
   "NO_STORE_HEADERS =",
   "CUSTOMER_CONTEXT_HEADER =",
   "CUSTOMER_CONTEXT_KEY_ENV =",
