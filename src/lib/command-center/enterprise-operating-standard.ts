@@ -7,6 +7,7 @@ export type EnterpriseControlArea =
   | "market-learning"
   | "commercial-leverage"
   | "brand-trust"
+  | "audit-defense"
   | "resilience";
 
 export type EnterpriseOperatingRule = {
@@ -92,6 +93,15 @@ export const ENTERPRISE_OPERATING_RULES = [
     blockedBehavior: ["bait-and-switch", "hidden limitations", "guaranteed outcomes", "plan pressure without evidence", "unclear refund or guarantee terms"],
   },
   {
+    key: "liability-minimization-defense",
+    label: "Liability minimization defense",
+    area: "audit-defense",
+    strictnessPolicy: "Cendorq should reduce liability as far as practical through claim substantiation, clear customer terms, consent capture, privacy controls, correction windows, evidence retention, audit trails, legal-review gates, refund/guarantee clarity, and documented approval of customer-facing claims.",
+    leveragePolicy: "Liability controls must protect Cendorq without weakening truthful conversion, customer trust, report usefulness, speed, product quality, or transparent guarantees about the review process.",
+    requiredControls: ["claim substantiation record", "terms and privacy alignment", "customer consent trail", "legal review gate", "report footer safeguards", "material error correction path", "audit-ready evidence retention", "approved guarantee wording"],
+    blockedBehavior: ["claiming zero liability", "promising legal immunity", "unsupported marketing claims", "missing consent record", "unclear guarantee limits", "no correction path", "unreviewed legal wording", "destroying evidence needed for audit defense"],
+  },
+  {
     key: "brand-trust-standard",
     label: "Brand trust standard",
     area: "brand-trust",
@@ -132,6 +142,13 @@ export const ENTERPRISE_AUDIT_PASSES = [
     purpose: "Confirm reports remain evidence-backed, calculation-traceable, visually accurate, branded, plan-aware, and legally careful.",
     cadence: "every-change",
     requiredEvidence: ["report truth engine", "report growth system", "formula version", "confidence labels", "footer safeguards"],
+  },
+  {
+    key: "audit-defense-pass",
+    label: "Audit defense pass",
+    purpose: "Confirm customer-facing claims, report guarantees, consent records, terms alignment, correction windows, evidence retention, and legal-review flags are audit-ready and reduce liability without reducing customer value.",
+    cadence: "pre-launch",
+    requiredEvidence: ["claim substantiation record", "customer consent trail", "terms/privacy alignment", "legal review status", "material error correction path", "report footer safeguards", "evidence retention policy"],
   },
   {
     key: "market-leverage-pass",
