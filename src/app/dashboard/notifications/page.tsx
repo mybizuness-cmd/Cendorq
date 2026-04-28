@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
-import { CUSTOMER_NOTIFICATION_CONTRACTS } from "@/lib/customer-notification-contracts";
+import { CUSTOMER_NOTIFICATION_CONTRACTS, type CustomerNotificationKey } from "@/lib/customer-notification-contracts";
 
 export const metadata = buildMetadata({
   title: "Notification center | Cendorq",
@@ -9,8 +9,10 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
+const FEATURED_NOTIFICATION_KEYS = ["email-confirmation-required", "free-scan-ready", "billing-action-required", "security-reauth-required"] satisfies readonly CustomerNotificationKey[];
+
 const FEATURED_NOTIFICATIONS = CUSTOMER_NOTIFICATION_CONTRACTS.filter((notification) =>
-  ["email-confirmation-required", "free-scan-ready", "billing-action-required", "security-reauth-required"].includes(notification.key),
+  hasNotificationKey(FEATURED_NOTIFICATION_KEYS, notification.key),
 );
 
 const NOTIFICATION_GROUPS = [
@@ -29,7 +31,7 @@ const NOTIFICATION_GROUPS = [
     copy: "Plan entitlements, billing recovery, support receipts, and correction paths that stay visible.",
     keys: ["deep-review-onboarding", "billing-action-required", "support-request-received"],
   },
-] as const;
+] as const satisfies readonly { label: string; copy: string; keys: readonly CustomerNotificationKey[] }[];
 
 export default function NotificationCenterPage() {
   return (
@@ -72,7 +74,7 @@ export default function NotificationCenterPage() {
 
       <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-3">
         {NOTIFICATION_GROUPS.map((group) => {
-          const notifications = CUSTOMER_NOTIFICATION_CONTRACTS.filter((notification) => group.keys.includes(notification.key));
+          const notifications = CUSTOMER_NOTIFICATION_CONTRACTS.filter((notification) => hasNotificationKey(group.keys, notification.key));
           return (
             <article key={group.label} className="system-surface rounded-[2rem] p-6">
               <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{group.label}</div>
@@ -107,4 +109,8 @@ export default function NotificationCenterPage() {
       </section>
     </main>
   );
+}
+
+function hasNotificationKey(keys: readonly CustomerNotificationKey[], key: CustomerNotificationKey) {
+  return keys.some((candidate) => candidate === key);
 }
