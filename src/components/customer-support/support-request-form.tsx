@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, type CustomerSupportIntakeType } from "@/lib/customer-support-intake-architecture";
 
@@ -227,6 +228,17 @@ export function SupportRequestForm() {
             <div>Operator review: {state.response.operatorReviewRequired ? "required" : "not required"}</div>
             <div>Processing: {state.response.downstreamProcessingAllowed ? "allowed" : "held"}</div>
           </div>
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            <Link href="/dashboard/support/status" className="inline-flex rounded-2xl bg-emerald-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-emerald-200">
+              Track this request safely
+            </Link>
+            <Link href="/dashboard/support" className="inline-flex rounded-2xl border border-emerald-300/25 px-5 py-3 text-sm font-semibold text-emerald-50 transition hover:bg-emerald-300/10">
+              Back to support center
+            </Link>
+          </div>
+          <p className="mt-4 text-xs leading-6 text-emerald-50/75">
+            Status tracking uses customer-safe projection only and never reveals internal notes, operator identities, risk-scoring details, raw evidence, billing data, session tokens, or support secrets.
+          </p>
         </div>
       ) : null}
 
