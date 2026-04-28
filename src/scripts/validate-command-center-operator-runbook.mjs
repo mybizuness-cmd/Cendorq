@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const runbookPath = "docs/command-center-operator-runbook.md";
+const docsIndexPath = "docs/command-center-docs-index.md";
 const packagePath = "package.json";
 
 validateTextFile(runbookPath, [
@@ -20,9 +21,18 @@ validateTextFile(runbookPath, [
   "validate-command-center-security-posture.mjs",
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
+  "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
   "No visible cockpit panel should be merged without a matching registry entry.",
   "Vercel is green.",
+]);
+
+validateTextFile(docsIndexPath, [
+  "# Command Center Docs Index",
+  "docs/command-center-operator-runbook.md",
+  "docs/maximum-protection-standard.md",
+  "validate-command-center-operator-runbook.mjs",
+  "validate-command-center-docs-index.mjs",
 ]);
 
 validateTextFile(packagePath, [
@@ -30,6 +40,8 @@ validateTextFile(packagePath, [
   "validate-command-center-security-posture.mjs",
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
+  "validate-command-center-operator-runbook.mjs",
+  "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
 ]);
 
@@ -39,7 +51,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center operator runbook validation passed. The runbook preserves closed-by-default, metadata-only, server-rendered panel, registry, and validation-chain operating standards.");
+console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, and validation-chain operating standards.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
