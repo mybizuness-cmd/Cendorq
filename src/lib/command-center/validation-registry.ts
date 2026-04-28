@@ -64,6 +64,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "A panel introduced client-only behavior, browser storage, direct environment access, or exposure regression.",
   },
   {
+    key: "validation-registry",
+    label: "Validation registry",
+    scriptPath: "src/scripts/validate-command-center-validation-registry.mjs",
+    category: "cockpit",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "guardrail script existence, validate:routes wiring, and validation-registry metadata",
+    failureMeaning: "A required validator is missing, unwired, or no longer represented in the validation registry.",
+  },
+  {
     key: "operator-runbook",
     label: "Operator runbook",
     scriptPath: "src/scripts/validate-command-center-operator-runbook.mjs",
