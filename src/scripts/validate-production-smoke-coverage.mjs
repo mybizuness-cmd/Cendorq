@@ -8,8 +8,9 @@ const workflowPath = ".github/workflows/smoke-production.yml";
 const packagePath = "package.json";
 const runbookPath = "docs/command-center-operator-runbook.md";
 const docsIndexPath = "docs/command-center-docs-index.md";
+const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 
-for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath]) {
+for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath]) {
   if (!existsSync(join(root, file))) failures.push(`Missing production smoke dependency: ${file}`);
 }
 
@@ -67,6 +68,7 @@ expect(packagePath, [
   "validate-command-center-security-posture.mjs",
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
+  "validate-command-center-validation-registry.mjs",
   "validate-command-center-operator-runbook.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
@@ -75,13 +77,24 @@ expect(packagePath, [
 expect(runbookPath, [
   "# Command Center Operator Runbook",
   "docs/command-center-docs-index.md",
+  "validate-command-center-validation-registry.mjs",
   "validate-command-center-docs-index.mjs",
 ]);
 
 expect(docsIndexPath, [
   "# Command Center Docs Index",
+  "src/lib/command-center/validation-registry.ts",
   "docs/command-center-operator-runbook.md",
+  "validate-command-center-validation-registry.mjs",
   "validate-command-center-operator-runbook.mjs",
+]);
+
+expect(validationRegistryPath, [
+  "COMMAND_CENTER_VALIDATION_REGISTRY",
+  "protectedBoundary",
+  "failureMeaning",
+  "validate-command-center-validation-registry.mjs",
+  "validate-production-smoke-coverage.mjs",
 ]);
 
 const smokeText = read(smokePath);
@@ -103,7 +116,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, validation registry visibility, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
