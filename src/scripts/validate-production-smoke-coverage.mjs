@@ -5,8 +5,9 @@ const root = process.cwd();
 const failures = [];
 const smokePath = "src/scripts/smoke-production.mjs";
 const workflowPath = ".github/workflows/smoke-production.yml";
+const packagePath = "package.json";
 
-for (const file of [smokePath, workflowPath]) {
+for (const file of [smokePath, workflowPath, packagePath]) {
   if (!existsSync(join(root, file))) failures.push(`Missing production smoke file: ${file}`);
 }
 
@@ -59,6 +60,14 @@ expect(workflowPath, [
   "node-version: \"24\"",
 ]);
 
+expect(packagePath, [
+  "validate:routes",
+  "validate-command-center-security-posture.mjs",
+  "validate-command-center-panel-registry.mjs",
+  "validate-command-center-panel-safety.mjs",
+  "validate-production-smoke-coverage.mjs",
+]);
+
 const smokeText = read(smokePath);
 for (const phrase of [
   "Search Presence Scan",
@@ -78,7 +87,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
