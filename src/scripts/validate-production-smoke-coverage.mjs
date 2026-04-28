@@ -66,6 +66,7 @@ expect(packagePath, [
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
   "validate-command-center-operator-runbook.mjs",
+  "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
 ]);
 
@@ -88,7 +89,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, operator runbook validation, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, operator runbook validation, docs index validation, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
