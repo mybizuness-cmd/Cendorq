@@ -3,7 +3,8 @@ import { randomUUID } from "node:crypto";
 import path from "node:path";
 
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, type CustomerSupportIntakeType } from "@/lib/customer-support-intake-architecture";
-import { cleanGatewayString, jsonNoStore, optionsNoStore, verifyAdminReadAccess, verifyCustomerSupportContext } from "@/lib/customer-access-gateway-runtime";
+import { cleanGatewayString, jsonNoStore, optionsNoStore, verifyAdminReadAccess } from "@/lib/customer-access-gateway-runtime";
+import { requireCustomerSession } from "@/lib/customer-session-auth-runtime";
 import { loadFileBackedEnvelope, saveFileBackedEnvelope, type FileBackedEnvelope } from "@/lib/storage/file-backed-envelope";
 
 export const runtime = "nodejs";
@@ -78,9 +79,11 @@ export async function POST(request: NextRequest) {
   const contentLength = Number(request.headers.get("content-length") || "0");
   if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) return jsonNoStore({ ok: false, error: "The support request is too large to process safely.", details: ["Shorten the safe description and submit again."] }, 413);
 
-  const contextCheck = verifyCustomerSupportContext(request);
-  if (!contextCheck.ok || !contextCheck.customerIdHash) {
-    return jsonNoStore({ ok: false, error: contextCheck.safeMessage, details: ["Open support from the authenticated customer dashboard and try again."] }, 401);
+  const sessionAccess = requireCustomerSession(request, {
+    requireVerifiedEmail: true,
+  });
+  if (!sessionAccess.ok || !sessionAccess.customerIdHash) {
+    return jsonNoStore({ ok: false, error: sessionAccess.safeMessage, details: ["Open support from the authenticated customer dashboard and try again."] }, 401);
   }
 
   let rawBody = "";
@@ -123,7 +126,7 @@ export async function POST(request: NextRequest) {
   const now = new Date().toISOString();
   const storedEntry: StoredSupportRequest = {
     id: randomUUID(),
-    customerIdHash: contextCheck.customerIdHash,
+    customerIdHash: sessionAccess.customerIdHash,
     businessContext,
     requestType,
     safeDescription,
