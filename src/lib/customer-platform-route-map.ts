@@ -4,6 +4,7 @@ export type CustomerPlatformRouteKey =
   | "dashboard"
   | "dashboardReports"
   | "dashboardBilling"
+  | "dashboardNotifications"
   | "freeCheck"
   | "plans";
 
@@ -57,6 +58,13 @@ export const CUSTOMER_PLATFORM_ROUTES = [
     path: "/dashboard/billing",
     label: "Billing and plans",
     purpose: "Verified customer billing, invoices, entitlements, upgrade paths, and plan state.",
+    access: "verified-customer",
+  },
+  {
+    key: "dashboardNotifications",
+    path: "/dashboard/notifications",
+    label: "Notification center",
+    purpose: "Verified customer notification center for lifecycle alerts, security prompts, billing actions, report readiness, and support states.",
     access: "verified-customer",
   },
   {
@@ -118,6 +126,13 @@ export const CUSTOMER_PLATFORM_STAGES = [
     customerPromise: "See plan, invoices, billing status, and upgrade options without friction.",
     conversionRole: "Make checkout and upgrades transparent, fast, and entitlement-safe.",
   },
+  {
+    key: "notifications-controlled",
+    label: "Notifications controlled",
+    route: "dashboardNotifications",
+    customerPromise: "See important account, report, billing, support, and security alerts without noise or hidden risk.",
+    conversionRole: "Keep customers moving through the right next step while preserving trust, suppression, and safety boundaries.",
+  },
 ] as const satisfies readonly CustomerPlatformStage[];
 
 export const CUSTOMER_PLATFORM_ROUTE_GUARDS = [
@@ -125,6 +140,8 @@ export const CUSTOMER_PLATFORM_ROUTE_GUARDS = [
   "scan results require account ownership",
   "billing access requires authenticated customer",
   "report vault access requires matching customer and business boundary",
+  "notification center access requires authenticated customer ownership and route authorization",
+  "notification center must not render raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals",
   "provider signup and email/password signup must remain available",
   "Cendorq Support <support@cendorq.com> remains the transactional sender identity",
   "welcome email is one-time only after verified account creation",
