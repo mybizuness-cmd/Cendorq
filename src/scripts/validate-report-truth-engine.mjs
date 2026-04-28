@@ -4,51 +4,24 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const policyPath = "src/lib/command-center/report-truth-engine.ts";
+const growthPolicyPath = "src/lib/command-center/report-growth-system.ts";
 const packagePath = "package.json";
 
 validateTextFile(policyPath, [
-  "REPORT_AGENT_STANDARDS",
   "REPORT_TRUTH_RULES",
   "BUSINESS_ENRICHMENT_RULES",
-  "REVENUE_ADAPTATION_RULES",
-  "CATEGORY_PLAYBOOK_RULES",
-  "INTERNATIONAL_READINESS_RULES",
-  "REPORT_VISUAL_STANDARDS",
-  "REPORT_FOOTER_LEGAL_BRAND_RULES",
   "REPORT_METRIC_RULES",
   "REPORT_CONVERSION_RULES",
   "getReportTruthEnginePolicy",
-  "Report agents must be trained against the report truth engine",
+  "Treat form fields as useful clues, not final proof.",
   "business name plus website or address",
   "calculation inputs, formula label, evidence references, confidence level, and rounding policy",
   "must never claim 100% certainty, perfect accuracy, or guaranteed outcomes",
-  "business model, category, location, sales cycle, buyer intent",
-  "possible revenue streams without overlooking indirect, offline, recurring, or multi-channel revenue sources",
-  "serve businesses across countries and languages",
-  "public, ethical competitive intelligence",
-  "identity-resolution",
-  "presence-discovery",
-  "competitive-context",
-  "revenue-path-discovery",
-  "locale-market-discovery",
   "visibility-score",
   "trust-score",
   "conversion-friction-score",
   "priority-severity-index",
   "progress-delta",
-  "executive-scorecard",
-  "priority-impact-visuals",
-  "monthly-progress-visuals",
-  "modern scorecards",
-  "priority matrix",
-  "trend graph",
-  "branded-report-footer",
-  "small-report-footer",
-  "Cendorq-branded footer",
-  "guarantees a serious evidence-backed review process",
-  "will correct material report errors identified within the review window",
-  "Business outcomes, rankings, traffic, leads, and conversions depend on implementation and external factors and are not guaranteed",
-  "legal counsel before public launch",
   "free-scan",
   "full-diagnosis",
   "optimization",
@@ -56,6 +29,26 @@ validateTextFile(policyPath, [
   "Full Diagnosis is required to verify causes",
   "Optimization is the logical next step",
   "Monthly Control protects, measures, and iterates",
+]);
+
+validateTextFile(growthPolicyPath, [
+  "REPORT_GROWTH_SYSTEM_RULES",
+  "PLAN_REPORT_DEPTH_RULES",
+  "PLATFORM_REVENUE_SIGNAL_RULES",
+  "getReportGrowthSystemPolicy",
+  "Truthful high-conversion reporting",
+  "Every report section must explain what the section measures",
+  "Every report must look official and Cendorq-branded",
+  "analyzed business logo above or beside the business name",
+  "small Cendorq-branded footer",
+  "serious evidence-backed review process",
+  "Business outcomes, rankings, traffic, leads, conversions, revenue, platform behavior, or perfect accuracy",
+  "Full Diagnosis must be thorough and extensive",
+  "website, profiles, reviews, social and platform activity",
+  "recommended Optimization path",
+  "Every business study must consider social media and other platform activity",
+  "bread and butter",
+  "marketplaces, directories, booking platforms, delivery apps, creator platforms, review platforms, communities, app stores, or industry-specific platforms",
 ]);
 
 validateTextFile(packagePath, [
@@ -69,10 +62,16 @@ validateForbidden(policyPath, [
   "perfect accuracy: true",
   "unverified fact",
   "ignore missing evidence",
-  "illegal spying",
-  "guaranteeing revenue",
+]);
+
+validateForbidden(growthPolicyPath, [
   "guaranteeing rankings",
+  "guaranteeing traffic",
+  "guaranteing leads",
+  "guaranteeing conversions",
+  "guaranteeing revenue",
   "promising legal immunity",
+  "lying allowed",
 ]);
 
 if (failures.length) {
@@ -81,7 +80,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report truth engine validation passed. Report generation standards require trained agents, independent evidence, minimum-input enrichment, revenue-context adaptation, category playbooks, international readiness, modern evidence-tied visuals, branded footer safeguards, traceable calculations, confidence labels, uncertainty handling, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
+console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, traceable calculations, confidence labels, plan-by-plan report depth, truthful high-conversion logic, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
