@@ -32,6 +32,9 @@ export type CustomerSupportNotificationRecordProjection = Pick<
   "notificationId" | "supportRequestId" | "notificationKey" | "status" | "channel" | "state" | "createdAt" | "queuedAt" | "displayedAt" | "sentAt" | "readAt" | "suppressedAt" | "failedAt" | "customerVisibleTitle" | "customerVisibleBody" | "primaryPath"
 >;
 
+type CustomerSupportNotificationRecordPrimaryPath = CustomerSupportNotificationRecordContract["primaryPath"];
+type CustomerSupportLifecycleNotificationContract = (typeof CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS)[number];
+
 const STORAGE_DIR = path.join(process.cwd(), ".cendorq-runtime");
 const STORAGE_FILE = path.join(STORAGE_DIR, "customer-support-notification-records.v1.json");
 
@@ -41,6 +44,7 @@ export const CUSTOMER_SUPPORT_NOTIFICATION_RECORD_RUNTIME_GUARDS = [
   "support notification record runtime uses idempotency keys per customerIdHash, supportRequestId, notificationKey, channel, and status to prevent duplicate anxiety or spam",
   "support notification record runtime stores suppressed records safely when communication is suppressed and does not store unsafe suppression detail",
   "support notification record runtime projects records without customerIdHash, auditEventId, suppressionReason, failureReason, raw payload flags, or internal storage fields",
+  "support notification record runtime normalizes notificationKey from the matched lifecycle notification contract and primaryPath through the support path allowlist",
   "support notification record runtime stores rawPayloadStored false, rawEvidenceStored false, rawSecurityPayloadStored false, rawBillingDataStored false, internalNotesStored false, and secretsStored false",
 ] as const;
 
@@ -54,10 +58,12 @@ export function buildCustomerSupportNotificationRecords(input: CustomerSupportNo
   if (!contract) return { ok: false, reason: "known lifecycle notification contract missing", records: [], idempotencyKeys: [] };
 
   const now = normalizeIsoDate(input.now) || new Date().toISOString();
-  const auditEventId = cleanRuntimeString(input.auditEventId, 160) || buildAuditEventId(customerIdHash, plan.supportRequestId, plan.notificationKey, plan.status, now);
+  const notificationKey = contract.key;
+  const primaryPath = normalizePrimaryPath(plan.primaryPath);
+  const auditEventId = cleanRuntimeString(input.auditEventId, 160) || buildAuditEventId(customerIdHash, plan.supportRequestId, notificationKey, plan.status, now);
   const channels = normalizeChannels(plan.channels);
   const selectedChannels = channels.length ? channels : (["support-status"] as const);
-  const records = selectedChannels.map((channel) => buildRecord({ customerIdHash, plan, channel, state: stateFromDecision(plan.decision, channel), now, auditEventId, title: contract.title, body: contract.body }));
+  const records = selectedChannels.map((channel) => buildRecord({ customerIdHash, plan, notificationContract: contract, notificationKey, primaryPath, channel, state: stateFromDecision(plan.decision, channel), now, auditEventId }));
 
   return {
     ok: true,
@@ -110,12 +116,12 @@ export async function saveCustomerSupportNotificationRecordEnvelope(envelope: Cu
   await saveFileBackedEnvelope({ storageDir: STORAGE_DIR, storageFile: STORAGE_FILE, envelope, createTempId: randomUUID });
 }
 
-function buildRecord({ customerIdHash, plan, channel, state, now, auditEventId, title, body }: { customerIdHash: string; plan: CustomerSupportLifecycleCommunicationPlan; channel: CustomerSupportNotificationRecordChannel; state: CustomerSupportNotificationRecordState; now: string; auditEventId: string; title: string; body: string }): CustomerSupportNotificationRecordContract {
+function buildRecord({ customerIdHash, plan, notificationContract, notificationKey, primaryPath, channel, state, now, auditEventId }: { customerIdHash: string; plan: CustomerSupportLifecycleCommunicationPlan; notificationContract: CustomerSupportLifecycleNotificationContract; notificationKey: CustomerSupportNotificationRecordContract["notificationKey"]; primaryPath: CustomerSupportNotificationRecordPrimaryPath; channel: CustomerSupportNotificationRecordChannel; state: CustomerSupportNotificationRecordState; now: string; auditEventId: string }): CustomerSupportNotificationRecordContract {
   return {
     notificationId: randomUUID(),
     customerIdHash,
     supportRequestId: cleanRuntimeString(plan.supportRequestId, 160),
-    notificationKey: plan.notificationKey,
+    notificationKey,
     status: plan.status,
     channel,
     state,
@@ -124,11 +130,11 @@ function buildRecord({ customerIdHash, plan, channel, state, now, auditEventId, 
     displayedAt: state === "displayed" ? now : undefined,
     sentAt: state === "sent" ? now : undefined,
     suppressedAt: state === "suppressed" ? now : undefined,
-    suppressionKey: state === "suppressed" ? buildCustomerSupportNotificationRecordIdempotencyKey({ customerIdHash, supportRequestId: plan.supportRequestId, notificationKey: plan.notificationKey, channel, status: plan.status }) : undefined,
+    suppressionKey: state === "suppressed" ? buildCustomerSupportNotificationRecordIdempotencyKey({ customerIdHash, supportRequestId: plan.supportRequestId, notificationKey, channel, status: plan.status }) : undefined,
     suppressionReason: state === "suppressed" ? "safe lifecycle communication suppression" : undefined,
-    customerVisibleTitle: cleanRuntimeString(title, 180),
-    customerVisibleBody: cleanRuntimeString(body, 600),
-    primaryPath: plan.primaryPath,
+    customerVisibleTitle: cleanRuntimeString(notificationContract.title, 180),
+    customerVisibleBody: cleanRuntimeString(notificationContract.body, 600),
+    primaryPath,
     auditEventId,
     rawPayloadStored: false,
     rawEvidenceStored: false,
@@ -149,18 +155,23 @@ function normalizeChannels(channels: readonly string[]) {
   return channels.filter((channel): channel is CustomerSupportNotificationRecordChannel => channel === "dashboard-notification" || channel === "email" || channel === "support-status");
 }
 
+function normalizePrimaryPath(value: string): CustomerSupportNotificationRecordPrimaryPath {
+  if (value === "/dashboard/support/request" || value === "/dashboard/support") return value;
+  return "/dashboard/support/status";
+}
+
 function normalizeCustomerSupportNotificationRecord(value: unknown): CustomerSupportNotificationRecordContract | null {
   if (!isRecord(value)) return null;
   const channel = normalizeChannel(value.channel);
   const state = normalizeState(value.state);
   if (!channel || !state) return null;
-  const notificationKey = typeof value.notificationKey === "string" && CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.some((contract) => contract.key === value.notificationKey) ? value.notificationKey : null;
-  if (!notificationKey) return null;
+  const contract = typeof value.notificationKey === "string" ? CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.find((candidate) => candidate.key === value.notificationKey) : undefined;
+  if (!contract) return null;
   return {
     notificationId: cleanRuntimeString(value.notificationId, 160) || randomUUID(),
     customerIdHash: cleanRuntimeString(value.customerIdHash, 160),
     supportRequestId: cleanRuntimeString(value.supportRequestId, 160),
-    notificationKey,
+    notificationKey: contract.key,
     status: value.status === "received" || value.status === "reviewing" || value.status === "waiting-on-customer" || value.status === "in-specialist-review" || value.status === "resolved" || value.status === "closed" ? value.status : "received",
     channel,
     state,
@@ -176,7 +187,7 @@ function normalizeCustomerSupportNotificationRecord(value: unknown): CustomerSup
     failureReason: cleanRuntimeString(value.failureReason, 240) || undefined,
     customerVisibleTitle: cleanRuntimeString(value.customerVisibleTitle, 180),
     customerVisibleBody: cleanRuntimeString(value.customerVisibleBody, 600),
-    primaryPath: value.primaryPath === "/dashboard/support/request" || value.primaryPath === "/dashboard/support" ? value.primaryPath : "/dashboard/support/status",
+    primaryPath: normalizePrimaryPath(typeof value.primaryPath === "string" ? value.primaryPath : ""),
     auditEventId: cleanRuntimeString(value.auditEventId, 160) || randomUUID(),
     rawPayloadStored: false,
     rawEvidenceStored: false,
