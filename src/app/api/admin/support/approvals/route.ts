@@ -5,7 +5,7 @@ import { requireCustomerSupportOperatorAccess, operatorAccessJsonNoStore, operat
 import { buildCustomerSupportOperatorApproval, loadCustomerSupportOperatorApprovalEnvelope, mergeCustomerSupportOperatorApprovals, projectCustomerSupportOperatorApproval, saveCustomerSupportOperatorApprovalEnvelope } from "@/lib/customer-support-operator-approval-runtime";
 import type { CustomerSupportOperatorApprovalDecision, CustomerSupportOperatorApprovalState, CustomerSupportOperatorApprovalType } from "@/lib/customer-support-operator-approval-contracts";
 import { buildCustomerSupportOperatorAuditRecord, loadCustomerSupportOperatorAuditEnvelope, mergeCustomerSupportOperatorAuditRecords, saveCustomerSupportOperatorAuditEnvelope } from "@/lib/customer-support-operator-audit-runtime";
-import type { CustomerSupportOperatorApprovalGate, CustomerSupportOperatorRole } from "@/lib/customer-support-operator-console-contracts";
+import type { CustomerSupportOperatorAction, CustomerSupportOperatorApprovalGate, CustomerSupportOperatorRole } from "@/lib/customer-support-operator-console-contracts";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -31,14 +31,6 @@ export async function OPTIONS() {
 }
 
 export async function POST(request: NextRequest) {
-  const access = requireCustomerSupportOperatorAccess({
-    request,
-    surface: "operator-approval",
-    action: "approve-safe-correction",
-    mutation: true,
-  });
-  if (!access.ok) return operatorAccessJsonNoStore(access);
-
   const contentLength = Number(request.headers.get("content-length") || "0");
   if (Number.isFinite(contentLength) && contentLength > MAX_APPROVAL_BYTES) {
     return jsonNoStore({ ok: false, error: "The approval request is too large to process safely.", details: ["Submit a shorter customer-safe approval summary."] }, 413);
@@ -63,9 +55,18 @@ export async function POST(request: NextRequest) {
     return jsonNoStore({ ok: false, error: "The approval payload is not valid JSON.", details: ["Submit a valid JSON approval request."] }, 400);
   }
 
+  const approvalType = normalizeApprovalType(payload.approvalType);
+  const accessAction = approvalType ? actionForApprovalType(approvalType) : "approve-safe-correction";
+  const access = requireCustomerSupportOperatorAccess({
+    request,
+    surface: "operator-approval",
+    action: accessAction,
+    mutation: true,
+  });
+  if (!access.ok) return operatorAccessJsonNoStore(access);
+
   const supportRequestId = cleanString(payload.supportRequestId, 120);
   const customerIdHash = cleanString(payload.customerIdHash, 160);
-  const approvalType = normalizeApprovalType(payload.approvalType);
   const approvalGate = normalizeApprovalGate(payload.approvalGate);
   const requestedByRole = normalizeOperatorRole(payload.requestedByRole);
   const reviewerRole = normalizeOperatorRole(payload.reviewerRole) ?? access.operatorRole;
@@ -97,7 +98,7 @@ export async function POST(request: NextRequest) {
       customerIdHash,
       operatorRole: access.operatorRole,
       operatorActorRef: access.operatorActorRef,
-      action: actionForApprovalType(approvalType),
+      action: accessAction,
       outcome: decision === "approve" ? "approved" : decision === "reject" ? "rejected" : decision === "escalate" ? "escalated" : "held",
       approvalGate,
       reasonCode,
@@ -143,11 +144,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function actionForApprovalType(approvalType: CustomerSupportOperatorApprovalType) {
-  if (approvalType === "billing-action") return "approve-billing-action" as const;
-  if (approvalType === "security-outcome") return "escalate-security-review" as const;
-  if (approvalType === "support-closure") return "close-request" as const;
-  return "approve-safe-correction" as const;
+function actionForApprovalType(approvalType: CustomerSupportOperatorApprovalType): CustomerSupportOperatorAction {
+  if (approvalType === "billing-action") return "approve-billing-action";
+  if (approvalType === "security-outcome") return "escalate-security-review";
+  if (approvalType === "support-closure") return "close-request";
+  return "approve-safe-correction";
 }
 
 function normalizeApprovalType(value: unknown): CustomerSupportOperatorApprovalType | null {
