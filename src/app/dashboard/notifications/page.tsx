@@ -2,6 +2,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { CUSTOMER_NOTIFICATION_CONTRACTS, type CustomerNotificationKey } from "@/lib/customer-notification-contracts";
 import { CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS } from "@/lib/customer-support-lifecycle-notification-contracts";
+import { SupportLifecycleNotificationList } from "@/components/customer-notifications/support-lifecycle-notification-list";
 
 export const metadata = buildMetadata({
   title: "Notification center | Cendorq",
@@ -59,6 +60,8 @@ export default function NotificationCenterPage() {
           </Link>
         </div>
       </section>
+
+      <SupportLifecycleNotificationList />
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4">
         {FEATURED_NOTIFICATIONS.map((notification) => (
