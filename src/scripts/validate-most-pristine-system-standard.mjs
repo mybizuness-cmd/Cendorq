@@ -6,6 +6,8 @@ const failures = [];
 const standardPath = "src/lib/command-center/most-pristine-system-standard.ts";
 const enterprisePath = "src/lib/command-center/enterprise-operating-standard.ts";
 const auditDefensePath = "src/lib/command-center/audit-defense-system.ts";
+const interfaceExcellencePath = "src/lib/platform-interface-excellence-contracts.ts";
+const interfaceExcellenceValidatorPath = "src/scripts/validate-platform-interface-excellence.mjs";
 const packagePath = "package.json";
 
 validateTextFile(standardPath, [
@@ -40,6 +42,34 @@ validateTextFile(standardPath, [
   "Every change must pass validation, build checks, route checks, smoke checks where applicable, reviewable diffs, rollback readiness, and production safety gates",
 ]);
 
+validateTextFile(interfaceExcellencePath, [
+  "PLATFORM_INTERFACE_EXCELLENCE_CONTRACT",
+  "platform-interface-excellence-lock-v1",
+  "customer-dashboard",
+  "public-frontend-website",
+  "operator-command-center",
+  "admin-support-console",
+  "Hard-lock customer dashboard, public website, command center, and support/operator surfaces",
+  "Every customer-facing and operator-facing interface must feel premium, clear, useful, fast, protected, truthful, and carefully guided.",
+  "clear visual hierarchy before decoration",
+  "summary-to-detail layout for complex decisions",
+  "keyboard-visible focus and accessible interactive targets",
+  "show business status, next best action, and proof context immediately",
+  "operator/admin surfaces must separate read-only review from guarded mutation",
+  "reports must separate verified facts, assumptions, inferences, and recommendations",
+  "no fake urgency",
+  "no dark-pattern pressure",
+  "no browser-exposed secrets, protected context keys, session tokens, or admin keys",
+  "customer dashboard cannot degrade into generic tiles",
+  "all new interface layers require validation before merge",
+]);
+
+validateTextFile(interfaceExcellenceValidatorPath, [
+  "Platform interface excellence validation passed",
+  "validate-platform-interface-excellence.mjs",
+  "PLATFORM_INTERFACE_EXCELLENCE_CONTRACT",
+]);
+
 validateTextFile(enterprisePath, [
   "Enterprise operating standard",
   "Liability minimization defense",
@@ -67,13 +97,23 @@ validateForbidden(standardPath, [
   "claiming zero liability allowed",
 ]);
 
+validateForbidden(interfaceExcellencePath, [
+  "guaranteed ROI allowed",
+  "fake urgency allowed",
+  "dark patterns allowed",
+  "raw payload allowed",
+  "browser secret allowed",
+  "skip validation",
+  "best effort optional",
+]);
+
 if (failures.length) {
   console.error("Most-pristine system standard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, and customer experience must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, public website, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
