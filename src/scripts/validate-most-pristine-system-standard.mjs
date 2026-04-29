@@ -20,6 +20,8 @@ const informationProtectionPath = "src/lib/core-information-protection-contracts
 const informationProtectionValidatorPath = "src/scripts/validate-core-information-protection.mjs";
 const institutionalMaturityPath = "src/lib/institutional-operating-maturity-contracts.ts";
 const institutionalMaturityValidatorPath = "src/scripts/validate-institutional-operating-maturity.mjs";
+const adversarialSuitePath = "src/lib/adversarial-validation-suite-contracts.ts";
+const adversarialSuiteValidatorPath = "src/scripts/validate-adversarial-validation-suite.mjs";
 const customerDashboardPath = "src/app/dashboard/page.tsx";
 const homePath = "src/app/page.tsx";
 const freeCheckPath = "src/app/free-check/page.tsx";
@@ -158,6 +160,32 @@ validateTextFile(institutionalMaturityValidatorPath, [
   "Institutional operating maturity validation passed",
   "validate-institutional-operating-maturity.mjs",
   "INSTITUTIONAL_OPERATING_MATURITY_CONTRACT",
+]);
+
+validateTextFile(adversarialSuitePath, [
+  "ADVERSARIAL_VALIDATION_SUITE_CONTRACT",
+  "adversarial-validation-suite-v1",
+  "Turn hostile-input and leakage expectations into repeatable release validation",
+  "Adversarial checks are mandatory release evidence.",
+  "prompt-injection-and-system-override-attempts",
+  "credential-token-and-secret-submission",
+  "payment-card-and-billing-data-submission",
+  "cross-customer-identifier-and-ownership-confusion",
+  "admin-key-support-key-and-protected-header-exposure",
+  "browser-storage-and-public-javascript-secret-exposure",
+  "notification-email-and-report-raw-content-leakage",
+  "sanitize or reject hostile prompt-injection content without echoing the raw attack",
+  "block cross-customer access through server-side ownership checks",
+  "validators must fail on browser storage of protected authority",
+  "adversarial validation must run before merge through a locked gate",
+  "ADVERSARIAL_VALIDATION_CASES",
+  "ADVERSARIAL_VALIDATION_BLOCKED_PATTERNS",
+]);
+
+validateTextFile(adversarialSuiteValidatorPath, [
+  "Adversarial validation suite validation passed",
+  "validate-adversarial-validation-suite.mjs",
+  "ADVERSARIAL_VALIDATION_SUITE_CONTRACT",
 ]);
 
 validateTextFile(customerDashboardPath, [
@@ -346,6 +374,17 @@ validateForbidden(institutionalMaturityPath, [
   "launch without validation allowed",
 ]);
 
+validateForbidden(adversarialSuitePath, [
+  "ignore prompt injection allowed",
+  "echo raw attack allowed",
+  "store raw credential allowed",
+  "payment card allowed in support",
+  "cross customer bypass allowed",
+  "browser admin key allowed",
+  "disable adversarial validation allowed",
+  "impossible-to-hack guarantee",
+]);
+
 validateForbidden(customerDashboardPath, publicBlockedPatterns());
 validateForbidden(homePath, publicBlockedPatterns());
 validateForbidden(freeCheckPath, publicBlockedPatterns());
@@ -379,7 +418,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
