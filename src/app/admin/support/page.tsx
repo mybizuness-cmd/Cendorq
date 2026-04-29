@@ -45,6 +45,13 @@ const SUPPORT_OPERATOR_REVIEW_GATE_MAP = [
   { label: "Closure", endpoint: "/api/admin/support/approvals/closure", gate: "support-admin-approval", reviewer: "support-admin", projection: "operator-closure-approval-safe" },
 ] as const;
 
+const SUPPORT_OPERATOR_POSTURE_MAP = [
+  { label: "Safe summaries", mode: "Read-only", record: "No mutation", check: "safe-summary-only projection" },
+  { label: "Assignments", mode: "Guarded mutation", record: "Operator record required", check: "assignment projection" },
+  { label: "Reviews", mode: "Gate-specific mutation", record: "Operator record before stored result", check: "safe approval projection" },
+  { label: "History", mode: "Read-only", record: "Projection query only", check: "bounded safe list" },
+] as const;
+
 export default function SupportOperatorConsolePage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
@@ -112,6 +119,24 @@ export default function SupportOperatorConsolePage() {
                 <GateMapDetail label="Gate" value={item.gate} />
                 <GateMapDetail label="Reviewer" value={item.reviewer} />
                 <GateMapDetail label="Projection" value={item.projection} />
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 mt-8 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6" aria-label="Operator posture map">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Posture map</div>
+        <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">Read and write surfaces at a glance.</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">This map is informational only. It separates read-only surfaces from guarded write surfaces without changing authorization, review gates, stored records, or projections.</p>
+        <div className="mt-5 grid gap-4 lg:grid-cols-4">
+          {SUPPORT_OPERATOR_POSTURE_MAP.map((item) => (
+            <article key={item.label} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+              <div className="text-sm font-semibold text-white">{item.label}</div>
+              <div className="mt-4 grid gap-3 text-xs leading-6 text-slate-300">
+                <GateMapDetail label="Mode" value={item.mode} />
+                <GateMapDetail label="Record" value={item.record} />
+                <GateMapDetail label="Check" value={item.check} />
               </div>
             </article>
           ))}
