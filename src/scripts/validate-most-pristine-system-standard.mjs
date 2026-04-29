@@ -14,6 +14,8 @@ const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-a
 const dashboardExcellenceValidatorPath = "src/scripts/validate-customer-dashboard-excellence.mjs";
 const publicWebsiteExcellenceValidatorPath = "src/scripts/validate-public-website-excellence.mjs";
 const homepageConciergeValidatorPath = "src/scripts/validate-homepage-concierge-nudge.mjs";
+const seamlessSyncPath = "src/lib/seamless-responsive-sync-contracts.ts";
+const seamlessSyncValidatorPath = "src/scripts/validate-seamless-responsive-sync.mjs";
 const customerDashboardPath = "src/app/dashboard/page.tsx";
 const homePath = "src/app/page.tsx";
 const freeCheckPath = "src/app/free-check/page.tsx";
@@ -80,6 +82,28 @@ validateTextFile(interfaceExcellenceValidatorPath, [
   "Platform interface excellence validation passed",
   "validate-platform-interface-excellence.mjs",
   "PLATFORM_INTERFACE_EXCELLENCE_CONTRACT",
+]);
+
+validateTextFile(seamlessSyncPath, [
+  "SEAMLESS_RESPONSIVE_SYNC_CONTRACT",
+  "seamless-responsive-sync-v1",
+  "fast, coherent, synchronized, responsive, and protected",
+  "Every surface must feel instant, connected, and dependable.",
+  "every route needs a clear next step and safe fallback",
+  "Free Scan completion must connect to dashboard next action",
+  "support request submission must connect to support status and notifications",
+  "billing and plan state must connect to dashboard, report entitlements, and plan comparison",
+  "critical public and dashboard pages must avoid unnecessary client-only rendering",
+  "protected API responses should use no-store",
+  "no disconnected customer journey",
+  "no stale protected customer state presented as live truth",
+  "no unbounded customer or operator lists",
+]);
+
+validateTextFile(seamlessSyncValidatorPath, [
+  "Seamless responsive sync validation passed",
+  "validate-seamless-responsive-sync.mjs",
+  "SEAMLESS_RESPONSIVE_SYNC_CONTRACT",
 ]);
 
 validateTextFile(customerDashboardPath, [
@@ -236,6 +260,17 @@ validateForbidden(interfaceExcellencePath, [
   "best effort optional",
 ]);
 
+validateForbidden(seamlessSyncPath, [
+  "disconnected customer journey allowed",
+  "stale state allowed",
+  "unbounded lists allowed",
+  "skip loading states allowed",
+  "skip error states allowed",
+  "browser secrets allowed",
+  "bypass ownership check allowed",
+  "disable validation for speed",
+]);
+
 validateForbidden(customerDashboardPath, publicBlockedPatterns());
 validateForbidden(homePath, publicBlockedPatterns());
 validateForbidden(freeCheckPath, publicBlockedPatterns());
@@ -269,7 +304,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
