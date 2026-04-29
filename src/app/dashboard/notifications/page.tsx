@@ -2,6 +2,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { CUSTOMER_NOTIFICATION_CONTRACTS, type CustomerNotificationKey } from "@/lib/customer-notification-contracts";
 import { CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS } from "@/lib/customer-support-lifecycle-notification-contracts";
+import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 import { SupportLifecycleNotificationList } from "@/components/customer-notifications/support-lifecycle-notification-list";
 
 export const metadata = buildMetadata({
@@ -16,6 +17,13 @@ const FEATURED_NOTIFICATION_KEYS = ["email-confirmation-required", "free-scan-re
 const FEATURED_NOTIFICATIONS = CUSTOMER_NOTIFICATION_CONTRACTS.filter((notification) =>
   hasNotificationKey(FEATURED_NOTIFICATION_KEYS, notification.key),
 );
+
+const NOTIFICATION_HANDOFFS = [
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-notifications", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "free-scan-to-notifications", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "notifications-to-status", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "support-request-to-status", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+] as const;
 
 const FIRST_USE_SNAPSHOT = [
   { label: "Alert meaning", value: "Actionable, not noisy", detail: "Every visible alert should explain why it matters and where the customer can safely act." },
@@ -117,6 +125,26 @@ export default function NotificationCenterPage() {
             ))}
           </div>
         </article>
+      </section>
+
+      <section className="relative z-10 mt-8" aria-label="Notification center handoff runtime integration">
+        <div className="system-surface rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected notification handoffs</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every alert should connect to status, recovery, or the next safe route.</h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
+            Notification handoff runtime keeps account/security, scan/report, billing/support, and support lifecycle alerts tied to customer-owned safe projection. Alerts can route, recover, hold, or suppress without exposing raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, risk internals, attacker details, secrets, or unsupported promises.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {NOTIFICATION_HANDOFFS.map((handoff) => (
+              <Link key={handoff.surfaceKey} href={handoff.connectedDestination} className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{handoff.decision} · {handoff.surfaceKey}</span>
+                <span className="mt-3 block font-semibold text-white">{handoff.currentState}</span>
+                <span className="mt-2 block">{handoff.safeNextAction}</span>
+                <span className="mt-3 block text-xs leading-5 text-slate-400">Recovery: {handoff.recoveryPath}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <SupportLifecycleNotificationList />
