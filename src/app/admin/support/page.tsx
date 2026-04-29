@@ -52,6 +52,13 @@ const SUPPORT_OPERATOR_POSTURE_MAP = [
   { label: "History", mode: "Read-only", record: "Projection query only", check: "bounded safe list" },
 ] as const;
 
+const SUPPORT_OPERATOR_COMPLETION_CHECKLIST = [
+  { label: "Safe summary reviewed", detail: "Use the safe-summary projection before assigning or reviewing." },
+  { label: "Customer-owned context confirmed", detail: "Use only customer-owned support context from guarded APIs." },
+  { label: "Correct review gate selected", detail: "Match the panel to correction, billing, security, or closure." },
+  { label: "Customer-safe copy prepared", detail: "Write bounded status or outcome copy before submitting a review." },
+] as const;
+
 export default function SupportOperatorConsolePage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
@@ -138,6 +145,20 @@ export default function SupportOperatorConsolePage() {
                 <GateMapDetail label="Record" value={item.record} />
                 <GateMapDetail label="Check" value={item.check} />
               </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 mt-8 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6" aria-label="Operator completion checklist">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Completion checklist</div>
+        <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">Check before review action.</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">This checklist is informational only. It does not approve, deny, store, or expose support data.</p>
+        <div className="mt-5 grid gap-4 lg:grid-cols-4">
+          {SUPPORT_OPERATOR_COMPLETION_CHECKLIST.map((item) => (
+            <article key={item.label} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+              <div className="text-sm font-semibold text-white">{item.label}</div>
+              <p className="mt-3 text-xs leading-6 text-slate-300">{item.detail}</p>
             </article>
           ))}
         </div>
