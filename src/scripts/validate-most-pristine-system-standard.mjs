@@ -16,6 +16,8 @@ const publicWebsiteExcellenceValidatorPath = "src/scripts/validate-public-websit
 const homepageConciergeValidatorPath = "src/scripts/validate-homepage-concierge-nudge.mjs";
 const seamlessSyncPath = "src/lib/seamless-responsive-sync-contracts.ts";
 const seamlessSyncValidatorPath = "src/scripts/validate-seamless-responsive-sync.mjs";
+const informationProtectionPath = "src/lib/core-information-protection-contracts.ts";
+const informationProtectionValidatorPath = "src/scripts/validate-core-information-protection.mjs";
 const customerDashboardPath = "src/app/dashboard/page.tsx";
 const homePath = "src/app/page.tsx";
 const freeCheckPath = "src/app/free-check/page.tsx";
@@ -104,6 +106,29 @@ validateTextFile(seamlessSyncValidatorPath, [
   "Seamless responsive sync validation passed",
   "validate-seamless-responsive-sync.mjs",
   "SEAMLESS_RESPONSIVE_SYNC_CONTRACT",
+]);
+
+validateTextFile(informationProtectionPath, [
+  "CORE_INFORMATION_PROTECTION_CONTRACT",
+  "core-information-protection-v1",
+  "Reduce the risk of customer, company, support, billing, report, operator, and platform information exposure",
+  "Cendorq must never treat customer or company information as casual data.",
+  "customer-owned data must require server-side customer ownership checks",
+  "verified-email checks are required for protected customer support and dashboard APIs",
+  "customer surfaces receive safe projections only",
+  "no session tokens in localStorage, sessionStorage, URLs, analytics payloads, public JavaScript, HTML, emails, or customer copy",
+  "audit records must preserve proof without exposing customer secrets or unnecessary sensitive data",
+  "validate every new information flow before merge",
+  "near-zero routine maintenance must be achieved through validated automation, not blind auto-change",
+  "No system can honestly promise impossible-to-steal or impossible-to-hack.",
+  "no browser authority for protected customer, support, billing, report, operator, or admin data",
+  "no cross-customer data path without server-side ownership checks",
+]);
+
+validateTextFile(informationProtectionValidatorPath, [
+  "Core information protection validation passed",
+  "validate-core-information-protection.mjs",
+  "CORE_INFORMATION_PROTECTION_CONTRACT",
 ]);
 
 validateTextFile(customerDashboardPath, [
@@ -271,6 +296,17 @@ validateForbidden(seamlessSyncPath, [
   "disable validation for speed",
 ]);
 
+validateForbidden(informationProtectionPath, [
+  "impossible-to-steal guarantee",
+  "impossible-to-hack guarantee",
+  "browser authority allowed",
+  "raw customer payloads allowed",
+  "cross-customer access allowed",
+  "delete audit records allowed",
+  "skip ownership checks allowed",
+  "blind auto-change allowed",
+]);
+
 validateForbidden(customerDashboardPath, publicBlockedPatterns());
 validateForbidden(homePath, publicBlockedPatterns());
 validateForbidden(freeCheckPath, publicBlockedPatterns());
@@ -304,7 +340,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
