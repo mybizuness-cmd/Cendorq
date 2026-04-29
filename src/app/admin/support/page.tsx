@@ -13,7 +13,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Support operator console | Cendorq",
-  description: "Support operator console for safe summaries, assignment, correction review, billing review, security review, closure review, safe history, and protected support triage.",
+  description: "Support operator console for safe summaries, assignment, separated review actions, safe history, and protected support triage.",
   path: "/admin/support",
   noIndex: true,
 });
@@ -36,7 +36,7 @@ export default function SupportOperatorConsolePage() {
           Review, assign, approve, and track support with protected audit controls.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          This operator-facing support surface provides safe-summary review, guarded assignment, guarded correction review, guarded billing review, guarded security review, guarded closure review, safe approval history, and safe assignment history. It is designed to inspect customer support context and route review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
+          This operator-facing support surface is organized into safe intake and routing, separated review actions, and safe history. It is designed to inspect customer support context and route review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
@@ -80,37 +80,41 @@ export default function SupportOperatorConsolePage() {
         </article>
       </section>
 
-      <section className="relative z-10 mt-8">
-        <OperatorSafeSummaryConsole />
+      <section className="relative z-10 mt-10">
+        <OperatorSectionHeader eyebrow="Review intake" title="Safe intake and routing." description="Start with safe summaries and assignment routing before any review action. These panels do not change customer-visible outcomes by themselves." />
+        <div className="mt-5 grid gap-8">
+          <OperatorSafeSummaryConsole />
+          <OperatorAssignmentPanel />
+        </div>
       </section>
 
-      <section className="relative z-10 mt-8">
-        <OperatorAssignmentPanel />
+      <section className="relative z-10 mt-10">
+        <OperatorSectionHeader eyebrow="Separated actions" title="Approval actions by gate." description="Correction, billing, security, and closure reviews stay separated by endpoint, gate, reviewer role, audit path, and safe projection output." />
+        <div className="mt-5 grid gap-8">
+          <OperatorApprovalPanel />
+          <OperatorBillingApprovalPanel />
+          <OperatorSecurityApprovalPanel />
+          <OperatorClosureApprovalPanel />
+        </div>
       </section>
 
-      <section className="relative z-10 mt-8">
-        <OperatorApprovalPanel />
-      </section>
-
-      <section className="relative z-10 mt-8">
-        <OperatorBillingApprovalPanel />
-      </section>
-
-      <section className="relative z-10 mt-8">
-        <OperatorSecurityApprovalPanel />
-      </section>
-
-      <section className="relative z-10 mt-8">
-        <OperatorClosureApprovalPanel />
-      </section>
-
-      <section className="relative z-10 mt-8">
-        <OperatorAssignmentList />
-      </section>
-
-      <section className="relative z-10 mt-8">
-        <OperatorApprovalList />
+      <section className="relative z-10 mt-10">
+        <OperatorSectionHeader eyebrow="Safe history" title="Projection-only history." description="Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI." />
+        <div className="mt-5 grid gap-8">
+          <OperatorAssignmentList />
+          <OperatorApprovalList />
+        </div>
       </section>
     </main>
+  );
+}
+
+function OperatorSectionHeader({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
+  return (
+    <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6">
+      <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{eyebrow}</div>
+      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">{title}</h2>
+      <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">{description}</p>
+    </div>
   );
 }
