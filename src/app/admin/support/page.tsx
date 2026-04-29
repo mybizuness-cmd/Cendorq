@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { OperatorApprovalList } from "@/components/customer-support/operator-approval-list";
 import { OperatorAssignmentList } from "@/components/customer-support/operator-assignment-list";
 import { OperatorAssignmentPanel } from "@/components/customer-support/operator-assignment-panel";
 import { OperatorSafeSummaryConsole } from "@/components/customer-support/operator-safe-summary-console";
@@ -8,7 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Support operator console | Cendorq",
-  description: "Support operator console for safe summaries, audit-aware assignment, safe assignment history, and protected support triage.",
+  description: "Support operator console for safe summaries, audit-aware assignment, safe assignment history, safe approval history, and protected support triage.",
   path: "/admin/support",
   noIndex: true,
 });
@@ -16,8 +17,8 @@ export const metadata = buildMetadata({
 const OPERATOR_RULES = [
   "Safe summaries use safe-summary-only projection.",
   "Assignments require the guarded operator assignment API, fresh reauthentication, and immutable audit creation.",
-  "Assignment history uses safe assignment projections only.",
-  "Correction, billing, security, and closure controls are intentionally not available here.",
+  "Assignment and approval history use safe projections only.",
+  "Correction, billing, security, and closure controls require approval gates and are intentionally separated from read-only history.",
 ] as const;
 
 export default function SupportOperatorConsolePage() {
@@ -28,10 +29,10 @@ export default function SupportOperatorConsolePage() {
       <section className="system-panel-authority relative z-10 rounded-[2.5rem] p-6 sm:p-10">
         <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Support operator console</div>
         <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-          Review, assign, and track support with protected audit controls.
+          Review, assign, approve, and track support with protected audit controls.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          This operator-facing support surface provides safe-summary review, guarded assignment, and safe assignment history. It is designed to inspect customer support context and assign review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
+          This operator-facing support surface provides safe-summary review, guarded assignment, safe approval history, and safe assignment history. It is designed to inspect customer support context and assign review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
@@ -85,6 +86,10 @@ export default function SupportOperatorConsolePage() {
 
       <section className="relative z-10 mt-8">
         <OperatorAssignmentList />
+      </section>
+
+      <section className="relative z-10 mt-8">
+        <OperatorApprovalList />
       </section>
     </main>
   );
