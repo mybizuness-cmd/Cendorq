@@ -24,6 +24,8 @@ const adversarialSuitePath = "src/lib/adversarial-validation-suite-contracts.ts"
 const adversarialSuiteValidatorPath = "src/scripts/validate-adversarial-validation-suite.mjs";
 const observabilityIncidentPath = "src/lib/observability-incident-response-contracts.ts";
 const observabilityIncidentValidatorPath = "src/scripts/validate-observability-incident-response.mjs";
+const backupRecoveryPath = "src/lib/backup-disaster-recovery-contracts.ts";
+const backupRecoveryValidatorPath = "src/scripts/validate-backup-disaster-recovery.mjs";
 const customerDashboardPath = "src/app/dashboard/page.tsx";
 const homePath = "src/app/page.tsx";
 const freeCheckPath = "src/app/free-check/page.tsx";
@@ -215,6 +217,27 @@ validateTextFile(observabilityIncidentValidatorPath, [
   "Observability incident response validation passed",
   "validate-observability-incident-response.mjs",
   "OBSERVABILITY_INCIDENT_RESPONSE_CONTRACT",
+]);
+
+validateTextFile(backupRecoveryPath, [
+  "BACKUP_DISASTER_RECOVERY_CONTRACT",
+  "backup-disaster-recovery-v1",
+  "Make Cendorq recoverable from platform, deployment, storage, data, queue, report, billing, support, and operator-surface failures",
+  "Recovery must be planned before scale.",
+  "restore customer-owned views without cross-customer leakage",
+  "restore audit proof without exposing unnecessary sensitive raw content",
+  "backups must not become a second raw-data store for sensitive submissions",
+  "restore must preserve customer ownership boundaries and safe projection rules",
+  "restore must not re-trigger lifecycle emails, notifications, billing actions, or support messages without idempotency checks",
+  "rollback must not delete required audit records",
+  "restore tests must use sanitized fixtures or safe references, not real raw customer secrets",
+  "BACKUP_DISASTER_RECOVERY_HARD_LOCKS",
+]);
+
+validateTextFile(backupRecoveryValidatorPath, [
+  "Backup disaster recovery validation passed",
+  "validate-backup-disaster-recovery.mjs",
+  "BACKUP_DISASTER_RECOVERY_CONTRACT",
 ]);
 
 validateTextFile(customerDashboardPath, [
@@ -423,6 +446,15 @@ validateForbidden(observabilityIncidentPath, [
   "disable validation to restore service allowed",
 ]);
 
+validateForbidden(backupRecoveryPath, [
+  "raw backups allowed",
+  "restore without ownership allowed",
+  "audit deletion rollback allowed",
+  "perfect recovery guaranteed",
+  "impossible data loss guarantee",
+  "restore test with real secrets allowed",
+]);
+
 validateForbidden(customerDashboardPath, publicBlockedPatterns());
 validateForbidden(homePath, publicBlockedPatterns());
 validateForbidden(freeCheckPath, publicBlockedPatterns());
@@ -456,7 +488,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
