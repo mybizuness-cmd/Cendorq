@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { CUSTOMER_PLATFORM_STAGES } from "@/lib/customer-platform-route-map";
+import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 
 export const metadata = buildMetadata({
   title: "Customer dashboard | Cendorq",
@@ -27,6 +28,14 @@ const SAFE_STATE_RULES = [
   "Do not expose raw payloads, private evidence, internal notes, operator identities, or risk internals.",
   "Give the customer one obvious next action before offering deeper plan decisions.",
   "Keep support, report, billing, and notification links visible when a customer needs recovery.",
+] as const;
+
+const DASHBOARD_HANDOFFS = [
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-report-vault", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-billing", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-notifications", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-support", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-plans", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
 ] as const;
 
 const OPERATING_SNAPSHOT = [
@@ -130,6 +139,26 @@ export default function CustomerDashboardPage() {
             ))}
           </div>
         </article>
+      </section>
+
+      <section className="relative z-10 mt-8" aria-label="Dashboard handoff runtime integration">
+        <div className="system-surface rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected dashboard handoffs</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every dashboard card now carries a safe state, next action, and recovery path.</h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
+            The dashboard runtime keeps report vault, billing, notifications, support, and plans aligned with one customer-owned projection. A card should never strand the customer, treat pending work as final, expose raw or internal data, or push an unsupported outcome promise.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+            {DASHBOARD_HANDOFFS.map((handoff) => (
+              <Link key={handoff.surfaceKey} href={handoff.connectedDestination} className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{handoff.decision} · {handoff.surfaceKey}</span>
+                <span className="mt-3 block font-semibold text-white">{handoff.currentState}</span>
+                <span className="mt-2 block">{handoff.safeNextAction}</span>
+                <span className="mt-3 block text-xs leading-5 text-slate-400">Recovery: {handoff.recoveryPath}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Dashboard operating snapshot">
