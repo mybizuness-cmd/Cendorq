@@ -22,6 +22,8 @@ const institutionalMaturityPath = "src/lib/institutional-operating-maturity-cont
 const institutionalMaturityValidatorPath = "src/scripts/validate-institutional-operating-maturity.mjs";
 const adversarialSuitePath = "src/lib/adversarial-validation-suite-contracts.ts";
 const adversarialSuiteValidatorPath = "src/scripts/validate-adversarial-validation-suite.mjs";
+const observabilityIncidentPath = "src/lib/observability-incident-response-contracts.ts";
+const observabilityIncidentValidatorPath = "src/scripts/validate-observability-incident-response.mjs";
 const customerDashboardPath = "src/app/dashboard/page.tsx";
 const homePath = "src/app/page.tsx";
 const freeCheckPath = "src/app/free-check/page.tsx";
@@ -186,6 +188,33 @@ validateTextFile(adversarialSuiteValidatorPath, [
   "Adversarial validation suite validation passed",
   "validate-adversarial-validation-suite.mjs",
   "ADVERSARIAL_VALIDATION_SUITE_CONTRACT",
+]);
+
+validateTextFile(observabilityIncidentPath, [
+  "OBSERVABILITY_INCIDENT_RESPONSE_CONTRACT",
+  "observability-incident-response-v1",
+  "Make Cendorq observable, actionable, and containment-ready without leaking customer, company, support, billing, report, operator, or platform secrets",
+  "Operational signals must help Cendorq detect, understand, contain, and recover from failures quickly",
+  "route-health",
+  "validation-failure",
+  "support-volume-anomaly",
+  "billing-error-anomaly",
+  "adversarial-submission-anomaly",
+  "telemetry may include route key, status class, safe error code, timestamp, environment, and bounded count",
+  "telemetry must not include raw payloads, raw evidence, payment data, credentials, secrets, customer messages, internal notes, operator identities, session tokens, CSRF tokens, or admin keys",
+  "SEV-1",
+  "SEV-2",
+  "SEV-3",
+  "SEV-4",
+  "customer-facing incident copy must be factual, bounded, calm, and approved",
+  "post-incident follow-up must add or improve validation for the failed class",
+  "OBSERVABILITY_INCIDENT_RESPONSE_HARD_LOCKS",
+]);
+
+validateTextFile(observabilityIncidentValidatorPath, [
+  "Observability incident response validation passed",
+  "validate-observability-incident-response.mjs",
+  "OBSERVABILITY_INCIDENT_RESPONSE_CONTRACT",
 ]);
 
 validateTextFile(customerDashboardPath, [
@@ -385,6 +414,15 @@ validateForbidden(adversarialSuitePath, [
   "impossible-to-hack guarantee",
 ]);
 
+validateForbidden(observabilityIncidentPath, [
+  "raw telemetry allowed",
+  "alert without runbook allowed",
+  "delete audit proof allowed",
+  "incident speculation allowed",
+  "zero risk incident claim allowed",
+  "disable validation to restore service allowed",
+]);
+
 validateForbidden(customerDashboardPath, publicBlockedPatterns());
 validateForbidden(homePath, publicBlockedPatterns());
 validateForbidden(freeCheckPath, publicBlockedPatterns());
@@ -418,7 +456,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
