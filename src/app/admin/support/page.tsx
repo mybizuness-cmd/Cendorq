@@ -31,6 +31,13 @@ const SUPPORT_OPERATOR_SECTION_LINKS = [
   { href: "#safe-history", label: "Safe history", description: "Projection-only records and filters" },
 ] as const;
 
+const SUPPORT_OPERATOR_STATUS_ITEMS = [
+  { label: "Sections", value: "3", detail: "Intake, actions, history" },
+  { label: "Review gates", value: "4", detail: "Correction, billing, security, closure" },
+  { label: "History mode", value: "Safe", detail: "Projection-only records" },
+  { label: "Mutation rule", value: "Guarded", detail: "Audit before stored result" },
+] as const;
+
 export default function SupportOperatorConsolePage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
@@ -52,6 +59,16 @@ export default function SupportOperatorConsolePage() {
             Customer support status
           </Link>
         </div>
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Operator console status strip">
+        {SUPPORT_OPERATOR_STATUS_ITEMS.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+            <div className="mt-2 text-2xl font-semibold text-white">{item.value}</div>
+            <div className="mt-2 text-xs leading-6 text-slate-300">{item.detail}</div>
+          </article>
+        ))}
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4">
