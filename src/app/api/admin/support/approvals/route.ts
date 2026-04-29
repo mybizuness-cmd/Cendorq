@@ -144,23 +144,23 @@ export async function POST(request: NextRequest) {
 }
 
 function normalizeApprovalType(value: unknown): CustomerSupportOperatorApprovalType | null {
-  return typeof value === "string" && APPROVAL_TYPES.includes(value as CustomerSupportOperatorApprovalType) ? (value as CustomerSupportOperatorApprovalType) : null;
+  return typeof value === "string" && APPROVAL_TYPES.some((candidate) => candidate === value) ? (value as CustomerSupportOperatorApprovalType) : null;
 }
 
 function normalizeApprovalGate(value: unknown): CustomerSupportOperatorApprovalGate | null {
-  return typeof value === "string" && APPROVAL_GATES.includes(value as CustomerSupportOperatorApprovalGate) ? (value as CustomerSupportOperatorApprovalGate) : null;
+  return typeof value === "string" && APPROVAL_GATES.some((candidate) => candidate === value) ? (value as CustomerSupportOperatorApprovalGate) : null;
 }
 
 function normalizeApprovalDecision(value: unknown): CustomerSupportOperatorApprovalDecision | null {
-  return typeof value === "string" && APPROVAL_DECISIONS.includes(value as CustomerSupportOperatorApprovalDecision) ? (value as CustomerSupportOperatorApprovalDecision) : null;
+  return typeof value === "string" && APPROVAL_DECISIONS.some((candidate) => candidate === value) ? (value as CustomerSupportOperatorApprovalDecision) : null;
 }
 
 function normalizeApprovalState(value: unknown): CustomerSupportOperatorApprovalState | null {
-  return typeof value === "string" && APPROVAL_STATES.includes(value as CustomerSupportOperatorApprovalState) ? (value as CustomerSupportOperatorApprovalState) : null;
+  return typeof value === "string" && APPROVAL_STATES.some((candidate) => candidate === value) ? (value as CustomerSupportOperatorApprovalState) : null;
 }
 
 function normalizeOperatorRole(value: unknown): CustomerSupportOperatorRole | null {
-  return typeof value === "string" && OPERATOR_ROLES.includes(value as CustomerSupportOperatorRole) ? (value as CustomerSupportOperatorRole) : null;
+  return typeof value === "string" && OPERATOR_ROLES.some((candidate) => candidate === value) ? (value as CustomerSupportOperatorRole) : null;
 }
 
 function cleanString(value: unknown, maxLength: number) {
