@@ -13,9 +13,11 @@ const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-contin
 const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
 const dashboardExcellenceValidatorPath = "src/scripts/validate-customer-dashboard-excellence.mjs";
 const publicWebsiteExcellenceValidatorPath = "src/scripts/validate-public-website-excellence.mjs";
+const homepageConciergeValidatorPath = "src/scripts/validate-homepage-concierge-nudge.mjs";
 const customerDashboardPath = "src/app/dashboard/page.tsx";
 const homePath = "src/app/page.tsx";
 const freeCheckPath = "src/app/free-check/page.tsx";
+const homepageConciergePath = "src/components/public/free-scan-concierge-nudge.tsx";
 const dependabotPath = ".github/dependabot.yml";
 const codeqlPath = ".github/workflows/codeql.yml";
 const packagePath = "package.json";
@@ -106,6 +108,7 @@ validateTextFile(homePath, [
   "Cendorq system layers",
   "BUSINESS_MODEL_COVERAGE",
   "TRUST_RULES",
+  "FreeScanConciergeNudge",
   "Proof before pressure",
   "No fake urgency",
   "No unsupported ROI claims",
@@ -127,6 +130,24 @@ validateTextFile(freeCheckPath, [
 validateTextFile(publicWebsiteExcellenceValidatorPath, [
   "Public website excellence validation passed",
   "validate-public-website-excellence.mjs",
+]);
+
+validateTextFile(homepageConciergePath, [
+  "FreeScanConciergeNudge",
+  "STANDARD_DELAY_MS = 18_000",
+  "RESUME_DELAY_MS = 6_000",
+  "SCROLL_TRIGGER_RATIO = 0.45",
+  "DISMISS_SECONDS = 60 * 60 * 24 * 14",
+  "Free Scan concierge prompt",
+  "aria-live=\"polite\"",
+  "No full-form popup, no fake urgency, just a focused scan room.",
+  "href=\"/free-check\"",
+  "SameSite=Lax",
+]);
+
+validateTextFile(homepageConciergeValidatorPath, [
+  "Homepage concierge nudge validation passed",
+  "validate-homepage-concierge-nudge.mjs",
 ]);
 
 validateTextFile(continuousEvolutionPath, [
@@ -218,6 +239,7 @@ validateForbidden(interfaceExcellencePath, [
 validateForbidden(customerDashboardPath, publicBlockedPatterns());
 validateForbidden(homePath, publicBlockedPatterns());
 validateForbidden(freeCheckPath, publicBlockedPatterns());
+validateForbidden(homepageConciergePath, [...publicBlockedPatterns(), "role=\"dialog\"", "STANDARD_DELAY_MS = 0"]);
 
 validateForbidden(continuousEvolutionPath, [
   "autoMergeWithoutValidation allowed",
@@ -247,7 +269,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
