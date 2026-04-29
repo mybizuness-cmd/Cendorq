@@ -12,7 +12,10 @@ const continuousEvolutionPath = "src/lib/controlled-continuous-evolution-contrac
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
 const dashboardExcellenceValidatorPath = "src/scripts/validate-customer-dashboard-excellence.mjs";
+const publicWebsiteExcellenceValidatorPath = "src/scripts/validate-public-website-excellence.mjs";
 const customerDashboardPath = "src/app/dashboard/page.tsx";
+const homePath = "src/app/page.tsx";
+const freeCheckPath = "src/app/free-check/page.tsx";
 const dependabotPath = ".github/dependabot.yml";
 const codeqlPath = ".github/workflows/codeql.yml";
 const packagePath = "package.json";
@@ -94,6 +97,36 @@ validateTextFile(customerDashboardPath, [
 validateTextFile(dashboardExcellenceValidatorPath, [
   "Customer dashboard excellence validation passed",
   "validate-customer-dashboard-excellence.mjs",
+]);
+
+validateTextFile(homePath, [
+  "FRONT_DOOR_SNAPSHOT",
+  "Public website operating snapshot",
+  "CENDORQ_SYSTEM_LAYERS",
+  "Cendorq system layers",
+  "BUSINESS_MODEL_COVERAGE",
+  "TRUST_RULES",
+  "Proof before pressure",
+  "No fake urgency",
+  "No unsupported ROI claims",
+  "Creator and social channels",
+  "Marketplaces and platform revenue",
+]);
+
+validateTextFile(freeCheckPath, [
+  "Dedicated scan room",
+  "DEDICATED_SCAN_ROOM_DECISION",
+  "Free Scan page decision",
+  "SCAN_ROOM_STANDARDS",
+  "Why this is not a full popup",
+  "Visible labels and clear field purpose",
+  "Step-by-step progress and recovery",
+  "Routeable page that can be resumed or linked from dashboard",
+]);
+
+validateTextFile(publicWebsiteExcellenceValidatorPath, [
+  "Public website excellence validation passed",
+  "validate-public-website-excellence.mjs",
 ]);
 
 validateTextFile(continuousEvolutionPath, [
@@ -182,27 +215,9 @@ validateForbidden(interfaceExcellencePath, [
   "best effort optional",
 ]);
 
-validateForbidden(customerDashboardPath, [
-  "guaranteed ROI",
-  "guaranteed refund",
-  "guaranteed legal outcome",
-  "guaranteed security outcome",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorIdentity",
-  "riskScoringInternals",
-  "attackerDetails",
-  "sessionToken",
-  "csrfToken",
-  "localStorage",
-  "sessionStorage",
-]);
+validateForbidden(customerDashboardPath, publicBlockedPatterns());
+validateForbidden(homePath, publicBlockedPatterns());
+validateForbidden(freeCheckPath, publicBlockedPatterns());
 
 validateForbidden(continuousEvolutionPath, [
   "autoMergeWithoutValidation allowed",
@@ -232,7 +247,31 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+
+function publicBlockedPatterns() {
+  return [
+    "guaranteed ROI",
+    "guaranteed refund",
+    "guaranteed legal outcome",
+    "guaranteed security outcome",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "rawPayload",
+    "rawEvidence",
+    "rawSecurityPayload",
+    "rawBillingData",
+    "internalNotes",
+    "operatorIdentity",
+    "riskScoringInternals",
+    "attackerDetails",
+    "sessionToken",
+    "csrfToken",
+    "localStorage",
+    "sessionStorage",
+  ];
+}
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
