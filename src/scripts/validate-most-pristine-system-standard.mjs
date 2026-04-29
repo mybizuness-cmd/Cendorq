@@ -10,6 +10,9 @@ const interfaceExcellencePath = "src/lib/platform-interface-excellence-contracts
 const interfaceExcellenceValidatorPath = "src/scripts/validate-platform-interface-excellence.mjs";
 const continuousEvolutionPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
+const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
+const dependabotPath = ".github/dependabot.yml";
+const codeqlPath = ".github/workflows/codeql.yml";
 const packagePath = "package.json";
 
 validateTextFile(standardPath, [
@@ -93,6 +96,34 @@ validateTextFile(continuousEvolutionValidatorPath, [
   "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
 ]);
 
+validateTextFile(repoAutomationValidatorPath, [
+  "Repo update scanning automation validation passed",
+  "dependabotPath",
+  "codeqlPath",
+]);
+
+validateTextFile(dependabotPath, [
+  "version: 2",
+  "package-ecosystem: npm",
+  "package-ecosystem: github-actions",
+  "timezone: America/Los_Angeles",
+  "controlled-update",
+  "next-react-platform",
+  "typescript-tooling",
+  "styling-tooling",
+  "lint-tooling",
+]);
+
+validateTextFile(codeqlPath, [
+  "name: CodeQL",
+  "pull_request:",
+  "security-events: write",
+  "github/codeql-action/init@v3",
+  "security-extended,security-and-quality",
+  "github/codeql-action/analyze@v3",
+  "javascript-typescript",
+]);
+
 validateTextFile(enterprisePath, [
   "Enterprise operating standard",
   "Liability minimization defense",
@@ -140,13 +171,25 @@ validateForbidden(continuousEvolutionPath, [
   "deleteAuditRecordsToCleanUp allowed",
 ]);
 
+validateForbidden(dependabotPath, [
+  "automerge: true",
+  "auto-merge: true",
+  "skip-validation",
+]);
+
+validateForbidden(codeqlPath, [
+  "continue-on-error: true",
+  "allow-failure",
+  "security-events: none",
+]);
+
 if (failures.length) {
   console.error("Most-pristine system standard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, public website, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, repo update scanning automation, public website, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
