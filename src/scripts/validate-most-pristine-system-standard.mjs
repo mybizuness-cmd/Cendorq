@@ -8,6 +8,8 @@ const enterprisePath = "src/lib/command-center/enterprise-operating-standard.ts"
 const auditDefensePath = "src/lib/command-center/audit-defense-system.ts";
 const interfaceExcellencePath = "src/lib/platform-interface-excellence-contracts.ts";
 const interfaceExcellenceValidatorPath = "src/scripts/validate-platform-interface-excellence.mjs";
+const continuousEvolutionPath = "src/lib/controlled-continuous-evolution-contracts.ts";
+const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const packagePath = "package.json";
 
 validateTextFile(standardPath, [
@@ -70,6 +72,27 @@ validateTextFile(interfaceExcellenceValidatorPath, [
   "PLATFORM_INTERFACE_EXCELLENCE_CONTRACT",
 ]);
 
+validateTextFile(continuousEvolutionPath, [
+  "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+  "controlled-continuous-evolution-v1",
+  "Keep Cendorq improving after launch through monitored, validated, reviewable, reversible updates without uncontrolled production mutation or quality drift.",
+  "Automated systems may detect, propose, test, and prepare updates.",
+  "daily dependency and vulnerability detection",
+  "weekly interface quality and accessibility review",
+  "monthly legal/liability language review",
+  "auto-merge production-impacting code without green gates",
+  "pull request with reviewable diff",
+  "Vercel preview or deployment check passes",
+  "rollback path identified",
+  "automatic update systems can propose changes but cannot bypass validation",
+  "all scheduled updates must remain coherent, bounded, and traceable",
+]);
+
+validateTextFile(continuousEvolutionValidatorPath, [
+  "Controlled continuous evolution validation passed",
+  "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+]);
+
 validateTextFile(enterprisePath, [
   "Enterprise operating standard",
   "Liability minimization defense",
@@ -107,13 +130,23 @@ validateForbidden(interfaceExcellencePath, [
   "best effort optional",
 ]);
 
+validateForbidden(continuousEvolutionPath, [
+  "autoMergeWithoutValidation allowed",
+  "skipVercelGate allowed",
+  "disableValidatorForUpdate allowed",
+  "unreviewedProductionMutation allowed",
+  "weakenGuardrailsForConvenience allowed",
+  "storeRawPayloadForDebugging allowed",
+  "deleteAuditRecordsToCleanUp allowed",
+]);
+
 if (failures.length) {
   console.error("Most-pristine system standard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, public website, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, public website, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
