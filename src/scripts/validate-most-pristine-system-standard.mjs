@@ -18,6 +18,8 @@ const seamlessSyncPath = "src/lib/seamless-responsive-sync-contracts.ts";
 const seamlessSyncValidatorPath = "src/scripts/validate-seamless-responsive-sync.mjs";
 const informationProtectionPath = "src/lib/core-information-protection-contracts.ts";
 const informationProtectionValidatorPath = "src/scripts/validate-core-information-protection.mjs";
+const institutionalMaturityPath = "src/lib/institutional-operating-maturity-contracts.ts";
+const institutionalMaturityValidatorPath = "src/scripts/validate-institutional-operating-maturity.mjs";
 const customerDashboardPath = "src/app/dashboard/page.tsx";
 const homePath = "src/app/page.tsx";
 const freeCheckPath = "src/app/free-check/page.tsx";
@@ -129,6 +131,33 @@ validateTextFile(informationProtectionValidatorPath, [
   "Core information protection validation passed",
   "validate-core-information-protection.mjs",
   "CORE_INFORMATION_PROTECTION_CONTRACT",
+]);
+
+validateTextFile(institutionalMaturityPath, [
+  "INSTITUTIONAL_OPERATING_MATURITY_CONTRACT",
+  "institutional-operating-maturity-v1",
+  "Raise Cendorq beyond premium product quality into institutional-grade operational maturity",
+  "validated before release, observable after release, protected by least privilege, prepared for incidents, recoverable from failures",
+  "adversarial-testing",
+  "observability-and-alerting",
+  "incident-response",
+  "backup-and-disaster-recovery",
+  "access-governance",
+  "privacy-and-data-retention",
+  "compliance-and-trust-readiness",
+  "release-governance",
+  "operational-runbooks",
+  "capture adversarial tests as repeatable validation, not one-time manual checks",
+  "separate operational telemetry from customer secrets and raw payloads",
+  "do not delete audit records during incident response",
+  "block releases that weaken information protection, interface excellence, sync, or truthful analysis",
+  "avoid overclaiming certifications, guarantees, or security absolutes before they are actually obtained",
+]);
+
+validateTextFile(institutionalMaturityValidatorPath, [
+  "Institutional operating maturity validation passed",
+  "validate-institutional-operating-maturity.mjs",
+  "INSTITUTIONAL_OPERATING_MATURITY_CONTRACT",
 ]);
 
 validateTextFile(customerDashboardPath, [
@@ -307,6 +336,16 @@ validateForbidden(informationProtectionPath, [
   "blind auto-change allowed",
 ]);
 
+validateForbidden(institutionalMaturityPath, [
+  "ignore adversarial findings allowed",
+  "telemetry raw payloads allowed",
+  "delete audit proof allowed",
+  "release rollback optional",
+  "stale admin access allowed",
+  "certification claim without audit allowed",
+  "launch without validation allowed",
+]);
+
 validateForbidden(customerDashboardPath, publicBlockedPatterns());
 validateForbidden(homePath, publicBlockedPatterns());
 validateForbidden(freeCheckPath, publicBlockedPatterns());
@@ -340,7 +379,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
