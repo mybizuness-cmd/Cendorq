@@ -25,6 +25,12 @@ const OPERATOR_RULES = [
   "All operator actions remain separated by approval gate and reviewer role.",
 ] as const;
 
+const SUPPORT_OPERATOR_SECTION_LINKS = [
+  { href: "#review-intake", label: "Review intake", description: "Safe summaries and assignment routing" },
+  { href: "#separated-actions", label: "Separated actions", description: "Gate-specific review actions" },
+  { href: "#safe-history", label: "Safe history", description: "Projection-only records and filters" },
+] as const;
+
 export default function SupportOperatorConsolePage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
@@ -56,6 +62,19 @@ export default function SupportOperatorConsolePage() {
         ))}
       </section>
 
+      <nav aria-label="Operator console section navigation" className="relative z-10 mt-8 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Console navigation</div>
+        <p className="mt-2 text-sm leading-7 text-slate-300">Jump links only. Navigation does not change guarded API behavior, review gates, audit requirements, or projection rules.</p>
+        <div className="mt-4 grid gap-3 lg:grid-cols-3">
+          {SUPPORT_OPERATOR_SECTION_LINKS.map((link) => (
+            <a key={link.href} href={link.href} className="rounded-2xl border border-white/10 bg-black/20 p-4 transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
+              <div className="text-sm font-semibold text-white">{link.label}</div>
+              <div className="mt-1 text-xs leading-6 text-slate-400">{link.description}</div>
+            </a>
+          ))}
+        </div>
+      </nav>
+
       <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
         <article className="system-surface rounded-[2rem] p-6">
           <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Contract lock</div>
@@ -80,7 +99,7 @@ export default function SupportOperatorConsolePage() {
         </article>
       </section>
 
-      <section className="relative z-10 mt-10">
+      <section id="review-intake" className="relative z-10 mt-10 scroll-mt-8">
         <OperatorSectionHeader eyebrow="Review intake" title="Safe intake and routing." description="Start with safe summaries and assignment routing before any review action. These panels do not change customer-visible outcomes by themselves." />
         <div className="mt-5 grid gap-8">
           <OperatorSafeSummaryConsole />
@@ -88,7 +107,7 @@ export default function SupportOperatorConsolePage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-10">
+      <section id="separated-actions" className="relative z-10 mt-10 scroll-mt-8">
         <OperatorSectionHeader eyebrow="Separated actions" title="Approval actions by gate." description="Correction, billing, security, and closure reviews stay separated by endpoint, gate, reviewer role, audit path, and safe projection output." />
         <div className="mt-5 grid gap-8">
           <OperatorApprovalPanel />
@@ -98,7 +117,7 @@ export default function SupportOperatorConsolePage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-10">
+      <section id="safe-history" className="relative z-10 mt-10 scroll-mt-8">
         <OperatorSectionHeader eyebrow="Safe history" title="Projection-only history." description="Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI." />
         <div className="mt-5 grid gap-8">
           <OperatorAssignmentList />
