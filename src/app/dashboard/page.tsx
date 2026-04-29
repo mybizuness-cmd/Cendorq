@@ -9,6 +9,26 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
+const FIRST_SESSION_SNAPSHOT = [
+  { label: "Verified entry", value: "Private workspace", detail: "A newly verified customer should immediately see where to continue without exposing private state in public routes." },
+  { label: "State posture", value: "Safe pending states", detail: "Pending scan, report, billing, notification, or support states must be explained as pending—not guessed as complete." },
+  { label: "Recovery path", value: "Clear fallback", detail: "If a scan or report is missing, the dashboard should offer a calm next action instead of a dead end." },
+  { label: "Trust posture", value: "Proof before pressure", detail: "The first session should guide by evidence, stage, and fit rather than upgrade pressure." },
+] as const;
+
+const FIRST_SESSION_ACTIONS = [
+  { title: "Continue Free Scan", copy: "Finish the intake if the first read is not ready yet.", href: "/free-check" },
+  { title: "Check notifications", copy: "Review account, report, billing, support, and security updates from one safe place.", href: "/dashboard/notifications" },
+  { title: "Open support", copy: "Ask for help without sharing passwords, card data, private keys, or unnecessary raw evidence.", href: "/dashboard/support" },
+] as const;
+
+const SAFE_STATE_RULES = [
+  "Show pending states as pending, not as live truth.",
+  "Do not expose raw payloads, private evidence, internal notes, operator identities, or risk internals.",
+  "Give the customer one obvious next action before offering deeper plan decisions.",
+  "Keep support, report, billing, and notification links visible when a customer needs recovery.",
+] as const;
+
 const OPERATING_SNAPSHOT = [
   { label: "Current stage", value: "Free Scan setup", detail: "Start with a truthful first read before any paid recommendation." },
   { label: "Primary focus", value: "Find the highest-leverage gap", detail: "Clarity, trust, choice, and action are reviewed before deeper work." },
@@ -72,6 +92,44 @@ export default function CustomerDashboardPage() {
             </Link>
           </div>
         </div>
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="First session dashboard snapshot">
+        {FIRST_SESSION_SNAPSHOT.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+            <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]" aria-label="First session recovery guidance">
+        <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First session guidance</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Start with one safe next action.</h2>
+          <p className="mt-4 text-base leading-8 text-slate-300">
+            When a customer has just verified their email, the dashboard should reduce uncertainty: show what is pending, explain what is safe to do next, and keep support visible without exposing private internals or stale assumptions.
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {FIRST_SESSION_ACTIONS.map((item) => (
+              <Link key={item.href} href={item.href} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block font-semibold text-white">{item.title}</span>
+                <span className="mt-2 block">{item.copy}</span>
+              </Link>
+            ))}
+          </div>
+        </article>
+        <article className="system-surface rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Safe state rules</div>
+          <div className="mt-5 grid gap-3">
+            {SAFE_STATE_RULES.map((rule) => (
+              <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
+                {rule}
+              </div>
+            ))}
+          </div>
+        </article>
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Dashboard operating snapshot">
