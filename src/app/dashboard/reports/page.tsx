@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
+import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 
 export const metadata = buildMetadata({
   title: "Report vault | Cendorq",
@@ -7,6 +8,13 @@ export const metadata = buildMetadata({
   path: "/dashboard/reports",
   noIndex: true,
 });
+
+const REPORT_VAULT_HANDOFFS = [
+  projectCustomerPlatformHandoff({ surfaceKey: "free-scan-to-report-vault", customerOwned: true, verifiedAccess: true, safeProjectionReady: true, pendingAsFinalRisk: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-report-vault", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "report-vault-to-support", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "report-vault-to-plans", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+] as const;
 
 const REPORT_VAULT_FIRST_USE_SNAPSHOT = [
   { label: "Availability", value: "Clear report state", detail: "Reports should be marked ready, pending, under review, corrected, or unavailable without guessing." },
@@ -105,6 +113,26 @@ export default function ReportsVaultPage() {
             ))}
           </div>
         </article>
+      </section>
+
+      <section className="relative z-10 mt-8" aria-label="Report vault handoff runtime integration">
+        <div className="system-surface rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected report handoffs</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Report movement stays tied to readiness, correction, and stage fit.</h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
+            Report vault handoff runtime keeps Free Scan results, dashboard report entry, support correction, and plan comparison connected to customer-owned safe projection. Pending reports stay pending, correction routes stay bounded, and plan movement waits for readiness instead of fake urgency or guaranteed outcomes.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {REPORT_VAULT_HANDOFFS.map((handoff) => (
+              <Link key={handoff.surfaceKey} href={handoff.connectedDestination} className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{handoff.decision} · {handoff.surfaceKey}</span>
+                <span className="mt-3 block font-semibold text-white">{handoff.currentState}</span>
+                <span className="mt-2 block">{handoff.safeNextAction}</span>
+                <span className="mt-3 block text-xs leading-5 text-slate-400">Recovery: {handoff.recoveryPath}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2">
