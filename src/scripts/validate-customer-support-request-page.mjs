@@ -15,8 +15,9 @@ expect("src/app/dashboard/support/request/page.tsx", [
   "Start support request",
   "noIndex: true",
   "Protected support intake",
-  "Start with a safe summary, then route the request correctly.",
+  "Start or update with a safe summary, then route the request correctly.",
   "SupportRequestForm",
+  "SupportRequestUpdateForm",
   "CUSTOMER_SUPPORT_INTAKE_FLOWS",
   "CUSTOMER_SUPPORT_INTAKE_RISK_RULES",
   "Do not paste passwords, raw tokens, secret keys, private keys, or payment details.",
@@ -24,6 +25,10 @@ expect("src/app/dashboard/support/request/page.tsx", [
   "Correction, refund, billing, report-change, legal, or outcome commitments require the correct approval path.",
   "Safety before submit",
   "Risk routing",
+  "Waiting-on-customer updates",
+  "?update=&lt;request id&gt;",
+  "Do not paste rejected raw content back into the update form.",
+  "Approved updates return the request to the protected review path using customer-safe projection only.",
 ]);
 
 expect("src/components/customer-support/support-request-form.tsx", [
@@ -43,6 +48,35 @@ expect("src/components/customer-support/support-request-form.tsx", [
   "The support request service could not be reached right now.",
   "Do not include passwords, raw tokens, payment data, secrets, private keys, raw evidence dumps, raw security payloads, or private report internals.",
   "I confirm this request does not include passwords, raw tokens, payment details, secrets, private keys, raw evidence dumps, raw security payloads, or private report internals.",
+]);
+
+expect("src/components/customer-support/support-request-update-form.tsx", [
+  "use client",
+  "SupportRequestUpdateForm",
+  "supportRequestId",
+  "safeUpdateSummary",
+  "customerAcknowledgement",
+  "/api/customer/support/request/update",
+  "new URL(window.location.href).searchParams.get(\"update\")",
+  "Safe support update",
+  "Update a waiting support request safely.",
+  "Summarize what changed without pasting passwords, tokens, payment data, raw evidence, raw security payloads, or private report internals.",
+  "Cendorq does not show rejected raw content here and does not ask you to paste sensitive records again.",
+  "Submit safe update",
+  "Back to support status",
+  "Track updated request",
+  "rawPayloadStored",
+  "customerSafeProjectionOnly",
+  "The support update service could not be reached right now.",
+  "I confirm this update does not include passwords, raw tokens, payment details, secrets, private keys, raw evidence dumps, raw security payloads, or private report internals.",
+]);
+
+expect("src/app/api/customer/support/request/update/route.ts", [
+  "requireCustomerSession",
+  "requireVerifiedEmail: true",
+  "entry.id === supportRequestId && entry.customerIdHash === sessionAccess.customerIdHash",
+  "existing.decision !== \"sanitize\"",
+  "rawPayloadStored: false",
 ]);
 
 expect("src/lib/customer-support-intake-architecture.ts", [
@@ -80,6 +114,32 @@ forbidden("src/components/customer-support/support-request-form.tsx", [
   "payment data accepted",
   "refund approved",
   "legal outcome guaranteed",
+]);
+
+forbidden("src/components/customer-support/support-request-update-form.tsx", [
+  "dangerouslySetInnerHTML",
+  "localStorage",
+  "sessionStorage",
+  "x-cendorq-customer-context",
+  "CUSTOMER_SUPPORT_CONTEXT_KEY",
+  "NEXT_PUBLIC_CUSTOMER_SUPPORT_CONTEXT_KEY",
+  "x-support-admin-key",
+  "rawRejectedContent",
+  "rejectedRawContent",
+  "customerIdHash",
+  "auditEventId",
+  "internalNotes",
+  "operatorId",
+  "operatorIdHash",
+  "riskScoringInternals",
+  "attackerDetails",
+  "sessionToken",
+  "csrfToken",
+  "password accepted",
+  "payment data accepted",
+  "refund approved",
+  "legal outcome guaranteed",
+  "console.log",
 ]);
 
 if (failures.length) {
