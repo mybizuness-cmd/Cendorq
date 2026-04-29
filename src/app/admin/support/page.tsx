@@ -5,6 +5,7 @@ import { OperatorApprovalPanel } from "@/components/customer-support/operator-ap
 import { OperatorAssignmentList } from "@/components/customer-support/operator-assignment-list";
 import { OperatorAssignmentPanel } from "@/components/customer-support/operator-assignment-panel";
 import { OperatorBillingApprovalPanel } from "@/components/customer-support/operator-billing-approval-panel";
+import { OperatorClosureApprovalPanel } from "@/components/customer-support/operator-closure-approval-panel";
 import { OperatorSecurityApprovalPanel } from "@/components/customer-support/operator-security-approval-panel";
 import { OperatorSafeSummaryConsole } from "@/components/customer-support/operator-safe-summary-console";
 import { CUSTOMER_SUPPORT_OPERATOR_CONSOLE_CONTRACT, CUSTOMER_SUPPORT_OPERATOR_CONSOLE_GUARDS } from "@/lib/customer-support-operator-console-contracts";
@@ -12,16 +13,16 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Support operator console | Cendorq",
-  description: "Support operator console for safe summaries, assignment, correction review, billing review, security review, safe history, and protected support triage.",
+  description: "Support operator console for safe summaries, assignment, correction review, billing review, security review, closure review, safe history, and protected support triage.",
   path: "/admin/support",
   noIndex: true,
 });
 
 const OPERATOR_RULES = [
   "Safe summaries use safe-summary-only projection.",
-  "Assignments, correction reviews, billing reviews, and security reviews require guarded APIs, fresh reauthentication, and immutable audit creation.",
+  "Assignments, correction reviews, billing reviews, security reviews, and closure reviews require guarded APIs, fresh reauthentication, and immutable audit creation.",
   "Assignment and approval history use safe projections only.",
-  "Closure controls require a separate approval gate and are intentionally not added to this panel.",
+  "All operator actions remain separated by approval gate and reviewer role.",
 ] as const;
 
 export default function SupportOperatorConsolePage() {
@@ -35,7 +36,7 @@ export default function SupportOperatorConsolePage() {
           Review, assign, approve, and track support with protected audit controls.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          This operator-facing support surface provides safe-summary review, guarded assignment, guarded correction review, guarded billing review, guarded security review, safe approval history, and safe assignment history. It is designed to inspect customer support context and route review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
+          This operator-facing support surface provides safe-summary review, guarded assignment, guarded correction review, guarded billing review, guarded security review, guarded closure review, safe approval history, and safe assignment history. It is designed to inspect customer support context and route review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
@@ -97,6 +98,10 @@ export default function SupportOperatorConsolePage() {
 
       <section className="relative z-10 mt-8">
         <OperatorSecurityApprovalPanel />
+      </section>
+
+      <section className="relative z-10 mt-8">
+        <OperatorClosureApprovalPanel />
       </section>
 
       <section className="relative z-10 mt-8">
