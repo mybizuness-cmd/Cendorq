@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FreeCheckAnalytics } from "@/components/free-check/free-check-analytics";
 import { FreeCheckProgressGuard } from "@/components/free-check/free-check-progress-guard";
 import { GuidedFreeCheckForm } from "@/components/free-check/guided-free-check-form-v2";
@@ -45,6 +46,26 @@ const SCAN_PROMISES = [
     copy:
       "The scan helps point the business toward the next step that makes sense instead of pushing every offer at once.",
   },
+] as const;
+
+const FREE_SCAN_FIRST_USE_SNAPSHOT = [
+  { label: "First-use path", value: "Guided scan room", detail: "Customers should understand why each step exists before sharing business context." },
+  { label: "Completion handoff", value: "Dashboard next action", detail: "After submit, the next place to look should be dashboard, notifications, and report vault status." },
+  { label: "Recovery posture", value: "Resume safely", detail: "If intake is interrupted, the page should support recovery without local/session storage secrets." },
+  { label: "Trust posture", value: "No pressure", detail: "The scan should explain value without fake urgency or unsupported business-result promises." },
+] as const;
+
+const FREE_SCAN_HANDOFF_ACTIONS = [
+  { title: "Open dashboard", copy: "Use your private dashboard after account verification to see the next action.", href: "/dashboard" },
+  { title: "Check notifications", copy: "Look for account, scan, report, billing, support, and security updates in one safe place.", href: "/dashboard/notifications" },
+  { title: "Open report vault", copy: "Use the vault to see whether a Free Scan result is ready, pending, or needs follow-up.", href: "/dashboard/reports" },
+] as const;
+
+const FREE_SCAN_FIRST_USE_RULES = [
+  "Submit only business context needed for the first read, not passwords, private keys, card data, tokens, or unrelated raw evidence.",
+  "Treat incomplete, interrupted, or pending scan state as pending instead of final analysis.",
+  "After submission, use dashboard, notifications, and report vault before creating duplicate support requests.",
+  "Plan guidance should come from scan evidence, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
 ] as const;
 
 const DEDICATED_SCAN_ROOM_DECISION = [
@@ -98,7 +119,7 @@ const FAQS = [
   {
     question: "What happens after I submit it?",
     answer:
-      "The business gets captured into the Cendorq scan system. If the answers show a deeper problem, the next move becomes easier to understand.",
+      "The business gets captured into the Cendorq scan system. After account verification, dashboard, notifications, and the report vault should show the safest next action and whether the scan is ready, pending, or needs follow-up.",
   },
 ] as const;
 
@@ -177,6 +198,46 @@ export default function FreeCheckPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Free Scan first use snapshot">
+        {FREE_SCAN_FIRST_USE_SNAPSHOT.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+            <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]" aria-label="Free Scan completion handoff">
+        <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">After submission</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            The scan should hand off cleanly into the customer platform.
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-300">
+            A finished scan should not strand the customer. The dashboard, notification center, and report vault should explain whether the scan is ready, pending, or needs safe follow-up before any deeper plan decision.
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {FREE_SCAN_HANDOFF_ACTIONS.map((item) => (
+              <Link key={item.href} href={item.href} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block font-semibold text-white">{item.title}</span>
+                <span className="mt-2 block">{item.copy}</span>
+              </Link>
+            ))}
+          </div>
+        </article>
+        <article className="system-surface rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First-use rules</div>
+          <div className="mt-5 grid gap-3">
+            {FREE_SCAN_FIRST_USE_RULES.map((rule) => (
+              <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-slate-200">
+                {rule}
+              </div>
+            ))}
+          </div>
+        </article>
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Free Scan page decision">
