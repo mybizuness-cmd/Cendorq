@@ -13,7 +13,7 @@ import {
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
   description:
-    "Start the guided Cendorq Free Scan and find what is making the business harder to understand, trust, or choose before spending more.",
+    "Start the guided Cendorq Free Scan in a dedicated scan room built for trust, focus, accessibility, and a stronger first business read.",
   path: "/free-check",
   keywords: [
     "free business scan",
@@ -47,11 +47,48 @@ const SCAN_PROMISES = [
   },
 ] as const;
 
+const DEDICATED_SCAN_ROOM_DECISION = [
+  {
+    label: "Primary pattern",
+    value: "Dedicated page",
+    detail: "The full scan needs room for labels, progress, errors, recovery, and trust context.",
+  },
+  {
+    label: "Popup role",
+    value: "Entry only",
+    detail: "Small prompts may route customers here, but the full form should not be trapped in a modal.",
+  },
+  {
+    label: "Completion quality",
+    value: "Focused flow",
+    detail: "A page supports mobile spacing, accessible controls, and a calmer finish state.",
+  },
+  {
+    label: "Business trust",
+    value: "Proof-led",
+    detail: "The scan explains what is being asked and why before requesting deeper details.",
+  },
+] as const;
+
+const SCAN_ROOM_STANDARDS = [
+  "Visible labels and clear field purpose",
+  "Step-by-step progress and recovery",
+  "Mobile-friendly spacing and large controls",
+  "Customer-safe copy with no fake urgency",
+  "No browser-exposed protected secrets",
+  "Routeable page that can be resumed or linked from dashboard",
+] as const;
+
 const FAQS = [
   {
     question: "Is this really free?",
     answer:
       "Yes. The free scan is the first guided step. It helps you see what may be making the business harder to understand, trust, or choose.",
+  },
+  {
+    question: "Why does the scan have its own page instead of a popup?",
+    answer:
+      "A dedicated page gives the scan enough space for labels, progress, errors, mobile usability, privacy context, and a calmer finish state. A small popup can invite someone to begin, but the full scan belongs in this focused scan room.",
   },
   {
     question: "Why is the scan split into steps?",
@@ -102,7 +139,7 @@ export default function FreeCheckPage() {
       <section className="relative z-10 grid gap-8 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
         <div>
           <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-            Guided free scan
+            Dedicated scan room
           </div>
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[4.6rem]">
@@ -110,7 +147,7 @@ export default function FreeCheckPage() {
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Cendorq walks you through a short, premium scan that helps reveal what may be making the business harder to understand, harder to trust, or easier to ignore.
+            Cendorq gives the full Free Scan its own focused page so the business owner has room to understand each step, enter details safely, recover from errors, and finish without a cramped popup experience.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -142,9 +179,41 @@ export default function FreeCheckPage() {
         </div>
       </section>
 
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Free Scan page decision">
+        {DEDICATED_SCAN_ROOM_DECISION.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+            <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+        <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Why this is not a full popup</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            The scan is important enough to deserve focus.
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-300">
+            A small popup can invite someone into the scan, but the actual form should live on this dedicated page. That keeps the experience accessible, routeable, recoverable, and serious enough for a business owner sharing real context.
+          </p>
+        </article>
+        <article className="system-surface rounded-[2rem] p-6">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Scan room standards</div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {SCAN_ROOM_STANDARDS.map((standard) => (
+              <div key={standard} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
+                {standard}
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+
       <GuidedFreeCheckForm className="relative z-10 mt-12" />
 
-      <section className="relative z-10 mt-12 grid gap-4 md:grid-cols-3">
+      <section className="relative z-10 mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {FAQS.map((item) => (
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
