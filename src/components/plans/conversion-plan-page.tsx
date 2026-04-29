@@ -29,6 +29,36 @@ export type PlanPageData = {
   finalCopy: string;
 };
 
+const PLAN_PATH_OPERATING_SNAPSHOT = [
+  { label: "Decision posture", value: "Proof-led plan selection", detail: "Plans should be chosen because evidence and stage fit make the next move clear." },
+  { label: "Upgrade posture", value: "No pressure path", detail: "The plan path must not use fake urgency, dark patterns, or unsupported business-result claims." },
+  { label: "Fit logic", value: "Stage-fit decision", detail: "Free Scan, review, build, and ongoing control should each explain when they are right and when they are not." },
+  { label: "Customer protection", value: "Truthful boundaries", detail: "Every plan promise must stay bounded, practical, and aligned with report, support, billing, and trust standards." },
+] as const;
+
+const PLAN_DECISION_PRINCIPLES = [
+  "Start free when the business problem is unclear.",
+  "Go deeper when you need explanation, evidence, and prioritization.",
+  "Build when the direction is clear enough to change the business path.",
+  "Use ongoing control when the base is ready for repeated measurement, improvement, and protection.",
+] as const;
+
+const PLAN_TRUST_RULES = [
+  "No fake urgency",
+  "No unsupported ROI claims",
+  "No guaranteed business results",
+  "No guaranteed refund, legal, security, or report-change promises outside approved process",
+] as const;
+
+const PLAN_CHANNEL_COVERAGE = [
+  "Local/search demand",
+  "Website conversion",
+  "Service, booking, and lead flow",
+  "Social and creator channels",
+  "Marketplace/platform revenue",
+  "Digital product and recurring revenue",
+] as const;
+
 export function ConversionPlanPage({ data }: { data: PlanPageData }) {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-10 xl:py-12">
@@ -46,11 +76,11 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <Link href={data.ctaHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
+            <Link href={data.ctaHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               {data.ctaLabel}
             </Link>
             {data.secondaryHref && data.secondaryLabel ? (
-              <Link href={data.secondaryHref} className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
+              <Link href={data.secondaryHref} className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
                 {data.secondaryLabel}
               </Link>
             ) : null}
@@ -77,6 +107,8 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
         </div>
       </section>
 
+      <PlanOperatingSnapshot />
+
       <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
         <div>
           <TopChip>What you get</TopChip>
@@ -94,6 +126,8 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
         </div>
       </section>
 
+      <PlanDecisionSupport />
+
       <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-2">
         <FitPanel title="Best for" items={data.fit.good} highlighted />
         <FitPanel title="Not for" items={data.fit.bad} />
@@ -109,11 +143,11 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
             {data.finalCopy}
           </p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link href={data.ctaHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
+            <Link href={data.ctaHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               {data.ctaLabel}
             </Link>
             {data.secondaryHref && data.secondaryLabel ? (
-              <Link href={data.secondaryHref} className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
+              <Link href={data.secondaryHref} className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
                 {data.secondaryLabel}
               </Link>
             ) : null}
@@ -138,14 +172,14 @@ export function PlanOverviewPage({ plans }: { plans: Array<PlanPageData & { href
             Cendorq keeps the buying path simple: start free when the problem is unclear, go deeper when you need explanation, build when the direction is clear, and use ongoing control when the base is ready to keep improving.
           </p>
           <div className="mt-8">
-            <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
+            <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Start free scan
             </Link>
           </div>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           {plans.map((plan, index) => (
-            <Link key={plan.href} href={plan.href} className={index === 0 ? "system-panel-authority rounded-[1.7rem] p-5 transition hover:scale-[1.01]" : "system-surface rounded-[1.7rem] p-5 transition hover:scale-[1.01]"}>
+            <Link key={plan.href} href={plan.href} className={index === 0 ? "system-panel-authority rounded-[1.7rem] p-5 transition hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950" : "system-surface rounded-[1.7rem] p-5 transition hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950"}>
               <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">{plan.eyebrow}</div>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">{plan.label}</h2>
               <p className="mt-3 text-sm leading-7 text-slate-300">{plan.intro}</p>
@@ -154,7 +188,68 @@ export function PlanOverviewPage({ plans }: { plans: Array<PlanPageData & { href
           ))}
         </div>
       </section>
+
+      <PlanOperatingSnapshot />
+      <PlanDecisionSupport />
     </main>
+  );
+}
+
+function PlanOperatingSnapshot() {
+  return (
+    <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Plan path operating snapshot">
+      {PLAN_PATH_OPERATING_SNAPSHOT.map((item) => (
+        <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+          <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
+          <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+        </article>
+      ))}
+    </section>
+  );
+}
+
+function PlanDecisionSupport() {
+  return (
+    <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]" aria-label="Plan decision support">
+      <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
+        <TopChip>How to choose</TopChip>
+        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Proof-led plan selection.</h2>
+        <p className="mt-4 text-base leading-8 text-slate-300">
+          The best plan is the one that matches the business stage, the evidence already available, the customer’s readiness to act, and the amount of change required. Cendorq should never push a deeper plan when the first proof has not been established.
+        </p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {PLAN_DECISION_PRINCIPLES.map((principle) => (
+            <div key={principle} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200">
+              {principle}
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <div className="grid gap-4">
+        <article className="system-surface rounded-[2rem] p-6">
+          <TopChip>Revenue paths considered</TopChip>
+          <div className="mt-4 grid gap-2">
+            {PLAN_CHANNEL_COVERAGE.map((item) => (
+              <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
+                {item}
+              </div>
+            ))}
+          </div>
+        </article>
+        <article className="system-surface rounded-[2rem] p-6">
+          <TopChip>Plan trust rules</TopChip>
+          <div className="mt-4 grid gap-2">
+            {PLAN_TRUST_RULES.map((item) => (
+              <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
+                {item}
+              </div>
+            ))}
+          </div>
+        </article>
+      </div>
+    </section>
   );
 }
 
