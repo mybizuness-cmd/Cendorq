@@ -9,11 +9,34 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
+const OPERATING_SNAPSHOT = [
+  { label: "Current stage", value: "Free Scan setup", detail: "Start with a truthful first read before any paid recommendation." },
+  { label: "Primary focus", value: "Find the highest-leverage gap", detail: "Clarity, trust, choice, and action are reviewed before deeper work." },
+  { label: "Decision quality", value: "Proof before pressure", detail: "Each next step should explain evidence, confidence, limitation, and practical value." },
+  { label: "Protection mode", value: "Customer-safe", detail: "Dashboard copy avoids raw internal data, unsupported promises, and fake urgency." },
+] as const;
+
 const SCORECARDS = [
   { label: "Clarity", value: "Pending scan", detail: "How quickly customers understand what you do and why it matters." },
   { label: "Trust", value: "Pending scan", detail: "Signals that help the business feel safe, real, and worth contacting." },
   { label: "Choice", value: "Pending scan", detail: "Whether the business feels easier to choose than alternatives." },
   { label: "Action", value: "Pending scan", detail: "How clearly the next step moves a visitor toward contact, booking, or purchase." },
+] as const;
+
+const EXPERIENCE_PILLARS = [
+  { title: "Business owner clarity", copy: "Plain-language direction first, then deeper detail when the customer is ready." },
+  { title: "Proof-led conversion", copy: "Plans are positioned through evidence, fit, and stage—not pressure or fake scarcity." },
+  { title: "Connected operations", copy: "Reports, billing, notifications, plans, and support all route back to one coherent dashboard." },
+  { title: "Protected trust", copy: "Customer-facing surfaces avoid raw payloads, private internals, and unsupported guarantees." },
+] as const;
+
+const CHANNEL_COVERAGE = [
+  "Local/search demand",
+  "Website conversion",
+  "Social and creator channels",
+  "Marketplace/platform revenue",
+  "Service, booking, and lead flow",
+  "Digital product or recurring revenue",
 ] as const;
 
 const CONVERSATION_PROMPTS = [
@@ -44,11 +67,21 @@ export default function CustomerDashboardPage() {
             <p className="mt-2 text-sm leading-6 text-slate-200">
               Finish or review the Free Scan so Cendorq can show the first evidence-backed direction.
             </p>
-            <Link href="/free-check" className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+            <Link href="/free-check" className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Continue Free Scan
             </Link>
           </div>
         </div>
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Dashboard operating snapshot">
+        {OPERATING_SNAPSHOT.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+            <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+          </article>
+        ))}
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-4">
@@ -57,6 +90,15 @@ export default function CustomerDashboardPage() {
             <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{card.label}</div>
             <div className="mt-4 text-2xl font-semibold tracking-tight text-white">{card.value}</div>
             <p className="mt-3 text-sm leading-6 text-slate-300">{card.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Dashboard excellence pillars">
+        {EXPERIENCE_PILLARS.map((pillar) => (
+          <article key={pillar.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+            <h2 className="text-lg font-semibold tracking-tight text-white">{pillar.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">{pillar.copy}</p>
           </article>
         ))}
       </section>
@@ -90,6 +132,17 @@ export default function CustomerDashboardPage() {
             </p>
           </article>
           <article className="system-surface rounded-[2rem] p-6">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Revenue channel awareness</div>
+            <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white">Coverage beyond one business model.</h2>
+            <div className="mt-4 grid gap-2">
+              {CHANNEL_COVERAGE.map((channel) => (
+                <div key={channel} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
+                  {channel}
+                </div>
+              ))}
+            </div>
+          </article>
+          <article className="system-surface rounded-[2rem] p-6">
             <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Strategic conversation</div>
             <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white">Ask smarter questions.</h2>
             <div className="mt-4 grid gap-2">
@@ -117,7 +170,7 @@ export default function CustomerDashboardPage() {
 
 function DashboardLink({ href, title, copy }: { href: string; title: string; copy: string }) {
   return (
-    <Link href={href} className="system-surface rounded-[1.5rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10">
+    <Link href={href} className="system-surface rounded-[1.5rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
       <h2 className="text-xl font-semibold tracking-tight text-white">{title}</h2>
       <p className="mt-3 text-sm leading-7 text-slate-300">{copy}</p>
     </Link>
