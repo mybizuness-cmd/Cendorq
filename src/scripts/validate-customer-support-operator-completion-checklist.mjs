@@ -7,14 +7,8 @@ const pagePath = "src/app/admin/support/page.tsx";
 const packagePath = "package.json";
 
 expect(pagePath, [
-  "OperatorSectionHeader",
-  "Review intake",
-  "Safe intake and routing.",
-  "Separated actions",
-  "Approval actions by gate.",
-  "Safe history",
-  "Projection-only history.",
   "SUPPORT_OPERATOR_COMPLETION_CHECKLIST",
+  "Operator completion checklist",
   "Completion checklist",
   "Check before review action.",
   "This checklist is informational only. It does not approve, deny, store, or expose support data.",
@@ -22,22 +16,15 @@ expect(pagePath, [
   "Customer-owned context confirmed",
   "Correct review gate selected",
   "Customer-safe copy prepared",
-  "organized into safe intake and routing, separated review actions, and safe history",
-  "Correction, billing, security, and closure reviews stay separated by endpoint, gate, reviewer role, audit path, and safe projection output.",
-  "Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI.",
-  "OperatorSafeSummaryConsole",
-  "OperatorAssignmentPanel",
-  "OperatorApprovalPanel",
-  "OperatorBillingApprovalPanel",
-  "OperatorSecurityApprovalPanel",
-  "OperatorClosureApprovalPanel",
-  "OperatorAssignmentList",
-  "OperatorApprovalList",
+  "Use the safe-summary projection before assigning or reviewing.",
+  "Use only customer-owned support context from guarded APIs.",
+  "Match the panel to correction, billing, security, or closure.",
+  "Write bounded status or outcome copy before submitting a review.",
 ]);
 
 expect(packagePath, [
   "validate:routes",
-  "validate-customer-support-operator-console-sections.mjs",
+  "validate-customer-support-operator-completion-checklist.mjs",
 ]);
 
 forbidden(pagePath, [
@@ -68,12 +55,12 @@ forbidden(pagePath, [
 ]);
 
 if (failures.length) {
-  console.error("Customer support operator console section validation failed:");
+  console.error("Customer support operator completion checklist validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Customer support operator console section validation passed.");
+console.log("Customer support operator completion checklist validation passed.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
