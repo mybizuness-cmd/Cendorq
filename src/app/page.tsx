@@ -1,3 +1,4 @@
+import { FreeScanConciergeNudge } from "@/components/public/free-scan-concierge-nudge";
 import {
   buildBreadcrumbJsonLd,
   buildFaqJsonLd,
@@ -145,6 +146,7 @@ export default function HomePage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-7 text-white sm:px-6 md:py-9 xl:py-10">
       <HomeAtmosphere />
+      <FreeScanConciergeNudge />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} />
