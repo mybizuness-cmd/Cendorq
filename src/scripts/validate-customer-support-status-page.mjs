@@ -50,6 +50,14 @@ expect("src/components/customer-support/support-status-list.tsx", [
   "Safe channels",
   "Required guards",
   "Open communication path",
+  "buildCustomerSupportStatusPath",
+  "buildCommunicationPlanPath",
+  "buildSafeSupportUpdatePath",
+  "customerVisibleStatus === \"waiting-on-customer\"",
+  "communicationPlan.status === \"waiting-on-customer\"",
+  "/dashboard/support/request?update=",
+  "encodeURIComponent(supportRequestId)",
+  "Use the safe update path for this request. Cendorq will not ask you to paste rejected raw content again.",
   "formatCommunicationDecision",
   "communicationDecisionCopy",
   "formatCommunicationChannel",
@@ -59,6 +67,13 @@ expect("src/components/customer-support/support-status-list.tsx", [
   "Suppressed by safety controls",
   "customer-owned and safely projected",
   "approved customer channels",
+]);
+
+expect("src/components/customer-support/support-request-update-form.tsx", [
+  "SupportRequestUpdateForm",
+  "new URL(window.location.href).searchParams.get(\"update\")",
+  "/api/customer/support/request/update",
+  "Cendorq does not show rejected raw content here and does not ask you to paste sensitive records again.",
 ]);
 
 expect("src/app/api/customer/support/status/route.ts", [
@@ -124,6 +139,8 @@ forbidden("src/components/customer-support/support-status-list.tsx", [
   "suppressionReasons.map",
   "notificationKey}",
   "emailKey}",
+  "rawRejectedContent",
+  "rejectedRawContent",
 ]);
 
 if (failures.length) {

@@ -142,39 +142,43 @@ export function SupportStatusList() {
 
       {state.kind === "ready" ? (
         <div className="mt-6 grid gap-4">
-          {state.entries.map((entry) => (
-            <article key={entry.supportRequestId} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                <div>
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{entry.statusLabel}</div>
-                  <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white">{entry.businessContext}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">{entry.statusCopy}</p>
+          {state.entries.map((entry) => {
+            const primaryCustomerPath = buildCustomerSupportStatusPath(entry);
+            return (
+              <article key={entry.supportRequestId} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                  <div>
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{entry.statusLabel}</div>
+                    <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white">{entry.businessContext}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">{entry.statusCopy}</p>
+                  </div>
+                  <Link href={primaryCustomerPath} className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
+                    {entry.primaryCta}
+                  </Link>
                 </div>
-                <Link href={entry.primaryPath} className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
-                  {entry.primaryCta}
-                </Link>
-              </div>
-              <div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-                <StatusDetail label="Request ID" value={entry.supportRequestId} />
-                <StatusDetail label="Request type" value={entry.requestType} />
-                <StatusDetail label="Processing" value={entry.downstreamProcessingAllowed ? "Allowed" : "Held for review"} />
-                <StatusDetail label="Operator review" value={entry.operatorReviewRequired ? "Required" : "Not required"} />
-              </div>
-              <CommunicationPlanPanel communicationPlan={entry.communicationPlan} />
-              <div className="mt-4 rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/10 p-4 text-xs leading-6 text-cyan-50">
-                {entry.customerSafeStatus}
-              </div>
-            </article>
-          ))}
+                <div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+                  <StatusDetail label="Request ID" value={entry.supportRequestId} />
+                  <StatusDetail label="Request type" value={entry.requestType} />
+                  <StatusDetail label="Processing" value={entry.downstreamProcessingAllowed ? "Allowed" : "Held for review"} />
+                  <StatusDetail label="Operator review" value={entry.operatorReviewRequired ? "Required" : "Not required"} />
+                </div>
+                <CommunicationPlanPanel communicationPlan={entry.communicationPlan} supportRequestId={entry.supportRequestId} />
+                <div className="mt-4 rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/10 p-4 text-xs leading-6 text-cyan-50">
+                  {entry.customerVisibleStatus === "waiting-on-customer" ? "Use the safe update path for this request. Cendorq will not ask you to paste rejected raw content again." : entry.customerSafeStatus}
+                </div>
+              </article>
+            );
+          })}
         </div>
       ) : null}
     </section>
   );
 }
 
-function CommunicationPlanPanel({ communicationPlan }: { communicationPlan: CustomerSupportCommunicationPlan }) {
+function CommunicationPlanPanel({ communicationPlan, supportRequestId }: { communicationPlan: CustomerSupportCommunicationPlan; supportRequestId: string }) {
   const channels = communicationPlan.channels.length ? communicationPlan.channels.map(formatCommunicationChannel).join(", ") : "No customer channel selected";
   const guards = communicationPlan.requiredGuards.length ? communicationPlan.requiredGuards.map(formatCommunicationGuard).join(" • ") : "Customer-safe projection";
+  const communicationPath = buildCommunicationPlanPath(communicationPlan, supportRequestId);
 
   return (
     <div className="mt-4 rounded-[1.25rem] border border-violet-300/15 bg-violet-300/10 p-4">
@@ -184,7 +188,7 @@ function CommunicationPlanPanel({ communicationPlan }: { communicationPlan: Cust
           <p className="mt-2 text-sm font-semibold text-white">{formatCommunicationDecision(communicationPlan.decision)}</p>
           <p className="mt-2 max-w-3xl text-xs leading-6 text-violet-50/80">{communicationDecisionCopy(communicationPlan.decision)}</p>
         </div>
-        <Link href={communicationPlan.primaryPath} className="rounded-2xl border border-violet-200/25 px-4 py-3 text-center text-xs font-semibold text-violet-50 transition hover:bg-violet-200/10">
+        <Link href={communicationPath} className="rounded-2xl border border-violet-200/25 px-4 py-3 text-center text-xs font-semibold text-violet-50 transition hover:bg-violet-200/10">
           Open communication path
         </Link>
       </div>
@@ -204,6 +208,20 @@ function StatusDetail({ label, value }: { label: string; value: string }) {
       <div className="mt-2 break-words text-sm font-semibold text-white">{value}</div>
     </div>
   );
+}
+
+function buildCustomerSupportStatusPath(entry: CustomerSupportStatusEntry) {
+  if (entry.customerVisibleStatus === "waiting-on-customer") return buildSafeSupportUpdatePath(entry.supportRequestId);
+  return entry.primaryPath;
+}
+
+function buildCommunicationPlanPath(communicationPlan: CustomerSupportCommunicationPlan, supportRequestId: string) {
+  if (communicationPlan.status === "waiting-on-customer") return buildSafeSupportUpdatePath(supportRequestId);
+  return communicationPlan.primaryPath;
+}
+
+function buildSafeSupportUpdatePath(supportRequestId: string) {
+  return `/dashboard/support/request?update=${encodeURIComponent(supportRequestId)}`;
 }
 
 function formatCommunicationDecision(decision: CustomerSupportCommunicationPlan["decision"]) {
