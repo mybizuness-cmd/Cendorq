@@ -3,6 +3,20 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+type CustomerSupportCommunicationPlan = {
+  supportRequestId: string;
+  status: CustomerSupportStatusEntry["customerVisibleStatus"];
+  decision: "send" | "hold" | "suppress";
+  notificationKey: string;
+  emailKey: string;
+  primaryPath: string;
+  channels: readonly ("dashboard-notification" | "email" | "support-status")[];
+  sendReasons: readonly string[];
+  holdReasons: readonly string[];
+  suppressionReasons: readonly string[];
+  requiredGuards: readonly string[];
+};
+
 type CustomerSupportStatusEntry = {
   supportRequestId: string;
   requestType: string;
@@ -14,6 +28,7 @@ type CustomerSupportStatusEntry = {
   statusCopy: string;
   primaryCta: string;
   primaryPath: string;
+  communicationPlan: CustomerSupportCommunicationPlan;
   createdAt: string;
   updatedAt: string;
   operatorReviewRequired: boolean;
@@ -145,6 +160,7 @@ export function SupportStatusList() {
                 <StatusDetail label="Processing" value={entry.downstreamProcessingAllowed ? "Allowed" : "Held for review"} />
                 <StatusDetail label="Operator review" value={entry.operatorReviewRequired ? "Required" : "Not required"} />
               </div>
+              <CommunicationPlanPanel communicationPlan={entry.communicationPlan} />
               <div className="mt-4 rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/10 p-4 text-xs leading-6 text-cyan-50">
                 {entry.customerSafeStatus}
               </div>
@@ -156,6 +172,31 @@ export function SupportStatusList() {
   );
 }
 
+function CommunicationPlanPanel({ communicationPlan }: { communicationPlan: CustomerSupportCommunicationPlan }) {
+  const channels = communicationPlan.channels.length ? communicationPlan.channels.map(formatCommunicationChannel).join(", ") : "No customer channel selected";
+  const guards = communicationPlan.requiredGuards.length ? communicationPlan.requiredGuards.map(formatCommunicationGuard).join(" • ") : "Customer-safe projection";
+
+  return (
+    <div className="mt-4 rounded-[1.25rem] border border-violet-300/15 bg-violet-300/10 p-4">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-violet-100">Next communication path</div>
+          <p className="mt-2 text-sm font-semibold text-white">{formatCommunicationDecision(communicationPlan.decision)}</p>
+          <p className="mt-2 max-w-3xl text-xs leading-6 text-violet-50/80">{communicationDecisionCopy(communicationPlan.decision)}</p>
+        </div>
+        <Link href={communicationPlan.primaryPath} className="rounded-2xl border border-violet-200/25 px-4 py-3 text-center text-xs font-semibold text-violet-50 transition hover:bg-violet-200/10">
+          Open communication path
+        </Link>
+      </div>
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <StatusDetail label="Communication decision" value={formatCommunicationDecision(communicationPlan.decision)} />
+        <StatusDetail label="Safe channels" value={channels} />
+        <StatusDetail label="Required guards" value={guards} />
+      </div>
+    </div>
+  );
+}
+
 function StatusDetail({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
@@ -163,4 +204,29 @@ function StatusDetail({ label, value }: { label: string; value: string }) {
       <div className="mt-2 break-words text-sm font-semibold text-white">{value}</div>
     </div>
   );
+}
+
+function formatCommunicationDecision(decision: CustomerSupportCommunicationPlan["decision"]) {
+  if (decision === "send") return "Ready to communicate";
+  if (decision === "hold") return "Protected hold";
+  return "Suppressed by safety controls";
+}
+
+function communicationDecisionCopy(decision: CustomerSupportCommunicationPlan["decision"]) {
+  if (decision === "send") return "Cendorq can use the approved customer channels for this status while keeping the request customer-owned and safely projected.";
+  if (decision === "hold") return "Cendorq is keeping the communication controlled until the customer-safe conditions for this status are satisfied.";
+  return "Cendorq is avoiding duplicate, unavailable, or blocked communication for this status while preserving the protected support path.";
+}
+
+function formatCommunicationChannel(channel: CustomerSupportCommunicationPlan["channels"][number]) {
+  if (channel === "dashboard-notification") return "Dashboard notification";
+  if (channel === "support-status") return "Support status";
+  return "Email";
+}
+
+function formatCommunicationGuard(guard: string) {
+  return guard
+    .split("-")
+    .join(" ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }

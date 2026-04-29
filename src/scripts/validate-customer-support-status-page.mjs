@@ -42,12 +42,30 @@ expect("src/components/customer-support/support-status-list.tsx", [
   "statusCopy",
   "primaryCta",
   "primaryPath",
+  "communicationPlan",
+  "CustomerSupportCommunicationPlan",
+  "Next communication path",
+  "CommunicationPlanPanel",
+  "Communication decision",
+  "Safe channels",
+  "Required guards",
+  "Open communication path",
+  "formatCommunicationDecision",
+  "communicationDecisionCopy",
+  "formatCommunicationChannel",
+  "formatCommunicationGuard",
+  "Ready to communicate",
+  "Protected hold",
+  "Suppressed by safety controls",
+  "customer-owned and safely projected",
+  "approved customer channels",
 ]);
 
 expect("src/app/api/customer/support/status/route.ts", [
   "requireCustomerSession",
   "projectSupportStatus",
   "customerVisibleStatus",
+  "communicationPlan",
   "No authorized support status was found.",
 ]);
 
@@ -101,6 +119,11 @@ forbidden("src/components/customer-support/support-status-list.tsx", [
   "sessionToken",
   "csrfToken",
   "console.log",
+  "sendReasons.map",
+  "holdReasons.map",
+  "suppressionReasons.map",
+  "notificationKey}",
+  "emailKey}",
 ]);
 
 if (failures.length) {
