@@ -78,22 +78,24 @@ export async function POST(request: NextRequest) {
   if (!reasonCode) fieldErrors.reasonCode = "Safe reason code is required.";
   if (customerSafeSummary.length < 20) fieldErrors.customerSafeSummary = "Customer-safe assignment summary of at least 20 characters is required.";
   if (Object.keys(fieldErrors).length) return jsonNoStore({ ok: false, error: "The assignment request needs required safe fields.", fieldErrors }, 400);
+  if (!assignedRole || !assignmentState || !decision) return jsonNoStore({ ok: false, error: "The assignment request could not be normalized safely.", details: ["Use allowlisted assignment roles, states, and decisions only."] }, 400);
 
   try {
     const now = new Date().toISOString();
-    const auditBuild = buildCustomerSupportOperatorAuditRecord({
+    const auditInput = {
       supportRequestId,
       customerIdHash,
       operatorRole: access.operatorRole,
       operatorActorRef: access.operatorActorRef,
-      action: "assign-review",
-      outcome: decision === "deny" ? "rejected" : decision === "hold" ? "held" : "assigned",
-      approvalGate: "none",
+      action: "assign-review" as const,
+      outcome: decision === "deny" ? "rejected" as const : decision === "hold" ? "held" as const : "assigned" as const,
+      approvalGate: "none" as const,
       reasonCode,
       customerSafeSummary,
-      nextCustomerStatus: assignmentState === "released" ? "reviewing" : undefined,
       now,
-    });
+      ...(assignmentState === "released" ? { nextCustomerStatus: "reviewing" as const } : {}),
+    };
+    const auditBuild = buildCustomerSupportOperatorAuditRecord(auditInput);
     if (!auditBuild.ok) return jsonNoStore({ ok: false, error: "The assignment audit record could not be created safely.", details: [auditBuild.reason] }, 400);
 
     const assignmentBuild = buildCustomerSupportOperatorAssignment({
