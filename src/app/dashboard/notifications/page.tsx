@@ -17,6 +17,26 @@ const FEATURED_NOTIFICATIONS = CUSTOMER_NOTIFICATION_CONTRACTS.filter((notificat
   hasNotificationKey(FEATURED_NOTIFICATION_KEYS, notification.key),
 );
 
+const FIRST_USE_SNAPSHOT = [
+  { label: "Alert meaning", value: "Actionable, not noisy", detail: "Every visible alert should explain why it matters and where the customer can safely act." },
+  { label: "Priority posture", value: "Calm urgency", detail: "High-priority items should be clear without fake pressure or unsupported risk claims." },
+  { label: "Privacy posture", value: "Safe projection only", detail: "Notifications should summarize state without raw evidence, secrets, private internals, or cross-customer details." },
+  { label: "Recovery posture", value: "Route to the right place", detail: "Support, billing, report, security, and account alerts should point to the safest next route." },
+] as const;
+
+const FIRST_USE_ACTIONS = [
+  { title: "Start with priority", copy: "Review confirmation, security, billing, and ready-report alerts before lower-context updates.", href: "/dashboard/notifications" },
+  { title: "Track support", copy: "Use the status page when an alert is about a request, review, correction, or follow-through.", href: "/dashboard/support/status" },
+  { title: "Open billing", copy: "Use billing center for plan, entitlement, or invoice actions instead of sharing card data in support.", href: "/dashboard/billing" },
+] as const;
+
+const FIRST_USE_RULES = [
+  "Notifications show safe customer-facing summaries, not raw operational records.",
+  "Security alerts should guide reauthentication without exposing attacker details or internal detection logic.",
+  "Billing alerts should route to billing actions without asking for card data in support messages.",
+  "Support alerts should route to status, resubmission, support center, or new request paths without duplicate anxiety.",
+] as const;
+
 const NOTIFICATION_GROUPS = [
   {
     label: "Account and security",
@@ -49,16 +69,54 @@ export default function NotificationCenterPage() {
           Cendorq notifications are designed to keep account, report, billing, support, and security actions clear while never exposing raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/dashboard" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+          <Link href="/dashboard" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
             Back to dashboard
           </Link>
-          <Link href="/dashboard/support/status" className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
+          <Link href="/dashboard/support/status" className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             Track support status
           </Link>
-          <Link href="/dashboard/billing" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
+          <Link href="/dashboard/billing" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             Open billing center
           </Link>
         </div>
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Notification center first use snapshot">
+        {FIRST_USE_SNAPSHOT.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]" aria-label="Notification center first use guidance">
+        <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">How to use alerts</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Start with the alert that changes what you can safely do next.</h2>
+          <p className="mt-4 text-base leading-8 text-slate-300">
+            First-use notification guidance should reduce uncertainty: tell the customer which alerts affect access, reports, billing, support, or security, then route them to the correct action without exposing internal state.
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {FIRST_USE_ACTIONS.map((item) => (
+              <Link key={item.title} href={item.href} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block font-semibold text-white">{item.title}</span>
+                <span className="mt-2 block">{item.copy}</span>
+              </Link>
+            ))}
+          </div>
+        </article>
+        <article className="system-surface rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First-use rules</div>
+          <div className="mt-5 grid gap-3">
+            {FIRST_USE_RULES.map((rule) => (
+              <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-slate-200">
+                {rule}
+              </div>
+            ))}
+          </div>
+        </article>
       </section>
 
       <SupportLifecycleNotificationList />
@@ -72,7 +130,7 @@ export default function NotificationCenterPage() {
             </div>
             <h2 className="mt-4 text-xl font-semibold tracking-tight text-white">{notification.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">{notification.body}</p>
-            <Link href={notification.primaryPath} className="mt-5 inline-flex rounded-2xl border border-cyan-300/25 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
+            <Link href={notification.primaryPath} className="mt-5 inline-flex rounded-2xl border border-cyan-300/25 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
               {notification.primaryCta}
             </Link>
           </article>
@@ -108,7 +166,7 @@ export default function NotificationCenterPage() {
               Support lifecycle notifications point customers to status tracking, safe resubmission, support center, or new request paths while suppressing duplicate anxiety and blocking raw evidence, internal notes, operator identity, risk scoring, attacker details, and unapproved promises.
             </p>
           </div>
-          <Link href="/dashboard/support/status" className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
+          <Link href="/dashboard/support/status" className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             View support status
           </Link>
         </div>
@@ -122,11 +180,11 @@ export default function NotificationCenterPage() {
               <h3 className="mt-4 text-lg font-semibold tracking-tight text-white">{notification.title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-300">{notification.body}</p>
               <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                <Link href={notification.primaryPath} className="inline-flex rounded-2xl border border-cyan-300/25 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
+                <Link href={notification.primaryPath} className="inline-flex rounded-2xl border border-cyan-300/25 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
                   {notification.primaryCta}
                 </Link>
                 {notification.secondaryCta && notification.secondaryPath ? (
-                  <Link href={notification.secondaryPath} className="inline-flex rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
+                  <Link href={notification.secondaryPath} className="inline-flex rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
                     {notification.secondaryCta}
                   </Link>
                 ) : null}
