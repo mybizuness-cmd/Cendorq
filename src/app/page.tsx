@@ -10,7 +10,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 const BRAND_NAME = "Cendorq";
-const CATEGORY_LINE = "Search Presence OS";
+const CATEGORY_LINE = "Business Decision Intelligence";
 
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
@@ -35,7 +35,15 @@ export const metadata = buildMetadata({
 const HERO_POINTS = [
   "Free first read",
   "No fake guarantees",
+  "Proof before pressure",
   "Clear next move",
+] as const;
+
+const FRONT_DOOR_SNAPSHOT = [
+  { label: "Starting point", value: "Free Scan", detail: "A safer first read before deeper paid work." },
+  { label: "Core question", value: "Why are they not choosing?", detail: "Clarity, trust, choice, and action are reviewed together." },
+  { label: "Output posture", value: "Truthful and bounded", detail: "Findings separate practical direction from unsupported promises." },
+  { label: "Next path", value: "Review, fix, or control", detail: "The next step should match the business stage and evidence." },
 ] as const;
 
 const DECISION_BREAKS = [
@@ -56,6 +64,22 @@ const DECISION_BREAKS = [
   },
 ] as const;
 
+const CENDORQ_SYSTEM_LAYERS = [
+  { title: "Clarity layer", copy: "Can a customer understand the offer quickly and confidently?" },
+  { title: "Trust layer", copy: "Does the business feel real, safe, supported, and worth contacting?" },
+  { title: "Choice layer", copy: "Does the customer have enough proof to choose this business over alternatives?" },
+  { title: "Action layer", copy: "Is the next step obvious, low-friction, and aligned with the customer’s intent?" },
+] as const;
+
+const BUSINESS_MODEL_COVERAGE = [
+  "Local businesses",
+  "Service providers",
+  "Appointment and booking businesses",
+  "Digital products",
+  "Creator and social channels",
+  "Marketplaces and platform revenue",
+] as const;
+
 const SCAN_STEPS = [
   {
     label: "01",
@@ -72,6 +96,13 @@ const SCAN_STEPS = [
     title: "Get the first direction",
     copy: "See where the decision may be breaking before paying for deeper work.",
   },
+] as const;
+
+const TRUST_RULES = [
+  "No fake urgency",
+  "No unsupported ROI claims",
+  "No promise of guaranteed business results",
+  "No pressure to buy before the first direction is clear",
 ] as const;
 
 const FAQS = [
@@ -135,7 +166,7 @@ export default function HomePage() {
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Link
               href="/free-check"
-              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
+              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950"
             >
               Start free scan
             </Link>
@@ -173,6 +204,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Public website operating snapshot">
+        {FRONT_DOOR_SNAPSHOT.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+            <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="relative z-10 mt-12 grid gap-4 lg:grid-cols-4" aria-label="Cendorq system layers">
+        {CENDORQ_SYSTEM_LAYERS.map((item) => (
+          <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+            <h2 className="text-lg font-semibold tracking-tight text-white">{item.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
+          </article>
+        ))}
+      </section>
+
       <section className="relative z-10 mt-12 grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
         <div>
           <TopChip>Simple on purpose</TopChip>
@@ -203,7 +253,7 @@ export default function HomePage() {
           <div className="mt-7">
             <Link
               href="/free-check"
-              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
+              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950"
             >
               Start free scan
             </Link>
@@ -211,6 +261,26 @@ export default function HomePage() {
         </div>
 
         <div className="grid gap-4">
+          <article className="system-surface rounded-[1.5rem] p-5">
+            <h3 className="text-xl font-semibold tracking-tight text-white">Built for more than one revenue path.</h3>
+            <div className="mt-4 grid gap-2">
+              {BUSINESS_MODEL_COVERAGE.map((item) => (
+                <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </article>
+          <article className="system-surface rounded-[1.5rem] p-5">
+            <h3 className="text-xl font-semibold tracking-tight text-white">Trust rules stay visible.</h3>
+            <div className="mt-4 grid gap-2">
+              {TRUST_RULES.map((item) => (
+                <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </article>
           {FAQS.map((item) => (
             <FaqCard key={item.question} question={item.question} answer={item.answer} />
           ))}
