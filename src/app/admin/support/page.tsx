@@ -38,6 +38,13 @@ const SUPPORT_OPERATOR_STATUS_ITEMS = [
   { label: "Mutation rule", value: "Guarded", detail: "Audit before stored result" },
 ] as const;
 
+const SUPPORT_OPERATOR_REVIEW_GATE_MAP = [
+  { label: "Correction", endpoint: "/api/admin/support/approvals", gate: "specialist-review", reviewer: "support-specialist", projection: "operator-approval-safe" },
+  { label: "Billing", endpoint: "/api/admin/support/approvals/billing", gate: "billing-approval", reviewer: "billing-approver", projection: "operator-billing-approval-safe" },
+  { label: "Security", endpoint: "/api/admin/support/approvals/security", gate: "security-approval", reviewer: "security-reviewer", projection: "operator-security-approval-safe" },
+  { label: "Closure", endpoint: "/api/admin/support/approvals/closure", gate: "support-admin-approval", reviewer: "support-admin", projection: "operator-closure-approval-safe" },
+] as const;
+
 export default function SupportOperatorConsolePage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
@@ -91,6 +98,25 @@ export default function SupportOperatorConsolePage() {
           ))}
         </div>
       </nav>
+
+      <section className="relative z-10 mt-8 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6" aria-label="Operator review gate map">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Review gate map</div>
+        <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">Separated review paths.</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">This map is informational only. It lists the endpoint, approval gate, reviewer role, and safe projection for each review path without changing protected API behavior.</p>
+        <div className="mt-5 grid gap-4 lg:grid-cols-4">
+          {SUPPORT_OPERATOR_REVIEW_GATE_MAP.map((item) => (
+            <article key={item.label} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+              <div className="text-sm font-semibold text-white">{item.label}</div>
+              <div className="mt-4 grid gap-3 text-xs leading-6 text-slate-300">
+                <GateMapDetail label="Endpoint" value={item.endpoint} />
+                <GateMapDetail label="Gate" value={item.gate} />
+                <GateMapDetail label="Reviewer" value={item.reviewer} />
+                <GateMapDetail label="Projection" value={item.projection} />
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
         <article className="system-surface rounded-[2rem] p-6">
@@ -151,6 +177,15 @@ function OperatorSectionHeader({ eyebrow, title, description }: { eyebrow: strin
       <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{eyebrow}</div>
       <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">{title}</h2>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">{description}</p>
+    </div>
+  );
+}
+
+function GateMapDetail({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</div>
+      <div className="mt-1 break-words font-semibold text-slate-100">{value}</div>
     </div>
   );
 }
