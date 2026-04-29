@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 const statusApiPath = "src/app/api/customer/support/status/route.ts";
 const statusContractsPath = "src/lib/customer-support-status-contracts.ts";
+const communicationRuntimePath = "src/lib/customer-support-lifecycle-communication-runtime.ts";
 const requestApiPath = "src/app/api/customer/support/request/route.ts";
 const packagePath = "package.json";
 
@@ -19,6 +20,8 @@ expect(statusApiPath, [
   "cleanGatewayString",
   "requireCustomerSession",
   "requireVerifiedEmail: true",
+  "buildSupportLifecycleCommunicationPlan",
+  "projectSupportLifecycleCommunicationPlan",
   "Open support status from the authenticated customer dashboard and try again.",
   "CUSTOMER_SUPPORT_STATUS_CONTRACTS",
   "CustomerSupportStatusView",
@@ -29,6 +32,10 @@ expect(statusApiPath, [
   "statusCopy",
   "primaryCta",
   "primaryPath",
+  "communicationPlan",
+  "customerOwnershipVerified: true",
+  "verifiedSession: true",
+  "safeStatusProjectionExists: true",
   "ownedEntries = envelope.entries.filter((entry) => entry.customerIdHash === sessionAccess.customerIdHash)",
   "No authorized support status was found.",
   "projectSupportStatus",
@@ -48,6 +55,13 @@ expect(statusContractsPath, [
   "CUSTOMER_SUPPORT_STATUS_GLOBAL_GUARDS",
   "no customer support status without customer ownership and session authorization",
   "no support status page or API reveals raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
+]);
+
+expect(communicationRuntimePath, [
+  "CUSTOMER_SUPPORT_LIFECYCLE_COMMUNICATION_RUNTIME_GUARDS",
+  "buildSupportLifecycleCommunicationPlan",
+  "projectSupportLifecycleCommunicationPlan",
+  "communication runtime returns only customer-safe keys, paths, channels, reasons, and guards",
 ]);
 
 expect(requestApiPath, [

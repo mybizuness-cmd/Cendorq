@@ -4,6 +4,7 @@ import path from "node:path";
 
 import { jsonNoStore, optionsNoStore, cleanGatewayString } from "@/lib/customer-access-gateway-runtime";
 import { requireCustomerSession } from "@/lib/customer-session-auth-runtime";
+import { buildSupportLifecycleCommunicationPlan, projectSupportLifecycleCommunicationPlan } from "@/lib/customer-support-lifecycle-communication-runtime";
 import { CUSTOMER_SUPPORT_STATUS_CONTRACTS, type CustomerSupportCustomerVisibleStatus } from "@/lib/customer-support-status-contracts";
 import { loadFileBackedEnvelope, type FileBackedEnvelope } from "@/lib/storage/file-backed-envelope";
 
@@ -45,6 +46,7 @@ type CustomerSupportStatusView = {
   statusCopy: string;
   primaryCta: string;
   primaryPath: string;
+  communicationPlan: ReturnType<typeof projectSupportLifecycleCommunicationPlan>;
   createdAt: string;
   updatedAt: string;
   operatorReviewRequired: boolean;
@@ -133,6 +135,15 @@ function normalizeStoredEntryFromUnknown(value: unknown) {
 function projectSupportStatus(entry: StoredSupportRequest): CustomerSupportStatusView {
   const customerVisibleStatus = mapCustomerVisibleStatus(entry);
   const statusContract = CUSTOMER_SUPPORT_STATUS_CONTRACTS.find((candidate) => candidate.key === customerVisibleStatus) ?? CUSTOMER_SUPPORT_STATUS_CONTRACTS[0];
+  const communicationPlan = projectSupportLifecycleCommunicationPlan(
+    buildSupportLifecycleCommunicationPlan({
+      supportRequestId: entry.id,
+      status: customerVisibleStatus,
+      customerOwnershipVerified: true,
+      verifiedSession: true,
+      safeStatusProjectionExists: true,
+    }),
+  );
 
   return {
     supportRequestId: entry.id,
@@ -145,6 +156,7 @@ function projectSupportStatus(entry: StoredSupportRequest): CustomerSupportStatu
     statusCopy: statusContract.allowedCustomerCopy,
     primaryCta: statusContract.allowedPrimaryCta,
     primaryPath: statusContract.allowedPrimaryPath,
+    communicationPlan,
     createdAt: entry.createdAt,
     updatedAt: entry.updatedAt,
     operatorReviewRequired: entry.operatorReviewRequired,
