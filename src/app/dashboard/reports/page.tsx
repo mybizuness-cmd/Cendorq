@@ -8,6 +8,26 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
+const REPORT_VAULT_FIRST_USE_SNAPSHOT = [
+  { label: "Availability", value: "Clear report state", detail: "Reports should be marked ready, pending, under review, corrected, or unavailable without guessing." },
+  { label: "Methodology", value: "Separated reasoning", detail: "Facts, assumptions, inferences, recommendations, limitations, and next actions must stay distinct." },
+  { label: "Access posture", value: "Protected vault", detail: "Report access belongs behind customer ownership checks and verified customer session gates." },
+  { label: "Correction posture", value: "Visible review path", detail: "Customers should know how to ask for correction without exposing raw private evidence unnecessarily." },
+] as const;
+
+const REPORT_VAULT_ACTIONS = [
+  { title: "Continue Free Scan", copy: "Finish the first read if the vault is not ready yet.", href: "/free-check" },
+  { title: "Ask report support", copy: "Request help, correction review, or explanation safely.", href: "/dashboard/support" },
+  { title: "Compare report depth", copy: "See when Deep Review, Build Fix, or Ongoing Control makes sense.", href: "/plans" },
+] as const;
+
+const REPORT_VAULT_RULES = [
+  "Do not present pending, draft, or incomplete reports as final customer truth.",
+  "Do not expose raw payloads, private evidence, internal notes, operator identities, risk internals, prompts, secrets, or cross-customer data.",
+  "Report copy must separate verified facts, assumptions, inferences, recommendations, limitations, and next actions.",
+  "Correction paths must preserve audit proof while keeping customer-facing explanations calm and bounded.",
+] as const;
+
 const REPORT_STAGES = [
   {
     label: "Free Scan",
@@ -49,6 +69,44 @@ export default function ReportsVaultPage() {
         </p>
       </section>
 
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Report vault first use snapshot">
+        {REPORT_VAULT_FIRST_USE_SNAPSHOT.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]" aria-label="Report vault first use guidance">
+        <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First vault visit</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Know what is ready before acting on it.</h2>
+          <p className="mt-4 text-base leading-8 text-slate-300">
+            The report vault should make report availability, methodology, limits, correction options, and next-plan context clear before a customer acts on recommendations or upgrades.
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {REPORT_VAULT_ACTIONS.map((item) => (
+              <Link key={item.href} href={item.href} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block font-semibold text-white">{item.title}</span>
+                <span className="mt-2 block">{item.copy}</span>
+              </Link>
+            ))}
+          </div>
+        </article>
+        <article className="system-surface rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Vault safety rules</div>
+          <div className="mt-5 grid gap-3">
+            {REPORT_VAULT_RULES.map((rule) => (
+              <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-slate-200">
+                {rule}
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2">
         {REPORT_STAGES.map((report) => (
           <article key={report.label} className="system-surface rounded-[1.75rem] p-6">
@@ -66,10 +124,10 @@ export default function ReportsVaultPage() {
       </section>
 
       <div className="relative z-10 mt-8 flex flex-col gap-3 sm:flex-row">
-        <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
+        <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
           Back to dashboard
         </Link>
-        <Link href="/plans" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+        <Link href="/plans" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
           Compare plans
         </Link>
       </div>
