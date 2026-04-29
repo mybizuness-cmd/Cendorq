@@ -57,8 +57,7 @@ export function buildCustomerSupportNotificationRecords(input: CustomerSupportNo
   const auditEventId = cleanRuntimeString(input.auditEventId, 160) || buildAuditEventId(customerIdHash, plan.supportRequestId, plan.notificationKey, plan.status, now);
   const channels = normalizeChannels(plan.channels);
   const selectedChannels = channels.length ? channels : (["support-status"] as const);
-  const state = stateFromDecision(plan.decision);
-  const records = selectedChannels.map((channel) => buildRecord({ customerIdHash, plan, channel, state, now, auditEventId, title: contract.title, body: contract.body }));
+  const records = selectedChannels.map((channel) => buildRecord({ customerIdHash, plan, channel, state: stateFromDecision(plan.decision, channel), now, auditEventId, title: contract.title, body: contract.body }));
 
   return {
     ok: true,
@@ -122,8 +121,8 @@ function buildRecord({ customerIdHash, plan, channel, state, now, auditEventId, 
     state,
     createdAt: now,
     queuedAt: state === "queued" ? now : undefined,
-    displayedAt: channel === "dashboard-notification" && state === "displayed" ? now : undefined,
-    sentAt: channel === "email" && state === "sent" ? now : undefined,
+    displayedAt: state === "displayed" ? now : undefined,
+    sentAt: state === "sent" ? now : undefined,
     suppressedAt: state === "suppressed" ? now : undefined,
     suppressionKey: state === "suppressed" ? buildCustomerSupportNotificationRecordIdempotencyKey({ customerIdHash, supportRequestId: plan.supportRequestId, notificationKey: plan.notificationKey, channel, status: plan.status }) : undefined,
     suppressionReason: state === "suppressed" ? "safe lifecycle communication suppression" : undefined,
@@ -140,10 +139,10 @@ function buildRecord({ customerIdHash, plan, channel, state, now, auditEventId, 
   };
 }
 
-function stateFromDecision(decision: CustomerSupportLifecycleCommunicationPlan["decision"]): CustomerSupportNotificationRecordState {
+function stateFromDecision(decision: CustomerSupportLifecycleCommunicationPlan["decision"], channel: CustomerSupportNotificationRecordChannel): CustomerSupportNotificationRecordState {
   if (decision === "suppress") return "suppressed";
   if (decision === "hold") return "queued";
-  return "displayed";
+  return channel === "email" ? "sent" : "displayed";
 }
 
 function normalizeChannels(channels: readonly string[]) {
