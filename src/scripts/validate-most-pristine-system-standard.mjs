@@ -11,6 +11,8 @@ const interfaceExcellenceValidatorPath = "src/scripts/validate-platform-interfac
 const continuousEvolutionPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
+const dashboardExcellenceValidatorPath = "src/scripts/validate-customer-dashboard-excellence.mjs";
+const customerDashboardPath = "src/app/dashboard/page.tsx";
 const dependabotPath = ".github/dependabot.yml";
 const codeqlPath = ".github/workflows/codeql.yml";
 const packagePath = "package.json";
@@ -73,6 +75,25 @@ validateTextFile(interfaceExcellenceValidatorPath, [
   "Platform interface excellence validation passed",
   "validate-platform-interface-excellence.mjs",
   "PLATFORM_INTERFACE_EXCELLENCE_CONTRACT",
+]);
+
+validateTextFile(customerDashboardPath, [
+  "OPERATING_SNAPSHOT",
+  "Dashboard operating snapshot",
+  "EXPERIENCE_PILLARS",
+  "Dashboard excellence pillars",
+  "CHANNEL_COVERAGE",
+  "Revenue channel awareness",
+  "Proof before pressure",
+  "Social and creator channels",
+  "Marketplace/platform revenue",
+  "Digital product or recurring revenue",
+  "focus:ring-2",
+]);
+
+validateTextFile(dashboardExcellenceValidatorPath, [
+  "Customer dashboard excellence validation passed",
+  "validate-customer-dashboard-excellence.mjs",
 ]);
 
 validateTextFile(continuousEvolutionPath, [
@@ -161,6 +182,28 @@ validateForbidden(interfaceExcellencePath, [
   "best effort optional",
 ]);
 
+validateForbidden(customerDashboardPath, [
+  "guaranteed ROI",
+  "guaranteed refund",
+  "guaranteed legal outcome",
+  "guaranteed security outcome",
+  "impossible to hack",
+  "never liable",
+  "liability-free",
+  "rawPayload",
+  "rawEvidence",
+  "rawSecurityPayload",
+  "rawBillingData",
+  "internalNotes",
+  "operatorIdentity",
+  "riskScoringInternals",
+  "attackerDetails",
+  "sessionToken",
+  "csrfToken",
+  "localStorage",
+  "sessionStorage",
+]);
+
 validateForbidden(continuousEvolutionPath, [
   "autoMergeWithoutValidation allowed",
   "skipVercelGate allowed",
@@ -189,7 +232,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, repo update scanning automation, public website, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
