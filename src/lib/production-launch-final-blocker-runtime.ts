@@ -15,7 +15,7 @@ export type ProductionLaunchFinalBlockerProjection = {
   requiredEvidence: readonly string[];
   evidenceStatus: "complete" | "blocked";
   safeNextAction: string;
-  publicClaimAllowed: boolean;
+  publicClaimAllowed: false;
 };
 
 export type ProductionLaunchFinalBlockerSummary = {
@@ -46,7 +46,7 @@ export function projectProductionLaunchFinalBlockers(input: ProductionLaunchFina
       blocks: group.blocks,
       requiredEvidence: group.requiredEvidence,
       evidenceStatus: complete ? "complete" : "blocked",
-      safeNextAction: complete ? "Evidence recorded. Keep proof preserved and continue release review." : `Complete ${group.label.toLowerCase()} evidence before any matching launch claim.`,
+      safeNextAction: complete ? "Evidence recorded. Keep proof preserved and continue release-captain review." : `Complete ${group.label.toLowerCase()} evidence before any matching launch claim.`,
       publicClaimAllowed: false,
     } satisfies ProductionLaunchFinalBlockerProjection;
   });
@@ -57,12 +57,13 @@ export function projectProductionLaunchFinalBlockers(input: ProductionLaunchFina
   const rollbackComplete = Boolean(input.rollbackEvidenceComplete);
   const auditComplete = Boolean(input.auditEvidenceComplete);
   const hardLocksClear = Boolean(input.hardLocksClear);
+  const allLaunchClaimEvidenceComplete = Boolean(ownerComplete && smokeComplete && rollbackComplete && auditComplete && hardLocksClear && allComplete);
 
   return {
     releaseState: chooseReleaseState({ ownerComplete, smokeComplete, rollbackComplete, auditComplete, hardLocksClear, allComplete }),
-    publicClaimAllowed: allComplete,
-    paidClaimAllowed: ownerComplete && hardLocksClear,
-    reportClaimAllowed: smokeComplete && rollbackComplete && auditComplete && hardLocksClear,
+    publicClaimAllowed: allLaunchClaimEvidenceComplete,
+    paidClaimAllowed: allLaunchClaimEvidenceComplete,
+    reportClaimAllowed: allLaunchClaimEvidenceComplete,
     blockers,
     blockedCount: blockers.filter((blocker) => blocker.evidenceStatus === "blocked").length,
     completeCount: blockers.filter((blocker) => blocker.evidenceStatus === "complete").length,
@@ -76,6 +77,6 @@ function chooseReleaseState(input: { ownerComplete: boolean; smokeComplete: bool
   if (!input.rollbackComplete) return "blocked-by-rollback-evidence";
   if (!input.auditComplete) return "blocked-by-audit-evidence";
   if (!input.hardLocksClear) return "blocked-by-hard-lock";
-  if (input.allComplete) return "ready-for-public-launch-review";
+  if (input.allComplete) return "ready-for-release-captain-launch-review";
   return "ready-for-owner-review";
 }

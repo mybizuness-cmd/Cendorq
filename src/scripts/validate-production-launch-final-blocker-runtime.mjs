@@ -41,16 +41,19 @@ expect(runtimePath, [
   "blocked-by-rollback-evidence",
   "blocked-by-audit-evidence",
   "blocked-by-hard-lock",
-  "ready-for-public-launch-review",
+  "ready-for-release-captain-launch-review",
   "ready-for-owner-review",
 ]);
 
 expect(runtimePath, [
   "Complete ${group.label.toLowerCase()} evidence before any matching launch claim.",
-  "Evidence recorded. Keep proof preserved and continue release review.",
-  "publicClaimAllowed: allComplete",
-  "paidClaimAllowed: ownerComplete && hardLocksClear",
-  "reportClaimAllowed: smokeComplete && rollbackComplete && auditComplete && hardLocksClear",
+  "Evidence recorded. Keep proof preserved and continue release-captain review.",
+  "allLaunchClaimEvidenceComplete",
+  "ownerComplete && smokeComplete && rollbackComplete && auditComplete && hardLocksClear && allComplete",
+  "publicClaimAllowed: allLaunchClaimEvidenceComplete",
+  "paidClaimAllowed: allLaunchClaimEvidenceComplete",
+  "reportClaimAllowed: allLaunchClaimEvidenceComplete",
+  "publicClaimAllowed: false",
 ]);
 
 expect(contractPath, [
@@ -68,6 +71,9 @@ expect(launchValidatorPath, [
 ]);
 
 forbidden(runtimePath, [
+  "paidClaimAllowed: ownerComplete && hardLocksClear",
+  "reportClaimAllowed: smokeComplete && rollbackComplete && auditComplete && hardLocksClear",
+  "ready-for-public-launch-review",
   "public claim allowed before blockers",
   "paid claim allowed before owner",
   "absolute security",
@@ -86,7 +92,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production launch final blocker runtime validation passed.");
+console.log("Production launch final blocker runtime validation passed. Public, paid, and report claims require all final evidence classes and cannot be unlocked by owner configuration evidence alone.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
