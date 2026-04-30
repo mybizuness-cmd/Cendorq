@@ -24,6 +24,7 @@ validateTextFile(docsIndexPath, [
   "src/lib/command-center/report-evidence-orchestration.ts",
   "src/lib/command-center/report-evidence-orchestration-runtime.ts",
   "src/lib/command-center/report-evidence-record-contracts.ts",
+  "src/lib/command-center/report-evidence-record-runtime.ts",
   "src/lib/command-center/report-growth-system.ts",
   "src/lib/command-center/controlled-market-learning.ts",
   "src/lib/command-center/enterprise-operating-standard.ts",
@@ -65,6 +66,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
+  "src/scripts/validate-report-evidence-record-runtime.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -87,6 +89,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "report evidence route",
   "report evidence record contract",
+  "report evidence record runtime",
   "must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details",
 ]);
 
@@ -124,6 +127,7 @@ validateTextFile(routesChainPath, [
   "validate-command-center-report-evidence-orchestration-panel.mjs",
   "validate-command-center-report-evidence-orchestration-api.mjs",
   "validate-report-evidence-record-contracts.mjs",
+  "validate-report-evidence-record-runtime.mjs",
   "validate-controlled-market-learning.mjs",
   "validate-enterprise-operating-standard.mjs",
   "validate-audit-defense-system.mjs",
@@ -143,7 +147,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed. Private Command Center standards, owner operating manual, source-of-truth files, validation registry, report truth engine, report evidence record contracts, report evidence orchestration API and runtime, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
+console.log("Command Center docs index validation passed. Private Command Center standards, owner operating manual, source-of-truth files, validation registry, report truth engine, report evidence record contracts and runtime, report evidence orchestration API and runtime, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
