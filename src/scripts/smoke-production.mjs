@@ -83,6 +83,11 @@ const protectedCommandCenterApiChecks = [
     expectedStatus: 404,
     expectError: "not_available",
   },
+  {
+    path: "/api/command-center/report-evidence/orchestration",
+    expectedStatus: 404,
+    expectError: "not_available",
+  },
 ];
 
 const failures = [];
