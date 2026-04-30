@@ -20,6 +20,8 @@ const productionChecklistPath = "src/lib/production-launch-checklist-runtime.ts"
 const productionChecklistValidatorPath = "src/scripts/validate-production-launch-checklist-runtime.mjs";
 const productionChecklistPanelPath = "src/app/command-center/production-launch-checklist-panel.tsx";
 const productionChecklistPanelValidatorPath = "src/scripts/validate-command-center-production-launch-checklist-panel.mjs";
+const finalBlockerPath = "src/lib/production-launch-final-blocker-contracts.ts";
+const finalBlockerValidatorPath = "src/scripts/validate-production-launch-final-blocker-contracts.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -58,17 +60,20 @@ expect(contractPath, [
   "audit plan exists for auth, support, billing, report release, operator actions, and maintenance actions",
 ]);
 
-expect(contractPath, [
-  "No launch with browser-stored session tokens, CSRF tokens, provider tokens, admin keys, support context keys, or private keys.",
-  "No launch with account-existence leakage",
-  "No launch with customer routes exposing raw payloads",
-  "No launch with pending, draft, incomplete, or unapproved reports presented as final customer truth.",
-  "No launch with paid report access without entitlement, customer ownership, verified access, and report release approval.",
-  "No launch with billing entitlement activated from client-only success redirect or unverified webhook.",
-  "No launch with support copy asking for card numbers",
-  "No launch with fake urgency, dark patterns, guaranteed ROI",
-  "No launch with uncontrolled AI or scheduled maintenance mutating production without validation, approval, rollback, and audit.",
+expect(finalBlockerPath, [
+  "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT",
+  "Production Launch Final Blocker Contract",
+  "owner-configuration",
+  "production-smoke-target",
+  "rollback-evidence",
+  "audit-evidence",
+  "hard-lock-clearance",
+  "Do not state public launch readiness until every blocker group has complete evidence.",
+  "Do not state security readiness as absolute safety; use defense-in-depth, risk reduction, auditability, and controlled access language.",
+  "Final blocker checks are operator-only and never customer-facing.",
+  "Final blocker checks may guide launch review but must not mutate production state.",
 ]);
+expect(finalBlockerValidatorPath, ["Production launch final blocker contracts validation passed.", "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT", "Production Launch Final Blocker Contract"]);
 
 expect(runtimePath, ["projectPlatformLaunchReadiness", "safeSummary", "readyGroups", "blockedGroups", "evidenceGaps", "safeNextActions", "hardLaunchLocks", "blockedPatterns"]);
 expect(runtimeValidatorPath, ["Platform launch readiness runtime validation passed.", "projectPlatformLaunchReadiness"]);
@@ -91,7 +96,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-la
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -122,7 +127,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including production launch checklist panel coverage.");
+console.log("Platform launch readiness contracts validation passed, including final blocker contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
