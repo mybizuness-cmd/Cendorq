@@ -10,6 +10,8 @@ const commandCenterPagePath = "src/app/command-center/page.tsx";
 const commandCenterLaunchPanelValidatorPath = "src/scripts/validate-command-center-launch-readiness-panel.mjs";
 const auditApiContractPath = "src/lib/platform-launch-readiness-audit-api-contracts.ts";
 const auditApiValidatorPath = "src/scripts/validate-platform-launch-readiness-audit-api-contracts.mjs";
+const apiRuntimePath = "src/lib/platform-launch-readiness-api-runtime.ts";
+const apiRuntimeValidatorPath = "src/scripts/validate-platform-launch-readiness-api-runtime.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -210,6 +212,35 @@ expect(auditApiValidatorPath, [
   "platform-launch-readiness-audit-api-contracts.ts",
 ]);
 
+expect(apiRuntimePath, [
+  "getLaunchReadinessProjectionResponse",
+  "recordLaunchReadinessAudit",
+  "getLaunchReadinessAuditHistoryResponse",
+  "safeLaunchReadinessHeaders",
+  "safeDeniedResponse",
+  "LaunchReadinessApiAccess",
+  "LaunchReadinessAuditInput",
+  "LaunchReadinessSafeApiResponse",
+  "LaunchReadinessSafeAuditRecord",
+  "projectPlatformLaunchReadiness",
+  "Cache-Control",
+  "no-store, max-age=0",
+  "X-Robots-Tag",
+  "noindex, nofollow, noarchive, nosnippet",
+  "status: 404",
+  "status: 202",
+  "redacted-safe-value",
+]);
+
+expect(apiRuntimeValidatorPath, [
+  "Platform launch readiness API runtime validation passed.",
+  "getLaunchReadinessProjectionResponse",
+  "recordLaunchReadinessAudit",
+  "safeLaunchReadinessHeaders",
+  "safeDeniedResponse",
+  "platform-launch-readiness-api-runtime.ts",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-platform-launch-readiness-contracts.mjs",
@@ -290,13 +321,31 @@ forbidden(auditApiContractPath, [
   "sessionStorage.setItem",
 ]);
 
+forbidden(apiRuntimePath, [
+  "return rawPayload",
+  "return rawEvidence",
+  "return rawBillingData",
+  "return internalNotes",
+  "return operatorIdentity",
+  "return databaseUrl",
+  "return sessionToken",
+  "return csrfToken",
+  "return supportContextKey",
+  "delete audit",
+  "rewrite audit",
+  "mutate production",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
+  "document.cookie",
+]);
+
 if (failures.length) {
   console.error("Platform launch readiness contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including runtime projection, private command-center launch readiness panel coverage, and audit API contract coverage.");
+console.log("Platform launch readiness contracts validation passed, including runtime projection, private command-center panel, audit API contract, and safe API runtime coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
