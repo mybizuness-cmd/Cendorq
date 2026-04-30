@@ -73,6 +73,16 @@ const protectedCommandCenterApiChecks = [
     expectedStatus: 401,
     expectError: "The Command Center readiness endpoint is not authorized.",
   },
+  {
+    path: "/api/command-center/owner-configuration/evidence",
+    expectedStatus: 404,
+    expectError: "not_available",
+  },
+  {
+    path: "/api/command-center/owner-configuration/workflow",
+    expectedStatus: 404,
+    expectError: "not_available",
+  },
 ];
 
 const failures = [];
