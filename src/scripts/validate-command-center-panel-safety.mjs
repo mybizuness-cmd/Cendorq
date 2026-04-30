@@ -22,6 +22,7 @@ const requiredPanelFiles = [
   "panel-index.tsx",
   "plan-control-panel.tsx",
   "readiness-checklist-panel.tsx",
+  "report-evidence-orchestration-panel.tsx",
   "report-truth-methodology-panel.tsx",
   "security-posture-panel.tsx",
   "test-record-classes-panel.tsx",
@@ -69,7 +70,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center panel safety validation passed. Extracted cockpit panels remain server-rendered, metadata-only, free of client-side storage and browser-only APIs, and protected from direct secret or public-exposure regressions.");
+console.log("Command Center panel safety validation passed. Extracted cockpit panels, including report evidence orchestration, remain server-rendered, metadata-only, free of client-side storage and browser-only APIs, and protected from direct secret or public-exposure regressions.");
 
 function validatePanelFile(relativePath, text) {
   for (const forbidden of forbiddenPanelBehavior) {
