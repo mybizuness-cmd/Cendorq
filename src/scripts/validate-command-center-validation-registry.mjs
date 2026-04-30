@@ -28,6 +28,7 @@ const requiredScripts = [
   "src/scripts/validate-insights-conversation-standard.mjs",
   "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
+  "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-optimization-method-library.mjs",
   "src/scripts/validate-customer-output-approval.mjs",
   "src/scripts/validate-ai-manager-command-queue.mjs",
@@ -65,6 +66,10 @@ if (!failures.length) {
     "operator-runbook",
     "Operator runbook and owner workflow chain",
     "owner configuration evidence API, workflow API, workflow panel, approval workflow runtime, and workflow smoke-validator coverage",
+    "owner-operating-manual",
+    "Owner operating manual",
+    "owner-level evidence accuracy, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence",
+    "unsafe guarantees",
     "report-truth-engine",
     "controlled-market-learning",
     "enterprise-operating-standard",
@@ -84,8 +89,8 @@ if (!failures.length) {
   }
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 26) {
-    failures.push(`${registryPath} expected at least 26 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 27) {
+    failures.push(`${registryPath} expected at least 27 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -95,7 +100,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, owner-workflow, report truth, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, owner manual, owner-workflow, report truth, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);

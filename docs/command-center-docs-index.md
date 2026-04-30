@@ -6,6 +6,7 @@ This private documentation index keeps the Command Center operating standards ea
 
 - `docs/maximum-protection-standard.md` — highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard.
 - `docs/command-center-operator-runbook.md` — cockpit maintenance workflow for closed-by-default, metadata-only, server-rendered, registry-covered Command Center panels.
+- `docs/owner-operating-manual.md` — owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence.
 
 ## Required source-of-truth areas
 
@@ -68,6 +69,7 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-insights-conversation-standard.mjs`
 - `src/scripts/validate-command-center-operator-runbook.mjs`
 - `src/scripts/validate-command-center-docs-index.mjs`
+- `src/scripts/validate-owner-operating-manual.mjs`
 - `src/scripts/validate-production-smoke-coverage.mjs`
 - `src/scripts/validate-command-center-owner-configuration-evidence-api.mjs`
 - `src/scripts/validate-command-center-owner-configuration-evidence-persistence.mjs`
@@ -78,4 +80,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, or validator is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.

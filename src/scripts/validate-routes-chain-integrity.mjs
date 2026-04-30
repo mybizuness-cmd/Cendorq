@@ -28,6 +28,7 @@ const requiredHighRiskValidators = [
   "src/scripts/validate-customer-experience-standard.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-insights-conversation-standard.mjs",
+  "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-platform-launch-readiness-contracts.mjs",
   "src/scripts/validate-platform-launch-readiness-runtime.mjs",
   "src/scripts/validate-command-center-launch-readiness-panel.mjs",
@@ -116,6 +117,13 @@ if (!failures.length) {
   ]);
 
   validateChainOrdering(chainValidators, [
+    "src/scripts/validate-command-center-operator-runbook.mjs",
+    "src/scripts/validate-command-center-docs-index.mjs",
+    "src/scripts/validate-owner-operating-manual.mjs",
+    "src/scripts/validate-production-smoke-coverage.mjs",
+  ]);
+
+  validateChainOrdering(chainValidators, [
     "src/scripts/validate-platform-launch-readiness-contracts.mjs",
     "src/scripts/validate-platform-launch-readiness-runtime.mjs",
     "src/scripts/validate-platform-launch-readiness-api-routes.mjs",
@@ -124,12 +132,6 @@ if (!failures.length) {
     "src/scripts/validate-production-smoke-api-routes.mjs",
     "src/scripts/validate-owner-configuration-evidence-contracts.mjs",
     "src/scripts/validate-owner-configuration-evidence-runtime.mjs",
-    "src/scripts/validate-production-smoke-coverage.mjs",
-  ]);
-
-  validateChainOrdering(chainValidators, [
-    "src/scripts/validate-command-center-operator-runbook.mjs",
-    "src/scripts/validate-command-center-docs-index.mjs",
     "src/scripts/validate-production-smoke-coverage.mjs",
   ]);
 
@@ -150,7 +152,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The route-chain self-check runs first, launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, owner operating manual and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
 
 function validateChainOrdering(chainValidators, orderedValidators) {
   const indexes = orderedValidators.map((validatorPath) => chainValidators.indexOf(validatorPath));
