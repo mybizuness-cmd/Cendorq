@@ -24,6 +24,7 @@ import { OperatorControlInterfacePanel } from "./operator-control-interface-pane
 import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
 import { OptimizationLibraryPanel } from "./optimization-library-panel";
 import { PlanControlPanel } from "./plan-control-panel";
+import { PlatformLaunchReadinessPanel } from "./platform-launch-readiness-panel";
 import { ReadinessChecklistPanel } from "./readiness-checklist-panel";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
 import { SecurityPosturePanel } from "./security-posture-panel";
@@ -67,6 +68,7 @@ export default async function CommandCenterPage() {
         <CommandCenterOperatingMap />
         <SecurityPosturePanel />
         <OperatorControlInterfacePanel />
+        <PlatformLaunchReadinessPanel />
         <OperatorReadinessMatrix />
         <CommandCenterPanelIndex />
         <ValidationRegistryPanel />
