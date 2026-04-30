@@ -2,7 +2,7 @@ export const COMPLETE_PLAN_FULFILLMENT_MATRIX = {
   id: "complete-plan-fulfillment-matrix",
   name: "Complete Cendorq Plan Fulfillment Matrix",
   purpose:
-    "Define the complete A-to-Z fulfillment system for every Cendorq plan, from trigger and intake through research, production, quality review, delivery, follow-up, escalation, retention, and upgrade paths, while preserving truthful analysis, premium experience, conversion ethics, safe automation, and release-captain approval.",
+    "Define the complete A-to-Z fulfillment system for every Cendorq plan, from trigger and intake through research, production, quality review, delivery, follow-up, escalation, retention, and upgrade paths, while preserving truthful analysis, premium experience, conversion ethics, safe automation, plan-boundary protection, value above price, customer education, and release-captain approval.",
   universalStages: [
     "trigger",
     "customer confirmation",
@@ -22,12 +22,43 @@ export const COMPLETE_PLAN_FULFILLMENT_MATRIX = {
     "upgrade or retention path",
     "audit and learning record",
   ],
+  valueArchitecture: [
+    "Each plan must deliver practical value that reasonably exceeds the price through clarity, evidence, prioritization, education, implementation usefulness, safer decisions, and a clear next move.",
+    "Each plan must protect Cendorq revenue streams by delivering the promised scope fully without giving away higher-tier implementation, recurring control, or expanded research that belongs in another plan.",
+    "Each plan must show the customer what they received, why it matters, what is proven, what remains uncertain, what is not included, and which next step is appropriate if they want deeper help.",
+    "Value must be created through truthful diagnosis, customer education, premium presentation, useful artifacts, and plan-appropriate action—not through inflated claims or pressure.",
+  ],
+  educationalReportStandard: [
+    "Assume most customers do not know the technical or strategic meaning of what the report finds.",
+    "Every report section must explain the finding in plain language, why it matters to the business, what evidence supports it, what uncertainty remains, and what the customer can do next.",
+    "Reports must teach customers the difference between symptoms, root causes, assumptions, evidence, risk, opportunity, and recommended action.",
+    "Reports must show what Cendorq can help with without turning education into fear, pressure, or unsupported outcome promises.",
+    "Reports must use business-appropriate conversion language based on the customer category, revenue model, buyer intent, trust gap, funnel stage, and evidence quality.",
+  ],
+  planBoundaryRules: [
+    "Free Scan may educate and point to likely next steps, but must not include the full diagnostic depth, implementation plan, or recurring control reserved for paid plans.",
+    "Deep Review may provide a full evidence-backed diagnosis and priority plan, but must not include done-for-you implementation that belongs to Build Fix.",
+    "Build Fix may include scoped implementation support and delivery artifacts, but must not include unlimited monitoring or recurring market adaptation that belongs to Ongoing Control.",
+    "Ongoing Control may include recurring review, forecasting, and approval-gated recommendations, but must not perform uncontrolled production mutation or out-of-scope implementation without new scope approval.",
+    "Upsell paths must be evidence-led and educational, not manipulative, fake-urgent, or based on unsupported fear.",
+  ],
+  conversionStandards: [
+    "Conversion should come from customer understanding, proof, clear gaps, practical next steps, premium trust, and appropriate plan fit.",
+    "Every plan must identify the business's likely conversion constraint using evidence: trust gap, clarity gap, offer gap, proof gap, action-path gap, market-positioning gap, or recurring-control gap.",
+    "Recommendations must match the customer's business model, including local service, ecommerce, SaaS, creator, platform revenue, digital product, professional service, or hybrid model.",
+    "Follow-up should show the consequence of inaction only when supported by evidence and phrased as risk or opportunity, not panic or guaranteed loss.",
+    "Plan-fit language must make the customer feel understood, not pushed.",
+  ],
   planMatrix: [
     {
       key: "free-scan",
       name: "Free Scan / Free Report",
       trigger: "Customer submits guided Free Check form.",
       completionGoal: "Deliver a useful first-read report and route the customer to the right next step without pretending the free scan is final or exhaustive.",
+      valuePromise: "Give the customer enough clarity to understand the most visible business friction, why it matters, and whether deeper analysis is worth considering.",
+      educationDepth: "Teach the customer the basic difference between visible symptoms, likely causes, missing proof, and a safe next step.",
+      planBoundary: "Do not include full competitor teardown, complete funnel strategy, done-for-you implementation plan, or recurring monitoring.",
+      conversionMethod: "Use calm proof-led education to show when a deeper scan is justified by evidence.",
       stages: [
         { stage: "customer confirmation", artifact: "scan received confirmation", owner: "customer-journey-scout", gate: "safe submission accepted" },
         { stage: "safe intake", artifact: "free scan intake record", owner: "report-truth-research-scout", gate: "no secrets, no raw payload exposure" },
@@ -51,6 +82,10 @@ export const COMPLETE_PLAN_FULFILLMENT_MATRIX = {
       name: "Deep Review / Full Scan",
       trigger: "Customer purchases or upgrades from Free Scan.",
       completionGoal: "Deliver a deeper, evidence-backed diagnostic report with expanded research, conflicts, confidence, priority blockers, and plan-fit rationale.",
+      valuePromise: "Deliver a report that gives the customer a clearer decision map than they could reasonably build alone, with evidence, confidence, and priority order.",
+      educationDepth: "Teach the customer what is weakening trust, conversion, positioning, offer clarity, customer choice, and next-step confidence.",
+      planBoundary: "Do not include done-for-you page changes, implementation labor, unlimited revisions, or recurring monitoring.",
+      conversionMethod: "Use evidence-backed blocker priority to show whether Build Fix or Ongoing Control is the right next move.",
       stages: [
         { stage: "customer confirmation", artifact: "purchase received confirmation", owner: "customer-lifecycle-automation", gate: "payment and customer ownership verified" },
         { stage: "safe intake", artifact: "expanded diagnostic questionnaire", owner: "customer-journey-scout", gate: "no passwords, tokens, private keys, card numbers, or bank details" },
@@ -74,6 +109,10 @@ export const COMPLETE_PLAN_FULFILLMENT_MATRIX = {
       name: "Build Fix / Optimization",
       trigger: "Customer purchases implementation or optimization work after evidence supports concrete changes.",
       completionGoal: "Produce and deliver scoped, approved, evidence-backed improvements that help the business act on the diagnosis without overpromising outcomes.",
+      valuePromise: "Convert diagnosis into concrete improvements, implementation-ready work, clearer pages, stronger messaging, or better action paths within approved scope.",
+      educationDepth: "Teach the customer what changed, why it was changed, what evidence supported it, how to use it, and what still requires monitoring.",
+      planBoundary: "Do not include unlimited work, unapproved production changes, recurring strategy, or monthly monitoring unless Ongoing Control is active.",
+      conversionMethod: "Use before-after clarity, implementation proof, and remaining recurring risks to show whether Ongoing Control is valuable.",
       stages: [
         { stage: "customer confirmation", artifact: "optimization purchase confirmation", owner: "customer-lifecycle-automation", gate: "payment and ownership verified" },
         { stage: "safe intake", artifact: "scope, assets, and approval checklist", owner: "customer-journey-scout", gate: "no secrets or raw credentials requested" },
@@ -97,6 +136,10 @@ export const COMPLETE_PLAN_FULFILLMENT_MATRIX = {
       name: "Ongoing Control / Monthly",
       trigger: "Customer starts monthly control after evidence supports recurring command, monitoring, or updates.",
       completionGoal: "Provide recurring review, forecasting, controlled recommendations, approval-gated updates, and retention value without uncontrolled automation.",
+      valuePromise: "Keep the customer ahead of changes through recurring evidence review, forecasted risks, prioritized recommendations, and controlled update paths.",
+      educationDepth: "Teach the customer what changed in their market, funnel, platform, audience, or offer environment and what action is appropriate now.",
+      planBoundary: "Do not include unlimited implementation, unapproved production changes, or out-of-scope build work without new approval and scope.",
+      conversionMethod: "Use recurring proof of clarity, risk reduction, avoided confusion, and timely decisions to support retention and scope expansion.",
       stages: [
         { stage: "customer confirmation", artifact: "subscription active confirmation", owner: "customer-lifecycle-automation", gate: "subscription and ownership verified" },
         { stage: "safe intake", artifact: "monitoring scope and cadence", owner: "business-change-forecasting-scout", gate: "scope and notification preferences confirmed" },
@@ -130,6 +173,8 @@ export const COMPLETE_PLAN_FULFILLMENT_MATRIX = {
     "Every plan should feel premium, clear, calm, and high-conviction without pretending certainty beyond the evidence.",
     "Every plan should reduce customer confusion and route the customer to the next safe destination.",
     "Every plan should create a support/correction path so customer concerns do not become duplicate submissions or dead ends.",
+    "Every plan should provide more practical clarity, educational value, and decision usefulness than the customer expects from the price paid.",
+    "Every plan should protect the next appropriate revenue stream by clearly explaining what is included, what is not included, and what higher-tier help would add.",
   ],
 } as const;
 
