@@ -5,6 +5,9 @@ const root = process.cwd();
 const contractPath = "src/lib/agent-operating-system-contracts.ts";
 const freeScanFormPath = "src/components/free-check/guided-free-check-form-v2.tsx";
 const freeScanZeroValidatorPath = "src/scripts/validate-free-scan-zero-start-progress.mjs";
+const panelPath = "src/app/command-center/agent-operating-system-panel.tsx";
+const panelValidatorPath = "src/scripts/validate-command-center-agent-operating-system-panel.mjs";
+const pagePath = "src/app/command-center/page.tsx";
 const packagePath = "package.json";
 const failures = [];
 
@@ -119,6 +122,41 @@ expect(freeScanFormPath, [
 ]);
 expect(freeScanZeroValidatorPath, ["Free Scan zero-start progress validation passed.", "validate-free-scan-zero-start-progress.mjs"]);
 
+expect(panelPath, [
+  "AgentOperatingSystemPanel",
+  "AGENT_OPERATING_SYSTEM_CONTRACT",
+  "Agent operating system",
+  "Owner command, release-captain final validation, chief agents, and calibrated sub-agents.",
+  "Private operator view",
+  "every output returns to release-captain review",
+  "contract.commandHierarchy",
+  "contract.chiefAgentLanes",
+  "contract.agentLanes",
+  "contract.calibrationRules",
+  "contract.finalValidatorRules",
+  "contract.futureForecastLanes",
+]);
+expect(panelPath, [
+  "Chief-agent council",
+  "Calibration and final validation",
+  "Future forecast lanes",
+  "They do not approve merges, launches, provider configuration, payment mapping, report release, or customer-facing claims.",
+]);
+expect(pagePath, [
+  "AgentOperatingSystemPanel",
+  "./agent-operating-system-panel",
+  "<ProductionSmokeTargetPanel />",
+  "<AgentOperatingSystemPanel />",
+  "<OperatorReadinessMatrix />",
+  "ClosedCommandCenterPanel",
+  "resolveCommandCenterAccessState",
+]);
+expect(panelValidatorPath, [
+  "Command center agent operating system panel validation passed.",
+  "AgentOperatingSystemPanel",
+  "agent-operating-system-panel.tsx",
+]);
+
 expect(packagePath, ["validate:routes", "validate-agent-operating-system-contracts.mjs"]);
 
 forbidden(contractPath, [
@@ -150,13 +188,30 @@ forbidden(freeScanFormPath, [
   "prefilled country",
 ]);
 
+forbidden(panelPath, [
+  "agents can merge",
+  "agents can approve launch",
+  "agents can approve reports",
+  "agents can access secrets",
+  "rawPayload=",
+  "rawEvidence=",
+  "privateCustomerData=",
+  "privateAuditPayload=",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "impossible to hack",
+  "liability-free",
+]);
+
 if (failures.length) {
   console.error("Agent operating system contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Agent operating system contracts validation passed, including Free Scan zero-start coverage.");
+console.log("Agent operating system contracts validation passed, including Free Scan zero-start and command-center panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
