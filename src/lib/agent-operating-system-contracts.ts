@@ -18,8 +18,8 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
     },
     {
       key: "release-captain",
-      title: "Release captain",
-      authority: "execution-command",
+      title: "Release captain and final validator",
+      authority: "execution-command-and-final-validation",
       responsibilities: [
         "owns branch sequencing",
         "owns scoped PR creation",
@@ -27,12 +27,26 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
         "owns merge readiness review",
         "converts agent findings into controlled code changes",
         "owns final report-truth review before customer-facing release",
+        "reviews, reverifies, and approves or rejects every agent finding before it becomes code, copy, report logic, launch posture, or customer-facing output",
+        "orchestrates agents as a coordinated support system without surrendering final authority",
       ],
     },
     {
-      key: "scoped-agents",
-      title: "Scoped agents",
-      authority: "support-only",
+      key: "chief-agent-council",
+      title: "Chief agent council",
+      authority: "domain-command-support-only",
+      responsibilities: [
+        "coordinates sub-agents inside assigned domain",
+        "pre-screens findings for quality before release captain review",
+        "maintains domain calibration standards",
+        "escalates cross-domain conflicts to release captain",
+        "does not approve merges, launches, customer-facing claims, provider configuration, or report release",
+      ],
+    },
+    {
+      key: "scoped-sub-agents",
+      title: "Scoped sub-agents",
+      authority: "task-support-only",
       responsibilities: [
         "scout repo risks",
         "draft safe findings",
@@ -40,8 +54,35 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
         "review copy consistency",
         "research external business evidence",
         "pressure-test report truthfulness, usefulness, design, and claims",
-        "surface future opportunities for release captain review",
+        "surface future opportunities for chief agent and release captain review",
+        "operate proactively inside assigned lane when the work is safe, read-only, scoped, and non-authoritative",
       ],
+    },
+  ],
+  chiefAgentLanes: [
+    {
+      key: "chief-report-truth-agent",
+      title: "Chief report truth agent",
+      owns: ["report-truth-research-scout", "evidence-conflict-scout", "industry-context-scout"],
+      mission: "Own report evidence standards, source comparison, confidence separation, conflict escalation, and report truth calibration before release captain review.",
+    },
+    {
+      key: "chief-product-experience-agent",
+      title: "Chief product experience agent",
+      owns: ["conversion-luxury-ui-scout", "customer-journey-scout", "report-design-quality-scout"],
+      mission: "Own premium customer experience, clarity, conversion ethics, report comprehension, and no-dead-end journey checks before release captain review.",
+    },
+    {
+      key: "chief-security-command-agent",
+      title: "Chief security and command agent",
+      owns: ["security-privacy-scout", "operator-command-scout", "validation-drift-scout"],
+      mission: "Own defense-in-depth scouting, command-center posture, validation drift, private projection, and no-secret exposure checks before release captain review.",
+    },
+    {
+      key: "chief-growth-forecast-agent",
+      title: "Chief growth and forecast agent",
+      owns: ["future-platform-scout", "business-change-forecasting-scout", "analytics-and-growth-scout"],
+      mission: "Own forward-looking business change forecasting, post-website expansion sequencing, and safe growth intelligence before release captain review.",
     },
   ],
   agentLanes: [
@@ -51,6 +92,18 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
       mission:
         "Gather and compare external evidence, customer-submitted context, observable business signals, market context, category norms, website/social/product signals, and report assumptions so every report separates verified facts, customer claims, external evidence, assumptions, inferences, limitations, and recommended next actions.",
       allowedOutputs: ["source findings", "fact-confidence notes", "assumption gaps", "evidence conflict notes", "report correction suggestions"],
+    },
+    {
+      key: "evidence-conflict-scout",
+      title: "Evidence conflict scout",
+      mission: "Find contradictions between customer-provided information, public evidence, business model signals, market norms, website claims, and report recommendations.",
+      allowedOutputs: ["conflict reports", "confidence downgrade notes", "verification requests", "safe report caveats"],
+    },
+    {
+      key: "industry-context-scout",
+      title: "Industry context scout",
+      mission: "Build category, business-model, geography, revenue-model, platform, creator, ecommerce, SaaS, local service, and digital-product context before customers arrive.",
+      allowedOutputs: ["industry baselines", "business-model notes", "research source maps", "market assumption checks"],
     },
     {
       key: "report-design-quality-scout",
@@ -90,11 +143,46 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
       allowedOutputs: ["future roadmap findings", "dependency notes", "sequencing suggestions", "risk forecasts"],
     },
     {
+      key: "business-change-forecasting-scout",
+      title: "Business change forecasting scout",
+      mission: "Anticipate customer business risks from search, platform, competitor, pricing, compliance, technology, customer behavior, and market shifts before they become urgent.",
+      allowedOutputs: ["forecast alerts", "early risk signals", "adaptation suggestions", "monitoring gaps"],
+    },
+    {
+      key: "analytics-and-growth-scout",
+      title: "Analytics and growth scout",
+      mission: "Review privacy-preserving growth signals, funnel health, report engagement, scan completion, customer retention, and upgrade intent without exposing private customer data.",
+      allowedOutputs: ["growth signal findings", "funnel notes", "privacy-safe analytics suggestions", "retention risk notes"],
+    },
+    {
       key: "operator-command-scout",
       title: "Operator command scout",
       mission: "Review command-center, audit, approval, launch evidence, smoke, rollback, and support operations for missing operator visibility.",
       allowedOutputs: ["operator workflow findings", "approval gate suggestions", "audit visibility notes"],
     },
+  ],
+  calibrationRules: [
+    "Every chief agent and sub-agent must be calibrated against Cendorq truth, safety, privacy, luxury UI, conversion ethics, report usefulness, validation, and launch-gate standards before its findings are accepted.",
+    "Agents must use a proof-before-output posture: identify source basis, uncertainty, assumptions, limitations, and verification gaps before proposing customer-facing conclusions.",
+    "Agents must start building safe pre-customer knowledge maps for industries, business models, traffic channels, platform changes, and market risks before customer submissions arrive.",
+    "Agents must not treat pre-customer learning as customer-specific truth; it is context only until matched with customer input and external evidence.",
+    "Chief agents must reject low-confidence, unsourced, speculative, or unsupported sub-agent findings before they reach release captain review.",
+    "Release captain final validation is still required even after chief-agent review.",
+  ],
+  finalValidatorRules: [
+    "Every agent output must return to the release captain for final review, reverification, approval, rejection, or conversion into a scoped branch.",
+    "The release captain is the final validator for agent findings, code proposals, copy proposals, report-truth proposals, launch posture, customer-facing content, and validation coverage.",
+    "Agents may think proactively and take control inside assigned lanes only as support workers; they must not become final approvers.",
+    "No agent finding may be treated as source of truth until the release captain validates it against code, route contracts, evidence, and safety rules.",
+    "No agent-created recommendation may reach customers until it passes release captain review, validation coverage, and the appropriate approval gate.",
+    "The release captain must reconcile conflicts between agents and preserve the stricter safety, truth, privacy, and customer-trust interpretation.",
+  ],
+  orchestrationRules: [
+    "Agents operate as a coordinated symphony with one conductor: the release captain.",
+    "Agents should proactively inspect areas the owner did not explicitly mention when those areas affect safety, truth, conversion, scalability, reliability, customer trust, or future readiness.",
+    "Agents should escalate gaps, contradictions, missing validators, weak claims, customer confusion, evidence conflicts, design weaknesses, and future business risks to the release captain.",
+    "Agents should not duplicate each other; each agent owns a lane and hands findings back through the release captain.",
+    "Agent work must improve autonomy, speed, reliability, scale, report quality, and business foresight without creating uncontrolled production mutation or authority drift.",
   ],
   reportTruthRules: [
     "Reports must not rely solely on customer-submitted information when external evidence can be gathered safely.",
@@ -166,6 +254,10 @@ export const AGENT_OPERATING_SYSTEM_BLOCKED_PATTERNS = [
   "agentMergeAuthority",
   "agentLaunchApprovalAuthority",
   "agentReportReleaseAuthority",
+  "agentFinalApprovalAuthority",
+  "agentBypassesReleaseCaptain",
+  "chiefAgentFinalAuthority",
+  "uncalibratedAgentFindings",
   "agentProviderConfigAuthority",
   "agentPaymentMappingAuthority",
   "agentSecretAccessAuthority",
@@ -187,6 +279,7 @@ export const AGENT_OPERATING_SYSTEM_BLOCKED_PATTERNS = [
   "customerOnlyReportTruth",
   "unverifiedCustomerClaimAsFact",
   "hiddenEvidenceConflict",
+  "preCustomerContextTreatedAsCustomerTruth",
   "uncontrolledAgentDrift",
 ] as const;
 
