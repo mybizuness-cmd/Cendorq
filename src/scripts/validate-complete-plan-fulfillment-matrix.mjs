@@ -11,6 +11,8 @@ expect(matrixPath, [
   "Complete Cendorq Plan Fulfillment Matrix",
   "getCompletePlanFulfillmentMatrix",
   "complete A-to-Z fulfillment system for every Cendorq plan",
+  "value above price",
+  "customer education",
 ]);
 
 expect(matrixPath, [
@@ -34,6 +36,23 @@ expect(matrixPath, [
 ]);
 
 expect(matrixPath, [
+  "valueArchitecture",
+  "educationalReportStandard",
+  "planBoundaryRules",
+  "conversionStandards",
+  "Each plan must deliver practical value that reasonably exceeds the price through clarity, evidence, prioritization, education, implementation usefulness, safer decisions, and a clear next move.",
+  "Each plan must protect Cendorq revenue streams by delivering the promised scope fully without giving away higher-tier implementation, recurring control, or expanded research that belongs in another plan.",
+  "Assume most customers do not know the technical or strategic meaning of what the report finds.",
+  "Every report section must explain the finding in plain language, why it matters to the business, what evidence supports it, what uncertainty remains, and what the customer can do next.",
+  "Reports must teach customers the difference between symptoms, root causes, assumptions, evidence, risk, opportunity, and recommended action.",
+  "Free Scan may educate and point to likely next steps, but must not include the full diagnostic depth, implementation plan, or recurring control reserved for paid plans.",
+  "Deep Review may provide a full evidence-backed diagnosis and priority plan, but must not include done-for-you implementation that belongs to Build Fix.",
+  "Build Fix may include scoped implementation support and delivery artifacts, but must not include unlimited monitoring or recurring market adaptation that belongs to Ongoing Control.",
+  "Conversion should come from customer understanding, proof, clear gaps, practical next steps, premium trust, and appropriate plan fit.",
+  "Plan-fit language must make the customer feel understood, not pushed.",
+]);
+
+expect(matrixPath, [
   "free-scan",
   "deep-review",
   "build-fix",
@@ -42,6 +61,23 @@ expect(matrixPath, [
   "Deep Review / Full Scan",
   "Build Fix / Optimization",
   "Ongoing Control / Monthly",
+]);
+
+expect(matrixPath, [
+  "valuePromise",
+  "educationDepth",
+  "planBoundary",
+  "conversionMethod",
+  "Give the customer enough clarity to understand the most visible business friction",
+  "Teach the customer the basic difference between visible symptoms, likely causes, missing proof, and a safe next step.",
+  "Do not include full competitor teardown, complete funnel strategy, done-for-you implementation plan, or recurring monitoring.",
+  "Deliver a report that gives the customer a clearer decision map than they could reasonably build alone",
+  "Teach the customer what is weakening trust, conversion, positioning, offer clarity, customer choice, and next-step confidence.",
+  "Do not include done-for-you page changes, implementation labor, unlimited revisions, or recurring monitoring.",
+  "Convert diagnosis into concrete improvements",
+  "Teach the customer what changed, why it was changed, what evidence supported it, how to use it, and what still requires monitoring.",
+  "Keep the customer ahead of changes through recurring evidence review",
+  "Teach the customer what changed in their market, funnel, platform, audience, or offer environment and what action is appropriate now.",
 ]);
 
 expect(matrixPath, [
@@ -105,10 +141,12 @@ expect(matrixPath, [
   "Every plan should feel premium, clear, calm, and high-conviction without pretending certainty beyond the evidence.",
   "Every plan should reduce customer confusion and route the customer to the next safe destination.",
   "Every plan should create a support/correction path so customer concerns do not become duplicate submissions or dead ends.",
+  "Every plan should provide more practical clarity, educational value, and decision usefulness than the customer expects from the price paid.",
+  "Every plan should protect the next appropriate revenue stream by clearly explaining what is included, what is not included, and what higher-tier help would add.",
 ]);
 
 expect(routesChainPath, [
-  "src/scripts/validate-complete-plan-fulfillment-matrix.mjs",
+  "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
 ]);
 
 forbidden(matrixPath, [
