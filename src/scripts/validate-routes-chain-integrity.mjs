@@ -28,6 +28,27 @@ const requiredHighRiskValidators = [
   "src/scripts/validate-customer-experience-standard.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-insights-conversation-standard.mjs",
+  "src/scripts/validate-platform-launch-readiness-contracts.mjs",
+  "src/scripts/validate-platform-launch-readiness-runtime.mjs",
+  "src/scripts/validate-command-center-launch-readiness-panel.mjs",
+  "src/scripts/validate-platform-launch-readiness-audit-api-contracts.mjs",
+  "src/scripts/validate-platform-launch-readiness-api-runtime.mjs",
+  "src/scripts/validate-platform-launch-readiness-api-routes.mjs",
+  "src/scripts/validate-production-launch-checklist-runtime.mjs",
+  "src/scripts/validate-command-center-production-launch-checklist-panel.mjs",
+  "src/scripts/validate-production-launch-final-blocker-contracts.mjs",
+  "src/scripts/validate-production-launch-final-blocker-runtime.mjs",
+  "src/scripts/validate-command-center-production-launch-final-blocker-panel.mjs",
+  "src/scripts/validate-launch-evidence-persistence-contracts.mjs",
+  "src/scripts/validate-launch-evidence-persistence-runtime.mjs",
+  "src/scripts/validate-command-center-launch-evidence-panel.mjs",
+  "src/scripts/validate-launch-evidence-api-routes.mjs",
+  "src/scripts/validate-production-smoke-target-contracts.mjs",
+  "src/scripts/validate-production-smoke-target-runtime.mjs",
+  "src/scripts/validate-command-center-production-smoke-target-panel.mjs",
+  "src/scripts/validate-production-smoke-api-routes.mjs",
+  "src/scripts/validate-owner-configuration-evidence-contracts.mjs",
+  "src/scripts/validate-owner-configuration-evidence-runtime.mjs",
   "src/scripts/validate-production-smoke-coverage.mjs",
   "src/scripts/validate-production-smoke-finalization-contracts.mjs",
   "src/scripts/validate-agent-operating-system-contracts.mjs",
@@ -53,8 +74,8 @@ if (!failures.length) {
     failures.push(`${packagePath} must delegate validate:routes to ${chainPath}`);
   }
 
-  if (chainValidators.length < 120) {
-    failures.push(`${chainPath} expected at least 120 validators in the ordered chain, found ${chainValidators.length}`);
+  if (chainValidators.length < 140) {
+    failures.push(`${chainPath} expected at least 140 validators in the ordered chain, found ${chainValidators.length}`);
   }
 
   if (duplicateValidators.length) {
@@ -95,6 +116,18 @@ if (!failures.length) {
   ]);
 
   validateChainOrdering(chainValidators, [
+    "src/scripts/validate-platform-launch-readiness-contracts.mjs",
+    "src/scripts/validate-platform-launch-readiness-runtime.mjs",
+    "src/scripts/validate-platform-launch-readiness-api-routes.mjs",
+    "src/scripts/validate-production-launch-final-blocker-runtime.mjs",
+    "src/scripts/validate-launch-evidence-api-routes.mjs",
+    "src/scripts/validate-production-smoke-api-routes.mjs",
+    "src/scripts/validate-owner-configuration-evidence-contracts.mjs",
+    "src/scripts/validate-owner-configuration-evidence-runtime.mjs",
+    "src/scripts/validate-production-smoke-coverage.mjs",
+  ]);
+
+  validateChainOrdering(chainValidators, [
     "src/scripts/validate-command-center-operator-runbook.mjs",
     "src/scripts/validate-command-center-docs-index.mjs",
     "src/scripts/validate-production-smoke-coverage.mjs",
@@ -117,7 +150,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The route-chain self-check runs first, the baseline route validator follows immediately, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
 
 function validateChainOrdering(chainValidators, orderedValidators) {
   const indexes = orderedValidators.map((validatorPath) => chainValidators.indexOf(validatorPath));
