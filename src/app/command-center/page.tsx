@@ -28,6 +28,7 @@ import { OptimizationLibraryPanel } from "./optimization-library-panel";
 import { OwnerConfigurationEvidencePanel } from "./owner-configuration-evidence-panel";
 import { OwnerConfigurationWorkflowPanel } from "./owner-configuration-workflow-panel";
 import { PlanControlPanel } from "./plan-control-panel";
+import { PlanDeliveryOrchestrationPanel } from "./plan-delivery-orchestration-panel";
 import { PlatformLaunchReadinessPanel } from "./platform-launch-readiness-panel";
 import { ProductionLaunchChecklistPanel } from "./production-launch-checklist-panel";
 import { ProductionLaunchFinalBlockerPanel } from "./production-launch-final-blocker-panel";
@@ -90,6 +91,7 @@ export default async function CommandCenterPage() {
         <ValidationRegistryPanel />
         <ModuleRoadmapPanel />
         <PlanControlPanel plans={planControls} />
+        <PlanDeliveryOrchestrationPanel />
         <OptimizationLibraryPanel methods={optimizationMethods} />
         <CustomerOutputApprovalPanel policies={customerOutputPolicies} />
         <BenchmarkIntelligencePanel />
