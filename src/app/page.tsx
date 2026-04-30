@@ -47,6 +47,13 @@ const FRONT_DOOR_SNAPSHOT = [
   { label: "Next path", value: "Review, fix, or control", detail: "The next step should match the business stage and evidence." },
 ] as const;
 
+const PREMIUM_TRUST_BAR = [
+  "Diagnosis before spend",
+  "Safe public entry",
+  "Dedicated Free Scan room",
+  "Dashboard handoff after completion",
+] as const;
+
 const DECISION_BREAKS = [
   {
     title: "They do not get it",
@@ -106,6 +113,13 @@ const TRUST_RULES = [
   "No pressure to buy before the first direction is clear",
 ] as const;
 
+const PUBLIC_ENTRY_RULES = [
+  "The homepage introduces the Free Scan; the full scan stays on /free-check.",
+  "The soft prompt appears after time or intent, not instantly as an aggressive interruption.",
+  "Public copy must not expose raw payloads, secrets, private report internals, or customer data.",
+  "Conversion must come from clarity, proof, stage fit, and trust — not dark patterns or guaranteed outcomes.",
+] as const;
+
 const FAQS = [
   {
     question: "Who should start here?",
@@ -158,11 +172,11 @@ export default function HomePage() {
           <TopChip>{CATEGORY_LINE}</TopChip>
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[4.85rem]">
-            Stop losing customers before they even call.
+            The business command system for why customers hesitate, compare, and choose someone else.
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} finds what makes people hesitate, compare you away, or pick someone else — before you spend more on ads, SEO, redesigns, or random fixes.
+            {BRAND_NAME} starts with a focused Free Scan, then connects diagnosis, reports, dashboard guidance, notifications, billing, support, and plan decisions into one protected customer platform.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -173,13 +187,21 @@ export default function HomePage() {
               Start free scan
             </Link>
             <p className="max-w-sm text-sm leading-6 text-slate-400">
-              A safer first move when the problem is real, but the cause is not clear yet.
+              The homepage is a premium entry point. The full scan happens on /free-check so the intake, recovery, and handoff stay focused.
             </p>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-2">
             {HERO_POINTS.map((item) => (
               <ProofPill key={item}>{item}</ProofPill>
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-2 sm:grid-cols-2 xl:grid-cols-4" aria-label="Premium public entry trust bar">
+            {PREMIUM_TRUST_BAR.map((item) => (
+              <div key={item} className="rounded-2xl border border-cyan-300/15 bg-cyan-300/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-50">
+                {item}
+              </div>
             ))}
           </div>
         </div>
@@ -267,6 +289,16 @@ export default function HomePage() {
             <h3 className="text-xl font-semibold tracking-tight text-white">Built for more than one revenue path.</h3>
             <div className="mt-4 grid gap-2">
               {BUSINESS_MODEL_COVERAGE.map((item) => (
+                <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </article>
+          <article className="system-surface rounded-[1.5rem] p-5">
+            <h3 className="text-xl font-semibold tracking-tight text-white">Public entry safety rules.</h3>
+            <div className="mt-4 grid gap-2">
+              {PUBLIC_ENTRY_RULES.map((item) => (
                 <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
                   {item}
                 </div>
