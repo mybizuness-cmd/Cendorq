@@ -231,9 +231,19 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     protectionNote: "Unsupported claims are blocked.",
   },
   {
+    key: "report-evidence-orchestration",
+    label: "Report evidence orchestration",
+    order: 230,
+    layer: "truth",
+    visibility: "private-gated",
+    dataExposure: "metadata-only",
+    operatorPurpose: "Show evidence source tiers, confidence posture, conflict handling, plan-fit gates, and runtime review state.",
+    protectionNote: "Evidence stays summarized; raw private evidence and customer-facing claims remain blocked until review gates pass.",
+  },
+  {
     key: "ai-manager-version-registry",
     label: "AI manager version registry",
-    order: 230,
+    order: 240,
     layer: "intelligence",
     visibility: "private-gated",
     dataExposure: "metadata-only",
@@ -243,7 +253,7 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
   {
     key: "test-record-classes",
     label: "Test record classes",
-    order: 240,
+    order: 250,
     layer: "security",
     visibility: "private-gated",
     dataExposure: "metadata-only",
@@ -253,7 +263,7 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
   {
     key: "ai-manager-command-queue",
     label: "AI manager command queue",
-    order: 250,
+    order: 260,
     layer: "intelligence",
     visibility: "private-gated",
     dataExposure: "metadata-only",
@@ -263,7 +273,7 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
   {
     key: "ai-history",
     label: "AI command audit trail",
-    order: 260,
+    order: 270,
     layer: "security",
     visibility: "private-gated",
     dataExposure: "metadata-only",
@@ -273,7 +283,7 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
   {
     key: "readiness-checklist",
     label: "Private configuration checklist",
-    order: 270,
+    order: 280,
     layer: "operations",
     visibility: "private-gated",
     dataExposure: "metadata-only",
