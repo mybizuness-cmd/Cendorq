@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 const docsIndexPath = "docs/command-center-docs-index.md";
 const runbookPath = "docs/command-center-operator-runbook.md";
+const ownerManualPath = "docs/owner-operating-manual.md";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 
@@ -13,6 +14,8 @@ validateTextFile(docsIndexPath, [
   "private documentation index",
   "docs/maximum-protection-standard.md",
   "docs/command-center-operator-runbook.md",
+  "docs/owner-operating-manual.md",
+  "owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence",
   "src/lib/command-center/access.ts",
   "src/lib/command-center/security-posture.ts",
   "src/lib/command-center/panel-registry.ts",
@@ -62,6 +65,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-insights-conversation-standard.mjs",
   "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
+  "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-production-smoke-coverage.mjs",
   "src/scripts/validate-command-center-owner-configuration-evidence-api.mjs",
   "src/scripts/validate-command-center-owner-configuration-evidence-persistence.mjs",
@@ -69,6 +73,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-owner-configuration-workflow-api.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
+  "owner operating standard",
   "must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details",
 ]);
 
@@ -81,6 +86,16 @@ validateTextFile(runbookPath, [
   "Vercel is green.",
 ]);
 
+validateTextFile(ownerManualPath, [
+  "# Cendorq Owner Operating Manual",
+  "proof before output",
+  "evidence before recommendation",
+  "confidence before certainty",
+  "Conversion moat",
+  "Market-learning loop",
+  "Owner responsibilities after build",
+]);
+
 validateTextFile(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
@@ -88,6 +103,7 @@ validateTextFile(packagePath, [
 
 validateTextFile(routesChainPath, [
   "validate-command-center-docs-index.mjs",
+  "validate-owner-operating-manual.mjs",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
   "validate-controlled-market-learning.mjs",
@@ -109,7 +125,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, validation registry, report truth engine, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
+console.log("Command Center docs index validation passed. Private Command Center standards, owner operating manual, source-of-truth files, validation registry, report truth engine, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
