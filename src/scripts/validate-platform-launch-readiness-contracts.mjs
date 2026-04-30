@@ -45,6 +45,8 @@ const productionSmokeApiRoutePath = "src/app/api/command-center/production-smoke
 const productionSmokeApiRouteValidatorPath = "src/scripts/validate-production-smoke-api-routes.mjs";
 const ownerEvidenceContractPath = "src/lib/owner-configuration-evidence-contracts.ts";
 const ownerEvidenceValidatorPath = "src/scripts/validate-owner-configuration-evidence-contracts.mjs";
+const ownerEvidenceRuntimePath = "src/lib/owner-configuration-evidence-runtime.ts";
+const ownerEvidenceRuntimeValidatorPath = "src/scripts/validate-owner-configuration-evidence-runtime.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -54,6 +56,8 @@ expect(contractPath, ["latest main commit is verified before release branch crea
 
 expect(ownerEvidenceContractPath, ["OWNER_CONFIGURATION_EVIDENCE_CONTRACT", "OWNER_CONFIGURATION_EVIDENCE_BLOCKED_PATTERNS", "Owner Configuration Evidence Contract", "auth-provider-configuration", "payment-mapping-configuration", "protected-runtime-configuration", "launch-contact-configuration", "support-identity-configuration", "Owner configuration evidence is command-center-only and never customer-facing.", "Missing owner configuration evidence must not be treated as complete.", "Pending owner configuration evidence must not be treated as complete.", "Owner configuration evidence alone must not create public launch approval.", "Owner configuration evidence alone must not create paid launch approval.", "Paid access still requires provider-confirmed entitlement and customer ownership checks."]);
 expect(ownerEvidenceValidatorPath, ["Owner configuration evidence contracts validation passed.", "OWNER_CONFIGURATION_EVIDENCE_CONTRACT", "owner-configuration-evidence-contracts.ts"]);
+expect(ownerEvidenceRuntimePath, ["projectOwnerConfigurationEvidence", "summarizeOwnerConfigurationEvidence", "OwnerConfigurationEvidenceInput", "OwnerConfigurationEvidenceProjection", "OwnerConfigurationEvidenceSummary", "OwnerConfigurationApprovalStatus", "publicLaunchAllowed: false", "paidLaunchAllowed: false", "complete: approvalStatus === \"approved\"", "redacted-safe-value"]);
+expect(ownerEvidenceRuntimeValidatorPath, ["Owner configuration evidence runtime validation passed.", "projectOwnerConfigurationEvidence", "summarizeOwnerConfigurationEvidence", "owner-configuration-evidence-runtime.ts"]);
 
 expect(smokeTargetPath, ["PRODUCTION_SMOKE_TARGET_CONTRACT", "PRODUCTION_SMOKE_TARGET_BLOCKED_PATTERNS", "Production Smoke Target Contract", "Production smoke target must be owner-approved before public launch review.", "Default smoke must be read-only and non-mutating.", "Default smoke must not require privileged live configuration to pass.", "Protected route denial is a valid pass when the denial is generic, no-store, and does not reveal private state.", "Command center routes must remain closed by default without the approved operator access posture."]);
 expect(smokeTargetPath, ["public-conversion-routes", "customer-platform-routes", "protected-api-routes", "command-center-routes", "launch-evidence-routes", "reachable-public-safe", "safe-auth-boundary-or-safe-render", "generic-safe-denial-without-session", "closed-by-default", "operator-only-safe-projection", "Do not treat smoke target configuration as production smoke completion.", "Do not allow smoke checks to mutate production state by default.", "smokeOnlyPublicLaunchClaim"]);
@@ -103,7 +107,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-la
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath, smokeTargetPath, smokeTargetRuntimePath, smokeTargetPanelPath, productionSmokeApiRoutePath, ownerEvidenceContractPath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath, smokeTargetPath, smokeTargetRuntimePath, smokeTargetPanelPath, productionSmokeApiRoutePath, ownerEvidenceContractPath, ownerEvidenceRuntimePath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -134,7 +138,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including owner configuration evidence coverage.");
+console.log("Platform launch readiness contracts validation passed, including owner configuration evidence runtime coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
