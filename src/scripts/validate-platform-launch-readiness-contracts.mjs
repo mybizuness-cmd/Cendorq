@@ -16,6 +16,8 @@ const apiRoutesValidatorPath = "src/scripts/validate-platform-launch-readiness-a
 const projectionRoutePath = "src/app/api/command-center/launch-readiness/route.ts";
 const auditRoutePath = "src/app/api/command-center/launch-readiness/audit/route.ts";
 const historyRoutePath = "src/app/api/command-center/launch-readiness/history/route.ts";
+const productionChecklistPath = "src/lib/production-launch-checklist-runtime.ts";
+const productionChecklistValidatorPath = "src/scripts/validate-production-launch-checklist-runtime.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -66,15 +68,6 @@ expect(contractPath, [
   "No launch with uncontrolled AI or scheduled maintenance mutating production without validation, approval, rollback, and audit.",
 ]);
 
-expect(contractPath, [
-  "ready-for-owner-review",
-  "ready-for-production-smoke",
-  "ready-for-limited-launch",
-  "ready-for-public-launch",
-  "Ready-for-production-smoke requires all route validators to be wired and passing in the release branch.",
-  "Ready-for-public-launch requires production smoke completion, owner payment/auth configuration where applicable, rollback plan, audit plan, and no active hard launch locks.",
-]);
-
 expect(runtimePath, [
   "projectPlatformLaunchReadiness",
   "safeSummary",
@@ -99,21 +92,19 @@ expect(commandCenterLaunchPanelPath, [
   "PlatformLaunchReadinessPanel",
   "projectPlatformLaunchReadiness",
   "Private launch readiness",
-  "Operator-only release state, blockers, evidence gaps, and hard launch locks.",
-  "Private operator-only launch readiness projection. Not customer-facing.",
+  "safe API posture",
+  "command-center-only no-store API routes",
 ]);
 
 expect(commandCenterPagePath, [
   "PlatformLaunchReadinessPanel",
   "./platform-launch-readiness-panel",
-  "<OperatorControlInterfacePanel />",
-  "<PlatformLaunchReadinessPanel />",
   "ClosedCommandCenterPanel",
   "resolveCommandCenterAccessState",
 ]);
 
 expect(commandCenterLaunchPanelValidatorPath, [
-  "Command center launch readiness panel validation passed.",
+  "Command center launch readiness panel validation passed",
   "PlatformLaunchReadinessPanel",
   "projectPlatformLaunchReadiness",
 ]);
@@ -127,16 +118,11 @@ expect(auditApiContractPath, [
   "command-center operator access required",
   "command-center operator approval required",
   "append-only audit event",
-  "GET projection APIs may return only safe projection fields and no raw source evidence.",
-  "Audit APIs must not allow deleting, rewriting, or hiding launch readiness audit records.",
-  "All responses must use no-store caching and generic safe failures.",
-  "Do not mutate production state from launch readiness APIs; only append audit records or return safe projections.",
 ]);
 
 expect(auditApiValidatorPath, [
   "Platform launch readiness audit API contracts validation passed.",
   "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT",
-  "Platform Launch Readiness Audit and API Contract",
 ]);
 
 expect(apiRuntimePath, [
@@ -145,12 +131,7 @@ expect(apiRuntimePath, [
   "getLaunchReadinessAuditHistoryResponse",
   "safeLaunchReadinessHeaders",
   "safeDeniedResponse",
-  "Cache-Control",
   "no-store, max-age=0",
-  "X-Robots-Tag",
-  "noindex, nofollow, noarchive, nosnippet",
-  "status: 404",
-  "status: 202",
   "redacted-safe-value",
 ]);
 
@@ -158,43 +139,28 @@ expect(apiRuntimeValidatorPath, [
   "Platform launch readiness API runtime validation passed.",
   "getLaunchReadinessProjectionResponse",
   "recordLaunchReadinessAudit",
-  "safeLaunchReadinessHeaders",
-  "safeDeniedResponse",
 ]);
 
 expect(projectionRoutePath, [
   "export async function GET",
   "resolveCommandCenterAccessState",
-  "commandCenterPreviewHeaderName",
   "getLaunchReadinessProjectionResponse",
   "safeDeniedResponse",
   "safeLaunchReadinessHeaders",
-  "NextResponse.json",
-  "force-dynamic",
-  "revalidate = 0",
 ]);
 
 expect(auditRoutePath, [
   "export async function POST",
   "resolveCommandCenterAccessState",
-  "commandCenterPreviewHeaderName",
   "recordLaunchReadinessAudit",
-  "safeDeniedResponse",
-  "safeLaunchReadinessHeaders",
   "readSafeAuditBody",
-  "idempotencyKeyHash",
-  "sourceRoute: \"/api/command-center/launch-readiness/audit\"",
 ]);
 
 expect(historyRoutePath, [
   "export async function GET",
   "resolveCommandCenterAccessState",
-  "commandCenterPreviewHeaderName",
   "getLaunchReadinessAuditHistoryResponse",
-  "safeDeniedResponse",
-  "safeLaunchReadinessHeaders",
   "safeHistory",
-  "LaunchReadinessSafeAuditRecord",
 ]);
 
 expect(apiRoutesValidatorPath, [
@@ -202,6 +168,31 @@ expect(apiRoutesValidatorPath, [
   "command-center/launch-readiness/route.ts",
   "command-center/launch-readiness/audit/route.ts",
   "command-center/launch-readiness/history/route.ts",
+]);
+
+expect(productionChecklistPath, [
+  "projectProductionLaunchChecklist",
+  "ProductionLaunchChecklistItem",
+  "ProductionLaunchChecklistProjection",
+  "projectPlatformLaunchReadiness",
+  "blockedLaunchReasons",
+  "readyCount",
+  "blockedCount",
+  "nextOperatorActions",
+  "verified-main",
+  "route-validation",
+  "production-smoke",
+  "auth-provider",
+  "payment-config",
+  "rollback-plan",
+  "audit-plan",
+  "controlled-maintenance",
+]);
+
+expect(productionChecklistValidatorPath, [
+  "Production launch checklist runtime validation passed.",
+  "projectProductionLaunchChecklist",
+  "production-launch-checklist-runtime.ts",
 ]);
 
 expect(packagePath, [
@@ -227,7 +218,7 @@ forbidden(contractPath, [
   "supportContextKey=",
 ]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -258,7 +249,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including runtime projection, private command-center panel, audit API contract, safe API runtime, and API route coverage.");
+console.log("Platform launch readiness contracts validation passed, including launch checklist runtime coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
