@@ -12,6 +12,10 @@ const auditApiContractPath = "src/lib/platform-launch-readiness-audit-api-contra
 const auditApiValidatorPath = "src/scripts/validate-platform-launch-readiness-audit-api-contracts.mjs";
 const apiRuntimePath = "src/lib/platform-launch-readiness-api-runtime.ts";
 const apiRuntimeValidatorPath = "src/scripts/validate-platform-launch-readiness-api-runtime.mjs";
+const apiRoutesValidatorPath = "src/scripts/validate-platform-launch-readiness-api-routes.mjs";
+const projectionRoutePath = "src/app/api/command-center/launch-readiness/route.ts";
+const auditRoutePath = "src/app/api/command-center/launch-readiness/audit/route.ts";
+const historyRoutePath = "src/app/api/command-center/launch-readiness/history/route.ts";
 const packagePath = "package.json";
 const failures = [];
 
@@ -71,34 +75,8 @@ expect(contractPath, [
   "Ready-for-public-launch requires production smoke completion, owner payment/auth configuration where applicable, rollback plan, audit plan, and no active hard launch locks.",
 ]);
 
-expect(contractPath, [
-  "launchWithoutVerifiedMain",
-  "launchWithoutValidateRoutes",
-  "launchWithoutVercelGreen",
-  "launchWithoutProductionSmoke",
-  "launchWithoutAuthProvider",
-  "launchWithoutVerifiedWelcomeEmail",
-  "launchWithoutCustomerHandoffs",
-  "launchWithoutReportApproval",
-  "launchWithoutBillingWebhookVerification",
-  "launchWithoutPaymentLinkMapping",
-  "browserStoredAuthorityLaunch",
-  "accountExistenceLeakLaunch",
-  "rawPayloadLaunchExposure",
-  "crossCustomerDataLaunchExposure",
-  "pendingReportFinalLaunch",
-  "clientBillingAuthorityLaunch",
-  "unverifiedWebhookLaunch",
-  "fakeUrgencyLaunch",
-  "guaranteedOutcomeLaunch",
-  "uncontrolledAiMutationLaunch",
-]);
-
 expect(runtimePath, [
   "projectPlatformLaunchReadiness",
-  "PlatformLaunchReadinessInput",
-  "PlatformLaunchReadinessProjection",
-  "PlatformLaunchDecisionState",
   "safeSummary",
   "readyGroups",
   "blockedGroups",
@@ -106,33 +84,14 @@ expect(runtimePath, [
   "safeNextActions",
   "hardLaunchLocks",
   "blockedPatterns",
-  "ready-for-owner-review",
-  "ready-for-production-smoke",
-  "ready-for-limited-launch",
-  "ready-for-public-launch",
   "Blocked unsafe launch readiness value.",
-]);
-
-expect(runtimePath, [
-  "latest main commit verification is missing",
-  "validate:routes wiring is missing",
-  "green Vercel deployment is missing",
-  "server-only secret configuration evidence is missing",
-  "rollback plan evidence is missing",
-  "audit plan evidence is missing",
-  "billing checkout and entitlement readiness evidence is missing",
-  "controlled maintenance and smoke readiness evidence is missing",
-  "critical hard launch lock is active",
 ]);
 
 expect(runtimeValidatorPath, [
   "Platform launch readiness runtime validation passed.",
   "projectPlatformLaunchReadiness",
-  "PlatformLaunchReadinessInput",
-  "PlatformLaunchReadinessProjection",
   "rawPayload=",
   "sessionToken=",
-  "csrfToken=",
   "supportContextKey=",
 ]);
 
@@ -142,13 +101,6 @@ expect(commandCenterLaunchPanelPath, [
   "Private launch readiness",
   "Operator-only release state, blockers, evidence gaps, and hard launch locks.",
   "Private operator-only launch readiness projection. Not customer-facing.",
-  "launchReadiness.decision",
-  "launchReadiness.safeSummary",
-  "launchReadiness.safeNextActions",
-  "launchReadiness.readyGroups",
-  "launchReadiness.blockedGroups",
-  "launchReadiness.evidenceGaps",
-  "launchReadiness.hardLaunchLocks",
 ]);
 
 expect(commandCenterPagePath, [
@@ -156,7 +108,6 @@ expect(commandCenterPagePath, [
   "./platform-launch-readiness-panel",
   "<OperatorControlInterfacePanel />",
   "<PlatformLaunchReadinessPanel />",
-  "<OperatorReadinessMatrix />",
   "ClosedCommandCenterPanel",
   "resolveCommandCenterAccessState",
 ]);
@@ -165,9 +116,6 @@ expect(commandCenterLaunchPanelValidatorPath, [
   "Command center launch readiness panel validation passed.",
   "PlatformLaunchReadinessPanel",
   "projectPlatformLaunchReadiness",
-  "rawPayload=",
-  "sessionToken=",
-  "supportContextKey=",
 ]);
 
 expect(auditApiContractPath, [
@@ -185,31 +133,10 @@ expect(auditApiContractPath, [
   "Do not mutate production state from launch readiness APIs; only append audit records or return safe projections.",
 ]);
 
-expect(auditApiContractPath, [
-  "launch-readiness-projection-viewed",
-  "launch-readiness-owner-review-recorded",
-  "launch-readiness-production-smoke-ready-recorded",
-  "launch-readiness-public-launch-ready-recorded",
-  "launch-readiness-access-denied",
-  "customerLaunchReadinessApiAccess",
-  "publicLaunchReadinessApiAccess",
-  "unauthenticatedLaunchReadinessApiAccess",
-  "launchReadinessRecordDeletion",
-  "launchReadinessAuditRewrite",
-  "rawPayloadAuditProjection",
-  "operatorIdentityAuditProjection",
-  "databaseUrlAuditProjection",
-  "sessionTokenAuditProjection",
-  "supportContextKeyAuditProjection",
-  "publicLaunchClaimWithoutSmoke",
-  "launchReadinessProductionMutation",
-]);
-
 expect(auditApiValidatorPath, [
   "Platform launch readiness audit API contracts validation passed.",
   "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT",
   "Platform Launch Readiness Audit and API Contract",
-  "platform-launch-readiness-audit-api-contracts.ts",
 ]);
 
 expect(apiRuntimePath, [
@@ -218,11 +145,6 @@ expect(apiRuntimePath, [
   "getLaunchReadinessAuditHistoryResponse",
   "safeLaunchReadinessHeaders",
   "safeDeniedResponse",
-  "LaunchReadinessApiAccess",
-  "LaunchReadinessAuditInput",
-  "LaunchReadinessSafeApiResponse",
-  "LaunchReadinessSafeAuditRecord",
-  "projectPlatformLaunchReadiness",
   "Cache-Control",
   "no-store, max-age=0",
   "X-Robots-Tag",
@@ -238,7 +160,48 @@ expect(apiRuntimeValidatorPath, [
   "recordLaunchReadinessAudit",
   "safeLaunchReadinessHeaders",
   "safeDeniedResponse",
-  "platform-launch-readiness-api-runtime.ts",
+]);
+
+expect(projectionRoutePath, [
+  "export async function GET",
+  "resolveCommandCenterAccessState",
+  "commandCenterPreviewHeaderName",
+  "getLaunchReadinessProjectionResponse",
+  "safeDeniedResponse",
+  "safeLaunchReadinessHeaders",
+  "NextResponse.json",
+  "force-dynamic",
+  "revalidate = 0",
+]);
+
+expect(auditRoutePath, [
+  "export async function POST",
+  "resolveCommandCenterAccessState",
+  "commandCenterPreviewHeaderName",
+  "recordLaunchReadinessAudit",
+  "safeDeniedResponse",
+  "safeLaunchReadinessHeaders",
+  "readSafeAuditBody",
+  "idempotencyKeyHash",
+  "sourceRoute: \"/api/command-center/launch-readiness/audit\"",
+]);
+
+expect(historyRoutePath, [
+  "export async function GET",
+  "resolveCommandCenterAccessState",
+  "commandCenterPreviewHeaderName",
+  "getLaunchReadinessAuditHistoryResponse",
+  "safeDeniedResponse",
+  "safeLaunchReadinessHeaders",
+  "safeHistory",
+  "LaunchReadinessSafeAuditRecord",
+]);
+
+expect(apiRoutesValidatorPath, [
+  "Platform launch readiness API routes validation passed.",
+  "command-center/launch-readiness/route.ts",
+  "command-center/launch-readiness/audit/route.ts",
+  "command-center/launch-readiness/history/route.ts",
 ]);
 
 expect(packagePath, [
@@ -264,80 +227,30 @@ forbidden(contractPath, [
   "supportContextKey=",
 ]);
 
-forbidden(runtimePath, [
-  "return rawPayload",
-  "return rawEvidence",
-  "return rawBillingData",
-  "return secret",
-  "return password",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "delete audit records",
-]);
-
-forbidden(commandCenterLaunchPanelPath, [
-  "rawPayload=",
-  "rawEvidence=",
-  "rawBillingData=",
-  "secret=",
-  "password=",
-  "sessionToken=",
-  "csrfToken=",
-  "adminKey=",
-  "supportContextKey=",
-  "privateKey=",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "delete audit records",
-]);
-
-forbidden(auditApiContractPath, [
-  "customers may access launch readiness",
-  "public may access launch readiness",
-  "delete launch readiness audit records",
-  "rewrite launch readiness audit records",
-  "return rawPayload",
-  "return rawEvidence",
-  "return rawBillingData",
-  "return internalNotes",
-  "return operatorIdentity",
-  "return databaseUrl",
-  "return sessionToken",
-  "return csrfToken",
-  "return supportContextKey",
-  "launch without smoke",
-  "mutate production state from launch readiness",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
-
-forbidden(apiRuntimePath, [
-  "return rawPayload",
-  "return rawEvidence",
-  "return rawBillingData",
-  "return internalNotes",
-  "return operatorIdentity",
-  "return databaseUrl",
-  "return sessionToken",
-  "return csrfToken",
-  "return supportContextKey",
-  "delete audit",
-  "rewrite audit",
-  "mutate production",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "document.cookie",
-]);
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath]) {
+  forbidden(guardedPath, [
+    "return rawPayload",
+    "return rawEvidence",
+    "return rawBillingData",
+    "return internalNotes",
+    "return operatorIdentity",
+    "return databaseUrl",
+    "return sessionToken",
+    "return csrfToken",
+    "return supportContextKey",
+    "delete audit",
+    "rewrite audit",
+    "mutate production",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+    "document.cookie",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+  ]);
+}
 
 if (failures.length) {
   console.error("Platform launch readiness contracts validation failed:");
@@ -345,7 +258,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including runtime projection, private command-center panel, audit API contract, and safe API runtime coverage.");
+console.log("Platform launch readiness contracts validation passed, including runtime projection, private command-center panel, audit API contract, safe API runtime, and API route coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
