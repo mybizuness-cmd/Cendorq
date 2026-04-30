@@ -9,11 +9,12 @@ const failures = [];
 
 expect(panelPath, [
   "PlatformLaunchReadinessPanel",
+  "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT",
   "projectPlatformLaunchReadiness",
   "Private launch readiness",
-  "Operator-only release state, blockers, evidence gaps, and hard launch locks.",
+  "Operator-only release state, blockers, evidence gaps, hard launch locks, and safe API posture.",
   "Private operator-only launch readiness projection. Not customer-facing.",
-  "safe decision state, evidence gaps, next actions, and launch locks",
+  "command-center-only no-store API routes",
   "without raw payloads, raw evidence, raw billing data, secrets, prompts, internal notes, operator identities, or customer data",
   "launchReadiness.decision",
   "launchReadiness.safeSummary",
@@ -22,6 +23,20 @@ expect(panelPath, [
   "launchReadiness.blockedGroups",
   "launchReadiness.evidenceGaps",
   "launchReadiness.hardLaunchLocks",
+  "launchReadinessApiSurfaces",
+  "launchReadinessAuditEvents",
+]);
+
+expect(panelPath, [
+  "Command-center API posture",
+  "These routes are operator-only, no-store, and aligned to generic denial.",
+  "Closed by default",
+  "Audit event coverage",
+  "Launch readiness reviews must be append-only, role-based, and safe-projected.",
+  "provider payloads",
+  "tokens",
+  "keys",
+  "private customer data",
 ]);
 
 expect(panelPath, [
@@ -50,7 +65,7 @@ expect(pagePath, [
 ]);
 
 expect(launchValidatorPath, [
-  "Platform launch readiness contracts validation passed, including runtime projection coverage.",
+  "Platform launch readiness contracts validation passed",
   "platform-launch-readiness-runtime.ts",
 ]);
 
@@ -81,7 +96,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center launch readiness panel validation passed.");
+console.log("Command center launch readiness panel validation passed with API posture alignment.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
