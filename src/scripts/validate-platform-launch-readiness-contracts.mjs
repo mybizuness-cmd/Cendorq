@@ -39,6 +39,8 @@ const smokeTargetPath = "src/lib/production-smoke-target-contracts.ts";
 const smokeTargetValidatorPath = "src/scripts/validate-production-smoke-target-contracts.mjs";
 const smokeTargetRuntimePath = "src/lib/production-smoke-target-runtime.ts";
 const smokeTargetRuntimeValidatorPath = "src/scripts/validate-production-smoke-target-runtime.mjs";
+const smokeTargetPanelPath = "src/app/command-center/production-smoke-target-panel.tsx";
+const smokeTargetPanelValidatorPath = "src/scripts/validate-command-center-production-smoke-target-panel.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -77,104 +79,25 @@ expect(contractPath, [
   "audit plan exists for auth, support, billing, report release, operator actions, and maintenance actions",
 ]);
 
-expect(smokeTargetPath, [
-  "PRODUCTION_SMOKE_TARGET_CONTRACT",
-  "PRODUCTION_SMOKE_TARGET_BLOCKED_PATTERNS",
-  "Production Smoke Target Contract",
-  "Production smoke target must be owner-approved before public launch review.",
-  "Default smoke must be read-only and non-mutating.",
-  "Default smoke must not require privileged live configuration to pass.",
-  "Protected route denial is a valid pass when the denial is generic, no-store, and does not reveal private state.",
-  "Command center routes must remain closed by default without the approved operator access posture.",
-]);
-expect(smokeTargetPath, [
-  "public-conversion-routes",
-  "customer-platform-routes",
-  "protected-api-routes",
-  "command-center-routes",
-  "launch-evidence-routes",
-  "reachable-public-safe",
-  "safe-auth-boundary-or-safe-render",
-  "generic-safe-denial-without-session",
-  "closed-by-default",
-  "operator-only-safe-projection",
-  "Do not treat smoke target configuration as production smoke completion.",
-  "Do not allow smoke checks to mutate production state by default.",
-  "smokeOnlyPublicLaunchClaim",
-]);
+expect(smokeTargetPath, ["PRODUCTION_SMOKE_TARGET_CONTRACT", "PRODUCTION_SMOKE_TARGET_BLOCKED_PATTERNS", "Production Smoke Target Contract", "Production smoke target must be owner-approved before public launch review.", "Default smoke must be read-only and non-mutating.", "Default smoke must not require privileged live configuration to pass.", "Protected route denial is a valid pass when the denial is generic, no-store, and does not reveal private state.", "Command center routes must remain closed by default without the approved operator access posture."]);
+expect(smokeTargetPath, ["public-conversion-routes", "customer-platform-routes", "protected-api-routes", "command-center-routes", "launch-evidence-routes", "reachable-public-safe", "safe-auth-boundary-or-safe-render", "generic-safe-denial-without-session", "closed-by-default", "operator-only-safe-projection", "Do not treat smoke target configuration as production smoke completion.", "Do not allow smoke checks to mutate production state by default.", "smokeOnlyPublicLaunchClaim"]);
 expect(smokeTargetValidatorPath, ["Production smoke target contracts validation passed.", "PRODUCTION_SMOKE_TARGET_CONTRACT", "production-smoke-target-contracts.ts"]);
-expect(smokeTargetRuntimePath, [
-  "projectProductionSmokeTarget",
-  "projectProductionSmokeRoute",
-  "ProductionSmokeRouteInput",
-  "ProductionSmokeRouteProjection",
-  "ProductionSmokeTargetSummary",
-  "ProductionSmokeObservedPosture",
-  "publicLaunchAllowed: false",
-  "allowedRoute && matchesExpectedPosture ? \"pass\" : \"blocked\"",
-  "redacted-safe-value",
-]);
+expect(smokeTargetRuntimePath, ["projectProductionSmokeTarget", "projectProductionSmokeRoute", "ProductionSmokeRouteInput", "ProductionSmokeRouteProjection", "ProductionSmokeTargetSummary", "ProductionSmokeObservedPosture", "publicLaunchAllowed: false", "allowedRoute && matchesExpectedPosture ? \"pass\" : \"blocked\"", "redacted-safe-value"]);
 expect(smokeTargetRuntimeValidatorPath, ["Production smoke target runtime validation passed.", "projectProductionSmokeTarget", "projectProductionSmokeRoute", "production-smoke-target-runtime.ts"]);
+expect(smokeTargetPanelPath, ["ProductionSmokeTargetPanel", "projectProductionSmokeTarget", "Production smoke target", "Operator-only smoke posture for public, protected, command-center, and evidence routes.", "Passing route posture does not equal public launch approval", "does not store raw route output", "smokeTarget.records", "smokeTarget.publicLaunchAllowed"]);
+expect(smokeTargetPanelValidatorPath, ["Command center production smoke target panel validation passed.", "ProductionSmokeTargetPanel", "production-smoke-target-panel.tsx"]);
 
-expect(launchEvidenceContractPath, [
-  "LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT",
-  "Launch Evidence Persistence Contract",
-  "owner-configuration-evidence",
-  "production-smoke-evidence",
-  "rollback-evidence",
-  "audit-evidence",
-  "hard-lock-clearance-evidence",
-  "Launch evidence records must be append-only.",
-  "Launch evidence records must be operator-only and never customer-facing.",
-  "Do not treat missing evidence as launch-ready.",
-  "Do not allow evidence record deletion, rewrite, hidden overwrite, or production mutation from evidence persistence paths.",
-]);
+expect(launchEvidenceContractPath, ["LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT", "Launch Evidence Persistence Contract", "owner-configuration-evidence", "production-smoke-evidence", "rollback-evidence", "audit-evidence", "hard-lock-clearance-evidence", "Launch evidence records must be append-only.", "Launch evidence records must be operator-only and never customer-facing.", "Do not treat missing evidence as launch-ready.", "Do not allow evidence record deletion, rewrite, hidden overwrite, or production mutation from evidence persistence paths."]);
 expect(launchEvidenceValidatorPath, ["Launch evidence persistence contracts validation passed.", "LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT", "launch-evidence-persistence-contracts.ts"]);
-expect(launchEvidenceRuntimePath, [
-  "projectLaunchEvidence",
-  "projectLaunchEvidenceBatch",
-  "summarizeLaunchEvidenceReadiness",
-  "LaunchEvidenceInput",
-  "LaunchEvidenceProjection",
-  "LaunchEvidencePersistenceResult",
-  "appendOnly: true",
-  "publicClaimAllowed: false",
-  "paidClaimAllowed: false",
-  "reportClaimAllowed: false",
-  "redacted-safe-value",
-]);
+expect(launchEvidenceRuntimePath, ["projectLaunchEvidence", "projectLaunchEvidenceBatch", "summarizeLaunchEvidenceReadiness", "LaunchEvidenceInput", "LaunchEvidenceProjection", "LaunchEvidencePersistenceResult", "appendOnly: true", "publicClaimAllowed: false", "paidClaimAllowed: false", "reportClaimAllowed: false", "redacted-safe-value"]);
 expect(launchEvidenceRuntimeValidatorPath, ["Launch evidence persistence runtime validation passed.", "projectLaunchEvidence", "summarizeLaunchEvidenceReadiness", "launch-evidence-persistence-runtime.ts"]);
-expect(launchEvidencePanelPath, [
-  "LaunchEvidencePanel",
-  "projectLaunchEvidenceBatch",
-  "summarizeLaunchEvidenceReadiness",
-  "Launch evidence",
-  "Append-only evidence posture for owner config, smoke, rollback, audit, and hard-lock clearance.",
-  "Operator-only evidence view.",
-  "does not create public, paid, or report launch claims",
-  "evidenceSummary.recordedCount",
-  "evidenceSummary.pendingCount",
-  "evidenceSummary.blockedCount",
-  "evidenceRows",
-]);
+expect(launchEvidencePanelPath, ["LaunchEvidencePanel", "projectLaunchEvidenceBatch", "summarizeLaunchEvidenceReadiness", "Launch evidence", "Append-only evidence posture for owner config, smoke, rollback, audit, and hard-lock clearance.", "Operator-only evidence view.", "does not create public, paid, or report launch claims", "evidenceSummary.recordedCount", "evidenceSummary.pendingCount", "evidenceSummary.blockedCount", "evidenceRows"]);
 expect(launchEvidencePanelValidatorPath, ["Command center launch evidence panel validation passed.", "LaunchEvidencePanel", "launch-evidence-panel.tsx"]);
 expect(launchEvidenceRoutePath, ["export async function GET", "resolveCommandCenterAccessState", "projectLaunchEvidenceBatch", "summarizeLaunchEvidenceReadiness", "safeDeniedResponse", "safeLaunchReadinessHeaders", "owner-configuration-evidence", "production-smoke-evidence", "rollback-evidence", "audit-evidence", "hard-lock-clearance-evidence"]);
 expect(launchEvidenceRecordRoutePath, ["export async function POST", "resolveCommandCenterAccessState", "projectLaunchEvidence", "readSafeEvidenceBody", "safeDeniedResponse", "safeLaunchReadinessHeaders", "Launch evidence submitted for operator review.", "Launch evidence submission could not be parsed safely."]);
 expect(launchEvidenceApiRoutesValidatorPath, ["Launch evidence API routes validation passed.", "launch-readiness/evidence/route.ts", "launch-readiness/evidence/record/route.ts"]);
 
-expect(finalBlockerPath, [
-  "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT",
-  "Production Launch Final Blocker Contract",
-  "owner-configuration",
-  "production-smoke-target",
-  "rollback-evidence",
-  "audit-evidence",
-  "hard-lock-clearance",
-  "Do not state public launch readiness until every blocker group has complete evidence.",
-  "Do not state security readiness as absolute safety; use defense-in-depth, risk reduction, auditability, and controlled access language.",
-  "Final blocker checks are operator-only and never customer-facing.",
-  "Final blocker checks may guide launch review but must not mutate production state.",
-]);
+expect(finalBlockerPath, ["PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT", "Production Launch Final Blocker Contract", "owner-configuration", "production-smoke-target", "rollback-evidence", "audit-evidence", "hard-lock-clearance", "Do not state public launch readiness until every blocker group has complete evidence.", "Do not state security readiness as absolute safety; use defense-in-depth, risk reduction, auditability, and controlled access language.", "Final blocker checks are operator-only and never customer-facing.", "Final blocker checks may guide launch review but must not mutate production state."]);
 expect(finalBlockerValidatorPath, ["Production launch final blocker contracts validation passed.", "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT", "Production Launch Final Blocker Contract"]);
 expect(finalBlockerRuntimePath, ["projectProductionLaunchFinalBlockers", "ProductionLaunchFinalBlockerInput", "ProductionLaunchFinalBlockerProjection", "ProductionLaunchFinalBlockerSummary", "ownerConfigurationComplete", "productionSmokeComplete", "rollbackEvidenceComplete", "auditEvidenceComplete", "hardLocksClear", "publicClaimAllowed: allComplete", "paidClaimAllowed: ownerComplete && hardLocksClear", "reportClaimAllowed: smokeComplete && rollbackComplete && auditComplete && hardLocksClear"]);
 expect(finalBlockerRuntimeValidatorPath, ["Production launch final blocker runtime validation passed.", "projectProductionLaunchFinalBlockers", "production-launch-final-blocker-runtime.ts"]);
@@ -184,7 +107,7 @@ expect(finalBlockerPanelValidatorPath, ["Command center production launch final 
 expect(runtimePath, ["projectPlatformLaunchReadiness", "safeSummary", "readyGroups", "blockedGroups", "evidenceGaps", "safeNextActions", "hardLaunchLocks", "blockedPatterns"]);
 expect(runtimeValidatorPath, ["Platform launch readiness runtime validation passed.", "projectPlatformLaunchReadiness"]);
 expect(commandCenterLaunchPanelPath, ["PlatformLaunchReadinessPanel", "projectPlatformLaunchReadiness", "Private launch readiness", "safe API posture", "command-center-only no-store API routes"]);
-expect(commandCenterPagePath, ["PlatformLaunchReadinessPanel", "ProductionLaunchChecklistPanel", "ProductionLaunchFinalBlockerPanel", "LaunchEvidencePanel", "./launch-evidence-panel", "<LaunchEvidencePanel />", "ClosedCommandCenterPanel", "resolveCommandCenterAccessState"]);
+expect(commandCenterPagePath, ["PlatformLaunchReadinessPanel", "ProductionLaunchChecklistPanel", "ProductionLaunchFinalBlockerPanel", "LaunchEvidencePanel", "ProductionSmokeTargetPanel", "./production-smoke-target-panel", "<ProductionSmokeTargetPanel />", "ClosedCommandCenterPanel", "resolveCommandCenterAccessState"]);
 expect(commandCenterLaunchPanelValidatorPath, ["Command center launch readiness panel validation passed", "PlatformLaunchReadinessPanel"]);
 expect(auditApiContractPath, ["PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT", "Platform Launch Readiness Audit and API Contract", "/api/command-center/launch-readiness", "/api/command-center/launch-readiness/audit", "/api/command-center/launch-readiness/history", "append-only audit event"]);
 expect(auditApiValidatorPath, ["Platform launch readiness audit API contracts validation passed.", "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT"]);
@@ -202,7 +125,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-la
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath, smokeTargetPath, smokeTargetRuntimePath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath, smokeTargetPath, smokeTargetRuntimePath, smokeTargetPanelPath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -233,7 +156,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including production smoke target runtime coverage.");
+console.log("Platform launch readiness contracts validation passed, including production smoke target panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
