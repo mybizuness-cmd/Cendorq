@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/platform-launch-readiness-contracts.ts";
+const runtimePath = "src/lib/platform-launch-readiness-runtime.ts";
+const runtimeValidatorPath = "src/scripts/validate-platform-launch-readiness-runtime.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -85,6 +87,48 @@ expect(contractPath, [
   "uncontrolledAiMutationLaunch",
 ]);
 
+expect(runtimePath, [
+  "projectPlatformLaunchReadiness",
+  "PlatformLaunchReadinessInput",
+  "PlatformLaunchReadinessProjection",
+  "PlatformLaunchDecisionState",
+  "safeSummary",
+  "readyGroups",
+  "blockedGroups",
+  "evidenceGaps",
+  "safeNextActions",
+  "hardLaunchLocks",
+  "blockedPatterns",
+  "ready-for-owner-review",
+  "ready-for-production-smoke",
+  "ready-for-limited-launch",
+  "ready-for-public-launch",
+  "Blocked unsafe launch readiness value.",
+]);
+
+expect(runtimePath, [
+  "latest main commit verification is missing",
+  "validate:routes wiring is missing",
+  "green Vercel deployment is missing",
+  "server-only secret configuration evidence is missing",
+  "rollback plan evidence is missing",
+  "audit plan evidence is missing",
+  "billing checkout and entitlement readiness evidence is missing",
+  "controlled maintenance and smoke readiness evidence is missing",
+  "critical hard launch lock is active",
+]);
+
+expect(runtimeValidatorPath, [
+  "Platform launch readiness runtime validation passed.",
+  "projectPlatformLaunchReadiness",
+  "PlatformLaunchReadinessInput",
+  "PlatformLaunchReadinessProjection",
+  "rawPayload=",
+  "sessionToken=",
+  "csrfToken=",
+  "supportContextKey=",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-platform-launch-readiness-contracts.mjs",
@@ -108,13 +152,29 @@ forbidden(contractPath, [
   "supportContextKey=",
 ]);
 
+forbidden(runtimePath, [
+  "return rawPayload",
+  "return rawEvidence",
+  "return rawBillingData",
+  "return secret",
+  "return password",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "impossible to hack",
+  "never liable",
+  "liability-free",
+  "delete audit records",
+]);
+
 if (failures.length) {
   console.error("Platform launch readiness contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed.");
+console.log("Platform launch readiness contracts validation passed, including runtime projection coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
