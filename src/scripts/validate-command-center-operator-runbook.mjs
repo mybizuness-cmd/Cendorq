@@ -6,6 +6,11 @@ const failures = [];
 const runbookPath = "docs/command-center-operator-runbook.md";
 const docsIndexPath = "docs/command-center-docs-index.md";
 const packagePath = "package.json";
+const ownerEvidenceRoutePath = "src/app/api/command-center/owner-configuration/evidence/route.ts";
+const ownerWorkflowRoutePath = "src/app/api/command-center/owner-configuration/workflow/route.ts";
+const ownerWorkflowPanelPath = "src/app/command-center/owner-configuration-workflow-panel.tsx";
+const ownerWorkflowRuntimePath = "src/lib/owner-configuration-evidence-approval-workflow-runtime.ts";
+const ownerWorkflowSmokeValidatorPath = "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs";
 
 validateTextFile(runbookPath, [
   "# Command Center Operator Runbook",
@@ -70,6 +75,58 @@ validateTextFile(docsIndexPath, [
   "validate-command-center-owner-configuration-workflow-smoke.mjs",
 ]);
 
+validateTextFile(ownerEvidenceRoutePath, [
+  "resolveCommandCenterAccessState",
+  "commandCenterPreviewHeaderName",
+  "containsBlockedEvidenceShape",
+  "acceptedInput: \"safe-summary-only\"",
+  "persistenceMode: \"audit-safe-record-projection\"",
+  "publicLaunchAllowed: false",
+  "paidLaunchAllowed: false",
+  "reportLaunchAllowed: false",
+  "securityReadinessApproved: false",
+]);
+
+validateTextFile(ownerWorkflowRoutePath, [
+  "resolveCommandCenterAccessState",
+  "commandCenterPreviewHeaderName",
+  "recordOwnerConfigurationEvidenceBatch",
+  "projectOwnerConfigurationEvidenceApprovalWorkflow",
+  "workflowMode: \"release-captain-final-review-required\"",
+  "reviewedByRole: \"release-captain\"",
+  "publicLaunchAllowed: false",
+  "paidLaunchAllowed: false",
+  "reportLaunchAllowed: false",
+  "securityReadinessApproved: false",
+]);
+
+validateTextFile(ownerWorkflowPanelPath, [
+  "OwnerConfigurationWorkflowPanel",
+  "projectOwnerConfigurationEvidenceApprovalWorkflow",
+  "Workflow blockers",
+  "workflow.missingAreaKeys",
+  "workflow.pendingAreaKeys",
+  "workflow.blockedAreaKeys",
+  "does not approve public launch, paid launch, report launch, security readiness, provider configuration, payment mapping, or customer-facing claims",
+]);
+
+validateTextFile(ownerWorkflowRuntimePath, [
+  "finalValidator: \"release-captain\"",
+  "release-reviewed-not-launch-approved",
+  "launchApprovalDerivedFromEvidence: false",
+  "publicLaunchAllowed: false",
+  "paidLaunchAllowed: false",
+  "reportLaunchAllowed: false",
+  "securityReadinessApproved: false",
+]);
+
+validateTextFile(ownerWorkflowSmokeValidatorPath, [
+  "Command center owner configuration workflow smoke validation passed.",
+  "src/app/api/command-center/owner-configuration/evidence/route.ts",
+  "src/app/api/command-center/owner-configuration/workflow/route.ts",
+  "src/app/command-center/owner-configuration-workflow-panel.tsx",
+]);
+
 validateTextFile(packagePath, [
   "validate:routes",
   "validate-command-center-security-posture.mjs",
@@ -82,6 +139,11 @@ validateTextFile(packagePath, [
   "validate-production-smoke-coverage.mjs",
 ]);
 
+forbidden(ownerEvidenceRoutePath, unsafePhrases());
+forbidden(ownerWorkflowRoutePath, unsafePhrases());
+forbidden(ownerWorkflowPanelPath, unsafePhrases());
+forbidden(ownerWorkflowRuntimePath, unsafePhrases());
+
 if (failures.length) {
   console.error("Command Center operator runbook validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
@@ -89,6 +151,30 @@ if (failures.length) {
 }
 
 console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, report-truth, owner-configuration workflow, and validation-chain operating standards.");
+
+function unsafePhrases() {
+  return [
+    "publicLaunchAllowed: true",
+    "paidLaunchAllowed: true",
+    "reportLaunchAllowed: true",
+    "securityReadinessApproved: true",
+    "launchApprovalDerivedFromEvidence: true",
+    "rawProviderPayload",
+    "paymentProviderPayload",
+    "protectedConfigValue",
+    "privateCredentialMaterial",
+    "operatorPrivateIdentity",
+    "privateCustomerData",
+    "privateAuditPayload",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+    "document.cookie",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "impossible to hack",
+    "liability-free",
+  ];
+}
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -99,6 +185,15 @@ function validateTextFile(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing required runbook phrase: ${phrase}`);
+  }
+}
+
+function forbidden(path, phrases) {
+  if (!existsSync(join(root, path))) return;
+
+  const text = read(path).toLowerCase();
+  for (const phrase of phrases) {
+    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
 
