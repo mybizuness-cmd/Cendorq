@@ -5,6 +5,7 @@ import { spawnSync } from "node:child_process";
 const root = process.cwd();
 
 const validators = [
+  "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-routes.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-public-homepage-premium-entry.mjs",
