@@ -18,6 +18,8 @@ const auditRoutePath = "src/app/api/command-center/launch-readiness/audit/route.
 const historyRoutePath = "src/app/api/command-center/launch-readiness/history/route.ts";
 const productionChecklistPath = "src/lib/production-launch-checklist-runtime.ts";
 const productionChecklistValidatorPath = "src/scripts/validate-production-launch-checklist-runtime.mjs";
+const productionChecklistPanelPath = "src/app/command-center/production-launch-checklist-panel.tsx";
+const productionChecklistPanelValidatorPath = "src/scripts/validate-command-center-production-launch-checklist-panel.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -68,157 +70,28 @@ expect(contractPath, [
   "No launch with uncontrolled AI or scheduled maintenance mutating production without validation, approval, rollback, and audit.",
 ]);
 
-expect(runtimePath, [
-  "projectPlatformLaunchReadiness",
-  "safeSummary",
-  "readyGroups",
-  "blockedGroups",
-  "evidenceGaps",
-  "safeNextActions",
-  "hardLaunchLocks",
-  "blockedPatterns",
-  "Blocked unsafe launch readiness value.",
-]);
+expect(runtimePath, ["projectPlatformLaunchReadiness", "safeSummary", "readyGroups", "blockedGroups", "evidenceGaps", "safeNextActions", "hardLaunchLocks", "blockedPatterns"]);
+expect(runtimeValidatorPath, ["Platform launch readiness runtime validation passed.", "projectPlatformLaunchReadiness"]);
+expect(commandCenterLaunchPanelPath, ["PlatformLaunchReadinessPanel", "projectPlatformLaunchReadiness", "Private launch readiness", "safe API posture", "command-center-only no-store API routes"]);
+expect(commandCenterPagePath, ["PlatformLaunchReadinessPanel", "ProductionLaunchChecklistPanel", "./production-launch-checklist-panel", "ClosedCommandCenterPanel", "resolveCommandCenterAccessState"]);
+expect(commandCenterLaunchPanelValidatorPath, ["Command center launch readiness panel validation passed", "PlatformLaunchReadinessPanel"]);
+expect(auditApiContractPath, ["PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT", "Platform Launch Readiness Audit and API Contract", "/api/command-center/launch-readiness", "/api/command-center/launch-readiness/audit", "/api/command-center/launch-readiness/history", "append-only audit event"]);
+expect(auditApiValidatorPath, ["Platform launch readiness audit API contracts validation passed.", "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT"]);
+expect(apiRuntimePath, ["getLaunchReadinessProjectionResponse", "recordLaunchReadinessAudit", "getLaunchReadinessAuditHistoryResponse", "safeLaunchReadinessHeaders", "safeDeniedResponse", "no-store, max-age=0", "redacted-safe-value"]);
+expect(apiRuntimeValidatorPath, ["Platform launch readiness API runtime validation passed.", "getLaunchReadinessProjectionResponse", "recordLaunchReadinessAudit"]);
+expect(projectionRoutePath, ["export async function GET", "resolveCommandCenterAccessState", "getLaunchReadinessProjectionResponse", "safeDeniedResponse", "safeLaunchReadinessHeaders"]);
+expect(auditRoutePath, ["export async function POST", "resolveCommandCenterAccessState", "recordLaunchReadinessAudit", "readSafeAuditBody"]);
+expect(historyRoutePath, ["export async function GET", "resolveCommandCenterAccessState", "getLaunchReadinessAuditHistoryResponse", "safeHistory"]);
+expect(apiRoutesValidatorPath, ["Platform launch readiness API routes validation passed.", "command-center/launch-readiness/route.ts", "command-center/launch-readiness/audit/route.ts", "command-center/launch-readiness/history/route.ts"]);
+expect(productionChecklistPath, ["projectProductionLaunchChecklist", "ProductionLaunchChecklistItem", "ProductionLaunchChecklistProjection", "projectPlatformLaunchReadiness", "blockedLaunchReasons", "readyCount", "blockedCount", "nextOperatorActions", "verified-main", "route-validation", "production-smoke", "auth-provider", "payment-config", "rollback-plan", "audit-plan", "controlled-maintenance"]);
+expect(productionChecklistValidatorPath, ["Production launch checklist runtime validation passed.", "projectProductionLaunchChecklist", "production-launch-checklist-runtime.ts"]);
+expect(productionChecklistPanelPath, ["ProductionLaunchChecklistPanel", "projectProductionLaunchChecklist", "Private launch checklist", "Operator-safe production checklist with launch blockers and next actions.", "not customer-facing", "does not declare public launch", "productionChecklist.checklist", "productionChecklist.blockedLaunchReasons", "productionChecklist.nextOperatorActions"]);
+expect(productionChecklistPanelValidatorPath, ["Command center production launch checklist panel validation passed.", "ProductionLaunchChecklistPanel", "production-launch-checklist-panel.tsx"]);
+expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-launch-readiness-contracts.mjs"]);
 
-expect(runtimeValidatorPath, [
-  "Platform launch readiness runtime validation passed.",
-  "projectPlatformLaunchReadiness",
-  "rawPayload=",
-  "sessionToken=",
-  "supportContextKey=",
-]);
+forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-expect(commandCenterLaunchPanelPath, [
-  "PlatformLaunchReadinessPanel",
-  "projectPlatformLaunchReadiness",
-  "Private launch readiness",
-  "safe API posture",
-  "command-center-only no-store API routes",
-]);
-
-expect(commandCenterPagePath, [
-  "PlatformLaunchReadinessPanel",
-  "./platform-launch-readiness-panel",
-  "ClosedCommandCenterPanel",
-  "resolveCommandCenterAccessState",
-]);
-
-expect(commandCenterLaunchPanelValidatorPath, [
-  "Command center launch readiness panel validation passed",
-  "PlatformLaunchReadinessPanel",
-  "projectPlatformLaunchReadiness",
-]);
-
-expect(auditApiContractPath, [
-  "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT",
-  "Platform Launch Readiness Audit and API Contract",
-  "/api/command-center/launch-readiness",
-  "/api/command-center/launch-readiness/audit",
-  "/api/command-center/launch-readiness/history",
-  "command-center operator access required",
-  "command-center operator approval required",
-  "append-only audit event",
-]);
-
-expect(auditApiValidatorPath, [
-  "Platform launch readiness audit API contracts validation passed.",
-  "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT",
-]);
-
-expect(apiRuntimePath, [
-  "getLaunchReadinessProjectionResponse",
-  "recordLaunchReadinessAudit",
-  "getLaunchReadinessAuditHistoryResponse",
-  "safeLaunchReadinessHeaders",
-  "safeDeniedResponse",
-  "no-store, max-age=0",
-  "redacted-safe-value",
-]);
-
-expect(apiRuntimeValidatorPath, [
-  "Platform launch readiness API runtime validation passed.",
-  "getLaunchReadinessProjectionResponse",
-  "recordLaunchReadinessAudit",
-]);
-
-expect(projectionRoutePath, [
-  "export async function GET",
-  "resolveCommandCenterAccessState",
-  "getLaunchReadinessProjectionResponse",
-  "safeDeniedResponse",
-  "safeLaunchReadinessHeaders",
-]);
-
-expect(auditRoutePath, [
-  "export async function POST",
-  "resolveCommandCenterAccessState",
-  "recordLaunchReadinessAudit",
-  "readSafeAuditBody",
-]);
-
-expect(historyRoutePath, [
-  "export async function GET",
-  "resolveCommandCenterAccessState",
-  "getLaunchReadinessAuditHistoryResponse",
-  "safeHistory",
-]);
-
-expect(apiRoutesValidatorPath, [
-  "Platform launch readiness API routes validation passed.",
-  "command-center/launch-readiness/route.ts",
-  "command-center/launch-readiness/audit/route.ts",
-  "command-center/launch-readiness/history/route.ts",
-]);
-
-expect(productionChecklistPath, [
-  "projectProductionLaunchChecklist",
-  "ProductionLaunchChecklistItem",
-  "ProductionLaunchChecklistProjection",
-  "projectPlatformLaunchReadiness",
-  "blockedLaunchReasons",
-  "readyCount",
-  "blockedCount",
-  "nextOperatorActions",
-  "verified-main",
-  "route-validation",
-  "production-smoke",
-  "auth-provider",
-  "payment-config",
-  "rollback-plan",
-  "audit-plan",
-  "controlled-maintenance",
-]);
-
-expect(productionChecklistValidatorPath, [
-  "Production launch checklist runtime validation passed.",
-  "projectProductionLaunchChecklist",
-  "production-launch-checklist-runtime.ts",
-]);
-
-expect(packagePath, [
-  "validate:routes",
-  "node ./src/scripts/validate-platform-launch-readiness-contracts.mjs",
-]);
-
-forbidden(contractPath, [
-  "launch without validation",
-  "launch without vercel",
-  "launch without smoke",
-  "fake urgency is allowed",
-  "guaranteed outcome is allowed",
-  "client-only success redirect activates entitlement",
-  "unverified webhook activates entitlement",
-  "browser-stored session token allowed",
-  "delete audit records",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "sessionToken=",
-  "csrfToken=",
-  "adminKey=",
-  "supportContextKey=",
-]);
-
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -249,7 +122,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including launch checklist runtime coverage.");
+console.log("Platform launch readiness contracts validation passed, including production launch checklist panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
