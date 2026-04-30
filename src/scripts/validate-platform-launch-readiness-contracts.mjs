@@ -8,6 +8,8 @@ const runtimeValidatorPath = "src/scripts/validate-platform-launch-readiness-run
 const commandCenterLaunchPanelPath = "src/app/command-center/platform-launch-readiness-panel.tsx";
 const commandCenterPagePath = "src/app/command-center/page.tsx";
 const commandCenterLaunchPanelValidatorPath = "src/scripts/validate-command-center-launch-readiness-panel.mjs";
+const auditApiContractPath = "src/lib/platform-launch-readiness-audit-api-contracts.ts";
+const auditApiValidatorPath = "src/scripts/validate-platform-launch-readiness-audit-api-contracts.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -166,6 +168,48 @@ expect(commandCenterLaunchPanelValidatorPath, [
   "supportContextKey=",
 ]);
 
+expect(auditApiContractPath, [
+  "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT",
+  "Platform Launch Readiness Audit and API Contract",
+  "/api/command-center/launch-readiness",
+  "/api/command-center/launch-readiness/audit",
+  "/api/command-center/launch-readiness/history",
+  "command-center operator access required",
+  "command-center operator approval required",
+  "append-only audit event",
+  "GET projection APIs may return only safe projection fields and no raw source evidence.",
+  "Audit APIs must not allow deleting, rewriting, or hiding launch readiness audit records.",
+  "All responses must use no-store caching and generic safe failures.",
+  "Do not mutate production state from launch readiness APIs; only append audit records or return safe projections.",
+]);
+
+expect(auditApiContractPath, [
+  "launch-readiness-projection-viewed",
+  "launch-readiness-owner-review-recorded",
+  "launch-readiness-production-smoke-ready-recorded",
+  "launch-readiness-public-launch-ready-recorded",
+  "launch-readiness-access-denied",
+  "customerLaunchReadinessApiAccess",
+  "publicLaunchReadinessApiAccess",
+  "unauthenticatedLaunchReadinessApiAccess",
+  "launchReadinessRecordDeletion",
+  "launchReadinessAuditRewrite",
+  "rawPayloadAuditProjection",
+  "operatorIdentityAuditProjection",
+  "databaseUrlAuditProjection",
+  "sessionTokenAuditProjection",
+  "supportContextKeyAuditProjection",
+  "publicLaunchClaimWithoutSmoke",
+  "launchReadinessProductionMutation",
+]);
+
+expect(auditApiValidatorPath, [
+  "Platform launch readiness audit API contracts validation passed.",
+  "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT",
+  "Platform Launch Readiness Audit and API Contract",
+  "platform-launch-readiness-audit-api-contracts.ts",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-platform-launch-readiness-contracts.mjs",
@@ -226,13 +270,33 @@ forbidden(commandCenterLaunchPanelPath, [
   "delete audit records",
 ]);
 
+forbidden(auditApiContractPath, [
+  "customers may access launch readiness",
+  "public may access launch readiness",
+  "delete launch readiness audit records",
+  "rewrite launch readiness audit records",
+  "return rawPayload",
+  "return rawEvidence",
+  "return rawBillingData",
+  "return internalNotes",
+  "return operatorIdentity",
+  "return databaseUrl",
+  "return sessionToken",
+  "return csrfToken",
+  "return supportContextKey",
+  "launch without smoke",
+  "mutate production state from launch readiness",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
+]);
+
 if (failures.length) {
   console.error("Platform launch readiness contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including runtime projection and private command-center launch readiness panel coverage.");
+console.log("Platform launch readiness contracts validation passed, including runtime projection, private command-center launch readiness panel coverage, and audit API contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
