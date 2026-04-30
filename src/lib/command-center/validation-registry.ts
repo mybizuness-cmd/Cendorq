@@ -82,6 +82,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Report generation can no longer be proven evidence-backed, calculation-traceable, uncertainty-labeled, visually official, social-platform-aware, and truthful about plan recommendations.",
   },
   {
+    key: "report-evidence-orchestration",
+    label: "Report evidence orchestration",
+    scriptPath: "src/scripts/validate-report-evidence-orchestration.mjs",
+    category: "ai",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "evidence source tiers, trust levels, conflict handling, confidence language, plan-fit thresholds, release-captain review, and blocked report patterns",
+    failureMeaning: "Report evidence handling may no longer separate source classes, confidence levels, conflicts, plan-fit recommendations, or unsafe customer-facing claims.",
+  },
+  {
     key: "controlled-market-learning",
     label: "Controlled market learning",
     scriptPath: "src/scripts/validate-controlled-market-learning.mjs",
