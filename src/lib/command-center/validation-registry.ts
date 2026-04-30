@@ -109,6 +109,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Report evidence API behavior may no longer be command-center gated, safe-summary-only, runtime-backed, raw/private rejecting, or blocked from approving customer-facing report output.",
   },
   {
+    key: "report-evidence-record-contracts",
+    label: "Report evidence record contracts",
+    scriptPath: "src/scripts/validate-report-evidence-record-contracts.mjs",
+    category: "schema",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "safe report evidence source, confidence, conflict, plan-fit, blocked-pattern, and release-review records without raw/private payload exposure or customer-facing approval drift",
+    failureMeaning: "Report evidence records may no longer preserve orchestration metadata safely, or may allow raw evidence, provider payloads, private credentials, hidden conflicts, unsupported plan recommendations, or approval drift.",
+  },
+  {
     key: "controlled-market-learning",
     label: "Controlled market learning",
     scriptPath: "src/scripts/validate-controlled-market-learning.mjs",
