@@ -30,6 +30,8 @@ const launchEvidenceContractPath = "src/lib/launch-evidence-persistence-contract
 const launchEvidenceValidatorPath = "src/scripts/validate-launch-evidence-persistence-contracts.mjs";
 const launchEvidenceRuntimePath = "src/lib/launch-evidence-persistence-runtime.ts";
 const launchEvidenceRuntimeValidatorPath = "src/scripts/validate-launch-evidence-persistence-runtime.mjs";
+const launchEvidencePanelPath = "src/app/command-center/launch-evidence-panel.tsx";
+const launchEvidencePanelValidatorPath = "src/scripts/validate-command-center-launch-evidence-panel.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -96,6 +98,20 @@ expect(launchEvidenceRuntimePath, [
   "redacted-safe-value",
 ]);
 expect(launchEvidenceRuntimeValidatorPath, ["Launch evidence persistence runtime validation passed.", "projectLaunchEvidence", "summarizeLaunchEvidenceReadiness", "launch-evidence-persistence-runtime.ts"]);
+expect(launchEvidencePanelPath, [
+  "LaunchEvidencePanel",
+  "projectLaunchEvidenceBatch",
+  "summarizeLaunchEvidenceReadiness",
+  "Launch evidence",
+  "Append-only evidence posture for owner config, smoke, rollback, audit, and hard-lock clearance.",
+  "Operator-only evidence view.",
+  "does not create public, paid, or report launch claims",
+  "evidenceSummary.recordedCount",
+  "evidenceSummary.pendingCount",
+  "evidenceSummary.blockedCount",
+  "evidenceRows",
+]);
+expect(launchEvidencePanelValidatorPath, ["Command center launch evidence panel validation passed.", "LaunchEvidencePanel", "launch-evidence-panel.tsx"]);
 
 expect(finalBlockerPath, [
   "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT",
@@ -119,7 +135,7 @@ expect(finalBlockerPanelValidatorPath, ["Command center production launch final 
 expect(runtimePath, ["projectPlatformLaunchReadiness", "safeSummary", "readyGroups", "blockedGroups", "evidenceGaps", "safeNextActions", "hardLaunchLocks", "blockedPatterns"]);
 expect(runtimeValidatorPath, ["Platform launch readiness runtime validation passed.", "projectPlatformLaunchReadiness"]);
 expect(commandCenterLaunchPanelPath, ["PlatformLaunchReadinessPanel", "projectPlatformLaunchReadiness", "Private launch readiness", "safe API posture", "command-center-only no-store API routes"]);
-expect(commandCenterPagePath, ["PlatformLaunchReadinessPanel", "ProductionLaunchChecklistPanel", "ProductionLaunchFinalBlockerPanel", "./production-launch-final-blocker-panel", "ClosedCommandCenterPanel", "resolveCommandCenterAccessState"]);
+expect(commandCenterPagePath, ["PlatformLaunchReadinessPanel", "ProductionLaunchChecklistPanel", "ProductionLaunchFinalBlockerPanel", "LaunchEvidencePanel", "./launch-evidence-panel", "<LaunchEvidencePanel />", "ClosedCommandCenterPanel", "resolveCommandCenterAccessState"]);
 expect(commandCenterLaunchPanelValidatorPath, ["Command center launch readiness panel validation passed", "PlatformLaunchReadinessPanel"]);
 expect(auditApiContractPath, ["PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT", "Platform Launch Readiness Audit and API Contract", "/api/command-center/launch-readiness", "/api/command-center/launch-readiness/audit", "/api/command-center/launch-readiness/history", "append-only audit event"]);
 expect(auditApiValidatorPath, ["Platform launch readiness audit API contracts validation passed.", "PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT"]);
@@ -137,7 +153,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-la
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -168,7 +184,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including launch evidence persistence runtime coverage.");
+console.log("Platform launch readiness contracts validation passed, including launch evidence panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
