@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
+import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 
 export const metadata = buildMetadata({
   title: "Billing and plans | Cendorq",
@@ -7,6 +8,12 @@ export const metadata = buildMetadata({
   path: "/dashboard/billing",
   noIndex: true,
 });
+
+const BILLING_HANDOFFS = [
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-billing", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "billing-to-plans", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "billing-to-support", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+] as const;
 
 const BILLING_FIRST_USE_SNAPSHOT = [
   { label: "Plan state", value: "Entitlement clarity", detail: "Customers should know what is active, what is pending, and what unlocks only after checkout." },
@@ -105,6 +112,26 @@ export default function BillingPage() {
             ))}
           </div>
         </article>
+      </section>
+
+      <section className="relative z-10 mt-8" aria-label="Billing handoff runtime integration">
+        <div className="system-surface rounded-[2rem] p-6 sm:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected billing handoffs</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Billing movement stays separated by access, recovery, and future entitlement.</h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
+            Billing handoff runtime keeps current plan state, entitlement state, payment or invoice recovery, plan comparison, and support routing connected to customer-owned safe projection. Billing support must not collect card numbers, bank details, passwords, private keys, or session tokens, and plan movement must avoid refund, ROI, billing-change, or outcome guarantees.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {BILLING_HANDOFFS.map((handoff) => (
+              <Link key={handoff.surfaceKey} href={handoff.connectedDestination} className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{handoff.decision} · {handoff.surfaceKey}</span>
+                <span className="mt-3 block font-semibold text-white">{handoff.currentState}</span>
+                <span className="mt-2 block">{handoff.safeNextAction}</span>
+                <span className="mt-3 block text-xs leading-5 text-slate-400">Recovery: {handoff.recoveryPath}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
