@@ -37,6 +37,8 @@ const launchEvidenceRoutePath = "src/app/api/command-center/launch-readiness/evi
 const launchEvidenceRecordRoutePath = "src/app/api/command-center/launch-readiness/evidence/record/route.ts";
 const smokeTargetPath = "src/lib/production-smoke-target-contracts.ts";
 const smokeTargetValidatorPath = "src/scripts/validate-production-smoke-target-contracts.mjs";
+const smokeTargetRuntimePath = "src/lib/production-smoke-target-runtime.ts";
+const smokeTargetRuntimeValidatorPath = "src/scripts/validate-production-smoke-target-runtime.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -101,6 +103,18 @@ expect(smokeTargetPath, [
   "smokeOnlyPublicLaunchClaim",
 ]);
 expect(smokeTargetValidatorPath, ["Production smoke target contracts validation passed.", "PRODUCTION_SMOKE_TARGET_CONTRACT", "production-smoke-target-contracts.ts"]);
+expect(smokeTargetRuntimePath, [
+  "projectProductionSmokeTarget",
+  "projectProductionSmokeRoute",
+  "ProductionSmokeRouteInput",
+  "ProductionSmokeRouteProjection",
+  "ProductionSmokeTargetSummary",
+  "ProductionSmokeObservedPosture",
+  "publicLaunchAllowed: false",
+  "allowedRoute && matchesExpectedPosture ? \"pass\" : \"blocked\"",
+  "redacted-safe-value",
+]);
+expect(smokeTargetRuntimeValidatorPath, ["Production smoke target runtime validation passed.", "projectProductionSmokeTarget", "projectProductionSmokeRoute", "production-smoke-target-runtime.ts"]);
 
 expect(launchEvidenceContractPath, [
   "LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT",
@@ -188,7 +202,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-la
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath, smokeTargetPath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath, smokeTargetPath, smokeTargetRuntimePath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -219,7 +233,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including production smoke target coverage.");
+console.log("Platform launch readiness contracts validation passed, including production smoke target runtime coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
