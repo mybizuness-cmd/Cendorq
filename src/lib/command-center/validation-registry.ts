@@ -190,6 +190,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "The private documentation index no longer points operators to required standards and guards.",
   },
   {
+    key: "owner-operating-manual",
+    label: "Owner operating manual",
+    scriptPath: "src/scripts/validate-owner-operating-manual.mjs",
+    category: "docs",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "owner-level evidence accuracy, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence",
+    failureMeaning: "The owner operating manual no longer preserves the highest-level evidence-backed operating direction or has drifted toward unsafe guarantees.",
+  },
+  {
     key: "optimization-method-library",
     label: "Optimization method library",
     scriptPath: "src/scripts/validate-optimization-method-library.mjs",
