@@ -83,8 +83,8 @@ expect(launchEvidenceApiRoutesValidatorPath, ["Launch evidence API routes valida
 
 expect(finalBlockerPath, ["PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT", "Production Launch Final Blocker Contract", "owner-configuration", "production-smoke-target", "rollback-evidence", "audit-evidence", "hard-lock-clearance", "Do not state public launch readiness until every blocker group has complete evidence.", "Do not state security readiness as absolute safety; use defense-in-depth, risk reduction, auditability, and controlled access language.", "Final blocker checks are operator-only and never customer-facing.", "Final blocker checks may guide launch review but must not mutate production state."]);
 expect(finalBlockerValidatorPath, ["Production launch final blocker contracts validation passed.", "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT", "Production Launch Final Blocker Contract"]);
-expect(finalBlockerRuntimePath, ["projectProductionLaunchFinalBlockers", "ProductionLaunchFinalBlockerInput", "ProductionLaunchFinalBlockerProjection", "ProductionLaunchFinalBlockerSummary", "ownerConfigurationComplete", "productionSmokeComplete", "rollbackEvidenceComplete", "auditEvidenceComplete", "hardLocksClear", "publicClaimAllowed: allComplete", "paidClaimAllowed: ownerComplete && hardLocksClear", "reportClaimAllowed: smokeComplete && rollbackComplete && auditComplete && hardLocksClear"]);
-expect(finalBlockerRuntimeValidatorPath, ["Production launch final blocker runtime validation passed.", "projectProductionLaunchFinalBlockers", "production-launch-final-blocker-runtime.ts"]);
+expect(finalBlockerRuntimePath, ["projectProductionLaunchFinalBlockers", "ProductionLaunchFinalBlockerInput", "ProductionLaunchFinalBlockerProjection", "ProductionLaunchFinalBlockerSummary", "ownerConfigurationComplete", "productionSmokeComplete", "rollbackEvidenceComplete", "auditEvidenceComplete", "hardLocksClear", "allLaunchClaimEvidenceComplete", "ownerComplete && smokeComplete && rollbackComplete && auditComplete && hardLocksClear && allComplete", "publicClaimAllowed: allLaunchClaimEvidenceComplete", "paidClaimAllowed: allLaunchClaimEvidenceComplete", "reportClaimAllowed: allLaunchClaimEvidenceComplete", "ready-for-release-captain-launch-review"]);
+expect(finalBlockerRuntimeValidatorPath, ["Production launch final blocker runtime validation passed.", "projectProductionLaunchFinalBlockers", "production-launch-final-blocker-runtime.ts", "Public, paid, and report claims require all final evidence classes"]);
 expect(finalBlockerPanelPath, ["ProductionLaunchFinalBlockerPanel", "projectProductionLaunchFinalBlockers", "Final blocker control", "Operator-only launch claim blockers before any public, paid, or report launch claim.", "This panel does not launch the platform.", "finalBlockers.releaseState", "finalBlockers.publicClaimAllowed", "finalBlockers.paidClaimAllowed", "finalBlockers.reportClaimAllowed", "finalBlockers.blockers", "finalBlockers.safeNextActions"]);
 expect(finalBlockerPanelValidatorPath, ["Command center production launch final blocker panel validation passed.", "ProductionLaunchFinalBlockerPanel", "production-launch-final-blocker-panel.tsx"]);
 
@@ -109,6 +109,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chai
 expect(routesChainPath, ["validate-platform-launch-readiness-contracts.mjs"]);
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
+forbidden(finalBlockerRuntimePath, ["paidClaimAllowed: ownerComplete && hardLocksClear", "reportClaimAllowed: smokeComplete && rollbackComplete && auditComplete && hardLocksClear", "publicClaimAllowed: allComplete", "ready-for-public-launch-review"]);
 
 for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath, smokeTargetPath, smokeTargetRuntimePath, smokeTargetPanelPath, productionSmokeApiRoutePath, ownerEvidenceContractPath, ownerEvidenceRuntimePath]) {
   forbidden(guardedPath, [
@@ -141,7 +142,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including owner configuration evidence runtime coverage and owner workflow launch-approval locks.");
+console.log("Platform launch readiness contracts validation passed, including owner configuration evidence runtime coverage, owner workflow launch-approval locks, and final blocker all-evidence claim locking.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
