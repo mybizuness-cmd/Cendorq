@@ -26,6 +26,8 @@ const finalBlockerRuntimePath = "src/lib/production-launch-final-blocker-runtime
 const finalBlockerRuntimeValidatorPath = "src/scripts/validate-production-launch-final-blocker-runtime.mjs";
 const finalBlockerPanelPath = "src/app/command-center/production-launch-final-blocker-panel.tsx";
 const finalBlockerPanelValidatorPath = "src/scripts/validate-command-center-production-launch-final-blocker-panel.mjs";
+const launchEvidenceContractPath = "src/lib/launch-evidence-persistence-contracts.ts";
+const launchEvidenceValidatorPath = "src/scripts/validate-launch-evidence-persistence-contracts.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -63,6 +65,21 @@ expect(contractPath, [
   "rollback plan exists for auth, billing, reports, support, and public conversion changes",
   "audit plan exists for auth, support, billing, report release, operator actions, and maintenance actions",
 ]);
+
+expect(launchEvidenceContractPath, [
+  "LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT",
+  "Launch Evidence Persistence Contract",
+  "owner-configuration-evidence",
+  "production-smoke-evidence",
+  "rollback-evidence",
+  "audit-evidence",
+  "hard-lock-clearance-evidence",
+  "Launch evidence records must be append-only.",
+  "Launch evidence records must be operator-only and never customer-facing.",
+  "Do not treat missing evidence as launch-ready.",
+  "Do not allow evidence record deletion, rewrite, hidden overwrite, or production mutation from evidence persistence paths.",
+]);
+expect(launchEvidenceValidatorPath, ["Launch evidence persistence contracts validation passed.", "LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT", "launch-evidence-persistence-contracts.ts"]);
 
 expect(finalBlockerPath, [
   "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT",
@@ -129,7 +146,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-la
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -160,7 +177,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including final blocker panel coverage.");
+console.log("Platform launch readiness contracts validation passed, including launch evidence persistence coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
