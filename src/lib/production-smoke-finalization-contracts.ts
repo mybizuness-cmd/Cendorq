@@ -2,7 +2,7 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
   id: "production-smoke-finalization-contract",
   name: "Production Smoke Finalization Coverage Contract",
   purpose:
-    "Keep final production smoke coverage aligned with Cendorq public entry, customer platform, command center, auth, welcome email, report rendering, billing checkout, and maintenance safeguards without requiring live secrets in default smoke runs.",
+    "Keep final production smoke coverage aligned with Cendorq public entry, customer platform, command center, owner configuration evidence/workflow, auth, welcome email, report rendering, billing checkout, and maintenance safeguards without requiring live secrets in default smoke runs.",
   coverageGroups: [
     {
       key: "public-conversion-routes",
@@ -17,23 +17,31 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
     {
       key: "closed-command-center-routes",
       routes: ["/command-center", "/command-center/intake"],
-      requiredPosture: "Command center routes must remain closed by default without exposing customer records, schema anchors, required permissions, database URLs, provider secrets, payment secrets, or internal modules.",
+      requiredPosture: "Command center routes must remain closed by default without exposing customer records, schema anchors, required permissions, database URLs, provider secrets, payment secrets, owner configuration evidence payloads, or internal modules.",
     },
     {
       key: "protected-api-boundaries",
-      routes: ["/api/free-check", "/api/customer/notifications", "/api/customer/support/status", "/api/customer/support/request", "/api/command-center/readiness"],
-      requiredPosture: "Protected APIs must return no-store safe failures or authorized safe projections only; default smoke must verify denial posture without needing customer secrets.",
+      routes: [
+        "/api/free-check",
+        "/api/customer/notifications",
+        "/api/customer/support/status",
+        "/api/customer/support/request",
+        "/api/command-center/readiness",
+        "/api/command-center/owner-configuration/evidence",
+        "/api/command-center/owner-configuration/workflow",
+      ],
+      requiredPosture: "Protected APIs must return no-store safe failures or authorized safe projections only; default smoke must verify denial posture without needing customer secrets, owner evidence payloads, provider secrets, or command-center preview access.",
     },
     {
       key: "finalization-contracts",
       routes: ["production-auth-provider-contracts", "verified-welcome-email-contracts", "report-generation-rendering-contracts", "billing-checkout-contracts", "controlled-maintenance-contracts"],
-      requiredPosture: "Finalization contracts must stay wired into validate:routes so auth, welcome email, reports, billing checkout, and controlled maintenance cannot drift silently.",
+      requiredPosture: "Finalization contracts must stay wired into validate:routes so auth, welcome email, reports, billing checkout, controlled maintenance, and owner configuration workflow protections cannot drift silently.",
     },
   ],
   defaultSmokeRules: [
-    "Default production smoke must not require live customer session tokens, CSRF tokens, provider secrets, webhook secrets, admin keys, support context keys, payment provider keys, or real payment links.",
-    "Default production smoke may verify public route rendering, redirects, health, OPTIONS, protected denial states, closed command-center posture, and contract wiring.",
-    "Default production smoke must never log raw payloads, raw evidence, raw billing data, provider secrets, customer secrets, internal notes, operator identities, risk internals, attacker details, prompts, session tokens, CSRF tokens, admin keys, or support context keys.",
+    "Default production smoke must not require live customer session tokens, CSRF tokens, provider secrets, webhook secrets, admin keys, support context keys, payment provider keys, command-center preview keys, owner evidence payloads, or real payment links.",
+    "Default production smoke may verify public route rendering, redirects, health, OPTIONS, protected denial states, owner evidence/workflow protected denials, closed command-center posture, and contract wiring.",
+    "Default production smoke must never log raw payloads, raw evidence, raw billing data, owner configuration evidence payloads, provider secrets, customer secrets, internal notes, operator identities, risk internals, attacker details, prompts, session tokens, CSRF tokens, admin keys, or support context keys.",
     "Default production smoke must treat protected-route denial as success when the expected safe denial status and copy are returned.",
   ],
   releaseGateCoverage: [
@@ -44,6 +52,8 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
     "controlled maintenance contracts validation",
     "customer platform handoff contracts validation",
     "customer platform handoff runtime validation",
+    "owner configuration evidence API validation",
+    "owner configuration workflow API validation",
     "production smoke coverage validation",
   ],
   blockedSmokePatterns: [
@@ -51,15 +61,19 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
     "rawPayloadLogged",
     "rawEvidenceLogged",
     "rawBillingDataLogged",
+    "rawOwnerEvidenceLogged",
+    "ownerEvidencePayloadLogged",
     "providerSecretLogged",
     "sessionTokenLogged",
     "csrfTokenLogged",
     "adminKeyLogged",
     "supportContextKeyLogged",
+    "commandCenterPreviewKeyLogged",
     "localStorageSecretSmoke",
     "sessionStorageSecretSmoke",
     "accountExistenceLeakSmoke",
     "commandCenterLeakSmoke",
+    "ownerEvidenceLeakSmoke",
     "clientAuthoritativeBillingSmoke",
     "unverifiedWebhookEntitlementSmoke",
     "pendingReportFinalSmoke",
@@ -69,9 +83,10 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
   ],
   releaseRules: [
     "No release is final unless production smoke coverage and all finalization contract validators are wired into validate:routes.",
-    "No smoke check may require production mutation, real payment, real customer session, or uncontrolled AI action.",
+    "No smoke check may require production mutation, real payment, real customer session, owner evidence payload, command-center preview key, or uncontrolled AI action.",
     "No protected route may pass smoke by exposing internal data; safe denial is acceptable and expected where authorization is absent.",
     "No public conversion route may pass smoke if it relies on fake urgency, guaranteed outcomes, or unsafe data collection.",
+    "No owner configuration evidence or workflow route may pass smoke by exposing raw provider payloads, protected config values, private credentials, private customer data, or private audit payloads.",
   ],
 } as const;
 
