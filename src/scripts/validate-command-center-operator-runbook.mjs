@@ -18,6 +18,22 @@ validateTextFile(runbookPath, [
   "Keep every visible cockpit panel represented in the panel registry.",
   "Keep every validation guard wired into `validate:routes`.",
   "Never claim that Cendorq is unhackable, risk-free, or perfectly secure.",
+  "Owner configuration evidence workflow",
+  "src/app/api/command-center/owner-configuration/evidence/route.ts",
+  "src/app/api/command-center/owner-configuration/workflow/route.ts",
+  "src/lib/owner-configuration-evidence-runtime.ts",
+  "src/lib/owner-configuration-evidence-persistence-runtime.ts",
+  "src/lib/owner-configuration-evidence-approval-workflow-runtime.ts",
+  "src/app/command-center/owner-configuration-evidence-panel.tsx",
+  "src/app/command-center/owner-configuration-workflow-panel.tsx",
+  "safe summaries, safe hashes, owner approval posture, and release-captain review posture",
+  "Owner evidence alone never creates public launch approval, paid launch approval, report launch approval, provider configuration approval, payment mapping approval, security readiness approval, or customer-facing claims.",
+  "validate-command-center-owner-configuration-evidence-api.mjs",
+  "validate-command-center-owner-configuration-evidence-persistence.mjs",
+  "validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
+  "validate-command-center-owner-configuration-workflow-api.mjs",
+  "validate-command-center-owner-configuration-workflow-panel.mjs",
+  "validate-command-center-owner-configuration-workflow-smoke.mjs",
   "validate-command-center-security-posture.mjs",
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
@@ -35,10 +51,23 @@ validateTextFile(docsIndexPath, [
   "docs/maximum-protection-standard.md",
   "src/lib/command-center/validation-registry.ts",
   "src/lib/command-center/report-truth-engine.ts",
+  "src/lib/owner-configuration-evidence-runtime.ts",
+  "src/lib/owner-configuration-evidence-persistence-runtime.ts",
+  "src/lib/owner-configuration-evidence-approval-workflow-runtime.ts",
+  "src/app/api/command-center/owner-configuration/evidence/route.ts",
+  "src/app/api/command-center/owner-configuration/workflow/route.ts",
+  "src/app/command-center/owner-configuration-evidence-panel.tsx",
+  "src/app/command-center/owner-configuration-workflow-panel.tsx",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
   "validate-command-center-operator-runbook.mjs",
   "validate-command-center-docs-index.mjs",
+  "validate-command-center-owner-configuration-evidence-api.mjs",
+  "validate-command-center-owner-configuration-evidence-persistence.mjs",
+  "validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
+  "validate-command-center-owner-configuration-workflow-api.mjs",
+  "validate-command-center-owner-configuration-workflow-panel.mjs",
+  "validate-command-center-owner-configuration-workflow-smoke.mjs",
 ]);
 
 validateTextFile(packagePath, [
@@ -59,7 +88,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, report-truth, and validation-chain operating standards.");
+console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, report-truth, owner-configuration workflow, and validation-chain operating standards.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
