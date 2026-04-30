@@ -7,9 +7,9 @@ const DISMISS_COOKIE = "cendorq_concierge_dismissed";
 const STARTED_COOKIE = "cendorq_free_scan_started";
 const COMPLETED_COOKIE = "cendorq_free_scan_completed";
 const DISMISS_SECONDS = 60 * 60 * 24 * 14;
-const STANDARD_DELAY_MS = 18_000;
+const STANDARD_DELAY_MS = 12_000;
 const RESUME_DELAY_MS = 6_000;
-const SCROLL_TRIGGER_RATIO = 0.45;
+const SCROLL_TRIGGER_RATIO = 0.38;
 
 type NudgeMode = "start" | "resume" | "exit";
 
@@ -21,23 +21,23 @@ export function FreeScanConciergeNudge() {
     if (mode === "resume") {
       return {
         eyebrow: "Resume your scan",
-        title: "Pick up the Free Scan where the business context continues.",
-        body: "The scan room is built for focus, recovery, and a calmer finish state — not a cramped popup form.",
+        title: "Continue in the focused scan room.",
+        body: "Your Free Scan belongs on the dedicated page so the business context, recovery state, and handoff into dashboard, notifications, and report vault stay clear.",
         cta: "Resume Free Scan",
       };
     }
     if (mode === "exit") {
       return {
-        eyebrow: "Before you leave",
-        title: "Get the first read before spending more.",
-        body: "Start the Free Scan to see what may be making customers hesitate, compare away, or fail to act.",
+        eyebrow: "Soft Free Scan entry",
+        title: "Take the first read before you spend more.",
+        body: "This is only an invitation into the scan room — no cramped popup form, no fake urgency, and no guaranteed outcome promise.",
         cta: "Start Free Scan",
       };
     }
     return {
-      eyebrow: "Concierge scan prompt",
+      eyebrow: "Soft Free Scan entry",
       title: "Want the first read before you spend more?",
-      body: "Start the Free Scan and see what may be making customers hesitate. No full-form popup, no fake urgency, just a focused scan room.",
+      body: "Start the Free Scan in the dedicated scan room. It is designed for focus, privacy posture, recovery, and a clear next step — not a full-form popup or pressure tactic.",
       cta: "Start Free Scan",
     };
   }, [mode]);
