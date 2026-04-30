@@ -1,0 +1,164 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import { spawnSync } from "node:child_process";
+
+const root = process.cwd();
+
+const validators = [
+  "src/scripts/validate-routes.mjs",
+  "src/scripts/validate-public-drift.mjs",
+  "src/scripts/validate-public-homepage-premium-entry.mjs",
+  "src/scripts/validate-free-check-intake.mjs",
+  "src/scripts/validate-free-check-premium-route-elevation.mjs",
+  "src/scripts/validate-command-center-migrations.mjs",
+  "src/scripts/validate-command-center-schema.mjs",
+  "src/scripts/validate-command-center-readiness.mjs",
+  "src/scripts/validate-command-center-security-posture.mjs",
+  "src/scripts/validate-command-center-control-interface-elevation.mjs",
+  "src/scripts/validate-command-center-panel-registry.mjs",
+  "src/scripts/validate-command-center-panel-safety.mjs",
+  "src/scripts/validate-command-center-validation-registry.mjs",
+  "src/scripts/validate-report-truth-engine.mjs",
+  "src/scripts/validate-report-generation-rendering-contracts.mjs",
+  "src/scripts/validate-controlled-market-learning.mjs",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
+  "src/scripts/validate-enterprise-operating-standard.mjs",
+  "src/scripts/validate-audit-defense-system.mjs",
+  "src/scripts/validate-most-pristine-system-standard.mjs",
+  "src/scripts/validate-access-governance.mjs",
+  "src/scripts/validate-privacy-data-retention.mjs",
+  "src/scripts/validate-trust-center-readiness.mjs",
+  "src/scripts/validate-public-plans-excellence.mjs",
+  "src/scripts/validate-signup-verification-excellence.mjs",
+  "src/scripts/validate-dashboard-first-session-onboarding.mjs",
+  "src/scripts/validate-notification-center-first-use.mjs",
+  "src/scripts/validate-billing-center-first-use.mjs",
+  "src/scripts/validate-report-vault-first-use.mjs",
+  "src/scripts/validate-support-center-first-use.mjs",
+  "src/scripts/validate-support-status-first-use.mjs",
+  "src/scripts/validate-support-request-first-use.mjs",
+  "src/scripts/validate-free-scan-first-use-handoff.mjs",
+  "src/scripts/validate-customer-platform-handoff-contracts.mjs",
+  "src/scripts/validate-customer-platform-handoff-runtime.mjs",
+  "src/scripts/validate-dashboard-handoff-runtime-integration.mjs",
+  "src/scripts/validate-notification-center-handoff-runtime-integration.mjs",
+  "src/scripts/validate-report-vault-handoff-runtime-integration.mjs",
+  "src/scripts/validate-billing-handoff-runtime-integration.mjs",
+  "src/scripts/validate-billing-checkout-contracts.mjs",
+  "src/scripts/validate-plans-handoff-runtime-integration.mjs",
+  "src/scripts/validate-report-record-contracts.mjs",
+  "src/scripts/validate-scale-resilience-standard.mjs",
+  "src/scripts/validate-customer-platform-standard.mjs",
+  "src/scripts/validate-customer-experience-standard.mjs",
+  "src/scripts/validate-conversion-moat-standard.mjs",
+  "src/scripts/validate-insights-conversation-standard.mjs",
+  "src/scripts/validate-cendorq-shield-standard.mjs",
+  "src/scripts/validate-customer-platform-routes.mjs",
+  "src/scripts/validate-customer-platform-record-contracts.mjs",
+  "src/scripts/validate-platform-leverage-standard.mjs",
+  "src/scripts/validate-front-to-back-conversion-standard.mjs",
+  "src/scripts/validate-customer-lifecycle-automation.mjs",
+  "src/scripts/validate-customer-email-template-contracts.mjs",
+  "src/scripts/validate-customer-support-lifecycle-email-contracts.mjs",
+  "src/scripts/validate-customer-support-email-queue-contracts.mjs",
+  "src/scripts/validate-customer-notification-contracts.mjs",
+  "src/scripts/validate-customer-notification-center.mjs",
+  "src/scripts/validate-customer-notification-center-api.mjs",
+  "src/scripts/validate-notification-center-support-lifecycle.mjs",
+  "src/scripts/validate-customer-support-center.mjs",
+  "src/scripts/validate-customer-support-record-contracts.mjs",
+  "src/scripts/validate-customer-support-status-contracts.mjs",
+  "src/scripts/validate-customer-support-status-api.mjs",
+  "src/scripts/validate-customer-support-status-page.mjs",
+  "src/scripts/validate-dashboard-support-status-entry.mjs",
+  "src/scripts/validate-customer-support-lifecycle-notifications.mjs",
+  "src/scripts/validate-customer-support-notification-record-contracts.mjs",
+  "src/scripts/validate-customer-support-notification-record-runtime.mjs",
+  "src/scripts/validate-customer-support-lifecycle-communication-orchestration.mjs",
+  "src/scripts/validate-customer-support-lifecycle-communication-runtime.mjs",
+  "src/scripts/validate-customer-support-intake-architecture.mjs",
+  "src/scripts/validate-customer-support-request-page.mjs",
+  "src/scripts/validate-customer-support-request-api.mjs",
+  "src/scripts/validate-customer-support-request-update-api.mjs",
+  "src/scripts/validate-customer-support-operator-console-contracts.mjs",
+  "src/scripts/validate-customer-support-operator-console-sections.mjs",
+  "src/scripts/validate-customer-support-operator-console-quick-nav.mjs",
+  "src/scripts/validate-customer-support-operator-console-status-strip.mjs",
+  "src/scripts/validate-customer-support-operator-review-gate-map.mjs",
+  "src/scripts/validate-customer-support-operator-posture-map.mjs",
+  "src/scripts/validate-customer-support-operator-audit-contracts.mjs",
+  "src/scripts/validate-customer-support-operator-audit-runtime.mjs",
+  "src/scripts/validate-customer-support-operator-access-contracts.mjs",
+  "src/scripts/validate-customer-support-operator-access-runtime.mjs",
+  "src/scripts/validate-customer-support-operator-safe-summary-api.mjs",
+  "src/scripts/validate-customer-support-operator-readonly-console.mjs",
+  "src/scripts/validate-customer-support-operator-assignment-contracts.mjs",
+  "src/scripts/validate-customer-support-operator-assignment-runtime.mjs",
+  "src/scripts/validate-customer-support-operator-assignment-api.mjs",
+  "src/scripts/validate-customer-support-operator-assignment-ui.mjs",
+  "src/scripts/validate-customer-support-operator-assignment-list-api.mjs",
+  "src/scripts/validate-customer-support-operator-assignment-list-ui.mjs",
+  "src/scripts/validate-customer-support-operator-approval-contracts.mjs",
+  "src/scripts/validate-customer-support-operator-approval-runtime.mjs",
+  "src/scripts/validate-customer-support-operator-approval-api.mjs",
+  "src/scripts/validate-customer-support-operator-approval-list-api.mjs",
+  "src/scripts/validate-customer-support-operator-approval-list-ui.mjs",
+  "src/scripts/validate-customer-support-operator-approval-history-filters.mjs",
+  "src/scripts/validate-customer-support-operator-approval-panel-ui.mjs",
+  "src/scripts/validate-customer-support-operator-billing-approval-api.mjs",
+  "src/scripts/validate-customer-support-operator-billing-approval-panel-ui.mjs",
+  "src/scripts/validate-customer-support-operator-security-approval-api.mjs",
+  "src/scripts/validate-customer-support-operator-security-approval-panel-ui.mjs",
+  "src/scripts/validate-customer-support-operator-closure-approval-api.mjs",
+  "src/scripts/validate-customer-support-operator-closure-approval-panel-ui.mjs",
+  "src/scripts/validate-customer-access-gateway-contracts.mjs",
+  "src/scripts/validate-customer-access-gateway-runtime.mjs",
+  "src/scripts/validate-customer-session-auth-contracts.mjs",
+  "src/scripts/validate-customer-session-auth-runtime.mjs",
+  "src/scripts/validate-production-auth-provider-contracts.mjs",
+  "src/scripts/validate-verified-welcome-email-contracts.mjs",
+  "src/scripts/validate-command-center-operator-runbook.mjs",
+  "src/scripts/validate-command-center-docs-index.mjs",
+  "src/scripts/validate-optimization-method-library.mjs",
+  "src/scripts/validate-customer-output-approval.mjs",
+  "src/scripts/validate-ai-manager-command-queue.mjs",
+  "src/scripts/validate-ai-manager-command-history.mjs",
+  "src/scripts/validate-production-smoke-coverage.mjs",
+  "src/scripts/validate-production-smoke-finalization-contracts.mjs",
+  "src/scripts/validate-agent-operating-system-contracts.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-api.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-persistence.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-api.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
+  "src/scripts/validate-closed-intelligence.mjs",
+];
+
+const missing = validators.filter((validatorPath) => !existsSync(join(root, validatorPath)));
+if (missing.length) {
+  console.error("validate:routes chain is missing validator files:");
+  for (const validatorPath of missing) console.error(`- ${validatorPath}`);
+  process.exit(1);
+}
+
+for (const validatorPath of validators) {
+  console.log(`\n[validate:routes] ${validatorPath}`);
+  const result = spawnSync(process.execPath, [validatorPath], {
+    cwd: root,
+    stdio: "inherit",
+    env: process.env,
+  });
+
+  if (result.error) {
+    console.error(`[validate:routes] failed to start ${validatorPath}: ${result.error.message}`);
+    process.exit(1);
+  }
+
+  if (result.status !== 0) {
+    console.error(`[validate:routes] ${validatorPath} exited with status ${result.status ?? "unknown"}`);
+    process.exit(result.status ?? 1);
+  }
+}
+
+console.log(`\nvalidate:routes chain passed ${validators.length} validators.`);
