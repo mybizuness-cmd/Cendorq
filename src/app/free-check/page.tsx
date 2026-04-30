@@ -48,6 +48,13 @@ const SCAN_PROMISES = [
   },
 ] as const;
 
+const SCAN_ROOM_TRUST_RAIL = [
+  "Dedicated page, not a cramped popup",
+  "Safe business context only",
+  "Pending means pending, not final truth",
+  "Dashboard, notifications, and report vault handoff",
+] as const;
+
 const FREE_SCAN_FIRST_USE_SNAPSHOT = [
   { label: "First-use path", value: "Guided scan room", detail: "Customers should understand why each step exists before sharing business context." },
   { label: "Completion handoff", value: "Dashboard next action", detail: "After submit, the next place to look should be dashboard, notifications, and report vault status." },
@@ -160,20 +167,28 @@ export default function FreeCheckPage() {
       <section className="relative z-10 grid gap-8 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
         <div>
           <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-            Dedicated scan room
+            Premium Free Scan room
           </div>
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[4.6rem]">
-            Find out why people are not choosing you fast enough.
+            Find the decision break before you buy the wrong fix.
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Cendorq gives the full Free Scan its own focused page so the business owner has room to understand each step, enter details safely, recover from errors, and finish without a cramped popup experience.
+            Cendorq gives the full Free Scan its own focused page so the business owner has room to understand each step, enter safe context, recover from errors, and hand off into dashboard, notifications, and report vault without a cramped popup experience.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {SCAN_PROMISES.map((item) => (
               <PromiseCard key={item.title} title={item.title} copy={item.copy} />
+            ))}
+          </div>
+
+          <div className="mt-6 grid gap-2 sm:grid-cols-2" aria-label="Free Scan room trust rail">
+            {SCAN_ROOM_TRUST_RAIL.map((item) => (
+              <div key={item} className="rounded-2xl border border-cyan-300/15 bg-cyan-300/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-50">
+                {item}
+              </div>
             ))}
           </div>
         </div>
@@ -185,10 +200,10 @@ export default function FreeCheckPage() {
               What this scan does
             </div>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              It turns confusion into a clear first direction.
+              It turns customer hesitation into a safer first direction.
             </h2>
             <p className="mt-4 text-base leading-8 text-slate-300">
-              Customers judge the business before they call, book, or buy. This scan helps identify where that judgment may be breaking down.
+              Customers judge the business before they call, book, or buy. This scan helps identify where that judgment may be breaking down without treating pending or incomplete input as final analysis.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <MiniPoint label="People may not get it" value="The offer may be too hard to understand quickly." />
