@@ -28,6 +28,7 @@ import { PlanControlPanel } from "./plan-control-panel";
 import { PlatformLaunchReadinessPanel } from "./platform-launch-readiness-panel";
 import { ProductionLaunchChecklistPanel } from "./production-launch-checklist-panel";
 import { ProductionLaunchFinalBlockerPanel } from "./production-launch-final-blocker-panel";
+import { ProductionSmokeTargetPanel } from "./production-smoke-target-panel";
 import { ReadinessChecklistPanel } from "./readiness-checklist-panel";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
 import { SecurityPosturePanel } from "./security-posture-panel";
@@ -75,6 +76,7 @@ export default async function CommandCenterPage() {
         <ProductionLaunchChecklistPanel />
         <ProductionLaunchFinalBlockerPanel />
         <LaunchEvidencePanel />
+        <ProductionSmokeTargetPanel />
         <OperatorReadinessMatrix />
         <CommandCenterPanelIndex />
         <ValidationRegistryPanel />
