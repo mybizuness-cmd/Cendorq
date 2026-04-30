@@ -100,6 +100,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Report evidence inputs may no longer project into safe summaries, blocked-pattern flags, review posture, or customer-output eligibility before report use.",
   },
   {
+    key: "report-evidence-orchestration-api",
+    label: "Report evidence orchestration API",
+    scriptPath: "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
+    category: "route",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "command-center-only report evidence projection route, safe-summary-only input, no-store/noindex response headers, raw/private payload rejection, and no customer-facing report approval",
+    failureMeaning: "Report evidence API behavior may no longer be command-center gated, safe-summary-only, runtime-backed, raw/private rejecting, or blocked from approving customer-facing report output.",
+  },
+  {
     key: "controlled-market-learning",
     label: "Controlled market learning",
     scriptPath: "src/scripts/validate-controlled-market-learning.mjs",
