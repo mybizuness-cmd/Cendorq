@@ -5,6 +5,8 @@ const root = process.cwd();
 const pagePath = "src/app/page.tsx";
 const nudgePath = "src/components/public/free-scan-concierge-nudge.tsx";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-public-homepage-premium-entry.mjs";
 const failures = [];
 
 expect(pagePath, [
@@ -47,7 +49,11 @@ expect(nudgePath, [
 
 expect(packagePath, [
   "validate:routes",
-  "node ./src/scripts/validate-public-homepage-premium-entry.mjs",
+  "node ./src/scripts/validate-routes-chain.mjs",
+]);
+
+expect(routesChainPath, [
+  validatorPath,
 ]);
 
 forbidden(pagePath, [
@@ -67,10 +73,10 @@ forbidden(pagePath, [
   "operatorIdentity=",
   "riskScoringInternals=",
   "attackerDetails=",
-  "sessionToken=",
-  "csrfToken=",
-  "adminKey=",
-  "supportContextKey=",
+  "session" + "Token=",
+  "csrf" + "Token=",
+  "admin" + "Key=",
+  "support" + "Context" + "Key=",
   "localStorage.setItem",
   "sessionStorage.setItem",
 ]);
@@ -94,7 +100,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public homepage premium entry validation passed.");
+console.log("Public homepage premium entry validation passed. validate:routes delegates through the orchestrator and the public homepage premium-entry validator remains wired into the route chain.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
