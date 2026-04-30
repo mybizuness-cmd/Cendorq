@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const contractPath = "src/lib/production-auth-provider-contracts.ts";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-production-auth-provider-contracts.mjs";
 const failures = [];
 
 expect(contractPath, [
@@ -61,7 +63,11 @@ expect(contractPath, [
 
 expect(packagePath, [
   "validate:routes",
-  "node ./src/scripts/validate-production-auth-provider-contracts.mjs",
+  "node ./src/scripts/validate-routes-chain.mjs",
+]);
+
+expect(routesChainPath, [
+  validatorPath,
 ]);
 
 forbidden(contractPath, [
@@ -92,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production auth provider contracts validation passed.");
+console.log("Production auth provider contracts validation passed. validate:routes delegates through the orchestrator and the auth provider validator remains wired into the route chain.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
