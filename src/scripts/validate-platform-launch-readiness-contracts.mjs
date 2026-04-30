@@ -5,6 +5,9 @@ const root = process.cwd();
 const contractPath = "src/lib/platform-launch-readiness-contracts.ts";
 const runtimePath = "src/lib/platform-launch-readiness-runtime.ts";
 const runtimeValidatorPath = "src/scripts/validate-platform-launch-readiness-runtime.mjs";
+const commandCenterLaunchPanelPath = "src/app/command-center/platform-launch-readiness-panel.tsx";
+const commandCenterPagePath = "src/app/command-center/page.tsx";
+const commandCenterLaunchPanelValidatorPath = "src/scripts/validate-command-center-launch-readiness-panel.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -129,6 +132,40 @@ expect(runtimeValidatorPath, [
   "supportContextKey=",
 ]);
 
+expect(commandCenterLaunchPanelPath, [
+  "PlatformLaunchReadinessPanel",
+  "projectPlatformLaunchReadiness",
+  "Private launch readiness",
+  "Operator-only release state, blockers, evidence gaps, and hard launch locks.",
+  "Private operator-only launch readiness projection. Not customer-facing.",
+  "launchReadiness.decision",
+  "launchReadiness.safeSummary",
+  "launchReadiness.safeNextActions",
+  "launchReadiness.readyGroups",
+  "launchReadiness.blockedGroups",
+  "launchReadiness.evidenceGaps",
+  "launchReadiness.hardLaunchLocks",
+]);
+
+expect(commandCenterPagePath, [
+  "PlatformLaunchReadinessPanel",
+  "./platform-launch-readiness-panel",
+  "<OperatorControlInterfacePanel />",
+  "<PlatformLaunchReadinessPanel />",
+  "<OperatorReadinessMatrix />",
+  "ClosedCommandCenterPanel",
+  "resolveCommandCenterAccessState",
+]);
+
+expect(commandCenterLaunchPanelValidatorPath, [
+  "Command center launch readiness panel validation passed.",
+  "PlatformLaunchReadinessPanel",
+  "projectPlatformLaunchReadiness",
+  "rawPayload=",
+  "sessionToken=",
+  "supportContextKey=",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-platform-launch-readiness-contracts.mjs",
@@ -168,13 +205,34 @@ forbidden(runtimePath, [
   "delete audit records",
 ]);
 
+forbidden(commandCenterLaunchPanelPath, [
+  "rawPayload=",
+  "rawEvidence=",
+  "rawBillingData=",
+  "secret=",
+  "password=",
+  "sessionToken=",
+  "csrfToken=",
+  "adminKey=",
+  "supportContextKey=",
+  "privateKey=",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "impossible to hack",
+  "never liable",
+  "liability-free",
+  "delete audit records",
+]);
+
 if (failures.length) {
   console.error("Platform launch readiness contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including runtime projection coverage.");
+console.log("Platform launch readiness contracts validation passed, including runtime projection and private command-center launch readiness panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
