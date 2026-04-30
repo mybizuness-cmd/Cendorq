@@ -50,6 +50,13 @@ This private documentation index keeps the Command Center operating standards ea
 
 These paths are command-center-only and safe-summary-only. They must not create public launch approval, paid launch approval, report launch approval, provider configuration approval, payment mapping approval, security readiness approval, or customer-facing claims.
 
+## Required private report evidence paths
+
+- `src/app/api/command-center/report-evidence/orchestration/route.ts`
+- `src/app/command-center/report-evidence-orchestration-panel.tsx`
+
+These paths are command-center-only and safe-summary-only. They must not expose raw evidence, private evidence, provider payloads, customer data, private credentials, internal notes, operator identity, risk internals, attacker details, unsupported guarantees, or customer-facing report approvals.
+
 ## Required cockpit validators
 
 These validators must stay wired into `validate:routes`:
@@ -61,6 +68,8 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-report-truth-engine.mjs`
 - `src/scripts/validate-report-evidence-orchestration.mjs`
 - `src/scripts/validate-report-evidence-orchestration-runtime.mjs`
+- `src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs`
+- `src/scripts/validate-command-center-report-evidence-orchestration-api.mjs`
 - `src/scripts/validate-controlled-market-learning.mjs`
 - `src/scripts/validate-enterprise-operating-standard.mjs`
 - `src/scripts/validate-audit-defense-system.mjs`
@@ -84,4 +93,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
