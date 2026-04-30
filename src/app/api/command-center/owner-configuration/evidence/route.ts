@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { OWNER_CONFIGURATION_EVIDENCE_CONTRACT } from "@/lib/owner-configuration-evidence-contracts";
+import { recordOwnerConfigurationEvidenceBatch } from "@/lib/owner-configuration-evidence-persistence-runtime";
 import {
   summarizeOwnerConfigurationEvidence,
   type OwnerConfigurationApprovalStatus,
@@ -70,6 +71,7 @@ export async function GET() {
       cache: "no-store" as const,
       route: sourceRoute,
       commandCenterOnly: true,
+      persistenceMode: "safe-projection-only" as const,
       publicLaunchAllowed: false,
       paidLaunchAllowed: false,
       reportLaunchAllowed: false,
@@ -89,23 +91,31 @@ export async function POST(request: Request) {
   const inputs = parseEvidenceInputs(body);
   if (!inputs.length) return rejectedResponse();
 
-  const summary = summarizeOwnerConfigurationEvidence(inputs);
+  const persistence = recordOwnerConfigurationEvidenceBatch(inputs, {
+    commandCenterAllowed: true,
+    ownerApprovalRecorded: getBoolean(body, "ownerApprovalRecorded"),
+    releaseCaptainReviewed: getBoolean(body, "releaseCaptainReviewed"),
+    recordedByRole: getString(body, "recordedByRole") ?? "operator",
+    requestIdHash: getString(body, "requestIdHash") ?? "owner-config-safe-summary-request",
+  });
 
   return NextResponse.json(
     {
-      ok: true,
-      status: 202,
+      ok: persistence.ok,
+      status: persistence.status,
       cache: "no-store" as const,
       route: sourceRoute,
       commandCenterOnly: true,
       acceptedInput: "safe-summary-only" as const,
+      persistenceMode: "audit-safe-record-projection" as const,
       publicLaunchAllowed: false,
       paidLaunchAllowed: false,
       reportLaunchAllowed: false,
       securityReadinessApproved: false,
-      summary,
+      summary: persistence.summary,
+      records: persistence.records,
     },
-    { status: 202, headers: safeHeaders() },
+    { status: persistence.status, headers: safeHeaders() },
   );
 }
 
@@ -156,6 +166,16 @@ function safeApprovalStatus(value: unknown): OwnerConfigurationApprovalStatus {
   return "missing";
 }
 
+function getBoolean(body: unknown, key: string) {
+  if (!isRecord(body)) return false;
+  return body[key] === true;
+}
+
+function getString(body: unknown, key: string) {
+  if (!isRecord(body)) return null;
+  return typeof body[key] === "string" ? body[key] : null;
+}
+
 function containsBlockedEvidenceShape(value: unknown): boolean {
   if (Array.isArray(value)) return value.some(containsBlockedEvidenceShape);
   if (!isRecord(value)) return false;
@@ -173,7 +193,7 @@ function containsBlockedEvidenceShape(value: unknown): boolean {
 
 function containsUnsafeFragment(value: string) {
   const normalized = value.toLowerCase();
-  return ["secret=", "password=", "token=", "key=", "rawpayload=", "rawevidence="].some((fragment) => normalized.includes(fragment));
+  return ["secret=", "password=", "token=", "key=", "rawpayload=", "rawevidence=", "credential="].some((fragment) => normalized.includes(fragment));
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
