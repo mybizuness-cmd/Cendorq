@@ -43,6 +43,10 @@ expect(smokePath, [
   "protectedCommandCenterApiChecks",
   "/api/command-center/readiness",
   "The Command Center readiness endpoint is not authorized.",
+  "/api/command-center/owner-configuration/evidence",
+  "/api/command-center/owner-configuration/workflow",
+  "expectError: \"not_available\"",
+  "expectedStatus: 404",
   "checkProtectedJsonErrorRoute",
   "Private configuration checklist",
   "Schema anchors",
@@ -71,17 +75,7 @@ expect(workflowPath, [
 
 expect(packagePath, [
   "validate:routes",
-  "validate-command-center-security-posture.mjs",
-  "validate-command-center-panel-registry.mjs",
-  "validate-command-center-panel-safety.mjs",
-  "validate-command-center-validation-registry.mjs",
-  "validate-report-truth-engine.mjs",
-  "validate-controlled-market-learning.mjs",
-  "validate-enterprise-operating-standard.mjs",
-  "validate-audit-defense-system.mjs",
-  "validate-most-pristine-system-standard.mjs",
-  "validate-command-center-operator-runbook.mjs",
-  "validate-command-center-docs-index.mjs",
+  "node ./src/scripts/validate-routes-chain.mjs",
   "validate-production-smoke-coverage.mjs",
 ]);
 
@@ -91,6 +85,8 @@ expect(runbookPath, [
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
   "validate-command-center-docs-index.mjs",
+  "src/app/api/command-center/owner-configuration/evidence/route.ts",
+  "src/app/api/command-center/owner-configuration/workflow/route.ts",
 ]);
 
 expect(docsIndexPath, [
@@ -102,6 +98,8 @@ expect(docsIndexPath, [
   "src/lib/command-center/enterprise-operating-standard.ts",
   "src/lib/command-center/audit-defense-system.ts",
   "src/lib/command-center/most-pristine-system-standard.ts",
+  "src/app/api/command-center/owner-configuration/evidence/route.ts",
+  "src/app/api/command-center/owner-configuration/workflow/route.ts",
   "docs/command-center-operator-runbook.md",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
@@ -204,7 +202,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, Command Center panel guard validators, validation registry visibility, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, protected owner configuration evidence/workflow API checks, Command Center panel guard validators, validation registry visibility, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
