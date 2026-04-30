@@ -16,6 +16,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Validation registry: `src/lib/command-center/validation-registry.ts`
 - Report truth engine: `src/lib/command-center/report-truth-engine.ts`
 - Report evidence orchestration: `src/lib/command-center/report-evidence-orchestration.ts`
+- Report evidence orchestration runtime: `src/lib/command-center/report-evidence-orchestration-runtime.ts`
 - Report growth system: `src/lib/command-center/report-growth-system.ts`
 - Controlled market learning: `src/lib/command-center/controlled-market-learning.ts`
 - Enterprise operating standard: `src/lib/command-center/enterprise-operating-standard.ts`
@@ -59,6 +60,7 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-command-center-validation-registry.mjs`
 - `src/scripts/validate-report-truth-engine.mjs`
 - `src/scripts/validate-report-evidence-orchestration.mjs`
+- `src/scripts/validate-report-evidence-orchestration-runtime.mjs`
 - `src/scripts/validate-controlled-market-learning.mjs`
 - `src/scripts/validate-enterprise-operating-standard.mjs`
 - `src/scripts/validate-audit-defense-system.mjs`
@@ -82,4 +84,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.

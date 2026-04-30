@@ -91,6 +91,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Report evidence handling may no longer separate source classes, confidence levels, conflicts, plan-fit recommendations, or unsafe customer-facing claims.",
   },
   {
+    key: "report-evidence-orchestration-runtime",
+    label: "Report evidence orchestration runtime",
+    scriptPath: "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
+    category: "ai",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "safe evidence projections, blocked-pattern surfacing, release-captain review posture, customer-output eligibility, and redacted report evidence summaries",
+    failureMeaning: "Report evidence inputs may no longer project into safe summaries, blocked-pattern flags, review posture, or customer-output eligibility before report use.",
+  },
+  {
     key: "controlled-market-learning",
     label: "Controlled market learning",
     scriptPath: "src/scripts/validate-controlled-market-learning.mjs",
