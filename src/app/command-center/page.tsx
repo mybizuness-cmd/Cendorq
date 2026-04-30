@@ -19,6 +19,7 @@ import { CommandCenterHeroPanel } from "./command-center-hero-panel";
 import { CommandCenterOperatingMap } from "./command-center-operating-map";
 import { CustomerOutputApprovalPanel } from "./customer-output-approval-panel";
 import { CommandCenterPanelIndex } from "./panel-index";
+import { LaunchEvidencePanel } from "./launch-evidence-panel";
 import { ModuleRoadmapPanel } from "./module-roadmap-panel";
 import { OperatorControlInterfacePanel } from "./operator-control-interface-panel";
 import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
@@ -73,6 +74,7 @@ export default async function CommandCenterPage() {
         <PlatformLaunchReadinessPanel />
         <ProductionLaunchChecklistPanel />
         <ProductionLaunchFinalBlockerPanel />
+        <LaunchEvidencePanel />
         <OperatorReadinessMatrix />
         <CommandCenterPanelIndex />
         <ValidationRegistryPanel />
