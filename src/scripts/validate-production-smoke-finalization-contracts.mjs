@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/production-smoke-finalization-contracts.ts";
+const platformLaunchPath = "src/lib/platform-launch-readiness-contracts.ts";
+const platformLaunchValidatorPath = "src/scripts/validate-platform-launch-readiness-contracts.mjs";
 const smokePath = "src/scripts/smoke-production.mjs";
 const packagePath = "package.json";
 const failures = [];
@@ -66,6 +68,32 @@ expect(contractPath, [
   "No public conversion route may pass smoke if it relies on fake urgency, guaranteed outcomes, or unsafe data collection.",
 ]);
 
+expect(platformLaunchPath, [
+  "PLATFORM_LAUNCH_READINESS_CONTRACT",
+  "Platform Launch Readiness Contract",
+  "public-entry-and-free-scan",
+  "auth-session-and-welcome",
+  "customer-platform-handoffs",
+  "reports-and-vault",
+  "billing-and-entitlements",
+  "support-and-command-center",
+  "maintenance-and-smoke",
+  "No launch with browser-stored session tokens, CSRF tokens, provider tokens, admin keys, support context keys, or private keys.",
+  "No launch with billing entitlement activated from client-only success redirect or unverified webhook.",
+  "No launch with uncontrolled AI or scheduled maintenance mutating production without validation, approval, rollback, and audit.",
+  "ready-for-public-launch",
+]);
+
+expect(platformLaunchValidatorPath, [
+  "Platform launch readiness contracts validation passed.",
+  "PLATFORM_LAUNCH_READINESS_CONTRACT",
+  "launchWithoutValidateRoutes",
+  "launchWithoutVercelGreen",
+  "launchWithoutProductionSmoke",
+  "fakeUrgencyLaunch",
+  "guaranteedOutcomeLaunch",
+]);
+
 expect(smokePath, [
   "/api/free-check",
   "/api/command-center/readiness",
@@ -102,13 +130,31 @@ forbidden(contractPath, [
   "supportContextKey=",
 ]);
 
+forbidden(platformLaunchPath, [
+  "launch without validation",
+  "launch without vercel",
+  "launch without smoke",
+  "fake urgency is allowed",
+  "guaranteed outcome is allowed",
+  "client-only success redirect activates entitlement",
+  "unverified webhook activates entitlement",
+  "browser-stored session token allowed",
+  "delete audit records",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
+  "sessionToken=",
+  "csrfToken=",
+  "adminKey=",
+  "supportContextKey=",
+]);
+
 if (failures.length) {
   console.error("Production smoke finalization contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Production smoke finalization contracts validation passed.");
+console.log("Production smoke finalization contracts validation passed. Platform launch readiness contract and validator are included in the wired smoke finalization route gate.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
