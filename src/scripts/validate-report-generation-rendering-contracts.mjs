@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const contractPath = "src/lib/report-generation-rendering-contracts.ts";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-report-generation-rendering-contracts.mjs";
 const failures = [];
 
 expect(contractPath, [
@@ -96,7 +98,11 @@ expect(contractPath, [
 
 expect(packagePath, [
   "validate:routes",
-  "node ./src/scripts/validate-report-generation-rendering-contracts.mjs",
+  "node ./src/scripts/validate-routes-chain.mjs",
+]);
+
+expect(routesChainPath, [
+  validatorPath,
 ]);
 
 forbidden(contractPath, [
@@ -126,7 +132,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report generation rendering contracts validation passed.");
+console.log("Report generation rendering contracts validation passed. validate:routes delegates through the orchestrator and the report rendering validator remains wired into the route chain.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
