@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/agent-operating-system-contracts.ts";
+const freeScanFormPath = "src/components/free-check/guided-free-check-form-v2.tsx";
+const freeScanZeroValidatorPath = "src/scripts/validate-free-scan-zero-start-progress.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -107,6 +109,16 @@ expect(contractPath, [
   "uncontrolledAgentDrift",
 ]);
 
+expect(freeScanFormPath, [
+  "country: \"\"",
+  "Select country",
+  "hasMeaningfulInput",
+  "const progress = hasStartedScan ? Math.round(((step + 1) / STEPS.length) * 100) : 0;",
+  "Object.values(values).some((value) => value.trim().length > 0)",
+  "<option value=\"\">Select country</option>",
+]);
+expect(freeScanZeroValidatorPath, ["Free Scan zero-start progress validation passed.", "validate-free-scan-zero-start-progress.mjs"]);
+
 expect(packagePath, ["validate:routes", "validate-agent-operating-system-contracts.mjs"]);
 
 forbidden(contractPath, [
@@ -130,13 +142,21 @@ forbidden(contractPath, [
   "sessionStorage.setItem",
 ]);
 
+forbidden(freeScanFormPath, [
+  "country: \"United States\"",
+  "const progress = Math.round(((step + 1) / STEPS.length) * 100);",
+  "8% complete",
+  "default scan strength 8",
+  "prefilled country",
+]);
+
 if (failures.length) {
   console.error("Agent operating system contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Agent operating system contracts validation passed.");
+console.log("Agent operating system contracts validation passed, including Free Scan zero-start coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
