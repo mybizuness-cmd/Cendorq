@@ -6,6 +6,7 @@ const failures = [];
 const docsIndexPath = "docs/command-center-docs-index.md";
 const runbookPath = "docs/command-center-operator-runbook.md";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 
 validateTextFile(docsIndexPath, [
   "# Command Center Docs Index",
@@ -37,6 +38,13 @@ validateTextFile(docsIndexPath, [
   "src/lib/command-center/automation-readiness.ts",
   "src/lib/command-center/governance-readiness.ts",
   "src/lib/command-center/intelligence-readiness.ts",
+  "src/lib/owner-configuration-evidence-runtime.ts",
+  "src/lib/owner-configuration-evidence-persistence-runtime.ts",
+  "src/lib/owner-configuration-evidence-approval-workflow-runtime.ts",
+  "src/app/api/command-center/owner-configuration/evidence/route.ts",
+  "src/app/api/command-center/owner-configuration/workflow/route.ts",
+  "src/app/command-center/owner-configuration-evidence-panel.tsx",
+  "src/app/command-center/owner-configuration-workflow-panel.tsx",
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
@@ -55,6 +63,12 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-production-smoke-coverage.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-api.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-persistence.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-api.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details",
 ]);
 
@@ -63,11 +77,16 @@ validateTextFile(runbookPath, [
   "Keep every validation guard wired into `validate:routes`.",
   "validate-command-center-operator-runbook.mjs",
   "validate-command-center-docs-index.mjs",
+  "validate-command-center-owner-configuration-workflow-smoke.mjs",
   "Vercel is green.",
 ]);
 
 validateTextFile(packagePath, [
   "validate:routes",
+  "node ./src/scripts/validate-routes-chain.mjs",
+]);
+
+validateTextFile(routesChainPath, [
   "validate-command-center-docs-index.mjs",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
@@ -81,6 +100,7 @@ validateTextFile(packagePath, [
   "validate-customer-experience-standard.mjs",
   "validate-conversion-moat-standard.mjs",
   "validate-insights-conversation-standard.mjs",
+  "validate-command-center-owner-configuration-workflow-smoke.mjs",
 ]);
 
 if (failures.length) {
@@ -89,7 +109,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, validation registry, report truth engine, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, runbook references, and guardrail validators remain discoverable without exposing secrets or live private data.");
+console.log("Command Center docs index validation passed. Private Command Center standards, source-of-truth files, validation registry, report truth engine, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {

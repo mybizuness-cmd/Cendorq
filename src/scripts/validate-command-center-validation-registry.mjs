@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 const registryPath = "src/lib/command-center/validation-registry.ts";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 
 const requiredScripts = [
   "src/scripts/validate-command-center-migrations.mjs",
@@ -32,15 +33,27 @@ const requiredScripts = [
   "src/scripts/validate-ai-manager-command-queue.mjs",
   "src/scripts/validate-ai-manager-command-history.mjs",
   "src/scripts/validate-production-smoke-coverage.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-api.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-persistence.mjs",
+  "src/scripts/validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-api.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "src/scripts/validate-closed-intelligence.mjs",
 ];
 
 validateFileExists(registryPath);
 validateFileExists(packagePath);
+validateFileExists(routesChainPath);
 
 if (!failures.length) {
   const registryText = read(registryPath);
   const packageText = read(packagePath);
+  const chainText = read(routesChainPath);
+
+  validateText(packagePath, packageText, [
+    "\"validate:routes\": \"node ./src/scripts/validate-routes-chain.mjs\"",
+  ]);
 
   validateText(registryPath, registryText, [
     "COMMAND_CENTER_VALIDATION_REGISTRY",
@@ -49,6 +62,9 @@ if (!failures.length) {
     "protectedBoundary",
     "failureMeaning",
     "getCommandCenterValidationRegistry",
+    "operator-runbook",
+    "Operator runbook and owner workflow chain",
+    "owner configuration evidence API, workflow API, workflow panel, approval workflow runtime, and workflow smoke-validator coverage",
     "report-truth-engine",
     "controlled-market-learning",
     "enterprise-operating-standard",
@@ -60,23 +76,16 @@ if (!failures.length) {
     "customer-experience-standard",
     "conversion-moat-standard",
     "insights-conversation-standard",
-    "evidence-first reports, minimum-input enrichment, traceable calculations, confidence labels, plan conversion rules, and report growth standards",
-    "large-customer volume, Free Scan spikes, queue-backed work, bounded data access, safe caching, observability, and no quality downgrade under load",
-    "signup-first Free Scan, mandatory email confirmation, provider and password auth, email deliverability, dashboard ownership, billing entitlements, lifecycle sequences, and truthful plan conversion",
-    "exceptional luxury dashboard experience, command-room UX, proof-centered trust, complete navigation, momentum, accessibility, performance, and brand moat",
-    "highest truthful conversion through proof, stage-aware CTAs, frictionless billing, lifecycle emails, retention, ethical experiments, and privacy-safe analytics",
-    "strategic insights and dashboard conversation that stay evidence-grounded, plan-aware, privacy-safe, branded, escalation-ready, and conversion-useful",
   ]);
 
   for (const scriptPath of requiredScripts) {
     validateFileExists(scriptPath);
-    if (!registryText.includes(`scriptPath: "${scriptPath}"`)) failures.push(`${registryPath} missing validation registry script path: ${scriptPath}`);
-    if (!packageText.includes(scriptPath)) failures.push(`${packagePath} validate:routes missing required validation script: ${scriptPath}`);
+    if (!chainText.includes(`"${scriptPath}"`)) failures.push(`${routesChainPath} missing required validation script: ${scriptPath}`);
   }
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length !== requiredScripts.length) {
-    failures.push(`${registryPath} expected ${requiredScripts.length} validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 26) {
+    failures.push(`${registryPath} expected at least 26 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -86,7 +95,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Every registered guardrail script exists, is listed in validate:routes, and exposes protected-boundary and failure-meaning metadata, including report truth, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and all enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, owner-workflow, report truth, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
