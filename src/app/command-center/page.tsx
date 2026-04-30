@@ -25,6 +25,7 @@ import { ModuleRoadmapPanel } from "./module-roadmap-panel";
 import { OperatorControlInterfacePanel } from "./operator-control-interface-panel";
 import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
 import { OptimizationLibraryPanel } from "./optimization-library-panel";
+import { OwnerConfigurationEvidencePanel } from "./owner-configuration-evidence-panel";
 import { PlanControlPanel } from "./plan-control-panel";
 import { PlatformLaunchReadinessPanel } from "./platform-launch-readiness-panel";
 import { ProductionLaunchChecklistPanel } from "./production-launch-checklist-panel";
@@ -79,6 +80,7 @@ export default async function CommandCenterPage() {
         <LaunchEvidencePanel />
         <ProductionSmokeTargetPanel />
         <AgentOperatingSystemPanel />
+        <OwnerConfigurationEvidencePanel />
         <OperatorReadinessMatrix />
         <CommandCenterPanelIndex />
         <ValidationRegistryPanel />
