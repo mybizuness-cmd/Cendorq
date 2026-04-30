@@ -58,7 +58,7 @@ export function projectProductionSmokeRoute(input: ProductionSmokeRouteInput): P
   const group = PRODUCTION_SMOKE_TARGET_CONTRACT.routeGroups.find((candidate) => candidate.key === input.routeGroupKey);
   const expectedPosture = group?.expectedPosture ?? "unexpected";
   const observedPosture = input.observedPosture ?? "unexpected";
-  const allowedRoute = Boolean(group?.routes.includes(input.route));
+  const allowedRoute = Boolean((group?.routes as readonly string[] | undefined)?.includes(input.route));
   const matchesExpectedPosture = observedPosture === expectedPosture;
 
   return {
