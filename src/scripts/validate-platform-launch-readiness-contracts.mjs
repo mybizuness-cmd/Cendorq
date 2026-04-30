@@ -28,6 +28,8 @@ const finalBlockerPanelPath = "src/app/command-center/production-launch-final-bl
 const finalBlockerPanelValidatorPath = "src/scripts/validate-command-center-production-launch-final-blocker-panel.mjs";
 const launchEvidenceContractPath = "src/lib/launch-evidence-persistence-contracts.ts";
 const launchEvidenceValidatorPath = "src/scripts/validate-launch-evidence-persistence-contracts.mjs";
+const launchEvidenceRuntimePath = "src/lib/launch-evidence-persistence-runtime.ts";
+const launchEvidenceRuntimeValidatorPath = "src/scripts/validate-launch-evidence-persistence-runtime.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -80,6 +82,20 @@ expect(launchEvidenceContractPath, [
   "Do not allow evidence record deletion, rewrite, hidden overwrite, or production mutation from evidence persistence paths.",
 ]);
 expect(launchEvidenceValidatorPath, ["Launch evidence persistence contracts validation passed.", "LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT", "launch-evidence-persistence-contracts.ts"]);
+expect(launchEvidenceRuntimePath, [
+  "projectLaunchEvidence",
+  "projectLaunchEvidenceBatch",
+  "summarizeLaunchEvidenceReadiness",
+  "LaunchEvidenceInput",
+  "LaunchEvidenceProjection",
+  "LaunchEvidencePersistenceResult",
+  "appendOnly: true",
+  "publicClaimAllowed: false",
+  "paidClaimAllowed: false",
+  "reportClaimAllowed: false",
+  "redacted-safe-value",
+]);
+expect(launchEvidenceRuntimeValidatorPath, ["Launch evidence persistence runtime validation passed.", "projectLaunchEvidence", "summarizeLaunchEvidenceReadiness", "launch-evidence-persistence-runtime.ts"]);
 
 expect(finalBlockerPath, [
   "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT",
@@ -95,34 +111,9 @@ expect(finalBlockerPath, [
   "Final blocker checks may guide launch review but must not mutate production state.",
 ]);
 expect(finalBlockerValidatorPath, ["Production launch final blocker contracts validation passed.", "PRODUCTION_LAUNCH_FINAL_BLOCKER_CONTRACT", "Production Launch Final Blocker Contract"]);
-expect(finalBlockerRuntimePath, [
-  "projectProductionLaunchFinalBlockers",
-  "ProductionLaunchFinalBlockerInput",
-  "ProductionLaunchFinalBlockerProjection",
-  "ProductionLaunchFinalBlockerSummary",
-  "ownerConfigurationComplete",
-  "productionSmokeComplete",
-  "rollbackEvidenceComplete",
-  "auditEvidenceComplete",
-  "hardLocksClear",
-  "publicClaimAllowed: allComplete",
-  "paidClaimAllowed: ownerComplete && hardLocksClear",
-  "reportClaimAllowed: smokeComplete && rollbackComplete && auditComplete && hardLocksClear",
-]);
+expect(finalBlockerRuntimePath, ["projectProductionLaunchFinalBlockers", "ProductionLaunchFinalBlockerInput", "ProductionLaunchFinalBlockerProjection", "ProductionLaunchFinalBlockerSummary", "ownerConfigurationComplete", "productionSmokeComplete", "rollbackEvidenceComplete", "auditEvidenceComplete", "hardLocksClear", "publicClaimAllowed: allComplete", "paidClaimAllowed: ownerComplete && hardLocksClear", "reportClaimAllowed: smokeComplete && rollbackComplete && auditComplete && hardLocksClear"]);
 expect(finalBlockerRuntimeValidatorPath, ["Production launch final blocker runtime validation passed.", "projectProductionLaunchFinalBlockers", "production-launch-final-blocker-runtime.ts"]);
-expect(finalBlockerPanelPath, [
-  "ProductionLaunchFinalBlockerPanel",
-  "projectProductionLaunchFinalBlockers",
-  "Final blocker control",
-  "Operator-only launch claim blockers before any public, paid, or report launch claim.",
-  "This panel does not launch the platform.",
-  "finalBlockers.releaseState",
-  "finalBlockers.publicClaimAllowed",
-  "finalBlockers.paidClaimAllowed",
-  "finalBlockers.reportClaimAllowed",
-  "finalBlockers.blockers",
-  "finalBlockers.safeNextActions",
-]);
+expect(finalBlockerPanelPath, ["ProductionLaunchFinalBlockerPanel", "projectProductionLaunchFinalBlockers", "Final blocker control", "Operator-only launch claim blockers before any public, paid, or report launch claim.", "This panel does not launch the platform.", "finalBlockers.releaseState", "finalBlockers.publicClaimAllowed", "finalBlockers.paidClaimAllowed", "finalBlockers.reportClaimAllowed", "finalBlockers.blockers", "finalBlockers.safeNextActions"]);
 expect(finalBlockerPanelValidatorPath, ["Command center production launch final blocker panel validation passed.", "ProductionLaunchFinalBlockerPanel", "production-launch-final-blocker-panel.tsx"]);
 
 expect(runtimePath, ["projectPlatformLaunchReadiness", "safeSummary", "readyGroups", "blockedGroups", "evidenceGaps", "safeNextActions", "hardLaunchLocks", "blockedPatterns"]);
@@ -146,7 +137,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-la
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -177,7 +168,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including launch evidence persistence coverage.");
+console.log("Platform launch readiness contracts validation passed, including launch evidence persistence runtime coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
