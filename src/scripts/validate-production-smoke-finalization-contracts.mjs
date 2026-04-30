@@ -7,6 +7,7 @@ const platformLaunchPath = "src/lib/platform-launch-readiness-contracts.ts";
 const platformLaunchValidatorPath = "src/scripts/validate-platform-launch-readiness-contracts.mjs";
 const smokePath = "src/scripts/smoke-production.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
 expect(contractPath, [
@@ -17,7 +18,19 @@ expect(contractPath, [
   "closed-command-center-routes",
   "protected-api-boundaries",
   "finalization-contracts",
+  "owner configuration evidence/workflow",
   "without requiring live secrets in default smoke runs",
+]);
+
+expect(contractPath, [
+  "/api/command-center/owner-configuration/evidence",
+  "/api/command-center/owner-configuration/workflow",
+  "owner evidence/workflow protected denials",
+  "owner configuration evidence API validation",
+  "owner configuration workflow API validation",
+  "owner configuration workflow protections cannot drift silently",
+  "command-center preview keys",
+  "owner evidence payloads",
 ]);
 
 expect(contractPath, [
@@ -26,7 +39,7 @@ expect(contractPath, [
   "report-generation-rendering-contracts",
   "billing-checkout-contracts",
   "controlled-maintenance-contracts",
-  "Default production smoke must not require live customer session tokens, CSRF tokens, provider secrets, webhook secrets, admin keys, support context keys, payment provider keys, or real payment links.",
+  "Default production smoke must not require live customer session tokens, CSRF tokens, provider secrets, webhook secrets, admin keys, support context keys, payment provider keys, command-center preview keys, owner evidence payloads, or real payment links.",
   "Default production smoke must treat protected-route denial as success when the expected safe denial status and copy are returned.",
 ]);
 
@@ -46,13 +59,17 @@ expect(contractPath, [
   "rawPayloadLogged",
   "rawEvidenceLogged",
   "rawBillingDataLogged",
+  "rawOwnerEvidenceLogged",
+  "ownerEvidencePayloadLogged",
   "providerSecretLogged",
   "sessionTokenLogged",
   "csrfTokenLogged",
   "adminKeyLogged",
   "supportContextKeyLogged",
+  "commandCenterPreviewKeyLogged",
   "accountExistenceLeakSmoke",
   "commandCenterLeakSmoke",
+  "ownerEvidenceLeakSmoke",
   "clientAuthoritativeBillingSmoke",
   "unverifiedWebhookEntitlementSmoke",
   "pendingReportFinalSmoke",
@@ -63,9 +80,10 @@ expect(contractPath, [
 
 expect(contractPath, [
   "No release is final unless production smoke coverage and all finalization contract validators are wired into validate:routes.",
-  "No smoke check may require production mutation, real payment, real customer session, or uncontrolled AI action.",
+  "No smoke check may require production mutation, real payment, real customer session, owner evidence payload, command-center preview key, or uncontrolled AI action.",
   "No protected route may pass smoke by exposing internal data; safe denial is acceptable and expected where authorization is absent.",
   "No public conversion route may pass smoke if it relies on fake urgency, guaranteed outcomes, or unsafe data collection.",
+  "No owner configuration evidence or workflow route may pass smoke by exposing raw provider payloads, protected config values, private credentials, private customer data, or private audit payloads.",
 ]);
 
 expect(platformLaunchPath, [
@@ -97,6 +115,8 @@ expect(platformLaunchValidatorPath, [
 expect(smokePath, [
   "/api/free-check",
   "/api/command-center/readiness",
+  "/api/command-center/owner-configuration/evidence",
+  "/api/command-center/owner-configuration/workflow",
   "protected JSON route should return ok=false",
   "checkProtectedJsonErrorRoute",
   "checkClosedCommandCenterRoute",
@@ -106,7 +126,14 @@ expect(smokePath, [
 
 expect(packagePath, [
   "validate:routes",
-  "node ./src/scripts/validate-production-smoke-finalization-contracts.mjs",
+  "node ./src/scripts/validate-routes-chain.mjs",
+]);
+
+expect(routesChainPath, [
+  "node:child_process",
+  "validate-production-smoke-finalization-contracts.mjs",
+  "validate-command-center-owner-configuration-evidence-api.mjs",
+  "validate-command-center-owner-configuration-workflow-api.mjs",
 ]);
 
 forbidden(contractPath, [
@@ -154,7 +181,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke finalization contracts validation passed. Platform launch readiness contract and validator are included in the wired smoke finalization route gate.");
+console.log("Production smoke finalization contracts validation passed. Platform launch readiness contract, owner evidence/workflow protected smoke coverage, and validator wiring are included in the wired smoke finalization route gate.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
