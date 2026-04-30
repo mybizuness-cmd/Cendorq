@@ -1,0 +1,106 @@
+export const OWNER_CONFIGURATION_EVIDENCE_CONTRACT = {
+  id: "owner-configuration-evidence-contract",
+  name: "Owner Configuration Evidence Contract",
+  purpose:
+    "Define private owner approval evidence for launch-critical configuration areas without exposing provider payloads, protected configuration values, operator private identity, or customer data.",
+  evidenceAreas: [
+    {
+      key: "auth-provider-configuration",
+      label: "Auth provider configuration",
+      purpose: "Records owner approval that authentication provider posture is configured for launch review.",
+      requiredEvidence: ["provider selected", "verified-email posture confirmed", "safe failure posture confirmed", "session boundary confirmed"],
+    },
+    {
+      key: "payment-mapping-configuration",
+      label: "Payment mapping configuration",
+      purpose: "Records owner approval that checkout mapping and paid access posture are ready for paid launch review.",
+      requiredEvidence: ["owner payment mapping approved", "paid access boundary confirmed", "entitlement verification posture confirmed", "billing recovery path confirmed"],
+    },
+    {
+      key: "protected-runtime-configuration",
+      label: "Protected runtime configuration",
+      purpose: "Records owner approval that protected runtime configuration is server-side and not browser exposed.",
+      requiredEvidence: ["server-side configuration posture confirmed", "browser exposure excluded", "generic denial posture confirmed", "rollback path confirmed"],
+    },
+    {
+      key: "launch-contact-configuration",
+      label: "Launch contact configuration",
+      purpose: "Records owner approval that launch contact and escalation posture are ready for operator review.",
+      requiredEvidence: ["owner contact posture confirmed", "launch escalation path confirmed", "support handoff confirmed", "audit contact path confirmed"],
+    },
+    {
+      key: "support-identity-configuration",
+      label: "Support identity configuration",
+      purpose: "Records owner approval that support sender identity, support route posture, and customer-safe support language are ready.",
+      requiredEvidence: ["support identity confirmed", "support route posture confirmed", "safe support language confirmed", "no unsafe collection request confirmed"],
+    },
+  ],
+  safeProjectionFields: [
+    "evidenceId",
+    "areaKey",
+    "approvalStatus",
+    "safeSummary",
+    "recordedAt",
+    "recordedByRole",
+    "auditId",
+    "sourceRoute",
+    "requestIdHash",
+  ],
+  blockedProjectionFields: [
+    "rawProviderPayload",
+    "paymentProviderPayload",
+    "protectedConfigValue",
+    "privateCredentialMaterial",
+    "operatorPrivateIdentity",
+    "operatorEmail",
+    "operatorIp",
+    "privateCustomerData",
+    "internalNotes",
+    "privateAuditPayload",
+    "crossCustomerData",
+  ],
+  approvalRules: [
+    "Owner configuration evidence is command-center-only and never customer-facing.",
+    "Missing owner configuration evidence must not be treated as complete.",
+    "Pending owner configuration evidence must not be treated as complete.",
+    "Owner configuration evidence alone must not create public launch approval.",
+    "Owner configuration evidence alone must not create paid launch approval.",
+    "Paid access still requires provider-confirmed entitlement and customer ownership checks.",
+    "Owner configuration evidence must use safe summaries instead of provider payloads or protected configuration values.",
+    "Owner configuration evidence must preserve audit proof and must not claim required audit records are deleted.",
+  ],
+  releaseRules: [
+    "Do not expose owner configuration evidence through customer routes, customer emails, notifications, support pages, billing center, report vault, public pages, or crawlers.",
+    "Do not use owner configuration evidence to bypass production smoke, rollback evidence, audit evidence, or hard-lock clearance.",
+    "Do not allow owner configuration evidence record deletion, rewrite, hidden overwrite, or production mutation from evidence paths.",
+    "Do not present protected runtime configuration as complete until owner approval evidence is recorded.",
+  ],
+} as const;
+
+export const OWNER_CONFIGURATION_EVIDENCE_BLOCKED_PATTERNS = [
+  "ownerEvidencePublicProjection",
+  "ownerEvidenceCustomerProjection",
+  "missingOwnerConfigComplete",
+  "pendingOwnerConfigComplete",
+  "ownerEvidenceOnlyLaunchClaim",
+  "ownerEvidenceOnlyPaidClaim",
+  "ownerEvidenceBypassesSmoke",
+  "ownerEvidenceBypassesRollback",
+  "ownerEvidenceBypassesAudit",
+  "ownerEvidenceBypassesHardLock",
+  "rawProviderPayloadProjection",
+  "paymentProviderPayloadProjection",
+  "protectedConfigValueProjection",
+  "privateCredentialMaterialProjection",
+  "operatorPrivateIdentityProjection",
+  "privateCustomerDataProjection",
+  "privateAuditPayloadProjection",
+  "crossCustomerDataProjection",
+  "ownerEvidenceDeletion",
+  "ownerEvidenceRewrite",
+  "ownerEvidenceProductionMutation",
+] as const;
+
+export function getOwnerConfigurationEvidenceContract() {
+  return OWNER_CONFIGURATION_EVIDENCE_CONTRACT;
+}
