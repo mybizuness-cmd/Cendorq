@@ -1,0 +1,140 @@
+export const CONTROLLED_MAINTENANCE_CONTRACT = {
+  id: "controlled-maintenance-architecture",
+  name: "Controlled Maintenance Architecture",
+  purpose:
+    "Keep Cendorq current, secure, validated, and scalable through scheduled review and safe update queues without uncontrolled AI changes or automatic production mutation.",
+  operatingStandard: [
+    "Maintenance may discover, classify, and queue updates, but production-impacting changes require validation and approval gates.",
+    "Automated checks must prefer evidence, primary source references, deterministic validators, smoke coverage, and rollback planning over opaque agent judgment.",
+    "Security, dependency, schema, route, performance, content-claim, and customer-surface drift must be visible before release.",
+    "Every maintenance action must preserve auditability, least privilege, customer-safe projection, and no secret exposure.",
+  ],
+  reviewStreams: [
+    {
+      key: "dependency-review",
+      label: "Dependency review",
+      cadence: "scheduled and release-triggered",
+      purpose: "Detect outdated or vulnerable dependencies and queue upgrades with validation and rollback requirements.",
+      requiredEvidence: ["package metadata", "lockfile diff", "security advisory reference", "build and route validation result"],
+      approvalGate: "human or explicitly authorized release approval before dependency changes reach production",
+    },
+    {
+      key: "security-advisory-monitoring",
+      label: "Security advisory monitoring",
+      cadence: "high-priority scheduled review",
+      purpose: "Identify relevant advisories, classify severity, and queue defense-in-depth patches without exposing exploit payloads.",
+      requiredEvidence: ["affected package or route", "severity classification", "patch plan", "customer-data exposure assessment"],
+      approvalGate: "security review approval for risky or customer-impacting changes",
+    },
+    {
+      key: "validation-registry-checks",
+      label: "Validation registry checks",
+      cadence: "every release and scheduled drift review",
+      purpose: "Confirm validators remain wired into validate:routes and continue covering new surfaces.",
+      requiredEvidence: ["validator file", "package.json validate:routes entry", "expected phrases", "blocked patterns"],
+      approvalGate: "route validation must pass before merge",
+    },
+    {
+      key: "smoke-test-scheduling",
+      label: "Smoke test scheduling",
+      cadence: "pre-release and production-health review",
+      purpose: "Run production smoke coverage for public entry, customer platform, support, billing, report, and command-center critical paths.",
+      requiredEvidence: ["route status", "no-store policy where required", "safe failure behavior", "handoff destination"],
+      approvalGate: "failed smoke checks block release until patched or explicitly deferred with audit reason",
+    },
+    {
+      key: "performance-health-checks",
+      label: "Performance health checks",
+      cadence: "scheduled review and after major UI changes",
+      purpose: "Watch page weight, rendering posture, route responsiveness, and customer friction on high-conversion surfaces.",
+      requiredEvidence: ["route list", "performance note", "risk rating", "optimization plan"],
+      approvalGate: "material regressions require approval and rollback plan",
+    },
+    {
+      key: "schema-drift-checks",
+      label: "Schema drift checks",
+      cadence: "release-triggered",
+      purpose: "Detect contract, record, status, support, billing, report, and lifecycle schema changes before runtime drift reaches customers.",
+      requiredEvidence: ["schema key", "consumer route", "projection behavior", "backward compatibility note"],
+      approvalGate: "schema changes require migration, validation, and rollback posture",
+    },
+    {
+      key: "route-drift-checks",
+      label: "Route drift checks",
+      cadence: "release-triggered",
+      purpose: "Confirm public, customer, API, and command routes remain mapped, protected, and coherent.",
+      requiredEvidence: ["route path", "guard state", "handoff state", "safe fallback"],
+      approvalGate: "unmapped or unguarded protected routes block release",
+    },
+    {
+      key: "content-claim-drift-checks",
+      label: "Content and claim drift checks",
+      cadence: "scheduled review and marketing/content releases",
+      purpose: "Prevent stale, exaggerated, unsupported, legally risky, or dark-pattern claims across public and customer surfaces.",
+      requiredEvidence: ["surface", "claim", "supporting basis", "approved safer wording"],
+      approvalGate: "unsupported outcome, ROI, legal, refund, security, billing, or business-result promises must be removed before release",
+    },
+  ],
+  safeUpdateQueue: {
+    allowedStates: ["discovered", "classified", "queued", "validated", "approved", "released", "rolled-back", "deferred"],
+    requiredFields: [
+      "updateId",
+      "streamKey",
+      "riskLevel",
+      "evidenceSummary",
+      "validationPlan",
+      "approvalGate",
+      "rollbackPlan",
+      "auditReason",
+    ],
+    releaseRequirement:
+      "No queued update may mutate production automatically; release requires validation, approval state, rollback plan, and audit record.",
+  },
+  hardLocks: [
+    "No uncontrolled AI agent may change production code, content, customer records, billing state, support state, reports, or security posture.",
+    "No automatic breaking change may bypass validation, approval, and rollback requirements.",
+    "No maintenance output may expose raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys.",
+    "No automated maintenance copy may claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI/business outcomes.",
+    "No audit record required for accountability, correction history, access review, or incident reconstruction may be silently deleted.",
+  ],
+  releaseRules: [
+    "Every maintenance release must pass validate:routes or identify an approved, audited exception.",
+    "Every risky update requires a rollback plan before merge.",
+    "Every customer-facing claim change must preserve truthful, verifiable, bounded language.",
+    "Every protected route or API change must preserve closed-by-default access, customer ownership, verified access, and safe projection.",
+  ],
+} as const;
+
+export type ControlledMaintenanceReviewStreamKey =
+  (typeof CONTROLLED_MAINTENANCE_CONTRACT.reviewStreams)[number]["key"];
+
+export type ControlledMaintenanceQueueState =
+  (typeof CONTROLLED_MAINTENANCE_CONTRACT.safeUpdateQueue.allowedStates)[number];
+
+export const CONTROLLED_MAINTENANCE_BLOCKED_PATTERNS = [
+  "uncontrolledProductionMutation",
+  "autonomousBreakingChange",
+  "agentDrift",
+  "validationBypass",
+  "approvalBypass",
+  "rollbackMissing",
+  "auditDeletionClaim",
+  "rawPayloadExposure",
+  "rawEvidenceExposure",
+  "rawSecurityPayloadExposure",
+  "rawBillingDataExposure",
+  "internalNotesExposure",
+  "operatorIdentityExposure",
+  "riskInternalsExposure",
+  "attackerDetailsExposure",
+  "promptExposure",
+  "secretExposure",
+  "sessionTokenExposure",
+  "csrfTokenExposure",
+  "adminKeyExposure",
+  "supportContextKeyExposure",
+  "guaranteedOutcomeClaim",
+  "guaranteedRoiClaim",
+  "impossibleToHackClaim",
+  "liabilityFreeClaim",
+] as const;
