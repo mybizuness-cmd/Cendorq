@@ -34,6 +34,18 @@ This private documentation index keeps the Command Center operating standards ea
 - Automation readiness: `src/lib/command-center/automation-readiness.ts`
 - Governance readiness: `src/lib/command-center/governance-readiness.ts`
 - Intelligence readiness: `src/lib/command-center/intelligence-readiness.ts`
+- Owner configuration evidence runtime: `src/lib/owner-configuration-evidence-runtime.ts`
+- Owner configuration evidence persistence runtime: `src/lib/owner-configuration-evidence-persistence-runtime.ts`
+- Owner configuration evidence approval workflow runtime: `src/lib/owner-configuration-evidence-approval-workflow-runtime.ts`
+
+## Required private owner configuration paths
+
+- `src/app/api/command-center/owner-configuration/evidence/route.ts`
+- `src/app/api/command-center/owner-configuration/workflow/route.ts`
+- `src/app/command-center/owner-configuration-evidence-panel.tsx`
+- `src/app/command-center/owner-configuration-workflow-panel.tsx`
+
+These paths are command-center-only and safe-summary-only. They must not create public launch approval, paid launch approval, report launch approval, provider configuration approval, payment mapping approval, security readiness approval, or customer-facing claims.
 
 ## Required cockpit validators
 
@@ -57,6 +69,12 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-command-center-operator-runbook.mjs`
 - `src/scripts/validate-command-center-docs-index.mjs`
 - `src/scripts/validate-production-smoke-coverage.mjs`
+- `src/scripts/validate-command-center-owner-configuration-evidence-api.mjs`
+- `src/scripts/validate-command-center-owner-configuration-evidence-persistence.mjs`
+- `src/scripts/validate-command-center-owner-configuration-evidence-approval-workflow.mjs`
+- `src/scripts/validate-command-center-owner-configuration-workflow-api.mjs`
+- `src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs`
+- `src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs`
 
 ## Maintenance rule
 

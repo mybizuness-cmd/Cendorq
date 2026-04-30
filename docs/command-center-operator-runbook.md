@@ -16,6 +16,24 @@ The Command Center is a private, gated, metadata-only operating cockpit. It must
 - Keep every validation guard wired into `validate:routes`.
 - Never claim that Cendorq is unhackable, risk-free, or perfectly secure.
 
+## Owner configuration evidence workflow
+
+Owner configuration evidence must remain private, command-center-only, and safe-summary-only.
+
+Required owner configuration paths:
+
+- `src/app/api/command-center/owner-configuration/evidence/route.ts`
+- `src/app/api/command-center/owner-configuration/workflow/route.ts`
+- `src/lib/owner-configuration-evidence-runtime.ts`
+- `src/lib/owner-configuration-evidence-persistence-runtime.ts`
+- `src/lib/owner-configuration-evidence-approval-workflow-runtime.ts`
+- `src/app/command-center/owner-configuration-evidence-panel.tsx`
+- `src/app/command-center/owner-configuration-workflow-panel.tsx`
+
+Owner configuration evidence may record safe summaries, safe hashes, owner approval posture, and release-captain review posture. It must not expose raw provider payloads, protected config values, private credentials, customer data, private audit payloads, operator private identity, or cross-customer data.
+
+Missing, pending, or blocked evidence is incomplete. Owner evidence alone never creates public launch approval, paid launch approval, report launch approval, provider configuration approval, payment mapping approval, security readiness approval, or customer-facing claims. Release captain remains the final validator, and release-captain review tracking still does not create launch approval by itself.
+
 ## Change workflow
 
 1. Add or update source-of-truth metadata in `src/lib/command-center/*`.
@@ -36,6 +54,12 @@ The Command Center protection posture depends on these validators remaining acti
 - `validate-command-center-schema.mjs`
 - `validate-command-center-migrations.mjs`
 - `validate-production-smoke-coverage.mjs`
+- `validate-command-center-owner-configuration-evidence-api.mjs`
+- `validate-command-center-owner-configuration-evidence-persistence.mjs`
+- `validate-command-center-owner-configuration-evidence-approval-workflow.mjs`
+- `validate-command-center-owner-configuration-workflow-api.mjs`
+- `validate-command-center-owner-configuration-workflow-panel.mjs`
+- `validate-command-center-owner-configuration-workflow-smoke.mjs`
 - `validate-closed-intelligence.mjs`
 
 ## Panel standards
