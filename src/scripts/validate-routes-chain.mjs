@@ -26,6 +26,7 @@ const validators = [
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
   "src/scripts/validate-report-evidence-record-runtime.mjs",
+  "src/scripts/validate-command-center-report-evidence-record-panel.mjs",
   "src/scripts/validate-report-generation-rendering-contracts.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-controlled-maintenance-contracts.mjs",
