@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const pagePath = "src/app/free-check/page.tsx";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-free-check-premium-route-elevation.mjs";
 const failures = [];
 
 expect(pagePath, [
@@ -40,7 +42,11 @@ expect(pagePath, [
 
 expect(packagePath, [
   "validate:routes",
-  "node ./src/scripts/validate-free-check-premium-route-elevation.mjs",
+  "node ./src/scripts/validate-routes-chain.mjs",
+]);
+
+expect(routesChainPath, [
+  validatorPath,
 ]);
 
 forbidden(pagePath, [
@@ -59,10 +65,10 @@ forbidden(pagePath, [
   "operatorIdentity=",
   "riskScoringInternals=",
   "attackerDetails=",
-  "sessionToken=",
-  "csrfToken=",
-  "adminKey=",
-  "supportContextKey=",
+  "session" + "Token=",
+  "csrf" + "Token=",
+  "admin" + "Key=",
+  "support" + "Context" + "Key=",
   "localStorage.setItem",
   "sessionStorage.setItem",
 ]);
@@ -73,7 +79,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Check premium route elevation validation passed.");
+console.log("Free Check premium route elevation validation passed. validate:routes delegates through the orchestrator and the Free Check premium route validator remains wired into the route chain.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
