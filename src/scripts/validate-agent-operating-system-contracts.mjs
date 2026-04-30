@@ -7,6 +7,8 @@ const freeScanFormPath = "src/components/free-check/guided-free-check-form-v2.ts
 const freeScanZeroValidatorPath = "src/scripts/validate-free-scan-zero-start-progress.mjs";
 const panelPath = "src/app/command-center/agent-operating-system-panel.tsx";
 const panelValidatorPath = "src/scripts/validate-command-center-agent-operating-system-panel.mjs";
+const ownerEvidencePanelPath = "src/app/command-center/owner-configuration-evidence-panel.tsx";
+const ownerEvidencePanelValidatorPath = "src/scripts/validate-command-center-owner-configuration-evidence-panel.mjs";
 const pagePath = "src/app/command-center/page.tsx";
 const packagePath = "package.json";
 const failures = [];
@@ -142,19 +144,53 @@ expect(panelPath, [
   "Future forecast lanes",
   "They do not approve merges, launches, provider configuration, payment mapping, report release, or customer-facing claims.",
 ]);
-expect(pagePath, [
-  "AgentOperatingSystemPanel",
-  "./agent-operating-system-panel",
-  "<ProductionSmokeTargetPanel />",
-  "<AgentOperatingSystemPanel />",
-  "<OperatorReadinessMatrix />",
-  "ClosedCommandCenterPanel",
-  "resolveCommandCenterAccessState",
-]);
 expect(panelValidatorPath, [
   "Command center agent operating system panel validation passed.",
   "AgentOperatingSystemPanel",
   "agent-operating-system-panel.tsx",
+]);
+
+expect(ownerEvidencePanelPath, [
+  "OwnerConfigurationEvidencePanel",
+  "summarizeOwnerConfigurationEvidence",
+  "Owner configuration evidence",
+  "Private owner approval posture for auth, payments, protected runtime, launch contact, and support identity.",
+  "Missing or pending evidence is not complete",
+  "owner evidence alone never creates public launch, paid launch, report launch, or security readiness approval",
+  "ownerEvidence.approvedCount",
+  "ownerEvidence.pendingCount",
+  "ownerEvidence.missingCount",
+  "ownerEvidence.paidLaunchAllowed",
+  "ownerEvidence.projections",
+]);
+expect(ownerEvidencePanelPath, [
+  "auth-provider-configuration",
+  "payment-mapping-configuration",
+  "protected-runtime-configuration",
+  "launch-contact-configuration",
+  "support-identity-configuration",
+  "approvalStatus: \"pending\"",
+  "approvalStatus: \"missing\"",
+  "Public launch: {projection.publicLaunchAllowed ? \"allowed\" : \"blocked\"}",
+  "Paid launch: {projection.paidLaunchAllowed ? \"allowed\" : \"blocked\"}",
+]);
+expect(ownerEvidencePanelValidatorPath, [
+  "Command center owner configuration evidence panel validation passed.",
+  "OwnerConfigurationEvidencePanel",
+  "owner-configuration-evidence-panel.tsx",
+]);
+
+expect(pagePath, [
+  "AgentOperatingSystemPanel",
+  "OwnerConfigurationEvidencePanel",
+  "./agent-operating-system-panel",
+  "./owner-configuration-evidence-panel",
+  "<ProductionSmokeTargetPanel />",
+  "<AgentOperatingSystemPanel />",
+  "<OwnerConfigurationEvidencePanel />",
+  "<OperatorReadinessMatrix />",
+  "ClosedCommandCenterPanel",
+  "resolveCommandCenterAccessState",
 ]);
 
 expect(packagePath, ["validate:routes", "validate-agent-operating-system-contracts.mjs"]);
@@ -205,13 +241,31 @@ forbidden(panelPath, [
   "liability-free",
 ]);
 
+forbidden(ownerEvidencePanelPath, [
+  "publicLaunchAllowed: true",
+  "paidLaunchAllowed: true",
+  "rawProviderPayload=",
+  "paymentProviderPayload=",
+  "protectedConfigValue=",
+  "privateCredentialMaterial=",
+  "operatorPrivateIdentity=",
+  "privateCustomerData=",
+  "privateAuditPayload=",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "impossible to hack",
+  "liability-free",
+]);
+
 if (failures.length) {
   console.error("Agent operating system contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Agent operating system contracts validation passed, including Free Scan zero-start and command-center panel coverage.");
+console.log("Agent operating system contracts validation passed, including Free Scan zero-start, agent panel, and owner evidence panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
