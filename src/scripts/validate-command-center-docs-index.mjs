@@ -50,6 +50,10 @@ validateTextFile(docsIndexPath, [
   "src/app/api/command-center/owner-configuration/workflow/route.ts",
   "src/app/command-center/owner-configuration-evidence-panel.tsx",
   "src/app/command-center/owner-configuration-workflow-panel.tsx",
+  "src/app/api/command-center/report-evidence/orchestration/route.ts",
+  "src/app/command-center/report-evidence-orchestration-panel.tsx",
+  "command-center-only and safe-summary-only",
+  "customer-facing report approvals",
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
@@ -57,6 +61,8 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-report-evidence-orchestration.mjs",
   "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
+  "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
+  "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -77,7 +83,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-owner-configuration-workflow-api.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
-  "report evidence runtime",
+  "report evidence route",
   "must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details",
 ]);
 
@@ -112,6 +118,8 @@ validateTextFile(routesChainPath, [
   "validate-report-truth-engine.mjs",
   "validate-report-evidence-orchestration.mjs",
   "validate-report-evidence-orchestration-runtime.mjs",
+  "validate-command-center-report-evidence-orchestration-panel.mjs",
+  "validate-command-center-report-evidence-orchestration-api.mjs",
   "validate-controlled-market-learning.mjs",
   "validate-enterprise-operating-standard.mjs",
   "validate-audit-defense-system.mjs",
@@ -131,7 +139,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed. Private Command Center standards, owner operating manual, source-of-truth files, validation registry, report truth engine, report evidence orchestration runtime, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
+console.log("Command Center docs index validation passed. Private Command Center standards, owner operating manual, source-of-truth files, validation registry, report truth engine, report evidence orchestration API and runtime, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
