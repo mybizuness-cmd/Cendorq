@@ -18,6 +18,8 @@ const requiredScripts = [
   "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-report-evidence-orchestration.mjs",
   "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
+  "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
+  "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -81,6 +83,10 @@ if (!failures.length) {
     "Report evidence orchestration runtime",
     "safe evidence projections, blocked-pattern surfacing, release-captain review posture, customer-output eligibility, and redacted report evidence summaries",
     "Report evidence inputs may no longer project into safe summaries, blocked-pattern flags, review posture, or customer-output eligibility before report use.",
+    "report-evidence-orchestration-api",
+    "Report evidence orchestration API",
+    "command-center-only report evidence projection route, safe-summary-only input, no-store/noindex response headers, raw/private payload rejection, and no customer-facing report approval",
+    "Report evidence API behavior may no longer be command-center gated, safe-summary-only, runtime-backed, raw/private rejecting, or blocked from approving customer-facing report output.",
     "controlled-market-learning",
     "enterprise-operating-standard",
     "audit-defense-system",
@@ -99,8 +105,8 @@ if (!failures.length) {
   }
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 29) {
-    failures.push(`${registryPath} expected at least 29 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 30) {
+    failures.push(`${registryPath} expected at least 30 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -110,7 +116,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, owner manual, owner-workflow, report truth, report evidence orchestration runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, owner manual, owner-workflow, report truth, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
