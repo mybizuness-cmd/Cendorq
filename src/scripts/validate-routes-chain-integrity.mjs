@@ -19,6 +19,7 @@ const requiredHighRiskValidators = [
   "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-report-evidence-orchestration.mjs",
   "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
+  "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
   "src/scripts/validate-report-generation-rendering-contracts.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -122,6 +123,7 @@ if (!failures.length) {
     "src/scripts/validate-report-truth-engine.mjs",
     "src/scripts/validate-report-evidence-orchestration.mjs",
     "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
+    "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
     "src/scripts/validate-report-generation-rendering-contracts.mjs",
   ]);
 
@@ -161,7 +163,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The route-chain self-check runs first, report evidence orchestration runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, report evidence orchestration panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
 
 function validateChainOrdering(chainValidators, orderedValidators) {
   const indexes = orderedValidators.map((validatorPath) => chainValidators.indexOf(validatorPath));
