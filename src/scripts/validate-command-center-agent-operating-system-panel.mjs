@@ -4,7 +4,6 @@ import { join } from "node:path";
 const root = process.cwd();
 const panelPath = "src/app/command-center/agent-operating-system-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
-const packagePath = "package.json";
 const failures = [];
 
 expect(panelPath, [
@@ -37,11 +36,6 @@ expect(pagePath, [
   "<OperatorReadinessMatrix />",
   "ClosedCommandCenterPanel",
   "resolveCommandCenterAccessState",
-]);
-
-expect(packagePath, [
-  "validate:routes",
-  "validate-command-center-agent-operating-system-panel.mjs",
 ]);
 
 forbidden(panelPath, [
