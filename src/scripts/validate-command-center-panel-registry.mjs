@@ -11,7 +11,17 @@ const expectedPanels = [
   ["CommandCenterHeroPanel", "hero-readiness-summary"],
   ["CommandCenterOperatingMap", "operating-map"],
   ["SecurityPosturePanel", "security-posture"],
+  ["OperatorControlInterfacePanel", "operator-control-interface"],
+  ["PlatformLaunchReadinessPanel", "platform-launch-readiness"],
+  ["ProductionLaunchChecklistPanel", "production-launch-checklist"],
+  ["ProductionLaunchFinalBlockerPanel", "production-launch-final-blocker"],
+  ["LaunchEvidencePanel", "launch-evidence"],
+  ["ProductionSmokeTargetPanel", "production-smoke-target"],
+  ["AgentOperatingSystemPanel", "agent-operating-system"],
+  ["OwnerConfigurationEvidencePanel", "owner-configuration-evidence"],
+  ["OwnerConfigurationWorkflowPanel", "owner-configuration-workflow"],
   ["OperatorReadinessMatrix", "operator-readiness-matrix"],
+  ["CommandCenterPanelIndex", "panel-index"],
   ["ValidationRegistryPanel", "validation-registry"],
   ["ModuleRoadmapPanel", "module-roadmap"],
   ["PlanControlPanel", "plan-control"],
@@ -41,6 +51,8 @@ if (!failures.length) {
 
   validateRegistryOrdering(registryText);
   validateNoVisiblePanelWithoutRegistry(routeText);
+  validatePrivateMetadataOnlyRegistry(registryText);
+  validateOwnerWorkflowCoverage(registryText);
 }
 
 if (failures.length) {
@@ -49,7 +61,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center panel registry validation passed. Every visible private cockpit panel is represented in the metadata-only registry, and registry order remains stable and increasing.");
+console.log("Command Center panel registry validation passed. Every visible private cockpit panel is represented in the metadata-only registry, owner workflow panels are covered, and registry order remains stable and increasing.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required Command Center file: ${path}`);
@@ -73,9 +85,28 @@ function validateNoVisiblePanelWithoutRegistry(routeText) {
   const allowedComponents = new Set(expectedPanels.map(([componentName]) => componentName));
   allowedComponents.add("ClosedCommandCenterPanel");
 
-  const panelComponents = [...routeText.matchAll(/<([A-Z][A-Za-z0-9]*Panel)\b/g)].map((match) => match[1]);
+  const panelComponents = [...routeText.matchAll(/<([A-Z][A-Za-z0-9]*(?:Panel|Map|Matrix|Index))\b/g)].map((match) => match[1]);
   for (const componentName of panelComponents) {
     if (!allowedComponents.has(componentName)) failures.push(`${routePath} renders ${componentName} without an explicit registry mapping`);
+  }
+}
+
+function validatePrivateMetadataOnlyRegistry(registryText) {
+  const privateMatches = [...registryText.matchAll(/visibility: "private-gated"/g)].length;
+  const metadataMatches = [...registryText.matchAll(/dataExposure: "metadata-only"/g)].length;
+  if (privateMatches !== expectedPanels.length) failures.push(`${registryPath} expected ${expectedPanels.length} private-gated entries, found ${privateMatches}`);
+  if (metadataMatches !== expectedPanels.length) failures.push(`${registryPath} expected ${expectedPanels.length} metadata-only entries, found ${metadataMatches}`);
+}
+
+function validateOwnerWorkflowCoverage(registryText) {
+  for (const phrase of [
+    "owner-configuration-evidence",
+    "owner-configuration-workflow",
+    "safe-summary-only",
+    "never creates launch or security approval by itself",
+    "Release-captain review remains required",
+  ]) {
+    if (!registryText.includes(phrase)) failures.push(`${registryPath} missing owner workflow registry phrase: ${phrase}`);
   }
 }
 
