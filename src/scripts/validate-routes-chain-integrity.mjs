@@ -5,9 +5,12 @@ const root = process.cwd();
 const failures = [];
 const packagePath = "package.json";
 const chainPath = "src/scripts/validate-routes-chain.mjs";
+const chainIntegrityValidatorPath = "src/scripts/validate-routes-chain-integrity.mjs";
+const baselineRouteValidatorPath = "src/scripts/validate-routes.mjs";
 
 const requiredHighRiskValidators = [
-  "src/scripts/validate-routes.mjs",
+  chainIntegrityValidatorPath,
+  baselineRouteValidatorPath,
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-command-center-panel-registry.mjs",
@@ -58,8 +61,12 @@ if (!failures.length) {
     failures.push(`${chainPath} contains duplicate validators: ${[...new Set(duplicateValidators)].join(", ")}`);
   }
 
-  if (chainValidators[0] !== "src/scripts/validate-routes.mjs") {
-    failures.push(`${chainPath} must start with the baseline route validator.`);
+  if (chainValidators[0] !== chainIntegrityValidatorPath) {
+    failures.push(`${chainPath} must start with the route-chain integrity validator.`);
+  }
+
+  if (chainValidators[1] !== baselineRouteValidatorPath) {
+    failures.push(`${chainPath} must run the baseline route validator immediately after the integrity validator.`);
   }
 
   if (chainValidators.at(-1) !== "src/scripts/validate-closed-intelligence.mjs") {
@@ -74,6 +81,12 @@ if (!failures.length) {
   for (const validatorPath of chainValidators) {
     validateFileExists(validatorPath);
   }
+
+  validateChainOrdering(chainValidators, [
+    chainIntegrityValidatorPath,
+    baselineRouteValidatorPath,
+    "src/scripts/validate-public-drift.mjs",
+  ]);
 
   validateChainOrdering(chainValidators, [
     "src/scripts/validate-command-center-panel-registry.mjs",
@@ -104,7 +117,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The central route validator delegates to the orchestrator, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, the baseline route validator follows immediately, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
 
 function validateChainOrdering(chainValidators, orderedValidators) {
   const indexes = orderedValidators.map((validatorPath) => chainValidators.indexOf(validatorPath));
