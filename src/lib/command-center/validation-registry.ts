@@ -173,12 +173,12 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
   },
   {
     key: "operator-runbook",
-    label: "Operator runbook",
+    label: "Operator runbook and owner workflow chain",
     scriptPath: "src/scripts/validate-command-center-operator-runbook.mjs",
     category: "docs",
     requiredInValidateRoutes: true,
-    protectedBoundary: "documented operator maintenance standard",
-    failureMeaning: "The runbook no longer documents the closed-by-default metadata-only operating rules.",
+    protectedBoundary: "documented operator maintenance standard plus owner configuration evidence API, workflow API, workflow panel, approval workflow runtime, and workflow smoke-validator coverage",
+    failureMeaning: "The runbook or owner configuration workflow validator chain no longer documents or enforces the closed-by-default metadata-only operating rules.",
   },
   {
     key: "docs-index",
