@@ -30,6 +30,7 @@ const expectedPanels = [
   ["BenchmarkIntelligencePanel", "benchmark-intelligence"],
   ["BenchmarkEvidencePanel", "benchmark-evidence"],
   ["ReportTruthMethodologyPanel", "report-truth-methodology"],
+  ["ReportEvidenceOrchestrationPanel", "report-evidence-orchestration"],
   ["AiManagerVersionRegistryPanel", "ai-manager-version-registry"],
   ["TestRecordClassesPanel", "test-record-classes"],
   ["AiManagerCommandPanel", "ai-manager-command-queue"],
@@ -53,6 +54,7 @@ if (!failures.length) {
   validateNoVisiblePanelWithoutRegistry(routeText);
   validatePrivateMetadataOnlyRegistry(registryText);
   validateOwnerWorkflowCoverage(registryText);
+  validateReportEvidencePanelCoverage(routeText, registryText);
 }
 
 if (failures.length) {
@@ -61,7 +63,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center panel registry validation passed. Every visible private cockpit panel is represented in the metadata-only registry, owner workflow panels are covered, and registry order remains stable and increasing.");
+console.log("Command Center panel registry validation passed. Every visible private cockpit panel is represented in the metadata-only registry, report evidence orchestration is covered, owner workflow panels are covered, and registry order remains stable and increasing.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required Command Center file: ${path}`);
@@ -107,6 +109,28 @@ function validateOwnerWorkflowCoverage(registryText) {
     "Release-captain review remains required",
   ]) {
     if (!registryText.includes(phrase)) failures.push(`${registryPath} missing owner workflow registry phrase: ${phrase}`);
+  }
+}
+
+function validateReportEvidencePanelCoverage(routeText, registryText) {
+  for (const phrase of [
+    "ReportEvidenceOrchestrationPanel",
+    "./report-evidence-orchestration-panel",
+    "<ReportTruthMethodologyPanel />",
+    "<ReportEvidenceOrchestrationPanel />",
+  ]) {
+    if (!routeText.includes(phrase)) failures.push(`${routePath} missing report evidence panel phrase: ${phrase}`);
+  }
+
+  for (const phrase of [
+    "report-evidence-orchestration",
+    "Report evidence orchestration",
+    "evidence source tiers",
+    "confidence posture",
+    "runtime review state",
+    "raw private evidence and customer-facing claims remain blocked until review gates pass",
+  ]) {
+    if (!registryText.includes(phrase)) failures.push(`${registryPath} missing report evidence registry phrase: ${phrase}`);
   }
 }
 
