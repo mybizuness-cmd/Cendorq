@@ -35,6 +35,8 @@ const launchEvidencePanelValidatorPath = "src/scripts/validate-command-center-la
 const launchEvidenceApiRoutesValidatorPath = "src/scripts/validate-launch-evidence-api-routes.mjs";
 const launchEvidenceRoutePath = "src/app/api/command-center/launch-readiness/evidence/route.ts";
 const launchEvidenceRecordRoutePath = "src/app/api/command-center/launch-readiness/evidence/record/route.ts";
+const smokeTargetPath = "src/lib/production-smoke-target-contracts.ts";
+const smokeTargetValidatorPath = "src/scripts/validate-production-smoke-target-contracts.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -72,6 +74,33 @@ expect(contractPath, [
   "rollback plan exists for auth, billing, reports, support, and public conversion changes",
   "audit plan exists for auth, support, billing, report release, operator actions, and maintenance actions",
 ]);
+
+expect(smokeTargetPath, [
+  "PRODUCTION_SMOKE_TARGET_CONTRACT",
+  "PRODUCTION_SMOKE_TARGET_BLOCKED_PATTERNS",
+  "Production Smoke Target Contract",
+  "Production smoke target must be owner-approved before public launch review.",
+  "Default smoke must be read-only and non-mutating.",
+  "Default smoke must not require privileged live configuration to pass.",
+  "Protected route denial is a valid pass when the denial is generic, no-store, and does not reveal private state.",
+  "Command center routes must remain closed by default without the approved operator access posture.",
+]);
+expect(smokeTargetPath, [
+  "public-conversion-routes",
+  "customer-platform-routes",
+  "protected-api-routes",
+  "command-center-routes",
+  "launch-evidence-routes",
+  "reachable-public-safe",
+  "safe-auth-boundary-or-safe-render",
+  "generic-safe-denial-without-session",
+  "closed-by-default",
+  "operator-only-safe-projection",
+  "Do not treat smoke target configuration as production smoke completion.",
+  "Do not allow smoke checks to mutate production state by default.",
+  "smokeOnlyPublicLaunchClaim",
+]);
+expect(smokeTargetValidatorPath, ["Production smoke target contracts validation passed.", "PRODUCTION_SMOKE_TARGET_CONTRACT", "production-smoke-target-contracts.ts"]);
 
 expect(launchEvidenceContractPath, [
   "LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT",
@@ -159,7 +188,7 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-platform-la
 
 forbidden(contractPath, ["launch without validation", "launch without vercel", "launch without smoke", "fake urgency is allowed", "guaranteed outcome is allowed", "client-only success redirect activates entitlement", "unverified webhook activates entitlement", "browser-stored session token allowed", "delete audit records", "localStorage.setItem", "sessionStorage.setItem", "sessionToken=", "csrfToken=", "adminKey=", "supportContextKey="]);
 
-for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath]) {
+for (const guardedPath of [runtimePath, commandCenterLaunchPanelPath, auditApiContractPath, apiRuntimePath, projectionRoutePath, auditRoutePath, historyRoutePath, productionChecklistPath, productionChecklistPanelPath, finalBlockerPath, finalBlockerRuntimePath, finalBlockerPanelPath, launchEvidenceContractPath, launchEvidenceRuntimePath, launchEvidencePanelPath, launchEvidenceRoutePath, launchEvidenceRecordRoutePath, smokeTargetPath]) {
   forbidden(guardedPath, [
     "return rawPayload",
     "return rawEvidence",
@@ -190,7 +219,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Platform launch readiness contracts validation passed, including launch evidence API route coverage.");
+console.log("Platform launch readiness contracts validation passed, including production smoke target coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
