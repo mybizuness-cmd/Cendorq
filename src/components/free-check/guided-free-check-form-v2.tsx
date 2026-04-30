@@ -59,7 +59,7 @@ const INITIAL_VALUES: FormValues = {
   email: "",
   businessName: "",
   websiteUrl: "",
-  country: "United States",
+  country: "",
   stateRegion: "",
   city: "",
   businessType: "",
@@ -108,7 +108,7 @@ const LABELS: Record<keyof FormValues, { label: string; helper: string; placehol
   email: { label: "Business email", helper: "Use the best email for follow-up.", placeholder: "jane@business.com" },
   businessName: { label: "Business name", helper: "Use the name customers know.", placeholder: "Smith Family Dental" },
   websiteUrl: { label: "Website", helper: "Use the main website customers visit.", placeholder: "yourbusiness.com" },
-  country: { label: "Country", helper: "Where does the business mainly operate?", placeholder: "United States" },
+  country: { label: "Country", helper: "Where does the business mainly operate?", placeholder: "Select country" },
   stateRegion: { label: "State / region", helper: "Use the main state, province, or region.", placeholder: "California" },
   city: { label: "City", helper: "Use the main city tied to the business.", placeholder: "Austin" },
   businessType: { label: "Business type", helper: "Choose the closest fit.", placeholder: "Select business type" },
@@ -133,7 +133,8 @@ export function GuidedFreeCheckForm({ className }: { className?: string }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const activeStep = STEPS[step];
-  const progress = Math.round(((step + 1) / STEPS.length) * 100);
+  const hasStartedScan = useMemo(() => hasMeaningfulInput(values), [values]);
+  const progress = hasStartedScan ? Math.round(((step + 1) / STEPS.length) * 100) : 0;
   const qualityScore = useMemo(() => buildQualityScore(values), [values]);
   const likelyMove = useMemo(() => buildNextMove(qualityScore, values), [qualityScore, values]);
 
@@ -329,7 +330,7 @@ function renderInput(field: keyof FormValues, values: FormValues, onChange: (eve
   const copy = LABELS[field];
 
   if (field === "country") {
-    return <select id={field} name={field} value={values[field]} onChange={onChange} className={commonClass}>{COUNTRIES.map((item) => <option key={item} value={item}>{item}</option>)}</select>;
+    return <select id={field} name={field} value={values[field]} onChange={onChange} className={commonClass}><option value="">Select country</option>{COUNTRIES.map((item) => <option key={item} value={item}>{item}</option>)}</select>;
   }
   if (field === "stateRegion" && values.country === "United States") {
     return <select id={field} name={field} value={values[field]} onChange={onChange} className={commonClass}><option value="">Select a state</option>{US_STATES.map((item) => <option key={item} value={item}>{item}</option>)}</select>;
@@ -475,6 +476,10 @@ function buildQualityScore(values: FormValues) {
     values.notes.length >= 10,
   ];
   return Math.min(100, Math.round((checks.filter(Boolean).length / checks.length) * 100));
+}
+
+function hasMeaningfulInput(values: FormValues) {
+  return Object.values(values).some((value) => value.trim().length > 0);
 }
 
 function buildNextMove(score: number, values: FormValues) {
