@@ -9,10 +9,11 @@ const failures = [];
 
 expect(registryPath, [
   "AdminCommandCenterProjectionLink",
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT",
+  "getAdminCommandCenterSafeProjectionRouteContract",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
   "ADMIN_COMMAND_CENTER_SAFE_METHODS",
-  "safeProjectionRouteContract",
   "requiresSafeAccessHelper: true",
   "requiresSafeResponseHelper: true",
   "requiresSafeOptionsHelper: true",
@@ -67,7 +68,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center projection registry validation passed with route contract metadata coverage.");
+console.log("Admin command center projection registry validation passed with route contract accessor coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
