@@ -6,11 +6,13 @@ const contractPath = "src/lib/plan-delivery-orchestration-contracts.ts";
 const matrixPath = "src/lib/complete-plan-fulfillment-matrix.ts";
 const runtimePath = "src/lib/complete-plan-fulfillment-runtime.ts";
 const entitlementPath = "src/lib/plan-entitlement-routing-contracts.ts";
+const reconciliationPath = "src/lib/plan-post-delivery-reconciliation-contracts.ts";
 const panelPath = "src/app/command-center/complete-plan-fulfillment-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
 const matrixValidatorPath = "src/scripts/validate-complete-plan-fulfillment-matrix.mjs";
 const runtimeValidatorPath = "src/scripts/validate-complete-plan-fulfillment-runtime.mjs";
 const entitlementValidatorPath = "src/scripts/validate-plan-entitlement-routing-contracts.mjs";
+const reconciliationValidatorPath = "src/scripts/validate-plan-post-delivery-reconciliation-contracts.mjs";
 const panelValidatorPath = "src/scripts/validate-command-center-complete-plan-fulfillment-panel.mjs";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
@@ -143,8 +145,10 @@ expect(runtimePath, [
 
 expect(entitlementPath, [
   "PLAN_ENTITLEMENT_ROUTING_CONTRACT",
-  "Cendorq Plan Entitlement and Nonlinear Purchase Routing Contract",
+  "Cendorq Plan Entitlement and Purchase Routing Contract",
   "publicPlanMicroDisclosures",
+  "linearPurchaseSequences",
+  "directPurchaseWarningEmails",
   "dashboardReminderRules",
   "reportLimitationRules",
   "entitlementBoundaries",
@@ -156,13 +160,43 @@ expect(entitlementPath, [
 
 expect(entitlementPath, [
   "Customers may purchase any public plan directly",
+  "linear purchases",
+  "stopped journeys",
   "must not deliver unpaid reports",
+  "free-scan-stops",
+  "deep-review-stops",
+  "build-fix-stops",
+  "ongoing-control-active",
+  "build-fix-direct-scope-confirmation",
+  "ongoing-control-direct-scope-confirmation",
+  "Every linear stop point must show completed entitlement, not-included scope, next best plan, follow-up cadence, and suppression rules.",
+]);
+
+expect(entitlementPath, [
   "Free Scan is a first-read report. Full diagnosis, implementation, and recurring monitoring are separate plans if you want deeper help.",
   "Build Fix can proceed directly. For the clearest customer-facing diagnosis behind the work, add Deep Review; otherwise Cendorq uses available evidence and internal orientation within the purchased optimization scope.",
   "Ongoing Control can start directly. If implementation gaps are found, Build Fix is the proper plan for done-for-you optimization; Deep Review is the proper plan for a standalone full diagnosis.",
   "No full diagnostic report from Build Fix unless Deep Review entitlement exists.",
   "No Build Fix implementation package from Ongoing Control unless Build Fix entitlement exists.",
   "No unpaid internal analysis becomes downloadable, emailed, report-vault-visible, or customer-facing as a standalone artifact.",
+  "No warning email may imply a missing prerequisite is required for the purchased plan to begin if payment has already been accepted.",
+]);
+
+expect(reconciliationPath, [
+  "PLAN_POST_DELIVERY_RECONCILIATION_CONTRACT",
+  "Cendorq Post-Delivery Plan Reconciliation Contract",
+  "A second purchase after delivery creates a new entitlement; it does not automatically convert the already-delivered work into an unlimited redo.",
+  "scoped reconciliation addendum",
+  "no-change-needed",
+  "minor-alignment-addendum",
+  "cendorq-error-correction",
+  "material-rework-change-order",
+  "future-cycle-application",
+  "build-fix-then-deep-review",
+  "ongoing-control-then-build-fix",
+  "ongoing-control-then-deep-review",
+  "deep-review-then-build-fix-after-delay",
+  "Release-captain review is required before promising a redo, correction, discount, credit, change order, or retroactive monthly update.",
 ]);
 
 expect(panelPath, [
@@ -206,6 +240,11 @@ expect(entitlementValidatorPath, [
   "src/lib/plan-entitlement-routing-contracts.ts",
 ]);
 
+expect(reconciliationValidatorPath, [
+  "Plan post-delivery reconciliation contracts validation passed.",
+  "src/lib/plan-post-delivery-reconciliation-contracts.ts",
+]);
+
 expect(panelValidatorPath, [
   "Command center complete plan fulfillment panel validation passed.",
   "src/app/command-center/complete-plan-fulfillment-panel.tsx",
@@ -237,7 +276,7 @@ forbidden(contractPath, [
   "sessionStorage.setItem",
 ]);
 
-for (const guardedPath of [matrixPath, runtimePath, entitlementPath, panelPath]) {
+for (const guardedPath of [matrixPath, runtimePath, entitlementPath, reconciliationPath, panelPath]) {
   forbidden(guardedPath, [
     "guaranteed ROI",
     "guaranteed revenue",
@@ -271,7 +310,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including complete fulfillment, entitlement routing, and command-center panel coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including fulfillment, entitlement routing, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
