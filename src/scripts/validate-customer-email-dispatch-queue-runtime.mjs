@@ -6,9 +6,11 @@ const queuePath = "src/lib/customer-email-dispatch-queue-runtime.ts";
 const adapterPath = "src/lib/customer-email-provider-dispatch-adapter.ts";
 const auditPath = "src/lib/customer-email-dispatch-audit-runtime.ts";
 const runnerPath = "src/lib/customer-email-dispatch-runner-runtime.ts";
+const adminPreviewRoutePath = "src/app/api/admin/customer/email/dispatch/preview/route.ts";
 const adapterValidatorPath = "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs";
 const auditValidatorPath = "src/scripts/validate-customer-email-dispatch-audit-runtime.mjs";
 const runnerValidatorPath = "src/scripts/validate-customer-email-dispatch-runner-runtime.mjs";
+const adminPreviewValidatorPath = "src/scripts/validate-customer-email-dispatch-admin-preview-api.mjs";
 const issuancePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
 const issuanceValidatorPath = "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs";
 const failures = [];
@@ -106,6 +108,22 @@ expect(runnerPath, [
   "providerResponseReturned: false",
 ]);
 
+expect(adminPreviewRoutePath, [
+  "verifyAdminReadAccess",
+  "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY",
+  "adminOnly: true",
+  "operatorPreview: true",
+  "safeProjectionOnly: true",
+  "safe-queue-and-audit-projection-only",
+  "preview-only-no-provider-call",
+  "rawCustomerEmailExposed: false",
+  "confirmationUrlExposed: false",
+  "providerPayloadExposed: false",
+  "providerResponseExposed: false",
+  "providerSecretExposed: false",
+  "auditTransitionRequiredForEveryMutationDecision: true",
+]);
+
 expect(adapterValidatorPath, [
   "Customer email provider dispatch adapter validation passed.",
   "src/lib/customer-email-provider-dispatch-adapter.ts",
@@ -122,6 +140,12 @@ expect(runnerValidatorPath, [
   "Customer email dispatch runner runtime validation passed.",
   "src/lib/customer-email-dispatch-runner-runtime.ts",
   "runCustomerEmailDispatchCycle",
+]);
+
+expect(adminPreviewValidatorPath, [
+  "Customer email dispatch admin preview API validation passed.",
+  "src/app/api/admin/customer/email/dispatch/preview/route.ts",
+  "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY",
 ]);
 
 expect(issuancePath, [
@@ -145,6 +169,7 @@ forbidden(queuePath, unsafePhrases());
 forbidden(adapterPath, unsafePhrases());
 forbidden(auditPath, unsafePhrases());
 forbidden(runnerPath, unsafePhrases());
+forbidden(adminPreviewRoutePath, unsafePhrases());
 forbidden(issuancePath, unsafePhrases());
 
 if (failures.length) {
@@ -153,7 +178,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, audit, and runner coverage.");
+console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, audit, runner, and admin preview coverage.");
 
 function unsafePhrases() {
   return [
@@ -174,6 +199,14 @@ function unsafePhrases() {
     "rawBillingDataStored: true",
     "internalNotesStored: true",
     "secretsStored: true",
+    "rawCustomerEmailExposed: true",
+    "rawTokenExposed: true",
+    "tokenHashExposed: true",
+    "confirmationUrlExposed: true",
+    "providerPayloadExposed: true",
+    "providerResponseExposed: true",
+    "providerSecretExposed: true",
+    "browserSecretExposure: true",
     "providerCallMade: true",
     "providerSecretRead: true",
     "browserVisible: true",
