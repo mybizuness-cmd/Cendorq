@@ -10,6 +10,7 @@ const files = [
   "src/app/free-check/page.tsx",
   "src/components/free-check/guided-free-check-form-v2.tsx",
   "src/components/free-check/free-scan-verify-to-view-client-handoff.ts",
+  "src/lib/customer-confirmation-email-issuance-runtime.ts",
   "src/lib/validation/free-check.ts",
   "src/lib/signals/free-check-signal.ts",
   "src/lib/intelligence/free-check-intelligence.ts",
@@ -49,6 +50,18 @@ expect("src/app/api/free-check/route.ts", [
   "type StoredFreeCheckEnvelope = FileBackedEnvelope<StoredFreeCheckSubmission>;",
   "normalizeStoredEntryFromUnknown",
   "sortStoredEntriesByUpdatedAt",
+  "issueCustomerConfirmationEmail",
+  "projectCustomerConfirmationEmailSafeResponse",
+  "const confirmationEmail = await issueCustomerConfirmationEmail",
+  "customerIdHash: buildCustomerIdHash(storedEntry)",
+  "signupEmailHash: buildEmailHash(storedEntry.email)",
+  "customerEmailHash: buildEmailHash(storedEntry.email)",
+  "journeyKey: \"free-scan-submitted\"",
+  "requestedDestination: \"/dashboard/reports\"",
+  "confirmationEmail: safeConfirmationEmail",
+  "Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your results.",
+  "function buildCustomerIdHash(entry: StoredFreeCheckSubmission)",
+  "function buildEmailHash(email: string)",
   "The requested Free Scan entry was not found.",
   "Unable to load Free Scan entries.",
   "submit the Free Scan again",
@@ -61,6 +74,21 @@ expect("src/app/api/free-check/route.ts", [
   "return cleanQueryValue(process.env.NODE_ENV ?? \"\", 20).toLowerCase() !== \"production\";",
   "const READ_KEY_ENV_CANDIDATES = [\"INTAKE_CONSOLE_READ_KEY\", \"INTAKE_ADMIN_KEY\"] as const;",
   "safeEqual(providedKey, configuredKey)",
+]);
+
+expect("src/lib/customer-confirmation-email-issuance-runtime.ts", [
+  "issueCustomerConfirmationEmail",
+  "projectCustomerConfirmationEmailSafeResponse",
+  "providerReadyPayload",
+  "confirmationUrl",
+  "confirmationUrlHash",
+  "Cendorq Support <support@cendorq.com>",
+  "Confirm your email to open your Cendorq results",
+  "rawTokenReturnedToBrowser: false",
+  "tokenHashReturnedToBrowser: false",
+  "rawEmailReturnedToBrowser: false",
+  "localStorageAllowed: false",
+  "sessionStorageAllowed: false",
 ]);
 
 expect("src/app/api/free-scan/intake-complete/route.ts", [
@@ -150,8 +178,16 @@ for (const phrase of [
   "shouldAllowOpenConsoleReads",
   "explicitOpenReadFlag",
   "from \"node:fs/promises\"",
+  "reportPath:",
+  "providerReadyPayload",
+  "confirmationUrl:",
+  "token:",
+  "tokenHash:",
+  "rawTokenReturnedToBrowser: true",
+  "tokenHashReturnedToBrowser: true",
+  "rawEmailReturnedToBrowser: true",
 ]) {
-  if (apiRouteText.includes(phrase)) failures.push(`Free Scan API route contains forbidden storage/read escape hatch: ${phrase}`);
+  if (apiRouteText.includes(phrase)) failures.push(`Free Scan API route contains forbidden storage/read/report/email escape hatch: ${phrase}`);
 }
 
 const formText = read("src/components/free-check/guided-free-check-form-v2.tsx");
@@ -212,7 +248,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam usage, preserved guided form, 0 percent progress posture, verify-to-view handoff, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam usage, preserved guided form, 0 percent progress posture, verify-to-view handoff, confirmation email issuance, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);

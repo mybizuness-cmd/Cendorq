@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
 import path from "node:path";
 
+import {
+  issueCustomerConfirmationEmail,
+  projectCustomerConfirmationEmailSafeResponse,
+} from "@/lib/customer-confirmation-email-issuance-runtime";
 import { deriveFreeCheckIntelligence, type ConfidenceLevel } from "@/lib/intelligence/free-check-intelligence";
 import { buildFreeCheckReportSnapshot } from "@/lib/reports/free-check-report";
 import { scoreFreeCheck, type ScoreDecision, type ScoreResult, type ScoreTier } from "@/lib/scoring/free-check-score";
@@ -188,7 +192,19 @@ export async function POST(request: NextRequest) {
     envelope.entries.sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
     await saveEnvelope(envelope);
 
-    return jsonNoStore({ ok: true, intakeId: storedEntry.id, signalQuality: storedEntry.signalQuality, routingHint: storedEntry.routingHint, duplicate, riskFlags: storedEntry.riskFlags, clarityScore: storedEntry.clarityScore, intentStrength: storedEntry.intentStrength, score: storedEntry.score, tier: storedEntry.scoreTier, decision: storedEntry.decision, confidenceLevel: storedEntry.confidenceLevel, dataDepthScore: storedEntry.dataDepthScore, scoreModules: storedEntry.scoreModules, timeSensitivity: storedEntry.timeSensitivity, decisionMoment: storedEntry.decisionMoment, explanationTrace: storedEntry.explanationTrace, reportPath: `/report?id=${storedEntry.id}`, message: duplicate ? "This business already had a recent Free Scan in the system. The existing signal has been updated with the newest submission." : "The Free Scan has been captured successfully. The business now has a first serious signal inside the system." }, 200);
+    const confirmationEmail = await issueCustomerConfirmationEmail({
+      customerIdHash: buildCustomerIdHash(storedEntry),
+      signupEmailHash: buildEmailHash(storedEntry.email),
+      customerEmailHash: buildEmailHash(storedEntry.email),
+      journeyKey: "free-scan-submitted",
+      requestedDestination: "/dashboard/reports",
+      intakeId: storedEntry.id,
+      baseUrl: request.nextUrl.origin,
+      businessName: storedEntry.businessName,
+    });
+    const safeConfirmationEmail = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
+
+    return jsonNoStore({ ok: true, intakeId: storedEntry.id, signalQuality: storedEntry.signalQuality, routingHint: storedEntry.routingHint, duplicate, riskFlags: storedEntry.riskFlags, clarityScore: storedEntry.clarityScore, intentStrength: storedEntry.intentStrength, score: storedEntry.score, tier: storedEntry.scoreTier, decision: storedEntry.decision, confidenceLevel: storedEntry.confidenceLevel, dataDepthScore: storedEntry.dataDepthScore, scoreModules: storedEntry.scoreModules, timeSensitivity: storedEntry.timeSensitivity, decisionMoment: storedEntry.decisionMoment, explanationTrace: storedEntry.explanationTrace, confirmationEmail: safeConfirmationEmail, message: duplicate ? "This business already had a recent Free Scan in the system. The existing signal has been updated with the newest submission. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your results." : "The Free Scan has been captured successfully. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your results." }, 200);
   } catch {
     return jsonNoStore({ ok: false, error: "The submission could not be stored cleanly.", details: ["The intake storage layer was not able to save the Free Scan right now."] }, 500);
   }
@@ -229,6 +245,14 @@ function buildDuplicateKey(input: NormalizedFreeCheckInput) {
 
 function buildSubmissionHash(input: NormalizedFreeCheckInput) {
   return createHash("sha256").update(JSON.stringify([input.fullName, input.email, input.businessName, input.websiteUrl, input.country, input.stateRegion, input.city, input.businessType, input.primaryOffer, input.audience, input.biggestIssue, input.competitors, input.notes, input.primaryGoal, input.monthlyRevenue, input.monthlyMarketing])).digest("hex").slice(0, 24);
+}
+
+function buildCustomerIdHash(entry: StoredFreeCheckSubmission) {
+  return createHash("sha256").update(`free-scan:${entry.id}:${entry.duplicateKey}`).digest("hex");
+}
+
+function buildEmailHash(email: string) {
+  return createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
 }
 
 function buildRequestFingerprint(request: NextRequest) {
