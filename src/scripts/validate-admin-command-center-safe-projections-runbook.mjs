@@ -15,6 +15,7 @@ const projectionRoutes = [
   "src/app/api/admin/command-center/agent-findings/route.ts",
   "src/app/api/admin/command-center/forecast-escalation/route.ts",
 ];
+const optionsHelperRoutes = projectionRoutes.filter((routePath) => routePath !== "src/app/api/admin/command-center/forecast-escalation/route.ts");
 const failures = [];
 
 expect(docPath, [
@@ -78,7 +79,9 @@ expect(accessPath, [
 
 expect(responsePath, [
   "ADMIN_COMMAND_CENTER_SAFE_RESPONSE_HEADERS",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
   "adminCommandCenterJsonNoStore",
+  "adminCommandCenterOptions",
   "no-store, max-age=0",
   "noindex, nofollow, noarchive",
 ]);
@@ -93,6 +96,13 @@ for (const routePath of projectionRoutes) {
     "Access gate is centralized in resolveAdminCommandCenterSafeAccess.",
     "runtime = \"nodejs\"",
     "dynamic = \"force-dynamic\"",
+  ]);
+}
+
+for (const routePath of optionsHelperRoutes) {
+  expect(routePath, [
+    "adminCommandCenterOptions",
+    "return adminCommandCenterOptions(",
   ]);
 }
 
@@ -114,7 +124,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with shared access, response, registry, and route coverage.");
+console.log("Admin command center safe projections runbook validation passed with shared access, response, options, registry, and route coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
