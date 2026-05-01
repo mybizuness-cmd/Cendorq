@@ -34,8 +34,15 @@ expect(panelPath, [
   "link.href",
   "link.label",
   "link.purpose",
+  "link.methods.join",
+  "link.requiresSafeAccessHelper",
+  "link.requiresSafeResponseHelper",
+  "link.requiresSafeOptionsHelper",
+  "Methods:",
+  "Helpers: access",
+  "methods, helper requirements, and references",
   "These endpoints are preview-gated, no-store, read-only review surfaces.",
-  "They expose posture, not live action authority.",
+  "not live action authority",
 ]);
 
 expect(registryPath, [
@@ -51,6 +58,10 @@ expect(registryPath, [
   "Chief-agent brief readiness before dispatch.",
   "Structured findings posture for agents and scouts.",
   "Expansion, hardening, risk coverage, and escalation posture.",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
+  "requiresSafeAccessHelper: true",
+  "requiresSafeResponseHelper: true",
+  "requiresSafeOptionsHelper: true",
 ]);
 
 expect(panelPath, [
@@ -111,7 +122,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center admin control panel validation passed with shared projection registry coverage.");
+console.log("Command center admin control panel validation passed with shared projection registry route contract coverage.");
 
 function unsafePhrases() {
   return [

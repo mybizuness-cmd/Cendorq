@@ -110,7 +110,7 @@ export function AdminCommandCenterControlPanel() {
           <div>
             <p className="text-sm font-semibold text-white">Safe projection links</p>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-              These endpoints are preview-gated, no-store, read-only review surfaces. They expose posture, not live action authority.
+              These endpoints are preview-gated, no-store, read-only review surfaces. They expose posture, methods, helper requirements, and references, not live action authority.
             </p>
           </div>
           <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">read-only</span>
@@ -121,6 +121,12 @@ export function AdminCommandCenterControlPanel() {
               <span className="font-semibold text-white">{link.label}</span>
               <span className="mt-2 block break-all text-xs text-cyan-200">{link.href}</span>
               <span className="mt-3 block text-xs leading-5 text-slate-400">{link.purpose}</span>
+              <span className="mt-3 block rounded-xl border border-white/10 bg-slate-950/60 px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-slate-300">
+                Methods: {link.methods.join(" / ")}
+              </span>
+              <span className="mt-2 block text-[0.68rem] leading-5 text-slate-500">
+                Helpers: access {String(link.requiresSafeAccessHelper)} · response {String(link.requiresSafeResponseHelper)} · options {String(link.requiresSafeOptionsHelper)}
+              </span>
             </a>
           ))}
         </div>
