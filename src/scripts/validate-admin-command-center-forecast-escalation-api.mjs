@@ -35,12 +35,15 @@ expect(apiPath, [
 expect(apiPath, [
   "return adminCommandCenterOptions(\"admin-command-center-forecast-escalation\")",
   "forecastRiskChecks",
-  "drift-check",
-  "staleness-check",
-  "scope-check",
-  "claim-check",
-  "validation-check",
-  "handoff-check",
+  "drift-risk",
+  "stale-assumption-risk",
+  "duplicate-scope-risk",
+  "overclaim-risk",
+  "under-validation-risk",
+  "customer-journey-confusion-risk",
+  "private-material-exposure-risk",
+  "production-readiness-blocker-risk",
+  "handoff-misunderstanding-risk",
   "read-only forecast escalation projection",
 ]);
 
