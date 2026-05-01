@@ -5,7 +5,7 @@ import { projectAdminCommandCenterAgentFinding } from "@/lib/admin-command-cente
 import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-audit-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
 import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
-import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
+import { adminCommandCenterJsonNoStore, adminCommandCenterOptions } from "@/lib/admin-command-center-safe-response";
 
 // Access gate is centralized in resolveAdminCommandCenterSafeAccess.
 // Validation anchors: commandCenterPreviewHeaderName, resolveCommandCenterAccessState, Command center access is closed.
@@ -14,7 +14,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function OPTIONS() {
-  return adminCommandCenterJsonNoStore({ ok: true, methods: ["GET", "OPTIONS"], projection: "admin-command-center-agent-findings" }, 200);
+  return adminCommandCenterOptions("admin-command-center-agent-findings");
 }
 
 export async function GET(request: NextRequest) {
