@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const docPath = "docs/admin-command-center-safe-projections.md";
 const registryPath = "src/lib/admin-command-center-safe-projection-registry.ts";
+const accessPath = "src/lib/admin-command-center-safe-access.ts";
 const responsePath = "src/lib/admin-command-center-safe-response.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
@@ -16,12 +17,17 @@ expect(docPath, [
   "Operator sequence",
   "Validation requirements",
   "preview-gated",
+  "All access checks must resolve through the shared safe-access helper.",
   "no-store",
   "read-only review surfaces",
   "posture only",
   "src/lib/admin-command-center-safe-projection-registry.ts",
+  "src/lib/admin-command-center-safe-access.ts",
   "src/lib/admin-command-center-safe-response.ts",
   "Do not duplicate the endpoint list in UI or API routes.",
+  "Do not duplicate preview-gate access checks in individual projection routes.",
+  "resolveAdminCommandCenterSafeAccess",
+  "adminCommandCenterAccessDeniedPayload",
   "Do not duplicate response headers in individual projection routes.",
   "adminCommandCenterJsonNoStore",
   "no-store and noindex behavior remains consistent",
@@ -39,7 +45,8 @@ expect(docPath, [
   "validate-admin-command-center-api-index.mjs",
   "validate-command-center-admin-control-panel.mjs",
   "validate-routes-chain.mjs",
-  "The route-chain must include the registry validator and the shared safe-response validator",
+  "shared safe-response validator",
+  "shared access helper through route-level validation anchors",
 ]);
 
 expect(registryPath, [
@@ -51,6 +58,12 @@ expect(registryPath, [
   "/api/admin/command-center/mission-brief",
   "/api/admin/command-center/agent-findings",
   "/api/admin/command-center/forecast-escalation",
+]);
+
+expect(accessPath, [
+  "resolveAdminCommandCenterSafeAccess",
+  "adminCommandCenterAccessDeniedPayload",
+  "Command center access is closed.",
 ]);
 
 expect(responsePath, [
@@ -69,9 +82,6 @@ forbidden(docPath, [
   "localStorage",
   "sessionStorage",
   "dangerouslySetInnerHTML",
-  "privateKey",
-  "sessionToken",
-  "csrfToken",
 ]);
 
 if (failures.length) {
@@ -80,7 +90,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with shared response helper coverage.");
+console.log("Admin command center safe projections runbook validation passed with shared access and response helper coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

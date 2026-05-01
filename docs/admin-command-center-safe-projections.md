@@ -5,6 +5,7 @@ This runbook defines how the private command center uses admin command-center sa
 ## Operating posture
 
 - The command-center API index and child endpoints are preview-gated.
+- All access checks must resolve through the shared safe-access helper.
 - All responses must use `no-store` cache posture.
 - The endpoints are read-only review surfaces.
 - The endpoints show posture, counts, decisions, and references only.
@@ -14,9 +15,13 @@ This runbook defines how the private command center uses admin command-center sa
 
 The canonical endpoint list is `src/lib/admin-command-center-safe-projection-registry.ts`.
 
+The canonical access helper is `src/lib/admin-command-center-safe-access.ts`.
+
 The canonical response helper is `src/lib/admin-command-center-safe-response.ts`.
 
 Do not duplicate the endpoint list in UI or API routes. The private command-center panel and API index must import the registry so route discovery cannot drift.
+
+Do not duplicate preview-gate access checks in individual projection routes. Each admin command-center projection route must use `resolveAdminCommandCenterSafeAccess` and `adminCommandCenterAccessDeniedPayload` so closed-by-default behavior remains consistent.
 
 Do not duplicate response headers in individual projection routes. Each admin command-center projection route must use `adminCommandCenterJsonNoStore` so no-store and noindex behavior remains consistent.
 
@@ -51,3 +56,5 @@ Any update to these endpoints must update validation coverage for:
 - `src/scripts/validate-routes-chain.mjs`
 
 The route-chain must include the registry validator and the shared safe-response validator so endpoint discovery and response posture cannot drift silently.
+
+Until a dedicated safe-access validator can be wired without a large route-chain rewrite, the projection route validators must keep verifying the shared access helper through route-level validation anchors.

@@ -6,7 +6,7 @@ This private documentation index keeps the Command Center operating standards ea
 
 - `docs/maximum-protection-standard.md` — highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard.
 - `docs/command-center-operator-runbook.md` — cockpit maintenance workflow for closed-by-default, metadata-only, server-rendered, registry-covered Command Center panels.
-- `docs/admin-command-center-safe-projections.md` — admin command-center safe projection map for preview-gated, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces.
+- `docs/admin-command-center-safe-projections.md` — admin command-center safe projection map for preview-gated, shared-access-backed, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces.
 - `docs/owner-operating-manual.md` — owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence.
 
 ## Required source-of-truth areas
@@ -16,6 +16,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Panel registry: `src/lib/command-center/panel-registry.ts`
 - Validation registry: `src/lib/command-center/validation-registry.ts`
 - Admin command-center safe projection registry: `src/lib/admin-command-center-safe-projection-registry.ts`
+- Admin command-center safe access helper: `src/lib/admin-command-center-safe-access.ts`
 - Admin command-center safe response helper: `src/lib/admin-command-center-safe-response.ts`
 - Report truth engine: `src/lib/command-center/report-truth-engine.ts`
 - Report evidence orchestration: `src/lib/command-center/report-evidence-orchestration.ts`
@@ -64,7 +65,7 @@ These paths are command-center-only and safe-summary-only. They must not create 
 - `src/app/api/admin/command-center/forecast-escalation/route.ts`
 - `src/app/command-center/admin-command-center-control-panel.tsx`
 
-These paths are command-center-only and read-only review surfaces. They must remain preview-gated, no-store, registry-backed, shared-response-backed, and posture-only.
+These paths are command-center-only and read-only review surfaces. They must remain preview-gated, shared-access-backed, no-store, registry-backed, shared-response-backed, and posture-only.
 
 ## Required private report evidence paths
 
@@ -119,4 +120,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record contract, admin command-center projection, admin command-center response helper, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record contract, admin command-center projection, admin command-center access helper, admin command-center response helper, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.

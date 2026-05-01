@@ -16,7 +16,7 @@ validateTextFile(docsIndexPath, [
   "docs/maximum-protection-standard.md",
   "docs/command-center-operator-runbook.md",
   "docs/admin-command-center-safe-projections.md",
-  "admin command-center safe projection map for preview-gated, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces",
+  "admin command-center safe projection map for preview-gated, shared-access-backed, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces",
   "docs/owner-operating-manual.md",
   "owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence",
   "src/lib/command-center/access.ts",
@@ -24,6 +24,7 @@ validateTextFile(docsIndexPath, [
   "src/lib/command-center/panel-registry.ts",
   "src/lib/command-center/validation-registry.ts",
   "src/lib/admin-command-center-safe-projection-registry.ts",
+  "src/lib/admin-command-center-safe-access.ts",
   "src/lib/admin-command-center-safe-response.ts",
   "src/lib/command-center/report-truth-engine.ts",
   "src/lib/command-center/report-evidence-orchestration.ts",
@@ -64,7 +65,7 @@ validateTextFile(docsIndexPath, [
   "src/app/api/admin/command-center/forecast-escalation/route.ts",
   "src/app/command-center/admin-command-center-control-panel.tsx",
   "These paths are command-center-only and read-only review surfaces.",
-  "preview-gated, no-store, registry-backed, shared-response-backed, and posture-only",
+  "preview-gated, shared-access-backed, no-store, registry-backed, shared-response-backed, and posture-only",
   "src/app/api/command-center/report-evidence/orchestration/route.ts",
   "src/app/command-center/report-evidence-orchestration-panel.tsx",
   "command-center-only and safe-summary-only",
@@ -109,6 +110,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "admin command-center projection",
+  "admin command-center access helper",
   "admin command-center response helper",
   "report evidence route",
   "report evidence record contract",
@@ -129,7 +131,10 @@ validateTextFile(safeProjectionRunbookPath, [
   "Operating posture",
   "Source of truth",
   "src/lib/admin-command-center-safe-projection-registry.ts",
+  "src/lib/admin-command-center-safe-access.ts",
   "src/lib/admin-command-center-safe-response.ts",
+  "resolveAdminCommandCenterSafeAccess",
+  "adminCommandCenterAccessDeniedPayload",
   "adminCommandCenterJsonNoStore",
   "Endpoint map",
   "/api/admin/command-center/summary",
@@ -139,6 +144,7 @@ validateTextFile(safeProjectionRunbookPath, [
   "/api/admin/command-center/forecast-escalation",
   "Validation requirements",
   "validate-admin-command-center-safe-response.mjs",
+  "shared access helper through route-level validation anchors",
 ]);
 
 validateTextFile(ownerManualPath, [
@@ -187,7 +193,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed. Private Command Center standards, admin safe projections, admin safe response helper, owner operating manual, source-of-truth files, validation registry, report truth engine, report evidence record contracts, report evidence orchestration API and runtime, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
+console.log("Command Center docs index validation passed. Private Command Center standards, admin safe projections, admin safe access helper, admin safe response helper, owner operating manual, source-of-truth files, validation registry, report truth engine, report evidence record contracts, report evidence orchestration API and runtime, report growth system, controlled market learning, enterprise standards, audit defense, most-pristine standard, report records, scale resilience, customer platform, customer experience, conversion moat, insights conversation, owner configuration workflow, runbook references, route-chain orchestrator, and guardrail validators remain discoverable without exposing secrets or live private data.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
