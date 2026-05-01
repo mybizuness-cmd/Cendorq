@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/plan-delivery-orchestration-contracts.ts";
+const deepReviewFoundationPath = "src/lib/deep-review-intake-delivery-foundation.ts";
 const matrixPath = "src/lib/complete-plan-fulfillment-matrix.ts";
 const runtimePath = "src/lib/complete-plan-fulfillment-runtime.ts";
 const routingRuntimePath = "src/lib/plan-routing-runtime.ts";
@@ -11,6 +12,7 @@ const reconciliationPath = "src/lib/plan-post-delivery-reconciliation-contracts.
 const panelPath = "src/app/command-center/complete-plan-fulfillment-panel.tsx";
 const routingPanelPath = "src/app/command-center/plan-routing-runtime-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
+const deepReviewFoundationValidatorPath = "src/scripts/validate-deep-review-intake-delivery-foundation.mjs";
 const matrixValidatorPath = "src/scripts/validate-complete-plan-fulfillment-matrix.mjs";
 const runtimeValidatorPath = "src/scripts/validate-complete-plan-fulfillment-runtime.mjs";
 const routingRuntimeValidatorPath = "src/scripts/validate-plan-routing-runtime.mjs";
@@ -59,6 +61,21 @@ expect(contractPath, [
   "monthly command summary",
   "change forecast",
   "controlled updates",
+]);
+
+expect(deepReviewFoundationPath, [
+  "projectDeepReviewIntakeDeliveryFoundation",
+  "getDeepReviewIntakeDeliveryRules",
+  "deep-review-report",
+  "expanded diagnostic questionnaire",
+  "full diagnostic report",
+  "priority blocker map",
+  "active entitlement",
+  "completed paid intake",
+  "research review",
+  "release approval",
+  "unpaidDeliverableLeaked: false",
+  "pendingReportPresentedAsFinal: false",
 ]);
 
 expect(contractPath, [
@@ -256,6 +273,12 @@ expect(pagePath, [
   "<OptimizationLibraryPanel methods={optimizationMethods} />",
 ]);
 
+expect(deepReviewFoundationValidatorPath, [
+  "Deep Review intake delivery foundation validation passed.",
+  "src/lib/deep-review-intake-delivery-foundation.ts",
+  "projectDeepReviewIntakeDeliveryFoundation",
+]);
+
 expect(matrixValidatorPath, [
   "Complete plan fulfillment matrix validation passed.",
   "src/lib/complete-plan-fulfillment-matrix.ts",
@@ -295,30 +318,23 @@ expect(routesChainPath, [
   "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
 ]);
 
-forbidden(contractPath, [
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed accuracy",
-  "100% accurate",
-  "100 percent accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "fake urgency is allowed",
-  "customer claims are verified facts",
-  "agents may approve delivery",
-  "uncontrolled production mutation",
-  "passwords requested",
-  "tokens requested",
-  "private keys requested",
-  "card numbers requested",
-  "bank details requested",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
+forbidden(contractPath, unsafePhrases());
+forbidden(deepReviewFoundationPath, unsafePhrases());
 
 for (const guardedPath of [matrixPath, runtimePath, routingRuntimePath, entitlementPath, reconciliationPath, panelPath, routingPanelPath]) {
-  forbidden(guardedPath, [
+  forbidden(guardedPath, unsafePhrases());
+}
+
+if (failures.length) {
+  console.error("Plan delivery orchestration contracts validation failed:");
+  for (const failure of failures) console.error(`- ${failure}`);
+  process.exit(1);
+}
+
+console.log("Plan delivery orchestration contracts validation passed, including Deep Review intake delivery, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
+
+function unsafePhrases() {
+  return [
     "guaranteed ROI",
     "guaranteed revenue",
     "guaranteed accuracy",
@@ -328,30 +344,36 @@ for (const guardedPath of [matrixPath, runtimePath, routingRuntimePath, entitlem
     "never liable",
     "liability-free",
     "fake urgency is allowed",
-    "agents can approve delivery",
+    "customer claims are verified facts",
     "agents may approve delivery",
+    "agents can approve delivery",
+    "uncontrolled production mutation",
     "passwords requested",
     "tokens requested",
     "private keys requested",
     "card numbers requested",
     "bank details requested",
     "raw payloads are exposed",
-    "customer claims are verified facts",
-    "uncontrolled production mutation",
     "customerFacingDeliveryAllowed: true",
     "upgradeOrRetentionAllowed: true",
+    "unpaidDeliverableLeaked: true",
+    "freeScanSubstitute: true",
+    "pendingReportPresentedAsFinal: true",
+    "customerClaimTreatedAsVerifiedFact: true",
+    "rawPayloadExposed: true",
+    "rawEvidenceExposed: true",
+    "rawSecurityPayloadExposed: true",
+    "rawBillingDataExposed: true",
+    "internalNotesExposed: true",
+    "operatorIdentityExposed: true",
+    "riskInternalsExposed: true",
+    "secretExposed: true",
+    "tokenExposed: true",
+    "unsupportedOutcomePromise: true",
     "localStorage.setItem",
     "sessionStorage.setItem",
-  ]);
+  ];
 }
-
-if (failures.length) {
-  console.error("Plan delivery orchestration contracts validation failed:");
-  for (const failure of failures) console.error(`- ${failure}`);
-  process.exit(1);
-}
-
-console.log("Plan delivery orchestration contracts validation passed, including fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
