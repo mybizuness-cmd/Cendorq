@@ -9,6 +9,7 @@ import { getOptimizationMethodLibrary } from "@/lib/command-center/optimization-
 import { getCommandCenterPlanControls } from "@/lib/command-center/plan-control";
 import { getCommandCenterReadinessSummary } from "@/lib/command-center/readiness-summary";
 
+import { AdminCommandCenterControlPanel } from "./admin-command-center-control-panel";
 import { AgentOperatingSystemPanel } from "./agent-operating-system-panel";
 import { AiHistoryPanel } from "./ai-history-panel";
 import { AiManagerCommandPanel } from "./ai-manager-command-panel";
@@ -79,6 +80,7 @@ export default async function CommandCenterPage() {
         <CommandCenterOperatingMap />
         <SecurityPosturePanel />
         <OperatorControlInterfacePanel />
+        <AdminCommandCenterControlPanel />
         <PlatformLaunchReadinessPanel />
         <ProductionLaunchChecklistPanel />
         <ProductionLaunchFinalBlockerPanel />
