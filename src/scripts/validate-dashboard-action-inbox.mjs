@@ -4,6 +4,10 @@ import { join } from "node:path";
 const root = process.cwd();
 const componentPath = "src/app/dashboard/dashboard-action-inbox.tsx";
 const dashboardPath = "src/app/dashboard/page.tsx";
+const commandCenterPath = "src/app/dashboard/dashboard-business-command-center.tsx";
+const reentryPath = "src/app/dashboard/dashboard-control-room-reentry.tsx";
+const confirmationContractPath = "src/lib/customer-email-confirmation-handoff-contracts.ts";
+const ownerManualPath = "docs/owner-operating-manual.md";
 const runtimePath = "src/lib/plan-routing-runtime.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
@@ -63,11 +67,69 @@ expect(componentPath, [
   "pressure-based urgency",
 ]);
 
+expect(commandCenterPath, [
+  "DashboardBusinessCommandCenter",
+  "This is where the customer controls the business journey",
+  "Cendorq guiding the smartest next move",
+  "premium control room for the customer",
+  "The customer owns the decisions; Cendorq guides the strategy, sequencing, and safeguards.",
+  "Conversion should come from confidence, education, proof, and visible momentum—not pressure or confusion.",
+  "Diagnose",
+  "Decide",
+  "Act",
+  "Protect",
+]);
+
+expect(reentryPath, [
+  "DashboardControlRoomReentry",
+  "They can leave today and come back to the same business control room tomorrow.",
+  "Use the dashboard link in any Cendorq email",
+  "Return from the public site",
+  "Resume after session expiry",
+  "Recover from support or billing",
+  "safe sign-in or magic-link re-auth",
+  "return them to the dashboard without restarting the scan or purchase journey",
+]);
+
+expect(confirmationContractPath, [
+  "CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT",
+  "Cendorq Support <support@cendorq.com>",
+  "support@cendorq.com",
+  "Confirm email and open your results",
+  "Confirm your email to open your Cendorq results",
+  "Confirm your email and enter your Cendorq command center",
+  "Confirm your email to continue your Cendorq plan",
+  "check spam or promotions once",
+  "move Cendorq to your main inbox",
+  "save support@cendorq.com as a trusted sender",
+  "Do not show Free Scan findings before email verification and safe release state.",
+  "dashboard/report vault",
+  "dashboard inbox supplements email and does not replace it",
+  "Verification tokens must be single-use, short-lived, server-validated, and never stored in localStorage or sessionStorage.",
+]);
+
+expect(ownerManualPath, [
+  "Verify-to-view email confirmation and report access",
+  "Cendorq Support <support@cendorq.com>",
+  "support@cendorq.com",
+  "Confirm email and open your results",
+  "check spam or promotions once",
+  "dashboard/report vault",
+  "Email remains the delivery and return channel",
+]);
+
 expect(dashboardPath, [
   "DashboardActionInbox",
+  "DashboardBusinessCommandCenter",
+  "DashboardControlRoomReentry",
   "./dashboard-action-inbox",
+  "./dashboard-business-command-center",
+  "./dashboard-control-room-reentry",
   "<DashboardActionInbox />",
-  "Customer command room",
+  "<DashboardBusinessCommandCenter />",
+  "<DashboardControlRoomReentry />",
+  "Customer business command center",
+  "Control the next move. Cendorq guides the smartest path.",
   "Connected dashboard handoffs",
 ]);
 
@@ -82,32 +144,17 @@ expect(routesChainPath, [
   "src/scripts/validate-dashboard-action-inbox.mjs",
 ]);
 
-forbidden(componentPath, [
-  "replace email",
-  "replace notification center",
-  "guaranteed inbox",
-  "guaranteed primary inbox",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed accuracy",
-  "100% accurate",
-  "100 percent accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "fake urgency",
-  "urgent upgrade required",
-  "password=",
-  "token=",
-  "privateKey=",
-  "cardNumber=",
-  "bankDetail=",
-  "rawPayload=",
-  "rawEvidence=",
-  "operatorIdentity=",
-  "internalNote=",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
+forbidden(componentPath, unsafePhrases());
+forbidden(commandCenterPath, unsafePhrases());
+forbidden(reentryPath, unsafePhrases());
+forbidden(confirmationContractPath, [
+  ...unsafePhrases(),
+  "show protected results before verification",
+  "skip email verification for reports",
+  "verification token in localStorage",
+  "verification token in sessionStorage",
+  "guaranteed deliverability",
+  "guaranteed inbox placement",
 ]);
 
 if (failures.length) {
@@ -116,7 +163,37 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard action inbox validation passed.");
+console.log("Dashboard action inbox validation passed with command-center, re-entry, and verify-to-view coverage.");
+
+function unsafePhrases() {
+  return [
+    "replace email",
+    "replace notification center",
+    "guaranteed inbox",
+    "guaranteed primary inbox",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed accuracy",
+    "100% accurate",
+    "100 percent accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "fake urgency",
+    "urgent upgrade required",
+    "password=",
+    "token=",
+    "privateKey=",
+    "cardNumber=",
+    "bankDetail=",
+    "rawPayload=",
+    "rawEvidence=",
+    "operatorIdentity=",
+    "internalNote=",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
