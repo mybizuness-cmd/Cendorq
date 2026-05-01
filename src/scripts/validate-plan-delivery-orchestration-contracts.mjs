@@ -5,12 +5,14 @@ const root = process.cwd();
 const contractPath = "src/lib/plan-delivery-orchestration-contracts.ts";
 const matrixPath = "src/lib/complete-plan-fulfillment-matrix.ts";
 const runtimePath = "src/lib/complete-plan-fulfillment-runtime.ts";
+const routingRuntimePath = "src/lib/plan-routing-runtime.ts";
 const entitlementPath = "src/lib/plan-entitlement-routing-contracts.ts";
 const reconciliationPath = "src/lib/plan-post-delivery-reconciliation-contracts.ts";
 const panelPath = "src/app/command-center/complete-plan-fulfillment-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
 const matrixValidatorPath = "src/scripts/validate-complete-plan-fulfillment-matrix.mjs";
 const runtimeValidatorPath = "src/scripts/validate-complete-plan-fulfillment-runtime.mjs";
+const routingRuntimeValidatorPath = "src/scripts/validate-plan-routing-runtime.mjs";
 const entitlementValidatorPath = "src/scripts/validate-plan-entitlement-routing-contracts.mjs";
 const reconciliationValidatorPath = "src/scripts/validate-plan-post-delivery-reconciliation-contracts.mjs";
 const panelValidatorPath = "src/scripts/validate-command-center-complete-plan-fulfillment-panel.mjs";
@@ -143,6 +145,18 @@ expect(runtimePath, [
   "conversionMethodReviewMissing",
 ]);
 
+expect(routingRuntimePath, [
+  "projectPlanRouting",
+  "getPlanRoutingRuntimeContractKeys",
+  "PLAN_ENTITLEMENT_ROUTING_CONTRACT",
+  "PLAN_POST_DELIVERY_RECONCILIATION_CONTRACT",
+  "VERIFIED_WELCOME_EMAIL_CONTRACT",
+  "warningEmailWithoutEvidence",
+  "inboxConfirmationAlreadyCompleted",
+  "material-rework-change-order",
+  "safeCustomerLanguage",
+]);
+
 expect(entitlementPath, [
   "PLAN_ENTITLEMENT_ROUTING_CONTRACT",
   "Cendorq Plan Entitlement and Purchase Routing Contract",
@@ -235,6 +249,11 @@ expect(runtimeValidatorPath, [
   "src/lib/complete-plan-fulfillment-runtime.ts",
 ]);
 
+expect(routingRuntimeValidatorPath, [
+  "Plan routing runtime validation passed.",
+  "src/lib/plan-routing-runtime.ts",
+]);
+
 expect(entitlementValidatorPath, [
   "Plan entitlement routing contracts validation passed.",
   "src/lib/plan-entitlement-routing-contracts.ts",
@@ -276,7 +295,7 @@ forbidden(contractPath, [
   "sessionStorage.setItem",
 ]);
 
-for (const guardedPath of [matrixPath, runtimePath, entitlementPath, reconciliationPath, panelPath]) {
+for (const guardedPath of [matrixPath, runtimePath, routingRuntimePath, entitlementPath, reconciliationPath, panelPath]) {
   forbidden(guardedPath, [
     "guaranteed ROI",
     "guaranteed revenue",
@@ -310,7 +329,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including fulfillment, entitlement routing, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including fulfillment, entitlement routing, routing runtime, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
