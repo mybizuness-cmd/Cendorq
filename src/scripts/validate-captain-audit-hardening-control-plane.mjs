@@ -4,6 +4,9 @@ import { join } from "node:path";
 const root = process.cwd();
 const docPath = "docs/captain-audit-hardening-control-plane.md";
 const runtimePath = "src/lib/captain-audit-hardening-control-plane.ts";
+const operatingCoreDocPath = "docs/captain-operating-core.md";
+const operatingCoreRuntimePath = "src/lib/captain-operating-core.ts";
+const operatingCoreValidatorPath = "src/scripts/validate-captain-operating-core.mjs";
 const ownerValidatorPath = "src/scripts/validate-owner-operating-manual.mjs";
 const failures = [];
 
@@ -103,6 +106,36 @@ expect(runtimePath, [
   "customerFacingInternalNotesAllowed: false",
 ]);
 
+expect(operatingCoreDocPath, [
+  "# Universal Captain Operating Core",
+  "Command chain",
+  "Chief agent readiness before delegation",
+  "Agent and scout readiness before work",
+  "Forecast-before-expansion rule",
+  "A chief agent that cannot define these items must not run the lane.",
+  "Agents and scouts may propose. They do not approve.",
+]);
+
+expect(operatingCoreRuntimePath, [
+  "projectCaptainOperatingCore",
+  "getCaptainOperatingCoreRules",
+  "CaptainCommandRole",
+  "ChiefAgentTrainingGate",
+  "chiefAgentMayRunUntrained: false",
+  "agentMayRunUntrained: false",
+  "scoutMayRunUnboundedResearch: false",
+  "captainAboveChiefAgents: true",
+  "chiefAgentsAboveAgents: true",
+  "forecastReviewRequiredBeforeExpansion: true",
+]);
+
+expect(operatingCoreValidatorPath, [
+  "Universal captain operating core validation passed.",
+  "docs/captain-operating-core.md",
+  "src/lib/captain-operating-core.ts",
+  "projectCaptainOperatingCore",
+]);
+
 expect(ownerValidatorPath, [
   "src/scripts/validate-captain-audit-hardening-control-plane.mjs",
   "src/lib/captain-audit-hardening-control-plane.ts",
@@ -112,6 +145,8 @@ expect(ownerValidatorPath, [
 
 forbidden(docPath, unsafePhrases());
 forbidden(runtimePath, unsafePhrases());
+forbidden(operatingCoreDocPath, unsafePhrases());
+forbidden(operatingCoreRuntimePath, unsafePhrases());
 
 if (failures.length) {
   console.error("Captain audit hardening control plane validation failed:");
@@ -119,7 +154,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Captain audit hardening control plane validation passed.");
+console.log("Captain audit hardening control plane validation passed with universal captain operating core coverage.");
 
 function unsafePhrases() {
   return [
@@ -133,6 +168,11 @@ function unsafePhrases() {
     "rawCustomerDataExposureAllowed: true",
     "providerPayloadExposureAllowed: true",
     "customerFacingInternalNotesAllowed: true",
+    "chiefAgentMayRunUntrained: true",
+    "agentMayRunUntrained: true",
+    "scoutMayRunUnboundedResearch: true",
+    "agentsMayApproveProductionWork: true",
+    "forecastReviewRequiredBeforeExpansion: false",
     "merge without Vercel",
     "guaranteed ROI",
     "guaranteed revenue",
