@@ -16,6 +16,8 @@ This runbook defines how the private command center uses admin command-center sa
 
 The canonical endpoint list and route contract metadata live in `src/lib/admin-command-center-safe-projection-registry.ts`.
 
+The canonical route contract accessor is `getAdminCommandCenterSafeProjectionRouteContract`.
+
 The canonical access helper is `src/lib/admin-command-center-safe-access.ts`.
 
 The canonical response helper is `src/lib/admin-command-center-safe-response.ts`.
@@ -23,6 +25,8 @@ The canonical response helper is `src/lib/admin-command-center-safe-response.ts`
 Do not duplicate the endpoint list in UI or API routes. The private command-center panel and API index must import the registry so route discovery cannot drift.
 
 Do not duplicate route contract metadata in UI or API routes. The private command-center panel and API index must expose each registry entry's methods and helper requirements so operators can verify the safe-access, safe-response, and safe-options contract from read-only projections.
+
+The private API index must also expose a canonical `routeContract` block from `getAdminCommandCenterSafeProjectionRouteContract` so operators can verify the shared route contract before reviewing per-endpoint metadata.
 
 Do not duplicate preview-gate access checks in individual projection routes. Each admin command-center projection route must use `resolveAdminCommandCenterSafeAccess` and `adminCommandCenterAccessDeniedPayload` so closed-by-default behavior remains consistent.
 
@@ -46,7 +50,7 @@ Do not duplicate safe method arrays in individual projection routes. Each admin 
 1. Open the private command-center panel.
 2. Confirm the safe projection links render from the shared registry.
 3. Confirm the panel displays each registry entry's methods and helper requirements.
-4. Review the API index to confirm the endpoint map and route contract metadata.
+4. Review the API index to confirm the endpoint map, canonical `routeContract`, and per-route contract metadata.
 5. Review the lane-specific endpoint for the current decision.
 6. Treat the response as posture only.
 7. Use the relevant approval gate before any external, customer-facing, or production-affecting step.
@@ -68,3 +72,5 @@ Until a dedicated safe-access validator can be wired without a large route-chain
 The safe-projections validator must enforce shared `OPTIONS` helper coverage across every admin command-center projection route.
 
 The registry validator, API-index validator, and admin-control-panel validator must enforce route contract metadata for methods, safe-access helper requirements, safe-response helper requirements, and safe-options helper requirements.
+
+The API-index validator must enforce the canonical `routeContract` response block from `getAdminCommandCenterSafeProjectionRouteContract`.
