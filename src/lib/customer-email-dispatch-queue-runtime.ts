@@ -19,6 +19,8 @@ export type CustomerEmailDispatchQueueRecord = {
   queuedAt?: string;
   heldAt?: string;
   suppressedAt?: string;
+  sendingAt?: string;
+  sentAt?: string;
   failedAt?: string;
   cancelledAt?: string;
   retryCount: number;
@@ -60,6 +62,17 @@ export type EnqueueCustomerEmailDispatchInput = {
   auditEventId?: string | null;
   suppressionKey?: string | null;
   suppressionReason?: string | null;
+};
+
+export type UpdateCustomerEmailDispatchQueueStateInput = {
+  queueId: string;
+  toState: CustomerEmailDispatchQueueState;
+  expectedState?: CustomerEmailDispatchQueueState | null;
+  retryCount?: number;
+  nextRetryAt?: string | null;
+  suppressionKey?: string | null;
+  suppressionReason?: string | null;
+  failureReason?: string | null;
 };
 
 export type CustomerEmailDispatchQueueSafeProjection = {
@@ -142,6 +155,59 @@ export async function enqueueCustomerEmailDispatch(
   return projectCustomerEmailDispatchQueueRecord(record);
 }
 
+export async function updateCustomerEmailDispatchQueueState(
+  input: UpdateCustomerEmailDispatchQueueStateInput,
+): Promise<CustomerEmailDispatchQueueSafeProjection | null> {
+  const queueId = cleanOptionalText(input.queueId, 160);
+  if (!queueId) return null;
+
+  const envelope = await loadEnvelope();
+  const index = envelope.entries.findIndex((entry) => entry.queueId === queueId);
+  if (index < 0) return null;
+
+  const existing = envelope.entries[index];
+  if (input.expectedState && existing.state !== input.expectedState) return projectCustomerEmailDispatchQueueRecord(existing);
+
+  const updated = applyQueueStateMutation(existing, input);
+  envelope.entries[index] = updated;
+  await saveEnvelope(envelope);
+  return projectCustomerEmailDispatchQueueRecord(updated);
+}
+
+export function applyQueueStateMutation(
+  record: CustomerEmailDispatchQueueRecord,
+  input: Omit<UpdateCustomerEmailDispatchQueueStateInput, "queueId" | "expectedState">,
+): CustomerEmailDispatchQueueRecord {
+  const now = new Date().toISOString();
+  const toState = normalizeState(input.toState);
+  const retryCount = clampNumber(input.retryCount, 0, 20, record.retryCount);
+  return {
+    ...record,
+    state: toState,
+    queuedAt: record.queuedAt || (toState === "queued" ? now : undefined),
+    heldAt: toState === "held" ? now : record.heldAt,
+    suppressedAt: toState === "suppressed" ? now : record.suppressedAt,
+    sendingAt: toState === "sending" ? now : record.sendingAt,
+    sentAt: toState === "sent" ? now : record.sentAt,
+    failedAt: toState === "failed" ? now : record.failedAt,
+    cancelledAt: toState === "cancelled" ? now : record.cancelledAt,
+    retryCount,
+    nextRetryAt: cleanIso(input.nextRetryAt) || (toState === "failed" ? record.nextRetryAt : undefined),
+    suppressionKey: cleanOptionalText(input.suppressionKey, 120) || record.suppressionKey,
+    suppressionReason: cleanOptionalText(input.suppressionReason, 240) || record.suppressionReason,
+    failureReason: cleanOptionalText(input.failureReason, 240) || record.failureReason,
+    rawTokenStored: false,
+    tokenHashStored: false,
+    rawEmailStored: false,
+    rawPayloadStored: false,
+    rawEvidenceStored: false,
+    rawBillingDataStored: false,
+    internalNotesStored: false,
+    providerPayloadStored: false,
+    secretsStored: false,
+  };
+}
+
 export function projectCustomerEmailDispatchQueueRecord(
   record: CustomerEmailDispatchQueueRecord,
 ): CustomerEmailDispatchQueueSafeProjection {
@@ -173,6 +239,7 @@ export function getCustomerEmailDispatchQueueStorageRules() {
     "customer email dispatch queue records store confirmationUrlHash rather than confirmationUrl or raw token",
     "customer email dispatch queue records do not store providerReadyPayload or call an external email provider",
     "customer email dispatch queue records are idempotent per customerIdHash, recipientEmailRef, templateKey, and confirmationUrlHash",
+    "customer email dispatch queue state mutations update state timestamps and retry metadata without storing raw emails, tokens, confirmation URLs, provider payloads, provider responses, or secrets",
     "customer email dispatch queue records keep Cendorq Support <support@cendorq.com> as the sender identity",
   ] as const;
 }
@@ -215,6 +282,8 @@ function normalizeEntry(value: unknown): CustomerEmailDispatchQueueRecord | null
     queuedAt: cleanIso(value.queuedAt) || undefined,
     heldAt: cleanIso(value.heldAt) || undefined,
     suppressedAt: cleanIso(value.suppressedAt) || undefined,
+    sendingAt: cleanIso(value.sendingAt) || undefined,
+    sentAt: cleanIso(value.sentAt) || undefined,
     failedAt: cleanIso(value.failedAt) || undefined,
     cancelledAt: cleanIso(value.cancelledAt) || undefined,
     retryCount: clampNumber(value.retryCount, 0, 20, 0),

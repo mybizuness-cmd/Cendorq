@@ -14,7 +14,10 @@ const failures = [];
 expect(queuePath, [
   "CustomerEmailDispatchQueueRecord",
   "CustomerEmailDispatchQueueSafeProjection",
+  "UpdateCustomerEmailDispatchQueueStateInput",
   "enqueueCustomerEmailDispatch",
+  "updateCustomerEmailDispatchQueueState",
+  "applyQueueStateMutation",
   "projectCustomerEmailDispatchQueueRecord",
   "getCustomerEmailDispatchQueueStorageRules",
   "customer-email-dispatch-queue.v3.json",
@@ -28,6 +31,24 @@ expect(queuePath, [
   "rawEmailStored: false",
   "secretsStored: false",
   "customer email dispatch queue records do not store providerReadyPayload or call an external email provider",
+  "customer email dispatch queue state mutations update state timestamps and retry metadata without storing raw emails, tokens, confirmation URLs, provider payloads, provider responses, or secrets",
+]);
+
+expect(queuePath, [
+  "sendingAt",
+  "sentAt",
+  "failedAt",
+  "cancelledAt",
+  "retryCount",
+  "nextRetryAt",
+  "failureReason",
+  "suppressionKey",
+  "suppressionReason",
+  "if (input.expectedState && existing.state !== input.expectedState) return projectCustomerEmailDispatchQueueRecord(existing);",
+  "rawPayloadStored: false",
+  "rawEvidenceStored: false",
+  "rawBillingDataStored: false",
+  "internalNotesStored: false",
 ]);
 
 expect(queuePath, [
@@ -108,7 +129,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch queue runtime validation passed with provider dispatch adapter and audit coverage.");
+console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, and audit coverage.");
 
 function unsafePhrases() {
   return [
@@ -124,6 +145,10 @@ function unsafePhrases() {
     "rawTokenStored: true",
     "tokenHashStored: true",
     "rawEmailStored: true",
+    "rawPayloadStored: true",
+    "rawEvidenceStored: true",
+    "rawBillingDataStored: true",
+    "internalNotesStored: true",
     "secretsStored: true",
     "providerCallMade: true",
     "providerSecretRead: true",
