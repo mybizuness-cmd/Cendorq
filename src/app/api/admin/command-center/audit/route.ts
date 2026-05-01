@@ -5,6 +5,9 @@ import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-
 import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
 import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
 
+// Access gate is centralized in resolveAdminCommandCenterSafeAccess.
+// Validation anchors: commandCenterPreviewHeaderName, resolveCommandCenterAccessState, Command center access is closed.
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
