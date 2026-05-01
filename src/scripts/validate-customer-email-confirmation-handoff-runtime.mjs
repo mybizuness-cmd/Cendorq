@@ -7,6 +7,8 @@ const tokenRuntimePath = "src/lib/customer-email-verification-token-runtime.ts";
 const tokenRoutePath = "src/app/api/customer/email/confirm/route.ts";
 const tokenValidatorPath = "src/scripts/validate-customer-email-verification-token-runtime.mjs";
 const contractPath = "src/lib/customer-email-confirmation-handoff-contracts.ts";
+const reportVaultVerifyPath = "src/lib/report-vault-verify-to-view-integration.ts";
+const reportVaultVerifyValidatorPath = "src/scripts/validate-report-vault-verify-to-view-integration.mjs";
 const gatePath = "src/app/free-check/free-scan-confirmation-gate.tsx";
 const freeScanValidatorPath = "src/scripts/validate-free-scan-first-use-handoff.mjs";
 const failures = [];
@@ -102,6 +104,25 @@ expect(contractPath, [
   "Verification tokens must be single-use, short-lived, server-validated, and never stored in localStorage or sessionStorage.",
 ]);
 
+expect(reportVaultVerifyPath, [
+  "projectReportVaultVerifyToViewIntegration",
+  "getReportVaultVerifyToViewIntegrationRules",
+  "verifiedDestination: \"/dashboard/reports\"",
+  "dashboardModule: \"report vault\"",
+  "pendingReportPresentedAsFinal: false",
+  "emailVerificationRequiredBeforeProtectedResults",
+  "customerOwnershipRequired: true",
+  "safeReleaseRequired: true",
+  "arbitraryRedirectAllowed: false",
+  "unsupportedOutcomePromise: false",
+]);
+
+expect(reportVaultVerifyValidatorPath, [
+  "Report vault verify-to-view integration validation passed.",
+  "src/lib/report-vault-verify-to-view-integration.ts",
+  "projectReportVaultVerifyToViewIntegration",
+]);
+
 expect(gatePath, [
   "FreeScanConfirmationGate",
   "projectCustomerEmailConfirmationHandoff",
@@ -123,6 +144,7 @@ expect(freeScanValidatorPath, [
 forbidden(runtimePath, unsafePhrases());
 forbidden(tokenRuntimePath, unsafePhrases());
 forbidden(tokenRoutePath, unsafePhrases());
+forbidden(reportVaultVerifyPath, unsafePhrases());
 forbidden(gatePath, unsafePhrases());
 
 if (failures.length) {
@@ -131,7 +153,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email confirmation handoff runtime validation passed with verification token runtime coverage.");
+console.log("Customer email confirmation handoff runtime validation passed with verification token runtime and report vault verify-to-view coverage.");
 
 function unsafePhrases() {
   return [
@@ -160,6 +182,9 @@ function unsafePhrases() {
     "tokenHashReturned: true",
     "localStorageAllowed: true",
     "sessionStorageAllowed: true",
+    "pendingReportPresentedAsFinal: true",
+    "arbitraryRedirectAllowed: true",
+    "unsupportedOutcomePromise: true",
   ];
 }
 
