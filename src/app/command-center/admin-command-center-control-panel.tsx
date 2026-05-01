@@ -4,18 +4,11 @@ import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-
 import { getAdminCommandCenterFoundation } from "@/lib/admin-command-center-foundation";
 import { projectAdminCommandCenterForecastEscalation } from "@/lib/admin-command-center-forecast-escalation-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
-
-const SAFE_PROJECTION_LINKS = [
-  { label: "API index", href: "/api/admin/command-center", copy: "All safe projection endpoints in one read-only index." },
-  { label: "Summary", href: "/api/admin/command-center/summary", copy: "Foundation, access, mission, findings, forecast, and audit posture." },
-  { label: "Audit trail", href: "/api/admin/command-center/audit", copy: "Safe audit event projections for operator review." },
-  { label: "Mission brief", href: "/api/admin/command-center/mission-brief", copy: "Chief-agent brief readiness before dispatch." },
-  { label: "Agent findings", href: "/api/admin/command-center/agent-findings", copy: "Structured findings posture for agents and scouts." },
-  { label: "Forecast escalation", href: "/api/admin/command-center/forecast-escalation", copy: "Expansion, hardening, risk coverage, and escalation posture." },
-] as const;
+import { getAdminCommandCenterSafeProjectionLinks } from "@/lib/admin-command-center-safe-projection-registry";
 
 export function AdminCommandCenterControlPanel() {
   const foundation = getAdminCommandCenterFoundation();
+  const projectionLinks = getAdminCommandCenterSafeProjectionLinks();
   const access = projectAdminCommandCenterAccess({
     role: "release-captain",
     area: "agent-orchestration",
@@ -123,11 +116,11 @@ export function AdminCommandCenterControlPanel() {
           <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">read-only</span>
         </div>
         <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-          {SAFE_PROJECTION_LINKS.map((link) => (
+          {projectionLinks.map((link) => (
             <a key={link.href} href={link.href} className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 text-sm text-slate-300 transition hover:border-cyan-300/30 hover:bg-cyan-300/[0.06]">
               <span className="font-semibold text-white">{link.label}</span>
               <span className="mt-2 block break-all text-xs text-cyan-200">{link.href}</span>
-              <span className="mt-3 block text-xs leading-5 text-slate-400">{link.copy}</span>
+              <span className="mt-3 block text-xs leading-5 text-slate-400">{link.purpose}</span>
             </a>
           ))}
         </div>
