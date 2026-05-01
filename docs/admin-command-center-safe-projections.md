@@ -7,6 +7,7 @@ This runbook defines how the private command center uses admin command-center sa
 - The command-center API index and child endpoints are preview-gated.
 - All access checks must resolve through the shared safe-access helper.
 - All responses must use `no-store` cache posture.
+- `OPTIONS` responses must resolve through the shared safe-options helper and canonical safe method list.
 - The endpoints are read-only review surfaces.
 - The endpoints show posture, counts, decisions, and references only.
 - Action lanes still require their separate approval gates before customer-facing, launch, billing, provider, report, or production-impacting use.
@@ -24,6 +25,8 @@ Do not duplicate the endpoint list in UI or API routes. The private command-cent
 Do not duplicate preview-gate access checks in individual projection routes. Each admin command-center projection route must use `resolveAdminCommandCenterSafeAccess` and `adminCommandCenterAccessDeniedPayload` so closed-by-default behavior remains consistent.
 
 Do not duplicate response headers in individual projection routes. Each admin command-center projection route must use `adminCommandCenterJsonNoStore` so no-store and noindex behavior remains consistent.
+
+Do not duplicate safe method arrays in individual projection routes. Each admin command-center projection route should use `adminCommandCenterOptions` and `ADMIN_COMMAND_CENTER_SAFE_METHODS` as the canonical `OPTIONS` response contract unless a route is intentionally deferred and documented.
 
 ## Endpoint map
 
@@ -58,3 +61,5 @@ Any update to these endpoints must update validation coverage for:
 The route-chain must include the registry validator and the shared safe-response validator so endpoint discovery and response posture cannot drift silently.
 
 Until a dedicated safe-access validator can be wired without a large route-chain rewrite, the projection route validators must keep verifying the shared access helper through route-level validation anchors.
+
+Until the forecast-escalation route can be safely converted without a blocked full-file patch, the safe-projections validator must document and enforce shared `OPTIONS` helper coverage on the converted projection routes without overclaiming full coverage.
