@@ -4,6 +4,7 @@ import {
   getAdminCommandCenterSafeProjectionBoundaries,
   getAdminCommandCenterSafeProjectionLinks,
   getAdminCommandCenterSafeProjectionRouteContract,
+  getAdminCommandCenterSafeProjectionRouteContractSummary,
 } from "@/lib/admin-command-center-safe-projection-registry";
 import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
 import { adminCommandCenterJsonNoStore, adminCommandCenterOptions } from "@/lib/admin-command-center-safe-response";
@@ -25,6 +26,7 @@ export async function GET(request: NextRequest) {
   }
 
   const routeContract = getAdminCommandCenterSafeProjectionRouteContract();
+  const routeContractSummary = getAdminCommandCenterSafeProjectionRouteContractSummary();
 
   return adminCommandCenterJsonNoStore(
     {
@@ -35,12 +37,8 @@ export async function GET(request: NextRequest) {
       noStoreRequired: true,
       readOnly: true,
       grantsLiveAuthority: false,
-      routeContract: {
-        methods: routeContract.methods,
-        requiresSafeAccessHelper: routeContract.requiresSafeAccessHelper,
-        requiresSafeResponseHelper: routeContract.requiresSafeResponseHelper,
-        requiresSafeOptionsHelper: routeContract.requiresSafeOptionsHelper,
-      },
+      routeContract,
+      routeContractSummary,
       endpoints: getAdminCommandCenterSafeProjectionLinks().map((endpoint) => ({
         key: endpoint.key,
         path: endpoint.href,
