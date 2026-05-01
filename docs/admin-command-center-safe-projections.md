@@ -14,7 +14,11 @@ This runbook defines how the private command center uses admin command-center sa
 
 The canonical endpoint list is `src/lib/admin-command-center-safe-projection-registry.ts`.
 
+The canonical response helper is `src/lib/admin-command-center-safe-response.ts`.
+
 Do not duplicate the endpoint list in UI or API routes. The private command-center panel and API index must import the registry so route discovery cannot drift.
+
+Do not duplicate response headers in individual projection routes. Each admin command-center projection route must use `adminCommandCenterJsonNoStore` so no-store and noindex behavior remains consistent.
 
 ## Endpoint map
 
@@ -41,8 +45,9 @@ Do not duplicate the endpoint list in UI or API routes. The private command-cent
 Any update to these endpoints must update validation coverage for:
 
 - `src/scripts/validate-admin-command-center-projection-registry.mjs`
+- `src/scripts/validate-admin-command-center-safe-response.mjs`
 - `src/scripts/validate-admin-command-center-api-index.mjs`
 - `src/scripts/validate-command-center-admin-control-panel.mjs`
 - `src/scripts/validate-routes-chain.mjs`
 
-The route-chain must include the registry validator so endpoint discovery cannot drift silently.
+The route-chain must include the registry validator and the shared safe-response validator so endpoint discovery and response posture cannot drift silently.
