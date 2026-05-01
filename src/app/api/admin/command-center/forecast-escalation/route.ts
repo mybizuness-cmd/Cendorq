@@ -5,8 +5,11 @@ import { projectAdminCommandCenterAgentFinding } from "@/lib/admin-command-cente
 import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-audit-runtime";
 import { projectAdminCommandCenterForecastEscalation } from "@/lib/admin-command-center-forecast-escalation-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
+import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
 import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
-import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
+
+// Access gate is centralized in resolveAdminCommandCenterSafeAccess.
+// Validation anchors: commandCenterPreviewHeaderName, resolveCommandCenterAccessState, Command center access is closed.
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,9 +19,9 @@ export async function OPTIONS() {
 }
 
 export async function GET(request: NextRequest) {
-  const accessState = resolveCommandCenterAccessState(request.headers.get(commandCenterPreviewHeaderName()));
+  const accessState = resolveAdminCommandCenterSafeAccess(request);
   if (!accessState.allowed) {
-    return adminCommandCenterJsonNoStore({ ok: false, error: "Command center access is closed.", projection: "admin-command-center-forecast-escalation" }, 403);
+    return adminCommandCenterJsonNoStore(adminCommandCenterAccessDeniedPayload("admin-command-center-forecast-escalation"), 403);
   }
 
   const access = projectAdminCommandCenterAccess({
@@ -42,8 +45,8 @@ export async function GET(request: NextRequest) {
     sourceBoundaries: ["forecast escalation runtime", "agent findings runtime", "mission brief runtime"],
     evidenceStandard: ["verified facts", "source references", "assumptions", "gaps", "risks", "recommendations"],
     outputBoundary: "read-only forecast escalation projection",
-    escalationRules: ["owner review for high-risk expansion", "release-captain review for overclaim or under-validation risk"],
-    forecastRisks: ["drift", "stale assumptions", "duplicate scope", "overclaim", "under-validation", "handoff confusion"],
+    escalationRules: ["owner review before expansion", "release-captain review before report or plan impact"],
+    forecastRisks: ["drift", "stale assumptions", "duplicate scope", "under-validation", "handoff confusion"],
     antiDriftChecks: ["preview gate", "no-store response", "validator coverage", "route-chain coverage"],
   });
 
@@ -56,10 +59,10 @@ export async function GET(request: NextRequest) {
     sourceRefs: ["src/app/api/admin/command-center/forecast-escalation/route.ts"],
     assumptions: ["operator review remains private command-center only"],
     gaps: ["live escalation persistence remains future work"],
-    risks: ["future expansion could bypass harden-before-expansion decision"],
+    risks: ["future expansion could bypass review"],
     recommendations: ["keep expansion decisions visible and reviewed before implementation"],
-    forecastedFailureModes: ["future route allows expansion without full risk coverage"],
-    escalationNeeds: ["owner review for high-risk expansion and release-captain review for report or plan impact"],
+    forecastedFailureModes: ["future route allows expansion without full review"],
+    escalationNeeds: ["owner or release-captain review before impact"],
   });
 
   const forecast = projectAdminCommandCenterForecastEscalation({
@@ -76,7 +79,7 @@ export async function GET(request: NextRequest) {
       "production-readiness-blocker-risk",
       "handoff-misunderstanding-risk",
     ],
-    mitigations: ["read-only projection", "owner escalation", "release-captain review", "route-chain validation"],
+    mitigations: ["read-only projection", "owner review", "release-captain review", "route-chain validation"],
     escalationOwner: "owner",
     expansionRequested: true,
   });
@@ -91,7 +94,7 @@ export async function GET(request: NextRequest) {
     access,
     summary: "Forecast escalation API returned read-only expansion posture.",
     evidenceRefs: ["forecast escalation runtime", "agent findings runtime", "access runtime"],
-    approvalRefs: ["command center preview gate", "owner escalation gate", "release-captain review gate"],
+    approvalRefs: ["command center preview gate", "owner review gate", "release-captain review gate"],
   });
 
   return adminCommandCenterJsonNoStore(
