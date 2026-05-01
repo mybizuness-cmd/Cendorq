@@ -3,7 +3,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const foundationPath = "src/lib/admin-command-center-foundation.ts";
-const ownerValidatorPath = "src/scripts/validate-owner-operating-manual.mjs";
+const accessRuntimePath = "src/lib/admin-command-center-access-runtime.ts";
+const accessRuntimeValidatorPath = "src/scripts/validate-admin-command-center-access-runtime.mjs";
+const captainAuditValidatorPath = "src/scripts/validate-captain-audit-hardening-control-plane.mjs";
 const failures = [];
 
 expect(foundationPath, [
@@ -47,20 +49,6 @@ expect(foundationPath, [
 ]);
 
 expect(foundationPath, [
-  "view-safe-summary",
-  "review-audit-trail",
-  "approve-report-release",
-  "approve-billing-action",
-  "approve-security-escalation",
-  "approve-provider-configuration",
-  "approve-plan-delivery",
-  "approve-launch-readiness",
-  "approve-maintenance-change",
-  "review-agent-output",
-  "approve-chief-agent-mission-brief",
-]);
-
-expect(foundationPath, [
   "defaultDecision: \"deny\"",
   "responseMode: \"no-store\"",
   "server-only-http-only-cookie",
@@ -87,66 +75,37 @@ expect(foundationPath, [
   "unsupportedOutcomePromiseAllowed: false",
 ]);
 
-expect(foundationPath, [
-  "support area uses support operator access contracts and projects only safe support summaries",
-  "billing area requires billing approval gates and customer-safe billing language",
-  "security area requires security review gates and customer-safe security language",
-  "reports area requires release-captain approval before report vault delivery or correction output",
-  "email dispatch area may preview and dry-run but must not perform direct provider sends from admin surfaces",
-  "provider configuration area requires owner approval before live provider readiness changes",
-  "agent orchestration area reviews chief-agent mission briefs, structured agent findings, forecast risks, and escalation needs only",
+expect(accessRuntimePath, [
+  "projectAdminCommandCenterAccess",
+  "getAdminCommandCenterAccessRuntimeRules",
+  "allow-safe-read",
+  "allow-reviewed-mutation",
+  "deny",
+  "role-not-recognized",
+  "audit-context-missing",
+  "fresh-session-required",
+  "owner-approval-required",
+  "release-captain-approval-required",
+  "chief-agent-mission-brief-required",
+  "structured-agent-findings-required",
+  "forecast-review-required",
+  "email-dispatch-admin-send-blocked",
 ]);
 
-expect(foundationPath, [
-  "owner approval gate",
-  "release-captain report release gate",
-  "billing approval gate",
-  "security approval gate",
-  "provider configuration approval gate",
-  "plan delivery approval gate",
-  "launch readiness approval gate",
-  "maintenance change approval gate",
-  "captain review gate for agent output",
-  "chief-agent mission brief approval gate",
+expect(accessRuntimeValidatorPath, [
+  "Admin command center access runtime validation passed.",
+  "src/lib/admin-command-center-access-runtime.ts",
+  "projectAdminCommandCenterAccess",
 ]);
 
-expect(foundationPath, [
-  "getCustomerSupportOperatorAccessContracts",
-  "getCaptainAuditControlRules",
-  "getCaptainOperatingCoreRules",
-]);
-
-expect(ownerValidatorPath, [
+expect(captainAuditValidatorPath, [
   "src/scripts/validate-admin-command-center-foundation.mjs",
   "src/lib/admin-command-center-foundation.ts",
   "projectAdminCommandCenterFoundationSummary",
 ]);
 
-forbidden(foundationPath, [
-  "defaultDecision: \"allow\"",
-  "customerVisibleInternalNotesAllowed: true",
-  "operatorIdentityCustomerVisibleAllowed: true",
-  "browserReadableAdminAuthorityAllowed: true",
-  "browserReadableProviderAuthorityAllowed: true",
-  "browserReadableSupportAuthorityAllowed: true",
-  "browserStorageAuthorityAllowed: true",
-  "directProviderSendFromAdminAllowed: true",
-  "uncontrolledAgentMutationAllowed: true",
-  "untrainedChiefAgentDispatchAllowed: true",
-  "unstructuredAgentFindingAllowed: true",
-  "stalePrBlindMergeAllowed: true",
-  "unsupportedOutcomePromiseAllowed: true",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed deliverability",
-  "guaranteed inbox placement",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
+forbidden(foundationPath, unsafePhrases());
+forbidden(accessRuntimePath, unsafePhrases());
 
 if (failures.length) {
   console.error("Admin command center foundation validation failed:");
@@ -154,7 +113,35 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center foundation validation passed.");
+console.log("Admin command center foundation validation passed with access runtime coverage.");
+
+function unsafePhrases() {
+  return [
+    "defaultDecision: \"allow\"",
+    "customerVisibleInternalNotesAllowed: true",
+    "operatorIdentityCustomerVisibleAllowed: true",
+    "browserReadableAdminAuthorityAllowed: true",
+    "browserReadableProviderAuthorityAllowed: true",
+    "browserReadableSupportAuthorityAllowed: true",
+    "browserStorageAuthorityAllowed: true",
+    "directProviderSendFromAdminAllowed: true",
+    "uncontrolledAgentMutationAllowed: true",
+    "untrainedChiefAgentDispatchAllowed: true",
+    "unstructuredAgentFindingAllowed: true",
+    "stalePrBlindMergeAllowed: true",
+    "unsupportedOutcomePromiseAllowed: true",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed deliverability",
+    "guaranteed inbox placement",
+    "100% accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
