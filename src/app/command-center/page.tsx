@@ -29,6 +29,7 @@ import { OwnerConfigurationEvidencePanel } from "./owner-configuration-evidence-
 import { OwnerConfigurationWorkflowPanel } from "./owner-configuration-workflow-panel";
 import { PlanControlPanel } from "./plan-control-panel";
 import { PlanDeliveryOrchestrationPanel } from "./plan-delivery-orchestration-panel";
+import { PlanRoutingRuntimePanel } from "./plan-routing-runtime-panel";
 import { PlatformLaunchReadinessPanel } from "./platform-launch-readiness-panel";
 import { ProductionLaunchChecklistPanel } from "./production-launch-checklist-panel";
 import { ProductionLaunchFinalBlockerPanel } from "./production-launch-final-blocker-panel";
@@ -92,6 +93,7 @@ export default async function CommandCenterPage() {
         <ModuleRoadmapPanel />
         <PlanControlPanel plans={planControls} />
         <PlanDeliveryOrchestrationPanel />
+        <PlanRoutingRuntimePanel />
         <OptimizationLibraryPanel methods={optimizationMethods} />
         <CustomerOutputApprovalPanel policies={customerOutputPolicies} />
         <BenchmarkIntelligencePanel />

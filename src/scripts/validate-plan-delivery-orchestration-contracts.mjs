@@ -9,6 +9,7 @@ const routingRuntimePath = "src/lib/plan-routing-runtime.ts";
 const entitlementPath = "src/lib/plan-entitlement-routing-contracts.ts";
 const reconciliationPath = "src/lib/plan-post-delivery-reconciliation-contracts.ts";
 const panelPath = "src/app/command-center/complete-plan-fulfillment-panel.tsx";
+const routingPanelPath = "src/app/command-center/plan-routing-runtime-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
 const matrixValidatorPath = "src/scripts/validate-complete-plan-fulfillment-matrix.mjs";
 const runtimeValidatorPath = "src/scripts/validate-complete-plan-fulfillment-runtime.mjs";
@@ -16,6 +17,7 @@ const routingRuntimeValidatorPath = "src/scripts/validate-plan-routing-runtime.m
 const entitlementValidatorPath = "src/scripts/validate-plan-entitlement-routing-contracts.mjs";
 const reconciliationValidatorPath = "src/scripts/validate-plan-post-delivery-reconciliation-contracts.mjs";
 const panelValidatorPath = "src/scripts/validate-command-center-complete-plan-fulfillment-panel.mjs";
+const routingPanelValidatorPath = "src/scripts/validate-command-center-plan-routing-runtime-panel.mjs";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
@@ -231,10 +233,25 @@ expect(panelPath, [
   "Customer-facing delivery allowed",
 ]);
 
+expect(routingPanelPath, [
+  "PlanRoutingRuntimePanel",
+  "projectPlanRouting",
+  "Operator visibility for plan stops, direct purchases, late add-ons, warning emails, and one-time inbox confirmation.",
+  "Decision matrix",
+  "safe projection",
+  "warningEmailAllowed",
+  "inboxConfirmationAllowed",
+  "reconciliationOutcome",
+  "Safe customer language",
+]);
+
 expect(pagePath, [
   "CompletePlanFulfillmentPanel",
+  "PlanRoutingRuntimePanel",
   "./complete-plan-fulfillment-panel",
+  "./plan-routing-runtime-panel",
   "<PlanDeliveryOrchestrationPanel />",
+  "<PlanRoutingRuntimePanel />",
   "<CompletePlanFulfillmentPanel />",
   "<OptimizationLibraryPanel methods={optimizationMethods} />",
 ]);
@@ -269,6 +286,11 @@ expect(panelValidatorPath, [
   "src/app/command-center/complete-plan-fulfillment-panel.tsx",
 ]);
 
+expect(routingPanelValidatorPath, [
+  "Command center plan routing runtime panel validation passed.",
+  "src/app/command-center/plan-routing-runtime-panel.tsx",
+]);
+
 expect(routesChainPath, [
   "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
 ]);
@@ -295,7 +317,7 @@ forbidden(contractPath, [
   "sessionStorage.setItem",
 ]);
 
-for (const guardedPath of [matrixPath, runtimePath, routingRuntimePath, entitlementPath, reconciliationPath, panelPath]) {
+for (const guardedPath of [matrixPath, runtimePath, routingRuntimePath, entitlementPath, reconciliationPath, panelPath, routingPanelPath]) {
   forbidden(guardedPath, [
     "guaranteed ROI",
     "guaranteed revenue",
@@ -329,7 +351,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including fulfillment, entitlement routing, routing runtime, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
