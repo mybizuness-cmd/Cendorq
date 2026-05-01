@@ -65,7 +65,7 @@ validateTextFile(docsIndexPath, [
   "src/app/api/admin/command-center/forecast-escalation/route.ts",
   "src/app/command-center/admin-command-center-control-panel.tsx",
   "These paths are command-center-only and read-only review surfaces.",
-  "preview-gated, shared-access-backed, safe-options-backed where converted, no-store, registry-backed, shared-response-backed, and posture-only",
+  "preview-gated, shared-access-backed, safe-options-backed, no-store, registry-backed, shared-response-backed, and posture-only",
   "src/app/api/command-center/report-evidence/orchestration/route.ts",
   "src/app/command-center/report-evidence-orchestration-panel.tsx",
   "command-center-only and safe-summary-only",
@@ -147,7 +147,7 @@ validateTextFile(safeProjectionRunbookPath, [
   "Validation requirements",
   "validate-admin-command-center-safe-response.mjs",
   "shared access helper through route-level validation anchors",
-  "safe-projections validator must document and enforce shared `OPTIONS` helper coverage",
+  "safe-projections validator must enforce shared `OPTIONS` helper coverage across every admin command-center projection route",
 ]);
 
 validateTextFile(ownerManualPath, [

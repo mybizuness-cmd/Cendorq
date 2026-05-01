@@ -26,7 +26,7 @@ Do not duplicate preview-gate access checks in individual projection routes. Eac
 
 Do not duplicate response headers in individual projection routes. Each admin command-center projection route must use `adminCommandCenterJsonNoStore` so no-store and noindex behavior remains consistent.
 
-Do not duplicate safe method arrays in individual projection routes. Each admin command-center projection route should use `adminCommandCenterOptions` and `ADMIN_COMMAND_CENTER_SAFE_METHODS` as the canonical `OPTIONS` response contract unless a route is intentionally deferred and documented.
+Do not duplicate safe method arrays in individual projection routes. Each admin command-center projection route must use `adminCommandCenterOptions` and `ADMIN_COMMAND_CENTER_SAFE_METHODS` as the canonical `OPTIONS` response contract.
 
 ## Endpoint map
 
@@ -62,4 +62,4 @@ The route-chain must include the registry validator and the shared safe-response
 
 Until a dedicated safe-access validator can be wired without a large route-chain rewrite, the projection route validators must keep verifying the shared access helper through route-level validation anchors.
 
-Until the forecast-escalation route can be safely converted without a blocked full-file patch, the safe-projections validator must document and enforce shared `OPTIONS` helper coverage on the converted projection routes without overclaiming full coverage.
+The safe-projections validator must enforce shared `OPTIONS` helper coverage across every admin command-center projection route.

@@ -6,7 +6,7 @@ import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-
 import { projectAdminCommandCenterForecastEscalation } from "@/lib/admin-command-center-forecast-escalation-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
 import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
-import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
+import { adminCommandCenterJsonNoStore, adminCommandCenterOptions } from "@/lib/admin-command-center-safe-response";
 
 // Access gate is centralized in resolveAdminCommandCenterSafeAccess.
 // Validation anchors: commandCenterPreviewHeaderName, resolveCommandCenterAccessState, Command center access is closed.
@@ -14,8 +14,20 @@ import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-r
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+const forecastRiskChecks = [
+  "drift-risk",
+  "stale-assumption-risk",
+  "duplicate-scope-risk",
+  "overclaim-risk",
+  "under-validation-risk",
+  "customer-journey-confusion-risk",
+  "private-material-exposure-risk",
+  "production-readiness-blocker-risk",
+  "handoff-misunderstanding-risk",
+] as const;
+
 export async function OPTIONS() {
-  return adminCommandCenterJsonNoStore({ ok: true, methods: ["GET", "OPTIONS"], projection: "admin-command-center-forecast-escalation" }, 200);
+  return adminCommandCenterOptions("admin-command-center-forecast-escalation");
 }
 
 export async function GET(request: NextRequest) {
@@ -68,17 +80,7 @@ export async function GET(request: NextRequest) {
   const forecast = projectAdminCommandCenterForecastEscalation({
     reviewId: "admin-command-center-forecast-escalation-api-review",
     finding,
-    risksReviewed: [
-      "drift-risk",
-      "stale-assumption-risk",
-      "duplicate-scope-risk",
-      "overclaim-risk",
-      "under-validation-risk",
-      "customer-journey-confusion-risk",
-      "private-material-exposure-risk",
-      "production-readiness-blocker-risk",
-      "handoff-misunderstanding-risk",
-    ],
+    risksReviewed: forecastRiskChecks,
     mitigations: ["read-only projection", "owner review", "release-captain review", "route-chain validation"],
     escalationOwner: "owner",
     expansionRequested: true,
