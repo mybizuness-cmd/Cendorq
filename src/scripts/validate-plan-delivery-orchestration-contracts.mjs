@@ -6,9 +6,12 @@ const contractPath = "src/lib/plan-delivery-orchestration-contracts.ts";
 const matrixPath = "src/lib/complete-plan-fulfillment-matrix.ts";
 const runtimePath = "src/lib/complete-plan-fulfillment-runtime.ts";
 const entitlementPath = "src/lib/plan-entitlement-routing-contracts.ts";
+const panelPath = "src/app/command-center/complete-plan-fulfillment-panel.tsx";
+const pagePath = "src/app/command-center/page.tsx";
 const matrixValidatorPath = "src/scripts/validate-complete-plan-fulfillment-matrix.mjs";
 const runtimeValidatorPath = "src/scripts/validate-complete-plan-fulfillment-runtime.mjs";
 const entitlementValidatorPath = "src/scripts/validate-plan-entitlement-routing-contracts.mjs";
+const panelValidatorPath = "src/scripts/validate-command-center-complete-plan-fulfillment-panel.mjs";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
@@ -162,6 +165,32 @@ expect(entitlementPath, [
   "No unpaid internal analysis becomes downloadable, emailed, report-vault-visible, or customer-facing as a standalone artifact.",
 ]);
 
+expect(panelPath, [
+  "CompletePlanFulfillmentPanel",
+  "projectCompletePlanFulfillment",
+  "A-to-Z plan delivery cockpit",
+  "VisualMatrixOverview",
+  "ProgressRail",
+  "GateGrid",
+  "VisualPostureCard",
+  "StatusPill",
+  "value, education, boundaries, conversion, stages, artifacts, and approval",
+  "protects higher-tier revenue streams",
+  "Customer education reviewed",
+  "Value above price reviewed",
+  "Plan boundary protected",
+  "Conversion method approved",
+  "Customer-facing delivery allowed",
+]);
+
+expect(pagePath, [
+  "CompletePlanFulfillmentPanel",
+  "./complete-plan-fulfillment-panel",
+  "<PlanDeliveryOrchestrationPanel />",
+  "<CompletePlanFulfillmentPanel />",
+  "<OptimizationLibraryPanel methods={optimizationMethods} />",
+]);
+
 expect(matrixValidatorPath, [
   "Complete plan fulfillment matrix validation passed.",
   "src/lib/complete-plan-fulfillment-matrix.ts",
@@ -175,6 +204,11 @@ expect(runtimeValidatorPath, [
 expect(entitlementValidatorPath, [
   "Plan entitlement routing contracts validation passed.",
   "src/lib/plan-entitlement-routing-contracts.ts",
+]);
+
+expect(panelValidatorPath, [
+  "Command center complete plan fulfillment panel validation passed.",
+  "src/app/command-center/complete-plan-fulfillment-panel.tsx",
 ]);
 
 expect(routesChainPath, [
@@ -203,7 +237,7 @@ forbidden(contractPath, [
   "sessionStorage.setItem",
 ]);
 
-for (const guardedPath of [matrixPath, runtimePath, entitlementPath]) {
+for (const guardedPath of [matrixPath, runtimePath, entitlementPath, panelPath]) {
   forbidden(guardedPath, [
     "guaranteed ROI",
     "guaranteed revenue",
@@ -237,7 +271,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including complete fulfillment and entitlement routing coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including complete fulfillment, entitlement routing, and command-center panel coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
