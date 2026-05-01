@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const runtimePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
+const dispatchQueuePath = "src/lib/customer-email-dispatch-queue-runtime.ts";
+const dispatchQueueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
 const tokenRuntimePath = "src/lib/customer-email-verification-token-runtime.ts";
 const templatesPath = "src/lib/customer-email-template-contracts.ts";
 const templateValidatorPath = "src/scripts/validate-customer-email-template-contracts.mjs";
@@ -13,13 +15,17 @@ expect(runtimePath, [
   "projectCustomerConfirmationEmailSafeResponse",
   "getConfirmationEmailTemplateContract",
   "issueCustomerEmailVerificationToken",
+  "enqueueCustomerEmailDispatch",
+  "CustomerEmailDispatchQueueSafeProjection",
   "CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT",
   "getCustomerEmailTemplateContracts",
   "CustomerConfirmationEmailPayload",
+  "dispatchQueue",
   "providerReadyPayload",
   "confirmationUrl",
   "confirmationUrlHash",
   "confirmationPath: \"/api/customer/email/confirm\"",
+  "providerPayloadReturnedToBrowser: false",
 ]);
 
 expect(runtimePath, [
@@ -45,6 +51,26 @@ expect(runtimePath, [
   "sessionStorageAllowed: false",
 ]);
 
+expect(dispatchQueuePath, [
+  "CustomerEmailDispatchQueueRecord",
+  "enqueueCustomerEmailDispatch",
+  "projectCustomerEmailDispatchQueueRecord",
+  "customer-email-dispatch-queue.v3.json",
+  "recipientEmailRef",
+  "confirmationUrlHash",
+  "providerPayloadStored: false",
+  "rawTokenStored: false",
+  "rawEmailStored: false",
+  "customer email dispatch queue records do not store providerReadyPayload or call an external email provider",
+]);
+
+expect(dispatchQueueValidatorPath, [
+  "Customer email dispatch queue runtime validation passed.",
+  "src/lib/customer-email-dispatch-queue-runtime.ts",
+  "dispatchQueue",
+  "providerPayloadReturnedToBrowser: false",
+]);
+
 expect(tokenRuntimePath, [
   "issueCustomerEmailVerificationToken",
   "verifyCustomerEmailConfirmationToken",
@@ -67,28 +93,8 @@ expect(templateValidatorPath, [
   "issueCustomerConfirmationEmail",
 ]);
 
-forbidden(runtimePath, [
-  "rawTokenReturnedToBrowser: true",
-  "tokenHashReturnedToBrowser: true",
-  "rawEmailReturnedToBrowser: true",
-  "rawPayloadStored: true",
-  "rawEvidenceReturned: true",
-  "rawBillingDataReturned: true",
-  "internalNotesReturned: true",
-  "localStorageAllowed: true",
-  "sessionStorageAllowed: true",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "guaranteed inbox placement",
-  "guaranteed deliverability",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "100% accurate",
-  "100 percent accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-]);
+forbidden(runtimePath, unsafePhrases());
+forbidden(dispatchQueuePath, unsafePhrases());
 
 if (failures.length) {
   console.error("Customer confirmation email issuance runtime validation failed:");
@@ -96,7 +102,40 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer confirmation email issuance runtime validation passed.");
+console.log("Customer confirmation email issuance runtime validation passed with dispatch queue coverage.");
+
+function unsafePhrases() {
+  return [
+    "rawTokenReturnedToBrowser: true",
+    "tokenHashReturnedToBrowser: true",
+    "rawEmailReturnedToBrowser: true",
+    "providerPayloadReturnedToBrowser: true",
+    "providerPayloadStored: true",
+    "rawTokenStored: true",
+    "tokenHashStored: true",
+    "rawEmailStored: true",
+    "rawPayloadStored: true",
+    "rawEvidenceReturned: true",
+    "rawBillingDataReturned: true",
+    "internalNotesReturned: true",
+    "localStorageAllowed: true",
+    "sessionStorageAllowed: true",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+    "sendGrid",
+    "resend.emails.send",
+    "fetch(\"https://api",
+    "guaranteed inbox placement",
+    "guaranteed deliverability",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "100% accurate",
+    "100 percent accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

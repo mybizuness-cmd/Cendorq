@@ -1,6 +1,10 @@
 import { createHash } from "node:crypto";
 
 import {
+  enqueueCustomerEmailDispatch,
+  type CustomerEmailDispatchQueueSafeProjection,
+} from "./customer-email-dispatch-queue-runtime";
+import {
   issueCustomerEmailVerificationToken,
   type IssueCustomerEmailVerificationTokenInput,
 } from "./customer-email-verification-token-runtime";
@@ -15,7 +19,7 @@ export type CustomerConfirmationEmailIssuanceInput = IssueCustomerEmailVerificat
 
 export type CustomerConfirmationEmailPayload = {
   ok: true;
-  queued: true;
+  queued: boolean;
   emailKey: "confirm-email";
   senderName: "Cendorq Support";
   fromAddress: "support@cendorq.com";
@@ -28,6 +32,7 @@ export type CustomerConfirmationEmailPayload = {
   expiresAt: string;
   destination: string;
   safePreviewText: string;
+  dispatchQueue: CustomerEmailDispatchQueueSafeProjection;
   providerReadyPayload: {
     templateKey: "confirm-email";
     senderDisplay: "Cendorq Support <support@cendorq.com>";
@@ -47,6 +52,7 @@ export type CustomerConfirmationEmailPayload = {
     rawEvidenceReturned: false;
     rawBillingDataReturned: false;
     internalNotesReturned: false;
+    providerPayloadReturnedToBrowser: false;
     localStorageAllowed: false;
     sessionStorageAllowed: false;
   };
@@ -57,30 +63,47 @@ export async function issueCustomerConfirmationEmail(
 ): Promise<CustomerConfirmationEmailPayload> {
   const token = await issueCustomerEmailVerificationToken(input);
   const subject = pickSubject(input.journeyKey, token.subject);
+  const preheader = pickPreheader(input.journeyKey);
   const confirmationUrl = buildConfirmationUrl(input.baseUrl, token.token, token.destination);
+  const confirmationUrlHash = hashUrl(confirmationUrl);
   const sender = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.senderIdentity;
   const businessName = cleanText(input.businessName, 80) || "your business";
+  const toHash = cleanHash(input.customerEmailHash);
+  const dispatchQueue = await enqueueCustomerEmailDispatch({
+    customerIdHash: input.customerIdHash,
+    recipientEmailRef: toHash,
+    templateKey: "confirm-email",
+    subject,
+    preheader,
+    primaryCta: token.primaryCta,
+    confirmationPath: "/api/customer/email/confirm",
+    confirmationUrlHash,
+    dashboardPath: normalizeDashboardPath(token.destination),
+    expiresAt: token.expiresAt,
+    auditEventId: token.tokenId,
+  });
 
   return {
     ok: true,
-    queued: true,
+    queued: dispatchQueue.state === "queued",
     emailKey: "confirm-email",
     senderName: sender.fromName,
     fromAddress: sender.fromEmail,
-    toHash: cleanHash(input.customerEmailHash),
+    toHash,
     subject,
-    preheader: pickPreheader(input.journeyKey),
+    preheader,
     primaryCta: token.primaryCta,
-    confirmationUrlHash: hashUrl(confirmationUrl),
+    confirmationUrlHash,
     confirmationPath: "/api/customer/email/confirm",
     expiresAt: token.expiresAt,
     destination: token.destination,
     safePreviewText: `Check your inbox for ${sender.display}. Confirm once to open your Cendorq results for ${businessName}.`,
+    dispatchQueue,
     providerReadyPayload: {
       templateKey: "confirm-email",
       senderDisplay: sender.display,
       subject,
-      preheader: pickPreheader(input.journeyKey),
+      preheader,
       primaryCta: token.primaryCta,
       bodyIntro: `Your Cendorq results for ${businessName} are protected behind one email confirmation step.`,
       bodyGuidance:
@@ -97,6 +120,7 @@ export async function issueCustomerConfirmationEmail(
       rawEvidenceReturned: false,
       rawBillingDataReturned: false,
       internalNotesReturned: false,
+      providerPayloadReturnedToBrowser: false,
       localStorageAllowed: false,
       sessionStorageAllowed: false,
     },
@@ -119,6 +143,7 @@ export function projectCustomerConfirmationEmailSafeResponse(payload: CustomerCo
     expiresAt: payload.expiresAt,
     destination: payload.destination,
     safePreviewText: payload.safePreviewText,
+    dispatchQueue: payload.dispatchQueue,
     safety: payload.safety,
   } as const;
 }
@@ -146,6 +171,12 @@ function buildConfirmationUrl(baseUrl: string, token: string, destination: strin
   url.searchParams.set("token", token);
   url.searchParams.set("destination", destination);
   return url.toString();
+}
+
+function normalizeDashboardPath(value: string): "/dashboard" | "/dashboard/reports" | "/dashboard/notifications" {
+  if (value === "/dashboard/reports" || value.startsWith("/dashboard/reports/")) return "/dashboard/reports";
+  if (value === "/dashboard/notifications" || value.startsWith("/dashboard/notifications/")) return "/dashboard/notifications";
+  return "/dashboard";
 }
 
 function cleanBaseUrl(value: string) {
