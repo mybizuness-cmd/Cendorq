@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const auditPath = "src/lib/admin-command-center-audit-runtime.ts";
+const missionBriefPath = "src/lib/admin-command-center-mission-brief-runtime.ts";
+const missionBriefValidatorPath = "src/scripts/validate-admin-command-center-mission-brief-runtime.mjs";
 const accessValidatorPath = "src/scripts/validate-admin-command-center-access-runtime.mjs";
 const failures = [];
 
@@ -52,36 +54,32 @@ expect(auditPath, [
   "unsupportedOutcomePromiseStored: false",
 ]);
 
+expect(missionBriefPath, [
+  "projectAdminCommandCenterMissionBrief",
+  "getAdminCommandCenterMissionBriefRules",
+  "chiefAgentMayDispatch",
+  "agentMayResearch",
+  "scoutMayCompare",
+  "outputRequiresCaptainReview: true",
+  "unboundedResearchAllowed: false",
+  "customerFacingOutputAllowedWithoutReview: false",
+  "productionMutationAllowedWithoutReview: false",
+]);
+
+expect(missionBriefValidatorPath, [
+  "Admin command center mission brief runtime validation passed.",
+  "src/lib/admin-command-center-mission-brief-runtime.ts",
+  "projectAdminCommandCenterMissionBrief",
+]);
+
 expect(accessValidatorPath, [
   "src/scripts/validate-admin-command-center-audit-runtime.mjs",
   "src/lib/admin-command-center-audit-runtime.ts",
   "projectAdminCommandCenterAuditEvent",
 ]);
 
-forbidden(auditPath, [
-  "immutable: false",
-  "safeProjectionOnly: false",
-  "noStoreRequired: false",
-  "rawPayloadStored: true",
-  "privateEvidenceStored: true",
-  "privateBillingStored: true",
-  "internalNotesCustomerVisible: true",
-  "operatorIdentityCustomerVisible: true",
-  "browserAuthorityStored: true",
-  "providerPayloadStored: true",
-  "providerResponseStored: true",
-  "unsupportedOutcomePromiseStored: true",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed deliverability",
-  "guaranteed inbox placement",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
+forbidden(auditPath, unsafePhrases());
+forbidden(missionBriefPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Admin command center audit runtime validation failed:");
@@ -89,7 +87,42 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center audit runtime validation passed.");
+console.log("Admin command center audit runtime validation passed with mission brief runtime coverage.");
+
+function unsafePhrases() {
+  return [
+    "immutable: false",
+    "safeProjectionOnly: false",
+    "noStoreRequired: false",
+    "rawPayloadStored: true",
+    "privateEvidenceStored: true",
+    "privateBillingStored: true",
+    "internalNotesCustomerVisible: true",
+    "operatorIdentityCustomerVisible: true",
+    "browserAuthorityStored: true",
+    "providerPayloadStored: true",
+    "providerResponseStored: true",
+    "unsupportedOutcomePromiseStored: true",
+    "unboundedResearchAllowed: true",
+    "customerFacingOutputAllowedWithoutReview: true",
+    "productionMutationAllowedWithoutReview: true",
+    "unsupportedOutcomePromiseAllowed: true",
+    "outputRequiresCaptainReview: false",
+    "ownerCommandAboveCaptain: false",
+    "captainAboveChiefAgents: false",
+    "chiefAgentsAboveAgents: false",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed deliverability",
+    "guaranteed inbox placement",
+    "100% accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
