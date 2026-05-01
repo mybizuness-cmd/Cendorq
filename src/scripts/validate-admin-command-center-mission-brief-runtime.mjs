@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const runtimePath = "src/lib/admin-command-center-mission-brief-runtime.ts";
+const agentFindingsPath = "src/lib/admin-command-center-agent-findings-runtime.ts";
+const agentFindingsValidatorPath = "src/scripts/validate-admin-command-center-agent-findings-runtime.mjs";
 const auditValidatorPath = "src/scripts/validate-admin-command-center-audit-runtime.mjs";
 const failures = [];
 
@@ -52,32 +54,36 @@ expect(runtimePath, [
   "unsupportedOutcomePromiseAllowed: false",
 ]);
 
+expect(agentFindingsPath, [
+  "projectAdminCommandCenterAgentFinding",
+  "getAdminCommandCenterAgentFindingsRules",
+  "verified-facts-missing",
+  "source-refs-missing",
+  "assumptions-missing",
+  "gaps-missing",
+  "risks-missing",
+  "recommendations-missing",
+  "forecasted-failure-modes-missing",
+  "escalation-needs-missing",
+  "requiresCaptainReview: true",
+  "customerFacingOutputAllowedWithoutReview: false",
+  "productionMutationAllowedWithoutReview: false",
+]);
+
+expect(agentFindingsValidatorPath, [
+  "Admin command center agent findings runtime validation passed.",
+  "src/lib/admin-command-center-agent-findings-runtime.ts",
+  "projectAdminCommandCenterAgentFinding",
+]);
+
 expect(auditValidatorPath, [
   "src/scripts/validate-admin-command-center-mission-brief-runtime.mjs",
   "src/lib/admin-command-center-mission-brief-runtime.ts",
   "projectAdminCommandCenterMissionBrief",
 ]);
 
-forbidden(runtimePath, [
-  "unboundedResearchAllowed: true",
-  "customerFacingOutputAllowedWithoutReview: true",
-  "productionMutationAllowedWithoutReview: true",
-  "unsupportedOutcomePromiseAllowed: true",
-  "outputRequiresCaptainReview: false",
-  "ownerCommandAboveCaptain: false",
-  "captainAboveChiefAgents: false",
-  "chiefAgentsAboveAgents: false",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed deliverability",
-  "guaranteed inbox placement",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
+forbidden(runtimePath, unsafePhrases());
+forbidden(agentFindingsPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Admin command center mission brief runtime validation failed:");
@@ -85,7 +91,35 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center mission brief runtime validation passed.");
+console.log("Admin command center mission brief runtime validation passed with agent findings coverage.");
+
+function unsafePhrases() {
+  return [
+    "unboundedResearchAllowed: true",
+    "customerFacingOutputAllowedWithoutReview: true",
+    "productionMutationAllowedWithoutReview: true",
+    "billingActionAllowedWithoutReview: true",
+    "providerActionAllowedWithoutReview: true",
+    "reportReleaseAllowedWithoutReview: true",
+    "launchActionAllowedWithoutReview: true",
+    "unsupportedOutcomePromiseAllowed: true",
+    "outputRequiresCaptainReview: false",
+    "requiresCaptainReview: false",
+    "ownerCommandAboveCaptain: false",
+    "captainAboveChiefAgents: false",
+    "chiefAgentsAboveAgents: false",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed deliverability",
+    "guaranteed inbox placement",
+    "100% accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
