@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const docPath = "docs/admin-command-center-safe-projections.md";
 const registryPath = "src/lib/admin-command-center-safe-projection-registry.ts";
+const responsePath = "src/lib/admin-command-center-safe-response.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
@@ -19,7 +20,11 @@ expect(docPath, [
   "read-only review surfaces",
   "posture only",
   "src/lib/admin-command-center-safe-projection-registry.ts",
+  "src/lib/admin-command-center-safe-response.ts",
   "Do not duplicate the endpoint list in UI or API routes.",
+  "Do not duplicate response headers in individual projection routes.",
+  "adminCommandCenterJsonNoStore",
+  "no-store and noindex behavior remains consistent",
 ]);
 
 expect(docPath, [
@@ -30,9 +35,11 @@ expect(docPath, [
   "/api/admin/command-center/agent-findings",
   "/api/admin/command-center/forecast-escalation",
   "validate-admin-command-center-projection-registry.mjs",
+  "validate-admin-command-center-safe-response.mjs",
   "validate-admin-command-center-api-index.mjs",
   "validate-command-center-admin-control-panel.mjs",
   "validate-routes-chain.mjs",
+  "The route-chain must include the registry validator and the shared safe-response validator",
 ]);
 
 expect(registryPath, [
@@ -46,8 +53,16 @@ expect(registryPath, [
   "/api/admin/command-center/forecast-escalation",
 ]);
 
+expect(responsePath, [
+  "ADMIN_COMMAND_CENTER_SAFE_RESPONSE_HEADERS",
+  "adminCommandCenterJsonNoStore",
+  "no-store, max-age=0",
+  "noindex, nofollow, noarchive",
+]);
+
 expect(routesChainPath, [
   "src/scripts/validate-admin-command-center-safe-projections-runbook.mjs",
+  "src/scripts/validate-admin-command-center-safe-response.mjs",
 ]);
 
 forbidden(docPath, [
@@ -65,7 +80,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed.");
+console.log("Admin command center safe projections runbook validation passed with shared response helper coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
