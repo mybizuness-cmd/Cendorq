@@ -54,6 +54,32 @@ const PREMIUM_TRUST_BAR = [
   "Dashboard handoff after completion",
 ] as const;
 
+const COMMAND_CENTER_FLOW = [
+  {
+    title: "Verify to view",
+    copy: "Protected results stay behind email confirmation and safe release instead of being exposed on the public page.",
+  },
+  {
+    title: "Report vault",
+    copy: "Approved reports, limitations, confidence labels, and next actions live inside the protected report vault.",
+  },
+  {
+    title: "Dashboard inbox",
+    copy: "Command-center messages, support status, billing reminders, and plan nudges use one safe next action.",
+  },
+  {
+    title: "Plan ladder",
+    copy: "Free Scan, Deep Review, Build Fix, and Ongoing Control stay distinct so paid deliverables do not blur together.",
+  },
+] as const;
+
+const PLAN_LADDER = [
+  { title: "Free Scan", copy: "A protected first-read report that identifies the first visible decision friction." },
+  { title: "Deep Review", copy: "A paid full diagnostic with stronger intake, evidence separation, confidence labels, and limitations." },
+  { title: "Build Fix", copy: "Scoped implementation work with approval checkpoints, before-after evidence, and safe progress summaries." },
+  { title: "Ongoing Control", copy: "Monthly command-center review, controlled monitoring, inbox messages, and plan-fit guidance." },
+] as const;
+
 const DECISION_BREAKS = [
   {
     title: "They do not get it",
@@ -118,6 +144,8 @@ const PUBLIC_ENTRY_RULES = [
   "The soft prompt appears after time or intent, not instantly as an aggressive interruption.",
   "Public copy must not expose raw payloads, secrets, private report internals, or customer data.",
   "Conversion must come from clarity, proof, stage fit, and trust — not dark patterns or guaranteed outcomes.",
+  "Verify-to-view keeps protected results in the dashboard/report vault, not on the public homepage.",
+  "Dashboard inbox messages support the command center; external email remains required for confirmation and lifecycle delivery.",
 ] as const;
 
 const FAQS = [
@@ -238,6 +266,15 @@ export default function HomePage() {
         ))}
       </section>
 
+      <section className="relative z-10 mt-12 grid gap-4 lg:grid-cols-4" aria-label="Cendorq command center flow">
+        {COMMAND_CENTER_FLOW.map((item) => (
+          <article key={item.title} className="rounded-[1.5rem] border border-cyan-300/15 bg-cyan-300/[0.06] p-5">
+            <h2 className="text-lg font-semibold tracking-tight text-white">{item.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
+          </article>
+        ))}
+      </section>
+
       <section className="relative z-10 mt-12 grid gap-4 lg:grid-cols-4" aria-label="Cendorq system layers">
         {CENDORQ_SYSTEM_LAYERS.map((item) => (
           <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
@@ -261,6 +298,26 @@ export default function HomePage() {
         <div className="grid gap-4 md:grid-cols-3">
           {SCAN_STEPS.map((item) => (
             <StepCard key={item.label} label={item.label} title={item.title} copy={item.copy} />
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 mt-12 rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 sm:p-8" aria-label="Cendorq plan ladder">
+        <div className="max-w-3xl">
+          <TopChip>Plan ladder</TopChip>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Start small, then choose the right depth.
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-300">
+            Cendorq keeps each plan distinct: first read, deeper diagnosis, scoped implementation, and monthly control. The next step is explained through evidence and readiness, not pressure.
+          </p>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {PLAN_LADDER.map((item) => (
+            <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-slate-950/35 p-5">
+              <h3 className="text-lg font-semibold tracking-tight text-white">{item.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
+            </article>
           ))}
         </div>
       </section>

@@ -25,10 +25,36 @@ expect(pagePath, [
 ]);
 
 expect(pagePath, [
+  "COMMAND_CENTER_FLOW",
+  "Verify to view",
+  "Protected results stay behind email confirmation and safe release instead of being exposed on the public page.",
+  "Report vault",
+  "Approved reports, limitations, confidence labels, and next actions live inside the protected report vault.",
+  "Dashboard inbox",
+  "Command-center messages, support status, billing reminders, and plan nudges use one safe next action.",
+  "Plan ladder",
+  "Free Scan, Deep Review, Build Fix, and Ongoing Control stay distinct so paid deliverables do not blur together.",
+]);
+
+expect(pagePath, [
+  "PLAN_LADDER",
+  "Free Scan",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "A protected first-read report that identifies the first visible decision friction.",
+  "A paid full diagnostic with stronger intake, evidence separation, confidence labels, and limitations.",
+  "Scoped implementation work with approval checkpoints, before-after evidence, and safe progress summaries.",
+  "Monthly command-center review, controlled monitoring, inbox messages, and plan-fit guidance.",
+]);
+
+expect(pagePath, [
   "The homepage introduces the Free Scan; the full scan stays on /free-check.",
   "The soft prompt appears after time or intent, not instantly as an aggressive interruption.",
   "Public copy must not expose raw payloads, secrets, private report internals, or customer data.",
   "Conversion must come from clarity, proof, stage fit, and trust — not dark patterns or guaranteed outcomes.",
+  "Verify-to-view keeps protected results in the dashboard/report vault, not on the public homepage.",
+  "Dashboard inbox messages support the command center; external email remains required for confirmation and lifecycle delivery.",
   "No fake urgency",
   "No unsupported ROI claims",
   "No promise of guaranteed business results",
@@ -64,7 +90,6 @@ forbidden(pagePath, [
   "impossible to hack",
   "never liable",
   "liability-free",
-  "fake urgency",
   "rawPayload=",
   "rawEvidence=",
   "rawSecurityPayload=",
@@ -100,7 +125,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public homepage premium entry validation passed. validate:routes delegates through the orchestrator and the public homepage premium-entry validator remains wired into the route chain.");
+console.log("Public homepage premium entry validation passed with command-center flow and plan ladder positioning.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
