@@ -7,10 +7,12 @@ const adapterPath = "src/lib/customer-email-provider-dispatch-adapter.ts";
 const auditPath = "src/lib/customer-email-dispatch-audit-runtime.ts";
 const runnerPath = "src/lib/customer-email-dispatch-runner-runtime.ts";
 const adminPreviewRoutePath = "src/app/api/admin/customer/email/dispatch/preview/route.ts";
+const adminDryRunRoutePath = "src/app/api/admin/customer/email/dispatch/dry-run/route.ts";
 const adapterValidatorPath = "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs";
 const auditValidatorPath = "src/scripts/validate-customer-email-dispatch-audit-runtime.mjs";
 const runnerValidatorPath = "src/scripts/validate-customer-email-dispatch-runner-runtime.mjs";
 const adminPreviewValidatorPath = "src/scripts/validate-customer-email-dispatch-admin-preview-api.mjs";
+const adminDryRunValidatorPath = "src/scripts/validate-customer-email-dispatch-admin-dry-run-api.mjs";
 const issuancePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
 const issuanceValidatorPath = "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs";
 const failures = [];
@@ -124,6 +126,23 @@ expect(adminPreviewRoutePath, [
   "auditTransitionRequiredForEveryMutationDecision: true",
 ]);
 
+expect(adminDryRunRoutePath, [
+  "verifyAdminReadAccess",
+  "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY",
+  "runCustomerEmailDispatchCycle",
+  "dryRun: true",
+  "providerConfigured: false",
+  "adminOnly: true",
+  "dryRunOnly: true",
+  "safeProjectionOnly: true",
+  "dry-run-no-provider-call",
+  "safe_dry_run_projection_required",
+  "confirmationUrlExposed: false",
+  "providerPayloadExposed: false",
+  "providerResponseExposed: false",
+  "providerSecretExposed: false",
+]);
+
 expect(adapterValidatorPath, [
   "Customer email provider dispatch adapter validation passed.",
   "src/lib/customer-email-provider-dispatch-adapter.ts",
@@ -148,6 +167,12 @@ expect(adminPreviewValidatorPath, [
   "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY",
 ]);
 
+expect(adminDryRunValidatorPath, [
+  "Customer email dispatch admin dry-run API validation passed.",
+  "src/app/api/admin/customer/email/dispatch/dry-run/route.ts",
+  "dry-run-no-provider-call",
+]);
+
 expect(issuancePath, [
   "enqueueCustomerEmailDispatch",
   "CustomerEmailDispatchQueueSafeProjection",
@@ -170,6 +195,7 @@ forbidden(adapterPath, unsafePhrases());
 forbidden(auditPath, unsafePhrases());
 forbidden(runnerPath, unsafePhrases());
 forbidden(adminPreviewRoutePath, unsafePhrases());
+forbidden(adminDryRunRoutePath, unsafePhrases());
 forbidden(issuancePath, unsafePhrases());
 
 if (failures.length) {
@@ -178,7 +204,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, audit, runner, and admin preview coverage.");
+console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, audit, runner, admin preview, and admin dry-run coverage.");
 
 function unsafePhrases() {
   return [
