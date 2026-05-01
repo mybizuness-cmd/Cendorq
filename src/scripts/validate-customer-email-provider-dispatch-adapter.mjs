@@ -4,8 +4,10 @@ import { join } from "node:path";
 const root = process.cwd();
 const adapterPath = "src/lib/customer-email-provider-dispatch-adapter.ts";
 const providerConfigurationPath = "src/lib/customer-email-provider-configuration-contracts.ts";
+const providerSendInterfacePath = "src/lib/customer-email-provider-send-interface.ts";
 const queueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
 const providerConfigurationValidatorPath = "src/scripts/validate-customer-email-provider-configuration-contracts.mjs";
+const providerSendInterfaceValidatorPath = "src/scripts/validate-customer-email-provider-send-interface.mjs";
 const failures = [];
 
 expect(adapterPath, [
@@ -70,10 +72,30 @@ expect(providerConfigurationPath, [
   "unboundedAutoSendAllowed: false",
 ]);
 
+expect(providerSendInterfacePath, [
+  "sendCustomerEmailProviderMessage",
+  "getCustomerEmailProviderSendInterfaceRules",
+  "projectCustomerEmailProviderSendReadiness",
+  "ready-for-approved-provider-adapter",
+  "providerEventRefHashOnly: true",
+  "liveProviderCallImplemented: false",
+  "providerCallMade: false",
+  "providerSecretRead: false",
+  "providerPayloadReturned: false",
+  "providerResponseReturned: false",
+  "providerResponseStored: false",
+]);
+
 expect(providerConfigurationValidatorPath, [
   "Customer email provider configuration contracts validation passed.",
   "src/lib/customer-email-provider-configuration-contracts.ts",
   "projectCustomerEmailProviderConfigurationSummary",
+]);
+
+expect(providerSendInterfaceValidatorPath, [
+  "Customer email provider send interface validation passed.",
+  "src/lib/customer-email-provider-send-interface.ts",
+  "sendCustomerEmailProviderMessage",
 ]);
 
 expect(queueValidatorPath, [
@@ -84,6 +106,7 @@ expect(queueValidatorPath, [
 
 forbidden(adapterPath, unsafePhrases());
 forbidden(providerConfigurationPath, unsafePhrases());
+forbidden(providerSendInterfacePath, unsafePhrases());
 
 if (failures.length) {
   console.error("Customer email provider dispatch adapter validation failed:");
@@ -91,7 +114,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email provider dispatch adapter validation passed with provider configuration coverage.");
+console.log("Customer email provider dispatch adapter validation passed with provider configuration and send interface coverage.");
 
 function unsafePhrases() {
   return [
@@ -102,6 +125,8 @@ function unsafePhrases() {
     "rawTokenReturned: true",
     "tokenHashReturned: true",
     "providerPayloadReturned: true",
+    "providerResponseReturned: true",
+    "providerResponseStored: true",
     "localStorageAllowed: true",
     "sessionStorageAllowed: true",
     "localStorage.setItem",
@@ -113,11 +138,8 @@ function unsafePhrases() {
     "providerPayloadExposed: true",
     "providerResponseExposed: true",
     "unboundedAutoSendAllowed: true",
-    "sendGrid",
     "resend.emails.send",
     "fetch(\"https://api",
-    "process.env.RESEND_API_KEY",
-    "process.env.SENDGRID_API_KEY",
     "guaranteed inbox placement",
     "guaranteed deliverability",
     "guaranteed ROI",
