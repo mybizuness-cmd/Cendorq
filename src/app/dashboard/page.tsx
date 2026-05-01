@@ -4,10 +4,12 @@ import { CUSTOMER_PLATFORM_STAGES } from "@/lib/customer-platform-route-map";
 import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 
 import { DashboardActionInbox } from "./dashboard-action-inbox";
+import { DashboardBusinessCommandCenter } from "./dashboard-business-command-center";
+import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
 
 export const metadata = buildMetadata({
   title: "Customer dashboard | Cendorq",
-  description: "Your private Cendorq command room for Free Scan status, proof, reports, billing, and next actions.",
+  description: "Your private Cendorq business command center for scan status, proof, reports, billing, support, notifications, and guided next actions.",
   path: "/dashboard",
   noIndex: true,
 });
@@ -85,18 +87,18 @@ export default function CustomerDashboardPage() {
       <section className="system-panel-authority relative z-10 overflow-hidden rounded-[2.5rem] p-6 sm:p-10">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Customer command room</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Customer business command center</div>
             <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Your Cendorq dashboard is where the business becomes clearer.
+              Control the next move. Cendorq guides the smartest path.
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              Track Free Scan status, see evidence-backed findings, open your report vault, manage billing, view important notifications, request support, track support status, and move to the next plan only when the proof and stage make sense.
+              This is the private command center for your business progress: Free Scan status, proof-backed findings, reports, billing, notifications, support, plan scope, and next best actions are connected so you can make better decisions without guessing.
             </p>
           </div>
           <div className="rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/10 p-5 lg:w-80">
-            <div className="text-sm font-semibold text-cyan-100">Next best action</div>
+            <div className="text-sm font-semibold text-cyan-100">Command priority</div>
             <p className="mt-2 text-sm leading-6 text-slate-200">
-              Finish or review the Free Scan so Cendorq can show the first evidence-backed direction.
+              Start with the clearest available signal, then let Cendorq guide the next decision through proof, scope, and fit.
             </p>
             <Link href="/free-check" className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Continue Free Scan
@@ -106,6 +108,8 @@ export default function CustomerDashboardPage() {
       </section>
 
       <DashboardActionInbox />
+      <DashboardBusinessCommandCenter />
+      <DashboardControlRoomReentry />
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="First session dashboard snapshot">
         {FIRST_SESSION_SNAPSHOT.map((item) => (
@@ -119,8 +123,8 @@ export default function CustomerDashboardPage() {
 
       <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]" aria-label="First session recovery guidance">
         <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First session guidance</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Start with one safe next action.</h2>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Guided control</div>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">You stay in control. Cendorq keeps the next action clear.</h2>
           <p className="mt-4 text-base leading-8 text-slate-300">
             When a customer has just verified their email, the dashboard should reduce uncertainty: show what is pending, explain what is safe to do next, and keep support visible without exposing private internals or stale assumptions.
           </p>
@@ -148,7 +152,7 @@ export default function CustomerDashboardPage() {
       <section className="relative z-10 mt-8" aria-label="Dashboard handoff runtime integration">
         <div className="system-surface rounded-[2rem] p-6 sm:p-8">
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected dashboard handoffs</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every dashboard card now carries a safe state, next action, and recovery path.</h2>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every dashboard card carries a safe state, next action, and recovery path.</h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
             The dashboard runtime keeps report vault, billing, notifications, support, and plans aligned with one customer-owned projection. A card should never strand the customer, treat pending work as final, expose raw or internal data, or push an unsupported outcome promise.
           </p>

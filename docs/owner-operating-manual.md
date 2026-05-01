@@ -38,6 +38,50 @@ The opening experience should show:
 
 The Free Scan is the opening wedge. It should make the customer feel that Cendorq is already thinking like an operator, not a template generator.
 
+## Verify-to-view email confirmation and report access
+
+The strongest Free Scan and paid-plan access flow is verify-to-view.
+
+After a Free Scan or paid-plan intake is submitted, Cendorq should not reveal protected results before email verification. The customer should see a premium check-your-inbox gate that names the sender clearly:
+
+- Cendorq Support <support@cendorq.com>
+
+The gate should say, in polished customer-facing language, that they should check their inbox for support@cendorq.com. If they do not see the message right away, they should check spam or promotions once, then move Cendorq to the main inbox or save support@cendorq.com as a trusted sender. This is guidance, not a guarantee of inbox placement.
+
+The best primary confirmation CTA is:
+
+- Confirm email and open your results
+
+Subject strategy should stay stage-aware and calm:
+
+- Free Scan: Confirm your email to open your Cendorq results
+- Dashboard access: Confirm your email and enter your Cendorq command center
+- Paid plan access: Confirm your email to continue your Cendorq plan
+
+The confirmation click should do several jobs at once:
+
+1. Confirm the signup email server-side.
+2. Consume the verification token once.
+3. Create a real customer interaction with Cendorq Support <support@cendorq.com>, which can help future Cendorq messages be easier to find without promising provider-level placement.
+4. Route the customer to the exact protected destination they earned: dashboard, dashboard/report vault, dashboard notifications, billing, support, or the relevant plan workspace.
+5. Preserve the customer command center as the main place to view current report state, next actions, plan scope, and support or billing handoffs.
+
+Report display strategy:
+
+- The dashboard is the control room and summary surface.
+- The dashboard/report vault is the canonical protected display location for report state and released reports.
+- Free Scan results should unlock inside the dashboard/report vault after email verification and safe release state.
+- Full reports should have dedicated report-vault views for readability, evidence separation, visual sections, downloadable assets when allowed, and next-step conversion guidance.
+- Email remains the delivery and return channel; dashboard inbox items supplement email orchestration and never replace lifecycle or follow-up emails to the signup address.
+
+Safety and deliverability rules:
+
+- Do not claim guaranteed inbox placement, guaranteed deliverability, or provider-level control.
+- Verification tokens must be single-use, short-lived, server-validated, and never stored in localStorage or sessionStorage.
+- Expired or failed verification must use a safe resend path without account-existence leakage.
+- Redirect only to allowlisted customer destinations.
+- Do not show protected report findings before verification and safe release state.
+
 ## Report accuracy operating model
 
 Every report should be assembled from layers of evidence.
