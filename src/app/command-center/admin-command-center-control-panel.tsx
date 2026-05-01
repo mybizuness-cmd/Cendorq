@@ -4,11 +4,15 @@ import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-
 import { getAdminCommandCenterFoundation } from "@/lib/admin-command-center-foundation";
 import { projectAdminCommandCenterForecastEscalation } from "@/lib/admin-command-center-forecast-escalation-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
-import { getAdminCommandCenterSafeProjectionLinks } from "@/lib/admin-command-center-safe-projection-registry";
+import {
+  getAdminCommandCenterSafeProjectionLinks,
+  getAdminCommandCenterSafeProjectionRouteContract,
+} from "@/lib/admin-command-center-safe-projection-registry";
 
 export function AdminCommandCenterControlPanel() {
   const foundation = getAdminCommandCenterFoundation();
   const projectionLinks = getAdminCommandCenterSafeProjectionLinks();
+  const routeContract = getAdminCommandCenterSafeProjectionRouteContract();
   const access = projectAdminCommandCenterAccess({
     role: "release-captain",
     area: "agent-orchestration",
@@ -114,6 +118,12 @@ export function AdminCommandCenterControlPanel() {
             </p>
           </div>
           <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">read-only</span>
+        </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-4">
+          <MetricCard label="Contract methods" value={routeContract.methods.join(" / ")} />
+          <MetricCard label="Safe access helper" value={String(routeContract.requiresSafeAccessHelper)} />
+          <MetricCard label="Safe response helper" value={String(routeContract.requiresSafeResponseHelper)} />
+          <MetricCard label="Safe options helper" value={String(routeContract.requiresSafeOptionsHelper)} />
         </div>
         <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {projectionLinks.map((link) => (
