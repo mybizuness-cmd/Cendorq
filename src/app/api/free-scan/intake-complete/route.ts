@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
   const payload = await readSafeJson(request);
   const signupEmailPresent = hasSafeEmail(payload.signupEmail);
-  const customerIdHashPresent = hasSafeIdentifier(payload.customerIdHash);
+  const intakeIdPresent = hasSafeIntakeId(payload.intakeId);
   const emailAlreadyVerified = payload.emailAlreadyVerified === true;
   const verificationTokenIssued = payload.verificationTokenIssued !== false;
   const verificationTokenExpired = payload.verificationTokenExpired === true;
@@ -49,13 +49,13 @@ export async function POST(request: NextRequest) {
 
   const response = buildCustomerEmailConfirmationApiResponse({
     journeyKey: "free-scan-submitted",
-    customerIdHashPresent,
+    customerIdHashPresent: intakeIdPresent,
     signupEmailPresent,
     emailAlreadyVerified,
     verificationTokenIssued,
     verificationTokenExpired,
     safeReleaseReady,
-    customerOwnedDestination: customerIdHashPresent,
+    customerOwnedDestination: intakeIdPresent,
     requestedDestination,
     resendRequested,
   });
@@ -80,6 +80,6 @@ function hasSafeEmail(value: unknown) {
   return typeof value === "string" && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value) && value.length <= 254;
 }
 
-function hasSafeIdentifier(value: unknown) {
+function hasSafeIntakeId(value: unknown) {
   return typeof value === "string" && /^[a-zA-Z0-9:_-]{8,160}$/.test(value);
 }
