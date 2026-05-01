@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/report-generation-rendering-contracts.ts";
+const protectedFreeScanRenderingPath = "src/lib/protected-free-scan-results-rendering.ts";
+const protectedFreeScanRenderingValidatorPath = "src/scripts/validate-protected-free-scan-results-rendering.mjs";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-report-generation-rendering-contracts.mjs";
@@ -96,6 +98,25 @@ expect(contractPath, [
   "unapprovedBusinessLogoRendered",
 ]);
 
+expect(protectedFreeScanRenderingPath, [
+  "projectProtectedFreeScanResultsRendering",
+  "getProtectedFreeScanResultsRenderingRules",
+  "free-scan-result",
+  "notFullScan: true",
+  "confidenceLabelRequired: true",
+  "limitationsVisible: true",
+  "nextRecommendedPlan: \"Deep Review\"",
+  "conversionStyle: \"education-not-pressure\"",
+  "pendingReportPresentedAsFinal: false",
+  "unpaidDeliverableLeaked: false",
+]);
+
+expect(protectedFreeScanRenderingValidatorPath, [
+  "Protected Free Scan results rendering validation passed.",
+  "src/lib/protected-free-scan-results-rendering.ts",
+  "projectProtectedFreeScanResultsRendering",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
@@ -105,26 +126,8 @@ expect(routesChainPath, [
   validatorPath,
 ]);
 
-forbidden(contractPath, [
-  "pending reports are final",
-  "release draft report",
-  "render rawPayload",
-  "render rawEvidence",
-  "render internalNotes",
-  "unapproved logo is allowed",
-  "PDF can differ from HTML",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed business results",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "delete audit records",
-  "sessionToken=",
-  "csrfToken=",
-  "adminKey=",
-  "supportContextKey=",
-]);
+forbidden(contractPath, unsafePhrases());
+forbidden(protectedFreeScanRenderingPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Report generation rendering contracts validation failed:");
@@ -132,7 +135,37 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report generation rendering contracts validation passed. validate:routes delegates through the orchestrator and the report rendering validator remains wired into the route chain.");
+console.log("Report generation rendering contracts validation passed with protected Free Scan results rendering coverage.");
+
+function unsafePhrases() {
+  return [
+    "pending reports are final",
+    "release draft report",
+    "render rawPayload",
+    "render rawEvidence",
+    "render internalNotes",
+    "unapproved logo is allowed",
+    "PDF can differ from HTML",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed business results",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "delete audit records",
+    "sessionToken=",
+    "csrfToken=",
+    "adminKey=",
+    "supportContextKey=",
+    "notFullScan: false",
+    "unpaidDeliverableLeaked: true",
+    "pendingReportPresentedAsFinal: true",
+    "rawPayloadRendered: true",
+    "rawEvidenceRendered: true",
+    "internalNotesRendered: true",
+    "unsupportedOutcomePromise: true",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
