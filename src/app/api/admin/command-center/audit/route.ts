@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { projectAdminCommandCenterAccess } from "@/lib/admin-command-center-access-runtime";
 import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-audit-runtime";
 import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
-import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
+import { adminCommandCenterJsonNoStore, adminCommandCenterOptions } from "@/lib/admin-command-center-safe-response";
 
 // Access gate is centralized in resolveAdminCommandCenterSafeAccess.
 // Validation anchors: commandCenterPreviewHeaderName, resolveCommandCenterAccessState, Command center access is closed.
@@ -36,7 +36,7 @@ const auditSeeds = [
 ] as const;
 
 export async function OPTIONS() {
-  return adminCommandCenterJsonNoStore({ ok: true, methods: ["GET", "OPTIONS"], projection: "admin-command-center-audit-trail" }, 200);
+  return adminCommandCenterOptions("admin-command-center-audit-trail");
 }
 
 export async function GET(request: NextRequest) {
