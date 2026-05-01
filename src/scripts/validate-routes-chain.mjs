@@ -19,6 +19,7 @@ const validators = [
   "src/scripts/validate-command-center-admin-control-panel.mjs",
   "src/scripts/validate-admin-command-center-safe-summary-api.mjs",
   "src/scripts/validate-admin-command-center-audit-trail-api.mjs",
+  "src/scripts/validate-admin-command-center-mission-brief-api.mjs",
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
