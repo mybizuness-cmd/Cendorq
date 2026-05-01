@@ -27,6 +27,7 @@ expect(docPath, [
   "Validation requirements",
   "preview-gated",
   "All access checks must resolve through the shared safe-access helper.",
+  "OPTIONS responses must resolve through the shared safe-options helper and canonical safe method list.",
   "no-store",
   "read-only review surfaces",
   "posture only",
@@ -40,6 +41,9 @@ expect(docPath, [
   "Do not duplicate response headers in individual projection routes.",
   "adminCommandCenterJsonNoStore",
   "no-store and noindex behavior remains consistent",
+  "Do not duplicate safe method arrays in individual projection routes.",
+  "adminCommandCenterOptions",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
 ]);
 
 expect(docPath, [
@@ -56,6 +60,7 @@ expect(docPath, [
   "validate-routes-chain.mjs",
   "shared safe-response validator",
   "shared access helper through route-level validation anchors",
+  "safe-projections validator must document and enforce shared `OPTIONS` helper coverage",
 ]);
 
 expect(registryPath, [
