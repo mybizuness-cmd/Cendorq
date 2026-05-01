@@ -6,11 +6,13 @@ const queuePath = "src/lib/customer-email-dispatch-queue-runtime.ts";
 const adapterPath = "src/lib/customer-email-provider-dispatch-adapter.ts";
 const auditPath = "src/lib/customer-email-dispatch-audit-runtime.ts";
 const runnerPath = "src/lib/customer-email-dispatch-runner-runtime.ts";
+const deliveryStatusProjectionPath = "src/lib/customer-email-delivery-status-projection.ts";
 const adminPreviewRoutePath = "src/app/api/admin/customer/email/dispatch/preview/route.ts";
 const adminDryRunRoutePath = "src/app/api/admin/customer/email/dispatch/dry-run/route.ts";
 const adapterValidatorPath = "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs";
 const auditValidatorPath = "src/scripts/validate-customer-email-dispatch-audit-runtime.mjs";
 const runnerValidatorPath = "src/scripts/validate-customer-email-dispatch-runner-runtime.mjs";
+const deliveryStatusProjectionValidatorPath = "src/scripts/validate-customer-email-delivery-status-projection.mjs";
 const adminPreviewValidatorPath = "src/scripts/validate-customer-email-dispatch-admin-preview-api.mjs";
 const adminDryRunValidatorPath = "src/scripts/validate-customer-email-dispatch-admin-dry-run-api.mjs";
 const issuancePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
@@ -110,6 +112,23 @@ expect(runnerPath, [
   "providerResponseReturned: false",
 ]);
 
+expect(deliveryStatusProjectionPath, [
+  "projectCustomerEmailDeliveryStatus",
+  "getCustomerEmailDeliveryStatusProjectionRules",
+  "queued",
+  "prepared",
+  "sent",
+  "held",
+  "suppressed",
+  "failed",
+  "deliverabilityGuaranteeClaimed: false",
+  "rawCustomerEmailExposed: false",
+  "confirmationUrlExposed: false",
+  "providerPayloadExposed: false",
+  "providerResponseExposed: false",
+  "providerSecretExposed: false",
+]);
+
 expect(adminPreviewRoutePath, [
   "verifyAdminReadAccess",
   "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY",
@@ -161,6 +180,12 @@ expect(runnerValidatorPath, [
   "runCustomerEmailDispatchCycle",
 ]);
 
+expect(deliveryStatusProjectionValidatorPath, [
+  "Customer email delivery status projection validation passed.",
+  "src/lib/customer-email-delivery-status-projection.ts",
+  "projectCustomerEmailDeliveryStatus",
+]);
+
 expect(adminPreviewValidatorPath, [
   "Customer email dispatch admin preview API validation passed.",
   "src/app/api/admin/customer/email/dispatch/preview/route.ts",
@@ -194,6 +219,7 @@ forbidden(queuePath, unsafePhrases());
 forbidden(adapterPath, unsafePhrases());
 forbidden(auditPath, unsafePhrases());
 forbidden(runnerPath, unsafePhrases());
+forbidden(deliveryStatusProjectionPath, unsafePhrases());
 forbidden(adminPreviewRoutePath, unsafePhrases());
 forbidden(adminDryRunRoutePath, unsafePhrases());
 forbidden(issuancePath, unsafePhrases());
@@ -204,7 +230,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, audit, runner, admin preview, and admin dry-run coverage.");
+console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, audit, runner, delivery status, admin preview, and admin dry-run coverage.");
 
 function unsafePhrases() {
   return [
@@ -246,6 +272,7 @@ function unsafePhrases() {
     "rawEmailReturnedToBrowser: true",
     "rawTokenReturned: true",
     "tokenHashReturned: true",
+    "deliverabilityGuaranteeClaimed: true",
     "localStorage.setItem",
     "sessionStorage.setItem",
     "guaranteed inbox placement",
