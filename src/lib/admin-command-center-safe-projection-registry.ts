@@ -84,6 +84,19 @@ export function getAdminCommandCenterSafeProjectionRouteContract() {
   return ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT;
 }
 
+export function getAdminCommandCenterSafeProjectionRouteContractSummary() {
+  const contract = getAdminCommandCenterSafeProjectionRouteContract();
+
+  return {
+    methodCount: contract.methods.length,
+    methods: contract.methods,
+    requiresSafeAccessHelper: contract.requiresSafeAccessHelper,
+    requiresSafeResponseHelper: contract.requiresSafeResponseHelper,
+    requiresSafeOptionsHelper: contract.requiresSafeOptionsHelper,
+    allHelpersRequired: contract.requiresSafeAccessHelper && contract.requiresSafeResponseHelper && contract.requiresSafeOptionsHelper,
+  } as const;
+}
+
 export function getAdminCommandCenterSafeProjectionLinks() {
   return ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS;
 }
