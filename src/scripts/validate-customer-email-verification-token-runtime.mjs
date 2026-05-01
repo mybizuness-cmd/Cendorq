@@ -18,8 +18,8 @@ expect(runtimePath, [
   "createHash(\"sha256\")",
   "timingSafeEqual",
   "consumedAt",
+  "if (entry.consumedAt) return buildStoredResult(entry, \"already-used\"",
   "expiresAt",
-  "single-use",
 ]);
 
 expect(runtimePath, [
