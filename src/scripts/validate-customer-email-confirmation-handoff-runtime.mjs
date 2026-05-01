@@ -3,6 +3,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const runtimePath = "src/lib/customer-email-confirmation-handoff-runtime.ts";
+const tokenRuntimePath = "src/lib/customer-email-verification-token-runtime.ts";
+const tokenRoutePath = "src/app/api/customer/email/confirm/route.ts";
+const tokenValidatorPath = "src/scripts/validate-customer-email-verification-token-runtime.mjs";
 const contractPath = "src/lib/customer-email-confirmation-handoff-contracts.ts";
 const gatePath = "src/app/free-check/free-scan-confirmation-gate.tsx";
 const freeScanValidatorPath = "src/scripts/validate-free-scan-first-use-handoff.mjs";
@@ -51,6 +54,45 @@ expect(runtimePath, [
   "safeReleaseStillRequiresVerification",
 ]);
 
+expect(tokenRuntimePath, [
+  "issueCustomerEmailVerificationToken",
+  "verifyCustomerEmailConfirmationToken",
+  "getCustomerEmailVerificationNoStoreHeaders",
+  "CustomerEmailVerificationTokenEntry",
+  "CustomerEmailVerificationResult",
+  "customer-email-verification-tokens.v3.json",
+  "hashToken(token)",
+  "createHash(\"sha256\")",
+  "timingSafeEqual",
+  "consumedAt",
+  "expiresAt",
+  "verified-redirect",
+  "resend-required",
+  "already-used",
+  "rawTokenReturned: false",
+  "tokenHashReturned: false",
+  "localStorageAllowed: false",
+  "sessionStorageAllowed: false",
+]);
+
+expect(tokenRoutePath, [
+  "export const runtime = \"nodejs\"",
+  "export const dynamic = \"force-dynamic\"",
+  "export const revalidate = 0",
+  "verifyCustomerEmailConfirmationToken",
+  "getCustomerEmailVerificationNoStoreHeaders",
+  "NextResponse.redirect",
+  "status: 303",
+  "recoveryPath: \"/free-check\"",
+  "dashboardPath: \"/dashboard\"",
+]);
+
+expect(tokenValidatorPath, [
+  "Customer email verification token runtime validation passed.",
+  "src/lib/customer-email-verification-token-runtime.ts",
+  "src/app/api/customer/email/confirm/route.ts",
+]);
+
 expect(contractPath, [
   "CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT",
   "Cendorq Support <support@cendorq.com>",
@@ -79,6 +121,8 @@ expect(freeScanValidatorPath, [
 ]);
 
 forbidden(runtimePath, unsafePhrases());
+forbidden(tokenRuntimePath, unsafePhrases());
+forbidden(tokenRoutePath, unsafePhrases());
 forbidden(gatePath, unsafePhrases());
 
 if (failures.length) {
@@ -87,7 +131,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email confirmation handoff runtime validation passed.");
+console.log("Customer email confirmation handoff runtime validation passed with verification token runtime coverage.");
 
 function unsafePhrases() {
   return [
@@ -112,6 +156,10 @@ function unsafePhrases() {
     "internalNote=",
     "localStorage.setItem",
     "sessionStorage.setItem",
+    "rawTokenReturned: true",
+    "tokenHashReturned: true",
+    "localStorageAllowed: true",
+    "sessionStorageAllowed: true",
   ];
 }
 
