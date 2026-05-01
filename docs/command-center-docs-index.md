@@ -67,6 +67,10 @@ These paths are command-center-only and safe-summary-only. They must not create 
 
 These paths are command-center-only and read-only review surfaces. They must remain preview-gated, shared-access-backed, safe-options-backed, no-store, registry-backed, registry-contract-backed, panel-contract-strip-backed, shared-response-backed, panel-visible, API-index-visible, and posture-only.
 
+## Safe projection validation standard
+
+`src/scripts/validate-admin-command-center-safe-projections-runbook.mjs` must keep coverage for the runbook structure, endpoint map, registry contract helpers, shared access helper, shared response/options helper, every admin projection route, and route-chain wiring.
+
 ## Required private report evidence paths
 
 - `src/app/api/command-center/report-evidence/orchestration/route.ts`
