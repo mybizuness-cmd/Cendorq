@@ -27,7 +27,8 @@ expect(docPath, [
   "All access checks must resolve through the shared safe-access helper.",
   "OPTIONS responses must resolve through the shared safe-options helper and canonical safe method list.",
   "The canonical endpoint list and route contract metadata live in `src/lib/admin-command-center-safe-projection-registry.ts`.",
-  "Do not duplicate route contract metadata in UI or API routes.",
+  "The private command-center panel and API index must expose each registry entry's methods and helper requirements",
+  "Confirm the panel displays each registry entry's methods and helper requirements.",
   "methods and helper requirements",
   "resolveAdminCommandCenterSafeAccess",
   "adminCommandCenterAccessDeniedPayload",
@@ -35,7 +36,7 @@ expect(docPath, [
   "adminCommandCenterOptions",
   "ADMIN_COMMAND_CENTER_SAFE_METHODS",
   "safe-projections validator must enforce shared `OPTIONS` helper coverage across every admin command-center projection route",
-  "registry validator and API-index validator must enforce route contract metadata",
+  "registry validator, API-index validator, and admin-control-panel validator must enforce route contract metadata",
 ]);
 
 expect(registryPath, [
@@ -81,6 +82,7 @@ for (const routePath of projectionRoutes) {
 expect(routesChainPath, [
   "src/scripts/validate-admin-command-center-safe-projections-runbook.mjs",
   "src/scripts/validate-admin-command-center-safe-response.mjs",
+  "src/scripts/validate-command-center-admin-control-panel.mjs",
 ]);
 
 if (failures.length) {
@@ -89,7 +91,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with full shared access, response, options, registry contract, and route coverage.");
+console.log("Admin command center safe projections runbook validation passed with panel-visible route contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
