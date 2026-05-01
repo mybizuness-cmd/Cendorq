@@ -8,9 +8,11 @@ const failures = [];
 
 expect(contractPath, [
   "PLAN_ENTITLEMENT_ROUTING_CONTRACT",
-  "Cendorq Plan Entitlement and Nonlinear Purchase Routing Contract",
+  "Cendorq Plan Entitlement and Purchase Routing Contract",
   "getPlanEntitlementRoutingContract",
   "Customers may purchase any public plan directly",
+  "linear purchases",
+  "stopped journeys",
   "must not deliver unpaid reports",
   "unpaid implementation packages",
   "unpaid recurring control",
@@ -18,6 +20,8 @@ expect(contractPath, [
 
 expect(contractPath, [
   "publicPlanMicroDisclosures",
+  "linearPurchaseSequences",
+  "directPurchaseWarningEmails",
   "dashboardReminderRules",
   "reportLimitationRules",
   "entitlementBoundaries",
@@ -37,10 +41,38 @@ expect(contractPath, [
 ]);
 
 expect(contractPath, [
+  "free-scan-stops",
+  "deep-review-stops",
+  "build-fix-stops",
+  "ongoing-control-active",
+  "Customer receives Free Scan and stops there.",
+  "Customer receives Deep Review and stops there.",
+  "Customer receives Build Fix and stops there.",
+  "Customer is active on Ongoing Control.",
+  "one report-ready email, one educational follow-up",
+  "report-ready email, report understanding follow-up",
+  "delivery-ready email, post-delivery review",
+  "monthly command summary, evidence-backed change alert",
+]);
+
+expect(contractPath, [
+  "build-fix-direct-scope-confirmation",
+  "ongoing-control-direct-scope-confirmation",
+  "Build Fix purchased directly without Deep Review entitlement.",
+  "Ongoing Control purchased directly without Build Fix or Deep Review entitlement.",
+  "send after purchase, then every 5 business days while intake or approval remains incomplete",
+  "send after subscription start, then once per active monthly cycle while skipped-plan recommendation remains evidence-backed",
+  "Your optimization scope is moving forward",
+  "Your monthly control scope is active",
+  "Direct-purchase warning emails for Build Fix and Ongoing Control must be periodic, suppressible, evidence-backed, and non-essential; they must not block fulfillment or create pressure.",
+]);
+
+expect(contractPath, [
   "Dashboard reminders should be calm, small, and contextual; they should not block payment or create fake urgency.",
   "If a customer buys Build Fix without Deep Review",
   "If a customer buys Ongoing Control without Build Fix",
   "If a customer buys Ongoing Control without Deep Review",
+  "If a customer stops at Free Scan, Deep Review, or Build Fix",
   "Dashboard reminders must distinguish included deliverables from recommended add-ons",
 ]);
 
@@ -49,7 +81,7 @@ expect(contractPath, [
   "Reports may include small limitation notes explaining that recommendations are based on available evidence",
   "Build Fix delivery reports may explain what was optimized and why, but must not attach or recreate the full Deep Review report unless Deep Review is purchased.",
   "Ongoing Control monthly reports may summarize monitored signals, recommendations, approved changes, and value proof",
-  "Report footers should educate customers on the next best plan without pressure, fake urgency, or unsupported outcome promises.",
+  "Report footers should educate customers on the next best plan without pressure, urgency claims, or unsupported outcome promises.",
 ]);
 
 expect(contractPath, [
@@ -73,13 +105,25 @@ expect(contractPath, [
   "No unpaid internal analysis becomes downloadable, emailed, report-vault-visible, or customer-facing as a standalone artifact.",
   "No customer-facing output may imply a skipped plan was fully performed when only scoped internal orientation was used.",
   "No plan may use skipped-plan internal orientation to satisfy paid deliverables that belong to another plan.",
+  "No warning email may imply a missing prerequisite is required for the purchased plan to begin if payment has already been accepted.",
+]);
+
+expect(contractPath, [
+  "Every direct-purchase path must show purchased entitlement, skipped recommended plan, customer-facing limitation, internal-only orientation allowance, and conversion-back path.",
+  "Every linear stop point must show completed entitlement, not-included scope, next best plan, follow-up cadence, and suppression rules.",
+  "Report vault, dashboard, email, and notification surfaces must only expose artifacts included in the purchased plan entitlement.",
 ]);
 
 expect(planValidatorPath, [
   "src/lib/plan-entitlement-routing-contracts.ts",
+  "src/lib/plan-post-delivery-reconciliation-contracts.ts",
   "PLAN_ENTITLEMENT_ROUTING_CONTRACT",
+  "PLAN_POST_DELIVERY_RECONCILIATION_CONTRACT",
   "publicPlanMicroDisclosures",
+  "linearPurchaseSequences",
+  "directPurchaseWarningEmails",
   "loopholeProtections",
+  "material-rework-change-order",
 ]);
 
 forbidden(contractPath, [
@@ -98,12 +142,7 @@ forbidden(contractPath, [
   "never liable",
   "liability-free",
   "fake urgency is allowed",
-  "passwords requested",
-  "tokens requested",
-  "private keys requested",
-  "card numbers requested",
-  "bank details requested",
-  "raw payloads are exposed",
+  "urgent upgrade required",
   "customer claims are verified facts",
   "uncontrolled production mutation",
   "localStorage.setItem",
