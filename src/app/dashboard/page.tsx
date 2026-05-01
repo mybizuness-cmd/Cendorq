@@ -5,6 +5,7 @@ import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-
 
 import { DashboardActionInbox } from "./dashboard-action-inbox";
 import { DashboardBusinessCommandCenter } from "./dashboard-business-command-center";
+import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
 
 export const metadata = buildMetadata({
   title: "Customer dashboard | Cendorq",
@@ -108,6 +109,7 @@ export default function CustomerDashboardPage() {
 
       <DashboardActionInbox />
       <DashboardBusinessCommandCenter />
+      <DashboardControlRoomReentry />
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="First session dashboard snapshot">
         {FIRST_SESSION_SNAPSHOT.map((item) => (
