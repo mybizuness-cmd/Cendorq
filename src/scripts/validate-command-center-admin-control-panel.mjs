@@ -11,8 +11,10 @@ const failures = [];
 expect(panelPath, [
   "AdminCommandCenterControlPanel",
   "getAdminCommandCenterSafeProjectionLinks",
+  "getAdminCommandCenterSafeProjectionRouteContract",
   "@/lib/admin-command-center-safe-projection-registry",
   "projectionLinks = getAdminCommandCenterSafeProjectionLinks()",
+  "routeContract = getAdminCommandCenterSafeProjectionRouteContract()",
   "projectAdminCommandCenterAccess",
   "projectAdminCommandCenterAuditEvent",
   "projectAdminCommandCenterMissionBrief",
@@ -30,6 +32,14 @@ expect(panelPath, [
 ]);
 
 expect(panelPath, [
+  "Contract methods",
+  "Safe access helper",
+  "Safe response helper",
+  "Safe options helper",
+  "routeContract.methods.join",
+  "routeContract.requiresSafeAccessHelper",
+  "routeContract.requiresSafeResponseHelper",
+  "routeContract.requiresSafeOptionsHelper",
   "projectionLinks.map",
   "link.href",
   "link.label",
@@ -58,6 +68,8 @@ expect(registryPath, [
   "Chief-agent brief readiness before dispatch.",
   "Structured findings posture for agents and scouts.",
   "Expansion, hardening, risk coverage, and escalation posture.",
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT",
+  "getAdminCommandCenterSafeProjectionRouteContract",
   "ADMIN_COMMAND_CENTER_SAFE_METHODS",
   "requiresSafeAccessHelper: true",
   "requiresSafeResponseHelper: true",
@@ -122,7 +134,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center admin control panel validation passed with shared projection registry route contract coverage.");
+console.log("Command center admin control panel validation passed with canonical route contract accessor coverage.");
 
 function unsafePhrases() {
   return [
