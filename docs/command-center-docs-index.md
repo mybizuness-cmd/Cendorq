@@ -6,6 +6,7 @@ This private documentation index keeps the Command Center operating standards ea
 
 - `docs/maximum-protection-standard.md` — highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard.
 - `docs/command-center-operator-runbook.md` — cockpit maintenance workflow for closed-by-default, metadata-only, server-rendered, registry-covered Command Center panels.
+- `docs/admin-command-center-safe-projections.md` — admin command-center safe projection map for preview-gated, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces.
 - `docs/owner-operating-manual.md` — owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence.
 
 ## Required source-of-truth areas
@@ -14,6 +15,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Security posture: `src/lib/command-center/security-posture.ts`
 - Panel registry: `src/lib/command-center/panel-registry.ts`
 - Validation registry: `src/lib/command-center/validation-registry.ts`
+- Admin command-center safe projection registry: `src/lib/admin-command-center-safe-projection-registry.ts`
 - Report truth engine: `src/lib/command-center/report-truth-engine.ts`
 - Report evidence orchestration: `src/lib/command-center/report-evidence-orchestration.ts`
 - Report evidence orchestration runtime: `src/lib/command-center/report-evidence-orchestration-runtime.ts`
@@ -51,6 +53,18 @@ This private documentation index keeps the Command Center operating standards ea
 
 These paths are command-center-only and safe-summary-only. They must not create public launch approval, paid launch approval, report launch approval, provider configuration approval, payment mapping approval, security readiness approval, or customer-facing claims.
 
+## Required admin command-center projection paths
+
+- `src/app/api/admin/command-center/route.ts`
+- `src/app/api/admin/command-center/summary/route.ts`
+- `src/app/api/admin/command-center/audit/route.ts`
+- `src/app/api/admin/command-center/mission-brief/route.ts`
+- `src/app/api/admin/command-center/agent-findings/route.ts`
+- `src/app/api/admin/command-center/forecast-escalation/route.ts`
+- `src/app/command-center/admin-command-center-control-panel.tsx`
+
+These paths are command-center-only and read-only review surfaces. They must remain preview-gated, no-store, registry-backed, and posture-only.
+
 ## Required private report evidence paths
 
 - `src/app/api/command-center/report-evidence/orchestration/route.ts`
@@ -66,6 +80,14 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-command-center-panel-registry.mjs`
 - `src/scripts/validate-command-center-panel-safety.mjs`
 - `src/scripts/validate-command-center-validation-registry.mjs`
+- `src/scripts/validate-admin-command-center-projection-registry.mjs`
+- `src/scripts/validate-admin-command-center-safe-projections-runbook.mjs`
+- `src/scripts/validate-admin-command-center-api-index.mjs`
+- `src/scripts/validate-admin-command-center-safe-summary-api.mjs`
+- `src/scripts/validate-admin-command-center-audit-trail-api.mjs`
+- `src/scripts/validate-admin-command-center-mission-brief-api.mjs`
+- `src/scripts/validate-admin-command-center-agent-findings-api.mjs`
+- `src/scripts/validate-admin-command-center-forecast-escalation-api.mjs`
 - `src/scripts/validate-report-truth-engine.mjs`
 - `src/scripts/validate-report-evidence-orchestration.mjs`
 - `src/scripts/validate-report-evidence-orchestration-runtime.mjs`
@@ -95,4 +117,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record contract, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record contract, admin command-center projection, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
