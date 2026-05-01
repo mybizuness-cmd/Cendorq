@@ -4,8 +4,8 @@ import {
   getAdminCommandCenterSafeProjectionBoundaries,
   getAdminCommandCenterSafeProjectionLinks,
 } from "@/lib/admin-command-center-safe-projection-registry";
+import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
 import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
-import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,9 +15,9 @@ export async function OPTIONS() {
 }
 
 export async function GET(request: NextRequest) {
-  const accessState = resolveCommandCenterAccessState(request.headers.get(commandCenterPreviewHeaderName()));
+  const accessState = resolveAdminCommandCenterSafeAccess(request);
   if (!accessState.allowed) {
-    return adminCommandCenterJsonNoStore({ ok: false, error: "Command center access is closed.", projection: "admin-command-center-api-index" }, 403);
+    return adminCommandCenterJsonNoStore(adminCommandCenterAccessDeniedPayload("admin-command-center-api-index"), 403);
   }
 
   return adminCommandCenterJsonNoStore(
