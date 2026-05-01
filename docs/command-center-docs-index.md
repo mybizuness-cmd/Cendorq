@@ -65,7 +65,7 @@ These paths are command-center-only and safe-summary-only. They must not create 
 - `src/app/api/admin/command-center/forecast-escalation/route.ts`
 - `src/app/command-center/admin-command-center-control-panel.tsx`
 
-These paths are command-center-only and read-only review surfaces. They must remain preview-gated, shared-access-backed, safe-options-backed where converted, no-store, registry-backed, shared-response-backed, and posture-only.
+These paths are command-center-only and read-only review surfaces. They must remain preview-gated, shared-access-backed, safe-options-backed, no-store, registry-backed, shared-response-backed, and posture-only.
 
 ## Required private report evidence paths
 
