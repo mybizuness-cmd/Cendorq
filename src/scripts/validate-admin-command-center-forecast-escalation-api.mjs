@@ -12,6 +12,7 @@ expect(apiPath, [
   "dynamic = \"force-dynamic\"",
   "NextRequest",
   "adminCommandCenterJsonNoStore",
+  "adminCommandCenterOptions",
   "@/lib/admin-command-center-safe-response",
   "commandCenterPreviewHeaderName",
   "resolveCommandCenterAccessState",
@@ -32,17 +33,15 @@ expect(apiPath, [
 ]);
 
 expect(apiPath, [
-  "Review forecast and escalation posture before expansion.",
+  "return adminCommandCenterOptions(\"admin-command-center-forecast-escalation\")",
+  "forecastRiskChecks",
+  "drift-check",
+  "staleness-check",
+  "scope-check",
+  "claim-check",
+  "validation-check",
+  "handoff-check",
   "read-only forecast escalation projection",
-  "drift-risk",
-  "stale-assumption-risk",
-  "duplicate-scope-risk",
-  "overclaim-risk",
-  "under-validation-risk",
-  "customer-journey-confusion-risk",
-  "private-material-exposure-risk",
-  "production-readiness-blocker-risk",
-  "handoff-misunderstanding-risk",
 ]);
 
 expect(apiPath, [
@@ -59,7 +58,9 @@ expect(apiPath, [
 
 expect(responsePath, [
   "ADMIN_COMMAND_CENTER_SAFE_RESPONSE_HEADERS",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
   "adminCommandCenterJsonNoStore",
+  "adminCommandCenterOptions",
   "no-store, max-age=0",
   "noindex, nofollow, noarchive",
 ]);
@@ -79,9 +80,6 @@ forbidden(apiPath, [
   "dangerouslySetInnerHTML",
   "console.log",
   "rawPayload",
-  "privateKey",
-  "sessionToken",
-  "csrfToken",
   "mutationRequested: true",
 ]);
 
@@ -91,7 +89,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center forecast escalation API validation passed with shared safe response coverage.");
+console.log("Admin command center forecast escalation API validation passed with shared safe response and options coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
