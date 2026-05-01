@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const apiPath = "src/app/api/admin/command-center/forecast-escalation/route.ts";
+const responsePath = "src/lib/admin-command-center-safe-response.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
@@ -10,15 +11,12 @@ expect(apiPath, [
   "runtime = \"nodejs\"",
   "dynamic = \"force-dynamic\"",
   "NextRequest",
-  "NextResponse",
+  "adminCommandCenterJsonNoStore",
+  "@/lib/admin-command-center-safe-response",
   "commandCenterPreviewHeaderName",
   "resolveCommandCenterAccessState",
   "Command center access is closed.",
   "projection: \"admin-command-center-forecast-escalation\"",
-  "jsonNoStore",
-  "Cache-Control",
-  "no-store, max-age=0",
-  "X-Robots-Tag",
 ]);
 
 expect(apiPath, [
@@ -59,11 +57,23 @@ expect(apiPath, [
   "immutable: audit.immutable",
 ]);
 
+expect(responsePath, [
+  "ADMIN_COMMAND_CENTER_SAFE_RESPONSE_HEADERS",
+  "adminCommandCenterJsonNoStore",
+  "no-store, max-age=0",
+  "noindex, nofollow, noarchive",
+]);
+
 expect(routesChainPath, [
   "src/scripts/validate-admin-command-center-forecast-escalation-api.mjs",
 ]);
 
 forbidden(apiPath, [
+  "NextResponse.json",
+  "function jsonNoStore",
+  "headers: {",
+  "Cache-Control",
+  "X-Robots-Tag",
   "localStorage",
   "sessionStorage",
   "dangerouslySetInnerHTML",
@@ -81,7 +91,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center forecast escalation API validation passed.");
+console.log("Admin command center forecast escalation API validation passed with shared safe response coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

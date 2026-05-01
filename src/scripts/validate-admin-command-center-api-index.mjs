@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const apiPath = "src/app/api/admin/command-center/route.ts";
 const registryPath = "src/lib/admin-command-center-safe-projection-registry.ts";
+const responsePath = "src/lib/admin-command-center-safe-response.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
@@ -11,18 +12,15 @@ expect(apiPath, [
   "runtime = \"nodejs\"",
   "dynamic = \"force-dynamic\"",
   "NextRequest",
-  "NextResponse",
   "getAdminCommandCenterSafeProjectionLinks",
   "getAdminCommandCenterSafeProjectionBoundaries",
   "@/lib/admin-command-center-safe-projection-registry",
+  "adminCommandCenterJsonNoStore",
+  "@/lib/admin-command-center-safe-response",
   "commandCenterPreviewHeaderName",
   "resolveCommandCenterAccessState",
   "Command center access is closed.",
   "projection: \"admin-command-center-api-index\"",
-  "jsonNoStore",
-  "Cache-Control",
-  "no-store, max-age=0",
-  "X-Robots-Tag",
 ]);
 
 expect(apiPath, [
@@ -61,12 +59,20 @@ expect(registryPath, [
   "separate approval gates for action lanes",
 ]);
 
+expect(responsePath, [
+  "ADMIN_COMMAND_CENTER_SAFE_RESPONSE_HEADERS",
+  "adminCommandCenterJsonNoStore",
+  "no-store, max-age=0",
+  "noindex, nofollow, noarchive",
+]);
+
 expect(routesChainPath, [
   "src/scripts/validate-admin-command-center-api-index.mjs",
 ]);
 
 forbidden(apiPath, unsafePhrases());
 forbidden(registryPath, unsafePhrases());
+forbidden(responsePath, unsafePhrases());
 
 if (failures.length) {
   console.error("Admin command center API index validation failed:");
@@ -74,7 +80,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center API index validation passed with shared projection registry coverage.");
+console.log("Admin command center API index validation passed with shared projection registry and safe response coverage.");
 
 function unsafePhrases() {
   return [
