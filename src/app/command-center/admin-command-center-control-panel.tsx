@@ -5,6 +5,15 @@ import { getAdminCommandCenterFoundation } from "@/lib/admin-command-center-foun
 import { projectAdminCommandCenterForecastEscalation } from "@/lib/admin-command-center-forecast-escalation-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
 
+const SAFE_PROJECTION_LINKS = [
+  { label: "API index", href: "/api/admin/command-center", copy: "All safe projection endpoints in one read-only index." },
+  { label: "Summary", href: "/api/admin/command-center/summary", copy: "Foundation, access, mission, findings, forecast, and audit posture." },
+  { label: "Audit trail", href: "/api/admin/command-center/audit", copy: "Safe audit event projections for operator review." },
+  { label: "Mission brief", href: "/api/admin/command-center/mission-brief", copy: "Chief-agent brief readiness before dispatch." },
+  { label: "Agent findings", href: "/api/admin/command-center/agent-findings", copy: "Structured findings posture for agents and scouts." },
+  { label: "Forecast escalation", href: "/api/admin/command-center/forecast-escalation", copy: "Expansion, hardening, risk coverage, and escalation posture." },
+] as const;
+
 export function AdminCommandCenterControlPanel() {
   const foundation = getAdminCommandCenterFoundation();
   const access = projectAdminCommandCenterAccess({
@@ -102,6 +111,27 @@ export function AdminCommandCenterControlPanel() {
         <ControlCard title="Chief-agent brief" items={[`Mission ok: ${String(mission.ok)}`, `Source boundaries: ${mission.sourceBoundaryCount}`, `Forecast risks: ${mission.forecastRiskCount}`, `Anti-drift checks: ${mission.antiDriftCheckCount}`]} />
         <ControlCard title="Structured findings" items={[`Accepted: ${String(finding.structuredFindingAccepted)}`, `Source refs: ${finding.sourceRefCount}`, `Gaps: ${finding.gapCount}`, `Escalations: ${finding.escalationNeedCount}`]} />
       </div>
+
+      <article className="mt-7 rounded-3xl border border-white/10 bg-slate-950/60 p-5">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-sm font-semibold text-white">Safe projection links</p>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+              These endpoints are preview-gated, no-store, read-only review surfaces. They expose posture, not live action authority.
+            </p>
+          </div>
+          <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">read-only</span>
+        </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {SAFE_PROJECTION_LINKS.map((link) => (
+            <a key={link.href} href={link.href} className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 text-sm text-slate-300 transition hover:border-cyan-300/30 hover:bg-cyan-300/[0.06]">
+              <span className="font-semibold text-white">{link.label}</span>
+              <span className="mt-2 block break-all text-xs text-cyan-200">{link.href}</span>
+              <span className="mt-3 block text-xs leading-5 text-slate-400">{link.copy}</span>
+            </a>
+          ))}
+        </div>
+      </article>
 
       <article className="mt-7 rounded-3xl border border-white/10 bg-slate-950/60 p-5">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
