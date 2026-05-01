@@ -3,7 +3,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const adapterPath = "src/lib/customer-email-provider-dispatch-adapter.ts";
+const providerConfigurationPath = "src/lib/customer-email-provider-configuration-contracts.ts";
 const queueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
+const providerConfigurationValidatorPath = "src/scripts/validate-customer-email-provider-configuration-contracts.mjs";
 const failures = [];
 
 expect(adapterPath, [
@@ -52,38 +54,36 @@ expect(adapterPath, [
   "sessionStorageAllowed: false",
 ]);
 
+expect(providerConfigurationPath, [
+  "CustomerEmailProviderConfigurationContract",
+  "getCustomerEmailProviderConfigurationContracts",
+  "getCustomerEmailProviderConfigurationRules",
+  "projectCustomerEmailProviderConfigurationSummary",
+  "ownerApprovalRequired: true",
+  "liveSendRequiresOwnerApproval: true",
+  "dryRunAllowedWithoutProviderSecret: true",
+  "providerConfigured: false",
+  "liveSendAllowed: false",
+  "providerPayloadExposed: false",
+  "providerResponseExposed: false",
+  "providerSecretExposed: false",
+  "unboundedAutoSendAllowed: false",
+]);
+
+expect(providerConfigurationValidatorPath, [
+  "Customer email provider configuration contracts validation passed.",
+  "src/lib/customer-email-provider-configuration-contracts.ts",
+  "projectCustomerEmailProviderConfigurationSummary",
+]);
+
 expect(queueValidatorPath, [
   "src/lib/customer-email-provider-dispatch-adapter.ts",
   "validate-customer-email-provider-dispatch-adapter.mjs",
   "prepareCustomerEmailProviderDispatchAttempt",
 ]);
 
-forbidden(adapterPath, [
-  "providerCallMade: true",
-  "providerSecretRead: true",
-  "browserVisible: true",
-  "customerEmailReturned: true",
-  "rawTokenReturned: true",
-  "tokenHashReturned: true",
-  "providerPayloadReturned: true",
-  "localStorageAllowed: true",
-  "sessionStorageAllowed: true",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "sendGrid",
-  "resend.emails.send",
-  "fetch(\"https://api",
-  "process.env.RESEND_API_KEY",
-  "process.env.SENDGRID_API_KEY",
-  "guaranteed inbox placement",
-  "guaranteed deliverability",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-]);
+forbidden(adapterPath, unsafePhrases());
+forbidden(providerConfigurationPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Customer email provider dispatch adapter validation failed:");
@@ -91,7 +91,43 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email provider dispatch adapter validation passed.");
+console.log("Customer email provider dispatch adapter validation passed with provider configuration coverage.");
+
+function unsafePhrases() {
+  return [
+    "providerCallMade: true",
+    "providerSecretRead: true",
+    "browserVisible: true",
+    "customerEmailReturned: true",
+    "rawTokenReturned: true",
+    "tokenHashReturned: true",
+    "providerPayloadReturned: true",
+    "localStorageAllowed: true",
+    "sessionStorageAllowed: true",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+    "storeProviderPayload: true",
+    "storeProviderResponse: true",
+    "storeProviderSecret: true",
+    "providerSecretExposed: true",
+    "providerPayloadExposed: true",
+    "providerResponseExposed: true",
+    "unboundedAutoSendAllowed: true",
+    "sendGrid",
+    "resend.emails.send",
+    "fetch(\"https://api",
+    "process.env.RESEND_API_KEY",
+    "process.env.SENDGRID_API_KEY",
+    "guaranteed inbox placement",
+    "guaranteed deliverability",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "100% accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
