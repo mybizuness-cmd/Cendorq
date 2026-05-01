@@ -9,6 +9,7 @@ const failures = [];
 
 expect(panelPath, [
   "AdminCommandCenterControlPanel",
+  "SAFE_PROJECTION_LINKS",
   "projectAdminCommandCenterAccess",
   "projectAdminCommandCenterAuditEvent",
   "projectAdminCommandCenterMissionBrief",
@@ -20,8 +21,26 @@ expect(panelPath, [
   "Access posture",
   "Chief-agent brief",
   "Structured findings",
+  "Safe projection links",
   "Forecast and escalation",
   "Safe audit projection",
+]);
+
+expect(panelPath, [
+  "/api/admin/command-center",
+  "/api/admin/command-center/summary",
+  "/api/admin/command-center/audit",
+  "/api/admin/command-center/mission-brief",
+  "/api/admin/command-center/agent-findings",
+  "/api/admin/command-center/forecast-escalation",
+  "All safe projection endpoints in one read-only index.",
+  "Foundation, access, mission, findings, forecast, and audit posture.",
+  "Safe audit event projections for operator review.",
+  "Chief-agent brief readiness before dispatch.",
+  "Structured findings posture for agents and scouts.",
+  "Expansion, hardening, risk coverage, and escalation posture.",
+  "These endpoints are preview-gated, no-store, read-only review surfaces.",
+  "They expose posture, not live action authority.",
 ]);
 
 expect(panelPath, [
@@ -88,7 +107,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center admin control panel validation passed.");
+console.log("Command center admin control panel validation passed with safe projection links.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
