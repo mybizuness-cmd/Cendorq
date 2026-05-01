@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const templatesPath = "src/lib/customer-email-template-contracts.ts";
+const issuanceRuntimePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
+const issuanceValidatorPath = "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs";
 const lifecyclePath = "src/lib/customer-lifecycle-automation.ts";
 const packagePath = "package.json";
 
@@ -43,6 +45,26 @@ validateTextFile(templatesPath, [
   "no refund/legal promise without approval",
 ]);
 
+validateTextFile(issuanceRuntimePath, [
+  "issueCustomerConfirmationEmail",
+  "projectCustomerConfirmationEmailSafeResponse",
+  "providerReadyPayload",
+  "confirmationUrl",
+  "confirmationUrlHash",
+  "Cendorq Support <support@cendorq.com>",
+  "Confirm your email to open your Cendorq results",
+  "This confirmation link is single-use and expires.",
+  "rawTokenReturnedToBrowser: false",
+  "tokenHashReturnedToBrowser: false",
+  "rawEmailReturnedToBrowser: false",
+]);
+
+validateTextFile(issuanceValidatorPath, [
+  "Customer confirmation email issuance runtime validation passed.",
+  "src/lib/customer-confirmation-email-issuance-runtime.ts",
+  "issueCustomerConfirmationEmail",
+]);
+
 validateTextFile(lifecyclePath, [
   "CUSTOMER_LIFECYCLE_AUTOMATION_RULES",
   "Cendorq Support <support@cendorq.com>",
@@ -67,13 +89,27 @@ validateForbidden(templatesPath, [
   "legal ruling allowed",
 ]);
 
+validateForbidden(issuanceRuntimePath, [
+  "rawTokenReturnedToBrowser: true",
+  "tokenHashReturnedToBrowser: true",
+  "rawEmailReturnedToBrowser: true",
+  "localStorageAllowed: true",
+  "sessionStorageAllowed: true",
+  "guaranteed inbox placement",
+  "guaranteed deliverability",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "100% accurate",
+  "impossible to hack",
+]);
+
 if (failures.length) {
   console.error("Customer email template contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Customer email template contracts validation passed. Customer emails preserve Cendorq sender identity, one clear CTA, suppression, deliverability, lifecycle alignment, and legal/trust boundaries.");
+console.log("Customer email template contracts validation passed. Customer emails preserve Cendorq sender identity, one clear CTA, suppression, deliverability, lifecycle alignment, confirmation issuance safety, and legal/trust boundaries.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -89,9 +125,9 @@ function validateTextFile(path, phrases) {
 
 function validateForbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
-  const text = read(path);
+  const text = read(path).toLowerCase();
   for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden customer email template phrase: ${phrase}`);
+    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden customer email template phrase: ${phrase}`);
   }
 }
 
