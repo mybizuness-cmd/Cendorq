@@ -16,6 +16,7 @@ const validators = [
   "src/scripts/validate-command-center-readiness.mjs",
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-command-center-control-interface-elevation.mjs",
+  "src/scripts/validate-command-center-admin-control-panel.mjs",
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
