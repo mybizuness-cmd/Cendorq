@@ -7,6 +7,14 @@ const registryPath = "src/lib/admin-command-center-safe-projection-registry.ts";
 const accessPath = "src/lib/admin-command-center-safe-access.ts";
 const responsePath = "src/lib/admin-command-center-safe-response.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const projectionRoutes = [
+  "src/app/api/admin/command-center/route.ts",
+  "src/app/api/admin/command-center/summary/route.ts",
+  "src/app/api/admin/command-center/audit/route.ts",
+  "src/app/api/admin/command-center/mission-brief/route.ts",
+  "src/app/api/admin/command-center/agent-findings/route.ts",
+  "src/app/api/admin/command-center/forecast-escalation/route.ts",
+];
 const failures = [];
 
 expect(docPath, [
@@ -64,6 +72,8 @@ expect(accessPath, [
   "resolveAdminCommandCenterSafeAccess",
   "adminCommandCenterAccessDeniedPayload",
   "Command center access is closed.",
+  "commandCenterPreviewHeaderName",
+  "resolveCommandCenterAccessState",
 ]);
 
 expect(responsePath, [
@@ -73,16 +83,30 @@ expect(responsePath, [
   "noindex, nofollow, noarchive",
 ]);
 
+for (const routePath of projectionRoutes) {
+  expect(routePath, [
+    "resolveAdminCommandCenterSafeAccess",
+    "adminCommandCenterAccessDeniedPayload",
+    "@/lib/admin-command-center-safe-access",
+    "adminCommandCenterJsonNoStore",
+    "@/lib/admin-command-center-safe-response",
+    "Access gate is centralized in resolveAdminCommandCenterSafeAccess.",
+    "runtime = \"nodejs\"",
+    "dynamic = \"force-dynamic\"",
+  ]);
+}
+
 expect(routesChainPath, [
   "src/scripts/validate-admin-command-center-safe-projections-runbook.mjs",
   "src/scripts/validate-admin-command-center-safe-response.mjs",
 ]);
 
-forbidden(docPath, [
-  "localStorage",
-  "sessionStorage",
-  "dangerouslySetInnerHTML",
-]);
+forbidden(docPath, ["localStorage", "sessionStorage", "dangerouslySetInnerHTML"]);
+forbidden(accessPath, ["localStorage", "sessionStorage", "dangerouslySetInnerHTML"]);
+forbidden(responsePath, ["localStorage", "sessionStorage", "dangerouslySetInnerHTML"]);
+for (const routePath of projectionRoutes) {
+  forbidden(routePath, ["localStorage", "sessionStorage", "dangerouslySetInnerHTML"]);
+}
 
 if (failures.length) {
   console.error("Admin command center safe projections runbook validation failed:");
@@ -90,7 +114,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with shared access and response helper coverage.");
+console.log("Admin command center safe projections runbook validation passed with shared access, response, registry, and route coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
