@@ -19,7 +19,7 @@ export type CustomerConfirmationEmailIssuanceInput = IssueCustomerEmailVerificat
 
 export type CustomerConfirmationEmailPayload = {
   ok: true;
-  queued: true;
+  queued: boolean;
   emailKey: "confirm-email";
   senderName: "Cendorq Support";
   fromAddress: "support@cendorq.com";
