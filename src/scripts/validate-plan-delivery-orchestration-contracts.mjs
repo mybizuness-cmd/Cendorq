@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const contractPath = "src/lib/plan-delivery-orchestration-contracts.ts";
 const deepReviewFoundationPath = "src/lib/deep-review-intake-delivery-foundation.ts";
+const buildFixFoundationPath = "src/lib/build-fix-optimization-orchestration-foundation.ts";
 const matrixPath = "src/lib/complete-plan-fulfillment-matrix.ts";
 const runtimePath = "src/lib/complete-plan-fulfillment-runtime.ts";
 const routingRuntimePath = "src/lib/plan-routing-runtime.ts";
@@ -13,6 +14,7 @@ const panelPath = "src/app/command-center/complete-plan-fulfillment-panel.tsx";
 const routingPanelPath = "src/app/command-center/plan-routing-runtime-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
 const deepReviewFoundationValidatorPath = "src/scripts/validate-deep-review-intake-delivery-foundation.mjs";
+const buildFixFoundationValidatorPath = "src/scripts/validate-build-fix-optimization-orchestration-foundation.mjs";
 const matrixValidatorPath = "src/scripts/validate-complete-plan-fulfillment-matrix.mjs";
 const runtimeValidatorPath = "src/scripts/validate-complete-plan-fulfillment-runtime.mjs";
 const routingRuntimeValidatorPath = "src/scripts/validate-plan-routing-runtime.mjs";
@@ -76,6 +78,24 @@ expect(deepReviewFoundationPath, [
   "release approval",
   "unpaidDeliverableLeaked: false",
   "pendingReportPresentedAsFinal: false",
+]);
+
+expect(buildFixFoundationPath, [
+  "projectBuildFixOptimizationOrchestration",
+  "getBuildFixOptimizationOrchestrationRules",
+  "Build Fix / Optimization",
+  "approved optimization scope",
+  "priority implementation task list",
+  "customer approval checkpoints",
+  "before-after evidence record",
+  "customer-safe progress summary",
+  "remaining risks and monthly-control recommendation",
+  "beforeAfterEvidenceRequired: true",
+  "customerSafeProgressReportsRequired: true",
+  "deepReviewReportIncluded: false",
+  "unpaidDeliverableLeaked: false",
+  "optimizationWithoutScopeApproval: false",
+  "uncontrolledProductionMutation: false",
 ]);
 
 expect(contractPath, [
@@ -279,6 +299,12 @@ expect(deepReviewFoundationValidatorPath, [
   "projectDeepReviewIntakeDeliveryFoundation",
 ]);
 
+expect(buildFixFoundationValidatorPath, [
+  "Build Fix optimization orchestration foundation validation passed.",
+  "src/lib/build-fix-optimization-orchestration-foundation.ts",
+  "projectBuildFixOptimizationOrchestration",
+]);
+
 expect(matrixValidatorPath, [
   "Complete plan fulfillment matrix validation passed.",
   "src/lib/complete-plan-fulfillment-matrix.ts",
@@ -320,6 +346,7 @@ expect(routesChainPath, [
 
 forbidden(contractPath, unsafePhrases());
 forbidden(deepReviewFoundationPath, unsafePhrases());
+forbidden(buildFixFoundationPath, unsafePhrases());
 
 for (const guardedPath of [matrixPath, runtimePath, routingRuntimePath, entitlementPath, reconciliationPath, panelPath, routingPanelPath]) {
   forbidden(guardedPath, unsafePhrases());
@@ -331,7 +358,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including Deep Review intake delivery, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including Deep Review intake delivery, Build Fix optimization orchestration, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
 
 function unsafePhrases() {
   return [
@@ -358,6 +385,11 @@ function unsafePhrases() {
     "upgradeOrRetentionAllowed: true",
     "unpaidDeliverableLeaked: true",
     "freeScanSubstitute: true",
+    "deepReviewReportIncluded: true",
+    "optimizationWithoutScopeApproval: true",
+    "uncontrolledProductionMutation: true",
+    "customerApprovalRequiredBeforeMaterialChange: false",
+    "rollbackPostureRequired: false",
     "pendingReportPresentedAsFinal: true",
     "customerClaimTreatedAsVerifiedFact: true",
     "rawPayloadExposed: true",
