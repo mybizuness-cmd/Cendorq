@@ -5,8 +5,10 @@ const root = process.cwd();
 const contractPath = "src/lib/plan-delivery-orchestration-contracts.ts";
 const matrixPath = "src/lib/complete-plan-fulfillment-matrix.ts";
 const runtimePath = "src/lib/complete-plan-fulfillment-runtime.ts";
+const entitlementPath = "src/lib/plan-entitlement-routing-contracts.ts";
 const matrixValidatorPath = "src/scripts/validate-complete-plan-fulfillment-matrix.mjs";
 const runtimeValidatorPath = "src/scripts/validate-complete-plan-fulfillment-runtime.mjs";
+const entitlementValidatorPath = "src/scripts/validate-plan-entitlement-routing-contracts.mjs";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
@@ -136,6 +138,30 @@ expect(runtimePath, [
   "conversionMethodReviewMissing",
 ]);
 
+expect(entitlementPath, [
+  "PLAN_ENTITLEMENT_ROUTING_CONTRACT",
+  "Cendorq Plan Entitlement and Nonlinear Purchase Routing Contract",
+  "publicPlanMicroDisclosures",
+  "dashboardReminderRules",
+  "reportLimitationRules",
+  "entitlementBoundaries",
+  "nonlinearPurchaseScenarios",
+  "limitationLanguageRules",
+  "loopholeProtections",
+  "getPlanEntitlementRoutingContract",
+]);
+
+expect(entitlementPath, [
+  "Customers may purchase any public plan directly",
+  "must not deliver unpaid reports",
+  "Free Scan is a first-read report. Full diagnosis, implementation, and recurring monitoring are separate plans if you want deeper help.",
+  "Build Fix can proceed directly. For the clearest customer-facing diagnosis behind the work, add Deep Review; otherwise Cendorq uses available evidence and internal orientation within the purchased optimization scope.",
+  "Ongoing Control can start directly. If implementation gaps are found, Build Fix is the proper plan for done-for-you optimization; Deep Review is the proper plan for a standalone full diagnosis.",
+  "No full diagnostic report from Build Fix unless Deep Review entitlement exists.",
+  "No Build Fix implementation package from Ongoing Control unless Build Fix entitlement exists.",
+  "No unpaid internal analysis becomes downloadable, emailed, report-vault-visible, or customer-facing as a standalone artifact.",
+]);
+
 expect(matrixValidatorPath, [
   "Complete plan fulfillment matrix validation passed.",
   "src/lib/complete-plan-fulfillment-matrix.ts",
@@ -144,6 +170,11 @@ expect(matrixValidatorPath, [
 expect(runtimeValidatorPath, [
   "Complete plan fulfillment runtime validation passed.",
   "src/lib/complete-plan-fulfillment-runtime.ts",
+]);
+
+expect(entitlementValidatorPath, [
+  "Plan entitlement routing contracts validation passed.",
+  "src/lib/plan-entitlement-routing-contracts.ts",
 ]);
 
 expect(routesChainPath, [
@@ -172,7 +203,7 @@ forbidden(contractPath, [
   "sessionStorage.setItem",
 ]);
 
-for (const guardedPath of [matrixPath, runtimePath]) {
+for (const guardedPath of [matrixPath, runtimePath, entitlementPath]) {
   forbidden(guardedPath, [
     "guaranteed ROI",
     "guaranteed revenue",
@@ -206,7 +237,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including complete fulfillment runtime coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including complete fulfillment and entitlement routing coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
