@@ -3,6 +3,8 @@ import { buildMetadata } from "@/lib/seo";
 import { CUSTOMER_PLATFORM_STAGES } from "@/lib/customer-platform-route-map";
 import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 
+import { DashboardActionInbox } from "./dashboard-action-inbox";
+
 export const metadata = buildMetadata({
   title: "Customer dashboard | Cendorq",
   description: "Your private Cendorq command room for Free Scan status, proof, reports, billing, and next actions.",
@@ -102,6 +104,8 @@ export default function CustomerDashboardPage() {
           </div>
         </div>
       </section>
+
+      <DashboardActionInbox />
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="First session dashboard snapshot">
         {FIRST_SESSION_SNAPSHOT.map((item) => (
