@@ -4,7 +4,9 @@ import { join } from "node:path";
 const root = process.cwd();
 const queuePath = "src/lib/customer-email-dispatch-queue-runtime.ts";
 const adapterPath = "src/lib/customer-email-provider-dispatch-adapter.ts";
+const auditPath = "src/lib/customer-email-dispatch-audit-runtime.ts";
 const adapterValidatorPath = "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs";
+const auditValidatorPath = "src/scripts/validate-customer-email-dispatch-audit-runtime.mjs";
 const issuancePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
 const issuanceValidatorPath = "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs";
 const failures = [];
@@ -52,10 +54,30 @@ expect(adapterPath, [
   "providerPayloadReturned: false",
 ]);
 
+expect(auditPath, [
+  "recordCustomerEmailDispatchTransition",
+  "projectCustomerEmailDispatchAuditTransition",
+  "getCustomerEmailDispatchAuditRules",
+  "customer-email-dispatch-audit.v3.json",
+  "providerPayloadHash",
+  "providerEventRefHash",
+  "dispatch audit transitions never store raw customer emails, raw tokens, token hashes, confirmation URLs, secrets, raw evidence, raw billing data, or internal notes",
+  "rawCustomerEmailStored: false",
+  "confirmationUrlStored: false",
+  "providerPayloadStored: false",
+  "providerResponseStored: false",
+]);
+
 expect(adapterValidatorPath, [
   "Customer email provider dispatch adapter validation passed.",
   "src/lib/customer-email-provider-dispatch-adapter.ts",
   "prepareCustomerEmailProviderDispatchAttempt",
+]);
+
+expect(auditValidatorPath, [
+  "Customer email dispatch audit runtime validation passed.",
+  "src/lib/customer-email-dispatch-audit-runtime.ts",
+  "recordCustomerEmailDispatchTransition",
 ]);
 
 expect(issuancePath, [
@@ -77,6 +99,7 @@ expect(issuanceValidatorPath, [
 
 forbidden(queuePath, unsafePhrases());
 forbidden(adapterPath, unsafePhrases());
+forbidden(auditPath, unsafePhrases());
 forbidden(issuancePath, unsafePhrases());
 
 if (failures.length) {
@@ -85,7 +108,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch queue runtime validation passed with provider dispatch adapter coverage.");
+console.log("Customer email dispatch queue runtime validation passed with provider dispatch adapter and audit coverage.");
 
 function unsafePhrases() {
   return [
@@ -95,6 +118,9 @@ function unsafePhrases() {
     "process.env.RESEND_API_KEY",
     "process.env.SENDGRID_API_KEY",
     "providerPayloadStored: true",
+    "providerResponseStored: true",
+    "rawCustomerEmailStored: true",
+    "confirmationUrlStored: true",
     "rawTokenStored: true",
     "tokenHashStored: true",
     "rawEmailStored: true",
