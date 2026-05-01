@@ -7,12 +7,14 @@ import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-cente
 import {
   getAdminCommandCenterSafeProjectionLinks,
   getAdminCommandCenterSafeProjectionRouteContract,
+  getAdminCommandCenterSafeProjectionRouteContractSummary,
 } from "@/lib/admin-command-center-safe-projection-registry";
 
 export function AdminCommandCenterControlPanel() {
   const foundation = getAdminCommandCenterFoundation();
   const projectionLinks = getAdminCommandCenterSafeProjectionLinks();
   const routeContract = getAdminCommandCenterSafeProjectionRouteContract();
+  const routeContractSummary = getAdminCommandCenterSafeProjectionRouteContractSummary();
   const access = projectAdminCommandCenterAccess({
     role: "release-captain",
     area: "agent-orchestration",
@@ -119,11 +121,12 @@ export function AdminCommandCenterControlPanel() {
           </div>
           <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">read-only</span>
         </div>
-        <div className="mt-5 grid gap-3 md:grid-cols-4">
+        <div className="mt-5 grid gap-3 md:grid-cols-5">
           <MetricCard label="Contract methods" value={routeContract.methods.join(" / ")} />
-          <MetricCard label="Safe access helper" value={String(routeContract.requiresSafeAccessHelper)} />
-          <MetricCard label="Safe response helper" value={String(routeContract.requiresSafeResponseHelper)} />
-          <MetricCard label="Safe options helper" value={String(routeContract.requiresSafeOptionsHelper)} />
+          <MetricCard label="Method count" value={String(routeContractSummary.methodCount)} />
+          <MetricCard label="Safe access helper" value={String(routeContractSummary.requiresSafeAccessHelper)} />
+          <MetricCard label="Safe response helper" value={String(routeContractSummary.requiresSafeResponseHelper)} />
+          <MetricCard label="All helpers required" value={String(routeContractSummary.allHelpersRequired)} />
         </div>
         <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {projectionLinks.map((link) => (
