@@ -1,23 +1,24 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
-import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { projectAdminCommandCenterAccess } from "@/lib/admin-command-center-access-runtime";
 import { projectAdminCommandCenterAgentFinding } from "@/lib/admin-command-center-agent-findings-runtime";
 import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-audit-runtime";
 import { projectAdminCommandCenterForecastEscalation } from "@/lib/admin-command-center-forecast-escalation-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
+import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
+import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function OPTIONS() {
-  return jsonNoStore({ ok: true, methods: ["GET", "OPTIONS"], projection: "admin-command-center-forecast-escalation" }, 200);
+  return adminCommandCenterJsonNoStore({ ok: true, methods: ["GET", "OPTIONS"], projection: "admin-command-center-forecast-escalation" }, 200);
 }
 
 export async function GET(request: NextRequest) {
   const accessState = resolveCommandCenterAccessState(request.headers.get(commandCenterPreviewHeaderName()));
   if (!accessState.allowed) {
-    return jsonNoStore({ ok: false, error: "Command center access is closed.", projection: "admin-command-center-forecast-escalation" }, 403);
+    return adminCommandCenterJsonNoStore({ ok: false, error: "Command center access is closed.", projection: "admin-command-center-forecast-escalation" }, 403);
   }
 
   const access = projectAdminCommandCenterAccess({
@@ -93,7 +94,7 @@ export async function GET(request: NextRequest) {
     approvalRefs: ["command center preview gate", "owner escalation gate", "release-captain review gate"],
   });
 
-  return jsonNoStore(
+  return adminCommandCenterJsonNoStore(
     {
       ok: true,
       projection: "admin-command-center-forecast-escalation",
@@ -128,16 +129,4 @@ export async function GET(request: NextRequest) {
     },
     200,
   );
-}
-
-function jsonNoStore(payload: unknown, status: number) {
-  return NextResponse.json(payload, {
-    status,
-    headers: {
-      "Cache-Control": "no-store, max-age=0",
-      Pragma: "no-cache",
-      Expires: "0",
-      "X-Robots-Tag": "noindex, nofollow, noarchive",
-    },
-  });
 }
