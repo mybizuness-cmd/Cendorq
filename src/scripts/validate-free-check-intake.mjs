@@ -6,8 +6,10 @@ const failures = [];
 
 const files = [
   "src/app/api/free-check/route.ts",
+  "src/app/api/free-scan/intake-complete/route.ts",
   "src/app/free-check/page.tsx",
   "src/components/free-check/guided-free-check-form-v2.tsx",
+  "src/components/free-check/free-scan-verify-to-view-client-handoff.ts",
   "src/lib/validation/free-check.ts",
   "src/lib/signals/free-check-signal.ts",
   "src/lib/intelligence/free-check-intelligence.ts",
@@ -61,6 +63,16 @@ expect("src/app/api/free-check/route.ts", [
   "safeEqual(providedKey, configuredKey)",
 ]);
 
+expect("src/app/api/free-scan/intake-complete/route.ts", [
+  "journeyKey: \"free-scan-submitted\"",
+  "intakeIdPresent",
+  "hasSafeIntakeId",
+  "customerIdHashPresent: intakeIdPresent",
+  "customerOwnedDestination: intakeIdPresent",
+  "buildCustomerEmailConfirmationApiResponse",
+  "buildCustomerEmailConfirmationNoStoreHeaders",
+]);
+
 expect("src/app/free-check/page.tsx", [
   "title: \"Free Scan | Cendorq\"",
   "Cendorq Free Scan",
@@ -72,7 +84,13 @@ expect("src/components/free-check/guided-free-check-form-v2.tsx", [
   "source: \"free-check\"",
   "Submit free scan",
   "Premium free scan",
-  "Scan received",
+  "Scan received · verify to view",
+  "Confirm your email to open your results.",
+  "requestFreeScanVerifyToViewHandoff",
+  "intakeId: data.intakeId",
+  "Cendorq Support <support@cendorq.com>",
+  "Your results stay protected until your email is confirmed.",
+  "The dashboard/report vault becomes your command center for the scan, next steps, and plan fit.",
   "Compare all plans",
   "Possible Ongoing Control fit",
   "Possible Build Fix fit",
@@ -80,6 +98,21 @@ expect("src/components/free-check/guided-free-check-form-v2.tsx", [
   "See Ongoing Control",
   "See Build Fix",
   "See Deep Review",
+]);
+
+expect("src/components/free-check/free-scan-verify-to-view-client-handoff.ts", [
+  "FreeScanVerifyToViewClientInput",
+  "intakeId: string",
+  "requestFreeScanVerifyToViewHandoff",
+  "fetch(\"/api/free-scan/intake-complete\"",
+  "cache: \"no-store\"",
+  "senderDisplay: \"Cendorq Support <support@cendorq.com>\"",
+  "senderEmail: \"support@cendorq.com\"",
+  "rawPayloadStored === false",
+  "rawEvidenceReturned === false",
+  "tokensReturned === false",
+  "localStorageAllowed === false",
+  "sessionStorageAllowed === false",
 ]);
 
 expect("src/lib/validation/free-check.ts", [
@@ -121,6 +154,25 @@ for (const phrase of [
   if (apiRouteText.includes(phrase)) failures.push(`Free Scan API route contains forbidden storage/read escape hatch: ${phrase}`);
 }
 
+const formText = read("src/components/free-check/guided-free-check-form-v2.tsx");
+for (const phrase of [
+  "reportPath?: string",
+  "reportPath: data.reportPath",
+  "View scan report",
+]) {
+  if (formText.includes(phrase)) failures.push(`Free Scan form still exposes direct report-success path: ${phrase}`);
+}
+
+const clientHandoffText = read("src/components/free-check/free-scan-verify-to-view-client-handoff.ts");
+for (const phrase of [
+  "customerIdHash",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
+  "showProtectedResults: true",
+]) {
+  if (clientHandoffText.includes(phrase)) failures.push(`Free Scan verify-to-view client handoff contains forbidden phrase: ${phrase}`);
+}
+
 const publicIntakeText = [
   "src/app/api/free-check/route.ts",
   "src/app/free-check/page.tsx",
@@ -160,7 +212,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam usage, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam usage, preserved guided form, 0 percent progress posture, verify-to-view handoff, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
