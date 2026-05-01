@@ -4,12 +4,15 @@ import { join } from "node:path";
 const root = process.cwd();
 const panelPath = "src/app/command-center/admin-command-center-control-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
+const registryPath = "src/lib/admin-command-center-safe-projection-registry.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
 expect(panelPath, [
   "AdminCommandCenterControlPanel",
-  "SAFE_PROJECTION_LINKS",
+  "getAdminCommandCenterSafeProjectionLinks",
+  "@/lib/admin-command-center-safe-projection-registry",
+  "projectionLinks = getAdminCommandCenterSafeProjectionLinks()",
   "projectAdminCommandCenterAccess",
   "projectAdminCommandCenterAuditEvent",
   "projectAdminCommandCenterMissionBrief",
@@ -27,6 +30,15 @@ expect(panelPath, [
 ]);
 
 expect(panelPath, [
+  "projectionLinks.map",
+  "link.href",
+  "link.label",
+  "link.purpose",
+  "These endpoints are preview-gated, no-store, read-only review surfaces.",
+  "They expose posture, not live action authority.",
+]);
+
+expect(registryPath, [
   "/api/admin/command-center",
   "/api/admin/command-center/summary",
   "/api/admin/command-center/audit",
@@ -39,8 +51,6 @@ expect(panelPath, [
   "Chief-agent brief readiness before dispatch.",
   "Structured findings posture for agents and scouts.",
   "Expansion, hardening, risk coverage, and escalation posture.",
-  "These endpoints are preview-gated, no-store, read-only review surfaces.",
-  "They expose posture, not live action authority.",
 ]);
 
 expect(panelPath, [
@@ -92,14 +102,8 @@ expect(routesChainPath, [
   "src/scripts/validate-command-center-admin-control-panel.mjs",
 ]);
 
-forbidden(panelPath, [
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "customerFacingOutputAllowedWithoutReview: true",
-  "productionMutationAllowedWithoutReview: true",
-  "unsupportedOutcomePromiseAllowed: true",
-  "directProviderSendFromAdminAllowed: true",
-]);
+forbidden(panelPath, unsafePhrases());
+forbidden(registryPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Command center admin control panel validation failed:");
@@ -107,7 +111,18 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center admin control panel validation passed with safe projection links.");
+console.log("Command center admin control panel validation passed with shared projection registry coverage.");
+
+function unsafePhrases() {
+  return [
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+    "customerFacingOutputAllowedWithoutReview: true",
+    "productionMutationAllowedWithoutReview: true",
+    "unsupportedOutcomePromiseAllowed: true",
+    "directProviderSendFromAdminAllowed: true",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
