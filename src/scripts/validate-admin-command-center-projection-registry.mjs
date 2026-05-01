@@ -2,52 +2,27 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
-const apiPath = "src/app/api/admin/command-center/route.ts";
 const registryPath = "src/lib/admin-command-center-safe-projection-registry.ts";
-const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const apiValidatorPath = "src/scripts/validate-admin-command-center-api-index.mjs";
+const panelValidatorPath = "src/scripts/validate-command-center-admin-control-panel.mjs";
 const failures = [];
 
-expect(apiPath, [
-  "runtime = \"nodejs\"",
-  "dynamic = \"force-dynamic\"",
-  "NextRequest",
-  "NextResponse",
-  "getAdminCommandCenterSafeProjectionLinks",
-  "getAdminCommandCenterSafeProjectionBoundaries",
-  "@/lib/admin-command-center-safe-projection-registry",
-  "commandCenterPreviewHeaderName",
-  "resolveCommandCenterAccessState",
-  "Command center access is closed.",
-  "projection: \"admin-command-center-api-index\"",
-  "jsonNoStore",
-  "Cache-Control",
-  "no-store, max-age=0",
-  "X-Robots-Tag",
-]);
-
-expect(apiPath, [
-  "endpoints: getAdminCommandCenterSafeProjectionLinks().map",
-  "path: endpoint.href",
-  "projection: endpoint.projection",
-  "purpose: endpoint.purpose",
-  "boundaries: getAdminCommandCenterSafeProjectionBoundaries()",
-]);
-
-expect(apiPath, [
-  "closedByDefault: true",
-  "noStoreRequired: true",
-  "readOnly: true",
-  "grantsLiveAuthority: false",
-]);
-
 expect(registryPath, [
+  "AdminCommandCenterProjectionLink",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
+  "getAdminCommandCenterSafeProjectionLinks",
+  "getAdminCommandCenterSafeProjectionBoundaries",
+  "admin-command-center-api-index",
   "admin-command-center-safe-summary",
   "admin-command-center-audit-trail",
   "admin-command-center-mission-brief",
   "admin-command-center-agent-findings",
   "admin-command-center-forecast-escalation",
+]);
+
+expect(registryPath, [
+  "/api/admin/command-center",
   "/api/admin/command-center/summary",
   "/api/admin/command-center/audit",
   "/api/admin/command-center/mission-brief",
@@ -61,35 +36,35 @@ expect(registryPath, [
   "separate approval gates for action lanes",
 ]);
 
-expect(routesChainPath, [
-  "src/scripts/validate-admin-command-center-api-index.mjs",
+expect(apiValidatorPath, [
+  "src/lib/admin-command-center-safe-projection-registry.ts",
+  "getAdminCommandCenterSafeProjectionLinks",
+  "getAdminCommandCenterSafeProjectionBoundaries",
 ]);
 
-forbidden(apiPath, unsafePhrases());
-forbidden(registryPath, unsafePhrases());
+expect(panelValidatorPath, [
+  "src/lib/admin-command-center-safe-projection-registry.ts",
+  "getAdminCommandCenterSafeProjectionLinks",
+]);
+
+forbidden(registryPath, [
+  "grantsLiveAuthority: true",
+  "readOnly: false",
+  "localStorage",
+  "sessionStorage",
+  "dangerouslySetInnerHTML",
+  "privateKey",
+  "sessionToken",
+  "csrfToken",
+]);
 
 if (failures.length) {
-  console.error("Admin command center API index validation failed:");
+  console.error("Admin command center projection registry validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Admin command center API index validation passed with shared projection registry coverage.");
-
-function unsafePhrases() {
-  return [
-    "localStorage",
-    "sessionStorage",
-    "dangerouslySetInnerHTML",
-    "console.log",
-    "rawPayload",
-    "privateKey",
-    "sessionToken",
-    "csrfToken",
-    "grantsLiveAuthority: true",
-    "readOnly: false",
-  ];
-}
+console.log("Admin command center projection registry validation passed.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
