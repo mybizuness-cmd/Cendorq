@@ -3,6 +3,10 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/plan-delivery-orchestration-contracts.ts";
+const matrixPath = "src/lib/complete-plan-fulfillment-matrix.ts";
+const runtimePath = "src/lib/complete-plan-fulfillment-runtime.ts";
+const matrixValidatorPath = "src/scripts/validate-complete-plan-fulfillment-matrix.mjs";
+const runtimeValidatorPath = "src/scripts/validate-complete-plan-fulfillment-runtime.mjs";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
@@ -102,6 +106,46 @@ expect(contractPath, [
   "guaranteedAccuracyPlanClaim",
 ]);
 
+expect(matrixPath, [
+  "COMPLETE_PLAN_FULFILLMENT_MATRIX",
+  "Complete Cendorq Plan Fulfillment Matrix",
+  "valueArchitecture",
+  "educationalReportStandard",
+  "planBoundaryRules",
+  "conversionStandards",
+  "valuePromise",
+  "educationDepth",
+  "planBoundary",
+  "conversionMethod",
+]);
+
+expect(runtimePath, [
+  "projectCompletePlanFulfillment",
+  "projectCompletePlan",
+  "customerEducationReviewed",
+  "valueExceedsPriceReviewed",
+  "planBoundaryProtected",
+  "conversionMethodApproved",
+  "customerFacingDeliveryAllowed",
+  "upgradeOrRetentionAllowed",
+  "educationalCustomerExplanation",
+  "valueBoundaryExplanation",
+  "fulfillmentStageIncomplete",
+  "valueAbovePriceReviewMissing",
+  "planBoundaryProtectionMissing",
+  "conversionMethodReviewMissing",
+]);
+
+expect(matrixValidatorPath, [
+  "Complete plan fulfillment matrix validation passed.",
+  "src/lib/complete-plan-fulfillment-matrix.ts",
+]);
+
+expect(runtimeValidatorPath, [
+  "Complete plan fulfillment runtime validation passed.",
+  "src/lib/complete-plan-fulfillment-runtime.ts",
+]);
+
 expect(routesChainPath, [
   "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
 ]);
@@ -128,13 +172,41 @@ forbidden(contractPath, [
   "sessionStorage.setItem",
 ]);
 
+for (const guardedPath of [matrixPath, runtimePath]) {
+  forbidden(guardedPath, [
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed accuracy",
+    "100% accurate",
+    "100 percent accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "fake urgency is allowed",
+    "agents can approve delivery",
+    "agents may approve delivery",
+    "passwords requested",
+    "tokens requested",
+    "private keys requested",
+    "card numbers requested",
+    "bank details requested",
+    "raw payloads are exposed",
+    "customer claims are verified facts",
+    "uncontrolled production mutation",
+    "customerFacingDeliveryAllowed: true",
+    "upgradeOrRetentionAllowed: true",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+  ]);
+}
+
 if (failures.length) {
   console.error("Plan delivery orchestration contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed.");
+console.log("Plan delivery orchestration contracts validation passed, including complete fulfillment runtime coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
