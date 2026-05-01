@@ -19,18 +19,51 @@ const failures = [];
 
 expect(docPath, [
   "# Admin Command Center Safe Projections",
+  "Operating posture",
   "Source of truth",
+  "Endpoint map",
   "Operator sequence",
   "Validation requirements",
-  "The canonical route contract accessor is `getAdminCommandCenterSafeProjectionRouteContract`.",
-  "The canonical route contract summary accessor is `getAdminCommandCenterSafeProjectionRouteContractSummary`.",
-  "route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract` and `getAdminCommandCenterSafeProjectionRouteContractSummary`",
-  "canonical `routeContract` and `routeContractSummary` blocks",
-  "method count and all-helpers-required posture",
-  "admin-control-panel validator must enforce the canonical route-contract strip and compact route-contract summary",
+  "preview-gated",
+  "no-store",
+  "read-only review surfaces",
+  "posture only",
+  "src/lib/admin-command-center-safe-projection-registry.ts",
+  "src/lib/admin-command-center-safe-access.ts",
+  "src/lib/admin-command-center-safe-response.ts",
+]);
+
+expect(docPath, [
+  "getAdminCommandCenterSafeProjectionRouteContract",
+  "getAdminCommandCenterSafeProjectionRouteContractSummary",
+  "route-contract strip",
+  "routeContractSummary",
+  "method count",
+  "all-helpers-required",
+  "resolveAdminCommandCenterSafeAccess",
+  "adminCommandCenterAccessDeniedPayload",
+  "adminCommandCenterJsonNoStore",
+  "adminCommandCenterOptions",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
+]);
+
+expect(docPath, [
+  "/api/admin/command-center",
+  "/api/admin/command-center/summary",
+  "/api/admin/command-center/audit",
+  "/api/admin/command-center/mission-brief",
+  "/api/admin/command-center/agent-findings",
+  "/api/admin/command-center/forecast-escalation",
+  "validate-admin-command-center-projection-registry.mjs",
+  "validate-admin-command-center-safe-response.mjs",
+  "validate-admin-command-center-api-index.mjs",
+  "validate-command-center-admin-control-panel.mjs",
+  "validate-routes-chain.mjs",
 ]);
 
 expect(registryPath, [
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT",
   "getAdminCommandCenterSafeProjectionRouteContract",
   "getAdminCommandCenterSafeProjectionRouteContractSummary",
@@ -39,16 +72,35 @@ expect(registryPath, [
   "requiresSafeAccessHelper: true",
   "requiresSafeResponseHelper: true",
   "requiresSafeOptionsHelper: true",
+  "/api/admin/command-center/forecast-escalation",
 ]);
 
-expect(accessPath, ["resolveAdminCommandCenterSafeAccess", "adminCommandCenterAccessDeniedPayload"]);
-expect(responsePath, ["ADMIN_COMMAND_CENTER_SAFE_METHODS", "adminCommandCenterJsonNoStore", "adminCommandCenterOptions"]);
+expect(accessPath, [
+  "resolveAdminCommandCenterSafeAccess",
+  "adminCommandCenterAccessDeniedPayload",
+  "Command center access is closed.",
+]);
+
+expect(responsePath, [
+  "ADMIN_COMMAND_CENTER_SAFE_RESPONSE_HEADERS",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
+  "adminCommandCenterJsonNoStore",
+  "adminCommandCenterOptions",
+  "no-store, max-age=0",
+  "noindex, nofollow, noarchive",
+]);
 
 for (const routePath of projectionRoutes) {
   expect(routePath, [
     "resolveAdminCommandCenterSafeAccess",
+    "adminCommandCenterAccessDeniedPayload",
+    "@/lib/admin-command-center-safe-access",
     "adminCommandCenterJsonNoStore",
     "adminCommandCenterOptions",
+    "return adminCommandCenterOptions(",
+    "@/lib/admin-command-center-safe-response",
+    "runtime = \"nodejs\"",
+    "dynamic = \"force-dynamic\"",
   ]);
 }
 
@@ -64,7 +116,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with route contract summary docs coverage.");
+console.log("Admin command center safe projections runbook validation passed with restored route, helper, contract, and docs coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
