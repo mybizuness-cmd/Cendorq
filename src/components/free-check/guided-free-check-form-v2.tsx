@@ -4,6 +4,11 @@ import { businessTypes } from "@/lib/free-check";
 import Link from "next/link";
 import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
 
+import {
+  requestFreeScanVerifyToViewHandoff,
+  type FreeScanVerifyToViewClientHandoff,
+} from "./free-scan-verify-to-view-client-handoff";
+
 type RoutingHint = "scan-only" | "blueprint-candidate" | "infrastructure-review" | "command-review";
 
 type FormValues = {
@@ -29,7 +34,6 @@ type ApiSuccess = {
   signalQuality: number;
   duplicate: boolean;
   routingHint?: RoutingHint;
-  reportPath?: string;
 };
 
 type ApiFailure = {
@@ -42,7 +46,7 @@ type ApiResponse = ApiSuccess | ApiFailure;
 
 type SubmitState =
   | { kind: "idle" }
-  | { kind: "success"; message: string; quality: number; reportPath?: string; routingHint: RoutingHint }
+  | { kind: "success"; message: string; quality: number; routingHint: RoutingHint; handoff: FreeScanVerifyToViewClientHandoff }
   | { kind: "error"; message: string; details: string[] };
 
 type StepNumber = 0 | 1 | 2 | 3;
@@ -121,8 +125,8 @@ const LABELS: Record<keyof FormValues, { label: string; helper: string; placehol
 
 const SUCCESS_NEXT_STEPS = [
   "Your answers are saved into the scan system.",
-  "The business can now be read through trust, clarity, comparison, and action pressure.",
-  "If the scan shows a deeper issue, the next move becomes easier to choose.",
+  "Your results stay protected until your email is confirmed.",
+  "The dashboard/report vault becomes your command center for the scan, next steps, and plan fit.",
 ] as const;
 
 export function GuidedFreeCheckForm({ className }: { className?: string }) {
@@ -178,6 +182,7 @@ export function GuidedFreeCheckForm({ className }: { className?: string }) {
     setSubmitState({ kind: "idle" });
 
     try {
+      const submittedEmail = values.email;
       const response = await fetch("/api/free-check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -195,18 +200,26 @@ export function GuidedFreeCheckForm({ className }: { className?: string }) {
         return;
       }
 
+      const handoff = await requestFreeScanVerifyToViewHandoff({
+        signupEmail: submittedEmail,
+        intakeId: data.intakeId,
+        requestedDestination: "/dashboard/reports",
+        verificationTokenIssued: true,
+        safeReleaseReady: false,
+      });
+
       setSubmitState({
         kind: "success",
         message: data.message,
         quality: data.signalQuality,
-        reportPath: data.reportPath,
         routingHint: data.routingHint || likelyMove.routingHint,
+        handoff,
       });
       setValues(INITIAL_VALUES);
       setErrors({});
       setStep(0);
     } catch {
-      setSubmitState({ kind: "error", message: "The scan could not connect right now. Please try again.", details: [] });
+      setSubmitState({ kind: "error", message: "The scan was saved, but Cendorq could not prepare the confirmation handoff yet. Please check your inbox for Cendorq Support <support@cendorq.com> or try again.", details: [] });
     } finally {
       setIsSubmitting(false);
     }
@@ -346,6 +359,7 @@ function renderInput(field: keyof FormValues, values: FormValues, onChange: (eve
 
 function SuccessState({ state }: { state: Extract<SubmitState, { kind: "success" }> }) {
   const nextMove = successNextMove(state.routingHint);
+  const handoff = state.handoff.handoff;
 
   return (
     <div className="system-note-success mt-6 overflow-hidden rounded-[1.8rem] p-0">
@@ -353,9 +367,9 @@ function SuccessState({ state }: { state: Extract<SubmitState, { kind: "success"
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(103,232,249,0.16),transparent_35%)]" />
         <div className="relative z-10">
           <div className="inline-flex rounded-full border border-emerald-200/20 bg-emerald-200/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-100">
-            Scan received
+            Scan received · verify to view
           </div>
-          <h3 className="mt-4 text-2xl font-semibold tracking-tight text-white">Your scan is in. The next step is clearer now.</h3>
+          <h3 className="mt-4 text-2xl font-semibold tracking-tight text-white">Your scan is in. Confirm your email to open your results.</h3>
           <p className="mt-3 text-sm leading-7 text-slate-200">{state.message}</p>
 
           <div className="mt-5 grid gap-3 md:grid-cols-3">
@@ -366,15 +380,34 @@ function SuccessState({ state }: { state: Extract<SubmitState, { kind: "success"
             ))}
           </div>
 
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
+            <div className="rounded-[1.35rem] border border-cyan-300/16 bg-cyan-300/10 p-4">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-100">Check your inbox</div>
+              <div className="mt-2 text-lg font-semibold text-white">{handoff.senderDisplay}</div>
+              <p className="mt-2 text-sm leading-7 text-slate-200">{handoff.checkInboxCopy}</p>
+            </div>
+            <div className="rounded-[1.35rem] border border-cyan-300/16 bg-cyan-300/10 p-4">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-100">Email subject</div>
+              <div className="mt-2 text-lg font-semibold text-white">{handoff.subject}</div>
+              <p className="mt-2 text-sm leading-7 text-slate-200">{handoff.preheader}</p>
+            </div>
+          </div>
+
+          <div className="mt-5 rounded-[1.35rem] border border-white/10 bg-white/[0.045] p-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-100">After confirmation</div>
+            <p className="mt-2 text-sm leading-7 text-slate-200">{handoff.safeCustomerMessage}</p>
+            <p className="mt-2 text-xs leading-6 text-slate-400">{handoff.reportVisibilityRule}</p>
+          </div>
+
           <div className="mt-5 rounded-[1.35rem] border border-cyan-300/16 bg-cyan-300/10 p-4">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-100">Recommended direction</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-100">Recommended direction after your first read</div>
             <div className="mt-2 text-lg font-semibold text-white">{nextMove.title}</div>
             <p className="mt-2 text-sm leading-7 text-slate-200">{nextMove.copy}</p>
           </div>
 
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            {state.reportPath ? <Link href={state.reportPath} className="system-button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">View scan report</Link> : null}
-            <Link href={nextMove.href} className="system-button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">{nextMove.cta}</Link>
+            <Link href={handoff.verifiedDestination} className="system-button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">{handoff.primaryCta}</Link>
+            <Link href={nextMove.href} className="system-button-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">{nextMove.cta}</Link>
             <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition">Compare all plans</Link>
           </div>
         </div>
