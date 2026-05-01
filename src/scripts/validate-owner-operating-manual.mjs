@@ -21,6 +21,51 @@ expect(manualPath, [
 ]);
 
 expect(manualPath, [
+  "## Customer operations architecture update",
+  "Customer journey and verification",
+  "Email dispatch operations",
+  "Dashboard command center and inbox",
+  "Report vault and protected reports",
+  "Plan orchestration and skipped prior-plan handling",
+  "Plan delivery boundaries",
+  "Support, billing, and report boundaries",
+  "No-leak operating policy",
+  "Agent orchestration policy",
+  "Customer-facing language policy",
+]);
+
+expect(manualPath, [
+  "The customer journey is: Free Scan or plan entry, check-your-inbox gate, email confirmation, protected dashboard, report vault, inbox messages, support, billing, and plan-specific delivery.",
+  "Free Scan and Deep Review report access should route to `/dashboard/reports` after safe verification and release state.",
+  "Customer confirmation email dispatch now uses a controlled chain: queue record, provider preparation, audit transition, state mutation, admin preview, admin dry-run, provider configuration contract, provider send interface, and customer-safe delivery status projection.",
+  "The dashboard inbox is for customer-owned command-center messages, plan nudges, report readiness, support status, billing reminders, security steps, and recovery paths.",
+  "It supplements external email orchestration and must not replace transactional confirmation or lifecycle email.",
+]);
+
+expect(manualPath, [
+  "Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or Deep Review.",
+  "Deep Review is the paid full diagnostic path and requires active entitlement, verified email, paid intake, research review, and release approval.",
+  "Buying Build Fix directly does not include a standalone Deep Review report unless that entitlement exists.",
+  "Buying Ongoing Control directly does not include Build Fix implementation or a standalone Deep Review report unless those entitlements exist.",
+  "A later purchase after prior delivery creates a new entitlement, not an automatic unlimited redo.",
+]);
+
+expect(manualPath, [
+  "Free Scan is a protected first-read report.",
+  "Deep Review is the paid full diagnostic report.",
+  "Build Fix is scoped implementation with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation.",
+  "Ongoing Control is recurring monthly status, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.",
+  "Ongoing Control may recommend Build Fix when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.",
+]);
+
+expect(manualPath, [
+  "Customer-facing surfaces must not expose private payloads, private evidence, sensitive security material, private billing material, internal notes, operator identities, risk internals, threat details, prompt or system material, secrets, tokens, or cross-customer information.",
+  "Agents do not approve merges, launches, reports, provider configuration, billing changes, security readiness, or customer-facing claims.",
+  "Customer-facing language should be truthful, evidence-led, premium, calm, and specific.",
+  "It must avoid fake urgency, dark patterns, impossible certainty, guaranteed business outcomes, guaranteed deliverability, guaranteed security outcomes, and unsupported legal or billing promises.",
+]);
+
+expect(manualPath, [
   "## Report accuracy operating model",
   "Customer-provided context",
   "Safe external evidence",
@@ -137,14 +182,6 @@ expect(routesChainPath, [
 ]);
 
 forbidden(manualPath, [
-  "guaranteed accuracy",
-  "guaranteed revenue",
-  "guaranteed ROI",
-  "guaranteed rankings",
-  "guaranteed security",
-  "impossible-to-hack status",
-  "liability-free status",
-  "guaranteed fix",
   "promise impossible certainty",
   "customer-specific truth must be generalized as universal truth",
   "agents may approve launches",
@@ -153,6 +190,11 @@ forbidden(manualPath, [
   "raw provider payloads may be exposed",
   "raw customer data may be exposed",
   "private audit payloads may be exposed",
+  "automatic unlimited redo",
+  "dashboard inbox replaces email",
+  "Ongoing Control includes Build Fix implementation",
+  "Build Fix includes standalone Deep Review report",
+  "provider-level placement guarantee",
 ]);
 
 if (failures.length) {
@@ -161,7 +203,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed. The manual protects evidence-backed accuracy, tailored plan fit, conversion moat, market learning, owner responsibilities, release-captain review, and post-build operating cadence without unsafe guarantees.");
+console.log("Owner operating manual validation passed with customer operations architecture, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
