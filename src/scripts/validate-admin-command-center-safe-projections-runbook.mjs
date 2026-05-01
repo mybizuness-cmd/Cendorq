@@ -26,19 +26,25 @@ expect(docPath, [
   "Validation requirements",
   "All access checks must resolve through the shared safe-access helper.",
   "OPTIONS responses must resolve through the shared safe-options helper and canonical safe method list.",
-  "src/lib/admin-command-center-safe-projection-registry.ts",
-  "src/lib/admin-command-center-safe-access.ts",
-  "src/lib/admin-command-center-safe-response.ts",
+  "The canonical endpoint list and route contract metadata live in `src/lib/admin-command-center-safe-projection-registry.ts`.",
+  "Do not duplicate route contract metadata in UI or API routes.",
+  "methods and helper requirements",
   "resolveAdminCommandCenterSafeAccess",
   "adminCommandCenterAccessDeniedPayload",
   "adminCommandCenterJsonNoStore",
   "adminCommandCenterOptions",
   "ADMIN_COMMAND_CENTER_SAFE_METHODS",
   "safe-projections validator must enforce shared `OPTIONS` helper coverage across every admin command-center projection route",
+  "registry validator and API-index validator must enforce route contract metadata",
 ]);
 
 expect(registryPath, [
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
+  "safeProjectionRouteContract",
+  "requiresSafeAccessHelper: true",
+  "requiresSafeResponseHelper: true",
+  "requiresSafeOptionsHelper: true",
   "getAdminCommandCenterSafeProjectionLinks",
   "/api/admin/command-center/forecast-escalation",
 ]);
@@ -83,7 +89,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with full shared access, response, options, registry, and route coverage.");
+console.log("Admin command center safe projections runbook validation passed with full shared access, response, options, registry contract, and route coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

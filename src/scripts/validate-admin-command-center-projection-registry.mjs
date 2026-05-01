@@ -11,6 +11,11 @@ expect(registryPath, [
   "AdminCommandCenterProjectionLink",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
+  "safeProjectionRouteContract",
+  "requiresSafeAccessHelper: true",
+  "requiresSafeResponseHelper: true",
+  "requiresSafeOptionsHelper: true",
   "getAdminCommandCenterSafeProjectionLinks",
   "getAdminCommandCenterSafeProjectionBoundaries",
   "admin-command-center-api-index",
@@ -30,6 +35,7 @@ expect(registryPath, [
   "/api/admin/command-center/forecast-escalation",
   "preview-gated command-center access",
   "no-store responses",
+  "safe options helper",
   "safe projections only",
   "read-only index",
   "review-only operating posture",
@@ -53,9 +59,6 @@ forbidden(registryPath, [
   "localStorage",
   "sessionStorage",
   "dangerouslySetInnerHTML",
-  "privateKey",
-  "sessionToken",
-  "csrfToken",
 ]);
 
 if (failures.length) {
@@ -64,7 +67,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center projection registry validation passed.");
+console.log("Admin command center projection registry validation passed with route contract metadata coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

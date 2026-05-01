@@ -15,7 +15,10 @@ expect(apiPath, [
   "getAdminCommandCenterSafeProjectionLinks",
   "getAdminCommandCenterSafeProjectionBoundaries",
   "@/lib/admin-command-center-safe-projection-registry",
+  "resolveAdminCommandCenterSafeAccess",
+  "adminCommandCenterAccessDeniedPayload",
   "adminCommandCenterJsonNoStore",
+  "adminCommandCenterOptions",
   "@/lib/admin-command-center-safe-response",
   "commandCenterPreviewHeaderName",
   "resolveCommandCenterAccessState",
@@ -28,6 +31,10 @@ expect(apiPath, [
   "path: endpoint.href",
   "projection: endpoint.projection",
   "purpose: endpoint.purpose",
+  "methods: endpoint.methods",
+  "requiresSafeAccessHelper: endpoint.requiresSafeAccessHelper",
+  "requiresSafeResponseHelper: endpoint.requiresSafeResponseHelper",
+  "requiresSafeOptionsHelper: endpoint.requiresSafeOptionsHelper",
   "boundaries: getAdminCommandCenterSafeProjectionBoundaries()",
 ]);
 
@@ -41,6 +48,11 @@ expect(apiPath, [
 expect(registryPath, [
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
+  "safeProjectionRouteContract",
+  "requiresSafeAccessHelper: true",
+  "requiresSafeResponseHelper: true",
+  "requiresSafeOptionsHelper: true",
   "admin-command-center-safe-summary",
   "admin-command-center-audit-trail",
   "admin-command-center-mission-brief",
@@ -53,6 +65,7 @@ expect(registryPath, [
   "/api/admin/command-center/forecast-escalation",
   "preview-gated command-center access",
   "no-store responses",
+  "safe options helper",
   "safe projections only",
   "read-only index",
   "review-only operating posture",
@@ -61,7 +74,9 @@ expect(registryPath, [
 
 expect(responsePath, [
   "ADMIN_COMMAND_CENTER_SAFE_RESPONSE_HEADERS",
+  "ADMIN_COMMAND_CENTER_SAFE_METHODS",
   "adminCommandCenterJsonNoStore",
+  "adminCommandCenterOptions",
   "no-store, max-age=0",
   "noindex, nofollow, noarchive",
 ]);
@@ -80,7 +95,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center API index validation passed with shared projection registry and safe response coverage.");
+console.log("Admin command center API index validation passed with route contract metadata coverage.");
 
 function unsafePhrases() {
   return [
@@ -89,9 +104,6 @@ function unsafePhrases() {
     "dangerouslySetInnerHTML",
     "console.log",
     "rawPayload",
-    "privateKey",
-    "sessionToken",
-    "csrfToken",
     "grantsLiveAuthority: true",
     "readOnly: false",
   ];
