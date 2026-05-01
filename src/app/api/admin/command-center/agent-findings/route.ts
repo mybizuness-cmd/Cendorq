@@ -4,8 +4,8 @@ import { projectAdminCommandCenterAccess } from "@/lib/admin-command-center-acce
 import { projectAdminCommandCenterAgentFinding } from "@/lib/admin-command-center-agent-findings-runtime";
 import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-audit-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
+import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
 import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
-import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,9 +15,9 @@ export async function OPTIONS() {
 }
 
 export async function GET(request: NextRequest) {
-  const accessState = resolveCommandCenterAccessState(request.headers.get(commandCenterPreviewHeaderName()));
+  const accessState = resolveAdminCommandCenterSafeAccess(request);
   if (!accessState.allowed) {
-    return adminCommandCenterJsonNoStore({ ok: false, error: "Command center access is closed.", projection: "admin-command-center-agent-findings" }, 403);
+    return adminCommandCenterJsonNoStore(adminCommandCenterAccessDeniedPayload("admin-command-center-agent-findings"), 403);
   }
 
   const access = projectAdminCommandCenterAccess({
