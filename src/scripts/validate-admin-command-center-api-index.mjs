@@ -14,6 +14,7 @@ expect(apiPath, [
   "NextRequest",
   "getAdminCommandCenterSafeProjectionLinks",
   "getAdminCommandCenterSafeProjectionBoundaries",
+  "getAdminCommandCenterSafeProjectionRouteContract",
   "@/lib/admin-command-center-safe-projection-registry",
   "resolveAdminCommandCenterSafeAccess",
   "adminCommandCenterAccessDeniedPayload",
@@ -27,6 +28,12 @@ expect(apiPath, [
 ]);
 
 expect(apiPath, [
+  "const routeContract = getAdminCommandCenterSafeProjectionRouteContract()",
+  "routeContract: {",
+  "methods: routeContract.methods",
+  "requiresSafeAccessHelper: routeContract.requiresSafeAccessHelper",
+  "requiresSafeResponseHelper: routeContract.requiresSafeResponseHelper",
+  "requiresSafeOptionsHelper: routeContract.requiresSafeOptionsHelper",
   "endpoints: getAdminCommandCenterSafeProjectionLinks().map",
   "path: endpoint.href",
   "projection: endpoint.projection",
@@ -48,8 +55,9 @@ expect(apiPath, [
 expect(registryPath, [
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT",
+  "getAdminCommandCenterSafeProjectionRouteContract",
   "ADMIN_COMMAND_CENTER_SAFE_METHODS",
-  "safeProjectionRouteContract",
   "requiresSafeAccessHelper: true",
   "requiresSafeResponseHelper: true",
   "requiresSafeOptionsHelper: true",
@@ -95,7 +103,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center API index validation passed with route contract metadata coverage.");
+console.log("Admin command center API index validation passed with route contract accessor coverage.");
 
 function unsafePhrases() {
   return [
