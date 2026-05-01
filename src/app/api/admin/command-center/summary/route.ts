@@ -6,8 +6,8 @@ import { projectAdminCommandCenterAuditEvent } from "@/lib/admin-command-center-
 import { getAdminCommandCenterFoundation } from "@/lib/admin-command-center-foundation";
 import { projectAdminCommandCenterForecastEscalation } from "@/lib/admin-command-center-forecast-escalation-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
+import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
 import { adminCommandCenterJsonNoStore } from "@/lib/admin-command-center-safe-response";
-import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,9 +17,9 @@ export async function OPTIONS() {
 }
 
 export async function GET(request: NextRequest) {
-  const accessState = resolveCommandCenterAccessState(request.headers.get(commandCenterPreviewHeaderName()));
+  const accessState = resolveAdminCommandCenterSafeAccess(request);
   if (!accessState.allowed) {
-    return adminCommandCenterJsonNoStore({ ok: false, error: "Command center access is closed.", projection: "admin-command-center-safe-summary" }, 403);
+    return adminCommandCenterJsonNoStore(adminCommandCenterAccessDeniedPayload("admin-command-center-safe-summary"), 403);
   }
 
   const foundation = getAdminCommandCenterFoundation();
@@ -40,12 +40,12 @@ export async function GET(request: NextRequest) {
     area: "agent-orchestration",
     chiefAgentRole: "chief-agent-controller",
     missionScope: "Expose safe admin command-center posture for private operator review.",
-    sourceBoundaries: ["admin command center foundation", "admin access runtime", "captain operating core"],
+    sourceBoundaries: ["admin command center foundation"],
     evidenceStandard: ["verified facts", "source refs", "assumptions", "gaps", "risks", "recommendations"],
     outputBoundary: "safe JSON projection only",
-    escalationRules: ["captain review before expansion", "owner review for provider or launch readiness changes"],
-    forecastRisks: ["drift", "stale assumptions", "under-validation", "handoff confusion"],
-    antiDriftChecks: ["no-store response", "preview access gate", "route validator coverage"],
+    escalationRules: ["captain review before expansion"],
+    forecastRisks: ["drift", "stale assumptions", "under-validation"],
+    antiDriftChecks: ["closed access gate", "safe projection only", "validator coverage"],
   });
   const finding = projectAdminCommandCenterAgentFinding({
     findingId: "admin-command-center-safe-summary-api-finding",
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
     sourceRefs: ["src/app/api/admin/command-center/summary/route.ts"],
     assumptions: ["response remains private command-center only"],
     gaps: ["live persistence remains future work"],
-    risks: ["future expansion could confuse projection with authority"],
+    risks: ["projection can be mistaken for authority"],
     recommendations: ["keep summary read-only and no-store"],
     forecastedFailureModes: ["future route adds mutation behavior without approval gates"],
     escalationNeeds: ["release-captain review before live authority expansion"],
@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
     action: "view-safe-summary",
     access,
     summary: "Admin command center safe summary API returned private no-store posture only.",
-    evidenceRefs: ["admin foundation", "access runtime", "mission brief runtime", "forecast runtime"],
+    evidenceRefs: ["admin foundation"],
     approvalRefs: ["command center preview gate"],
   });
 
