@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const runtimePath = "src/lib/admin-command-center-access-runtime.ts";
+const auditRuntimePath = "src/lib/admin-command-center-audit-runtime.ts";
+const auditRuntimeValidatorPath = "src/scripts/validate-admin-command-center-audit-runtime.mjs";
 const foundationValidatorPath = "src/scripts/validate-admin-command-center-foundation.mjs";
 const failures = [];
 
@@ -65,36 +67,37 @@ expect(runtimePath, [
   "unsupportedOutcomePromiseAllowed: false",
 ]);
 
+expect(auditRuntimePath, [
+  "projectAdminCommandCenterAuditEvent",
+  "getAdminCommandCenterAuditRules",
+  "AdminCommandCenterAuditSafeProjection",
+  "safe-read-reviewed",
+  "mutation-approved",
+  "mutation-denied",
+  "mission-brief-reviewed",
+  "agent-output-reviewed",
+  "provider-config-reviewed",
+  "report-release-reviewed",
+  "launch-readiness-reviewed",
+  "immutable: true",
+  "safeProjectionOnly: true",
+  "noStoreRequired: true",
+]);
+
+expect(auditRuntimeValidatorPath, [
+  "Admin command center audit runtime validation passed.",
+  "src/lib/admin-command-center-audit-runtime.ts",
+  "projectAdminCommandCenterAuditEvent",
+]);
+
 expect(foundationValidatorPath, [
   "src/scripts/validate-admin-command-center-access-runtime.mjs",
   "src/lib/admin-command-center-access-runtime.ts",
   "projectAdminCommandCenterAccess",
 ]);
 
-forbidden(runtimePath, [
-  "customerVisibleInternalNotesAllowed: true",
-  "operatorIdentityCustomerVisibleAllowed: true",
-  "browserReadableAdminAuthorityAllowed: true",
-  "browserReadableProviderAuthorityAllowed: true",
-  "browserReadableSupportAuthorityAllowed: true",
-  "browserStorageAuthorityAllowed: true",
-  "directProviderSendFromAdminAllowed: true",
-  "uncontrolledAgentMutationAllowed: true",
-  "untrainedChiefAgentDispatchAllowed: true",
-  "unstructuredAgentFindingAllowed: true",
-  "stalePrBlindMergeAllowed: true",
-  "unsupportedOutcomePromiseAllowed: true",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed deliverability",
-  "guaranteed inbox placement",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
+forbidden(runtimePath, unsafePhrases());
+forbidden(auditRuntimePath, unsafePhrases());
 
 if (failures.length) {
   console.error("Admin command center access runtime validation failed:");
@@ -102,7 +105,43 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center access runtime validation passed.");
+console.log("Admin command center access runtime validation passed with audit runtime coverage.");
+
+function unsafePhrases() {
+  return [
+    "customerVisibleInternalNotesAllowed: true",
+    "operatorIdentityCustomerVisibleAllowed: true",
+    "browserReadableAdminAuthorityAllowed: true",
+    "browserReadableProviderAuthorityAllowed: true",
+    "browserReadableSupportAuthorityAllowed: true",
+    "browserStorageAuthorityAllowed: true",
+    "directProviderSendFromAdminAllowed: true",
+    "uncontrolledAgentMutationAllowed: true",
+    "untrainedChiefAgentDispatchAllowed: true",
+    "unstructuredAgentFindingAllowed: true",
+    "stalePrBlindMergeAllowed: true",
+    "unsupportedOutcomePromiseAllowed: true",
+    "rawPayloadStored: true",
+    "privateEvidenceStored: true",
+    "privateBillingStored: true",
+    "internalNotesCustomerVisible: true",
+    "operatorIdentityCustomerVisible: true",
+    "browserAuthorityStored: true",
+    "providerPayloadStored: true",
+    "providerResponseStored: true",
+    "unsupportedOutcomePromiseStored: true",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed deliverability",
+    "guaranteed inbox placement",
+    "100% accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
