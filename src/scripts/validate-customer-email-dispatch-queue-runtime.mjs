@@ -5,8 +5,10 @@ const root = process.cwd();
 const queuePath = "src/lib/customer-email-dispatch-queue-runtime.ts";
 const adapterPath = "src/lib/customer-email-provider-dispatch-adapter.ts";
 const auditPath = "src/lib/customer-email-dispatch-audit-runtime.ts";
+const runnerPath = "src/lib/customer-email-dispatch-runner-runtime.ts";
 const adapterValidatorPath = "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs";
 const auditValidatorPath = "src/scripts/validate-customer-email-dispatch-audit-runtime.mjs";
+const runnerValidatorPath = "src/scripts/validate-customer-email-dispatch-runner-runtime.mjs";
 const issuancePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
 const issuanceValidatorPath = "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs";
 const failures = [];
@@ -89,6 +91,21 @@ expect(auditPath, [
   "providerResponseStored: false",
 ]);
 
+expect(runnerPath, [
+  "runCustomerEmailDispatchCycle",
+  "getCustomerEmailDispatchRunnerRules",
+  "prepareCustomerEmailProviderDispatchAttempt",
+  "updateCustomerEmailDispatchQueueState",
+  "recordCustomerEmailDispatchTransition",
+  "dispatch runner must use provider dispatch adapter before queue mutation",
+  "dispatch runner must record an audit transition for every queue mutation decision",
+  "providerCallMade: false",
+  "providerSecretRead: false",
+  "browserVisible: false",
+  "confirmationUrlReturned: false",
+  "providerResponseReturned: false",
+]);
+
 expect(adapterValidatorPath, [
   "Customer email provider dispatch adapter validation passed.",
   "src/lib/customer-email-provider-dispatch-adapter.ts",
@@ -99,6 +116,12 @@ expect(auditValidatorPath, [
   "Customer email dispatch audit runtime validation passed.",
   "src/lib/customer-email-dispatch-audit-runtime.ts",
   "recordCustomerEmailDispatchTransition",
+]);
+
+expect(runnerValidatorPath, [
+  "Customer email dispatch runner runtime validation passed.",
+  "src/lib/customer-email-dispatch-runner-runtime.ts",
+  "runCustomerEmailDispatchCycle",
 ]);
 
 expect(issuancePath, [
@@ -121,6 +144,7 @@ expect(issuanceValidatorPath, [
 forbidden(queuePath, unsafePhrases());
 forbidden(adapterPath, unsafePhrases());
 forbidden(auditPath, unsafePhrases());
+forbidden(runnerPath, unsafePhrases());
 forbidden(issuancePath, unsafePhrases());
 
 if (failures.length) {
@@ -129,7 +153,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, and audit coverage.");
+console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, audit, and runner coverage.");
 
 function unsafePhrases() {
   return [
@@ -154,6 +178,8 @@ function unsafePhrases() {
     "providerSecretRead: true",
     "browserVisible: true",
     "customerEmailReturned: true",
+    "confirmationUrlReturned: true",
+    "providerResponseReturned: true",
     "providerPayloadReturnedToBrowser: true",
     "providerPayloadReturned: true",
     "rawTokenReturnedToBrowser: true",
