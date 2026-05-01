@@ -13,8 +13,9 @@ expect(componentPath, [
   "projectPlanRouting",
   "type PlanRoutingInput",
   "Dashboard action inbox",
-  "The most important customer actions stay visible without becoming noise.",
-  "This inbox is a dashboard command strip, not a replacement for email or the notification center.",
+  "The most important customer actions stay visible and conversion-ready without becoming noise.",
+  "This inbox is a dashboard conversion and action strip, not a substitute for the email orchestration, lifecycle follow-up emails, or the full notification center.",
+  "Email remains the external delivery channel to the signup address; the dashboard keeps the next best action visible when the customer returns.",
   "Open notification center",
   "Customer-safe rule",
 ]);
@@ -32,12 +33,21 @@ expect(componentPath, [
 ]);
 
 expect(componentPath, [
-  "report, billing, support, and plan-status messages are easier to find",
-  "Email remains the delivery channel; this dashboard keeps the action visible.",
+  "Conversion role",
+  "Keeps the customer reachable for report-ready notices, plan education, billing clarity, and support follow-through without repeating confirmation every plan.",
+  "Converts direct Optimization buyers back toward Deep Review through scope clarity and customer understanding, not pressure or unpaid report leakage.",
+  "Turns recurring visibility into upgrade education by showing when monthly insight needs paid implementation, while preserving the active monthly plan.",
+  "convert through evidence, plan-fit education, scope clarity, and one safe next action",
+]);
+
+expect(componentPath, [
+  "report, billing, support, and plan-status emails sent to your signup address are easier to find",
   "Build Fix can continue inside the purchased optimization scope.",
   "Add Deep Review if you want the full standalone diagnosis behind the work.",
+  "email follow-ups still go to your signup address",
   "Monthly control can continue from approved scope.",
-  "Build Fix is recommended only when evidence shows implementation work is needed.",
+  "Build Fix is recommended only when evidence shows implementation work is needed",
+  "monthly emails remain part of the customer lifecycle flow",
 ]);
 
 expect(componentPath, [
@@ -74,7 +84,6 @@ expect(routesChainPath, [
 
 forbidden(componentPath, [
   "replace email",
-  "replacement for email",
   "replace notification center",
   "guaranteed inbox",
   "guaranteed primary inbox",
