@@ -29,7 +29,9 @@ expect(docPath, [
   "The canonical endpoint list and route contract metadata live in `src/lib/admin-command-center-safe-projection-registry.ts`.",
   "The canonical route contract accessor is `getAdminCommandCenterSafeProjectionRouteContract`.",
   "The private command-center panel and API index must expose each registry entry's methods and helper requirements",
+  "The private command-center panel must expose a canonical route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract` before the per-endpoint cards",
   "The private API index must also expose a canonical `routeContract` block from `getAdminCommandCenterSafeProjectionRouteContract`",
+  "Confirm the panel displays the canonical route-contract strip from the shared accessor.",
   "Confirm the panel displays each registry entry's methods and helper requirements.",
   "Review the API index to confirm the endpoint map, canonical `routeContract`, and per-route contract metadata.",
   "methods and helper requirements",
@@ -41,6 +43,7 @@ expect(docPath, [
   "safe-projections validator must enforce shared `OPTIONS` helper coverage across every admin command-center projection route",
   "registry validator, API-index validator, and admin-control-panel validator must enforce route contract metadata",
   "API-index validator must enforce the canonical `routeContract` response block from `getAdminCommandCenterSafeProjectionRouteContract`",
+  "admin-control-panel validator must enforce the canonical route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract`",
 ]);
 
 expect(registryPath, [
@@ -96,7 +99,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with API-index routeContract block coverage.");
+console.log("Admin command center safe projections runbook validation passed with panel route-contract strip coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
