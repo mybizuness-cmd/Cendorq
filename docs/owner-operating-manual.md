@@ -342,6 +342,74 @@ After public launch, owner should review:
 - plan conversion patterns
 - customer objections
 
+## Customer operations architecture update
+
+This update records the current customer operations architecture now built into the codebase. It should guide future work, reviews, and operator behavior.
+
+### Customer journey and verification
+
+The customer journey is: Free Scan or plan entry, check-your-inbox gate, email confirmation, protected dashboard, report vault, inbox messages, support, billing, and plan-specific delivery. The verify-to-view flow must keep protected results out of public or unverified surfaces. Free Scan and Deep Review report access should route to `/dashboard/reports` after safe verification and release state.
+
+The sender identity remains Cendorq Support <support@cendorq.com>. The customer can be told to check spam or promotions once and save the sender, but copy must not claim provider-level placement or delivery control.
+
+### Email dispatch operations
+
+Customer confirmation email dispatch now uses a controlled chain: queue record, provider preparation, audit transition, state mutation, admin preview, admin dry-run, provider configuration contract, provider send interface, and customer-safe delivery status projection.
+
+Operational rules:
+
+- Admin preview and dry-run routes are admin-only, no-store, and safe projection only.
+- Dry-runs may exercise orchestration with synthetic safe inputs but must not send email.
+- Provider configuration must remain server-side and owner-approved before live sending.
+- The send interface is a boundary; live provider calls require a future approved adapter and audit coverage.
+- Delivery status can say queued, prepared, sent, held, suppressed, or failed, but must not guarantee inbox placement.
+
+### Dashboard command center and inbox
+
+The dashboard remains the command center. The dashboard inbox is for customer-owned command-center messages, plan nudges, report readiness, support status, billing reminders, security steps, and recovery paths. It supplements external email orchestration and must not replace transactional confirmation or lifecycle email.
+
+Inbox messages must use one safe primary CTA, clear category, suppression rules, and customer-owned projections. Billing messages route to billing center. Support messages route to support center or support status. Security messages avoid sensitive operational details and ask for safe re-verification only through approved routes.
+
+### Report vault and protected reports
+
+The report vault is the canonical protected location for report state, released reports, limitations, confidence labels, and next actions. Pending, draft, unavailable, correction-requested, or unapproved work must not be presented as final truth.
+
+Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or Deep Review. They should separate verified facts, observations, assumptions, inferences, limitations, recommendations, next actions, and plan-fit explanation. Deep Review is the paid full diagnostic path and requires active entitlement, verified email, paid intake, research review, and release approval.
+
+### Plan orchestration and skipped prior-plan handling
+
+Customers may buy plans non-linearly. Cendorq should educate without blocking purchase and protect plan boundaries without creating loopholes.
+
+Rules:
+
+- Buying Build Fix directly does not include a standalone Deep Review report unless that entitlement exists.
+- Buying Ongoing Control directly does not include Build Fix implementation or a standalone Deep Review report unless those entitlements exist.
+- Internal orientation analysis may support purchased work, but unpaid standalone deliverables must not become customer-facing artifacts.
+- A later purchase after prior delivery creates a new entitlement, not an automatic unlimited redo.
+- Rework, addenda, corrections, credits, discounts, or scope changes require release-captain review and the correct approval path.
+
+### Plan delivery boundaries
+
+Free Scan is a protected first-read report. Deep Review is the paid full diagnostic report. Build Fix is scoped implementation with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation. Ongoing Control is recurring monthly status, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.
+
+Ongoing Control may recommend Build Fix when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.
+
+### Support, billing, and report boundaries
+
+Support must expose safe status and next steps without internal review notes. Billing must use safe billing projections and must never request sensitive payment details through inbox or support copy. Report correction paths must preserve auditability, customer-safe explanation, and release review before revised customer-facing output.
+
+### No-leak operating policy
+
+Customer-facing surfaces must not expose private payloads, private evidence, sensitive security material, private billing material, internal notes, operator identities, risk internals, threat details, prompt or system material, secrets, tokens, or cross-customer information.
+
+### Agent orchestration policy
+
+Agents may scout, compare, research, draft, forecast, and pressure-test. Agents do not approve merges, launches, reports, provider configuration, billing changes, security readiness, or customer-facing claims. Every agent result returns to release-captain review.
+
+### Customer-facing language policy
+
+Customer-facing language should be truthful, evidence-led, premium, calm, and specific. It must avoid fake urgency, dark patterns, impossible certainty, guaranteed business outcomes, guaranteed deliverability, guaranteed security outcomes, and unsupported legal or billing promises.
+
 ## What remains to take Cendorq higher
 
 ### Next technical layers
