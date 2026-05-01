@@ -6,7 +6,9 @@ const docPath = "docs/captain-audit-hardening-control-plane.md";
 const runtimePath = "src/lib/captain-audit-hardening-control-plane.ts";
 const operatingCoreDocPath = "docs/captain-operating-core.md";
 const operatingCoreRuntimePath = "src/lib/captain-operating-core.ts";
+const adminFoundationPath = "src/lib/admin-command-center-foundation.ts";
 const operatingCoreValidatorPath = "src/scripts/validate-captain-operating-core.mjs";
+const adminFoundationValidatorPath = "src/scripts/validate-admin-command-center-foundation.mjs";
 const ownerValidatorPath = "src/scripts/validate-owner-operating-manual.mjs";
 const failures = [];
 
@@ -129,11 +131,30 @@ expect(operatingCoreRuntimePath, [
   "forecastReviewRequiredBeforeExpansion: true",
 ]);
 
+expect(adminFoundationPath, [
+  "projectAdminCommandCenterFoundationSummary",
+  "getAdminCommandCenterFoundation",
+  "defaultDecision: \"deny\"",
+  "responseMode: \"no-store\"",
+  "chiefAgentMissionBriefRequired: true",
+  "agentStructuredFindingsRequired: true",
+  "forecastBeforeExpansionRequired: true",
+  "untrainedChiefAgentDispatchAllowed: false",
+  "unstructuredAgentFindingAllowed: false",
+  "stalePrBlindMergeAllowed: false",
+]);
+
 expect(operatingCoreValidatorPath, [
   "Universal captain operating core validation passed.",
   "docs/captain-operating-core.md",
   "src/lib/captain-operating-core.ts",
   "projectCaptainOperatingCore",
+]);
+
+expect(adminFoundationValidatorPath, [
+  "Admin command center foundation validation passed.",
+  "src/lib/admin-command-center-foundation.ts",
+  "projectAdminCommandCenterFoundationSummary",
 ]);
 
 expect(ownerValidatorPath, [
@@ -147,6 +168,7 @@ forbidden(docPath, unsafePhrases());
 forbidden(runtimePath, unsafePhrases());
 forbidden(operatingCoreDocPath, unsafePhrases());
 forbidden(operatingCoreRuntimePath, unsafePhrases());
+forbidden(adminFoundationPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Captain audit hardening control plane validation failed:");
@@ -154,7 +176,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Captain audit hardening control plane validation passed with universal captain operating core coverage.");
+console.log("Captain audit hardening control plane validation passed with universal captain operating core and admin command center foundation coverage.");
 
 function unsafePhrases() {
   return [
@@ -173,6 +195,9 @@ function unsafePhrases() {
     "scoutMayRunUnboundedResearch: true",
     "agentsMayApproveProductionWork: true",
     "forecastReviewRequiredBeforeExpansion: false",
+    "directProviderSendFromAdminAllowed: true",
+    "untrainedChiefAgentDispatchAllowed: true",
+    "unstructuredAgentFindingAllowed: true",
     "merge without Vercel",
     "guaranteed ROI",
     "guaranteed revenue",
