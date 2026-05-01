@@ -12,9 +12,11 @@ expect(panelPath, [
   "AdminCommandCenterControlPanel",
   "getAdminCommandCenterSafeProjectionLinks",
   "getAdminCommandCenterSafeProjectionRouteContract",
+  "getAdminCommandCenterSafeProjectionRouteContractSummary",
   "@/lib/admin-command-center-safe-projection-registry",
   "projectionLinks = getAdminCommandCenterSafeProjectionLinks()",
   "routeContract = getAdminCommandCenterSafeProjectionRouteContract()",
+  "routeContractSummary = getAdminCommandCenterSafeProjectionRouteContractSummary()",
   "projectAdminCommandCenterAccess",
   "projectAdminCommandCenterAuditEvent",
   "projectAdminCommandCenterMissionBrief",
@@ -33,13 +35,15 @@ expect(panelPath, [
 
 expect(panelPath, [
   "Contract methods",
+  "Method count",
   "Safe access helper",
   "Safe response helper",
-  "Safe options helper",
+  "All helpers required",
   "routeContract.methods.join",
-  "routeContract.requiresSafeAccessHelper",
-  "routeContract.requiresSafeResponseHelper",
-  "routeContract.requiresSafeOptionsHelper",
+  "routeContractSummary.methodCount",
+  "routeContractSummary.requiresSafeAccessHelper",
+  "routeContractSummary.requiresSafeResponseHelper",
+  "routeContractSummary.allHelpersRequired",
   "projectionLinks.map",
   "link.href",
   "link.label",
@@ -70,6 +74,9 @@ expect(registryPath, [
   "Expansion, hardening, risk coverage, and escalation posture.",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT",
   "getAdminCommandCenterSafeProjectionRouteContract",
+  "getAdminCommandCenterSafeProjectionRouteContractSummary",
+  "methodCount: contract.methods.length",
+  "allHelpersRequired",
   "ADMIN_COMMAND_CENTER_SAFE_METHODS",
   "requiresSafeAccessHelper: true",
   "requiresSafeResponseHelper: true",
@@ -134,7 +141,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center admin control panel validation passed with canonical route contract accessor coverage.");
+console.log("Command center admin control panel validation passed with route contract summary coverage.");
 
 function unsafePhrases() {
   return [
