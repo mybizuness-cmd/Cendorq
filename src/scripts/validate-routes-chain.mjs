@@ -24,6 +24,7 @@ const validators = [
   "src/scripts/validate-admin-command-center-forecast-escalation-api.mjs",
   "src/scripts/validate-admin-command-center-api-index.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
+  "src/scripts/validate-admin-command-center-safe-projections-runbook.mjs",
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
