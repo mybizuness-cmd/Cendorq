@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const apiPath = "src/app/api/admin/command-center/route.ts";
+const registryPath = "src/lib/admin-command-center-safe-projection-registry.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
@@ -11,6 +12,9 @@ expect(apiPath, [
   "dynamic = \"force-dynamic\"",
   "NextRequest",
   "NextResponse",
+  "getAdminCommandCenterSafeProjectionLinks",
+  "getAdminCommandCenterSafeProjectionBoundaries",
+  "@/lib/admin-command-center-safe-projection-registry",
   "commandCenterPreviewHeaderName",
   "resolveCommandCenterAccessState",
   "Command center access is closed.",
@@ -22,7 +26,23 @@ expect(apiPath, [
 ]);
 
 expect(apiPath, [
-  "safeProjectionEndpoints",
+  "endpoints: getAdminCommandCenterSafeProjectionLinks().map",
+  "path: endpoint.href",
+  "projection: endpoint.projection",
+  "purpose: endpoint.purpose",
+  "boundaries: getAdminCommandCenterSafeProjectionBoundaries()",
+]);
+
+expect(apiPath, [
+  "closedByDefault: true",
+  "noStoreRequired: true",
+  "readOnly: true",
+  "grantsLiveAuthority: false",
+]);
+
+expect(registryPath, [
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
   "admin-command-center-safe-summary",
   "admin-command-center-audit-trail",
   "admin-command-center-mission-brief",
@@ -33,13 +53,6 @@ expect(apiPath, [
   "/api/admin/command-center/mission-brief",
   "/api/admin/command-center/agent-findings",
   "/api/admin/command-center/forecast-escalation",
-]);
-
-expect(apiPath, [
-  "closedByDefault: true",
-  "noStoreRequired: true",
-  "readOnly: true",
-  "grantsLiveAuthority: false",
   "preview-gated command-center access",
   "no-store responses",
   "safe projections only",
@@ -52,18 +65,8 @@ expect(routesChainPath, [
   "src/scripts/validate-admin-command-center-api-index.mjs",
 ]);
 
-forbidden(apiPath, [
-  "localStorage",
-  "sessionStorage",
-  "dangerouslySetInnerHTML",
-  "console.log",
-  "rawPayload",
-  "privateKey",
-  "sessionToken",
-  "csrfToken",
-  "grantsLiveAuthority: true",
-  "readOnly: false",
-]);
+forbidden(apiPath, unsafePhrases());
+forbidden(registryPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Admin command center API index validation failed:");
@@ -71,7 +74,22 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center API index validation passed.");
+console.log("Admin command center API index validation passed with shared projection registry coverage.");
+
+function unsafePhrases() {
+  return [
+    "localStorage",
+    "sessionStorage",
+    "dangerouslySetInnerHTML",
+    "console.log",
+    "rawPayload",
+    "privateKey",
+    "sessionToken",
+    "csrfToken",
+    "grantsLiveAuthority: true",
+    "readOnly: false",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
