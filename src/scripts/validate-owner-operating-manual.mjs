@@ -3,6 +3,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const manualPath = "docs/owner-operating-manual.md";
+const captainAuditDocPath = "docs/captain-audit-hardening-control-plane.md";
+const captainAuditRuntimePath = "src/lib/captain-audit-hardening-control-plane.ts";
+const captainAuditValidatorPath = "src/scripts/validate-captain-audit-hardening-control-plane.mjs";
 const docsIndexPath = "docs/command-center-docs-index.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
@@ -63,6 +66,35 @@ expect(manualPath, [
   "Agents do not approve merges, launches, reports, provider configuration, billing changes, security readiness, or customer-facing claims.",
   "Customer-facing language should be truthful, evidence-led, premium, calm, and specific.",
   "It must avoid fake urgency, dark patterns, impossible certainty, guaranteed business outcomes, guaranteed deliverability, guaranteed security outcomes, and unsupported legal or billing promises.",
+]);
+
+expect(captainAuditDocPath, [
+  "# Captain Audit Hardening Control Plane",
+  "prevents Cendorq captain work from turning into blind feature marching",
+  "Owner command is above the captain",
+  "Required takeover sequence",
+  "Three independent reviews",
+  "Five hardening passes",
+  "Weak-area registry",
+  "The correct continuation point after the already-merged customer operations layers is admin command center foundation",
+]);
+
+expect(captainAuditRuntimePath, [
+  "projectCaptainAuditHardeningControlPlane",
+  "getCaptainAuditControlRules",
+  "ownerCommandAboveCaptain: true",
+  "captainMustAuditBeforeExpansion: true",
+  "stalePrBlindMergeAllowed: false",
+  "uncontrolledAgentApprovalAllowed: false",
+  "unsupportedGuaranteeAllowed: false",
+  "admin-command-center-foundation",
+]);
+
+expect(captainAuditValidatorPath, [
+  "Captain audit hardening control plane validation passed.",
+  "docs/captain-audit-hardening-control-plane.md",
+  "src/lib/captain-audit-hardening-control-plane.ts",
+  "projectCaptainAuditHardeningControlPlane",
 ]);
 
 expect(manualPath, [
@@ -181,21 +213,9 @@ expect(routesChainPath, [
   "src/scripts/validate-owner-operating-manual.mjs",
 ]);
 
-forbidden(manualPath, [
-  "promise impossible certainty",
-  "customer-specific truth must be generalized as universal truth",
-  "agents may approve launches",
-  "agents may approve reports",
-  "agents may approve customer-facing claims",
-  "raw provider payloads may be exposed",
-  "raw customer data may be exposed",
-  "private audit payloads may be exposed",
-  "automatic unlimited redo",
-  "dashboard inbox replaces email",
-  "Ongoing Control includes Build Fix implementation",
-  "Build Fix includes standalone Deep Review report",
-  "provider-level placement guarantee",
-]);
+forbidden(manualPath, unsafePhrases());
+forbidden(captainAuditDocPath, unsafePhrases());
+forbidden(captainAuditRuntimePath, unsafePhrases());
 
 if (failures.length) {
   console.error("Owner operating manual validation failed:");
@@ -203,7 +223,37 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with customer operations architecture, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+console.log("Owner operating manual validation passed with customer operations architecture, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+
+function unsafePhrases() {
+  return [
+    "promise impossible certainty",
+    "customer-specific truth must be generalized as universal truth",
+    "agents may approve launches",
+    "agents may approve reports",
+    "agents may approve customer-facing claims",
+    "raw provider payloads may be exposed",
+    "raw customer data may be exposed",
+    "private audit payloads may be exposed",
+    "automatic unlimited redo",
+    "dashboard inbox replaces email",
+    "Ongoing Control includes Build Fix implementation",
+    "Build Fix includes standalone Deep Review report",
+    "provider-level placement guarantee",
+    "captain may skip audit",
+    "blind feature marching is allowed",
+    "owner command is below the captain",
+    "merge without Vercel",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed deliverability",
+    "guaranteed inbox placement",
+    "100% accurate",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
