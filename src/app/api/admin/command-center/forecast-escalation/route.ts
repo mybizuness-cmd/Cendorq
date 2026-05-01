@@ -15,12 +15,15 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const forecastRiskChecks = [
-  "drift-check",
-  "staleness-check",
-  "scope-check",
-  "claim-check",
-  "validation-check",
-  "handoff-check",
+  "drift-risk",
+  "stale-assumption-risk",
+  "duplicate-scope-risk",
+  "overclaim-risk",
+  "under-validation-risk",
+  "customer-journey-confusion-risk",
+  "private-material-exposure-risk",
+  "production-readiness-blocker-risk",
+  "handoff-misunderstanding-risk",
 ] as const;
 
 export async function OPTIONS() {
@@ -55,7 +58,7 @@ export async function GET(request: NextRequest) {
     evidenceStandard: ["verified facts", "source references", "assumptions", "gaps", "risks", "recommendations"],
     outputBoundary: "read-only forecast escalation projection",
     escalationRules: ["owner review before expansion", "release-captain review before report or plan impact"],
-    forecastRisks: ["drift", "staleness", "scope", "claim", "validation", "handoff"],
+    forecastRisks: ["drift", "stale assumptions", "duplicate scope", "under-validation", "handoff confusion"],
     antiDriftChecks: ["preview gate", "no-store response", "validator coverage", "route-chain coverage"],
   });
 
@@ -77,7 +80,7 @@ export async function GET(request: NextRequest) {
   const forecast = projectAdminCommandCenterForecastEscalation({
     reviewId: "admin-command-center-forecast-escalation-api-review",
     finding,
-    risksReviewed: [...forecastRiskChecks],
+    risksReviewed: forecastRiskChecks,
     mitigations: ["read-only projection", "owner review", "release-captain review", "route-chain validation"],
     escalationOwner: "owner",
     expansionRequested: true,
