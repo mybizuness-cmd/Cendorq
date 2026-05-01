@@ -4,6 +4,10 @@ import { join } from "node:path";
 const root = process.cwd();
 const pagePath = "src/app/free-check/page.tsx";
 const packagePath = "package.json";
+const runtimePath = "src/lib/customer-email-confirmation-handoff-runtime.ts";
+const contractPath = "src/lib/customer-email-confirmation-handoff-contracts.ts";
+const gatePath = "src/app/free-check/free-scan-confirmation-gate.tsx";
+const runtimeValidatorPath = "src/scripts/validate-customer-email-confirmation-handoff-runtime.mjs";
 const failures = [];
 
 expect(pagePath, [
@@ -33,30 +37,55 @@ expect(pagePath, [
   "focus:ring-2",
 ]);
 
+expect(runtimePath, [
+  "projectCustomerEmailConfirmationHandoff",
+  "getCustomerEmailConfirmationRuntimeContractKey",
+  "CustomerEmailConfirmationHandoffProjection",
+  "send-verification",
+  "resend-verification",
+  "route-verified",
+  "hold",
+  "Cendorq Support <support@cendorq.com>",
+  "support@cendorq.com",
+  "check spam or promotions once",
+  "save support@cendorq.com as a trusted sender",
+  "showProtectedResults",
+  "safeReleaseStillRequiresVerification",
+  "arbitraryRedirectAfterVerification",
+]);
+
+expect(contractPath, [
+  "CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT",
+  "Confirm email and open your results",
+  "Confirm your email to open your Cendorq results",
+  "Do not show Free Scan findings before email verification and safe release state.",
+  "dashboard/report vault",
+  "Lifecycle and follow-up emails to the signup address remain active",
+]);
+
+expect(gatePath, [
+  "FreeScanConfirmationGate",
+  "projectCustomerEmailConfirmationHandoff",
+  "free-scan-submitted",
+  "Verify to view",
+  "Check your inbox, confirm once, then open your Free Scan results in your Cendorq command center.",
+  "Cendorq Support <support@cendorq.com>",
+  "Save this sender or move it to your main inbox if your email app filters it.",
+  "The dashboard/report vault remains the protected place to view current report state and next steps.",
+  "Email stays active for delivery and follow-up.",
+]);
+
+expect(runtimeValidatorPath, [
+  "Customer email confirmation handoff runtime validation passed.",
+  "src/lib/customer-email-confirmation-handoff-runtime.ts",
+  "src/app/free-check/free-scan-confirmation-gate.tsx",
+]);
+
 expect(packagePath, ["validate:routes"]);
 
-forbidden(pagePath, [
-  "guaranteed ROI",
-  "guaranteed refund",
-  "guaranteed legal outcome",
-  "guaranteed security outcome",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes=",
-  "operatorIdentity=",
-  "riskScoringInternals=",
-  "attackerDetails=",
-  "sessionToken=",
-  "csrfToken=",
-  "localStorage",
-  "sessionStorage",
-  "final analysis without review",
-]);
+forbidden(pagePath, unsafePhrases());
+forbidden(runtimePath, unsafePhrases());
+forbidden(gatePath, unsafePhrases());
 
 if (failures.length) {
   console.error("Free Scan first use handoff validation failed:");
@@ -64,7 +93,34 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan first use handoff validation passed.");
+console.log("Free Scan first use handoff validation passed with verify-to-view runtime coverage.");
+
+function unsafePhrases() {
+  return [
+    "guaranteed ROI",
+    "guaranteed refund",
+    "guaranteed legal outcome",
+    "guaranteed security outcome",
+    "guaranteed inbox placement",
+    "guaranteed deliverability",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "rawPayload=",
+    "rawEvidence=",
+    "rawSecurityPayload=",
+    "rawBillingData=",
+    "internalNotes=",
+    "operatorIdentity=",
+    "riskScoringInternals=",
+    "attackerDetails=",
+    "sessionToken=",
+    "csrfToken=",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+    "final analysis without review",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
