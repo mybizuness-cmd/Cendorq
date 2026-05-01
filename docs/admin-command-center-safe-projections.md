@@ -9,18 +9,20 @@ This runbook defines how the private command center uses admin command-center sa
 - All responses must use `no-store` cache posture.
 - `OPTIONS` responses must resolve through the shared safe-options helper and canonical safe method list.
 - The endpoints are read-only review surfaces.
-- The endpoints show posture, counts, decisions, and references only.
+- The endpoints show posture, counts, decisions, methods, helper requirements, and references only.
 - Action lanes still require their separate approval gates before customer-facing, launch, billing, provider, report, or production-impacting use.
 
 ## Source of truth
 
-The canonical endpoint list is `src/lib/admin-command-center-safe-projection-registry.ts`.
+The canonical endpoint list and route contract metadata live in `src/lib/admin-command-center-safe-projection-registry.ts`.
 
 The canonical access helper is `src/lib/admin-command-center-safe-access.ts`.
 
 The canonical response helper is `src/lib/admin-command-center-safe-response.ts`.
 
 Do not duplicate the endpoint list in UI or API routes. The private command-center panel and API index must import the registry so route discovery cannot drift.
+
+Do not duplicate route contract metadata in UI or API routes. The private API index must expose each registry entry's methods and helper requirements so operators can verify the safe-access, safe-response, and safe-options contract from one read-only projection.
 
 Do not duplicate preview-gate access checks in individual projection routes. Each admin command-center projection route must use `resolveAdminCommandCenterSafeAccess` and `adminCommandCenterAccessDeniedPayload` so closed-by-default behavior remains consistent.
 
@@ -44,9 +46,10 @@ Do not duplicate safe method arrays in individual projection routes. Each admin 
 1. Open the private command-center panel.
 2. Confirm the safe projection links render from the shared registry.
 3. Review the API index first to confirm the endpoint map.
-4. Review the lane-specific endpoint for the current decision.
-5. Treat the response as posture only.
-6. Use the relevant approval gate before any external, customer-facing, or production-affecting step.
+4. Confirm each API index entry exposes methods and helper requirements from the shared registry.
+5. Review the lane-specific endpoint for the current decision.
+6. Treat the response as posture only.
+7. Use the relevant approval gate before any external, customer-facing, or production-affecting step.
 
 ## Validation requirements
 
@@ -63,3 +66,5 @@ The route-chain must include the registry validator and the shared safe-response
 Until a dedicated safe-access validator can be wired without a large route-chain rewrite, the projection route validators must keep verifying the shared access helper through route-level validation anchors.
 
 The safe-projections validator must enforce shared `OPTIONS` helper coverage across every admin command-center projection route.
+
+The registry validator and API-index validator must enforce route contract metadata for methods, safe-access helper requirements, safe-response helper requirements, and safe-options helper requirements.
