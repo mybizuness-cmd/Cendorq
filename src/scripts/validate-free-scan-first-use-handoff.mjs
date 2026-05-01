@@ -5,9 +5,11 @@ const root = process.cwd();
 const pagePath = "src/app/free-check/page.tsx";
 const packagePath = "package.json";
 const runtimePath = "src/lib/customer-email-confirmation-handoff-runtime.ts";
+const apiResponsePath = "src/lib/customer-email-confirmation-api-response.ts";
 const contractPath = "src/lib/customer-email-confirmation-handoff-contracts.ts";
 const gatePath = "src/app/free-check/free-scan-confirmation-gate.tsx";
 const runtimeValidatorPath = "src/scripts/validate-customer-email-confirmation-handoff-runtime.mjs";
+const apiResponseValidatorPath = "src/scripts/validate-customer-email-confirmation-api-response.mjs";
 const failures = [];
 
 expect(pagePath, [
@@ -54,6 +56,26 @@ expect(runtimePath, [
   "arbitraryRedirectAfterVerification",
 ]);
 
+expect(apiResponsePath, [
+  "CustomerEmailConfirmationApiResponse",
+  "buildCustomerEmailConfirmationApiResponse",
+  "buildCustomerEmailConfirmationNoStoreHeaders",
+  "verify-before-results",
+  "verified-open-destination",
+  "resend-confirmation",
+  "hold",
+  "noStore: true",
+  "rawPayloadStored: false",
+  "rawEvidenceReturned: false",
+  "rawBillingDataReturned: false",
+  "internalNotesReturned: false",
+  "operatorIdentityReturned: false",
+  "riskInternalsReturned: false",
+  "tokensReturned: false",
+  "localStorageAllowed: false",
+  "sessionStorageAllowed: false",
+]);
+
 expect(contractPath, [
   "CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT",
   "Confirm email and open your results",
@@ -81,10 +103,17 @@ expect(runtimeValidatorPath, [
   "src/app/free-check/free-scan-confirmation-gate.tsx",
 ]);
 
+expect(apiResponseValidatorPath, [
+  "Customer email confirmation API response validation passed.",
+  "src/lib/customer-email-confirmation-api-response.ts",
+  "buildCustomerEmailConfirmationApiResponse",
+]);
+
 expect(packagePath, ["validate:routes"]);
 
 forbidden(pagePath, unsafePhrases());
 forbidden(runtimePath, unsafePhrases());
+forbidden(apiResponsePath, unsafePhrases());
 forbidden(gatePath, unsafePhrases());
 
 if (failures.length) {
@@ -93,7 +122,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan first use handoff validation passed with verify-to-view runtime coverage.");
+console.log("Free Scan first use handoff validation passed with verify-to-view runtime and API response coverage.");
 
 function unsafePhrases() {
   return [
