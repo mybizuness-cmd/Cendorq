@@ -8,6 +8,18 @@ The purpose is to prevent rushed takeover behavior. A captain must not enter exe
 
 A captain may not skip the takeover audit because the task feels obvious, urgent, repetitive, or easy. Speed is not authority. Green Vercel is not full quality. More PRs are not proof of command. The captain must understand before acting.
 
+## Command chain
+
+The command chain is:
+
+1. Owner command
+2. Captain / release captain
+3. Chief agents
+4. Agents and scouts
+5. Validators and evidence checks
+
+Owner command is highest authority. The captain controls execution. Chief agents coordinate specialist lanes. Agents and scouts research, compare, draft, forecast, and pressure-test. Validators enforce the hard boundaries. No lower role can approve work reserved for a higher role.
+
 ## Captain readiness before control
 
 Before controlling any project lane, the captain must be trained on and able to restate:
@@ -24,6 +36,37 @@ Before controlling any project lane, the captain must be trained on and able to 
 10. The reason the next layer is the correct next layer.
 
 If any of those are unclear, the captain must audit rather than build.
+
+## Chief agent readiness before delegation
+
+Chief agents may not dispatch agents or scouts until they have a mission brief. The brief must define:
+
+1. The exact lane: backend, frontend, reports, operations, launch, support, billing, security, provider configuration, or agent orchestration.
+2. The source boundaries: what files, routes, docs, PRs, branches, customer states, or external sources may be used.
+3. The evidence standard: what counts as verified fact, customer context, observed evidence, assumption, inference, limitation, recommendation, and next action.
+4. The output boundary: whether the result is research, draft, contract, runtime, UI, validator, PR comment, or customer-facing copy.
+5. The escalation rule: what must return to captain, release-captain, or owner command before use.
+6. The drift risks: likely stale assumptions, duplicate scope, hidden dependency, missing implementation, weak validation, unsupported promise, or public-claim risk.
+7. The anti-drift checks: exact validators, source citations, review gates, diff checks, and merge gates that must hold.
+
+A chief agent that cannot define these items must not run the lane.
+
+## Agent and scout readiness before work
+
+Agents and scouts must operate with a constrained mission. They must not search randomly, invent authority, invent facts, generalize customer-specific truth, convert assumptions into verified facts, or produce customer-facing output without review.
+
+Agents and scouts must return structured findings:
+
+- verified facts
+- relevant source or file references
+- assumptions
+- gaps
+- risks
+- recommendations
+- forecasted failure modes
+- escalation needs
+
+Agents and scouts may propose. They do not approve.
 
 ## Universal takeover checklist
 
@@ -76,6 +119,22 @@ Agents and scouts may research, compare, draft, forecast, and pressure-test. The
 
 A captain must review agent output before it becomes customer-facing, production-affecting, billing-affecting, provider-affecting, report-affecting, or launch-affecting.
 
+## Forecast-before-expansion rule
+
+Before major expansion, the captain and relevant chief agent must forecast likely failure modes. The forecast must include:
+
+- what could drift
+- what could be stale
+- what could be duplicated
+- what could be overclaimed
+- what could be under-validated
+- what could confuse the customer journey
+- what could expose private or internal material
+- what could block production readiness later
+- what could cause the next captain to misunderstand state
+
+The captain must harden the highest-risk issue before expanding when the forecast finds a material control gap.
+
 ## Reported-control rule
 
 When a captain takes over, the work artifacts should make it clear that the captain audited first. The captain should record the review posture through docs, contracts, validators, PR descriptions, or branch-level decisions when the risk is material.
@@ -94,6 +153,8 @@ When a captain takes over, the work artifacts should make it clear that the capt
 - making claims that outpace implementation
 - ignoring mobile, empty states, recovery states, or visual QA
 - skipping owner-level review when billing, launch, provider, security, or report claims change
+- dispatching chief agents without mission scope, source boundaries, evidence standards, output boundaries, escalation rules, forecast risks, and anti-drift checks
+- accepting agent research that lacks structured findings, gaps, risks, and escalation needs
 
 ## Highest-level captain standard
 
