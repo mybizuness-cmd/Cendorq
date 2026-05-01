@@ -18,6 +18,8 @@ The canonical endpoint list and route contract metadata live in `src/lib/admin-c
 
 The canonical route contract accessor is `getAdminCommandCenterSafeProjectionRouteContract`.
 
+The canonical route contract summary accessor is `getAdminCommandCenterSafeProjectionRouteContractSummary`.
+
 The canonical access helper is `src/lib/admin-command-center-safe-access.ts`.
 
 The canonical response helper is `src/lib/admin-command-center-safe-response.ts`.
@@ -26,9 +28,9 @@ Do not duplicate the endpoint list in UI or API routes. The private command-cent
 
 Do not duplicate route contract metadata in UI or API routes. The private command-center panel and API index must expose each registry entry's methods and helper requirements so operators can verify the safe-access, safe-response, and safe-options contract from read-only projections.
 
-The private command-center panel must expose a canonical route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract` before the per-endpoint cards so operators can verify the shared contract first.
+The private command-center panel must expose a canonical route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract` and `getAdminCommandCenterSafeProjectionRouteContractSummary` before the per-endpoint cards.
 
-The private API index must also expose a canonical `routeContract` block from `getAdminCommandCenterSafeProjectionRouteContract` so operators can verify the shared route contract before reviewing per-endpoint metadata.
+The private API index must also expose canonical `routeContract` and `routeContractSummary` blocks from the shared registry helpers before per-endpoint metadata.
 
 Do not duplicate preview-gate access checks in individual projection routes. Each admin command-center projection route must use `resolveAdminCommandCenterSafeAccess` and `adminCommandCenterAccessDeniedPayload` so closed-by-default behavior remains consistent.
 
@@ -51,12 +53,13 @@ Do not duplicate safe method arrays in individual projection routes. Each admin 
 
 1. Open the private command-center panel.
 2. Confirm the safe projection links render from the shared registry.
-3. Confirm the panel displays the canonical route-contract strip from the shared accessor.
-4. Confirm the panel displays each registry entry's methods and helper requirements.
-5. Review the API index to confirm the endpoint map, canonical `routeContract`, and per-route contract metadata.
-6. Review the lane-specific endpoint for the current decision.
-7. Treat the response as posture only.
-8. Use the relevant approval gate before any external, customer-facing, or production-affecting step.
+3. Confirm the panel displays the canonical route-contract strip from the shared accessors.
+4. Confirm the strip includes method count and all-helpers-required posture from `getAdminCommandCenterSafeProjectionRouteContractSummary`.
+5. Confirm the panel displays each registry entry's methods and helper requirements.
+6. Review the API index to confirm the endpoint map, canonical `routeContract`, canonical `routeContractSummary`, and per-route contract metadata.
+7. Review the lane-specific endpoint for the current decision.
+8. Treat the response as posture only.
+9. Use the relevant approval gate before any external, customer-facing, or production-affecting step.
 
 ## Validation requirements
 
@@ -76,6 +79,6 @@ The safe-projections validator must enforce shared `OPTIONS` helper coverage acr
 
 The registry validator, API-index validator, and admin-control-panel validator must enforce route contract metadata for methods, safe-access helper requirements, safe-response helper requirements, and safe-options helper requirements.
 
-The API-index validator must enforce the canonical `routeContract` response block from `getAdminCommandCenterSafeProjectionRouteContract`.
+The API-index validator must enforce the canonical `routeContract` and `routeContractSummary` response blocks from the shared registry helpers.
 
-The admin-control-panel validator must enforce the canonical route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract`.
+The admin-control-panel validator must enforce the canonical route-contract strip and compact route-contract summary from the shared registry helpers.
