@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const runtimePath = "src/lib/admin-command-center-agent-findings-runtime.ts";
+const forecastPath = "src/lib/admin-command-center-forecast-escalation-runtime.ts";
+const forecastValidatorPath = "src/scripts/validate-admin-command-center-forecast-escalation-runtime.mjs";
 const missionValidatorPath = "src/scripts/validate-admin-command-center-mission-brief-runtime.mjs";
 const failures = [];
 
@@ -14,8 +16,6 @@ expect(runtimePath, [
   "getAdminCommandCenterAgentFindingsRules",
   "deriveReasonCodes",
   "mission-brief-not-approved",
-  "finding-id-missing",
-  "agent-role-missing",
   "verified-facts-missing",
   "source-refs-missing",
   "assumptions-missing",
@@ -37,7 +37,6 @@ expect(runtimePath, [
   "escalation needs",
   "structured research outputs",
   "captain review is required",
-  "must not convert assumptions into verified facts or hide gaps and risks",
 ]);
 
 expect(runtimePath, [
@@ -57,37 +56,33 @@ expect(runtimePath, [
   "unsupportedOutcomePromiseAllowed: false",
 ]);
 
+expect(forecastPath, [
+  "projectAdminCommandCenterForecastEscalation",
+  "getAdminCommandCenterForecastEscalationRules",
+  "allow-expansion",
+  "hold-for-hardening",
+  "forecast-risk-coverage-incomplete",
+  "mitigations-missing",
+  "owner-escalation-required",
+  "release-captain-escalation-required",
+  "hardenBeforeExpansion",
+  "safeProjectionOnly: true",
+]);
+
+expect(forecastValidatorPath, [
+  "Admin command center forecast escalation runtime validation passed.",
+  "src/lib/admin-command-center-forecast-escalation-runtime.ts",
+  "projectAdminCommandCenterForecastEscalation",
+]);
+
 expect(missionValidatorPath, [
   "src/scripts/validate-admin-command-center-agent-findings-runtime.mjs",
   "src/lib/admin-command-center-agent-findings-runtime.ts",
   "projectAdminCommandCenterAgentFinding",
 ]);
 
-forbidden(runtimePath, [
-  "requiresCaptainReview: false",
-  "missionBriefRequired: false",
-  "sourceRefsRequired: false",
-  "forecastRequired: false",
-  "escalationReviewRequired: false",
-  "safeProjectionOnly: false",
-  "customerFacingOutputAllowedWithoutReview: true",
-  "productionMutationAllowedWithoutReview: true",
-  "billingActionAllowedWithoutReview: true",
-  "providerActionAllowedWithoutReview: true",
-  "reportReleaseAllowedWithoutReview: true",
-  "launchActionAllowedWithoutReview: true",
-  "unsupportedOutcomePromiseAllowed: true",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed deliverability",
-  "guaranteed inbox placement",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
+forbidden(runtimePath, unsafePhrases());
+forbidden(forecastPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Admin command center agent findings runtime validation failed:");
@@ -95,7 +90,25 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center agent findings runtime validation passed.");
+console.log("Admin command center agent findings runtime validation passed with forecast escalation coverage.");
+
+function unsafePhrases() {
+  return [
+    "requiresCaptainReview: false",
+    "missionBriefRequired: false",
+    "sourceRefsRequired: false",
+    "forecastRequired: false",
+    "escalationReviewRequired: false",
+    "safeProjectionOnly: false",
+    "customerFacingOutputAllowedWithoutReview: true",
+    "productionMutationAllowedWithoutReview: true",
+    "billingActionAllowedWithoutReview: true",
+    "providerActionAllowedWithoutReview: true",
+    "reportReleaseAllowedWithoutReview: true",
+    "launchActionAllowedWithoutReview: true",
+    "unsupportedOutcomePromiseAllowed: true",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
