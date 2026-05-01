@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import {
   getAdminCommandCenterSafeProjectionBoundaries,
   getAdminCommandCenterSafeProjectionLinks,
+  getAdminCommandCenterSafeProjectionRouteContract,
 } from "@/lib/admin-command-center-safe-projection-registry";
 import { adminCommandCenterAccessDeniedPayload, resolveAdminCommandCenterSafeAccess } from "@/lib/admin-command-center-safe-access";
 import { adminCommandCenterJsonNoStore, adminCommandCenterOptions } from "@/lib/admin-command-center-safe-response";
@@ -23,6 +24,8 @@ export async function GET(request: NextRequest) {
     return adminCommandCenterJsonNoStore(adminCommandCenterAccessDeniedPayload("admin-command-center-api-index"), 403);
   }
 
+  const routeContract = getAdminCommandCenterSafeProjectionRouteContract();
+
   return adminCommandCenterJsonNoStore(
     {
       ok: true,
@@ -32,6 +35,12 @@ export async function GET(request: NextRequest) {
       noStoreRequired: true,
       readOnly: true,
       grantsLiveAuthority: false,
+      routeContract: {
+        methods: routeContract.methods,
+        requiresSafeAccessHelper: routeContract.requiresSafeAccessHelper,
+        requiresSafeResponseHelper: routeContract.requiresSafeResponseHelper,
+        requiresSafeOptionsHelper: routeContract.requiresSafeOptionsHelper,
+      },
       endpoints: getAdminCommandCenterSafeProjectionLinks().map((endpoint) => ({
         key: endpoint.key,
         path: endpoint.href,
