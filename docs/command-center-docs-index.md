@@ -10,6 +10,7 @@ This private documentation index keeps the Command Center operating standards ea
 - `docs/owner-operating-manual.md` — owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence.
 - `docs/repo-update-scanning-automation.md` — repo update scanning automation standard for Dependabot, CodeQL workflow, dependency integrity, most-pristine, route-chain coverage, and release-captain review posture.
 - `docs/controlled-continuous-evolution.md` — controlled continuous evolution standard for monitored, validated, reviewable, rollback-ready update proposals without uncontrolled production mutation or quality drift.
+- `docs/controlled-maintenance.md` — controlled maintenance standard for safe update queues, review streams, validation gates, rollback planning, and audit-ready maintenance posture.
 
 ## Required source-of-truth areas
 
@@ -29,6 +30,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Report growth system: `src/lib/command-center/report-growth-system.ts`
 - Controlled market learning: `src/lib/command-center/controlled-market-learning.ts`
 - Controlled continuous evolution: `src/lib/controlled-continuous-evolution-contracts.ts`
+- Controlled maintenance: `src/lib/controlled-maintenance-contracts.ts`
 - Enterprise operating standard: `src/lib/command-center/enterprise-operating-standard.ts`
 - Audit defense system: `src/lib/command-center/audit-defense-system.ts`
 - Most-pristine system standard: `src/lib/command-center/most-pristine-system-standard.ts`
@@ -104,6 +106,10 @@ These paths are command-center-only and safe-summary-only. They must not expose 
 
 `src/scripts/validate-controlled-continuous-evolution.mjs` must keep `docs/controlled-continuous-evolution.md`, `src/lib/controlled-continuous-evolution-contracts.ts`, route-chain integrity, validation registry, docs index, operator runbook, owner operating manual, and most-pristine coverage aligned with monitored, validated, reviewable, reversible, rollback-ready updates. Automated systems may detect, propose, test, and prepare updates, but they must not auto-merge production-impacting code without green gates, skip Vercel, disable validation, hide failures, weaken safeguards, or mutate production without review. Continuous evolution must remain small-batch, preview-gated, rollback-ready, documented, owner-visible, and tied to route-chain integrity, validation registry, docs index, operator runbook, owner operating manual, and most-pristine coverage.
 
+## Controlled maintenance standard
+
+`src/scripts/validate-controlled-maintenance-contracts.mjs` must keep `docs/controlled-maintenance.md`, `src/lib/controlled-maintenance-contracts.ts`, `validate:routes`, and the controlled maintenance review streams aligned. Controlled maintenance may discover, classify, and queue updates, but no queued update may mutate production automatically. It must preserve dependency review, security advisory monitoring, validation registry checks, smoke-test scheduling, performance health checks, schema drift checks, route drift checks, content and claim drift checks, safe update queue states, approval gates, rollback planning, audit records, and hard locks against raw/private exposure, validation bypass, approval bypass, uncontrolled production mutation, and unsupported outcome claims.
+
 ## Required cockpit validators
 
 These validators must stay wired into `validate:routes`:
@@ -155,4 +161,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, repo update scanning automation rule, controlled continuous evolution rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, repo update scanning automation rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
