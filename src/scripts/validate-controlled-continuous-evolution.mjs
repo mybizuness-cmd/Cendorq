@@ -5,6 +5,14 @@ const root = process.cwd();
 const failures = [];
 const contractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const pristineValidatorPath = "src/scripts/validate-most-pristine-system-standard.mjs";
+const routeChainPath = "src/scripts/validate-routes-chain.mjs";
+const routeChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
+const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
+const validationRegistryValidatorPath = "src/scripts/validate-command-center-validation-registry.mjs";
+const docsIndexPath = "docs/command-center-docs-index.md";
+const docsIndexValidatorPath = "src/scripts/validate-command-center-docs-index.mjs";
+const operatorRunbookPath = "docs/command-center-operator-runbook.md";
+const operatorRunbookValidatorPath = "src/scripts/validate-command-center-operator-runbook.mjs";
 const packagePath = "package.json";
 
 expect(contractPath, [
@@ -49,6 +57,67 @@ expect(contractPath, [
 
 expect(pristineValidatorPath, [
   "validate-most-pristine-system-standard.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "controlled continuous evolution",
+  "repo update scanning automation",
+]);
+
+expect(routeChainPath, [
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
+]);
+
+expect(routeChainIntegrityPath, [
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+  "validateControlledContinuousEvolutionCoverage",
+  "controlled continuous evolution",
+]);
+
+expect(validationRegistryPath, [
+  "controlled-continuous-evolution",
+  "Controlled continuous evolution",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "monitored, validated, reviewable, rollback-ready updates",
+  "skipped Vercel gates",
+]);
+
+expect(validationRegistryValidatorPath, [
+  "controlled-continuous-evolution",
+  "Controlled continuous evolution",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+]);
+
+expect(docsIndexPath, [
+  "Controlled continuous evolution standard",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+  "small-batch, preview-gated, rollback-ready, documented",
+  "route-chain integrity, validation registry, and most-pristine coverage",
+]);
+
+expect(docsIndexValidatorPath, [
+  "Controlled continuous evolution standard",
+  "validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+  "controlled continuous evolution rule",
+]);
+
+expect(operatorRunbookPath, [
+  "Required controlled continuous evolution coverage",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+  "Controlled continuous evolution is the approved way to keep Cendorq improving after launch.",
+  "Route-chain integrity runs first and controlled continuous evolution remains centrally covered.",
+]);
+
+expect(operatorRunbookValidatorPath, [
+  "Required controlled continuous evolution coverage",
+  "validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+  "controlled continuous evolution",
 ]);
 
 expect(packagePath, [
@@ -71,7 +140,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Controlled continuous evolution validation passed.");
+console.log("Controlled continuous evolution validation passed with route-chain, registry, docs-index, operator-runbook, and most-pristine coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
