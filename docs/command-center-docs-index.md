@@ -23,6 +23,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Report evidence orchestration runtime: `src/lib/command-center/report-evidence-orchestration-runtime.ts`
 - Report evidence record contracts: `src/lib/command-center/report-evidence-record-contracts.ts`
 - Report evidence record runtime: `src/lib/command-center/report-evidence-record-runtime.ts`
+- Report evidence record persistence runtime: `src/lib/command-center/report-evidence-record-persistence-runtime.ts`
 - Report growth system: `src/lib/command-center/report-growth-system.ts`
 - Controlled market learning: `src/lib/command-center/controlled-market-learning.ts`
 - Enterprise operating standard: `src/lib/command-center/enterprise-operating-standard.ts`
@@ -103,6 +104,7 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-command-center-report-evidence-orchestration-api.mjs`
 - `src/scripts/validate-report-evidence-record-contracts.mjs`
 - `src/scripts/validate-report-evidence-record-runtime.mjs`
+- `src/scripts/validate-report-evidence-record-persistence-runtime.mjs`
 - `src/scripts/validate-controlled-market-learning.mjs`
 - `src/scripts/validate-enterprise-operating-standard.mjs`
 - `src/scripts/validate-audit-defense-system.mjs`
@@ -126,4 +128,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record contract, report evidence record runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
