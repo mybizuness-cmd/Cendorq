@@ -37,6 +37,12 @@ expect(docPath, [
 expect(docPath, [
   "getAdminCommandCenterSafeProjectionRouteContract",
   "getAdminCommandCenterSafeProjectionRouteContractSummary",
+  "getAdminCommandCenterSafeProjectionLinkCount",
+  "getAdminCommandCenterExpectedSafeProjectionLinkCount",
+  "getAdminCommandCenterSafeProjectionLinksComplete",
+  "projection link count",
+  "expected projection link count",
+  "projection completeness",
   "route-contract strip",
   "routeContractSummary",
   "method count",
@@ -73,6 +79,11 @@ expect(docsIndexPath, [
 
 expect(registryPath, [
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINK_COUNT",
+  "ADMIN_COMMAND_CENTER_EXPECTED_SAFE_PROJECTION_LINK_COUNT = 6",
+  "getAdminCommandCenterSafeProjectionLinkCount",
+  "getAdminCommandCenterExpectedSafeProjectionLinkCount",
+  "getAdminCommandCenterSafeProjectionLinksComplete",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT",
   "getAdminCommandCenterSafeProjectionRouteContract",
@@ -126,7 +137,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with panel summary docs index guard.");
+console.log("Admin command center safe projections runbook validation passed with projection link count docs coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
