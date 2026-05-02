@@ -13,11 +13,13 @@ const ownerWorkflowRuntimePath = "src/lib/owner-configuration-evidence-approval-
 const ownerWorkflowSmokeValidatorPath = "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs";
 const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
 const reportEvidenceRecordRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
+const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 
 validateTextFile(runbookPath, [
   "# Command Center Operator Runbook",
   "private, gated, metadata-only operating cockpit",
   "closed by default",
+  "security workflow integrity",
   "Keep the route as an access-control and panel-composition shell.",
   "Keep cockpit panels server-rendered",
   "Keep panels metadata-only by default.",
@@ -25,6 +27,7 @@ validateTextFile(runbookPath, [
   "Keep every visible cockpit panel represented in the panel registry.",
   "Keep every validation guard wired into `validate:routes`.",
   "Keep `validate-routes-chain-integrity.mjs` first in `validate:routes`.",
+  "Keep `validate-codeql-workflow-integrity.mjs` centrally covered by route-chain integrity.",
   "Keep indirect high-risk report evidence validators centrally covered by `validate-report-evidence-record-runtime.mjs`",
   "Never claim that Cendorq is unhackable, risk-free, or perfectly secure.",
   "Owner configuration evidence workflow",
@@ -47,6 +50,20 @@ validateTextFile(runbookPath, [
   "Duplicate validators are blocked.",
   "High-risk validator files must exist.",
   "Ordering between security, panel, report evidence, owner workflow, launch readiness, smoke, and closed-intelligence checks must stay protected.",
+  "CodeQL workflow integrity must remain covered through the first route-chain integrity validator.",
+  "Required CodeQL workflow integrity coverage",
+  "src/scripts/validate-codeql-workflow-integrity.mjs",
+  ".github/workflows/codeql.yml",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
+  "github/codeql-action/autobuild@v4",
+  "github/codeql-action/analyze@v4",
+  "security-extended,security-and-quality",
+  "minimal read permissions plus `security-events: write`",
+  "main push, pull request, and weekly schedule triggers",
+  "JavaScript/TypeScript analysis",
+  "current approved action versions",
+  "older action versions, broad write permissions, or `continue-on-error: true`",
   "Indirect report evidence validators must not become orphaned",
   "Required indirect report evidence validator coverage",
   "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
@@ -61,6 +78,7 @@ validateTextFile(runbookPath, [
 
 validateTextFile(runbookPath, [
   "validate-routes-chain-integrity.mjs",
+  "validate-codeql-workflow-integrity.mjs",
   "validate-command-center-owner-configuration-evidence-api.mjs",
   "validate-command-center-owner-configuration-evidence-persistence.mjs",
   "validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
@@ -78,6 +96,7 @@ validateTextFile(runbookPath, [
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
   "No visible cockpit panel should be merged without a matching registry entry.",
+  "Route-chain integrity runs first and CodeQL workflow integrity remains centrally covered.",
   "Route-chain integrity runs first and indirect report evidence validators remain centrally covered.",
   "Vercel is green.",
 ]);
@@ -87,6 +106,9 @@ validateTextFile(docsIndexPath, [
   "docs/command-center-operator-runbook.md",
   "Route-chain integrity standard",
   "validate-routes-chain-integrity.mjs",
+  "verify CodeQL workflow integrity coverage",
+  "CodeQL workflow integrity standard",
+  "validate-codeql-workflow-integrity.mjs",
   "verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`",
   "docs/maximum-protection-standard.md",
   "src/lib/command-center/validation-registry.ts",
@@ -111,6 +133,10 @@ validateTextFile(docsIndexPath, [
 ]);
 
 validateTextFile(routesChainIntegrityPath, [
+  "validate-codeql-workflow-integrity.mjs",
+  "validateCodeqlWorkflowCoverage",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
   "requiredIndirectReportEvidenceValidators",
   "validate-report-evidence-record-persistence-runtime.mjs",
   "validate-command-center-report-evidence-records-api.mjs",
@@ -118,6 +144,16 @@ validateTextFile(routesChainIntegrityPath, [
   "acceptedInput: \\\"safe-summary-only\\\"",
   "persistenceMode: \\\"append-only-safe-projection\\\"",
   "rawEvidenceExposed: false",
+]);
+
+validateTextFile(codeqlWorkflowValidatorPath, [
+  ".github/workflows/codeql.yml",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
+  "github/codeql-action/autobuild@v4",
+  "github/codeql-action/analyze@v4",
+  "security-extended,security-and-quality",
+  "continue-on-error: true",
 ]);
 
 validateTextFile(reportEvidenceRecordRuntimeValidatorPath, [
@@ -205,7 +241,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, route-chain integrity, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
+console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, route-chain integrity, CodeQL workflow integrity, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
 
 function unsafePhrases() {
   return [
