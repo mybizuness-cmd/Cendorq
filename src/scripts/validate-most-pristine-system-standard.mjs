@@ -11,6 +11,9 @@ const interfaceExcellenceValidatorPath = "src/scripts/validate-platform-interfac
 const continuousEvolutionDocsPath = "docs/controlled-continuous-evolution.md";
 const continuousEvolutionPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
+const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
+const controlledMaintenancePath = "src/lib/controlled-maintenance-contracts.ts";
+const controlledMaintenanceValidatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
 const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
 const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfile-integrity.mjs";
 const dashboardExcellenceValidatorPath = "src/scripts/validate-customer-dashboard-excellence.mjs";
@@ -342,6 +345,34 @@ validateTextFile(continuousEvolutionValidatorPath, [
   "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
 ]);
 
+validateTextFile(controlledMaintenanceDocsPath, [
+  "# Controlled Maintenance",
+  "keeping the platform current, secure, validated, and scalable",
+  "without uncontrolled AI changes or automatic production mutation",
+  "No queued update may mutate production automatically",
+  "validation, approval state, rollback plan, and audit record",
+  "Documentation rule",
+]);
+
+validateTextFile(controlledMaintenancePath, [
+  "CONTROLLED_MAINTENANCE_CONTRACT",
+  "Controlled Maintenance Architecture",
+  "safe update queues",
+  "without uncontrolled AI changes or automatic production mutation",
+  "reviewStreams",
+  "safeUpdateQueue",
+  "hardLocks",
+  "releaseRules",
+]);
+
+validateTextFile(controlledMaintenanceValidatorPath, [
+  "Controlled maintenance contracts validation passed",
+  "docs/controlled-maintenance.md",
+  "src/lib/controlled-maintenance-contracts.ts",
+  "docs/command-center-docs-index.md",
+  "src/lib/command-center/validation-registry.ts",
+]);
+
 validateTextFile(repoAutomationValidatorPath, [
   "Repo update scanning automation validation passed",
   "dependabotPath",
@@ -501,6 +532,31 @@ validateForbidden(continuousEvolutionPath, [
   "deleteAuditRecordsToCleanUp allowed",
 ]);
 
+validateForbidden(controlledMaintenanceDocsPath, [
+  "mutate production automatically without approval",
+  "skip validation",
+  "bypass approval",
+  "rollback optional",
+  "delete audit records",
+  "guaranteed ROI",
+  "impossible to hack",
+  "liability-free",
+]);
+
+validateForbidden(controlledMaintenancePath, [
+  "mutate production automatically; release requires no approval",
+  "skip validation",
+  "bypass approval",
+  "rollback optional",
+  "delete audit records",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "guaranteed business results",
+  "impossible to hack",
+  "never liable",
+  "liability-free",
+]);
+
 validateForbidden(dependabotPath, [
   "automerge: true",
   "auto-merge: true",
@@ -525,7 +581,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution docs, repo update scanning automation, dependency lockfile integrity, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution docs, controlled maintenance, repo update scanning automation, dependency lockfile integrity, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
