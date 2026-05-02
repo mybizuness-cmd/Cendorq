@@ -86,6 +86,18 @@ validateTextFile(docsIndexPath, [
 ]);
 
 validateTextFile(docsIndexPath, [
+  "Full cockpit panel safety standard",
+  "validate-command-center-panel-safety.mjs",
+  "every current private cockpit panel rendered by `src/app/command-center/page.tsx`",
+  "admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records",
+  "server-rendered, metadata-only, private-gated, registry-aligned",
+  "free of browser storage",
+  "free of browser-only APIs",
+  "free of direct environment access",
+  "blocked from raw/private payload fields, secret/token patterns, unsafe guarantee language, and public exposure drift",
+]);
+
+validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
   "src/scripts/validate-admin-command-center-safe-response.mjs",
@@ -202,7 +214,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
+console.log("Command Center docs index validation passed with expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
