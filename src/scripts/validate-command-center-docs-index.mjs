@@ -16,7 +16,7 @@ validateTextFile(docsIndexPath, [
   "docs/maximum-protection-standard.md",
   "docs/command-center-operator-runbook.md",
   "docs/admin-command-center-safe-projections.md",
-  "registry-contract-backed, route-contract-summary-backed, panel-contract-strip-backed",
+  "registry-contract-backed, route-contract-summary-backed, panel-contract-strip-backed, panel-summary-display-backed",
   "docs/owner-operating-manual.md",
   "src/lib/command-center/access.ts",
   "src/lib/command-center/security-posture.ts",
@@ -68,9 +68,11 @@ validateTextFile(docsIndexPath, [
   "src/app/api/admin/command-center/forecast-escalation/route.ts",
   "src/app/command-center/admin-command-center-control-panel.tsx",
   "route-contract-summary-backed",
+  "panel-summary-display-backed",
   "Safe projection validation standard",
   "validate-admin-command-center-safe-projections-runbook.mjs",
   "runbook structure, endpoint map, registry contract helpers, shared access helper, shared response/options helper, every admin projection route, and route-chain wiring",
+  "panel summary display tied to method count and all-helpers-required posture from `getAdminCommandCenterSafeProjectionRouteContractSummary`",
   "src/app/api/command-center/report-evidence/orchestration/route.ts",
   "src/app/command-center/report-evidence-orchestration-panel.tsx",
   "customer-facing report approvals",
@@ -119,6 +121,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "admin command-center route contract summary",
   "admin command-center panel contract strip",
+  "admin command-center panel summary display",
   "admin command-center response or options helper",
   "report evidence route",
   "report evidence record contract",
@@ -140,6 +143,7 @@ validateTextFile(safeProjectionRunbookPath, [
   "getAdminCommandCenterSafeProjectionRouteContract",
   "getAdminCommandCenterSafeProjectionRouteContractSummary",
   "routeContractSummary",
+  "The strip must show method count and all-helpers-required posture from the summary accessor",
   "resolveAdminCommandCenterSafeAccess",
   "adminCommandCenterAccessDeniedPayload",
   "adminCommandCenterJsonNoStore",
@@ -177,7 +181,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with restored broad coverage and route-contract-summary checks.");
+console.log("Command Center docs index validation passed with panel summary display coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
