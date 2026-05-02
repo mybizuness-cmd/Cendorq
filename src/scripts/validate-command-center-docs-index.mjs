@@ -16,13 +16,13 @@ validateTextFile(docsIndexPath, [
   "docs/maximum-protection-standard.md",
   "docs/command-center-operator-runbook.md",
   "docs/admin-command-center-safe-projections.md",
-  "registry-contract-backed, route-contract-summary-backed, panel-contract-strip-backed, panel-summary-display-backed",
+  "registry-contract-backed, route-contract-summary-backed, projection-link-count-backed, panel-contract-strip-backed, panel-summary-display-backed",
   "docs/owner-operating-manual.md",
   "src/lib/command-center/access.ts",
   "src/lib/command-center/security-posture.ts",
   "src/lib/command-center/panel-registry.ts",
   "src/lib/command-center/validation-registry.ts",
-  "Admin command-center safe projection registry, route contract metadata, and route contract summary",
+  "Admin command-center safe projection registry, route contract metadata, route contract summary, and projection link count",
   "src/lib/admin-command-center-safe-projection-registry.ts",
   "src/lib/admin-command-center-safe-access.ts",
   "src/lib/admin-command-center-safe-response.ts",
@@ -68,11 +68,13 @@ validateTextFile(docsIndexPath, [
   "src/app/api/admin/command-center/agent-findings/route.ts",
   "src/app/api/admin/command-center/forecast-escalation/route.ts",
   "src/app/command-center/admin-command-center-control-panel.tsx",
+  "projection-link-count-backed",
   "route-contract-summary-backed",
+  "panel-contract-strip-backed",
   "panel-summary-display-backed",
   "Safe projection validation standard",
   "validate-admin-command-center-safe-projections-runbook.mjs",
-  "runbook structure, endpoint map, registry contract helpers, shared access helper, shared response/options helper, every admin projection route, and route-chain wiring",
+  "runbook structure, endpoint map, registry contract helpers, projection link count/completeness helpers, shared access helper, shared response/options helper, every admin projection route, and route-chain wiring",
   "panel summary display tied to method count and all-helpers-required posture from `getAdminCommandCenterSafeProjectionRouteContractSummary`",
   "src/app/api/command-center/report-evidence/orchestration/route.ts",
   "src/app/command-center/report-evidence-orchestration-panel.tsx",
@@ -121,6 +123,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-owner-configuration-workflow-api.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
+  "admin command-center projection link count",
   "admin command-center route contract summary",
   "admin command-center panel contract strip",
   "admin command-center panel summary display",
@@ -145,6 +148,12 @@ validateTextFile(safeProjectionRunbookPath, [
   "Source of truth",
   "getAdminCommandCenterSafeProjectionRouteContract",
   "getAdminCommandCenterSafeProjectionRouteContractSummary",
+  "getAdminCommandCenterSafeProjectionLinkCount",
+  "getAdminCommandCenterExpectedSafeProjectionLinkCount",
+  "getAdminCommandCenterSafeProjectionLinksComplete",
+  "projection link count",
+  "expected projection link count",
+  "projection completeness",
   "routeContractSummary",
   "The strip must show method count and all-helpers-required posture from the summary accessor",
   "resolveAdminCommandCenterSafeAccess",
@@ -185,7 +194,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with panel summary display coverage and report evidence record runtime coverage.");
+console.log("Command Center docs index validation passed with projection link count, panel summary display, and report evidence record runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
