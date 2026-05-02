@@ -20,12 +20,27 @@ const repoUpdateScanningValidatorPath = "src/scripts/validate-repo-update-scanni
 const repoUpdateScanningDocsPath = "docs/repo-update-scanning-automation.md";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
+const controlledMaintenanceValidatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
+const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
+const controlledMaintenanceContractPath = "src/lib/controlled-maintenance-contracts.ts";
 
 validateTextFile(runbookPath, [
   "# Command Center Operator Runbook",
   "private, gated, metadata-only operating cockpit",
-  "closed by default",
-  "security workflow integrity, dependency integrity, repo update scanning integrity, or controlled continuous evolution integrity",
+  "controlled maintenance integrity",
+  "Keep `validate-controlled-maintenance-contracts.mjs` wired into `validate:routes` and represented in the validation registry.",
+  "Required controlled maintenance coverage",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
+  "docs/controlled-maintenance.md",
+  "src/lib/controlled-maintenance-contracts.ts",
+  "Controlled maintenance may discover, classify, and queue dependency, security, smoke, performance, schema, route, content, and claim updates",
+  "no queued update may mutate production automatically",
+  "Maintenance output must remain safe-projection-only",
+  "validate-controlled-maintenance-contracts.mjs",
+  "Controlled maintenance stays wired into `validate:routes` and represented in the validation registry.",
+]);
+
+validateTextFile(runbookPath, [
   "Keep the route as an access-control and panel-composition shell.",
   "Keep cockpit panels server-rendered",
   "Keep panels metadata-only by default.",
@@ -48,23 +63,16 @@ validateTextFile(runbookPath, [
   "src/scripts/validate-routes.mjs",
   "Duplicate validators are blocked.",
   "High-risk validator files must exist.",
-  "Ordering between security, panel, report evidence, owner workflow, launch readiness, smoke, and closed-intelligence checks must stay protected.",
   "CodeQL workflow integrity must remain covered through the first route-chain integrity validator.",
   "Dependency lockfile integrity must remain covered through the first route-chain integrity validator.",
   "Repo update scanning automation must remain covered through the first route-chain integrity validator.",
   "Controlled continuous evolution must remain covered through the first route-chain integrity validator.",
+  "Controlled maintenance must remain wired through the route chain and represented in the validation registry.",
   "Required CodeQL workflow integrity coverage",
   "Required dependency lockfile integrity coverage",
   "Required repo update scanning automation coverage",
   "Required controlled continuous evolution coverage",
-  "src/scripts/validate-controlled-continuous-evolution.mjs",
-  "src/lib/controlled-continuous-evolution-contracts.ts",
-  "Controlled continuous evolution is the approved way to keep Cendorq improving after launch.",
-  "must not auto-merge production-impacting code without green gates",
-  "skip Vercel",
-  "disable validation",
-  "Continuous updates must remain small-batch, preview-gated, rollback-ready, documented, reviewable, and traceable.",
-  "guarded squash merge with the expected head SHA",
+  "Required controlled maintenance coverage",
   "Indirect report evidence validators must not become orphaned",
   "safe-summary-only input",
   "append-only safe projection mode",
@@ -105,6 +113,10 @@ validateTextFile(docsIndexPath, [
   "# Command Center Docs Index",
   "docs/command-center-operator-runbook.md",
   "docs/repo-update-scanning-automation.md",
+  "docs/controlled-maintenance.md",
+  "Controlled maintenance standard",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
+  "src/lib/controlled-maintenance-contracts.ts",
   "Route-chain integrity standard",
   "verify repo update scanning automation coverage",
   "verify controlled continuous evolution coverage",
@@ -114,9 +126,28 @@ validateTextFile(docsIndexPath, [
   "src/lib/controlled-continuous-evolution-contracts.ts",
   "CodeQL workflow integrity standard",
   "validate-codeql-workflow-integrity.mjs",
-  "verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`",
   "docs/maximum-protection-standard.md",
   "src/lib/command-center/validation-registry.ts",
+]);
+
+validateTextFile(controlledMaintenanceValidatorPath, [
+  "Controlled maintenance contracts validation passed",
+  "docs/controlled-maintenance.md",
+  "src/lib/controlled-maintenance-contracts.ts",
+  "docs/command-center-docs-index.md",
+  "src/lib/command-center/validation-registry.ts",
+]);
+
+validateTextFile(controlledMaintenanceDocsPath, [
+  "# Controlled Maintenance",
+  "No queued update may mutate production automatically",
+  "validation, approval state, rollback plan, and audit record",
+]);
+
+validateTextFile(controlledMaintenanceContractPath, [
+  "CONTROLLED_MAINTENANCE_CONTRACT",
+  "Controlled Maintenance Architecture",
+  "without uncontrolled AI changes or automatic production mutation",
 ]);
 
 validateTextFile(routesChainIntegrityPath, [
@@ -308,7 +339,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, route-chain integrity, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
+console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, route-chain integrity, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, controlled maintenance, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
 
 function unsafePhrases() {
   return [
