@@ -6,6 +6,8 @@ const failures = [];
 const registryPath = "src/lib/command-center/validation-registry.ts";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
+const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 
 const requiredScripts = [
   "src/scripts/validate-command-center-migrations.mjs",
@@ -15,6 +17,7 @@ const requiredScripts = [
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
+  "src/scripts/validate-codeql-workflow-integrity.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
   "src/scripts/validate-admin-command-center-safe-response.mjs",
   "src/scripts/validate-admin-command-center-safe-projections-runbook.mjs",
@@ -64,6 +67,8 @@ const requiredScripts = [
 validateFileExists(registryPath);
 validateFileExists(packagePath);
 validateFileExists(routesChainPath);
+validateFileExists(routesChainIntegrityPath);
+validateFileExists(codeqlWorkflowValidatorPath);
 
 if (!failures.length) {
   const registryText = read(registryPath);
@@ -81,36 +86,23 @@ if (!failures.length) {
     "protectedBoundary",
     "failureMeaning",
     "getCommandCenterValidationRegistry",
+    "codeql-workflow-integrity",
+    "CodeQL workflow integrity",
+    "src/scripts/validate-codeql-workflow-integrity.mjs",
+    "CodeQL workflow triggers, minimal permissions, checkout v6, CodeQL v4, JavaScript/TypeScript analysis, security-and-quality query posture, and no broad write permission or continue-on-error drift",
+    "stale action versions, weakened permissions, missing security query posture, missing main/PR/schedule coverage, or non-failing security analysis",
     "panel-safety",
     "Panel safety",
     "full current command-center cockpit panel set, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records",
     "server-rendered, metadata-only, private-gated",
     "browser storage, browser-only APIs, direct environment access, raw/private payload fields, token patterns, unsafe guarantees, and public exposure drift",
-    "client-only behavior, browser storage, browser-only APIs, direct env access, raw/private payload exposure, secret/token leakage, unsafe guarantee language, missing registry alignment, or public exposure regression",
     "operator-runbook",
-    "Operator runbook and owner workflow chain",
-    "owner configuration evidence API, workflow API, workflow panel, approval workflow runtime, and workflow smoke-validator coverage",
-    "owner-operating-manual",
     "Owner operating manual",
-    "owner-level evidence accuracy, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence",
-    "unsafe guarantees",
     "report-truth-engine",
     "report-evidence-orchestration",
-    "Report evidence orchestration",
-    "evidence source tiers, trust levels, conflict handling, confidence language, plan-fit thresholds, release-captain review, and blocked report patterns",
-    "Report evidence handling may no longer separate source classes, confidence levels, conflicts, plan-fit recommendations, or unsafe customer-facing claims.",
     "report-evidence-orchestration-runtime",
-    "Report evidence orchestration runtime",
-    "safe evidence projections, blocked-pattern surfacing, release-captain review posture, customer-output eligibility, and redacted report evidence summaries",
-    "Report evidence inputs may no longer project into safe summaries, blocked-pattern flags, review posture, or customer-output eligibility before report use.",
     "report-evidence-orchestration-api",
-    "Report evidence orchestration API",
-    "command-center-only report evidence projection route, safe-summary-only input, no-store/noindex response headers, raw/private payload rejection, and no customer-facing report approval",
-    "Report evidence API behavior may no longer be command-center gated, safe-summary-only, runtime-backed, raw/private rejecting, or blocked from approving customer-facing report output.",
     "report-evidence-records-api",
-    "Report evidence records API",
-    "command-center-only report evidence records route, safe-summary-only input, append-only safe projection persistence, no-store/noindex response headers, raw/private payload rejection, and no customer-facing output, paid recommendation, launch, security, or public report approval",
-    "Report evidence records API behavior may no longer be command-center gated, safe-summary-only, persistence-backed, raw/private rejecting, append-only, no-store/noindex, or blocked from customer-facing output and launch approval drift.",
     "report-evidence-record-contracts",
     "report-evidence-record-runtime",
     "report-evidence-record-persistence-runtime",
@@ -131,21 +123,30 @@ if (!failures.length) {
     if (
       scriptPath !== "src/scripts/validate-report-evidence-record-persistence-runtime.mjs" &&
       scriptPath !== "src/scripts/validate-command-center-report-evidence-records-api.mjs" &&
+      scriptPath !== "src/scripts/validate-codeql-workflow-integrity.mjs" &&
       !chainText.includes(`"${scriptPath}"`)
     ) {
       failures.push(`${routesChainPath} missing required validation script: ${scriptPath}`);
     }
   }
 
-  validateText("src/scripts/validate-command-center-panel-safety.mjs", read("src/scripts/validate-command-center-panel-safety.mjs"), [
-    "admin-command-center-control-panel.tsx",
-    "owner-configuration-workflow-panel.tsx",
-    "plan-delivery-orchestration-panel.tsx",
-    "plan-routing-runtime-panel.tsx",
-    "report-evidence-record-panel.tsx",
-    "rawPayload=",
-    "guaranteed ROI",
-    "validateRegistryAlignment",
+  validateText(routesChainIntegrityPath, read(routesChainIntegrityPath), [
+    "src/scripts/validate-codeql-workflow-integrity.mjs",
+    ".github/workflows/codeql.yml",
+    "validateCodeqlWorkflowCoverage",
+    "actions/checkout@v6",
+    "github/codeql-action/init@v4",
+    "github/codeql-action/analyze@v4",
+  ]);
+
+  validateText(codeqlWorkflowValidatorPath, read(codeqlWorkflowValidatorPath), [
+    ".github/workflows/codeql.yml",
+    "actions/checkout@v6",
+    "github/codeql-action/init@v4",
+    "github/codeql-action/autobuild@v4",
+    "github/codeql-action/analyze@v4",
+    "security-extended,security-and-quality",
+    "continue-on-error: true",
   ]);
 
   validateText("src/scripts/validate-report-evidence-record-runtime.mjs", read("src/scripts/validate-report-evidence-record-runtime.mjs"), [
@@ -156,8 +157,8 @@ if (!failures.length) {
   ]);
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 34) {
-    failures.push(`${registryPath} expected at least 34 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 35) {
+    failures.push(`${registryPath} expected at least 35 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -167,7 +168,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, CodeQL workflow integrity, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
