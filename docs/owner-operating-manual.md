@@ -286,6 +286,21 @@ Owner posture:
 
 Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, and operator safety. Any update that lowers those standards must be held, redesigned, or rejected.
 
+## Controlled maintenance
+
+Controlled maintenance is the operating discipline that keeps Cendorq current without letting update work become uncontrolled production mutation.
+
+Owner posture:
+
+- Maintenance may discover, classify, and queue dependency, security, smoke, performance, schema, route, content, and claim updates.
+- No queued update may mutate production automatically.
+- Every material maintenance release still requires validation, approval state, rollback planning, and an audit reason.
+- Maintenance output must never expose raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys.
+- Maintenance copy must never claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI or business outcomes.
+- Controlled maintenance must stay aligned with `docs/controlled-maintenance.md`, `src/lib/controlled-maintenance-contracts.ts`, validation registry coverage, docs-index coverage, and `validate:routes`.
+
+Controlled maintenance supports continuous evolution by making update discovery, queueing, review, validation, rollback, and audit posture safe enough to scale.
+
 ## Conversion moat
 
 Cendorq should convert because the customer feels understood, not pressured.
