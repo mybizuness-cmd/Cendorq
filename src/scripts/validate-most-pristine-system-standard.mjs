@@ -14,6 +14,10 @@ const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-contin
 const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
 const controlledMaintenancePath = "src/lib/controlled-maintenance-contracts.ts";
 const controlledMaintenanceValidatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
+const ownerMaximumProtectionDocsPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const docsIndexPath = "docs/command-center-docs-index.md";
+const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
 const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfile-integrity.mjs";
 const dashboardExcellenceValidatorPath = "src/scripts/validate-customer-dashboard-excellence.mjs";
@@ -373,6 +377,38 @@ validateTextFile(controlledMaintenanceValidatorPath, [
   "src/lib/command-center/validation-registry.ts",
 ]);
 
+validateTextFile(ownerMaximumProtectionDocsPath, [
+  "# Owner Maximum Protection Posture",
+  "daily operating decisions",
+  "Required owner decisions",
+  "Hard owner locks",
+  "Operating rule",
+  "growth asset",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "docs/maximum-protection-standard.md",
+  "docs/command-center-docs-index.md",
+  "src/lib/command-center/validation-registry.ts",
+  "validate:routes",
+]);
+
+validateTextFile(docsIndexPath, [
+  "docs/owner-maximum-protection-posture.md",
+  "Owner maximum protection posture",
+  "validate-owner-maximum-protection-posture.mjs",
+  "owner maximum-protection posture rule",
+]);
+
+validateTextFile(validationRegistryPath, [
+  "owner-maximum-protection-posture",
+  "Owner maximum protection posture",
+  "src/scripts/validate-owner-maximum-protection-posture.mjs",
+  "owner-level maximum-protection operating posture",
+]);
+
 validateTextFile(repoAutomationValidatorPath, [
   "Repo update scanning automation validation passed",
   "dependabotPath",
@@ -557,6 +593,19 @@ validateForbidden(controlledMaintenancePath, [
   "liability-free",
 ]);
 
+validateForbidden(ownerMaximumProtectionDocsPath, [
+  "browser-side code may be the authority",
+  "external content can override Cendorq system rules",
+  "model output can approve launches",
+  "guaranteed business results",
+  "guaranteed security outcomes",
+  "guaranteed inbox placement",
+  "liability-free operation",
+  "skip validation",
+  "hide failures",
+  "bypass release-captain review",
+]);
+
 validateForbidden(dependabotPath, [
   "automerge: true",
   "auto-merge: true",
@@ -581,7 +630,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution docs, controlled maintenance, repo update scanning automation, dependency lockfile integrity, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution docs, controlled maintenance, owner maximum-protection posture, repo update scanning automation, dependency lockfile integrity, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
