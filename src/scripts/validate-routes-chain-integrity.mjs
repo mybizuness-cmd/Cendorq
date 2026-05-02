@@ -11,7 +11,9 @@ const baselineRouteValidatorPath = "src/scripts/validate-routes.mjs";
 const reportEvidenceRecordRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
 const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfile-integrity.mjs";
+const repoUpdateScanningValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
 const codeqlWorkflowPath = ".github/workflows/codeql.yml";
+const dependabotPath = ".github/dependabot.yml";
 
 const requiredHighRiskValidators = [
   chainIntegrityValidatorPath,
@@ -82,8 +84,10 @@ validateFileExists(packagePath);
 validateFileExists(lockfilePath);
 validateFileExists(chainPath);
 validateFileExists(codeqlWorkflowPath);
+validateFileExists(dependabotPath);
 validateFileExists(codeqlWorkflowValidatorPath);
 validateFileExists(dependencyLockfileValidatorPath);
+validateFileExists(repoUpdateScanningValidatorPath);
 
 if (!failures.length) {
   const packageText = read(packagePath);
@@ -131,6 +135,7 @@ if (!failures.length) {
   validateIndirectReportEvidenceCoverage();
   validateCodeqlWorkflowCoverage();
   validateDependencyLockfileCoverage();
+  validateRepoUpdateScanningCoverage();
 
   validateChainOrdering(chainValidators, [
     chainIntegrityValidatorPath,
@@ -191,7 +196,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The route-chain self-check runs first, CodeQL workflow integrity and dependency lockfile integrity are covered, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, CodeQL workflow integrity, dependency lockfile integrity, and repo update scanning automation are covered, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
 
 function validateIndirectReportEvidenceCoverage() {
   const runtimeValidatorText = read(reportEvidenceRecordRuntimeValidatorPath);
@@ -243,6 +248,24 @@ function validateDependencyLockfileCoverage() {
     "version: 19.2.5",
   ]) {
     if (!validatorText.includes(phrase)) failures.push(`${dependencyLockfileValidatorPath} missing dependency integrity phrase: ${phrase}`);
+  }
+}
+
+function validateRepoUpdateScanningCoverage() {
+  const validatorText = read(repoUpdateScanningValidatorPath);
+  for (const phrase of [
+    ".github/dependabot.yml",
+    ".github/workflows/codeql.yml",
+    "actions/checkout@v6",
+    "github/codeql-action/init@v4",
+    "github/codeql-action/analyze@v4",
+    "src/scripts/validate-codeql-workflow-integrity.mjs",
+    "src/scripts/validate-dependency-lockfile-integrity.mjs",
+    "controlled-update",
+    "next-react-platform",
+    "typescript-tooling",
+  ]) {
+    if (!validatorText.includes(phrase)) failures.push(`${repoUpdateScanningValidatorPath} missing repo update scanning phrase: ${phrase}`);
   }
 }
 
