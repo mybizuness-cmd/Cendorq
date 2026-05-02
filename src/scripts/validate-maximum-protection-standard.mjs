@@ -8,6 +8,7 @@ const docsIndexPath = "docs/command-center-docs-index.md";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-maximum-protection-standard.mjs";
+const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 
 expect(standardPath, [
   "# Cendorq Maximum Protection Standard",
@@ -85,6 +86,14 @@ expect(docsIndexPath, [
   "docs/maximum-protection-standard.md",
 ]);
 
+expect(validationRegistryPath, [
+  "maximum-protection-standard",
+  "Maximum protection standard",
+  "src/scripts/validate-maximum-protection-standard.mjs",
+  "maximum-protection doctrine for data classification, deny-by-default access, secret handling, exfiltration prevention, AI-agent containment, supply-chain risk, auditability, emergency controls, and public/private doctrine boundaries",
+  "The maximum-protection doctrine may no longer be enforced, discoverable, or wired into the central validation chain.",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
@@ -114,7 +123,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Maximum protection standard validation passed. The maximum-protection doctrine, docs index, and validate:routes wiring remain aligned.");
+console.log("Maximum protection standard validation passed. The maximum-protection doctrine, docs index, validation registry, and validate:routes wiring remain aligned.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
