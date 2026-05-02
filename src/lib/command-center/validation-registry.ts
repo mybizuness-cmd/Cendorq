@@ -109,6 +109,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Report evidence API behavior may no longer be command-center gated, safe-summary-only, runtime-backed, raw/private rejecting, or blocked from approving customer-facing report output.",
   },
   {
+    key: "report-evidence-records-api",
+    label: "Report evidence records API",
+    scriptPath: "src/scripts/validate-command-center-report-evidence-records-api.mjs",
+    category: "route",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "command-center-only report evidence records route, safe-summary-only input, append-only safe projection persistence, no-store/noindex response headers, raw/private payload rejection, and no customer-facing output, paid recommendation, launch, security, or public report approval",
+    failureMeaning: "Report evidence records API behavior may no longer be command-center gated, safe-summary-only, persistence-backed, raw/private rejecting, append-only, no-store/noindex, or blocked from customer-facing output and launch approval drift.",
+  },
+  {
     key: "report-evidence-record-contracts",
     label: "Report evidence record contracts",
     scriptPath: "src/scripts/validate-report-evidence-record-contracts.mjs",
