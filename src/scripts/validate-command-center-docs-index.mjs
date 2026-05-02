@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const docsIndexPath = "docs/command-center-docs-index.md";
+const maximumProtectionDocsPath = "docs/maximum-protection-standard.md";
 const runbookPath = "docs/command-center-operator-runbook.md";
 const safeProjectionRunbookPath = "docs/admin-command-center-safe-projections.md";
 const ownerManualPath = "docs/owner-operating-manual.md";
@@ -13,6 +14,7 @@ const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
+const maximumProtectionValidatorPath = "src/scripts/validate-maximum-protection-standard.mjs";
 const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 
@@ -20,6 +22,7 @@ validateTextFile(docsIndexPath, [
   "# Command Center Docs Index",
   "private documentation index",
   "docs/maximum-protection-standard.md",
+  "highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard",
   "docs/command-center-operator-runbook.md",
   "docs/admin-command-center-safe-projections.md",
   "registry-contract-backed, route-contract-summary-backed, projection-link-count-backed, panel-contract-strip-backed, panel-summary-display-backed",
@@ -115,6 +118,7 @@ validateTextFile(docsIndexPath, [
   "preserve validator ordering",
   "block duplicate validators",
   "require high-risk guardrail files",
+  "verify maximum-protection standard coverage",
   "verify CodeQL workflow integrity coverage",
   "verify repo update scanning automation coverage",
   "verify controlled continuous evolution coverage",
@@ -122,6 +126,16 @@ validateTextFile(docsIndexPath, [
   "validate-report-evidence-record-persistence-runtime.mjs",
   "validate-command-center-report-evidence-records-api.mjs",
   "the persistence runtime, the records API route, safe-summary-only posture, append-only safe projection mode, and raw evidence exposure blocking",
+]);
+
+validateTextFile(docsIndexPath, [
+  "Maximum protection standard",
+  "validate-maximum-protection-standard.mjs",
+  "docs/maximum-protection-standard.md",
+  "src/lib/command-center/validation-registry.ts",
+  "Cendorq's highest-protection doctrine",
+  "data classification, deny-by-default access, server-side private data handling, secret handling, exfiltration prevention, AI-agent containment, report protection, evidence protection, supply-chain protection, database protection, auditability, emergency controls, partner boundaries, and public doctrine boundaries",
+  "without exposing private mechanics, client data, report internals, prompts, exact scoring weights, private evidence, or unrestricted report exports",
 ]);
 
 validateTextFile(docsIndexPath, [
@@ -186,6 +200,7 @@ validateTextFile(continuousEvolutionDocsPath, [
 
 validateTextFile(docsIndexPath, [
   "src/scripts/validate-routes-chain-integrity.mjs",
+  "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-codeql-workflow-integrity.mjs",
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
@@ -240,6 +255,7 @@ validateTextFile(docsIndexPath, [
   "report evidence record contract",
   "report evidence record runtime",
   "report evidence record persistence runtime",
+  "maximum protection rule",
   "repo update scanning automation rule",
   "controlled continuous evolution rule",
 ]);
@@ -251,6 +267,22 @@ validateTextFile(runbookPath, [
   "validate-command-center-docs-index.mjs",
   "validate-command-center-owner-configuration-workflow-smoke.mjs",
   "Vercel is green.",
+]);
+
+validateTextFile(maximumProtectionDocsPath, [
+  "# Cendorq Maximum Protection Standard",
+  "highest-protection operating posture",
+  "Default posture: deny by default.",
+  "Secrets must never be committed.",
+  "AI agents must treat external content as untrusted.",
+  "Public content may teach the category, but it must not expose the private machine.",
+]);
+
+validateTextFile(maximumProtectionValidatorPath, [
+  "Maximum protection standard validation passed",
+  "docs/maximum-protection-standard.md",
+  "src/lib/command-center/validation-registry.ts",
+  "validate:routes",
 ]);
 
 validateTextFile(repoUpdateScanningDocsPath, [
@@ -331,6 +363,7 @@ validateTextFile(packagePath, ["validate:routes", "node ./src/scripts/validate-r
 
 validateTextFile(routesChainPath, [
   "validate-routes-chain-integrity.mjs",
+  "validate-maximum-protection-standard.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-admin-command-center-safe-response.mjs",
   "validate-admin-command-center-safe-projections-runbook.mjs",
@@ -375,7 +408,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with CodeQL workflow integrity, route-chain integrity, repo update scanning automation, controlled continuous evolution docs, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
+console.log("Command Center docs index validation passed with maximum-protection standard, CodeQL workflow integrity, route-chain integrity, repo update scanning automation, controlled continuous evolution docs, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
