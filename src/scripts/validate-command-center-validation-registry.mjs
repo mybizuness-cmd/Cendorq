@@ -30,6 +30,7 @@ const requiredScripts = [
   "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
+  "src/scripts/validate-command-center-report-evidence-records-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
   "src/scripts/validate-report-evidence-record-runtime.mjs",
   "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
@@ -100,6 +101,10 @@ if (!failures.length) {
     "Report evidence orchestration API",
     "command-center-only report evidence projection route, safe-summary-only input, no-store/noindex response headers, raw/private payload rejection, and no customer-facing report approval",
     "Report evidence API behavior may no longer be command-center gated, safe-summary-only, runtime-backed, raw/private rejecting, or blocked from approving customer-facing report output.",
+    "report-evidence-records-api",
+    "Report evidence records API",
+    "command-center-only report evidence records route, safe-summary-only input, append-only safe projection persistence, no-store/noindex response headers, raw/private payload rejection, and no customer-facing output, paid recommendation, launch, security, or public report approval",
+    "Report evidence records API behavior may no longer be command-center gated, safe-summary-only, persistence-backed, raw/private rejecting, append-only, no-store/noindex, or blocked from customer-facing output and launch approval drift.",
     "report-evidence-record-contracts",
     "Report evidence record contracts",
     "safe report evidence source, confidence, conflict, plan-fit, blocked-pattern, and release-review records without raw/private payload exposure or customer-facing approval drift",
@@ -126,17 +131,25 @@ if (!failures.length) {
 
   for (const scriptPath of requiredScripts) {
     validateFileExists(scriptPath);
-    if (scriptPath !== "src/scripts/validate-report-evidence-record-persistence-runtime.mjs" && !chainText.includes(`"${scriptPath}"`)) failures.push(`${routesChainPath} missing required validation script: ${scriptPath}`);
+    if (
+      scriptPath !== "src/scripts/validate-report-evidence-record-persistence-runtime.mjs" &&
+      scriptPath !== "src/scripts/validate-command-center-report-evidence-records-api.mjs" &&
+      !chainText.includes(`"${scriptPath}"`)
+    ) {
+      failures.push(`${routesChainPath} missing required validation script: ${scriptPath}`);
+    }
   }
 
   validateText("src/scripts/validate-report-evidence-record-runtime.mjs", read("src/scripts/validate-report-evidence-record-runtime.mjs"), [
     "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
     "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
+    "src/app/api/command-center/report-evidence/records/route.ts",
+    "src/scripts/validate-command-center-report-evidence-records-api.mjs",
   ]);
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 33) {
-    failures.push(`${registryPath} expected at least 33 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 34) {
+    failures.push(`${registryPath} expected at least 34 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -146,7 +159,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, admin safe projections, owner manual, owner-workflow, report truth, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
