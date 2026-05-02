@@ -20,6 +20,8 @@ The canonical route contract accessor is `getAdminCommandCenterSafeProjectionRou
 
 The canonical route contract summary accessor is `getAdminCommandCenterSafeProjectionRouteContractSummary`.
 
+The canonical projection link count accessors are `getAdminCommandCenterSafeProjectionLinkCount`, `getAdminCommandCenterExpectedSafeProjectionLinkCount`, and `getAdminCommandCenterSafeProjectionLinksComplete`.
+
 The canonical access helper is `src/lib/admin-command-center-safe-access.ts`.
 
 The canonical response helper is `src/lib/admin-command-center-safe-response.ts`.
@@ -27,6 +29,8 @@ The canonical response helper is `src/lib/admin-command-center-safe-response.ts`
 Do not duplicate the endpoint list in UI or API routes. The private command-center panel and API index must import the registry so route discovery cannot drift.
 
 Do not duplicate route contract metadata in UI or API routes. The private command-center panel and API index must expose each registry entry's methods and helper requirements so operators can verify the safe-access, safe-response, and safe-options contract from read-only projections.
+
+The private command-center panel and API index must expose projection link count, expected projection link count, and projection completeness from the shared registry helpers so operators can verify the six safe projection routes remain intact before reviewing per-route details.
 
 The private command-center panel must expose a canonical route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract` and `getAdminCommandCenterSafeProjectionRouteContractSummary` before the per-endpoint cards. The strip must show method count and all-helpers-required posture from the summary accessor, while per-endpoint cards continue to show each registry entry's methods and helper requirements.
 
@@ -53,13 +57,14 @@ Do not duplicate safe method arrays in individual projection routes. Each admin 
 
 1. Open the private command-center panel.
 2. Confirm the safe projection links render from the shared registry.
-3. Confirm the panel displays the canonical route-contract strip from the shared accessors.
-4. Confirm the strip includes method count and all-helpers-required posture from `getAdminCommandCenterSafeProjectionRouteContractSummary`.
-5. Confirm the panel displays each registry entry's methods and helper requirements.
-6. Review the API index to confirm the endpoint map, canonical `routeContract`, canonical `routeContractSummary`, and per-route contract metadata.
-7. Review the lane-specific endpoint for the current decision.
-8. Treat the response as posture only.
-9. Use the relevant approval gate before any external, customer-facing, or production-affecting step.
+3. Confirm projection link count, expected projection link count, and projection completeness in the panel.
+4. Confirm the panel displays the canonical route-contract strip from the shared accessors.
+5. Confirm the strip includes method count and all-helpers-required posture from `getAdminCommandCenterSafeProjectionRouteContractSummary`.
+6. Confirm the panel displays each registry entry's methods and helper requirements.
+7. Review the API index to confirm the endpoint map, projection link count, expected projection link count, projection completeness, canonical `routeContract`, canonical `routeContractSummary`, and per-route contract metadata.
+8. Review the lane-specific endpoint for the current decision.
+9. Treat the response as posture only.
+10. Use the relevant approval gate before any external, customer-facing, or production-affecting step.
 
 ## Validation requirements
 
@@ -76,6 +81,8 @@ The route-chain must include the registry validator and the shared safe-response
 Until a dedicated safe-access validator can be wired without a large route-chain rewrite, the projection route validators must keep verifying the shared access helper through route-level validation anchors.
 
 The safe-projections validator must enforce shared `OPTIONS` helper coverage across every admin command-center projection route.
+
+The registry validator, API-index validator, and admin-control-panel validator must enforce projection link count, expected projection link count, and projection completeness coverage from the shared registry helpers.
 
 The registry validator, API-index validator, and admin-control-panel validator must enforce route contract metadata for methods, safe-access helper requirements, safe-response helper requirements, and safe-options helper requirements.
 
