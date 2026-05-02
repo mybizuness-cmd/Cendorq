@@ -30,6 +30,7 @@ validateTextFile(docsIndexPath, [
   "src/lib/command-center/report-evidence-orchestration.ts",
   "src/lib/command-center/report-evidence-orchestration-runtime.ts",
   "src/lib/command-center/report-evidence-record-contracts.ts",
+  "src/lib/command-center/report-evidence-record-runtime.ts",
   "src/lib/command-center/report-growth-system.ts",
   "src/lib/command-center/controlled-market-learning.ts",
   "src/lib/command-center/enterprise-operating-standard.ts",
@@ -99,6 +100,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
+  "src/scripts/validate-report-evidence-record-runtime.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -125,6 +127,7 @@ validateTextFile(docsIndexPath, [
   "admin command-center response or options helper",
   "report evidence route",
   "report evidence record contract",
+  "report evidence record runtime",
 ]);
 
 validateTextFile(runbookPath, [
@@ -172,6 +175,7 @@ validateTextFile(routesChainPath, [
   "validate-owner-operating-manual.mjs",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
+  "validate-report-evidence-record-runtime.mjs",
   "validate-command-center-owner-configuration-workflow-smoke.mjs",
 ]);
 
@@ -181,7 +185,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with panel summary display coverage.");
+console.log("Command Center docs index validation passed with panel summary display coverage and report evidence record runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
