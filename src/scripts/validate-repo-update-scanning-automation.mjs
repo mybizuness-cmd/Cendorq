@@ -8,6 +8,7 @@ const codeqlPath = ".github/workflows/codeql.yml";
 const pristineValidatorPath = "src/scripts/validate-most-pristine-system-standard.mjs";
 const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfile-integrity.mjs";
+const repoUpdateScanningDocsPath = "docs/repo-update-scanning-automation.md";
 const packagePath = "package.json";
 
 expect(dependabotPath, [
@@ -58,6 +59,25 @@ expect(pristineValidatorPath, [
   "github/codeql-action/analyze@v4",
 ]);
 
+expect(repoUpdateScanningDocsPath, [
+  "# Repo Update Scanning Automation",
+  "src/scripts/validate-repo-update-scanning-automation.mjs",
+  ".github/dependabot.yml",
+  ".github/workflows/codeql.yml",
+  "src/scripts/validate-codeql-workflow-integrity.mjs",
+  "src/scripts/validate-dependency-lockfile-integrity.mjs",
+  "src/scripts/validate-most-pristine-system-standard.mjs",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
+  "github/codeql-action/autobuild@v4",
+  "github/codeql-action/analyze@v4",
+  "controlled-update",
+  "next-react-platform",
+  "typescript-tooling",
+  "release-captain review",
+  "expected head SHA",
+]);
+
 expect(packagePath, [
   "validate:routes",
 ]);
@@ -90,7 +110,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Repo update scanning automation validation passed.");
+console.log("Repo update scanning automation validation passed with focused documentation coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
