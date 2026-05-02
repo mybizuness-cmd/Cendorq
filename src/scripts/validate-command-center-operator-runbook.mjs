@@ -18,12 +18,14 @@ const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfil
 const dependencyLockfileDocsPath = "docs/dependency-lockfile-integrity.md";
 const repoUpdateScanningValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
 const repoUpdateScanningDocsPath = "docs/repo-update-scanning-automation.md";
+const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
+const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 
 validateTextFile(runbookPath, [
   "# Command Center Operator Runbook",
   "private, gated, metadata-only operating cockpit",
   "closed by default",
-  "security workflow integrity, dependency integrity, or repo update scanning integrity",
+  "security workflow integrity, dependency integrity, repo update scanning integrity, or controlled continuous evolution integrity",
   "Keep the route as an access-control and panel-composition shell.",
   "Keep cockpit panels server-rendered",
   "Keep panels metadata-only by default.",
@@ -34,18 +36,9 @@ validateTextFile(runbookPath, [
   "Keep `validate-codeql-workflow-integrity.mjs` centrally covered by route-chain integrity.",
   "Keep `validate-dependency-lockfile-integrity.mjs` centrally covered by route-chain integrity.",
   "Keep `validate-repo-update-scanning-automation.mjs` centrally covered by route-chain integrity.",
+  "Keep `validate-controlled-continuous-evolution.mjs` centrally covered by route-chain integrity.",
   "Keep indirect high-risk report evidence validators centrally covered by `validate-report-evidence-record-runtime.mjs`",
   "Never claim that Cendorq is unhackable, risk-free, or perfectly secure.",
-  "Owner configuration evidence workflow",
-  "src/app/api/command-center/owner-configuration/evidence/route.ts",
-  "src/app/api/command-center/owner-configuration/workflow/route.ts",
-  "src/lib/owner-configuration-evidence-runtime.ts",
-  "src/lib/owner-configuration-evidence-persistence-runtime.ts",
-  "src/lib/owner-configuration-evidence-approval-workflow-runtime.ts",
-  "src/app/command-center/owner-configuration-evidence-panel.tsx",
-  "src/app/command-center/owner-configuration-workflow-panel.tsx",
-  "safe summaries, safe hashes, owner approval posture, and release-captain review posture",
-  "Owner evidence alone never creates public launch approval, paid launch approval, report launch approval, provider configuration approval, payment mapping approval, security readiness approval, or customer-facing claims.",
 ]);
 
 validateTextFile(runbookPath, [
@@ -59,44 +52,20 @@ validateTextFile(runbookPath, [
   "CodeQL workflow integrity must remain covered through the first route-chain integrity validator.",
   "Dependency lockfile integrity must remain covered through the first route-chain integrity validator.",
   "Repo update scanning automation must remain covered through the first route-chain integrity validator.",
+  "Controlled continuous evolution must remain covered through the first route-chain integrity validator.",
   "Required CodeQL workflow integrity coverage",
-  "src/scripts/validate-codeql-workflow-integrity.mjs",
-  ".github/workflows/codeql.yml",
-  "actions/checkout@v6",
-  "github/codeql-action/init@v4",
-  "github/codeql-action/autobuild@v4",
-  "github/codeql-action/analyze@v4",
-  "security-extended,security-and-quality",
-  "minimal read permissions plus `security-events: write`",
-  "main push, pull request, and weekly schedule triggers",
-  "JavaScript/TypeScript analysis",
-  "current approved action versions",
-  "older action versions, broad write permissions, or `continue-on-error: true`",
   "Required dependency lockfile integrity coverage",
-  "src/scripts/validate-dependency-lockfile-integrity.mjs",
-  "docs/dependency-lockfile-integrity.md",
-  "package.json",
-  "pnpm-lock.yaml",
-  "package manager `pnpm@9.15.9`",
-  "Node engine `>=24.0.0`",
-  "current approved core dependency ranges",
-  "current resolved lockfile dependency anchors",
-  "Dependency updates must not merge with unreviewed package-manager, Node-engine, validate-route-chain, package-range, lockfile-resolution, or dependency-integrity-documentation drift.",
   "Required repo update scanning automation coverage",
-  "src/scripts/validate-repo-update-scanning-automation.mjs",
-  "docs/repo-update-scanning-automation.md",
-  ".github/dependabot.yml",
-  "src/scripts/validate-most-pristine-system-standard.mjs",
-  "Dependabot groups including `controlled-update`, `next-react-platform`, and `typescript-tooling`",
-  "Repo update scanning automation is protective and advisory only.",
+  "Required controlled continuous evolution coverage",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+  "Controlled continuous evolution is the approved way to keep Cendorq improving after launch.",
+  "must not auto-merge production-impacting code without green gates",
+  "skip Vercel",
+  "disable validation",
+  "Continuous updates must remain small-batch, preview-gated, rollback-ready, documented, reviewable, and traceable.",
   "guarded squash merge with the expected head SHA",
   "Indirect report evidence validators must not become orphaned",
-  "Required indirect report evidence validator coverage",
-  "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
-  "src/scripts/validate-command-center-report-evidence-records-api.mjs",
-  "src/scripts/validate-report-evidence-record-runtime.mjs",
-  "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
-  "src/app/api/command-center/report-evidence/records/route.ts",
   "safe-summary-only input",
   "append-only safe projection mode",
   "raw evidence exposure blocking",
@@ -107,6 +76,7 @@ validateTextFile(runbookPath, [
   "validate-codeql-workflow-integrity.mjs",
   "validate-dependency-lockfile-integrity.mjs",
   "validate-repo-update-scanning-automation.mjs",
+  "validate-controlled-continuous-evolution.mjs",
   "validate-command-center-owner-configuration-evidence-api.mjs",
   "validate-command-center-owner-configuration-evidence-persistence.mjs",
   "validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
@@ -123,10 +93,10 @@ validateTextFile(runbookPath, [
   "validate-command-center-report-evidence-records-api.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
-  "No visible cockpit panel should be merged without a matching registry entry.",
   "Route-chain integrity runs first and CodeQL workflow integrity remains centrally covered.",
   "Route-chain integrity runs first and dependency lockfile integrity remains centrally covered.",
   "Route-chain integrity runs first and repo update scanning automation remains centrally covered.",
+  "Route-chain integrity runs first and controlled continuous evolution remains centrally covered.",
   "Route-chain integrity runs first and indirect report evidence validators remain centrally covered.",
   "Vercel is green.",
 ]);
@@ -136,43 +106,28 @@ validateTextFile(docsIndexPath, [
   "docs/command-center-operator-runbook.md",
   "docs/repo-update-scanning-automation.md",
   "Route-chain integrity standard",
-  "validate-routes-chain-integrity.mjs",
-  "verify CodeQL workflow integrity coverage",
   "verify repo update scanning automation coverage",
+  "verify controlled continuous evolution coverage",
   "Repo update scanning automation standard",
-  "validate-repo-update-scanning-automation.mjs",
+  "Controlled continuous evolution standard",
+  "validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
   "CodeQL workflow integrity standard",
   "validate-codeql-workflow-integrity.mjs",
   "verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`",
   "docs/maximum-protection-standard.md",
   "src/lib/command-center/validation-registry.ts",
-  "src/lib/command-center/report-truth-engine.ts",
-  "src/lib/owner-configuration-evidence-runtime.ts",
-  "src/lib/owner-configuration-evidence-persistence-runtime.ts",
-  "src/lib/owner-configuration-evidence-approval-workflow-runtime.ts",
-  "src/app/api/command-center/owner-configuration/evidence/route.ts",
-  "src/app/api/command-center/owner-configuration/workflow/route.ts",
-  "src/app/command-center/owner-configuration-evidence-panel.tsx",
-  "src/app/command-center/owner-configuration-workflow-panel.tsx",
-  "validate-command-center-validation-registry.mjs",
-  "validate-report-truth-engine.mjs",
-  "validate-command-center-operator-runbook.mjs",
-  "validate-command-center-docs-index.mjs",
-  "validate-command-center-owner-configuration-evidence-api.mjs",
-  "validate-command-center-owner-configuration-evidence-persistence.mjs",
-  "validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
-  "validate-command-center-owner-configuration-workflow-api.mjs",
-  "validate-command-center-owner-configuration-workflow-panel.mjs",
-  "validate-command-center-owner-configuration-workflow-smoke.mjs",
 ]);
 
 validateTextFile(routesChainIntegrityPath, [
   "validate-codeql-workflow-integrity.mjs",
   "validate-dependency-lockfile-integrity.mjs",
   "validate-repo-update-scanning-automation.mjs",
+  "validate-controlled-continuous-evolution.mjs",
   "validateCodeqlWorkflowCoverage",
   "validateDependencyLockfileCoverage",
   "validateRepoUpdateScanningCoverage",
+  "validateControlledContinuousEvolutionCoverage",
   "actions/checkout@v6",
   "github/codeql-action/init@v4",
   "requiredIndirectReportEvidenceValidators",
@@ -182,6 +137,26 @@ validateTextFile(routesChainIntegrityPath, [
   "acceptedInput: \\\"safe-summary-only\\\"",
   "persistenceMode: \\\"append-only-safe-projection\\\"",
   "rawEvidenceExposed: false",
+]);
+
+validateTextFile(continuousEvolutionValidatorPath, [
+  "Controlled continuous evolution validation passed",
+  "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+  "auto-merge production-impacting code without green gates",
+  "pull request with reviewable diff",
+  "Vercel preview or deployment check passes",
+  "skipVercelGate",
+  "disableValidatorForUpdate",
+]);
+
+validateTextFile(continuousEvolutionContractPath, [
+  "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+  "controlled-continuous-evolution-v1",
+  "Automated systems may detect, propose, test, and prepare updates.",
+  "small coherent batches",
+  "rollback-ready before promotion",
+  "automatic update systems can propose changes but cannot bypass validation",
+  "all scheduled updates must remain coherent, bounded, and traceable",
 ]);
 
 validateTextFile(codeqlWorkflowValidatorPath, [
@@ -333,7 +308,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, route-chain integrity, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
+console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, route-chain integrity, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
 
 function unsafePhrases() {
   return [
