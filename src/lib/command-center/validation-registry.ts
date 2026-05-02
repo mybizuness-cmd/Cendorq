@@ -82,6 +82,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "The CodeQL workflow may have drifted into stale action versions, weakened permissions, missing security query posture, missing main/PR/schedule coverage, or non-failing security analysis.",
   },
   {
+    key: "dependency-lockfile-integrity",
+    label: "Dependency lockfile integrity",
+    scriptPath: "src/scripts/validate-dependency-lockfile-integrity.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "package manager, Node engine, validate route-chain script, key package ranges, lockfile resolved versions, and dependency integrity documentation stay aligned",
+    failureMeaning: "Package or lockfile posture may have drifted from the approved dependency anchors or the dependency integrity documentation.",
+  },
+  {
     key: "report-truth-engine",
     label: "Report truth engine",
     scriptPath: "src/scripts/validate-report-truth-engine.mjs",
