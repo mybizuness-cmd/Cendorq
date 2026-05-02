@@ -8,6 +8,8 @@ const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
 const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
+const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfile-integrity.mjs";
+const dependencyLockfileDocsPath = "docs/dependency-lockfile-integrity.md";
 
 const requiredScripts = [
   "src/scripts/validate-command-center-migrations.mjs",
@@ -18,6 +20,7 @@ const requiredScripts = [
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
   "src/scripts/validate-codeql-workflow-integrity.mjs",
+  "src/scripts/validate-dependency-lockfile-integrity.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
   "src/scripts/validate-admin-command-center-safe-response.mjs",
   "src/scripts/validate-admin-command-center-safe-projections-runbook.mjs",
@@ -69,6 +72,8 @@ validateFileExists(packagePath);
 validateFileExists(routesChainPath);
 validateFileExists(routesChainIntegrityPath);
 validateFileExists(codeqlWorkflowValidatorPath);
+validateFileExists(dependencyLockfileValidatorPath);
+validateFileExists(dependencyLockfileDocsPath);
 
 if (!failures.length) {
   const registryText = read(registryPath);
@@ -91,6 +96,11 @@ if (!failures.length) {
     "src/scripts/validate-codeql-workflow-integrity.mjs",
     "CodeQL workflow triggers, minimal permissions, checkout v6, CodeQL v4, JavaScript/TypeScript analysis, security-and-quality query posture, and no broad write permission or continue-on-error drift",
     "stale action versions, weakened permissions, missing security query posture, missing main/PR/schedule coverage, or non-failing security analysis",
+    "dependency-lockfile-integrity",
+    "Dependency lockfile integrity",
+    "src/scripts/validate-dependency-lockfile-integrity.mjs",
+    "package manager, Node engine, validate route-chain script, key package ranges, lockfile resolved versions, and dependency integrity documentation stay aligned",
+    "Package or lockfile posture may have drifted from the approved dependency anchors or the dependency integrity documentation.",
     "panel-safety",
     "Panel safety",
     "full current command-center cockpit panel set, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records",
@@ -124,6 +134,7 @@ if (!failures.length) {
       scriptPath !== "src/scripts/validate-report-evidence-record-persistence-runtime.mjs" &&
       scriptPath !== "src/scripts/validate-command-center-report-evidence-records-api.mjs" &&
       scriptPath !== "src/scripts/validate-codeql-workflow-integrity.mjs" &&
+      scriptPath !== "src/scripts/validate-dependency-lockfile-integrity.mjs" &&
       !chainText.includes(`"${scriptPath}"`)
     ) {
       failures.push(`${routesChainPath} missing required validation script: ${scriptPath}`);
@@ -132,8 +143,10 @@ if (!failures.length) {
 
   validateText(routesChainIntegrityPath, read(routesChainIntegrityPath), [
     "src/scripts/validate-codeql-workflow-integrity.mjs",
+    "src/scripts/validate-dependency-lockfile-integrity.mjs",
     ".github/workflows/codeql.yml",
     "validateCodeqlWorkflowCoverage",
+    "validateDependencyLockfileCoverage",
     "actions/checkout@v6",
     "github/codeql-action/init@v4",
     "github/codeql-action/analyze@v4",
@@ -149,6 +162,24 @@ if (!failures.length) {
     "continue-on-error: true",
   ]);
 
+  validateText(dependencyLockfileValidatorPath, read(dependencyLockfileValidatorPath), [
+    "package.json",
+    "pnpm-lock.yaml",
+    "docs/dependency-lockfile-integrity.md",
+    "pnpm@9.15.9",
+    "version: 8.59.1",
+    "version: 16.2.4",
+    "version: 19.2.5",
+  ]);
+
+  validateText(dependencyLockfileDocsPath, read(dependencyLockfileDocsPath), [
+    "# Dependency Lockfile Integrity",
+    "pnpm@9.15.9",
+    "Next resolved version: `16.2.4`",
+    "React resolved version: `19.2.5`",
+    "TypeScript ESLint parser resolved version: `8.59.1`",
+  ]);
+
   validateText("src/scripts/validate-report-evidence-record-runtime.mjs", read("src/scripts/validate-report-evidence-record-runtime.mjs"), [
     "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
     "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
@@ -157,8 +188,8 @@ if (!failures.length) {
   ]);
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 35) {
-    failures.push(`${registryPath} expected at least 35 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 36) {
+    failures.push(`${registryPath} expected at least 36 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -168,7 +199,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, CodeQL workflow integrity, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, CodeQL workflow integrity, dependency lockfile integrity, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
