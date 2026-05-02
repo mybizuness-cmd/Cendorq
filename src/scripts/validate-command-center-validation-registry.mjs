@@ -14,6 +14,9 @@ const repoUpdateScanningValidatorPath = "src/scripts/validate-repo-update-scanni
 const repoUpdateScanningDocsPath = "docs/repo-update-scanning-automation.md";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
+const controlledMaintenanceValidatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
+const controlledMaintenanceContractPath = "src/lib/controlled-maintenance-contracts.ts";
+const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
 
 const requiredScripts = [
   "src/scripts/validate-command-center-migrations.mjs",
@@ -27,6 +30,7 @@ const requiredScripts = [
   "src/scripts/validate-dependency-lockfile-integrity.mjs",
   "src/scripts/validate-repo-update-scanning-automation.mjs",
   "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
   "src/scripts/validate-admin-command-center-safe-response.mjs",
   "src/scripts/validate-admin-command-center-safe-projections-runbook.mjs",
@@ -84,6 +88,9 @@ validateFileExists(repoUpdateScanningValidatorPath);
 validateFileExists(repoUpdateScanningDocsPath);
 validateFileExists(continuousEvolutionValidatorPath);
 validateFileExists(continuousEvolutionContractPath);
+validateFileExists(controlledMaintenanceValidatorPath);
+validateFileExists(controlledMaintenanceContractPath);
+validateFileExists(controlledMaintenanceDocsPath);
 
 if (!failures.length) {
   const registryText = read(registryPath);
@@ -115,7 +122,11 @@ if (!failures.length) {
     "Controlled continuous evolution",
     "src/scripts/validate-controlled-continuous-evolution.mjs",
     "monitored, validated, reviewable, rollback-ready updates, small coherent batches, Vercel gate posture, and no uncontrolled production mutation or quality drift",
-    "Continuous update posture may have drifted toward unreviewed production mutation, skipped validation, skipped Vercel gates, hidden failures, or weakened safeguards.",
+    "controlled-maintenance",
+    "Controlled maintenance",
+    "src/scripts/validate-controlled-maintenance-contracts.mjs",
+    "safe update queues, review streams, validation gates, rollback planning, audit records, and no uncontrolled AI changes or automatic production mutation",
+    "Controlled maintenance may have drifted toward validation bypass, approval bypass, missing rollback plans, audit deletion, raw/private exposure, uncontrolled production mutation, or unsupported outcome claims.",
     "panel-safety",
     "Panel safety",
     "full current command-center cockpit panel set, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records",
@@ -248,6 +259,26 @@ if (!failures.length) {
     "all scheduled updates must remain coherent, bounded, and traceable",
   ]);
 
+  validateText(controlledMaintenanceValidatorPath, read(controlledMaintenanceValidatorPath), [
+    "Controlled maintenance contracts validation passed",
+    "docs/controlled-maintenance.md",
+    "src/lib/controlled-maintenance-contracts.ts",
+    "No queued update may mutate production automatically",
+  ]);
+
+  validateText(controlledMaintenanceContractPath, read(controlledMaintenanceContractPath), [
+    "CONTROLLED_MAINTENANCE_CONTRACT",
+    "Controlled Maintenance Architecture",
+    "safe update queues",
+    "without uncontrolled AI changes or automatic production mutation",
+  ]);
+
+  validateText(controlledMaintenanceDocsPath, read(controlledMaintenanceDocsPath), [
+    "# Controlled Maintenance",
+    "No queued update may mutate production automatically",
+    "validation, approval state, rollback plan, and audit record",
+  ]);
+
   validateText("src/scripts/validate-report-evidence-record-runtime.mjs", read("src/scripts/validate-report-evidence-record-runtime.mjs"), [
     "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
     "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
@@ -256,8 +287,8 @@ if (!failures.length) {
   ]);
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 38) {
-    failures.push(`${registryPath} expected at least 38 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 39) {
+    failures.push(`${registryPath} expected at least 39 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -267,7 +298,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, controlled maintenance, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
