@@ -10,11 +10,17 @@ const failures = [];
 
 expect(panelPath, [
   "AdminCommandCenterControlPanel",
+  "getAdminCommandCenterExpectedSafeProjectionLinkCount",
+  "getAdminCommandCenterSafeProjectionLinkCount",
   "getAdminCommandCenterSafeProjectionLinks",
+  "getAdminCommandCenterSafeProjectionLinksComplete",
   "getAdminCommandCenterSafeProjectionRouteContract",
   "getAdminCommandCenterSafeProjectionRouteContractSummary",
   "@/lib/admin-command-center-safe-projection-registry",
   "projectionLinks = getAdminCommandCenterSafeProjectionLinks()",
+  "projectionLinkCount = getAdminCommandCenterSafeProjectionLinkCount()",
+  "expectedProjectionLinkCount = getAdminCommandCenterExpectedSafeProjectionLinkCount()",
+  "projectionLinksComplete = getAdminCommandCenterSafeProjectionLinksComplete()",
   "routeContract = getAdminCommandCenterSafeProjectionRouteContract()",
   "routeContractSummary = getAdminCommandCenterSafeProjectionRouteContractSummary()",
   "projectAdminCommandCenterAccess",
@@ -34,6 +40,12 @@ expect(panelPath, [
 ]);
 
 expect(panelPath, [
+  "Projection links",
+  "Expected links",
+  "Links complete",
+  "projectionLinkCount",
+  "expectedProjectionLinkCount",
+  "projectionLinksComplete",
   "Contract methods",
   "Method count",
   "Safe access helper",
@@ -73,8 +85,13 @@ expect(registryPath, [
   "Structured findings posture for agents and scouts.",
   "Expansion, hardening, risk coverage, and escalation posture.",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT",
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINK_COUNT",
+  "ADMIN_COMMAND_CENTER_EXPECTED_SAFE_PROJECTION_LINK_COUNT = 6",
   "getAdminCommandCenterSafeProjectionRouteContract",
   "getAdminCommandCenterSafeProjectionRouteContractSummary",
+  "getAdminCommandCenterSafeProjectionLinkCount",
+  "getAdminCommandCenterExpectedSafeProjectionLinkCount",
+  "getAdminCommandCenterSafeProjectionLinksComplete",
   "methodCount: contract.methods.length",
   "allHelpersRequired",
   "ADMIN_COMMAND_CENTER_SAFE_METHODS",
@@ -141,7 +158,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center admin control panel validation passed with route contract summary coverage.");
+console.log("Command center admin control panel validation passed with projection link count coverage.");
 
 function unsafePhrases() {
   return [

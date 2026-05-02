@@ -5,7 +5,10 @@ import { getAdminCommandCenterFoundation } from "@/lib/admin-command-center-foun
 import { projectAdminCommandCenterForecastEscalation } from "@/lib/admin-command-center-forecast-escalation-runtime";
 import { projectAdminCommandCenterMissionBrief } from "@/lib/admin-command-center-mission-brief-runtime";
 import {
+  getAdminCommandCenterExpectedSafeProjectionLinkCount,
+  getAdminCommandCenterSafeProjectionLinkCount,
   getAdminCommandCenterSafeProjectionLinks,
+  getAdminCommandCenterSafeProjectionLinksComplete,
   getAdminCommandCenterSafeProjectionRouteContract,
   getAdminCommandCenterSafeProjectionRouteContractSummary,
 } from "@/lib/admin-command-center-safe-projection-registry";
@@ -15,6 +18,9 @@ export function AdminCommandCenterControlPanel() {
   const projectionLinks = getAdminCommandCenterSafeProjectionLinks();
   const routeContract = getAdminCommandCenterSafeProjectionRouteContract();
   const routeContractSummary = getAdminCommandCenterSafeProjectionRouteContractSummary();
+  const projectionLinkCount = getAdminCommandCenterSafeProjectionLinkCount();
+  const expectedProjectionLinkCount = getAdminCommandCenterExpectedSafeProjectionLinkCount();
+  const projectionLinksComplete = getAdminCommandCenterSafeProjectionLinksComplete();
   const access = projectAdminCommandCenterAccess({
     role: "release-captain",
     area: "agent-orchestration",
@@ -121,7 +127,10 @@ export function AdminCommandCenterControlPanel() {
           </div>
           <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">read-only</span>
         </div>
-        <div className="mt-5 grid gap-3 md:grid-cols-5">
+        <div className="mt-5 grid gap-3 md:grid-cols-4 xl:grid-cols-8">
+          <MetricCard label="Projection links" value={String(projectionLinkCount)} />
+          <MetricCard label="Expected links" value={String(expectedProjectionLinkCount)} />
+          <MetricCard label="Links complete" value={String(projectionLinksComplete)} />
           <MetricCard label="Contract methods" value={routeContract.methods.join(" / ")} />
           <MetricCard label="Method count" value={String(routeContractSummary.methodCount)} />
           <MetricCard label="Safe access helper" value={String(routeContractSummary.requiresSafeAccessHelper)} />
