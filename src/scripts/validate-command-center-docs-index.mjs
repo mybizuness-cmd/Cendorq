@@ -9,6 +9,7 @@ const safeProjectionRunbookPath = "docs/admin-command-center-safe-projections.md
 const ownerManualPath = "docs/owner-operating-manual.md";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
 
 validateTextFile(docsIndexPath, [
   "# Command Center Docs Index",
@@ -98,6 +99,20 @@ validateTextFile(docsIndexPath, [
 ]);
 
 validateTextFile(docsIndexPath, [
+  "Route-chain integrity standard",
+  "validate-routes-chain-integrity.mjs",
+  "must run first in `validate:routes`",
+  "preserve validator ordering",
+  "block duplicate validators",
+  "require high-risk guardrail files",
+  "verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`",
+  "validate-report-evidence-record-persistence-runtime.mjs",
+  "validate-command-center-report-evidence-records-api.mjs",
+  "the persistence runtime, the records API route, safe-summary-only posture, append-only safe projection mode, and raw evidence exposure blocking",
+]);
+
+validateTextFile(docsIndexPath, [
+  "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
   "src/scripts/validate-admin-command-center-safe-response.mjs",
@@ -198,6 +213,7 @@ validateTextFile(ownerManualPath, [
 validateTextFile(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 
 validateTextFile(routesChainPath, [
+  "validate-routes-chain-integrity.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-admin-command-center-safe-response.mjs",
   "validate-admin-command-center-safe-projections-runbook.mjs",
@@ -208,13 +224,23 @@ validateTextFile(routesChainPath, [
   "validate-command-center-owner-configuration-workflow-smoke.mjs",
 ]);
 
+validateTextFile(routesChainIntegrityPath, [
+  "requiredIndirectReportEvidenceValidators",
+  "validate-report-evidence-record-persistence-runtime.mjs",
+  "validate-command-center-report-evidence-records-api.mjs",
+  "validateIndirectReportEvidenceCoverage",
+  "acceptedInput: \\\"safe-summary-only\\\"",
+  "persistenceMode: \\\"append-only-safe-projection\\\"",
+  "rawEvidenceExposed: false",
+]);
+
 if (failures.length) {
   console.error("Command Center docs index validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
+console.log("Command Center docs index validation passed with route-chain integrity, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
