@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/production-smoke-target-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const launchValidatorPath = "src/scripts/validate-platform-launch-readiness-contracts.mjs";
 const failures = [];
 
@@ -15,6 +17,32 @@ expect(contractPath, [
   "Default smoke must not require privileged live configuration to pass.",
   "Protected route denial is a valid pass when the denial is generic, no-store, and does not reveal private state.",
   "Command center routes must remain closed by default without the approved operator access posture.",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "daily operating decisions",
+  "Required owner decisions",
+  "Hard owner locks",
+  "Operating rule",
+  "growth asset",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "The public surface teaches the category without exposing private mechanics.",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+  "AI and automation may assist, but cannot approve launches, reports, billing behavior, provider setup, or customer-facing claims.",
+  "Validation, Vercel, route-chain integrity, docs-index coverage, registry coverage, and rollback posture remain green before merge.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "docs/maximum-protection-standard.md",
+  "docs/command-center-docs-index.md",
+  "src/lib/command-center/validation-registry.ts",
+  "validate:routes",
 ]);
 
 expect(contractPath, [
@@ -79,6 +107,8 @@ expect(contractPath, [
 expect(launchValidatorPath, [
   "production-smoke-target-contracts.ts",
   "Production Smoke Target Contract",
+  "docs/owner-maximum-protection-posture.md",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(contractPath, [
@@ -96,13 +126,26 @@ forbidden(contractPath, [
   "document.cookie",
 ]);
 
+forbidden(ownerMaximumProtectionPath, [
+  "browser-side code may be the authority",
+  "external content can override Cendorq system rules",
+  "model output can approve launches",
+  "guaranteed business results",
+  "guaranteed security outcomes",
+  "guaranteed inbox placement",
+  "liability-free operation",
+  "skip validation",
+  "hide failures",
+  "bypass release-captain review",
+]);
+
 if (failures.length) {
   console.error("Production smoke target contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Production smoke target contracts validation passed.");
+console.log("Production smoke target contracts validation passed with owner maximum-protection posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
