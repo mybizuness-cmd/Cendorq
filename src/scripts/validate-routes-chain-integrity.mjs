@@ -15,6 +15,10 @@ const repoUpdateScanningValidatorPath = "src/scripts/validate-repo-update-scanni
 const mostPristineValidatorPath = "src/scripts/validate-most-pristine-system-standard.mjs";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
+const controlledMaintenanceValidatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
+const controlledMaintenanceContractPath = "src/lib/controlled-maintenance-contracts.ts";
+const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
+const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const codeqlWorkflowPath = ".github/workflows/codeql.yml";
 const dependabotPath = ".github/dependabot.yml";
 
@@ -37,6 +41,7 @@ const requiredHighRiskValidators = [
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
   mostPristineValidatorPath,
+  controlledMaintenanceValidatorPath,
   "src/scripts/validate-access-governance.mjs",
   "src/scripts/validate-privacy-data-retention.mjs",
   "src/scripts/validate-trust-center-readiness.mjs",
@@ -94,6 +99,10 @@ validateFileExists(repoUpdateScanningValidatorPath);
 validateFileExists(mostPristineValidatorPath);
 validateFileExists(continuousEvolutionValidatorPath);
 validateFileExists(continuousEvolutionContractPath);
+validateFileExists(controlledMaintenanceValidatorPath);
+validateFileExists(controlledMaintenanceContractPath);
+validateFileExists(controlledMaintenanceDocsPath);
+validateFileExists(validationRegistryPath);
 
 if (!failures.length) {
   const packageText = read(packagePath);
@@ -143,6 +152,7 @@ if (!failures.length) {
   validateDependencyLockfileCoverage();
   validateRepoUpdateScanningCoverage();
   validateControlledContinuousEvolutionCoverage();
+  validateControlledMaintenanceCoverage();
 
   validateChainOrdering(chainValidators, [
     chainIntegrityValidatorPath,
@@ -203,7 +213,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The route-chain self-check runs first, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, and controlled continuous evolution are covered, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, and controlled maintenance are covered, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
 
 function validateIndirectReportEvidenceCoverage() {
   const runtimeValidatorText = read(reportEvidenceRecordRuntimeValidatorPath);
@@ -317,6 +327,67 @@ function validateControlledContinuousEvolutionCoverage() {
     "repo update scanning automation",
   ]) {
     if (!mostPristineText.includes(phrase)) failures.push(`${mostPristineValidatorPath} missing controlled continuous evolution coverage phrase: ${phrase}`);
+  }
+}
+
+function validateControlledMaintenanceCoverage() {
+  const contractText = read(controlledMaintenanceContractPath);
+  const validatorText = read(controlledMaintenanceValidatorPath);
+  const docsText = read(controlledMaintenanceDocsPath);
+  const registryText = read(validationRegistryPath);
+  const mostPristineText = read(mostPristineValidatorPath);
+
+  for (const phrase of [
+    "CONTROLLED_MAINTENANCE_CONTRACT",
+    "Controlled Maintenance Architecture",
+    "safe update queues",
+    "without uncontrolled AI changes or automatic production mutation",
+    "reviewStreams",
+    "safeUpdateQueue",
+    "hardLocks",
+    "releaseRules",
+    "No queued update may mutate production automatically",
+  ]) {
+    if (!contractText.includes(phrase)) failures.push(`${controlledMaintenanceContractPath} missing controlled maintenance phrase: ${phrase}`);
+  }
+
+  for (const phrase of [
+    "Controlled maintenance contracts validation passed",
+    "docs/controlled-maintenance.md",
+    "src/lib/controlled-maintenance-contracts.ts",
+    "docs/command-center-docs-index.md",
+    "src/lib/command-center/validation-registry.ts",
+    "No queued update may mutate production automatically",
+  ]) {
+    if (!validatorText.includes(phrase)) failures.push(`${controlledMaintenanceValidatorPath} missing controlled maintenance validator phrase: ${phrase}`);
+  }
+
+  for (const phrase of [
+    "# Controlled Maintenance",
+    "keeping the platform current, secure, validated, and scalable",
+    "No queued update may mutate production automatically",
+    "validation, approval state, rollback plan, and audit record",
+  ]) {
+    if (!docsText.includes(phrase)) failures.push(`${controlledMaintenanceDocsPath} missing controlled maintenance docs phrase: ${phrase}`);
+  }
+
+  for (const phrase of [
+    "controlled-maintenance",
+    "Controlled maintenance",
+    "src/scripts/validate-controlled-maintenance-contracts.mjs",
+    "safe update queues, review streams, validation gates, rollback planning, audit records",
+  ]) {
+    if (!registryText.includes(phrase)) failures.push(`${validationRegistryPath} missing controlled maintenance registry phrase: ${phrase}`);
+  }
+
+  for (const phrase of [
+    "src/lib/controlled-maintenance-contracts.ts",
+    "src/scripts/validate-controlled-maintenance-contracts.mjs",
+    "docs/controlled-maintenance.md",
+    "Controlled maintenance contracts validation passed",
+    "controlled maintenance",
+  ]) {
+    if (!mostPristineText.includes(phrase)) failures.push(`${mostPristineValidatorPath} missing controlled maintenance most-pristine coverage phrase: ${phrase}`);
   }
 }
 
