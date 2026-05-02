@@ -81,6 +81,10 @@ These paths are command-center-only and read-only review surfaces. They must rem
 
 These paths are command-center-only and safe-summary-only. They must not expose raw evidence, private evidence, provider payloads, customer data, private credentials, internal notes, operator identity, risk internals, attacker details, unsupported guarantees, or customer-facing report approvals. Report evidence record paths must remain append-only safe projection surfaces and must not create customer-facing output approval, paid recommendation approval, public report release approval, launch readiness approval, or security readiness approval.
 
+## Full cockpit panel safety standard
+
+`src/scripts/validate-command-center-panel-safety.mjs` must cover every current private cockpit panel rendered by `src/app/command-center/page.tsx`, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records. Every command-center panel must remain server-rendered, metadata-only, private-gated, registry-aligned, free of browser storage, free of browser-only APIs, free of direct environment access, and blocked from raw/private payload fields, secret/token patterns, unsafe guarantee language, and public exposure drift.
+
 ## Required cockpit validators
 
 These validators must stay wired into `validate:routes`:
