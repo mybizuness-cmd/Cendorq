@@ -9,6 +9,8 @@ const packagePath = "package.json";
 const runbookPath = "docs/command-center-operator-runbook.md";
 const docsIndexPath = "docs/command-center-docs-index.md";
 const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const reportTruthEnginePath = "src/lib/command-center/report-truth-engine.ts";
 const reportEvidenceApiPath = "src/app/api/command-center/report-evidence/orchestration/route.ts";
 const reportGrowthSystemPath = "src/lib/command-center/report-growth-system.ts";
@@ -17,7 +19,7 @@ const enterpriseOperatingStandardPath = "src/lib/command-center/enterprise-opera
 const auditDefenseSystemPath = "src/lib/command-center/audit-defense-system.ts";
 const mostPristineSystemStandardPath = "src/lib/command-center/most-pristine-system-standard.ts";
 
-for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath, reportTruthEnginePath, reportEvidenceApiPath, reportGrowthSystemPath, controlledMarketLearningPath, enterpriseOperatingStandardPath, auditDefenseSystemPath, mostPristineSystemStandardPath]) {
+for (const file of [smokePath, workflowPath, packagePath, runbookPath, docsIndexPath, validationRegistryPath, ownerMaximumProtectionPath, ownerMaximumProtectionValidatorPath, reportTruthEnginePath, reportEvidenceApiPath, reportGrowthSystemPath, controlledMarketLearningPath, enterpriseOperatingStandardPath, auditDefenseSystemPath, mostPristineSystemStandardPath]) {
   if (!existsSync(join(root, file))) failures.push(`Missing production smoke dependency: ${file}`);
 }
 
@@ -93,6 +95,10 @@ expect(runbookPath, [
 
 expect(docsIndexPath, [
   "# Command Center Docs Index",
+  "docs/owner-maximum-protection-posture.md",
+  "Owner maximum protection posture",
+  "validate-owner-maximum-protection-posture.mjs",
+  "owner maximum-protection posture rule",
   "src/lib/command-center/validation-registry.ts",
   "src/lib/command-center/report-truth-engine.ts",
   "src/lib/command-center/report-growth-system.ts",
@@ -118,6 +124,9 @@ expect(validationRegistryPath, [
   "COMMAND_CENTER_VALIDATION_REGISTRY",
   "protectedBoundary",
   "failureMeaning",
+  "owner-maximum-protection-posture",
+  "Owner maximum protection posture",
+  "validate-owner-maximum-protection-posture.mjs",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
   "validate-command-center-report-evidence-orchestration-api.mjs",
@@ -126,6 +135,23 @@ expect(validationRegistryPath, [
   "validate-audit-defense-system.mjs",
   "validate-most-pristine-system-standard.mjs",
   "validate-production-smoke-coverage.mjs",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "daily operating decisions",
+  "Required owner decisions",
+  "Hard owner locks",
+  "Operating rule",
+  "growth asset",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "docs/command-center-docs-index.md",
+  "src/lib/command-center/validation-registry.ts",
+  "validate:routes",
 ]);
 
 expect(reportEvidenceApiPath, [
@@ -218,7 +244,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, protected owner configuration evidence/workflow API checks, protected report evidence API checks, Command Center panel guard validators, validation registry visibility, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, protected owner configuration evidence/workflow API checks, protected report evidence API checks, Command Center panel guard validators, validation registry visibility, owner maximum-protection posture, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
