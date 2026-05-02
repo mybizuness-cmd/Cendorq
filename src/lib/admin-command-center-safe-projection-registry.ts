@@ -70,6 +70,9 @@ export const ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS: readonly AdminCommandCe
   },
 ] as const;
 
+export const ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINK_COUNT = ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS.length;
+export const ADMIN_COMMAND_CENTER_EXPECTED_SAFE_PROJECTION_LINK_COUNT = 6;
+
 export const ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES = [
   "preview-gated command-center access",
   "no-store responses",
@@ -95,6 +98,18 @@ export function getAdminCommandCenterSafeProjectionRouteContractSummary() {
     requiresSafeOptionsHelper: contract.requiresSafeOptionsHelper,
     allHelpersRequired: contract.requiresSafeAccessHelper && contract.requiresSafeResponseHelper && contract.requiresSafeOptionsHelper,
   } as const;
+}
+
+export function getAdminCommandCenterSafeProjectionLinkCount() {
+  return ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINK_COUNT;
+}
+
+export function getAdminCommandCenterExpectedSafeProjectionLinkCount() {
+  return ADMIN_COMMAND_CENTER_EXPECTED_SAFE_PROJECTION_LINK_COUNT;
+}
+
+export function getAdminCommandCenterSafeProjectionLinksComplete() {
+  return getAdminCommandCenterSafeProjectionLinkCount() === getAdminCommandCenterExpectedSafeProjectionLinkCount();
 }
 
 export function getAdminCommandCenterSafeProjectionLinks() {
