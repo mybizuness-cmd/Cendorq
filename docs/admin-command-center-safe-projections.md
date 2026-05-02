@@ -28,7 +28,7 @@ Do not duplicate the endpoint list in UI or API routes. The private command-cent
 
 Do not duplicate route contract metadata in UI or API routes. The private command-center panel and API index must expose each registry entry's methods and helper requirements so operators can verify the safe-access, safe-response, and safe-options contract from read-only projections.
 
-The private command-center panel must expose a canonical route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract` and `getAdminCommandCenterSafeProjectionRouteContractSummary` before the per-endpoint cards.
+The private command-center panel must expose a canonical route-contract strip from `getAdminCommandCenterSafeProjectionRouteContract` and `getAdminCommandCenterSafeProjectionRouteContractSummary` before the per-endpoint cards. The strip must show method count and all-helpers-required posture from the summary accessor, while per-endpoint cards continue to show each registry entry's methods and helper requirements.
 
 The private API index must also expose canonical `routeContract` and `routeContractSummary` blocks from the shared registry helpers before per-endpoint metadata.
 
