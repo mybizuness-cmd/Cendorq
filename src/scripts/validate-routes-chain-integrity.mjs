@@ -7,6 +7,7 @@ const packagePath = "package.json";
 const chainPath = "src/scripts/validate-routes-chain.mjs";
 const chainIntegrityValidatorPath = "src/scripts/validate-routes-chain-integrity.mjs";
 const baselineRouteValidatorPath = "src/scripts/validate-routes.mjs";
+const reportEvidenceRecordRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
 
 const requiredHighRiskValidators = [
   chainIntegrityValidatorPath,
@@ -22,7 +23,7 @@ const requiredHighRiskValidators = [
   "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
-  "src/scripts/validate-report-evidence-record-runtime.mjs",
+  reportEvidenceRecordRuntimeValidatorPath,
   "src/scripts/validate-report-generation-rendering-contracts.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -68,6 +69,11 @@ const requiredHighRiskValidators = [
   "src/scripts/validate-closed-intelligence.mjs",
 ];
 
+const requiredIndirectReportEvidenceValidators = [
+  "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
+  "src/scripts/validate-command-center-report-evidence-records-api.mjs",
+];
+
 validateFileExists(packagePath);
 validateFileExists(chainPath);
 
@@ -106,9 +112,15 @@ if (!failures.length) {
     validateFileExists(validatorPath);
   }
 
+  for (const validatorPath of requiredIndirectReportEvidenceValidators) {
+    validateFileExists(validatorPath);
+  }
+
   for (const validatorPath of chainValidators) {
     validateFileExists(validatorPath);
   }
+
+  validateIndirectReportEvidenceCoverage();
 
   validateChainOrdering(chainValidators, [
     chainIntegrityValidatorPath,
@@ -129,7 +141,7 @@ if (!failures.length) {
     "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
     "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
     "src/scripts/validate-report-evidence-record-contracts.mjs",
-    "src/scripts/validate-report-evidence-record-runtime.mjs",
+    reportEvidenceRecordRuntimeValidatorPath,
     "src/scripts/validate-report-generation-rendering-contracts.mjs",
   ]);
 
@@ -169,7 +181,27 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The route-chain self-check runs first, report evidence record contracts and runtime, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+
+function validateIndirectReportEvidenceCoverage() {
+  const runtimeValidatorText = read(reportEvidenceRecordRuntimeValidatorPath);
+  for (const validatorPath of requiredIndirectReportEvidenceValidators) {
+    if (!runtimeValidatorText.includes(validatorPath)) {
+      failures.push(`${reportEvidenceRecordRuntimeValidatorPath} must centrally cover indirect report evidence validator: ${validatorPath}`);
+    }
+  }
+
+  for (const phrase of [
+    "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
+    "src/app/api/command-center/report-evidence/records/route.ts",
+    "recordReportEvidenceRecordBatch",
+    "acceptedInput: \\\"safe-summary-only\\\"",
+    "persistenceMode: \\\"append-only-safe-projection\\\"",
+    "rawEvidenceExposed: false",
+  ]) {
+    if (!runtimeValidatorText.includes(phrase)) failures.push(`${reportEvidenceRecordRuntimeValidatorPath} missing indirect report evidence coverage phrase: ${phrase}`);
+  }
+}
 
 function validateChainOrdering(chainValidators, orderedValidators) {
   const indexes = orderedValidators.map((validatorPath) => chainValidators.indexOf(validatorPath));
