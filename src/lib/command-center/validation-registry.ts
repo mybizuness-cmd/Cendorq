@@ -91,6 +91,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Package or lockfile posture may have drifted from the approved dependency anchors or the dependency integrity documentation.",
   },
   {
+    key: "repo-update-scanning-automation",
+    label: "Repo update scanning automation",
+    scriptPath: "src/scripts/validate-repo-update-scanning-automation.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "Dependabot groups, CodeQL workflow, dependency integrity, most-pristine coverage, repo update scanning documentation, route-chain indirect coverage, and release-captain review posture stay aligned",
+    failureMeaning: "Automated update scanning may have drifted from approved Dependabot grouping, CodeQL v4 and checkout v6 posture, dependency integrity, documentation, or guarded release-captain review.",
+  },
+  {
     key: "report-truth-engine",
     label: "Report truth engine",
     scriptPath: "src/scripts/validate-report-truth-engine.mjs",
