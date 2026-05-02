@@ -6,15 +6,18 @@ const failures = [];
 const packagePath = "package.json";
 const lockfilePath = "pnpm-lock.yaml";
 const chainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
+const docsPath = "docs/dependency-lockfile-integrity.md";
 
 checkExists(packagePath);
 checkExists(lockfilePath);
 checkExists(chainIntegrityPath);
+checkExists(docsPath);
 
 if (!failures.length) {
   const pkg = JSON.parse(read(packagePath));
   const lockfile = read(lockfilePath);
   const chainIntegrity = read(chainIntegrityPath);
+  const docs = read(docsPath);
 
   checkValue(pkg.packageManager, "pnpm@9.15.9", "packageManager");
   checkValue(pkg.engines?.node, ">=24.0.0", "engines.node");
@@ -45,6 +48,21 @@ if (!failures.length) {
     "src/scripts/validate-dependency-lockfile-integrity.mjs",
     "package.json",
     "pnpm-lock.yaml",
+  ]);
+
+  requireText(docsPath, docs, [
+    "# Dependency Lockfile Integrity",
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm@9.15.9",
+    ">=24.0.0",
+    "validate:routes",
+    "Next resolved version: `16.2.4`",
+    "React resolved version: `19.2.5`",
+    "TypeScript resolved version: `6.0.3`",
+    "ESLint resolved version: `10.2.1`",
+    "TypeScript ESLint parser resolved version: `8.59.1`",
+    "Do not let dependency PRs merge with unreviewed package and lockfile drift.",
   ]);
 }
 
