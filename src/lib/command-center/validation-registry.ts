@@ -127,6 +127,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Report evidence runtime records may no longer generate safe summaries, preserve release-captain review posture, or block raw evidence, provider payloads, credentials, customer data, and approval drift.",
   },
   {
+    key: "report-evidence-record-persistence-runtime",
+    label: "Report evidence record persistence runtime",
+    scriptPath: "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
+    category: "schema",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "command-center-gated, append-only, no-store report evidence persistence projections with safe hashes and no raw/private payload exposure or approval drift",
+    failureMeaning: "Report evidence persistence may no longer stay append-only, no-store, safe-summary/hash based, command-center gated, centrally covered, or blocked from raw evidence, provider payloads, credentials, customer data, private audit payloads, and approval drift.",
+  },
+  {
     key: "controlled-market-learning",
     label: "Controlled market learning",
     scriptPath: "src/scripts/validate-controlled-market-learning.mjs",
