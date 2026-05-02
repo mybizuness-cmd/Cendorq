@@ -6,6 +6,8 @@ const failures = [];
 const runbookPath = "docs/command-center-operator-runbook.md";
 const docsIndexPath = "docs/command-center-docs-index.md";
 const packagePath = "package.json";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const ownerEvidenceRoutePath = "src/app/api/command-center/owner-configuration/evidence/route.ts";
 const ownerWorkflowRoutePath = "src/app/api/command-center/owner-configuration/workflow/route.ts";
 const ownerWorkflowPanelPath = "src/app/command-center/owner-configuration-workflow-panel.tsx";
@@ -38,6 +40,33 @@ validateTextFile(runbookPath, [
   "Maintenance output must remain safe-projection-only",
   "validate-controlled-maintenance-contracts.mjs",
   "Controlled maintenance stays wired into `validate:routes` and represented in the validation registry.",
+]);
+
+validateTextFile(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "daily operating decisions",
+  "open only where public conversion requires it",
+  "Required owner decisions",
+  "Hard owner locks",
+  "Operating rule",
+  "growth asset",
+]);
+
+validateTextFile(ownerMaximumProtectionPath, [
+  "The public surface teaches the category without exposing private mechanics.",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+  "AI and automation may assist, but cannot approve launches, reports, billing behavior, provider setup, or customer-facing claims.",
+  "Validation, Vercel, route-chain integrity, docs-index coverage, registry coverage, and rollback posture remain green before merge.",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "docs/maximum-protection-standard.md",
+  "docs/command-center-docs-index.md",
+  "src/lib/command-center/validation-registry.ts",
+  "validate:routes",
 ]);
 
 validateTextFile(runbookPath, [
@@ -112,6 +141,9 @@ validateTextFile(runbookPath, [
 validateTextFile(docsIndexPath, [
   "# Command Center Docs Index",
   "docs/command-center-operator-runbook.md",
+  "docs/owner-maximum-protection-posture.md",
+  "validate-owner-maximum-protection-posture.mjs",
+  "owner maximum-protection posture rule",
   "docs/repo-update-scanning-automation.md",
   "docs/controlled-maintenance.md",
   "Controlled maintenance standard",
@@ -151,6 +183,7 @@ validateTextFile(controlledMaintenanceContractPath, [
 ]);
 
 validateTextFile(routesChainIntegrityPath, [
+  "validate-owner-maximum-protection-posture.mjs",
   "validate-codeql-workflow-integrity.mjs",
   "validate-dependency-lockfile-integrity.mjs",
   "validate-repo-update-scanning-automation.mjs",
@@ -318,6 +351,7 @@ validateTextFile(ownerWorkflowSmokeValidatorPath, [
 
 validateTextFile(packagePath, [
   "validate:routes",
+  "validate-owner-maximum-protection-posture.mjs",
   "validate-command-center-security-posture.mjs",
   "validate-command-center-panel-registry.mjs",
   "validate-command-center-panel-safety.mjs",
@@ -328,6 +362,7 @@ validateTextFile(packagePath, [
   "validate-production-smoke-coverage.mjs",
 ]);
 
+forbidden(ownerMaximumProtectionPath, unsafePhrases());
 forbidden(ownerEvidenceRoutePath, unsafePhrases());
 forbidden(ownerWorkflowRoutePath, unsafePhrases());
 forbidden(ownerWorkflowPanelPath, unsafePhrases());
@@ -339,7 +374,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, route-chain integrity, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, controlled maintenance, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
+console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, owner maximum-protection posture, route-chain integrity, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, controlled maintenance, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
 
 function unsafePhrases() {
   return [
