@@ -73,6 +73,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "A required validator is missing, unwired, or no longer represented in the validation registry.",
   },
   {
+    key: "codeql-workflow-integrity",
+    label: "CodeQL workflow integrity",
+    scriptPath: "src/scripts/validate-codeql-workflow-integrity.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "CodeQL workflow triggers, minimal permissions, checkout v6, CodeQL v4, JavaScript/TypeScript analysis, security-and-quality query posture, and no broad write permission or continue-on-error drift",
+    failureMeaning: "The CodeQL workflow may have drifted into stale action versions, weakened permissions, missing security query posture, missing main/PR/schedule coverage, or non-failing security analysis.",
+  },
+  {
     key: "report-truth-engine",
     label: "Report truth engine",
     scriptPath: "src/scripts/validate-report-truth-engine.mjs",
