@@ -10,6 +10,7 @@ const ownerManualPath = "docs/owner-operating-manual.md";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
+const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 
 validateTextFile(docsIndexPath, [
   "# Command Center Docs Index",
@@ -105,6 +106,7 @@ validateTextFile(docsIndexPath, [
   "preserve validator ordering",
   "block duplicate validators",
   "require high-risk guardrail files",
+  "verify CodeQL workflow integrity coverage",
   "verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`",
   "validate-report-evidence-record-persistence-runtime.mjs",
   "validate-command-center-report-evidence-records-api.mjs",
@@ -112,7 +114,23 @@ validateTextFile(docsIndexPath, [
 ]);
 
 validateTextFile(docsIndexPath, [
+  "CodeQL workflow integrity standard",
+  "validate-codeql-workflow-integrity.mjs",
+  ".github/workflows/codeql.yml",
+  "main push, pull request, and weekly schedule triggers",
+  "minimal read permissions plus `security-events: write`",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
+  "github/codeql-action/autobuild@v4",
+  "github/codeql-action/analyze@v4",
+  "JavaScript/TypeScript analysis",
+  "security-extended,security-and-quality",
+  "block older checkout/CodeQL action versions, broad write permissions, and `continue-on-error: true` drift",
+]);
+
+validateTextFile(docsIndexPath, [
   "src/scripts/validate-routes-chain-integrity.mjs",
+  "src/scripts/validate-codeql-workflow-integrity.mjs",
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
   "src/scripts/validate-admin-command-center-safe-response.mjs",
@@ -225,13 +243,27 @@ validateTextFile(routesChainPath, [
 ]);
 
 validateTextFile(routesChainIntegrityPath, [
+  "validate-codeql-workflow-integrity.mjs",
   "requiredIndirectReportEvidenceValidators",
   "validate-report-evidence-record-persistence-runtime.mjs",
   "validate-command-center-report-evidence-records-api.mjs",
   "validateIndirectReportEvidenceCoverage",
+  "validateCodeqlWorkflowCoverage",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
   "acceptedInput: \\\"safe-summary-only\\\"",
   "persistenceMode: \\\"append-only-safe-projection\\\"",
   "rawEvidenceExposed: false",
+]);
+
+validateTextFile(codeqlWorkflowValidatorPath, [
+  ".github/workflows/codeql.yml",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
+  "github/codeql-action/autobuild@v4",
+  "github/codeql-action/analyze@v4",
+  "security-extended,security-and-quality",
+  "continue-on-error: true",
 ]);
 
 if (failures.length) {
@@ -240,7 +272,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with route-chain integrity, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
+console.log("Command Center docs index validation passed with CodeQL workflow integrity, route-chain integrity, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
