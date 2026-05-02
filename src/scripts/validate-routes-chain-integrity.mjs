@@ -12,6 +12,9 @@ const reportEvidenceRecordRuntimeValidatorPath = "src/scripts/validate-report-ev
 const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfile-integrity.mjs";
 const repoUpdateScanningValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
+const mostPristineValidatorPath = "src/scripts/validate-most-pristine-system-standard.mjs";
+const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
+const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const codeqlWorkflowPath = ".github/workflows/codeql.yml";
 const dependabotPath = ".github/dependabot.yml";
 
@@ -33,7 +36,7 @@ const requiredHighRiskValidators = [
   "src/scripts/validate-report-generation-rendering-contracts.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
-  "src/scripts/validate-most-pristine-system-standard.mjs",
+  mostPristineValidatorPath,
   "src/scripts/validate-access-governance.mjs",
   "src/scripts/validate-privacy-data-retention.mjs",
   "src/scripts/validate-trust-center-readiness.mjs",
@@ -88,6 +91,9 @@ validateFileExists(dependabotPath);
 validateFileExists(codeqlWorkflowValidatorPath);
 validateFileExists(dependencyLockfileValidatorPath);
 validateFileExists(repoUpdateScanningValidatorPath);
+validateFileExists(mostPristineValidatorPath);
+validateFileExists(continuousEvolutionValidatorPath);
+validateFileExists(continuousEvolutionContractPath);
 
 if (!failures.length) {
   const packageText = read(packagePath);
@@ -136,6 +142,7 @@ if (!failures.length) {
   validateCodeqlWorkflowCoverage();
   validateDependencyLockfileCoverage();
   validateRepoUpdateScanningCoverage();
+  validateControlledContinuousEvolutionCoverage();
 
   validateChainOrdering(chainValidators, [
     chainIntegrityValidatorPath,
@@ -196,7 +203,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The route-chain self-check runs first, CodeQL workflow integrity, dependency lockfile integrity, and repo update scanning automation are covered, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, and controlled continuous evolution are covered, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
 
 function validateIndirectReportEvidenceCoverage() {
   const runtimeValidatorText = read(reportEvidenceRecordRuntimeValidatorPath);
@@ -266,6 +273,50 @@ function validateRepoUpdateScanningCoverage() {
     "typescript-tooling",
   ]) {
     if (!validatorText.includes(phrase)) failures.push(`${repoUpdateScanningValidatorPath} missing repo update scanning phrase: ${phrase}`);
+  }
+}
+
+function validateControlledContinuousEvolutionCoverage() {
+  const contractText = read(continuousEvolutionContractPath);
+  const validatorText = read(continuousEvolutionValidatorPath);
+  const mostPristineText = read(mostPristineValidatorPath);
+
+  for (const phrase of [
+    "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+    "controlled-continuous-evolution-v1",
+    "Automated systems may detect, propose, test, and prepare updates.",
+    "open dependency update pull requests",
+    "run validation scripts",
+    "Vercel preview or deployment check passes",
+    "small coherent batches",
+    "rollback-ready before promotion",
+    "automatic update systems can propose changes but cannot bypass validation",
+    "all scheduled updates must remain coherent, bounded, and traceable",
+  ]) {
+    if (!contractText.includes(phrase)) failures.push(`${continuousEvolutionContractPath} missing controlled continuous evolution phrase: ${phrase}`);
+  }
+
+  for (const phrase of [
+    "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+    "controlled-continuous-evolution-v1",
+    "auto-merge production-impacting code without green gates",
+    "pull request with reviewable diff",
+    "Vercel preview or deployment check passes",
+    "rollback path identified",
+    "skipVercelGate",
+    "disableValidatorForUpdate",
+  ]) {
+    if (!validatorText.includes(phrase)) failures.push(`${continuousEvolutionValidatorPath} missing controlled continuous evolution validator phrase: ${phrase}`);
+  }
+
+  for (const phrase of [
+    "src/lib/controlled-continuous-evolution-contracts.ts",
+    "src/scripts/validate-controlled-continuous-evolution.mjs",
+    "Controlled continuous evolution validation passed",
+    "controlled continuous evolution",
+    "repo update scanning automation",
+  ]) {
+    if (!mostPristineText.includes(phrase)) failures.push(`${mostPristineValidatorPath} missing controlled continuous evolution coverage phrase: ${phrase}`);
   }
 }
 
