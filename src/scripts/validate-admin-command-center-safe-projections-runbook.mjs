@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const docPath = "docs/admin-command-center-safe-projections.md";
+const docsIndexPath = "docs/command-center-docs-index.md";
 const registryPath = "src/lib/admin-command-center-safe-projection-registry.ts";
 const accessPath = "src/lib/admin-command-center-safe-access.ts";
 const responsePath = "src/lib/admin-command-center-safe-response.ts";
@@ -63,6 +64,13 @@ expect(docPath, [
   "validate-routes-chain.mjs",
 ]);
 
+expect(docsIndexPath, [
+  "panel-summary-display-backed",
+  "route-contract-summary-backed",
+  "admin command-center panel summary display",
+  "panel summary display tied to method count and all-helpers-required posture from `getAdminCommandCenterSafeProjectionRouteContractSummary`",
+]);
+
 expect(registryPath, [
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
@@ -118,7 +126,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with panel route-contract summary display coverage.");
+console.log("Admin command center safe projections runbook validation passed with panel summary docs index guard.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
