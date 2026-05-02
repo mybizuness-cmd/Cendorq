@@ -2,72 +2,15 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
-const runtimePath = "src/lib/command-center/report-evidence-record-runtime.ts";
-const persistenceRuntimePath = "src/lib/command-center/report-evidence-record-persistence-runtime.ts";
-const persistenceValidatorPath = "src/scripts/validate-report-evidence-record-persistence-runtime.mjs";
-const contractsPath = "src/lib/command-center/report-evidence-record-contracts.ts";
-const orchestrationRuntimePath = "src/lib/command-center/report-evidence-orchestration-runtime.ts";
+const failures = [];
+const runtimePath = "src/lib/command-center/report-evidence-record-persistence-runtime.ts";
+const recordRuntimePath = "src/lib/command-center/report-evidence-record-runtime.ts";
 const ownerPersistencePath = "src/lib/owner-configuration-evidence-persistence-runtime.ts";
 const launchPersistencePath = "src/lib/launch-evidence-persistence-runtime.ts";
+const wiredRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const failures = [];
 
 expect(runtimePath, [
-  "buildReportEvidenceRecordRuntime",
-  "ReportEvidenceRecordRuntimeInput",
-  "ReportEvidenceRecordRuntimeSummary",
-  "projectReportEvidenceRuntime",
-  "ReportEvidenceRuntimeInput",
-  "ReportEvidenceRuntimeProjection",
-]);
-
-expect(runtimePath, [
-  "sourceRecords",
-  "confidenceRecords",
-  "conflictRecords",
-  "planFitRecords",
-  "blockedPatternRecords",
-  "releaseReviewRecord",
-  "buildSourceRecord",
-  "buildConfidenceRecord",
-  "buildConflictRecord",
-  "buildPlanFitRecord",
-  "buildBlockedPatternRecords",
-  "buildReleaseReviewRecord",
-]);
-
-expect(runtimePath, [
-  "rawEvidenceStored: false",
-  "rawProviderPayloadStored: false",
-  "privateCredentialStored: false",
-  "customerDataStored: false",
-  "publicOutputAllowed: false",
-  "customerFacingLanguageAllowed: false",
-  "paidRecommendationApproved: false",
-  "customerFacingOutputApproved: false",
-  "publicReportReleaseApproved: false",
-  "paidPlanRecommendationApproved: false",
-  "customerFacingOutputBlocked: true",
-  "releaseCaptainReviewRequired: true",
-]);
-
-expect(runtimePath, [
-  "pending-release-captain-review",
-  "blocked",
-  "reviewed",
-  "ignoredEvidenceConflict",
-  "unsupportedPlanRecommendation",
-  "fixWithoutDiagnosis",
-  "confidenceRaisedByReviewOnly",
-  "confidenceDowngraded: true",
-  "rawPrivateExposureChecked: true",
-  "redacted-safe-record",
-  "safeRecordSummary",
-  "safeTimestamp",
-  "safeToken",
-]);
-
-expect(persistenceRuntimePath, [
   "ReportEvidenceRecordPersistenceAccess",
   "ReportEvidencePersistedRecordClass",
   "ReportEvidenceRecordPersistenceRecord",
@@ -79,7 +22,7 @@ expect(persistenceRuntimePath, [
   "ReportEvidenceRecordRuntimeSummary",
 ]);
 
-expect(persistenceRuntimePath, [
+expect(runtimePath, [
   "recordClass: \"source\"",
   "recordClass: \"confidence\"",
   "recordClass: \"conflict\"",
@@ -95,7 +38,7 @@ expect(persistenceRuntimePath, [
   "safeSummaryHash",
 ]);
 
-expect(persistenceRuntimePath, [
+expect(runtimePath, [
   "appendOnly: true",
   "cache: \"no-store\"",
   "not_available",
@@ -113,7 +56,7 @@ expect(persistenceRuntimePath, [
   "safeToken",
 ]);
 
-expect(persistenceRuntimePath, [
+expect(runtimePath, [
   "rawEvidenceStored: false",
   "rawProviderPayloadStored: false",
   "privateCredentialStored: false",
@@ -130,7 +73,7 @@ expect(persistenceRuntimePath, [
   "blockedPatternsChecked",
 ]);
 
-expect(persistenceRuntimePath, [
+expect(runtimePath, [
   "secret=",
   "password=",
   "token=",
@@ -144,30 +87,12 @@ expect(persistenceRuntimePath, [
   "redacted-safe-value",
 ]);
 
-expect(persistenceValidatorPath, [
-  "ReportEvidenceRecordPersistenceAccess",
-  "recordReportEvidenceRecordBatch",
-  "appendOnly: true",
-  "cache: \\\"no-store\\\"",
+expect(recordRuntimePath, [
+  "buildReportEvidenceRecordRuntime",
   "rawEvidenceStored: false",
   "customerFacingOutputApproved: false",
-]);
-
-expect(contractsPath, [
-  "ReportEvidenceSourceRecordContract",
-  "ReportEvidenceConfidenceRecordContract",
-  "ReportEvidenceConflictRecordContract",
-  "ReportEvidencePlanFitRecordContract",
-  "ReportEvidenceBlockedPatternRecordContract",
-  "ReportEvidenceReleaseReviewRecordContract",
-]);
-
-expect(orchestrationRuntimePath, [
-  "projectReportEvidenceRuntime",
-  "customerOutputAllowed",
-  "releaseCaptainRequired",
-  "blockedPatterns",
-  "safeNextActions",
+  "publicReportReleaseApproved: false",
+  "paidPlanRecommendationApproved: false",
 ]);
 
 expect(ownerPersistencePath, [
@@ -188,39 +113,19 @@ expect(launchPersistencePath, [
   "privateAuditPayload",
 ]);
 
+expect(wiredRuntimeValidatorPath, [
+  "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
+  "recordReportEvidenceRecordBatch",
+  "getReportEvidenceRecordHistoryResponse",
+  "rawEvidenceStored: false",
+  "customerFacingOutputApproved: false",
+]);
+
 expect(routesChainPath, [
   "src/scripts/validate-report-evidence-record-runtime.mjs",
 ]);
 
 forbidden(runtimePath, [
-  "rawEvidenceStored: true",
-  "rawProviderPayloadStored: true",
-  "privateCredentialStored: true",
-  "customerDataStored: true",
-  "publicOutputAllowed: true",
-  "customerFacingLanguageAllowed: true",
-  "paidRecommendationApproved: true",
-  "customerFacingOutputApproved: true",
-  "publicReportReleaseApproved: true",
-  "paidPlanRecommendationApproved: true",
-  "rawPayload=",
-  "rawEvidence=",
-  "providerPayload=",
-  "customerData=",
-  "internalNotes=",
-  "operatorIdentity=",
-  "session" + "Token=",
-  "csrf" + "Token=",
-  "admin" + "Key=",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed accuracy",
-  "guaranteed security",
-  "impossible to hack",
-  "liability-free",
-]);
-
-forbidden(persistenceRuntimePath, [
   "rawEvidenceStored: true",
   "rawProviderPayloadStored: true",
   "privateCredentialStored: true",
@@ -245,12 +150,12 @@ forbidden(persistenceRuntimePath, [
 ]);
 
 if (failures.length) {
-  console.error("Report evidence record runtime validation failed:");
+  console.error("Report evidence record persistence runtime validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Report evidence record runtime validation passed. Runtime projections and persistence records create safe source, confidence, conflict, plan-fit, blocked-pattern, and release-review metadata without raw/private payload exposure or approval drift.");
+console.log("Report evidence record persistence runtime validation passed. Persistence remains command-center gated, append-only, no-store, safe-summary/hash based, centrally covered by the report evidence record runtime validator, and blocked from raw/private payload exposure or approval drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
