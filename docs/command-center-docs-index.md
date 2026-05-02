@@ -5,6 +5,7 @@ This private documentation index keeps the Command Center operating standards ea
 ## Core standards
 
 - `docs/maximum-protection-standard.md` — highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard.
+- `docs/owner-maximum-protection-posture.md` — owner-facing maximum-protection operating posture for public/private boundaries, verified access, operator review, AI/automation limits, validation gates, rollback posture, and release-captain review.
 - `docs/command-center-operator-runbook.md` — cockpit maintenance workflow for closed-by-default, metadata-only, server-rendered, registry-covered Command Center panels.
 - `docs/admin-command-center-safe-projections.md` — admin command-center safe projection map for preview-gated, shared-access-backed, safe-options-backed, registry-contract-backed, route-contract-summary-backed, projection-link-count-backed, panel-contract-strip-backed, panel-summary-display-backed, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces.
 - `docs/owner-operating-manual.md` — owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence.
@@ -98,6 +99,10 @@ These paths are command-center-only and safe-summary-only. They must not expose 
 
 `src/scripts/validate-maximum-protection-standard.mjs` must keep `docs/maximum-protection-standard.md`, `src/lib/command-center/validation-registry.ts`, and `validate:routes` aligned with Cendorq's highest-protection doctrine. Maximum protection must preserve data classification, deny-by-default access, server-side private data handling, secret handling, exfiltration prevention, AI-agent containment, report protection, evidence protection, supply-chain protection, database protection, auditability, emergency controls, partner boundaries, and public doctrine boundaries without exposing private mechanics, client data, report internals, prompts, exact scoring weights, private evidence, or unrestricted report exports.
 
+## Owner maximum protection posture
+
+`src/scripts/validate-owner-maximum-protection-posture.mjs` must keep `docs/owner-maximum-protection-posture.md`, `docs/maximum-protection-standard.md`, the validation registry anchor, and `validate:routes` aligned with owner-level operating decisions. Owner maximum protection must preserve public/private boundaries, verified customer access, operator-only review, AI and automation approval limits, evidence separation, validation gates, rollback posture, release-captain review, and customer-safe language without exposing private mechanics or weakening launch, report, billing, provider, support, or customer-facing claim approval boundaries.
+
 ## CodeQL workflow integrity standard
 
 `src/scripts/validate-codeql-workflow-integrity.mjs` must keep `.github/workflows/codeql.yml` on the approved main push, pull request, and weekly schedule triggers; minimal read permissions plus `security-events: write`; `actions/checkout@v6`; `github/codeql-action/init@v4`; `github/codeql-action/autobuild@v4`; `github/codeql-action/analyze@v4`; JavaScript/TypeScript analysis; and `security-extended,security-and-quality` queries. It must block older checkout/CodeQL action versions, broad write permissions, and `continue-on-error: true` drift.
@@ -120,6 +125,7 @@ These validators must stay wired into `validate:routes`:
 
 - `src/scripts/validate-routes-chain-integrity.mjs`
 - `src/scripts/validate-maximum-protection-standard.mjs`
+- `src/scripts/validate-owner-maximum-protection-posture.mjs`
 - `src/scripts/validate-codeql-workflow-integrity.mjs`
 - `src/scripts/validate-command-center-security-posture.mjs`
 - `src/scripts/validate-command-center-panel-registry.mjs`
@@ -166,4 +172,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, maximum protection rule, repo update scanning automation rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
