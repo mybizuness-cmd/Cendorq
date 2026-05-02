@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const docsPath = "docs/controlled-continuous-evolution.md";
 const contractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const pristineValidatorPath = "src/scripts/validate-most-pristine-system-standard.mjs";
 const routeChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -13,7 +14,23 @@ const docsIndexPath = "docs/command-center-docs-index.md";
 const docsIndexValidatorPath = "src/scripts/validate-command-center-docs-index.mjs";
 const operatorRunbookPath = "docs/command-center-operator-runbook.md";
 const operatorRunbookValidatorPath = "src/scripts/validate-command-center-operator-runbook.mjs";
+const ownerManualPath = "docs/owner-operating-manual.md";
+const ownerManualValidatorPath = "src/scripts/validate-owner-operating-manual.mjs";
 const packagePath = "package.json";
+
+expect(docsPath, [
+  "# Controlled Continuous Evolution",
+  "monitored, validated, reviewable, reversible updates",
+  "Automated systems may detect, propose, test, and prepare updates",
+  "a small coherent branch from the latest confirmed main",
+  "validation scripts passing",
+  "Vercel preview or deployment check success when applicable",
+  "auto-merge production-impacting code without green gates",
+  "skip Vercel or preview gates",
+  "release-captain approval before merge",
+  "Continuous updates must raise or preserve Cendorq's most-pristine standard",
+  "Documentation rule",
+]);
 
 expect(contractPath, [
   "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
@@ -92,14 +109,16 @@ expect(validationRegistryValidatorPath, [
 
 expect(docsIndexPath, [
   "Controlled continuous evolution standard",
+  "docs/controlled-continuous-evolution.md",
   "src/scripts/validate-controlled-continuous-evolution.mjs",
   "src/lib/controlled-continuous-evolution-contracts.ts",
   "small-batch, preview-gated, rollback-ready, documented",
-  "route-chain integrity, validation registry, and most-pristine coverage",
+  "route-chain integrity, validation registry, docs index, operator runbook, owner operating manual, and most-pristine coverage",
 ]);
 
 expect(docsIndexValidatorPath, [
   "Controlled continuous evolution standard",
+  "docs/controlled-continuous-evolution.md",
   "validate-controlled-continuous-evolution.mjs",
   "src/lib/controlled-continuous-evolution-contracts.ts",
   "controlled continuous evolution rule",
@@ -120,8 +139,28 @@ expect(operatorRunbookValidatorPath, [
   "controlled continuous evolution",
 ]);
 
+expect(ownerManualPath, [
+  "## Controlled continuous evolution",
+  "Cendorq should keep improving after launch through monitored, validated, reviewable, reversible updates without uncontrolled production mutation or quality drift.",
+  "Do not skip gates to move faster.",
+]);
+
+expect(ownerManualValidatorPath, [
+  "## Controlled continuous evolution",
+  "controlled continuous evolution",
+  "route-chain, registry, docs-index, operator-runbook, and most-pristine coverage",
+]);
+
 expect(packagePath, [
   "validate:routes",
+]);
+
+forbidden(docsPath, [
+  "auto-merge without validation is allowed",
+  "skip Vercel gates for speed",
+  "disable validation to pass",
+  "unreviewed production mutation is allowed",
+  "weaken safeguards for convenience",
 ]);
 
 forbidden(contractPath, [
@@ -140,7 +179,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Controlled continuous evolution validation passed with route-chain, registry, docs-index, operator-runbook, and most-pristine coverage.");
+console.log("Controlled continuous evolution validation passed with docs, route-chain, registry, docs-index, operator-runbook, owner-manual, and most-pristine coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
