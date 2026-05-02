@@ -87,13 +87,18 @@ These paths are command-center-only and safe-summary-only. They must not expose 
 
 ## Route-chain integrity standard
 
-`src/scripts/validate-routes-chain-integrity.mjs` must run first in `validate:routes`, preserve validator ordering, block duplicate validators, require high-risk guardrail files, and verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`. Indirect report evidence coverage must include `src/scripts/validate-report-evidence-record-persistence-runtime.mjs`, `src/scripts/validate-command-center-report-evidence-records-api.mjs`, the persistence runtime, the records API route, safe-summary-only posture, append-only safe projection mode, and raw evidence exposure blocking.
+`src/scripts/validate-routes-chain-integrity.mjs` must run first in `validate:routes`, preserve validator ordering, block duplicate validators, require high-risk guardrail files, verify CodeQL workflow integrity coverage, and verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`. Indirect report evidence coverage must include `src/scripts/validate-report-evidence-record-persistence-runtime.mjs`, `src/scripts/validate-command-center-report-evidence-records-api.mjs`, the persistence runtime, the records API route, safe-summary-only posture, append-only safe projection mode, and raw evidence exposure blocking.
+
+## CodeQL workflow integrity standard
+
+`src/scripts/validate-codeql-workflow-integrity.mjs` must keep `.github/workflows/codeql.yml` on the approved main push, pull request, and weekly schedule triggers; minimal read permissions plus `security-events: write`; `actions/checkout@v6`; `github/codeql-action/init@v4`; `github/codeql-action/autobuild@v4`; `github/codeql-action/analyze@v4`; JavaScript/TypeScript analysis; and `security-extended,security-and-quality` queries. It must block older checkout/CodeQL action versions, broad write permissions, and `continue-on-error: true` drift.
 
 ## Required cockpit validators
 
 These validators must stay wired into `validate:routes`:
 
 - `src/scripts/validate-routes-chain-integrity.mjs`
+- `src/scripts/validate-codeql-workflow-integrity.mjs`
 - `src/scripts/validate-command-center-security-posture.mjs`
 - `src/scripts/validate-command-center-panel-registry.mjs`
 - `src/scripts/validate-command-center-panel-safety.mjs`
@@ -139,4 +144,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
