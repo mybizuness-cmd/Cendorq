@@ -7,6 +7,7 @@ const docsIndexPath = "docs/command-center-docs-index.md";
 const runbookPath = "docs/command-center-operator-runbook.md";
 const safeProjectionRunbookPath = "docs/admin-command-center-safe-projections.md";
 const ownerManualPath = "docs/owner-operating-manual.md";
+const repoUpdateScanningDocsPath = "docs/repo-update-scanning-automation.md";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
@@ -20,6 +21,8 @@ validateTextFile(docsIndexPath, [
   "docs/admin-command-center-safe-projections.md",
   "registry-contract-backed, route-contract-summary-backed, projection-link-count-backed, panel-contract-strip-backed, panel-summary-display-backed",
   "docs/owner-operating-manual.md",
+  "docs/repo-update-scanning-automation.md",
+  "repo update scanning automation standard for Dependabot, CodeQL workflow, dependency integrity, most-pristine, route-chain coverage, and release-captain review posture",
   "src/lib/command-center/access.ts",
   "src/lib/command-center/security-posture.ts",
   "src/lib/command-center/panel-registry.ts",
@@ -107,6 +110,7 @@ validateTextFile(docsIndexPath, [
   "block duplicate validators",
   "require high-risk guardrail files",
   "verify CodeQL workflow integrity coverage",
+  "verify repo update scanning automation coverage",
   "verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`",
   "validate-report-evidence-record-persistence-runtime.mjs",
   "validate-command-center-report-evidence-records-api.mjs",
@@ -126,6 +130,25 @@ validateTextFile(docsIndexPath, [
   "JavaScript/TypeScript analysis",
   "security-extended,security-and-quality",
   "block older checkout/CodeQL action versions, broad write permissions, and `continue-on-error: true` drift",
+]);
+
+validateTextFile(docsIndexPath, [
+  "Repo update scanning automation standard",
+  "validate-repo-update-scanning-automation.mjs",
+  "docs/repo-update-scanning-automation.md",
+  ".github/dependabot.yml",
+  ".github/workflows/codeql.yml",
+  "src/scripts/validate-codeql-workflow-integrity.mjs",
+  "src/scripts/validate-dependency-lockfile-integrity.mjs",
+  "src/scripts/validate-most-pristine-system-standard.mjs",
+  "validate:routes",
+  "Dependabot update groups",
+  "CodeQL v4",
+  "checkout v6",
+  "dependency integrity coverage",
+  "most-pristine coverage",
+  "release-captain review posture",
+  "without approving dependency updates, provider configuration, paid launch, public launch, security readiness, customer-facing reports, or customer-facing claims",
 ]);
 
 validateTextFile(docsIndexPath, [
@@ -184,6 +207,7 @@ validateTextFile(docsIndexPath, [
   "report evidence record contract",
   "report evidence record runtime",
   "report evidence record persistence runtime",
+  "repo update scanning automation rule",
 ]);
 
 validateTextFile(runbookPath, [
@@ -193,6 +217,25 @@ validateTextFile(runbookPath, [
   "validate-command-center-docs-index.mjs",
   "validate-command-center-owner-configuration-workflow-smoke.mjs",
   "Vercel is green.",
+]);
+
+validateTextFile(repoUpdateScanningDocsPath, [
+  "# Repo Update Scanning Automation",
+  "src/scripts/validate-repo-update-scanning-automation.mjs",
+  ".github/dependabot.yml",
+  ".github/workflows/codeql.yml",
+  "src/scripts/validate-codeql-workflow-integrity.mjs",
+  "src/scripts/validate-dependency-lockfile-integrity.mjs",
+  "src/scripts/validate-most-pristine-system-standard.mjs",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
+  "github/codeql-action/autobuild@v4",
+  "github/codeql-action/analyze@v4",
+  "controlled-update",
+  "next-react-platform",
+  "typescript-tooling",
+  "release-captain review",
+  "expected head SHA",
 ]);
 
 validateTextFile(safeProjectionRunbookPath, [
@@ -244,6 +287,8 @@ validateTextFile(routesChainPath, [
 
 validateTextFile(routesChainIntegrityPath, [
   "validate-codeql-workflow-integrity.mjs",
+  "validate-repo-update-scanning-automation.mjs",
+  "validateRepoUpdateScanningCoverage",
   "requiredIndirectReportEvidenceValidators",
   "validate-report-evidence-record-persistence-runtime.mjs",
   "validate-command-center-report-evidence-records-api.mjs",
@@ -272,7 +317,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with CodeQL workflow integrity, route-chain integrity, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
+console.log("Command Center docs index validation passed with CodeQL workflow integrity, route-chain integrity, repo update scanning automation, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
