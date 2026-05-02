@@ -268,6 +268,24 @@ Rules:
 - patterns must be reviewed, versioned, and tested before changing customer-facing behavior
 - agents may scout and compare, but release captain remains final validator
 
+## Controlled continuous evolution
+
+Cendorq should keep improving after launch through monitored, validated, reviewable, reversible updates without uncontrolled production mutation or quality drift.
+
+Controlled continuous evolution means automated systems may detect, propose, test, and prepare updates, but they do not approve production-impacting changes. Every material update still needs a reviewable branch, validation gates, Vercel or preview success where applicable, mergeability confirmation, rollback awareness, and release-captain approval before merge.
+
+Owner posture:
+
+- Prefer small coherent batches over large mixed changes.
+- Keep dependency, security, framework, accessibility, performance, conversion copy, legal language, report-truthfulness, support lifecycle, billing, and operator-safety updates traceable.
+- Treat Vercel, `validate:routes`, route-chain integrity, validation registry, docs index, operator runbook, and most-pristine coverage as the minimum operating rails.
+- Do not skip gates to move faster.
+- Do not disable validators to make an update pass.
+- Do not hide failures or silently weaken safeguards.
+- Do not allow automated update systems to approve customer-facing claims, billing behavior, security readiness, report release, public launch, or paid launch.
+
+Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, and operator safety. Any update that lowers those standards must be held, redesigned, or rejected.
+
 ## Conversion moat
 
 Cendorq should convert because the customer feels understood, not pressured.

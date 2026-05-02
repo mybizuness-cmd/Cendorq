@@ -8,6 +8,8 @@ const captainAuditRuntimePath = "src/lib/captain-audit-hardening-control-plane.t
 const captainAuditValidatorPath = "src/scripts/validate-captain-audit-hardening-control-plane.mjs";
 const docsIndexPath = "docs/command-center-docs-index.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
+const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const failures = [];
 
 expect(manualPath, [
@@ -21,6 +23,34 @@ expect(manualPath, [
   "customer context separated from verified facts",
   "assumptions separated from inferences",
   "plan advice tied to actual stage, blockers, evidence, and readiness",
+]);
+
+expect(manualPath, [
+  "## Controlled continuous evolution",
+  "Cendorq should keep improving after launch through monitored, validated, reviewable, reversible updates without uncontrolled production mutation or quality drift.",
+  "Automated systems may detect, propose, test, and prepare updates, but they do not approve production-impacting changes.",
+  "Every material update still needs a reviewable branch, validation gates, Vercel or preview success where applicable, mergeability confirmation, rollback awareness, and release-captain approval before merge.",
+  "Prefer small coherent batches over large mixed changes.",
+  "Treat Vercel, `validate:routes`, route-chain integrity, validation registry, docs index, operator runbook, and most-pristine coverage as the minimum operating rails.",
+  "Do not skip gates to move faster.",
+  "Do not disable validators to make an update pass.",
+  "Do not hide failures or silently weaken safeguards.",
+  "Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, and operator safety.",
+]);
+
+expect(continuousEvolutionContractPath, [
+  "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+  "controlled-continuous-evolution-v1",
+  "Automated systems may detect, propose, test, and prepare updates.",
+  "small coherent batches",
+  "rollback-ready before promotion",
+  "automatic update systems can propose changes but cannot bypass validation",
+]);
+
+expect(continuousEvolutionValidatorPath, [
+  "Controlled continuous evolution validation passed",
+  "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+  "route-chain, registry, docs-index, operator-runbook, and most-pristine coverage",
 ]);
 
 expect(manualPath, [
@@ -223,7 +253,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with customer operations architecture, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+console.log("Owner operating manual validation passed with customer operations architecture, controlled continuous evolution, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
 
 function unsafePhrases() {
   return [
