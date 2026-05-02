@@ -5,6 +5,8 @@ const root = process.cwd();
 const runtimePath = "src/lib/command-center/report-evidence-record-runtime.ts";
 const persistenceRuntimePath = "src/lib/command-center/report-evidence-record-persistence-runtime.ts";
 const persistenceValidatorPath = "src/scripts/validate-report-evidence-record-persistence-runtime.mjs";
+const recordsApiPath = "src/app/api/command-center/report-evidence/records/route.ts";
+const recordsApiValidatorPath = "src/scripts/validate-command-center-report-evidence-records-api.mjs";
 const contractsPath = "src/lib/command-center/report-evidence-record-contracts.ts";
 const orchestrationRuntimePath = "src/lib/command-center/report-evidence-orchestration-runtime.ts";
 const ownerPersistencePath = "src/lib/owner-configuration-evidence-persistence-runtime.ts";
@@ -144,6 +146,41 @@ expect(persistenceRuntimePath, [
   "redacted-safe-value",
 ]);
 
+expect(recordsApiPath, [
+  "export const dynamic = \"force-dynamic\"",
+  "export const revalidate = 0",
+  "commandCenterPreviewHeaderName",
+  "resolveCommandCenterAccessState",
+  "recordReportEvidenceRecordBatch",
+  "sourceRoute = \"/api/command-center/report-evidence/records\"",
+  "export async function GET",
+  "export async function POST",
+  "acceptedInput: \"safe-summary-only\"",
+  "persistenceMode: \"append-only-safe-projection\"",
+  "commandCenterOnly: true",
+  "rawEvidenceExposed: false",
+  "containsBlockedEvidenceShape",
+  "safe_summary_required",
+  "privateauditpayload",
+  "customerdata",
+  "providerpayload",
+  "Cache-Control",
+  "no-store, max-age=0",
+  "X-Robots-Tag",
+  "noindex, nofollow, noarchive, nosnippet",
+]);
+
+expect(recordsApiValidatorPath, [
+  "src/app/api/command-center/report-evidence/records/route.ts",
+  "recordReportEvidenceRecordBatch",
+  "acceptedInput: \\\"safe-summary-only\\\"",
+  "persistenceMode: \\\"append-only-safe-projection\\\"",
+  "rawEvidenceExposed: false",
+  "customerFacingOutputApproved",
+  "publicReportReleaseApproved",
+  "paidPlanRecommendationApproved",
+]);
+
 expect(persistenceValidatorPath, [
   "ReportEvidenceRecordPersistenceAccess",
   "recordReportEvidenceRecordBatch",
@@ -244,13 +281,36 @@ forbidden(persistenceRuntimePath, [
   "liability-free",
 ]);
 
+forbidden(recordsApiPath, [
+  "rawEvidenceStored: true",
+  "rawProviderPayloadStored: true",
+  "privateCredentialStored: true",
+  "customerDataStored: true",
+  "privateAuditPayloadStored: true",
+  "customerFacingOutputApproved: true",
+  "publicReportReleaseApproved: true",
+  "paidPlanRecommendationApproved: true",
+  "rawEvidenceExposed: true",
+  "cache: \"force-cache\"",
+  "localStorage",
+  "sessionStorage",
+  "document.cookie",
+  "productionMutation",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "guaranteed accuracy",
+  "guaranteed security",
+  "impossible to hack",
+  "liability-free",
+]);
+
 if (failures.length) {
   console.error("Report evidence record runtime validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Report evidence record runtime validation passed. Runtime projections and persistence records create safe source, confidence, conflict, plan-fit, blocked-pattern, and release-review metadata without raw/private payload exposure or approval drift.");
+console.log("Report evidence record runtime validation passed. Runtime projections, persistence records, and the command-center records API create safe source, confidence, conflict, plan-fit, blocked-pattern, and release-review metadata without raw/private payload exposure or approval drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
