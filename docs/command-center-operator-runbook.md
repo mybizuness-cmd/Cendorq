@@ -4,7 +4,7 @@ This runbook defines how the private Cendorq Command Center should be maintained
 
 ## Operating posture
 
-The Command Center is a private, gated, metadata-only operating cockpit. It must remain closed by default and must not become a shortcut around production authentication, authorization, database isolation, file protection, billing controls, delivery review, automation signing, governance review, intelligence review, security workflow integrity, dependency integrity, repo update scanning integrity, or controlled continuous evolution integrity.
+The Command Center is a private, gated, metadata-only operating cockpit. It must remain closed by default and must not become a shortcut around production authentication, authorization, database isolation, file protection, billing controls, delivery review, automation signing, governance review, intelligence review, security workflow integrity, dependency integrity, repo update scanning integrity, controlled continuous evolution integrity, or controlled maintenance integrity.
 
 ## Non-negotiable rules
 
@@ -19,6 +19,7 @@ The Command Center is a private, gated, metadata-only operating cockpit. It must
 - Keep `validate-dependency-lockfile-integrity.mjs` centrally covered by route-chain integrity.
 - Keep `validate-repo-update-scanning-automation.mjs` centrally covered by route-chain integrity.
 - Keep `validate-controlled-continuous-evolution.mjs` centrally covered by route-chain integrity.
+- Keep `validate-controlled-maintenance-contracts.mjs` wired into `validate:routes` and represented in the validation registry.
 - Keep indirect high-risk report evidence validators centrally covered by `validate-report-evidence-record-runtime.mjs` when they are intentionally not listed directly in the giant route chain.
 - Never claim that Cendorq is unhackable, risk-free, or perfectly secure.
 
@@ -55,6 +56,7 @@ Required route-chain integrity rules:
 - Dependency lockfile integrity must remain covered through the first route-chain integrity validator.
 - Repo update scanning automation must remain covered through the first route-chain integrity validator.
 - Controlled continuous evolution must remain covered through the first route-chain integrity validator.
+- Controlled maintenance must remain wired through the route chain and represented in the validation registry.
 - Indirect report evidence validators must not become orphaned when they are covered through the already-wired runtime validator.
 
 Required CodeQL workflow integrity coverage:
@@ -112,6 +114,17 @@ Required controlled continuous evolution coverage:
 
 Controlled continuous evolution is the approved way to keep Cendorq improving after launch. Automated systems may detect, propose, test, and prepare updates, but they must not auto-merge production-impacting code without green gates, skip Vercel, disable validation, hide failures, weaken safeguards, or mutate production without review. Continuous updates must remain small-batch, preview-gated, rollback-ready, documented, reviewable, and traceable.
 
+Required controlled maintenance coverage:
+
+- `src/scripts/validate-controlled-maintenance-contracts.mjs`
+- `docs/controlled-maintenance.md`
+- `src/lib/controlled-maintenance-contracts.ts`
+- `src/lib/command-center/validation-registry.ts`
+- `docs/command-center-docs-index.md`
+- `validate:routes`
+
+Controlled maintenance may discover, classify, and queue dependency, security, smoke, performance, schema, route, content, and claim updates, but no queued update may mutate production automatically. Maintenance releases require validation, approval state, rollback planning, and an audit reason. Maintenance output must remain safe-projection-only and must not expose private customer data, raw evidence, internal notes, protected operational material, or other sensitive material.
+
 Required indirect report evidence validator coverage:
 
 - `src/scripts/validate-report-evidence-record-persistence-runtime.mjs`
@@ -140,6 +153,7 @@ The Command Center protection posture depends on these validators remaining acti
 - `validate-dependency-lockfile-integrity.mjs`
 - `validate-repo-update-scanning-automation.mjs`
 - `validate-controlled-continuous-evolution.mjs`
+- `validate-controlled-maintenance-contracts.mjs`
 - `validate-command-center-security-posture.mjs`
 - `validate-command-center-panel-registry.mjs`
 - `validate-command-center-panel-safety.mjs`
@@ -206,6 +220,7 @@ Before merging any Command Center change, confirm:
 - Route-chain integrity runs first and dependency lockfile integrity remains centrally covered.
 - Route-chain integrity runs first and repo update scanning automation remains centrally covered.
 - Route-chain integrity runs first and controlled continuous evolution remains centrally covered.
+- Controlled maintenance stays wired into `validate:routes` and represented in the validation registry.
 - Route-chain integrity runs first and indirect report evidence validators remain centrally covered.
 - No public access, client-side bypass, or browser storage has been introduced.
 - No private records, evidence, intelligence, reports, billing data, prompts, or score internals are exposed.
