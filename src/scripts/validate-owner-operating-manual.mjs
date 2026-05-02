@@ -10,6 +10,9 @@ const docsIndexPath = "docs/command-center-docs-index.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
+const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
+const controlledMaintenanceContractPath = "src/lib/controlled-maintenance-contracts.ts";
+const controlledMaintenanceValidatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
 const failures = [];
 
 expect(manualPath, [
@@ -38,6 +41,16 @@ expect(manualPath, [
   "Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, and operator safety.",
 ]);
 
+expect(manualPath, [
+  "## Controlled maintenance",
+  "Controlled maintenance is the operating discipline that keeps Cendorq current without letting update work become uncontrolled production mutation.",
+  "No queued update may mutate production automatically.",
+  "Every material maintenance release still requires validation, approval state, rollback planning, and an audit reason.",
+  "Maintenance output must never expose raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys.",
+  "Maintenance copy must never claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI or business outcomes.",
+  "Controlled maintenance must stay aligned with `docs/controlled-maintenance.md`, `src/lib/controlled-maintenance-contracts.ts`, validation registry coverage, docs-index coverage, and `validate:routes`.",
+]);
+
 expect(continuousEvolutionContractPath, [
   "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
   "controlled-continuous-evolution-v1",
@@ -51,6 +64,24 @@ expect(continuousEvolutionValidatorPath, [
   "Controlled continuous evolution validation passed",
   "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
   "route-chain, registry, docs-index, operator-runbook, and most-pristine coverage",
+]);
+
+expect(controlledMaintenanceDocsPath, [
+  "# Controlled Maintenance",
+  "No queued update may mutate production automatically",
+  "validation, approval state, rollback plan, and audit record",
+]);
+
+expect(controlledMaintenanceContractPath, [
+  "CONTROLLED_MAINTENANCE_CONTRACT",
+  "Controlled Maintenance Architecture",
+  "without uncontrolled AI changes or automatic production mutation",
+]);
+
+expect(controlledMaintenanceValidatorPath, [
+  "Controlled maintenance contracts validation passed",
+  "docs/controlled-maintenance.md",
+  "validation registry",
 ]);
 
 expect(manualPath, [
@@ -253,7 +284,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with customer operations architecture, controlled continuous evolution, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+console.log("Owner operating manual validation passed with customer operations architecture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
 
 function unsafePhrases() {
   return [
