@@ -78,8 +78,11 @@ validateTextFile(docsIndexPath, [
   "runbook structure, endpoint map, registry contract helpers, projection link count/completeness helpers, shared access helper, shared response/options helper, every admin projection route, and route-chain wiring",
   "panel summary display tied to method count and all-helpers-required posture from `getAdminCommandCenterSafeProjectionRouteContractSummary`",
   "src/app/api/command-center/report-evidence/orchestration/route.ts",
+  "src/app/api/command-center/report-evidence/records/route.ts",
   "src/app/command-center/report-evidence-orchestration-panel.tsx",
   "customer-facing report approvals",
+  "append-only safe projection surfaces",
+  "customer-facing output approval, paid recommendation approval, public report release approval, launch readiness approval, or security readiness approval",
 ]);
 
 validateTextFile(docsIndexPath, [
@@ -102,6 +105,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
+  "src/scripts/validate-command-center-report-evidence-records-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
   "src/scripts/validate-report-evidence-record-runtime.mjs",
   "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
@@ -131,6 +135,7 @@ validateTextFile(docsIndexPath, [
   "admin command-center panel summary display",
   "admin command-center response or options helper",
   "report evidence route",
+  "report evidence record API",
   "report evidence record contract",
   "report evidence record runtime",
   "report evidence record persistence runtime",
@@ -197,7 +202,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with projection link count, panel summary display, report evidence record runtime, and report evidence record persistence runtime coverage.");
+console.log("Command Center docs index validation passed with projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
