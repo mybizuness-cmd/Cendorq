@@ -7,6 +7,8 @@ const contractPath = "src/lib/controlled-maintenance-contracts.ts";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
+const docsIndexPath = "docs/command-center-docs-index.md";
+const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const failures = [];
 
 expect(docsPath, [
@@ -93,6 +95,22 @@ expect(contractPath, [
   "liabilityFreeClaim",
 ]);
 
+expect(docsIndexPath, [
+  "docs/controlled-maintenance.md",
+  "Controlled maintenance: `src/lib/controlled-maintenance-contracts.ts`",
+  "Controlled maintenance standard",
+  "validate-controlled-maintenance-contracts.mjs",
+  "safe update queues, review streams, validation gates, rollback planning, and audit-ready maintenance posture",
+  "controlled maintenance rule",
+]);
+
+expect(validationRegistryPath, [
+  "controlled-maintenance",
+  "Controlled maintenance",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
+  "safe update queues, review streams, validation gates, rollback planning, audit records, and no uncontrolled AI changes or automatic production mutation",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
@@ -142,7 +160,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Controlled maintenance contracts validation passed. The controlled maintenance doc, contract, and validate:routes wiring remain aligned.");
+console.log("Controlled maintenance contracts validation passed. The controlled maintenance doc, contract, docs index, validation registry, and validate:routes wiring remain aligned.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
