@@ -7,6 +7,8 @@ const authPath = "src/lib/customer-session-auth-contracts.ts";
 const gatewayPath = "src/lib/customer-access-gateway-contracts.ts";
 const runtimePath = "src/lib/customer-access-gateway-runtime.ts";
 const formPath = "src/components/customer-support/support-request-form.tsx";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(authPath, [
@@ -48,6 +50,18 @@ expect(authPath, [
   "no account recovery, email change, password reset, provider link, or session revocation without audit events and safe failure behavior",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(gatewayPath, [
   "CUSTOMER_ACCESS_GATEWAY_RULES",
   "customer-session-cookie-boundary",
@@ -68,6 +82,7 @@ expect(formPath, [
 expect(packagePath, [
   "validate:routes",
   "validate-customer-session-auth-contracts.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(authPath, [
@@ -88,7 +103,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer session auth contracts validation passed.");
+console.log("Customer session auth contracts validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
