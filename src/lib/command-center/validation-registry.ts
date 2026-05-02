@@ -73,6 +73,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "A required validator is missing, unwired, or no longer represented in the validation registry.",
   },
   {
+    key: "maximum-protection-standard",
+    label: "Maximum protection standard",
+    scriptPath: "src/scripts/validate-maximum-protection-standard.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "maximum-protection doctrine for data classification, deny-by-default access, secret handling, exfiltration prevention, AI-agent containment, supply-chain risk, auditability, emergency controls, and public/private doctrine boundaries",
+    failureMeaning: "The maximum-protection doctrine may no longer be enforced, discoverable, or wired into the central validation chain.",
+  },
+  {
     key: "codeql-workflow-integrity",
     label: "CodeQL workflow integrity",
     scriptPath: "src/scripts/validate-codeql-workflow-integrity.mjs",
