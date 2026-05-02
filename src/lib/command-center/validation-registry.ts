@@ -60,8 +60,8 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     scriptPath: "src/scripts/validate-command-center-panel-safety.mjs",
     category: "cockpit",
     requiredInValidateRoutes: true,
-    protectedBoundary: "server-rendered metadata-only cockpit panels",
-    failureMeaning: "A panel introduced client-only behavior, browser storage, direct environment access, or exposure regression.",
+    protectedBoundary: "full current command-center cockpit panel set, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records, stays server-rendered, metadata-only, private-gated, and free of browser storage, browser-only APIs, direct environment access, raw/private payload fields, token patterns, unsafe guarantees, and public exposure drift",
+    failureMeaning: "A command-center panel may have drifted into client-only behavior, browser storage, browser-only APIs, direct env access, raw/private payload exposure, secret/token leakage, unsafe guarantee language, missing registry alignment, or public exposure regression.",
   },
   {
     key: "validation-registry",
