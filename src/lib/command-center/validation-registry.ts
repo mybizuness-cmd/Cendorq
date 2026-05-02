@@ -100,6 +100,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Automated update scanning may have drifted from approved Dependabot grouping, CodeQL v4 and checkout v6 posture, dependency integrity, documentation, or guarded release-captain review.",
   },
   {
+    key: "controlled-continuous-evolution",
+    label: "Controlled continuous evolution",
+    scriptPath: "src/scripts/validate-controlled-continuous-evolution.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "monitored, validated, reviewable, rollback-ready updates, small coherent batches, Vercel gate posture, and no uncontrolled production mutation or quality drift",
+    failureMeaning: "Continuous update posture may have drifted toward unreviewed production mutation, skipped validation, skipped Vercel gates, hidden failures, or weakened safeguards.",
+  },
+  {
     key: "report-truth-engine",
     label: "Report truth engine",
     scriptPath: "src/scripts/validate-report-truth-engine.mjs",
