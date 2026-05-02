@@ -31,6 +31,7 @@ validateTextFile(docsIndexPath, [
   "src/lib/command-center/report-evidence-orchestration-runtime.ts",
   "src/lib/command-center/report-evidence-record-contracts.ts",
   "src/lib/command-center/report-evidence-record-runtime.ts",
+  "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
   "src/lib/command-center/report-growth-system.ts",
   "src/lib/command-center/controlled-market-learning.ts",
   "src/lib/command-center/enterprise-operating-standard.ts",
@@ -103,6 +104,7 @@ validateTextFile(docsIndexPath, [
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
   "src/scripts/validate-report-evidence-record-runtime.mjs",
+  "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -131,6 +133,7 @@ validateTextFile(docsIndexPath, [
   "report evidence route",
   "report evidence record contract",
   "report evidence record runtime",
+  "report evidence record persistence runtime",
 ]);
 
 validateTextFile(runbookPath, [
@@ -194,7 +197,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with projection link count, panel summary display, and report evidence record runtime coverage.");
+console.log("Command Center docs index validation passed with projection link count, panel summary display, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
