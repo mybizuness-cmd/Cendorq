@@ -12,8 +12,11 @@ expect(apiPath, [
   "runtime = \"nodejs\"",
   "dynamic = \"force-dynamic\"",
   "NextRequest",
-  "getAdminCommandCenterSafeProjectionLinks",
+  "getAdminCommandCenterExpectedSafeProjectionLinkCount",
   "getAdminCommandCenterSafeProjectionBoundaries",
+  "getAdminCommandCenterSafeProjectionLinkCount",
+  "getAdminCommandCenterSafeProjectionLinks",
+  "getAdminCommandCenterSafeProjectionLinksComplete",
   "getAdminCommandCenterSafeProjectionRouteContract",
   "getAdminCommandCenterSafeProjectionRouteContractSummary",
   "@/lib/admin-command-center-safe-projection-registry",
@@ -31,8 +34,14 @@ expect(apiPath, [
 expect(apiPath, [
   "const routeContract = getAdminCommandCenterSafeProjectionRouteContract()",
   "const routeContractSummary = getAdminCommandCenterSafeProjectionRouteContractSummary()",
+  "const projectionLinkCount = getAdminCommandCenterSafeProjectionLinkCount()",
+  "const expectedProjectionLinkCount = getAdminCommandCenterExpectedSafeProjectionLinkCount()",
+  "const projectionLinksComplete = getAdminCommandCenterSafeProjectionLinksComplete()",
   "routeContract,",
   "routeContractSummary,",
+  "projectionLinkCount,",
+  "expectedProjectionLinkCount,",
+  "projectionLinksComplete,",
   "endpoints: getAdminCommandCenterSafeProjectionLinks().map",
   "path: endpoint.href",
   "projection: endpoint.projection",
@@ -53,6 +62,11 @@ expect(apiPath, [
 
 expect(registryPath, [
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINKS",
+  "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_LINK_COUNT",
+  "ADMIN_COMMAND_CENTER_EXPECTED_SAFE_PROJECTION_LINK_COUNT = 6",
+  "getAdminCommandCenterSafeProjectionLinkCount",
+  "getAdminCommandCenterExpectedSafeProjectionLinkCount",
+  "getAdminCommandCenterSafeProjectionLinksComplete",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_BOUNDARIES",
   "ADMIN_COMMAND_CENTER_SAFE_PROJECTION_ROUTE_CONTRACT",
   "getAdminCommandCenterSafeProjectionRouteContract",
@@ -105,7 +119,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center API index validation passed with route contract summary coverage.");
+console.log("Admin command center API index validation passed with projection link count coverage.");
 
 function unsafePhrases() {
   return [
