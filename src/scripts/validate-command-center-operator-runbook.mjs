@@ -11,6 +11,8 @@ const ownerWorkflowRoutePath = "src/app/api/command-center/owner-configuration/w
 const ownerWorkflowPanelPath = "src/app/command-center/owner-configuration-workflow-panel.tsx";
 const ownerWorkflowRuntimePath = "src/lib/owner-configuration-evidence-approval-workflow-runtime.ts";
 const ownerWorkflowSmokeValidatorPath = "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs";
+const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
+const reportEvidenceRecordRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
 
 validateTextFile(runbookPath, [
   "# Command Center Operator Runbook",
@@ -22,6 +24,8 @@ validateTextFile(runbookPath, [
   "Never expose secret values, customer records, raw evidence, raw intelligence, billing details, private reports, score inputs, prompts, or exact scoring weights",
   "Keep every visible cockpit panel represented in the panel registry.",
   "Keep every validation guard wired into `validate:routes`.",
+  "Keep `validate-routes-chain-integrity.mjs` first in `validate:routes`.",
+  "Keep indirect high-risk report evidence validators centrally covered by `validate-report-evidence-record-runtime.mjs`",
   "Never claim that Cendorq is unhackable, risk-free, or perfectly secure.",
   "Owner configuration evidence workflow",
   "src/app/api/command-center/owner-configuration/evidence/route.ts",
@@ -33,6 +37,30 @@ validateTextFile(runbookPath, [
   "src/app/command-center/owner-configuration-workflow-panel.tsx",
   "safe summaries, safe hashes, owner approval posture, and release-captain review posture",
   "Owner evidence alone never creates public launch approval, paid launch approval, report launch approval, provider configuration approval, payment mapping approval, security readiness approval, or customer-facing claims.",
+]);
+
+validateTextFile(runbookPath, [
+  "Route-chain integrity workflow",
+  "first validator in `validate:routes`",
+  "src/scripts/validate-routes-chain-integrity.mjs",
+  "src/scripts/validate-routes.mjs",
+  "Duplicate validators are blocked.",
+  "High-risk validator files must exist.",
+  "Ordering between security, panel, report evidence, owner workflow, launch readiness, smoke, and closed-intelligence checks must stay protected.",
+  "Indirect report evidence validators must not become orphaned",
+  "Required indirect report evidence validator coverage",
+  "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
+  "src/scripts/validate-command-center-report-evidence-records-api.mjs",
+  "src/scripts/validate-report-evidence-record-runtime.mjs",
+  "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
+  "src/app/api/command-center/report-evidence/records/route.ts",
+  "safe-summary-only input",
+  "append-only safe projection mode",
+  "raw evidence exposure blocking",
+]);
+
+validateTextFile(runbookPath, [
+  "validate-routes-chain-integrity.mjs",
   "validate-command-center-owner-configuration-evidence-api.mjs",
   "validate-command-center-owner-configuration-evidence-persistence.mjs",
   "validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
@@ -44,15 +72,22 @@ validateTextFile(runbookPath, [
   "validate-command-center-panel-safety.mjs",
   "validate-command-center-validation-registry.mjs",
   "validate-report-truth-engine.mjs",
+  "validate-report-evidence-record-runtime.mjs",
+  "validate-report-evidence-record-persistence-runtime.mjs",
+  "validate-command-center-report-evidence-records-api.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-production-smoke-coverage.mjs",
   "No visible cockpit panel should be merged without a matching registry entry.",
+  "Route-chain integrity runs first and indirect report evidence validators remain centrally covered.",
   "Vercel is green.",
 ]);
 
 validateTextFile(docsIndexPath, [
   "# Command Center Docs Index",
   "docs/command-center-operator-runbook.md",
+  "Route-chain integrity standard",
+  "validate-routes-chain-integrity.mjs",
+  "verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`",
   "docs/maximum-protection-standard.md",
   "src/lib/command-center/validation-registry.ts",
   "src/lib/command-center/report-truth-engine.ts",
@@ -73,6 +108,26 @@ validateTextFile(docsIndexPath, [
   "validate-command-center-owner-configuration-workflow-api.mjs",
   "validate-command-center-owner-configuration-workflow-panel.mjs",
   "validate-command-center-owner-configuration-workflow-smoke.mjs",
+]);
+
+validateTextFile(routesChainIntegrityPath, [
+  "requiredIndirectReportEvidenceValidators",
+  "validate-report-evidence-record-persistence-runtime.mjs",
+  "validate-command-center-report-evidence-records-api.mjs",
+  "validateIndirectReportEvidenceCoverage",
+  "acceptedInput: \\\"safe-summary-only\\\"",
+  "persistenceMode: \\\"append-only-safe-projection\\\"",
+  "rawEvidenceExposed: false",
+]);
+
+validateTextFile(reportEvidenceRecordRuntimeValidatorPath, [
+  "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
+  "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
+  "src/app/api/command-center/report-evidence/records/route.ts",
+  "src/scripts/validate-command-center-report-evidence-records-api.mjs",
+  "acceptedInput: \\\"safe-summary-only\\\"",
+  "persistenceMode: \\\"append-only-safe-projection\\\"",
+  "rawEvidenceExposed: false",
 ]);
 
 validateTextFile(ownerEvidenceRoutePath, [
@@ -150,7 +205,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, report-truth, owner-configuration workflow, and validation-chain operating standards.");
+console.log("Command Center operator runbook validation passed. The runbook and docs index preserve closed-by-default, metadata-only, server-rendered panel, registry, validation-registry, route-chain integrity, indirect report evidence validator coverage, report-truth, owner-configuration workflow, and validation-chain operating standards.");
 
 function unsafePhrases() {
   return [
