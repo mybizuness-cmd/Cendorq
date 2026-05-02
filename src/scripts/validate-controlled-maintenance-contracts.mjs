@@ -2,11 +2,32 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
+const docsPath = "docs/controlled-maintenance.md";
 const contractPath = "src/lib/controlled-maintenance-contracts.ts";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
+const docsIndexPath = "docs/command-center-docs-index.md";
+const docsIndexValidatorPath = "src/scripts/validate-command-center-docs-index.mjs";
 const failures = [];
+
+expect(docsPath, [
+  "# Controlled Maintenance",
+  "keeping the platform current, secure, validated, and scalable",
+  "without uncontrolled AI changes or automatic production mutation",
+  "dependency review",
+  "security advisory monitoring",
+  "validation registry checks",
+  "smoke-test scheduling",
+  "performance health checks",
+  "schema drift checks",
+  "route drift checks",
+  "content and claim drift checks",
+  "No queued update may mutate production automatically",
+  "validation, approval state, rollback plan, and audit record",
+  "Controlled continuous evolution defines how Cendorq improves after launch",
+  "Documentation rule",
+]);
 
 expect(contractPath, [
   "CONTROLLED_MAINTENANCE_CONTRACT",
@@ -74,6 +95,20 @@ expect(contractPath, [
   "liabilityFreeClaim",
 ]);
 
+expect(docsIndexPath, [
+  "docs/controlled-maintenance.md",
+  "Controlled maintenance standard",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
+  "src/lib/controlled-maintenance-contracts.ts",
+  "controlled maintenance rule",
+]);
+
+expect(docsIndexValidatorPath, [
+  "docs/controlled-maintenance.md",
+  "Controlled maintenance standard",
+  "validate-controlled-maintenance-contracts.mjs",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
@@ -81,6 +116,17 @@ expect(packagePath, [
 
 expect(routesChainPath, [
   validatorPath,
+]);
+
+forbidden(docsPath, [
+  "mutate production automatically without approval",
+  "skip validation",
+  "bypass approval",
+  "rollback optional",
+  "delete audit records",
+  "guaranteed ROI",
+  "impossible to hack",
+  "liability-free",
 ]);
 
 forbidden(contractPath, [
@@ -112,7 +158,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Controlled maintenance contracts validation passed. validate:routes delegates through the orchestrator and the controlled maintenance validator remains wired into the route chain.");
+console.log("Controlled maintenance contracts validation passed. The controlled maintenance doc, contract, docs index, docs-index validator, and validate:routes wiring remain aligned.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
