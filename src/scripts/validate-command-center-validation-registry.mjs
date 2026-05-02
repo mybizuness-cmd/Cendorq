@@ -7,6 +7,10 @@ const registryPath = "src/lib/command-center/validation-registry.ts";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
+const maximumProtectionValidatorPath = "src/scripts/validate-maximum-protection-standard.mjs";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const maximumProtectionDocsPath = "docs/maximum-protection-standard.md";
+const ownerMaximumProtectionDocsPath = "docs/owner-maximum-protection-posture.md";
 const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfile-integrity.mjs";
 const dependencyLockfileDocsPath = "docs/dependency-lockfile-integrity.md";
@@ -26,6 +30,8 @@ const requiredScripts = [
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
+  "src/scripts/validate-maximum-protection-standard.mjs",
+  "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-codeql-workflow-integrity.mjs",
   "src/scripts/validate-dependency-lockfile-integrity.mjs",
   "src/scripts/validate-repo-update-scanning-automation.mjs",
@@ -81,6 +87,10 @@ validateFileExists(registryPath);
 validateFileExists(packagePath);
 validateFileExists(routesChainPath);
 validateFileExists(routesChainIntegrityPath);
+validateFileExists(maximumProtectionValidatorPath);
+validateFileExists(ownerMaximumProtectionValidatorPath);
+validateFileExists(maximumProtectionDocsPath);
+validateFileExists(ownerMaximumProtectionDocsPath);
 validateFileExists(codeqlWorkflowValidatorPath);
 validateFileExists(dependencyLockfileValidatorPath);
 validateFileExists(dependencyLockfileDocsPath);
@@ -108,6 +118,15 @@ if (!failures.length) {
     "protectedBoundary",
     "failureMeaning",
     "getCommandCenterValidationRegistry",
+    "maximum-protection-standard",
+    "Maximum protection standard",
+    "src/scripts/validate-maximum-protection-standard.mjs",
+    "maximum-protection doctrine for data classification, deny-by-default access, secret handling, exfiltration prevention, AI-agent containment, supply-chain risk, auditability, emergency controls, and public/private doctrine boundaries",
+    "owner-maximum-protection-posture",
+    "Owner maximum protection posture",
+    "src/scripts/validate-owner-maximum-protection-posture.mjs",
+    "owner-level maximum-protection operating posture, public/private boundaries, verified customer access, operator-only review, AI and automation approval limits, validation gates, rollback posture, and release-captain review",
+    "Owner maximum-protection posture may no longer be discoverable, validate-routes covered, or aligned with the maximum-protection doctrine.",
     "codeql-workflow-integrity",
     "CodeQL workflow integrity",
     "src/scripts/validate-codeql-workflow-integrity.mjs",
@@ -153,6 +172,28 @@ if (!failures.length) {
     "insights-conversation-standard",
   ]);
 
+  validateText(maximumProtectionValidatorPath, read(maximumProtectionValidatorPath), [
+    "Maximum protection standard validation passed",
+    "docs/maximum-protection-standard.md",
+    "src/lib/command-center/validation-registry.ts",
+    "validate:routes",
+  ]);
+
+  validateText(ownerMaximumProtectionValidatorPath, read(ownerMaximumProtectionValidatorPath), [
+    "Owner maximum protection posture validation passed",
+    "docs/owner-maximum-protection-posture.md",
+    "docs/maximum-protection-standard.md",
+    "validate:routes",
+  ]);
+
+  validateText(ownerMaximumProtectionDocsPath, read(ownerMaximumProtectionDocsPath), [
+    "# Owner Maximum Protection Posture",
+    "daily operating decisions",
+    "Required owner decisions",
+    "Hard owner locks",
+    "Operating rule",
+  ]);
+
   for (const scriptPath of requiredScripts) {
     validateFileExists(scriptPath);
     if (
@@ -168,6 +209,7 @@ if (!failures.length) {
   }
 
   validateText(routesChainIntegrityPath, read(routesChainIntegrityPath), [
+    "src/scripts/validate-maximum-protection-standard.mjs",
     "src/scripts/validate-codeql-workflow-integrity.mjs",
     "src/scripts/validate-dependency-lockfile-integrity.mjs",
     "src/scripts/validate-repo-update-scanning-automation.mjs",
@@ -287,8 +329,8 @@ if (!failures.length) {
   ]);
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 39) {
-    failures.push(`${registryPath} expected at least 39 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 41) {
+    failures.push(`${registryPath} expected at least 41 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -298,7 +340,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, controlled maintenance, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, maximum protection, owner maximum-protection posture, CodeQL workflow integrity, dependency lockfile integrity, repo update scanning automation, controlled continuous evolution, controlled maintenance, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
