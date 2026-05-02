@@ -9,6 +9,7 @@ This private documentation index keeps the Command Center operating standards ea
 - `docs/admin-command-center-safe-projections.md` — admin command-center safe projection map for preview-gated, shared-access-backed, safe-options-backed, registry-contract-backed, route-contract-summary-backed, projection-link-count-backed, panel-contract-strip-backed, panel-summary-display-backed, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces.
 - `docs/owner-operating-manual.md` — owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence.
 - `docs/repo-update-scanning-automation.md` — repo update scanning automation standard for Dependabot, CodeQL workflow, dependency integrity, most-pristine, route-chain coverage, and release-captain review posture.
+- `docs/controlled-continuous-evolution.md` — controlled continuous evolution standard for monitored, validated, reviewable, rollback-ready update proposals without uncontrolled production mutation or quality drift.
 
 ## Required source-of-truth areas
 
@@ -101,7 +102,7 @@ These paths are command-center-only and safe-summary-only. They must not expose 
 
 ## Controlled continuous evolution standard
 
-`src/scripts/validate-controlled-continuous-evolution.mjs` must keep `src/lib/controlled-continuous-evolution-contracts.ts` aligned with monitored, validated, reviewable, reversible, rollback-ready updates. Automated systems may detect, propose, test, and prepare updates, but they must not auto-merge production-impacting code without green gates, skip Vercel, disable validation, hide failures, weaken safeguards, or mutate production without review. Continuous evolution must remain small-batch, preview-gated, rollback-ready, documented, and tied to route-chain integrity, validation registry, and most-pristine coverage.
+`src/scripts/validate-controlled-continuous-evolution.mjs` must keep `docs/controlled-continuous-evolution.md`, `src/lib/controlled-continuous-evolution-contracts.ts`, route-chain integrity, validation registry, docs index, operator runbook, owner operating manual, and most-pristine coverage aligned with monitored, validated, reviewable, reversible, rollback-ready updates. Automated systems may detect, propose, test, and prepare updates, but they must not auto-merge production-impacting code without green gates, skip Vercel, disable validation, hide failures, weaken safeguards, or mutate production without review. Continuous evolution must remain small-batch, preview-gated, rollback-ready, documented, owner-visible, and tied to route-chain integrity, validation registry, docs index, operator runbook, owner operating manual, and most-pristine coverage.
 
 ## Required cockpit validators
 
