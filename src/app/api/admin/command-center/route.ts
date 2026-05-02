@@ -1,8 +1,11 @@
 import { NextRequest } from "next/server";
 
 import {
+  getAdminCommandCenterExpectedSafeProjectionLinkCount,
   getAdminCommandCenterSafeProjectionBoundaries,
+  getAdminCommandCenterSafeProjectionLinkCount,
   getAdminCommandCenterSafeProjectionLinks,
+  getAdminCommandCenterSafeProjectionLinksComplete,
   getAdminCommandCenterSafeProjectionRouteContract,
   getAdminCommandCenterSafeProjectionRouteContractSummary,
 } from "@/lib/admin-command-center-safe-projection-registry";
@@ -27,6 +30,9 @@ export async function GET(request: NextRequest) {
 
   const routeContract = getAdminCommandCenterSafeProjectionRouteContract();
   const routeContractSummary = getAdminCommandCenterSafeProjectionRouteContractSummary();
+  const projectionLinkCount = getAdminCommandCenterSafeProjectionLinkCount();
+  const expectedProjectionLinkCount = getAdminCommandCenterExpectedSafeProjectionLinkCount();
+  const projectionLinksComplete = getAdminCommandCenterSafeProjectionLinksComplete();
 
   return adminCommandCenterJsonNoStore(
     {
@@ -39,6 +45,9 @@ export async function GET(request: NextRequest) {
       grantsLiveAuthority: false,
       routeContract,
       routeContractSummary,
+      projectionLinkCount,
+      expectedProjectionLinkCount,
+      projectionLinksComplete,
       endpoints: getAdminCommandCenterSafeProjectionLinks().map((endpoint) => ({
         key: endpoint.key,
         path: endpoint.href,
