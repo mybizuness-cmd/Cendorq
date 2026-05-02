@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 const docsIndexPath = "docs/command-center-docs-index.md";
 const maximumProtectionDocsPath = "docs/maximum-protection-standard.md";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const runbookPath = "docs/command-center-operator-runbook.md";
 const safeProjectionRunbookPath = "docs/admin-command-center-safe-projections.md";
 const ownerManualPath = "docs/owner-operating-manual.md";
@@ -15,6 +16,7 @@ const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
 const maximumProtectionValidatorPath = "src/scripts/validate-maximum-protection-standard.mjs";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 
@@ -23,6 +25,8 @@ validateTextFile(docsIndexPath, [
   "private documentation index",
   "docs/maximum-protection-standard.md",
   "highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard",
+  "docs/owner-maximum-protection-posture.md",
+  "owner-facing maximum-protection operating posture for public/private boundaries, verified access, operator review, AI/automation limits, validation gates, rollback posture, and release-captain review",
   "docs/command-center-operator-runbook.md",
   "docs/admin-command-center-safe-projections.md",
   "registry-contract-backed, route-contract-summary-backed, projection-link-count-backed, panel-contract-strip-backed, panel-summary-display-backed",
@@ -139,6 +143,15 @@ validateTextFile(docsIndexPath, [
 ]);
 
 validateTextFile(docsIndexPath, [
+  "Owner maximum protection posture",
+  "validate-owner-maximum-protection-posture.mjs",
+  "docs/owner-maximum-protection-posture.md",
+  "owner-level operating decisions",
+  "public/private boundaries, verified customer access, operator-only review, AI and automation approval limits, evidence separation, validation gates, rollback posture, release-captain review, and customer-safe language",
+  "without exposing private mechanics or weakening launch, report, billing, provider, support, or customer-facing claim approval boundaries",
+]);
+
+validateTextFile(docsIndexPath, [
   "CodeQL workflow integrity standard",
   "validate-codeql-workflow-integrity.mjs",
   ".github/workflows/codeql.yml",
@@ -201,6 +214,7 @@ validateTextFile(continuousEvolutionDocsPath, [
 validateTextFile(docsIndexPath, [
   "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
+  "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-codeql-workflow-integrity.mjs",
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-admin-command-center-projection-registry.mjs",
@@ -256,6 +270,7 @@ validateTextFile(docsIndexPath, [
   "report evidence record runtime",
   "report evidence record persistence runtime",
   "maximum protection rule",
+  "owner maximum-protection posture rule",
   "repo update scanning automation rule",
   "controlled continuous evolution rule",
 ]);
@@ -278,10 +293,25 @@ validateTextFile(maximumProtectionDocsPath, [
   "Public content may teach the category, but it must not expose the private machine.",
 ]);
 
+validateTextFile(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "daily operating decisions",
+  "Required owner decisions",
+  "Hard owner locks",
+  "Operating rule",
+]);
+
 validateTextFile(maximumProtectionValidatorPath, [
   "Maximum protection standard validation passed",
   "docs/maximum-protection-standard.md",
   "src/lib/command-center/validation-registry.ts",
+  "validate:routes",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "docs/maximum-protection-standard.md",
   "validate:routes",
 ]);
 
@@ -364,6 +394,7 @@ validateTextFile(packagePath, ["validate:routes", "node ./src/scripts/validate-r
 validateTextFile(routesChainPath, [
   "validate-routes-chain-integrity.mjs",
   "validate-maximum-protection-standard.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-admin-command-center-safe-response.mjs",
   "validate-admin-command-center-safe-projections-runbook.mjs",
@@ -408,7 +439,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with maximum-protection standard, CodeQL workflow integrity, route-chain integrity, repo update scanning automation, controlled continuous evolution docs, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
+console.log("Command Center docs index validation passed with maximum-protection standard, owner maximum-protection posture, CodeQL workflow integrity, route-chain integrity, repo update scanning automation, controlled continuous evolution docs, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
