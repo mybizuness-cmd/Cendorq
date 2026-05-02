@@ -109,6 +109,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Continuous update posture may have drifted toward unreviewed production mutation, skipped validation, skipped Vercel gates, hidden failures, or weakened safeguards.",
   },
   {
+    key: "controlled-maintenance",
+    label: "Controlled maintenance",
+    scriptPath: "src/scripts/validate-controlled-maintenance-contracts.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "safe update queues, review streams, validation gates, rollback planning, audit records, and no uncontrolled AI changes or automatic production mutation",
+    failureMeaning: "Controlled maintenance may have drifted toward validation bypass, approval bypass, missing rollback plans, audit deletion, raw/private exposure, uncontrolled production mutation, or unsupported outcome claims.",
+  },
+  {
     key: "report-truth-engine",
     label: "Report truth engine",
     scriptPath: "src/scripts/validate-report-truth-engine.mjs",
