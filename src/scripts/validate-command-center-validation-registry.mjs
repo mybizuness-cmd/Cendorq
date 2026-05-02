@@ -81,6 +81,12 @@ if (!failures.length) {
     "protectedBoundary",
     "failureMeaning",
     "getCommandCenterValidationRegistry",
+    "panel-safety",
+    "Panel safety",
+    "full current command-center cockpit panel set, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records",
+    "server-rendered, metadata-only, private-gated",
+    "browser storage, browser-only APIs, direct environment access, raw/private payload fields, token patterns, unsafe guarantees, and public exposure drift",
+    "client-only behavior, browser storage, browser-only APIs, direct env access, raw/private payload exposure, secret/token leakage, unsafe guarantee language, missing registry alignment, or public exposure regression",
     "operator-runbook",
     "Operator runbook and owner workflow chain",
     "owner configuration evidence API, workflow API, workflow panel, approval workflow runtime, and workflow smoke-validator coverage",
@@ -106,17 +112,8 @@ if (!failures.length) {
     "command-center-only report evidence records route, safe-summary-only input, append-only safe projection persistence, no-store/noindex response headers, raw/private payload rejection, and no customer-facing output, paid recommendation, launch, security, or public report approval",
     "Report evidence records API behavior may no longer be command-center gated, safe-summary-only, persistence-backed, raw/private rejecting, append-only, no-store/noindex, or blocked from customer-facing output and launch approval drift.",
     "report-evidence-record-contracts",
-    "Report evidence record contracts",
-    "safe report evidence source, confidence, conflict, plan-fit, blocked-pattern, and release-review records without raw/private payload exposure or customer-facing approval drift",
-    "Report evidence records may no longer preserve orchestration metadata safely, or may allow raw evidence, provider payloads, private credentials, hidden conflicts, unsupported plan recommendations, or approval drift.",
     "report-evidence-record-runtime",
-    "Report evidence record runtime",
-    "safe generation of report evidence source, confidence, conflict, plan-fit, blocked-pattern, and release-review records from runtime projections without raw/private payload exposure or approval drift",
-    "Report evidence runtime records may no longer generate safe summaries, preserve release-captain review posture, or block raw evidence, provider payloads, credentials, customer data, and approval drift.",
     "report-evidence-record-persistence-runtime",
-    "Report evidence record persistence runtime",
-    "command-center-gated, append-only, no-store report evidence persistence projections with safe hashes and no raw/private payload exposure or approval drift",
-    "Report evidence persistence may no longer stay append-only, no-store, safe-summary/hash based, command-center gated, centrally covered, or blocked from raw evidence, provider payloads, credentials, customer data, private audit payloads, and approval drift.",
     "controlled-market-learning",
     "enterprise-operating-standard",
     "audit-defense-system",
@@ -140,6 +137,17 @@ if (!failures.length) {
     }
   }
 
+  validateText("src/scripts/validate-command-center-panel-safety.mjs", read("src/scripts/validate-command-center-panel-safety.mjs"), [
+    "admin-command-center-control-panel.tsx",
+    "owner-configuration-workflow-panel.tsx",
+    "plan-delivery-orchestration-panel.tsx",
+    "plan-routing-runtime-panel.tsx",
+    "report-evidence-record-panel.tsx",
+    "rawPayload=",
+    "guaranteed ROI",
+    "validateRegistryAlignment",
+  ]);
+
   validateText("src/scripts/validate-report-evidence-record-runtime.mjs", read("src/scripts/validate-report-evidence-record-runtime.mjs"), [
     "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
     "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
@@ -159,7 +167,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, expanded panel safety, admin safe projections, owner manual, owner-workflow, report truth, report evidence records API, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
