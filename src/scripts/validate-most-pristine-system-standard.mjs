@@ -11,6 +11,7 @@ const interfaceExcellenceValidatorPath = "src/scripts/validate-platform-interfac
 const continuousEvolutionPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
+const dependencyLockfileValidatorPath = "src/scripts/validate-dependency-lockfile-integrity.mjs";
 const dashboardExcellenceValidatorPath = "src/scripts/validate-customer-dashboard-excellence.mjs";
 const publicWebsiteExcellenceValidatorPath = "src/scripts/validate-public-website-excellence.mjs";
 const homepageConciergeValidatorPath = "src/scripts/validate-homepage-concierge-nudge.mjs";
@@ -333,6 +334,15 @@ validateTextFile(repoAutomationValidatorPath, [
   "Repo update scanning automation validation passed",
   "dependabotPath",
   "codeqlPath",
+  "github/codeql-action/init@v4",
+  "github/codeql-action/analyze@v4",
+]);
+
+validateTextFile(dependencyLockfileValidatorPath, [
+  "Dependency lockfile integrity validation passed",
+  "package.json",
+  "pnpm-lock.yaml",
+  "docs/dependency-lockfile-integrity.md",
 ]);
 
 validateTextFile(dependabotPath, [
@@ -351,9 +361,10 @@ validateTextFile(codeqlPath, [
   "name: CodeQL",
   "pull_request:",
   "security-events: write",
-  "github/codeql-action/init@v3",
+  "actions/checkout@v6",
+  "github/codeql-action/init@v4",
   "security-extended,security-and-quality",
-  "github/codeql-action/analyze@v3",
+  "github/codeql-action/analyze@v4",
   "javascript-typescript",
 ]);
 
@@ -477,6 +488,12 @@ validateForbidden(dependabotPath, [
 ]);
 
 validateForbidden(codeqlPath, [
+  "github/codeql-action/init@v1",
+  "github/codeql-action/init@v2",
+  "github/codeql-action/init@v3",
+  "github/codeql-action/analyze@v1",
+  "github/codeql-action/analyze@v2",
+  "github/codeql-action/analyze@v3",
   "continue-on-error: true",
   "allow-failure",
   "security-events: none",
@@ -488,7 +505,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, dependency lockfile integrity, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
