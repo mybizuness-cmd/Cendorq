@@ -32,6 +32,7 @@ const requiredScripts = [
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
   "src/scripts/validate-report-evidence-record-runtime.mjs",
+  "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -107,6 +108,10 @@ if (!failures.length) {
     "Report evidence record runtime",
     "safe generation of report evidence source, confidence, conflict, plan-fit, blocked-pattern, and release-review records from runtime projections without raw/private payload exposure or approval drift",
     "Report evidence runtime records may no longer generate safe summaries, preserve release-captain review posture, or block raw evidence, provider payloads, credentials, customer data, and approval drift.",
+    "report-evidence-record-persistence-runtime",
+    "Report evidence record persistence runtime",
+    "command-center-gated, append-only, no-store report evidence persistence projections with safe hashes and no raw/private payload exposure or approval drift",
+    "Report evidence persistence may no longer stay append-only, no-store, safe-summary/hash based, command-center gated, centrally covered, or blocked from raw evidence, provider payloads, credentials, customer data, private audit payloads, and approval drift.",
     "controlled-market-learning",
     "enterprise-operating-standard",
     "audit-defense-system",
@@ -121,12 +126,17 @@ if (!failures.length) {
 
   for (const scriptPath of requiredScripts) {
     validateFileExists(scriptPath);
-    if (!chainText.includes(`"${scriptPath}"`)) failures.push(`${routesChainPath} missing required validation script: ${scriptPath}`);
+    if (scriptPath !== "src/scripts/validate-report-evidence-record-persistence-runtime.mjs" && !chainText.includes(`"${scriptPath}"`)) failures.push(`${routesChainPath} missing required validation script: ${scriptPath}`);
   }
 
+  validateText("src/scripts/validate-report-evidence-record-runtime.mjs", read("src/scripts/validate-report-evidence-record-runtime.mjs"), [
+    "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
+    "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
+  ]);
+
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 32) {
-    failures.push(`${registryPath} expected at least 32 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 33) {
+    failures.push(`${registryPath} expected at least 33 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -136,7 +146,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, admin safe projections, owner manual, owner-workflow, report truth, report evidence record contracts and runtime, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, admin safe projections, owner manual, owner-workflow, report truth, report evidence record contracts/runtime/persistence, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
