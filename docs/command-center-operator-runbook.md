@@ -4,7 +4,7 @@ This runbook defines how the private Cendorq Command Center should be maintained
 
 ## Operating posture
 
-The Command Center is a private, gated, metadata-only operating cockpit. It must remain closed by default and must not become a shortcut around production authentication, authorization, database isolation, file protection, billing controls, delivery review, automation signing, governance review, or intelligence review.
+The Command Center is a private, gated, metadata-only operating cockpit. It must remain closed by default and must not become a shortcut around production authentication, authorization, database isolation, file protection, billing controls, delivery review, automation signing, governance review, intelligence review, or security workflow integrity.
 
 ## Non-negotiable rules
 
@@ -15,6 +15,7 @@ The Command Center is a private, gated, metadata-only operating cockpit. It must
 - Keep every visible cockpit panel represented in the panel registry.
 - Keep every validation guard wired into `validate:routes`.
 - Keep `validate-routes-chain-integrity.mjs` first in `validate:routes`.
+- Keep `validate-codeql-workflow-integrity.mjs` centrally covered by route-chain integrity.
 - Keep indirect high-risk report evidence validators centrally covered by `validate-report-evidence-record-runtime.mjs` when they are intentionally not listed directly in the giant route chain.
 - Never claim that Cendorq is unhackable, risk-free, or perfectly secure.
 
@@ -47,7 +48,21 @@ Required route-chain integrity rules:
 - Duplicate validators are blocked.
 - High-risk validator files must exist.
 - Ordering between security, panel, report evidence, owner workflow, launch readiness, smoke, and closed-intelligence checks must stay protected.
+- CodeQL workflow integrity must remain covered through the first route-chain integrity validator.
 - Indirect report evidence validators must not become orphaned when they are covered through the already-wired runtime validator.
+
+Required CodeQL workflow integrity coverage:
+
+- `src/scripts/validate-codeql-workflow-integrity.mjs`
+- `.github/workflows/codeql.yml`
+- `actions/checkout@v6`
+- `github/codeql-action/init@v4`
+- `github/codeql-action/autobuild@v4`
+- `github/codeql-action/analyze@v4`
+- `security-extended,security-and-quality`
+- minimal read permissions plus `security-events: write`
+
+The CodeQL workflow must keep main push, pull request, and weekly schedule triggers; JavaScript/TypeScript analysis; current approved action versions; and failing security analysis. It must not drift toward older action versions, broad write permissions, or `continue-on-error: true`.
 
 Required indirect report evidence validator coverage:
 
@@ -73,6 +88,7 @@ The runtime validator must continue to verify safe-summary-only input, append-on
 The Command Center protection posture depends on these validators remaining active:
 
 - `validate-routes-chain-integrity.mjs`
+- `validate-codeql-workflow-integrity.mjs`
 - `validate-command-center-security-posture.mjs`
 - `validate-command-center-panel-registry.mjs`
 - `validate-command-center-panel-safety.mjs`
@@ -135,6 +151,7 @@ Before merging any Command Center change, confirm:
 - The route remains a composition shell.
 - Panels remain server-rendered and metadata-only.
 - The panel registry covers all visible panels.
+- Route-chain integrity runs first and CodeQL workflow integrity remains centrally covered.
 - Route-chain integrity runs first and indirect report evidence validators remain centrally covered.
 - No public access, client-side bypass, or browser storage has been introduced.
 - No private records, evidence, intelligence, reports, billing data, prompts, or score internals are exposed.
