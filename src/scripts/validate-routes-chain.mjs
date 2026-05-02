@@ -9,6 +9,7 @@ const validators = [
   "src/scripts/validate-routes.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
+  "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-public-homepage-premium-entry.mjs",
   "src/scripts/validate-free-check-intake.mjs",
   "src/scripts/validate-free-check-premium-route-elevation.mjs",
