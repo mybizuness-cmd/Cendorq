@@ -118,6 +118,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "Report evidence records may no longer preserve orchestration metadata safely, or may allow raw evidence, provider payloads, private credentials, hidden conflicts, unsupported plan recommendations, or approval drift.",
   },
   {
+    key: "report-evidence-record-runtime",
+    label: "Report evidence record runtime",
+    scriptPath: "src/scripts/validate-report-evidence-record-runtime.mjs",
+    category: "schema",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "safe generation of report evidence source, confidence, conflict, plan-fit, blocked-pattern, and release-review records from runtime projections without raw/private payload exposure or approval drift",
+    failureMeaning: "Report evidence runtime records may no longer generate safe summaries, preserve release-captain review posture, or block raw evidence, provider payloads, credentials, customer data, and approval drift.",
+  },
+  {
     key: "controlled-market-learning",
     label: "Controlled market learning",
     scriptPath: "src/scripts/validate-controlled-market-learning.mjs",

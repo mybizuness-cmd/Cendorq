@@ -15,12 +15,23 @@ const requiredScripts = [
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
+  "src/scripts/validate-admin-command-center-projection-registry.mjs",
+  "src/scripts/validate-admin-command-center-safe-response.mjs",
+  "src/scripts/validate-admin-command-center-safe-projections-runbook.mjs",
+  "src/scripts/validate-admin-command-center-api-index.mjs",
+  "src/scripts/validate-admin-command-center-safe-summary-api.mjs",
+  "src/scripts/validate-admin-command-center-audit-trail-api.mjs",
+  "src/scripts/validate-admin-command-center-mission-brief-api.mjs",
+  "src/scripts/validate-admin-command-center-agent-findings-api.mjs",
+  "src/scripts/validate-admin-command-center-forecast-escalation-api.mjs",
+  "src/scripts/validate-command-center-admin-control-panel.mjs",
   "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-report-evidence-orchestration.mjs",
   "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
+  "src/scripts/validate-report-evidence-record-runtime.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
@@ -92,6 +103,10 @@ if (!failures.length) {
     "Report evidence record contracts",
     "safe report evidence source, confidence, conflict, plan-fit, blocked-pattern, and release-review records without raw/private payload exposure or customer-facing approval drift",
     "Report evidence records may no longer preserve orchestration metadata safely, or may allow raw evidence, provider payloads, private credentials, hidden conflicts, unsupported plan recommendations, or approval drift.",
+    "report-evidence-record-runtime",
+    "Report evidence record runtime",
+    "safe generation of report evidence source, confidence, conflict, plan-fit, blocked-pattern, and release-review records from runtime projections without raw/private payload exposure or approval drift",
+    "Report evidence runtime records may no longer generate safe summaries, preserve release-captain review posture, or block raw evidence, provider payloads, credentials, customer data, and approval drift.",
     "controlled-market-learning",
     "enterprise-operating-standard",
     "audit-defense-system",
@@ -110,8 +125,8 @@ if (!failures.length) {
   }
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 31) {
-    failures.push(`${registryPath} expected at least 31 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 32) {
+    failures.push(`${registryPath} expected at least 32 validator entries, found ${registryEntries.length}`);
   }
 }
 
@@ -121,7 +136,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, owner manual, owner-workflow, report truth, report evidence record contracts, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and the orchestrator includes required command-center, admin safe projections, owner manual, owner-workflow, report truth, report evidence record contracts and runtime, report evidence orchestration API and runtime, scale resilience, customer platform, customer experience, conversion moat, insights conversation, and enterprise guardrails.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
