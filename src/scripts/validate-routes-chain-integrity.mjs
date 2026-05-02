@@ -8,6 +8,8 @@ const chainPath = "src/scripts/validate-routes-chain.mjs";
 const chainIntegrityValidatorPath = "src/scripts/validate-routes-chain-integrity.mjs";
 const baselineRouteValidatorPath = "src/scripts/validate-routes.mjs";
 const reportEvidenceRecordRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
+const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
+const codeqlWorkflowPath = ".github/workflows/codeql.yml";
 
 const requiredHighRiskValidators = [
   chainIntegrityValidatorPath,
@@ -76,6 +78,8 @@ const requiredIndirectReportEvidenceValidators = [
 
 validateFileExists(packagePath);
 validateFileExists(chainPath);
+validateFileExists(codeqlWorkflowPath);
+validateFileExists(codeqlWorkflowValidatorPath);
 
 if (!failures.length) {
   const packageText = read(packagePath);
@@ -121,6 +125,7 @@ if (!failures.length) {
   }
 
   validateIndirectReportEvidenceCoverage();
+  validateCodeqlWorkflowCoverage();
 
   validateChainOrdering(chainValidators, [
     chainIntegrityValidatorPath,
@@ -181,7 +186,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The route-chain self-check runs first, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
+console.log("Validate routes chain integrity passed. The route-chain self-check runs first, CodeQL workflow integrity is covered, report evidence record contracts/runtime plus indirect persistence and records API validators are mandatory, report evidence orchestration API and panel, report evidence runtime, owner operating manual, and launch-readiness guardrails are mandatory, high-risk guardrails are present, ordering is protected, files exist, duplicates are blocked, and owner workflow validation remains before closed-intelligence validation.");
 
 function validateIndirectReportEvidenceCoverage() {
   const runtimeValidatorText = read(reportEvidenceRecordRuntimeValidatorPath);
@@ -200,6 +205,23 @@ function validateIndirectReportEvidenceCoverage() {
     "rawEvidenceExposed: false",
   ]) {
     if (!runtimeValidatorText.includes(phrase)) failures.push(`${reportEvidenceRecordRuntimeValidatorPath} missing indirect report evidence coverage phrase: ${phrase}`);
+  }
+}
+
+function validateCodeqlWorkflowCoverage() {
+  const workflowText = read(codeqlWorkflowPath);
+  const validatorText = read(codeqlWorkflowValidatorPath);
+
+  for (const phrase of [
+    "actions/checkout@v6",
+    "github/codeql-action/init@v4",
+    "github/codeql-action/autobuild@v4",
+    "github/codeql-action/analyze@v4",
+    "security-extended,security-and-quality",
+    "security-events: write",
+  ]) {
+    if (!workflowText.includes(phrase)) failures.push(`${codeqlWorkflowPath} missing required workflow phrase: ${phrase}`);
+    if (!validatorText.includes(phrase)) failures.push(`${codeqlWorkflowValidatorPath} missing required workflow validation phrase: ${phrase}`);
   }
 }
 
