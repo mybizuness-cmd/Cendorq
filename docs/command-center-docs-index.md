@@ -27,6 +27,7 @@ This private documentation index keeps the Command Center operating standards ea
 - Report evidence record persistence runtime: `src/lib/command-center/report-evidence-record-persistence-runtime.ts`
 - Report growth system: `src/lib/command-center/report-growth-system.ts`
 - Controlled market learning: `src/lib/command-center/controlled-market-learning.ts`
+- Controlled continuous evolution: `src/lib/controlled-continuous-evolution-contracts.ts`
 - Enterprise operating standard: `src/lib/command-center/enterprise-operating-standard.ts`
 - Audit defense system: `src/lib/command-center/audit-defense-system.ts`
 - Most-pristine system standard: `src/lib/command-center/most-pristine-system-standard.ts`
@@ -88,7 +89,7 @@ These paths are command-center-only and safe-summary-only. They must not expose 
 
 ## Route-chain integrity standard
 
-`src/scripts/validate-routes-chain-integrity.mjs` must run first in `validate:routes`, preserve validator ordering, block duplicate validators, require high-risk guardrail files, verify CodeQL workflow integrity coverage, verify repo update scanning automation coverage, and verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`. Indirect report evidence coverage must include `src/scripts/validate-report-evidence-record-persistence-runtime.mjs`, `src/scripts/validate-command-center-report-evidence-records-api.mjs`, the persistence runtime, the records API route, safe-summary-only posture, append-only safe projection mode, and raw evidence exposure blocking.
+`src/scripts/validate-routes-chain-integrity.mjs` must run first in `validate:routes`, preserve validator ordering, block duplicate validators, require high-risk guardrail files, verify CodeQL workflow integrity coverage, verify repo update scanning automation coverage, verify controlled continuous evolution coverage, and verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`. Indirect report evidence coverage must include `src/scripts/validate-report-evidence-record-persistence-runtime.mjs`, `src/scripts/validate-command-center-report-evidence-records-api.mjs`, the persistence runtime, the records API route, safe-summary-only posture, append-only safe projection mode, and raw evidence exposure blocking.
 
 ## CodeQL workflow integrity standard
 
@@ -97,6 +98,10 @@ These paths are command-center-only and safe-summary-only. They must not expose 
 ## Repo update scanning automation standard
 
 `src/scripts/validate-repo-update-scanning-automation.mjs` must keep `docs/repo-update-scanning-automation.md`, `.github/dependabot.yml`, `.github/workflows/codeql.yml`, `src/scripts/validate-codeql-workflow-integrity.mjs`, `src/scripts/validate-dependency-lockfile-integrity.mjs`, `src/scripts/validate-most-pristine-system-standard.mjs`, and `validate:routes` aligned. It must preserve Dependabot update groups, CodeQL v4, checkout v6, dependency integrity coverage, most-pristine coverage, and release-captain review posture without approving dependency updates, provider configuration, paid launch, public launch, security readiness, customer-facing reports, or customer-facing claims.
+
+## Controlled continuous evolution standard
+
+`src/scripts/validate-controlled-continuous-evolution.mjs` must keep `src/lib/controlled-continuous-evolution-contracts.ts` aligned with monitored, validated, reviewable, reversible, rollback-ready updates. Automated systems may detect, propose, test, and prepare updates, but they must not auto-merge production-impacting code without green gates, skip Vercel, disable validation, hide failures, weaken safeguards, or mutate production without review. Continuous evolution must remain small-batch, preview-gated, rollback-ready, documented, and tied to route-chain integrity, validation registry, and most-pristine coverage.
 
 ## Required cockpit validators
 
@@ -149,4 +154,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, repo update scanning automation rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, repo update scanning automation rule, controlled continuous evolution rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
