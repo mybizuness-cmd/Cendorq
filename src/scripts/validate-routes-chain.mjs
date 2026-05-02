@@ -42,6 +42,7 @@ const validators = [
   "src/scripts/validate-plan-delivery-orchestration-runtime.mjs",
   "src/scripts/validate-command-center-plan-delivery-orchestration-panel.mjs",
   "src/scripts/validate-controlled-market-learning.mjs",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
   "src/scripts/validate-controlled-maintenance-contracts.mjs",
   "src/scripts/validate-enterprise-operating-standard.mjs",
   "src/scripts/validate-audit-defense-system.mjs",
