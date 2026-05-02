@@ -85,10 +85,15 @@ These paths are command-center-only and safe-summary-only. They must not expose 
 
 `src/scripts/validate-command-center-panel-safety.mjs` must cover every current private cockpit panel rendered by `src/app/command-center/page.tsx`, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records. Every command-center panel must remain server-rendered, metadata-only, private-gated, registry-aligned, free of browser storage, free of browser-only APIs, free of direct environment access, and blocked from raw/private payload fields, secret/token patterns, unsafe guarantee language, and public exposure drift.
 
+## Route-chain integrity standard
+
+`src/scripts/validate-routes-chain-integrity.mjs` must run first in `validate:routes`, preserve validator ordering, block duplicate validators, require high-risk guardrail files, and verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`. Indirect report evidence coverage must include `src/scripts/validate-report-evidence-record-persistence-runtime.mjs`, `src/scripts/validate-command-center-report-evidence-records-api.mjs`, the persistence runtime, the records API route, safe-summary-only posture, append-only safe projection mode, and raw evidence exposure blocking.
+
 ## Required cockpit validators
 
 These validators must stay wired into `validate:routes`:
 
+- `src/scripts/validate-routes-chain-integrity.mjs`
 - `src/scripts/validate-command-center-security-posture.mjs`
 - `src/scripts/validate-command-center-panel-registry.mjs`
 - `src/scripts/validate-command-center-panel-safety.mjs`
@@ -134,4 +139,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, route-chain integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
