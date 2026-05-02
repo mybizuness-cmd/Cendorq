@@ -7,6 +7,7 @@ const runtimePath = "src/lib/command-center/report-evidence-record-persistence-r
 const recordRuntimePath = "src/lib/command-center/report-evidence-record-runtime.ts";
 const ownerPersistencePath = "src/lib/owner-configuration-evidence-persistence-runtime.ts";
 const launchPersistencePath = "src/lib/launch-evidence-persistence-runtime.ts";
+const wiredRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 
 expect(runtimePath, [
@@ -112,8 +113,16 @@ expect(launchPersistencePath, [
   "privateAuditPayload",
 ]);
 
+expect(wiredRuntimeValidatorPath, [
+  "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
+  "recordReportEvidenceRecordBatch",
+  "getReportEvidenceRecordHistoryResponse",
+  "rawEvidenceStored: false",
+  "customerFacingOutputApproved: false",
+]);
+
 expect(routesChainPath, [
-  "src/scripts/validate-report-evidence-record-persistence-runtime.mjs",
+  "src/scripts/validate-report-evidence-record-runtime.mjs",
 ]);
 
 forbidden(runtimePath, [
@@ -146,7 +155,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report evidence record persistence runtime validation passed. Persistence remains command-center gated, append-only, no-store, safe-summary/hash based, and blocked from raw/private payload exposure or approval drift.");
+console.log("Report evidence record persistence runtime validation passed. Persistence remains command-center gated, append-only, no-store, safe-summary/hash based, centrally covered by the report evidence record runtime validator, and blocked from raw/private payload exposure or approval drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
