@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const manualPath = "docs/owner-operating-manual.md";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const captainAuditDocPath = "docs/captain-audit-hardening-control-plane.md";
 const captainAuditRuntimePath = "src/lib/captain-audit-hardening-control-plane.ts";
 const captainAuditValidatorPath = "src/scripts/validate-captain-audit-hardening-control-plane.mjs";
@@ -26,6 +28,33 @@ expect(manualPath, [
   "customer context separated from verified facts",
   "assumptions separated from inferences",
   "plan advice tied to actual stage, blockers, evidence, and readiness",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "daily operating decisions",
+  "open only where public conversion requires it",
+  "Required owner decisions",
+  "Hard owner locks",
+  "Operating rule",
+  "growth asset",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "The public surface teaches the category without exposing private mechanics.",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+  "AI and automation may assist, but cannot approve launches, reports, billing behavior, provider setup, or customer-facing claims.",
+  "Validation, Vercel, route-chain integrity, docs-index coverage, registry coverage, and rollback posture remain green before merge.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "docs/maximum-protection-standard.md",
+  "docs/command-center-docs-index.md",
+  "src/lib/command-center/validation-registry.ts",
+  "validate:routes",
 ]);
 
 expect(manualPath, [
@@ -267,14 +296,18 @@ expect(manualPath, [
 expect(docsIndexPath, [
   "docs/owner-operating-manual.md",
   "src/scripts/validate-owner-operating-manual.mjs",
+  "docs/owner-maximum-protection-posture.md",
+  "validate-owner-maximum-protection-posture.mjs",
   "owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence",
 ]);
 
 expect(routesChainPath, [
   "src/scripts/validate-owner-operating-manual.mjs",
+  "src/scripts/validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(manualPath, unsafePhrases());
+forbidden(ownerMaximumProtectionPath, unsafePhrases());
 forbidden(captainAuditDocPath, unsafePhrases());
 forbidden(captainAuditRuntimePath, unsafePhrases());
 
@@ -284,7 +317,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with customer operations architecture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+console.log("Owner operating manual validation passed with customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
 
 function unsafePhrases() {
   return [
