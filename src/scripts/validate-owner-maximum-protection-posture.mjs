@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 const ownerPosturePath = "docs/owner-maximum-protection-posture.md";
 const maximumProtectionPath = "docs/maximum-protection-standard.md";
+const docsIndexPath = "docs/command-center-docs-index.md";
 const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
@@ -46,9 +47,20 @@ expect(maximumProtectionPath, [
   "Public content may teach the category, but it must not expose the private machine.",
 ]);
 
+expect(docsIndexPath, [
+  "docs/owner-maximum-protection-posture.md",
+  "owner-facing maximum-protection operating posture",
+  "Owner maximum protection posture",
+  "validate-owner-maximum-protection-posture.mjs",
+  "owner-level operating decisions",
+  "owner maximum-protection posture rule",
+]);
+
 expect(validationRegistryPath, [
   "maximum-protection-standard",
   "src/scripts/validate-maximum-protection-standard.mjs",
+  "owner-maximum-protection-posture",
+  "src/scripts/validate-owner-maximum-protection-posture.mjs",
 ]);
 
 expect(routesChainPath, [
@@ -74,7 +86,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner maximum protection posture validation passed. Owner-facing maximum-protection doctrine, validation registry anchor, and validate:routes wiring remain aligned.");
+console.log("Owner maximum protection posture validation passed. Owner-facing maximum-protection doctrine, docs index, validation registry anchor, and validate:routes wiring remain aligned.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
