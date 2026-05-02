@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const standardPath = "src/lib/command-center/customer-platform-standard.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 validateTextFile(standardPath, [
@@ -55,9 +57,22 @@ validateTextFile(standardPath, [
   "Full Diagnosis CTA",
 ]);
 
+validateTextFile(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 validateTextFile(packagePath, [
   "validate:routes",
   "validate-customer-platform-standard.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 validateForbidden(standardPath, [
@@ -77,7 +92,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform standard validation passed. Signup-first Free Scan, mandatory email confirmation, provider and password signup, email deliverability, secure authentication, dashboard home base, billing entitlements, truthful conversion, customer email sequences, and returning-customer memory remain enforced.");
+console.log("Customer platform standard validation passed with owner posture coverage. Signup-first Free Scan, mandatory email confirmation, provider and password signup, email deliverability, secure authentication, dashboard home base, billing entitlements, truthful conversion, customer email sequences, and returning-customer memory remain enforced.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
