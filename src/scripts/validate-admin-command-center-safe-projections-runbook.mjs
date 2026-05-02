@@ -40,6 +40,8 @@ expect(docPath, [
   "routeContractSummary",
   "method count",
   "all-helpers-required",
+  "The strip must show method count and all-helpers-required posture from the summary accessor",
+  "per-endpoint cards continue to show each registry entry's methods and helper requirements",
   "resolveAdminCommandCenterSafeAccess",
   "adminCommandCenterAccessDeniedPayload",
   "adminCommandCenterJsonNoStore",
@@ -116,7 +118,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Admin command center safe projections runbook validation passed with restored route, helper, contract, and docs coverage.");
+console.log("Admin command center safe projections runbook validation passed with panel route-contract summary display coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
