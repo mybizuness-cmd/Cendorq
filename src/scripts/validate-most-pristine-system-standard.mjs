@@ -8,6 +8,7 @@ const enterprisePath = "src/lib/command-center/enterprise-operating-standard.ts"
 const auditDefensePath = "src/lib/command-center/audit-defense-system.ts";
 const interfaceExcellencePath = "src/lib/platform-interface-excellence-contracts.ts";
 const interfaceExcellenceValidatorPath = "src/scripts/validate-platform-interface-excellence.mjs";
+const continuousEvolutionDocsPath = "docs/controlled-continuous-evolution.md";
 const continuousEvolutionPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 const repoAutomationValidatorPath = "src/scripts/validate-repo-update-scanning-automation.mjs";
@@ -309,6 +310,16 @@ validateTextFile(homepageConciergeValidatorPath, [
   "validate-homepage-concierge-nudge.mjs",
 ]);
 
+validateTextFile(continuousEvolutionDocsPath, [
+  "# Controlled Continuous Evolution",
+  "monitored, validated, reviewable, reversible updates",
+  "a small coherent branch from the latest confirmed main",
+  "Vercel preview or deployment check success when applicable",
+  "auto-merge production-impacting code without green gates",
+  "release-captain approval before merge",
+  "Continuous updates must raise or preserve Cendorq's most-pristine standard",
+]);
+
 validateTextFile(continuousEvolutionPath, [
   "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
   "controlled-continuous-evolution-v1",
@@ -327,6 +338,7 @@ validateTextFile(continuousEvolutionPath, [
 
 validateTextFile(continuousEvolutionValidatorPath, [
   "Controlled continuous evolution validation passed",
+  "docs/controlled-continuous-evolution.md",
   "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
 ]);
 
@@ -471,6 +483,14 @@ validateForbidden(homePath, publicBlockedPatterns());
 validateForbidden(freeCheckPath, publicBlockedPatterns());
 validateForbidden(homepageConciergePath, [...publicBlockedPatterns(), "role=\"dialog\"", "STANDARD_DELAY_MS = 0"]);
 
+validateForbidden(continuousEvolutionDocsPath, [
+  "auto-merge without validation is allowed",
+  "skip Vercel gates for speed",
+  "disable validation to pass",
+  "unreviewed production mutation is allowed",
+  "weaken safeguards for convenience",
+]);
+
 validateForbidden(continuousEvolutionPath, [
   "autoMergeWithoutValidation allowed",
   "skipVercelGate allowed",
@@ -505,7 +525,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution, repo update scanning automation, dependency lockfile integrity, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
+console.log("Most-pristine system standard validation passed. Frontend, backend, APIs, data, AI, reports, security, privacy, core information protection, institutional operating maturity, adversarial validation suite, observability incident response, backup disaster recovery, audit defense, brand, performance, operations, integrations, documentation, deployment, customer experience, platform interface excellence, seamless responsive sync, controlled continuous evolution docs, repo update scanning automation, dependency lockfile integrity, customer dashboard excellence, public website excellence, dedicated Free Scan room, homepage concierge nudge, dashboard, command center, and support/operator surfaces must meet the same no-weak-link Cendorq quality bar.");
 
 function publicBlockedPatterns() {
   return [
