@@ -8,10 +8,12 @@ const runbookPath = "docs/command-center-operator-runbook.md";
 const safeProjectionRunbookPath = "docs/admin-command-center-safe-projections.md";
 const ownerManualPath = "docs/owner-operating-manual.md";
 const repoUpdateScanningDocsPath = "docs/repo-update-scanning-automation.md";
+const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const routesChainIntegrityPath = "src/scripts/validate-routes-chain-integrity.mjs";
 const codeqlWorkflowValidatorPath = "src/scripts/validate-codeql-workflow-integrity.mjs";
+const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-continuous-evolution.mjs";
 
 validateTextFile(docsIndexPath, [
   "# Command Center Docs Index",
@@ -39,6 +41,7 @@ validateTextFile(docsIndexPath, [
   "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
   "src/lib/command-center/report-growth-system.ts",
   "src/lib/command-center/controlled-market-learning.ts",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
   "src/lib/command-center/enterprise-operating-standard.ts",
   "src/lib/command-center/audit-defense-system.ts",
   "src/lib/command-center/most-pristine-system-standard.ts",
@@ -111,6 +114,7 @@ validateTextFile(docsIndexPath, [
   "require high-risk guardrail files",
   "verify CodeQL workflow integrity coverage",
   "verify repo update scanning automation coverage",
+  "verify controlled continuous evolution coverage",
   "verify indirect report evidence validators remain centrally covered through `src/scripts/validate-report-evidence-record-runtime.mjs`",
   "validate-report-evidence-record-persistence-runtime.mjs",
   "validate-command-center-report-evidence-records-api.mjs",
@@ -149,6 +153,19 @@ validateTextFile(docsIndexPath, [
   "most-pristine coverage",
   "release-captain review posture",
   "without approving dependency updates, provider configuration, paid launch, public launch, security readiness, customer-facing reports, or customer-facing claims",
+]);
+
+validateTextFile(docsIndexPath, [
+  "Controlled continuous evolution standard",
+  "validate-controlled-continuous-evolution.mjs",
+  "src/lib/controlled-continuous-evolution-contracts.ts",
+  "monitored, validated, reviewable, reversible, rollback-ready updates",
+  "Automated systems may detect, propose, test, and prepare updates",
+  "must not auto-merge production-impacting code without green gates",
+  "skip Vercel",
+  "disable validation",
+  "small-batch, preview-gated, rollback-ready, documented",
+  "route-chain integrity, validation registry, and most-pristine coverage",
 ]);
 
 validateTextFile(docsIndexPath, [
@@ -208,6 +225,7 @@ validateTextFile(docsIndexPath, [
   "report evidence record runtime",
   "report evidence record persistence runtime",
   "repo update scanning automation rule",
+  "controlled continuous evolution rule",
 ]);
 
 validateTextFile(runbookPath, [
@@ -236,6 +254,26 @@ validateTextFile(repoUpdateScanningDocsPath, [
   "typescript-tooling",
   "release-captain review",
   "expected head SHA",
+]);
+
+validateTextFile(continuousEvolutionContractPath, [
+  "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+  "controlled-continuous-evolution-v1",
+  "Automated systems may detect, propose, test, and prepare updates.",
+  "open dependency update pull requests",
+  "run validation scripts",
+  "Vercel preview or deployment check passes",
+  "small coherent batches",
+  "rollback-ready before promotion",
+  "automatic update systems can propose changes but cannot bypass validation",
+]);
+
+validateTextFile(continuousEvolutionValidatorPath, [
+  "Controlled continuous evolution validation passed",
+  "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+  "auto-merge production-impacting code without green gates",
+  "skipVercelGate",
+  "disableValidatorForUpdate",
 ]);
 
 validateTextFile(safeProjectionRunbookPath, [
@@ -288,7 +326,9 @@ validateTextFile(routesChainPath, [
 validateTextFile(routesChainIntegrityPath, [
   "validate-codeql-workflow-integrity.mjs",
   "validate-repo-update-scanning-automation.mjs",
+  "validate-controlled-continuous-evolution.mjs",
   "validateRepoUpdateScanningCoverage",
+  "validateControlledContinuousEvolutionCoverage",
   "requiredIndirectReportEvidenceValidators",
   "validate-report-evidence-record-persistence-runtime.mjs",
   "validate-command-center-report-evidence-records-api.mjs",
@@ -317,7 +357,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with CodeQL workflow integrity, route-chain integrity, repo update scanning automation, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
+console.log("Command Center docs index validation passed with CodeQL workflow integrity, route-chain integrity, repo update scanning automation, controlled continuous evolution, expanded panel safety, projection link count, panel summary display, report evidence records API, report evidence record runtime, and report evidence record persistence runtime coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
