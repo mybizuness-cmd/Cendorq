@@ -6,6 +6,8 @@ const failures = [];
 const automationPath = "src/lib/customer-lifecycle-automation.ts";
 const conversionPath = "src/lib/front-to-back-conversion-standard.ts";
 const recordsPath = "src/lib/customer-platform-record-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 validateTextFile(automationPath, [
@@ -53,6 +55,18 @@ validateTextFile(automationPath, [
   "no automation that hides support, correction, cancellation, or billing help",
 ]);
 
+validateTextFile(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 validateTextFile(conversionPath, [
   "FRONT_TO_BACK_CONVERSION_RULES",
   "Email sequence that sells by helping",
@@ -69,6 +83,7 @@ validateTextFile(recordsPath, [
 validateTextFile(packagePath, [
   "validate:routes",
   "validate-customer-lifecycle-automation.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 validateForbidden(automationPath, [
@@ -87,7 +102,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer lifecycle automation validation passed. Customer stages, triggers, dashboard states, email behavior, CTAs, suppression rules, plan conversion, billing, support, correction, and privacy boundaries remain synchronized.");
+console.log("Customer lifecycle automation validation passed with owner posture coverage. Customer stages, triggers, dashboard states, email behavior, CTAs, suppression rules, plan conversion, billing, support, correction, and privacy boundaries remain synchronized.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
