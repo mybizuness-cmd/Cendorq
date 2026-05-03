@@ -6,6 +6,8 @@ const failures = [];
 const runtimePath = "src/lib/customer-session-auth-runtime.ts";
 const contractsPath = "src/lib/customer-session-auth-contracts.ts";
 const gatewayRuntimePath = "src/lib/customer-access-gateway-runtime.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(runtimePath, [
@@ -40,6 +42,18 @@ expect(runtimePath, [
   "session runtime can require fresh reauthentication before risky billing, security, report, or account actions",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(contractsPath, [
   "CUSTOMER_SESSION_AUTH_RULES",
   "CUSTOMER_SESSION_COOKIE_CONTRACTS",
@@ -55,6 +69,7 @@ expect(gatewayRuntimePath, [
 expect(packagePath, [
   "validate:routes",
   "validate-customer-session-auth-runtime.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(runtimePath, [
@@ -77,7 +92,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer session auth runtime validation passed.");
+console.log("Customer session auth runtime validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
