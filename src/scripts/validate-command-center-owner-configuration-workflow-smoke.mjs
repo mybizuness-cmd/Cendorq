@@ -6,6 +6,9 @@ const evidenceRoutePath = "src/app/api/command-center/owner-configuration/eviden
 const workflowRoutePath = "src/app/api/command-center/owner-configuration/workflow/route.ts";
 const workflowPanelPath = "src/app/command-center/owner-configuration-workflow-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(evidenceRoutePath, [
@@ -50,6 +53,25 @@ expect(pagePath, [
   "resolveCommandCenterAccessState",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+  "AI and automation may assist, but cannot approve launches, reports, billing behavior, provider setup, or customer-facing claims.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-command-center-owner-configuration-workflow-smoke.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
+
 forbidden(evidenceRoutePath, unsafePhrases());
 forbidden(workflowRoutePath, unsafePhrases());
 forbidden(workflowPanelPath, unsafePhrases());
@@ -60,7 +82,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center owner configuration workflow smoke validation passed.");
+console.log("Command center owner configuration workflow smoke validation passed with owner posture coverage.");
 
 function unsafePhrases() {
   return [
