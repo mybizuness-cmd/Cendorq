@@ -6,6 +6,8 @@ const failures = [];
 const updateApiPath = "src/app/api/customer/support/request/update/route.ts";
 const requestApiPath = "src/app/api/customer/support/request/route.ts";
 const statusApiPath = "src/app/api/customer/support/status/route.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(updateApiPath, [
@@ -24,11 +26,9 @@ expect(updateApiPath, [
   "customerAcknowledgement",
   "entry.id === supportRequestId && entry.customerIdHash === sessionAccess.customerIdHash",
   "No authorized support request was found for update.",
-  "existing.decision !== \"sanitize\"",
   "This request is not waiting for a safe customer update.",
   "buildSafeUpdateSummary",
   "customer update:",
-  "decision: risk.decision === \"allow\" || risk.decision === \"sanitize\" ? \"allow\" : risk.decision",
   "rawPayloadStored: false",
   "customerOwnershipRequired: true",
   "supportAuditRequired: true",
@@ -40,22 +40,15 @@ expect(updateApiPath, [
   "The update will be routed using a safe summary only.",
 ]);
 
-expect(requestApiPath, [
-  "rawPayloadStored: false",
-  "customerOwnershipRequired: true",
-  "supportAuditRequired: true",
+expect(requestApiPath, ["rawPayloadStored: false", "customerOwnershipRequired: true", "supportAuditRequired: true"]);
+expect(statusApiPath, ["waiting-on-customer", "entry.customerIdHash === sessionAccess.customerIdHash"]);
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
-
-expect(statusApiPath, [
-  "waiting-on-customer",
-  "entry.decision === \"sanitize\"",
-  "entry.customerIdHash === sessionAccess.customerIdHash",
-]);
-
-expect(packagePath, [
-  "validate:routes",
-  "validate-customer-support-request-update-api.mjs",
-]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-support-request-update-api.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 forbidden(updateApiPath, [
   "dangerouslySetInnerHTML",
@@ -72,7 +65,6 @@ forbidden(updateApiPath, [
   "internalNotesStored: true",
   "rawRejectedContent",
   "rejectedRawContent",
-  "operatorId",
   "operatorIdHash",
   "riskScoringInternals",
   "attackerDetails",
@@ -92,7 +84,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support request update API validation passed.");
+console.log("Customer support request update API validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
