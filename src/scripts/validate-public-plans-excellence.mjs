@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const componentPath = "src/components/plans/conversion-plan-page.tsx";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(componentPath, [
@@ -38,7 +40,24 @@ expect(componentPath, [
   "focus:ring-2",
 ]);
 
-expect(packagePath, ["validate:routes"]);
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "The public surface teaches the category without exposing private mechanics.",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-public-plans-excellence.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
 
 forbidden(componentPath, [
   "guaranteed ROI",
@@ -68,7 +87,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans excellence validation passed.");
+console.log("Public plans excellence validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
