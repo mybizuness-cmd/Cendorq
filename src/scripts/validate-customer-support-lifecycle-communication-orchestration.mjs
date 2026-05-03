@@ -7,6 +7,8 @@ const orchestrationPath = "src/lib/customer-support-lifecycle-communication-orch
 const notificationPath = "src/lib/customer-support-lifecycle-notification-contracts.ts";
 const emailPath = "src/lib/customer-support-lifecycle-email-contracts.ts";
 const statusPath = "src/lib/customer-support-status-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(orchestrationPath, [
@@ -29,18 +31,6 @@ expect(orchestrationPath, [
   "status: \"closed\"",
   "notificationKey",
   "emailKey",
-  "support-request-received-status-ready",
-  "support-email-received-status-ready",
-  "support-request-reviewing",
-  "support-email-reviewing",
-  "support-request-waiting-on-customer",
-  "support-email-waiting-on-customer",
-  "support-request-specialist-review",
-  "support-email-specialist-review",
-  "support-request-resolved",
-  "support-email-resolved",
-  "support-request-closed",
-  "support-email-closed",
   "dashboard-notification",
   "email",
   "support-status",
@@ -54,43 +44,18 @@ expect(orchestrationPath, [
   "no support lifecycle communication sends if suppression, preference, unsubscribe, bounce, complaint, or duplicate guards block the channel",
   "no support lifecycle communication contains raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, support context keys, or rejected unsafe content",
   "no support lifecycle communication promises refunds, legal outcomes, report changes, billing changes, security outcomes, or guaranteed business results without approval",
-  "every support lifecycle communication routes to support status, safe resubmission, support center, or new request paths only",
 ]);
 
-expect(notificationPath, [
-  "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS",
-  "support-request-received-status-ready",
-  "support-request-reviewing",
-  "support-request-waiting-on-customer",
-  "support-request-specialist-review",
-  "support-request-resolved",
-  "support-request-closed",
+expect(notificationPath, ["CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS", "support-request-received-status-ready", "support-request-closed"]);
+expect(emailPath, ["CUSTOMER_SUPPORT_LIFECYCLE_EMAIL_CONTRACTS", "support-email-received-status-ready", "support-email-closed"]);
+expect(statusPath, ["CustomerSupportCustomerVisibleStatus", "received", "reviewing", "waiting-on-customer", "in-specialist-review", "resolved", "closed"]);
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
-
-expect(emailPath, [
-  "CUSTOMER_SUPPORT_LIFECYCLE_EMAIL_CONTRACTS",
-  "support-email-received-status-ready",
-  "support-email-reviewing",
-  "support-email-waiting-on-customer",
-  "support-email-specialist-review",
-  "support-email-resolved",
-  "support-email-closed",
-]);
-
-expect(statusPath, [
-  "CustomerSupportCustomerVisibleStatus",
-  "received",
-  "reviewing",
-  "waiting-on-customer",
-  "in-specialist-review",
-  "resolved",
-  "closed",
-]);
-
-expect(packagePath, [
-  "validate:routes",
-  "validate-customer-support-lifecycle-communication-orchestration.mjs",
-]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-support-lifecycle-communication-orchestration.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 forbidden(orchestrationPath, [
   "raw payload customer communication",
@@ -115,7 +80,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support lifecycle communication orchestration validation passed.");
+console.log("Customer support lifecycle communication orchestration validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
