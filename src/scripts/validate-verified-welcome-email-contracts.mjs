@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/verified-welcome-email-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-verified-welcome-email-contracts.mjs";
@@ -20,6 +22,18 @@ expect(contractPath, [
   "inbox confirmation sent flag is false",
   "safe customer projection is ready",
   "dashboard route is available",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(contractPath, [
@@ -124,6 +138,7 @@ expect(contractPath, [
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 expect(routesChainPath, [
@@ -160,7 +175,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Verified welcome email contracts validation passed with one-time inbox confirmation coverage.");
+console.log("Verified welcome email contracts validation passed with owner posture and one-time inbox confirmation coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
