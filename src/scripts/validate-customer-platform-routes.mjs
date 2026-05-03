@@ -6,6 +6,8 @@ const failures = [];
 
 const routeMapPath = "src/lib/customer-platform-route-map.ts";
 const shieldPath = "src/lib/cendorq-shield-standard.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 const requiredRouteFiles = [
@@ -16,7 +18,7 @@ const requiredRouteFiles = [
   "src/app/dashboard/billing/page.tsx",
 ];
 
-for (const file of [routeMapPath, shieldPath, packagePath, ...requiredRouteFiles]) validateFileExists(file);
+for (const file of [routeMapPath, shieldPath, ownerMaximumProtectionPath, ownerMaximumProtectionValidatorPath, packagePath, ...requiredRouteFiles]) validateFileExists(file);
 
 expect(routeMapPath, [
   "CUSTOMER_PLATFORM_ROUTES",
@@ -32,6 +34,18 @@ expect(routeMapPath, [
   "scan results require account ownership",
   "billing access requires authenticated customer",
   "Cendorq Support <support@cendorq.com>",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect("src/app/signup/page.tsx", [
@@ -104,6 +118,7 @@ expect(packagePath, [
   "validate:routes",
   "validate-customer-platform-routes.mjs",
   "validate-cendorq-shield-standard.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden("src/app/signup/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email"]);
@@ -118,7 +133,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform route validation passed. Signup, email verification, dashboard, report vault, billing center, route map, and Cendorq Shield remain synchronized and no-indexed where appropriate.");
+console.log("Customer platform route validation passed with owner posture coverage. Signup, email verification, dashboard, report vault, billing center, route map, and Cendorq Shield remain synchronized and no-indexed where appropriate.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing customer platform route dependency: ${path}`);
