@@ -17,6 +17,9 @@ const adminPreviewValidatorPath = "src/scripts/validate-customer-email-dispatch-
 const adminDryRunValidatorPath = "src/scripts/validate-customer-email-dispatch-admin-dry-run-api.mjs";
 const issuancePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
 const issuanceValidatorPath = "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(queuePath, [
@@ -162,41 +165,30 @@ expect(adminDryRunRoutePath, [
   "providerSecretExposed: false",
 ]);
 
-expect(adapterValidatorPath, [
-  "Customer email provider dispatch adapter validation passed.",
-  "src/lib/customer-email-provider-dispatch-adapter.ts",
-  "prepareCustomerEmailProviderDispatchAttempt",
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
 
-expect(auditValidatorPath, [
-  "Customer email dispatch audit runtime validation passed.",
-  "src/lib/customer-email-dispatch-audit-runtime.ts",
-  "recordCustomerEmailDispatchTransition",
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
-expect(runnerValidatorPath, [
-  "Customer email dispatch runner runtime validation passed.",
-  "src/lib/customer-email-dispatch-runner-runtime.ts",
-  "runCustomerEmailDispatchCycle",
+expect(packagePath, [
+  "validate:routes",
+  "validate-customer-email-dispatch-queue-runtime.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-expect(deliveryStatusProjectionValidatorPath, [
-  "Customer email delivery status projection validation passed.",
-  "src/lib/customer-email-delivery-status-projection.ts",
-  "projectCustomerEmailDeliveryStatus",
-]);
-
-expect(adminPreviewValidatorPath, [
-  "Customer email dispatch admin preview API validation passed.",
-  "src/app/api/admin/customer/email/dispatch/preview/route.ts",
-  "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY",
-]);
-
-expect(adminDryRunValidatorPath, [
-  "Customer email dispatch admin dry-run API validation passed.",
-  "src/app/api/admin/customer/email/dispatch/dry-run/route.ts",
-  "dry-run-no-provider-call",
-]);
+expect(adapterValidatorPath, ["Customer email provider dispatch adapter validation passed.", "src/lib/customer-email-provider-dispatch-adapter.ts", "prepareCustomerEmailProviderDispatchAttempt"]);
+expect(auditValidatorPath, ["Customer email dispatch audit runtime validation passed.", "src/lib/customer-email-dispatch-audit-runtime.ts", "recordCustomerEmailDispatchTransition"]);
+expect(runnerValidatorPath, ["Customer email dispatch runner runtime validation passed", "src/lib/customer-email-dispatch-runner-runtime.ts", "runCustomerEmailDispatchCycle"]);
+expect(deliveryStatusProjectionValidatorPath, ["Customer email delivery status projection validation passed.", "src/lib/customer-email-delivery-status-projection.ts", "projectCustomerEmailDeliveryStatus"]);
+expect(adminPreviewValidatorPath, ["Customer email dispatch admin preview API validation passed.", "src/app/api/admin/customer/email/dispatch/preview/route.ts", "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY"]);
+expect(adminDryRunValidatorPath, ["Customer email dispatch admin dry-run API validation passed", "src/app/api/admin/customer/email/dispatch/dry-run/route.ts", "dry-run-no-provider-call"]);
 
 expect(issuancePath, [
   "enqueueCustomerEmailDispatch",
@@ -230,59 +222,14 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch queue runtime validation passed with state mutation, provider dispatch adapter, audit, runner, delivery status, admin preview, and admin dry-run coverage.");
+console.log("Customer email dispatch queue runtime validation passed with owner posture, package wiring, state mutation, provider dispatch adapter, audit, runner, delivery status, admin preview, and admin dry-run coverage.");
 
 function unsafePhrases() {
   return [
-    "sendGrid",
-    "resend.emails.send",
-    "fetch(\"https://api",
-    "process.env.RESEND_API_KEY",
-    "process.env.SENDGRID_API_KEY",
-    "providerPayloadStored: true",
-    "providerResponseStored: true",
-    "rawCustomerEmailStored: true",
-    "confirmationUrlStored: true",
-    "rawTokenStored: true",
-    "tokenHashStored: true",
-    "rawEmailStored: true",
-    "rawPayloadStored: true",
-    "rawEvidenceStored: true",
-    "rawBillingDataStored: true",
-    "internalNotesStored: true",
-    "secretsStored: true",
-    "rawCustomerEmailExposed: true",
-    "rawTokenExposed: true",
-    "tokenHashExposed: true",
-    "confirmationUrlExposed: true",
-    "providerPayloadExposed: true",
-    "providerResponseExposed: true",
-    "providerSecretExposed: true",
-    "browserSecretExposure: true",
-    "providerCallMade: true",
-    "providerSecretRead: true",
-    "browserVisible: true",
-    "customerEmailReturned: true",
-    "confirmationUrlReturned: true",
-    "providerResponseReturned: true",
-    "providerPayloadReturnedToBrowser: true",
-    "providerPayloadReturned: true",
-    "rawTokenReturnedToBrowser: true",
-    "tokenHashReturnedToBrowser: true",
-    "rawEmailReturnedToBrowser: true",
-    "rawTokenReturned: true",
-    "tokenHashReturned: true",
-    "deliverabilityGuaranteeClaimed: true",
-    "localStorage.setItem",
-    "sessionStorage.setItem",
-    "guaranteed inbox placement",
-    "guaranteed deliverability",
-    "guaranteed ROI",
-    "guaranteed revenue",
-    "100% accurate",
-    "impossible to hack",
-    "never liable",
-    "liability-free",
+    "sendGrid", "resend.emails.send", "fetch(\"https://api", "process.env.RESEND_API_KEY", "process.env.SENDGRID_API_KEY",
+    "providerPayloadStored: true", "providerResponseStored: true", "rawCustomerEmailStored: true", "confirmationUrlStored: true", "rawTokenStored: true", "tokenHashStored: true", "rawEmailStored: true", "rawPayloadStored: true", "rawEvidenceStored: true", "rawBillingDataStored: true", "internalNotesStored: true", "secretsStored: true",
+    "rawCustomerEmailExposed: true", "rawTokenExposed: true", "tokenHashExposed: true", "confirmationUrlExposed: true", "providerPayloadExposed: true", "providerResponseExposed: true", "providerSecretExposed: true", "browserSecretExposure: true", "providerCallMade: true", "providerSecretRead: true", "browserVisible: true", "customerEmailReturned: true", "confirmationUrlReturned: true", "providerResponseReturned: true", "providerPayloadReturnedToBrowser: true", "providerPayloadReturned: true", "rawTokenReturnedToBrowser: true", "tokenHashReturnedToBrowser: true", "rawEmailReturnedToBrowser: true", "rawTokenReturned: true", "tokenHashReturned: true", "deliverabilityGuaranteeClaimed: true",
+    "localStorage.setItem", "sessionStorage.setItem", "guaranteed inbox placement", "guaranteed deliverability", "guaranteed ROI", "guaranteed revenue", "100% accurate", "impossible to hack", "never liable", "liability-free",
   ];
 }
 
