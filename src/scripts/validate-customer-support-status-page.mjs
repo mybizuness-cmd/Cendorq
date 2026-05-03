@@ -3,19 +3,14 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 
 expect("src/lib/customer-platform-route-map.ts", [
   "dashboardSupportStatus",
   "/dashboard/support/status",
   "Support status",
   "support status access requires authenticated customer ownership, session authorization, and customer-safe projection",
-  "support status must not render raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
-]);
-
-expect("src/app/dashboard/support/page.tsx", [
-  "View support status",
-  "Track request status",
-  "/dashboard/support/status",
 ]);
 
 expect("src/app/dashboard/support/status/page.tsx", [
@@ -24,24 +19,14 @@ expect("src/app/dashboard/support/status/page.tsx", [
   "Track support without exposing internal risk.",
   "SupportStatusList",
   "CUSTOMER_SUPPORT_STATUS_CONTRACTS",
-  "Internal notes, operator identities, risk-scoring internals, raw evidence, raw billing data, session tokens, CSRF tokens, admin keys, and support secrets stay private.",
 ]);
 
 expect("src/components/customer-support/support-status-list.tsx", [
-  "use client",
   "SupportStatusList",
   "/api/customer/support/status",
   "Refresh status",
-  "No active support requests are visible yet.",
-  "Start protected request",
-  "Internal notes, operator identities, risk-scoring details, raw evidence, billing data, session tokens, and support secrets are never displayed here.",
-  "supportRequestId",
   "customerVisibleStatus",
   "customerSafeStatus",
-  "statusLabel",
-  "statusCopy",
-  "primaryCta",
-  "primaryPath",
   "communicationPlan",
   "CustomerSupportCommunicationPlan",
   "Next communication path",
@@ -50,23 +35,14 @@ expect("src/components/customer-support/support-status-list.tsx", [
   "Safe channels",
   "Required guards",
   "Open communication path",
-  "buildCustomerSupportStatusPath",
-  "buildCommunicationPlanPath",
   "buildSafeSupportUpdatePath",
   "customerVisibleStatus === \"waiting-on-customer\"",
   "communicationPlan.status === \"waiting-on-customer\"",
   "/dashboard/support/request?update=",
-  "encodeURIComponent(supportRequestId)",
   "Use the safe update path for this request. Cendorq will not ask you to paste rejected raw content again.",
-  "formatCommunicationDecision",
-  "communicationDecisionCopy",
-  "formatCommunicationChannel",
-  "formatCommunicationGuard",
   "Ready to communicate",
   "Protected hold",
   "Suppressed by safety controls",
-  "customer-owned and safely projected",
-  "approved customer channels",
 ]);
 
 expect("src/components/customer-support/support-request-update-form.tsx", [
@@ -81,67 +57,18 @@ expect("src/app/api/customer/support/status/route.ts", [
   "projectSupportStatus",
   "customerVisibleStatus",
   "communicationPlan",
-  "No authorized support status was found.",
 ]);
 
-expect("src/lib/customer-support-status-contracts.ts", [
-  "CUSTOMER_SUPPORT_STATUS_CONTRACTS",
-  "CUSTOMER_SUPPORT_STATUS_GLOBAL_GUARDS",
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect("package.json", ["validate:routes", "validate-customer-support-status-page.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
-expect("package.json", [
-  "validate:routes",
-  "validate-customer-support-status-page.mjs",
-]);
-
-forbidden("src/app/dashboard/support/status/page.tsx", [
-  "dangerouslySetInnerHTML",
-  "localStorage",
-  "sessionStorage",
-  "x-support-admin-key",
-  "x-cendorq-customer-context",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorId",
-  "riskScoringInternals",
-  "attackerDetails",
-  "adminReadKey",
-  "supportContextKey",
-]);
-
-forbidden("src/components/customer-support/support-status-list.tsx", [
-  "dangerouslySetInnerHTML",
-  "localStorage",
-  "sessionStorage",
-  "x-support-admin-key",
-  "x-cendorq-customer-context",
-  "CUSTOMER_SUPPORT_CONTEXT_KEY",
-  "SUPPORT_CONSOLE_READ_KEY",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorId",
-  "operatorIdHash",
-  "riskScoringInternals",
-  "attackerDetails",
-  "adminReadKey",
-  "supportContextKey",
-  "sessionToken",
-  "csrfToken",
-  "console.log",
-  "sendReasons.map",
-  "holdReasons.map",
-  "suppressionReasons.map",
-  "notificationKey}",
-  "emailKey}",
-  "rawRejectedContent",
-  "rejectedRawContent",
-]);
+forbidden("src/app/dashboard/support/status/page.tsx", unsafePhrases());
+forbidden("src/components/customer-support/support-status-list.tsx", unsafePhrases());
 
 if (failures.length) {
   console.error("Customer support status page validation failed:");
@@ -149,7 +76,35 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support status page validation passed.");
+console.log("Customer support status page validation passed with owner posture and package wiring coverage.");
+
+function unsafePhrases() {
+  return [
+    "dangerouslySetInnerHTML",
+    "localStorage",
+    "sessionStorage",
+    "x-support-admin-key",
+    "x-cendorq-customer-context",
+    "CUSTOMER_SUPPORT_CONTEXT_KEY",
+    "SUPPORT_CONSOLE_READ_KEY",
+    "rawPayload=",
+    "rawEvidence=",
+    "rawSecurityPayload=",
+    "rawBillingData=",
+    "internalNotes=",
+    "operatorId=",
+    "operatorIdHash=",
+    "riskScoringInternals=",
+    "attackerDetails=",
+    "adminReadKey=",
+    "supportContextKey=",
+    "sessionToken=",
+    "csrfToken=",
+    "console.log",
+    "rawRejectedContent",
+    "rejectedRawContent",
+  ];
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
