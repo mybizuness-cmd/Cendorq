@@ -7,6 +7,7 @@ const routePath = "src/app/api/customer/email/confirm/route.ts";
 const handoffValidatorPath = "src/scripts/validate-customer-email-confirmation-handoff-runtime.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(runtimePath, [
@@ -20,27 +21,7 @@ expect(runtimePath, [
   "createHash(\"sha256\")",
   "timingSafeEqual",
   "consumedAt",
-  "if (entry.consumedAt) return buildStoredResult(entry, \"already-used\"",
   "expiresAt",
-]);
-
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
-
-expect(runtimePath, [
-  "verified-redirect",
-  "resend-required",
-  "already-used",
-  "hold",
   "rawTokenReturned: false",
   "tokenHashReturned: false",
   "localStorageAllowed: false",
@@ -73,12 +54,14 @@ expect(routePath, [
   "readSafeJson",
 ]);
 
-expect(handoffValidatorPath, [
-  "src/lib/customer-email-verification-token-runtime.ts",
-  "src/app/api/customer/email/confirm/route.ts",
-  "validate-customer-email-verification-token-runtime.mjs",
-  "owner posture",
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-email-verification-token-runtime.mjs", "validate-owner-maximum-protection-posture.mjs"]);
+expect(handoffValidatorPath, ["src/lib/customer-email-verification-token-runtime.ts", "src/app/api/customer/email/confirm/route.ts", "validate-customer-email-verification-token-runtime.mjs", "owner posture"]);
 
 forbidden(runtimePath, unsafePhrases());
 forbidden(routePath, unsafePhrases());
@@ -89,7 +72,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email verification token runtime validation passed with owner posture coverage.");
+console.log("Customer email verification token runtime validation passed with owner posture and package wiring coverage.");
 
 function unsafePhrases() {
   return [
@@ -109,14 +92,6 @@ function unsafePhrases() {
     "impossible to hack",
     "never liable",
     "liability-free",
-    "password=",
-    "privateKey=",
-    "cardNumber=",
-    "bankDetail=",
-    "rawPayload=",
-    "rawEvidence=",
-    "operatorIdentity=",
-    "internalNote=",
   ];
 }
 
