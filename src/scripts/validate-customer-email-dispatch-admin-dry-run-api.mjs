@@ -6,6 +6,7 @@ const routePath = "src/app/api/admin/customer/email/dispatch/dry-run/route.ts";
 const queueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(routePath, [
@@ -38,6 +39,12 @@ expect(ownerMaximumProtectionValidatorPath, [
   "Owner maximum protection posture validation passed",
   "docs/owner-maximum-protection-posture.md",
   "validate:routes",
+]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-customer-email-dispatch-admin-dry-run-api.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 expect(routePath, [
@@ -96,7 +103,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch admin dry-run API validation passed with owner posture coverage.");
+console.log("Customer email dispatch admin dry-run API validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
