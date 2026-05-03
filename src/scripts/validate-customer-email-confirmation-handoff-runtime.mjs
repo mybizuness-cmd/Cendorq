@@ -11,6 +11,8 @@ const reportVaultVerifyPath = "src/lib/report-vault-verify-to-view-integration.t
 const reportVaultVerifyValidatorPath = "src/scripts/validate-report-vault-verify-to-view-integration.mjs";
 const gatePath = "src/app/free-check/free-scan-confirmation-gate.tsx";
 const freeScanValidatorPath = "src/scripts/validate-free-scan-first-use-handoff.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(runtimePath, [
@@ -23,6 +25,18 @@ expect(runtimePath, [
   "resend-verification",
   "route-verified",
   "hold",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(runtimePath, [
@@ -153,7 +167,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email confirmation handoff runtime validation passed with verification token runtime and report vault verify-to-view coverage.");
+console.log("Customer email confirmation handoff runtime validation passed with owner posture, verification token runtime, and report vault verify-to-view coverage.");
 
 function unsafePhrases() {
   return [
