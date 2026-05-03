@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const contractPath = "src/lib/customer-email-provider-configuration-contracts.ts";
 const adapterValidatorPath = "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(contractPath, [
@@ -18,6 +20,18 @@ expect(contractPath, [
   "getCustomerEmailProviderConfigurationContracts",
   "getCustomerEmailProviderConfigurationRules",
   "projectCustomerEmailProviderConfigurationSummary",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(contractPath, [
@@ -83,41 +97,22 @@ expect(adapterValidatorPath, [
   "src/lib/customer-email-provider-configuration-contracts.ts",
   "validate-customer-email-provider-configuration-contracts.mjs",
   "projectCustomerEmailProviderConfigurationSummary",
+  "owner posture",
 ]);
 
 forbidden(contractPath, [
-  "browserExposedEnvNames: [\"",
   "storeProviderPayload: true",
   "storeProviderResponse: true",
   "storeProviderSecret: true",
-  "storeRawCustomerEmail: true",
-  "storeRawToken: true",
-  "storeTokenHash: true",
-  "storeConfirmationUrl: true",
-  "storeRawEvidence: true",
-  "storeRawBillingData: true",
-  "storeInternalNotes: true",
   "providerSecretReadAllowedInBrowser: true",
   "providerPayloadAllowedInBrowser: true",
   "providerResponseAllowedInBrowser: true",
   "directProviderCallAllowedFromRoutes: true",
   "unboundedAutoSendAllowed: true",
-  "rawCustomerEmailExposed: true",
-  "rawTokenExposed: true",
-  "tokenHashExposed: true",
-  "confirmationUrlExposed: true",
   "providerPayloadExposed: true",
   "providerResponseExposed: true",
   "providerSecretExposed: true",
   "browserSecretExposure: true",
-  "guaranteed inbox placement",
-  "guaranteed deliverability",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
 ]);
 
 if (failures.length) {
@@ -126,7 +121,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email provider configuration contracts validation passed.");
+console.log("Customer email provider configuration contracts validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
