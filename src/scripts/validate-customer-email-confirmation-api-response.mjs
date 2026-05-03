@@ -5,6 +5,8 @@ const root = process.cwd();
 const responsePath = "src/lib/customer-email-confirmation-api-response.ts";
 const runtimePath = "src/lib/customer-email-confirmation-handoff-runtime.ts";
 const freeScanValidatorPath = "src/scripts/validate-free-scan-first-use-handoff.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(responsePath, [
@@ -19,6 +21,18 @@ expect(responsePath, [
   "noStore: true",
   "Cache-Control",
   "no-store, no-cache, must-revalidate, proxy-revalidate",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(responsePath, [
@@ -93,7 +107,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email confirmation API response validation passed.");
+console.log("Customer email confirmation API response validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
