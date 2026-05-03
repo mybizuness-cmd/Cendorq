@@ -9,6 +9,8 @@ const ownerPersistencePath = "src/lib/owner-configuration-evidence-persistence-r
 const launchPersistencePath = "src/lib/launch-evidence-persistence-runtime.ts";
 const wiredRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 
 expect(runtimePath, [
   "ReportEvidenceRecordPersistenceAccess",
@@ -20,6 +22,18 @@ expect(runtimePath, [
   "buildReportEvidenceRecordRuntime",
   "ReportEvidenceRecordRuntimeInput",
   "ReportEvidenceRecordRuntimeSummary",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(runtimePath, [
@@ -93,6 +107,7 @@ expect(recordRuntimePath, [
   "customerFacingOutputApproved: false",
   "publicReportReleaseApproved: false",
   "paidPlanRecommendationApproved: false",
+  "owner posture coverage",
 ]);
 
 expect(ownerPersistencePath, [
@@ -119,6 +134,7 @@ expect(wiredRuntimeValidatorPath, [
   "getReportEvidenceRecordHistoryResponse",
   "rawEvidenceStored: false",
   "customerFacingOutputApproved: false",
+  "owner posture coverage",
 ]);
 
 expect(routesChainPath, [
@@ -155,7 +171,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report evidence record persistence runtime validation passed. Persistence remains command-center gated, append-only, no-store, safe-summary/hash based, centrally covered by the report evidence record runtime validator, and blocked from raw/private payload exposure or approval drift.");
+console.log("Report evidence record persistence runtime validation passed with owner posture coverage. Persistence remains command-center gated, append-only, no-store, safe-summary/hash based, centrally covered by the report evidence record runtime validator, and blocked from raw/private payload exposure or approval drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
