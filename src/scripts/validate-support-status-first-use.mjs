@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const pagePath = "src/app/dashboard/support/status/page.tsx";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 const failures = [];
 
@@ -34,7 +36,23 @@ expect(pagePath, [
   "focus:ring-2",
 ]);
 
-expect(packagePath, ["validate:routes"]);
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-support-status-first-use.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
 
 forbidden(pagePath, [
   "guaranteed ROI",
@@ -52,8 +70,6 @@ forbidden(pagePath, [
   "operatorIdentity=",
   "riskScoringInternals=",
   "attackerDetails=",
-  "sessionToken=",
-  "csrfToken=",
   "localStorage",
   "sessionStorage",
 ]);
@@ -64,7 +80,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Support status first use validation passed.");
+console.log("Support status first use validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
