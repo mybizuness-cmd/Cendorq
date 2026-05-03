@@ -3,21 +3,49 @@
 import { trackConversionEvent } from "@/lib/conversion-events";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type DockAction = {
   href: string;
   label: string;
   support: string;
+  title: string;
 };
+
+const HOME_DOCK_DELAY_MS = 16_000;
+const HOME_DOCK_SCROLL_RATIO = 0.42;
 
 export function MobileConversionDock() {
   const pathname = usePathname() || "/";
-
+  const [homeReady, setHomeReady] = useState(false);
   const action = useMemo(() => buildDockAction(pathname), [pathname]);
   const hidden = pathname.startsWith("/intake-console") || pathname.startsWith("/api");
+  const isHome = pathname === "/";
 
-  if (hidden) return null;
+  useEffect(() => {
+    if (!isHome) {
+      setHomeReady(true);
+      return;
+    }
+
+    setHomeReady(false);
+    const timer = window.setTimeout(() => setHomeReady(true), HOME_DOCK_DELAY_MS);
+
+    function handleScroll() {
+      const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const progress = window.scrollY / scrollable;
+      if (progress >= HOME_DOCK_SCROLL_RATIO) setHomeReady(true);
+    }
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isHome]);
+
+  if (hidden || (isHome && !homeReady)) return null;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[60] px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 lg:hidden">
@@ -28,7 +56,7 @@ export function MobileConversionDock() {
               {action.support}
             </div>
             <div className="mt-0.5 truncate text-sm font-semibold text-white">
-              Cendorq next move
+              {action.title}
             </div>
           </div>
           <Link
@@ -49,7 +77,8 @@ function buildDockAction(pathname: string): DockAction {
     return {
       href: "/free-check#free-check-intake",
       label: "Continue scan",
-      support: "Guided free scan",
+      support: "Guided scan room",
+      title: "Keep the first read focused",
     };
   }
 
@@ -58,6 +87,7 @@ function buildDockAction(pathname: string): DockAction {
       href: "/plans/build-fix",
       label: "See Build Fix",
       support: "Need action next?",
+      title: "Move from diagnosis to scoped improvement",
     };
   }
 
@@ -66,6 +96,7 @@ function buildDockAction(pathname: string): DockAction {
       href: "/plans/ongoing-control",
       label: "See Ongoing",
       support: "Need control next?",
+      title: "Protect the improvement over time",
     };
   }
 
@@ -74,6 +105,7 @@ function buildDockAction(pathname: string): DockAction {
       href: "/connect",
       label: "Talk fit",
       support: "Ongoing Control",
+      title: "Discuss the control path",
     };
   }
 
@@ -82,6 +114,7 @@ function buildDockAction(pathname: string): DockAction {
       href: "/free-check",
       label: "Start free scan",
       support: "Safest first move",
+      title: "Find the pressure before choosing depth",
     };
   }
 
@@ -90,12 +123,14 @@ function buildDockAction(pathname: string): DockAction {
       href: "/free-check",
       label: "Start scan",
       support: "Still unsure?",
+      title: "Return to the clean first read",
     };
   }
 
   return {
     href: "/free-check",
     label: "Start free scan",
-    support: "Find the hesitation",
+    support: "Command path",
+    title: "Begin with the protected first read",
   };
 }
