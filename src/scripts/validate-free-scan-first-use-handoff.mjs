@@ -12,6 +12,8 @@ const gatePath = "src/app/free-check/free-scan-confirmation-gate.tsx";
 const runtimeValidatorPath = "src/scripts/validate-customer-email-confirmation-handoff-runtime.mjs";
 const apiResponseValidatorPath = "src/scripts/validate-customer-email-confirmation-api-response.mjs";
 const intakeCompleteApiValidatorPath = "src/scripts/validate-free-scan-intake-completion-api.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(pagePath, [
@@ -39,6 +41,18 @@ expect(pagePath, [
   "Plan guidance should come from scan evidence, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
   "focus:outline-none",
   "focus:ring-2",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(runtimePath, [
@@ -115,15 +129,17 @@ expect(gatePath, [
 ]);
 
 expect(runtimeValidatorPath, [
-  "Customer email confirmation handoff runtime validation passed.",
+  "Customer email confirmation handoff runtime validation passed",
   "src/lib/customer-email-confirmation-handoff-runtime.ts",
   "src/app/free-check/free-scan-confirmation-gate.tsx",
+  "owner posture coverage",
 ]);
 
 expect(apiResponseValidatorPath, [
-  "Customer email confirmation API response validation passed.",
+  "Customer email confirmation API response validation passed",
   "src/lib/customer-email-confirmation-api-response.ts",
   "buildCustomerEmailConfirmationApiResponse",
+  "owner posture coverage",
 ]);
 
 expect(intakeCompleteApiValidatorPath, [
@@ -132,7 +148,7 @@ expect(intakeCompleteApiValidatorPath, [
   "buildCustomerEmailConfirmationApiResponse",
 ]);
 
-expect(packagePath, ["validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-posture.mjs"]);
 
 forbidden(pagePath, unsafePhrases());
 forbidden(runtimePath, unsafePhrases());
@@ -146,7 +162,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan first use handoff validation passed with verify-to-view runtime, API response, and intake completion API coverage.");
+console.log("Free Scan first use handoff validation passed with owner posture, verify-to-view runtime, API response, and intake completion API coverage.");
 
 function unsafePhrases() {
   return [
