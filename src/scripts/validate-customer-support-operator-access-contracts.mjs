@@ -6,6 +6,8 @@ const failures = [];
 const accessContractsPath = "src/lib/customer-support-operator-access-contracts.ts";
 const operatorContractsPath = "src/lib/customer-support-operator-console-contracts.ts";
 const auditRuntimePath = "src/lib/customer-support-operator-audit-runtime.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(accessContractsPath, [
@@ -41,6 +43,18 @@ expect(accessContractsPath, [
   "no support operator route may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(operatorContractsPath, [
   "CUSTOMER_SUPPORT_OPERATOR_CONSOLE_CONTRACT",
   "CustomerSupportOperatorRole",
@@ -57,6 +71,7 @@ expect(auditRuntimePath, [
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-operator-access-contracts.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(accessContractsPath, [
@@ -87,7 +102,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support operator access contracts validation passed.");
+console.log("Customer support operator access contracts validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
