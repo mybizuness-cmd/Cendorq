@@ -4,6 +4,9 @@ import { join } from "node:path";
 const root = process.cwd();
 const contractPath = "src/lib/dashboard-inbox-contracts.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(contractPath, [
@@ -59,6 +62,25 @@ expect(contractPath, [
   "command-center-next-step",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "The public surface teaches the category without exposing private mechanics.",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-dashboard-inbox-contracts.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
+
 expect(routesChainPath, [
   "src/scripts/validate-dashboard-inbox-contracts.mjs",
 ]);
@@ -96,7 +118,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard inbox contracts validation passed.");
+console.log("Dashboard inbox contracts validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
