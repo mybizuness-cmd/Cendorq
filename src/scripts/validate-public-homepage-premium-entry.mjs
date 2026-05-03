@@ -10,18 +10,25 @@ const validatorPath = "src/scripts/validate-public-homepage-premium-entry.mjs";
 const failures = [];
 
 expect(pagePath, [
-  "The business command system for why customers hesitate, compare, and choose someone else.",
-  "focused Free Scan",
-  "diagnosis, reports, dashboard guidance, notifications, billing, support, and plan decisions",
-  "protected customer platform",
-  "The homepage is a premium entry point.",
-  "The full scan happens on /free-check",
-  "PREMIUM_TRUST_BAR",
-  "Diagnosis before spend",
-  "Safe public entry",
-  "Dedicated Free Scan room",
-  "Dashboard handoff after completion",
-  "PUBLIC_ENTRY_RULES",
+  "Cendorq | Business Command Intelligence",
+  "Business Command Intelligence",
+  "business command system",
+  "command-first customer platform",
+  "The command system for why customers hesitate, compare, and choose someone else.",
+  "more than a prettier page",
+  "one customer command platform",
+  "Enter the command path",
+  "Command first",
+  "Truth before spend",
+  "Protected customer platform",
+  "Category-command posture",
+  "Dashboard-owned journey",
+  "EXECUTIVE_COMMAND_STANDARD",
+  "Every pixel must earn trust",
+  "Every claim must stay bounded",
+  "Every action must be obvious",
+  "Cendorq leads with business command intelligence, not a disposable scan tool.",
+  "The homepage establishes Cendorq as the command system; Free Scan is the protected entry path.",
 ]);
 
 expect(pagePath, [
@@ -49,7 +56,7 @@ expect(pagePath, [
 ]);
 
 expect(pagePath, [
-  "The homepage introduces the Free Scan; the full scan stays on /free-check.",
+  "The full scan stays on /free-check so the intake, recovery, and handoff stay focused.",
   "The soft prompt appears after time or intent, not instantly as an aggressive interruption.",
   "Public copy must not expose raw payloads, secrets, private report internals, or customer data.",
   "Conversion must come from clarity, proof, stage fit, and trust — not dark patterns or guaranteed outcomes.",
@@ -83,6 +90,9 @@ expect(routesChainPath, [
 ]);
 
 forbidden(pagePath, [
+  "title: \"Free Scan | Cendorq\"",
+  "The homepage is a premium entry point.",
+  "disposable scan tool",
   "guaranteed ROI",
   "guaranteed revenue",
   "guaranteed business results",
@@ -120,12 +130,12 @@ forbidden(nudgePath, [
 ]);
 
 if (failures.length) {
-  console.error("Public homepage premium entry validation failed:");
+  console.error("Public homepage command entry validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Public homepage premium entry validation passed with command-center flow and plan ladder positioning.");
+console.log("Public homepage command entry validation passed with category-command identity, command-center flow, and plan ladder positioning.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
