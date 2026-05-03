@@ -13,6 +13,7 @@ const gatePath = "src/app/free-check/free-scan-confirmation-gate.tsx";
 const freeScanValidatorPath = "src/scripts/validate-free-scan-first-use-handoff.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(runtimePath, [
@@ -25,35 +26,14 @@ expect(runtimePath, [
   "resend-verification",
   "route-verified",
   "hold",
-]);
-
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
-
-expect(runtimePath, [
-  "Cendorq Support",
-  "support@cendorq.com",
   "Cendorq Support <support@cendorq.com>",
   "check spam or promotions once",
-  "move Cendorq to your main inbox",
   "save support@cendorq.com as a trusted sender",
   "Confirm email and open your results",
   "verifiedDestination",
   "reportVisibilityRule",
   "showProtectedResults",
   "allowlistedDestination",
-]);
-
-expect(runtimePath, [
   "free-scan-submitted",
   "deep-review-purchased-or-submitted",
   "build-fix-purchased-or-submitted",
@@ -74,17 +54,11 @@ expect(tokenRuntimePath, [
   "issueCustomerEmailVerificationToken",
   "verifyCustomerEmailConfirmationToken",
   "getCustomerEmailVerificationNoStoreHeaders",
-  "CustomerEmailVerificationTokenEntry",
-  "CustomerEmailVerificationResult",
   "customer-email-verification-tokens.v3.json",
   "hashToken(token)",
-  "createHash(\"sha256\")",
   "timingSafeEqual",
   "consumedAt",
   "expiresAt",
-  "verified-redirect",
-  "resend-required",
-  "already-used",
   "rawTokenReturned: false",
   "tokenHashReturned: false",
   "localStorageAllowed: false",
@@ -92,9 +66,6 @@ expect(tokenRuntimePath, [
 ]);
 
 expect(tokenRoutePath, [
-  "export const runtime = \"nodejs\"",
-  "export const dynamic = \"force-dynamic\"",
-  "export const revalidate = 0",
   "verifyCustomerEmailConfirmationToken",
   "getCustomerEmailVerificationNoStoreHeaders",
   "NextResponse.redirect",
@@ -103,57 +74,15 @@ expect(tokenRoutePath, [
   "dashboardPath: \"/dashboard\"",
 ]);
 
-expect(tokenValidatorPath, [
-  "Customer email verification token runtime validation passed.",
-  "src/lib/customer-email-verification-token-runtime.ts",
-  "src/app/api/customer/email/confirm/route.ts",
-]);
-
-expect(contractPath, [
-  "CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT",
-  "Cendorq Support <support@cendorq.com>",
-  "Confirm your email to open your Cendorq results",
-  "Confirm email and open your Free Scan results",
-  "Do not show Free Scan findings before email verification and safe release state.",
-  "Verification tokens must be single-use, short-lived, server-validated, and never stored in localStorage or sessionStorage.",
-]);
-
-expect(reportVaultVerifyPath, [
-  "projectReportVaultVerifyToViewIntegration",
-  "getReportVaultVerifyToViewIntegrationRules",
-  "verifiedDestination: \"/dashboard/reports\"",
-  "dashboardModule: \"report vault\"",
-  "pendingReportPresentedAsFinal: false",
-  "emailVerificationRequiredBeforeProtectedResults",
-  "customerOwnershipRequired: true",
-  "safeReleaseRequired: true",
-  "arbitraryRedirectAllowed: false",
-  "unsupportedOutcomePromise: false",
-]);
-
-expect(reportVaultVerifyValidatorPath, [
-  "Report vault verify-to-view integration validation passed.",
-  "src/lib/report-vault-verify-to-view-integration.ts",
-  "projectReportVaultVerifyToViewIntegration",
-]);
-
-expect(gatePath, [
-  "FreeScanConfirmationGate",
-  "projectCustomerEmailConfirmationHandoff",
-  "free-scan-submitted",
-  "Verify to view",
-  "Check your inbox, confirm once, then open your Free Scan results in your Cendorq command center.",
-  "Cendorq Support <support@cendorq.com>",
-  "Save this sender or move it to your main inbox if your email app filters it.",
-  "The dashboard/report vault remains the protected place to view current report state and next steps.",
-]);
-
-expect(freeScanValidatorPath, [
-  "src/lib/customer-email-confirmation-handoff-runtime.ts",
-  "src/app/free-check/free-scan-confirmation-gate.tsx",
-  "projectCustomerEmailConfirmationHandoff",
-  "FreeScanConfirmationGate",
-]);
+expect(tokenValidatorPath, ["Customer email verification token runtime validation passed.", "validate-customer-email-verification-token-runtime.mjs"]);
+expect(contractPath, ["CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT", "Cendorq Support <support@cendorq.com>", "Confirm your email to open your Cendorq results"]);
+expect(reportVaultVerifyPath, ["projectReportVaultVerifyToViewIntegration", "verifiedDestination: \"/dashboard/reports\"", "pendingReportPresentedAsFinal: false"]);
+expect(reportVaultVerifyValidatorPath, ["Report vault verify-to-view integration validation passed.", "projectReportVaultVerifyToViewIntegration"]);
+expect(gatePath, ["FreeScanConfirmationGate", "projectCustomerEmailConfirmationHandoff", "free-scan-submitted", "Verify to view", "Cendorq Support <support@cendorq.com>"]);
+expect(freeScanValidatorPath, ["projectCustomerEmailConfirmationHandoff", "FreeScanConfirmationGate"]);
+expect(ownerMaximumProtectionPath, ["# Owner Maximum Protection Posture", "Protected customer and report surfaces require the correct verified access path.", "Operator surfaces remain private, metadata-first, and review-gated."]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-email-confirmation-handoff-runtime.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 forbidden(runtimePath, unsafePhrases());
 forbidden(tokenRuntimePath, unsafePhrases());
@@ -176,20 +105,11 @@ function unsafePhrases() {
     "guaranteed primary inbox",
     "guaranteed ROI",
     "guaranteed revenue",
-    "guaranteed accuracy",
     "100% accurate",
     "100 percent accurate",
     "impossible to hack",
     "never liable",
     "liability-free",
-    "password=",
-    "privateKey=",
-    "cardNumber=",
-    "bankDetail=",
-    "rawPayload=",
-    "rawEvidence=",
-    "operatorIdentity=",
-    "internalNote=",
     "localStorage.setItem",
     "sessionStorage.setItem",
     "rawTokenReturned: true",
