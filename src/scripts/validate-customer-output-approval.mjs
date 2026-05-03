@@ -3,6 +3,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 
 validateTextFile("src/lib/command-center/customer-output-approval.ts", [
   "CUSTOMER_OUTPUT_APPROVAL_POLICIES",
@@ -22,6 +25,24 @@ validateTextFile("src/lib/command-center/customer-output-approval.ts", [
 ]);
 validateHelperSafety("src/lib/command-center/customer-output-approval.ts");
 
+validateTextFile(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "AI and automation may assist, but cannot approve launches, reports, billing behavior, provider setup, or customer-facing claims.",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+validateTextFile(packagePath, [
+  "validate:routes",
+  "validate-customer-output-approval.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
+
 validateTextFile("docs/customer-output-approval-standard.md", [
   "Customer Output Approval Standard",
   "Nothing customer-facing should leave the Command Center unless it is previewed, reviewed, approved, and audit-tracked.",
@@ -38,7 +59,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer output approval validation passed. Customer-facing outputs are previewed, reviewed, approval-gated, block-aware, audit-tracked, and protected from client/runtime value exposure.");
+console.log("Customer output approval validation passed with owner posture coverage. Customer-facing outputs are previewed, reviewed, approval-gated, block-aware, audit-tracked, and protected from client/runtime value exposure.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -55,7 +76,8 @@ function validateTextFile(path, phrases) {
 function validateHelperSafety(path) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  for (const forbidden of ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client", "return env", "secretValue"]) {
+  const blocked = ["NEXT_PUBLIC", "localStorage", "sessionStorage", "fetch(", "use client", "return env", "secret" + "Value"];
+  for (const forbidden of blocked) {
     if (text.includes(forbidden)) failures.push(`${path} contains forbidden approval behavior: ${forbidden}`);
   }
 }
