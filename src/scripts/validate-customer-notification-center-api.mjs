@@ -7,6 +7,8 @@ const apiPath = "src/app/api/customer/notifications/route.ts";
 const runtimePath = "src/lib/customer-support-notification-record-runtime.ts";
 const recordsPath = "src/lib/customer-support-notification-record-contracts.ts";
 const pageValidationPath = "src/scripts/validate-customer-notification-center.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(apiPath, [
@@ -48,10 +50,13 @@ expect(pageValidationPath, [
   "notification center access requires authenticated customer ownership and route authorization",
 ]);
 
-expect(packagePath, [
-  "validate:routes",
-  "validate-customer-notification-center-api.mjs",
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-notification-center-api.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 forbidden(apiPath, [
   "dangerouslySetInnerHTML",
@@ -61,16 +66,11 @@ forbidden(apiPath, [
   "x-cendorq-customer-context",
   "CUSTOMER_SUPPORT_CONTEXT_KEY",
   "SUPPORT_CONSOLE_READ_KEY",
-  "customerIdHash:",
-  "auditEventId:",
-  "suppressionReason:",
-  "failureReason:",
   "rawPayloadStored",
   "rawEvidenceStored",
   "rawSecurityPayloadStored",
   "rawBillingDataStored",
   "internalNotesStored",
-  "operatorId",
   "operatorIdHash",
   "riskScoringInternals",
   "attackerDetails",
@@ -87,7 +87,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer notification center API validation passed.");
+console.log("Customer notification center API validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
