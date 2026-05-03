@@ -11,47 +11,64 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 const BRAND_NAME = "Cendorq";
-const CATEGORY_LINE = "Business Decision Intelligence";
+const CATEGORY_LINE = "Business Command Intelligence";
 
 export const metadata = buildMetadata({
-  title: "Free Scan | Cendorq",
+  title: "Cendorq | Business Command Intelligence",
   description:
-    "Start the Cendorq Free Scan and find what is making customers hesitate, compare, leave, or choose someone else before spending more.",
+    "Cendorq is a protected business command system for finding why customers hesitate, compare, leave, or choose someone else, then turning that truth into the right next move.",
   path: "/",
   keywords: [
-    "cendorq free scan",
-    "free business scan",
-    "business visibility scan",
-    "website trust scan",
-    "business clarity scan",
+    "cendorq",
+    "business command intelligence",
+    "business decision intelligence",
     "customer hesitation analysis",
+    "business clarity system",
+    "website trust analysis",
+    "conversion decision system",
     "ai search visibility",
     "answer engine visibility",
+    "free business scan",
   ],
   image: {
-    alt: "Cendorq Free Scan homepage.",
+    alt: "Cendorq business command intelligence homepage.",
   },
 });
 
 const HERO_POINTS = [
-  "Free first read",
-  "No fake guarantees",
-  "Proof before pressure",
+  "Command first",
+  "Truth before spend",
+  "Protected customer platform",
   "Clear next move",
 ] as const;
 
 const FRONT_DOOR_SNAPSHOT = [
-  { label: "Starting point", value: "Free Scan", detail: "A safer first read before deeper paid work." },
+  { label: "Identity", value: "Command system", detail: "Cendorq leads with business command intelligence, not a disposable scan tool." },
+  { label: "Starting point", value: "Free Scan", detail: "A safe first-read entry into the wider Cendorq command platform." },
   { label: "Core question", value: "Why are they not choosing?", detail: "Clarity, trust, choice, and action are reviewed together." },
-  { label: "Output posture", value: "Truthful and bounded", detail: "Findings separate practical direction from unsupported promises." },
   { label: "Next path", value: "Review, fix, or control", detail: "The next step should match the business stage and evidence." },
 ] as const;
 
-const PREMIUM_TRUST_BAR = [
+const COMMAND_TRUST_BAR = [
+  "Category-command posture",
   "Diagnosis before spend",
-  "Safe public entry",
-  "Dedicated Free Scan room",
-  "Dashboard handoff after completion",
+  "Protected result handoff",
+  "Dashboard-owned journey",
+] as const;
+
+const EXECUTIVE_COMMAND_STANDARD = [
+  {
+    title: "Every pixel must earn trust",
+    copy: "The page should feel deliberate, calm, protected, and above ordinary website tools from the first screen.",
+  },
+  {
+    title: "Every claim must stay bounded",
+    copy: "Cendorq can be confident without pretending to guarantee revenue, security, inbox placement, or business outcomes.",
+  },
+  {
+    title: "Every action must be obvious",
+    copy: "The customer should understand where to start, why it matters, and how the protected dashboard journey continues.",
+  },
 ] as const;
 
 const COMMAND_CENTER_FLOW = [
@@ -140,7 +157,8 @@ const TRUST_RULES = [
 ] as const;
 
 const PUBLIC_ENTRY_RULES = [
-  "The homepage introduces the Free Scan; the full scan stays on /free-check.",
+  "The homepage establishes Cendorq as the command system; Free Scan is the protected entry path.",
+  "The full scan stays on /free-check so the intake, recovery, and handoff stay focused.",
   "The soft prompt appears after time or intent, not instantly as an aggressive interruption.",
   "Public copy must not expose raw payloads, secrets, private report internals, or customer data.",
   "Conversion must come from clarity, proof, stage fit, and trust — not dark patterns or guaranteed outcomes.",
@@ -149,6 +167,11 @@ const PUBLIC_ENTRY_RULES = [
 ] as const;
 
 const FAQS = [
+  {
+    question: "What is Cendorq?",
+    answer:
+      "Cendorq is a business command intelligence system. It helps owners see why customers may hesitate, compare, leave, or choose someone else, then guides the next move through a protected customer platform.",
+  },
   {
     question: "Who should start here?",
     answer:
@@ -168,18 +191,18 @@ const FAQS = [
 
 export default function HomePage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Free Scan",
+    title: "Cendorq Business Command Intelligence",
     description:
-      "A focused conversion funnel that sends businesses into a guided Free Scan before deeper work is chosen.",
+      "A protected business command system for finding why customers hesitate, compare, leave, or choose someone else, then guiding the right next move.",
     path: "/",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Free Scan",
+    title: "Cendorq Business Command Intelligence",
     description:
-      "A guided Free Scan that helps businesses find what may be making people hesitate, leave, compare, or choose someone else.",
+      "A command-first customer platform that begins with a Free Scan and connects diagnosis, protected reports, dashboard guidance, billing, support, and plan decisions.",
     path: "/",
-    serviceType: "Free Scan",
+    serviceType: "Business Command Intelligence",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }]);
@@ -200,11 +223,11 @@ export default function HomePage() {
           <TopChip>{CATEGORY_LINE}</TopChip>
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[4.85rem]">
-            The business command system for why customers hesitate, compare, and choose someone else.
+            The command system for why customers hesitate, compare, and choose someone else.
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} starts with a focused Free Scan, then connects diagnosis, reports, dashboard guidance, notifications, billing, support, and plan decisions into one protected customer platform.
+            {BRAND_NAME} is built for owners who need more than a prettier page. It connects diagnosis, protected reports, dashboard guidance, notifications, billing, support, and plan decisions into one customer command platform.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -212,10 +235,10 @@ export default function HomePage() {
               href="/free-check"
               className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950"
             >
-              Start free scan
+              Enter the command path
             </Link>
             <p className="max-w-sm text-sm leading-6 text-slate-400">
-              The homepage is a premium entry point. The full scan happens on /free-check so the intake, recovery, and handoff stay focused.
+              Start with the Free Scan, then move through the protected dashboard, report vault, inbox, support, billing, and plan ladder without losing the thread.
             </p>
           </div>
 
@@ -225,8 +248,8 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-8 grid gap-2 sm:grid-cols-2 xl:grid-cols-4" aria-label="Premium public entry trust bar">
-            {PREMIUM_TRUST_BAR.map((item) => (
+          <div className="mt-8 grid gap-2 sm:grid-cols-2 xl:grid-cols-4" aria-label="Command public entry trust bar">
+            {COMMAND_TRUST_BAR.map((item) => (
               <div key={item} className="rounded-2xl border border-cyan-300/15 bg-cyan-300/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-50">
                 {item}
               </div>
@@ -240,14 +263,14 @@ export default function HomePage() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.14),transparent_35%),radial-gradient(circle_at_90%_10%,rgba(56,189,248,0.1),transparent_30%)]" />
             <div className="system-grid-wide absolute inset-0 opacity-[0.06]" />
             <div className="relative z-10">
-              <TopChip>What usually breaks</TopChip>
+              <TopChip>Command standard</TopChip>
 
               <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                More traffic does not fix a business people do not understand, trust, or choose.
+                The first screen has to make the business feel handled before the customer reads the second section.
               </h2>
 
               <div className="mt-6 grid gap-3">
-                {DECISION_BREAKS.map((item) => (
+                {EXECUTIVE_COMMAND_STANDARD.map((item) => (
                   <ProblemCard key={item.title} title={item.title} copy={item.copy} />
                 ))}
               </div>
