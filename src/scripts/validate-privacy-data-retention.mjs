@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const contractPath = "src/lib/privacy-data-retention-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(contractPath, [
@@ -35,7 +37,24 @@ expect(contractPath, [
   "no hidden raw-data retention through backups, logs, telemetry, or queues",
 ]);
 
-expect(packagePath, ["validate:routes"]);
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+  "Evidence and report logic stay separated into verified facts, assumptions, inferences, limitations, confidence, and next actions.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-privacy-data-retention.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
 
 forbidden(contractPath, [
   "delete everything forever allowed",
@@ -52,7 +71,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Privacy data retention validation passed.");
+console.log("Privacy data retention validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
