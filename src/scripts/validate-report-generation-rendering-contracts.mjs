@@ -8,6 +8,8 @@ const protectedFreeScanRenderingValidatorPath = "src/scripts/validate-protected-
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-report-generation-rendering-contracts.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(contractPath, [
@@ -20,6 +22,18 @@ expect(contractPath, [
   "build-fix-summary",
   "ongoing-control-monthly-report",
   "correction-review-addendum",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(contractPath, [
@@ -120,6 +134,7 @@ expect(protectedFreeScanRenderingValidatorPath, [
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 expect(routesChainPath, [
@@ -135,7 +150,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report generation rendering contracts validation passed with protected Free Scan results rendering coverage.");
+console.log("Report generation rendering contracts validation passed with protected Free Scan results rendering and owner posture coverage.");
 
 function unsafePhrases() {
   return [
