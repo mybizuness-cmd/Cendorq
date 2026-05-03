@@ -5,6 +5,8 @@ const root = process.cwd();
 const failures = [];
 const runtimePath = "src/lib/customer-support-operator-assignment-runtime.ts";
 const contractsPath = "src/lib/customer-support-operator-assignment-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(runtimePath, [
@@ -39,16 +41,30 @@ expect(runtimePath, [
   "storage-only and does not create assignment mutation APIs or customer-visible operator identities",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(contractsPath, [
   "CustomerSupportOperatorAssignmentContract",
   "CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_GUARDS",
   "immutableAuditRequired: true",
   "customerVisibleOperatorIdentity: false",
+  "owner posture coverage",
 ]);
 
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-operator-assignment-runtime.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(runtimePath, [
@@ -86,7 +102,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support operator assignment runtime validation passed.");
+console.log("Customer support operator assignment runtime validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
