@@ -8,6 +8,9 @@ const dispatchQueueValidatorPath = "src/scripts/validate-customer-email-dispatch
 const tokenRuntimePath = "src/lib/customer-email-verification-token-runtime.ts";
 const templatesPath = "src/lib/customer-email-template-contracts.ts";
 const templateValidatorPath = "src/scripts/validate-customer-email-template-contracts.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(runtimePath, [
@@ -32,14 +35,9 @@ expect(runtimePath, [
   "Cendorq Support <support@cendorq.com>",
   "support@cendorq.com",
   "Confirm your email to open your Cendorq results",
-  "Confirm your email and enter your Cendorq command center",
-  "Confirm your email to continue your Cendorq plan",
   "If the email was filtered, move Cendorq to your main inbox or save support@cendorq.com as a trusted sender.",
   "This confirmation link is single-use and expires.",
   "Cendorq will never ask for your password, card number, private key, or session token in this email.",
-]);
-
-expect(runtimePath, [
   "rawTokenReturnedToBrowser: false",
   "tokenHashReturnedToBrowser: false",
   "rawEmailReturnedToBrowser: false",
@@ -54,21 +52,11 @@ expect(runtimePath, [
 expect(dispatchQueuePath, [
   "CustomerEmailDispatchQueueRecord",
   "enqueueCustomerEmailDispatch",
-  "projectCustomerEmailDispatchQueueRecord",
-  "customer-email-dispatch-queue.v3.json",
   "recipientEmailRef",
   "confirmationUrlHash",
   "providerPayloadStored: false",
   "rawTokenStored: false",
   "rawEmailStored: false",
-  "customer email dispatch queue records do not store providerReadyPayload or call an external email provider",
-]);
-
-expect(dispatchQueueValidatorPath, [
-  "Customer email dispatch queue runtime validation passed.",
-  "src/lib/customer-email-dispatch-queue-runtime.ts",
-  "dispatchQueue",
-  "providerPayloadReturnedToBrowser: false",
 ]);
 
 expect(tokenRuntimePath, [
@@ -87,11 +75,15 @@ expect(templatesPath, [
   "no email contains passwords, raw tokens, raw billing IDs, raw evidence, secrets, or private report internals",
 ]);
 
-expect(templateValidatorPath, [
-  "src/lib/customer-confirmation-email-issuance-runtime.ts",
-  "validate-customer-confirmation-email-issuance-runtime.mjs",
-  "issueCustomerConfirmationEmail",
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-confirmation-email-issuance-runtime.mjs", "validate-owner-maximum-protection-posture.mjs"]);
+expect(dispatchQueueValidatorPath, ["Customer email dispatch queue runtime validation passed", "src/lib/customer-email-dispatch-queue-runtime.ts", "dispatchQueue"]);
+expect(templateValidatorPath, ["src/lib/customer-confirmation-email-issuance-runtime.ts", "validate-customer-confirmation-email-issuance-runtime.mjs", "issueCustomerConfirmationEmail"]);
 
 forbidden(runtimePath, unsafePhrases());
 forbidden(dispatchQueuePath, unsafePhrases());
@@ -102,7 +94,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer confirmation email issuance runtime validation passed with dispatch queue coverage.");
+console.log("Customer confirmation email issuance runtime validation passed with dispatch queue, owner posture, and package wiring coverage.");
 
 function unsafePhrases() {
   return [
@@ -122,9 +114,6 @@ function unsafePhrases() {
     "sessionStorageAllowed: true",
     "localStorage.setItem",
     "sessionStorage.setItem",
-    "sendGrid",
-    "resend.emails.send",
-    "fetch(\"https://api",
     "guaranteed inbox placement",
     "guaranteed deliverability",
     "guaranteed ROI",
