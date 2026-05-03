@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const renderingPath = "src/lib/protected-free-scan-results-rendering.ts";
 const reportRenderingValidatorPath = "src/scripts/validate-report-generation-rendering-contracts.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(renderingPath, [
@@ -16,6 +18,18 @@ expect(renderingPath, [
   "free-scan-result",
   "Free Scan",
   "notFullScan: true",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(renderingPath, [
@@ -61,6 +75,7 @@ expect(reportRenderingValidatorPath, [
   "src/lib/protected-free-scan-results-rendering.ts",
   "validate-protected-free-scan-results-rendering.mjs",
   "projectProtectedFreeScanResultsRendering",
+  "owner posture coverage",
 ]);
 
 forbidden(renderingPath, [
@@ -95,7 +110,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Protected Free Scan results rendering validation passed.");
+console.log("Protected Free Scan results rendering validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
