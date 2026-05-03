@@ -6,6 +6,8 @@ const pagePath = "src/app/dashboard/reports/page.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-report-vault-handoff-runtime-integration.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(pagePath, [
@@ -25,6 +27,18 @@ expect(pagePath, [
   "handoff.recoveryPath",
   "handoff.connectedDestination",
   "handoff.decision",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(pagePath, [
@@ -48,6 +62,7 @@ expect(pagePath, [
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 expect(routesChainPath, [
@@ -81,7 +96,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report vault handoff runtime integration validation passed. validate:routes delegates through the orchestrator and the report vault handoff integration validator remains wired into the route chain.");
+console.log("Report vault handoff runtime integration validation passed with owner posture coverage. validate:routes delegates through the orchestrator and the report vault handoff integration validator remains wired into the route chain.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
