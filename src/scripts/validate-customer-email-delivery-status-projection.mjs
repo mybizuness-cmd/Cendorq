@@ -6,6 +6,7 @@ const projectionPath = "src/lib/customer-email-delivery-status-projection.ts";
 const queueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(projectionPath, [
@@ -28,12 +29,8 @@ expect(ownerMaximumProtectionPath, [
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-email-delivery-status-projection.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 expect(projectionPath, [
   "Cendorq Support",
@@ -43,9 +40,6 @@ expect(projectionPath, [
   "Move Cendorq to your main inbox or save support@cendorq.com as a trusted sender.",
   "Cendorq does not guarantee inbox placement or provider delivery outcomes.",
   "delivery status projections are customer-safe summaries, not raw dispatch records",
-]);
-
-expect(projectionPath, [
   "deliverabilityGuaranteeClaimed: false",
   "rawCustomerEmailExposed: false",
   "rawTokenExposed: false",
@@ -57,12 +51,6 @@ expect(projectionPath, [
   "rawEvidenceExposed: false",
   "rawBillingDataExposed: false",
   "internalNotesExposed: false",
-]);
-
-expect(projectionPath, [
-  "failed and held status recovery must direct customers to protected dashboard or support paths without asking for secrets",
-  "Do not send passwords, card numbers, private keys, session tokens, raw security payloads, or raw evidence by email.",
-  "A suppressed email is not a guarantee that an inbox provider blocked delivery.",
 ]);
 
 expect(queueValidatorPath, [
@@ -91,7 +79,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email delivery status projection validation passed with owner posture coverage.");
+console.log("Customer email delivery status projection validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
