@@ -6,6 +6,8 @@ const failures = [];
 const emailPath = "src/lib/customer-support-lifecycle-email-contracts.ts";
 const baseEmailPath = "src/lib/customer-email-template-contracts.ts";
 const lifecycleNotificationPath = "src/lib/customer-support-lifecycle-notification-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(emailPath, [
@@ -49,9 +51,22 @@ expect(lifecycleNotificationPath, [
   "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_GLOBAL_GUARDS",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-lifecycle-email-contracts.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(emailPath, [
@@ -79,7 +94,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support lifecycle email contracts validation passed.");
+console.log("Customer support lifecycle email contracts validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
