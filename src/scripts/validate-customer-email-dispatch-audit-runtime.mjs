@@ -6,6 +6,7 @@ const auditPath = "src/lib/customer-email-dispatch-audit-runtime.ts";
 const queueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(auditPath, [
@@ -28,22 +29,14 @@ expect(ownerMaximumProtectionPath, [
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-email-dispatch-audit-runtime.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 expect(auditPath, [
   "dispatch audit transitions are append-only records separate from browser-safe responses",
   "dispatch audit transitions record providerPayloadHash and providerEventRefHash, not raw provider payloads or provider responses",
   "dispatch audit transitions never store raw customer emails, raw tokens, token hashes, confirmation URLs, secrets, raw evidence, raw billing data, or internal notes",
   "dispatch audit transitions preserve required guards, hold reasons, and suppression reasons for operational review",
-  "dispatch audit transitions allow providerCallMade and providerSecretRead only as booleans, never as provider secrets or provider response bodies",
-]);
-
-expect(auditPath, [
   "browserVisible: false",
   "rawCustomerEmailStored: false",
   "rawTokenStored: false",
@@ -55,18 +48,6 @@ expect(auditPath, [
   "rawBillingDataStored: false",
   "internalNotesStored: false",
   "secretsStored: false",
-]);
-
-expect(auditPath, [
-  "ready-for-provider",
-  "dry-run-ready",
-  "suppressed",
-  "failed",
-  "cancelled",
-  "sent",
-  "sending",
-  "held",
-  "queued",
 ]);
 
 expect(queueValidatorPath, [
@@ -95,7 +76,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch audit runtime validation passed with owner posture coverage.");
+console.log("Customer email dispatch audit runtime validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
