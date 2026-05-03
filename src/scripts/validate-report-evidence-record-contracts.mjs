@@ -5,6 +5,8 @@ const root = process.cwd();
 const contractsPath = "src/lib/command-center/report-evidence-record-contracts.ts";
 const orchestrationPath = "src/lib/command-center/report-evidence-orchestration.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(contractsPath, [
@@ -17,6 +19,18 @@ expect(contractsPath, [
   "REPORT_EVIDENCE_RECORD_CONTRACTS",
   "REPORT_EVIDENCE_RECORD_REQUIRED_GUARDS",
   "getReportEvidenceRecordContracts",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(contractsPath, [
@@ -105,7 +119,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report evidence record contracts validation passed. Report evidence records preserve source, confidence, conflict, plan-fit, blocked-pattern, and release-review metadata without raw/private payload exposure or customer-facing approval drift.");
+console.log("Report evidence record contracts validation passed with owner posture coverage. Report evidence records preserve source, confidence, conflict, plan-fit, blocked-pattern, and release-review metadata without raw/private payload exposure or customer-facing approval drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
