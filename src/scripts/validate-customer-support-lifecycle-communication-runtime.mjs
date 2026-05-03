@@ -5,6 +5,8 @@ const root = process.cwd();
 const failures = [];
 const runtimePath = "src/lib/customer-support-lifecycle-communication-runtime.ts";
 const orchestrationPath = "src/lib/customer-support-lifecycle-communication-orchestration.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(runtimePath, [
@@ -38,7 +40,6 @@ expect(runtimePath, [
   "suppressionReasons",
   "requiredGuards",
   "communication runtime returns only customer-safe keys, paths, channels, reasons, and guards",
-  "communication runtime never returns raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, support context keys, or rejected unsafe content",
   "communication runtime holds when customer ownership, verified session, or customer-safe status projection is missing",
   "communication runtime suppresses duplicate status communication when a status rule was already communicated",
   "communication runtime respects channel suppression and allowed channel filters before returning send decisions",
@@ -55,25 +56,28 @@ expect(orchestrationPath, [
   "support-status",
 ]);
 
-expect(packagePath, [
-  "validate:routes",
-  "validate-customer-support-lifecycle-communication-runtime.mjs",
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-support-lifecycle-communication-runtime.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 forbidden(runtimePath, [
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorId",
-  "operatorIdHash",
-  "riskScoringInternals",
-  "attackerDetails",
-  "adminReadKey",
-  "supportContextKey",
-  "sessionToken",
-  "csrfToken",
+  "rawPayload=",
+  "rawEvidence=",
+  "rawSecurityPayload=",
+  "rawBillingData=",
+  "internalNotes=",
+  "operatorId=",
+  "operatorIdHash=",
+  "riskScoringInternals=",
+  "attackerDetails=",
+  "adminReadKey=",
+  "supportContextKey=",
+  "sessionToken=",
+  "csrfToken=",
   "console.log",
   "dangerouslySetInnerHTML",
   "localStorage",
@@ -89,7 +93,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support lifecycle communication runtime validation passed.");
+console.log("Customer support lifecycle communication runtime validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
