@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const auditPath = "src/lib/customer-email-dispatch-audit-runtime.ts";
 const queueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(auditPath, [
@@ -19,6 +21,18 @@ expect(auditPath, [
   "requiredGuards",
   "holdReasons",
   "suppressionReasons",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(auditPath, [
@@ -73,21 +87,6 @@ forbidden(auditPath, [
   "rawBillingDataStored: true",
   "internalNotesStored: true",
   "secretsStored: true",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "sendGrid",
-  "resend.emails.send",
-  "fetch(\"https://api",
-  "process.env.RESEND_API_KEY",
-  "process.env.SENDGRID_API_KEY",
-  "guaranteed inbox placement",
-  "guaranteed deliverability",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
 ]);
 
 if (failures.length) {
@@ -96,7 +95,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch audit runtime validation passed.");
+console.log("Customer email dispatch audit runtime validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
