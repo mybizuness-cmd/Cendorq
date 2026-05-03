@@ -5,6 +5,8 @@ const root = process.cwd();
 const failures = [];
 const componentPath = "src/components/customer-support/operator-approval-list.tsx";
 const apiPath = "src/app/api/admin/support/approvals/list/route.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(componentPath, [
@@ -36,9 +38,22 @@ expect(apiPath, [
   "operator-approval-safe-list",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-operator-approval-history-filters.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(componentPath, [
@@ -75,7 +90,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support operator approval history filter validation passed.");
+console.log("Customer support operator approval history filter validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
