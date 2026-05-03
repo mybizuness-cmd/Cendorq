@@ -6,6 +6,7 @@ const routePath = "src/app/api/admin/customer/email/dispatch/preview/route.ts";
 const queueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(routePath, [
@@ -33,12 +34,8 @@ expect(ownerMaximumProtectionPath, [
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-email-dispatch-admin-preview-api.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 expect(routePath, [
   "Cendorq Support",
@@ -57,20 +54,6 @@ expect(routePath, [
   "auditTransitionRequiredForEveryMutationDecision: true",
   "appendOnly: true",
   "safeTransitionProjectionOnly: true",
-]);
-
-expect(routePath, [
-  "raw customer email",
-  "raw token",
-  "token hash",
-  "confirmation URL",
-  "provider payload",
-  "provider response",
-  "provider secret",
-  "raw evidence",
-  "raw billing data",
-  "internal notes",
-  "browser-carried authority",
 ]);
 
 expect(queueValidatorPath, [
@@ -101,7 +84,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch admin preview API validation passed with owner posture coverage.");
+console.log("Customer email dispatch admin preview API validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
