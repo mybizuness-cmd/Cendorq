@@ -5,6 +5,8 @@ const root = process.cwd();
 const failures = [];
 const auditContractsPath = "src/lib/customer-support-operator-audit-contracts.ts";
 const operatorContractsPath = "src/lib/customer-support-operator-console-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(auditContractsPath, [
@@ -52,6 +54,18 @@ expect(auditContractsPath, [
   "no audit record may be created from browser-exposed support admin keys or customer support context keys",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(operatorContractsPath, [
   "CUSTOMER_SUPPORT_OPERATOR_CONSOLE_CONTRACT",
   "CustomerSupportOperatorRole",
@@ -64,6 +78,7 @@ expect(operatorContractsPath, [
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-operator-audit-contracts.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(auditContractsPath, [
@@ -98,7 +113,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support operator audit contracts validation passed.");
+console.log("Customer support operator audit contracts validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
