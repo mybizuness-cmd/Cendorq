@@ -3,6 +3,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 
 validateTextFile("src/lib/command-center/ai-manager-command-history.ts", [
   "AI_MANAGER_COMMAND_HISTORY_POLICY",
@@ -32,13 +35,32 @@ validateTextFile("docs/ai-manager-command-history-standard.md", [
   "Cendorq remains the source of truth.",
 ]);
 
+validateTextFile(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+  "AI and automation may assist, but cannot approve launches, reports, billing behavior, provider setup, or customer-facing claims.",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+validateTextFile(packagePath, [
+  "validate:routes",
+  "validate-ai-manager-command-history.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
+
 if (failures.length) {
   console.error("AI manager command history validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("AI manager command history validation passed. AI command history is traceable, review-aware, block-aware, policy-labeled, and audit-protected.");
+console.log("AI manager command history validation passed with owner posture coverage. AI command history is traceable, review-aware, block-aware, policy-labeled, and audit-protected.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
