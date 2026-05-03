@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 
 expect("src/lib/customer-platform-route-map.ts", [
   "dashboardSupport",
@@ -11,6 +13,18 @@ expect("src/lib/customer-platform-route-map.ts", [
   "support center access requires authenticated customer ownership and route authorization",
   "support center must not promise refunds, legal outcomes, report changes, billing changes, or guaranteed results without approval",
   "support center must preserve correction path, billing help, security review, and escalation visibility",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect("src/app/dashboard/page.tsx", [
@@ -37,6 +51,7 @@ expect("src/app/dashboard/support/page.tsx", [
 expect("package.json", [
   "validate:routes",
   "validate-customer-support-center.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden("src/app/dashboard/support/page.tsx", [
@@ -57,7 +72,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support center validation passed.");
+console.log("Customer support center validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
