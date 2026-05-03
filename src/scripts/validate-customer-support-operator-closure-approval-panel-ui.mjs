@@ -6,6 +6,8 @@ const failures = [];
 const pagePath = "src/app/admin/support/page.tsx";
 const panelPath = "src/components/customer-support/operator-closure-approval-panel.tsx";
 const apiPath = "src/app/api/admin/support/approvals/closure/route.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(pagePath, [
@@ -45,9 +47,22 @@ expect(apiPath, [
   "projection: \"operator-closure-approval-safe\"",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-operator-closure-approval-panel-ui.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(panelPath, [
@@ -83,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support operator closure approval panel UI validation passed.");
+console.log("Customer support operator closure approval panel UI validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
