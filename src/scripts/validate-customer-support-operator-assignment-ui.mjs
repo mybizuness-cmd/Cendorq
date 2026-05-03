@@ -6,6 +6,8 @@ const failures = [];
 const pagePath = "src/app/admin/support/page.tsx";
 const panelPath = "src/components/customer-support/operator-assignment-panel.tsx";
 const apiPath = "src/app/api/admin/support/assignments/route.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(pagePath, [
@@ -15,6 +17,18 @@ expect(pagePath, [
   "Assignments require the guarded operator assignment API, fresh reauthentication, and immutable audit creation.",
   "Correction, billing, security, and closure controls are intentionally not available here.",
   "Raw customer materials, private financial details, internal notes, operator identity, risk internals, and unsafe promise language are not rendered.",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(panelPath, [
@@ -44,11 +58,13 @@ expect(apiPath, [
   "buildCustomerSupportOperatorAuditRecord",
   "buildCustomerSupportOperatorAssignment",
   "projection: \"operator-assignment-safe\"",
+  "owner posture coverage",
 ]);
 
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-operator-assignment-ui.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(pagePath, [
@@ -98,7 +114,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support operator assignment UI validation passed.");
+console.log("Customer support operator assignment UI validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
