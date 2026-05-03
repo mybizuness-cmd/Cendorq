@@ -6,6 +6,8 @@ const failures = [];
 const runtimePath = "src/lib/customer-support-operator-access-runtime.ts";
 const contractsPath = "src/lib/customer-support-operator-access-contracts.ts";
 const auditRuntimePath = "src/lib/customer-support-operator-audit-runtime.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(runtimePath, [
@@ -43,12 +45,25 @@ expect(runtimePath, [
   "support operator access runtime does not read localStorage, sessionStorage, browser-readable admin secrets, browser-readable support context keys, query-string secrets, or public JavaScript secrets",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(contractsPath, [
   "CUSTOMER_SUPPORT_OPERATOR_ACCESS_CONTRACT",
   "defaultDecision: \"deny\"",
   "sessionLocation: \"server-only-http-only-cookie\"",
   "fresh-admin-reauth-required-for-mutations",
   "browserReadableAdminSecretAllowed: false",
+  "owner posture coverage",
 ]);
 
 expect(auditRuntimePath, [
@@ -59,6 +74,7 @@ expect(auditRuntimePath, [
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-operator-access-runtime.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(runtimePath, [
@@ -94,7 +110,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support operator access runtime validation passed.");
+console.log("Customer support operator access runtime validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
