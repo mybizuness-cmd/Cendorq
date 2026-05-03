@@ -12,6 +12,8 @@ const orchestrationRuntimePath = "src/lib/command-center/report-evidence-orchest
 const ownerPersistencePath = "src/lib/owner-configuration-evidence-persistence-runtime.ts";
 const launchPersistencePath = "src/lib/launch-evidence-persistence-runtime.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(runtimePath, [
@@ -21,6 +23,18 @@ expect(runtimePath, [
   "projectReportEvidenceRuntime",
   "ReportEvidenceRuntimeInput",
   "ReportEvidenceRuntimeProjection",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(runtimePath, [
@@ -310,7 +324,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report evidence record runtime validation passed. Runtime projections, persistence records, and the command-center records API create safe source, confidence, conflict, plan-fit, blocked-pattern, and release-review metadata without raw/private payload exposure or approval drift.");
+console.log("Report evidence record runtime validation passed with owner posture coverage. Runtime projections, persistence records, and the command-center records API create safe source, confidence, conflict, plan-fit, blocked-pattern, and release-review metadata without raw/private payload exposure or approval drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
