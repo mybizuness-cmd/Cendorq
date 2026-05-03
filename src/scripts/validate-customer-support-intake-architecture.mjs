@@ -7,6 +7,8 @@ const intakePath = "src/lib/customer-support-intake-architecture.ts";
 const recordsPath = "src/lib/customer-support-record-contracts.ts";
 const supportPath = "src/app/dashboard/support/page.tsx";
 const shieldPath = "src/lib/cendorq-shield-standard.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(intakePath, [
@@ -45,6 +47,18 @@ expect(intakePath, [
   "billing intake must support entitlement checks, billing-state checks, cancellation help, and refund review boundaries",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(recordsPath, [
   "CUSTOMER_SUPPORT_RECORD_CONTRACTS",
   "customer-support-request",
@@ -66,6 +80,7 @@ expect(shieldPath, [
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-intake-architecture.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(intakePath, [
@@ -85,7 +100,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support intake architecture validation passed.");
+console.log("Customer support intake architecture validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
