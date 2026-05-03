@@ -48,7 +48,11 @@ expect(ownerMaximumProtectionValidatorPath, [
   "validate:routes",
 ]);
 
-expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-posture.mjs"]);
+expect(packagePath, [
+  "validate:routes",
+  "validate-billing-center-first-use.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
 
 forbidden(pagePath, [
   "guaranteed ROI",
