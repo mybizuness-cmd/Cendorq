@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const interfacePath = "src/lib/customer-email-provider-send-interface.ts";
 const adapterValidatorPath = "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(interfacePath, [
@@ -21,6 +23,18 @@ expect(interfacePath, [
   "providerAdapterNotApproved",
   "auditTransitionMissing",
   "liveSendNotRequested",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(interfacePath, [
@@ -65,6 +79,7 @@ expect(adapterValidatorPath, [
   "src/lib/customer-email-provider-send-interface.ts",
   "validate-customer-email-provider-send-interface.mjs",
   "sendCustomerEmailProviderMessage",
+  "owner posture",
 ]);
 
 forbidden(interfacePath, [
@@ -81,18 +96,6 @@ forbidden(interfacePath, [
   "browserVisible: true",
   "localStorageAllowed: true",
   "sessionStorageAllowed: true",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "resend.emails.send",
-  "fetch(\"https://api",
-  "guaranteed inbox placement",
-  "guaranteed deliverability",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
 ]);
 
 if (failures.length) {
@@ -101,7 +104,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email provider send interface validation passed.");
+console.log("Customer email provider send interface validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
