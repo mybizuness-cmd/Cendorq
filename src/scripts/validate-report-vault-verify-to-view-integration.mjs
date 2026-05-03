@@ -6,6 +6,7 @@ const integrationPath = "src/lib/report-vault-verify-to-view-integration.ts";
 const confirmationValidatorPath = "src/scripts/validate-customer-email-confirmation-handoff-runtime.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(integrationPath, [
@@ -21,18 +22,6 @@ expect(integrationPath, [
   "safe-recovery",
 ]);
 
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
-
 expect(integrationPath, [
   "verified email unlock routes for Free Scan and Deep Review must land in /dashboard/reports",
   "the report vault is the canonical protected place for report state, limitations, confidence labels, and next actions",
@@ -40,9 +29,6 @@ expect(integrationPath, [
   "released report views must preserve verified facts, assumptions, inferences, recommendations, limitations, and next actions",
   "report vault verify-to-view output must use customer-owned safe projections only",
   "report vault copy must convert through clarity and plan-fit education, not fake urgency or unsupported promises",
-]);
-
-expect(integrationPath, [
   "verifiedDestination: \"/dashboard/reports\"",
   "dashboardModule: \"report vault\"",
   "pendingReportPresentedAsFinal: false",
@@ -62,12 +48,14 @@ expect(integrationPath, [
   "unsupportedOutcomePromise: false",
 ]);
 
-expect(confirmationValidatorPath, [
-  "src/lib/report-vault-verify-to-view-integration.ts",
-  "validate-report-vault-verify-to-view-integration.mjs",
-  "projectReportVaultVerifyToViewIntegration",
-  "owner posture",
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-report-vault-verify-to-view-integration.mjs", "validate-owner-maximum-protection-posture.mjs"]);
+expect(confirmationValidatorPath, ["src/lib/report-vault-verify-to-view-integration.ts", "validate-report-vault-verify-to-view-integration.mjs", "projectReportVaultVerifyToViewIntegration", "owner posture"]);
 
 forbidden(integrationPath, [
   "pendingReportPresentedAsFinal: true",
@@ -100,7 +88,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report vault verify-to-view integration validation passed with owner posture coverage.");
+console.log("Report vault verify-to-view integration validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
