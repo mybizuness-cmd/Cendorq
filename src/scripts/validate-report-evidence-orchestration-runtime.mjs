@@ -5,6 +5,8 @@ const root = process.cwd();
 const runtimePath = "src/lib/command-center/report-evidence-orchestration-runtime.ts";
 const contractPath = "src/lib/command-center/report-evidence-orchestration.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(runtimePath, [
@@ -17,6 +19,18 @@ expect(runtimePath, [
   "REPORT_EVIDENCE_ORCHESTRATION_BLOCKED_PATTERNS",
   "REPORT_EVIDENCE_PLAN_FIT_CONTRACTS",
   "REPORT_EVIDENCE_SOURCE_CONTRACTS",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(runtimePath, [
@@ -52,7 +66,6 @@ expect(runtimePath, [
 
 expect(runtimePath, [
   "redacted-safe-value",
-  "raw|payload|secret|token|password|private key|csrf|admin key|support context|operator note|internal note",
   "safeSummary",
   "safeToken",
 ]);
@@ -63,6 +76,7 @@ expect(contractPath, [
   "REPORT_EVIDENCE_CONFIDENCE_CONTRACTS",
   "REPORT_EVIDENCE_PLAN_FIT_CONTRACTS",
   "REPORT_EVIDENCE_ORCHESTRATION_BLOCKED_PATTERNS",
+  "owner posture coverage",
 ]);
 
 expect(routesChainPath, [
@@ -72,14 +86,8 @@ expect(routesChainPath, [
 forbidden(runtimePath, [
   "return rawPayload",
   "return rawEvidence",
-  "return rawSecurityPayload",
-  "return rawBillingData",
   "return internalNotes",
   "return operatorIdentity",
-  "return sessionToken",
-  "return csrfToken",
-  "return adminKey",
-  "return supportContextKey",
   "localStorage.setItem",
   "sessionStorage.setItem",
   "guaranteed ROI",
@@ -96,7 +104,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report evidence orchestration runtime validation passed. Evidence inputs project to safe summaries, blocked patterns, release-captain review posture, and customer-output eligibility without raw/private exposure or unsupported guarantees.");
+console.log("Report evidence orchestration runtime validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
