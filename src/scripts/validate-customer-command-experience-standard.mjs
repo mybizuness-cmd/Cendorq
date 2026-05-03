@@ -5,6 +5,8 @@ const root = process.cwd();
 const failures = [];
 const standardPath = "src/lib/command-center/customer-command-experience-standard.ts";
 const customerPlatformPath = "src/lib/command-center/customer-platform-standard.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 validateTextFile(standardPath, [
@@ -38,6 +40,18 @@ validateTextFile(standardPath, [
   "Cendorq-owned dashboard relationship",
 ]);
 
+validateTextFile(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 validateTextFile(customerPlatformPath, [
   "CUSTOMER_PLATFORM_RULES",
   "Mandatory email confirmation before access",
@@ -48,6 +62,7 @@ validateTextFile(customerPlatformPath, [
 validateTextFile(packagePath, [
   "validate:routes",
   "validate-customer-command-experience-standard.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 validateForbidden(standardPath, [
@@ -68,7 +83,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer command experience standard validation passed. The customer dashboard requires mission-control UX, complete navigation, proof-centered trust, next-plan conversion, returning-customer acceleration, progress momentum, billing clarity, support, accessibility, performance, and brand moat controls.");
+console.log("Customer command experience standard validation passed with owner posture coverage. The customer dashboard requires mission-control UX, complete navigation, proof-centered trust, next-plan conversion, returning-customer acceleration, progress momentum, billing clarity, support, accessibility, performance, and brand moat controls.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
