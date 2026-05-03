@@ -5,6 +5,8 @@ const root = process.cwd();
 const runtimePath = "src/lib/customer-email-verification-token-runtime.ts";
 const routePath = "src/app/api/customer/email/confirm/route.ts";
 const handoffValidatorPath = "src/scripts/validate-customer-email-confirmation-handoff-runtime.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(runtimePath, [
@@ -20,6 +22,18 @@ expect(runtimePath, [
   "consumedAt",
   "if (entry.consumedAt) return buildStoredResult(entry, \"already-used\"",
   "expiresAt",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(runtimePath, [
@@ -63,6 +77,7 @@ expect(handoffValidatorPath, [
   "src/lib/customer-email-verification-token-runtime.ts",
   "src/app/api/customer/email/confirm/route.ts",
   "validate-customer-email-verification-token-runtime.mjs",
+  "owner posture",
 ]);
 
 forbidden(runtimePath, unsafePhrases());
@@ -74,7 +89,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email verification token runtime validation passed.");
+console.log("Customer email verification token runtime validation passed with owner posture coverage.");
 
 function unsafePhrases() {
   return [
