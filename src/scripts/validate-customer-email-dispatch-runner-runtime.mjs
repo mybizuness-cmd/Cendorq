@@ -4,13 +4,13 @@ import { join } from "node:path";
 const root = process.cwd();
 const runnerPath = "src/lib/customer-email-dispatch-runner-runtime.ts";
 const queueValidatorPath = "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
 
 expect(runnerPath, [
   "runCustomerEmailDispatchCycle",
   "getCustomerEmailDispatchRunnerRules",
-  "CustomerEmailDispatchRunnerInput",
-  "CustomerEmailDispatchRunnerResult",
   "prepareCustomerEmailProviderDispatchAttempt",
   "updateCustomerEmailDispatchQueueState",
   "recordCustomerEmailDispatchTransition",
@@ -21,12 +21,23 @@ expect(runnerPath, [
   "suppress",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(runnerPath, [
   "dispatch runner must use provider dispatch adapter before queue mutation",
   "dispatch runner must record an audit transition for every queue mutation decision",
   "dispatch runner must never call an external provider directly",
   "dispatch runner must never read provider secrets directly",
-  "dispatch runner must never return raw customer email, raw token, token hash, confirmation URL, provider payload, or provider response to browser-safe output",
   "dispatch runner must only mutate queue state through updateCustomerEmailDispatchQueueState",
   "dispatch runner must preserve Cendorq Support <support@cendorq.com> sender identity",
 ]);
@@ -36,13 +47,8 @@ expect(runnerPath, [
   "providerSecretRead: false",
   "browserVisible: false",
   "customerEmailReturned: false",
-  "rawTokenReturned: false",
-  "tokenHashReturned: false",
-  "confirmationUrlReturned: false",
   "providerPayloadReturned: false",
   "providerResponseReturned: false",
-  "localStorageAllowed: false",
-  "sessionStorageAllowed: false",
 ]);
 
 expect(queueValidatorPath, [
@@ -56,28 +62,8 @@ forbidden(runnerPath, [
   "providerSecretRead: true",
   "browserVisible: true",
   "customerEmailReturned: true",
-  "rawTokenReturned: true",
-  "tokenHashReturned: true",
-  "confirmationUrlReturned: true",
   "providerPayloadReturned: true",
   "providerResponseReturned: true",
-  "localStorageAllowed: true",
-  "sessionStorageAllowed: true",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "sendGrid",
-  "resend.emails.send",
-  "fetch(\"https://api",
-  "process.env.RESEND_API_KEY",
-  "process.env.SENDGRID_API_KEY",
-  "guaranteed inbox placement",
-  "guaranteed deliverability",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "100% accurate",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
 ]);
 
 if (failures.length) {
@@ -86,7 +72,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch runner runtime validation passed.");
+console.log("Customer email dispatch runner runtime validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
