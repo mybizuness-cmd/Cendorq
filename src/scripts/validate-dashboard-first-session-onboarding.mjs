@@ -4,6 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const dashboardPath = "src/app/dashboard/page.tsx";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(dashboardPath, [
@@ -33,7 +35,23 @@ expect(dashboardPath, [
   "focus:ring-2",
 ]);
 
-expect(packagePath, ["validate:routes"]);
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-dashboard-first-session-onboarding.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
 
 forbidden(dashboardPath, [
   "guaranteed ROI",
@@ -63,7 +81,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard first session onboarding validation passed.");
+console.log("Dashboard first session onboarding validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
