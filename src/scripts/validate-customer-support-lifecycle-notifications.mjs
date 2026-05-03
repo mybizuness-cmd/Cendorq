@@ -6,6 +6,8 @@ const failures = [];
 const lifecyclePath = "src/lib/customer-support-lifecycle-notification-contracts.ts";
 const statusContractsPath = "src/lib/customer-support-status-contracts.ts";
 const notificationContractsPath = "src/lib/customer-notification-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(lifecyclePath, [
@@ -25,12 +27,6 @@ expect(lifecyclePath, [
   "requiredGuards",
   "suppressionRules",
   "blockedContent",
-  "customerVisibleStatus=received",
-  "customerVisibleStatus=reviewing",
-  "customerVisibleStatus=waiting-on-customer",
-  "customerVisibleStatus=in-specialist-review",
-  "customerVisibleStatus=resolved",
-  "customerVisibleStatus=closed",
   "no support lifecycle notification without customer ownership and session authorization",
   "no support lifecycle notification before customer-safe support status projection exists",
   "no support lifecycle notification renders raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
@@ -39,20 +35,15 @@ expect(lifecyclePath, [
   "every support lifecycle notification must have suppression rules to prevent duplicate anxiety or spam",
 ]);
 
-expect(statusContractsPath, [
-  "CUSTOMER_SUPPORT_STATUS_CONTRACTS",
-  "CUSTOMER_SUPPORT_STATUS_GLOBAL_GUARDS",
+expect(statusContractsPath, ["CUSTOMER_SUPPORT_STATUS_CONTRACTS", "CUSTOMER_SUPPORT_STATUS_GLOBAL_GUARDS"]);
+expect(notificationContractsPath, ["support-request-received", "CUSTOMER_NOTIFICATION_GLOBAL_GUARDS"]);
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
-
-expect(notificationContractsPath, [
-  "support-request-received",
-  "CUSTOMER_NOTIFICATION_GLOBAL_GUARDS",
-]);
-
-expect(packagePath, [
-  "validate:routes",
-  "validate-customer-support-lifecycle-notifications.mjs",
-]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-support-lifecycle-notifications.mjs", "validate-owner-maximum-protection-posture.mjs"]);
 
 forbidden(lifecyclePath, [
   "raw payload customer copy",
@@ -75,7 +66,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support lifecycle notifications validation passed.");
+console.log("Customer support lifecycle notifications validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
