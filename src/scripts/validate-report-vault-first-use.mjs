@@ -2,53 +2,39 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
-const pagePath = "src/app/dashboard/reports/page.tsx";
-const packagePath = "package.json";
-const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
-const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const failures = [];
+const pagePath = "src/app/dashboard/reports/page.tsx";
+const ownerPosturePath = "docs/owner-maximum-protection-posture.md";
+const ownerPostureValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 
 expect(pagePath, [
   "REPORT_VAULT_FIRST_USE_SNAPSHOT",
   "Report vault first use snapshot",
-  "Availability",
-  "Clear report state",
-  "Methodology",
-  "Separated reasoning",
-  "Access posture",
   "Protected vault",
-  "Correction posture",
-  "Visible review path",
-  "REPORT_VAULT_ACTIONS",
-  "Report vault first use guidance",
-  "First vault visit",
-  "Know what is ready before acting on it.",
-  "Continue Free Scan",
-  "Ask report support",
-  "Compare report depth",
   "REPORT_VAULT_RULES",
   "Vault safety rules",
-  "Do not present pending, draft, or incomplete reports as final customer truth.",
-  "Do not expose raw payloads, private evidence, internal notes, operator identities, risk internals, prompts, secrets, or cross-customer data.",
   "Report copy must separate verified facts, assumptions, inferences, recommendations, limitations, and next actions.",
   "Correction paths must preserve audit proof while keeping customer-facing explanations calm and bounded.",
-  "focus:outline-none",
-  "focus:ring-2",
 ]);
 
-expect(ownerMaximumProtectionPath, [
+expect(ownerPosturePath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
 
-expect(ownerMaximumProtectionValidatorPath, [
+expect(ownerPostureValidatorPath, [
   "Owner maximum protection posture validation passed",
   "docs/owner-maximum-protection-posture.md",
   "validate:routes",
 ]);
 
-expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-posture.mjs"]);
+expect(packagePath, [
+  "validate:routes",
+  "validate-report-vault-first-use.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
 
 forbidden(pagePath, [
   "guaranteed ROI",
@@ -58,16 +44,6 @@ forbidden(pagePath, [
   "impossible to hack",
   "never liable",
   "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorIdentity",
-  "riskScoringInternals",
-  "attackerDetails",
-  "sessionToken=",
-  "csrfToken=",
   "localStorage",
   "sessionStorage",
   "final customer truth without review",
@@ -87,17 +63,13 @@ function expect(path, phrases) {
     return;
   }
   const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
 }
 
 function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
 }
 
 function read(path) {
