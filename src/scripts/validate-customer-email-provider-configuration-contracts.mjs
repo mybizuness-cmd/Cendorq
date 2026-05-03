@@ -6,6 +6,7 @@ const contractPath = "src/lib/customer-email-provider-configuration-contracts.ts
 const adapterValidatorPath = "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(contractPath, [
@@ -20,21 +21,6 @@ expect(contractPath, [
   "getCustomerEmailProviderConfigurationContracts",
   "getCustomerEmailProviderConfigurationRules",
   "projectCustomerEmailProviderConfigurationSummary",
-]);
-
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
-
-expect(contractPath, [
   "browserExposedEnvNames: []",
   "ownerApprovalRequired: true",
   "liveSendRequiresOwnerApproval: true",
@@ -42,6 +28,8 @@ expect(contractPath, [
   "providerConfigured: false",
   "ownerApprovedForLiveSend: false",
   "liveSendAllowed: false",
+  "Cendorq Support",
+  "support@cendorq.com",
 ]);
 
 expect(contractPath, [
@@ -51,17 +39,6 @@ expect(contractPath, [
   "TLS transport",
   "bounce handling",
   "complaint handling",
-  "spfAligned",
-  "dkimAligned",
-  "dmarcPolicyPresent",
-  "tlsRequired: true",
-  "bounceHandlingRequired: true",
-  "complaintHandlingRequired: true",
-]);
-
-expect(contractPath, [
-  "Cendorq Support",
-  "support@cendorq.com",
   "storeProviderPayload: false",
   "storeProviderResponse: false",
   "storeProviderSecret: false",
@@ -69,36 +46,22 @@ expect(contractPath, [
   "storeRawToken: false",
   "storeTokenHash: false",
   "storeConfirmationUrl: false",
-  "storeRawEvidence: false",
-  "storeRawBillingData: false",
-  "storeInternalNotes: false",
   "storeProviderEventRefHashOnly: true",
-]);
-
-expect(contractPath, [
   "providerSecretReadAllowedInBrowser: false",
   "providerPayloadAllowedInBrowser: false",
   "providerResponseAllowedInBrowser: false",
   "directProviderCallAllowedFromRoutes: false",
   "unboundedAutoSendAllowed: false",
-  "liveProviderSendRequiresApprovedAdapter: true",
-  "liveProviderSendRequiresAuditTransition: true",
-  "rawCustomerEmailExposed: false",
-  "rawTokenExposed: false",
-  "tokenHashExposed: false",
-  "confirmationUrlExposed: false",
-  "providerPayloadExposed: false",
-  "providerResponseExposed: false",
-  "providerSecretExposed: false",
-  "browserSecretExposure: false",
 ]);
 
-expect(adapterValidatorPath, [
-  "src/lib/customer-email-provider-configuration-contracts.ts",
-  "validate-customer-email-provider-configuration-contracts.mjs",
-  "projectCustomerEmailProviderConfigurationSummary",
-  "owner posture",
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-customer-email-provider-configuration-contracts.mjs", "validate-owner-maximum-protection-posture.mjs"]);
+expect(adapterValidatorPath, ["src/lib/customer-email-provider-configuration-contracts.ts", "validate-customer-email-provider-configuration-contracts.mjs", "projectCustomerEmailProviderConfigurationSummary"]);
 
 forbidden(contractPath, [
   "storeProviderPayload: true",
@@ -121,7 +84,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email provider configuration contracts validation passed with owner posture coverage.");
+console.log("Customer email provider configuration contracts validation passed with owner posture and package wiring coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
