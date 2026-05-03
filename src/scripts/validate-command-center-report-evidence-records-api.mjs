@@ -8,6 +8,8 @@ const runtimePath = "src/lib/command-center/report-evidence-record-persistence-r
 const wiredRuntimeValidatorPath = "src/scripts/validate-report-evidence-record-runtime.mjs";
 const orchestrationApiPath = "src/app/api/command-center/report-evidence/orchestration/route.ts";
 const workflowApiPath = "src/app/api/command-center/owner-configuration/workflow/route.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 
 expect(routePath, [
   "export const dynamic = \"force-dynamic\"",
@@ -23,6 +25,18 @@ expect(routePath, [
   "no-store, max-age=0",
   "X-Robots-Tag",
   "noindex, nofollow, noarchive, nosnippet",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(routePath, [
@@ -92,6 +106,7 @@ expect(workflowApiPath, [
 expect(wiredRuntimeValidatorPath, [
   "src/app/api/command-center/report-evidence/records/route.ts",
   "src/scripts/validate-command-center-report-evidence-records-api.mjs",
+  "owner posture coverage",
 ]);
 
 forbidden(routePath, [
@@ -127,7 +142,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center report evidence records API validation passed. Route stays command-center gated, safe-summary-only, no-store/noindex, persistence-runtime backed, raw/private rejecting, and blocked from customer-facing output or launch approval drift.");
+console.log("Command Center report evidence records API validation passed with owner posture coverage. Route stays command-center gated, safe-summary-only, no-store/noindex, persistence-runtime backed, raw/private rejecting, and blocked from customer-facing output or launch approval drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
