@@ -7,6 +7,8 @@ const statusApiPath = "src/app/api/customer/support/status/route.ts";
 const statusContractsPath = "src/lib/customer-support-status-contracts.ts";
 const communicationRuntimePath = "src/lib/customer-support-lifecycle-communication-runtime.ts";
 const requestApiPath = "src/app/api/customer/support/request/route.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(statusApiPath, [
@@ -49,6 +51,18 @@ expect(statusApiPath, [
   "supportAuditRequired: true",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(statusContractsPath, [
   "CUSTOMER_SUPPORT_STATUS_CONTRACTS",
   "CUSTOMER_SUPPORT_STATUS_PROJECTION",
@@ -72,6 +86,7 @@ expect(requestApiPath, [
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-status-api.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 forbidden(statusApiPath, [
@@ -105,7 +120,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support status API validation passed.");
+console.log("Customer support status API validation passed with owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
