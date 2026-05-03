@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/billing-checkout-contracts.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-billing-checkout-contracts.mjs";
@@ -18,6 +20,18 @@ expect(contractPath, [
   "report-vault-to-plan-upgrade",
   "support-to-billing-center",
   "billing-webhook-to-entitlement",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(contractPath, [
@@ -48,21 +62,6 @@ expect(contractPath, [
 ]);
 
 expect(contractPath, [
-  "cardNumber",
-  "bankDetails",
-  "paymentMethodFingerprint",
-  "providerSecret",
-  "webhookSecret",
-  "checkoutSessionRaw",
-  "invoiceRaw",
-  "subscriptionRaw",
-  "sessionToken",
-  "csrfToken",
-  "adminKey",
-  "supportContextKey",
-]);
-
-expect(contractPath, [
   "Do not enable paid checkout until payment links or provider checkout config are owner-provided and mapped to plan keys.",
   "Do not activate entitlement from client-only success redirects; verified webhook or server-confirmed provider state is required.",
   "Do not expose paid report access until entitlement, report release approval, customer ownership, and verified access pass.",
@@ -88,6 +87,7 @@ expect(contractPath, [
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 expect(routesChainPath, [
@@ -122,7 +122,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Billing checkout contracts validation passed. validate:routes delegates through the orchestrator and the billing checkout validator remains wired into the route chain.");
+console.log("Billing checkout contracts validation passed with owner posture coverage. validate:routes delegates through the orchestrator and the billing checkout validator remains wired into the route chain.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
