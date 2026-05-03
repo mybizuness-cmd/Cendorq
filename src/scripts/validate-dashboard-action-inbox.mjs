@@ -10,6 +10,9 @@ const confirmationContractPath = "src/lib/customer-email-confirmation-handoff-co
 const ownerManualPath = "docs/owner-operating-manual.md";
 const runtimePath = "src/lib/plan-routing-runtime.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const packagePath = "package.json";
 const failures = [];
 
 expect(componentPath, [
@@ -140,6 +143,25 @@ expect(runtimePath, [
   "safeCustomerLanguage",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "The public surface teaches the category without exposing private mechanics.",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-dashboard-action-inbox.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
+]);
+
 expect(routesChainPath, [
   "src/scripts/validate-dashboard-action-inbox.mjs",
 ]);
@@ -163,7 +185,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard action inbox validation passed with command-center, re-entry, and verify-to-view coverage.");
+console.log("Dashboard action inbox validation passed with owner posture, command-center, re-entry, and verify-to-view coverage.");
 
 function unsafePhrases() {
   return [
