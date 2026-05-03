@@ -7,6 +7,8 @@ const templatesPath = "src/lib/customer-email-template-contracts.ts";
 const issuanceRuntimePath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
 const issuanceValidatorPath = "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs";
 const lifecyclePath = "src/lib/customer-lifecycle-automation.ts";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 validateTextFile(templatesPath, [
@@ -45,6 +47,18 @@ validateTextFile(templatesPath, [
   "no refund/legal promise without approval",
 ]);
 
+validateTextFile(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+validateTextFile(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 validateTextFile(issuanceRuntimePath, [
   "issueCustomerConfirmationEmail",
   "projectCustomerConfirmationEmailSafeResponse",
@@ -75,6 +89,7 @@ validateTextFile(lifecyclePath, [
 validateTextFile(packagePath, [
   "validate:routes",
   "validate-customer-email-template-contracts.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 validateForbidden(templatesPath, [
@@ -109,7 +124,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email template contracts validation passed. Customer emails preserve Cendorq sender identity, one clear CTA, suppression, deliverability, lifecycle alignment, confirmation issuance safety, and legal/trust boundaries.");
+console.log("Customer email template contracts validation passed with owner posture coverage. Customer emails preserve Cendorq sender identity, one clear CTA, suppression, deliverability, lifecycle alignment, confirmation issuance safety, and legal/trust boundaries.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
