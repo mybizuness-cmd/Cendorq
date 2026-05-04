@@ -6,7 +6,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     fromEmail: "support@cendorq.com",
     display: "Cendorq Support <support@cendorq.com>",
     checkInboxInstruction:
-      "Check your inbox for an email from Cendorq Support <support@cendorq.com>. If you do not see it, check spam/promotions once and move Cendorq to your main inbox or save the sender.",
+      "Check your inbox for an email from Cendorq Support <support@cendorq.com>. If you do not see it, check spam or promotions once and save support@cendorq.com as a trusted sender.",
   },
   recommendedSubjects: [
     {
@@ -35,7 +35,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     "After Free Scan or paid intake submission, show a calm check-your-inbox gate that names Cendorq Support <support@cendorq.com> instead of revealing protected report results before email verification.",
     "The primary confirmation CTA should combine the customer value and the security action: Confirm email and open your results.",
     "The confirmation click should verify the email server-side, consume the verification token once, mark inbox confirmation progress where appropriate, and route the customer to the correct protected dashboard destination.",
-    "The confirmation flow should improve future email engagement through real customer interaction, but must never promise guaranteed inbox placement or provider-level deliverability control.",
+    "The confirmation flow should improve future email engagement through real customer interaction, but must never promise provider-level inbox placement or provider-level deliverability control.",
     "Report email attachments may be sent after verification and release rules allow them, but the dashboard/report vault remains the canonical protected place to view current report state, next actions, and plan-fit guidance.",
   ],
   primaryCta: {
@@ -122,7 +122,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     "The verification email should be transactional, plain, recognizable, low-link-density, and sent from Cendorq Support <support@cendorq.com> using the approved sender identity.",
     "The check-your-inbox screen must name support@cendorq.com so the customer knows exactly which sender to find and trust.",
     "Ask the customer to move Cendorq to the main inbox or save the sender only as a helpful instruction, not as a guarantee.",
-    "The verification click should count as engagement and help future Cendorq emails be easier to find, but copy must not claim guaranteed placement.",
+    "The verification click should count as engagement and help future Cendorq emails be easier to find, but copy must not claim promised placement.",
     "Lifecycle and follow-up emails to the signup address remain active after dashboard action inbox setup; dashboard inbox supplements email and does not replace it.",
   ],
   blockedPatterns: [
@@ -138,8 +138,8 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     "reportAttachmentBeforeSafeRelease",
     "pendingReportPresentedAsFinal",
     "dashboardInboxReplacesEmailOrchestration",
-    "guaranteedInboxPlacement",
-    "guaranteedDeliverability",
+    "promisedInboxPlacement",
+    "promisedDeliverability",
     "rawPayloadBeforeVerification",
     "rawEvidenceBeforeVerification",
     "rawBillingDataBeforeVerification",
