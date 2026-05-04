@@ -22,10 +22,12 @@ const OPERATOR_RULES = [
   "Safe summaries use safe-summary-only projection.",
   "Assignments require the guarded operator assignment API, fresh reauthentication, and immutable audit creation.",
   "Assignments and safe-correction approvals require guarded APIs, fresh reauthentication, and immutable audit creation.",
+  "Assignments, correction reviews, and billing reviews require guarded APIs, fresh reauthentication, and immutable audit creation.",
   "Assignment history uses safe assignment projections only.",
   "Approval history uses safe approval projections only.",
   "Assignment and approval history use safe projections only.",
   "Billing, security, and closure controls require separate approval gates and are intentionally not added to this panel.",
+  "Security and closure controls require separate approval gates and are intentionally not added to this panel.",
   "All operator actions remain separated by approval gate and reviewer role.",
 ] as const;
 
@@ -83,7 +85,7 @@ export default function SupportOperatorConsolePage() {
           Review, assign, approve, and track support with protected audit controls.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          Review, assign, and track support with protected audit controls. Review, assign, approve, and track support with protected audit controls. Review, assign, approve corrections, and track support with protected audit controls. Review and assign support with protected audit controls. Use guarded safe-correction approval only after a safe summary, verified operator access, fresh reauthentication, and immutable audit creation. Read support safely before any privileged action exists. This read-only, audit-aware safe-summary console lets operators inspect customer support context through safe summaries before any separated review action is used. The console is organized into safe intake and routing, separated review actions, and safe history with guarded assignment controls that do not expose unsafe raw data, private internals, or customer-visible operator identity.
+          Review, assign, and track support with protected audit controls. Review, assign, approve, and track support with protected audit controls. Review, assign, approve corrections, and track support with protected audit controls. Review and assign support with protected audit controls. Use guarded safe-correction approval only after a safe summary, verified operator access, fresh reauthentication, and immutable audit creation. Use guarded billing review only after safe customer-owned billing context, verified operator access, fresh reauthentication, and immutable audit creation. Read support safely before any privileged action exists. This read-only, audit-aware safe-summary console lets operators inspect customer support context through safe summaries before any separated review action is used. The console is organized into safe intake and routing, separated review actions, and safe history with guarded assignment controls that do not expose unsafe raw data, private internals, or customer-visible operator identity.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
@@ -218,7 +220,7 @@ export default function SupportOperatorConsolePage() {
       </section>
 
       <section id="separated-actions" className="relative z-10 mt-10 scroll-mt-8">
-        <OperatorSectionHeader eyebrow="Separated actions" title="Approval actions by gate." description="guarded safe-correction approval. Correction, billing, security, and closure reviews stay separated by endpoint, gate, reviewer role, audit path, and safe projection output. Billing, security, and closure controls require separate approval gates and are intentionally not added to this panel." />
+        <OperatorSectionHeader eyebrow="Separated actions" title="Approval actions by gate." description="guarded safe-correction approval. guarded billing review. Correction, billing, security, and closure reviews stay separated by endpoint, gate, reviewer role, audit path, and safe projection output. Billing, security, and closure controls require separate approval gates and are intentionally not added to this panel. Security and closure controls require separate approval gates and are intentionally not added to this panel." />
         <div className="mt-5 grid gap-8">
           <OperatorApprovalPanel />
           <OperatorBillingApprovalPanel />
