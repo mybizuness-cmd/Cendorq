@@ -81,7 +81,7 @@ export default function SupportOperatorConsolePage() {
           Review, assign, approve, and track support with protected audit controls.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          Review, assign, approve, and track support with protected audit controls. Review and assign support with protected audit controls. Read support safely before any privileged action exists. This read-only, audit-aware safe-summary console lets operators inspect customer support context through safe summaries before any separated review action is used. The console is organized into safe intake and routing, separated review actions, and safe history with guarded assignment controls that do not expose unsafe raw data, private internals, or customer-visible operator identity.
+          Review, assign, and track support with protected audit controls. Review, assign, approve, and track support with protected audit controls. Review and assign support with protected audit controls. Read support safely before any privileged action exists. This read-only, audit-aware safe-summary console lets operators inspect customer support context through safe summaries before any separated review action is used. The console is organized into safe intake and routing, separated review actions, and safe history with guarded assignment controls that do not expose unsafe raw data, private internals, or customer-visible operator identity.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
