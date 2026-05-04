@@ -25,7 +25,7 @@ export const CUSTOMER_REAUTH_HEADER_NAME = "x-cendorq-reauth";
 export const CUSTOMER_SESSION_AUTH_RUNTIME_GUARDS = [
   "session runtime is closed by default when no server-managed session is present",
   "session runtime expects secure httpOnly sameSite customer session cookies",
-  "session runtime never reads session tokens from localStorage, sessionStorage, URLs, analytics, HTML, emails, or public JavaScript",
+  "session runtime never reads session tokens from browser storage, URLs, analytics, HTML, emails, or public JavaScript",
   "session runtime requires CSRF or equivalent checks for protected state-changing API requests",
   "session runtime uses constant-time comparison for CSRF and reauthentication checks",
   "session runtime returns safe failures without account existence, attacker details, risk-scoring internals, raw evidence, raw billing IDs, prompts, secrets, or private report internals",
