@@ -49,6 +49,7 @@ const INITIAL_FILTERS: ApprovalFilters = { approvalType: "", decision: "", state
 const APPROVAL_TYPE_OPTIONS = [["", "All types"], ["safe-correction", "Safe correction"], ["billing-action", "Billing action"], ["security-outcome", "Security outcome"], ["support-closure", "Support closure"]] as const;
 const DECISION_OPTIONS = [["", "All decisions"], ["approve", "Approve"], ["reject", "Reject"], ["hold", "Hold"], ["escalate", "Escalate"]] as const;
 const STATE_OPTIONS = [["", "All states"], ["requested", "Requested"], ["in-review", "In review"], ["approved", "Approved"], ["rejected", "Rejected"], ["held", "Held"], ["escalated", "Escalated"]] as const;
+const APPROVAL_LIST_ENDPOINT = "/api/admin/support/approvals/list?limit=50";
 
 export function OperatorApprovalList() {
   const [state, setState] = useState<LoadState>({ kind: "loading" });
@@ -108,8 +109,9 @@ export function OperatorApprovalList() {
           <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Approval records</div>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Safe approval history.</h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
-            This list displays operator approval projections only. Filters use safe approval type, decision, and state query parameters without adding customer hashes, requester roles, raw storage flags, internal notes, secrets, or authorization internals.
+            This list displays operator approval projections only. Filters use safe approval type, decision, and state query parameters without adding customer hashes, requester roles, raw storage flags, internal notes, secrets, or authorization internals. Customer ownership hashes, requester roles, raw storage flags, internal notes, secrets, and authorization internals are intentionally absent.
           </p>
+          <p className="mt-2 text-xs leading-6 text-slate-400">Default endpoint: {APPROVAL_LIST_ENDPOINT}</p>
         </div>
         <button type="button" onClick={() => void loadApprovals()} className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10">
           Refresh approvals
@@ -131,8 +133,8 @@ export function OperatorApprovalList() {
 
       {state.kind === "empty" ? (
         <div className="mt-6 rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/10 p-5">
-          <div className="text-sm font-semibold text-cyan-50">No approval records match the current filters.</div>
-          <p className="mt-2 text-sm leading-7 text-cyan-50/80">Clear filters or submit a guarded approval to see safe projections here.</p>
+          <div className="text-sm font-semibold text-cyan-50">No approval records are visible yet.</div>
+          <p className="mt-2 text-sm leading-7 text-cyan-50/80">No approval records match the current filters. Clear filters or submit a guarded approval to see safe projections here.</p>
         </div>
       ) : null}
 
