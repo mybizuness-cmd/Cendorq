@@ -25,7 +25,7 @@ Each stream must produce a bounded evidence summary, risk level, validation plan
 
 The safe update queue may move through discovered, classified, queued, validated, approved, released, rolled-back, or deferred states.
 
-No queued update may change production automatically. Release requires validation, approval state, rollback plan, and audit record.
+No queued update may change production automatically. No queued update may mutate production automatically. Release requires validation, approval state, rollback plan, and audit record.
 
 ## Hard locks
 
