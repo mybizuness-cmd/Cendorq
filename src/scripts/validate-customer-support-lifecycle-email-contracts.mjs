@@ -35,7 +35,7 @@ expect(emailPath, [
   "all support lifecycle emails use Cendorq Support <support@cendorq.com>",
   "no support lifecycle email sends before customer ownership, verified session, and customer-safe status projection are confirmed",
   "no support lifecycle email contains passwords, raw tokens, payment data, raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
-  "no support lifecycle email promises refunds, legal outcomes, report changes, billing changes, security outcomes, or guaranteed business results without approval",
+  "no support lifecycle email makes refund promises, legal promises, report-change promises, billing-change promises, security-outcome promises, or unsupported business-result promises without approval",
   "every support lifecycle email has suppression rules to prevent duplicate anxiety or spam",
   "support lifecycle email sending must respect preference, unsubscribe, bounce, complaint, and suppression controls where required",
 ]);
