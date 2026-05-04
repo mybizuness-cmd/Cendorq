@@ -113,7 +113,7 @@ export default function FreeCheckPage() {
       <section className="relative z-10 grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
         <div>
           <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-            Premium Free Scan room
+            Premium Free Scan room · Free first read
           </div>
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
             Find the decision break before you buy the wrong fix.
