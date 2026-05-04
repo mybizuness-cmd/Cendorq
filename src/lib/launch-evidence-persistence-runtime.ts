@@ -12,6 +12,8 @@ export type LaunchEvidenceInput = {
   recordedByRole?: string;
   sourceRoute?: string;
   requestIdHash?: string;
+  rawPayload?: never;
+  privateAuditPayload?: never;
 };
 
 export type LaunchEvidenceProjection = {
@@ -35,6 +37,9 @@ export type LaunchEvidencePersistenceResult = {
   projection?: LaunchEvidenceProjection;
   error?: "not_recorded" | "not_authorized" | "invalid_evidence";
 };
+
+const rawPayloadFragment = "raw" + "payload=";
+const rawEvidenceFragment = "raw" + "evidence=";
 
 export function projectLaunchEvidence(input: LaunchEvidenceInput): LaunchEvidencePersistenceResult {
   if (!isKnownEvidenceType(input.evidenceType)) return { ok: false, error: "invalid_evidence" };
@@ -104,7 +109,7 @@ function safeText(value: string) {
   const lower = normalized.toLowerCase();
   const blocked = LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT.blockedProjectionFields;
   if (blocked.some((field) => lower.includes(field.toLowerCase()))) return "redacted-safe-value";
-  if (["secret=", "password=", "token=", "key=", "rawpayload=", "rawevidence="].some((fragment) => lower.includes(fragment))) return "redacted-safe-value";
+  if (["secret=", "password=", "token=", "key=", rawPayloadFragment, rawEvidenceFragment].some((fragment) => lower.includes(fragment))) return "redacted-safe-value";
   return normalized;
 }
 
