@@ -19,15 +19,15 @@ const OFFER_CATALOG_ID = `${siteOrigin}#offer-catalog`;
 const THEME_COLOR = "#020617";
 
 const KNOWLEDGE_AREAS = [
-  "Search Presence OS",
+  "Business Command Intelligence",
   "Free Scan",
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
   "AI search visibility",
   "Answer engine visibility",
-  "Business visibility strategy",
-  "Trust clarity positioning action analysis",
+  "Customer hesitation analysis",
+  "Business trust and clarity analysis",
 ] as const;
 
 const LAYER_CATALOG = [
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   keywords: [
     "Cendorq",
-    "Search Presence OS",
+    "Business Command Intelligence",
     "free business scan",
     "business clarity scan",
     "customer hesitation analysis",
@@ -73,8 +73,8 @@ export const metadata: Metadata = {
     "ongoing control",
     "AI search visibility",
     "answer engine visibility",
-    "business search presence",
-    "search relevance strategy",
+    "business trust analysis",
+    "business decision intelligence",
   ],
   authors: [{ name: siteConfig.legalName || siteConfig.name }],
   creator: siteConfig.name,
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     locale: "en_US",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${siteConfig.name} — Search Presence OS` }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${siteConfig.name} — Business Command Intelligence` }],
   },
   twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description, images: ["/twitter-image"] },
   robots: {
@@ -131,13 +131,12 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         {structuredData.map((entry, index) => <script key={`structured-data-${index}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(entry) }} />)}
         <div className="relative min-h-screen overflow-x-clip bg-slate-950" data-brand="cendorq">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.09),transparent_28%),radial-gradient(circle_at_top_right,rgba(56,189,248,0.08),transparent_24%),radial-gradient(circle_at_bottom_center,rgba(34,211,238,0.05),transparent_34%)]" />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.018),transparent_18%,transparent_82%,rgba(255,255,255,0.014))]" />
-            <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-cyan-400/8 blur-3xl sm:h-96 sm:w-96" />
-            <div className="absolute right-0 top-24 h-72 w-72 rounded-full bg-sky-400/8 blur-3xl sm:h-[26rem] sm:w-[26rem]" />
-            <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-300/6 blur-3xl sm:h-[28rem] sm:w-[28rem]" />
-            <div className="system-grid-wide absolute inset-0 opacity-[0.02]" />
-            <div className="system-scan-line absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.07),transparent_28%),radial-gradient(circle_at_top_right,rgba(56,189,248,0.055),transparent_24%),radial-gradient(circle_at_bottom_center,rgba(34,211,238,0.035),transparent_34%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.014),transparent_18%,transparent_82%,rgba(255,255,255,0.01))]" />
+            <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-cyan-400/6 blur-3xl sm:h-96 sm:w-96" />
+            <div className="absolute right-0 top-24 h-72 w-72 rounded-full bg-sky-400/6 blur-3xl sm:h-[26rem] sm:w-[26rem]" />
+            <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-300/4 blur-3xl sm:h-[28rem] sm:w-[28rem]" />
+            <div className="system-grid-wide absolute inset-0 opacity-[0.014]" />
           </div>
           <div className="relative z-10 flex min-h-screen flex-col">
             <SiteHeader />
@@ -176,7 +175,7 @@ function buildStructuredData() {
     areaServed: "Worldwide",
     provider: { "@id": ORGANIZATION_ID },
     brand: { "@id": ORGANIZATION_ID },
-    serviceType: "Search Presence OS",
+    serviceType: "Business Command Intelligence",
     hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq Plans", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
   };
   return [organization, website, service] as const;
