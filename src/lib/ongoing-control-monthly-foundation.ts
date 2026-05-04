@@ -75,9 +75,9 @@ export const ONGOING_CONTROL_MONTHLY_RULES = [
   "Ongoing Control requires active entitlement, verified account, approved monitoring scope, baseline, monthly review, and release approval before customer-facing monthly summary",
   "Ongoing Control provides recurring status, approved monthly summary, monitoring notices, dashboard inbox messages, email follow-ups, plan-fit guidance, and optimization recommendations when implementation gaps are found",
   "Ongoing Control is not a substitute for Build Fix implementation or a standalone Deep Review report unless the matching entitlement exists",
-  "Ongoing Control must use controlled monitoring and approval gates, not uncontrolled production mutation or autonomous business changes",
+  "Ongoing Control must use controlled monitoring and approval gates, not unapproved production changes or autonomous business changes",
   "Ongoing Control must preserve truthful status, comparable baselines, visible regressions, limitations, and safe next actions",
-  "Ongoing Control recommendations must be evidence-led and calm, without fake urgency or guaranteed growth claims",
+  "Ongoing Control recommendations must be evidence-led and calm, without fake urgency or certain-growth claims",
   "Ongoing Control output must not expose private payloads, evidence, security material, billing material, internal notes, operator identities, risk internals, prompts, secrets, or tokens",
 ] as const;
 
