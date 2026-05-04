@@ -34,6 +34,7 @@ Every material update must keep:
 - build, typecheck, and lint passing when available
 - Vercel preview or deployment check success when applicable
 - mergeability confirmation
+- release-captain approval before merge
 - rollback path awareness
 - no blocked pattern introduced
 - customer-facing copy that remains truthful and non-deceptive
@@ -54,7 +55,7 @@ Automated systems must not:
 
 ## Release-captain rule
 
-Continuous evolution can propose and prepare improvements. It does not approve merges, launches, reports, provider configuration, payment mapping, security readiness, paid launch, public launch, or customer-facing claims. Those decisions remain gated by owner command, release-captain review, validation, Vercel, mergeability, and expected-head guarded merge discipline.
+Continuous evolution can propose and prepare improvements. It does not approve merges, launches, reports, provider configuration, payment mapping, security readiness, paid launch, public launch, or customer-facing claims. Those decisions remain gated by owner command, release-captain review, validation, Vercel, mergeability, release-captain approval before merge, and expected-head guarded merge discipline.
 
 ## Quality bar
 
