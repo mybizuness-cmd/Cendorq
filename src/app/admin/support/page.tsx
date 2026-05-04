@@ -38,7 +38,7 @@ const READONLY_CONSOLE_GUARDS = [
 const SUPPORT_OPERATOR_SECTION_LINKS = [
   { href: "#review-intake", label: "Review intake", description: "Safe summaries and assignment routing" },
   { href: "#separated-actions", label: "Separated actions", description: "Gate-specific review actions" },
-  { href: "#safe-history", label: "Safe assignment history", description: "Projection-only records and filters" },
+  { href: "#safe-history", label: "Safe history", description: "Safe assignment history and projection-only records" },
 ] as const;
 
 const SUPPORT_OPERATOR_STATUS_ITEMS = [
@@ -225,7 +225,7 @@ export default function SupportOperatorConsolePage() {
       </section>
 
       <section id="safe-history" className="relative z-10 mt-10 scroll-mt-8">
-        <OperatorSectionHeader eyebrow="Safe assignment history" title="Projection-only history." description="Assignment history uses safe assignment projections only. Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI." />
+        <OperatorSectionHeader eyebrow="Safe history" title="Safe assignment history" description="Assignment history uses safe assignment projections only. Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI." />
         <div className="mt-5 grid gap-8">
           <OperatorAssignmentList />
           <OperatorApprovalList />
