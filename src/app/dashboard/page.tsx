@@ -29,7 +29,7 @@ const FIRST_SESSION_ACTIONS = [
 
 const SAFE_STATE_RULES = [
   "Show pending states as pending, not as live truth.",
-  "Do not expose private payloads, private files, internal notes, operator identities, or risk internals.",
+  "Do not expose private payloads, private files, private workflow details, or risk internals.",
   "Give the customer one obvious next action before offering deeper plan decisions.",
   "Keep support, report, billing, and notification links visible when a customer needs recovery.",
 ] as const;
@@ -126,7 +126,7 @@ export default function CustomerDashboardPage() {
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Guided control</div>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">You stay in control. Cendorq keeps the next action clear.</h2>
           <p className="mt-4 text-base leading-8 text-slate-300">
-            When a customer has just verified their email, the dashboard should reduce uncertainty: show what is pending, explain what is safe to do next, and keep support visible without exposing private internals or stale assumptions.
+            When a customer has just verified their email, the dashboard should reduce uncertainty: show what is pending, explain what is safe to do next, help them track support status, and move to the next plan only when the proof and stage make sense.
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             {FIRST_SESSION_ACTIONS.map((item) => (
