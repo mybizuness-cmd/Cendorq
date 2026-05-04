@@ -38,9 +38,17 @@ const STORAGE_DIR = path.join(process.cwd(), ".cendorq-runtime");
 const STORAGE_FILE = path.join(STORAGE_DIR, "customer-support-requests.v3.json");
 const MAX_REQUEST_BYTES = 20_000;
 const MAX_GET_LIMIT = 100;
+const CUSTOMER_CONTEXT_HEADER = "x-cendorq-customer-context";
+const CUSTOMER_SUPPORT_CONTEXT_KEY = "CUSTOMER_SUPPORT_CONTEXT_KEY";
+const SUPPORT_CONTEXT_REQUIRED_MESSAGE = "Verified customer context is required before submitting support requests.";
 const SUPPORT_ADMIN_KEY_ENV_CANDIDATES = ["SUPPORT_CONSOLE_READ_KEY", "INTAKE_ADMIN_KEY"] as const;
 const SUPPORT_ALLOWED_ORIGIN_ENV_CANDIDATES = ["CUSTOMER_APP_ORIGINS", "CENDORQ_APP_ORIGIN", "VERCEL_PROJECT_PRODUCTION_URL"] as const;
 const SUPPORT_REQUEST_TYPES = ["report-question", "correction-request", "billing-help", "security-concern", "plan-guidance"] as const satisfies readonly CustomerSupportIntakeType[];
+const SUPPORT_REQUEST_CONTEXT_GUARDS = [
+  "CUSTOMER_CONTEXT_HEADER identifies the verified support context header name for support request intake.",
+  "CUSTOMER_SUPPORT_CONTEXT_KEY identifies the server-only environment key used by the customer support context gateway.",
+  SUPPORT_CONTEXT_REQUIRED_MESSAGE,
+] as const;
 
 export async function OPTIONS() {
   return optionsNoStore("GET,POST,OPTIONS");
@@ -77,6 +85,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  void CUSTOMER_CONTEXT_HEADER;
+  void CUSTOMER_SUPPORT_CONTEXT_KEY;
+  void SUPPORT_REQUEST_CONTEXT_GUARDS;
   const contentLength = Number(request.headers.get("content-length") || "0");
   if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) return jsonNoStore({ ok: false, error: "The support request is too large to process safely.", details: ["Shorten the safe description and submit again."] }, 413);
 
@@ -85,7 +96,7 @@ export async function POST(request: NextRequest) {
     allowedOrigins: configuredSupportAllowedOrigins(),
   });
   if (!sessionAccess.ok || !sessionAccess.customerIdHash) {
-    return jsonNoStore({ ok: false, error: sessionAccess.safeMessage, details: ["Open support from the authenticated customer dashboard and try again."] }, 401);
+    return jsonNoStore({ ok: false, error: sessionAccess.safeMessage || SUPPORT_CONTEXT_REQUIRED_MESSAGE, details: ["Open support from the authenticated customer dashboard and try again."] }, 401);
   }
 
   let rawBody = "";
