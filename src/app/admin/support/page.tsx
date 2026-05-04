@@ -77,7 +77,7 @@ export default function SupportOperatorConsolePage() {
           Read support safely before any privileged action exists.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          This read-only, audit-aware safe-summary console lets operators inspect customer support context through safe summaries before any separated review action is used. It is designed to inspect customer support context and route review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
+          This read-only, audit-aware safe-summary console lets operators inspect customer support context through safe summaries before any separated review action is used. The console is organized into safe intake and routing, separated review actions, and safe history without exposing unsafe raw data, private internals, or customer-visible operator identity.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
