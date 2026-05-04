@@ -230,7 +230,7 @@ export default function NotificationCenterPage() {
             "Billing alerts require entitlement and billing-state checks.",
             "Conversion alerts require proof, confidence, limitation, and plan-stage logic.",
             "Security alerts never reveal attacker details, risk-scoring internals, or secrets.",
-            "Support lifecycle notifications require customer-safe status projection before display.",
+            "support lifecycle notifications require customer-safe status projection before display",
             "Support lifecycle notifications suppress duplicates and route to status, safe resubmission, support center, or new request paths.",
           ].map((rule) => (
             <div key={rule} className="rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-cyan-50">
