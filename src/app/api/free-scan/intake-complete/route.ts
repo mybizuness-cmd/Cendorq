@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
   const payload = await readSafeJson(request);
   const signupEmailPresent = hasSafeEmail(payload.signupEmail);
-  const intakeIdPresent = hasSafeIdentifier(payload.intakeId);
+  const intakeIdPresent = hasSafeIntakeId(payload.intakeId);
   const emailAlreadyVerified = payload.emailAlreadyVerified === true;
   const verificationTokenIssued = payload.verificationTokenIssued !== false;
   const verificationTokenExpired = payload.verificationTokenExpired === true;
@@ -78,6 +78,10 @@ async function readSafeJson(request: NextRequest) {
 
 function hasSafeEmail(value: unknown) {
   return typeof value === "string" && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value) && value.length <= 254;
+}
+
+function hasSafeIntakeId(value: unknown) {
+  return hasSafeIdentifier(value);
 }
 
 function hasSafeIdentifier(value: unknown) {
