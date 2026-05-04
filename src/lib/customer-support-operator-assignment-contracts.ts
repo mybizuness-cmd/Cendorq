@@ -62,7 +62,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_STATE_RULES = [
 
 export const CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_DECISION_RULES = [
   "assign requires server-only operator access, role authorization, fresh admin reauth for mutation, and immutable audit record creation",
-  "hold requires a customer-safe reason and must not expose internal notes, risk-scoring internals, operator identity, or rejected raw content",
+  "hold requires a customer-safe reason and must not expose internal notes, risk-scoring internals, customer-visible operator identity, or rejected raw content",
   "release preserves prior audit events and must not claim assignment or audit records were deleted",
   "escalate requires the target role to match billing, security, specialist, or support admin approval path",
   "deny is used when assignment cannot be authorized safely and must not reveal role inventory, customer existence, support request existence, or internal authorization details",
@@ -83,7 +83,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_BLOCKED_CONTENT = [
   "raw billing data",
   "raw payment data",
   "internal notes visible to customer",
-  "operator identity visible to customer",
+  "customer-visible operator identity",
   "risk-scoring internals",
   "attacker details",
   "exploit instructions",
@@ -103,7 +103,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_BLOCKED_CONTENT = [
   "unsupported report change",
   "unsupported billing change",
   "unsupported security outcome",
-  "guaranteed business result",
+  "unsupported business result",
   "fake urgency",
   "audit deletion claim",
 ] as const;
@@ -114,7 +114,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_GUARDS = [
   "no support operator assignment may bypass billing, security, correction, or support-admin approval gates",
   "no support operator assignment may reveal role inventory, support request existence, customer existence, or internal authorization details on denial",
   "no support operator assignment may promise refunds, legal outcomes, report changes, billing changes, security outcomes, ROI, or business results without required approval gates",
-  "no support operator assignment may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
+  "no support operator assignment may claim absolute security, risk-free operation, liability removal, or perfect protection",
 ] as const;
 
 export function getCustomerSupportOperatorAssignmentContracts() {
