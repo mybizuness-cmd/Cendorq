@@ -40,6 +40,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_RUNTIME_GUARDS = [
   "support operator assignment runtime stores rawPayloadStored false, rawEvidenceStored false, rawSecurityPayloadStored false, rawBillingDataStored false, rawPaymentDataStored false, internalNotesCustomerVisible false, and secretsStored false",
   "support operator assignment runtime projects no customerIdHash, assignedActorRef, raw flags, internal notes, secrets, or authorization internals",
   "support operator assignment runtime is storage-only and does not create assignment mutation endpoints or customer-visible operator identities",
+  "owner posture coverage keeps protected customer and report surfaces aligned with verified access while operator assignment runtime surfaces stay private and review-gated",
 ] as const;
 
 export function buildCustomerSupportOperatorAssignment(input: CustomerSupportOperatorAssignmentBuildInput): CustomerSupportOperatorAssignmentBuildResult {
