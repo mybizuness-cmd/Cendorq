@@ -52,9 +52,9 @@ expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-postu
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
-  "unsupported promises",
-  "fake urgency",
-  "browser storage",
+  "make unsupported promises",
+  "use fake urgency",
+  "browser storage for protected state",
   "private internals shown to customers",
 ]);
 
