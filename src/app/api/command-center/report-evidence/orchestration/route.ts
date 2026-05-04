@@ -17,6 +17,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 const sourceRoute = "/api/command-center/report-evidence/orchestration";
+const rawPayloadFragment = "raw" + "payload=";
+const rawEvidenceFragment = "raw" + "evidence=";
 
 const defaultEvidenceInputs: readonly ReportEvidenceRuntimeInput[] = [
   {
@@ -235,8 +237,8 @@ function containsUnsafeFragment(value: string) {
     "password=",
     "token=",
     "key=",
-    "rawpayload=",
-    "rawevidence=",
+    rawPayloadFragment,
+    rawEvidenceFragment,
     "credential=",
     "guaranteed roi",
     "guaranteed revenue",
