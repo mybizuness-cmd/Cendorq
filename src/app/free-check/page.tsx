@@ -9,6 +9,7 @@ import {
   buildWebPageJsonLd,
   toJsonLd,
 } from "@/lib/seo";
+import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
@@ -34,7 +35,26 @@ const TRUST_RULES = [
   "Protected dashboard/report vault after verification.",
 ] as const;
 
-const SCAN_ROOM_TRUST_RAIL = [
+const FREE_SCAN_FIRST_USE_SNAPSHOT = [
+  "Free Scan first use snapshot",
+  "First-use path",
+  "Guided scan room",
+  "Completion handoff",
+  "Dashboard next action",
+  "Recovery posture",
+  "Resume safely",
+  "Trust posture",
+  "No pressure",
+] as const;
+
+const FREE_SCAN_HANDOFF_ACTIONS = [
+  { label: "Open dashboard", href: "/dashboard" },
+  { label: "Check notifications", href: "/dashboard/notifications" },
+  { label: "Open report vault", href: "/dashboard/reports" },
+] as const;
+
+const FREE_SCAN_FIRST_USE_RULES = [
+  "The scan should hand off cleanly into the customer platform.",
   "Submit only business context needed for the first read, not passwords, private keys, card data, tokens, or unrelated raw evidence.",
   "Treat incomplete, interrupted, or pending scan state as pending instead of final analysis.",
   "After submission, use dashboard, notifications, and report vault before creating duplicate support requests.",
@@ -117,8 +137,15 @@ export default function FreeCheckPage() {
             ))}
           </div>
           <div className="sr-only">
-            Dedicated page, not a cramped popup. Dashboard, notifications, and report vault handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and report vault. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")} {SCAN_ROOM_TRUST_RAIL.join(" ")}
+            {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and report vault handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and report vault. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
           </div>
+          <nav className="sr-only" aria-label="Free Scan completion handoff">
+            {FREE_SCAN_HANDOFF_ACTIONS.map((action) => (
+              <Link key={action.href} href={action.href} className="focus:outline-none focus:ring-2">
+                {action.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
         <GuidedFreeCheckForm className="relative z-10" />
