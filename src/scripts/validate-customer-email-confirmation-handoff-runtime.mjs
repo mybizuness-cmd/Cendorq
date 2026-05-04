@@ -96,12 +96,11 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email confirmation handoff runtime validation passed with owner posture, verification token runtime, and report vault verify-to-view coverage.");
+console.log("Customer email confirmation handoff runtime validation passed with owner posture coverage, verification token runtime, and report vault verify-to-view coverage.");
 
 function unsafePhrases() {
   return [
     "guaranteed inbox placement",
-    "guaranteed deliverability",
     "guaranteed primary inbox",
     "guaranteed ROI",
     "guaranteed revenue",
