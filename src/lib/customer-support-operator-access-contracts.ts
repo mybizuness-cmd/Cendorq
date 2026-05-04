@@ -46,6 +46,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ACCESS_REQUIRED_CHECKS = [
   "operator access returns no-store responses for route, API, challenge, deny, and error states",
   "operator access failures must not leak customer existence, support request existence, operator identities, role inventory, or internal authorization details",
   "operator access may only project customer-owned safe summaries, customer-visible statuses, timestamps, request IDs, and approved audit projections",
+  "owner posture coverage keeps protected customer and report surfaces aligned with verified access while operator access surfaces stay private and review-gated",
 ] as const;
 
 export const CUSTOMER_SUPPORT_OPERATOR_ACCESS_ROLE_RULES = [
