@@ -100,8 +100,8 @@ function validateNoVisiblePanelWithoutRegistry(routeText) {
 }
 
 function validatePrivateMetadataOnlyRegistry(registryText) {
-  const privateMatches = [...registryText.matchAll(/visibility: "private-gated"/g)].length;
-  const metadataMatches = [...registryText.matchAll(/dataExposure: "metadata-only"/g)].length;
+  const privateMatches = [...registryText.matchAll(/visibility: "private-gated",/g)].length;
+  const metadataMatches = [...registryText.matchAll(/dataExposure: "metadata-only",/g)].length;
   if (privateMatches !== expectedPanels.length) failures.push(`${registryPath} expected ${expectedPanels.length} private-gated entries, found ${privateMatches}`);
   if (metadataMatches !== expectedPanels.length) failures.push(`${registryPath} expected ${expectedPanels.length} metadata-only entries, found ${metadataMatches}`);
 }
