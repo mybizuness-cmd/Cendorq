@@ -119,7 +119,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center panel safety validation passed. Every current cockpit panel, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records, remains server-rendered, metadata-only, free of client-side storage and browser-only APIs, and protected from direct secret, raw payload, unsafe claim, and public-exposure regressions.");
+console.log("Command Center panel safety validation passed. Every current cockpit panel, including admin projections, launch readiness, owner workflow, plan delivery/routing, and report evidence records, remains server-rendered, metadata-only through the panel registry or panel copy, free of client-side storage and browser-only APIs, and protected from direct secret, raw payload, unsafe claim, and public-exposure regressions.");
 
 function validatePanelFile(relativePath, text) {
   for (const forbidden of forbiddenPanelBehavior) {
@@ -133,9 +133,25 @@ function validatePanelFile(relativePath, text) {
 
   if (!text.includes("export function ")) failures.push(`${relativePath} must export a named server component function`);
 
-  if (relativePath.includes("panel") && !text.includes("Metadata only") && !text.includes("metadata-only") && !text.includes("metadata only")) {
-    failures.push(`${relativePath} should explicitly state that it is metadata-only`);
+  if (relativePath.includes("panel") && !panelStatesMetadataOnly(relativePath, text)) {
+    failures.push(`${relativePath} should explicitly state that it is metadata-only in file copy or in the private panel registry`);
   }
+}
+
+function panelStatesMetadataOnly(relativePath, text) {
+  if (text.includes("Metadata only") || text.includes("metadata-only") || text.includes("metadata only")) return true;
+  if (!existsSync(join(root, registryPath))) return false;
+
+  const registryText = read(registryPath);
+  const key = relativePath
+    .replace(`${commandCenterDir}/`, "")
+    .replace(/\.tsx$/, "")
+    .replace(/-panel$/, "")
+    .replace(/^command-center-/, "")
+    .replace(/^closed-command-center$/, "closed-command-center")
+    .replace(/^panel-index$/, "panel-index");
+
+  return registryText.includes(`key: "${key}"`) && registryText.includes(`dataExposure: "metadata-only"`);
 }
 
 function validateRouteImports() {
