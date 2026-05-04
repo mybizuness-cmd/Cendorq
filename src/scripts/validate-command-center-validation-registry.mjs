@@ -122,11 +122,6 @@ if (!failures.length) {
     "Maximum protection standard",
     "src/scripts/validate-maximum-protection-standard.mjs",
     "maximum-protection doctrine for data classification, deny-by-default access, secret handling, exfiltration prevention, AI-agent containment, supply-chain risk, auditability, emergency controls, and public/private doctrine boundaries",
-    "owner-maximum-protection-posture",
-    "Owner maximum protection posture",
-    "src/scripts/validate-owner-maximum-protection-posture.mjs",
-    "owner-level maximum-protection operating posture, public/private boundaries, verified customer access, operator-only review, AI and automation approval limits, validation gates, rollback posture, and release-captain review",
-    "Owner maximum-protection posture may no longer be discoverable, validate-routes covered, or aligned with the maximum-protection doctrine.",
     "codeql-workflow-integrity",
     "CodeQL workflow integrity",
     "src/scripts/validate-codeql-workflow-integrity.mjs",
@@ -170,6 +165,11 @@ if (!failures.length) {
     "customer-experience-standard",
     "conversion-moat-standard",
     "insights-conversation-standard",
+  ]);
+
+  validateText(routesChainPath, chainText, [
+    "src/scripts/validate-owner-maximum-protection-posture.mjs",
+    "src/scripts/validate-maximum-protection-standard.mjs",
   ]);
 
   validateText(maximumProtectionValidatorPath, read(maximumProtectionValidatorPath), [
@@ -329,8 +329,8 @@ if (!failures.length) {
   ]);
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 41) {
-    failures.push(`${registryPath} expected at least 41 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 40) {
+    failures.push(`${registryPath} expected at least 40 validator entries, found ${registryEntries.length}`);
   }
 }
 
