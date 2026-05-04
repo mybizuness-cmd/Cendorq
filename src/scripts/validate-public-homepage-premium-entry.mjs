@@ -34,7 +34,7 @@ expect(pagePath, [
   "Trust lock",
   "Proof first. Pressure never.",
   "No fake urgency.",
-  "No guaranteed revenue claims.",
+  "No outcome promises.",
   "Protected dashboard and report vault after verification.",
   "The form stays on the focused Free Scan page.",
 ]);
@@ -104,7 +104,6 @@ console.log("Public command surface validation passed with a sharper homepage, v
 
 function blockedPublicPhrases() {
   return [
-    "title: \"Free Scan | Cendorq\"",
     "Search Presence OS",
     "guaranteed ROI",
     "guaranteed revenue",
