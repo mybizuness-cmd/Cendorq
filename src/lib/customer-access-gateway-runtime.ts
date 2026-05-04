@@ -18,6 +18,9 @@ export type CustomerAccessGatewaySecretCheck = {
   reason: string;
 };
 
+const CUSTOMER_CONTEXT_HEADER = "x-cendorq-customer-context";
+const CUSTOMER_SUPPORT_CONTEXT_KEY = "CUSTOMER_SUPPORT_CONTEXT_KEY";
+
 export const CUSTOMER_ACCESS_NO_STORE_HEADERS = {
   "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
   Pragma: "no-cache",
@@ -25,6 +28,8 @@ export const CUSTOMER_ACCESS_NO_STORE_HEADERS = {
 } as const;
 
 export const CUSTOMER_ACCESS_GATEWAY_RUNTIME_GUARDS = [
+  "CUSTOMER_CONTEXT_HEADER names the server-only customer support context header.",
+  "CUSTOMER_SUPPORT_CONTEXT_KEY names the server-only customer support context environment key.",
   "gateway responses use no-store headers",
   "gateway secret comparisons use constant-time checks",
   "gateway customer context is server-verified before protected API work",
@@ -95,8 +100,8 @@ export function checkServerSecretHeader({
 export function verifyCustomerSupportContext(request: NextRequest) {
   const check = checkServerSecretHeader({
     request,
-    headerName: "x-cendorq-customer-context",
-    envNames: ["CUSTOMER_SUPPORT_CONTEXT_KEY"],
+    headerName: CUSTOMER_CONTEXT_HEADER,
+    envNames: [CUSTOMER_SUPPORT_CONTEXT_KEY],
     localDevelopmentAllowed: true,
   });
 
