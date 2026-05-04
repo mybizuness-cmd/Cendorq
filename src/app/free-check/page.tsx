@@ -122,7 +122,7 @@ export default function FreeCheckPage() {
             Answer a few plain business questions to enter safe context. Cendorq looks for where customers may be losing clarity, trust, AI-search visibility, or confidence to act.
           </p>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-400">
-            It turns customer hesitation into a safer first direction. Pending or incomplete input is never treated as final analysis.
+            It turns customer hesitation into a safer first direction without treating pending or incomplete input as final analysis.
           </p>
         </div>
 
