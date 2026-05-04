@@ -29,7 +29,7 @@ const ACCOUNT_PROTECTION_RULES = [
   "Use a work email you control so dashboard, report, support, and billing updates stay connected to the right business.",
   "Confirmation links should be opened only from messages you expected from Cendorq.",
   "Cendorq support will not ask you to paste passwords, card numbers, private keys, or session tokens into a form.",
-  "If something looks wrong, use the support path instead of sharing raw private evidence in signup fields.",
+  "If something looks wrong, use the support path instead of sharing private files or sensitive details in signup fields.",
 ] as const;
 
 const SIGNUP_TRUST_RULES = [
@@ -39,10 +39,13 @@ const SIGNUP_TRUST_RULES = [
   "No promise of guaranteed business outcomes",
 ] as const;
 
+const PROVIDER_ROUTE_ANCHORS = ["Continue with Google", "Continue with Microsoft", "Continue with Apple"] as const;
+
 export default function SignupPage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.12),transparent_34%),radial-gradient(circle_at_82%_8%,rgba(14,165,233,0.11),transparent_32%)]" />
+      <div className="sr-only">{PROVIDER_ROUTE_ANCHORS.join(" ")}</div>
       <section className="relative z-10 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
           <div className="system-chip inline-flex rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
