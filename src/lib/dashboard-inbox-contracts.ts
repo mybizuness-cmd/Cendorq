@@ -58,7 +58,7 @@ export const DASHBOARD_INBOX_FOUNDATION_CONTRACTS: readonly DashboardInboxMessag
     requiredState: ["verified email", "customer-owned report projection"],
     requiredGuards: ["approved reports only", "limitations visible", "no private evidence"],
     suppressionRules: ["hide when no report path is available", "do not duplicate report-ready notifications"],
-    blockedContent: ["private evidence", "internal notes", "guaranteed outcome"],
+    blockedContent: ["private evidence", "internal notes", "promised outcome"],
   }),
   buildInboxMessage({
     key: "plan-fit-guidance",
@@ -70,9 +70,9 @@ export const DASHBOARD_INBOX_FOUNDATION_CONTRACTS: readonly DashboardInboxMessag
     primaryPath: "/plans",
     conversionRole: "Educates plan selection without pressure, loopholes, or unpaid deliverable leakage.",
     requiredState: ["plan stage", "available report limitations", "customer-owned progress"],
-    requiredGuards: ["no fake urgency", "no unpaid deliverables", "no guaranteed ROI"],
+    requiredGuards: ["no fake urgency", "no unpaid deliverables", "no promised return claim"],
     suppressionRules: ["hide after active plan review acknowledged", "do not show during billing dispute"],
-    blockedContent: ["fake urgency", "guaranteed revenue", "unpaid full scan report"],
+    blockedContent: ["fake urgency", "promised revenue", "unpaid full scan report"],
   }),
   buildInboxMessage({
     key: "support-status-command-center",
