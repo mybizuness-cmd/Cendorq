@@ -20,6 +20,7 @@
     "validate:owner-posture": "node ./src/scripts/validate-owner-maximum-protection-posture.mjs",
     "validate:controlled-market-learning": "node ./src/scripts/validate-controlled-market-learning.mjs",
     "validate:enterprise-standard": "node ./src/scripts/validate-enterprise-operating-standard.mjs",
+    "validate:access": "node ./src/scripts/validate-access-governance.mjs",
     "validate:production-smoke-coverage": "node ./src/scripts/validate-production-smoke-coverage.mjs",
     "validate:closed-intelligence": "node ./src/scripts/validate-closed-intelligence.mjs",
     "smoke:production": "node ./src/scripts/smoke-production.mjs",
