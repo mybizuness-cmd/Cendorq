@@ -40,7 +40,7 @@ expect(accessContractsPath, [
   "no support operator access without server-only admin session verification, role authorization, no-store response controls, and closed-by-default denial",
   "no support operator mutation without fresh admin reauth, immutable audit record, role-to-action authorization, and required approval gate",
   "no support operator access uses localStorage, sessionStorage, browser-readable admin secrets, browser-readable support context keys, query-string secrets, or public JavaScript secrets",
-  "no support operator route may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
+  "no support operator route may claim absolute security, risk-free operation, liability removal, or perfect protection",
 ]);
 
 expect(ownerMaximumProtectionPath, [
