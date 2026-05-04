@@ -46,7 +46,7 @@ const PLAN_LADDER = [
 
 const TRUST_RULES = [
   "No fake urgency.",
-  "No guaranteed revenue claims.",
+  "No outcome promises.",
   "Protected dashboard and report vault after verification.",
   "Plain-English diagnosis before bigger spend.",
 ] as const;
