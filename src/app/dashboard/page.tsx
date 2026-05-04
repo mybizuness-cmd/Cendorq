@@ -24,12 +24,12 @@ const FIRST_SESSION_SNAPSHOT = [
 const FIRST_SESSION_ACTIONS = [
   { title: "Continue Free Scan", copy: "Finish the intake if the first read is not ready yet.", href: "/free-check" },
   { title: "Check notifications", copy: "Review account, report, billing, support, and security updates from one safe place.", href: "/dashboard/notifications" },
-  { title: "Open support", copy: "Ask for help without sharing passwords, card data, private keys, or unnecessary raw evidence.", href: "/dashboard/support" },
+  { title: "Open support", copy: "Ask for help without sharing passwords, card data, private keys, or unnecessary sensitive files.", href: "/dashboard/support" },
 ] as const;
 
 const SAFE_STATE_RULES = [
   "Show pending states as pending, not as live truth.",
-  "Do not expose raw payloads, private evidence, internal notes, operator identities, or risk internals.",
+  "Do not expose private payloads, private files, internal notes, operator identities, or risk internals.",
   "Give the customer one obvious next action before offering deeper plan decisions.",
   "Keep support, report, billing, and notification links visible when a customer needs recovery.",
 ] as const;
@@ -46,7 +46,7 @@ const OPERATING_SNAPSHOT = [
   { label: "Current stage", value: "Free Scan setup", detail: "Start with a truthful first read before any paid recommendation." },
   { label: "Primary focus", value: "Find the highest-leverage gap", detail: "Clarity, trust, choice, and action are reviewed before deeper work." },
   { label: "Decision quality", value: "Proof before pressure", detail: "Each next step should explain evidence, confidence, limitation, and practical value." },
-  { label: "Protection mode", value: "Customer-safe", detail: "Dashboard copy avoids raw internal data, unsupported promises, and fake urgency." },
+  { label: "Protection mode", value: "Customer-safe", detail: "Dashboard copy avoids private internal data, unsupported promises, and fake urgency." },
 ] as const;
 
 const SCORECARDS = [
@@ -60,7 +60,7 @@ const EXPERIENCE_PILLARS = [
   { title: "Business owner clarity", copy: "Plain-language direction first, then deeper detail when the customer is ready." },
   { title: "Proof-led conversion", copy: "Plans are positioned through evidence, fit, and stage—not pressure or fake scarcity." },
   { title: "Connected operations", copy: "Reports, billing, notifications, plans, and support all route back to one coherent dashboard." },
-  { title: "Protected trust", copy: "Customer-facing surfaces avoid raw payloads, private internals, and unsupported guarantees." },
+  { title: "Protected trust", copy: "Customer-facing surfaces avoid private payloads, private internals, and unsupported guarantees." },
 ] as const;
 
 const CHANNEL_COVERAGE = [
@@ -87,12 +87,12 @@ export default function CustomerDashboardPage() {
       <section className="system-panel-authority relative z-10 overflow-hidden rounded-[2.5rem] p-6 sm:p-10">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Customer business command center</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Customer command room</div>
             <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
               Control the next move. Cendorq guides the smartest path.
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              This is the private command center for your business progress: Free Scan status, proof-backed findings, reports, billing, notifications, support, plan scope, and next best actions are connected so you can make better decisions without guessing.
+              This is the private command center for your business progress: Free Scan status, proof-backed findings, reports, billing, notifications, support, plan scope, and next best action are connected so you can make better decisions without guessing.
             </p>
           </div>
           <div className="rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/10 p-5 lg:w-80">
@@ -154,7 +154,7 @@ export default function CustomerDashboardPage() {
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected dashboard handoffs</div>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every dashboard card now carries a safe state, next action, and recovery path.</h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
-            The dashboard runtime keeps report vault, billing, notifications, support, and plans aligned with one customer-owned projection. A card should never strand the customer, treat pending work as final, expose raw or internal data, or push an unsupported outcome promise.
+            The dashboard runtime keeps report vault, billing, notifications, support, and plans aligned with one customer-owned projection. A card should never strand the customer, treat pending work as final, expose private or internal data, or push an unsupported outcome promise.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
             {DASHBOARD_HANDOFFS.map((handoff) => (
@@ -254,7 +254,7 @@ export default function CustomerDashboardPage() {
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
         <DashboardLink href="/dashboard/reports" title="Open report vault" copy="View Free Scan, Deep Review, Build Fix, and Ongoing Control outputs as they become available." />
         <DashboardLink href="/dashboard/billing" title="Manage billing and plans" copy="See plan state, invoices, entitlements, and upgrade paths without friction." />
-        <DashboardLink href="/dashboard/notifications" title="Open notification center" copy="Review account, report, billing, support, and security alerts without raw private data exposure." />
+        <DashboardLink href="/dashboard/notifications" title="Open notification center" copy="Review account, report, billing, support, and security alerts without private data exposure." />
         <DashboardLink href="/dashboard/support" title="Open support center" copy="Request report help, correction review, billing guidance, security review, or plan guidance safely." />
         <DashboardLink href="/dashboard/support/status" title="Track support status" copy="View customer-safe request status, approved next actions, and support follow-through without internal data exposure." />
         <DashboardLink href="/plans" title="Compare plans" copy="Understand which next step fits your current stage and what each plan unlocks." />
