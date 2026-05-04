@@ -254,7 +254,7 @@ export default function CustomerDashboardPage() {
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
         <DashboardLink href="/dashboard/reports" title="Open report vault" copy="View Free Scan, Deep Review, Build Fix, and Ongoing Control outputs as they become available." />
         <DashboardLink href="/dashboard/billing" title="Manage billing and plans" copy="See plan state, invoices, entitlements, and upgrade paths without friction." />
-        <DashboardLink href="/dashboard/notifications" title="Open notification center" copy="Review account, report, billing, support, and security alerts without private data exposure." />
+        <DashboardLink href="/dashboard/notifications" title="Open notification center" copy="Review account, report, billing, support, and security alerts without raw private data exposure." />
         <DashboardLink href="/dashboard/support" title="Open support center" copy="Request report help, correction review, billing guidance, security review, or plan guidance safely." />
         <DashboardLink href="/dashboard/support/status" title="Track support status" copy="View customer-safe request status, approved next actions, and support follow-through without internal data exposure." />
         <DashboardLink href="/plans" title="Compare plans" copy="Understand which next step fits your current stage and what each plan unlocks." />
