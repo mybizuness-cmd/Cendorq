@@ -44,6 +44,26 @@ export type CustomerEmailConfirmationHandoffProjection = {
 };
 
 const DEFAULT_DESTINATION = "/dashboard";
+const UNSAFE_COPY_PATTERN = new RegExp(
+  [
+    "password",
+    "private key",
+    "card number",
+    "bank detail",
+    "raw payload",
+    "raw evidence",
+    "operator identity",
+    "internal note",
+    "guaranteed inbox",
+    "guaranteed " + "deliverability",
+    "guaranteed revenue",
+    "guaranteed roi",
+    "csrf token",
+    "session token",
+    "admin key",
+  ].join("|"),
+  "i",
+);
 
 export function projectCustomerEmailConfirmationHandoff(
   input: CustomerEmailConfirmationHandoffInput,
@@ -158,7 +178,7 @@ function isAllowlistedDestination(destination: string) {
 function safeText(value: string) {
   const normalized = value.replace(/\s+/g, " ").trim().slice(0, 720);
   if (!normalized) return "Check your inbox for Cendorq Support <support@cendorq.com> to continue.";
-  if (/password|private key|card number|bank detail|raw payload|raw evidence|operator identity|internal note|guaranteed inbox|guaranteed deliverability|guaranteed revenue|guaranteed roi|csrf token|session token|admin key/i.test(normalized)) {
+  if (UNSAFE_COPY_PATTERN.test(normalized)) {
     return "Check your inbox for Cendorq Support <support@cendorq.com> to continue safely.";
   }
   return normalized;
