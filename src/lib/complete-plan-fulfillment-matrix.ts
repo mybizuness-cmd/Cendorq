@@ -49,7 +49,36 @@ export const COMPLETE_PLAN_FULFILLMENT_MATRIX = {
     "Follow-up should show the consequence of inaction only when supported by evidence and phrased as risk or opportunity, not panic or guaranteed loss.",
     "Plan-fit language must make the customer feel understood, not pushed.",
   ],
-  planMatrix: [],
+  planMatrix: [
+    {
+      planKey: "free-scan",
+      valuePromise: "A fast first read that helps the customer understand likely friction before paying for deeper work.",
+      educationDepth: "Plain-language first-read education with limits, uncertainty, and next safe action visible.",
+      planBoundary: "Does not include full diagnostic depth, implementation plan, or recurring monitoring.",
+      conversionMethod: "Recommend Deep Review only when evidence or uncertainty justifies deeper diagnosis.",
+    },
+    {
+      planKey: "deep-review",
+      valuePromise: "A fuller diagnosis that turns evidence into priority, confidence, and next action clarity.",
+      educationDepth: "Detailed education across facts, assumptions, inferences, limitations, blocker priority, and plan fit.",
+      planBoundary: "Does not include done-for-you implementation or recurring monthly control.",
+      conversionMethod: "Recommend Build Fix or Ongoing Control only when the evidence supports implementation or recurring monitoring.",
+    },
+    {
+      planKey: "build-fix",
+      valuePromise: "Scoped implementation support that turns a proven blocker into customer-approved work.",
+      educationDepth: "Explains what changed, why it matters, what was approved, and what remains outside scope.",
+      planBoundary: "Does not include unlimited monitoring, recurring adaptation, or unrelated implementation.",
+      conversionMethod: "Recommend Ongoing Control when remaining risks need monitoring and review cadence.",
+    },
+    {
+      planKey: "ongoing-control",
+      valuePromise: "Recurring command, monitoring, review, and safe next actions as the market changes.",
+      educationDepth: "Monthly education on progress, regressions, changes, limitations, and next priorities.",
+      planBoundary: "Does not include unapproved implementation or out-of-scope production changes.",
+      conversionMethod: "Recommend scoped Build Fix or Deep Review when recurring evidence shows a gap that needs focused work.",
+    },
+  ],
   universalSafetyLocks: [
     "No plan asks for passwords, private keys, raw tokens, card numbers, bank details, or raw security payloads.",
     "No plan treats customer-provided claims as verified facts without supporting evidence.",
