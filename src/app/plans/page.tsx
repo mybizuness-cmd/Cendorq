@@ -142,7 +142,7 @@ export default function PlansPage() {
             Plan movement stays stage-aware, evidence-led, and connected to the customer platform.
           </h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
-            Free Scan, dashboard, billing, report vault, and support context should help you choose the right depth without fake urgency, dark patterns, guaranteed ROI, guaranteed outcomes, raw/internal data exposure, or disconnected plan decisions.
+            Free Scan, dashboard, billing, report vault, and support context should help you choose the right depth without fake urgency, dark patterns, unsupported ROI claims, unsupported outcome promises, raw/internal data exposure, or disconnected plan decisions.
           </p>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
             Customers should start with diagnosis when readiness is unclear, or return to dashboard when private customer context exists.
