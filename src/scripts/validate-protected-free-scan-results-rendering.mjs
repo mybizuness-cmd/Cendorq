@@ -110,7 +110,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Protected Free Scan results rendering validation passed with owner posture coverage.");
+console.log("Protected Free Scan results rendering validation passed.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
