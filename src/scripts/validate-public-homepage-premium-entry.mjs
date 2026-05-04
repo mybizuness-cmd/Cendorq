@@ -15,21 +15,24 @@ const failures = [];
 
 expect(pagePath, [
   "Cendorq | Business Command Intelligence",
-  "Customers decide before you get to explain.",
+  "Know why customers hesitate.",
   "AI-search visibility",
   "Start free scan",
   "See pricing",
-  "Pricing is visible: $0, $300, $750+, or $300/mo.",
+  "Prices stay visible: Free Scan $0 · Deep Review $300 · Build Fix $750+ · Ongoing Control $300/mo.",
+  "What Cendorq checks",
+  "Can a customer understand you, trust you, find you, and act without needing a sales pitch?",
   "Why it matters now",
-  "The old path is gone.",
-  "Customers compare fast.",
-  "Find the pressure before buying the fix.",
-  "Start free when the cause is unclear. Pay only when the next depth is clear.",
+  "The customer does not wait for a pitch.",
+  "They search. They compare. They judge. They act or leave.",
+  "Choose depth only when depth is earned.",
+  "Start with the Free Scan when the cause is unclear. Pay when the next level is actually clear.",
   "$0",
   "$300",
   "$750+",
   "$300/mo",
   "Trust lock",
+  "Trust is the product.",
   "No fake urgency.",
   "No guaranteed revenue claims.",
   "Protected dashboard and report vault after verification.",
@@ -78,7 +81,7 @@ expect(nudgePath, [
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(pagePath, 22000);
+boundedLength(pagePath, 20000);
 boundedLength(scanPath, 16000);
 boundedLength(connectPath, 15000);
 boundedLength(headerPath, 22000);
@@ -97,7 +100,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with a short command homepage, visible pricing, simple navigation, and protected plain-language trust rules.");
+console.log("Public command surface validation passed with a sharper homepage, visible pricing, simple navigation, and protected plain-language trust rules.");
 
 function blockedPublicPhrases() {
   return [
