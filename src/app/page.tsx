@@ -30,10 +30,15 @@ export const metadata = buildMetadata({
   image: { alt: "Cendorq business command intelligence homepage." },
 });
 
-const COMMAND_SIGNALS = ["Clarity", "Trust", "Visibility", "Action"] as const;
+const SIGNAL_ROWS = [
+  ["Clarity", "Can a customer understand you fast?"],
+  ["Trust", "Can they believe you before they call?"],
+  ["Visibility", "Can search, maps, reviews, and AI answers explain you?"],
+  ["Action", "Is the next step obvious enough to take?"],
+] as const;
 
 const PLAN_LADDER = [
-  { title: "Free Scan", price: "$0", copy: "Use when the cause is unclear.", href: "/free-check" },
+  { title: "Free Scan", price: "$0", copy: "Start here when the cause is unclear.", href: "/free-check" },
   { title: "Deep Review", price: "$300", copy: "Use when you need evidence and priority.", href: "/plans/deep-review" },
   { title: "Build Fix", price: "$750+", copy: "Use when the weak point is ready to fix.", href: "/plans/build-fix" },
   { title: "Ongoing Control", price: "$300/mo", copy: "Use when the market keeps changing.", href: "/plans/ongoing-control" },
@@ -92,14 +97,14 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 grid gap-7 lg:min-h-[calc(100vh-8.5rem)] lg:grid-cols-[1.02fr_0.98fr] lg:items-center" aria-label="Cendorq command entry">
+      <section className="relative z-10 grid gap-7 lg:min-h-[calc(100vh-8.25rem)] lg:grid-cols-[1.05fr_0.95fr] lg:items-center" aria-label="Cendorq command entry">
         <div className="max-w-5xl">
           <TopChip>{CATEGORY_LINE}</TopChip>
-          <h1 className="system-hero-title mt-5 max-w-5xl text-5xl font-semibold tracking-tight text-white sm:text-6xl md:text-7xl xl:text-[5.35rem]">
-            Customers decide before you get to explain.
+          <h1 className="system-hero-title mt-5 max-w-5xl text-5xl font-semibold tracking-tight text-white sm:text-6xl md:text-7xl xl:text-[5.4rem]">
+            Know why customers hesitate.
           </h1>
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} finds where your business is losing clarity, trust, AI-search visibility, or action — so you know what to fix, what to ignore, and what to do next.
+            {BRAND_NAME} reads the public path people use before they choose you: search, AI answers, maps, reviews, your site, your offer, and the next action. It turns weak signals into one clear decision path.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -109,41 +114,44 @@ export default function HomePage() {
               See pricing
             </Link>
           </div>
-          <p className="mt-5 text-sm font-medium text-slate-400">Pricing is visible: $0, $300, $750+, or $300/mo.</p>
+          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Prices stay visible: Free Scan $0 · Deep Review $300 · Build Fix $750+ · Ongoing Control $300/mo.</p>
         </div>
 
-        <aside className="rounded-[2rem] border border-white/10 bg-slate-950/55 p-5 shadow-[0_28px_90px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Command read">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">The command read</div>
+        <aside className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-5 shadow-[0_28px_90px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Command read">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">What Cendorq checks</div>
           <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            Search, maps, reviews, and AI answers now shape trust before a customer reaches you.
+            Can a customer understand you, trust you, find you, and act without needing a sales pitch?
           </h2>
-          <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
-            If the business feels unclear, risky, hard to compare, or hard to act on, people leave quietly. Cendorq turns that silent hesitation into a clear next move.
-          </p>
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            {COMMAND_SIGNALS.map((signal) => <SignalPill key={signal}>{signal}</SignalPill>)}
+          <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
+            {SIGNAL_ROWS.map(([label, copy]) => (
+              <div key={label} className="grid gap-2 py-4 sm:grid-cols-[8rem_1fr] sm:items-center">
+                <div className="text-sm font-semibold text-cyan-100">{label}</div>
+                <div className="text-sm leading-6 text-slate-300">{copy}</div>
+              </div>
+            ))}
           </div>
         </aside>
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7" aria-label="What changed">
-        <div className="grid gap-5 md:grid-cols-[0.78fr_1.22fr] md:items-center">
-          <div>
-            <TopChip>Why it matters now</TopChip>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">The old path is gone.</h2>
-          </div>
-          <p className="text-base leading-8 text-slate-300 sm:text-lg">
-            Customers compare fast. They check proof, price, search results, reviews, maps, and AI summaries before they call. If one part breaks trust, the business may never hear the objection.
-          </p>
-        </div>
+      <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7" aria-label="Customer behavior">
+        <TopChip>Why it matters now</TopChip>
+        <h2 className="mt-5 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+          The customer does not wait for a pitch.
+        </h2>
+        <p className="mt-5 max-w-4xl text-xl leading-9 text-slate-200 sm:text-2xl">
+          They search. They compare. They judge. They act or leave.
+        </p>
+        <p className="mt-4 max-w-4xl text-base leading-8 text-slate-400">
+          If search, maps, reviews, AI summaries, pricing, or the page itself creates doubt, the business may never hear the objection.
+        </p>
       </section>
 
       <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-slate-950/45 p-5 sm:p-7" aria-label="Pricing ladder">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <TopChip>Plan ladder</TopChip>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Find the pressure before buying the fix.</h2>
-            <p className="mt-3 max-w-3xl text-base leading-8 text-slate-300">Start free when the cause is unclear. Pay only when the next depth is clear.</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Choose depth only when depth is earned.</h2>
+            <p className="mt-3 max-w-3xl text-base leading-8 text-slate-300">Start with the Free Scan when the cause is unclear. Pay when the next level is actually clear.</p>
           </div>
           <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white">Compare plans →</Link>
         </div>
@@ -153,33 +161,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch" aria-label="Trust and next step">
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
-          <TopChip>Trust lock</TopChip>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Strong enough to guide decisions. Plain enough to understand.</h2>
-          <div className="mt-6 grid gap-3">
-            {TRUST_RULES.map((item) => (
-              <div key={item} className="flex gap-3 text-sm leading-6 text-slate-200">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
-                <span>{item}</span>
-              </div>
-            ))}
+      <section className="relative z-10 mt-7 rounded-[2rem] border border-cyan-300/15 bg-[radial-gradient(circle_at_top_right,rgba(103,232,249,0.12),transparent_34%),rgba(2,8,23,0.72)] p-5 shadow-[0_30px_90px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Trust and next step">
+        <div className="grid gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
+          <div>
+            <TopChip>Trust lock</TopChip>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Trust is the product.</h2>
+            <p className="mt-4 text-base leading-8 text-slate-300">
+              Cendorq is built to diagnose before it pushes depth. The form stays on the focused Free Scan page. Protected dashboard and report vault access continues after verification.
+            </p>
           </div>
-        </div>
-
-        <div className="rounded-[2rem] border border-cyan-300/15 bg-[radial-gradient(circle_at_top_right,rgba(103,232,249,0.12),transparent_34%),rgba(2,8,23,0.72)] p-5 shadow-[0_30px_90px_rgba(2,8,23,0.42)] sm:p-7">
-          <TopChip>Best first move</TopChip>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Start with the first read.</h2>
-          <p className="mt-4 text-base leading-8 text-slate-300">
-            The form stays on the focused Free Scan page. The protected dashboard and report vault continue the path after verification.
-          </p>
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Start free scan
-            </Link>
-            <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              See pricing
-            </Link>
+          <div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {TRUST_RULES.map((item) => (
+                <div key={item} className="flex gap-3 text-sm leading-6 text-slate-200">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+                Start free scan
+              </Link>
+              <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                See pricing
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -192,7 +199,7 @@ function HomeAtmosphere() {
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       <div className="absolute -left-16 top-10 h-72 w-72 rounded-full bg-cyan-400/8 blur-3xl sm:h-96 sm:w-96" />
       <div className="absolute -right-20 top-32 h-64 w-64 rounded-full bg-sky-400/8 blur-3xl sm:h-80 sm:w-80" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.016]" />
     </div>
   );
 }
@@ -206,13 +213,9 @@ function TopChip({ children }: { children: ReactNode }) {
   );
 }
 
-function SignalPill({ children }: { children: ReactNode }) {
-  return <div className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-4 text-sm font-semibold text-slate-100">{children}</div>;
-}
-
 function PriceRow({ title, price, copy, href }: (typeof PLAN_LADDER)[number]) {
   return (
-    <Link href={href} className="grid gap-2 bg-white/[0.02] p-4 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[1fr_auto_1.2fr] sm:items-center sm:p-5">
+    <Link href={href} className="grid gap-2 bg-white/[0.02] p-4 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[1fr_auto_1.25fr] sm:items-center sm:p-5">
       <h3 className="text-lg font-semibold tracking-tight text-white">{title}</h3>
       <div className="text-2xl font-semibold tracking-tight text-cyan-100 sm:text-right">{price}</div>
       <p className="text-sm leading-6 text-slate-300 sm:text-right">{copy}</p>
