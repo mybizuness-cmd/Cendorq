@@ -1,5 +1,4 @@
 import { ConversionClickTracker } from "@/components/conversion/conversion-click-tracker";
-import { MobileConversionDock } from "@/layout/mobile-conversion-dock";
 import { SiteFooter } from "@/layout/site-footer";
 import { SiteHeader } from "@/layout/site-header-conversion";
 import { absoluteUrl, siteConfig, toJsonLd } from "@/lib/seo";
@@ -124,7 +123,7 @@ const structuredData = buildStructuredData();
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en-US" className="h-full scroll-smooth bg-slate-950" suppressHydrationWarning>
-      <body className="min-h-screen bg-slate-950 pb-24 text-white antialiased selection:bg-cyan-300/20 selection:text-white [font-synthesis-weight:none] [text-rendering:optimizeLegibility] lg:pb-0">
+      <body className="min-h-screen bg-slate-950 text-white antialiased selection:bg-cyan-300/20 selection:text-white [font-synthesis-weight:none] [text-rendering:optimizeLegibility]">
         <ConversionClickTracker />
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950">Skip to content</a>
         <noscript><div className="border-b border-amber-300/20 bg-amber-300/10 px-4 py-3 text-center text-sm text-amber-100">JavaScript is disabled. Some interactive Cendorq experiences may be limited.</div></noscript>
@@ -144,7 +143,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             <SiteFooter />
           </div>
         </div>
-        <MobileConversionDock />
       </body>
     </html>
   );
