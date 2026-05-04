@@ -12,7 +12,7 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --NoEmit",
+    "typecheck": "tsc --noEmit",
     "validate:routes": "node ./src/scripts/validate-routes-chain.mjs",
     "validate:public-drift": "node ./src/scripts/validate-public-drift.mjs",
     "validate:free-check-intake": "node ./src/scripts/validate-free-check-intake.mjs",
