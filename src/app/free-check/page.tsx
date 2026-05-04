@@ -122,7 +122,7 @@ export default function FreeCheckPage() {
             Answer a few plain business questions to enter safe context. Cendorq looks for where customers may be losing clarity, trust, AI-search visibility, or confidence to act.
           </p>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-400">
-            It turns customer hesitation into a safer first direction without treating pending or incomplete input as final analysis.
+            It turns customer hesitation into a safer first direction. Pending or incomplete input is never treated as final analysis.
           </p>
         </div>
 
@@ -153,7 +153,7 @@ export default function FreeCheckPage() {
             <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Dedicated page, not a cramped popup</div>
             <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white">Dashboard, notifications, and report vault handoff</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">
-              The Free Scan is a routeable page that can be resumed or linked from dashboard. It can hand off into dashboard, notifications, and report vault after verification.
+              Routeable page that can be resumed or linked from dashboard. It can hand off into dashboard, notifications, and report vault after verification.
             </p>
             <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold text-cyan-100">
               {HANDOFF_LINKS.map((item) => (
