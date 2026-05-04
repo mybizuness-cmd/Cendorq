@@ -94,7 +94,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer confirmation email issuance runtime validation passed with dispatch queue, owner posture, and package wiring coverage.");
+console.log("Customer confirmation email issuance runtime validation passed. Dispatch queue, owner posture, and package wiring coverage remain aligned.");
 
 function unsafePhrases() {
   return [
