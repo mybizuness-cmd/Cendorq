@@ -29,7 +29,7 @@ expect(dashboardPath, [
   "SAFE_STATE_RULES",
   "Safe state rules",
   "Show pending states as pending, not as live truth.",
-  "Do not expose raw payloads, private evidence, internal notes, operator identities, or risk internals.",
+  "Do not expose private payloads, private files, internal notes, operator identities, or risk internals.",
   "Give the customer one obvious next action before offering deeper plan decisions.",
   "Keep support, report, billing, and notification links visible when a customer needs recovery.",
   "focus:outline-none",
@@ -52,6 +52,8 @@ expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-postu
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
+  "raw evidence",
+  "guaranteed outcome",
   "make unsupported promises",
   "use fake urgency",
   "browser storage for protected state",
