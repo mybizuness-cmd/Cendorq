@@ -70,19 +70,19 @@ export const siteConfig: SiteConfig = {
     shortName: "Cendorq",
     siteUrl: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
     description:
-        "Cendorq helps businesses find what makes customers hesitate, compare, leave, or choose someone else so the business becomes easier to understand, trust, and choose before spending more.",
+        "Cendorq helps businesses find where customers lose clarity, trust, visibility, or action so the next move is easier to choose before spending more.",
     locale: "en_US",
     twitterHandle: "",
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@cendorq.com",
     supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@cendorq.com",
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "",
     locationLabel: "United States",
-    defaultOgTitle: "Cendorq — Search Presence OS",
+    defaultOgTitle: "Cendorq — Business Command Intelligence",
     defaultOgDescription:
         "Find what makes customers hesitate before they call, book, or buy. Start with the Free Scan, then choose the right depth: Deep Review, Build Fix, or Ongoing Control.",
     defaultKeywords: [
         "Cendorq",
-        "Search Presence OS",
+        "Business Command Intelligence",
         "free business scan",
         "website trust scan",
         "business clarity scan",
@@ -246,7 +246,7 @@ export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJs
     };
 }
 
-export function buildServiceJsonLd({ title, description, path = "/", serviceType = "Search Presence OS" }: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ title, description, path = "/", serviceType = "Business Command Intelligence" }: ServiceJsonLdInput) {
     const normalizedPath = normalizePath(path);
 
     return {
@@ -256,7 +256,7 @@ export function buildServiceJsonLd({ title, description, path = "/", serviceType
         name: cleanString(title) || siteConfig.defaultOgTitle,
         description: cleanString(description) || siteConfig.defaultOgDescription,
         url: absoluteUrl(normalizedPath),
-        serviceType: cleanString(serviceType) || "Search Presence OS",
+        serviceType: cleanString(serviceType) || "Business Command Intelligence",
         areaServed: "Worldwide",
         provider: { "@id": organizationSchemaId() },
         brand: { "@id": organizationSchemaId() },
