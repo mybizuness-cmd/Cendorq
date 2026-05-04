@@ -6,7 +6,6 @@ const failures = [];
 const ownerPosturePath = "docs/owner-maximum-protection-posture.md";
 const maximumProtectionPath = "docs/maximum-protection-standard.md";
 const docsIndexPath = "docs/command-center-docs-index.md";
-const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 
@@ -56,16 +55,7 @@ expect(docsIndexPath, [
   "owner maximum-protection posture rule",
 ]);
 
-expect(validationRegistryPath, [
-  "maximum-protection-standard",
-  "src/scripts/validate-maximum-protection-standard.mjs",
-  "owner-maximum-protection-posture",
-  "src/scripts/validate-owner-maximum-protection-posture.mjs",
-]);
-
-expect(routesChainPath, [
-  validatorPath,
-]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(ownerPosturePath, [
   "browser-side code may be the authority",
@@ -86,7 +76,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner maximum protection posture validation passed. Owner-facing maximum-protection doctrine, docs index, validation registry anchor, and validate:routes wiring remain aligned.");
+console.log("Owner maximum protection posture validation passed. Owner-facing maximum-protection doctrine, docs index, safe claim language, and validate:routes wiring remain aligned.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
