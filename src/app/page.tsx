@@ -30,25 +30,13 @@ export const metadata = buildMetadata({
   image: { alt: "Cendorq business command intelligence homepage." },
 });
 
-const SIGNAL_ROWS = [
-  ["Understand", "Does the business make sense in seconds?"],
-  ["Trust", "Does it feel safe enough to choose?"],
-  ["Find", "Do search, maps, reviews, and AI answers explain it correctly?"],
-  ["Act", "Is the next step clear before attention drops?"],
-] as const;
-
-const PLAN_LADDER = [
-  { title: "Free Scan", price: "$0", copy: "Start here when the cause is unclear.", href: "/free-check" },
-  { title: "Deep Review", price: "$300", copy: "Use when you need evidence and priority.", href: "/plans/deep-review" },
-  { title: "Build Fix", price: "$750+", copy: "Use when the weak point is ready to fix.", href: "/plans/build-fix" },
-  { title: "Ongoing Control", price: "$300/mo", copy: "Use when the market keeps changing.", href: "/plans/ongoing-control" },
-] as const;
+const DECISION_SIGNALS = ["Understand", "Trust", "Find", "Act"] as const;
 
 const TRUST_RULES = [
-  "No fake urgency.",
-  "No outcome promises.",
+  "Start free when the cause is unclear.",
+  "Pay only when the next depth is clear.",
   "Protected dashboard and report vault after verification.",
-  "Plain-English diagnosis before bigger spend.",
+  "Plain answers before bigger spend.",
 ] as const;
 
 const FAQS = [
@@ -89,7 +77,7 @@ export default function HomePage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-10 pt-6 text-white sm:px-6 md:pb-14 md:pt-8">
+    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-10 pt-5 text-white sm:px-6 md:pb-14 md:pt-8">
       <HomeAtmosphere />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
@@ -97,14 +85,14 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 grid gap-7 lg:min-h-[calc(100vh-8.25rem)] lg:grid-cols-[1.05fr_0.95fr] lg:items-center" aria-label="Cendorq command entry">
+      <section className="relative z-10 grid gap-5 lg:min-h-[calc(100vh-8.5rem)] lg:grid-cols-[1.1fr_0.9fr] lg:items-center" aria-label="Cendorq command entry">
         <div className="max-w-5xl">
           <TopChip>{CATEGORY_LINE}</TopChip>
           <h1 className="system-hero-title mt-5 max-w-5xl text-5xl font-semibold tracking-tight text-white sm:text-6xl md:text-7xl xl:text-[5.4rem]">
-            See why they choose someone else.
+            Find why customers leave before you buy the fix.
           </h1>
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} reads the public path customers use before they contact you: search, AI answers, maps, reviews, your site, your offer, and the next step. It shows what weakens trust and what to fix first.
+            {BRAND_NAME} shows where your business loses clarity, trust, visibility, or the next step across search, AI answers, maps, reviews, and your site.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -114,78 +102,61 @@ export default function HomePage() {
               See pricing
             </Link>
           </div>
-          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Prices stay visible: Free Scan $0 · Deep Review $300 · Build Fix $750+ · Ongoing Control $300/mo.</p>
+          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Free first read. Clear pricing when you need the next depth.</p>
         </div>
 
-        <aside className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-5 shadow-[0_28px_90px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Command read">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">What Cendorq checks</div>
-          <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            Customers do not need to complain for the path to be broken.
-          </h2>
-          <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
-            {SIGNAL_ROWS.map(([label, copy]) => (
-              <div key={label} className="grid gap-2 py-4 sm:grid-cols-[8rem_1fr] sm:items-center">
-                <div className="text-sm font-semibold text-cyan-100">{label}</div>
-                <div className="text-sm leading-6 text-slate-300">{copy}</div>
-              </div>
-            ))}
+        <aside className="rounded-[1.5rem] border border-white/10 bg-slate-950/55 p-4 shadow-[0_24px_80px_rgba(2,8,23,0.34)] sm:p-5" aria-label="Cendorq identity">
+          <div className="flex items-center gap-4">
+            <div className="grid h-14 w-14 shrink-0 place-items-center rounded-[1.15rem] border border-cyan-300/15 bg-cyan-300/10 text-xl font-black text-cyan-100">C</div>
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight text-white">Cendorq</h2>
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">Business Command Intelligence</p>
+            </div>
+          </div>
+          <p className="mt-4 text-sm leading-7 text-slate-300">A plain diagnosis of the path customers use before they contact you.</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {DECISION_SIGNALS.map((signal) => <span key={signal} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-slate-200">{signal}</span>)}
           </div>
         </aside>
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7" aria-label="Customer behavior">
-        <TopChip>Why it matters now</TopChip>
+      <section className="relative z-10 mt-7 rounded-[2rem] border border-cyan-300/14 bg-[radial-gradient(circle_at_top_right,rgba(103,232,249,0.12),transparent_34%),rgba(2,8,23,0.70)] p-5 shadow-[0_26px_90px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Customer decision pressure">
+        <TopChip>Silent decision pressure</TopChip>
         <h2 className="mt-5 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-          The objection is silent.
+          If they do not understand you, trust you, find you, or know what to do next, they move on quietly.
         </h2>
-        <p className="mt-5 max-w-4xl text-xl leading-9 text-slate-200 sm:text-2xl">
-          They search. They compare. They judge. They act or leave.
-        </p>
-        <p className="mt-4 max-w-4xl text-base leading-8 text-slate-400">
-          If search, maps, reviews, AI summaries, pricing, or the page itself creates doubt, the business may never know what cost the customer.
+        <p className="mt-5 max-w-4xl text-base leading-8 text-slate-300 sm:text-lg">
+          Most owners see the symptom: fewer calls, weak bookings, ignored pages, or people choosing someone else. Cendorq looks for the pressure behind it in plain English.
         </p>
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-slate-950/45 p-5 sm:p-7" aria-label="Pricing ladder">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <TopChip>Plan ladder</TopChip>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Do not buy the fix before you know the break.</h2>
-            <p className="mt-3 max-w-3xl text-base leading-8 text-slate-300">Start with the Free Scan when the cause is unclear. Pay when the next level is actually clear.</p>
-          </div>
-          <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white">Compare plans →</Link>
-        </div>
-
-        <div className="mt-6 divide-y divide-white/10 overflow-hidden rounded-[1.5rem] border border-white/10">
-          {PLAN_LADDER.map((item) => <PriceRow key={item.title} {...item} />)}
-        </div>
+      <section className="relative z-10 mt-7 grid gap-5 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch" aria-label="Why Cendorq matters now">
+        <article className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
+          <h2 className="text-3xl font-semibold tracking-tight text-white">Search changed.</h2>
+          <p className="mt-4 text-base leading-8 text-slate-300">Customers compare you through Google, maps, reviews, social platforms, and AI answers before they decide who feels safe to contact.</p>
+        </article>
+        <article className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
+          <h2 className="text-3xl font-semibold tracking-tight text-white">The first move is clarity.</h2>
+          <p className="mt-4 text-base leading-8 text-slate-300">Start with the Free Scan when the cause is unclear. Move deeper only when the business needs a fuller diagnosis, a scoped fix, or monthly control.</p>
+        </article>
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[2rem] border border-cyan-300/15 bg-[radial-gradient(circle_at_top_right,rgba(103,232,249,0.12),transparent_34%),rgba(2,8,23,0.72)] p-5 shadow-[0_30px_90px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Trust and next step">
-        <div className="grid gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
+      <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-slate-950/55 p-5 sm:p-7" aria-label="Trust and next step">
+        <div className="grid gap-7 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <div>
             <TopChip>Trust lock</TopChip>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Proof first. Pressure never.</h2>
-            <p className="mt-4 text-base leading-8 text-slate-300">
-              Cendorq is built to diagnose before it pushes depth. The form stays on the focused Free Scan page. Protected dashboard and report vault access continues after verification.
-            </p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Proof first. No pressure.</h2>
+            <p className="mt-4 text-base leading-8 text-slate-300">Cendorq helps you see the break before you spend deeper. Your protected dashboard and report vault continue the path after verification.</p>
           </div>
           <div>
             <div className="grid gap-3 sm:grid-cols-2">
               {TRUST_RULES.map((item) => (
-                <div key={item} className="flex gap-3 text-sm leading-6 text-slate-200">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
-                  <span>{item}</span>
-                </div>
+                <div key={item} className="flex gap-3 text-sm leading-6 text-slate-200"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" /><span>{item}</span></div>
               ))}
             </div>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-                Start free scan
-              </Link>
-              <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                See pricing
-              </Link>
+              <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">Start free scan</Link>
+              <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">See pricing</Link>
             </div>
           </div>
         </div>
@@ -210,15 +181,5 @@ function TopChip({ children }: { children: ReactNode }) {
       <span className="h-2 w-2 rounded-full bg-cyan-300" />
       {children}
     </div>
-  );
-}
-
-function PriceRow({ title, price, copy, href }: (typeof PLAN_LADDER)[number]) {
-  return (
-    <Link href={href} className="grid gap-2 bg-white/[0.02] p-4 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[1fr_auto_1.25fr] sm:items-center sm:p-5">
-      <h3 className="text-lg font-semibold tracking-tight text-white">{title}</h3>
-      <div className="text-2xl font-semibold tracking-tight text-cyan-100 sm:text-right">{price}</div>
-      <p className="text-sm leading-6 text-slate-300 sm:text-right">{copy}</p>
-    </Link>
   );
 }
