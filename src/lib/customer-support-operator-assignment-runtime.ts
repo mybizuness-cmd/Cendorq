@@ -39,7 +39,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_RUNTIME_GUARDS = [
   "support operator assignment runtime stores immutableAuditRequired true and customerVisibleOperatorIdentity false for every assignment",
   "support operator assignment runtime stores rawPayloadStored false, rawEvidenceStored false, rawSecurityPayloadStored false, rawBillingDataStored false, rawPaymentDataStored false, internalNotesCustomerVisible false, and secretsStored false",
   "support operator assignment runtime projects no customerIdHash, assignedActorRef, raw flags, internal notes, secrets, or authorization internals",
-  "support operator assignment runtime is storage-only and does not create assignment mutation APIs or customer-visible operator identities",
+  "support operator assignment runtime is storage-only and does not create assignment mutation endpoints or customer-visible operator identities",
 ] as const;
 
 export function buildCustomerSupportOperatorAssignment(input: CustomerSupportOperatorAssignmentBuildInput): CustomerSupportOperatorAssignmentBuildResult {
