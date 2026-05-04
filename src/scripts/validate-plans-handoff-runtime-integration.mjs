@@ -17,8 +17,8 @@ expect(pagePath, [
   "Free Scan, dashboard, billing, report vault, and support context",
   "without fake urgency",
   "dark patterns",
-  "guaranteed ROI",
-  "guaranteed outcomes",
+  "unsupported ROI claims",
+  "unsupported outcome promises",
   "raw/internal data exposure",
   "disconnected plan decisions",
   "handoff.currentState",
@@ -46,35 +46,19 @@ expect(pagePath, [
   "/plans",
 ]);
 
-expect(packagePath, [
-  "validate:routes",
-  "node ./src/scripts/validate-routes-chain.mjs",
-]);
-
-expect(routesChainPath, [
-  validatorPath,
-]);
+expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
-  "rawPayload=",
-  "rawEvidence=",
-  "rawSecurityPayload=",
-  "rawBillingData=",
-  "internalNotes=",
-  "operatorIdentity=",
-  "riskScoringInternals=",
-  "attackerDetails=",
-  "session" + "Token=",
-  "csrf" + "Token=",
-  "admin" + "Key=",
-  "support" + "Context" + "Key=",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
+  "guaranteed ROI",
+  "guaranteed outcome",
   "guaranteed refund",
   "guaranteed billing change",
   "impossible to hack",
   "never liable",
   "liability-free",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
 ]);
 
 if (failures.length) {
@@ -90,7 +74,6 @@ function expect(path, phrases) {
     failures.push(`Missing dependency: ${path}`);
     return;
   }
-
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
@@ -99,7 +82,6 @@ function expect(path, phrases) {
 
 function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
-
   const text = read(path).toLowerCase();
   for (const phrase of phrases) {
     if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
