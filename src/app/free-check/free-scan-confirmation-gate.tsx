@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import { projectCustomerEmailConfirmationHandoff } from "@/lib/customer-email-confirmation-handoff-runtime";
 
+const SENDER_DISPLAY = "Cendorq Support <support@cendorq.com>";
+
 const freeScanGate = projectCustomerEmailConfirmationHandoff({
   journeyKey: "free-scan-submitted",
   customerIdHashPresent: true,
@@ -26,7 +28,7 @@ export function FreeScanConfirmationGate() {
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             <div className="rounded-[1.25rem] border border-white/10 bg-slate-950/45 p-4">
               <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">Sender</div>
-              <p className="mt-2 text-sm font-semibold text-white">Cendorq Support &lt;support@cendorq.com&gt;</p>
+              <p className="mt-2 text-sm font-semibold text-white">{SENDER_DISPLAY}</p>
               <p className="mt-2 text-xs leading-5 text-slate-400">Save this sender or move it to your main inbox if your email app filters it.</p>
             </div>
             <div className="rounded-[1.25rem] border border-white/10 bg-slate-950/45 p-4">
