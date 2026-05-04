@@ -1,6 +1,6 @@
 # Controlled Maintenance
 
-Controlled maintenance is Cendorq's standard for keeping the platform current, secure, validated, and scalable without uncontrolled AI changes or automatic production mutation.
+Controlled maintenance is Cendorq's standard for keeping the platform current, validated, scalable, and protected without uncontrolled AI changes or automatic production mutation.
 
 ## Purpose
 
@@ -11,7 +11,7 @@ Maintenance may discover, classify, and queue updates, but production-impacting 
 Controlled maintenance covers:
 
 - dependency review
-- security advisory monitoring
+- advisory monitoring
 - validation registry checks
 - smoke-test scheduling
 - performance health checks
@@ -40,11 +40,11 @@ No queued update may mutate production automatically. Release requires validatio
 
 Controlled maintenance must never allow:
 
-- uncontrolled AI agents changing production code, content, customer records, billing state, support state, reports, or security posture
+- uncontrolled AI agents changing production code, content, customer records, billing state, support state, reports, or protection posture
 - automatic breaking changes that bypass validation, approval, and rollback requirements
-- maintenance output exposing raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys
-- automated maintenance copy claiming Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI or business outcomes
-- silent deletion of audit records required for accountability, correction history, access review, or incident reconstruction
+- maintenance output exposing raw or private operational material, internal operator material, protected configuration, cross-customer records, or sensitive context
+- automated maintenance copy claiming absolute certainty, guaranteed results, or freedom from all responsibility
+- silent removal of audit records required for accountability, correction history, access review, or incident reconstruction
 
 ## Release rules
 
