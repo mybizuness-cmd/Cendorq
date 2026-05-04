@@ -122,8 +122,8 @@ export const CUSTOMER_SUPPORT_EMAIL_QUEUE_BLOCKED_CONTENT = [
   "unsupported report change",
   "unsupported billing change",
   "unsupported security outcome",
-  "guaranteed business result",
-  "guaranteed ROI",
+  "unsupported business-result promise",
+  "unsupported ROI promise",
   "fake urgency",
   "audit deletion claim",
 ] as const;
@@ -132,7 +132,7 @@ export const CUSTOMER_SUPPORT_EMAIL_QUEUE_GUARDS = [
   "no support lifecycle email queue record without customer ownership, customer-safe support status projection, known lifecycle email contract, and recipientEmailRef",
   "no support lifecycle email queue record stores raw customer email addresses, raw payloads, raw evidence, raw security payloads, raw billing data, raw payment data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, support context keys, provider API keys, or provider payloads",
   "no support lifecycle email queue record sends email directly or calls an external email provider",
-  "no support lifecycle email queue record promises refunds, legal outcomes, report changes, billing changes, security outcomes, ROI, or business results without approval",
+  "no support lifecycle email queue record makes refund promises, legal promises, report-change promises, billing-change promises, security-outcome promises, ROI promises, or business-result promises without approval",
   "no support lifecycle email queue record duplicates an unchanged lifecycle status when idempotency, unsubscribe, bounce, complaint, or suppression controls apply",
   "every support lifecycle email queue record keeps Cendorq Support <support@cendorq.com>, customer-safe subject, customer-safe preheader, approved dashboard path, retry state, compliance state, and auditEventId",
 ] as const;
