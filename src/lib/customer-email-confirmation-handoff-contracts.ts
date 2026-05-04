@@ -6,7 +6,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     fromEmail: "support@cendorq.com",
     display: "Cendorq Support <support@cendorq.com>",
     checkInboxInstruction:
-      "Check your inbox for an email from Cendorq Support <support@cendorq.com>. If you do not see it, check spam or promotions once and save support@cendorq.com as a trusted sender.",
+      "Check your inbox for an email from Cendorq Support <support@cendorq.com>. If you do not see it, check spam or promotions once, move Cendorq to your main inbox, and save support@cendorq.com as a trusted sender.",
   },
   recommendedSubjects: [
     {
