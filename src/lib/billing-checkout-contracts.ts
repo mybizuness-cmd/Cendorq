@@ -40,7 +40,7 @@ export const BILLING_CHECKOUT_CONTRACT = {
     "Billing webhooks must be verified with provider signature before any entitlement change.",
     "Webhook event ids must be idempotent and stored as hashes or safe references.",
     "Entitlement updates require provider event type, customer ownership mapping, plan mapping, and audit event.",
-    "Failed, disputed, refunded, canceled, incomplete, or expired checkout states must use calm recovery copy and not fake urgency.",
+    "Failed, disputed, refunded, canceled, incomplete, or expired checkout states must use calm recovery copy and not pressure-based urgency.",
     "Raw provider payloads, raw billing data, payment method details, card numbers, bank details, and provider internals must not be projected to customer surfaces.",
   ],
   entitlementProjectionFields: [
@@ -78,7 +78,7 @@ export const BILLING_CHECKOUT_CONTRACT = {
   ],
   recoveryRules: [
     "Billing recovery must identify the safe next action: retry checkout, open billing portal, contact support with safe summary, or return to dashboard.",
-    "Billing recovery must not shame the customer, hide support path, imply fake scarcity, or threaten unsupported loss of records.",
+    "Billing recovery must not shame the customer, remove the visible support route, imply fake scarcity, or threaten unsupported loss of records.",
     "Canceled checkout must return to plans or dashboard without creating entitlement.",
     "Successful checkout must route to dashboard or billing center with pending/active entitlement clearly separated.",
   ],
