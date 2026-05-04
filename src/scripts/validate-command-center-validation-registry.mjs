@@ -56,7 +56,6 @@ if (!failures.length) {
     "failureMeaning",
     "getCommandCenterValidationRegistry",
     "maximum-protection-standard",
-    "owner-maximum-protection-posture",
     "controlled-continuous-evolution",
     "controlled-maintenance",
     "Panel safety",
@@ -107,7 +106,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and command-center, maximum protection, owner posture, controlled evolution, controlled maintenance, report truth, report evidence, customer platform, customer experience, conversion moat, insights conversation, operator docs, owner manual, and closed-intelligence guardrails remain covered.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and command-center, maximum protection, owner posture through the route chain, controlled evolution, controlled maintenance, report truth, report evidence, customer platform, customer experience, conversion moat, insights conversation, operator docs, owner manual, and closed-intelligence guardrails remain covered.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
