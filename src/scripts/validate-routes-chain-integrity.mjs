@@ -120,42 +120,19 @@ if (!failures.length) {
   const chainValidators = [...chainText.matchAll(/"(src\/scripts\/validate-[^"]+\.mjs)"/g)].map((match) => match[1]);
   const duplicateValidators = chainValidators.filter((validator, index) => chainValidators.indexOf(validator) !== index);
 
-  if (!packageText.includes('"validate:routes": "node ./src/scripts/validate-routes-chain.mjs"')) {
-    failures.push(`${packagePath} must delegate validate:routes to ${chainPath}`);
-  }
-
-  if (chainValidators.length < 140) {
-    failures.push(`${chainPath} expected at least 140 validators in the ordered chain, found ${chainValidators.length}`);
-  }
-
-  if (duplicateValidators.length) {
-    failures.push(`${chainPath} contains duplicate validators: ${[...new Set(duplicateValidators)].join(", ")}`);
-  }
-
-  if (chainValidators[0] !== chainIntegrityValidatorPath) {
-    failures.push(`${chainPath} must start with the route-chain integrity validator.`);
-  }
-
-  if (chainValidators[1] !== baselineRouteValidatorPath) {
-    failures.push(`${chainPath} must run the baseline route validator immediately after the integrity validator.`);
-  }
-
-  if (chainValidators.at(-1) !== "src/scripts/validate-closed-intelligence.mjs") {
-    failures.push(`${chainPath} must end with closed-intelligence validation.`);
-  }
+  if (!packageText.includes('"validate:routes": "node ./src/scripts/validate-routes-chain.mjs"')) failures.push(`${packagePath} must delegate validate:routes to ${chainPath}`);
+  if (chainValidators.length < 140) failures.push(`${chainPath} expected at least 140 validators in the ordered chain, found ${chainValidators.length}`);
+  if (duplicateValidators.length) failures.push(`${chainPath} contains duplicate validators: ${[...new Set(duplicateValidators)].join(", ")}`);
+  if (chainValidators[0] !== chainIntegrityValidatorPath) failures.push(`${chainPath} must start with the route-chain integrity validator.`);
+  if (chainValidators[1] !== baselineRouteValidatorPath) failures.push(`${chainPath} must run the baseline route validator immediately after the integrity validator.`);
+  if (chainValidators.at(-1) !== "src/scripts/validate-closed-intelligence.mjs") failures.push(`${chainPath} must end with closed-intelligence validation.`);
 
   for (const validatorPath of requiredHighRiskValidators) {
     if (!chainValidators.includes(validatorPath)) failures.push(`${chainPath} missing high-risk validator: ${validatorPath}`);
     validateFileExists(validatorPath);
   }
-
-  for (const validatorPath of requiredIndirectReportEvidenceValidators) {
-    validateFileExists(validatorPath);
-  }
-
-  for (const validatorPath of chainValidators) {
-    validateFileExists(validatorPath);
-  }
+  for (const validatorPath of requiredIndirectReportEvidenceValidators) validateFileExists(validatorPath);
+  for (const validatorPath of chainValidators) validateFileExists(validatorPath);
 
   validateIndirectReportEvidenceCoverage();
   validateCodeqlWorkflowCoverage();
@@ -164,59 +141,12 @@ if (!failures.length) {
   validateControlledContinuousEvolutionCoverage();
   validateControlledMaintenanceCoverage();
 
-  validateChainOrdering(chainValidators, [
-    chainIntegrityValidatorPath,
-    baselineRouteValidatorPath,
-    "src/scripts/validate-public-drift.mjs",
-    maximumProtectionValidatorPath,
-    ownerMaximumProtectionValidatorPath,
-  ]);
-
-  validateChainOrdering(chainValidators, [
-    "src/scripts/validate-command-center-panel-registry.mjs",
-    "src/scripts/validate-command-center-panel-safety.mjs",
-    "src/scripts/validate-command-center-validation-registry.mjs",
-  ]);
-
-  validateChainOrdering(chainValidators, [
-    "src/scripts/validate-report-truth-engine.mjs",
-    "src/scripts/validate-report-evidence-orchestration.mjs",
-    "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
-    "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs",
-    "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
-    "src/scripts/validate-report-evidence-record-contracts.mjs",
-    reportEvidenceRecordRuntimeValidatorPath,
-    "src/scripts/validate-report-generation-rendering-contracts.mjs",
-  ]);
-
-  validateChainOrdering(chainValidators, [
-    "src/scripts/validate-command-center-operator-runbook.mjs",
-    "src/scripts/validate-command-center-docs-index.mjs",
-    "src/scripts/validate-owner-operating-manual.mjs",
-    "src/scripts/validate-production-smoke-coverage.mjs",
-  ]);
-
-  validateChainOrdering(chainValidators, [
-    "src/scripts/validate-platform-launch-readiness-contracts.mjs",
-    "src/scripts/validate-platform-launch-readiness-runtime.mjs",
-    "src/scripts/validate-platform-launch-readiness-api-routes.mjs",
-    "src/scripts/validate-production-launch-final-blocker-runtime.mjs",
-    "src/scripts/validate-launch-evidence-api-routes.mjs",
-    "src/scripts/validate-production-smoke-api-routes.mjs",
-    "src/scripts/validate-owner-configuration-evidence-contracts.mjs",
-    "src/scripts/validate-owner-configuration-evidence-runtime.mjs",
-    "src/scripts/validate-production-smoke-coverage.mjs",
-  ]);
-
-  validateChainOrdering(chainValidators, [
-    "src/scripts/validate-command-center-owner-configuration-evidence-api.mjs",
-    "src/scripts/validate-command-center-owner-configuration-evidence-persistence.mjs",
-    "src/scripts/validate-command-center-owner-configuration-evidence-approval-workflow.mjs",
-    "src/scripts/validate-command-center-owner-configuration-workflow-api.mjs",
-    "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs",
-    "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
-    "src/scripts/validate-closed-intelligence.mjs",
-  ]);
+  validateChainOrdering(chainValidators, [chainIntegrityValidatorPath, baselineRouteValidatorPath, "src/scripts/validate-public-drift.mjs", maximumProtectionValidatorPath, ownerMaximumProtectionValidatorPath]);
+  validateChainOrdering(chainValidators, ["src/scripts/validate-command-center-panel-registry.mjs", "src/scripts/validate-command-center-panel-safety.mjs", "src/scripts/validate-command-center-validation-registry.mjs"]);
+  validateChainOrdering(chainValidators, ["src/scripts/validate-report-truth-engine.mjs", "src/scripts/validate-report-evidence-orchestration.mjs", "src/scripts/validate-report-evidence-orchestration-runtime.mjs", "src/scripts/validate-command-center-report-evidence-orchestration-panel.mjs", "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs", "src/scripts/validate-report-evidence-record-contracts.mjs", reportEvidenceRecordRuntimeValidatorPath, "src/scripts/validate-report-generation-rendering-contracts.mjs"]);
+  validateChainOrdering(chainValidators, ["src/scripts/validate-command-center-operator-runbook.mjs", "src/scripts/validate-command-center-docs-index.mjs", "src/scripts/validate-owner-operating-manual.mjs", "src/scripts/validate-production-smoke-coverage.mjs"]);
+  validateChainOrdering(chainValidators, ["src/scripts/validate-platform-launch-readiness-contracts.mjs", "src/scripts/validate-platform-launch-readiness-runtime.mjs", "src/scripts/validate-platform-launch-readiness-api-routes.mjs", "src/scripts/validate-production-launch-final-blocker-runtime.mjs", "src/scripts/validate-launch-evidence-api-routes.mjs", "src/scripts/validate-production-smoke-api-routes.mjs", "src/scripts/validate-owner-configuration-evidence-contracts.mjs", "src/scripts/validate-owner-configuration-evidence-runtime.mjs", "src/scripts/validate-production-smoke-coverage.mjs"]);
+  validateChainOrdering(chainValidators, ["src/scripts/validate-command-center-owner-configuration-evidence-api.mjs", "src/scripts/validate-command-center-owner-configuration-evidence-persistence.mjs", "src/scripts/validate-command-center-owner-configuration-evidence-approval-workflow.mjs", "src/scripts/validate-command-center-owner-configuration-workflow-api.mjs", "src/scripts/validate-command-center-owner-configuration-workflow-panel.mjs", "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs", "src/scripts/validate-closed-intelligence.mjs"]);
 }
 
 if (failures.length) {
@@ -229,36 +159,14 @@ console.log("Validate routes chain integrity passed. The route-chain self-check 
 
 function validateIndirectReportEvidenceCoverage() {
   const runtimeValidatorText = read(reportEvidenceRecordRuntimeValidatorPath);
-  for (const validatorPath of requiredIndirectReportEvidenceValidators) {
-    if (!runtimeValidatorText.includes(validatorPath)) {
-      failures.push(`${reportEvidenceRecordRuntimeValidatorPath} must centrally cover indirect report evidence validator: ${validatorPath}`);
-    }
-  }
-
-  for (const phrase of [
-    "src/lib/command-center/report-evidence-record-persistence-runtime.ts",
-    "src/app/api/command-center/report-evidence/records/route.ts",
-    "recordReportEvidenceRecordBatch",
-    "acceptedInput: \\\"safe-summary-only\\\"",
-    "persistenceMode: \\\"append-only-safe-projection\\\"",
-    "rawEvidenceExposed: false",
-  ]) {
-    if (!runtimeValidatorText.includes(phrase)) failures.push(`${reportEvidenceRecordRuntimeValidatorPath} missing indirect report evidence coverage phrase: ${phrase}`);
-  }
+  for (const validatorPath of requiredIndirectReportEvidenceValidators) if (!runtimeValidatorText.includes(validatorPath)) failures.push(`${reportEvidenceRecordRuntimeValidatorPath} must centrally cover indirect report evidence validator: ${validatorPath}`);
+  for (const phrase of ["src/lib/command-center/report-evidence-record-persistence-runtime.ts", "src/app/api/command-center/report-evidence/records/route.ts", "recordReportEvidenceRecordBatch", "acceptedInput: \\\"safe-summary-only\\\"", "persistenceMode: \\\"append-only-safe-projection\\\"", "rawEvidenceExposed: false"]) if (!runtimeValidatorText.includes(phrase)) failures.push(`${reportEvidenceRecordRuntimeValidatorPath} missing indirect report evidence coverage phrase: ${phrase}`);
 }
 
 function validateCodeqlWorkflowCoverage() {
   const workflowText = read(codeqlWorkflowPath);
   const validatorText = read(codeqlWorkflowValidatorPath);
-
-  for (const phrase of [
-    "actions/checkout@v6",
-    "github/codeql-action/init@v4",
-    "github/codeql-action/autobuild@v4",
-    "github/codeql-action/analyze@v4",
-    "security-extended,security-and-quality",
-    "security-events: write",
-  ]) {
+  for (const phrase of ["actions/checkout@v6", "github/codeql-action/init@v4", "github/codeql-action/autobuild@v4", "github/codeql-action/analyze@v4", "security-extended,security-and-quality", "security-events: write"]) {
     if (!workflowText.includes(phrase)) failures.push(`${codeqlWorkflowPath} missing required workflow phrase: ${phrase}`);
     if (!validatorText.includes(phrase)) failures.push(`${codeqlWorkflowValidatorPath} missing required workflow validation phrase: ${phrase}`);
   }
@@ -266,80 +174,21 @@ function validateCodeqlWorkflowCoverage() {
 
 function validateDependencyLockfileCoverage() {
   const validatorText = read(dependencyLockfileValidatorPath);
-  for (const phrase of [
-    "package.json",
-    "pnpm-lock.yaml",
-    "pnpm@9.15.9",
-    ">=24.0.0",
-    "@typescript-eslint/parser",
-    "version: 8.59.1",
-    "version: 16.2.4",
-    "version: 19.2.5",
-  ]) {
-    if (!validatorText.includes(phrase)) failures.push(`${dependencyLockfileValidatorPath} missing dependency integrity phrase: ${phrase}`);
-  }
+  for (const phrase of ["package.json", "pnpm-lock.yaml", "pnpm@9.15.9", ">=24.0.0", "@typescript-eslint/parser", "version: 8.59.1", "version: 16.2.4", "version: 19.2.5"]) if (!validatorText.includes(phrase)) failures.push(`${dependencyLockfileValidatorPath} missing dependency integrity phrase: ${phrase}`);
 }
 
 function validateRepoUpdateScanningCoverage() {
   const validatorText = read(repoUpdateScanningValidatorPath);
-  for (const phrase of [
-    ".github/dependabot.yml",
-    ".github/workflows/codeql.yml",
-    "actions/checkout@v6",
-    "github/codeql-action/init@v4",
-    "github/codeql-action/analyze@v4",
-    "src/scripts/validate-codeql-workflow-integrity.mjs",
-    "src/scripts/validate-dependency-lockfile-integrity.mjs",
-    "controlled-update",
-    "next-react-platform",
-    "typescript-tooling",
-  ]) {
-    if (!validatorText.includes(phrase)) failures.push(`${repoUpdateScanningValidatorPath} missing repo update scanning phrase: ${phrase}`);
-  }
+  for (const phrase of [".github/dependabot.yml", ".github/workflows/codeql.yml", "actions/checkout@v6", "github/codeql-action/init@v4", "github/codeql-action/analyze@v4", "src/scripts/validate-codeql-workflow-integrity.mjs", "src/scripts/validate-dependency-lockfile-integrity.mjs", "controlled-update", "next-react-platform", "typescript-tooling"]) if (!validatorText.includes(phrase)) failures.push(`${repoUpdateScanningValidatorPath} missing repo update scanning phrase: ${phrase}`);
 }
 
 function validateControlledContinuousEvolutionCoverage() {
   const contractText = read(continuousEvolutionContractPath);
   const validatorText = read(continuousEvolutionValidatorPath);
   const mostPristineText = read(mostPristineValidatorPath);
-
-  for (const phrase of [
-    "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
-    "controlled-continuous-evolution-v1",
-    "Automated systems may detect, propose, test, and prepare updates.",
-    "open dependency update pull requests",
-    "run validation scripts",
-    "Vercel preview or deployment check passes",
-    "small coherent batches",
-    "rollback-ready before promotion",
-    "automatic update systems can propose changes but cannot bypass validation",
-    "all scheduled updates must remain coherent, bounded, and traceable",
-  ]) {
-    if (!contractText.includes(phrase)) failures.push(`${continuousEvolutionContractPath} missing controlled continuous evolution phrase: ${phrase}`);
-  }
-
-  for (const phrase of [
-    "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
-    "controlled-continuous-evolution-v1",
-    "auto-merge production-impacting code without green gates",
-    "pull request with reviewable diff",
-    "Vercel preview or deployment check passes",
-    "rollback path identified",
-    "skipVercelGate",
-    "disableValidatorForUpdate",
-  ]) {
-    if (!validatorText.includes(phrase)) failures.push(`${continuousEvolutionValidatorPath} missing controlled continuous evolution validator phrase: ${phrase}`);
-  }
-
-  for (const phrase of [
-    "src/lib/controlled-continuous-evolution-contracts.ts",
-    "src/scripts/validate-controlled-continuous-evolution.mjs",
-    "Controlled continuous evolution validation passed",
-    "controlled continuous evolution",
-    "repo update scanning automation",
-  ]) {
-    if (!mostPristineText.includes(phrase)) failures.push(`${mostPristineValidatorPath} missing controlled continuous evolution coverage phrase: ${phrase}`);
-  }
+  for (const phrase of ["CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT", "controlled-continuous-evolution-v1", "Automated systems may detect, propose, test, and prepare updates.", "open dependency update pull requests", "run validation scripts", "Vercel preview or deployment check passes", "small coherent batches", "rollback-ready before promotion", "automatic update systems can propose changes but cannot bypass validation", "all scheduled updates must remain coherent, bounded, and traceable"]) if (!contractText.includes(phrase)) failures.push(`${continuousEvolutionContractPath} missing controlled continuous evolution phrase: ${phrase}`);
+  for (const phrase of ["CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT", "controlled-continuous-evolution-v1", "auto-merge production-impacting code without green gates", "pull request with reviewable diff", "Vercel preview or deployment check passes", "rollback path identified", "skipVercelGate", "disableValidatorForUpdate"]) if (!validatorText.includes(phrase)) failures.push(`${continuousEvolutionValidatorPath} missing controlled continuous evolution validator phrase: ${phrase}`);
+  for (const phrase of ["src/lib/controlled-continuous-evolution-contracts.ts", "src/scripts/validate-controlled-continuous-evolution.mjs", "Controlled continuous evolution validation passed", "controlled continuous evolution", "repo update scanning automation"]) if (!mostPristineText.includes(phrase)) failures.push(`${mostPristineValidatorPath} missing controlled continuous evolution coverage phrase: ${phrase}`);
 }
 
 function validateControlledMaintenanceCoverage() {
@@ -349,69 +198,17 @@ function validateControlledMaintenanceCoverage() {
   const registryText = read(validationRegistryPath);
   const mostPristineText = read(mostPristineValidatorPath);
 
-  for (const phrase of [
-    "CONTROLLED_MAINTENANCE_CONTRACT",
-    "Controlled Maintenance Architecture",
-    "safe update queues",
-    "without uncontrolled AI changes or automatic production mutation",
-    "reviewStreams",
-    "safeUpdateQueue",
-    "hardLocks",
-    "releaseRules",
-    "No queued update may mutate production automatically",
-  ]) {
-    if (!contractText.includes(phrase)) failures.push(`${controlledMaintenanceContractPath} missing controlled maintenance phrase: ${phrase}`);
-  }
-
-  for (const phrase of [
-    "Controlled maintenance contracts validation passed",
-    "docs/controlled-maintenance.md",
-    "src/lib/controlled-maintenance-contracts.ts",
-    "docs/command-center-docs-index.md",
-    "src/lib/command-center/validation-registry.ts",
-    "No queued update may mutate production automatically",
-  ]) {
-    if (!validatorText.includes(phrase)) failures.push(`${controlledMaintenanceValidatorPath} missing controlled maintenance validator phrase: ${phrase}`);
-  }
-
-  for (const phrase of [
-    "# Controlled Maintenance",
-    "keeping the platform current, secure, validated, and scalable",
-    "No queued update may mutate production automatically",
-    "validation, approval state, rollback plan, and audit record",
-  ]) {
-    if (!docsText.includes(phrase)) failures.push(`${controlledMaintenanceDocsPath} missing controlled maintenance docs phrase: ${phrase}`);
-  }
-
-  for (const phrase of [
-    "controlled-maintenance",
-    "Controlled maintenance",
-    "src/scripts/validate-controlled-maintenance-contracts.mjs",
-    "safe update queues, review streams, validation gates, rollback planning, audit records",
-  ]) {
-    if (!registryText.includes(phrase)) failures.push(`${validationRegistryPath} missing controlled maintenance registry phrase: ${phrase}`);
-  }
-
-  for (const phrase of [
-    "src/lib/controlled-maintenance-contracts.ts",
-    "src/scripts/validate-controlled-maintenance-contracts.mjs",
-    "docs/controlled-maintenance.md",
-    "Controlled maintenance contracts validation passed",
-    "controlled maintenance",
-  ]) {
-    if (!mostPristineText.includes(phrase)) failures.push(`${mostPristineValidatorPath} missing controlled maintenance most-pristine coverage phrase: ${phrase}`);
-  }
+  for (const phrase of ["CONTROLLED_MAINTENANCE_CONTRACT", "Controlled Maintenance Architecture", "safe update queues", "without uncontrolled AI changes or automatic production mutation", "reviewStreams", "safeUpdateQueue", "hardLocks", "releaseRules", "No queued update may mutate production automatically"]) if (!contractText.includes(phrase)) failures.push(`${controlledMaintenanceContractPath} missing controlled maintenance phrase: ${phrase}`);
+  for (const phrase of ["Controlled maintenance contracts validation passed", "docs/controlled-maintenance.md", "src/lib/controlled-maintenance-contracts.ts", "docs/command-center-docs-index.md", "src/lib/command-center/validation-registry.ts", "No queued update may mutate production automatically"]) if (!validatorText.includes(phrase)) failures.push(`${controlledMaintenanceValidatorPath} missing controlled maintenance validator phrase: ${phrase}`);
+  for (const phrase of ["# Controlled Maintenance", "keeping the platform current, secure, validated, and scalable", "No queued update may change production automatically", "validation, approval state, rollback plan, and audit record"]) if (!docsText.includes(phrase)) failures.push(`${controlledMaintenanceDocsPath} missing controlled maintenance docs phrase: ${phrase}`);
+  for (const phrase of ["controlled-maintenance", "Controlled maintenance", "src/scripts/validate-controlled-maintenance-contracts.mjs", "safe update queues, review streams, validation gates, rollback planning, audit records"]) if (!registryText.includes(phrase)) failures.push(`${validationRegistryPath} missing controlled maintenance registry phrase: ${phrase}`);
+  for (const phrase of ["src/lib/controlled-maintenance-contracts.ts", "src/scripts/validate-controlled-maintenance-contracts.mjs", "docs/controlled-maintenance.md", "Controlled maintenance contracts validation passed", "controlled maintenance"]) if (!mostPristineText.includes(phrase)) failures.push(`${mostPristineValidatorPath} missing controlled maintenance most-pristine coverage phrase: ${phrase}`);
 }
 
 function validateChainOrdering(chainValidators, orderedValidators) {
   const indexes = orderedValidators.map((validatorPath) => chainValidators.indexOf(validatorPath));
   if (indexes.some((index) => index === -1)) return;
-
-  for (let index = 1; index < indexes.length; index += 1) {
-    if (indexes[index] <= indexes[index - 1]) {
-      failures.push(`${chainPath} invalid ordering: ${orderedValidators[index - 1]} must appear before ${orderedValidators[index]}`);
-    }
-  }
+  for (let index = 1; index < indexes.length; index += 1) if (indexes[index] <= indexes[index - 1]) failures.push(`${chainPath} invalid ordering: ${orderedValidators[index - 1]} must appear before ${orderedValidators[index]}`);
 }
 
 function validateFileExists(path) {
