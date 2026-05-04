@@ -38,7 +38,7 @@ const READONLY_CONSOLE_GUARDS = [
 const SUPPORT_OPERATOR_SECTION_LINKS = [
   { href: "#review-intake", label: "Review intake", description: "Safe summaries and assignment routing" },
   { href: "#separated-actions", label: "Separated actions", description: "Gate-specific review actions" },
-  { href: "#safe-history", label: "Safe history", description: "Safe assignment history and projection-only records" },
+  { href: "#safe-history", label: "Safe history", description: "Projection-only records and filters" },
 ] as const;
 
 const SUPPORT_OPERATOR_STATUS_ITEMS = [
