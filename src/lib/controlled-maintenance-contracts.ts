@@ -2,12 +2,12 @@ export const CONTROLLED_MAINTENANCE_CONTRACT = {
   id: "controlled-maintenance-architecture",
   name: "Controlled Maintenance Architecture",
   purpose:
-    "Keep Cendorq current, secure, validated, and scalable through scheduled review and safe update queues without uncontrolled AI changes or automatic production mutation.",
+    "Keep Cendorq current, protected, validated, and scalable through scheduled review and safe update queues without uncontrolled AI changes or automatic production mutation.",
   operatingStandard: [
     "Maintenance may discover, classify, and queue updates, but production-impacting changes require validation and approval gates.",
     "Automated checks must prefer evidence, primary source references, deterministic validators, smoke coverage, and rollback planning over opaque agent judgment.",
-    "Security, dependency, schema, route, performance, content-claim, and customer-surface drift must be visible before release.",
-    "Every maintenance action must preserve auditability, least privilege, customer-safe projection, and no secret exposure.",
+    "Advisory, dependency, schema, route, performance, content-claim, and customer-surface drift must be visible before release.",
+    "Every maintenance action must preserve auditability, least privilege, customer-safe projection, and no protected configuration exposure.",
   ],
   reviewStreams: [
     {
@@ -15,7 +15,7 @@ export const CONTROLLED_MAINTENANCE_CONTRACT = {
       label: "Dependency review",
       cadence: "scheduled and release-triggered",
       purpose: "Detect outdated or vulnerable dependencies and queue upgrades with validation and rollback requirements.",
-      requiredEvidence: ["package metadata", "lockfile diff", "security advisory reference", "build and route validation result"],
+      requiredEvidence: ["package metadata", "lockfile diff", "advisory reference", "build and route validation result"],
       approvalGate: "human or explicitly authorized release approval before dependency changes reach production",
     },
     {
@@ -72,7 +72,7 @@ export const CONTROLLED_MAINTENANCE_CONTRACT = {
       cadence: "scheduled review and marketing/content releases",
       purpose: "Prevent stale, exaggerated, unsupported, legally risky, or dark-pattern claims across public and customer surfaces.",
       requiredEvidence: ["surface", "claim", "supporting basis", "approved safer wording"],
-      approvalGate: "unsupported outcome, ROI, legal, refund, security, billing, or business-result promises must be removed before release",
+      approvalGate: "unsupported outcome, ROI, legal, refund, billing, protection, or business-result promises must be removed before release",
     },
   ],
   safeUpdateQueue: {
@@ -91,11 +91,11 @@ export const CONTROLLED_MAINTENANCE_CONTRACT = {
       "No queued update may mutate production automatically; release requires validation, approval state, rollback plan, and audit record.",
   },
   hardLocks: [
-    "No uncontrolled AI agent may change production code, content, customer records, billing state, support state, reports, or security posture.",
+    "No uncontrolled AI agent may change production code, content, customer records, billing state, support state, reports, or protection posture.",
     "No automatic breaking change may bypass validation, approval, and rollback requirements.",
-    "No maintenance output may expose raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys.",
-    "No automated maintenance copy may claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI/business outcomes.",
-    "No audit record required for accountability, correction history, access review, or incident reconstruction may be silently deleted.",
+    "No maintenance output may expose private operational material, internal operator material, protected configuration, cross-customer records, or sensitive context.",
+    "No automated maintenance copy may claim absolute certainty, guaranteed results, or freedom from all responsibility.",
+    "No audit record required for accountability, correction history, access review, or incident reconstruction may be silently removed.",
   ],
   releaseRules: [
     "Every maintenance release must pass validate:routes or identify an approved, audited exception.",
