@@ -7,6 +7,7 @@ const failures = [];
 const registryPath = "src/lib/command-center/validation-registry.ts";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const controlledEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const controlledMaintenanceValidatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
 const controlledMaintenanceContractPath = "src/lib/controlled-maintenance-contracts.ts";
 const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
@@ -36,7 +37,7 @@ const coreValidators = [
   "src/scripts/validate-closed-intelligence.mjs",
 ];
 
-for (const path of [registryPath, packagePath, routesChainPath, controlledMaintenanceValidatorPath, controlledMaintenanceContractPath, controlledMaintenanceDocsPath, ...coreValidators]) validateFileExists(path);
+for (const path of [registryPath, packagePath, routesChainPath, controlledEvolutionContractPath, controlledMaintenanceValidatorPath, controlledMaintenanceContractPath, controlledMaintenanceDocsPath, ...coreValidators]) validateFileExists(path);
 
 if (!failures.length) {
   const registryText = read(registryPath);
@@ -57,6 +58,7 @@ if (!failures.length) {
     "getCommandCenterValidationRegistry",
     "maximum-protection-standard",
     "controlled-continuous-evolution",
+    "Controlled continuous evolution",
     "controlled-maintenance",
     "Panel safety",
     "report-truth-engine",
@@ -71,6 +73,11 @@ if (!failures.length) {
   for (const scriptPath of coreValidators) {
     if (!chainText.includes(`"${scriptPath}"`)) failures.push(`${routesChainPath} missing required validation script: ${scriptPath}`);
   }
+
+  expectText(controlledEvolutionContractPath, read(controlledEvolutionContractPath), [
+    "CONTROLLED_CONTINUOUS_EVOLUTION_CONTRACT",
+    "controlled-continuous-evolution-v1",
+  ]);
 
   expectText(controlledMaintenanceContractPath, contractText, [
     "CONTROLLED_MAINTENANCE_CONTRACT",
