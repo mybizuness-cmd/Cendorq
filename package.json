@@ -16,6 +16,7 @@
     "validate:routes": "node ./src/scripts/validate-routes-chain.mjs",
     "validate:public-drift": "node ./src/scripts/validate-public-drift.mjs",
     "validate:free-check-intake": "node ./src/scripts/validate-free-check-intake.mjs",
+    "validate:report-truth-engine": "node ./src/scripts/validate-report-truth-engine.mjs",
     "validate:production-smoke-coverage": "node ./src/scripts/validate-production-smoke-coverage.mjs",
     "validate:closed-intelligence": "node ./src/scripts/validate-closed-intelligence.mjs",
     "smoke:production": "node ./src/scripts/smoke-production.mjs",
