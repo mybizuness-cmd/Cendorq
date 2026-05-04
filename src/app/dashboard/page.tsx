@@ -92,7 +92,7 @@ export default function CustomerDashboardPage() {
               Control the next move. Cendorq guides the smartest path.
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              This is the private command center for your business progress: Free Scan status, proof-backed findings, reports, billing, notifications, support, plan scope, and next best action are connected so you can make better decisions without guessing.
+              This is the private command center for your business progress: Free Scan status, proof-backed findings, reports, billing, notifications, support, plan scope, and Next best action are connected so you can make better decisions without guessing.
             </p>
           </div>
           <div className="rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/10 p-5 lg:w-80">
