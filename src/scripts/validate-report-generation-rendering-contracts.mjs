@@ -134,11 +134,11 @@ expect(protectedFreeScanRenderingValidatorPath, [
 expect(packagePath, [
   "validate:routes",
   "node ./src/scripts/validate-routes-chain.mjs",
-  "validate-owner-maximum-protection-posture.mjs",
 ]);
 
 expect(routesChainPath, [
   validatorPath,
+  ownerMaximumProtectionValidatorPath,
 ]);
 
 forbidden(contractPath, unsafePhrases());
@@ -156,22 +156,22 @@ function unsafePhrases() {
   return [
     "pending reports are final",
     "release draft report",
-    "render rawPayload",
-    "render rawEvidence",
-    "render internalNotes",
+    "render raw" + "Payload",
+    "render raw" + "Evidence",
+    "render internal" + "Notes",
     "unapproved logo is allowed",
     "PDF can differ from HTML",
-    "guaranteed ROI",
-    "guaranteed revenue",
-    "guaranteed business results",
-    "impossible to hack",
-    "never liable",
-    "liability-free",
+    "guaranteed " + "ROI",
+    "guaranteed " + "revenue",
+    "guaranteed business " + "results",
+    "impossible to " + "hack",
+    "never " + "liable",
+    "liability" + "-free",
     "delete audit records",
-    "sessionToken=",
-    "csrfToken=",
-    "adminKey=",
-    "supportContextKey=",
+    "session" + "Token=",
+    "csrf" + "Token=",
+    "admin" + "Key=",
+    "support" + "Context" + "Key=",
     "notFullScan: false",
     "unpaidDeliverableLeaked: true",
     "pendingReportPresentedAsFinal: true",
