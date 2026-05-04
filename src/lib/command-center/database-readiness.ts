@@ -13,6 +13,8 @@ export type CommandCenterDatabaseReadiness = {
   publicExposureAllowed: false;
 };
 
+const DATABASE_URL = "DATABASE_URL";
+
 const PROTECTED_SCHEMA_AREAS = [
   "core operations",
   "delivery automation",
@@ -23,12 +25,15 @@ const PROTECTED_SCHEMA_AREAS = [
 
 export function getCommandCenterDatabaseReadiness(env: NodeJS.ProcessEnv = process.env): CommandCenterDatabaseReadiness {
   const configState = getCommandCenterDatabaseConfigState(env);
+  const missingServerConfig = configState.requiredServerConfig.filter((name) => !hasServerConfigValue(env, name));
 
   return {
-    configured: configState.configured,
+    configured: configState.configured && missingServerConfig.length === 0,
     provider: configState.provider,
-    requiredServerConfig: configState.requiredServerConfig,
-    missingServerConfig: configState.missingServerConfig,
+    requiredServerConfig: configState.requiredServerConfig.includes(DATABASE_URL)
+      ? configState.requiredServerConfig
+      : [DATABASE_URL, ...configState.requiredServerConfig],
+    missingServerConfig,
     migrationCount: 5,
     protectedSchemaAreas: PROTECTED_SCHEMA_AREAS,
     safeConnectionShape: configState.safeConnectionShape,
@@ -36,4 +41,9 @@ export function getCommandCenterDatabaseReadiness(env: NodeJS.ProcessEnv = proce
     migrationPolicy: configState.migrationPolicy,
     publicExposureAllowed: configState.publicExposureAllowed,
   };
+}
+
+function hasServerConfigValue(env: NodeJS.ProcessEnv, name: string) {
+  const value = env[name];
+  return typeof value === "string" && value.trim().length > 0;
 }
