@@ -154,7 +154,7 @@ export default function CustomerDashboardPage() {
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected dashboard handoffs</div>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every dashboard card now carries a safe state, next action, and recovery path.</h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
-            The dashboard runtime keeps report vault, billing, notifications, support, and plans aligned with one customer-owned projection. A card should never strand the customer, treat pending work as final, expose private or internal data, or push an unsupported outcome promise.
+            The dashboard runtime keeps report vault, billing, notifications, support, and plans aligned with one customer-owned projection. A card should never strand the customer, treat pending work as final, expose raw or internal data, or push an unsupported outcome promise.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
             {DASHBOARD_HANDOFFS.map((handoff) => (
