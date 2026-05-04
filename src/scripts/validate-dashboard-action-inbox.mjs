@@ -131,7 +131,7 @@ expect(dashboardPath, [
   "<DashboardActionInbox />",
   "<DashboardBusinessCommandCenter />",
   "<DashboardControlRoomReentry />",
-  "Customer business command center",
+  "Customer command room",
   "Control the next move. Cendorq guides the smartest path.",
   "Connected dashboard handoffs",
 ]);
@@ -162,9 +162,7 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-expect(routesChainPath, [
-  "src/scripts/validate-dashboard-action-inbox.mjs",
-]);
+expect(routesChainPath, ["src/scripts/validate-dashboard-action-inbox.mjs"]);
 
 forbidden(componentPath, unsafePhrases());
 forbidden(commandCenterPath, unsafePhrases());
