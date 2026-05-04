@@ -3,6 +3,10 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const pagePath = "src/app/page.tsx";
+const headerPath = "src/layout/site-header-conversion.tsx";
+const footerPath = "src/layout/site-footer.tsx";
+const scanPath = "src/app/free-check/page.tsx";
+const connectPath = "src/app/connect/page.tsx";
 const nudgePath = "src/components/public/free-scan-concierge-nudge.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -11,138 +15,129 @@ const failures = [];
 
 expect(pagePath, [
   "Cendorq | Business Command Intelligence",
+  "Customers are deciding faster than most businesses can explain themselves.",
+  "AI-search visibility",
+  "Start free scan",
+  "See pricing",
+  "Search changed",
+  "Customers compare fast",
+  "Cendorq finds the break",
+  "Start free. Pay when the next depth is clear.",
+  "$0",
+  "$300",
+  "$750+",
+  "$300/mo",
+  "Strong enough to sell. Plain enough to understand.",
+  "No fake urgency.",
+  "No guaranteed revenue claims.",
+  "Find the pressure before buying the fix.",
+]);
+
+expect(headerPath, [
   "Business Command Intelligence",
-  "business command system",
-  "command-first customer platform",
-  "The command system for why customers hesitate, compare, and choose someone else.",
-  "more than a prettier page",
-  "one customer command platform",
-  "Enter the command path",
-  "Command first",
-  "Truth before spend",
-  "Protected customer platform",
-  "Category-command posture",
-  "Dashboard-owned journey",
-  "EXECUTIVE_COMMAND_STANDARD",
-  "Every pixel must earn trust",
-  "Every claim must stay bounded",
-  "Every action must be obvious",
-  "Cendorq leads with business command intelligence, not a disposable scan tool.",
-  "The homepage establishes Cendorq as the command system; Free Scan is the protected entry path.",
+  "Start",
+  "Pricing",
+  "Connect",
+  "Pricing from $0",
+  "Start free scan",
 ]);
 
-expect(pagePath, [
-  "COMMAND_CENTER_FLOW",
-  "Verify to view",
-  "Protected results stay behind email confirmation and safe release instead of being exposed on the public page.",
-  "Report vault",
-  "Approved reports, limitations, confidence labels, and next actions live inside the protected report vault.",
-  "Dashboard inbox",
-  "Command-center messages, support status, billing reminders, and plan nudges use one safe next action.",
-  "Plan ladder",
-  "Free Scan, Deep Review, Build Fix, and Ongoing Control stay distinct so paid deliverables do not blur together.",
+expect(footerPath, [
+  "Final decision path",
+  "Start free scan",
+  "View pricing",
+  "$0",
+  "$300",
+  "$750+",
+  "$300/mo",
 ]);
 
-expect(pagePath, [
-  "PLAN_LADDER",
-  "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "A protected first-read report that identifies the first visible decision friction.",
-  "A paid full diagnostic with stronger intake, evidence separation, confidence labels, and limitations.",
-  "Scoped implementation work with approval checkpoints, before-after evidence, and safe progress summaries.",
-  "Monthly command-center review, controlled monitoring, inbox messages, and plan-fit guidance.",
+expect(scanPath, [
+  "Find the decision break before you buy the wrong fix.",
+  "Free first read",
+  "Safe business context only.",
+  "Why does AI search matter?",
 ]);
 
-expect(pagePath, [
-  "The full scan stays on /free-check so the intake, recovery, and handoff stay focused.",
-  "The soft prompt appears after time or intent, not instantly as an aggressive interruption.",
-  "Public copy must not expose raw payloads, secrets, private report internals, or customer data.",
-  "Conversion must come from clarity, proof, stage fit, and trust — not dark patterns or guaranteed outcomes.",
-  "Verify-to-view keeps protected results in the dashboard/report vault, not on the public homepage.",
-  "Dashboard inbox messages support the command center; external email remains required for confirmation and lifecycle delivery.",
-  "No fake urgency",
-  "No unsupported ROI claims",
-  "No promise of guaranteed business results",
-  "No pressure to buy before the first direction is clear",
+expect(connectPath, [
+  "If you are unsure, start free. If the question is clear, connect.",
+  "View pricing",
+  "Start free if the problem is unclear.",
 ]);
 
 expect(nudgePath, [
   "STANDARD_DELAY_MS = 12_000",
   "SCROLL_TRIGGER_RATIO = 0.38",
   "Soft Free Scan entry",
-  "dedicated scan room",
-  "no cramped popup form",
-  "no fake urgency",
-  "no guaranteed outcome promise",
   "not a full-form popup or pressure tactic",
-  "dashboard, notifications, and report vault",
 ]);
 
-expect(packagePath, [
-  "validate:routes",
-  "node ./src/scripts/validate-routes-chain.mjs",
-]);
+expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
+expect(routesChainPath, [validatorPath]);
 
-expect(routesChainPath, [
-  validatorPath,
-]);
+boundedLength(pagePath, 26000);
+boundedLength(scanPath, 16000);
+boundedLength(connectPath, 15000);
+boundedLength(headerPath, 22000);
+boundedLength(footerPath, 18000);
 
-forbidden(pagePath, [
-  "title: \"Free Scan | Cendorq\"",
-  "The homepage is a premium entry point.",
-  "disposable scan tool",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed business results",
-  "guaranteed safe",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "rawPayload=",
-  "rawEvidence=",
-  "rawSecurityPayload=",
-  "rawBillingData=",
-  "internalNotes=",
-  "operatorIdentity=",
-  "riskScoringInternals=",
-  "attackerDetails=",
-  "session" + "Token=",
-  "csrf" + "Token=",
-  "admin" + "Key=",
-  "support" + "Context" + "Key=",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
-
-forbidden(nudgePath, [
-  "STANDARD_DELAY_MS = 0",
-  "full-form popup",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed business results",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-]);
+forbidden(pagePath, blockedPublicPhrases());
+forbidden(headerPath, blockedPublicPhrases());
+forbidden(footerPath, blockedPublicPhrases());
+forbidden(scanPath, blockedPublicPhrases());
+forbidden(connectPath, blockedPublicPhrases());
+forbidden(nudgePath, blockedPublicPhrases());
 
 if (failures.length) {
-  console.error("Public homepage command entry validation failed:");
+  console.error("Public command surface validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Public homepage command entry validation passed with category-command identity, command-center flow, and plan ladder positioning.");
+console.log("Public command surface validation passed with compressed pages, clear pricing, simple navigation, and plain AI-search education.");
+
+function blockedPublicPhrases() {
+  return [
+    "title: \"Free Scan | Cendorq\"",
+    "Search Presence OS",
+    "guaranteed ROI",
+    "guaranteed revenue",
+    "guaranteed business results",
+    "guaranteed safe",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "rawPayload=",
+    "rawEvidence=",
+    "rawSecurityPayload=",
+    "rawBillingData=",
+    "internalNotes=",
+    "operatorIdentity=",
+    "riskScoringInternals=",
+    "attackerDetails=",
+    "session" + "Token=",
+    "csrf" + "Token=",
+    "admin" + "Key=",
+    "support" + "Context" + "Key=",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+  ];
+}
+
+function boundedLength(path, maxCharacters) {
+  if (!existsSync(join(root, path))) {
+    failures.push(`Missing dependency: ${path}`);
+    return;
+  }
+  const text = read(path);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the simplified public standard: ${text.length} > ${maxCharacters}`);
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
     failures.push(`Missing dependency: ${path}`);
     return;
   }
-
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
@@ -151,7 +146,6 @@ function expect(path, phrases) {
 
 function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
-
   const text = read(path).toLowerCase();
   for (const phrase of phrases) {
     if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
