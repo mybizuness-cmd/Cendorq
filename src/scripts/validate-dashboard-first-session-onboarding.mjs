@@ -29,7 +29,7 @@ expect(dashboardPath, [
   "SAFE_STATE_RULES",
   "Safe state rules",
   "Show pending states as pending, not as live truth.",
-  "Do not expose private payloads, private files, internal notes, operator identities, or risk internals.",
+  "Do not expose private payloads, private files, private workflow details, or risk internals.",
   "Give the customer one obvious next action before offering deeper plan decisions.",
   "Keep support, report, billing, and notification links visible when a customer needs recovery.",
   "focus:outline-none",
