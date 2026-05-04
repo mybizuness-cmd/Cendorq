@@ -50,6 +50,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ACCESS_RUNTIME_GUARDS = [
   "support operator access runtime delegates role-to-action and approval-gate checks to the support operator audit runtime before privileged decisions",
   "support operator access runtime returns no-store JSON and OPTIONS helpers without exposing operator identities, role list, customer existence, support request existence, or internal authorization details",
   "support operator access runtime does not read browser storage APIs, browser-readable admin secrets, browser-readable support context keys, query-string secrets, or public JavaScript secrets",
+  "owner posture coverage keeps protected customer and report surfaces aligned with verified access while operator access runtime surfaces stay private and review-gated",
 ] as const;
 
 export function requireCustomerSupportOperatorAccess(input: CustomerSupportOperatorAccessInput): CustomerSupportOperatorAccessResult {
