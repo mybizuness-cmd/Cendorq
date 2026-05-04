@@ -9,6 +9,7 @@ export type CommandCenterSecurityPosture = {
   publicSurfacePolicy: "buyer-facing-only-no-private-intelligence";
   validationPolicy: "no-downgrade-to-pass";
   auditPolicy: "sensitive-actions-recorded-without-secrets";
+  publicExposureAllowed: false;
   requiredControls: readonly string[];
   forbiddenClaims: readonly string[];
 };
@@ -24,6 +25,7 @@ export const COMMAND_CENTER_SECURITY_POSTURE: CommandCenterSecurityPosture = {
   publicSurfacePolicy: "buyer-facing-only-no-private-intelligence",
   validationPolicy: "no-downgrade-to-pass",
   auditPolicy: "sensitive-actions-recorded-without-secrets",
+  publicExposureAllowed: false,
   requiredControls: [
     "closed-by-default private routes",
     "server-side access checks",
