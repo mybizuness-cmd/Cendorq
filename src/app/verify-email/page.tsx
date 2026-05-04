@@ -18,7 +18,7 @@ const VERIFICATION_SAFETY_NOTES = [
   "For privacy, Cendorq keeps confirmation guidance bounded and never exposes another customer's status.",
   "Dashboard, Free Scan history, report status, billing, notifications, and support status stay gated until the email is verified.",
   "Cendorq will not ask for passwords, card numbers, private keys, or session tokens through email confirmation support.",
-  "If the message is missing, use the retry path calmly rather than creating duplicate profiles or sharing private evidence.",
+  "If the message is missing, use the retry path calmly rather than creating duplicate accounts or sharing private evidence.",
 ] as const;
 
 const AFTER_CONFIRMATION_PATH = [
@@ -59,7 +59,7 @@ export default function VerifyEmailPage() {
         </div>
 
         <p className="mt-6 text-xs leading-6 text-slate-400">
-          If you do not see the email, check spam or promotions. Future transactional messages use Cendorq Support from support@cendorq.com with authenticated sending requirements. Confirmation help stays intentionally bounded and does not reveal another customer’s status.
+          If you do not see the email, check spam or promotions. Future transactional messages use Cendorq Support from support@cendorq.com with authenticated sending requirements. Confirmation help stays intentionally bounded and does not reveal another customer’s account state.
         </p>
       </section>
 
