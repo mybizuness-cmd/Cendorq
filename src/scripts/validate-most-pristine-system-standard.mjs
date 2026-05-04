@@ -89,7 +89,7 @@ if (!failures.length) {
   validateTextFile("src/scripts/validate-controlled-maintenance-contracts.mjs", ["src/lib/controlled-maintenance-contracts.ts", "Controlled maintenance contracts validation passed"]);
 
   validateTextFile("src/lib/command-center/validation-registry.ts", ["controlled-maintenance", "Controlled maintenance", "src/scripts/validate-controlled-maintenance-contracts.mjs"]);
-  validateTextFile("src/lib/command-center/enterprise-operating-standard.ts", ["enterprise-operating-standard", "Liability minimization defense", "Audit defense pass"]);
+  validateTextFile("src/lib/command-center/enterprise-operating-standard.ts", ["Enterprise operating standard", "Liability minimization defense", "Audit defense pass"]);
   validateTextFile("src/lib/command-center/audit-defense-system.ts", ["AUDIT_DEFENSE_CONTROLS", "AUDIT_DEFENSE_RELEASE_GATES", "Claim substantiation record"]);
 
   validateTextFile("package.json", ["validate:routes"]);
