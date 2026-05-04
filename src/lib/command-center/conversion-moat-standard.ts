@@ -31,8 +31,8 @@ export const CONVERSION_MOAT_RULES = [
     key: "five-second-command",
     label: "Five-second command",
     area: "first-impression",
-    requirement: "A customer must understand what Cendorq is, why it matters now, what problem may be present, what it costs, and what to do next without reading a long page.",
-    requiredControls: ["single clear headline", "plain subheadline", "two CTAs maximum", "visible pricing path", "category label", "no competing popup"],
+    requirement: "A customer must understand what Cendorq is, why it matters now, what problem may be present, where pricing lives, and what to do next without reading a long page.",
+    requiredControls: ["single clear headline", "plain subheadline", "two CTAs maximum", "visible pricing path", "category label", "Start free scan", "See pricing", "no competing popup"],
     blockedBehavior: ["generic SaaS hero", "card wall", "hidden pricing", "more than two primary actions", "homepage form crowding", "cheap visual noise"],
   },
   {
@@ -47,9 +47,9 @@ export const CONVERSION_MOAT_RULES = [
     key: "proof-before-pressure",
     label: "Proof before pressure",
     area: "trust-proof",
-    requirement: "Conversion must come from clarity, evidence, protected access, and plain next steps rather than fear, unsupported certainty, or guaranteed results.",
-    requiredControls: ["evidence-backed reason", "protected dashboard language", "report vault boundary", "verification step", "confidence wording", "no guarantee copy"],
-    blockedBehavior: ["guaranteed revenue", "guaranteed ROI", "fake scarcity", "perfect certainty", "protected data before verification", "raw evidence exposure"],
+    requirement: "Conversion must come from clarity, evidence, protected access, and plain next steps rather than fear, unsupported certainty, or promised business results.",
+    requiredControls: ["evidence-backed reason", "protected dashboard language", "report vault boundary", "verification step", "confidence wording", "no promise copy"],
+    blockedBehavior: ["promised revenue", "promised ROI", "fake scarcity", "perfect certainty", "protected data before verification", "raw evidence exposure"],
   },
   {
     key: "pricing-without-confusion",
@@ -64,7 +64,7 @@ export const CONVERSION_MOAT_RULES = [
     label: "Frictionless next step",
     area: "friction",
     requirement: "The public experience must remove doubt quickly: start free when unclear, see pricing when choosing depth, connect only when fit or scope is clear.",
-    requiredControls: ["start free scan", "see pricing", "connect path", "short pages", "focused Free Scan page", "mobile readable hierarchy"],
+    requiredControls: ["Start free scan", "See pricing", "connect path", "short pages", "focused Free Scan page", "mobile readable hierarchy"],
     blockedBehavior: ["navigation maze", "repeated footer maze", "mobile dock competition", "long pre-form essay", "unclear contact gate"],
   },
   {
@@ -93,13 +93,13 @@ export const CONVERSION_MOAT_MOMENTS = [
   {
     key: "choose-depth",
     label: "Depth choice moment",
-    purpose: "Make the four prices and stages obvious without forcing a plan too early.",
+    purpose: "Make the four prices and stages obvious on the pricing page without forcing a plan too early.",
     requiredCustomerAnswer: "I can start free, then pay only when the next depth is clear.",
   },
   {
     key: "trust",
     label: "Trust moment",
-    purpose: "Show the system is serious, protected, plain-English, and not built on fake urgency or guarantees.",
+    purpose: "Show the system is serious, protected, plain-English, and not built on fake urgency or unsupported promises.",
     requiredCustomerAnswer: "This feels safe, direct, and serious enough to start.",
   },
 ] as const satisfies readonly ConversionMoatMoment[];
