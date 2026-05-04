@@ -4,45 +4,44 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const componentPath = "src/components/plans/conversion-plan-page.tsx";
+const plansPath = "src/app/plans/page.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 
 expect(componentPath, [
-  "PLAN_PATH_OPERATING_SNAPSHOT",
-  "Plan path operating snapshot",
-  "Decision posture",
-  "Proof-led plan selection",
-  "Upgrade posture",
-  "No pressure path",
-  "Fit logic",
-  "Stage-fit decision",
-  "Customer protection",
-  "Truthful boundaries",
-  "PLAN_DECISION_PRINCIPLES",
-  "How to choose",
-  "The best plan is the one that matches the business stage",
-  "Start free when the business problem is unclear.",
-  "Go deeper when you need explanation, evidence, and prioritization.",
-  "Build when the direction is clear enough to change the business path.",
-  "Use ongoing control when the base is ready for repeated measurement, improvement, and protection.",
-  "PLAN_TRUST_RULES",
-  "Plan trust rules",
-  "No fake urgency",
-  "No unsupported ROI claims",
-  "No guaranteed business results",
-  "PLAN_CHANNEL_COVERAGE",
-  "Revenue paths considered",
-  "Social and creator channels",
-  "Marketplace/platform revenue",
-  "Digital product and recurring revenue",
-  "focus:outline-none",
-  "focus:ring-2",
+  "PRICE_BY_PLAN",
+  "$0",
+  "$300",
+  "$750+",
+  "$300/mo",
+  "Plan price",
+  "Compare pricing",
+  "Buy the right depth.",
+  "Start free when the cause is unclear.",
+  "Use Deep Review when the business needs the real reason.",
+  "Use Build Fix when the direction is clear enough to improve.",
+  "Use Ongoing Control when the base needs monthly attention.",
+  "No fake urgency.",
+  "No unsupported revenue promise.",
+  "No paid push before stage fit is clear.",
+  "No protected result before verification.",
+]);
+
+expect(plansPath, [
+  "Clear plans. Clear prices. No wrong-depth push.",
+  "$0",
+  "$300",
+  "$750+",
+  "$300/mo",
+  "Search changed",
+  "Customers compare fast",
+  "Cendorq finds the break",
+  "Start free if the cause is unclear. Pay when the next depth is obvious.",
 ]);
 
 expect(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
-  "The public surface teaches the category without exposing private mechanics.",
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
@@ -59,35 +58,55 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-forbidden(componentPath, [
-  "guaranteed ROI",
-  "guaranteed refund",
-  "guaranteed legal outcome",
-  "guaranteed security outcome",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorIdentity",
-  "riskScoringInternals",
-  "attackerDetails",
-  "sessionToken",
-  "csrfToken",
-  "localStorage",
-  "sessionStorage",
-]);
+boundedLength(componentPath, 18000);
+boundedLength(plansPath, 18000);
+
+forbidden(componentPath, blockedPlanPhrases());
+forbidden(plansPath, blockedPlanPhrases());
 
 if (failures.length) {
-  console.error("Public plans excellence validation failed:");
+  console.error("Public plans simplified excellence validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Public plans excellence validation passed with owner posture coverage.");
+console.log("Public plans simplified excellence validation passed with visible pricing, compressed plan pages, stage-fit guidance, and owner posture coverage.");
+
+function blockedPlanPhrases() {
+  return [
+    "PLAN_PATH_OPERATING_SNAPSHOT",
+    "PLAN_CHANNEL_COVERAGE",
+    "guaranteed ROI",
+    "guaranteed refund",
+    "guaranteed legal outcome",
+    "guaranteed security outcome",
+    "guaranteed business results",
+    "impossible to hack",
+    "never liable",
+    "liability-free",
+    "rawPayload",
+    "rawEvidence",
+    "rawSecurityPayload",
+    "rawBillingData",
+    "internalNotes",
+    "operatorIdentity",
+    "riskScoringInternals",
+    "attackerDetails",
+    "sessionToken",
+    "csrfToken",
+    "localStorage.setItem",
+    "sessionStorage.setItem",
+  ];
+}
+
+function boundedLength(path, maxCharacters) {
+  if (!existsSync(join(root, path))) {
+    failures.push(`Missing dependency: ${path}`);
+    return;
+  }
+  const text = read(path);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for simplified plan standard: ${text.length} > ${maxCharacters}`);
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -102,9 +121,9 @@ function expect(path, phrases) {
 
 function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
-  const text = read(path);
+  const text = read(path).toLowerCase();
   for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
 
