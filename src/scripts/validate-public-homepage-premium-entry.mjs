@@ -15,22 +15,25 @@ const failures = [];
 
 expect(pagePath, [
   "Cendorq | Business Command Intelligence",
-  "Customers are deciding faster than most businesses can explain themselves.",
+  "Customers decide before you get to explain.",
   "AI-search visibility",
   "Start free scan",
   "See pricing",
-  "Search changed",
-  "Customers compare fast",
-  "Cendorq finds the break",
-  "Start free. Pay when the next depth is clear.",
+  "Pricing is visible: $0, $300, $750+, or $300/mo.",
+  "Why it matters now",
+  "The old path is gone.",
+  "Customers compare fast.",
+  "Find the pressure before buying the fix.",
+  "Start free when the cause is unclear. Pay only when the next depth is clear.",
   "$0",
   "$300",
   "$750+",
   "$300/mo",
-  "Strong enough to sell. Plain enough to understand.",
+  "Trust lock",
   "No fake urgency.",
   "No guaranteed revenue claims.",
-  "Find the pressure before buying the fix.",
+  "Protected dashboard and report vault after verification.",
+  "The form stays on the focused Free Scan page.",
 ]);
 
 expect(headerPath, [
@@ -75,7 +78,7 @@ expect(nudgePath, [
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(pagePath, 26000);
+boundedLength(pagePath, 22000);
 boundedLength(scanPath, 16000);
 boundedLength(connectPath, 15000);
 boundedLength(headerPath, 22000);
@@ -94,7 +97,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with compressed pages, clear pricing, simple navigation, and plain AI-search education.");
+console.log("Public command surface validation passed with a short command homepage, visible pricing, simple navigation, and protected plain-language trust rules.");
 
 function blockedPublicPhrases() {
   return [
