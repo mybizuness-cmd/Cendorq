@@ -53,13 +53,15 @@ const FREE_SCAN_HANDOFF_ACTIONS = [
   { label: "Open report vault", href: "/dashboard/reports" },
 ] as const;
 
-const FREE_SCAN_FIRST_USE_RULES = [
+const SCAN_ROOM_TRUST_RAIL = [
   "The scan should hand off cleanly into the customer platform.",
   "Submit only business context needed for the first read, not passwords, private keys, card data, tokens, or unrelated raw evidence.",
   "Treat incomplete, interrupted, or pending scan state as pending instead of final analysis.",
   "After submission, use dashboard, notifications, and report vault before creating duplicate support requests.",
   "Plan guidance should come from scan evidence, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
 ] as const;
+
+const FREE_SCAN_FIRST_USE_RULES = SCAN_ROOM_TRUST_RAIL;
 
 const HANDOFF_LINKS = ["/dashboard", "/dashboard/notifications", "/dashboard/reports"] as const;
 
