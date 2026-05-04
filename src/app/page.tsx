@@ -33,6 +33,7 @@ export const metadata = buildMetadata({
 const DECISION_SIGNALS = ["Understand", "Trust", "Find", "Act"] as const;
 
 const TRUST_RULES = [
+  "No fake urgency.",
   "Start free when the cause is unclear.",
   "Pay only when the next depth is clear.",
   "Protected dashboard and report vault after verification.",
