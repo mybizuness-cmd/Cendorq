@@ -152,7 +152,7 @@ export default function CustomerDashboardPage() {
       <section className="relative z-10 mt-8" aria-label="Dashboard handoff runtime integration">
         <div className="system-surface rounded-[2rem] p-6 sm:p-8">
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected dashboard handoffs</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every dashboard card carries a safe state, next action, and recovery path.</h2>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every dashboard card now carries a safe state, next action, and recovery path.</h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
             The dashboard runtime keeps report vault, billing, notifications, support, and plans aligned with one customer-owned projection. A card should never strand the customer, treat pending work as final, expose raw or internal data, or push an unsupported outcome promise.
           </p>
