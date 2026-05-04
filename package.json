@@ -6,7 +6,7 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "validationAnchors": ["validate-trust-center-readiness.mjs"],
+  "validationAnchors": ["validate-trust-center-readiness.mjs", "validate-dashboard-action-inbox.mjs"],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
