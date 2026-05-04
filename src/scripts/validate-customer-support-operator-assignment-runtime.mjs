@@ -38,7 +38,7 @@ expect(runtimePath, [
   "internalNotesCustomerVisible: false",
   "secretsStored: false",
   "projects no customerIdHash, assignedActorRef, raw flags, internal notes, secrets, or authorization internals",
-  "storage-only and does not create assignment mutation APIs or customer-visible operator identities",
+  "storage-only and does not create assignment mutation endpoints or customer-visible operator identities",
 ]);
 
 expect(ownerMaximumProtectionPath, [
