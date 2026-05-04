@@ -53,7 +53,7 @@ expect(contractPath, [
   "Verified facts must be separated from assumptions, inferences, recommendations, and limitations.",
   "Pending, draft, incomplete, or unapproved reports must never be presented as final customer truth.",
   "Confidence labels must be visible",
-  "avoid guaranteed ROI, guaranteed revenue, guaranteed security outcome, guaranteed legal outcome, or guaranteed business result claims",
+  "avoid outcome guarantees covering ROI, revenue, security outcomes, legal outcomes, or business results",
 ]);
 
 expect(contractPath, [
@@ -95,7 +95,7 @@ expect(contractPath, [
   "Footer must be calm and trust-preserving, not fear-based.",
   "analysis is based on available provided and observed information at generation time",
   "preserve auditability and correction path",
-  "must not claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce results",
+  "must not claim Cendorq is breach-proof, risk-free, free from all responsibility, or certain to produce results",
 ]);
 
 expect(contractPath, [
