@@ -338,7 +338,7 @@ Emergency controls should favor protecting data and trust over preserving conven
 
 ## Partner and embed protection
 
-Partners should not receive unrestricted access to the engine.
+Partners should not receive broad access to the engine.
 
 Partner access should be scoped:
 
@@ -347,7 +347,7 @@ Partner access should be scoped:
 - no private prompts
 - no raw authority memory
 - no client data outside agreed scope
-- no unrestricted report export
+- report export only through approved, scoped, logged flows
 - clear data-sharing rules
 - revocable credentials
 - signed or scoped access paths
