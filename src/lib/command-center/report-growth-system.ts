@@ -46,8 +46,8 @@ export const REPORT_GROWTH_SYSTEM_RULES = [
   {
     key: "customer-safe-footer",
     label: "Customer-safe footer and guarantee language",
-    requirement: "Each report must include a small Cendorq-branded footer that states the report is based on available evidence, observed public signals, customer-provided information where labeled, calculations, and methodology version. It may guarantee a serious evidence-backed review process, transparent methodology, documented findings, and correction of material report errors within the review window, but must not guarantee rankings, traffic, leads, conversions, revenue, platform behavior, or perfect accuracy.",
-    blockedBehavior: ["promising legal immunity", "guaranteeing rankings", "guaranteeing traffic", "guaranteing leads", "guaranteeing conversions", "guaranteeing revenue", "claiming attorney approval before legal review"],
+    requirement: "Each report must include a small Cendorq-branded footer that states the report is based on available evidence, observed public signals, customer-provided information where labeled, calculations, and methodology version. It may guarantee a serious evidence-backed review process, transparent methodology, documented findings, and correction of material report errors within the review window. Business outcomes, rankings, traffic, leads, conversions, revenue, platform behavior, or perfect accuracy must never be promised as certain.",
+    blockedBehavior: ["legal immunity promise", "ranking certainty", "traffic certainty", "lead certainty", "conversion certainty", "revenue certainty", "attorney approval before legal review"],
   },
 ] as const satisfies readonly ReportGrowthSystemRule[];
 
