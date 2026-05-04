@@ -31,10 +31,10 @@ export const metadata = buildMetadata({
 });
 
 const SIGNAL_ROWS = [
-  ["Clarity", "Can a customer understand you fast?"],
-  ["Trust", "Can they believe you before they call?"],
-  ["Visibility", "Can search, maps, reviews, and AI answers explain you?"],
-  ["Action", "Is the next step obvious enough to take?"],
+  ["Understand", "Does the business make sense in seconds?"],
+  ["Trust", "Does it feel safe enough to choose?"],
+  ["Find", "Do search, maps, reviews, and AI answers explain it correctly?"],
+  ["Act", "Is the next step clear before attention drops?"],
 ] as const;
 
 const PLAN_LADDER = [
@@ -101,10 +101,10 @@ export default function HomePage() {
         <div className="max-w-5xl">
           <TopChip>{CATEGORY_LINE}</TopChip>
           <h1 className="system-hero-title mt-5 max-w-5xl text-5xl font-semibold tracking-tight text-white sm:text-6xl md:text-7xl xl:text-[5.4rem]">
-            Know why customers hesitate.
+            See why they choose someone else.
           </h1>
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} reads the public path people use before they choose you: search, AI answers, maps, reviews, your site, your offer, and the next action. It turns weak signals into one clear decision path.
+            {BRAND_NAME} reads the public path customers use before they contact you: search, AI answers, maps, reviews, your site, your offer, and the next step. It shows what weakens trust and what to fix first.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -120,7 +120,7 @@ export default function HomePage() {
         <aside className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-5 shadow-[0_28px_90px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Command read">
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">What Cendorq checks</div>
           <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            Can a customer understand you, trust you, find you, and act without needing a sales pitch?
+            Customers do not need to complain for the path to be broken.
           </h2>
           <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
             {SIGNAL_ROWS.map(([label, copy]) => (
@@ -136,13 +136,13 @@ export default function HomePage() {
       <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7" aria-label="Customer behavior">
         <TopChip>Why it matters now</TopChip>
         <h2 className="mt-5 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-          The customer does not wait for a pitch.
+          The objection is silent.
         </h2>
         <p className="mt-5 max-w-4xl text-xl leading-9 text-slate-200 sm:text-2xl">
           They search. They compare. They judge. They act or leave.
         </p>
         <p className="mt-4 max-w-4xl text-base leading-8 text-slate-400">
-          If search, maps, reviews, AI summaries, pricing, or the page itself creates doubt, the business may never hear the objection.
+          If search, maps, reviews, AI summaries, pricing, or the page itself creates doubt, the business may never know what cost the customer.
         </p>
       </section>
 
@@ -150,7 +150,7 @@ export default function HomePage() {
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <TopChip>Plan ladder</TopChip>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Choose depth only when depth is earned.</h2>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Do not buy the fix before you know the break.</h2>
             <p className="mt-3 max-w-3xl text-base leading-8 text-slate-300">Start with the Free Scan when the cause is unclear. Pay when the next level is actually clear.</p>
           </div>
           <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white">Compare plans →</Link>
@@ -165,7 +165,7 @@ export default function HomePage() {
         <div className="grid gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
           <div>
             <TopChip>Trust lock</TopChip>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Trust is the product.</h2>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Proof first. Pressure never.</h2>
             <p className="mt-4 text-base leading-8 text-slate-300">
               Cendorq is built to diagnose before it pushes depth. The form stays on the focused Free Scan page. Protected dashboard and report vault access continues after verification.
             </p>
