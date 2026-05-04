@@ -26,7 +26,7 @@ export const REPORT_GENERATION_RENDERING_CONTRACT = {
     "Verified facts must be separated from assumptions, inferences, recommendations, and limitations.",
     "Pending, draft, incomplete, or unapproved reports must never be presented as final customer truth.",
     "Confidence labels must be visible when the report includes inference, recommendation, or prioritized next action.",
-    "Recommendations must name the supporting basis and avoid guaranteed ROI, guaranteed revenue, guaranteed security outcome, guaranteed legal outcome, or guaranteed business result claims.",
+    "Recommendations must name the supporting basis and avoid outcome guarantees covering ROI, revenue, security outcomes, legal outcomes, or business results.",
   ],
   brandedRenderingRules: [
     "HTML and PDF reports must carry Cendorq branding, report title, report type, report version, generated timestamp, customer-safe business name, and release status.",
@@ -91,7 +91,7 @@ export const REPORT_GENERATION_RENDERING_CONTRACT = {
     "Footer must be calm and trust-preserving, not fear-based.",
     "Footer must state that analysis is based on available provided and observed information at generation time.",
     "Footer must preserve auditability and correction path without claiming audit records are deleted when preservation is required.",
-    "Footer must not claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce results.",
+    "Footer must not claim Cendorq is breach-proof, risk-free, free from all responsibility, or certain to produce results.",
   ],
   releaseRules: [
     "Do not release a report unless approval gates pass or an approved audited exception exists.",
