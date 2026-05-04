@@ -8,6 +8,8 @@ const plansPath = "src/app/plans/page.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-public-plans-excellence.mjs";
 
 expect(componentPath, [
   "PRICE_BY_PLAN",
@@ -52,11 +54,8 @@ expect(ownerMaximumProtectionValidatorPath, [
   "validate:routes",
 ]);
 
-expect(packagePath, [
-  "validate:routes",
-  "validate-public-plans-excellence.mjs",
-  "validate-owner-maximum-protection-posture.mjs",
-]);
+expect(packagePath, ["validate:routes"]);
+expect(routesChainPath, [validatorPath, "validate-owner-maximum-protection-posture.mjs"]);
 
 boundedLength(componentPath, 18000);
 boundedLength(plansPath, 18000);
@@ -70,7 +69,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans simplified excellence validation passed with visible pricing, compressed plan pages, stage-fit guidance, and owner posture coverage.");
+console.log("Public plans simplified excellence validation passed with visible pricing, compressed plan pages, stage-fit guidance, route-chain coverage, and owner posture coverage.");
 
 function blockedPlanPhrases() {
   return [
