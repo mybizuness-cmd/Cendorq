@@ -225,7 +225,7 @@ export default function SupportOperatorConsolePage() {
       </section>
 
       <section id="safe-history" className="relative z-10 mt-10 scroll-mt-8">
-        <OperatorSectionHeader eyebrow="Safe history" title="Safe assignment history" description="Assignment history uses safe assignment projections only. Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI." />
+        <OperatorSectionHeader eyebrow="Safe history" title="Projection-only history." description="Safe assignment history. Assignment history uses safe assignment projections only. Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI." />
         <div className="mt-5 grid gap-8">
           <OperatorAssignmentList />
           <OperatorApprovalList />
