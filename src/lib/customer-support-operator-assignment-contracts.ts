@@ -115,6 +115,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ASSIGNMENT_GUARDS = [
   "no support operator assignment may reveal role inventory, support request existence, customer existence, or internal authorization details on denial",
   "no support operator assignment may promise refunds, legal outcomes, report changes, billing changes, security outcomes, ROI, or business results without required approval gates",
   "no support operator assignment may claim absolute security, risk-free operation, liability removal, or perfect protection",
+  "owner posture coverage keeps protected customer and report surfaces aligned with verified access while operator assignment surfaces stay private and review-gated",
 ] as const;
 
 export function getCustomerSupportOperatorAssignmentContracts() {
