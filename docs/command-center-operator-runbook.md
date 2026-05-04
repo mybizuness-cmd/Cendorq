@@ -160,6 +160,9 @@ The Command Center protection posture depends on these validators remaining acti
 - `validate-command-center-readiness.mjs`
 - `validate-command-center-schema.mjs`
 - `validate-command-center-migrations.mjs`
+- `validate-command-center-validation-registry.mjs`
+- `validate-report-truth-engine.mjs`
+- `validate-command-center-docs-index.mjs`
 - `validate-report-evidence-record-runtime.mjs`
 - `validate-report-evidence-record-persistence-runtime.mjs`
 - `validate-command-center-report-evidence-records-api.mjs`
