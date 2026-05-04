@@ -47,7 +47,7 @@ expect(contractsPath, [
   "no support operator console route without server-only admin session, role authorization, no-store responses, and closed-by-default access",
   "no operator action without an immutable audit event and an explicit role-to-action authorization rule",
   "no correction, billing, refund, security, legal, report-change, ROI, or business-result promise may be made without the required approval gate",
-  "no operator console may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
+  "no operator console may claim absolute security, risk-free operation, liability removal, or perfect protection",
 ]);
 
 expect(packagePath, [
