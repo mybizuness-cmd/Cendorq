@@ -51,7 +51,7 @@ expect(contractsPath, [
   "approve requires role authorization, required approval gate, immutable audit record, and customer-safe outcome copy when the result will be shown to a customer",
   "no support approval without server-only operator access, reviewer role authorization, required approval gate, fresh admin reauth for mutation, and immutable audit creation",
   "no support approval permits refund, correction, report-change, billing, legal, security, ROI, or business-result commitments without the required approval gate and customer-safe outcome copy",
-  "no support approval may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
+  "no support approval may claim absolute security, risk-free operation, liability removal, or perfect protection",
 ]);
 
 expect(consolePath, [
