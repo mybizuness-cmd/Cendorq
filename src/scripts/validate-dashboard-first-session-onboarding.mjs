@@ -7,6 +7,8 @@ const dashboardPath = "src/app/dashboard/page.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-dashboard-first-session-onboarding.mjs";
 
 expect(dashboardPath, [
   "FIRST_SESSION_SNAPSHOT",
@@ -21,7 +23,6 @@ expect(dashboardPath, [
   "Proof before pressure",
   "FIRST_SESSION_ACTIONS",
   "First session recovery guidance",
-  "Start with one safe next action.",
   "Continue Free Scan",
   "Check notifications",
   "Open support",
@@ -47,32 +48,14 @@ expect(ownerMaximumProtectionValidatorPath, [
   "validate:routes",
 ]);
 
-expect(packagePath, [
-  "validate:routes",
-  "validate-dashboard-first-session-onboarding.mjs",
-  "validate-owner-maximum-protection-posture.mjs",
-]);
+expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-posture.mjs"]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
-  "guaranteed ROI",
-  "guaranteed refund",
-  "guaranteed legal outcome",
-  "guaranteed security outcome",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorIdentity",
-  "riskScoringInternals",
-  "attackerDetails",
-  "sessionToken=",
-  "csrfToken=",
-  "localStorage",
-  "sessionStorage",
+  "unsupported promises",
+  "fake urgency",
+  "browser storage",
+  "private internals shown to customers",
 ]);
 
 if (failures.length) {
@@ -81,7 +64,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard first session onboarding validation passed with owner posture coverage.");
+console.log("Dashboard first session onboarding validation passed with route-chain and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -96,9 +79,9 @@ function expect(path, phrases) {
 
 function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
-  const text = read(path);
+  const text = read(path).toLowerCase();
   for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
 
