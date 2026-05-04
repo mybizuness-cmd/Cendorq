@@ -61,6 +61,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_AUDIT_EVENT_RULES = [
   "internalSafeNoteRef may point to safe internal commentary but must not contain raw content in the audit record itself",
   "previousCustomerStatus and nextCustomerStatus may store customer-visible status keys only",
   "audit records must be preserved for compliance and must not be represented to customers as deleted when preservation is required",
+  "owner posture coverage keeps protected customer and report surfaces aligned with verified access while operator audit surfaces stay private and review-gated",
 ] as const;
 
 export const CUSTOMER_SUPPORT_OPERATOR_AUDIT_APPROVAL_RULES = [
@@ -100,7 +101,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_AUDIT_BLOCKED_CONTENT = [
   "unsupported report change",
   "unsupported billing change",
   "unsupported security outcome",
-  "guaranteed business result",
+  "unsupported business result",
   "fake urgency",
   "audit deletion claim",
 ] as const;
