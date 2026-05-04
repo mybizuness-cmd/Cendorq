@@ -64,6 +64,14 @@ export const CUSTOMER_PLATFORM_RULES = [
     blockedBehavior: ["overbroad provider permissions", "unsafe account linking", "provider-only lock-in", "password in email", "weak reset flow", "session fixation", "unverified provider email treated as verified without proof"],
   },
   {
+    key: "secure-authentication-path",
+    label: "Secure authentication path",
+    area: "authentication",
+    requirement: "Customer login, verification, reset, and dashboard entry must keep the path simple for the customer while protecting ownership, sessions, redirects, and account recovery on the server side.",
+    requiredControls: ["verified email requirement", "single-use verification token", "token expiration", "safe redirect allowlist", "server-side session issuance", "httpOnly cookie posture", "password reset path", "generic recovery messaging"],
+    blockedBehavior: ["client-owned session authority", "browser-stored verification tokens", "unsafe redirect", "account enumeration", "weak reset flow", "session fixation", "dashboard access before verification"],
+  },
+  {
     key: "support-email-identity",
     label: "Support email identity",
     area: "email-deliverability",
