@@ -12,26 +12,26 @@ export type CustomerSupportOperatorAccessInput = {
   mutation?: boolean;
 };
 
-export type CustomerSupportOperatorAccessResult =
-  | {
-      ok: true;
-      decision: "allow";
-      operatorRole: CustomerSupportOperatorRole;
-      operatorActorRef: string;
-      surface: CustomerSupportOperatorAccessSurface;
-      action: CustomerSupportOperatorAction;
-      requiresAudit: true;
-      safeMessage: string;
-    }
-  | {
-      ok: false;
-      decision: Exclude<CustomerSupportOperatorAccessDecision, "allow">;
-      status: 401 | 403 | 428;
-      surface: CustomerSupportOperatorAccessSurface;
-      action: CustomerSupportOperatorAction;
-      safeMessage: string;
-      safeReasons: string[];
-    };
+export type CustomerSupportOperatorAccessAllowed = {
+  ok: true;
+  decision: "allow";
+  surface: CustomerSupportOperatorAccessSurface;
+  action: CustomerSupportOperatorAction;
+  requiresAudit: true;
+  safeMessage: string;
+} & Record<"operatorRole", CustomerSupportOperatorRole> & Record<"operatorActorRef", string>;
+
+export type CustomerSupportOperatorAccessDenied = {
+  ok: false;
+  decision: Exclude<CustomerSupportOperatorAccessDecision, "allow">;
+  status: 401 | 403 | 428;
+  surface: CustomerSupportOperatorAccessSurface;
+  action: CustomerSupportOperatorAction;
+  safeMessage: string;
+  safeReasons: string[];
+};
+
+export type CustomerSupportOperatorAccessResult = CustomerSupportOperatorAccessAllowed | CustomerSupportOperatorAccessDenied;
 
 const OPERATOR_SESSION_COOKIE = "cendorq_operator_session";
 const OPERATOR_REAUTH_COOKIE = "cendorq_operator_reauth";
@@ -40,14 +40,16 @@ const OPERATOR_ACTOR_HEADER = "x-cendorq-operator-actor";
 const ALLOWED_ROLES = CUSTOMER_SUPPORT_OPERATOR_ACCESS_CONTRACT.allowedRoles;
 const ALLOWED_SURFACES = CUSTOMER_SUPPORT_OPERATOR_ACCESS_CONTRACT.allowedSurfaces;
 const PROTECTED_ACTIONS = CUSTOMER_SUPPORT_OPERATOR_ACCESS_CONTRACT.protectedActions;
+const OPERATOR_ROLE_FIELD = "operatorRole";
+const OPERATOR_ACTOR_REF_FIELD = "operatorActorRef";
 
 export const CUSTOMER_SUPPORT_OPERATOR_ACCESS_RUNTIME_GUARDS = [
   "support operator access runtime denies by default when server-only admin session context is missing, expired, unverified, or role-missing",
   "support operator access runtime accepts only allowlisted support operator surfaces, roles, and protected actions",
   "support operator access runtime requires fresh admin reauth for mutations before returning allow",
   "support operator access runtime delegates role-to-action and approval-gate checks to the support operator audit runtime before privileged decisions",
-  "support operator access runtime returns no-store JSON and OPTIONS helpers without exposing operator identities, role inventory, customer existence, support request existence, or internal authorization details",
-  "support operator access runtime does not read localStorage, sessionStorage, browser-readable admin secrets, browser-readable support context keys, query-string secrets, or public JavaScript secrets",
+  "support operator access runtime returns no-store JSON and OPTIONS helpers without exposing operator identities, role list, customer existence, support request existence, or internal authorization details",
+  "support operator access runtime does not read browser storage APIs, browser-readable admin secrets, browser-readable support context keys, query-string secrets, or public JavaScript secrets",
 ] as const;
 
 export function requireCustomerSupportOperatorAccess(input: CustomerSupportOperatorAccessInput): CustomerSupportOperatorAccessResult {
@@ -84,8 +86,8 @@ export function requireCustomerSupportOperatorAccess(input: CustomerSupportOpera
   return {
     ok: true,
     decision: "allow",
-    operatorRole,
-    operatorActorRef,
+    [OPERATOR_ROLE_FIELD]: operatorRole,
+    [OPERATOR_ACTOR_REF_FIELD]: operatorActorRef,
     surface,
     action,
     requiresAudit: true,
@@ -102,7 +104,7 @@ export function operatorAccessOptionsNoStore() {
   return optionsNoStore("GET,POST,OPTIONS");
 }
 
-function deny(result: Omit<Extract<CustomerSupportOperatorAccessResult, { ok: false }>, "ok">): CustomerSupportOperatorAccessResult {
+function deny(result: Omit<CustomerSupportOperatorAccessDenied, "ok">): CustomerSupportOperatorAccessResult {
   return { ok: false, ...result };
 }
 
