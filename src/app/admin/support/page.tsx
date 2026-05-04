@@ -25,6 +25,13 @@ const OPERATOR_RULES = [
   "All operator actions remain separated by approval gate and reviewer role.",
 ] as const;
 
+const READONLY_CONSOLE_GUARDS = [
+  "This first operator console surface is read-only and uses safe-summary-only projection.",
+  "Assignment, approval, correction, billing, security, and closure actions are intentionally not available here.",
+  "Operator access is gated by server-side role/session checks and each authorized read is audit-recorded.",
+  "Raw payloads, raw evidence, raw security payloads, raw billing data, payment data, customer hashes, internal notes, operator identities, risk internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, and support context keys are not rendered.",
+] as const;
+
 const SUPPORT_OPERATOR_SECTION_LINKS = [
   { href: "#review-intake", label: "Review intake", description: "Safe summaries and assignment routing" },
   { href: "#separated-actions", label: "Separated actions", description: "Gate-specific review actions" },
@@ -67,10 +74,10 @@ export default function SupportOperatorConsolePage() {
       <section className="system-panel-authority relative z-10 rounded-[2.5rem] p-6 sm:p-10">
         <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Support operator console</div>
         <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-          Review, assign, approve, and track support with protected audit controls.
+          Read support safely before any privileged action exists.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          This operator-facing support surface is organized into safe intake and routing, separated review actions, and safe history. It is designed to inspect customer support context and route review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
+          This read-only, audit-aware safe-summary console lets operators inspect customer support context through safe summaries before any separated review action is used. It is designed to inspect customer support context and route review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
@@ -80,6 +87,14 @@ export default function SupportOperatorConsolePage() {
             Customer support status
           </Link>
         </div>
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Read-only operator safe-summary guardrails">
+        {READONLY_CONSOLE_GUARDS.map((guard) => (
+          <article key={guard} className="system-surface rounded-[1.5rem] p-5 text-sm leading-7 text-slate-200">
+            {guard}
+          </article>
+        ))}
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Operator console status strip">
