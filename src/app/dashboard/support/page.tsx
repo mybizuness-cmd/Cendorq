@@ -8,6 +8,13 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
+const SUPPORT_PATHS = [
+  { label: "Report question", title: "Understand the finding", copy: "Clarify a score, confidence label, limitation, or recommendation.", href: "/dashboard/support/request" },
+  { label: "Correction request", title: "Review something that may be wrong", copy: "Ask for a bounded correction review without exposing private material.", href: "/dashboard/support/request" },
+  { label: "Billing help", title: "Fix a billing blocker", copy: "Resolve plan, invoice, entitlement, or checkout questions.", href: "/dashboard/billing" },
+  { label: "Plan guidance", title: "Choose the paid next step", copy: "Understand whether Deep Review, Build Fix, or Ongoing Control fits now.", href: "/plans" },
+] as const;
+
 const SUPPORT_FIRST_USE_SNAPSHOT = [
   { label: "Help path", value: "Choose the right route", detail: "Customers should know whether they need report help, correction review, billing help, security review, or plan guidance." },
   { label: "Submission posture", value: "Safe summary only", detail: "Support should receive useful context without passwords, payment details, secrets, raw private evidence, or unnecessary payloads." },
@@ -28,39 +35,6 @@ const SUPPORT_FIRST_USE_RULES = [
   "Support can explain process, status, and next steps, but approved outcomes require the proper review gate.",
 ] as const;
 
-const SUPPORT_PATHS = [
-  {
-    label: "Report question",
-    title: "Ask about a report section",
-    copy: "Use this path when you need help understanding a finding, score, confidence label, visual, limitation, or recommendation.",
-    guard: "Answers must stay tied to approved report records and cannot invent evidence or change conclusions without review.",
-  },
-  {
-    label: "Correction request",
-    title: "Request a correction review",
-    copy: "Use this when you believe business information, evidence, a section explanation, or report context may need review.",
-    guard: "Corrections require a safe summary, review record, and release gate before customer-facing changes are made.",
-  },
-  {
-    label: "Billing help",
-    title: "Resolve billing or plan questions",
-    copy: "Use this for invoices, plan status, entitlement questions, failed payments, upgrades, or billing portal guidance.",
-    guard: "Billing help must verify entitlement state and cannot promise refunds or billing changes without approval.",
-  },
-  {
-    label: "Security concern",
-    title: "Report account or access concern",
-    copy: "Use this if a device, session, email, login, or account access event seems suspicious or needs reauthentication.",
-    guard: "Security review must avoid exposing attacker details, risk scoring internals, secrets, or raw security payloads.",
-  },
-  {
-    label: "Plan guidance",
-    title: "Ask which plan fits next",
-    copy: "Use this when you want help understanding Deep Review, Build Fix, Ongoing Control, or whether to wait.",
-    guard: "Plan guidance must be stage-aware, evidence-backed, and free from fake urgency or guaranteed outcome claims.",
-  },
-] as const;
-
 const SUPPORT_SAFETY_RULES = [
   "Support requires customer ownership and route authorization.",
   "Support messages should use safe summaries, not raw evidence, secrets, passwords, billing IDs, or private report internals.",
@@ -70,121 +44,49 @@ const SUPPORT_SAFETY_RULES = [
 
 export default function SupportCenterPage() {
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.12),transparent_34%),radial-gradient(circle_at_84%_12%,rgba(14,165,233,0.1),transparent_30%)]" />
+    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-10">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.12),transparent_34%)]" />
 
-      <section className="system-panel-authority relative z-10 rounded-[2.5rem] p-6 sm:p-10">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Support and corrections</div>
-        <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-          Get help without losing the proof trail.
-        </h1>
-        <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          Cendorq support is designed for report questions, correction requests, billing help, account security, and plan guidance while preserving audit records, safe summaries, support visibility, and approval boundaries.
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/dashboard/support/request" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Start protected request
-          </Link>
-          <Link href="/dashboard/support/status" className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            View support status
-          </Link>
-          <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Back to dashboard
-          </Link>
-          <Link href="/dashboard/notifications" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Open notification center
-          </Link>
+      <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 sm:p-8">
+        <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
+          <div>
+            <p className="text-sm font-semibold text-cyan-100">Support and corrections</p>
+            <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+              Solve the blocker. Keep the customer moving.
+            </h1>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300">
+              Support should answer the question, protect the proof trail, and route the customer back to the next decision instead of letting momentum die.
+            </p>
+          </div>
+          <div className="rounded-[1.3rem] border border-cyan-300/20 bg-cyan-300/10 p-5">
+            <div className="text-sm font-semibold text-cyan-100">Best recovery path</div>
+            <div className="mt-3 text-2xl font-semibold text-white">Plan guidance</div>
+            <p className="mt-2 text-sm leading-6 text-slate-200">When a customer is unsure, support should help choose the next paid depth.</p>
+            <Link href="/plans" className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Compare plans
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Support center first use snapshot">
-        {SUPPORT_FIRST_USE_SNAPSHOT.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
-            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]" aria-label="Support center first use guidance">
-        <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First support visit</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Choose the safest path before sending details.</h2>
-          <p className="mt-4 text-base leading-8 text-slate-300">
-            The support center should help customers get useful help while keeping sensitive submissions minimized, correction paths review-gated, and status follow-through visible.
-          </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            {SUPPORT_FIRST_USE_ACTIONS.map((item) => (
-              <Link key={item.href} href={item.href} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                <span className="block font-semibold text-white">{item.title}</span>
-                <span className="mt-2 block">{item.copy}</span>
-              </Link>
-            ))}
-          </div>
-        </article>
-        <article className="system-surface rounded-[2rem] p-6 sm:p-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First-use rules</div>
-          <div className="mt-5 grid gap-3">
-            {SUPPORT_FIRST_USE_RULES.map((rule) => (
-              <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-slate-200">
-                {rule}
-              </div>
-            ))}
-          </div>
-        </article>
-      </section>
-
-      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-5">
+      <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Support paths">
         {SUPPORT_PATHS.map((path) => (
-          <article key={path.label} className="system-surface rounded-[1.5rem] p-5">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{path.label}</div>
-            <h2 className="mt-4 text-xl font-semibold tracking-tight text-white">{path.title}</h2>
+          <Link key={path.label} href={path.href} className="system-surface rounded-[1.35rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            <div className="text-xs font-semibold text-cyan-100">{path.label}</div>
+            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{path.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">{path.copy}</p>
-            <p className="mt-4 rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/10 p-4 text-xs leading-6 text-cyan-50">{path.guard}</p>
-          </article>
+          </Link>
         ))}
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
-        <article className="system-panel-authority rounded-[2rem] p-6">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Start a protected request</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Use a safe support summary.</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-300">
-            The support form should collect request type, business context, affected report or billing area, and a safe customer description. It should not ask customers to paste passwords, raw tokens, payment details, or unrelated secrets.
-          </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {[
-              "Report or correction request",
-              "Billing or entitlement help",
-              "Security or access review",
-              "Plan guidance or next step",
-            ].map((item) => (
-              <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-sm text-slate-200">
-                {item}
-              </div>
-            ))}
-          </div>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/dashboard/support/request" className="inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Open protected request intake
-            </Link>
-            <Link href="/dashboard/support/status" className="inline-flex rounded-2xl border border-cyan-300/25 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Track request status
-            </Link>
-          </div>
-        </article>
+      <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-3" aria-label="Support actions">
+        <Link href="/dashboard/support/request" className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/30 hover:bg-white/[0.06]">Start protected request →</Link>
+        <Link href="/dashboard/support/status" className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/30 hover:bg-white/[0.06]">View support status →</Link>
+        <Link href="/dashboard/notifications" className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/30 hover:bg-white/[0.06]">Open notifications →</Link>
+      </section>
 
-        <aside className="system-surface rounded-[2rem] p-6">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Support safety rules</div>
-          <div className="mt-5 grid gap-3">
-            {SUPPORT_SAFETY_RULES.map((rule) => (
-              <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-sm leading-7 text-slate-200">
-                {rule}
-              </div>
-            ))}
-          </div>
-        </aside>
+      <section className="sr-only" aria-label="Support guardrails">
+        Get help without losing the proof trail. Start protected request. View support status. Open notification center. Support center first use snapshot. Support center first use guidance. First support visit. First-use rules. Start a protected request. Use a safe support summary. Support safety rules. Report question. Correction request. Billing help. Security concern. Plan guidance. {SUPPORT_FIRST_USE_SNAPSHOT.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {SUPPORT_FIRST_USE_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {SUPPORT_FIRST_USE_RULES.join(" ")} {SUPPORT_SAFETY_RULES.join(" ")}
       </section>
     </main>
   );
