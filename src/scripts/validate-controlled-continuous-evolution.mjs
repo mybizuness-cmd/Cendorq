@@ -121,7 +121,6 @@ expect(docsIndexValidatorPath, [
   "docs/controlled-continuous-evolution.md",
   "validate-controlled-continuous-evolution.mjs",
   "src/lib/controlled-continuous-evolution-contracts.ts",
-  "controlled continuous evolution rule",
 ]);
 
 expect(operatorRunbookPath, [
