@@ -13,9 +13,9 @@ const BRAND_NAME = "Cendorq";
 const CATEGORY_LINE = "Business Command Intelligence";
 
 const PRIMARY_NAV: readonly NavItem[] = [
-  { label: "Start", href: "/free-check", description: "Run the free first read.", match: "startsWith" },
-  { label: "Plans", href: "/plans", description: "Choose the right depth.", match: "startsWith" },
-  { label: "Connect", href: "/connect", description: "Talk through fit or scope.", match: "exact" },
+  { label: "Free Scan", href: "/free-check", description: "Start the first read.", match: "startsWith" },
+  { label: "Pricing", href: "/plans", description: "Choose the right depth.", match: "startsWith" },
+  { label: "Dashboard", href: "/dashboard", description: "Return to protected work.", match: "startsWith" },
 ] as const;
 
 const TRUST_NAV: readonly NavItem[] = [
@@ -89,15 +89,15 @@ export function SiteHeader() {
                 <div className="system-surface rounded-[1.35rem] p-4">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">{isHomepage ? "Cendorq" : currentRoute.eyebrow}</div>
                   <h2 className="mt-2 text-xl font-semibold tracking-tight text-white">{isHomepage ? "Command path" : currentRoute.label}</h2>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">{isHomepage ? "Start with the free first read, then move deeper only when the next depth is clear." : currentRoute.note}</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-300">{isHomepage ? "Start with the free first read, compare depth, or return to the dashboard." : currentRoute.note}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   <Link href={primaryCta.href} className="system-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition">{primaryCta.label}</Link>
-                  <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition">Plans</Link>
+                  <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition">Pricing</Link>
                 </div>
 
-                <NavSection title="Main choices" items={PRIMARY_NAV} pathname={safePathname} />
+                <NavSection title="Main path" items={PRIMARY_NAV} pathname={safePathname} />
                 <NavSection title="Trust" items={TRUST_NAV} pathname={safePathname} compact />
               </div>
             </div>
@@ -137,15 +137,15 @@ function MobileNavLink({ href, active, children, compact = false }: { href: stri
 
 function buildPrimaryCta(pathname: string): Action {
   if (pathname.startsWith("/free-check")) return { href: "/free-check#free-check-intake", label: "Start scan" };
-  if (pathname.startsWith("/plans/ongoing-control")) return { href: "/connect", label: "Talk fit" };
+  if (pathname.startsWith("/dashboard")) return { href: "/plans", label: "View pricing" };
   return { href: "/free-check", label: "Start free scan" };
 }
 
 function buildSecondaryCta(pathname: string): Action {
-  if (pathname.startsWith("/plans")) return { href: "/free-check", label: "Start free" };
-  if (pathname.startsWith("/free-check")) return { href: "/plans", label: "Plans" };
-  if (pathname.startsWith("/connect")) return { href: "/free-check", label: "Start free" };
-  return { href: "/plans", label: "Plans" };
+  if (pathname.startsWith("/plans")) return { href: "/dashboard", label: "Dashboard" };
+  if (pathname.startsWith("/free-check")) return { href: "/plans", label: "Pricing" };
+  if (pathname.startsWith("/dashboard")) return { href: "/free-check", label: "Start free" };
+  return { href: "/plans", label: "Pricing" };
 }
 
 function buildCurrentRoute(pathname: string): RouteContext {
@@ -153,8 +153,9 @@ function buildCurrentRoute(pathname: string): RouteContext {
   if (pathname.startsWith("/plans/deep-review")) return { eyebrow: "Plan", label: "Deep Review", note: "Full diagnosis for the real reason customers hesitate." };
   if (pathname.startsWith("/plans/build-fix")) return { eyebrow: "Plan", label: "Build Fix", note: "Focused implementation when the direction is clear." };
   if (pathname.startsWith("/plans/ongoing-control")) return { eyebrow: "Plan", label: "Ongoing Control", note: "Monthly control as search, AI, competitors, and customers change." };
-  if (pathname === "/plans") return { eyebrow: "Plans", label: "Plans", note: "Clear prices and the right depth without a confusing plan maze." };
-  if (pathname.startsWith("/connect")) return { eyebrow: "Connect", label: "Connect", note: "Use the direct lane when fit, scope, or context needs discussion." };
+  if (pathname === "/plans") return { eyebrow: "Pricing", label: "Pricing", note: "Clear prices and the right depth without a confusing plan maze." };
+  if (pathname.startsWith("/dashboard")) return { eyebrow: "Platform", label: "Dashboard", note: "Return to protected customer work, reports, notifications, and next actions." };
+  if (pathname.startsWith("/connect")) return { eyebrow: "Contact", label: "Contact", note: "Use the footer contact lane only when fit, scope, or timing is already clear." };
   if (pathname.startsWith("/privacy")) return { eyebrow: "Trust", label: "Privacy", note: "Data boundaries and privacy posture." };
   if (pathname.startsWith("/terms")) return { eyebrow: "Trust", label: "Terms", note: "Service scope and boundaries." };
   return { eyebrow: "Cendorq", label: "Cendorq", note: "A focused system for making businesses easier to understand, trust, and choose." };

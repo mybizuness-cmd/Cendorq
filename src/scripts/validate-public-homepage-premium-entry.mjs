@@ -37,13 +37,14 @@ expect(pagePath, [
 
 expect(headerPath, [
   "Business Command Intelligence",
-  "Start",
-  "Plans",
-  "Connect",
+  "Free Scan",
+  "Pricing",
+  "Dashboard",
   "Command path",
   "Understand, trust, find, and choose",
   "Pricing from $0",
   "Start free scan",
+  "Main path",
 ]);
 
 expect(footerPath, [
@@ -51,7 +52,8 @@ expect(footerPath, [
   "If the business is hard to understand, trust, find, or choose, start with the first read.",
   "Clear plan depth",
   "Start free scan",
-  "View plans",
+  "View pricing",
+  "Contact",
   "$0",
   "$300",
   "$750+",
@@ -85,7 +87,7 @@ boundedLength(headerPath, 23000);
 boundedLength(footerPath, 18000);
 
 forbidden(pagePath, blockedPublicPhrases());
-forbidden(headerPath, blockedPublicPhrases());
+forbidden(headerPath, [...blockedPublicPhrases(), "Talk through fit or scope"]);
 forbidden(footerPath, blockedPublicPhrases());
 forbidden(scanPath, blockedPublicPhrases());
 forbidden(connectPath, blockedPublicPhrases());
@@ -96,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with a best-of-best command architecture, concise conversion path, elevated nav, elevated footer, no overdone public length, and protected plain-language trust rules.");
+console.log("Public command surface validation passed with a best-of-best command architecture, primary nav focused on Free Scan, Pricing, and Dashboard, Contact as a footer utility, concise conversion path, elevated footer, no overdone public length, and protected plain-language trust rules.");
 
 function blockedPublicPhrases() {
   return [
