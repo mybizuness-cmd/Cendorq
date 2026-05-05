@@ -373,21 +373,32 @@ function forbidden(path, phrases) {
 function containsUnsafeClaim(text, phrase) {
   let index = text.indexOf(phrase);
   while (index !== -1) {
-    const window = text.slice(Math.max(0, index - 96), Math.min(text.length, index + phrase.length + 96));
+    const paragraphStart = Math.max(0, text.lastIndexOf("\n\n", index));
+    const nextParagraphBreak = text.indexOf("\n\n", index);
+    const paragraphEnd = nextParagraphBreak === -1 ? text.length : nextParagraphBreak;
+    const paragraph = text.slice(paragraphStart, paragraphEnd);
+    const window = text.slice(Math.max(0, index - 240), Math.min(text.length, index + phrase.length + 240));
+    const context = `${paragraph}\n${window}`;
     const safeProhibition = [
       "must never",
       "must not",
       "do not",
       "does not",
       "not to",
+      "not an",
+      "not a",
       "never claim",
       "never imply",
       "avoid",
       "without",
       "cannot",
       "blocked",
+      "disallowed",
+      "unsupported guarantee",
+      "unsupported legal",
       "false",
-    ].some((marker) => window.includes(marker));
+      "allowed: false",
+    ].some((marker) => context.includes(marker));
 
     if (!safeProhibition) return true;
     index = text.indexOf(phrase, index + phrase.length);
