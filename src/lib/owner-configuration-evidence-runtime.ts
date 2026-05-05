@@ -1,5 +1,13 @@
 import { OWNER_CONFIGURATION_EVIDENCE_CONTRACT } from "./owner-configuration-evidence-contracts";
 
+const REQUIRED_OWNER_CONFIGURATION_AREAS = [
+  "auth-provider-configuration",
+  "payment-mapping-configuration",
+  "protected-runtime-configuration",
+  "launch-contact-configuration",
+  "support-identity-configuration",
+] as const;
+
 export type OwnerConfigurationAreaKey = (typeof OWNER_CONFIGURATION_EVIDENCE_CONTRACT.evidenceAreas)[number]["key"];
 export type OwnerConfigurationApprovalStatus = "missing" | "pending" | "approved" | "blocked";
 
@@ -33,13 +41,14 @@ export type OwnerConfigurationEvidenceSummary = {
   pendingCount: number;
   missingCount: number;
   blockedCount: number;
+  requiredAreaKeys: typeof REQUIRED_OWNER_CONFIGURATION_AREAS;
   publicLaunchAllowed: false;
   paidLaunchAllowed: false;
   projections: readonly OwnerConfigurationEvidenceProjection[];
 };
 
 export function projectOwnerConfigurationEvidence(input: OwnerConfigurationEvidenceInput): OwnerConfigurationEvidenceProjection {
-  const area = OWNER_CONFIGURATION_EVIDENCE_CONTRACT.evidenceAreas.find((candidate) => candidate.key === input.areaKey);
+  const area = OWNER_CONFIGURATION_EVIDENCE_CONTRACT.evidenceAreas.find((candidate) => candidate.key === input.areaKey && REQUIRED_OWNER_CONFIGURATION_AREAS.includes(candidate.key));
   const approvalStatus = input.approvalStatus ?? "missing";
 
   return {
@@ -71,6 +80,7 @@ export function summarizeOwnerConfigurationEvidence(inputs: readonly OwnerConfig
     pendingCount,
     missingCount,
     blockedCount,
+    requiredAreaKeys: REQUIRED_OWNER_CONFIGURATION_AREAS,
     publicLaunchAllowed: false,
     paidLaunchAllowed: false,
     projections,
