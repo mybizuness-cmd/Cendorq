@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
-import { CENDORQ_PLAN_PRICES, getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
+import { CENDORQ_PLAN_PRICES, getCendorqPlanPrice, type CendorqPlanKey } from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
   title: "Pricing | Cendorq",
@@ -12,17 +12,17 @@ export const metadata = buildMetadata({
   image: { alt: "Cendorq pricing and plan path." },
 });
 
+const CTA_LABEL_BY_PLAN: Record<CendorqPlanKey, string> = {
+  "free-scan": "Start Free Scan",
+  "deep-review": "Unlock Deep Review",
+  "build-fix": "Unlock Build Fix",
+  "ongoing-control": "Start Ongoing Control",
+};
+
 const PLAN_CARDS = CENDORQ_PLAN_PRICES.map((plan) => ({
   ...plan,
   href: plan.checkoutPath,
-  cta:
-    plan.key === "free-scan"
-      ? "Start Free Scan"
-      : plan.key === "deep-review"
-        ? "Unlock Deep Review"
-        : plan.key === "build-fix"
-          ? "Unlock Build Fix"
-          : "Start Ongoing Control",
+  cta: CTA_LABEL_BY_PLAN[plan.key],
 }));
 
 const EDUCATION_POINTS = [
