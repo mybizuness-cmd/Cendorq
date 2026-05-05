@@ -126,7 +126,7 @@ export default function HomePage() {
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[1.7rem] border border-white/10 bg-slate-950/55 p-5 sm:p-7" aria-label="Cendorq pricing path">
+      <section className="relative z-10 mt-7 rounded-[1.7rem] border border-white/10 bg-slate-950/55 p-5 sm:p-7" aria-label="Cendorq pricing options">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h2 className="max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">Start small. Move deeper only when it makes sense.</h2>
