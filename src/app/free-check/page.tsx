@@ -31,7 +31,7 @@ export const metadata = buildMetadata({
 const TRUST_RULES = [
   "Share business context only.",
   "Do not enter passwords, cards, private keys, or tokens.",
-  "Pending results stay pending until verified.",
+  "Verified customers land on the Free Scan result path.",
 ] as const;
 
 const FREE_SCAN_FIRST_USE_SNAPSHOT = [
@@ -39,7 +39,8 @@ const FREE_SCAN_FIRST_USE_SNAPSHOT = [
   "First-use path",
   "Guided scan room",
   "Completion handoff",
-  "Dashboard next action",
+  "Dashboard result page",
+  "Free Scan results",
   "Recovery posture",
   "Resume safely",
   "Trust posture",
@@ -49,20 +50,20 @@ const FREE_SCAN_FIRST_USE_SNAPSHOT = [
 const FREE_SCAN_HANDOFF_ACTIONS = [
   { label: "Open dashboard", href: "/dashboard" },
   { label: "Check notifications", href: "/dashboard/notifications" },
-  { label: "Open report vault", href: "/dashboard/reports" },
+  { label: "View Free Scan results", href: "/dashboard/reports/free-scan" },
 ] as const;
 
 const SCAN_ROOM_TRUST_RAIL = [
-  "The scan should hand off cleanly into the customer platform.",
+  "The scan should hand off cleanly into the customer platform and Free Scan result page.",
   "Submit only business context needed for the first read, not passwords, private keys, card data, tokens, or unrelated raw evidence.",
   "Treat incomplete, interrupted, or pending scan state as pending instead of final analysis.",
-  "After submission, use dashboard, notifications, and report vault before creating duplicate support requests.",
-  "Plan guidance should come from scan evidence, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
+  "After submission, use dashboard, notifications, and Free Scan results before creating duplicate support requests.",
+  "Plan guidance should come from scan evidence, confidence posture, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
 ] as const;
 
 const FREE_SCAN_FIRST_USE_RULES = SCAN_ROOM_TRUST_RAIL;
 
-const HANDOFF_LINKS = ["/dashboard", "/dashboard/notifications", "/dashboard/reports"] as const;
+const HANDOFF_LINKS = ["/dashboard", "/dashboard/notifications", "/dashboard/reports/free-scan"] as const;
 
 const FAQS = [
   {
@@ -78,7 +79,7 @@ const FAQS = [
   {
     question: "What happens after I submit?",
     answer:
-      "After verification, the dashboard and report vault show the safest next action and whether the scan is ready, pending, or needs follow-up.",
+      "After verification, the dashboard should take the customer to Free Scan results with methodology, confidence posture, and the safest next action.",
   },
 ] as const;
 
@@ -133,7 +134,7 @@ export default function FreeCheckPage() {
             ))}
           </div>
           <div className="sr-only">
-            Safe business context only. enter safe context. Pending means pending, not final truth. It turns customer hesitation into a safer first direction. without treating pending or incomplete input as final analysis. Command Free Scan room. {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and report vault handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and report vault. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
+            Safe business context only. enter safe context. Pending means pending, not final truth. It turns customer hesitation into a safer first direction. without treating pending or incomplete input as final analysis. Command Free Scan room. {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and Free Scan results handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and Free Scan results. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
           </div>
           <nav className="sr-only" aria-label="Free Scan completion handoff">
             {FREE_SCAN_HANDOFF_ACTIONS.map((action) => (

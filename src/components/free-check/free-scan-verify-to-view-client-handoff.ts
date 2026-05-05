@@ -1,9 +1,13 @@
 "use client";
 
+const FREE_SCAN_RESULTS_DESTINATION = "/dashboard/reports/free-scan";
+
+export type FreeScanVerifyToViewDestination = typeof FREE_SCAN_RESULTS_DESTINATION | "/dashboard/reports" | "/dashboard" | "/dashboard/notifications";
+
 export type FreeScanVerifyToViewClientInput = {
   signupEmail: string;
   intakeId: string;
-  requestedDestination?: "/dashboard/reports" | "/dashboard" | "/dashboard/notifications";
+  requestedDestination?: FreeScanVerifyToViewDestination;
   emailAlreadyVerified?: boolean;
   verificationTokenIssued?: boolean;
   verificationTokenExpired?: boolean;
@@ -52,7 +56,7 @@ export async function requestFreeScanVerifyToViewHandoff(
     body: JSON.stringify({
       signupEmail: input.signupEmail,
       intakeId: input.intakeId,
-      requestedDestination: input.requestedDestination ?? "/dashboard/reports",
+      requestedDestination: normalizeFreeScanDestination(input.requestedDestination),
       emailAlreadyVerified: input.emailAlreadyVerified === true,
       verificationTokenIssued: input.verificationTokenIssued !== false,
       verificationTokenExpired: input.verificationTokenExpired === true,
@@ -85,4 +89,9 @@ export function isSafeVerifyToViewHandoff(value: FreeScanVerifyToViewClientHando
       value.safety?.sessionStorageAllowed === false &&
       (value.decision !== "verified-open-destination" || value.handoff.showProtectedResults === true),
   );
+}
+
+function normalizeFreeScanDestination(destination: FreeScanVerifyToViewClientInput["requestedDestination"]) {
+  if (!destination || destination === "/dashboard/reports") return FREE_SCAN_RESULTS_DESTINATION;
+  return destination;
 }

@@ -6,6 +6,7 @@ import {
 } from "@/lib/customer-email-confirmation-api-response";
 
 const MAX_BODY_BYTES = 8_000;
+const FREE_SCAN_RESULTS_DESTINATION = "/dashboard/reports/free-scan";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
         emailAlreadyVerified: false,
         verificationTokenIssued: false,
         customerOwnedDestination: false,
-        requestedDestination: "/dashboard/reports",
+        requestedDestination: FREE_SCAN_RESULTS_DESTINATION,
       }),
       { status: 409, headers: buildCustomerEmailConfirmationNoStoreHeaders() },
     );
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
   const verificationTokenExpired = payload.verificationTokenExpired === true;
   const resendRequested = payload.resendRequested === true;
   const safeReleaseReady = payload.safeReleaseReady === true;
-  const requestedDestination = typeof payload.requestedDestination === "string" ? payload.requestedDestination : "/dashboard/reports";
+  const requestedDestination = typeof payload.requestedDestination === "string" ? payload.requestedDestination : FREE_SCAN_RESULTS_DESTINATION;
 
   const response = buildCustomerEmailConfirmationApiResponse({
     journeyKey: "free-scan-submitted",
