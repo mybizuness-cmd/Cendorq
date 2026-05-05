@@ -16,9 +16,9 @@ expect("src/lib/customer-platform-route-map.ts", [
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "Open notification center",
+  "Check notifications",
   "/dashboard/notifications",
-  "account, report, billing, support, and security alerts without raw private data exposure",
+  "Review account, report, billing, support, and security updates.",
 ]);
 
 expect("src/app/dashboard/notifications/page.tsx", [
