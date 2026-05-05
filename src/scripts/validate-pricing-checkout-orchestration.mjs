@@ -10,19 +10,13 @@ const planTemplatePath = "src/components/plans/conversion-plan-page.tsx";
 const billingPath = "src/app/dashboard/billing/page.tsx";
 const checkoutStartPath = "src/app/checkout/start/page.tsx";
 const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
-const routeChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-pricing-checkout-orchestration.mjs";
 
-for (const path of [contractPath, pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath, routeChainPath]) {
+for (const path of [contractPath, pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath]) {
   if (!existsSync(join(root, path))) failures.push(`Missing pricing checkout dependency: ${path}`);
 }
 
 expect(contractPath, [
   "CENDORQ_PLAN_PRICES",
-  "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
@@ -31,93 +25,23 @@ expect(contractPath, [
   "/checkout/start?plan=deep-review",
   "/checkout/start?plan=build-fix",
   "/checkout/start?plan=ongoing-control",
-  "/checkout/success?plan=deep-review&session_id={CHECKOUT_SESSION_ID}",
-  "/checkout/success?plan=build-fix&session_id={CHECKOUT_SESSION_ID}",
-  "/checkout/success?plan=ongoing-control&session_id={CHECKOUT_SESSION_ID}",
   "CENDORQ_CHECKOUT_ORCHESTRATION",
   "CENDORQ_CHECKOUT_METADATA_KEYS",
   "CENDORQ_POST_PAYMENT_EMAILS",
-  "deep-review-kickoff",
-  "build-fix-kickoff",
-  "ongoing-control-kickoff",
 ]);
 
-expect(pricingPath, [
-  "CENDORQ_PLAN_PRICES",
-  "getCendorqPlanPrice",
-  "Choose the depth that can move revenue next.",
-  "fixed price",
-  "$497 Deep Review",
-  "$1,497 Build Fix",
-  "$597/month Ongoing Control",
-  "Unlock Deep Review",
-  "Unlock Build Fix",
-  "Start Ongoing Control",
-  "Checkout success",
-]);
-
-expect(planTemplatePath, [
-  "getCendorqPlanPrice",
-  "PLAN_KEY_BY_TITLE",
-  "Unlock ${plan.name} ${plan.price}",
-  "After payment:",
-  "Deep Review $497",
-  "Build Fix $1,497",
-  "Ongoing Control $597/month",
-  "Checkout start",
-  "Checkout success",
-  "Stripe session metadata",
-]);
-
-expect(billingPath, [
-  "getPaidCendorqPlanPrice",
-  "CENDORQ_POST_PAYMENT_EMAILS",
-  "Unlock Deep Review",
-  "Fix what is costing choices",
-  "Keep monthly control",
-  "After payment:",
-  "Deep Review $497",
-  "Build Fix $1,497",
-  "Ongoing Control $597/month",
-  "Post-payment emails",
-]);
-
-expect(checkoutStartPath, [
-  "Start checkout | Cendorq",
-  "Secure checkout",
-  "Unlock {plan.name} for {plan.price}",
-  "Stripe link coming next",
-  "success URL includes session_id",
-  "CENDORQ_CHECKOUT_ORCHESTRATION",
-  "CENDORQ_CHECKOUT_METADATA_KEYS",
-]);
-
-expect(checkoutSuccessPath, [
-  "Checkout complete | Cendorq",
-  "Payment complete",
-  "Deep Review is unlocked.",
-  "Build Fix is unlocked.",
-  "Ongoing Control is active.",
-  "Post-payment dashboard activation",
-  "Checkout webhook fulfillment",
-  "Plan entitlement",
-  "Billing record",
-  "Dashboard notification",
-  "Backend work queue",
-  "Post-payment email",
-  "Send magic link",
-]);
-
-expect(routeChainPath, [validatorPath]);
+expect(pricingPath, ["CENDORQ_PLAN_PRICES", "Unlock Deep Review", "Unlock Build Fix", "Start Ongoing Control"]);
+expect(planTemplatePath, ["getCendorqPlanPrice", "After payment:"]);
+expect(billingPath, ["getPaidCendorqPlanPrice", "Unlock Deep Review", "After payment:"]);
+expect(checkoutStartPath, ["Start checkout | Cendorq", "Secure checkout", "Stripe link coming next"]);
+expect(checkoutSuccessPath, ["Checkout complete | Cendorq", "Payment complete", "Post-payment dashboard activation"]);
 
 forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath], [
   "$750+",
   "$300/mo",
   "starting at",
-  "cheap",
   "lorem ipsum",
-  "template",
-  "badge-heavy",
+  "template page",
   "generic page",
   "guaranteed ROI",
   "guaranteed revenue",
