@@ -63,6 +63,7 @@ const STORAGE_DIR = path.join(process.cwd(), ".cendorq-runtime");
 const CURRENT_STORAGE_FILE = "free-check-intakes.v3.json";
 const LEGACY_SOURCE = ["search", "presence", "scan"].join("-") as IntakeSource;
 const STORAGE_FILE = path.join(STORAGE_DIR, CURRENT_STORAGE_FILE);
+const FREE_SCAN_RESULTS_DESTINATION = "/dashboard/reports/free-scan";
 const LEGACY_STORAGE_FILES = [
   path.join(STORAGE_DIR, `${LEGACY_SOURCE}-intakes.v3.json`),
   path.join(STORAGE_DIR, `${LEGACY_SOURCE}-intakes.v2.json`),
@@ -197,14 +198,14 @@ export async function POST(request: NextRequest) {
       signupEmailHash: buildEmailHash(storedEntry.email),
       customerEmailHash: buildEmailHash(storedEntry.email),
       journeyKey: "free-scan-submitted",
-      requestedDestination: "/dashboard/reports",
+      requestedDestination: FREE_SCAN_RESULTS_DESTINATION,
       intakeId: storedEntry.id,
       baseUrl: request.nextUrl.origin,
       businessName: storedEntry.businessName,
     });
     const safeConfirmationEmail = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
 
-    return jsonNoStore({ ok: true, intakeId: storedEntry.id, signalQuality: storedEntry.signalQuality, routingHint: storedEntry.routingHint, duplicate, riskFlags: storedEntry.riskFlags, clarityScore: storedEntry.clarityScore, intentStrength: storedEntry.intentStrength, score: storedEntry.score, tier: storedEntry.scoreTier, decision: storedEntry.decision, confidenceLevel: storedEntry.confidenceLevel, dataDepthScore: storedEntry.dataDepthScore, scoreModules: storedEntry.scoreModules, timeSensitivity: storedEntry.timeSensitivity, decisionMoment: storedEntry.decisionMoment, explanationTrace: storedEntry.explanationTrace, confirmationEmail: safeConfirmationEmail, message: duplicate ? "This business already had a recent Free Scan in the system. The existing signal has been updated with the newest submission. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your results." : "The Free Scan has been captured successfully. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your results." }, 200);
+    return jsonNoStore({ ok: true, intakeId: storedEntry.id, resultDestination: FREE_SCAN_RESULTS_DESTINATION, signalQuality: storedEntry.signalQuality, routingHint: storedEntry.routingHint, duplicate, riskFlags: storedEntry.riskFlags, clarityScore: storedEntry.clarityScore, intentStrength: storedEntry.intentStrength, score: storedEntry.score, tier: storedEntry.scoreTier, decision: storedEntry.decision, confidenceLevel: storedEntry.confidenceLevel, dataDepthScore: storedEntry.dataDepthScore, scoreModules: storedEntry.scoreModules, timeSensitivity: storedEntry.timeSensitivity, decisionMoment: storedEntry.decisionMoment, explanationTrace: storedEntry.explanationTrace, confirmationEmail: safeConfirmationEmail, message: duplicate ? "This business already had a recent Free Scan in the system. The existing signal has been updated with the newest submission. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." : "The Free Scan has been captured successfully. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." }, 200);
   } catch {
     return jsonNoStore({ ok: false, error: "The submission could not be stored cleanly.", details: ["The intake storage layer was not able to save the Free Scan right now."] }, 500);
   }
