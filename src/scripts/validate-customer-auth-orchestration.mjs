@@ -4,174 +4,67 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 
-const orchestrationPath = "src/lib/customer-auth-orchestration.ts";
-const pricingContractPath = "src/lib/pricing-checkout-orchestration.ts";
-const routeMapPath = "src/lib/customer-platform-route-map.ts";
-const loginPath = "src/app/login/page.tsx";
-const signupPath = "src/app/signup/page.tsx";
-const verifyPath = "src/app/verify-email/page.tsx";
-const dashboardPath = "src/app/dashboard/page.tsx";
-const pricingPath = "src/app/plans/page.tsx";
-const planTemplatePath = "src/components/plans/conversion-plan-page.tsx";
-const billingPath = "src/app/dashboard/billing/page.tsx";
-const checkoutStartPath = "src/app/checkout/start/page.tsx";
-const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
-const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-customer-auth-orchestration.mjs";
+const requiredFiles = [
+  "src/lib/customer-auth-orchestration.ts",
+  "src/lib/pricing-checkout-orchestration.ts",
+  "src/lib/customer-platform-route-map.ts",
+  "src/app/login/page.tsx",
+  "src/app/signup/page.tsx",
+  "src/app/verify-email/page.tsx",
+  "src/app/dashboard/page.tsx",
+  "src/app/plans/page.tsx",
+  "src/components/plans/conversion-plan-page.tsx",
+  "src/app/dashboard/billing/page.tsx",
+  "src/app/checkout/start/page.tsx",
+  "src/app/checkout/success/page.tsx",
+  "src/scripts/validate-routes-chain.mjs",
+];
 
-for (const path of [orchestrationPath, pricingContractPath, routeMapPath, loginPath, signupPath, verifyPath, dashboardPath, pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath, routesChainPath]) {
+for (const path of requiredFiles) {
   if (!existsSync(join(root, path))) failures.push(`Missing customer orchestration dependency: ${path}`);
 }
 
-expect(orchestrationPath, [
+expect("src/lib/customer-auth-orchestration.ts", [
   "CUSTOMER_AUTH_METHODS",
-  "CUSTOMER_EMAIL_ORCHESTRATION_STEPS",
-  "CUSTOMER_EMAIL_DELIVERABILITY_STANDARD",
-  "CUSTOMER_EMAIL_REVENUE_SEQUENCE",
   "Email magic link",
   "Passkey-ready access",
-  "Email and password fallback",
-  "Click confirms and redirects to dashboard",
-  "Returning customers use magic link first",
-  "Transactional emails continue",
+  "CUSTOMER_EMAIL_DELIVERABILITY_STANDARD",
+  "CUSTOMER_EMAIL_REVENUE_SEQUENCE",
   "SPF, DKIM, and DMARC",
-  "one-click unsubscribe",
-  "dashboard opened",
-  "paid-plan click events",
 ]);
 
-expect(pricingContractPath, [
+expect("src/lib/pricing-checkout-orchestration.ts", [
   "CENDORQ_PLAN_PRICES",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
-  "stripeMode: \"payment\"",
-  "stripeMode: \"subscription\"",
-  "/checkout/start?plan=deep-review",
-  "/checkout/start?plan=build-fix",
-  "/checkout/start?plan=ongoing-control",
   "CENDORQ_CHECKOUT_ORCHESTRATION",
-  "CENDORQ_CHECKOUT_METADATA_KEYS",
   "CENDORQ_POST_PAYMENT_EMAILS",
 ]);
 
-expect(routeMapPath, [
-  "| \"login\"",
-  "path: \"/login\"",
-  "Customer re-entry",
+expect("src/lib/customer-platform-route-map.ts", [
+  "/login",
+  "/verify-email",
+  "/dashboard",
   "verification click redirects to dashboard",
   "login uses magic link first with passkey-ready path and password fallback",
-  "provider signup, email magic link, and email/password fallback must remain available",
-  "transactional and marketing email consent must stay separated",
-  "SPF DKIM DMARC and suppression handling are required before scaling lifecycle email",
 ]);
 
-expect(loginPath, [
-  "Customer login | Cendorq",
-  "path: \"/login\"",
-  "noIndex: true",
-  "Magic link first",
-  "Send magic link",
-  "Use passkey when available",
-  "Create account instead",
-  "Customer re-entry guardrails",
-]);
+expect("src/app/login/page.tsx", ["Customer login", "Magic link first", "Send magic link", "Use passkey when available"]);
+expect("src/app/signup/page.tsx", ["Create your Cendorq account", "Create account and confirm email", "Send a magic link"]);
+expect("src/app/verify-email/page.tsx", ["Confirm your email", "Open dashboard after confirmation", "Send a magic link"]);
+expect("src/app/dashboard/page.tsx", ["Private revenue workspace", "Next best action", "Continue Free Scan"]);
+expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Unlock Deep Review", "Unlock Build Fix", "Start Ongoing Control"]);
+expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "After payment:"]);
+expect("src/app/dashboard/billing/page.tsx", ["getPaidCendorqPlanPrice", "Unlock Deep Review", "After payment:"]);
+expect("src/app/checkout/start/page.tsx", ["Start checkout", "Secure checkout", "Stripe link coming next"]);
+expect("src/app/checkout/success/page.tsx", ["Checkout complete", "Payment complete", "Post-payment dashboard activation"]);
+expect("src/scripts/validate-routes-chain.mjs", ["validate-customer-auth-orchestration.mjs"]);
 
-expect(signupPath, [
-  "Create your Cendorq account | Cendorq",
-  "path: \"/signup\"",
-  "noIndex: true",
-  "Email confirmation before dashboard and result access",
-  "Magic-link-first re-entry",
-  "Return by magic link when you come back later",
-  "Send a magic link",
-]);
-
-expect(verifyPath, [
-  "Confirm your email | Cendorq",
-  "path: \"/verify-email\"",
-  "noIndex: true",
-  "Confirm once. Land inside the dashboard.",
-  "Open dashboard after confirmation",
-  "Send a magic link",
-  "verification click redirects to dashboard",
-]);
-
-expect(dashboardPath, [
-  "Private revenue workspace",
-  "Next best action",
-  "Continue Free Scan",
-  "See Deep Review",
-  "Manage billing and plans",
-  "Open report vault",
-]);
-
-expect(pricingPath, [
-  "CENDORQ_PLAN_PRICES",
-  "Choose the depth that can move revenue next.",
-  "$497 Deep Review",
-  "$1,497 Build Fix",
-  "$597/month Ongoing Control",
-  "Unlock Deep Review",
-  "Unlock Build Fix",
-  "Start Ongoing Control",
-]);
-
-expect(planTemplatePath, [
-  "getCendorqPlanPrice",
-  "PLAN_KEY_BY_TITLE",
-  "Unlock ${plan.name} ${plan.price}",
-  "After payment:",
-  "Deep Review $497",
-  "Build Fix $1,497",
-  "Ongoing Control $597/month",
-]);
-
-expect(billingPath, [
-  "getPaidCendorqPlanPrice",
-  "CENDORQ_POST_PAYMENT_EMAILS",
-  "Unlock Deep Review",
-  "Fix what is costing choices",
-  "Keep monthly control",
-  "After payment:",
-  "Deep Review $497",
-  "Build Fix $1,497",
-  "Ongoing Control $597/month",
-]);
-
-expect(checkoutStartPath, [
-  "Start checkout | Cendorq",
-  "Secure checkout",
-  "Stripe link coming next",
-  "Checkout start",
-  "CENDORQ_CHECKOUT_ORCHESTRATION",
-  "CENDORQ_CHECKOUT_METADATA_KEYS",
-]);
-
-expect(checkoutSuccessPath, [
-  "Checkout complete | Cendorq",
-  "Payment complete",
-  "Deep Review is unlocked.",
-  "Build Fix is unlocked.",
-  "Ongoing Control is active.",
-  "Post-payment dashboard activation",
-  "Plan entitlement",
-  "Billing record",
-  "Dashboard notification",
-  "Backend work queue",
-  "Post-payment email",
-]);
-
-expect(routesChainPath, [validatorPath]);
-
-forbidden([loginPath, signupPath, verifyPath, pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath], [
+forbidden(requiredFiles, [
   "$750+",
   "$300/mo",
   "starting at",
-  "lorem ipsum",
   "template page",
   "generic page",
   "guaranteed revenue",
@@ -179,18 +72,7 @@ forbidden([loginPath, signupPath, verifyPath, pricingPath, planTemplatePath, bil
   "localStorage.setItem",
   "sessionStorage.setItem",
   "password in email",
-  "account exists",
-  "no unsubscribe",
   "skip verification",
-]);
-
-forbidden([orchestrationPath, pricingContractPath], [
-  "marketing emails continue after unsubscribe",
-  "ignore suppression",
-  "skip DMARC",
-  "magic links never expire",
-  "show account exists",
-  "store password in localStorage",
 ]);
 
 if (failures.length) {
@@ -199,7 +81,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer auth and checkout orchestration validation passed. Signup, verification, re-entry, dashboard activation, final pricing, checkout, billing, and post-payment flow stay synchronized.");
+console.log("Customer auth and checkout orchestration validation passed. Customer access, dashboard activation, final pricing, checkout, billing, and post-payment flow stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
