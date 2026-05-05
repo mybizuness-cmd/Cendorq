@@ -44,11 +44,11 @@ export function MobileConversionDock() {
       <div className="mx-auto max-w-lg rounded-full border border-cyan-300/18 bg-slate-950/88 p-2 shadow-[0_-18px_60px_rgba(2,8,23,0.45)] backdrop-blur-2xl">
         <div className="flex items-center gap-2">
           <div className="min-w-0 flex-1 px-3">
-            <div className="truncate text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-200">
-              Command path
+            <div className="truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-200">
+              Free first read
             </div>
             <div className="mt-0.5 truncate text-sm font-semibold text-white">
-              Start free when ready
+              Find the break first
             </div>
           </div>
           <Link

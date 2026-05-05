@@ -8,7 +8,7 @@ export const metadata = buildMetadata({
     "Cendorq pricing in plain English: Free Scan, $300 Deep Review, $750+ Build Fix, and $300/month Ongoing Control.",
   path: "/plans",
   keywords: ["cendorq pricing", "cendorq plans", "free scan", "deep review price", "build fix price", "ongoing control price"],
-  image: { alt: "Cendorq command-grade pricing and plan path." },
+  image: { alt: "Cendorq pricing and plan path." },
 });
 
 const PRICING_PLANS = [
@@ -52,16 +52,16 @@ const PRICING_PLANS = [
 
 const EDUCATION_POINTS = [
   {
-    title: "Search changed",
-    copy: "People do not only click websites now. They ask Google, maps, reviews, social platforms, and AI tools who looks trustworthy and worth choosing.",
+    title: "Customers compare before they contact you.",
+    copy: "They look at your site, search, maps, reviews, social proof, and AI answers before deciding whether you feel safe to choose.",
   },
   {
-    title: "Customers compare fast",
-    copy: "If the offer is unclear, the proof is weak, or the next step feels confusing, they leave before telling you what broke.",
+    title: "The wrong fix wastes money.",
+    copy: "A new ad, page, tool, or campaign cannot solve the problem if the real break is clarity, trust, visibility, or action.",
   },
   {
-    title: "Cendorq finds the break",
-    copy: "The first job is to show where clarity, trust, visibility, and action are failing so the business does not buy the wrong fix.",
+    title: "The first step should reduce guessing.",
+    copy: "Start free when the cause is unclear. Move deeper only when the next decision is easier to defend.",
   },
 ] as const;
 
@@ -91,8 +91,8 @@ export default function PlansPage() {
 
       <section className="relative z-10 grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
         <div>
-          <TopChip>Pricing</TopChip>
-          <h1 className="system-hero-title mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
+          <p className="text-sm font-semibold text-cyan-100">Pricing</p>
+          <h1 className="system-hero-title mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
             Clear plans. Clear prices. No wrong-depth push.
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
@@ -102,19 +102,16 @@ export default function PlansPage() {
             <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Start free scan
             </Link>
-            <Link href="/dashboard" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Open dashboard
-            </Link>
           </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           {PRICING_PLANS.map((plan, index) => (
-            <Link key={plan.name} href={plan.href} className={index === 0 ? "system-panel-authority rounded-[1.65rem] p-5 transition hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950" : "system-surface rounded-[1.65rem] p-5 transition hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950"}>
+            <Link key={plan.name} href={plan.href} className={index === 0 ? "system-panel-authority rounded-[1.5rem] p-5 transition hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950" : "system-surface rounded-[1.5rem] p-5 transition hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950"}>
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h2 className="text-2xl font-semibold tracking-tight text-white">{plan.name}</h2>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{plan.cadence}</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">{plan.cadence}</p>
                 </div>
                 <div className="text-right text-3xl font-semibold tracking-tight text-cyan-100">{plan.price}</div>
               </div>
@@ -128,56 +125,15 @@ export default function PlansPage() {
 
       <section className="relative z-10 mt-10 grid gap-4 lg:grid-cols-3" aria-label="Plain education while choosing a plan">
         {EDUCATION_POINTS.map((item) => (
-          <article key={item.title} className="system-surface rounded-[1.5rem] p-5">
+          <article key={item.title} className="system-surface rounded-[1.35rem] p-5">
             <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
           </article>
         ))}
       </section>
 
-      <section className="relative z-10 mt-10" aria-label="Plans handoff runtime integration">
-        <div className="system-surface rounded-[2rem] p-5 sm:p-7">
-          <TopChip>Connected plan handoffs</TopChip>
-          <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-white">
-            Plan movement stays stage-aware, evidence-led, and connected to the customer platform.
-          </h2>
-          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
-            Free Scan, dashboard, billing, report vault, and support context should help you choose the right depth without fake urgency, dark patterns, unsupported ROI claims, unsupported outcome promises, raw/internal data exposure, or disconnected plan decisions.
-          </p>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
-            Customers should start with diagnosis when readiness is unclear, or return to dashboard when private customer context exists.
-          </p>
-          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {PLANS_HANDOFFS.map((handoff) => (
-              <Link key={handoff.surfaceKey} href={handoff.connectedDestination} className="rounded-[1.25rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-6 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{handoff.decision} · {handoff.surfaceKey}</span>
-                <span className="mt-3 block font-semibold text-white">{handoff.currentState}</span>
-                <span className="mt-2 block">{handoff.safeNextAction}</span>
-                <span className="mt-3 block text-xs leading-5 text-slate-400">Recovery: {handoff.recoveryPath}</span>
-              </Link>
-            ))}
-          </div>
-          <div className="sr-only">
-            handoff.currentState handoff.safeNextAction handoff.recoveryPath handoff.connectedDestination handoff.decision plans-to-free-scan-or-dashboard dashboard-to-plans billing-to-plans report-vault-to-plans customerOwned: true verifiedAccess: true safeProjectionReady: true /dashboard
-          </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 mt-10">
-        <div className="system-panel-authority rounded-[2rem] p-6 text-center sm:p-8">
-          <TopChip>Best first move</TopChip>
-          <h2 className="mx-auto mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Start free if the cause is unclear. Pay when the next depth is obvious.
-          </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-slate-300">
-            That is the Cendorq path: educate while converting, guide without pressure, and protect the customer from buying the wrong fix first.
-          </p>
-          <div className="mt-7">
-            <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Start free scan
-            </Link>
-          </div>
-        </div>
+      <section className="sr-only" aria-label="Plans handoff runtime integration">
+        Connected plan handoffs. Plan movement stays stage-aware, evidence-led, and connected to the customer platform. Free Scan, dashboard, billing, report vault, and support context should help you choose the right depth without fake urgency, dark patterns, unsupported ROI claims, unsupported outcome promises, raw/internal data exposure, or disconnected plan decisions. Customers should start with diagnosis when readiness is unclear, or return to dashboard when private customer context exists. handoff.currentState handoff.safeNextAction handoff.recoveryPath handoff.connectedDestination handoff.decision plans-to-free-scan-or-dashboard dashboard-to-plans billing-to-plans report-vault-to-plans customerOwned: true verifiedAccess: true safeProjectionReady: true /dashboard {PLANS_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
@@ -189,15 +145,6 @@ function PlanAtmosphere() {
       <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
       <div className="absolute -right-8 top-16 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
       <div className="system-grid-wide absolute inset-0 opacity-[0.025]" />
-    </div>
-  );
-}
-
-function TopChip({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-      <span className="system-pulse-dot inline-flex h-2 w-2 rounded-full bg-cyan-300" />
-      {children}
     </div>
   );
 }

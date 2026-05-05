@@ -5,11 +5,10 @@ const root = process.cwd();
 const failures = [];
 
 expect("src/app/dashboard/page.tsx", [
-  "track support status",
-  "/dashboard/support/status",
-  "Track support status",
-  "View customer-safe request status, approved next actions, and support follow-through without internal data exposure.",
-  "track support status, and move to the next plan only when the proof and stage make sense.",
+  "Open support",
+  "/dashboard/support",
+  "Ask for help without sharing passwords, card data, private keys, or unnecessary sensitive files.",
+  "Support",
 ]);
 
 expect("src/app/dashboard/support/status/page.tsx", [

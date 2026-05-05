@@ -17,8 +17,10 @@ expect(componentPath, [
   "$300",
   "$750+",
   "$300/mo",
-  "Plan price",
   "Compare pricing",
+  "Best for",
+  "Not for",
+  "Plan guardrails",
   "Buy the right depth.",
   "Start free when the cause is unclear.",
   "Use Deep Review when the business needs the real reason.",
@@ -36,10 +38,12 @@ expect(plansPath, [
   "$300",
   "$750+",
   "$300/mo",
-  "Search changed",
-  "Customers compare fast",
-  "Cendorq finds the break",
-  "Start free if the cause is unclear. Pay when the next depth is obvious.",
+  "Customers compare before they contact you.",
+  "The wrong fix wastes money.",
+  "The first step should reduce guessing.",
+  "Start free scan",
+  "Plans handoff runtime integration",
+  "Connected plan handoffs",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -57,11 +61,11 @@ expect(ownerMaximumProtectionValidatorPath, [
 expect(packagePath, ["validate:routes"]);
 expect(routesChainPath, [validatorPath, "validate-owner-maximum-protection-posture.mjs"]);
 
-boundedLength(componentPath, 18000);
-boundedLength(plansPath, 18000);
+boundedLength(componentPath, 14000);
+boundedLength(plansPath, 14500);
 
 forbidden(componentPath, blockedPlanPhrases());
-forbidden(plansPath, blockedPlanPhrases());
+forbidden(plansPath, [...blockedPlanPhrases(), "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious."]);
 
 if (failures.length) {
   console.error("Public plans simplified excellence validation failed:");
@@ -69,7 +73,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans simplified excellence validation passed with visible pricing, compressed plan pages, stage-fit guidance, route-chain coverage, and owner posture coverage.");
+console.log("Public plans simplified excellence validation passed with visible pricing, shorter plan detail pages, stage-fit guidance, hidden platform handoff guardrails, route-chain coverage, and owner posture coverage.");
 
 function blockedPlanPhrases() {
   return [

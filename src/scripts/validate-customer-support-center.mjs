@@ -28,9 +28,9 @@ expect(ownerMaximumProtectionValidatorPath, [
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "Open support center",
+  "Open support",
   "/dashboard/support",
-  "Request report help, correction review, billing guidance, security review, or plan guidance safely.",
+  "Ask for help without sharing passwords, card data, private keys, or unnecessary sensitive files.",
 ]);
 
 expect("src/app/dashboard/support/page.tsx", [
