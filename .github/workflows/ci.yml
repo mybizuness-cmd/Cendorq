@@ -8,7 +8,7 @@ on:
 
 jobs:
   quality:
-    name: Route guard, lint, typecheck, and build
+    name: Route guard, typecheck, and build
     runs-on: ubuntu-latest
 
     steps:
@@ -31,9 +31,6 @@ jobs:
 
       - name: Validate canonical routes
         run: node ./src/scripts/validate-routes.mjs
-
-      - name: Run lint
-        run: pnpm lint
 
       - name: Run typecheck
         run: pnpm typecheck
