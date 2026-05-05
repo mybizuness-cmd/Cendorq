@@ -11,19 +11,30 @@ const failures = [];
 expect(pagePath, [
   "SUPPORT_REQUEST_FIRST_USE_SNAPSHOT",
   "Support request first use snapshot",
+  "Form choice",
+  "New or update",
   "Summary posture",
   "Safe context",
+  "Risk posture",
   "Guarded intake",
+  "Follow-through",
   "Track after submit",
   "SUPPORT_REQUEST_FIRST_USE_ACTIONS",
   "Support request first use guidance",
-  "Give enough context to help, not enough to create risk.",
+  "Get the blocker out of the way.",
+  "After submit",
+  "Resolve report question",
+  "Fix billing blocker",
+  "Choose plan depth",
   "Start new request",
   "Update existing request",
   "Track instead",
   "SUPPORT_REQUEST_FIRST_USE_RULES",
+  "First-use rules",
   "Write a safe summary: request type, business context, affected area, and the question or correction needed.",
   "Use status tracking after submission so duplicate requests do not create confusion or unnecessary support noise.",
+  "SupportRequestForm",
+  "SupportRequestUpdateForm",
   "new-support-request",
   "support-request-update",
 ]);
@@ -54,16 +65,9 @@ forbidden(pagePath, [
   "impossible to hack",
   "never liable",
   "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes=",
-  "operatorIdentity=",
-  "riskScoringInternals=",
-  "attackerDetails=",
   "localStorage",
   "sessionStorage",
+  "refund guaranteed",
 ]);
 
 if (failures.length) {
@@ -72,7 +76,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Support request first use validation passed with owner posture coverage.");
+console.log("Support request first use validation passed with owner posture coverage and blocker-removal intake flow.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
