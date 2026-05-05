@@ -3,6 +3,7 @@ import Link from "next/link";
 import { projectCustomerEmailConfirmationHandoff } from "@/lib/customer-email-confirmation-handoff-runtime";
 
 const SENDER_DISPLAY = "Cendorq Support <support@cendorq.com>";
+const FREE_SCAN_RESULTS_DESTINATION = "/dashboard/reports/free-scan";
 
 const freeScanGate = projectCustomerEmailConfirmationHandoff({
   journeyKey: "free-scan-submitted",
@@ -12,7 +13,7 @@ const freeScanGate = projectCustomerEmailConfirmationHandoff({
   verificationTokenIssued: true,
   safeReleaseReady: false,
   customerOwnedDestination: true,
-  requestedDestination: "/dashboard/reports",
+  requestedDestination: FREE_SCAN_RESULTS_DESTINATION,
 });
 
 export function FreeScanConfirmationGate() {
@@ -44,13 +45,13 @@ export function FreeScanConfirmationGate() {
             <p>1. Your signup email is verified server-side.</p>
             <p>2. The confirmation link is consumed once.</p>
             <p>3. You return to {freeScanGate.verifiedDestination}.</p>
-            <p>4. Your report state opens in {freeScanGate.dashboardModule}.</p>
+            <p>4. Your Free Scan result opens in {freeScanGate.dashboardModule}.</p>
           </div>
           <Link href={freeScanGate.verifiedDestination} className="mt-5 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             {freeScanGate.primaryCta}
           </Link>
           <p className="mt-4 text-xs leading-5 text-slate-500">
-            The dashboard/report vault remains the protected place to view current report state and next steps. Email stays active for delivery and follow-up.
+            The dedicated Free Scan results page is the protected place to view the first result, methodology, confidence posture, and next steps. Email stays active for delivery and follow-up.
           </p>
         </aside>
       </div>
