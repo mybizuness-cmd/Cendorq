@@ -1,3 +1,12 @@
+import {
+  FREE_SCAN_CONFIDENCE_MODEL,
+  FREE_SCAN_EVIDENCE_RULES,
+  FREE_SCAN_PRIORITY_MODEL,
+  FREE_SCAN_REPORT_QUALITY_RULES,
+  FREE_SCAN_RESULT_SECTIONS,
+  getFreeScanFindingSummary,
+} from "@/lib/free-scan-report-methodology";
+
 export type ReportRoutingHint =
   | "scan-only"
   | "blueprint-candidate"
@@ -54,6 +63,8 @@ export type FreeCheckReportInput = Readonly<{
 export type FreeCheckReportSnapshot = Readonly<{
   reportId: string;
   generatedAt: string;
+  destination: "/dashboard/reports/free-scan";
+  scope: "Free Scan";
   executiveSummary: string;
   routeRecommendation: {
     title: string;
@@ -63,17 +74,27 @@ export type FreeCheckReportSnapshot = Readonly<{
   };
   posture: {
     confidence: ReportConfidenceLevel;
+    confidenceMeaning: string;
     timeSensitivity: ReportTimeSensitivity;
     strongestPressure: ReportStrongestPressure;
     scoreTier: ReportScoreTier;
     decision: ReportDecision;
   };
+  methodology: {
+    evidenceRules: readonly string[];
+    confidenceModel: readonly string[];
+    priorityModel: readonly string[];
+    resultSections: readonly string[];
+    qualityRules: readonly string[];
+  };
+  structuredFindings: ReturnType<typeof getFreeScanFindingSummary>;
   moduleReadouts: Array<{
     label: string;
     value: number;
     interpretation: string;
   }>;
   priorityActions: string[];
+  limitations: string[];
   riskInterpretation: string[];
   explanationTrace: string[];
 }>;
@@ -110,21 +131,34 @@ export function buildFreeCheckReportSnapshot(entry: FreeCheckReportInput): FreeC
 
   const priorityActions = buildPriorityActions(entry);
   const riskInterpretation = buildRiskInterpretation(entry);
+  const limitations = buildLimitations(entry);
 
   return {
     reportId: `report-${entry.id}`,
     generatedAt: new Date().toISOString(),
+    destination: "/dashboard/reports/free-scan",
+    scope: "Free Scan",
     executiveSummary: buildExecutiveSummary(entry, routeRecommendation.title),
     routeRecommendation,
     posture: {
       confidence: entry.confidenceLevel,
+      confidenceMeaning: explainConfidence(entry.confidenceLevel),
       timeSensitivity: entry.timeSensitivity,
       strongestPressure: entry.strongestPressure,
       scoreTier: entry.scoreTier,
       decision: entry.decision,
     },
+    methodology: {
+      evidenceRules: FREE_SCAN_EVIDENCE_RULES.map((item) => `${item.label}: ${item.customerMeaning}`),
+      confidenceModel: FREE_SCAN_CONFIDENCE_MODEL.map((item) => `${item.level}: ${item.customerMeaning}`),
+      priorityModel: FREE_SCAN_PRIORITY_MODEL.map((item) => `${item.level}: ${item.customerMeaning}`),
+      resultSections: FREE_SCAN_RESULT_SECTIONS.map((item) => item.label),
+      qualityRules: [...FREE_SCAN_REPORT_QUALITY_RULES],
+    },
+    structuredFindings: getFreeScanFindingSummary(),
     moduleReadouts,
     priorityActions,
+    limitations,
     riskInterpretation,
     explanationTrace: [...entry.explanationTrace],
   };
@@ -171,7 +205,7 @@ function buildExecutiveSummary(entry: FreeCheckReportInput, recommendationTitle:
   const location = [entry.city, entry.stateRegion, entry.country].filter(Boolean).join(", ");
   const locationSuffix = location ? ` in ${location}` : "";
 
-  return `${businessLabel}${locationSuffix} is currently reading as a ${entry.scoreTier}-tier / ${entry.decision} intake with ${entry.confidenceLevel} confidence, signal quality ${entry.signalQuality}/100, and data depth ${entry.dataDepthScore}/100. The strongest visible pressure is ${humanizePressure(entry.strongestPressure)}, and the controlled route recommendation is: ${recommendationTitle}`;
+  return `${businessLabel}${locationSuffix} is currently reading as a ${entry.scoreTier}-tier / ${entry.decision} Free Scan intake with ${entry.confidenceLevel} confidence, signal quality ${entry.signalQuality}/100, and data depth ${entry.dataDepthScore}/100. The strongest visible pressure is ${humanizePressure(entry.strongestPressure)}. This is a first-read signal, not a final diagnosis. The controlled route recommendation is: ${recommendationTitle}`;
 }
 
 function buildPriorityActions(entry: FreeCheckReportInput) {
@@ -200,6 +234,27 @@ function buildPriorityActions(entry: FreeCheckReportInput) {
   return actions.slice(0, 5);
 }
 
+function buildLimitations(entry: FreeCheckReportInput) {
+  const limitations = [
+    "The Free Scan uses submitted business context and visible customer-facing signals; it does not claim full diagnosis from private or unavailable evidence.",
+    "Observed signals and inferred judgments must stay separated before a customer treats the result as a fix plan.",
+  ];
+
+  if (entry.confidenceLevel === "low") {
+    limitations.push("Confidence is low, so the safest next action is to improve context or use Deep Review before spending on implementation.");
+  }
+
+  if (entry.dataDepthScore < 60) {
+    limitations.push("Data depth is still limited, so some recommendations should be treated as directional until more evidence is reviewed.");
+  }
+
+  if (!entry.websiteHostname) {
+    limitations.push("No clean public website host was captured, so website-specific findings are limited.");
+  }
+
+  return limitations;
+}
+
 function buildRiskInterpretation(entry: FreeCheckReportInput) {
   const messages: string[] = [];
 
@@ -222,6 +277,12 @@ function buildRiskInterpretation(entry: FreeCheckReportInput) {
   }
 
   return messages;
+}
+
+function explainConfidence(confidence: ReportConfidenceLevel) {
+  if (confidence === "high") return "The intake has enough depth to make the first-read direction more useful, while still staying short of a final diagnosis.";
+  if (confidence === "medium") return "The intake has workable signal, but deeper review would improve cause-level precision.";
+  return "The intake is still thin, so Cendorq should avoid overconfident conclusions and gather more evidence before implementation.";
 }
 
 function interpretModule(value: number, suffix: string) {
