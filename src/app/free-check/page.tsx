@@ -25,14 +25,13 @@ export const metadata = buildMetadata({
     "customer hesitation analysis",
     "ai search visibility intake",
   ],
-  image: { alt: "Cendorq command-grade Free Scan." },
+  image: { alt: "Cendorq Free Scan." },
 });
 
 const TRUST_RULES = [
-  "Safe business context only.",
-  "No passwords, private keys, cards, or raw evidence dumps.",
-  "Pending means pending, not final truth.",
-  "Protected dashboard/report vault after verification.",
+  "Share business context only.",
+  "Do not enter passwords, cards, private keys, or tokens.",
+  "Pending results stay pending until verified.",
 ] as const;
 
 const FREE_SCAN_FIRST_USE_SNAPSHOT = [
@@ -117,19 +116,14 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 grid gap-4 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-        <div className="system-panel-authority rounded-[1.75rem] p-4 sm:p-5 lg:sticky lg:top-24">
-          <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">
-            Command Free Scan room · Free first read
-          </div>
-          <h1 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
+      <section className="relative z-10 grid gap-4 lg:grid-cols-[0.68fr_1.32fr] lg:items-start">
+        <div className="system-panel-authority rounded-[1.55rem] p-4 sm:p-5 lg:sticky lg:top-24">
+          <p className="text-sm font-semibold text-cyan-100">Free first read</p>
+          <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
             Find the decision break before you buy the wrong fix.
           </h1>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
-            Answer a few plain business questions to enter safe context. Cendorq looks for where customers may be losing clarity, trust, AI-search visibility, or confidence to act.
-          </p>
-          <p className="mt-3 max-w-3xl text-xs leading-6 text-slate-400">
-            It turns customer hesitation into a safer first direction. It does so without treating pending or incomplete input as final analysis.
+            Answer a few plain business questions. Cendorq looks for where customers may be losing clarity, trust, AI-search visibility, or confidence to act.
           </p>
           <div className="mt-4 grid gap-2">
             {TRUST_RULES.map((item) => (
@@ -139,7 +133,7 @@ export default function FreeCheckPage() {
             ))}
           </div>
           <div className="sr-only">
-            {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and report vault handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and report vault. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
+            Command Free Scan room. {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and report vault handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and report vault. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
           </div>
           <nav className="sr-only" aria-label="Free Scan completion handoff">
             {FREE_SCAN_HANDOFF_ACTIONS.map((action) => (
@@ -174,7 +168,7 @@ function FreeCheckAtmosphere() {
 
 function FaqCard({ question, answer }: { question: string; answer: string }) {
   return (
-    <article className="system-surface rounded-[1.5rem] p-5">
+    <article className="system-surface rounded-[1.35rem] p-5">
       <h3 className="text-xl font-semibold tracking-tight text-white">{question}</h3>
       <p className="mt-3 text-sm leading-7 text-slate-300">{answer}</p>
     </article>
