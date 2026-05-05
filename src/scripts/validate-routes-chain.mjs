@@ -54,6 +54,7 @@ const validators = [
   "src/scripts/validate-trust-center-readiness.mjs",
   "src/scripts/validate-public-plans-excellence.mjs",
   "src/scripts/validate-signup-verification-excellence.mjs",
+  "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-dashboard-first-session-onboarding.mjs",
   "src/scripts/validate-dashboard-action-inbox.mjs",
   "src/scripts/validate-dashboard-inbox-contracts.mjs",
