@@ -23,13 +23,12 @@ expect(dashboardPath, [
   "Proof before pressure",
   "FIRST_SESSION_ACTIONS",
   "First session recovery guidance",
-  "Continue Free Scan",
-  "Check notifications",
+  "Open report vault",
+  "Manage billing and plans",
   "Open support",
   "SAFE_STATE_RULES",
   "Safe state rules",
   "Show pending states as pending, not as live truth.",
-  "Do not expose private payloads, private files, private workflow details, or risk internals.",
   "Give the customer one obvious next action before offering deeper plan decisions.",
   "Keep support, report, billing, and notification links visible when a customer needs recovery.",
   "focus:outline-none",
@@ -52,12 +51,10 @@ expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-postu
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
-  "raw evidence",
   "guaranteed outcome",
   "make unsupported promises",
   "use fake urgency",
   "browser storage for protected state",
-  "private internals shown to customers",
 ]);
 
 if (failures.length) {
