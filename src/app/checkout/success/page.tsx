@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
-import { CENDORQ_CHECKOUT_METADATA_KEYS, CENDORQ_CHECKOUT_ORCHESTRATION, CENDORQ_POST_PAYMENT_EMAILS, CENDORQ_PAID_PLAN_KEYS, getPaidCendorqPlanPrice, type CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
+import {
+  CENDORQ_CHECKOUT_METADATA_KEYS,
+  CENDORQ_CHECKOUT_ORCHESTRATION,
+  CENDORQ_PAID_PLAN_KEYS,
+  CENDORQ_POST_PAYMENT_EMAILS,
+  getPaidCendorqPlanPrice,
+  type CendorqPaidPlanKey,
+} from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
   title: "Checkout complete | Cendorq",
@@ -15,11 +22,21 @@ const NEXT_ACTION_BY_PLAN: Record<CendorqPaidPlanKey, { href: string; label: str
   "ongoing-control": { href: "/dashboard/billing", label: "Set monthly focus", title: "Ongoing Control is active." },
 };
 
+const WORKFLOW_COPY_BY_PLAN: Record<CendorqPaidPlanKey, string> = {
+  "deep-review": "Deep Review moves into diagnosis and evidence review.",
+  "build-fix": "Build Fix moves into implementation intake and priority setup.",
+  "ongoing-control": "Ongoing Control moves into monthly focus and recurring review setup.",
+};
+
 export default function CheckoutSuccessPage({ searchParams }: { searchParams?: { plan?: string; session_id?: string } }) {
   const planKey = normalizePaidPlanKey(searchParams?.plan);
   const plan = getPaidCendorqPlanPrice(planKey);
   const nextAction = NEXT_ACTION_BY_PLAN[planKey];
   const email = CENDORQ_POST_PAYMENT_EMAILS.find((item) => item.planKey === planKey);
+  const workflowCopy = WORKFLOW_COPY_BY_PLAN[planKey];
+  const emailCopy = email
+    ? `${email.subject}. ${email.customerGoal}`
+    : "You receive a plan-specific confirmation and next-step email.";
 
   return (
     <main className="relative mx-auto max-w-6xl overflow-hidden px-4 pb-28 pt-8 text-white sm:px-6 md:py-14">
@@ -49,8 +66,8 @@ export default function CheckoutSuccessPage({ searchParams }: { searchParams?: {
 
       <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-3" aria-label="What happens after checkout">
         <SuccessCard title="1. Dashboard updates" copy="Your plan state, billing record, notification, and work path should appear inside your dashboard." />
-        <SuccessCard title="2. Cendorq starts the right workflow" copy={plan.backendStartSignal === "deep_review_paid" ? "Deep Review moves into diagnosis and evidence review." : plan.backendStartSignal === "build_fix_paid" ? "Build Fix moves into implementation intake and priority setup." : "Ongoing Control moves into monthly focus and recurring review setup."} />
-        <SuccessCard title="3. Email keeps the path clear" copy={email ? `${email.subject}. ${email.customerGoal}` : "You receive a plan-specific confirmation and next-step email."} />
+        <SuccessCard title="2. Cendorq starts the right workflow" copy={workflowCopy} />
+        <SuccessCard title="3. Email keeps the path clear" copy={emailCopy} />
       </section>
 
       <section className="relative z-10 mt-7 rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-5">
