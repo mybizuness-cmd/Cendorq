@@ -4,24 +4,26 @@ Cendorq is Business Command Intelligence for businesses that need to become easi
 
 ## Primary conversion path
 
-The strongest first action is the Free Scan when the cause is unclear.
+The strongest first action is the Free Scan when the cause is unclear. The public path should stay focused: start free, compare pricing, then return to the protected dashboard when customer work exists. Contact is a footer utility, not a primary buyer-path step.
 
 - Free Scan: /free-check
-- Plans: /plans
+- Pricing: /plans
+- Dashboard: /dashboard
 - Deep Review: /plans/deep-review
 - Build Fix: /plans/build-fix
 - Ongoing Control: /plans/ongoing-control
-- Connect: /connect
+- Contact utility: /connect
 
 ## Route intent
 
 - /: Focused homepage command path. The homepage should help the right customer understand what Cendorq is, why it matters now, what it costs, and what to do next.
 - /free-check: Guided free scan intake. This is the safest first step before deeper spend.
 - /plans: Plain-language comparison of the full Cendorq buyer path.
+- /dashboard: Protected customer platform for reports, notifications, status, and next actions.
 - /plans/deep-review: Deeper review for businesses that need to understand what is weakening clarity, trust, and choice.
 - /plans/build-fix: Build-focused improvement for businesses ready to strengthen pages, message, trust, and action path.
 - /plans/ongoing-control: Continued direction for businesses that need ongoing control, updates, and improvement.
-- /connect: Contact and fit-routing lane.
+- /connect: Footer contact utility for clear fit, scope, or timing questions.
 
 ## Positioning rules
 
@@ -29,6 +31,8 @@ Cendorq should be described in plain business language. Prefer:
 
 - Business Command Intelligence
 - Free Scan
+- Pricing
+- Dashboard
 - Deep Review
 - Build Fix
 - Ongoing Control

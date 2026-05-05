@@ -17,51 +17,34 @@ expect(pagePath, [
   "Become the business customers understand, trust, find, and choose.",
   "hidden reason customers hesitate",
   "Start free scan",
-  "See the command path",
+  "View pricing",
   "Free first read. Clear pricing. Protected platform after verification.",
-  "Command readout",
-  "The decision path",
-  "Can they understand you fast?",
-  "Can search, maps, reviews, and AI describe you correctly?",
+  "What is stopping the decision?",
+  "Can they understand you quickly?",
+  "Can search and AI describe you correctly?",
   "Customers decide before they talk to you.",
-  "Message command",
-  "Proof command",
-  "Search command",
-  "Action command",
-  "Highest-converting path",
-  "Start with diagnosis. Move deeper only when the next depth is clear.",
-  "Conversion without pressure",
-  "Clear. Fast. Protected. Easy to act on.",
-  "Protected dashboard and report vault after verification.",
+  "People do not understand you fast enough.",
+  "They do not trust the choice yet.",
+  "They find a confusing version of you.",
+  "The next step feels harder than leaving.",
+  "Start small. Move deeper only when it makes sense.",
+  "No fake urgency. No wrong-depth push. Diagnosis comes before bigger spend.",
 ]);
 
 expect(headerPath, [
-  "Business Command Intelligence",
   "Free Scan",
   "Pricing",
   "Dashboard",
-  "Command path",
-  "Understand, trust, find, and choose",
-  "Pricing from $0",
+  "max-h-[calc(100dvh-4.25rem)]",
+  "overflow-y-auto",
   "Start free scan",
-  "Main path",
 ]);
 
 expect(footerPath, [
-  "Final command path",
-  "If the business is hard to understand, trust, find, or choose, start with the first read.",
-  "Clear plan depth",
-  "Start free scan",
-  "View pricing",
+  "Find the break before you buy the fix.",
   "Contact",
-  "$0",
-  "$300",
-  "$750+",
-  "$300/mo",
-  "Clarity command",
-  "Trust command",
-  "AI-search aware",
-  "Protected platform",
+  "Privacy",
+  "Terms",
 ]);
 
 expect(scanPath, [
@@ -80,15 +63,15 @@ expect(connectPath, [
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(pagePath, 15500);
+boundedLength(pagePath, 14500);
 boundedLength(scanPath, 16000);
 boundedLength(connectPath, 15000);
-boundedLength(headerPath, 23000);
-boundedLength(footerPath, 18000);
+boundedLength(headerPath, 15000);
+boundedLength(footerPath, 6000);
 
-forbidden(pagePath, blockedPublicPhrases());
-forbidden(headerPath, [...blockedPublicPhrases(), "Talk through fit or scope"]);
-forbidden(footerPath, blockedPublicPhrases());
+forbidden(pagePath, [...blockedPublicPhrases(), ...badgeHeavyPhrases()]);
+forbidden(headerPath, [...blockedPublicPhrases(), "Privacy", "Terms", "Talk through fit or scope", "Pricing from $0", "Command path"]);
+forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Dashboard", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
 forbidden(scanPath, blockedPublicPhrases());
 forbidden(connectPath, blockedPublicPhrases());
 
@@ -98,7 +81,20 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with a best-of-best command architecture, primary nav focused on Free Scan, Pricing, and Dashboard, Contact as a footer utility, concise conversion path, elevated footer, no overdone public length, and protected plain-language trust rules.");
+console.log("Public command surface validation passed with simplified customer-facing language, scrollable mobile menu, compact footer, fewer badges, no repeated final CTA block, and Contact kept as a footer utility.");
+
+function badgeHeavyPhrases() {
+  return [
+    "Command readout",
+    "Message command",
+    "Proof command",
+    "Search command",
+    "Action command",
+    "Highest-converting path",
+    "Conversion without pressure",
+    "Final command path",
+  ];
+}
 
 function blockedPublicPhrases() {
   return [
@@ -139,7 +135,7 @@ function boundedLength(path, maxCharacters) {
     return;
   }
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the concise public command standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the simplified public command standard: ${text.length} > ${maxCharacters}`);
 }
 
 function expect(path, phrases) {

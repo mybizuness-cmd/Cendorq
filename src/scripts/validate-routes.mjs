@@ -216,14 +216,14 @@ for (const route of [...canonicalRoutes, ...policyRoutes]) if (!robots.includes(
 for (const route of legacyRoutes) if (robots.includes(`"${route}"`)) failures.push(`Robots allowlist should not include legacy route: ${route}`);
 
 const manifest = read("public/manifest.webmanifest");
-for (const route of ["/free-check?source=app-install", "/free-check?source=app-shortcut", "/plans?source=app-shortcut", "/connect?source=app-shortcut"]) {
+for (const route of ["/free-check?source=app-install", "/free-check?source=app-shortcut", "/plans?source=app-shortcut", "/dashboard?source=app-shortcut"]) {
   if (!manifest.includes(`"${route}"`)) failures.push(`Manifest missing buyer-path route: ${route}`);
 }
-for (const phrase of ["Start Free Scan", "Compare Plans", "Connect"]) if (!manifest.includes(phrase)) failures.push(`Manifest missing shortcut phrase: ${phrase}`);
+for (const phrase of ["Start Free Scan", "View Pricing", "Open Dashboard"]) if (!manifest.includes(phrase)) failures.push(`Manifest missing shortcut phrase: ${phrase}`);
 
 const llms = read("public/llms.txt");
 for (const route of canonicalRoutes) if (!llms.includes(route)) failures.push(`llms.txt missing canonical route: ${route}`);
-for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "make the business easier to understand", "make the business easier to trust", "make the business easier to choose"]) {
+for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Contact is a footer utility", "make the business easier to understand", "make the business easier to trust", "make the business easier to choose"]) {
   if (!llms.includes(phrase)) failures.push(`llms.txt missing positioning phrase: ${phrase}`);
 }
 
@@ -231,7 +231,7 @@ const activePublicText = activePublicFiles
   .filter((file) => existsSync(join(root, file)))
   .map((file) => `\n/* ${file} */\n${read(file)}`)
   .join("\n");
-for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Connect"]) {
+for (const phrase of ["Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Contact"]) {
   if (!activePublicText.includes(phrase)) failures.push(`Active public surfaces missing current buyer-path language: ${phrase}`);
 }
 for (const phrase of forbiddenActivePhrases) if (activePublicText.includes(phrase)) failures.push(`Active public surfaces contain retired label: ${phrase}`);

@@ -39,11 +39,11 @@ validateTextFile(standardPath, [
 validateTextFile(homepagePath, [
   "Find why customers leave before you buy the fix.",
   "Start free scan",
-  "See pricing",
+  "View pricing",
   "Free first read. Clear pricing when you need the next depth.",
-  "Silent decision pressure",
-  "No fake urgency.",
-  "Pay only when the next depth is clear.",
+  "Customers decide before they talk to you.",
+  "Start small. Move deeper only when it makes sense.",
+  "No fake urgency. No wrong-depth push. Diagnosis comes before bigger spend.",
 ]);
 
 validateTextFile(docsIndexPath, [
@@ -62,7 +62,14 @@ validateForbidden(standardPath, [
   "hidden pricing allowed",
   "raw report text in analytics allowed",
 ]);
-validateForbidden(homepagePath, ["guaranteed revenue", "guaranteed ROI", "Search Presence OS", "Pricing is visible: $0, $300, $750+, or $300/mo."]);
+validateForbidden(homepagePath, [
+  "guaranteed revenue",
+  "guaranteed ROI",
+  "Search Presence OS",
+  "Pricing is visible: $0, $300, $750+, or $300/mo.",
+  "Silent decision pressure",
+  "Pay only when the next depth is clear.",
+]);
 
 if (failures.length) {
   console.error("Conversion moat standard validation failed:");
@@ -70,7 +77,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Conversion moat standard validation passed with five-second command, pricing path clarity, proof-before-pressure, stage-fit plans, frictionless next steps, and privacy-safe learning safeguards.");
+console.log("Conversion moat standard validation passed with a direct customer headline, two clear CTAs, visible pricing access, proof-before-pressure language, stage-fit plans, frictionless next steps, and privacy-safe learning safeguards.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
