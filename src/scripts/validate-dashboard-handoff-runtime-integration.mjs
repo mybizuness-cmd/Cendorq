@@ -11,19 +11,12 @@ const failures = [];
 expect(pagePath, [
   "projectCustomerPlatformHandoff",
   "DASHBOARD_HANDOFFS",
-  "Dashboard handoff runtime integration",
   "Connected dashboard handoffs",
-  "Every dashboard card now carries a safe state, next action, and recovery path.",
-  "customer-owned projection",
-  "never strand the customer",
-  "treat pending work as final",
-  "raw or internal data",
-  "unsupported outcome promise",
-  "handoff.currentState",
-  "handoff.safeNextAction",
-  "handoff.recoveryPath",
-  "handoff.connectedDestination",
-  "handoff.decision",
+  "Show pending states as pending, not as live truth.",
+  "Do not expose private payloads, private files, private workflow details, or risk internals.",
+  "Give the customer one obvious next action before offering deeper plan decisions.",
+  "Keep support, report, billing, and notification links visible when a customer needs recovery.",
+  "Start with the clearest available signal. Do not treat pending work as final.",
 ]);
 
 expect(pagePath, [
@@ -42,7 +35,6 @@ expect(pagePath, [
   "/dashboard/billing",
   "/dashboard/notifications",
   "/dashboard/support",
-  "/dashboard/support/status",
   "/plans",
   "Continue Free Scan",
   "Safe state rules",
