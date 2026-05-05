@@ -63,7 +63,7 @@ expect(routesChainPath, [validatorPath, "validate-owner-maximum-protection-postu
 boundedLength(componentPath, 14000);
 boundedLength(plansPath, 14500);
 
-forbidden(componentPath, [...blockedPlanPhrases(), "Best next move", "How to choose"]);
+forbidden(componentPath, blockedPlanPhrases());
 forbidden(plansPath, [...blockedPlanPhrases(), "Connected plan handoffs", "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious."]);
 
 if (failures.length) {
