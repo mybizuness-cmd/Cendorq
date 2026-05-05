@@ -8,7 +8,7 @@ export const metadata = buildMetadata({
     "Cendorq pricing in plain English: Free Scan, $300 Deep Review, $750+ Build Fix, and $300/month Ongoing Control.",
   path: "/plans",
   keywords: ["cendorq pricing", "cendorq plans", "free scan", "deep review price", "build fix price", "ongoing control price"],
-  image: { alt: "Cendorq pricing and plan ladder." },
+  image: { alt: "Cendorq command-grade pricing and plan path." },
 });
 
 const PRICING_PLANS = [

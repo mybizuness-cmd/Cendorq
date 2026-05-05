@@ -9,7 +9,7 @@ const validatorPath = "src/scripts/validate-free-check-premium-route-elevation.m
 const failures = [];
 
 expect(pagePath, [
-  "Premium Free Scan room",
+  "Command Free Scan room",
   "Find the decision break before you buy the wrong fix.",
   "enter safe context",
   "hand off into dashboard, notifications, and report vault",
@@ -50,6 +50,7 @@ expect(routesChainPath, [
 ]);
 
 forbidden(pagePath, [
+  "Premium Free Scan room",
   "guaranteed ROI",
   "guaranteed revenue",
   "guaranteed business results",
@@ -74,12 +75,12 @@ forbidden(pagePath, [
 ]);
 
 if (failures.length) {
-  console.error("Free Check premium route elevation validation failed:");
+  console.error("Free Check command route validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Free Check premium route elevation validation passed. validate:routes delegates through the orchestrator and the Free Check premium route validator remains wired into the route chain.");
+console.log("Free Check command route validation passed. validate:routes delegates through the orchestrator and the Free Check route remains wired into the route chain with command-grade public language.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
