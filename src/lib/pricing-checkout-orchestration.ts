@@ -158,5 +158,5 @@ export function getCendorqPlanPrice(planKey: CendorqPlanKey) {
 }
 
 export function getPaidCendorqPlanPrice(planKey: CendorqPaidPlanKey) {
-  return CENDORQ_PLAN_PRICES.find((plan) => plan.key === planKey && plan.stripeMode !== "none") || CENDORQ_PLAN_PRICES[1];
+  return CENDORQ_PLAN_PRICES.find((plan) => plan.key === planKey) || CENDORQ_PLAN_PRICES[1];
 }
