@@ -111,7 +111,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
           <TopChip>How to choose</TopChip>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Buy the right depth.</h2>
           <p className="mt-4 text-base leading-8 text-slate-300">
-            Cendorq should make the next move obvious, not overwhelm the buyer. Each plan has a stage, a price, and a reason to exist.
+            Cendorq makes the next move obvious without overwhelming the buyer. Each plan has a stage, a price, and a reason to exist.
           </p>
           <div className="mt-6 grid gap-2">
             {PLAN_DECISION_PRINCIPLES.map((principle) => (
