@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
-import { CENDORQ_CHECKOUT_METADATA_KEYS, CENDORQ_CHECKOUT_ORCHESTRATION, CENDORQ_PAID_PLAN_KEYS, getPaidCendorqPlanPrice, type CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
+import {
+  CENDORQ_CHECKOUT_METADATA_KEYS,
+  CENDORQ_CHECKOUT_ORCHESTRATION,
+  CENDORQ_PAID_PLAN_KEYS,
+  getPaidCendorqPlanPrice,
+  type CendorqPaidPlanKey,
+} from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
   title: "Start checkout | Cendorq",
@@ -31,9 +37,9 @@ export default function CheckoutStartPage({ searchParams }: { searchParams?: { p
           <div className="rounded-[1.2rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:rounded-[1.3rem] sm:p-5">
             <div className="text-sm font-semibold text-cyan-100">What happens next</div>
             <p className="mt-2 text-sm leading-6 text-slate-200">{plan.afterPaymentNextStep}</p>
-            <Link href="#stripe-link-needed" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950 sm:w-auto">
+            <button type="button" disabled className="mt-4 inline-flex min-h-11 w-full cursor-not-allowed items-center justify-center rounded-2xl bg-cyan-300/70 px-5 py-3 text-sm font-bold text-slate-950 sm:w-auto">
               Stripe link coming next
-            </Link>
+            </button>
           </div>
         </div>
       </section>
