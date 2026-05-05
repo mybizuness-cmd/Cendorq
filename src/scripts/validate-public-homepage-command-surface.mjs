@@ -9,7 +9,7 @@ const scanPath = "src/app/free-check/page.tsx";
 const connectPath = "src/app/connect/page.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-public-homepage-premium-entry.mjs";
+const validatorPath = "src/scripts/validate-public-homepage-command-surface.mjs";
 const failures = [];
 
 expect(pagePath, [

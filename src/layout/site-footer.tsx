@@ -11,7 +11,7 @@ const CATEGORY_LINE = "Business Command Intelligence";
 
 const ESSENTIAL_LINKS: readonly FooterLinkItem[] = [
   { label: "Free Scan", href: "/free-check" },
-  { label: "Pricing", href: "/plans" },
+  { label: "Plans", href: "/plans" },
   { label: "Connect", href: "/connect" },
 ];
 
@@ -34,12 +34,12 @@ export function SiteFooter() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(103,232,249,0.12),transparent_35%),radial-gradient(circle_at_88%_10%,rgba(56,189,248,0.08),transparent_30%)]" />
           <div className="relative z-10 grid gap-7 lg:grid-cols-[1fr_0.72fr] lg:items-center">
             <div>
-              <TopChip>Final decision path</TopChip>
+              <TopChip>Final command path</TopChip>
               <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-                If customers are not choosing fast enough, start with the first read.
+                If the business is hard to understand, trust, find, or choose, start with the first read.
               </h2>
               <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
-                Cendorq shows where clarity, trust, AI search visibility, and the customer decision path may be breaking before the business spends on the wrong fix.
+                Cendorq shows where the customer decision path is breaking before the business spends deeper.
               </p>
             </div>
 
@@ -54,31 +54,32 @@ export function SiteFooter() {
                 href="/plans"
                 className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950"
               >
-                View pricing
+                View plans
               </Link>
             </div>
           </div>
         </section>
 
-        <section className="mt-6 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <section className="mt-6 grid gap-5 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
           <div className="system-surface rounded-[1.7rem] p-5 sm:p-6">
             <BrandLockup />
             <p className="mt-4 text-sm leading-7 text-slate-300">
-              {BRAND_NAME} is a business command intelligence system for owners who need plain answers, protected reports, and the right next move — not a confusing wall of tools.
+              {BRAND_NAME} is a business command intelligence system for owners who need the next decision to be obvious, protected, and grounded before they spend deeper.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <FooterPill>Plain-English diagnosis</FooterPill>
+              <FooterPill>Clarity command</FooterPill>
+              <FooterPill>Trust command</FooterPill>
               <FooterPill>AI-search aware</FooterPill>
-              <FooterPill>Protected dashboard</FooterPill>
+              <FooterPill>Protected platform</FooterPill>
             </div>
           </div>
 
           <div className="system-surface rounded-[1.7rem] p-5 sm:p-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h3 className="text-xl font-semibold tracking-tight text-white">Clear pricing</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-white">Clear plan depth</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-300">
-                  Start free. Pay only when the business needs a deeper diagnosis, scoped fix, or monthly control.
+                  Start free. Move deeper only when the business needs fuller diagnosis, implementation, or monthly command.
                 </p>
               </div>
               <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white">

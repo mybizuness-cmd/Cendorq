@@ -13,8 +13,8 @@ const BRAND_NAME = "Cendorq";
 const CATEGORY_LINE = "Business Command Intelligence";
 
 const PRIMARY_NAV: readonly NavItem[] = [
-  { label: "Start", href: "/free-check", description: "Begin with the free first read.", match: "startsWith" },
-  { label: "Pricing", href: "/plans", description: "See prices and choose the right depth.", match: "startsWith" },
+  { label: "Start", href: "/free-check", description: "Run the free first read.", match: "startsWith" },
+  { label: "Plans", href: "/plans", description: "Choose the right depth.", match: "startsWith" },
   { label: "Connect", href: "/connect", description: "Talk through fit or scope.", match: "exact" },
 ] as const;
 
@@ -45,8 +45,8 @@ export function SiteHeader() {
   const secondaryCta = useMemo(() => buildSecondaryCta(safePathname), [safePathname]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/6 bg-slate-950/84 text-white backdrop-blur-2xl supports-[backdrop-filter]:bg-slate-950/70">
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-300/35 to-transparent" />
+    <header className="sticky top-0 z-50 border-b border-white/6 bg-slate-950/86 text-white backdrop-blur-2xl supports-[backdrop-filter]:bg-slate-950/72">
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-300/32 to-transparent" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex min-h-[4rem] items-center justify-between gap-4 py-3">
@@ -54,7 +54,7 @@ export function SiteHeader() {
             <BrandMark />
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold tracking-[0.16em] text-white sm:text-base">{BRAND_NAME}</span>
-              <span className="hidden truncate text-[11px] uppercase tracking-[0.18em] text-slate-400 sm:block">{CATEGORY_LINE}</span>
+              <span className="hidden truncate text-[10px] uppercase tracking-[0.18em] text-slate-400 sm:block">{CATEGORY_LINE}</span>
             </span>
           </Link>
 
@@ -75,8 +75,8 @@ export function SiteHeader() {
         <div className="hidden border-t border-white/6 py-3 lg:block">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex min-w-0 flex-wrap items-center gap-2">
-              <HeaderPill>{isHomepage ? "Start here" : currentRoute.label}</HeaderPill>
-              <span className="max-w-3xl text-sm text-slate-300">{isHomepage ? "Free first read, visible pricing, protected dashboard after verification." : currentRoute.note}</span>
+              <HeaderPill>{isHomepage ? "Command path" : currentRoute.label}</HeaderPill>
+              <span className="max-w-3xl text-sm text-slate-300">{isHomepage ? "Understand, trust, find, and choose — then start free when the cause is unclear." : currentRoute.note}</span>
             </div>
             <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white">Pricing from $0 →</Link>
           </div>
@@ -88,13 +88,13 @@ export function SiteHeader() {
               <div className="grid gap-4">
                 <div className="system-surface rounded-[1.35rem] p-4">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">{isHomepage ? "Cendorq" : currentRoute.eyebrow}</div>
-                  <h2 className="mt-2 text-xl font-semibold tracking-tight text-white">{isHomepage ? "Business Command Intelligence" : currentRoute.label}</h2>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">{isHomepage ? "Start free, see pricing clearly, and move through the protected command path only when it fits." : currentRoute.note}</p>
+                  <h2 className="mt-2 text-xl font-semibold tracking-tight text-white">{isHomepage ? "Command path" : currentRoute.label}</h2>
+                  <p className="mt-2 text-sm leading-7 text-slate-300">{isHomepage ? "Start with the free first read, then move deeper only when the next depth is clear." : currentRoute.note}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   <Link href={primaryCta.href} className="system-button-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition">{primaryCta.label}</Link>
-                  <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition">Pricing</Link>
+                  <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition">Plans</Link>
                 </div>
 
                 <NavSection title="Main choices" items={PRIMARY_NAV} pathname={safePathname} />
@@ -143,17 +143,17 @@ function buildPrimaryCta(pathname: string): Action {
 
 function buildSecondaryCta(pathname: string): Action {
   if (pathname.startsWith("/plans")) return { href: "/free-check", label: "Start free" };
-  if (pathname.startsWith("/free-check")) return { href: "/plans", label: "Pricing" };
+  if (pathname.startsWith("/free-check")) return { href: "/plans", label: "Plans" };
   if (pathname.startsWith("/connect")) return { href: "/free-check", label: "Start free" };
-  return { href: "/plans", label: "Pricing" };
+  return { href: "/plans", label: "Plans" };
 }
 
 function buildCurrentRoute(pathname: string): RouteContext {
-  if (pathname.startsWith("/free-check")) return { eyebrow: "Start", label: "Free Scan", note: "A simple first read for businesses that need to know why people hesitate." };
+  if (pathname.startsWith("/free-check")) return { eyebrow: "Start", label: "Free Scan", note: "A first read for businesses that need to know why customers hesitate." };
   if (pathname.startsWith("/plans/deep-review")) return { eyebrow: "Plan", label: "Deep Review", note: "Full diagnosis for the real reason customers hesitate." };
   if (pathname.startsWith("/plans/build-fix")) return { eyebrow: "Plan", label: "Build Fix", note: "Focused implementation when the direction is clear." };
   if (pathname.startsWith("/plans/ongoing-control")) return { eyebrow: "Plan", label: "Ongoing Control", note: "Monthly control as search, AI, competitors, and customers change." };
-  if (pathname === "/plans") return { eyebrow: "Pricing", label: "Pricing", note: "Clear prices and the right depth without a confusing plan maze." };
+  if (pathname === "/plans") return { eyebrow: "Plans", label: "Plans", note: "Clear prices and the right depth without a confusing plan maze." };
   if (pathname.startsWith("/connect")) return { eyebrow: "Connect", label: "Connect", note: "Use the direct lane when fit, scope, or context needs discussion." };
   if (pathname.startsWith("/privacy")) return { eyebrow: "Trust", label: "Privacy", note: "Data boundaries and privacy posture." };
   if (pathname.startsWith("/terms")) return { eyebrow: "Trust", label: "Terms", note: "Service scope and boundaries." };
