@@ -9,6 +9,7 @@ import {
   FREE_SCAN_RESULT_SECTIONS,
   getFreeScanFindingSummary,
 } from "@/lib/free-scan-report-methodology";
+import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES } from "@/lib/plan-value-delivery-architecture";
 import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
@@ -18,6 +19,8 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
+const FREE_SCAN_VALUE = getPlanValueDelivery("free-scan");
+const DEEP_REVIEW_VALUE = getPlanValueDelivery("deep-review");
 const DEEP_REVIEW = getCendorqPlanPrice("deep-review");
 const SAMPLE_FINDINGS = getFreeScanFindingSummary();
 
@@ -47,13 +50,13 @@ export default function FreeScanResultsPage() {
               See what may be costing customer choices first.
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              {RESULT_SUMMARY.finding} The goal is to educate you clearly, protect accuracy, and show the next move without pretending a first scan knows everything.
+              {FREE_SCAN_VALUE.primaryValue} The goal is to educate you clearly, protect accuracy, and show the next move without pretending a first scan knows everything.
             </p>
           </div>
           <div className="rounded-[1.2rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:rounded-[1.3rem] sm:p-5">
             <div className="text-sm font-semibold text-cyan-100">Best next move</div>
             <div className="mt-2 text-2xl font-semibold text-white">{DEEP_REVIEW.name}</div>
-            <p className="mt-2 text-sm leading-6 text-slate-200">{DEEP_REVIEW.primaryCustomerPromise}</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">{DEEP_REVIEW_VALUE.primaryValue}</p>
             <Link href={DEEP_REVIEW.checkoutPath} className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950 sm:w-auto">
               Unlock {DEEP_REVIEW.name} {DEEP_REVIEW.price}
             </Link>
@@ -65,6 +68,11 @@ export default function FreeScanResultsPage() {
         <ResultCard title="What matters first" copy={RESULT_SUMMARY.headline} />
         <ResultCard title="Why it matters" copy="The first weak signal can explain why interested customers pause, compare longer, leave, or fail to take action." />
         <ResultCard title="What happens next" copy={RESULT_SUMMARY.nextMove} />
+      </section>
+
+      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-2" aria-label="Free Scan value boundary">
+        <BoundaryCard title="What Free Scan gives you" items={FREE_SCAN_VALUE.includes} tone="include" />
+        <BoundaryCard title="What Free Scan does not include" items={FREE_SCAN_VALUE.doesNotInclude} tone="exclude" />
       </section>
 
       <section className="relative z-10 mt-7 rounded-[1.45rem] border border-white/10 bg-white/[0.035] p-5 sm:p-6" aria-label="Structured first findings">
@@ -140,7 +148,7 @@ export default function FreeScanResultsPage() {
       </section>
 
       <section className="sr-only" aria-label="Free Scan report validation guardrails">
-        Free Scan results. Protected dashboard report results. Report methodology. Six signals. Clarity Trust Choice Action Visibility Proof. Observed evidence. Inferred judgment. Needs deeper review. Evidence rules. Priority model. Critical Important Watch. What matters first. What Cendorq can see. Why it may cost choices. What is still uncertain. Best next move. Deep Review $497. Accurate results require confidence posture and limitations. {FREE_SCAN_REPORT_QUALITY_RULES.join(" ")}
+        Free Scan results. Protected dashboard report results. Report methodology. Plan value delivery architecture. Free Scan identifies a first visible signal. Free Scan does not include full root-cause diagnosis, implementation work, or monthly monitoring. Deep Review diagnoses the full reason. No overlap. {FREE_SCAN_VALUE.reportBoundary} {FREE_SCAN_VALUE.upgradeLogic} {PLAN_VALUE_SEPARATION_RULES.join(" ")} Six signals. Clarity Trust Choice Action Visibility Proof. Observed evidence. Inferred judgment. Needs deeper review. Evidence rules. Priority model. Critical Important Watch. What matters first. What Cendorq can see. Why it may cost choices. What is still uncertain. Best next move. Deep Review $497. Accurate results require confidence posture and limitations. {FREE_SCAN_REPORT_QUALITY_RULES.join(" ")}
       </section>
     </main>
   );
@@ -162,6 +170,21 @@ function MethodPanel({ title, items }: { title: string; items: readonly string[]
       <div className="mt-4 grid gap-3">
         {items.map((item) => (
           <p key={item} className="rounded-[1rem] border border-white/10 bg-white/[0.03] p-3 text-sm leading-6 text-slate-300">{item}</p>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function BoundaryCard({ title, items, tone }: { title: string; items: readonly string[]; tone: "include" | "exclude" }) {
+  return (
+    <article className="system-surface rounded-[1.25rem] p-4 sm:rounded-[1.35rem] sm:p-5">
+      <h2 className="text-xl font-semibold tracking-tight text-white">{title}</h2>
+      <div className="mt-4 grid gap-3">
+        {items.map((item) => (
+          <p key={item} className={tone === "include" ? "rounded-[1rem] border border-cyan-300/15 bg-cyan-300/10 p-3 text-sm leading-6 text-slate-200" : "rounded-[1rem] border border-white/10 bg-black/20 p-3 text-sm leading-6 text-slate-400"}>
+            {item}
+          </p>
         ))}
       </div>
     </article>
