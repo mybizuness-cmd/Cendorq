@@ -15,8 +15,11 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
-export default function CheckoutStartPage({ searchParams }: { searchParams?: { plan?: string } }) {
-  const planKey = normalizePaidPlanKey(searchParams?.plan);
+type CheckoutStartSearchParams = Promise<{ plan?: string }>;
+
+export default async function CheckoutStartPage({ searchParams }: { searchParams?: CheckoutStartSearchParams }) {
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const planKey = normalizePaidPlanKey(resolvedSearchParams?.plan);
   const plan = getPaidCendorqPlanPrice(planKey);
 
   return (
