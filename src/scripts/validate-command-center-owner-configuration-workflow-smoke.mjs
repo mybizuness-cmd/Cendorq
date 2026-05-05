@@ -9,6 +9,7 @@ const pagePath = "src/app/command-center/page.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const smokeSuccessAnchor = "Command center owner configuration workflow smoke validation passed.";
 const failures = [];
 
 expect(evidenceRoutePath, [
@@ -82,7 +83,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center owner configuration workflow smoke validation passed with owner posture coverage.");
+console.log(`${smokeSuccessAnchor} Owner posture coverage remains wired.`);
 
 function unsafePhrases() {
   return [
