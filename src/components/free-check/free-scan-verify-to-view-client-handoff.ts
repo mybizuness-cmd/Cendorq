@@ -1,9 +1,11 @@
 "use client";
 
+export type FreeScanVerifyToViewDestination = "/dashboard/reports/free-scan" | "/dashboard/reports" | "/dashboard" | "/dashboard/notifications";
+
 export type FreeScanVerifyToViewClientInput = {
   signupEmail: string;
   intakeId: string;
-  requestedDestination?: "/dashboard/reports" | "/dashboard" | "/dashboard/notifications";
+  requestedDestination?: FreeScanVerifyToViewDestination;
   emailAlreadyVerified?: boolean;
   verificationTokenIssued?: boolean;
   verificationTokenExpired?: boolean;
@@ -52,7 +54,7 @@ export async function requestFreeScanVerifyToViewHandoff(
     body: JSON.stringify({
       signupEmail: input.signupEmail,
       intakeId: input.intakeId,
-      requestedDestination: input.requestedDestination ?? "/dashboard/reports",
+      requestedDestination: input.requestedDestination ?? "/dashboard/reports/free-scan",
       emailAlreadyVerified: input.emailAlreadyVerified === true,
       verificationTokenIssued: input.verificationTokenIssued !== false,
       verificationTokenExpired: input.verificationTokenExpired === true,
