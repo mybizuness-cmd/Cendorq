@@ -11,7 +11,7 @@ export const metadata = buildMetadata({
 
 const CONFIRMATION_STEPS = [
   "Check the inbox for the address you used to sign up.",
-  "Open the email from Cendorq Support <support@cendorq.com>.",
+  "Open the email from Cendorq Support at support@cendorq.com.",
   "Select the confirmation link to confirm email ownership and open the customer dashboard.",
 ] as const;
 
@@ -86,7 +86,7 @@ export default function VerifyEmailPage() {
       </section>
 
       <section className="sr-only" aria-label="Verification guardrails">
-        Confirm your email. Cendorq Support <support@cendorq.com>. support@cendorq.com. Your welcome email is sent one time after verified profile creation. verification click redirects to dashboard. Click confirms and redirects to dashboard. Open dashboard after confirmation. Continue to Free Scan after confirmation. Verification safety notes. {VERIFICATION_SAFETY_NOTES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}
+        Confirm your email. Cendorq Support at support@cendorq.com. support@cendorq.com. Your welcome email is sent one time after verified profile creation. verification click redirects to dashboard. Click confirms and redirects to dashboard. Open dashboard after confirmation. Continue to Free Scan after confirmation. Verification safety notes. {VERIFICATION_SAFETY_NOTES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}
       </section>
     </main>
   );
