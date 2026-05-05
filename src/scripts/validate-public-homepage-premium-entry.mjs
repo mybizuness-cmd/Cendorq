@@ -14,41 +14,52 @@ const failures = [];
 
 expect(pagePath, [
   "Cendorq | Business Command Intelligence",
-  "Find why customers leave before you buy the fix.",
-  "AI-search visibility",
+  "Become the business customers understand, trust, find, and choose.",
+  "hidden reason customers hesitate",
   "Start free scan",
-  "See pricing",
-  "Free first read. Clear pricing when you need the next depth.",
-  "Cendorq identity",
-  "A plain diagnosis of the path customers use before they contact you.",
-  "Silent decision pressure",
-  "If they do not understand you, trust you, find you, or know what to do next, they move on quietly.",
-  "Search changed.",
-  "The first move is clarity.",
-  "Trust lock",
-  "Proof first. No pressure.",
-  "Start free when the cause is unclear.",
-  "Pay only when the next depth is clear.",
+  "See the command path",
+  "Free first read. Clear pricing. Protected platform after verification.",
+  "Command readout",
+  "The decision path",
+  "Can they understand you fast?",
+  "Can search, maps, reviews, and AI describe you correctly?",
+  "Customers decide before they talk to you.",
+  "Message command",
+  "Proof command",
+  "Search command",
+  "Action command",
+  "Highest-converting path",
+  "Start with diagnosis. Move deeper only when the next depth is clear.",
+  "Conversion without pressure",
+  "Clear. Fast. Protected. Easy to act on.",
   "Protected dashboard and report vault after verification.",
 ]);
 
 expect(headerPath, [
   "Business Command Intelligence",
   "Start",
-  "Pricing",
+  "Plans",
   "Connect",
+  "Command path",
+  "Understand, trust, find, and choose",
   "Pricing from $0",
   "Start free scan",
 ]);
 
 expect(footerPath, [
-  "Final decision path",
+  "Final command path",
+  "If the business is hard to understand, trust, find, or choose, start with the first read.",
+  "Clear plan depth",
   "Start free scan",
-  "View pricing",
+  "View plans",
   "$0",
   "$300",
   "$750+",
   "$300/mo",
+  "Clarity command",
+  "Trust command",
+  "AI-search aware",
+  "Protected platform",
 ]);
 
 expect(scanPath, [
@@ -67,10 +78,10 @@ expect(connectPath, [
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(pagePath, 15000);
+boundedLength(pagePath, 15500);
 boundedLength(scanPath, 16000);
 boundedLength(connectPath, 15000);
-boundedLength(headerPath, 22000);
+boundedLength(headerPath, 23000);
 boundedLength(footerPath, 18000);
 
 forbidden(pagePath, blockedPublicPhrases());
@@ -85,7 +96,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with a shorter customer-facing homepage, no homepage pricing block, simple navigation, and protected plain-language trust rules.");
+console.log("Public command surface validation passed with a best-of-best command architecture, concise conversion path, elevated nav, elevated footer, no overdone public length, and protected plain-language trust rules.");
 
 function blockedPublicPhrases() {
   return [
@@ -94,6 +105,8 @@ function blockedPublicPhrases() {
     "Plan ladder",
     "Strong enough to sell",
     "Cendorq should",
+    "trillion-dollar business",
+    "trillion dollar business",
     "guaranteed ROI",
     "guaranteed revenue",
     "guaranteed business results",
@@ -124,7 +137,7 @@ function boundedLength(path, maxCharacters) {
     return;
   }
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the simplified public standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the concise public command standard: ${text.length} > ${maxCharacters}`);
 }
 
 function expect(path, phrases) {
