@@ -41,7 +41,7 @@ expect("src/app/checkout/success/page.tsx", ["Checkout complete", "Payment compl
 expect("src/app/login/page.tsx", ["Customer login", "Magic link first"]);
 expect("src/app/verify-email/page.tsx", ["Confirm your email", "Open dashboard after confirmation"]);
 expect("src/lib/pricing-checkout-orchestration.ts", ["amountCents: 49700", "amountCents: 149700", "amountCents: 59700"]);
-expect("src/lib/customer-platform-route-map.ts", ["/login", "/checkout", "verification click redirects to dashboard"]);
+expect("src/lib/customer-platform-route-map.ts", ["/login", "/verify-email", "verification click redirects to dashboard"]);
 
 forbidden(canonicalRoutes.map((route) => route.path), [
   "$750+",
