@@ -76,9 +76,9 @@ export default function SignupPage() {
           </p>
           <div className="mt-5 grid gap-3">
             {PROVIDERS.map((provider) => (
-              <a key={provider} href="/verify-email" className="rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-4 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              <Link key={provider} href="/verify-email" className="rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-4 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
                 Continue with {provider}
-              </a>
+              </Link>
             ))}
           </div>
           <div className="my-5 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-slate-500">
