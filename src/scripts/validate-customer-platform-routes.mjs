@@ -73,12 +73,12 @@ expect("src/app/dashboard/page.tsx", [
   "Customer dashboard",
   "noIndex: true",
   "Customer command room",
-  "Next best action",
+  "See what is pending, what is ready, and what to do next.",
   "Continue Free Scan",
   "Proof and trust center",
   "Strategic conversation",
-  "Open report vault",
-  "Manage billing and plans",
+  "Reports",
+  "Billing",
 ]);
 
 expect("src/app/dashboard/reports/page.tsx", [
