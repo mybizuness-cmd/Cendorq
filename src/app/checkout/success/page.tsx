@@ -23,12 +23,14 @@ const NEXT_ACTION_BY_PLAN: Record<CendorqPaidPlanKey, { href: string; label: str
   "ongoing-control": { href: "/dashboard/billing", label: "Set monthly focus", title: "Ongoing Control is active." },
 };
 
-type CheckoutSuccessSearchParams = Promise<{ plan?: string; session_id?: string }>;
+type CheckoutSuccessPageProps = {
+  searchParams?: Promise<{ plan?: string; session_id?: string }>;
+};
 
-export default async function CheckoutSuccessPage({ searchParams }: { searchParams?: CheckoutSuccessSearchParams }) {
-  const resolvedSearchParams = searchParams ? await searchParams : undefined;
-  const planKey = normalizePaidPlanKey(resolvedSearchParams?.plan);
-  const sessionId = resolvedSearchParams?.session_id || "pending-session";
+export default async function CheckoutSuccessPage({ searchParams }: CheckoutSuccessPageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const planKey = normalizePaidPlanKey(resolvedSearchParams.plan);
+  const sessionId = resolvedSearchParams.session_id || "pending-session";
   const plan = getPaidCendorqPlanPrice(planKey);
   const revenueStage = getCendorqRevenueStage(plan.name);
   const nextAction = NEXT_ACTION_BY_PLAN[planKey];
