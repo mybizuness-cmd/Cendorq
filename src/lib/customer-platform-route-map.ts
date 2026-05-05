@@ -1,5 +1,6 @@
 export type CustomerPlatformRouteKey =
   | "signup"
+  | "login"
   | "verifyEmail"
   | "dashboard"
   | "dashboardReports"
@@ -35,10 +36,17 @@ export const CUSTOMER_PLATFORM_ROUTES = [
     access: "public",
   },
   {
+    key: "login",
+    path: "/login",
+    label: "Customer re-entry",
+    purpose: "Magic-link-first returning customer access for dashboard, reports, billing, support, and paid plan continuation.",
+    access: "public",
+  },
+  {
     key: "verifyEmail",
     path: "/verify-email",
     label: "Confirm email",
-    purpose: "Confirm email ownership before dashboard and result access.",
+    purpose: "Confirm email ownership and redirect the verified customer straight into dashboard activation.",
     access: "verification",
   },
   {
@@ -104,15 +112,22 @@ export const CUSTOMER_PLATFORM_STAGES = [
     key: "account-created",
     label: "Account created",
     route: "signup",
-    customerPromise: "Create a secure Cendorq account using a provider or email and password.",
-    conversionRole: "Move the customer into Cendorq-owned platform relationship before the Free Scan.",
+    customerPromise: "Create a secure Cendorq account using provider access, email magic link, or email and password fallback.",
+    conversionRole: "Move the customer into a Cendorq-owned platform relationship before the Free Scan.",
   },
   {
     key: "email-confirmed",
     label: "Email confirmed",
     route: "verifyEmail",
-    customerPromise: "Confirm email ownership before dashboard and result access.",
-    conversionRole: "Protect the account, validate deliverability, and improve future follow-up quality.",
+    customerPromise: "Click the confirmation email once and land directly in the dashboard.",
+    conversionRole: "Protect the account, validate deliverability, activate the dashboard, and improve future follow-up quality.",
+  },
+  {
+    key: "dashboard-reentry",
+    label: "Dashboard re-entry",
+    route: "login",
+    customerPromise: "Return with email magic link first, passkey-ready access later, and password as fallback.",
+    conversionRole: "Recover returning customers quickly so they can continue reports, billing, support, and paid plan decisions.",
   },
   {
     key: "free-scan-submitted",
@@ -167,6 +182,8 @@ export const CUSTOMER_PLATFORM_STAGES = [
 
 export const CUSTOMER_PLATFORM_ROUTE_GUARDS = [
   "dashboard access requires verified email",
+  "verification click redirects to dashboard",
+  "login uses magic link first with passkey-ready path and password fallback",
   "scan results require account ownership",
   "billing access requires authenticated customer",
   "report vault access requires matching customer and business boundary",
@@ -177,9 +194,11 @@ export const CUSTOMER_PLATFORM_ROUTE_GUARDS = [
   "support status must not render raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
   "support center must not promise refunds, legal outcomes, report changes, billing changes, or guaranteed results without approval",
   "support center must preserve correction path, billing help, security review, and escalation visibility",
-  "provider signup and email/password signup must remain available",
+  "provider signup, email magic link, and email/password fallback must remain available",
   "Cendorq Support <support@cendorq.com> remains the transactional sender identity",
   "welcome email is one-time only after verified account creation",
+  "transactional and marketing email consent must stay separated",
+  "SPF DKIM DMARC and suppression handling are required before scaling lifecycle email",
   "conversion CTAs must be plan-stage and evidence-backed",
 ] as const;
 
