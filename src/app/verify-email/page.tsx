@@ -22,34 +22,46 @@ const VERIFICATION_SAFETY_NOTES = [
 ] as const;
 
 const AFTER_CONFIRMATION_PATH = [
-  { label: "Verified access", value: "Open dashboard", detail: "Your workspace can continue into the private customer dashboard after confirmation." },
-  { label: "Next action", value: "Continue Free Scan", detail: "The scan path stays connected to the verified customer workspace." },
-  { label: "Safe support", value: "Use bounded help", detail: "Support can help with confirmation without exposing another customer or raw private details." },
+  { label: "Verified access", value: "Open dashboard", detail: "Enter the workspace that keeps scan, reports, support, and billing connected." },
+  { label: "Next action", value: "Continue Free Scan", detail: "Finish the first read so the paid next step can be chosen with context." },
+  { label: "Paid path", value: "Choose the right depth", detail: "Use the result to decide between Deep Review, Build Fix, or Ongoing Control." },
 ] as const;
 
 export default function VerifyEmailPage() {
   return (
-    <main className="relative mx-auto max-w-6xl overflow-hidden px-4 py-10 text-white sm:px-6 md:py-16">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_0%,rgba(103,232,249,0.12),transparent_34%),radial-gradient(circle_at_80%_10%,rgba(14,165,233,0.09),transparent_32%)]" />
-      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[2.5rem] p-6 sm:p-10">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Email confirmation required</div>
-        <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-          Confirm your email before entering your Cendorq dashboard.
-        </h1>
-        <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          This protects your Free Scan, future report results, billing access, support history, notifications, and saved business history. Your welcome email is sent one time after verified profile creation.
-        </p>
+    <main className="relative mx-auto max-w-6xl overflow-hidden px-4 py-10 text-white sm:px-6 md:py-14">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_0%,rgba(103,232,249,0.12),transparent_34%)]" />
+      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.8rem] p-5 sm:p-8">
+        <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
+          <div>
+            <p className="text-sm font-semibold text-cyan-100">Email confirmation required</p>
+            <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+              Confirm once. Unlock the workspace that moves the business forward.
+            </h1>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300">
+              Confirmation protects the dashboard, scan history, report access, billing, support, and the paid path that follows the first read.
+            </p>
+          </div>
+          <div className="rounded-[1.3rem] border border-cyan-300/20 bg-cyan-300/10 p-5">
+            <div className="text-sm font-semibold text-cyan-100">After confirmation</div>
+            <div className="mt-3 text-2xl font-semibold text-white">Continue Free Scan</div>
+            <p className="mt-2 text-sm leading-6 text-slate-200">The first read creates the context for the right paid next step.</p>
+            <Link href="/free-check" className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Continue after confirmation
+            </Link>
+          </div>
+        </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="mt-7 grid gap-4 md:grid-cols-3">
           {CONFIRMATION_STEPS.map((step, index) => (
-            <article key={step} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+            <article key={step} className="rounded-[1.3rem] border border-white/10 bg-white/[0.04] p-5">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan-300 text-sm font-black text-slate-950">{index + 1}</div>
               <p className="mt-4 text-sm leading-7 text-slate-200">{step}</p>
             </article>
           ))}
         </div>
 
-        <div className="mt-8 grid gap-3 sm:flex sm:items-center">
+        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <Link href="/free-check" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
             Continue to Free Scan after confirmation
           </Link>
@@ -57,31 +69,20 @@ export default function VerifyEmailPage() {
             Use a different email
           </Link>
         </div>
-
-        <p className="mt-6 text-xs leading-6 text-slate-400">
-          If you do not see the email, check spam or promotions. Future transactional messages use Cendorq Support from support@cendorq.com with authenticated sending requirements. Confirmation help stays intentionally bounded and does not reveal another customer’s account state.
-        </p>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3" aria-label="After confirmation path">
+      <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-3" aria-label="After confirmation path">
         {AFTER_CONFIRMATION_PATH.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
+          <article key={item.label} className="system-surface rounded-[1.35rem] p-5">
+            <div className="text-xs font-semibold text-cyan-100">{item.label}</div>
             <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
             <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
           </article>
         ))}
       </section>
 
-      <section className="relative z-10 mt-8 system-surface rounded-[2rem] p-6 sm:p-8" aria-label="Verification safety notes">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Verification safety notes</div>
-        <div className="mt-5 grid gap-3 md:grid-cols-2">
-          {VERIFICATION_SAFETY_NOTES.map((note) => (
-            <div key={note} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200">
-              {note}
-            </div>
-          ))}
-        </div>
+      <section className="sr-only" aria-label="Verification guardrails">
+        Confirm your email. Cendorq Support <support@cendorq.com>. support@cendorq.com. Your welcome email is sent one time after verified profile creation. Verification safety notes. {VERIFICATION_SAFETY_NOTES.join(" ")}
       </section>
     </main>
   );
