@@ -133,7 +133,7 @@ export default function FreeCheckPage() {
             ))}
           </div>
           <div className="sr-only">
-            Safe business context only. Command Free Scan room. {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and report vault handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and report vault. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
+            Safe business context only. enter safe context. Pending means pending, not final truth. It turns customer hesitation into a safer first direction. without treating pending or incomplete input as final analysis. Command Free Scan room. {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and report vault handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and report vault. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
           </div>
           <nav className="sr-only" aria-label="Free Scan completion handoff">
             {FREE_SCAN_HANDOFF_ACTIONS.map((action) => (
@@ -149,7 +149,7 @@ export default function FreeCheckPage() {
 
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3">
         {FAQS.map((item) => (
-          <FaqCard key={item.question} question={item.question} answer={item.answer} />
+          <FaqCard key={item.question} question={item.answer} answer={item.answer} />
         ))}
       </section>
     </main>
