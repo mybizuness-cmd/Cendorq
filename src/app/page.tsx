@@ -1,11 +1,4 @@
-import {
-  buildBreadcrumbJsonLd,
-  buildFaqJsonLd,
-  buildMetadata,
-  buildServiceJsonLd,
-  buildWebPageJsonLd,
-  toJsonLd,
-} from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -15,7 +8,7 @@ const CATEGORY_LINE = "Business Command Intelligence";
 export const metadata = buildMetadata({
   title: "Cendorq | Business Command Intelligence",
   description:
-    "Cendorq helps business owners find where customers lose clarity, trust, visibility, or action before they spend on the wrong fix.",
+    "Cendorq helps business owners find the hidden reason customers do not choose them, then shows the right next move before they buy the wrong fix.",
   path: "/",
   keywords: [
     "cendorq",
@@ -30,124 +23,162 @@ export const metadata = buildMetadata({
   image: { alt: "Cendorq business command intelligence homepage." },
 });
 
-const DECISION_SIGNALS = ["Understand", "Trust", "Find", "Act"] as const;
+const COMMAND_SIGNALS = [
+  { label: "Clarity", value: "Can they understand you fast?" },
+  { label: "Trust", value: "Do they believe you are safe to choose?" },
+  { label: "Visibility", value: "Can search, maps, reviews, and AI describe you correctly?" },
+  { label: "Action", value: "Is the next step obvious?" },
+] as const;
+
+const CONTROL_BLOCKS = [
+  {
+    title: "Message command",
+    copy: "Sharpens what you do, who it is for, why it matters, and what customers should believe first.",
+  },
+  {
+    title: "Proof command",
+    copy: "Surfaces weak trust signals, missing evidence, unclear credibility, and unsupported claims before they cost decisions.",
+  },
+  {
+    title: "Search command",
+    copy: "Reads how customers may find, compare, and judge you across search, maps, reviews, social, and AI answers.",
+  },
+  {
+    title: "Action command",
+    copy: "Finds friction in the path from interest to contact, booking, purchase, dashboard, report, or support handoff.",
+  },
+] as const;
+
+const PLAN_PATH = [
+  {
+    step: "01",
+    title: "Free Scan",
+    price: "$0",
+    copy: "A fast first read when the real decision break is unclear.",
+    href: "/free-check",
+    cta: "Start free scan",
+  },
+  {
+    step: "02",
+    title: "Deep Review",
+    price: "$300",
+    copy: "A fuller diagnosis when the business needs evidence, priority, and the right next move.",
+    href: "/plans/deep-review",
+    cta: "See Deep Review",
+  },
+  {
+    step: "03",
+    title: "Build Fix or Ongoing Control",
+    price: "$750+ / $300 mo",
+    copy: "Focused improvement or monthly command only when the next depth is clear.",
+    href: "/plans",
+    cta: "Compare plans",
+  },
+] as const;
 
 const TRUST_RULES = [
   "No fake urgency.",
-  "Start free when the cause is unclear.",
-  "Pay only when the next depth is clear.",
+  "No wrong-depth push.",
+  "Plain diagnosis before bigger spend.",
   "Protected dashboard and report vault after verification.",
-  "Plain answers before bigger spend.",
-] as const;
-
-const FAQS = [
-  {
-    question: "What is Cendorq?",
-    answer:
-      "Cendorq is Business Command Intelligence. It helps owners understand where customers lose clarity, trust, visibility, or action before choosing the next fix.",
-  },
-  {
-    question: "Why does AI-search visibility matter?",
-    answer:
-      "Customers now compare businesses through search, maps, reviews, social platforms, and AI answers before they contact anyone. Cendorq helps find where that trust path is weak.",
-  },
-  {
-    question: "Where should I start?",
-    answer:
-      "Start with the Free Scan when the cause is unclear. Move to Deep Review, Build Fix, or Ongoing Control only when the next depth is clear.",
-  },
+  "Clear next move, not a confusing wall of tools.",
 ] as const;
 
 export default function HomePage() {
-  const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Business Command Intelligence",
-    description:
-      "A protected business command system for understanding customer hesitation, AI-search visibility, trust, and the right next move.",
-    path: "/",
-  });
-
-  const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Business Command Intelligence",
-    description:
-      "A customer platform that begins with a Free Scan and connects diagnosis, protected reports, dashboard guidance, support, billing, and plan decisions.",
-    path: "/",
-    serviceType: "Business Command Intelligence",
-  });
-
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }]);
-  const faqJsonLd = buildFaqJsonLd(FAQS);
-
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-10 pt-5 text-white sm:px-6 md:pb-14 md:pt-8">
       <HomeAtmosphere />
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
-
-      <section className="relative z-10 grid gap-5 lg:min-h-[calc(100vh-8.5rem)] lg:grid-cols-[1.1fr_0.9fr] lg:items-center" aria-label="Cendorq command entry">
+      <section className="relative z-10 grid gap-6 lg:min-h-[calc(100vh-9rem)] lg:grid-cols-[1.02fr_0.98fr] lg:items-center" aria-label="Cendorq command entry">
         <div className="max-w-5xl">
           <TopChip>{CATEGORY_LINE}</TopChip>
-          <h1 className="system-hero-title mt-5 max-w-5xl text-5xl font-semibold tracking-tight text-white sm:text-6xl md:text-7xl xl:text-[5.4rem]">
-            Find why customers leave before you buy the fix.
+          <h1 className="system-hero-title mt-5 max-w-5xl text-5xl font-semibold tracking-tight text-white sm:text-6xl md:text-7xl xl:text-[5.7rem]">
+            Become the business customers understand, trust, find, and choose.
           </h1>
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            {BRAND_NAME} shows where your business loses clarity, trust, visibility, or the next step across search, AI answers, maps, reviews, and your site.
+            {BRAND_NAME} finds the hidden reason customers hesitate, then shows the right next move before you buy the wrong fix.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Start free scan
             </Link>
             <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              See pricing
+              See the command path
             </Link>
           </div>
-          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Free first read. Clear pricing when you need the next depth.</p>
+          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Free first read. Clear pricing. Protected platform after verification.</p>
         </div>
 
-        <aside className="rounded-[1.5rem] border border-white/10 bg-slate-950/55 p-4 shadow-[0_24px_80px_rgba(2,8,23,0.34)] sm:p-5" aria-label="Cendorq identity">
-          <div className="flex items-center gap-4">
-            <div className="grid h-14 w-14 shrink-0 place-items-center rounded-[1.15rem] border border-cyan-300/15 bg-cyan-300/10 text-xl font-black text-cyan-100">C</div>
+        <aside className="system-panel-authority rounded-[2rem] p-5 sm:p-6" aria-label="Cendorq command readout">
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-white">Cendorq</h2>
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">Business Command Intelligence</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Command readout</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">The decision path</h2>
             </div>
+            <div className="grid h-14 w-14 shrink-0 place-items-center rounded-[1.15rem] border border-cyan-300/15 bg-cyan-300/10 text-xl font-black text-cyan-100">C</div>
           </div>
-          <p className="mt-4 text-sm leading-7 text-slate-300">A plain diagnosis of the path customers use before they contact you.</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {DECISION_SIGNALS.map((signal) => <span key={signal} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-slate-200">{signal}</span>)}
+          <div className="mt-5 grid gap-3">
+            {COMMAND_SIGNALS.map((signal) => (
+              <div key={signal.label} className="rounded-[1.25rem] border border-white/10 bg-slate-950/48 p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-base font-semibold text-white">{signal.label}</h3>
+                  <span className="h-2 w-2 rounded-full bg-cyan-300" />
+                </div>
+                <p className="mt-2 text-sm leading-6 text-slate-300">{signal.value}</p>
+              </div>
+            ))}
           </div>
         </aside>
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[2rem] border border-cyan-300/14 bg-[radial-gradient(circle_at_top_right,rgba(103,232,249,0.12),transparent_34%),rgba(2,8,23,0.70)] p-5 shadow-[0_26px_90px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Customer decision pressure">
-        <TopChip>Silent decision pressure</TopChip>
+      <section className="relative z-10 mt-7 rounded-[2rem] border border-cyan-300/14 bg-[radial-gradient(circle_at_top_right,rgba(103,232,249,0.12),transparent_34%),rgba(2,8,23,0.70)] p-5 shadow-[0_26px_90px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Why Cendorq matters now">
+        <TopChip>Why it matters now</TopChip>
         <h2 className="mt-5 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-          If they do not understand you, trust you, find you, or know what to do next, they move on quietly.
+          Customers decide before they talk to you.
         </h2>
         <p className="mt-5 max-w-4xl text-base leading-8 text-slate-300 sm:text-lg">
-          Most owners see the symptom: fewer calls, weak bookings, ignored pages, or people choosing someone else. Cendorq looks for the pressure behind it in plain English.
+          They compare your site, search results, maps, reviews, social proof, and AI answers. If the story is unclear, the proof feels weak, or the next step is hard, they leave quietly.
         </p>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-5 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch" aria-label="Why Cendorq matters now">
-        <article className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
-          <h2 className="text-3xl font-semibold tracking-tight text-white">Search changed.</h2>
-          <p className="mt-4 text-base leading-8 text-slate-300">Customers compare you through Google, maps, reviews, social platforms, and AI answers before they decide who feels safe to contact.</p>
-        </article>
-        <article className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
-          <h2 className="text-3xl font-semibold tracking-tight text-white">The first move is clarity.</h2>
-          <p className="mt-4 text-base leading-8 text-slate-300">Start with the Free Scan when the cause is unclear. Move deeper only when the business needs a fuller diagnosis, a scoped fix, or monthly control.</p>
-        </article>
+      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-4" aria-label="Command controls">
+        {CONTROL_BLOCKS.map((block) => (
+          <article key={block.title} className="system-surface rounded-[1.6rem] p-5">
+            <h2 className="text-xl font-semibold tracking-tight text-white">{block.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">{block.copy}</p>
+          </article>
+        ))}
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-slate-950/55 p-5 sm:p-7" aria-label="Trust and next step">
+      <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-slate-950/55 p-5 sm:p-7" aria-label="Cendorq plan path">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <TopChip>Highest-converting path</TopChip>
+            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">Start with diagnosis. Move deeper only when the next depth is clear.</h2>
+          </div>
+          <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white">View pricing from $0 -&gt;</Link>
+        </div>
+        <div className="mt-6 grid gap-4 lg:grid-cols-3">
+          {PLAN_PATH.map((plan) => (
+            <Link key={plan.title} href={plan.href} className="rounded-[1.45rem] border border-white/10 bg-white/[0.035] p-5 transition hover:border-cyan-300/24 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">{plan.step}</span>
+                <span className="text-sm font-semibold text-cyan-100">{plan.price}</span>
+              </div>
+              <h3 className="mt-4 text-2xl font-semibold tracking-tight text-white">{plan.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-300">{plan.copy}</p>
+              <span className="mt-5 inline-flex text-sm font-semibold text-cyan-100">{plan.cta} -&gt;</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 mt-7 rounded-[2rem] border border-white/10 bg-slate-950/55 p-5 sm:p-7" aria-label="Trust and conversion lock">
         <div className="grid gap-7 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <div>
-            <TopChip>Trust lock</TopChip>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Proof first. No pressure.</h2>
-            <p className="mt-4 text-base leading-8 text-slate-300">Cendorq helps you see the break before you spend deeper. Your protected dashboard and report vault continue the path after verification.</p>
+            <TopChip>Conversion without pressure</TopChip>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Clear. Fast. Protected. Easy to act on.</h2>
+            <p className="mt-4 text-base leading-8 text-slate-300">The public surface stays concise. The deeper intelligence stays protected. The next action stays obvious.</p>
           </div>
           <div>
             <div className="grid gap-3 sm:grid-cols-2">
