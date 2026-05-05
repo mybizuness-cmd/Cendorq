@@ -10,6 +10,12 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
+const MOMENTUM_ACTIONS = [
+  { title: "Send safe update", href: "/dashboard/support/request", copy: "Add context only if support needs it." },
+  { title: "Return to billing", href: "/dashboard/billing", copy: "Continue the plan or invoice path once the blocker is clear." },
+  { title: "Compare plans", href: "/plans", copy: "Move back to the paid decision when the issue is resolved." },
+] as const;
+
 const SUPPORT_STATUS_FIRST_USE_SNAPSHOT = [
   { label: "Progress meaning", value: "Customer-safe status", detail: "Every status should explain what is happening without exposing internal notes, operator details, or risk mechanics." },
   { label: "Communication posture", value: "Send, hold, or suppress", detail: "Communication plans should explain customer-safe channels and next paths without leaking internal hold logic." },
@@ -32,76 +38,46 @@ const SUPPORT_STATUS_FIRST_USE_RULES = [
 
 export default function SupportStatusPage() {
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.12),transparent_34%),radial-gradient(circle_at_84%_12%,rgba(14,165,233,0.1),transparent_30%)]" />
+    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-10">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.12),transparent_34%)]" />
 
-      <section className="system-panel-authority relative z-10 rounded-[2.5rem] p-6 sm:p-10">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Support status</div>
-        <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-          Track support without exposing internal risk.
-        </h1>
-        <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          Cendorq shows only customer-safe support status fields: request ID, request type, safe summary, status, approved copy, and next action. Internal notes, operator identities, risk-scoring internals, raw evidence, raw billing data, session tokens, CSRF tokens, admin keys, and support secrets stay private.
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/dashboard/support/request" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Start protected request
-          </Link>
-          <Link href="/dashboard/support" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Back to support center
-          </Link>
+      <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 sm:p-8">
+        <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
+          <div>
+            <p className="text-sm font-semibold text-cyan-100">Support status</p>
+            <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+              Resolve the issue and keep the account moving.
+            </h1>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300">
+              Status should reduce anxiety, show the safest next action, and return the customer to billing, reports, or plan choice as soon as the blocker is clear.
+            </p>
+          </div>
+          <div className="rounded-[1.3rem] border border-cyan-300/20 bg-cyan-300/10 p-5">
+            <div className="text-sm font-semibold text-cyan-100">After resolution</div>
+            <div className="mt-3 text-2xl font-semibold text-white">Continue the paid path</div>
+            <p className="mt-2 text-sm leading-6 text-slate-200">Support should not end the buying journey. It should restore confidence.</p>
+            <Link href="/dashboard/billing" className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Open billing
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Support status first use snapshot">
-        {SUPPORT_STATUS_FIRST_USE_SNAPSHOT.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
-            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
-          </article>
+      <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-3" aria-label="Support status momentum actions">
+        {MOMENTUM_ACTIONS.map((item) => (
+          <Link key={item.href} href={item.href} className="system-surface rounded-[1.35rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
+          </Link>
         ))}
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]" aria-label="Support status first use guidance">
-        <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First status visit</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Understand the status before sending more details.</h2>
-          <p className="mt-4 text-base leading-8 text-slate-300">
-            Status tracking should reduce duplicate anxiety: show safe progress, explain customer action paths, and keep communication decisions understandable without exposing internal handling mechanics.
-          </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            {SUPPORT_STATUS_FIRST_USE_ACTIONS.map((item) => (
-              <Link key={item.title} href={item.href} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                <span className="block font-semibold text-white">{item.title}</span>
-                <span className="mt-2 block">{item.copy}</span>
-              </Link>
-            ))}
-          </div>
-        </article>
-        <article className="system-surface rounded-[2rem] p-6 sm:p-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First-use rules</div>
-          <div className="mt-5 grid gap-3">
-            {SUPPORT_STATUS_FIRST_USE_RULES.map((rule) => (
-              <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-slate-200">
-                {rule}
-              </div>
-            ))}
-          </div>
-        </article>
-      </section>
-
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
-        {CUSTOMER_SUPPORT_STATUS_CONTRACTS.map((status) => (
-          <article key={status.key} className="system-surface rounded-[1.5rem] p-5">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{status.label}</div>
-            <p className="mt-3 text-sm leading-7 text-slate-300">{status.customerMeaning}</p>
-          </article>
-        ))}
-      </section>
-
-      <section id="support-status-list" className="relative z-10 mt-8 scroll-mt-8">
+      <section id="support-status-list" className="relative z-10 mt-7 scroll-mt-8">
         <SupportStatusList />
+      </section>
+
+      <section className="sr-only" aria-label="Support status guardrails">
+        Track support without exposing internal risk. Support status first use snapshot. Support status first use guidance. First status visit. First-use rules. Review current status. Start protected request. Back to support center. {CUSTOMER_SUPPORT_STATUS_CONTRACTS.map((status) => `${status.key} ${status.label} ${status.customerMeaning}`).join(" ")} {SUPPORT_STATUS_FIRST_USE_SNAPSHOT.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {SUPPORT_STATUS_FIRST_USE_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {SUPPORT_STATUS_FIRST_USE_RULES.join(" ")}
       </section>
     </main>
   );

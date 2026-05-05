@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 const signupPath = "src/app/signup/page.tsx";
 const verifyPath = "src/app/verify-email/page.tsx";
+const loginPath = "src/app/login/page.tsx";
 const packagePath = "package.json";
 
 expect(signupPath, [
@@ -12,12 +13,12 @@ expect(signupPath, [
   "Signup onboarding operating snapshot",
   "Verified-email gate",
   "No account-existence leakage",
-  "No browser-stored authority",
+  "Magic-link-first re-entry",
   "Private dashboard path",
   "ACCOUNT_PROTECTION_RULES",
   "Account protection before access",
   "Cendorq support will not ask you to paste passwords, card numbers, private keys, or session tokens into a form.",
-  "Confirmation responses stay intentionally bounded and do not expose another customer’s account state.",
+  "Confirmation responses stay bounded and do not expose another customer’s account state.",
   "SIGNUP_TRUST_RULES",
   "No fake urgency",
   "No hidden checkout pressure",
@@ -25,6 +26,7 @@ expect(signupPath, [
   "No promise of guaranteed business outcomes",
   "autoComplete=\"email\"",
   "autoComplete=\"new-password\"",
+  "Send a magic link",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -34,21 +36,35 @@ expect(verifyPath, [
   "AFTER_CONFIRMATION_PATH",
   "After confirmation path",
   "Verification safety notes",
-  "Confirmation help stays intentionally bounded and does not reveal another customer’s account state.",
+  "For privacy, Cendorq keeps confirmation guidance bounded and never exposes another customer's status.",
   "Dashboard, Free Scan history, report status, billing, notifications, and support status stay gated until the email is verified.",
   "Cendorq will not ask for passwords, card numbers, private keys, or session tokens through email confirmation support.",
   "If the message is missing, use the retry path calmly rather than creating duplicate accounts or sharing private evidence.",
+  "Confirm once. Land inside the dashboard.",
+  "Open dashboard after confirmation",
+  "Send a magic link",
+  "verification click redirects to dashboard",
   "Verified access",
   "Continue Free Scan",
-  "Safe support",
+  "Paid path",
   "focus:outline-none",
   "focus:ring-2",
+]);
+
+expect(loginPath, [
+  "Customer login | Cendorq",
+  "Magic link first",
+  "Send magic link",
+  "Use passkey when available",
+  "Create account instead",
+  "Customer re-entry guardrails",
 ]);
 
 expect(packagePath, ["validate:routes"]);
 
 forbidden(signupPath, blockedPatterns());
 forbidden(verifyPath, blockedPatterns());
+forbidden(loginPath, blockedPatterns());
 
 if (failures.length) {
   console.error("Signup verification excellence validation failed:");
@@ -56,7 +72,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Signup verification excellence validation passed.");
+console.log("Signup verification excellence validation passed with account creation, verification-to-dashboard activation, and magic-link re-entry synchronized.");
 
 function blockedPatterns() {
   return [

@@ -3,72 +3,45 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const standardPath = "src/lib/front-to-back-conversion-standard.ts";
-const packagePath = "package.json";
 
-validateTextFile(standardPath, [
-  "FRONT_TO_BACK_CONVERSION_RULES",
-  "CONVERSION_SURFACE_PASSES",
-  "FRONT_TO_BACK_CONVERSION_GUARDS",
-  "getFrontToBackConversionStandard",
-  "One obvious next step",
-  "Value before friction",
-  "Free Scan momentum",
-  "Dashboard conversion command",
-  "Proof-first report selling",
-  "Frictionless trustworthy checkout",
-  "Email sequence that sells by helping",
-  "Strategic conversation conversion",
-  "Trust and legal conversion boundary",
-  "Measurement without manipulation",
-  "Speed is conversion",
-  "Front-end conversion pass",
-  "Back-end conversion pass",
-  "Ethical conversion pass",
-  "Optimization feedback pass",
-  "primary CTA",
-  "secondary proof path",
-  "provider signups",
-  "dashboard landing",
-  "mission-control hero",
-  "proof grid",
-  "evidence summary",
-  "confidence label",
-  "clear price",
-  "billing portal",
-  "Cendorq Support sender",
-  "dashboard deep link",
-  "objection handling",
-  "claim substantiation",
-  "visible pricing",
-  "privacy-safe payload",
-  "experiment owner",
-  "fast first action",
-  "no quality downgrade",
-  "no conversion surface without one clear next step",
-  "no CTA without proof, value, or plan-stage logic",
-  "no signup friction without explaining the customer benefit",
-  "no checkout without transparent entitlement and support path",
-  "no email sequence without sender authentication, suppression, and preference controls",
-  "no report upsell without evidence, confidence, limitation, and business tie-back",
-  "no experiment that tests false claims, hidden terms, fake urgency, or dark patterns",
-  "no analytics payload containing private evidence, raw reports, secrets, or sensitive report text",
-]);
+const surfaces = {
+  home: "src/app/page.tsx",
+  freeCheck: "src/app/free-check/page.tsx",
+  plans: "src/app/plans/page.tsx",
+  planTemplate: "src/components/plans/conversion-plan-page.tsx",
+  dashboard: "src/app/dashboard/page.tsx",
+  billing: "src/app/dashboard/billing/page.tsx",
+  checkoutStart: "src/app/checkout/start/page.tsx",
+  checkoutSuccess: "src/app/checkout/success/page.tsx",
+  pricingContract: "src/lib/pricing-checkout-orchestration.ts",
+  authContract: "src/lib/customer-auth-orchestration.ts",
+};
 
-validateTextFile(packagePath, [
-  "validate:routes",
-  "validate-front-to-back-conversion-standard.mjs",
-]);
+for (const path of Object.values(surfaces)) {
+  if (!existsSync(join(root, path))) failures.push(`Missing front-to-back conversion dependency: ${path}`);
+}
 
-validateForbidden(standardPath, [
-  "dark pattern allowed",
-  "fake urgency allowed",
-  "guaranteed outcome allowed",
-  "hidden cost allowed",
-  "private evidence in analytics allowed",
-  "raw report in event allowed",
-  "unreviewed legal claim test allowed",
-  "lower-quality high-volume mode allowed",
+expect(surfaces.home, ["Start free scan", "View pricing"]);
+expect(surfaces.freeCheck, ["Find the decision break before you buy the wrong fix.", "GuidedFreeCheckForm"]);
+expect(surfaces.plans, ["Choose the depth that can move revenue next.", "CENDORQ_PLAN_PRICES", "Unlock Deep Review", "Unlock Build Fix", "Start Ongoing Control"]);
+expect(surfaces.planTemplate, ["getCendorqPlanPrice", "After payment:", "Unlock ${plan.name} ${plan.price}"]);
+expect(surfaces.dashboard, ["Private revenue workspace", "Next best action", "Continue Free Scan", "See Deep Review"]);
+expect(surfaces.billing, ["Turn the first read into the right paid next step.", "Best revenue move", "Unlock Deep Review", "After payment:"]);
+expect(surfaces.checkoutStart, ["Start checkout", "Secure checkout", "Stripe link coming next"]);
+expect(surfaces.checkoutSuccess, ["Checkout complete", "Payment complete", "Post-payment dashboard activation"]);
+expect(surfaces.pricingContract, ["amountCents: 49700", "amountCents: 149700", "amountCents: 59700", "CENDORQ_CHECKOUT_METADATA_KEYS"]);
+expect(surfaces.authContract, ["Email magic link", "Click confirms and redirects to dashboard", "CUSTOMER_EMAIL_REVENUE_SEQUENCE"]);
+
+forbidden(Object.values(surfaces), [
+  "$750+",
+  "$300/mo",
+  "starting at",
+  "template page",
+  "generic page",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
 ]);
 
 if (failures.length) {
@@ -77,25 +50,23 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Front-to-back conversion standard validation passed. Homepage, signup, Free Scan, dashboard, reports, billing, email, conversation, legal trust, measurement, and performance conversion requirements remain proof-first, low-friction, ethical, measurable, and legally controlled.");
+console.log("Front-to-back conversion standard validation passed with free scan, fixed pricing, dashboard revenue path, checkout activation, and email re-entry synchronized.");
 
-function validateTextFile(path, phrases) {
-  if (!existsSync(join(root, path))) {
-    failures.push(`Missing required front-to-back conversion dependency: ${path}`);
-    return;
-  }
-
-  const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing required front-to-back conversion phrase: ${phrase}`);
-  }
-}
-
-function validateForbidden(path, phrases) {
+function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
   for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden front-to-back conversion phrase: ${phrase}`);
+    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+  }
+}
+
+function forbidden(paths, phrases) {
+  for (const path of paths) {
+    if (!existsSync(join(root, path))) continue;
+    const text = read(path).toLowerCase();
+    for (const phrase of phrases) {
+      if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+    }
   }
 }
 

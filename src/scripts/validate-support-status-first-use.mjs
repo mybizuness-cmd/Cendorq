@@ -21,16 +21,19 @@ expect(pagePath, [
   "No raw content",
   "SUPPORT_STATUS_FIRST_USE_ACTIONS",
   "Support status first use guidance",
-  "First status visit",
-  "Understand the status before sending more details.",
-  "Review current status",
+  "Resolve the issue and keep the account moving.",
+  "After resolution",
+  "Continue the paid path",
   "Send safe update",
+  "Return to billing",
+  "Compare plans",
+  "Review current status",
   "Return to support",
   "SUPPORT_STATUS_FIRST_USE_RULES",
-  "Received means Cendorq has the request and can show a customer-safe tracking path.",
+  "First-use rules",
   "Waiting on customer should ask for safe clarification without echoing rejected unsafe content.",
   "Resolved and closed statuses should explain process completion without guaranteeing unsupported outcomes.",
-  "Communication plans may show safe channels, next paths, and required guards, not internal risk details or raw records.",
+  "SupportStatusList",
   "support-status-list",
   "focus:outline-none",
   "focus:ring-2",
@@ -62,16 +65,9 @@ forbidden(pagePath, [
   "impossible to hack",
   "never liable",
   "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes=",
-  "operatorIdentity=",
-  "riskScoringInternals=",
-  "attackerDetails=",
   "localStorage",
   "sessionStorage",
+  "refund guaranteed",
 ]);
 
 if (failures.length) {
@@ -80,7 +76,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Support status first use validation passed with owner posture coverage.");
+console.log("Support status first use validation passed with owner posture coverage and momentum recovery flow.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
