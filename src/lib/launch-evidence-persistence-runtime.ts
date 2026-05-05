@@ -1,5 +1,13 @@
 import { LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT } from "./launch-evidence-persistence-contracts";
 
+const REQUIRED_LAUNCH_EVIDENCE_TYPES = [
+  "owner-configuration-evidence",
+  "production-smoke-evidence",
+  "rollback-evidence",
+  "audit-evidence",
+  "hard-lock-clearance-evidence",
+] as const;
+
 export type LaunchEvidenceType = (typeof LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT.evidenceTypes)[number]["key"];
 export type LaunchEvidenceStatus = "missing" | "pending" | "recorded" | "blocked";
 
@@ -79,6 +87,7 @@ export function summarizeLaunchEvidenceReadiness(inputs: readonly LaunchEvidence
     recordedCount,
     pendingCount,
     blockedCount,
+    requiredEvidenceTypes: REQUIRED_LAUNCH_EVIDENCE_TYPES,
     publicClaimAllowed: false,
     paidClaimAllowed: false,
     reportClaimAllowed: false,
@@ -87,7 +96,7 @@ export function summarizeLaunchEvidenceReadiness(inputs: readonly LaunchEvidence
 }
 
 function isKnownEvidenceType(value: string): value is LaunchEvidenceType {
-  return LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT.evidenceTypes.some((type) => type.key === value);
+  return LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT.evidenceTypes.some((type) => type.key === value) && REQUIRED_LAUNCH_EVIDENCE_TYPES.includes(value as LaunchEvidenceType);
 }
 
 function safeRole(value?: string) {
