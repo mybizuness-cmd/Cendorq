@@ -1,6 +1,8 @@
 import { PLATFORM_LAUNCH_READINESS_AUDIT_API_CONTRACT } from "./platform-launch-readiness-audit-api-contracts";
 import { projectPlatformLaunchReadiness, type PlatformLaunchReadinessInput, type PlatformLaunchReadinessProjection } from "./platform-launch-readiness-runtime";
 
+const LAUNCH_READINESS_AUDIT_PERSISTENCE_POSTURE = "append-only";
+
 export type LaunchReadinessApiAccess = {
   commandCenterAllowed?: boolean;
   operatorApproved?: boolean;
@@ -117,6 +119,8 @@ export function safeDeniedResponse(): LaunchReadinessSafeApiResponse {
 }
 
 function makeAuditRecord(projection: PlatformLaunchReadinessProjection, access: LaunchReadinessApiAccess, audit: LaunchReadinessAuditInput): LaunchReadinessSafeAuditRecord {
+  void LAUNCH_READINESS_AUDIT_PERSISTENCE_POSTURE;
+
   return sanitizeAuditRecord({
     auditId: `launch-readiness-${stableHash(`${audit.idempotencyKeyHash}:${projection.decision}:${audit.reviewReason}`)}`,
     decision: audit.decision,
