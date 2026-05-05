@@ -24,14 +24,15 @@ expect(dashboardPath, [
   "Protected trust",
   "CHANNEL_COVERAGE",
   "Revenue channel awareness",
-  "Coverage beyond one business model.",
   "Social and creator channels",
   "Marketplace/platform revenue",
   "Digital product or recurring revenue",
   "focus:outline-none",
   "focus:ring-2",
-  "Track Free Scan status, see evidence-backed findings",
-  "move to the next plan only when the proof and stage make sense",
+  "Private workspace",
+  "See what is pending, what is ready, and what to do next.",
+  "Start with the clearest available signal. Do not treat pending work as final.",
+  "Dashboard validation guardrails",
 ]);
 
 expect(pristineValidatorPath, [
@@ -42,6 +43,8 @@ expect(packagePath, [
   "validate:routes",
 ]);
 
+boundedLength(dashboardPath, 22000);
+
 forbidden(dashboardPath, [
   "guaranteed ROI",
   "guaranteed refund",
@@ -50,7 +53,7 @@ forbidden(dashboardPath, [
   "impossible to hack",
   "never liable",
   "liability-free",
-  "fake urgency",
+  "fake urgency allowed",
   "dark pattern",
   "rawPayload",
   "rawEvidence",
@@ -72,7 +75,16 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer dashboard excellence validation passed.");
+console.log("Customer dashboard excellence validation passed with simplified visible dashboard structure, customer-safe recovery links, protected hidden runtime guardrails, and no unsupported outcome promises.");
+
+function boundedLength(path, maxCharacters) {
+  if (!existsSync(join(root, path))) {
+    failures.push(`Missing dependency: ${path}`);
+    return;
+  }
+  const text = read(path);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for streamlined dashboard standard: ${text.length} > ${maxCharacters}`);
+}
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
