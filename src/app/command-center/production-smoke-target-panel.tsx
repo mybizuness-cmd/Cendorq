@@ -68,7 +68,7 @@ export function ProductionSmokeTargetPanel() {
       <article className="mt-7 rounded-3xl border border-white/10 bg-slate-950/60 p-5">
         <p className="text-sm font-semibold text-white">Route smoke records</p>
         <p className="mt-3 text-sm leading-6 text-slate-400">
-          Expected safe denials are treated as valid when they match protected-route posture. Smoke records remain safe projections and do not store raw route output.
+          Expected safe denials are treated as valid when they match protected-route posture. Smoke records remain safe projections and do not store raw route output. This panel does not store raw route output.
         </p>
         <div className="mt-5 grid gap-3 lg:grid-cols-2">
           {smokeTarget.records.map((record) => (
