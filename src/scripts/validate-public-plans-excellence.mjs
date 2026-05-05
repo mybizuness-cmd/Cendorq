@@ -5,27 +5,36 @@ const root = process.cwd();
 const failures = [];
 const componentPath = "src/components/plans/conversion-plan-page.tsx";
 const plansPath = "src/app/plans/page.tsx";
+const pricingContractPath = "src/lib/pricing-checkout-orchestration.ts";
+const checkoutStartPath = "src/app/checkout/start/page.tsx";
+const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-plans-excellence.mjs";
 
+expect(pricingContractPath, [
+  "CENDORQ_PLAN_PRICES",
+  "amountCents: 49700",
+  "amountCents: 149700",
+  "amountCents: 59700",
+  "CENDORQ_CHECKOUT_ORCHESTRATION",
+  "CENDORQ_CHECKOUT_METADATA_KEYS",
+  "CENDORQ_POST_PAYMENT_EMAILS",
+]);
+
 expect(componentPath, [
-  "PRICE_BY_PLAN",
-  "$0",
-  "$300",
-  "$750+",
-  "$300/mo",
+  "getCendorqPlanPrice",
+  "PLAN_KEY_BY_TITLE",
   "Compare pricing",
   "Best for",
   "Not for",
   "Plan guardrails",
   "Buy the right depth.",
-  "Start free when the cause is unclear.",
-  "Use Deep Review when the business needs the real reason.",
-  "Use Build Fix when the direction is clear enough to improve.",
-  "Use Ongoing Control when the base needs monthly attention.",
+  "Use Deep Review at $497 when the business needs the real reason.",
+  "Use Build Fix at $1,497 when the direction is clear enough to improve.",
+  "Use Ongoing Control at $597/month when the business needs monthly attention.",
   "No fake urgency.",
   "No unsupported revenue promise.",
   "No paid push before stage fit is clear.",
@@ -33,17 +42,36 @@ expect(componentPath, [
 ]);
 
 expect(plansPath, [
-  "Clear plans. Clear prices. No wrong-depth push.",
-  "$0",
-  "$300",
-  "$750+",
-  "$300/mo",
-  "Customers compare before they contact you.",
-  "The wrong fix wastes money.",
-  "The first step should reduce guessing.",
+  "Choose the depth that can move revenue next.",
+  "fixed price",
+  "CENDORQ_PLAN_PRICES",
   "Start free scan",
+  "Unlock Deep Review",
+  "Unlock Build Fix",
+  "Start Ongoing Control",
+  "Final fixed plan prices",
+  "Free Scan $0",
+  "Deep Review $497",
+  "Build Fix $1,497",
+  "Ongoing Control $597/mo",
   "Plans handoff runtime integration",
-  "Connected plan handoffs",
+]);
+
+expect(checkoutStartPath, [
+  "Start checkout | Cendorq",
+  "Secure checkout",
+  "Stripe link coming next",
+  "Checkout metadata",
+]);
+
+expect(checkoutSuccessPath, [
+  "Checkout complete | Cendorq",
+  "Payment complete",
+  "Post-payment dashboard activation",
+  "Plan entitlement",
+  "Billing record",
+  "Dashboard notification",
+  "Backend work queue",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -61,11 +89,11 @@ expect(ownerMaximumProtectionValidatorPath, [
 expect(packagePath, ["validate:routes"]);
 expect(routesChainPath, [validatorPath, "validate-owner-maximum-protection-posture.mjs"]);
 
-boundedLength(componentPath, 14000);
-boundedLength(plansPath, 14500);
+boundedLength(componentPath, 15500);
+boundedLength(plansPath, 16000);
 
 forbidden(componentPath, blockedPlanPhrases());
-forbidden(plansPath, [...blockedPlanPhrases(), "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious."]);
+forbidden(plansPath, [...blockedPlanPhrases(), "$750+", "$300/mo", "starting at", "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious."]);
 
 if (failures.length) {
   console.error("Public plans simplified excellence validation failed:");
@@ -73,7 +101,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans simplified excellence validation passed with visible pricing, shorter plan detail pages, stage-fit guidance, hidden platform handoff guardrails, route-chain coverage, and owner posture coverage.");
+console.log("Public plans simplified excellence validation passed with final fixed prices, checkout orchestration, visible pricing, shorter plan detail pages, hidden platform handoff guardrails, route-chain coverage, and owner posture coverage.");
 
 function blockedPlanPhrases() {
   return [
