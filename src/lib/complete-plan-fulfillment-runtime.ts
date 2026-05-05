@@ -1,6 +1,6 @@
 import { COMPLETE_PLAN_FULFILLMENT_MATRIX } from "./complete-plan-fulfillment-matrix";
 
-export type CompletePlanKey = (typeof COMPLETE_PLAN_FULFILLMENT_MATRIX.planMatrix)[number]["key"];
+export type CompletePlanKey = (typeof COMPLETE_PLAN_FULFILLMENT_MATRIX.planMatrix)[number]["planKey"];
 export type FulfillmentStageState = "not-started" | "ready" | "in-progress" | "blocked" | "complete";
 
 export type CompletePlanFulfillmentInput = {
@@ -51,6 +51,8 @@ export type CompletePlanFulfillmentSummary = {
   projections: readonly CompletePlanFulfillmentProjection[];
 };
 
+type PlanMatrixEntry = (typeof COMPLETE_PLAN_FULFILLMENT_MATRIX.planMatrix)[number];
+
 export function projectCompletePlanFulfillment(inputs: readonly CompletePlanFulfillmentInput[]): CompletePlanFulfillmentSummary {
   const projections = inputs.map(projectCompletePlan);
   const blockedCount = projections.filter((projection) => projection.blockedPatterns.length > 0 || projection.stageState === "blocked").length;
@@ -75,11 +77,11 @@ export function projectCompletePlanFulfillment(inputs: readonly CompletePlanFulf
 }
 
 export function projectCompletePlan(input: CompletePlanFulfillmentInput): CompletePlanFulfillmentProjection {
-  const plan = COMPLETE_PLAN_FULFILLMENT_MATRIX.planMatrix.find((candidate) => candidate.key === input.planKey) ?? COMPLETE_PLAN_FULFILLMENT_MATRIX.planMatrix[0];
+  const plan = COMPLETE_PLAN_FULFILLMENT_MATRIX.planMatrix.find((candidate) => candidate.planKey === input.planKey) ?? COMPLETE_PLAN_FULFILLMENT_MATRIX.planMatrix[0];
   const completedStages = new Set((input.completedStages ?? []).map((stage) => stage.toLowerCase()));
   const completedArtifacts = new Set((input.completedArtifacts ?? []).map((artifact) => artifact.toLowerCase()));
-  const stageNames = plan.stages.map((stage) => stage.stage);
-  const artifactNames = plan.stages.map((stage) => stage.artifact);
+  const stageNames = COMPLETE_PLAN_FULFILLMENT_MATRIX.universalStages;
+  const artifactNames = buildArtifactNames(plan);
   const missingStages = stageNames.filter((stage) => !completedStages.has(stage.toLowerCase()));
   const missingArtifacts = artifactNames.filter((artifact) => !completedArtifacts.has(artifact.toLowerCase()));
   const blockedPatterns = detectFulfillmentBlocks(input, missingStages, missingArtifacts);
@@ -94,9 +96,9 @@ export function projectCompletePlan(input: CompletePlanFulfillmentInput): Comple
   const stageState = getStageState(missingStages, blockedPatterns, customerFacingDeliveryAllowed);
 
   return {
-    planKey: plan.key,
-    planName: plan.name,
-    completionGoal: plan.completionGoal,
+    planKey: plan.planKey,
+    planName: formatPlanName(plan.planKey),
+    completionGoal: buildCompletionGoal(plan),
     valuePromise: plan.valuePromise,
     educationDepth: plan.educationDepth,
     planBoundary: plan.planBoundary,
@@ -106,7 +108,7 @@ export function projectCompletePlan(input: CompletePlanFulfillmentInput): Comple
     totalStageCount: stageNames.length,
     missingStages,
     missingArtifacts,
-    requiredOwners: unique(plan.stages.map((stage) => stage.owner)),
+    requiredOwners: getRequiredOwners(plan),
     releaseCaptainApproved: Boolean(input.releaseCaptainApproved),
     customerEducationReviewed: Boolean(input.customerEducationReviewed),
     valueExceedsPriceReviewed: Boolean(input.valueExceedsPriceReviewed),
@@ -119,6 +121,34 @@ export function projectCompletePlan(input: CompletePlanFulfillmentInput): Comple
     valueBoundaryExplanation: safeText(buildValueBoundaryExplanation(plan.valuePromise, plan.planBoundary)),
     blockedPatterns,
   };
+}
+
+function buildArtifactNames(plan: PlanMatrixEntry) {
+  return [
+    `${plan.planKey} safe intake artifact`,
+    `${plan.planKey} evidence summary artifact`,
+    `${plan.planKey} educational explanation artifact`,
+    `${plan.planKey} value boundary artifact`,
+    `${plan.planKey} release-captain approval artifact`,
+  ] as const;
+}
+
+function getRequiredOwners(plan: PlanMatrixEntry) {
+  if (plan.planKey === "free-scan") return ["automation", "release-captain", "support"];
+  if (plan.planKey === "deep-review") return ["research", "report-truth", "release-captain", "support"];
+  if (plan.planKey === "build-fix") return ["implementation", "quality-review", "release-captain", "support"];
+  return ["ongoing-control", "market-learning", "release-captain", "support"];
+}
+
+function formatPlanName(planKey: CompletePlanKey) {
+  return planKey
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function buildCompletionGoal(plan: PlanMatrixEntry) {
+  return `${formatPlanName(plan.planKey)} fulfillment complete with customer education, value above price, plan-boundary protection, conversion review, and release-captain approval.`;
 }
 
 function detectFulfillmentBlocks(
