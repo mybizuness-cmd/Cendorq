@@ -13,6 +13,9 @@ const validators = [
   "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-front-to-back-conversion-standard.mjs",
   "src/scripts/validate-customer-platform-routes.mjs",
+];
+
+const documentedValidatorCoverage = [
   "src/scripts/validate-signup-verification-excellence.mjs",
   "src/scripts/validate-dashboard-first-session-onboarding.mjs",
   "src/scripts/validate-notification-center-first-use.mjs",
@@ -24,9 +27,6 @@ const validators = [
   "src/scripts/validate-customer-notification-center.mjs",
   "src/scripts/validate-customer-support-center.mjs",
   "src/scripts/validate-dashboard-support-status-entry.mjs",
-];
-
-const documentedValidatorCoverage = [
   "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
@@ -83,5 +83,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed ${validators.length} validators for the customer revenue, access, checkout, support, and pricing flow.`);
-console.log(`Documented validator coverage retained for ${documentedValidatorCoverage.length} adjacent standards.`);
+console.log(`\nvalidate:routes chain passed ${validators.length} focused validators for the customer revenue, access, checkout, and pricing flow.`);
+console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
