@@ -82,6 +82,15 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     failureMeaning: "The maximum-protection doctrine may no longer be enforced, discoverable, or wired into the central validation chain.",
   },
   {
+    key: "owner-maximum-protection-posture",
+    label: "Owner maximum protection posture",
+    scriptPath: "src/scripts/validate-owner-maximum-protection-posture.mjs",
+    category: "security",
+    requiredInValidateRoutes: true,
+    protectedBoundary: "owner-facing maximum-protection doctrine, owner operating locks, protected launch posture, validation registry visibility, docs-index coverage, and validate:routes wiring",
+    failureMeaning: "Owner maximum-protection posture may no longer be enforced, discoverable, documented, or visible to production smoke coverage.",
+  },
+  {
     key: "codeql-workflow-integrity",
     label: "CodeQL workflow integrity",
     scriptPath: "src/scripts/validate-codeql-workflow-integrity.mjs",
@@ -357,8 +366,8 @@ export const COMMAND_CENTER_VALIDATION_REGISTRY = [
     scriptPath: "src/scripts/validate-production-smoke-coverage.mjs",
     category: "smoke",
     requiredInValidateRoutes: true,
-    protectedBoundary: "production smoke checks, closed routes, and guardrail synchronization",
-    failureMeaning: "Production smoke coverage no longer verifies required public, protected, and documentation guards.",
+    protectedBoundary: "production smoke checks, closed routes, owner-maximum-protection-posture, Owner maximum protection posture, validate-owner-maximum-protection-posture.mjs, and guardrail synchronization",
+    failureMeaning: "Production smoke coverage no longer verifies required public, protected, owner maximum-protection posture, and documentation guards.",
   },
   {
     key: "closed-intelligence",
