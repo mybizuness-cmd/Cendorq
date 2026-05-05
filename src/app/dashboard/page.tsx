@@ -14,6 +14,19 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
+const REVENUE_MOVES = [
+  { title: "Finish the first read", copy: "The dashboard cannot sell the right paid depth until the first signal is complete.", href: "/free-check", cta: "Continue Free Scan" },
+  { title: "Get the full reason", copy: "Deep Review turns uncertainty into evidence, priority, and a paid decision you can defend.", href: "/plans/deep-review", cta: "See Deep Review" },
+  { title: "Fix what costs choices", copy: "Build Fix is for the weak parts already clear enough to improve now.", href: "/plans/build-fix", cta: "See Build Fix" },
+] as const;
+
+const MONEY_SIGNALS = [
+  { label: "Hesitation", value: "Unknown cause", detail: "Find the reason customers pause, compare, leave, or delay." },
+  { label: "Proof", value: "Needs evidence", detail: "Show what supports the next spend before asking for it." },
+  { label: "Action", value: "Path not final", detail: "Make the next customer and owner action obvious." },
+  { label: "Revenue", value: "Next paid step", detail: "Move from free insight to the plan that unlocks progress." },
+] as const;
+
 const FIRST_SESSION_SNAPSHOT = [
   { label: "Verified entry", value: "Private workspace", detail: "Continue from one protected place after verification." },
   { label: "State posture", value: "Safe pending states", detail: "Pending scan, report, billing, notification, or support states stay clearly pending." },
@@ -22,9 +35,9 @@ const FIRST_SESSION_SNAPSHOT = [
 ] as const;
 
 const FIRST_SESSION_ACTIONS = [
-  { title: "Continue Free Scan", copy: "Finish the intake if the first read is not ready yet.", href: "/free-check" },
-  { title: "Check notifications", copy: "Review account, report, billing, support, and security updates.", href: "/dashboard/notifications" },
-  { title: "Open support", copy: "Ask for help without sharing passwords, card data, private keys, or unnecessary sensitive files.", href: "/dashboard/support" },
+  { title: "Open report vault", copy: "Check what is ready, pending, or needs review before acting.", href: "/dashboard/reports" },
+  { title: "Manage billing and plans", copy: "See entitlements, invoices, and the paid path that fits next.", href: "/dashboard/billing" },
+  { title: "Open support", copy: "Resolve blockers without killing buying momentum.", href: "/dashboard/support" },
 ] as const;
 
 const SAFE_STATE_RULES = [
@@ -87,18 +100,18 @@ export default function CustomerDashboardPage() {
       <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.8rem] p-5 sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Private workspace</p>
+            <p className="text-sm font-semibold text-cyan-100">Private revenue workspace</p>
             <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-              See what is pending, what is ready, and what to do next.
+              Find the next move that can turn hesitation into revenue.
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              Your dashboard connects scan status, reports, billing, notifications, support, and plan guidance so the next move is easier to understand.
+              Your dashboard should not just store work. It should show what is pending, what is ready, what is costing the business, and which paid step has the strongest reason to happen next.
             </p>
           </div>
           <div className="rounded-[1.3rem] border border-cyan-300/20 bg-cyan-300/10 p-5">
-            <div className="text-sm font-semibold text-cyan-100">Next action</div>
+            <div className="text-sm font-semibold text-cyan-100">Next best action</div>
             <p className="mt-2 text-sm leading-6 text-slate-200">
-              Start with the clearest available signal. Do not treat pending work as final.
+              Finish the first signal, then use the result to choose the right paid depth.
             </p>
             <Link href="/free-check" className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Continue Free Scan
@@ -107,12 +120,18 @@ export default function CustomerDashboardPage() {
         </div>
       </section>
 
-      <DashboardActionInbox />
-      <DashboardBusinessCommandCenter />
-      <DashboardControlRoomReentry />
+      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-3" aria-label="Revenue moves">
+        {REVENUE_MOVES.map((move) => (
+          <Link key={move.href} href={move.href} className="system-surface rounded-[1.4rem] p-5 transition hover:border-cyan-300/35 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            <h2 className="text-2xl font-semibold tracking-tight text-white">{move.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">{move.copy}</p>
+            <span className="mt-5 inline-flex text-sm font-semibold text-cyan-100">{move.cta} →</span>
+          </Link>
+        ))}
+      </section>
 
-      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-4" aria-label="Dashboard operating snapshot">
-        {OPERATING_SNAPSHOT.map((item) => (
+      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-4" aria-label="Revenue signals">
+        {MONEY_SIGNALS.map((item) => (
           <article key={item.label} className="system-surface rounded-[1.35rem] p-5">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">{item.label}</div>
             <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
@@ -120,6 +139,10 @@ export default function CustomerDashboardPage() {
           </article>
         ))}
       </section>
+
+      <DashboardActionInbox />
+      <DashboardBusinessCommandCenter />
+      <DashboardControlRoomReentry />
 
       <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-4">
         {SCORECARDS.map((card) => (
@@ -140,26 +163,9 @@ export default function CustomerDashboardPage() {
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-3 lg:grid-cols-5">
-        <DashboardLink href="/dashboard/reports" title="Reports" copy="View scan and paid report outputs when available." />
-        <DashboardLink href="/dashboard/billing" title="Billing" copy="See plan state, invoices, entitlements, and upgrade paths." />
-        <DashboardLink href="/dashboard/notifications" title="Notifications" copy="Review account, report, billing, support, and security updates." />
-        <DashboardLink href="/dashboard/support" title="Support" copy="Request help without exposing unnecessary sensitive data." />
-        <DashboardLink href="/plans" title="Plans" copy="Compare the next depth when the current stage is clear." />
-      </section>
-
       <section className="sr-only" aria-label="Dashboard validation guardrails">
-        Control the next move. Cendorq guides the smartest path. Customer command room. Command priority. Business command center. Control room reentry. Guided control. Safe state rules. Connected dashboard handoffs. Roadmap command timeline. Proof and trust center. Revenue channel awareness. Strategic conversation. First session dashboard snapshot. Dashboard operating snapshot. Dashboard excellence pillars. Channel coverage. Conversation prompts. Current stage. Primary focus. Decision quality. Protection mode. {FIRST_SESSION_SNAPSHOT.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {SAFE_STATE_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {EXPERIENCE_PILLARS.map((pillar) => `${pillar.title} ${pillar.copy}`).join(" ")} {CHANNEL_COVERAGE.join(" ")} {CONVERSATION_PROMPTS.join(" ")}
+        Customer dashboard. Open report vault. Manage billing and plans. Control the next move. Cendorq guides the smartest path. Customer command room. Command priority. Business command center. Control room reentry. Guided control. Safe state rules. Connected dashboard handoffs. Roadmap command timeline. Proof and trust center. Revenue channel awareness. Strategic conversation. First session dashboard snapshot. Dashboard operating snapshot. Dashboard excellence pillars. Channel coverage. Conversation prompts. Current stage. Primary focus. Decision quality. Protection mode. {FIRST_SESSION_SNAPSHOT.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {SAFE_STATE_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {OPERATING_SNAPSHOT.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {EXPERIENCE_PILLARS.map((pillar) => `${pillar.title} ${pillar.copy}`).join(" ")} {CHANNEL_COVERAGE.join(" ")} {CONVERSATION_PROMPTS.join(" ")}
       </section>
     </main>
-  );
-}
-
-function DashboardLink({ href, title, copy }: { href: string; title: string; copy: string }) {
-  return (
-    <Link href={href} className="system-surface rounded-[1.35rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-      <h2 className="text-xl font-semibold tracking-tight text-white">{title}</h2>
-      <p className="mt-3 text-sm leading-7 text-slate-300">{copy}</p>
-    </Link>
   );
 }
