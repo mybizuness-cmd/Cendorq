@@ -77,7 +77,7 @@ if (!failures.length) {
   validateTextFile("src/lib/backup-disaster-recovery-contracts.ts", ["BACKUP_DISASTER_RECOVERY_CONTRACT", "backup-disaster-recovery-v1", "Recovery must be planned before scale.", "restore must preserve customer ownership boundaries and safe projection rules", "BACKUP_DISASTER_RECOVERY_HARD_LOCKS"]);
 
   validateTextFile("src/app/dashboard/page.tsx", ["OPERATING_SNAPSHOT", "Dashboard operating snapshot", "EXPERIENCE_PILLARS", "CHANNEL_COVERAGE", "Proof before pressure", "focus:ring-2"]);
-  validateTextFile("src/app/page.tsx", ["Business Command Intelligence", "See pricing", "Start free scan", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "No fake urgency", "dashboard", "report vault"]);
+  validateTextFile("src/app/page.tsx", ["Business Command Intelligence", "View pricing", "Start free scan", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "No fake urgency", "dashboard", "Protected platform"]);
   validateTextFile("src/app/free-check/page.tsx", ["Command Free Scan room", "Free first read", "Dedicated page, not a cramped popup", "Routeable page that can be resumed or linked from dashboard", "Dashboard, notifications, and report vault handoff", "No browser-exposed protected secrets"]);
 
   validateTextFile("docs/controlled-continuous-evolution.md", ["# Controlled Continuous Evolution", "release-captain approval before merge", "Continuous updates must raise or preserve Cendorq's most-pristine standard"]);
