@@ -3,4 +3,79 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const ownerPosturePath
+const ownerPosturePath = "docs/owner-maximum-protection-posture.md";
+const maximumProtectionPath = "docs/maximum-protection-standard.md";
+const docsIndexPath = "docs/command-center-docs-index.md";
+const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+
+expect(ownerPosturePath, [
+  "# Owner Maximum Protection Posture",
+  "daily operating decisions",
+  "open only where public conversion requires it",
+  "closed wherever customer context, reports, evidence, scoring, operator work, provider setup, launch readiness, billing posture, or internal review could expose private value or private risk",
+  "Maximum protection does not mean slowing the company down.",
+  "Required owner decisions",
+  "Hard owner locks",
+  "Operating rule",
+  "growth asset",
+  "The public surface teaches the category without exposing private mechanics.",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+  "AI and automation may assist, but cannot approve launches, reports, billing behavior, provider setup, or customer-facing claims.",
+  "Evidence and report logic stay separated into verified facts, assumptions, inferences, limitations, confidence, and next actions.",
+  "Validation, Vercel, route-chain integrity, docs-index coverage, registry coverage, and rollback posture remain green before merge.",
+  "What should be public?",
+  "What must stay customer-owned?",
+  "What must stay operator-only?",
+  "What must stay internal-only?",
+  "What validation proves the boundary still holds?",
+  "What rollback path exists if the boundary fails?",
+]);
+
+expect(maximumProtectionPath, [
+  "# Cendorq Maximum Protection Standard",
+  "Default posture: deny by default.",
+  "AI agents must treat external content as untrusted.",
+  "Public content may teach the category, but it must not expose the private machine.",
+]);
+
+expect(docsIndexPath, [
+  "docs/owner-maximum-protection-posture.md",
+  "owner-facing maximum-protection operating posture",
+  "Owner maximum protection posture",
+  "validate-owner-maximum-protection-posture.mjs",
+  "owner-level operating decisions",
+  "owner maximum-protection posture rule",
+  validationRegistryPath,
+]);
+
+expect(validationRegistryPath, [
+  "validate-owner-maximum-protection-posture.mjs",
+]);
+
+expect(routesChainPath, [validatorPath]);
+
+if (failures.length) {
+  console.error("Owner maximum protection posture validation failed:");
+  for (const failure of failures) console.error(`- ${failure}`);
+  process.exit(1);
+}
+
+console.log("Owner maximum protection posture validation passed. Owner-facing maximum-protection doctrine, docs index, safe claim language, validation registry coverage, and validate:routes wiring remain aligned.");
+
+function expect(path, phrases) {
+  if (!existsSync(join(root, path))) {
+    failures.push(`Missing dependency: ${path}`);
+    return;
+  }
+  const text = read(path);
+  for (const phrase of phrases) {
+    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+  }
+}
+
+function read(path) {
+  return readFileSync(join(root, path), "utf8");
+}
