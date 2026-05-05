@@ -28,8 +28,12 @@ const WORKFLOW_COPY_BY_PLAN: Record<CendorqPaidPlanKey, string> = {
   "ongoing-control": "Ongoing Control moves into monthly focus and recurring review setup.",
 };
 
-export default function CheckoutSuccessPage({ searchParams }: { searchParams?: { plan?: string; session_id?: string } }) {
-  const planKey = normalizePaidPlanKey(searchParams?.plan);
+type CheckoutSuccessSearchParams = Promise<{ plan?: string; session_id?: string }>;
+
+export default async function CheckoutSuccessPage({ searchParams }: { searchParams?: CheckoutSuccessSearchParams }) {
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const planKey = normalizePaidPlanKey(resolvedSearchParams?.plan);
+  const sessionId = resolvedSearchParams?.session_id || "pending-session";
   const plan = getPaidCendorqPlanPrice(planKey);
   const nextAction = NEXT_ACTION_BY_PLAN[planKey];
   const email = CENDORQ_POST_PAYMENT_EMAILS.find((item) => item.planKey === planKey);
@@ -82,7 +86,7 @@ export default function CheckoutSuccessPage({ searchParams }: { searchParams?: {
       </section>
 
       <section className="sr-only" aria-label="Checkout success guardrails">
-        Checkout success. Stripe session id. session_id {searchParams?.session_id || "pending-session"}. Final fixed plan prices. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Post-payment dashboard activation. Checkout webhook fulfillment. Plan entitlement. Billing record. Dashboard notification. Backend work queue. Post-payment email. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_CHECKOUT_METADATA_KEYS.join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
+        Checkout success. Stripe session id. session_id {sessionId}. Final fixed plan prices. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Post-payment dashboard activation. Checkout webhook fulfillment. Plan entitlement. Billing record. Dashboard notification. Backend work queue. Post-payment email. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_CHECKOUT_METADATA_KEYS.join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
       </section>
     </main>
   );
