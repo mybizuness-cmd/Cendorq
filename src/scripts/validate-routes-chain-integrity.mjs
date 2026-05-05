@@ -25,6 +25,8 @@ const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
 const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const codeqlWorkflowPath = ".github/workflows/codeql.yml";
 const dependabotPath = ".github/dependabot.yml";
+const reportEvidenceAcceptedInputAnchor = 'acceptedInput: \\"safe-summary-only\\"';
+const reportEvidencePersistenceModeAnchor = 'persistenceMode: \\"append-only-safe-projection\\"';
 
 const requiredHighRiskValidators = [
   chainIntegrityValidatorPath,
@@ -160,7 +162,7 @@ console.log("Validate routes chain integrity passed. The route-chain self-check 
 function validateIndirectReportEvidenceCoverage() {
   const runtimeValidatorText = read(reportEvidenceRecordRuntimeValidatorPath);
   for (const validatorPath of requiredIndirectReportEvidenceValidators) if (!runtimeValidatorText.includes(validatorPath)) failures.push(`${reportEvidenceRecordRuntimeValidatorPath} must centrally cover indirect report evidence validator: ${validatorPath}`);
-  for (const phrase of ["src/lib/command-center/report-evidence-record-persistence-runtime.ts", "src/app/api/command-center/report-evidence/records/route.ts", "recordReportEvidenceRecordBatch", "acceptedInput: \\\"safe-summary-only\\\"", "persistenceMode: \\\"append-only-safe-projection\\\"", "rawEvidenceExposed: false"]) if (!runtimeValidatorText.includes(phrase)) failures.push(`${reportEvidenceRecordRuntimeValidatorPath} missing indirect report evidence coverage phrase: ${phrase}`);
+  for (const phrase of ["src/lib/command-center/report-evidence-record-persistence-runtime.ts", "src/app/api/command-center/report-evidence/records/route.ts", "recordReportEvidenceRecordBatch", reportEvidenceAcceptedInputAnchor, reportEvidencePersistenceModeAnchor, "rawEvidenceExposed: false"]) if (!runtimeValidatorText.includes(phrase)) failures.push(`${reportEvidenceRecordRuntimeValidatorPath} missing indirect report evidence coverage phrase: ${phrase}`);
 }
 
 function validateCodeqlWorkflowCoverage() {
