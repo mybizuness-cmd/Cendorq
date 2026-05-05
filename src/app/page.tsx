@@ -107,7 +107,7 @@ export default function HomePage() {
               See the command path
             </Link>
           </div>
-          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Free first read. Clear pricing when you need the next depth. Protected platform after verification.</p>
+          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Free first read. Clear pricing. Protected platform after verification. Pay only when the next depth is clear.</p>
         </div>
 
         <aside className="system-panel-authority rounded-[2rem] p-5 sm:p-6" aria-label="Cendorq command readout">
