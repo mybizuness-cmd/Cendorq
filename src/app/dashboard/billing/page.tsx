@@ -2,6 +2,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 import { CENDORQ_POST_PAYMENT_EMAILS, getPaidCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
+import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES } from "@/lib/plan-value-delivery-architecture";
 
 export const metadata = buildMetadata({
   title: "Billing and plans | Cendorq",
@@ -21,9 +22,9 @@ const BUILD_FIX = getPaidCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL = getPaidCendorqPlanPrice("ongoing-control");
 
 const REVENUE_ACTIONS = [
-  { title: "Unlock Deep Review", plan: DEEP_REVIEW, copy: "Get the real reason customers hesitate before you spend on fixes." },
-  { title: "Fix what is costing choices", plan: BUILD_FIX, copy: "Turn known weak spots into stronger pages, proof, and action paths." },
-  { title: "Keep monthly control", plan: ONGOING_CONTROL, copy: "Stay ahead of search, AI, reviews, and customer friction as things change." },
+  { title: "Unlock Deep Review", plan: DEEP_REVIEW, value: getPlanValueDelivery("deep-review") },
+  { title: "Fix what is costing choices", plan: BUILD_FIX, value: getPlanValueDelivery("build-fix") },
+  { title: "Keep monthly control", plan: ONGOING_CONTROL, value: getPlanValueDelivery("ongoing-control") },
 ] as const;
 
 const BILLING_RECOVERY_ACTIONS = [
@@ -56,16 +57,16 @@ export default function BillingPage() {
           <div>
             <p className="text-sm font-semibold text-cyan-100">Billing and plans</p>
             <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
-              Turn the first read into the right paid next step.
+              Choose the next paid step without paying twice for the same thing.
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              Your current access is Free Scan. The paid path exists to remove guessing: diagnose the cause, fix the weak parts, or keep the business under monthly control.
+              Billing should make the difference clear: Deep Review diagnoses the reason, Build Fix implements a scoped improvement, and Ongoing Control keeps monthly watch. Each plan unlocks different work.
             </p>
           </div>
           <div className="rounded-[1.2rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:rounded-[1.3rem] sm:p-5">
-            <div className="text-sm font-semibold text-cyan-100">Best revenue move</div>
+            <div className="text-sm font-semibold text-cyan-100">Best first paid depth</div>
             <div className="mt-2 text-3xl font-semibold text-white sm:mt-3">{DEEP_REVIEW.name}</div>
-            <p className="mt-2 text-sm leading-6 text-slate-200">{DEEP_REVIEW.primaryCustomerPromise}</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">{getPlanValueDelivery("deep-review").primaryValue}</p>
             <Link href={DEEP_REVIEW.checkoutPath} className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950 sm:w-auto">
               Unlock {DEEP_REVIEW.name} {DEEP_REVIEW.price}
             </Link>
@@ -80,7 +81,18 @@ export default function BillingPage() {
               <h2 className="text-2xl font-semibold tracking-tight text-white">{item.title}</h2>
               <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-sm font-semibold text-cyan-100">{item.plan.price}</span>
             </div>
-            <p className="mt-4 text-sm leading-7 text-slate-300">{item.copy}</p>
+            <p className="mt-4 text-sm leading-7 text-slate-300">{item.value.primaryValue}</p>
+            <p className="mt-3 text-sm leading-7 text-slate-200">{item.value.customerOutcome}</p>
+            <div className="mt-4 grid gap-3">
+              <div className="rounded-[1.05rem] border border-white/10 bg-white/[0.035] p-3">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-100">Includes</div>
+                <p className="mt-2 text-xs leading-5 text-slate-300">{item.value.includes.slice(0, 3).join(" · ")}</p>
+              </div>
+              <div className="rounded-[1.05rem] border border-white/10 bg-black/20 p-3">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">Not included</div>
+                <p className="mt-2 text-xs leading-5 text-slate-400">{item.value.doesNotInclude.slice(0, 2).join(" · ")}</p>
+              </div>
+            </div>
             <p className="mt-3 text-sm leading-7 text-slate-200">After payment: {item.plan.afterPaymentNextStep}</p>
           </Link>
         ))}
@@ -95,7 +107,7 @@ export default function BillingPage() {
       </section>
 
       <section className="sr-only" aria-label="Billing guardrails">
-        Billing and plan center. Final fixed plan prices. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Stripe checkout start. Checkout success. Post-payment emails. {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} Billing center first use snapshot. Billing center first use guidance. Billing safety rules. Billing handoff runtime integration. Connected billing handoffs. Entitlement status: Free Scan. Invoice access: Available after checkout. Billing support: support@cendorq.com. Compare plan options. {BILLING_FIRST_USE_SNAPSHOT.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Billing and plan center. Final fixed plan prices. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Plan value delivery architecture. No overlap billing guidance. Includes and not included. Deep Review diagnoses the full reason. Build Fix implements a scoped improvement. Ongoing Control monitors and guides monthly decisions. {PLAN_VALUE_SEPARATION_RULES.join(" ")} Stripe checkout start. Checkout success. Post-payment emails. {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} Billing center first use snapshot. Billing center first use guidance. Billing safety rules. Billing handoff runtime integration. Connected billing handoffs. Entitlement status: Free Scan. Invoice access: Available after checkout. Billing support: support@cendorq.com. Compare plan options. {BILLING_FIRST_USE_SNAPSHOT.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
