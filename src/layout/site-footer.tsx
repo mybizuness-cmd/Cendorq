@@ -11,8 +11,9 @@ const CATEGORY_LINE = "Business Command Intelligence";
 
 const ESSENTIAL_LINKS: readonly FooterLinkItem[] = [
   { label: "Free Scan", href: "/free-check" },
-  { label: "Plans", href: "/plans" },
-  { label: "Connect", href: "/connect" },
+  { label: "Pricing", href: "/plans" },
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Contact", href: "/connect" },
 ];
 
 const PLAN_PRICES = [
@@ -54,7 +55,7 @@ export function SiteFooter() {
                 href="/plans"
                 className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950"
               >
-                View plans
+                View pricing
               </Link>
             </div>
           </div>
