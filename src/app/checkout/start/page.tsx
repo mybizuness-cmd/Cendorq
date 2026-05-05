@@ -15,11 +15,13 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
-type CheckoutStartSearchParams = Promise<{ plan?: string }>;
+type CheckoutStartPageProps = {
+  searchParams?: Promise<{ plan?: string }>;
+};
 
-export default async function CheckoutStartPage({ searchParams }: { searchParams?: CheckoutStartSearchParams }) {
-  const resolvedSearchParams = searchParams ? await searchParams : undefined;
-  const planKey = normalizePaidPlanKey(resolvedSearchParams?.plan);
+export default async function CheckoutStartPage({ searchParams }: CheckoutStartPageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const planKey = normalizePaidPlanKey(resolvedSearchParams.plan);
   const plan = getPaidCendorqPlanPrice(planKey);
 
   return (
