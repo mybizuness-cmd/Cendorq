@@ -48,25 +48,18 @@ const SHORTCUTS: readonly ShortcutDefinition[] = [
         url: "/free-check",
     },
     {
-        name: "Compare Plans",
-        shortName: "Plans",
+        name: "View Pricing",
+        shortName: "Pricing",
         description:
             "Compare Free Scan, Deep Review, Build Fix, and Ongoing Control.",
         url: "/plans",
     },
     {
-        name: "See Deep Review",
-        shortName: "Deep Review",
+        name: "Open Dashboard",
+        shortName: "Dashboard",
         description:
-            "Use Deep Review when the business needs the cause before bigger action.",
-        url: "/plans/deep-review",
-    },
-    {
-        name: "Connect With Cendorq",
-        shortName: "Connect",
-        description:
-            "Use the direct communication lane when fit, scope, or context needs discussion.",
-        url: "/connect",
+            "Return to protected reports, notifications, and next actions.",
+        url: "/dashboard",
     },
 ] as const;
 
