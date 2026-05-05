@@ -2,44 +2,26 @@ name: CI
 
 on:
   pull_request:
-    branches:
-      - main
   push:
     branches:
       - main
-  workflow_dispatch:
-
-permissions:
-  contents: read
-
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   quality:
     name: Route guard, lint, typecheck, and build
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    env:
-      NEXT_TELEMETRY_DISABLED: "1"
-      NODE_OPTIONS: "--max-old-space-size=4096"
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v4
 
       - name: Set up pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
-          run_install: false
+          version: 9.15.9
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: "24"
           cache: pnpm
@@ -48,7 +30,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Validate canonical routes
-        run: pnpm validate:routes
+        run: node ./src/scripts/validate-routes.mjs
 
       - name: Run lint
         run: pnpm lint
