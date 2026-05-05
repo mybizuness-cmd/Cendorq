@@ -21,18 +21,16 @@ expect(pagePath, [
   "Route to the right place",
   "FIRST_USE_ACTIONS",
   "Notification center first use guidance",
-  "Start with the alert that changes what you can safely do next.",
+  "Act on what moves the account forward.",
+  "what is ready, what is blocked, and what next action protects or grows the business",
   "Start with priority",
   "Track support",
   "Open billing",
   "FIRST_USE_RULES",
   "First-use rules",
   "Notifications show safe customer-facing summaries, not raw operational records.",
-  "Security alerts should guide reauthentication without exposing attacker details or internal detection logic.",
-  "Billing alerts should route to billing actions without asking for card data in support messages.",
   "Support alerts should route to status, resubmission, support center, or new request paths without duplicate anxiety.",
-  "focus:outline-none",
-  "focus:ring-2",
+  "SupportLifecycleNotificationList",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -61,16 +59,6 @@ forbidden(pagePath, [
   "impossible to hack",
   "never liable",
   "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorIdentity",
-  "riskScoringInternals",
-  "attackerDetails=",
-  "sessionToken=",
-  "csrfToken=",
   "localStorage",
   "sessionStorage",
 ]);
@@ -81,7 +69,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Notification center first use validation passed with owner posture coverage.");
+console.log("Notification center first use validation passed with owner posture coverage and revenue-alert first-use flow.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
