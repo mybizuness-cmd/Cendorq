@@ -3,72 +3,88 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const standardPath = "src/lib/command-center/conversion-moat-standard.ts";
-const docsIndexPath = "docs/command-center-docs-index.md";
-const routeChainPath = "src/scripts/validate-routes-chain.mjs";
-const registryPath = "src/lib/command-center/validation-registry.ts";
-const homepagePath = "src/app/page.tsx";
 
-validateTextFile(standardPath, [
-  "CONVERSION_MOAT_RULES",
-  "CONVERSION_MOAT_MOMENTS",
-  "getConversionMoatStandard",
-  "Five-second command",
-  "Truthful plan progression",
-  "Proof before pressure",
-  "Pricing without confusion",
-  "Frictionless next step",
-  "Privacy-safe learning loop",
-  "single clear headline",
-  "two CTAs maximum",
-  "visible pricing path",
-  "no competing popup",
-  "Free Scan for unclear cause",
-  "Deep Review for evidence",
-  "Build Fix for known weak point",
-  "Ongoing Control for continued market change",
-  "protected dashboard language",
-  "$0",
-  "$300",
+const pricingContractPath = "src/lib/pricing-checkout-orchestration.ts";
+const plansPath = "src/app/plans/page.tsx";
+const planTemplatePath = "src/components/plans/conversion-plan-page.tsx";
+const billingPath = "src/app/dashboard/billing/page.tsx";
+const dashboardPath = "src/app/dashboard/page.tsx";
+const checkoutStartPath = "src/app/checkout/start/page.tsx";
+const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
+
+for (const path of [pricingContractPath, plansPath, planTemplatePath, billingPath, dashboardPath, checkoutStartPath, checkoutSuccessPath]) {
+  if (!existsSync(join(root, path))) failures.push(`Missing conversion moat dependency: ${path}`);
+}
+
+expect(pricingContractPath, [
+  "CENDORQ_PLAN_PRICES",
+  "Free Scan",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "amountCents: 49700",
+  "amountCents: 149700",
+  "amountCents: 59700",
+  "CENDORQ_CHECKOUT_ORCHESTRATION",
+  "CENDORQ_POST_PAYMENT_EMAILS",
+]);
+
+expect(plansPath, [
+  "Choose the depth that can move revenue next.",
+  "Every paid plan has a fixed price",
+  "Unlock Deep Review",
+  "Unlock Build Fix",
+  "Start Ongoing Control",
+  "Final fixed plan prices",
+]);
+
+expect(planTemplatePath, [
+  "Unlock ${plan.name} ${plan.price}",
+  "After payment:",
+  "Use Deep Review at $497",
+  "Use Build Fix at $1,497",
+  "Use Ongoing Control at $597/month",
+]);
+
+expect(billingPath, [
+  "Turn the first read into the right paid next step.",
+  "Best revenue move",
+  "Unlock Deep Review",
+  "Fix what is costing choices",
+  "Keep monthly control",
+  "After payment:",
+]);
+
+expect(dashboardPath, [
+  "Private revenue workspace",
+  "Find the next move that can turn hesitation into revenue.",
+  "Next best action",
+  "Get the full reason",
+  "Fix what costs choices",
+]);
+
+expect(checkoutStartPath, [
+  "Secure checkout",
+  "Unlock {plan.name} for {plan.price}",
+  "Stripe link coming next",
+]);
+
+expect(checkoutSuccessPath, [
+  "Payment complete",
+  "Post-payment dashboard activation",
+  "Backend work queue",
+]);
+
+forbidden([pricingContractPath, plansPath, planTemplatePath, billingPath, dashboardPath, checkoutStartPath, checkoutSuccessPath], [
   "$750+",
   "$300/mo",
-  "Start free scan",
-  "See pricing",
-]);
-
-validateTextFile(homepagePath, [
-  "Find why customers leave before you buy the fix.",
-  "Start free scan",
-  "View pricing",
-  "Free first read. Clear pricing when you need the next depth.",
-  "Customers decide before they talk to you.",
-  "Start small. Move deeper only when it makes sense.",
-  "No fake urgency. No wrong-depth push. Diagnosis comes before bigger spend.",
-]);
-
-validateTextFile(docsIndexPath, [
-  "src/lib/command-center/conversion-moat-standard.ts",
-  "src/scripts/validate-conversion-moat-standard.mjs",
-]);
-
-validateTextFile(routeChainPath, ["src/scripts/validate-conversion-moat-standard.mjs"]);
-validateTextFile(registryPath, ["conversion-moat-standard", "src/scripts/validate-conversion-moat-standard.mjs"]);
-
-validateForbidden(standardPath, [
-  "fake urgency allowed",
-  "dark pattern allowed",
-  "guaranteed revenue",
+  "starting at",
+  "generic page",
+  "template page",
   "guaranteed ROI",
-  "hidden pricing allowed",
-  "raw report text in analytics allowed",
-]);
-validateForbidden(homepagePath, [
   "guaranteed revenue",
-  "guaranteed ROI",
-  "Search Presence OS",
-  "Pricing is visible: $0, $300, $750+, or $300/mo.",
-  "Silent decision pressure",
-  "Pay only when the next depth is clear.",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
 ]);
 
 if (failures.length) {
@@ -77,24 +93,23 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Conversion moat standard validation passed with a direct customer headline, two clear CTAs, visible pricing access, proof-before-pressure language, stage-fit plans, frictionless next steps, and privacy-safe learning safeguards.");
+console.log("Conversion moat standard validation passed with fixed pricing, customer-facing checkout, dashboard revenue path, and post-payment activation coverage.");
 
-function validateTextFile(path, phrases) {
-  if (!existsSync(join(root, path))) {
-    failures.push(`Missing required conversion moat dependency: ${path}`);
-    return;
-  }
+function expect(path, phrases) {
+  if (!existsSync(join(root, path))) return;
   const text = read(path);
   for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing required conversion moat phrase: ${phrase}`);
+    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
   }
 }
 
-function validateForbidden(path, phrases) {
-  if (!existsSync(join(root, path))) return;
-  const text = read(path).toLowerCase();
-  for (const phrase of phrases) {
-    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden conversion moat phrase: ${phrase}`);
+function forbidden(paths, phrases) {
+  for (const path of paths) {
+    if (!existsSync(join(root, path))) continue;
+    const text = read(path).toLowerCase();
+    for (const phrase of phrases) {
+      if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+    }
   }
 }
 
