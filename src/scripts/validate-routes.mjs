@@ -27,6 +27,7 @@ const canonicalRoutes = [
   "src/lib/cendorq-revenue-operating-system.ts",
   "src/lib/customer-revenue-workflow-runtime.ts",
   "src/lib/free-scan-report-methodology.ts",
+  "src/lib/free-scan-workflow-runtime.ts",
 ];
 
 for (const path of canonicalRoutes) {
