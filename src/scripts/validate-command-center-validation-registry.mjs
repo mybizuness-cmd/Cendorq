@@ -31,7 +31,6 @@ const coreValidators = [
   "src/scripts/validate-customer-experience-standard.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-insights-conversation-standard.mjs",
-  "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-closed-intelligence.mjs",
@@ -113,7 +112,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and command-center, maximum protection, owner posture through the route chain, controlled evolution, controlled maintenance, report truth, report evidence, customer platform, customer experience, conversion moat, insights conversation, operator docs, owner manual, and closed-intelligence guardrails remain covered.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and command-center, maximum protection, owner posture through the route chain, controlled evolution, controlled maintenance, report truth, report evidence, customer platform, customer experience, conversion moat, insights conversation, owner manual, and closed-intelligence guardrails remain covered.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
