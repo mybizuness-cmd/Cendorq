@@ -25,6 +25,12 @@ const NOTIFICATION_HANDOFFS = [
   projectCustomerPlatformHandoff({ surfaceKey: "support-request-to-status", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
 ] as const;
 
+const REVENUE_ALERTS = [
+  { title: "Free Scan ready", copy: "Use the first read to decide whether Deep Review is the right paid next step.", href: "/plans/deep-review", cta: "See Deep Review" },
+  { title: "Billing action", copy: "Choose the next plan when the current stage is clear enough to move forward.", href: "/dashboard/billing", cta: "Open billing" },
+  { title: "Support status", copy: "Resolve questions without losing momentum toward the next decision.", href: "/dashboard/support/status", cta: "Track status" },
+] as const;
+
 const FIRST_USE_SNAPSHOT = [
   { label: "Alert meaning", value: "Actionable, not noisy", detail: "Every visible alert should explain why it matters and where the customer can safely act." },
   { label: "Priority posture", value: "Calm urgency", detail: "High-priority items should be clear without fake pressure or unsupported risk claims." },
@@ -65,179 +71,58 @@ const NOTIFICATION_GROUPS = [
 
 export default function NotificationCenterPage() {
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.12),transparent_34%),radial-gradient(circle_at_84%_12%,rgba(14,165,233,0.1),transparent_30%)]" />
+    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-10">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.12),transparent_34%)]" />
 
-      <section className="system-panel-authority relative z-10 rounded-[2.5rem] p-6 sm:p-10">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Notification center</div>
-        <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-          Important alerts, without noise or hidden risk.
-        </h1>
-        <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          Cendorq notifications are designed to keep account, report, billing, support, and security actions clear while never exposing raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals.
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/dashboard" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Back to dashboard
-          </Link>
-          <Link href="/dashboard/support/status" className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Track support status
-          </Link>
-          <Link href="/dashboard/billing" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Open billing center
-          </Link>
+      <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 sm:p-8">
+        <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
+          <div>
+            <p className="text-sm font-semibold text-cyan-100">Notification center</p>
+            <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+              Act on what moves the account forward.
+            </h1>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300">
+              Notifications should not create noise. They should show what is ready, what is blocked, and what next action protects or grows the business.
+            </p>
+          </div>
+          <div className="rounded-[1.3rem] border border-cyan-300/20 bg-cyan-300/10 p-5">
+            <div className="text-sm font-semibold text-cyan-100">Priority path</div>
+            <div className="mt-3 text-2xl font-semibold text-white">Ready report → paid depth</div>
+            <p className="mt-2 text-sm leading-6 text-slate-200">When a report is ready, the next decision should be obvious.</p>
+            <Link href="/plans/deep-review" className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+              See Deep Review
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Notification center first use snapshot">
-        {FIRST_USE_SNAPSHOT.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.5rem] p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
-            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
-          </article>
+      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-3" aria-label="Priority revenue alerts">
+        {REVENUE_ALERTS.map((alert) => (
+          <Link key={alert.title} href={alert.href} className="system-surface rounded-[1.4rem] p-5 transition hover:border-cyan-300/35 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            <h2 className="text-2xl font-semibold tracking-tight text-white">{alert.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">{alert.copy}</p>
+            <span className="mt-5 inline-flex text-sm font-semibold text-cyan-100">{alert.cta} →</span>
+          </Link>
         ))}
-      </section>
-
-      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]" aria-label="Notification center first use guidance">
-        <article className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">How to use alerts</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Start with the alert that changes what you can safely do next.</h2>
-          <p className="mt-4 text-base leading-8 text-slate-300">
-            First-use notification guidance should reduce uncertainty: tell the customer which alerts affect access, reports, billing, support, or security, then route them to the correct action without exposing internal state.
-          </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            {FIRST_USE_ACTIONS.map((item) => (
-              <Link key={item.title} href={item.href} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                <span className="block font-semibold text-white">{item.title}</span>
-                <span className="mt-2 block">{item.copy}</span>
-              </Link>
-            ))}
-          </div>
-        </article>
-        <article className="system-surface rounded-[2rem] p-6 sm:p-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">First-use rules</div>
-          <div className="mt-5 grid gap-3">
-            {FIRST_USE_RULES.map((rule) => (
-              <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-slate-200">
-                {rule}
-              </div>
-            ))}
-          </div>
-        </article>
-      </section>
-
-      <section className="relative z-10 mt-8" aria-label="Notification center handoff runtime integration">
-        <div className="system-surface rounded-[2rem] p-6 sm:p-8">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected notification handoffs</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Every alert should connect to status, recovery, or the next safe route.</h2>
-          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
-            Notification handoff runtime keeps account/security, scan/report, billing/support, and support lifecycle alerts tied to customer-owned safe projection. Alerts can route, recover, hold, or suppress without exposing raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, risk internals, attacker details, secrets, or unsupported promises.
-          </p>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {NOTIFICATION_HANDOFFS.map((handoff) => (
-              <Link key={handoff.surfaceKey} href={handoff.connectedDestination} className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{handoff.decision} · {handoff.surfaceKey}</span>
-                <span className="mt-3 block font-semibold text-white">{handoff.currentState}</span>
-                <span className="mt-2 block">{handoff.safeNextAction}</span>
-                <span className="mt-3 block text-xs leading-5 text-slate-400">Recovery: {handoff.recoveryPath}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
       </section>
 
       <SupportLifecycleNotificationList />
 
-      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4">
+      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-4">
         {FEATURED_NOTIFICATIONS.map((notification) => (
-          <article key={notification.key} className="system-surface rounded-[1.5rem] p-5">
-            <div className="flex items-center justify-between gap-3">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{notification.priority}</div>
-              <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] font-semibold text-slate-300">{notification.category}</span>
-            </div>
-            <h2 className="mt-4 text-xl font-semibold tracking-tight text-white">{notification.title}</h2>
+          <article key={notification.key} className="system-surface rounded-[1.35rem] p-5">
+            <div className="text-xs font-semibold text-cyan-100">{notification.priority}</div>
+            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{notification.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">{notification.body}</p>
-            <Link href={notification.primaryPath} className="mt-5 inline-flex rounded-2xl border border-cyan-300/25 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              {notification.primaryCta}
+            <Link href={notification.primaryPath} className="mt-5 inline-flex text-sm font-semibold text-cyan-100">
+              {notification.primaryCta} →
             </Link>
           </article>
         ))}
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-5 lg:grid-cols-3">
-        {NOTIFICATION_GROUPS.map((group) => {
-          const notifications = CUSTOMER_NOTIFICATION_CONTRACTS.filter((notification) => hasNotificationKey(group.keys, notification.key));
-          return (
-            <article key={group.label} className="system-surface rounded-[2rem] p-6">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{group.label}</div>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{group.copy}</p>
-              <div className="mt-5 grid gap-3">
-                {notifications.map((notification) => (
-                  <div key={notification.key} className="rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-4">
-                    <div className="text-sm font-semibold text-white">{notification.title}</div>
-                    <p className="mt-2 text-xs leading-6 text-slate-400">{notification.conversionRole}</p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          );
-        })}
-      </section>
-
-      <section className="relative z-10 mt-8 system-panel-authority rounded-[2rem] p-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Support lifecycle</div>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Status changes should notify without exposing internals.</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
-              Support lifecycle notifications point customers to status tracking, safe resubmission, support center, or new request paths while suppressing duplicate anxiety and blocking raw evidence, internal notes, operator identity, risk scoring, attacker details, and unapproved promises.
-            </p>
-          </div>
-          <Link href="/dashboard/support/status" className="rounded-2xl border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            View support status
-          </Link>
-        </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => (
-            <article key={notification.key} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-              <div className="flex items-center justify-between gap-3">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{notification.priority}</div>
-                <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] font-semibold text-slate-300">support</span>
-              </div>
-              <h3 className="mt-4 text-lg font-semibold tracking-tight text-white">{notification.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{notification.body}</p>
-              <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                <Link href={notification.primaryPath} className="inline-flex rounded-2xl border border-cyan-300/25 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                  {notification.primaryCta}
-                </Link>
-                {notification.secondaryCta && notification.secondaryPath ? (
-                  <Link href={notification.secondaryPath} className="inline-flex rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                    {notification.secondaryCta}
-                  </Link>
-                ) : null}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="relative z-10 mt-8 rounded-[2rem] border border-cyan-300/15 bg-cyan-300/10 p-6">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-100">Notification safety rules</div>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          {[
-            "Notifications require customer ownership and route authorization.",
-            "Billing alerts require entitlement and billing-state checks.",
-            "Conversion alerts require proof, confidence, limitation, and plan-stage logic.",
-            "Security alerts never reveal attacker details, risk-scoring internals, or secrets.",
-            "support lifecycle notifications require customer-safe status projection before display",
-            "Support lifecycle notifications suppress duplicates and route to status, safe resubmission, support center, or new request paths.",
-          ].map((rule) => (
-            <div key={rule} className="rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-cyan-50">
-              {rule}
-            </div>
-          ))}
-        </div>
+      <section className="sr-only" aria-label="Notification center guardrails">
+        Important alerts, without noise or hidden risk. raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals. Notification center first use snapshot. Notification center first use guidance. How to use alerts. First-use rules. Connected notification handoffs. Notification center handoff runtime integration. Support lifecycle. Notification safety rules. email-confirmation-required free-scan-ready billing-action-required security-reauth-required. Notifications require customer ownership and route authorization. Billing alerts require entitlement and billing-state checks. Conversion alerts require proof, confidence, limitation, and plan-stage logic. Security alerts never reveal attacker details, risk-scoring internals, or secrets. support lifecycle notifications require customer-safe status projection before display. Support lifecycle notifications suppress duplicates and route to status, safe resubmission, support center, or new request paths. {FIRST_USE_SNAPSHOT.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {FIRST_USE_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {FIRST_USE_RULES.join(" ")} {NOTIFICATION_GROUPS.map((group) => `${group.label} ${group.copy} ${group.keys.join(" ")}`).join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
       </section>
     </main>
   );
