@@ -25,7 +25,7 @@ export const metadata = buildMetadata({
     "customer hesitation analysis",
     "ai search visibility intake",
   ],
-  image: { alt: "Cendorq guided Free Scan." },
+  image: { alt: "Cendorq command-grade Free Scan." },
 });
 
 const TRUST_RULES = [
@@ -118,9 +118,9 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
       <section className="relative z-10 grid gap-4 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-        <div className="rounded-[1.75rem] border border-cyan-300/15 bg-cyan-300/[0.06] p-4 sm:p-5 lg:sticky lg:top-24">
+        <div className="system-panel-authority rounded-[1.75rem] p-4 sm:p-5 lg:sticky lg:top-24">
           <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">
-            Premium Free Scan room · Free first read
+            Command Free Scan room · Free first read
           </div>
           <h1 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
             Find the decision break before you buy the wrong fix.
