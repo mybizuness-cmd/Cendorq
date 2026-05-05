@@ -1,6 +1,8 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { containsUnsafeClaim } from "./lib/safe-prohibition-matcher.mjs";
+
 const root = process.cwd();
 const contractPath = "src/lib/platform-launch-readiness-audit-api-contracts.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
@@ -215,50 +217,10 @@ function expect(path, phrases) {
 function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
 
-  const text = read(path).toLowerCase();
+  const text = read(path);
   for (const phrase of phrases) {
-    if (containsUnsafeClaim(text, phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+    if (containsUnsafeClaim(text, phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
-}
-
-function containsUnsafeClaim(text, phrase) {
-  let index = text.indexOf(phrase);
-  while (index !== -1) {
-    const paragraphStart = Math.max(0, text.lastIndexOf("\n\n", index));
-    const nextParagraphBreak = text.indexOf("\n\n", index);
-    const paragraphEnd = nextParagraphBreak === -1 ? text.length : nextParagraphBreak;
-    const paragraph = text.slice(paragraphStart, paragraphEnd);
-    const window = text.slice(Math.max(0, index - 240), Math.min(text.length, index + phrase.length + 240));
-    const context = `${paragraph}\n${window}`;
-    const safeProhibition = [
-      "must never",
-      "must not",
-      "do not",
-      "does not",
-      "not to",
-      "not an",
-      "not a",
-      "never claim",
-      "never imply",
-      "avoid",
-      "without",
-      "cannot",
-      "blocked",
-      "disallowed",
-      "closed to",
-      "no partial",
-      "safe failure",
-      "only append",
-      "only safe",
-      "generic safe",
-      "false",
-      "allowed: false",
-    ].some((marker) => context.includes(marker));
-
-    if (!safeProhibition) return true;
-    index = text.indexOf(phrase, index + phrase.length);
-  }
-  return false;
 }
 
 function read(path) {
