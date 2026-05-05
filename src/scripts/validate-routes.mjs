@@ -13,6 +13,7 @@ const canonicalRoutes = [
   "src/app/verify-email/page.tsx",
   "src/app/dashboard/page.tsx",
   "src/app/dashboard/reports/page.tsx",
+  "src/app/dashboard/reports/free-scan/page.tsx",
   "src/app/dashboard/billing/page.tsx",
   "src/app/dashboard/notifications/page.tsx",
   "src/app/dashboard/support/page.tsx",
@@ -23,6 +24,9 @@ const canonicalRoutes = [
   "src/lib/customer-platform-route-map.ts",
   "src/lib/customer-auth-orchestration.ts",
   "src/lib/pricing-checkout-orchestration.ts",
+  "src/lib/cendorq-revenue-operating-system.ts",
+  "src/lib/customer-revenue-workflow-runtime.ts",
+  "src/lib/free-scan-report-methodology.ts",
 ];
 
 for (const path of canonicalRoutes) {
