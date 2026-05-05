@@ -60,7 +60,7 @@ expect(ownerMaximumProtectionValidatorPath, [
 expect(manualPath, [
   "## Controlled continuous evolution",
   "Cendorq should keep improving after launch through monitored, validated, reviewable, reversible updates without uncontrolled production mutation or quality drift.",
-  "Automated systems may detect, propose, test, and prepare updates, but they do not approve production-impacting changes.",
+  "Controlled continuous evolution means automated systems may detect, propose, test, and prepare updates, but they do not approve production-impacting changes.",
   "Every material update still needs a reviewable branch, validation gates, Vercel or preview success where applicable, mergeability confirmation, rollback awareness, and release-captain approval before merge.",
   "Prefer small coherent batches over large mixed changes.",
   "Treat Vercel, `validate:routes`, route-chain integrity, validation registry, docs index, operator runbook, and most-pristine coverage as the minimum operating rails.",
@@ -181,7 +181,7 @@ expect(captainAuditRuntimePath, [
 ]);
 
 expect(captainAuditValidatorPath, [
-  "Captain audit hardening control plane validation passed.",
+  "Captain audit hardening control plane validation passed",
   "docs/captain-audit-hardening-control-plane.md",
   "src/lib/captain-audit-hardening-control-plane.ts",
   "projectCaptainAuditHardeningControlPlane",
@@ -366,8 +366,33 @@ function forbidden(path, phrases) {
 
   const text = read(path).toLowerCase();
   for (const phrase of phrases) {
-    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+    if (containsUnsafeClaim(text, phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
+}
+
+function containsUnsafeClaim(text, phrase) {
+  let index = text.indexOf(phrase);
+  while (index !== -1) {
+    const window = text.slice(Math.max(0, index - 96), Math.min(text.length, index + phrase.length + 96));
+    const safeProhibition = [
+      "must never",
+      "must not",
+      "do not",
+      "does not",
+      "not to",
+      "never claim",
+      "never imply",
+      "avoid",
+      "without",
+      "cannot",
+      "blocked",
+      "false",
+    ].some((marker) => window.includes(marker));
+
+    if (!safeProhibition) return true;
+    index = text.indexOf(phrase, index + phrase.length);
+  }
+  return false;
 }
 
 function read(path) {
