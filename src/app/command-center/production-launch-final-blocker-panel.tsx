@@ -19,7 +19,7 @@ export function ProductionLaunchFinalBlockerPanel() {
           </h2>
         </div>
         <p className="max-w-2xl text-sm leading-6 text-slate-400">
-          This panel does not launch the platform. It shows whether owner configuration, production smoke, rollback evidence, audit evidence, and hard-lock clearance have enough proof for operator review without exposing protected provider details, private customer data, internal risk models, or private audit payloads.
+          This panel does not launch the platform. It shows whether owner configuration, production smoke, rollback evidence, audit evidence, and hard-lock clearance have enough proof for operator review. It does not expose protected provider details, private customer data, internal risk models, or private audit payloads.
         </p>
       </div>
 
