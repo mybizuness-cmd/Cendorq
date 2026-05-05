@@ -149,7 +149,7 @@ export default function FreeCheckPage() {
 
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3">
         {FAQS.map((item) => (
-          <FaqCard key={item.question} question={item.answer} answer={item.answer} />
+          <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
       </section>
     </main>
