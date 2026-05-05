@@ -12,7 +12,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     {
       key: "free-scan-results",
       subject: "Confirm your email to open your Cendorq results",
-      preheader: "Your private dashboard is ready after this one-time confirmation.",
+      preheader: "Your private Free Scan results are ready after this one-time confirmation.",
       useWhen: "Free Scan intake has been submitted and report visibility is gated by email verification.",
     },
     {
@@ -29,12 +29,13 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     },
   ],
   purpose:
-    "Create the highest-converting verify-to-view flow for Free Scan and paid-plan customers: the customer confirms the signup email, strengthens future email engagement, and is routed back into the exact private dashboard, report vault, or plan state they earned without showing protected results before verification.",
+    "Create the highest-converting verify-to-view flow for Free Scan and paid-plan customers: the customer confirms the signup email, strengthens future email engagement, and is routed back into the exact private dashboard, report result, report vault, or plan state they earned without showing protected results before verification.",
   operatingStandard: [
     "Use verification as a trust and access step, not as a dark pattern.",
     "After Free Scan or paid intake submission, show a calm check-your-inbox gate that names Cendorq Support <support@cendorq.com> instead of revealing protected report results before email verification.",
     "The primary confirmation CTA should combine the customer value and the security action: Confirm email and open your results.",
     "The confirmation click should verify the email server-side, consume the verification token once, mark inbox confirmation progress where appropriate, and route the customer to the correct protected dashboard destination.",
+    "Free Scan customers should land on the dedicated Free Scan result page, not a generic report vault, when the result route is requested and safe.",
     "The confirmation flow should improve future email engagement through real customer interaction, but must never promise provider-level inbox placement or provider-level deliverability control.",
     "Report email attachments may be sent after verification and release rules allow them, but the dashboard/report vault remains the canonical protected place to view current report state, next actions, and plan-fit guidance.",
   ],
@@ -43,7 +44,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     fallbackLabel: "Confirm email and open your dashboard",
     purpose:
       "Tie the customer's natural motivation to see scan or plan results to the required safety step of verifying the signup email.",
-    allowedDestinations: ["/dashboard", "/dashboard/reports", "/dashboard/notifications", "/free-check"],
+    allowedDestinations: ["/dashboard", "/dashboard/reports", "/dashboard/reports/free-scan", "/dashboard/notifications", "/free-check"],
   },
   journeyDestinations: [
     {
@@ -53,10 +54,10 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
         "Check your inbox for Cendorq Support <support@cendorq.com>. Confirm your email to unlock your Free Scan result inside your Cendorq dashboard.",
       emailSubjectKey: "free-scan-results",
       emailCta: "Confirm email and open your Free Scan results",
-      verifiedDestination: "/dashboard/reports",
-      dashboardModule: "report vault plus action inbox",
+      verifiedDestination: "/dashboard/reports/free-scan",
+      dashboardModule: "Free Scan results plus action inbox",
       reportVisibilityRule:
-        "Do not show Free Scan findings before email verification and safe release state. After verification, show the report state in the dashboard/report vault and send the report email when release rules allow.",
+        "Do not show Free Scan findings before email verification and safe release state. After verification, show the result on the dedicated Free Scan results page and send the report email when release rules allow.",
     },
     {
       key: "deep-review-purchased-or-submitted",
@@ -106,7 +107,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
   ],
   dashboardDisplayRules: [
     "The customer command center is the canonical protected place to display current report state, report vault entries, next actions, plan scope, support status, and billing handoffs.",
-    "Free Scan results should be available inside the dashboard/report vault after verification and safe release state, with email used as a delivery and return channel.",
+    "Free Scan results should be available inside the dedicated dashboard Free Scan results route after verification and safe release state, with email used as a delivery and return channel.",
     "Full reports should have dedicated report-vault views for readability, evidence separation, visual sections, downloadable assets when allowed, and next-step conversion guidance.",
     "The dashboard should summarize the report and route into the dedicated report view rather than cramming every report detail into the dashboard home.",
     "Each report view should preserve the command-center feeling by showing the report, what it means, what is included, what is not included, confidence/limitations, and the next best plan when evidence supports it.",
@@ -158,6 +159,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     "Every intake completion path must define a pre-verification screen, verification email CTA, sender identity, verified destination, dashboard module, and report visibility rule.",
     "Every report display path must keep dashboard summary, report-vault detail, email delivery, and plan next step synchronized.",
     "Every confirmation email must route to the customer-owned dashboard destination after verification, not to a generic dead end.",
+    "Free Scan verification must route to the dedicated dashboard Free Scan results page when the intake requests that destination.",
     "Release-captain review must reject verification flows that reveal protected results before verification, omit support@cendorq.com from the check-your-inbox instruction, or replace lifecycle email orchestration with dashboard-only messaging.",
   ],
 } as const;
