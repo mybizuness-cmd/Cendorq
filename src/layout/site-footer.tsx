@@ -76,7 +76,7 @@ export function SiteFooter() {
           <div className="system-surface rounded-[1.7rem] p-5 sm:p-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h3 className="text-xl font-semibold tracking-tight text-white">Pricing path</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-white">Clear pricing</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-300">
                   Start free. Pay only when the business needs a deeper diagnosis, scoped fix, or monthly control.
                 </p>

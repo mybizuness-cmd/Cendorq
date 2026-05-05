@@ -46,6 +46,7 @@ export type CustomerTrustedDeviceRecordContract = {
   lastSeenAt: string;
   lastRiskLevel: CustomerRiskLevel;
   revokedAt?: string;
+  riskPosture: "risk-based";
 };
 
 export type CustomerSessionRecordContract = {
@@ -60,6 +61,7 @@ export type CustomerSessionRecordContract = {
   rotatedAt?: string;
   revokedAt?: string;
   riskLevel: CustomerRiskLevel;
+  riskPosture: "risk-based";
   reauthRequiredFor: readonly string[];
 };
 
@@ -99,6 +101,7 @@ export type CustomerSecurityEventRecordContract = {
   deviceId?: string;
   eventType: string;
   riskLevel: CustomerRiskLevel;
+  riskPosture: "risk-based";
   outcome: CustomerSecurityEventOutcome;
   occurredAt: string;
   safeMetadataOnly: true;
@@ -156,6 +159,7 @@ export const CUSTOMER_PLATFORM_RECORD_GUARDS = [
   "no welcome email duplication",
   "no trusted device without challenge path",
   "no risky session without reauthentication, rotation, revocation, or lockout path",
+  "risk-based device, session, and security-event posture required",
 ] as const;
 
 export function getCustomerPlatformRecordContracts() {

@@ -11,6 +11,8 @@ import {
 import { CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT } from "./customer-email-confirmation-handoff-contracts";
 import { getCustomerEmailTemplateContracts } from "./customer-email-template-contracts";
 
+const FREE_SCAN_CONFIRMATION_SUBJECT = "Confirm your email to open your Cendorq results";
+
 export type CustomerConfirmationEmailIssuanceInput = IssueCustomerEmailVerificationTokenInput & {
   customerEmailHash: string;
   baseUrl: string;
@@ -149,8 +151,8 @@ export function projectCustomerConfirmationEmailSafeResponse(payload: CustomerCo
 }
 
 function pickSubject(journeyKey: CustomerConfirmationEmailIssuanceInput["journeyKey"], fallback: string) {
+  if (journeyKey === "free-scan-submitted") return FREE_SCAN_CONFIRMATION_SUBJECT;
   const byJourney = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.recommendedSubjects.find((subject) => {
-    if (journeyKey === "free-scan-submitted") return subject.key === "free-scan-results";
     if (journeyKey === "support-or-billing-entry") return subject.key === "dashboard-access";
     return subject.key === "paid-plan-access";
   });

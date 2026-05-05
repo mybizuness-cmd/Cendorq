@@ -1,10 +1,10 @@
 # Cendorq
 
-Cendorq is a Search Presence OS for businesses that need to become easier to understand, easier to trust, and easier to choose before they spend more money in the wrong place.
+Cendorq is Business Command Intelligence for businesses that need to become easier to understand, easier to trust, and easier to choose before they spend more money in the wrong place.
 
 ## Primary conversion path
 
-The strongest first action is the Free Scan.
+The strongest first action is the Free Scan when the cause is unclear.
 
 - Free Scan: /free-check
 - Plans: /plans
@@ -15,7 +15,7 @@ The strongest first action is the Free Scan.
 
 ## Route intent
 
-- /: Focused homepage funnel. The homepage should guide the right customer into the Free Scan.
+- /: Focused homepage command path. The homepage should help the right customer understand what Cendorq is, why it matters now, what it costs, and what to do next.
 - /free-check: Guided free scan intake. This is the safest first step before deeper spend.
 - /plans: Plain-language comparison of the full Cendorq buyer path.
 - /plans/deep-review: Deeper review for businesses that need to understand what is weakening clarity, trust, and choice.
@@ -27,6 +27,7 @@ The strongest first action is the Free Scan.
 
 Cendorq should be described in plain business language. Prefer:
 
+- Business Command Intelligence
 - Free Scan
 - Deep Review
 - Build Fix

@@ -20,7 +20,7 @@ const REPORT_VAULT_FIRST_USE_SNAPSHOT = [
   { label: "Availability", value: "Clear report state", detail: "Reports should be marked ready, pending, under review, corrected, or unavailable without guessing." },
   { label: "Methodology", value: "Separated reasoning", detail: "Facts, assumptions, inferences, recommendations, limitations, and next actions must stay distinct." },
   { label: "Access posture", value: "Protected vault", detail: "Report access belongs behind customer ownership checks and verified customer session gates." },
-  { label: "Correction posture", value: "Visible review path", detail: "Customers should know how to ask for correction without exposing raw private evidence unnecessarily." },
+  { label: "Correction posture", value: "Visible review path", detail: "Customers should know how to ask for correction without exposing private files unnecessarily." },
 ] as const;
 
 const REPORT_VAULT_ACTIONS = [
@@ -31,7 +31,7 @@ const REPORT_VAULT_ACTIONS = [
 
 const REPORT_VAULT_RULES = [
   "Do not present pending, draft, or incomplete reports as final customer truth.",
-  "Do not expose raw payloads, private evidence, internal notes, operator identities, risk internals, prompts, secrets, or cross-customer data.",
+  "Do not expose private payloads, private files, internal notes, operator identities, risk internals, prompts, secrets, or cross-customer data.",
   "Report copy must separate verified facts, assumptions, inferences, recommendations, limitations, and next actions.",
   "Correction paths must preserve audit proof while keeping customer-facing explanations calm and bounded.",
 ] as const;
@@ -120,7 +120,7 @@ export default function ReportsVaultPage() {
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Connected report handoffs</div>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Report movement stays tied to readiness, correction, and stage fit.</h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
-            Report vault handoff runtime keeps Free Scan results, dashboard report entry, support correction, and plan comparison connected to customer-owned safe projection. Pending reports stay pending, correction routes stay bounded, and plan movement waits for readiness instead of fake urgency or guaranteed outcomes.
+            Report vault handoff runtime keeps Free Scan results, dashboard report entry, support correction, and plan comparison connected to customer-owned safe projection. Pending reports stay pending, correction routes stay bounded, and plan movement waits for readiness instead of fake urgency or unsupported outcome promises.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {REPORT_VAULT_HANDOFFS.map((handoff) => (

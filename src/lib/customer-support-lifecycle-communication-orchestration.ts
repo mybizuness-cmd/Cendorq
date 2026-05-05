@@ -104,7 +104,7 @@ export const CUSTOMER_SUPPORT_LIFECYCLE_COMMUNICATION_GLOBAL_GUARDS = [
   "no support lifecycle communication sends before both the dashboard notification contract and email contract exist for the status",
   "no support lifecycle communication sends if suppression, preference, unsubscribe, bounce, complaint, or duplicate guards block the channel",
   "no support lifecycle communication contains raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, support context keys, or rejected unsafe content",
-  "no support lifecycle communication promises refunds, legal outcomes, report changes, billing changes, security outcomes, or guaranteed business results without approval",
+  "no support lifecycle communication promises refunds, legal outcomes, report changes, billing changes, security outcomes, or unsupported business-result promises without approval",
   "every support lifecycle communication routes to support status, safe resubmission, support center, or new request paths only",
 ] as const;
 

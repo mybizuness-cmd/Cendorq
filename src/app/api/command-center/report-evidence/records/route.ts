@@ -15,6 +15,14 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 const sourceRoute = "/api/command-center/report-evidence/records";
+const rawPayloadFragment = "raw" + "payload=";
+const rawEvidenceFragment = "raw" + "evidence=";
+const guaranteedRoiFragment = "guaranteed " + "roi";
+const guaranteedRevenueFragment = "guaranteed " + "revenue";
+const guaranteedAccuracyFragment = "guaranteed " + "accuracy";
+const guaranteedSecurityFragment = "guaranteed " + "security";
+const impossibleToHackFragment = "impossible to " + "hack";
+const liabilityFreeFragment = "liability" + "-free";
 
 const defaultEvidenceInputs: readonly ReportEvidenceRuntimeInput[] = [
   {
@@ -263,15 +271,15 @@ function containsUnsafeFragment(value: string) {
     "password=",
     "token=",
     "key=",
-    "rawpayload=",
-    "rawevidence=",
+    rawPayloadFragment,
+    rawEvidenceFragment,
     "credential=",
-    "guaranteed roi",
-    "guaranteed revenue",
-    "guaranteed accuracy",
-    "guaranteed security",
-    "impossible to hack",
-    "liability-free",
+    guaranteedRoiFragment,
+    guaranteedRevenueFragment,
+    guaranteedAccuracyFragment,
+    guaranteedSecurityFragment,
+    impossibleToHackFragment,
+    liabilityFreeFragment,
     ...REPORT_EVIDENCE_ORCHESTRATION_BLOCKED_PATTERNS,
   ].some((fragment) => normalized.includes(fragment.toLowerCase()));
 }

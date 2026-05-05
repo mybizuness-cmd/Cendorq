@@ -80,7 +80,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake completion API validation passed with owner posture coverage.");
+console.log("Free Scan intake completion API validation passed.");
 
 function unsafePhrases() {
   return [

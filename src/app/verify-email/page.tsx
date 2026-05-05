@@ -15,16 +15,16 @@ const CONFIRMATION_STEPS = [
 ] as const;
 
 const VERIFICATION_SAFETY_NOTES = [
-  "For privacy, Cendorq keeps confirmation guidance bounded and does not expose whether another customer account exists.",
+  "For privacy, Cendorq keeps confirmation guidance bounded and never exposes another customer's status.",
   "Dashboard, Free Scan history, report status, billing, notifications, and support status stay gated until the email is verified.",
   "Cendorq will not ask for passwords, card numbers, private keys, or session tokens through email confirmation support.",
   "If the message is missing, use the retry path calmly rather than creating duplicate accounts or sharing private evidence.",
 ] as const;
 
 const AFTER_CONFIRMATION_PATH = [
-  { label: "Verified access", value: "Open dashboard", detail: "Your account can continue into the private customer dashboard after confirmation." },
+  { label: "Verified access", value: "Open dashboard", detail: "Your workspace can continue into the private customer dashboard after confirmation." },
   { label: "Next action", value: "Continue Free Scan", detail: "The scan path stays connected to the verified customer workspace." },
-  { label: "Safe support", value: "Use bounded help", detail: "Support can help with confirmation without exposing another account or raw private details." },
+  { label: "Safe support", value: "Use bounded help", detail: "Support can help with confirmation without exposing another customer or raw private details." },
 ] as const;
 
 export default function VerifyEmailPage() {
@@ -37,7 +37,7 @@ export default function VerifyEmailPage() {
           Confirm your email before entering your Cendorq dashboard.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          This protects your Free Scan, future report results, billing access, support history, notifications, and saved business history. Your welcome email is sent one time after verified account creation.
+          This protects your Free Scan, future report results, billing access, support history, notifications, and saved business history. Your welcome email is sent one time after verified profile creation.
         </p>
 
         <div className="mt-8 grid gap-4 md:grid-cols-3">

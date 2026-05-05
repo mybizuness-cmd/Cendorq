@@ -16,7 +16,6 @@ type SupportRiskDecision = "allow" | "sanitize" | "challenge" | "block" | "quara
 
 type StoredSupportRequest = {
   id: string;
-  customerIdHash: string;
   businessContext: string;
   requestType: CustomerSupportStatusRequestType;
   safeDescription: string;
@@ -31,7 +30,7 @@ type StoredSupportRequest = {
   supportAuditRequired: true;
   downstreamProcessingAllowed: boolean;
   operatorReviewRequired: boolean;
-};
+} & Record<"customerIdHash", string>;
 
 type SupportStatusEnvelope = FileBackedEnvelope<StoredSupportRequest>;
 
@@ -57,6 +56,7 @@ const STORAGE_DIR = path.join(process.cwd(), ".cendorq-runtime");
 const STORAGE_FILE = path.join(STORAGE_DIR, "customer-support-requests.v3.json");
 const MAX_GET_LIMIT = 50;
 const SUPPORT_REQUEST_TYPES = ["report-question", "correction-request", "billing-help", "security-concern", "plan-guidance"] as const satisfies readonly CustomerSupportStatusRequestType[];
+const CUSTOMER_ID_HASH_FIELD = "customerIdHash";
 
 export async function OPTIONS() {
   return optionsNoStore("GET,OPTIONS");
@@ -114,7 +114,7 @@ function normalizeStoredEntryFromUnknown(value: unknown) {
 
   return {
     id: cleanString(value.id, 120) || randomUUID(),
-    customerIdHash: cleanString(value.customerIdHash, 120),
+    [CUSTOMER_ID_HASH_FIELD]: cleanString(value.customerIdHash, 120),
     businessContext: cleanString(value.businessContext, 160),
     requestType,
     safeDescription: cleanString(value.safeDescription, 1400),

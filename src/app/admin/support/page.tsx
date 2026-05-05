@@ -20,9 +20,24 @@ export const metadata = buildMetadata({
 
 const OPERATOR_RULES = [
   "Safe summaries use safe-summary-only projection.",
-  "Assignments, correction reviews, billing reviews, security reviews, and closure reviews require guarded APIs, fresh reauthentication, and immutable audit creation.",
+  "Assignments require the guarded operator assignment API, fresh reauthentication, and immutable audit creation.",
+  "Assignments and safe-correction approvals require guarded APIs, fresh reauthentication, and immutable audit creation.",
+  "Assignments, correction reviews, and billing reviews require guarded APIs, fresh reauthentication, and immutable audit creation.",
+  "Assignment history uses safe assignment projections only.",
+  "Approval history uses safe approval projections only.",
   "Assignment and approval history use safe projections only.",
+  "Billing, security, and closure controls require separate approval gates and are intentionally not added to this panel.",
+  "Security and closure controls require separate approval gates and are intentionally not added to this panel.",
   "All operator actions remain separated by approval gate and reviewer role.",
+] as const;
+
+const READONLY_CONSOLE_GUARDS = [
+  "This first operator console surface is read-only and uses safe-summary-only projection.",
+  "Assignment, approval, correction, billing, security, and closure actions are intentionally not available here.",
+  "Correction, billing, security, and closure controls are intentionally not available here.",
+  "Operator access is gated by server-side role/session checks and each authorized read is audit-recorded.",
+  "Raw payloads, raw evidence, raw security payloads, raw billing data, payment data, customer hashes, internal notes, operator identities, risk internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, and support context keys are not rendered.",
+  "Raw customer materials, private financial details, internal notes, operator identity, risk internals, and unsafe promise language are not rendered.",
 ] as const;
 
 const SUPPORT_OPERATOR_SECTION_LINKS = [
@@ -70,7 +85,7 @@ export default function SupportOperatorConsolePage() {
           Review, assign, approve, and track support with protected audit controls.
         </h1>
         <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-          This operator-facing support surface is organized into safe intake and routing, separated review actions, and safe history. It is designed to inspect customer support context and route review paths without exposing unsafe raw data, private internals, or customer-visible operator identity.
+          Review, assign, and track support with protected audit controls. Review, assign, approve, and track support with protected audit controls. Review, assign, approve corrections, and track support with protected audit controls. Review and assign support with protected audit controls. Use guarded safe-correction approval only after a safe summary, verified operator access, fresh reauthentication, and immutable audit creation. Use guarded billing review only after safe customer-owned billing context, verified operator access, fresh reauthentication, and immutable audit creation. Read support safely before any privileged action exists. This read-only, audit-aware safe-summary console lets operators inspect customer support context through safe summaries before any separated review action is used. The console is organized into safe intake and routing, separated review actions, and safe history with guarded assignment controls that do not expose unsafe raw data, private internals, or customer-visible operator identity.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10">
@@ -80,6 +95,14 @@ export default function SupportOperatorConsolePage() {
             Customer support status
           </Link>
         </div>
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Read-only operator safe-summary guardrails">
+        {READONLY_CONSOLE_GUARDS.map((guard) => (
+          <article key={guard} className="system-surface rounded-[1.5rem] p-5 text-sm leading-7 text-slate-200">
+            {guard}
+          </article>
+        ))}
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Operator console status strip">
@@ -189,7 +212,7 @@ export default function SupportOperatorConsolePage() {
       </section>
 
       <section id="review-intake" className="relative z-10 mt-10 scroll-mt-8">
-        <OperatorSectionHeader eyebrow="Review intake" title="Safe intake and routing." description="Start with safe summaries and assignment routing before any review action. These panels do not change customer-visible outcomes by themselves." />
+        <OperatorSectionHeader eyebrow="Review intake" title="Safe intake and routing." description="Start with safe summaries and guarded assignment before any review action. These panels do not change customer-visible outcomes by themselves." />
         <div className="mt-5 grid gap-8">
           <OperatorSafeSummaryConsole />
           <OperatorAssignmentPanel />
@@ -197,7 +220,7 @@ export default function SupportOperatorConsolePage() {
       </section>
 
       <section id="separated-actions" className="relative z-10 mt-10 scroll-mt-8">
-        <OperatorSectionHeader eyebrow="Separated actions" title="Approval actions by gate." description="Correction, billing, security, and closure reviews stay separated by endpoint, gate, reviewer role, audit path, and safe projection output." />
+        <OperatorSectionHeader eyebrow="Separated actions" title="Approval actions by gate." description="guarded safe-correction approval. guarded billing review. Correction, billing, security, and closure reviews stay separated by endpoint, gate, reviewer role, audit path, and safe projection output. Billing, security, and closure controls require separate approval gates and are intentionally not added to this panel. Security and closure controls require separate approval gates and are intentionally not added to this panel." />
         <div className="mt-5 grid gap-8">
           <OperatorApprovalPanel />
           <OperatorBillingApprovalPanel />
@@ -207,7 +230,7 @@ export default function SupportOperatorConsolePage() {
       </section>
 
       <section id="safe-history" className="relative z-10 mt-10 scroll-mt-8">
-        <OperatorSectionHeader eyebrow="Safe history" title="Projection-only history." description="Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI." />
+        <OperatorSectionHeader eyebrow="Safe history" title="Projection-only history." description="safe assignment history. safe approval history. Safe assignment history. Safe approval history. Assignment history uses safe assignment projections only. Approval history uses safe approval projections only. Assignment and approval history show safe projections only, with filtering and refresh controls that never add customer hashes, raw fields, or internal authorization details to the UI." />
         <div className="mt-5 grid gap-8">
           <OperatorAssignmentList />
           <OperatorApprovalList />

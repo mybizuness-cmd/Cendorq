@@ -18,7 +18,7 @@ const COMMAND_CENTER_PRIORITIES = [
   },
   {
     title: "Keep momentum without pressure",
-    copy: "The dashboard should make progress feel easy and premium without fake urgency, fear tactics, unsupported promises, or noisy reminders.",
+    copy: "The dashboard should make progress feel easy and premium without false urgency, fear tactics, unsupported promises, or noisy reminders.",
     signal: "Calm momentum",
   },
 ] as const;

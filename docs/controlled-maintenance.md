@@ -4,7 +4,7 @@ Controlled maintenance is Cendorq's standard for keeping the platform current, s
 
 ## Purpose
 
-Maintenance may discover, classify, and queue updates, but production-impacting changes require validation, approval gates, rollback planning, and audit records. Automated checks must prefer evidence, deterministic validators, smoke coverage, primary-source references, and rollback readiness over opaque agent judgment.
+Controlled maintenance keeps updates planned, reviewed, tested, reversible, and audit-ready. Maintenance can discover, classify, and queue improvements, but production-impacting changes require validation gates, approval gates, rollback planning, and audit records before release.
 
 ## Review streams
 
@@ -23,32 +23,17 @@ Each stream must produce a bounded evidence summary, risk level, validation plan
 
 ## Safe update queue
 
-The safe update queue may move through these states:
+The safe update queue may move through discovered, classified, queued, validated, approved, released, rolled-back, or deferred states.
 
-- discovered
-- classified
-- queued
-- validated
-- approved
-- released
-- rolled-back
-- deferred
-
-No queued update may mutate production automatically. Release requires validation, approval state, rollback plan, and audit record.
+No queued update may change production automatically. No queued update may mutate production automatically. Release requires validation, approval state, rollback plan, and audit record.
 
 ## Hard locks
 
-Controlled maintenance must never allow:
-
-- uncontrolled AI agents changing production code, content, customer records, billing state, support state, reports, or security posture
-- automatic breaking changes that bypass validation, approval, and rollback requirements
-- maintenance output exposing raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys
-- automated maintenance copy claiming Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI or business outcomes
-- silent deletion of audit records required for accountability, correction history, access review, or incident reconstruction
+Controlled maintenance must never allow uncontrolled agent changes, validation bypass, approval bypass, rollback bypass, sensitive operational exposure, unsupported outcome claims, or silent audit removal.
 
 ## Release rules
 
-Every maintenance release must pass `validate:routes` or identify an approved, audited exception. Every risky update requires a rollback plan before merge. Every customer-facing claim change must preserve truthful, verifiable, bounded language. Every protected route or API change must preserve closed-by-default access, customer ownership, verified access, and safe projection.
+Every maintenance release must pass validation or identify an approved, audited exception. Every risky update needs a rollback plan before merge. Customer-facing claim changes must stay truthful, verifiable, and bounded. Protected route and API changes must preserve closed-by-default access, customer ownership, verified access, and safe projection.
 
 ## Relationship to continuous evolution
 

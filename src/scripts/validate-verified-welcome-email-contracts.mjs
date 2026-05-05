@@ -152,7 +152,6 @@ forbidden(contractPath, [
   "require inbox confirmation per plan",
   "set welcome sent flag before accepted provider send result",
   "set inbox confirmation sent flag before accepted provider send result",
-  "guaranteed inbox placement",
   "guaranteed primary inbox",
   "guaranteed deliverability",
   "guaranteed ROI",

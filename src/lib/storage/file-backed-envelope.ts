@@ -30,13 +30,15 @@ export async function loadFileBackedEnvelope<TEntry>({
   sortEntries,
   createTempId,
 }: LoadFileBackedEnvelopeInput<TEntry>): Promise<FileBackedEnvelope<TEntry>> {
-  await ensureStorageDir(storageDir);
+  const runtime = resolveRuntimeStoragePaths(storageDir, storageFile);
+  await ensureStorageDir(runtime.storageDir);
 
-  const current = await readEnvelopeFile({ filePath: storageFile, normalizeEntry, sortEntries });
+  const current = await readEnvelopeFile({ filePath: runtime.storageFile, normalizeEntry, sortEntries });
   if (current) return current;
 
   for (const filePath of legacyStorageFiles) {
-    const legacy = await readEnvelopeFile({ filePath, normalizeEntry, sortEntries });
+    const legacyPath = resolveRuntimeLegacyPath(storageDir, runtime.storageDir, filePath);
+    const legacy = await readEnvelopeFile({ filePath: legacyPath, normalizeEntry, sortEntries });
     if (!legacy) continue;
 
     if (createTempId) {
@@ -54,10 +56,11 @@ export async function saveFileBackedEnvelope<TEntry>({
   envelope,
   createTempId,
 }: SaveFileBackedEnvelopeInput<TEntry>) {
-  await ensureStorageDir(storageDir);
-  const tempFile = `${storageFile}.${createTempId()}.tmp`;
+  const runtime = resolveRuntimeStoragePaths(storageDir, storageFile);
+  await ensureStorageDir(runtime.storageDir);
+  const tempFile = `${runtime.storageFile}.${createTempId()}.tmp`;
   await writeFile(tempFile, JSON.stringify(envelope, null, 2), "utf8");
-  await rename(tempFile, storageFile);
+  await rename(tempFile, runtime.storageFile);
 }
 
 async function readEnvelopeFile<TEntry>({
@@ -83,6 +86,30 @@ async function readEnvelopeFile<TEntry>({
 
 async function ensureStorageDir(storageDir: string) {
   await mkdir(path.resolve(storageDir), { recursive: true });
+}
+
+function resolveRuntimeStoragePaths(storageDir: string, storageFile: string) {
+  const resolvedStorageDir = path.resolve(storageDir);
+  const overrideDir = cleanStorageDir(process.env.CENDORQ_FILE_STORAGE_DIR);
+  const runtimeStorageDir = overrideDir || (process.env.VERCEL ? path.join("/tmp", "cendorq-runtime") : resolvedStorageDir);
+  return {
+    storageDir: runtimeStorageDir,
+    storageFile: path.join(runtimeStorageDir, path.basename(storageFile)),
+  };
+}
+
+function resolveRuntimeLegacyPath(originalStorageDir: string, runtimeStorageDir: string, legacyStorageFile: string) {
+  const resolvedOriginalDir = path.resolve(originalStorageDir);
+  const resolvedLegacy = path.resolve(legacyStorageFile);
+  if (resolvedLegacy.startsWith(`${resolvedOriginalDir}${path.sep}`)) return path.join(runtimeStorageDir, path.basename(legacyStorageFile));
+  return legacyStorageFile;
+}
+
+function cleanStorageDir(value: unknown) {
+  if (typeof value !== "string") return "";
+  const cleaned = value.trim();
+  if (!cleaned || cleaned.includes("\0")) return "";
+  return cleaned;
 }
 
 function isEnvelopeLike(value: unknown): value is { entries: unknown[] } {

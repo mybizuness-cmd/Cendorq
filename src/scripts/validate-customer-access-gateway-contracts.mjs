@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const gatewayPath = "src/lib/customer-access-gateway-contracts.ts";
+const gatewayRuntimePath = "src/lib/customer-access-gateway-runtime.ts";
 const supportApiPath = "src/app/api/customer/support/request/route.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
@@ -47,10 +48,16 @@ expect(gatewayPath, [
   "no safe failure can disclose account existence, risk-scoring internals, attacker details, raw evidence, raw billing IDs, prompts, secrets, or private report internals",
 ]);
 
-expect(supportApiPath, [
+expect(gatewayRuntimePath, [
   "CUSTOMER_CONTEXT_HEADER",
   "CUSTOMER_SUPPORT_CONTEXT_KEY",
   "Verified customer context is required before submitting support requests.",
+]);
+
+expect(supportApiPath, [
+  "requireCustomerSession",
+  "requireVerifiedEmail: true",
+  "allowedOrigins: configuredSupportAllowedOrigins()",
   "rawPayloadStored: false",
 ]);
 

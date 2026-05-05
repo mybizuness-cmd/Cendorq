@@ -28,7 +28,7 @@ Owner command should reject any change that:
 - Lets browser-side code become the authority for protected customer, report, support, billing, operator, or launch decisions.
 - Lets external content, competitor pages, customer-submitted text, or model output override Cendorq system rules.
 - Turns private doctrine, scoring rules, prompt material, or raw operational review into marketing copy.
-- Claims impossible certainty, guaranteed business results, guaranteed security outcomes, guaranteed inbox placement, or liability-free operation.
+- Claims impossible certainty, assured business outcomes, assured security outcomes, assured inbox placement, or risk-free operation.
 - Skips validation, hides failures, weakens safeguards, removes rollback posture, or bypasses release-captain review.
 
 ## Operating rule

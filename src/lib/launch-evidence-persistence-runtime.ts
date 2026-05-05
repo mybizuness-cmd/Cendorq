@@ -1,5 +1,13 @@
 import { LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT } from "./launch-evidence-persistence-contracts";
 
+const REQUIRED_LAUNCH_EVIDENCE_TYPES = [
+  "owner-configuration-evidence",
+  "production-smoke-evidence",
+  "rollback-evidence",
+  "audit-evidence",
+  "hard-lock-clearance-evidence",
+] as const;
+
 export type LaunchEvidenceType = (typeof LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT.evidenceTypes)[number]["key"];
 export type LaunchEvidenceStatus = "missing" | "pending" | "recorded" | "blocked";
 
@@ -12,6 +20,8 @@ export type LaunchEvidenceInput = {
   recordedByRole?: string;
   sourceRoute?: string;
   requestIdHash?: string;
+  rawPayload?: never;
+  privateAuditPayload?: never;
 };
 
 export type LaunchEvidenceProjection = {
@@ -35,6 +45,9 @@ export type LaunchEvidencePersistenceResult = {
   projection?: LaunchEvidenceProjection;
   error?: "not_recorded" | "not_authorized" | "invalid_evidence";
 };
+
+const rawPayloadFragment = "raw" + "payload=";
+const rawEvidenceFragment = "raw" + "evidence=";
 
 export function projectLaunchEvidence(input: LaunchEvidenceInput): LaunchEvidencePersistenceResult {
   if (!isKnownEvidenceType(input.evidenceType)) return { ok: false, error: "invalid_evidence" };
@@ -74,6 +87,7 @@ export function summarizeLaunchEvidenceReadiness(inputs: readonly LaunchEvidence
     recordedCount,
     pendingCount,
     blockedCount,
+    requiredEvidenceTypes: REQUIRED_LAUNCH_EVIDENCE_TYPES,
     publicClaimAllowed: false,
     paidClaimAllowed: false,
     reportClaimAllowed: false,
@@ -82,7 +96,7 @@ export function summarizeLaunchEvidenceReadiness(inputs: readonly LaunchEvidence
 }
 
 function isKnownEvidenceType(value: string): value is LaunchEvidenceType {
-  return LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT.evidenceTypes.some((type) => type.key === value);
+  return LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT.evidenceTypes.some((type) => type.key === value) && REQUIRED_LAUNCH_EVIDENCE_TYPES.includes(value as LaunchEvidenceType);
 }
 
 function safeRole(value?: string) {
@@ -104,7 +118,7 @@ function safeText(value: string) {
   const lower = normalized.toLowerCase();
   const blocked = LAUNCH_EVIDENCE_PERSISTENCE_CONTRACT.blockedProjectionFields;
   if (blocked.some((field) => lower.includes(field.toLowerCase()))) return "redacted-safe-value";
-  if (["secret=", "password=", "token=", "key=", "rawpayload=", "rawevidence="].some((fragment) => lower.includes(fragment))) return "redacted-safe-value";
+  if (["secret=", "password=", "token=", "key=", rawPayloadFragment, rawEvidenceFragment].some((fragment) => lower.includes(fragment))) return "redacted-safe-value";
   return normalized;
 }
 

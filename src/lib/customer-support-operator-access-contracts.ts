@@ -46,6 +46,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ACCESS_REQUIRED_CHECKS = [
   "operator access returns no-store responses for route, API, challenge, deny, and error states",
   "operator access failures must not leak customer existence, support request existence, operator identities, role inventory, or internal authorization details",
   "operator access may only project customer-owned safe summaries, customer-visible statuses, timestamps, request IDs, and approved audit projections",
+  "owner posture coverage keeps protected customer and report surfaces aligned with verified access while operator access surfaces stay private and review-gated",
 ] as const;
 
 export const CUSTOMER_SUPPORT_OPERATOR_ACCESS_ROLE_RULES = [
@@ -94,7 +95,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ACCESS_BLOCKED_CONTENT = [
   "unsupported report change",
   "unsupported billing change",
   "unsupported security outcome",
-  "guaranteed business result",
+  "unsupported business result",
   "fake urgency",
   "audit deletion claim",
 ] as const;
@@ -105,7 +106,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_ACCESS_GUARDS = [
   "no support operator access uses localStorage, sessionStorage, browser-readable admin secrets, browser-readable support context keys, query-string secrets, or public JavaScript secrets",
   "no support operator projection exposes raw payloads, raw evidence, raw security payloads, raw billing data, raw payment data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
   "no support operator action may promise refunds, legal outcomes, report changes, billing changes, security outcomes, ROI, or business results without the required approval gate",
-  "no support operator route may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
+  "no support operator route may claim absolute security, risk-free operation, liability removal, or perfect protection",
 ] as const;
 
 export function getCustomerSupportOperatorAccessContracts() {

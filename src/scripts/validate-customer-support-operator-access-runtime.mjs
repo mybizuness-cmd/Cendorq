@@ -25,6 +25,8 @@ expect(runtimePath, [
   "OPERATOR_REAUTH_COOKIE",
   "OPERATOR_ROLE_HEADER",
   "OPERATOR_ACTOR_HEADER",
+  "OPERATOR_ROLE_FIELD",
+  "OPERATOR_ACTOR_REF_FIELD",
   "The requested operator surface or action is not allowlisted.",
   "Operator access requires a verified admin session.",
   "Operator access could not be authorized safely.",
@@ -41,8 +43,8 @@ expect(runtimePath, [
   "support operator access runtime accepts only allowlisted support operator surfaces, roles, and protected actions",
   "support operator access runtime requires fresh admin reauth for mutations before returning allow",
   "support operator access runtime delegates role-to-action and approval-gate checks to the support operator audit runtime before privileged decisions",
-  "support operator access runtime returns no-store JSON and OPTIONS helpers without exposing operator identities, role inventory, customer existence, support request existence, or internal authorization details",
-  "support operator access runtime does not read localStorage, sessionStorage, browser-readable admin secrets, browser-readable support context keys, query-string secrets, or public JavaScript secrets",
+  "support operator access runtime returns no-store JSON and OPTIONS helpers without exposing operator identities, role list, customer existence, support request existence, or internal authorization details",
+  "support operator access runtime does not read browser storage APIs, browser-readable admin secrets, browser-readable support context keys, query-string secrets, or public JavaScript secrets",
 ]);
 
 expect(ownerMaximumProtectionPath, [

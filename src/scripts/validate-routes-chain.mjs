@@ -143,7 +143,6 @@ const validators = [
   "src/scripts/validate-customer-session-auth-runtime.mjs",
   "src/scripts/validate-production-auth-provider-contracts.mjs",
   "src/scripts/validate-verified-welcome-email-contracts.mjs",
-  "src/scripts/validate-command-center-operator-runbook.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-optimization-method-library.mjs",

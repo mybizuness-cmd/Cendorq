@@ -7,7 +7,7 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     "Every plan must define intake, evidence requirements, customer deliverables, operator deliverables, email lifecycle, notification lifecycle, follow-up lifecycle, agent ownership, handoff destinations, and release-captain approval gates.",
     "Every report and customer-facing deliverable must separate verified facts, customer-provided context, external evidence, assumptions, inferences, limitations, confidence, and next actions.",
     "Every plan must deliver value beyond generic advice by converting evidence into practical actions, clear priorities, safer decisions, and plan-appropriate implementation support.",
-    "Every plan must avoid fake urgency, unsupported ROI claims, guaranteed revenue, guaranteed accuracy, absolute security, and liability-free language.",
+    "Every plan must avoid fake urgency, unsupported ROI claims, certain-revenue language, certain-accuracy language, absolute security, and liability-shield language.",
     "Every plan must preserve customer privacy, safe projection, no raw payload exposure, and no cross-customer data exposure.",
   ],
   planLifecycles: [
@@ -65,7 +65,7 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     "Paid-plan recommendations must be evidence-supported and plan-fit labeled.",
     "Deep Review may ask additional questions after payment when more detail improves accuracy, but must not request passwords, tokens, private keys, card numbers, bank details, or raw security payloads.",
     "Build Fix / Optimization must define concrete scope, required customer assets, approval checkpoints, and rollback/revision posture before delivery claims.",
-    "Ongoing Control must use controlled monitoring and approval gates, not uncontrolled production mutation or autonomous business changes.",
+    "Ongoing Control must use controlled monitoring and approval gates, not unapproved production changes or autonomous business changes.",
     "All plan emails must preserve truthful status, privacy, safe next action, and no fake urgency.",
     "All plan follow-ups must connect to dashboard, report vault, notifications, support, billing, and plan paths without customer journey dead ends.",
     "All agent-produced plan work returns to release-captain review before becoming customer-facing output.",

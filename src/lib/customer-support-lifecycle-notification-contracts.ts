@@ -128,7 +128,7 @@ export const CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_GLOBAL_GUARDS = [
   "no support lifecycle notification without customer ownership and session authorization",
   "no support lifecycle notification before customer-safe support status projection exists",
   "no support lifecycle notification renders raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
-  "no support lifecycle notification promises refunds, legal outcomes, report changes, billing changes, security outcomes, or guaranteed business results without approval",
+  "no support lifecycle notification promises refunds, legal outcomes, report changes, billing changes, security outcomes, or unsupported business-result promises without approval",
   "every support lifecycle notification must point to support status, safe resubmission, support center, or new request path",
   "every support lifecycle notification must have suppression rules to prevent duplicate anxiety or spam",
 ] as const;

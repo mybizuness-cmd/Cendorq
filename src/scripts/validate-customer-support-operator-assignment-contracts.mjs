@@ -47,7 +47,7 @@ expect(contractsPath, [
   "deny is used when assignment cannot be authorized safely and must not reveal role inventory, customer existence, support request existence, or internal authorization details",
   "no support operator assignment without server-only operator access, role authorization, fresh admin reauth for mutation, and immutable audit creation",
   "no support operator assignment may bypass billing, security, correction, or support-admin approval gates",
-  "no support operator assignment may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
+  "no support operator assignment may claim absolute security, risk-free operation, liability removal, or perfect protection",
 ]);
 
 expect(ownerMaximumProtectionPath, [

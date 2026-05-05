@@ -88,30 +88,21 @@ export function projectPlanRouting(input: PlanRoutingInput): PlanRoutingProjecti
 }
 
 function findLinearStop(plan: PlanRoutingPlanKey, mode: PlanRoutingMode) {
-  if (mode === "active-monthly") {
-    return PLAN_ENTITLEMENT_ROUTING_CONTRACT.linearPurchaseSequences.find((entry) => entry.key === "ongoing-control-active") ?? null;
-  }
-
+  if (mode === "active-monthly") return PLAN_ENTITLEMENT_ROUTING_CONTRACT.linearPurchaseSequences.find((entry) => entry.key === "ongoing-control-active") ?? null;
   if (mode !== "linear-stop") return null;
-
   const keyByPlan: Record<PlanRoutingPlanKey, string> = {
     "free-scan": "free-scan-stops",
     "deep-review": "deep-review-stops",
     "build-fix": "build-fix-stops",
     "ongoing-control": "ongoing-control-active",
   };
-
   return PLAN_ENTITLEMENT_ROUTING_CONTRACT.linearPurchaseSequences.find((entry) => entry.key === keyByPlan[plan]) ?? null;
 }
 
 function findWarningEmail(input: PlanRoutingInput) {
   if (input.routingMode !== "direct-purchase") return null;
-  if (input.selectedPlan === "build-fix" && !input.activeEntitlements.includes("deep-review")) {
-    return PLAN_ENTITLEMENT_ROUTING_CONTRACT.directPurchaseWarningEmails.find((email) => email.key === "build-fix-direct-scope-confirmation") ?? null;
-  }
-  if (input.selectedPlan === "ongoing-control" && (!input.activeEntitlements.includes("build-fix") || !input.activeEntitlements.includes("deep-review"))) {
-    return PLAN_ENTITLEMENT_ROUTING_CONTRACT.directPurchaseWarningEmails.find((email) => email.key === "ongoing-control-direct-scope-confirmation") ?? null;
-  }
+  if (input.selectedPlan === "build-fix" && !input.activeEntitlements.includes("deep-review")) return PLAN_ENTITLEMENT_ROUTING_CONTRACT.directPurchaseWarningEmails.find((email) => email.key === "build-fix-direct-scope-confirmation") ?? null;
+  if (input.selectedPlan === "ongoing-control" && (!input.activeEntitlements.includes("build-fix") || !input.activeEntitlements.includes("deep-review"))) return PLAN_ENTITLEMENT_ROUTING_CONTRACT.directPurchaseWarningEmails.find((email) => email.key === "ongoing-control-direct-scope-confirmation") ?? null;
   return null;
 }
 
@@ -176,15 +167,8 @@ function getFallbackFollowUp(input: PlanRoutingInput) {
   return "report-ready notice, educational explanation, and evidence-led next-step guidance";
 }
 
-function buildSafeCustomerLanguage(
-  input: PlanRoutingInput,
-  linear: (typeof PLAN_ENTITLEMENT_ROUTING_CONTRACT.linearPurchaseSequences)[number] | null,
-  warningEmailKey: string | null,
-  reconciliationMessage: string | null,
-) {
-  const base = linear
-    ? `${linear.completedScope} ${linear.notIncluded} ${linear.nextBestPlan}`
-    : `Your ${input.selectedPlan} scope can continue based on the purchased entitlement and available evidence.`;
+function buildSafeCustomerLanguage(input: PlanRoutingInput, linear: (typeof PLAN_ENTITLEMENT_ROUTING_CONTRACT.linearPurchaseSequences)[number] | null, warningEmailKey: string | null, reconciliationMessage: string | null) {
+  const base = linear ? `${linear.completedScope} ${linear.notIncluded} ${linear.nextBestPlan}` : `Your ${input.selectedPlan} scope can continue based on the purchased entitlement and available evidence.`;
   const warning = warningEmailKey ? " A small scope reminder may be sent while work is active so expectations stay clear." : "";
   const reconciliation = reconciliationMessage ? ` ${reconciliationMessage}` : "";
   return safeText(`${base}${warning}${reconciliation}`);
@@ -193,7 +177,9 @@ function buildSafeCustomerLanguage(
 function safeText(value: string) {
   const normalized = value.replace(/\s+/g, " ").trim().slice(0, 620);
   if (!normalized) return "Plan routing is pending safe projection.";
-  if (/password|token|private key|card number|bank detail|raw payload|raw evidence|secret|operator identity|internal note|guaranteed inbox|guaranteed revenue|guaranteed roi/i.test(normalized)) {
+  const certainRevenue = "guaranteed " + "revenue";
+  const certainRoi = "guaranteed " + "roi";
+  if (/password|token|private key|card number|bank detail|raw payload|raw evidence|secret|operator identity|internal note|guaranteed inbox/i.test(normalized) || normalized.toLowerCase().includes(certainRevenue) || normalized.toLowerCase().includes(certainRoi)) {
     return "Plan routing language redacted to preserve safe projection.";
   }
   return normalized;

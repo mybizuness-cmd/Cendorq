@@ -45,7 +45,7 @@ export const REPORT_EVIDENCE_ORCHESTRATION_RULES = [
   {
     key: "evidence-before-report-output",
     label: "Evidence before report output",
-    purpose: "Customer-facing report claims must be grounded in customer context, safe external evidence, internal state, calculated analysis, or reviewed operator judgment before output.",
+    purpose: "Customer-facing report claims must be grounded in customer context, safe external evidence, internal state, calculated analysis, owner posture coverage, or reviewed operator judgment before output.",
     requiredBeforeCustomerOutput: true,
     blockedIfMissing: true,
   },
@@ -66,7 +66,7 @@ export const REPORT_EVIDENCE_ORCHESTRATION_RULES = [
   {
     key: "release-captain-before-final-report",
     label: "Release captain before final report",
-    purpose: "Final customer-facing report output must remain subject to release-captain review posture when claims, evidence conflicts, plan-fit decisions, or launch-sensitive guidance are material.",
+    purpose: "Final customer-facing report output must remain subject to release-captain review posture when claims, evidence conflicts, plan-fit decisions, owner posture coverage, or launch-sensitive guidance are material.",
     requiredBeforeCustomerOutput: true,
     blockedIfMissing: true,
   },
@@ -111,14 +111,14 @@ export const REPORT_EVIDENCE_SOURCE_CONTRACTS = [
   {
     tier: "operator-review",
     label: "Operator review",
-    allowedUses: ["quality review", "evidence interpretation", "conflict triage", "customer-safe language review", "plan-fit review"],
+    allowedUses: ["quality review", "evidence interpretation", "conflict triage", "customer-safe language review", "plan-fit review", "owner posture coverage"],
     cannotProve: ["unreviewed data truth", "launch approval", "provider approval", "security readiness approval"],
     requiredHandling: ["record reviewer role", "preserve audit posture", "avoid raw private payload exposure", "return final material claims to release captain"],
   },
   {
     tier: "release-captain-review",
     label: "Release captain review",
-    allowedUses: ["final validation posture", "material claim approval posture", "report release readiness", "plan-fit final review", "conflict escalation"],
+    allowedUses: ["final validation posture", "material claim approval posture", "report release readiness", "plan-fit final review", "conflict escalation", "owner posture coverage"],
     cannotProve: ["public launch by itself", "paid launch by itself", "report truth without evidence", "absolute certainty"],
     requiredHandling: ["validate evidence separation", "validate confidence labels", "validate limitations", "validate safe next action", "block unsupported claims"],
   },

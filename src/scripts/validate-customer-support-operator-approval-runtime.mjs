@@ -43,7 +43,7 @@ expect(runtimePath, [
   "unsupportedPromiseAllowed: false",
   "secretsStored: false",
   "projects no customerIdHash, requestedByRole, raw flags, internal notes, secrets, or authorization internals",
-  "storage-only and does not create approval mutation APIs or customer-visible operator identities",
+  "storage-only and does not create approval mutation endpoints or customer-visible operator identities",
 ]);
 
 expect(contractsPath, [

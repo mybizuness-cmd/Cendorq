@@ -108,7 +108,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_APPROVAL_BLOCKED_CONTENT = [
   "unsupported report change",
   "unsupported billing change",
   "unsupported security outcome",
-  "guaranteed business result",
+  "unsupported business result",
   "fake urgency",
   "audit deletion claim",
 ] as const;
@@ -119,7 +119,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_APPROVAL_GUARDS = [
   "no support approval exposes customer-visible operator identity, internal notes, risk-scoring internals, attacker details, exploit instructions, role inventory, customer existence, support request existence, or internal authorization details on denial",
   "no support approval permits refund, correction, report-change, billing, legal, security, ROI, or business-result commitments without the required approval gate and customer-safe outcome copy",
   "no support approval may claim audit records are deleted when preservation is required",
-  "no support approval may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
+  "no support approval may claim absolute security, risk-free operation, liability removal, or perfect protection",
 ] as const;
 
 export function getCustomerSupportOperatorApprovalContracts() {

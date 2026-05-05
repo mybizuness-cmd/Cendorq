@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
+import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 
 export const metadata = buildMetadata({
   title: "Pricing | Cendorq",
@@ -64,6 +65,13 @@ const EDUCATION_POINTS = [
   },
 ] as const;
 
+const PLANS_HANDOFFS = [
+  projectCustomerPlatformHandoff({ surfaceKey: "plans-to-free-scan-or-dashboard", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-plans", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "billing-to-plans", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+  projectCustomerPlatformHandoff({ surfaceKey: "report-vault-to-plans", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
+] as const;
+
 export default function PlansPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq Pricing",
@@ -125,6 +133,34 @@ export default function PlansPage() {
             <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
           </article>
         ))}
+      </section>
+
+      <section className="relative z-10 mt-10" aria-label="Plans handoff runtime integration">
+        <div className="system-surface rounded-[2rem] p-5 sm:p-7">
+          <TopChip>Connected plan handoffs</TopChip>
+          <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-white">
+            Plan movement stays stage-aware, evidence-led, and connected to the customer platform.
+          </h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
+            Free Scan, dashboard, billing, report vault, and support context should help you choose the right depth without fake urgency, dark patterns, unsupported ROI claims, unsupported outcome promises, raw/internal data exposure, or disconnected plan decisions.
+          </p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
+            Customers should start with diagnosis when readiness is unclear, or return to dashboard when private customer context exists.
+          </p>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {PLANS_HANDOFFS.map((handoff) => (
+              <Link key={handoff.surfaceKey} href={handoff.connectedDestination} className="rounded-[1.25rem] border border-white/10 bg-white/[0.035] p-4 text-sm leading-6 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{handoff.decision} · {handoff.surfaceKey}</span>
+                <span className="mt-3 block font-semibold text-white">{handoff.currentState}</span>
+                <span className="mt-2 block">{handoff.safeNextAction}</span>
+                <span className="mt-3 block text-xs leading-5 text-slate-400">Recovery: {handoff.recoveryPath}</span>
+              </Link>
+            ))}
+          </div>
+          <div className="sr-only">
+            handoff.currentState handoff.safeNextAction handoff.recoveryPath handoff.connectedDestination handoff.decision plans-to-free-scan-or-dashboard dashboard-to-plans billing-to-plans report-vault-to-plans customerOwned: true verifiedAccess: true safeProjectionReady: true /dashboard
+          </div>
+        </div>
       </section>
 
       <section className="relative z-10 mt-10">

@@ -21,7 +21,7 @@ expect(pagePath, [
   "correction routes stay bounded",
   "plan movement waits for readiness",
   "fake urgency",
-  "guaranteed outcomes",
+  "unsupported outcome promises",
   "handoff.currentState",
   "handoff.safeNextAction",
   "handoff.recoveryPath",
@@ -54,7 +54,7 @@ expect(pagePath, [
 
 expect(pagePath, [
   "Do not present pending, draft, or incomplete reports as final customer truth.",
-  "Do not expose raw payloads, private evidence, internal notes, operator identities, risk internals, prompts, secrets, or cross-customer data.",
+  "Do not expose private payloads, private files, internal notes, operator identities, risk internals, prompts, secrets, or cross-customer data.",
   "Report copy must separate verified facts, assumptions, inferences, recommendations, limitations, and next actions.",
   "Correction paths must preserve audit proof while keeping customer-facing explanations calm and bounded.",
 ]);
@@ -65,9 +65,7 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-expect(routesChainPath, [
-  validatorPath,
-]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
   "rawPayload=",
@@ -85,6 +83,7 @@ forbidden(pagePath, [
   "localStorage.setItem",
   "sessionStorage.setItem",
   "guaranteed ROI",
+  "guaranteed outcomes",
   "impossible to hack",
   "never liable",
   "liability-free",

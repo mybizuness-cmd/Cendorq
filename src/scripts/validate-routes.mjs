@@ -162,6 +162,7 @@ const forbiddenActivePhrases = [
   "Strongest answer strategy",
   "strongest answer across evolving search environments",
   "visibility operating system",
+  "Search Presence OS",
 ];
 const forbiddenActiveRoutes = ["/pricing/full-diagnosis", "/pricing/optimization", "/pricing/monthly-partner", "/contact"];
 
@@ -180,9 +181,9 @@ expect("docs/release-checklist.md", ["closed intelligence", "data quality", "lea
 expect("docs/production-verification-status.md", ["Production Verification Status", "strict legacy redirects", "Free Scan API `OPTIONS`", "protected Free Scan API read behavior", "validate-production-smoke-coverage.mjs", "Do not create fake Free Scan submissions during smoke checks"], "Production verification status doc is missing protected smoke status coverage");
 expect("docs/incident-response.md", ["Strict legacy redirect smoke fails", "Free Scan API `OPTIONS` smoke fails", "Protected Free Scan API read behavior fails", "Health smoke fails", "Discovery or trust file smoke fails", "Do not weaken the read boundary to make smoke pass", "final-destination-only redirect validation"], "Incident response runbook is missing protected smoke failure playbooks");
 expect("src/layout/site-header.tsx", ["export { SiteHeader } from \"./site-header-conversion\";"], "Legacy header must remain a current-header shim");
-expect("src/lib/seo.ts", ["process.env.NEXT_PUBLIC_SITE_URL", "Cendorq helps businesses find what makes customers hesitate", "Cendorq — Search Presence OS", "Start with the Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "SEO defaults are not aligned with current positioning");
+expect("src/lib/seo.ts", ["process.env.NEXT_PUBLIC_SITE_URL", "Cendorq helps businesses find where customers lose clarity, trust, visibility, or action", "Cendorq — Business Command Intelligence", "Start with the Free Scan", "Deep Review", "Build Fix", "Ongoing Control"], "SEO defaults are not aligned with current positioning");
 expect("src/app/sitemap.ts", ["process.env.NEXT_PUBLIC_SITE_URL", "shouldExposeSitemap", "isProductionLike", "isPlaceholderHost"], "Sitemap is missing public site URL safety checks");
-expect("src/app/layout.tsx", ["Free Scan", "Cendorq Plans", "Search Presence OS"], "Layout structured metadata is not aligned with current positioning");
+expect("src/app/layout.tsx", ["Free Scan", "Cendorq Plans", "Business Command Intelligence"], "Layout structured metadata is not aligned with current positioning");
 expect("src/app/api/free-check/route.ts", ["CURRENT_STORAGE_FILE = \"free-check-intakes.v3.json\"", "The Free Scan has been captured successfully.", "The requested Free Scan entry was not found.", "Allow: \"GET,POST,OPTIONS\""], "Free Scan API route is missing current language or OPTIONS support");
 expect("src/scripts/validate-free-check-intake.mjs", ["Free Scan intake validation passed", "src/app/api/free-check/route.ts", "Possible Ongoing Control fit", "CURRENT_STORAGE_FILE", "submit the Free Scan again"], "Free Scan intake validator is missing required gate detail");
 expect("src/scripts/validate-production-smoke-coverage.mjs", ["Production smoke coverage validation passed", "strict redirects", "protected Free Scan read checks", "expectedStatus: 401"], "Production smoke coverage validator is missing required guard detail");

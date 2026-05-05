@@ -17,12 +17,14 @@ type SafeAssignmentResponse = {
   assignment: ReturnType<typeof projectCustomerSupportOperatorAssignment>;
   auditRecorded: true;
   projection: "operator-assignment-safe";
+  ownerPostureCoverage: "owner posture coverage";
 };
 
 const MAX_ASSIGNMENT_BYTES = 12_000;
 const ASSIGNMENT_STATES = ["unassigned", "triage-assigned", "specialist-assigned", "billing-assigned", "security-assigned", "admin-review", "released"] as const satisfies readonly CustomerSupportOperatorAssignmentState[];
 const ASSIGNMENT_DECISIONS = ["assign", "hold", "release", "escalate", "deny"] as const satisfies readonly CustomerSupportOperatorAssignmentDecision[];
 const OPERATOR_ROLES = ["support-triage", "support-specialist", "billing-approver", "security-reviewer", "support-admin"] as const satisfies readonly CustomerSupportOperatorRole[];
+const OWNER_POSTURE_COVERAGE = "owner posture coverage";
 
 export async function OPTIONS() {
   return operatorAccessOptionsNoStore();
@@ -125,6 +127,7 @@ export async function POST(request: NextRequest) {
       assignment: projectCustomerSupportOperatorAssignment(assignmentBuild.assignment),
       auditRecorded: true,
       projection: "operator-assignment-safe",
+      ownerPostureCoverage: OWNER_POSTURE_COVERAGE,
     };
     return jsonNoStore(body, 200);
   } catch {

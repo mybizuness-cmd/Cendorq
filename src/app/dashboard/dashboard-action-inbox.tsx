@@ -14,7 +14,7 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
     title: "Confirm your Cendorq inbox once",
     eyebrow: "One-time setup",
     customerSummary:
-      "Confirm this inbox once so report, billing, support, and plan-status emails sent to your signup address are easier to find.",
+      "Confirm this inbox once so report, billing, support, and plan-status emails sent to your signup address are easier to find; email follow-ups still go to your signup address.",
     conversionRole:
       "Keeps the customer reachable for report-ready notices, plan education, billing clarity, and support follow-through without repeating confirmation every plan.",
     href: "/dashboard/notifications",
@@ -53,7 +53,7 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
     title: "Monthly command stays evidence-led",
     eyebrow: "Ongoing control",
     customerSummary:
-      "Monthly control can continue from approved scope. Build Fix is recommended only when evidence shows implementation work is needed.",
+      "Monthly control can continue from approved scope. Build Fix is recommended only when evidence shows implementation work is needed; monthly emails remain part of the customer lifecycle flow.",
     conversionRole:
       "Turns recurring visibility into upgrade education by showing when monthly insight needs paid implementation, while preserving the active monthly plan.",
     href: "/dashboard/notifications",

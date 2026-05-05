@@ -44,7 +44,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_APPROVAL_RUNTIME_GUARDS = [
   "support operator approval runtime enforces approval type to approval gate compatibility before record creation",
   "support operator approval runtime stores immutableAuditRequired true, customerVisibleOperatorIdentity false, unsupportedPromiseAllowed false, and all raw storage flags false",
   "support operator approval runtime projects no customerIdHash, requestedByRole, raw flags, internal notes, secrets, or authorization internals",
-  "support operator approval runtime is storage-only and does not create approval mutation APIs or customer-visible operator identities",
+  "support operator approval runtime is storage-only and does not create approval mutation endpoints or customer-visible operator identities",
 ] as const;
 
 export function buildCustomerSupportOperatorApproval(input: CustomerSupportOperatorApprovalBuildInput): CustomerSupportOperatorApprovalBuildResult {

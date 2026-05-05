@@ -18,7 +18,7 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     visibility: "private-gated",
     dataExposure: "metadata-only",
     operatorPurpose: "Show high-level readiness counts for protected operating areas.",
-    protectionNote: "Shows counts only; no secrets, records, or customer data.",
+    protectionNote: "Shows counts only; no secrets, records, customer data, or raw intelligence.",
   },
   {
     key: "operating-map",
@@ -38,7 +38,7 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     visibility: "private-gated",
     dataExposure: "metadata-only",
     operatorPurpose: "Expose required controls, forbidden claims, and core protection policies.",
-    protectionNote: "Shows policy names only; blocks absolute security claims.",
+    protectionNote: "Shows policy names only; blocks absolute security claims and raw intelligence exposure.",
   },
   {
     key: "operator-control-interface",
@@ -238,7 +238,7 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     visibility: "private-gated",
     dataExposure: "metadata-only",
     operatorPurpose: "Show benchmark comparison and self-evolution controls.",
-    protectionNote: "Benchmark intelligence must be source-backed and reviewed.",
+    protectionNote: "Benchmark intelligence must be source-backed and reviewed; raw intelligence stays closed.",
   },
   {
     key: "benchmark-evidence",

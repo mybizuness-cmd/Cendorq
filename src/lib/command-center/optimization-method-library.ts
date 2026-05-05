@@ -27,7 +27,7 @@ export const OPTIMIZATION_METHOD_LIBRARY = [
     planScopes: ["free-scan", "deep-review", "build-fix", "ongoing-control"],
     problemSignals: ["unclear offer", "unclear audience", "unclear next step", "mixed messaging"],
     requiredEvidence: ["website observation", "offer copy", "customer path observation", "plan context"],
-    proofChecks: ["problem identified", "before-after wording available", "plain-language improvement", "operator review"],
+    proofChecks: ["problem identified", "before-after wording available", "plain-language improvement", "recommendation matched to plan scope", "operator review"],
     expectedOutcomes: ["faster understanding", "lower confusion", "stronger next-step action"],
     customerSafeOutputRules: ["avoid jargon", "state the issue plainly", "show what to change", "avoid unsupported performance promises"],
   },

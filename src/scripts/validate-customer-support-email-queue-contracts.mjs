@@ -49,6 +49,7 @@ expect(queueContractsPath, [
   "support lifecycle email queue records are idempotent per customerIdHash, supportRequestId, templateKey, status, and recipientEmailRef",
   "support lifecycle email queue records do not send email by themselves; provider sending requires a future guarded runtime with explicit validation",
   "no support lifecycle email queue record sends email directly or calls an external email provider",
+  "unsupported ROI promise",
   "Cendorq Support <support@cendorq.com>",
 ]);
 

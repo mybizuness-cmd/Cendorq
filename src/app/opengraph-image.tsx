@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 export const alt =
-    "Cendorq — Search Presence OS for businesses that need to find what makes customers hesitate before spending more.";
+    "Cendorq — Business Command Intelligence for businesses that need to find where customers lose clarity, trust, visibility, or action before spending more.";
 
 export const size = {
     width: 1200,
@@ -15,7 +15,7 @@ export const contentType = "image/png";
 const readouts = [
     {
         label: "Primary role",
-        value: "Search Presence OS",
+        value: "Business Command Intelligence",
     },
     {
         label: "Best first move",
@@ -72,7 +72,7 @@ export default function OpenGraphImage() {
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "column" }}>
                                     <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#ffffff" }}>Cendorq</div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#94a3b8" }}>Search Presence OS</div>
+                                    <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#94a3b8" }}>Business Command Intelligence</div>
                                 </div>
                             </div>
 

@@ -81,5 +81,9 @@ function hasSafeEmail(value: unknown) {
 }
 
 function hasSafeIntakeId(value: unknown) {
+  return hasSafeIdentifier(value);
+}
+
+function hasSafeIdentifier(value: unknown) {
   return typeof value === "string" && /^[a-zA-Z0-9:_-]{8,160}$/.test(value);
 }

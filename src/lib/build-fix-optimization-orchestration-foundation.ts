@@ -64,7 +64,7 @@ export const BUILD_FIX_OPTIMIZATION_ORCHESTRATION_RULES = [
   "Build Fix must produce concrete implementation work or a scoped implementation task list, not just commentary",
   "Build Fix may use internal orientation analysis but must not deliver a standalone Deep Review report unless Deep Review entitlement exists",
   "Build Fix must preserve before-after evidence, customer-safe progress summaries, remaining risks, and rollback or revision posture",
-  "Build Fix must not perform uncontrolled production mutations or material changes without customer approval",
+  "Build Fix must not perform unapproved production changes or material changes without customer approval",
   "Build Fix completion may recommend Ongoing Control through remaining risks and baseline tracking, not fake urgency or guaranteed outcomes",
   "Build Fix output must not expose private payloads, evidence, security material, billing material, internal notes, operator identities, risk internals, prompts, secrets, or tokens",
 ] as const;

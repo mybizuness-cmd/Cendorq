@@ -45,6 +45,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_AUDIT_RUNTIME_GUARDS = [
   "support operator audit runtime enforces approval gates for correction, billing, security, and irreversible closure actions",
   "support operator audit runtime projects no customerIdHash, operatorActorRef, internalSafeNoteRef, raw storage flags, prompt flags, secret flags, or customer-visible internal notes",
   "support operator audit runtime never stores raw payloads, raw evidence, raw security payloads, raw billing data, raw payment data, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
+  "owner posture coverage keeps protected customer and report surfaces aligned with verified access while operator audit runtime surfaces stay private and review-gated",
 ] as const;
 
 export function buildCustomerSupportOperatorAuditRecord(input: CustomerSupportOperatorAuditBuildInput): CustomerSupportOperatorAuditBuildResult {

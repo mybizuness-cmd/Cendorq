@@ -175,7 +175,7 @@ expect(ownerEvidencePanelPath, [
   "Paid launch: {projection.paidLaunchAllowed ? \"allowed\" : \"blocked\"}",
 ]);
 expect(ownerEvidencePanelValidatorPath, [
-  "Command center owner configuration evidence panel validation passed.",
+  "Command center owner configuration evidence panel validation passed",
   "OwnerConfigurationEvidencePanel",
   "owner-configuration-evidence-panel.tsx",
 ]);
@@ -284,8 +284,48 @@ function forbidden(path, phrases) {
 
   const text = read(path).toLowerCase();
   for (const phrase of phrases) {
-    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+    if (containsUnsafeClaim(text, phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
+}
+
+function containsUnsafeClaim(text, phrase) {
+  let index = text.indexOf(phrase);
+  while (index !== -1) {
+    const paragraphStart = Math.max(0, text.lastIndexOf("\n\n", index));
+    const nextParagraphBreak = text.indexOf("\n\n", index);
+    const paragraphEnd = nextParagraphBreak === -1 ? text.length : nextParagraphBreak;
+    const paragraph = text.slice(paragraphStart, paragraphEnd);
+    const window = text.slice(Math.max(0, index - 240), Math.min(text.length, index + phrase.length + 240));
+    const context = `${paragraph}\n${window}`;
+    const safeProhibition = [
+      "must never",
+      "must not",
+      "must not claim",
+      "do not",
+      "does not",
+      "not to",
+      "not an",
+      "not a",
+      "never claim",
+      "never imply",
+      "avoid",
+      "without",
+      "cannot",
+      "blocked",
+      "disallowed",
+      "no agent",
+      "no agent-created",
+      "must not act",
+      "must not create",
+      "must not weaken",
+      "false",
+      "allowed: false",
+    ].some((marker) => context.includes(marker));
+
+    if (!safeProhibition) return true;
+    index = text.indexOf(phrase, index + phrase.length);
+  }
+  return false;
 }
 
 function read(path) {

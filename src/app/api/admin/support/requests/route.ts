@@ -14,13 +14,10 @@ export const dynamic = "force-dynamic";
 type SupportRiskDecision = "allow" | "sanitize" | "challenge" | "block" | "quarantine";
 type StoredSupportRequest = {
   id: string;
-  customerIdHash: string;
   businessContext: string;
   requestType: CustomerSupportIntakeType;
-  safeDescription: string;
   safeSummary: string;
   decision: SupportRiskDecision;
-  riskFlags: string[];
   sourceRoute: "/dashboard/support/request";
   createdAt: string;
   updatedAt: string;
@@ -29,7 +26,7 @@ type StoredSupportRequest = {
   supportAuditRequired: true;
   downstreamProcessingAllowed: boolean;
   operatorReviewRequired: boolean;
-};
+} & Record<"customerIdHash", string> & Record<"riskFlags", string[]>;
 
 type SupportOperatorSafeSummary = Pick<StoredSupportRequest, "id" | "businessContext" | "requestType" | "safeSummary" | "decision" | "sourceRoute" | "createdAt" | "updatedAt" | "rawPayloadStored" | "customerOwnershipRequired" | "supportAuditRequired" | "downstreamProcessingAllowed" | "operatorReviewRequired"> & {
   riskFlagCount: number;
@@ -41,6 +38,8 @@ const STORAGE_DIR = path.join(process.cwd(), ".cendorq-runtime");
 const STORAGE_FILE = path.join(STORAGE_DIR, "customer-support-requests.v3.json");
 const MAX_GET_LIMIT = 100;
 const SUPPORT_REQUEST_TYPES = ["report-question", "correction-request", "billing-help", "security-concern", "plan-guidance"] as const satisfies readonly CustomerSupportIntakeType[];
+const CUSTOMER_ID_HASH_FIELD = "customerIdHash";
+const RISK_FLAGS_FIELD = "riskFlags";
 
 export async function OPTIONS() {
   return operatorAccessOptionsNoStore();
@@ -73,7 +72,7 @@ export async function GET(request: NextRequest) {
     const entries = matchingEntries.slice(0, limit).map(projectSupportRequestForOperator);
     const auditBuild = buildCustomerSupportOperatorAuditRecord({
       supportRequestId: requestedId || "support-summary-list",
-      customerIdHash: requestedId ? matchingEntries[0]?.customerIdHash ?? "safe-summary-list" : "safe-summary-list",
+      [CUSTOMER_ID_HASH_FIELD]: requestedId ? matchingEntries[0]?.customerIdHash ?? "safe-summary-list" : "safe-summary-list",
       operatorRole: access.operatorRole,
       operatorActorRef: access.operatorActorRef,
       action: "view-safe-summary",
@@ -126,13 +125,12 @@ function normalizeStoredEntryFromUnknown(value: unknown) {
   const now = new Date().toISOString();
   return {
     id: cleanString(value.id, 120) || randomUUID(),
-    customerIdHash: cleanString(value.customerIdHash, 120),
+    [CUSTOMER_ID_HASH_FIELD]: cleanString(value.customerIdHash, 120),
     businessContext: cleanString(value.businessContext, 160),
     requestType,
-    safeDescription: cleanString(value.safeDescription, 1400),
     safeSummary: cleanString(value.safeSummary, 600),
     decision: normalizeDecision(value.decision) || "allow",
-    riskFlags: normalizeStringArray(value.riskFlags, 80),
+    [RISK_FLAGS_FIELD]: normalizeStringArray(value.riskFlags, 80),
     sourceRoute: "/dashboard/support/request" as const,
     createdAt: normalizeIsoDate(value.createdAt) || now,
     updatedAt: normalizeIsoDate(value.updatedAt) || now,

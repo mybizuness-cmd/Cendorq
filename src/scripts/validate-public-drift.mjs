@@ -33,6 +33,7 @@ const activePublicFiles = [
 ];
 
 const requiredCurrentLanguage = [
+  "Business Command Intelligence",
   "Free Scan",
   "Deep Review",
   "Build Fix",
@@ -43,6 +44,7 @@ const requiredCurrentLanguage = [
 const forbiddenActiveLanguage = [
   "Free Search Presence Scan",
   "free search presence scan",
+  "Search Presence OS",
   "Visibility Blueprint",
   "Presence Infrastructure",
   "Presence Command",
@@ -94,8 +96,8 @@ expect("src/layout/site-header.tsx", [
 
 expect("src/lib/seo.ts", [
   "process.env.NEXT_PUBLIC_SITE_URL",
-  "Cendorq helps businesses find what makes customers hesitate",
-  "Cendorq — Search Presence OS",
+  "Cendorq helps businesses find where customers lose clarity, trust, visibility, or action",
+  "Cendorq — Business Command Intelligence",
   "Start with the Free Scan",
   "Deep Review",
   "Build Fix",
@@ -112,7 +114,7 @@ expect("src/app/sitemap.ts", [
 expect("src/app/layout.tsx", [
   "Free Scan",
   "Cendorq Plans",
-  "Search Presence OS",
+  "Business Command Intelligence",
 ]);
 
 expect("src/app/opengraph-image.tsx", [

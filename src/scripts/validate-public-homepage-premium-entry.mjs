@@ -7,7 +7,6 @@ const headerPath = "src/layout/site-header-conversion.tsx";
 const footerPath = "src/layout/site-footer.tsx";
 const scanPath = "src/app/free-check/page.tsx";
 const connectPath = "src/app/connect/page.tsx";
-const nudgePath = "src/components/public/free-scan-concierge-nudge.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-homepage-premium-entry.mjs";
@@ -15,22 +14,22 @@ const failures = [];
 
 expect(pagePath, [
   "Cendorq | Business Command Intelligence",
-  "Customers are deciding faster than most businesses can explain themselves.",
+  "Find why customers leave before you buy the fix.",
   "AI-search visibility",
   "Start free scan",
   "See pricing",
-  "Search changed",
-  "Customers compare fast",
-  "Cendorq finds the break",
-  "Start free. Pay when the next depth is clear.",
-  "$0",
-  "$300",
-  "$750+",
-  "$300/mo",
-  "Strong enough to sell. Plain enough to understand.",
-  "No fake urgency.",
-  "No guaranteed revenue claims.",
-  "Find the pressure before buying the fix.",
+  "Free first read. Clear pricing when you need the next depth.",
+  "Cendorq identity",
+  "A plain diagnosis of the path customers use before they contact you.",
+  "Silent decision pressure",
+  "If they do not understand you, trust you, find you, or know what to do next, they move on quietly.",
+  "Search changed.",
+  "The first move is clarity.",
+  "Trust lock",
+  "Proof first. No pressure.",
+  "Start free when the cause is unclear.",
+  "Pay only when the next depth is clear.",
+  "Protected dashboard and report vault after verification.",
 ]);
 
 expect(headerPath, [
@@ -65,17 +64,10 @@ expect(connectPath, [
   "Start free if the problem is unclear.",
 ]);
 
-expect(nudgePath, [
-  "STANDARD_DELAY_MS = 12_000",
-  "SCROLL_TRIGGER_RATIO = 0.38",
-  "Soft Free Scan entry",
-  "not a full-form popup or pressure tactic",
-]);
-
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(pagePath, 26000);
+boundedLength(pagePath, 15000);
 boundedLength(scanPath, 16000);
 boundedLength(connectPath, 15000);
 boundedLength(headerPath, 22000);
@@ -86,7 +78,6 @@ forbidden(headerPath, blockedPublicPhrases());
 forbidden(footerPath, blockedPublicPhrases());
 forbidden(scanPath, blockedPublicPhrases());
 forbidden(connectPath, blockedPublicPhrases());
-forbidden(nudgePath, blockedPublicPhrases());
 
 if (failures.length) {
   console.error("Public command surface validation failed:");
@@ -94,12 +85,15 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with compressed pages, clear pricing, simple navigation, and plain AI-search education.");
+console.log("Public command surface validation passed with a shorter customer-facing homepage, no homepage pricing block, simple navigation, and protected plain-language trust rules.");
 
 function blockedPublicPhrases() {
   return [
-    "title: \"Free Scan | Cendorq\"",
     "Search Presence OS",
+    "Pricing path",
+    "Plan ladder",
+    "Strong enough to sell",
+    "Cendorq should",
     "guaranteed ROI",
     "guaranteed revenue",
     "guaranteed business results",

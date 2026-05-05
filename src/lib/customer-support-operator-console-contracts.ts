@@ -102,7 +102,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_BLOCKED_CONTENT = [
   "unsupported report change",
   "unsupported billing change",
   "unsupported security outcome",
-  "guaranteed business result",
+  "unsupported business result",
   "fake urgency",
   "audit deletion claim",
 ] as const;
@@ -113,7 +113,7 @@ export const CUSTOMER_SUPPORT_OPERATOR_CONSOLE_GUARDS = [
   "no customer-visible projection may include raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
   "no correction, billing, refund, security, legal, report-change, ROI, or business-result promise may be made without the required approval gate",
   "no admin console may expose support admin keys, customer support context keys, provider credentials, or browser-readable protected secrets",
-  "no operator console may claim Cendorq is impossible to hack, risk-free, liability-free, or perfectly secure",
+  "no operator console may claim absolute security, risk-free operation, liability removal, or perfect protection",
 ] as const;
 
 export function getCustomerSupportOperatorConsoleContracts() {
