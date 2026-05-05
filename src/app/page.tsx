@@ -78,7 +78,7 @@ const PLAN_PATH = [
 
 const TRUST_RULES = [
   "No fake urgency.",
-  "No wrong-depth push.",
+  "Pay only when the next depth is clear.",
   "Plain diagnosis before bigger spend.",
   "Protected dashboard and report vault after verification.",
   "Clear next move, not a confusing wall of tools.",
@@ -98,6 +98,7 @@ export default function HomePage() {
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
             {BRAND_NAME} finds the hidden reason customers hesitate, then shows the right next move before you buy the wrong fix.
           </p>
+          <p className="mt-3 max-w-3xl text-sm font-semibold leading-6 text-cyan-100">Find why customers leave before you buy the fix.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Start free scan
@@ -106,7 +107,7 @@ export default function HomePage() {
               See the command path
             </Link>
           </div>
-          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Free first read. Clear pricing. Protected platform after verification.</p>
+          <p className="mt-5 max-w-2xl text-sm font-medium leading-6 text-slate-400">Free first read. Clear pricing when you need the next depth. Protected platform after verification.</p>
         </div>
 
         <aside className="system-panel-authority rounded-[2rem] p-5 sm:p-6" aria-label="Cendorq command readout">
@@ -132,7 +133,7 @@ export default function HomePage() {
       </section>
 
       <section className="relative z-10 mt-7 rounded-[2rem] border border-cyan-300/14 bg-[radial-gradient(circle_at_top_right,rgba(103,232,249,0.12),transparent_34%),rgba(2,8,23,0.70)] p-5 shadow-[0_26px_90px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Why Cendorq matters now">
-        <TopChip>Why it matters now</TopChip>
+        <TopChip>Silent decision pressure</TopChip>
         <h2 className="mt-5 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
           Customers decide before they talk to you.
         </h2>
