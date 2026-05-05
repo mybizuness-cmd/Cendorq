@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 
+const architecturePath = "src/lib/cendorq-revenue-operating-system.ts";
 const contractPath = "src/lib/pricing-checkout-orchestration.ts";
 const pricingPath = "src/app/plans/page.tsx";
 const planTemplatePath = "src/components/plans/conversion-plan-page.tsx";
@@ -11,9 +12,26 @@ const billingPath = "src/app/dashboard/billing/page.tsx";
 const checkoutStartPath = "src/app/checkout/start/page.tsx";
 const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
 
-for (const path of [contractPath, pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath]) {
+for (const path of [architecturePath, contractPath, pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath]) {
   if (!existsSync(join(root, path))) failures.push(`Missing pricing checkout dependency: ${path}`);
 }
+
+expect(architecturePath, [
+  "CENDORQ_REVENUE_OPERATING_SYSTEM",
+  "CENDORQ_BUSINESS_ARCHITECTURE_RULES",
+  "CENDORQ_PLAN_PERSONALIZATION_FIELDS",
+  "Free Scan",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "Turn anonymous interest into a verified customer account",
+  "Convert uncertainty into an evidence-backed diagnosis",
+  "Turn known friction into a concrete customer-facing improvement",
+  "Create recurring revenue",
+  "Every paid plan must unlock a workflow",
+  "Every checkout must return to a Cendorq success state",
+  "Every mobile screen must lead with the action",
+]);
 
 expect(contractPath, [
   "CENDORQ_PLAN_PRICES",
@@ -34,9 +52,15 @@ expect(pricingPath, ["CENDORQ_PLAN_PRICES", "Unlock Deep Review", "Unlock Build 
 expect(planTemplatePath, ["getCendorqPlanPrice", "After payment:"]);
 expect(billingPath, ["getPaidCendorqPlanPrice", "Unlock Deep Review", "After payment:"]);
 expect(checkoutStartPath, ["Start checkout | Cendorq", "Secure checkout", "Stripe link coming next"]);
-expect(checkoutSuccessPath, ["Checkout complete | Cendorq", "Payment complete", "Post-payment dashboard activation"]);
+expect(checkoutSuccessPath, [
+  "Checkout complete | Cendorq",
+  "Payment complete",
+  "getCendorqRevenueStage",
+  "What Cendorq needs next",
+  "Post-payment dashboard activation",
+]);
 
-forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath], [
+forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath, architecturePath, contractPath], [
   "$750+",
   "$300/mo",
   "starting at",
@@ -56,7 +80,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Pricing checkout orchestration validation passed. Final prices, checkout start, checkout success, dashboard billing, plan pages, metadata, and post-payment emails stay synchronized.");
+console.log("Pricing checkout orchestration validation passed. Final prices, Cendorq revenue operating system, checkout start, checkout success, dashboard billing, plan pages, metadata, and post-payment emails stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
