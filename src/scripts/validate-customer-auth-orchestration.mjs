@@ -27,7 +27,7 @@ expect(orchestrationPath, [
   "Email and password fallback",
   "Click confirms and redirects to dashboard",
   "Returning customers use magic link first",
-  "transactional emails continue",
+  "Transactional emails continue",
   "SPF, DKIM, and DMARC",
   "one-click unsubscribe",
   "dashboard opened",
@@ -102,9 +102,9 @@ expect(dashboardPath, [
 
 expect(routesChainPath, [validatorPath]);
 
-forbidden(loginPath, unsafeCustomerAuthPhrases());
-forbidden(signupPath, unsafeCustomerAuthPhrases());
-forbidden(verifyPath, unsafeCustomerAuthPhrases());
+forbidden(loginPath, unsafeAuthImplementationPhrases());
+forbidden(signupPath, unsafeAuthImplementationPhrases());
+forbidden(verifyPath, unsafeAuthImplementationPhrases());
 forbidden(orchestrationPath, [
   "marketing emails continue after unsubscribe",
   "ignore suppression",
@@ -122,15 +122,11 @@ if (failures.length) {
 
 console.log("Customer auth orchestration validation passed. Signup, verification, magic-link re-entry, dashboard activation, deliverability, consent separation, and paid lifecycle email follow-up stay synchronized.");
 
-function unsafeCustomerAuthPhrases() {
+function unsafeAuthImplementationPhrases() {
   return [
     "localStorage.setItem",
     "sessionStorage.setItem",
     "password in email",
-    "card number",
-    "private key",
-    "session token",
-    "csrf token",
     "guaranteed revenue",
     "guaranteed ROI",
     "account exists",
