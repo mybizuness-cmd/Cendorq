@@ -2,9 +2,12 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import {
   FREE_SCAN_CONFIDENCE_MODEL,
+  FREE_SCAN_EVIDENCE_RULES,
+  FREE_SCAN_PRIORITY_MODEL,
   FREE_SCAN_REPORT_AXES,
   FREE_SCAN_REPORT_QUALITY_RULES,
   FREE_SCAN_RESULT_SECTIONS,
+  getFreeScanFindingSummary,
 } from "@/lib/free-scan-report-methodology";
 import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 
@@ -16,6 +19,7 @@ export const metadata = buildMetadata({
 });
 
 const DEEP_REVIEW = getCendorqPlanPrice("deep-review");
+const SAMPLE_FINDINGS = getFreeScanFindingSummary();
 
 const RESULT_SUMMARY = {
   headline: "Your first result is not a final verdict. It is the first decision signal.",
@@ -25,9 +29,9 @@ const RESULT_SUMMARY = {
 
 const RESULT_TIMELINE = [
   { label: "Intake", detail: "Business, offer, customer, market, goal, and main action are captured first." },
-  { label: "First read", detail: "Cendorq reviews customer-facing signals across clarity, trust, choice, action, visibility, and proof." },
-  { label: "Confidence posture", detail: "Each signal is treated as observed, inferred, or needing deeper review." },
-  { label: "Next move", detail: "The dashboard explains what matters first and whether Deep Review should unlock the full reason." },
+  { label: "Evidence boundary", detail: "Cendorq uses visible customer-facing evidence and customer-provided context, not private secrets or unsupported assumptions." },
+  { label: "Confidence posture", detail: "Each signal is treated as observed, inferred, or needing deeper review before the result explains the next move." },
+  { label: "Revenue action", detail: "The dashboard teaches what matters first and whether Deep Review should unlock the full reason." },
 ] as const;
 
 export default function FreeScanResultsPage() {
@@ -63,13 +67,35 @@ export default function FreeScanResultsPage() {
         <ResultCard title="What happens next" copy={RESULT_SUMMARY.nextMove} />
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[1.45rem] border border-white/10 bg-white/[0.035] p-5 sm:p-6" aria-label="Free Scan methodology">
+      <section className="relative z-10 mt-7 rounded-[1.45rem] border border-white/10 bg-white/[0.035] p-5 sm:p-6" aria-label="Structured first findings">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Methodology</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Six signals, one first decision.</h2>
+            <p className="text-sm font-semibold text-cyan-100">Report intelligence</p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Findings are ranked by customer impact, evidence, and confidence.</h2>
           </div>
           <Link href="/dashboard/reports" className="text-sm font-semibold text-cyan-200 transition hover:text-white">Back to report vault →</Link>
+        </div>
+        <div className="mt-5 grid gap-4 lg:grid-cols-3">
+          {SAMPLE_FINDINGS.map((finding) => (
+            <article key={`${finding.axis}-${finding.findingLabel}`} className="rounded-[1.25rem] border border-white/10 bg-black/20 p-4">
+              <div className="flex flex-wrap gap-2">
+                <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-[11px] font-semibold text-cyan-100">{finding.axisLabel}</span>
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold text-slate-200">{finding.priority}</span>
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold text-slate-200">{finding.confidence}</span>
+              </div>
+              <h3 className="mt-4 text-lg font-semibold tracking-tight text-white">{finding.findingLabel}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">{finding.customerImpact}</p>
+              <p className="mt-3 text-sm leading-6 text-cyan-100">{finding.bestNextAction}</p>
+              <p className="mt-3 text-xs leading-5 text-slate-500">Limit: {finding.limitation}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 mt-7 rounded-[1.45rem] border border-white/10 bg-white/[0.035] p-5 sm:p-6" aria-label="Free Scan methodology">
+        <div>
+          <p className="text-sm font-semibold text-cyan-100">Methodology</p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Six signals, one first decision.</h2>
         </div>
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {FREE_SCAN_REPORT_AXES.map((axis) => (
@@ -82,18 +108,13 @@ export default function FreeScanResultsPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]" aria-label="Confidence and result structure">
-        <div className="system-surface rounded-[1.35rem] p-5">
-          <h2 className="text-2xl font-semibold tracking-tight text-white">Confidence model</h2>
-          <div className="mt-4 grid gap-3">
-            {FREE_SCAN_CONFIDENCE_MODEL.map((item) => (
-              <div key={item.level} className="rounded-[1.1rem] border border-white/10 bg-white/[0.03] p-4">
-                <div className="text-sm font-semibold text-cyan-100">{item.level}</div>
-                <p className="mt-2 text-sm leading-6 text-slate-300">{item.customerMeaning}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-3" aria-label="Evidence confidence and priority">
+        <MethodPanel title="Evidence rules" items={FREE_SCAN_EVIDENCE_RULES.map((item) => `${item.label}: ${item.customerMeaning}`)} />
+        <MethodPanel title="Confidence model" items={FREE_SCAN_CONFIDENCE_MODEL.map((item) => `${item.level}: ${item.customerMeaning}`)} />
+        <MethodPanel title="Priority model" items={FREE_SCAN_PRIORITY_MODEL.map((item) => `${item.level}: ${item.customerMeaning}`)} />
+      </section>
+
+      <section className="relative z-10 mt-7 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]" aria-label="Result structure">
         <div className="system-surface rounded-[1.35rem] p-5">
           <h2 className="text-2xl font-semibold tracking-tight text-white">How your result is organized</h2>
           <div className="mt-4 grid gap-3">
@@ -105,19 +126,21 @@ export default function FreeScanResultsPage() {
             ))}
           </div>
         </div>
-      </section>
-
-      <section className="relative z-10 mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Result process">
-        {RESULT_TIMELINE.map((item) => (
-          <article key={item.label} className="rounded-[1.2rem] border border-white/10 bg-white/[0.035] p-4">
-            <div className="text-sm font-semibold text-cyan-100">{item.label}</div>
-            <p className="mt-2 text-sm leading-6 text-slate-300">{item.detail}</p>
-          </article>
-        ))}
+        <div className="system-surface rounded-[1.35rem] p-5">
+          <h2 className="text-2xl font-semibold tracking-tight text-white">How the first read is produced</h2>
+          <div className="mt-4 grid gap-3">
+            {RESULT_TIMELINE.map((item) => (
+              <div key={item.label} className="rounded-[1.1rem] border border-white/10 bg-white/[0.03] p-4">
+                <div className="text-sm font-semibold text-cyan-100">{item.label}</div>
+                <p className="mt-2 text-sm leading-6 text-slate-300">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="sr-only" aria-label="Free Scan report validation guardrails">
-        Free Scan results. Protected dashboard report results. Report methodology. Six signals. Clarity Trust Choice Action Visibility Proof. Observed evidence. Inferred judgment. Needs deeper review. What matters first. What Cendorq can see. Why it may cost choices. What is still uncertain. Best next move. Deep Review $497. Accurate results require confidence posture and limitations. {FREE_SCAN_REPORT_QUALITY_RULES.join(" ")}
+        Free Scan results. Protected dashboard report results. Report methodology. Six signals. Clarity Trust Choice Action Visibility Proof. Observed evidence. Inferred judgment. Needs deeper review. Evidence rules. Priority model. Critical Important Watch. What matters first. What Cendorq can see. Why it may cost choices. What is still uncertain. Best next move. Deep Review $497. Accurate results require confidence posture and limitations. {FREE_SCAN_REPORT_QUALITY_RULES.join(" ")}
       </section>
     </main>
   );
@@ -128,6 +151,19 @@ function ResultCard({ title, copy }: { title: string; copy: string }) {
     <article className="system-surface rounded-[1.25rem] p-4 sm:rounded-[1.35rem] sm:p-5">
       <h2 className="text-xl font-semibold tracking-tight text-white">{title}</h2>
       <p className="mt-3 text-sm leading-7 text-slate-300">{copy}</p>
+    </article>
+  );
+}
+
+function MethodPanel({ title, items }: { title: string; items: readonly string[] }) {
+  return (
+    <article className="system-surface rounded-[1.25rem] p-4 sm:rounded-[1.35rem] sm:p-5">
+      <h2 className="text-xl font-semibold tracking-tight text-white">{title}</h2>
+      <div className="mt-4 grid gap-3">
+        {items.map((item) => (
+          <p key={item} className="rounded-[1rem] border border-white/10 bg-white/[0.03] p-3 text-sm leading-6 text-slate-300">{item}</p>
+        ))}
+      </div>
     </article>
   );
 }

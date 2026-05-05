@@ -1,4 +1,6 @@
 export type FreeScanAxisKey = "clarity" | "trust" | "choice" | "action" | "visibility" | "proof";
+export type FreeScanConfidenceLevel = "Observed" | "Inferred" | "Needs deeper review";
+export type FreeScanPriorityLevel = "critical" | "important" | "watch";
 
 export type FreeScanAxis = {
   key: FreeScanAxisKey;
@@ -8,6 +10,24 @@ export type FreeScanAxis = {
   resultQuestion: string;
   conversionRisk: string;
   deepReviewUnlock: string;
+};
+
+export type FreeScanEvidenceRule = {
+  label: string;
+  customerMeaning: string;
+  allowedEvidence: readonly string[];
+  shouldNotUse: readonly string[];
+};
+
+export type FreeScanResultFinding = {
+  axis: FreeScanAxisKey;
+  priority: FreeScanPriorityLevel;
+  confidence: FreeScanConfidenceLevel;
+  findingLabel: string;
+  customerImpact: string;
+  evidenceNeeded: readonly string[];
+  limitation: string;
+  bestNextAction: string;
 };
 
 export const FREE_SCAN_REPORT_AXES = [
@@ -85,6 +105,45 @@ export const FREE_SCAN_CONFIDENCE_MODEL = [
   },
 ] as const;
 
+export const FREE_SCAN_EVIDENCE_RULES = [
+  {
+    label: "Visible customer-facing evidence",
+    customerMeaning: "Use what a real customer can see or experience without private access.",
+    allowedEvidence: ["public website", "public business profile", "visible offer copy", "visible CTA", "public proof signals", "public search or local presentation"],
+    shouldNotUse: ["private account data", "password-protected pages", "raw internal notes", "unverified claims", "guaranteed outcome assumptions"],
+  },
+  {
+    label: "Customer-provided context",
+    customerMeaning: "Use the submitted business goal, audience, offer, location, and stated concern to avoid generic advice.",
+    allowedEvidence: ["business name", "business URL", "target customer", "primary offer", "market or location", "main goal or concern", "known competitors"],
+    shouldNotUse: ["secrets", "tokens", "card data", "private keys", "irrelevant personal data"],
+  },
+  {
+    label: "Confidence boundaries",
+    customerMeaning: "Show what is known, what is inferred, and what still needs deeper review before presenting a cause as reliable.",
+    allowedEvidence: ["visible mismatch", "missing proof", "unclear action path", "customer stated concern", "observable comparison gap"],
+    shouldNotUse: ["final diagnosis without evidence", "fake precision", "unsupported score certainty", "pressure language"],
+  },
+] as const satisfies readonly FreeScanEvidenceRule[];
+
+export const FREE_SCAN_PRIORITY_MODEL = [
+  {
+    level: "critical",
+    customerMeaning: "This may block the customer from understanding, trusting, choosing, or acting now.",
+    action: "Explain first and route toward Deep Review when the cause needs evidence-backed diagnosis.",
+  },
+  {
+    level: "important",
+    customerMeaning: "This may reduce confidence or make the business easier to compare away from.",
+    action: "Teach why it matters and show what deeper review or a fix would clarify.",
+  },
+  {
+    level: "watch",
+    customerMeaning: "This is worth monitoring, but it may not be the first revenue leak.",
+    action: "Keep it visible without distracting from the highest-leverage next move.",
+  },
+] as const;
+
 export const FREE_SCAN_RESULT_SECTIONS = [
   {
     label: "What matters first",
@@ -108,6 +167,39 @@ export const FREE_SCAN_RESULT_SECTIONS = [
   },
 ] as const;
 
+export const FREE_SCAN_SAMPLE_FINDINGS = [
+  {
+    axis: "clarity",
+    priority: "critical",
+    confidence: "Inferred",
+    findingLabel: "The offer may not become clear fast enough for a serious customer.",
+    customerImpact: "A visitor who cannot quickly understand the promise may leave before trust, proof, or price can help.",
+    evidenceNeeded: ["submitted website", "headline and first-screen copy", "primary offer", "target customer"],
+    limitation: "The Free Scan can flag the clarity risk, but Deep Review is needed to identify the exact message layer causing it.",
+    bestNextAction: "Use Deep Review when the business needs the full reason before buying fixes or ads.",
+  },
+  {
+    axis: "trust",
+    priority: "important",
+    confidence: "Observed",
+    findingLabel: "Trust signals may not support the action being asked for.",
+    customerImpact: "Customers may like the service but hesitate if proof, legitimacy, or contact confidence feels thin.",
+    evidenceNeeded: ["visible proof", "reviews or examples", "contact path", "risk-reducing copy"],
+    limitation: "A first scan cannot prove customer intent; it can only show whether trust support appears strong enough for the action.",
+    bestNextAction: "Use Deep Review to separate missing proof from weak proof placement or weak action framing.",
+  },
+  {
+    axis: "action",
+    priority: "critical",
+    confidence: "Observed",
+    findingLabel: "The next action may not feel obvious or easy enough on mobile.",
+    customerImpact: "Interested customers can still fail to contact, book, buy, or request help when the path is unclear or high-friction.",
+    evidenceNeeded: ["primary CTA", "form path", "mobile tap path", "booking or contact steps"],
+    limitation: "The Free Scan can show the action risk; deeper review is needed to decide whether the fix is copy, layout, offer, or trust.",
+    bestNextAction: "Use Build Fix only when the weak action path is already clear enough to improve safely.",
+  },
+] as const satisfies readonly FreeScanResultFinding[];
+
 export const FREE_SCAN_REPORT_QUALITY_RULES = [
   "Separate observed evidence from inferred judgment.",
   "Never claim 100 percent certainty from a limited first scan.",
@@ -117,6 +209,9 @@ export const FREE_SCAN_REPORT_QUALITY_RULES = [
   "Use Deep Review when the cause matters more than a quick fix.",
   "Use Build Fix only when the weak part is clear enough to improve.",
   "Use Ongoing Control when the business needs repeated monitoring and monthly decisions.",
+  "Never present a pending result as final.",
+  "Never expose private payloads, secrets, internal notes, prompts, tokens, or billing data inside the report.",
+  "Use confidence labels and limitations whenever the Free Scan makes an inference.",
 ] as const;
 
 export const FREE_SCAN_REQUIRED_INTAKE_FIELDS = [
@@ -139,4 +234,11 @@ export const FREE_SCAN_OPTIONAL_CONTEXT_FIELDS = [
 
 export function getFreeScanAxis(axisKey: FreeScanAxisKey) {
   return FREE_SCAN_REPORT_AXES.find((axis) => axis.key === axisKey) || FREE_SCAN_REPORT_AXES[0];
+}
+
+export function getFreeScanFindingSummary() {
+  return FREE_SCAN_SAMPLE_FINDINGS.map((finding) => ({
+    ...finding,
+    axisLabel: getFreeScanAxis(finding.axis).customerLabel,
+  }));
 }
