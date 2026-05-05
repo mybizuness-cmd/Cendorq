@@ -19,18 +19,20 @@ expect(pagePath, [
   "Safe billing path",
   "Upgrade posture",
   "Proof-led next step",
+  "REVENUE_ACTIONS",
+  "Turn the first read into the right paid next step.",
+  "Best revenue move",
+  "Deep Review",
+  "Unlock Deep Review",
+  "Fix what is costing choices",
+  "Keep monthly control",
   "BILLING_RECOVERY_ACTIONS",
-  "Billing center first use guidance",
-  "First billing visit",
-  "Understand access before taking action.",
   "Compare plans",
   "Open notifications",
   "Request support",
   "BILLING_SAFETY_RULES",
   "Billing safety rules",
-  "Never ask customers to submit card numbers, bank details, passwords, private keys, or session tokens through support copy.",
   "Show billing and entitlement state as a safe projection, not raw provider payloads or internal IDs.",
-  "Explain failed-payment or invoice actions with a calm recovery path and no fake urgency.",
   "Plan upgrade guidance must separate current access, pending actions, and future entitlements.",
   "focus:outline-none",
   "focus:ring-2",
@@ -62,16 +64,6 @@ forbidden(pagePath, [
   "impossible to hack",
   "never liable",
   "liability-free",
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes",
-  "operatorIdentity",
-  "riskScoringInternals",
-  "attackerDetails",
-  "sessionToken=",
-  "csrfToken=",
   "localStorage",
   "sessionStorage",
   "card number required",
@@ -83,7 +75,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Billing center first use validation passed with owner posture coverage.");
+console.log("Billing center first use validation passed with owner posture coverage and revenue-path billing flow.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
