@@ -131,6 +131,16 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     protectionNote: "Agent missions remain metadata-only until persistence, source refs, chief review, and release-captain approval are configured; agents cannot approve customer-facing output or mutate production.",
   },
   {
+    key: "agent-mission-records-runtime",
+    label: "Agent mission records runtime",
+    order: 106,
+    layer: "intelligence",
+    visibility: "private-gated",
+    dataExposure: "metadata-only",
+    operatorPurpose: "Show plan-triggered mission records with intake links, missing inputs, assigned chief agents, finding posture, chief review state, captain review state, blocked claims, and append-only audit events.",
+    protectionNote: "Agent mission records stay safe-summary-only and cannot expose raw customer payloads, credentials, payment data, provider payloads, prompts, internal notes, or cross-customer records.",
+  },
+  {
     key: "owner-configuration-evidence",
     label: "Owner configuration evidence",
     order: 110,
