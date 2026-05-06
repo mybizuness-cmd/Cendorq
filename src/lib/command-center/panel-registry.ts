@@ -211,6 +211,16 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     protectionNote: "Plan routing stays safe-summary-only and cannot create entitlement, billing, or customer-facing approval drift.",
   },
   {
+    key: "paid-report-delivery-ops",
+    label: "Paid report delivery ops",
+    order: 177,
+    layer: "operations",
+    visibility: "private-gated",
+    dataExposure: "metadata-only",
+    operatorPurpose: "Show paid report production status, attachment generation, release approval, email delivery, resend controls, and delivery audit posture.",
+    protectionNote: "Paid report delivery ops stay metadata-only and cannot expose raw evidence, customer secrets, provider payloads, prompts, internal notes, payment data, or cross-customer records.",
+  },
+  {
     key: "optimization-library",
     label: "Optimization library",
     order: 180,
