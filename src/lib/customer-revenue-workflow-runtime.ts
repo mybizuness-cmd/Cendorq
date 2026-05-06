@@ -2,6 +2,7 @@ import {
   CENDORQ_PLAN_PERSONALIZATION_FIELDS,
   getCendorqRevenueStage,
 } from "@/lib/cendorq-revenue-operating-system";
+import { projectPlanIntelligenceIntakeRecord, type PlanIntelligenceIntakeRecord } from "@/lib/plan-intelligence-intake-records";
 import {
   CENDORQ_POST_PAYMENT_EMAILS,
   getPaidCendorqPlanPrice,
@@ -23,6 +24,8 @@ export type CustomerRevenueActivationInput = {
   sourcePage?: string;
   recommendedFrom?: string;
   marketingConsent?: "accepted" | "declined" | "unknown";
+  capturedIntakeFields?: readonly string[];
+  blockedIntakeFields?: readonly string[];
 };
 
 export type CustomerRevenueActivationProjection = {
@@ -49,6 +52,7 @@ export type CustomerRevenueActivationProjection = {
     supportRecoveryPath: string;
     auditEvents: readonly string[];
   };
+  planIntelligenceIntake: PlanIntelligenceIntakeRecord;
   paidReportDelivery: {
     dashboardPath: "/dashboard/reports";
     customerReportName: string;
@@ -91,6 +95,12 @@ const WORKFLOW_BY_PLAN: Record<CendorqPaidPlanKey, string> = {
   "ongoing-control": "recurring-control-workflow",
 };
 
+const BASE_CAPTURED_FIELDS_BY_PLAN: Record<CendorqPaidPlanKey, readonly string[]> = {
+  "deep-review": ["active Deep Review entitlement", "verified customer ownership", "Free Scan result when available"],
+  "build-fix": ["active Build Fix entitlement", "verified customer ownership"],
+  "ongoing-control": ["active Ongoing Control subscription", "verified customer ownership"],
+};
+
 export function projectCustomerRevenueActivation(input: CustomerRevenueActivationInput): CustomerRevenueActivationProjection {
   const plan = getPaidCendorqPlanPrice(input.planKey);
   const revenueStage = getCendorqRevenueStage(plan.name);
@@ -100,6 +110,12 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
   const queueName = QUEUE_BY_PLAN[input.planKey];
   const requiredContext = CENDORQ_PLAN_PERSONALIZATION_FIELDS[input.planKey];
   const paidReportDelivery = requirePaidPlanReportDeliveryContract(input.planKey);
+  const planIntelligenceIntake = projectPlanIntelligenceIntakeRecord({
+    planKey: input.planKey,
+    capturedFields: [...BASE_CAPTURED_FIELDS_BY_PLAN[input.planKey], ...(input.capturedIntakeFields || [])],
+    blockedFields: input.blockedIntakeFields || [],
+    recordKey: `${input.checkoutSessionId || input.planKey}-plan-intelligence-intake`,
+  });
 
   return {
     plan: {
@@ -120,19 +136,21 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
       entitlementKey: `${input.planKey}-entitlement`,
       workflowKey,
       queueName,
-      dashboardNotification: `${plan.name} unlocked. ${revenueStage.nextBestAction}`,
+      dashboardNotification: `${plan.name} unlocked. ${planIntelligenceIntake.nextWorkflowAction}`,
       billingRecord: `${plan.publicName} ${plan.price}`,
       supportRecoveryPath: "/dashboard/support",
       auditEvents: [
         "checkout_session_received",
         "payment_status_verified",
         "entitlement_created",
+        "plan_intelligence_intake_record_created",
         "dashboard_notification_created",
         "workflow_queue_item_created",
         "post_payment_email_queued",
         "paid_report_delivery_contract_attached",
       ],
     },
+    planIntelligenceIntake,
     paidReportDelivery: {
       dashboardPath: paidReportDelivery.dashboardPath,
       customerReportName: paidReportDelivery.customerReportName,
@@ -154,11 +172,11 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
       reportAttachmentFileNamePattern: paidReportDelivery.attachmentFileNamePattern,
       reportAttachmentContentType: paidReportDelivery.attachmentContentType,
     },
-    metadata: buildCheckoutMetadata(input, plan, workflowKey, paidReportDelivery.releaseGate),
+    metadata: buildCheckoutMetadata(input, plan, workflowKey, paidReportDelivery.releaseGate, planIntelligenceIntake),
   };
 }
 
-function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: ReturnType<typeof getPaidCendorqPlanPrice>, workflowKey: string, reportReleaseGate: string) {
+function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: ReturnType<typeof getPaidCendorqPlanPrice>, workflowKey: string, reportReleaseGate: string, planIntelligenceIntake: PlanIntelligenceIntakeRecord) {
   return {
     plan_key: input.planKey,
     plan_name: plan.name,
@@ -166,6 +184,10 @@ function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: Retu
     billing_mode: plan.stripeMode === "subscription" ? "subscription" : "one_time",
     backend_start_signal: plan.backendStartSignal,
     workflow_key: workflowKey,
+    plan_intelligence_intake_record_key: planIntelligenceIntake.recordKey,
+    plan_intelligence_completion_state: planIntelligenceIntake.completionState,
+    plan_intelligence_missing_minimum_inputs: planIntelligenceIntake.missingMinimumInputs.join("|"),
+    plan_intelligence_next_workflow_action: planIntelligenceIntake.nextWorkflowAction,
     paid_report_dashboard_path: "/dashboard/reports",
     paid_report_release_gate: reportReleaseGate,
     paid_report_attachment_required: "true",
