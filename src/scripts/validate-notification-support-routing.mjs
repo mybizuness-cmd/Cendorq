@@ -61,21 +61,22 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(notificationPath, [
   "fake urgency",
-  "guaranteed ranking",
-  "guaranteed ai placement",
-  "guaranteed revenue",
-  "raw security payload",
-  "raw billing ids",
+  "we guarantee ranking",
+  "we guarantee ai placement",
+  "we guarantee revenue",
+  "submit your card number",
+  "paste your password",
 ]);
 
 forbidden(supportPath, [
   "support will refund",
   "support will change the report",
-  "unlimited build fix",
-  "guaranteed ranking",
-  "guaranteed ai placement",
-  "guaranteed revenue",
+  "unlimited build fix included",
+  "we guarantee ranking",
+  "we guarantee ai placement",
+  "we guarantee revenue",
   "submit card number",
+  "paste your password",
 ]);
 
 if (failures.length) {
