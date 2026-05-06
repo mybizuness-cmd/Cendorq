@@ -30,6 +30,7 @@ import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
 import { OptimizationLibraryPanel } from "./optimization-library-panel";
 import { OwnerConfigurationEvidencePanel } from "./owner-configuration-evidence-panel";
 import { OwnerConfigurationWorkflowPanel } from "./owner-configuration-workflow-panel";
+import { PaidReportDeliveryOpsPanel } from "./paid-report-delivery-ops-panel";
 import { PlanControlPanel } from "./plan-control-panel";
 import { PlanDeliveryOrchestrationPanel } from "./plan-delivery-orchestration-panel";
 import { PlanRoutingRuntimePanel } from "./plan-routing-runtime-panel";
@@ -103,6 +104,7 @@ export default async function CommandCenterPage() {
         <PlanControlPanel plans={planControls} />
         <PlanDeliveryOrchestrationPanel />
         <PlanRoutingRuntimePanel />
+        <PaidReportDeliveryOpsPanel />
         <OptimizationLibraryPanel methods={optimizationMethods} />
         <CustomerOutputApprovalPanel policies={customerOutputPolicies} />
         <BenchmarkIntelligencePanel />
