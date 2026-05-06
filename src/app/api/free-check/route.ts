@@ -7,6 +7,7 @@ import {
   projectCustomerConfirmationEmailSafeResponse,
 } from "@/lib/customer-confirmation-email-issuance-runtime";
 import { deriveFreeCheckIntelligence, type ConfidenceLevel } from "@/lib/intelligence/free-check-intelligence";
+import { projectFreeScanIntakeRecordFromPayload, type PlanIntelligenceIntakeRecord } from "@/lib/plan-intelligence-intake-records";
 import { buildFreeCheckReportSnapshot } from "@/lib/reports/free-check-report";
 import { scoreFreeCheck, type ScoreDecision, type ScoreResult, type ScoreTier } from "@/lib/scoring/free-check-score";
 import { deriveSignals, type SignalResult } from "@/lib/signals/free-check-signal";
@@ -30,6 +31,7 @@ type StoredFreeCheckSubmission = NormalizedFreeCheckInput & {
   ipHash: string;
   userAgent: string;
   riskFlags: string[];
+  planIntelligenceIntake: PlanIntelligenceIntakeRecord;
   signalQuality: number;
   routingHint: RoutingHint;
   clarityScore: number;
@@ -99,7 +101,7 @@ export async function GET(request: NextRequest) {
     if (requestedId) {
       const match = envelope.entries.find((entry) => entry.id === requestedId);
       if (!match) return jsonNoStore({ ok: false, error: "The requested Free Scan entry was not found.", details: ["Check the entry id and request the report again."] }, 404);
-      return jsonNoStore({ ok: true, entry: projectEntryForConsole(match), report: buildFreeCheckReportSnapshot(match) }, requestedView === "report" ? 200 : 200);
+      return jsonNoStore({ ok: true, entry: projectEntryForConsole(match), report: buildFreeCheckReportSnapshot(match), planIntelligenceIntake: match.planIntelligenceIntake }, requestedView === "report" ? 200 : 200);
     }
 
     const limit = clampInteger(request.nextUrl.searchParams.get("limit"), 1, MAX_GET_LIMIT, 100);
@@ -158,7 +160,7 @@ export async function POST(request: NextRequest) {
 
   const input = coerceIncomingInput(parsedBody, incomingSource || undefined);
   const validation = validateFreeCheck(input);
-  if (!validation.isValid) return jsonNoStore({ ok: false, error: "The Free Scan needs stronger signal before it can be accepted.", details: Object.values(validation.errors), fieldErrors: validation.errors }, 400);
+  if (!validation.isValid) return jsonNoStore({ ok: false, error: "The Free Scan needs stronger signal before it can be accepted.", details: Object.values(validation.errors), fieldErrors: validation.errors, planIntelligenceIntake: projectFreeScanIntakeRecordFromPayload(parsedBody, "free-scan-validation-blocked") }, 400);
 
   const normalized = validation.normalized;
   const signals = deriveSignals(input);
@@ -205,7 +207,7 @@ export async function POST(request: NextRequest) {
     });
     const safeConfirmationEmail = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
 
-    return jsonNoStore({ ok: true, intakeId: storedEntry.id, resultDestination: FREE_SCAN_RESULTS_DESTINATION, signalQuality: storedEntry.signalQuality, routingHint: storedEntry.routingHint, duplicate, riskFlags: storedEntry.riskFlags, clarityScore: storedEntry.clarityScore, intentStrength: storedEntry.intentStrength, score: storedEntry.score, tier: storedEntry.scoreTier, decision: storedEntry.decision, confidenceLevel: storedEntry.confidenceLevel, dataDepthScore: storedEntry.dataDepthScore, scoreModules: storedEntry.scoreModules, timeSensitivity: storedEntry.timeSensitivity, decisionMoment: storedEntry.decisionMoment, explanationTrace: storedEntry.explanationTrace, confirmationEmail: safeConfirmationEmail, message: duplicate ? "This business already had a recent Free Scan in the system. The existing signal has been updated with the newest submission. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." : "The Free Scan has been captured successfully. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." }, 200);
+    return jsonNoStore({ ok: true, intakeId: storedEntry.id, resultDestination: FREE_SCAN_RESULTS_DESTINATION, planIntelligenceIntake: storedEntry.planIntelligenceIntake, signalQuality: storedEntry.signalQuality, routingHint: storedEntry.routingHint, duplicate, riskFlags: storedEntry.riskFlags, clarityScore: storedEntry.clarityScore, intentStrength: storedEntry.intentStrength, score: storedEntry.score, tier: storedEntry.scoreTier, decision: storedEntry.decision, confidenceLevel: storedEntry.confidenceLevel, dataDepthScore: storedEntry.dataDepthScore, scoreModules: storedEntry.scoreModules, timeSensitivity: storedEntry.timeSensitivity, decisionMoment: storedEntry.decisionMoment, explanationTrace: storedEntry.explanationTrace, confirmationEmail: safeConfirmationEmail, message: duplicate ? "This business already had a recent Free Scan in the system. The existing signal has been updated with the newest submission. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." : "The Free Scan has been captured successfully. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." }, 200);
   } catch {
     return jsonNoStore({ ok: false, error: "The submission could not be stored cleanly.", details: ["The intake storage layer was not able to save the Free Scan right now."] }, 500);
   }
@@ -236,7 +238,7 @@ function coerceIncomingInput(payload: IncomingFreeCheckPayload, source: IntakeSo
 }
 
 function buildStoredEntry({ id, createdAt, updatedAt, duplicateKey, lastSubmissionHash, submissionCount, ipHash, userAgent, normalized, signals, scoring, intelligence }: { id: string; createdAt: string; updatedAt: string; duplicateKey: string; lastSubmissionHash: string; submissionCount: number; ipHash: string; userAgent: string; normalized: NormalizedFreeCheckInput; signals: SignalResult; scoring: ScoreResult; intelligence: ReturnType<typeof deriveFreeCheckIntelligence>; }): StoredFreeCheckSubmission {
-  return { ...normalized, id, createdAt, updatedAt, duplicateKey, lastSubmissionHash, submissionCount, ipHash, userAgent, riskFlags: signals.riskFlags, signalQuality: signals.signalQuality, routingHint: signals.routingHint, clarityScore: signals.clarityScore, intentStrength: signals.intentStrength, strongestPressure: signals.strongestPressure, signalSummary: signals.summary, score: scoring.score, scoreTier: scoring.tier, decision: scoring.decision, scoreReasons: scoring.reasons, scoreSummary: scoring.summary, confidenceLevel: intelligence.confidenceLevel, dataDepthScore: intelligence.dataDepthScore, timeSensitivity: intelligence.timeSensitivity, decisionMoment: intelligence.decisionMoment, explanationTrace: intelligence.explanationTrace, scoreModules: intelligence.scoreModules };
+  return { ...normalized, id, createdAt, updatedAt, duplicateKey, lastSubmissionHash, submissionCount, ipHash, userAgent, riskFlags: signals.riskFlags, planIntelligenceIntake: projectFreeScanIntakeRecordFromPayload(normalized, `${id}-free-scan-intake`), signalQuality: signals.signalQuality, routingHint: signals.routingHint, clarityScore: signals.clarityScore, intentStrength: signals.intentStrength, strongestPressure: signals.strongestPressure, signalSummary: signals.summary, score: scoring.score, scoreTier: scoring.tier, decision: scoring.decision, scoreReasons: scoring.reasons, scoreSummary: scoring.summary, confidenceLevel: intelligence.confidenceLevel, dataDepthScore: intelligence.dataDepthScore, timeSensitivity: intelligence.timeSensitivity, decisionMoment: intelligence.decisionMoment, explanationTrace: intelligence.explanationTrace, scoreModules: intelligence.scoreModules };
 }
 
 function buildDuplicateKey(input: NormalizedFreeCheckInput) {
@@ -332,7 +334,7 @@ function projectEntryForConsole(entry: StoredFreeCheckSubmission): StoredFreeChe
 }
 
 function matchesEntryQuery(entry: StoredFreeCheckSubmission, query: string) {
-  return [entry.id, entry.businessName, entry.websiteUrl, entry.websiteHostname, entry.fullName, entry.email, entry.city, entry.stateRegion, entry.country, entry.businessType, entry.primaryOffer, entry.audience, entry.biggestIssue, entry.routingHint, entry.decision, entry.scoreTier, entry.strongestPressure, entry.confidenceLevel, entry.signalSummary, entry.scoreSummary, entry.decisionMoment, ...entry.riskFlags, ...entry.explanationTrace].join(" ").toLowerCase().includes(query);
+  return [entry.id, entry.businessName, entry.websiteUrl, entry.websiteHostname, entry.fullName, entry.email, entry.city, entry.stateRegion, entry.country, entry.businessType, entry.primaryOffer, entry.audience, entry.biggestIssue, entry.routingHint, entry.decision, entry.scoreTier, entry.strongestPressure, entry.confidenceLevel, entry.signalSummary, entry.scoreSummary, entry.decisionMoment, entry.planIntelligenceIntake.completionState, entry.planIntelligenceIntake.nextWorkflowAction, ...entry.planIntelligenceIntake.missingMinimumInputs, ...entry.riskFlags, ...entry.explanationTrace].join(" ").toLowerCase().includes(query);
 }
 
 function sortEntries(entries: StoredFreeCheckSubmission[], sort: FreeCheckSortMode) {
