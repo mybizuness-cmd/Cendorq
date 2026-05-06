@@ -7,6 +7,7 @@ import {
   getPaidCendorqPlanPrice,
   type CendorqPaidPlanKey,
 } from "@/lib/pricing-checkout-orchestration";
+import { requirePaidPlanReportDeliveryContract } from "@/lib/paid-plan-report-delivery-operating-system";
 
 export type CustomerRevenueActivationInput = {
   planKey: CendorqPaidPlanKey;
@@ -48,12 +49,26 @@ export type CustomerRevenueActivationProjection = {
     supportRecoveryPath: string;
     auditEvents: readonly string[];
   };
+  paidReportDelivery: {
+    dashboardPath: "/dashboard/reports";
+    customerReportName: string;
+    emailTemplateKey: string;
+    attachmentRequired: true;
+    attachmentFileNamePattern: string;
+    attachmentContentType: "application/pdf";
+    releaseGate: string;
+    requiredBeforeRelease: readonly string[];
+    deliveryEvents: readonly string[];
+  };
   emailHandoff: {
     subject: string;
     dashboardPath: string;
     customerGoal: string;
     transactional: true;
     marketingConsentRequired: false;
+    reportAttachmentRequired: true;
+    reportAttachmentFileNamePattern: string;
+    reportAttachmentContentType: "application/pdf";
   };
   metadata: Record<string, string>;
 };
@@ -84,6 +99,7 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
   const workflowKey = WORKFLOW_BY_PLAN[input.planKey];
   const queueName = QUEUE_BY_PLAN[input.planKey];
   const requiredContext = CENDORQ_PLAN_PERSONALIZATION_FIELDS[input.planKey];
+  const paidReportDelivery = requirePaidPlanReportDeliveryContract(input.planKey);
 
   return {
     plan: {
@@ -114,7 +130,19 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
         "dashboard_notification_created",
         "workflow_queue_item_created",
         "post_payment_email_queued",
+        "paid_report_delivery_contract_attached",
       ],
+    },
+    paidReportDelivery: {
+      dashboardPath: paidReportDelivery.dashboardPath,
+      customerReportName: paidReportDelivery.customerReportName,
+      emailTemplateKey: paidReportDelivery.emailTemplateKey,
+      attachmentRequired: paidReportDelivery.attachmentRequired,
+      attachmentFileNamePattern: paidReportDelivery.attachmentFileNamePattern,
+      attachmentContentType: paidReportDelivery.attachmentContentType,
+      releaseGate: paidReportDelivery.releaseGate,
+      requiredBeforeRelease: paidReportDelivery.requiredBeforeRelease,
+      deliveryEvents: paidReportDelivery.deliveryEvents,
     },
     emailHandoff: {
       subject: email?.subject || `${plan.name} is unlocked`,
@@ -122,12 +150,15 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
       customerGoal: email?.customerGoal || revenueStage.nextBestAction,
       transactional: true,
       marketingConsentRequired: false,
+      reportAttachmentRequired: true,
+      reportAttachmentFileNamePattern: paidReportDelivery.attachmentFileNamePattern,
+      reportAttachmentContentType: paidReportDelivery.attachmentContentType,
     },
-    metadata: buildCheckoutMetadata(input, plan, workflowKey),
+    metadata: buildCheckoutMetadata(input, plan, workflowKey, paidReportDelivery.releaseGate),
   };
 }
 
-function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: ReturnType<typeof getPaidCendorqPlanPrice>, workflowKey: string) {
+function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: ReturnType<typeof getPaidCendorqPlanPrice>, workflowKey: string, reportReleaseGate: string) {
   return {
     plan_key: input.planKey,
     plan_name: plan.name,
@@ -135,6 +166,10 @@ function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: Retu
     billing_mode: plan.stripeMode === "subscription" ? "subscription" : "one_time",
     backend_start_signal: plan.backendStartSignal,
     workflow_key: workflowKey,
+    paid_report_dashboard_path: "/dashboard/reports",
+    paid_report_release_gate: reportReleaseGate,
+    paid_report_attachment_required: "true",
+    paid_report_attachment_content_type: "application/pdf",
     customer_id: input.customerId || "pending-customer",
     customer_email: input.customerEmail || "pending-email",
     business_id: input.businessId || "pending-business",
