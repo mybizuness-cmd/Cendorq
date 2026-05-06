@@ -29,21 +29,20 @@ export const metadata = buildMetadata({
 });
 
 const TRUST_RULES = [
-  "Share business context only.",
-  "Do not enter passwords, cards, private keys, or tokens.",
-  "Verified customers land on the Free Scan result path.",
+  "Business context only",
+  "No passwords, cards, private keys, or tokens",
+  "Verified customers get the result path",
 ] as const;
 
-const FREE_SCAN_JOURNEY = [
-  { label: "Start", value: "Safe business context", detail: "Answer plain business questions that help Cendorq understand the offer, audience, market, and main concern." },
-  { label: "Verify", value: "Protected result access", detail: "Email verification protects the dashboard, Free Scan history, reports, support, billing, and notifications." },
-  { label: "Read", value: "First visible signal", detail: "The Free Scan result shows evidence boundaries, confidence posture, limitations, and the safest next action." },
-  { label: "Choose", value: "Right depth next", detail: "Move to Deep Review, Build Fix, or Ongoing Control only when the result supports that stage." },
+const FREE_SCAN_PROMISE = [
+  { label: "Gives", value: "A first signal", detail: "Useful direction before you pay." },
+  { label: "Does not give", value: "Full diagnosis", detail: "Deep Review handles cause-level proof." },
+  { label: "Next", value: "Right paid depth", detail: "Choose only when the result supports it." },
 ] as const;
 
 const FREE_SCAN_FIRST_USE_SNAPSHOT = [
   "Free Scan first use snapshot",
-  "First-use path",
+  "Form visible early",
   "Guided scan room",
   "Completion handoff",
   "Dashboard result page",
@@ -68,32 +67,15 @@ const SCAN_ROOM_TRUST_RAIL = [
   "Plan guidance should come from scan evidence, confidence posture, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
 ] as const;
 
-const FREE_SCAN_BOUNDARY_STANDARDS = [
-  { label: "Free Scan gives", value: "First signal", detail: "It should be useful before payment, but it remains a directional first read." },
-  { label: "Free Scan does not give", value: "Full diagnosis", detail: "Cause-level diagnosis belongs in Deep Review, not the free first signal." },
-  { label: "Free Scan does not do", value: "Implementation", detail: "Scoped implementation belongs in Build Fix after the fix target is clear." },
-  { label: "Free Scan does not monitor", value: "Monthly control", detail: "Recurring watch and decision support belong in Ongoing Control." },
-] as const;
-
-const FREE_SCAN_FIRST_USE_RULES = SCAN_ROOM_TRUST_RAIL;
-
-const HANDOFF_LINKS = ["/dashboard", "/dashboard/notifications", "/dashboard/reports/free-scan"] as const;
-
 const FAQS = [
   {
     question: "Is this really free?",
-    answer:
-      "Yes. The Free Scan is the first guided step. It helps show what may be making the business harder to understand, trust, find, or choose.",
-  },
-  {
-    question: "Why does AI search matter?",
-    answer:
-      "Customers now compare businesses through search results, maps, reviews, summaries, social platforms, and AI answers. If the business does not look clear and trustworthy, they may move on quietly.",
+    answer: "Yes. The Free Scan gives a useful first signal before paid diagnosis, implementation, or monthly control.",
   },
   {
     question: "What happens after I submit?",
     answer:
-      "After verification, the dashboard should take the customer to Free Scan results with methodology, confidence posture, limitations, and the safest next action.",
+      "After verification, your dashboard takes you to the dedicated Free Scan result path with confidence posture, limitations, and the safest next action.",
   },
 ] as const;
 
@@ -131,14 +113,14 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 grid gap-4 lg:grid-cols-[0.68fr_1.32fr] lg:items-start">
-        <div className="system-panel-authority rounded-[1.55rem] p-4 sm:p-5 lg:sticky lg:top-24">
+      <section className="relative z-10 grid gap-4 lg:grid-cols-[0.52fr_1.48fr] lg:items-start" aria-label="Free Scan form first">
+        <div className="system-panel-authority rounded-[1.4rem] p-4 sm:rounded-[1.55rem] sm:p-5 lg:sticky lg:top-24">
           <p className="text-sm font-semibold text-cyan-100">Free first read</p>
-          <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Find the decision break before you buy the wrong fix.
+          <h1 className="mt-2 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Start the scan.
           </h1>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
-            Answer a few plain business questions. Cendorq looks for where customers may be losing clarity, trust, AI-search visibility, or confidence to act.
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
+            Answer the form now. Cendorq looks for the first visible decision break before you buy deeper work.
           </p>
           <div className="mt-4 grid gap-2">
             {TRUST_RULES.map((item) => (
@@ -147,15 +129,11 @@ export default function FreeCheckPage() {
               </div>
             ))}
           </div>
-          <div className="mt-5 rounded-[1.2rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
-            <div className="text-sm font-semibold text-cyan-100">After submission</div>
-            <p className="mt-2 text-sm leading-6 text-slate-200">Verify the email, open the dashboard, and review the dedicated Free Scan result path before choosing paid depth.</p>
-            <Link href="/dashboard/reports/free-scan" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              View Free Scan result path
-            </Link>
-          </div>
+          <Link href="/dashboard/reports/free-scan" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/20 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+            Result path after verification
+          </Link>
           <div className="sr-only">
-            Safe business context only. enter safe context. Pending means pending, not final truth. It turns customer hesitation into a safer first direction. without treating pending or incomplete input as final analysis. Command Free Scan room. Free Scan journey. Start Verify Read Choose. {FREE_SCAN_JOURNEY.map((step) => `${step.label} ${step.value} ${step.detail}`).join(" ")} {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and Free Scan results handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and Free Scan results. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
+            Free Scan form should be visible within the first quarter of the page. Safe business context only. Enter safe context. Pending means pending, not final truth. Command Free Scan room. {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {SCAN_ROOM_TRUST_RAIL.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and Free Scan results handoff.
           </div>
           <nav className="sr-only" aria-label="Free Scan completion handoff">
             {FREE_SCAN_HANDOFF_ACTIONS.map((action) => (
@@ -169,35 +147,17 @@ export default function FreeCheckPage() {
         <GuidedFreeCheckForm className="relative z-10" />
       </section>
 
-      <section className="relative z-10 mt-8 rounded-[1.55rem] border border-white/10 bg-white/[0.035] p-4 sm:rounded-[1.7rem] sm:p-6" aria-label="Free Scan journey">
-        <div>
-          <p className="text-sm font-semibold text-cyan-100">Free Scan journey</p>
-          <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-4xl">
-            From safe context to a protected first result.
-          </h2>
-        </div>
-        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {FREE_SCAN_JOURNEY.map((step) => (
-            <article key={step.label} className="rounded-[1.25rem] border border-white/10 bg-black/20 p-4 sm:p-5">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-100">{step.label}</div>
-              <h3 className="mt-2 text-xl font-semibold tracking-tight text-white">{step.value}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-300">{step.detail}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Free Scan boundary standards">
-        {FREE_SCAN_BOUNDARY_STANDARDS.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.35rem] p-5">
-            <div className="text-sm font-semibold text-cyan-100">{item.label}</div>
-            <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+      <section className="relative z-10 mt-6 grid gap-3 md:grid-cols-3" aria-label="Free Scan promise">
+        {FREE_SCAN_PROMISE.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.2rem] p-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.label}</div>
+            <h2 className="mt-2 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-300">{item.detail}</p>
           </article>
         ))}
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3">
+      <section className="relative z-10 mt-6 grid gap-3 md:grid-cols-2">
         {FAQS.map((item) => (
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
@@ -218,7 +178,7 @@ function FreeCheckAtmosphere() {
 
 function FaqCard({ question, answer }: { question: string; answer: string }) {
   return (
-    <article className="system-surface rounded-[1.35rem] p-5">
+    <article className="system-surface rounded-[1.25rem] p-4 sm:rounded-[1.35rem] sm:p-5">
       <h3 className="text-xl font-semibold tracking-tight text-white">{question}</h3>
       <p className="mt-3 text-sm leading-7 text-slate-300">{answer}</p>
     </article>
