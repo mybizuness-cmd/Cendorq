@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 
 const homepagePath = "src/app/page.tsx";
+const plansPath = "src/app/plans/page.tsx";
 const freeScanPath = "src/app/free-check/page.tsx";
 const footerPath = "src/layout/site-footer.tsx";
 const planTemplatePath = "src/components/plans/conversion-plan-page.tsx";
@@ -22,6 +23,22 @@ expect(homepagePath, [
   "03",
   "04",
   "Monthly decision support",
+  "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
+  "hover:-translate-y-0.5",
+  "focus:outline-none",
+  "focus:ring-2",
+]);
+
+expect(plansPath, [
+  "Premium pricing decision system",
+  "Buy the right depth. Nothing extra. Nothing vague.",
+  "Four premium pricing cards",
+  "Each plan buys a different business action.",
+  "First signal",
+  "Cause-level diagnosis",
+  "Scoped implementation",
+  "Monthly decision support",
+  "BUYER_MOMENT_BY_PLAN",
   "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
   "hover:-translate-y-0.5",
   "focus:outline-none",
@@ -84,6 +101,14 @@ forbidden(homepagePath, [
   "cheap cards",
 ]);
 
+forbidden(plansPath, [
+  "Compressed pricing mobile decision flow",
+  "Pick the stage. Not the biggest package.",
+  "PLAN_VALUE_NO_OVERLAP_MATRIX",
+  "slice(0, 2)",
+  "system-surface rounded-[1.25rem] p-4 transition hover:scale",
+]);
+
 forbidden(freeScanPath, [
   "Free Scan journey",
   "From safe context to a protected first result.",
@@ -104,6 +129,7 @@ forbidden(planTemplatePath, [
 ]);
 
 boundedLength(homepagePath, 18000);
+boundedLength(plansPath, 17500);
 boundedLength(freeScanPath, 14500);
 boundedLength(footerPath, 12500);
 boundedLength(planTemplatePath, 14500);
@@ -114,7 +140,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Premium plan blocks and Free Scan flow validation passed with stronger stage cards, higher form, stronger footer, and customer-led plan pages.");
+console.log("Premium plan blocks and Free Scan flow validation passed with stronger stage cards, premium pricing, higher form, stronger footer, and customer-led plan pages.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
