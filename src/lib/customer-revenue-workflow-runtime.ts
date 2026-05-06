@@ -2,6 +2,7 @@ import {
   CENDORQ_PLAN_PERSONALIZATION_FIELDS,
   getCendorqRevenueStage,
 } from "@/lib/cendorq-revenue-operating-system";
+import { projectAgentMissionExecutionPreview } from "@/lib/agent-mission-live-execution-runtime";
 import { projectPlanIntelligenceIntakeRecord, type PlanIntelligenceIntakeRecord } from "@/lib/plan-intelligence-intake-records";
 import {
   CENDORQ_POST_PAYMENT_EMAILS,
@@ -53,6 +54,18 @@ export type CustomerRevenueActivationProjection = {
     auditEvents: readonly string[];
   };
   planIntelligenceIntake: PlanIntelligenceIntakeRecord;
+  agentMissionExecution: {
+    executionRecordKey: string;
+    queueState: string;
+    qualityScoreTotal: number;
+    qualityScoreTier: string;
+    outputType: string;
+    outputReadiness: string;
+    dashboardDestination: string;
+    requiresPdfAttachment: boolean;
+    requiresDeliveryEmail: boolean;
+    blockedReasonCodes: readonly string[];
+  };
   paidReportDelivery: {
     dashboardPath: "/dashboard/reports";
     customerReportName: string;
@@ -116,6 +129,19 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
     blockedFields: input.blockedIntakeFields || [],
     recordKey: `${input.checkoutSessionId || input.planKey}-plan-intelligence-intake`,
   });
+  const executionPreview = projectAgentMissionExecutionPreview(input.planKey, planIntelligenceIntake);
+  const agentMissionExecution = {
+    executionRecordKey: `${executionPreview.runtime.missionRecordId}-execution`,
+    queueState: executionPreview.queueState,
+    qualityScoreTotal: executionPreview.qualityScore.total,
+    qualityScoreTier: executionPreview.qualityScore.tier,
+    outputType: executionPreview.outputAssembly.outputType,
+    outputReadiness: executionPreview.outputAssembly.readiness,
+    dashboardDestination: executionPreview.outputAssembly.dashboardDestination,
+    requiresPdfAttachment: executionPreview.outputAssembly.requiresPdfAttachment,
+    requiresDeliveryEmail: executionPreview.outputAssembly.requiresDeliveryEmail,
+    blockedReasonCodes: executionPreview.blockedReasonCodes,
+  } as const;
 
   return {
     plan: {
@@ -136,7 +162,7 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
       entitlementKey: `${input.planKey}-entitlement`,
       workflowKey,
       queueName,
-      dashboardNotification: `${plan.name} unlocked. ${planIntelligenceIntake.nextWorkflowAction}`,
+      dashboardNotification: `${plan.name} unlocked. ${planIntelligenceIntake.nextWorkflowAction} Agent mission queue: ${agentMissionExecution.queueState}.`,
       billingRecord: `${plan.publicName} ${plan.price}`,
       supportRecoveryPath: "/dashboard/support",
       auditEvents: [
@@ -144,6 +170,8 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
         "payment_status_verified",
         "entitlement_created",
         "plan_intelligence_intake_record_created",
+        "agent_mission_execution_preview_created",
+        "agent_mission_queue_state_attached",
         "dashboard_notification_created",
         "workflow_queue_item_created",
         "post_payment_email_queued",
@@ -151,6 +179,7 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
       ],
     },
     planIntelligenceIntake,
+    agentMissionExecution,
     paidReportDelivery: {
       dashboardPath: paidReportDelivery.dashboardPath,
       customerReportName: paidReportDelivery.customerReportName,
@@ -172,11 +201,11 @@ export function projectCustomerRevenueActivation(input: CustomerRevenueActivatio
       reportAttachmentFileNamePattern: paidReportDelivery.attachmentFileNamePattern,
       reportAttachmentContentType: paidReportDelivery.attachmentContentType,
     },
-    metadata: buildCheckoutMetadata(input, plan, workflowKey, paidReportDelivery.releaseGate, planIntelligenceIntake),
+    metadata: buildCheckoutMetadata(input, plan, workflowKey, paidReportDelivery.releaseGate, planIntelligenceIntake, agentMissionExecution),
   };
 }
 
-function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: ReturnType<typeof getPaidCendorqPlanPrice>, workflowKey: string, reportReleaseGate: string, planIntelligenceIntake: PlanIntelligenceIntakeRecord) {
+function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: ReturnType<typeof getPaidCendorqPlanPrice>, workflowKey: string, reportReleaseGate: string, planIntelligenceIntake: PlanIntelligenceIntakeRecord, agentMissionExecution: CustomerRevenueActivationProjection["agentMissionExecution"]) {
   return {
     plan_key: input.planKey,
     plan_name: plan.name,
@@ -188,6 +217,13 @@ function buildCheckoutMetadata(input: CustomerRevenueActivationInput, plan: Retu
     plan_intelligence_completion_state: planIntelligenceIntake.completionState,
     plan_intelligence_missing_minimum_inputs: planIntelligenceIntake.missingMinimumInputs.join("|"),
     plan_intelligence_next_workflow_action: planIntelligenceIntake.nextWorkflowAction,
+    agent_mission_execution_record_key: agentMissionExecution.executionRecordKey,
+    agent_mission_queue_state: agentMissionExecution.queueState,
+    agent_mission_quality_score: String(agentMissionExecution.qualityScoreTotal),
+    agent_mission_quality_tier: agentMissionExecution.qualityScoreTier,
+    agent_mission_output_type: agentMissionExecution.outputType,
+    agent_mission_output_readiness: agentMissionExecution.outputReadiness,
+    agent_mission_blocked_reason_codes: agentMissionExecution.blockedReasonCodes.join("|"),
     paid_report_dashboard_path: "/dashboard/reports",
     paid_report_release_gate: reportReleaseGate,
     paid_report_attachment_required: "true",
