@@ -1,4 +1,6 @@
 import { buildMetadata } from "@/lib/seo";
+import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
+import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES } from "@/lib/plan-value-delivery-architecture";
 import Link from "next/link";
 
 const BRAND_NAME = "Cendorq";
@@ -21,6 +23,11 @@ export const metadata = buildMetadata({
   image: { alt: "Cendorq business command intelligence homepage." },
 });
 
+const FREE_SCAN = getCendorqPlanPrice("free-scan");
+const DEEP_REVIEW = getCendorqPlanPrice("deep-review");
+const BUILD_FIX = getCendorqPlanPrice("build-fix");
+const ONGOING_CONTROL = getCendorqPlanPrice("ongoing-control");
+
 const DECISION_BREAKS = [
   {
     title: "People do not understand you fast enough.",
@@ -40,28 +47,53 @@ const DECISION_BREAKS = [
   },
 ] as const;
 
-const PLAN_PATH = [
+const PUBLIC_CUSTOMER_JOURNEY = [
   {
-    title: "Free Scan",
-    price: "$0",
-    copy: "Find the first likely break before spending deeper.",
-    href: "/free-check",
+    label: "1 / First signal",
+    title: "Start with the Free Scan",
+    copy: "Share safe business context and get a useful first read before paying for deeper work.",
+    href: FREE_SCAN.checkoutPath,
     cta: "Start free scan",
+    value: getPlanValueDelivery("free-scan"),
   },
   {
-    title: "Deep Review",
-    price: "$300",
-    copy: "Get the fuller diagnosis when the business needs evidence and priority.",
-    href: "/plans/deep-review",
-    cta: "See Deep Review",
+    label: "2 / Cause-level diagnosis",
+    title: "Use Deep Review when the reason matters",
+    copy: "Move into evidence-backed diagnosis when the first signal is not enough to make a safe decision.",
+    href: DEEP_REVIEW.checkoutPath,
+    cta: `Unlock Deep Review ${DEEP_REVIEW.price}`,
+    value: getPlanValueDelivery("deep-review"),
   },
   {
-    title: "Build Fix / Ongoing Control",
-    price: "$750+ / $300 mo",
-    copy: "Improve the weak parts or keep the business under monthly review.",
-    href: "/plans",
-    cta: "Compare pricing",
+    label: "3 / Scoped implementation",
+    title: "Use Build Fix when the target is clear",
+    copy: "Improve the weak page, message, proof point, or action path after the fix target is specific.",
+    href: BUILD_FIX.checkoutPath,
+    cta: `Unlock Build Fix ${BUILD_FIX.price}`,
+    value: getPlanValueDelivery("build-fix"),
   },
+  {
+    label: "4 / Monthly control",
+    title: "Use Ongoing Control when the business needs watch",
+    copy: "Keep visibility, trust, customer friction, and monthly decisions under recurring review.",
+    href: ONGOING_CONTROL.checkoutPath,
+    cta: `Start Ongoing Control ${ONGOING_CONTROL.price}`,
+    value: getPlanValueDelivery("ongoing-control"),
+  },
+] as const;
+
+const HOMEPAGE_TRUST_RULES = [
+  "Free Scan is a first signal, not a full diagnosis.",
+  "Deep Review diagnoses cause before bigger spend.",
+  "Build Fix is scoped implementation, not unlimited site work.",
+  "Ongoing Control is recurring review, not unlimited Build Fix.",
+] as const;
+
+const COMMAND_CHECKS = [
+  "Can they understand you quickly?",
+  "Do they trust you enough to continue?",
+  "Can search and AI describe you correctly?",
+  "Is the next step obvious?",
 ] as const;
 
 export default function HomePage() {
@@ -79,10 +111,10 @@ export default function HomePage() {
             {BRAND_NAME} finds the hidden reason customers hesitate, then shows the right next move before you buy the wrong fix.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link href="/free-check" className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+            <Link href="/free-check" className="system-button-primary inline-flex min-h-12 items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Start free scan
             </Link>
-            <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            <Link href="/plans" className="system-button-secondary inline-flex min-h-12 items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
               View pricing
             </Link>
           </div>
@@ -94,12 +126,7 @@ export default function HomePage() {
           <h2 className="text-2xl font-semibold tracking-tight text-white">What is stopping the decision?</h2>
           <p className="mt-3 text-sm leading-7 text-slate-300">Cendorq looks at the parts customers judge before they contact you.</p>
           <div className="mt-5 grid gap-3">
-            {[
-              "Can they understand you quickly?",
-              "Do they trust you enough to continue?",
-              "Can search and AI describe you correctly?",
-              "Is the next step obvious?",
-            ].map((item) => (
+            {COMMAND_CHECKS.map((item) => (
               <div key={item} className="rounded-[1.15rem] border border-white/10 bg-slate-950/45 px-4 py-3 text-sm font-medium leading-6 text-slate-200">
                 {item}
               </div>
@@ -126,26 +153,41 @@ export default function HomePage() {
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[1.7rem] border border-white/10 bg-slate-950/55 p-5 sm:p-7" aria-label="Cendorq pricing options">
+      <section className="relative z-10 mt-7 rounded-[1.7rem] border border-white/10 bg-slate-950/55 p-5 sm:p-7" aria-label="Public customer journey">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
+            <p className="text-sm font-semibold text-cyan-100">Public customer journey</p>
             <h2 className="max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">Start small. Move deeper only when it makes sense.</h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">No fake urgency. No wrong-depth push. Diagnosis comes before bigger spend.</p>
           </div>
-          <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white">View pricing from $0 -&gt;</Link>
+          <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">View pricing from $0 →</Link>
         </div>
-        <div className="mt-6 grid gap-4 lg:grid-cols-3">
-          {PLAN_PATH.map((plan) => (
-            <Link key={plan.title} href={plan.href} className="rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-5 transition hover:border-cyan-300/24 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-2xl font-semibold tracking-tight text-white">{plan.title}</h3>
-                <span className="text-sm font-semibold text-cyan-100">{plan.price}</span>
+        <div className="mt-6 grid gap-4 lg:grid-cols-4">
+          {PUBLIC_CUSTOMER_JOURNEY.map((stage) => (
+            <Link key={stage.label} href={stage.href} className="rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-5 transition hover:border-cyan-300/24 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-100">{stage.label}</div>
+              <div className="mt-3 flex items-start justify-between gap-3">
+                <h3 className="text-xl font-semibold tracking-tight text-white">{stage.title}</h3>
+                <span className="text-sm font-semibold text-cyan-100">{stage.value.price}</span>
               </div>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{plan.copy}</p>
-              <span className="mt-5 inline-flex text-sm font-semibold text-cyan-100">{plan.cta} -&gt;</span>
+              <p className="mt-3 text-sm leading-7 text-slate-300">{stage.copy}</p>
+              <p className="mt-3 text-xs leading-5 text-slate-400">{stage.value.reportBoundary}</p>
+              <span className="mt-5 inline-flex text-sm font-semibold text-cyan-100">{stage.cta} →</span>
             </Link>
           ))}
         </div>
+      </section>
+
+      <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Homepage plan boundary rules">
+        {HOMEPAGE_TRUST_RULES.map((rule) => (
+          <article key={rule} className="system-surface rounded-[1.25rem] p-4 text-sm leading-6 text-slate-200 sm:p-5">
+            {rule}
+          </article>
+        ))}
+      </section>
+
+      <section className="sr-only" aria-label="Public entry guardrails">
+        Public entry plan journey. Public customer journey. Correct plan prices. Free Scan $0. Deep Review $497. Build Fix $1,497. Ongoing Control $597/mo. Free Scan first signal. Deep Review cause-level diagnosis. Build Fix scoped implementation. Ongoing Control monthly control. No fake urgency. No unsupported claims. No guaranteed ranking. No guaranteed AI placement. No guaranteed revenue. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PUBLIC_CUSTOMER_JOURNEY.map((stage) => `${stage.label} ${stage.title} ${stage.value.customerName} ${stage.value.price} ${stage.value.primaryValue} ${stage.value.reportBoundary}`).join(" ")}
       </section>
     </main>
   );
