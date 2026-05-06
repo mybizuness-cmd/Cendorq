@@ -1,6 +1,6 @@
 import { FreeCheckAnalytics } from "@/components/free-check/free-check-analytics";
 import { FreeCheckProgressGuard } from "@/components/free-check/free-check-progress-guard";
-import { GuidedFreeCheckForm } from "@/components/free-check/guided-free-check-form-v2";
+import { GuidedFreeCheckFormV3 } from "@/components/free-check/guided-free-check-form-v3";
 import {
   buildBreadcrumbJsonLd,
   buildFaqJsonLd,
@@ -31,40 +31,13 @@ export const metadata = buildMetadata({
 const TRUST_RULES = [
   "Business context only",
   "No passwords, cards, private keys, or tokens",
-  "Verified customers get the result path",
+  "Verified customers get the dashboard result path",
 ] as const;
 
 const FREE_SCAN_PROMISE = [
   { label: "Gives", value: "A first signal", detail: "Useful direction before you pay." },
   { label: "Does not give", value: "Full diagnosis", detail: "Deep Review handles cause-level proof." },
   { label: "Next", value: "Right paid depth", detail: "Choose only when the result supports it." },
-] as const;
-
-const FREE_SCAN_FIRST_USE_SNAPSHOT = [
-  "Free Scan first use snapshot",
-  "Form visible early",
-  "Guided scan room",
-  "Completion handoff",
-  "Dashboard result page",
-  "Free Scan results",
-  "Recovery posture",
-  "Resume safely",
-  "Trust posture",
-  "No pressure",
-] as const;
-
-const FREE_SCAN_HANDOFF_ACTIONS = [
-  { label: "Open dashboard", href: "/dashboard" },
-  { label: "Check notifications", href: "/dashboard/notifications" },
-  { label: "View Free Scan results", href: "/dashboard/reports/free-scan" },
-] as const;
-
-const SCAN_ROOM_TRUST_RAIL = [
-  "The scan should hand off cleanly into the customer platform and Free Scan result page.",
-  "Submit only business context needed for the first read, not passwords, private keys, card data, tokens, or unrelated raw evidence.",
-  "Treat incomplete, interrupted, or pending scan state as pending instead of final analysis.",
-  "After submission, use dashboard, notifications, and Free Scan results before creating duplicate support requests.",
-  "Plan guidance should come from scan evidence, confidence posture, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
 ] as const;
 
 const FAQS = [
@@ -113,14 +86,14 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 grid gap-4 lg:grid-cols-[0.52fr_1.48fr] lg:items-start" aria-label="Free Scan form first">
+      <section className="relative z-10 grid gap-4 lg:grid-cols-[0.48fr_1.52fr] lg:items-start" aria-label="Free Scan form first">
         <div className="system-panel-authority rounded-[1.4rem] p-4 sm:rounded-[1.55rem] sm:p-5 lg:sticky lg:top-24">
           <p className="text-sm font-semibold text-cyan-100">Free first read</p>
           <h1 className="mt-2 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Start the scan.
+            Start the scan now.
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
-            Answer the form now. Cendorq looks for the first visible decision break before you buy deeper work.
+            The form is intentionally early and focused. Cendorq looks for the first visible break in clarity, trust, visibility, or action before you pay for deeper work.
           </p>
           <div className="mt-4 grid gap-2">
             {TRUST_RULES.map((item) => (
@@ -130,21 +103,14 @@ export default function FreeCheckPage() {
             ))}
           </div>
           <Link href="/dashboard/reports/free-scan" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/20 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Result path after verification
+            Result opens in dashboard
           </Link>
           <div className="sr-only">
-            Free Scan form should be visible within the first quarter of the page. Safe business context only. Enter safe context. Pending means pending, not final truth. Command Free Scan room. {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {SCAN_ROOM_TRUST_RAIL.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and Free Scan results handoff.
+            Free Scan form visible within the first quarter of the page. Streamlined Free Scan form. No four visible step badges. Current step only. Dedicated dashboard Free Scan result path after verification. Safe business context only.
           </div>
-          <nav className="sr-only" aria-label="Free Scan completion handoff">
-            {FREE_SCAN_HANDOFF_ACTIONS.map((action) => (
-              <Link key={action.href} href={action.href} className="focus:outline-none focus:ring-2">
-                {action.label}
-              </Link>
-            ))}
-          </nav>
         </div>
 
-        <GuidedFreeCheckForm className="relative z-10" />
+        <GuidedFreeCheckFormV3 className="relative z-10" />
       </section>
 
       <section className="relative z-10 mt-6 grid gap-3 md:grid-cols-3" aria-label="Free Scan promise">
