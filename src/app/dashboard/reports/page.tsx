@@ -7,10 +7,14 @@ import {
   PLAN_VALUE_SEPARATION_RULES,
   type PlanValueKey,
 } from "@/lib/plan-value-delivery-architecture";
+import {
+  PAID_PLAN_REPORT_DELIVERY_GUARDS,
+  PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM,
+} from "@/lib/paid-plan-report-delivery-operating-system";
 
 export const metadata = buildMetadata({
   title: "Report vault | Cendorq",
-  description: "Your private Cendorq report vault for scan results, confidence labels, versions, and next-plan guidance.",
+  description: "Your private Cendorq report vault for scan results, paid reports, confidence labels, versions, and next-plan guidance.",
   path: "/dashboard/reports",
   noIndex: true,
 });
@@ -26,6 +30,8 @@ const DEEP_REVIEW_PRICE = getCendorqPlanPrice("deep-review");
 const BUILD_FIX_PRICE = getCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL_PRICE = getCendorqPlanPrice("ongoing-control");
 
+const PAID_REPORT_BY_PLAN = Object.fromEntries(PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => [contract.planKey, contract]));
+
 const REPORT_LIBRARY = [
   {
     planKey: "free-scan",
@@ -35,8 +41,9 @@ const REPORT_LIBRARY = [
     href: "/dashboard/reports/free-scan",
     cta: "Open result",
     deliveryMeaning: "Use this to see the first visible customer-decision signal, confidence posture, limitations, and safest next move.",
-    notThis: "Not full diagnosis, implementation, or monthly monitoring.",
+    notThis: "Not full diagnosis, implementation, monthly monitoring, or paid-report attachment delivery.",
     nextDecision: "Unlock Deep Review when the first signal matters enough that guessing would cost more than diagnosis.",
+    deliveryChannel: "Dashboard-only protected result unless a separate export is approved later.",
     value: getPlanValueDelivery("free-scan"),
   },
   {
@@ -49,6 +56,7 @@ const REPORT_LIBRARY = [
     deliveryMeaning: "Use this when you need the real cause, priority, confidence, and recommendation before fixing the wrong thing.",
     notThis: "Not done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes.",
     nextDecision: "Use Build Fix only after the diagnosis identifies a scoped target ready for implementation.",
+    deliveryChannel: paidDelivery("deep-review"),
     value: getPlanValueDelivery("deep-review"),
   },
   {
@@ -61,6 +69,7 @@ const REPORT_LIBRARY = [
     deliveryMeaning: "Use this to understand what changed, why it was in scope, and what still remains outside the fix.",
     notThis: "Not a full diagnostic report, unlimited site rebuild, recurring monitoring, or unapproved production work.",
     nextDecision: "Use Ongoing Control when the business needs recurring watch after the scoped improvement.",
+    deliveryChannel: paidDelivery("build-fix"),
     value: getPlanValueDelivery("build-fix"),
   },
   {
@@ -73,6 +82,7 @@ const REPORT_LIBRARY = [
     deliveryMeaning: "Use this to keep priorities, monthly review, alerts, trend awareness, and next decisions under control.",
     notThis: "Not unlimited Build Fix, a full Deep Review every month, ad management, ranking guarantees, or guaranteed AI placement.",
     nextDecision: "Use Build Fix separately when monthly control identifies a concrete scoped improvement.",
+    deliveryChannel: paidDelivery("ongoing-control"),
     value: getPlanValueDelivery("ongoing-control"),
   },
 ] as const satisfies readonly {
@@ -85,12 +95,13 @@ const REPORT_LIBRARY = [
   deliveryMeaning: string;
   notThis: string;
   nextDecision: string;
+  deliveryChannel: string;
   value: ReturnType<typeof getPlanValueDelivery>;
 }[];
 
 const REPORT_STATE = [
   { label: "Ready", value: "Free Scan result", detail: "First signal is the only immediately actionable report type in this demo state." },
-  { label: "Locked", value: "Paid depth", detail: "Deep Review, Build Fix, and Ongoing Control stay separate until purchased or active." },
+  { label: "Paid delivery", value: "Dashboard + email attachment", detail: "Deep Review, Build Fix, and Ongoing Control reports must appear in the vault and arrive by email with an approved PDF." },
   { label: "Protected", value: "Customer vault", detail: "Reports stay behind customer ownership and verified access gates." },
 ] as const;
 
@@ -103,7 +114,7 @@ const REPORT_ACTIONS = [
 const REPORT_VAULT_RULES = [
   "Pending, draft, or unavailable reports must never look final.",
   "Free Scan, Deep Review, Build Fix, and Ongoing Control report types must remain visibly separate.",
-  "Customer-facing explanations must separate facts, assumptions, confidence, limitations, and next actions.",
+  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF attachment.",
   "The vault must not expose private payloads, internal notes, prompts, secrets, or cross-customer data.",
 ] as const;
 
@@ -118,18 +129,18 @@ export default function ReportsVaultPage() {
           <div>
             <p className="text-sm font-semibold text-cyan-100">Premium report vault</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
-              See the proof layer without confusing report types.
+              See every approved report in the dashboard, then recover paid reports from email.
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              The vault should feel like intelligence, not storage. It shows which result is ready, what it can prove, what it cannot prove, and what depth comes next.
+              Free Scan stays as the protected first signal. Paid plan reports must be published in the vault and emailed with the approved customer-safe PDF attachment.
             </p>
           </div>
           <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:p-5">
-            <div className="text-sm font-semibold text-cyan-100">Best next action</div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Open the Free Scan result.</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-200">Start with the first signal before buying diagnosis, implementation, or monthly control.</p>
+            <div className="text-sm font-semibold text-cyan-100">Delivery rule</div>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Dashboard + attachment.</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-200">Every paid report needs both a vault copy and an email attachment after approval.</p>
             <Link href="/dashboard/reports/free-scan" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Open result
+              Open Free Scan result
             </Link>
           </div>
         </div>
@@ -150,7 +161,7 @@ export default function ReportsVaultPage() {
           <div>
             <p className="text-sm font-semibold text-cyan-100">Separated report library</p>
             <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-4xl">
-              Four report types. Four different customer decisions.
+              Four report types. Different delivery rules.
             </h2>
           </div>
           <Link href="/dashboard" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -168,7 +179,8 @@ export default function ReportsVaultPage() {
               <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{report.stage}</p>
               <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white">{report.reportType}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-300">{report.deliveryMeaning}</p>
-              <p className="mt-4 rounded-[1rem] border border-white/10 bg-black/20 p-3 text-xs leading-5 text-slate-400">{report.notThis}</p>
+              <p className="mt-4 rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.07] p-3 text-xs leading-5 text-cyan-50">Delivery: {report.deliveryChannel}</p>
+              <p className="mt-3 rounded-[1rem] border border-white/10 bg-black/20 p-3 text-xs leading-5 text-slate-400">{report.notThis}</p>
               <span className="mt-5 inline-flex text-sm font-semibold text-cyan-100 transition group-hover:text-white">{report.cta} →</span>
             </Link>
           ))}
@@ -186,7 +198,7 @@ export default function ReportsVaultPage() {
 
       <section className="relative z-10 mt-7 rounded-[1.45rem] border border-white/10 bg-white/[0.035] p-4 sm:p-5" aria-label="Vault safety standard">
         <p className="text-sm font-semibold text-cyan-100">Vault standard</p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Useful only when report depth is impossible to confuse.</h2>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Useful only when report depth and delivery are impossible to confuse.</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {REPORT_VAULT_RULES.map((rule) => (
             <p key={rule} className="rounded-[1rem] border border-white/10 bg-black/20 p-3 text-xs leading-6 text-slate-300">{rule}</p>
@@ -195,8 +207,13 @@ export default function ReportsVaultPage() {
       </section>
 
       <section className="sr-only" aria-label="Premium report vault guardrails">
-        Premium report vault. Proof layer. See the proof layer without confusing report types. The vault should feel like intelligence, not storage. Report state summary. Premium separated report library. Four report types. Four different customer decisions. Free Scan result. Deep Review report. Build Fix summary. Ongoing Control monthly summary. Useful only when report depth is impossible to confuse. Not a full diagnosis. Not implementation. Not monthly monitoring. Not unlimited Build Fix. Compare plans. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.notThis} ${report.nextDecision} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Premium report vault. Paid plan report delivery operating system. See every approved report in the dashboard, then recover paid reports from email. Dashboard plus attachment. Every paid plan report must have a dashboard copy at /dashboard/reports. Every paid plan report delivery email must include the approved customer-safe report PDF as an attachment. Four report types. Different delivery rules. Free Scan result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Useful only when report depth and delivery are impossible to confuse. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
+}
+
+function paidDelivery(planKey: "deep-review" | "build-fix" | "ongoing-control") {
+  const contract = PAID_REPORT_BY_PLAN[planKey];
+  return contract ? `Dashboard report plus ${contract.attachmentContentType} email attachment after ${contract.releaseGate}.` : "Dashboard report plus approved email attachment.";
 }

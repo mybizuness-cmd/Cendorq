@@ -14,6 +14,14 @@ export type CustomerEmailTemplateKey =
 export type CustomerEmailCategory = "transactional" | "lifecycle" | "billing" | "support";
 export type CustomerEmailTone = "luxury" | "calm" | "strategic" | "proof-first" | "supportive";
 
+export type CustomerEmailAttachmentContract = {
+  required: boolean;
+  fileNamePattern?: string;
+  contentType?: "application/pdf";
+  source?: "approved-paid-report" | "none";
+  releaseGate?: string;
+};
+
 export type CustomerEmailTemplateContract = {
   key: CustomerEmailTemplateKey;
   label: string;
@@ -32,7 +40,10 @@ export type CustomerEmailTemplateContract = {
   requiredComplianceControls: readonly string[];
   suppressionRules: readonly string[];
   blockedContent: readonly string[];
+  attachment: CustomerEmailAttachmentContract;
 };
+
+const NO_ATTACHMENT = { required: false, source: "none" } as const satisfies CustomerEmailAttachmentContract;
 
 export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
   {
@@ -53,6 +64,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     requiredComplianceControls: ["token expiration", "rate-limited resend", "safe redirect allowlist", "generic account existence messaging"],
     suppressionRules: ["do not send duplicate confirmation faster than resend limit", "do not send after token is consumed", "do not reveal whether an account exists"],
     blockedContent: ["password", "raw token", "account exists", "unsafe redirect", "marketing upsell"],
+    attachment: NO_ATTACHMENT,
   },
   {
     key: "welcome-verified",
@@ -72,6 +84,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     requiredComplianceControls: ["welcome sent flag", "verified email required", "one-time only", "preference controls where required"],
     suppressionRules: ["never send twice", "do not send before email verification", "do not send to locked or disabled account"],
     blockedContent: ["guaranteed outcome", "fake urgency", "unsupported claim", "raw customer data"],
+    attachment: NO_ATTACHMENT,
   },
   {
     key: "free-scan-resume",
@@ -91,6 +104,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     requiredComplianceControls: ["preference check", "suppression window", "no sensitive business details in email"],
     suppressionRules: ["do not send after scan submission", "do not send repeated reminders", "do not send after unsubscribe where required"],
     blockedContent: ["private intake details", "fake urgency", "pressure language", "raw form data"],
+    attachment: NO_ATTACHMENT,
   },
   {
     key: "free-scan-received",
@@ -110,6 +124,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     requiredComplianceControls: ["idempotency guard", "safe status copy", "no exact completion promise unless known"],
     suppressionRules: ["do not duplicate for idempotent submission", "do not expose queue internals", "do not send if submission failed"],
     blockedContent: ["false instant result", "raw queue internals", "raw evidence", "unsupported claim"],
+    attachment: NO_ATTACHMENT,
   },
   {
     key: "free-scan-ready",
@@ -121,7 +136,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     preheader: "See your first findings, confidence labels, and the next best step in your dashboard.",
     purpose: "Deliver approved Free Scan result access and truthfully guide qualified customers toward Deep Review.",
     primaryCta: "Open Free Scan results",
-    dashboardPath: "/dashboard",
+    dashboardPath: "/dashboard/reports/free-scan",
     conversionRole: "Converts to Deep Review through visible limits, confidence labels, and business-specific proof.",
     tone: ["luxury", "calm", "proof-first", "strategic"],
     requiredPersonalization: ["business name", "top finding summary", "confidence language"],
@@ -129,6 +144,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     requiredComplianceControls: ["report release approval", "blocked-claim scan", "support/correction path", "no raw evidence in email"],
     suppressionRules: ["do not send before report approval", "do not send if account is locked", "do not send duplicate result-ready notice"],
     blockedContent: ["complete diagnosis claim", "guaranteed outcome", "fake urgency", "raw evidence", "unsupported revenue claim"],
+    attachment: NO_ATTACHMENT,
   },
   {
     key: "deep-review-purchased",
@@ -148,6 +164,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     requiredComplianceControls: ["verified webhook", "active entitlement", "billing portal path", "no raw billing IDs"],
     suppressionRules: ["do not send before verified billing event", "do not send if entitlement is not active", "do not duplicate purchase confirmation"],
     blockedContent: ["raw subscription ID", "unverified billing state", "guaranteed ROI", "hidden cancellation/support path"],
+    attachment: NO_ATTACHMENT,
   },
   {
     key: "deep-review-delivered",
@@ -156,17 +173,18 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     senderName: "Cendorq Support",
     fromAddress: "support@cendorq.com",
     subject: "Your Cendorq Deep Review is ready",
-    preheader: "Your deeper diagnosis is in your dashboard with priorities, confidence, and next steps.",
-    purpose: "Deliver approved Deep Review access and guide implementation-fit customers toward Build Fix.",
+    preheader: "Your deeper diagnosis is in your dashboard and attached as an approved PDF report.",
+    purpose: "Deliver approved Deep Review access with dashboard copy and attached PDF report, then guide implementation-fit customers toward Build Fix.",
     primaryCta: "Open Deep Review",
     dashboardPath: "/dashboard/reports",
     conversionRole: "Moves from diagnosis to implementation by explaining causes, priorities, and Build Fix fit.",
     tone: ["luxury", "calm", "proof-first", "strategic"],
-    requiredPersonalization: ["business name", "top priority summary", "report version"],
-    requiredProofOrTrustElements: ["root-cause summary", "confidence labels", "correction window", "Build Fix unlock explanation"],
-    requiredComplianceControls: ["report approval", "correction path", "blocked-claim scan", "no guaranteed ROI"],
-    suppressionRules: ["do not send before approval", "do not hide correction path", "do not send duplicate delivery notice"],
+    requiredPersonalization: ["business name", "top priority summary", "report version", "attachment filename"],
+    requiredProofOrTrustElements: ["root-cause summary", "confidence labels", "correction window", "Build Fix unlock explanation", "approved PDF attachment"],
+    requiredComplianceControls: ["report approval", "correction path", "blocked-claim scan", "customer-safe PDF generated", "attachment delivery audit", "no guaranteed ROI"],
+    suppressionRules: ["do not send before approval", "do not hide correction path", "do not send duplicate delivery notice", "do not send if attachment generation fails"],
     blockedContent: ["guaranteed ROI", "raw evidence", "unsupported implementation claim", "fake urgency"],
+    attachment: { required: true, fileNamePattern: "cendorq-deep-review-{business}-{reportVersion}.pdf", contentType: "application/pdf", source: "approved-paid-report", releaseGate: "deep-review-report-release" },
   },
   {
     key: "build-fix-delivered",
@@ -175,17 +193,18 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     senderName: "Cendorq Support",
     fromAddress: "support@cendorq.com",
     subject: "Your Cendorq Build Fix summary is ready",
-    preheader: "See completed work, remaining risks, and the monitoring path in your dashboard.",
-    purpose: "Show completed implementation summary and truthfully explain Ongoing Control fit.",
+    preheader: "See completed work, remaining risks, and the monitoring path in your dashboard and attached PDF summary.",
+    purpose: "Show completed implementation summary through dashboard copy and attached PDF, then truthfully explain Ongoing Control fit.",
     primaryCta: "Review Build Fix summary",
     dashboardPath: "/dashboard/reports",
     conversionRole: "Moves from implementation to ongoing control through baseline, remaining risks, and monitoring value.",
     tone: ["luxury", "calm", "proof-first", "strategic"],
-    requiredPersonalization: ["business name", "completed work summary", "remaining risk summary"],
-    requiredProofOrTrustElements: ["completed work record", "baseline", "remaining risks", "Ongoing Control explanation"],
-    requiredComplianceControls: ["implementation summary approval", "no permanent growth claim", "support path"],
-    suppressionRules: ["do not send before implementation summary", "do not hide remaining risks", "do not claim permanent improvement"],
+    requiredPersonalization: ["business name", "completed work summary", "remaining risk summary", "attachment filename"],
+    requiredProofOrTrustElements: ["completed work record", "baseline", "remaining risks", "Ongoing Control explanation", "approved PDF attachment"],
+    requiredComplianceControls: ["implementation summary approval", "customer-safe PDF generated", "attachment delivery audit", "no permanent growth claim", "support path"],
+    suppressionRules: ["do not send before implementation summary", "do not hide remaining risks", "do not claim permanent improvement", "do not send if attachment generation fails"],
     blockedContent: ["permanent growth claim", "guaranteed outcome", "raw internal notes", "unsupported metric"],
+    attachment: { required: true, fileNamePattern: "cendorq-build-fix-summary-{business}-{reportVersion}.pdf", contentType: "application/pdf", source: "approved-paid-report", releaseGate: "build-fix-customer-output-approval" },
   },
   {
     key: "ongoing-control-monthly",
@@ -194,17 +213,18 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     senderName: "Cendorq Support",
     fromAddress: "support@cendorq.com",
     subject: "Your Cendorq monthly control update is ready",
-    preheader: "Review progress, risks, and next priorities in your dashboard.",
-    purpose: "Notify active Ongoing Control customers that approved monthly summary is ready.",
+    preheader: "Review progress, risks, and next priorities in your dashboard and attached PDF monthly summary.",
+    purpose: "Notify active Ongoing Control customers that approved monthly summary is ready in the dashboard and attached as a PDF.",
     primaryCta: "Review this month’s priorities",
-    dashboardPath: "/dashboard",
+    dashboardPath: "/dashboard/reports",
     conversionRole: "Drives retention through visible progress, risks, and useful next-month priorities.",
     tone: ["luxury", "calm", "proof-first", "strategic"],
-    requiredPersonalization: ["business name", "month", "top priority"],
-    requiredProofOrTrustElements: ["monthly delta", "confidence labels", "regression risks", "next-month priority"],
-    requiredComplianceControls: ["approved monthly data", "preference controls", "no raw evidence in email"],
-    suppressionRules: ["do not send if monthly summary is unapproved", "do not send after opt-out where required", "do not hide regressions"],
+    requiredPersonalization: ["business name", "month", "top priority", "attachment filename"],
+    requiredProofOrTrustElements: ["monthly delta", "confidence labels", "regression risks", "next-month priority", "approved PDF attachment"],
+    requiredComplianceControls: ["approved monthly data", "customer-safe PDF generated", "attachment delivery audit", "preference controls", "no raw evidence in email"],
+    suppressionRules: ["do not send if monthly summary is unapproved", "do not send after opt-out where required", "do not hide regressions", "do not send if attachment generation fails"],
     blockedContent: ["non-comparable progress claim", "raw evidence", "guaranteed growth", "hidden regression"],
+    attachment: { required: true, fileNamePattern: "cendorq-ongoing-control-{business}-{month}.pdf", contentType: "application/pdf", source: "approved-paid-report", releaseGate: "ongoing-control-monthly-review-gate" },
   },
   {
     key: "billing-recovery",
@@ -224,6 +244,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     requiredComplianceControls: ["billing state check", "entitlement state", "support path", "no shame copy"],
     suppressionRules: ["do not send after account deletion request", "do not pressure during active dispute", "do not conceal support path"],
     blockedContent: ["shame copy", "false scarcity", "hidden cancellation/support path", "raw payment data"],
+    attachment: NO_ATTACHMENT,
   },
   {
     key: "correction-support",
@@ -243,6 +264,7 @@ export const CUSTOMER_EMAIL_TEMPLATE_CONTRACTS = [
     requiredComplianceControls: ["support record", "safe summary", "no refund/legal promise without approval"],
     suppressionRules: ["do not promise outcome before review", "do not expose internal notes", "do not duplicate acknowledgment"],
     blockedContent: ["unapproved refund promise", "legal ruling", "internal notes", "raw evidence"],
+    attachment: NO_ATTACHMENT,
   },
 ] as const satisfies readonly CustomerEmailTemplateContract[];
 
@@ -253,7 +275,8 @@ export const CUSTOMER_EMAIL_GLOBAL_GUARDS = [
   "every lifecycle email has suppression and preference controls where required",
   "no email contains passwords, raw tokens, raw billing IDs, raw evidence, secrets, or private report internals",
   "no email claims guaranteed outcomes, guaranteed ROI, fake urgency, false scarcity, or unsupported revenue impact",
-  "no paid-plan or report-delivery email sends before entitlement, approval, or release gates pass",
+  "no paid-plan or report-delivery email sends before entitlement, approval, customer-safe PDF generation, attachment audit, or release gates pass",
+  "every paid report delivery email includes the approved customer-safe PDF attachment and dashboard report link",
   "every support/correction email keeps support path visible and avoids unapproved legal, refund, or outcome promises",
 ] as const;
 
