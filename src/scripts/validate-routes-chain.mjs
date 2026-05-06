@@ -25,6 +25,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-command-center-paid-report-delivery-ops.mjs",
   "src/scripts/validate-plan-intelligence-acquisition-system.mjs",
   "src/scripts/validate-plan-intelligence-intake-records.mjs",
+  "src/scripts/validate-agent-mission-operating-engine.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
