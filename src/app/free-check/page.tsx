@@ -34,6 +34,13 @@ const TRUST_RULES = [
   "Verified customers land on the Free Scan result path.",
 ] as const;
 
+const FREE_SCAN_JOURNEY = [
+  { label: "Start", value: "Safe business context", detail: "Answer plain business questions that help Cendorq understand the offer, audience, market, and main concern." },
+  { label: "Verify", value: "Protected result access", detail: "Email verification protects the dashboard, Free Scan history, reports, support, billing, and notifications." },
+  { label: "Read", value: "First visible signal", detail: "The Free Scan result shows evidence boundaries, confidence posture, limitations, and the safest next action." },
+  { label: "Choose", value: "Right depth next", detail: "Move to Deep Review, Build Fix, or Ongoing Control only when the result supports that stage." },
+] as const;
+
 const FREE_SCAN_FIRST_USE_SNAPSHOT = [
   "Free Scan first use snapshot",
   "First-use path",
@@ -61,6 +68,13 @@ const SCAN_ROOM_TRUST_RAIL = [
   "Plan guidance should come from scan evidence, confidence posture, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
 ] as const;
 
+const FREE_SCAN_BOUNDARY_STANDARDS = [
+  { label: "Free Scan gives", value: "First signal", detail: "It should be useful before payment, but it remains a directional first read." },
+  { label: "Free Scan does not give", value: "Full diagnosis", detail: "Cause-level diagnosis belongs in Deep Review, not the free first signal." },
+  { label: "Free Scan does not do", value: "Implementation", detail: "Scoped implementation belongs in Build Fix after the fix target is clear." },
+  { label: "Free Scan does not monitor", value: "Monthly control", detail: "Recurring watch and decision support belong in Ongoing Control." },
+] as const;
+
 const FREE_SCAN_FIRST_USE_RULES = SCAN_ROOM_TRUST_RAIL;
 
 const HANDOFF_LINKS = ["/dashboard", "/dashboard/notifications", "/dashboard/reports/free-scan"] as const;
@@ -79,7 +93,7 @@ const FAQS = [
   {
     question: "What happens after I submit?",
     answer:
-      "After verification, the dashboard should take the customer to Free Scan results with methodology, confidence posture, and the safest next action.",
+      "After verification, the dashboard should take the customer to Free Scan results with methodology, confidence posture, limitations, and the safest next action.",
   },
 ] as const;
 
@@ -133,8 +147,15 @@ export default function FreeCheckPage() {
               </div>
             ))}
           </div>
+          <div className="mt-5 rounded-[1.2rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
+            <div className="text-sm font-semibold text-cyan-100">After submission</div>
+            <p className="mt-2 text-sm leading-6 text-slate-200">Verify the email, open the dashboard, and review the dedicated Free Scan result path before choosing paid depth.</p>
+            <Link href="/dashboard/reports/free-scan" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+              View Free Scan result path
+            </Link>
+          </div>
           <div className="sr-only">
-            Safe business context only. enter safe context. Pending means pending, not final truth. It turns customer hesitation into a safer first direction. without treating pending or incomplete input as final analysis. Command Free Scan room. {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and Free Scan results handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and Free Scan results. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
+            Safe business context only. enter safe context. Pending means pending, not final truth. It turns customer hesitation into a safer first direction. without treating pending or incomplete input as final analysis. Command Free Scan room. Free Scan journey. Start Verify Read Choose. {FREE_SCAN_JOURNEY.map((step) => `${step.label} ${step.value} ${step.detail}`).join(" ")} {FREE_SCAN_FIRST_USE_SNAPSHOT.join(" ")} Free Scan completion handoff. {FREE_SCAN_FIRST_USE_RULES.join(" ")} Dedicated page, not a cramped popup. Dashboard, notifications, and Free Scan results handoff. Routeable page that can be resumed or linked from dashboard and hand off into dashboard, notifications, and Free Scan results. No browser-exposed protected secrets. {HANDOFF_LINKS.join(" ")}
           </div>
           <nav className="sr-only" aria-label="Free Scan completion handoff">
             {FREE_SCAN_HANDOFF_ACTIONS.map((action) => (
@@ -146,6 +167,34 @@ export default function FreeCheckPage() {
         </div>
 
         <GuidedFreeCheckForm className="relative z-10" />
+      </section>
+
+      <section className="relative z-10 mt-8 rounded-[1.55rem] border border-white/10 bg-white/[0.035] p-4 sm:rounded-[1.7rem] sm:p-6" aria-label="Free Scan journey">
+        <div>
+          <p className="text-sm font-semibold text-cyan-100">Free Scan journey</p>
+          <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-4xl">
+            From safe context to a protected first result.
+          </h2>
+        </div>
+        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {FREE_SCAN_JOURNEY.map((step) => (
+            <article key={step.label} className="rounded-[1.25rem] border border-white/10 bg-black/20 p-4 sm:p-5">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-100">{step.label}</div>
+              <h3 className="mt-2 text-xl font-semibold tracking-tight text-white">{step.value}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-300">{step.detail}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Free Scan boundary standards">
+        {FREE_SCAN_BOUNDARY_STANDARDS.map((item) => (
+          <article key={item.label} className="system-surface rounded-[1.35rem] p-5">
+            <div className="text-sm font-semibold text-cyan-100">{item.label}</div>
+            <div className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</div>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
+          </article>
+        ))}
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3">
