@@ -19,7 +19,7 @@ expect(runtimePath, [
   "projectChiefAgentMissionReviewPreview",
   "loadChiefAgentMissionReviewEnvelope",
   "saveChiefAgentMissionReviewEnvelope",
-  "agent-mission-chief-reviews.v1.json",
+  "agent-mission-chief-reviews.v3.json",
   "captainReviewReady",
   "chief-agent-not-assigned-to-mission",
   "accepted-agent-findings-incomplete",
