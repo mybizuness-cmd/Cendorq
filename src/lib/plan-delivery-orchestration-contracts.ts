@@ -3,12 +3,25 @@ import {
   PLAN_VALUE_FULFILLMENT_RULES,
   projectPlanValueFulfillment,
 } from "@/lib/plan-value-fulfillment-boundaries";
+import {
+  PLAN_INTELLIGENCE_ACQUISITION_RULES,
+  PLAN_INTELLIGENCE_ACQUISITION_SYSTEM,
+  projectPlanIntelligenceAcquisition,
+} from "@/lib/plan-intelligence-acquisition-system";
 
 export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
   id: "plan-delivery-orchestration-contract",
   name: "Cendorq Plan Delivery Orchestration Contract",
   purpose:
-    "Define the end-to-end delivery orchestration standard for every Cendorq plan so intake, evidence, report creation, email delivery, follow-up, agent ownership, customer handoffs, upgrade paths, and fulfillment boundaries stay truthful, synchronized, exceptional, and non-overlapping.",
+    "Define the end-to-end delivery orchestration standard for every Cendorq plan so intelligence acquisition, intake, evidence, report creation, email delivery, follow-up, agent ownership, customer handoffs, upgrade paths, and fulfillment boundaries stay truthful, synchronized, exceptional, and non-overlapping.",
+  intelligenceAcquisitionStandard: PLAN_INTELLIGENCE_ACQUISITION_RULES,
+  intelligenceAcquisitionContracts: PLAN_INTELLIGENCE_ACQUISITION_SYSTEM,
+  intelligenceAcquisitionProjections: [
+    projectPlanIntelligenceAcquisition("free-scan"),
+    projectPlanIntelligenceAcquisition("deep-review"),
+    projectPlanIntelligenceAcquisition("build-fix"),
+    projectPlanIntelligenceAcquisition("ongoing-control"),
+  ],
   fulfillmentBoundaryStandard: PLAN_VALUE_FULFILLMENT_RULES,
   fulfillmentBoundaries: PLAN_VALUE_FULFILLMENT_BOUNDARIES,
   fulfillmentProjections: [
@@ -18,7 +31,8 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     projectPlanValueFulfillment("ongoing-control"),
   ],
   operatingStandard: [
-    "Every plan must define intake, evidence requirements, customer deliverables, operator deliverables, email lifecycle, notification lifecycle, follow-up lifecycle, agent ownership, handoff destinations, and release-captain approval gates.",
+    "Every plan must define intelligence acquisition, intake, evidence requirements, customer deliverables, operator deliverables, email lifecycle, notification lifecycle, follow-up lifecycle, agent ownership, handoff destinations, and release-captain approval gates.",
+    "Every plan must define minimum inputs, best inputs, evidence to collect, context to clarify, information to reject, analysis method, output structure, value maximizer, failure mode, and escalation path.",
     "Every plan must define allowed deliverables, blocked overlaps, required-before-delivery checks, approval gate, customer-facing summary, and escalation rule.",
     "Every report and customer-facing deliverable must separate verified facts, customer-provided context, external evidence, assumptions, inferences, limitations, confidence, and next actions.",
     "Every plan must deliver value beyond generic advice by converting evidence into practical actions, clear priorities, safer decisions, and plan-appropriate implementation support.",
@@ -29,6 +43,7 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     {
       key: "free-scan",
       name: "Free Scan",
+      intelligenceAcquisition: projectPlanIntelligenceAcquisition("free-scan"),
       fulfillmentBoundary: projectPlanValueFulfillment("free-scan"),
       customerPromise: "Provide a safe first read and useful direction without pretending the scan is a final complete diagnosis.",
       intake: ["guided free-check form", "business basics", "market context", "offer and buyer", "problem pressure"],
@@ -43,6 +58,7 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     {
       key: "deep-review",
       name: "Deep Review",
+      intelligenceAcquisition: projectPlanIntelligenceAcquisition("deep-review"),
       fulfillmentBoundary: projectPlanValueFulfillment("deep-review"),
       customerPromise: "Deliver evidence-backed diagnosis, cause-level clarity, and prioritized decision guidance without representing implementation work as included.",
       intake: ["payment confirmation", "verified customer ownership", "free scan handoff", "expanded diagnostic questionnaire", "business goals", "current funnel", "customer objections", "available access details without secrets"],
@@ -57,6 +73,7 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     {
       key: "build-fix",
       name: "Build Fix",
+      intelligenceAcquisition: projectPlanIntelligenceAcquisition("build-fix"),
       fulfillmentBoundary: projectPlanValueFulfillment("build-fix"),
       customerPromise: "Turn a clear weakness into scoped customer-facing improvement work while preserving evidence, approvals, scope clarity, and measurable but non-guaranteed outcome posture.",
       intake: ["payment confirmation", "scope confirmation", "asset/request checklist", "brand context", "page or funnel targets", "implementation constraints", "approval contact", "safe access instructions without secrets"],
@@ -71,6 +88,7 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     {
       key: "ongoing-control",
       name: "Ongoing Control",
+      intelligenceAcquisition: projectPlanIntelligenceAcquisition("ongoing-control"),
       fulfillmentBoundary: projectPlanValueFulfillment("ongoing-control"),
       customerPromise: "Provide recurring monitoring, monthly priorities, status awareness, and decision support without implying unlimited implementation or guaranteed placement.",
       intake: ["subscription confirmation", "monitoring scope", "business priorities", "report cadence", "safe notification preferences", "change approval contact", "risk threshold"],
@@ -94,6 +112,13 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     "All agent-produced plan work returns to release-captain review before becoming customer-facing output.",
   ],
   blockedPatterns: [
+    "planWithoutIntelligenceAcquisition",
+    "planWithoutMinimumInputs",
+    "planWithoutBestInputs",
+    "planWithoutInformationRejection",
+    "planWithoutAnalysisMethod",
+    "planWithoutPlanSpecificOutputStructure",
+    "planWithoutValueMaximizer",
     "planWithoutIntake",
     "planWithoutEvidence",
     "planWithoutReportOrDeliverable",
@@ -126,8 +151,8 @@ export const PLAN_DELIVERY_ORCHESTRATION_CONTRACT = {
     "guaranteedAccuracyPlanClaim",
   ],
   releaseRules: [
-    "No plan lifecycle can be considered complete until intake, evidence, delivery, email, follow-up, agent ownership, approval gates, and fulfillment boundaries are represented.",
-    "No customer-facing plan output can bypass report evidence records, customer output approval, fulfillment boundary checks, or release-captain review where applicable.",
+    "No plan lifecycle can be considered complete until intelligence acquisition, intake, evidence, delivery, email, follow-up, agent ownership, approval gates, and fulfillment boundaries are represented.",
+    "No customer-facing plan output can bypass report evidence records, customer output approval, fulfillment boundary checks, plan-specific acquisition checks, or release-captain review where applicable.",
     "No implementation or optimization work can be represented as complete without scope clarity, customer approval posture, and safe delivery summary.",
     "No monthly or ongoing control action can mutate customer-facing production surfaces without approval gates and audit-safe records.",
   ],
