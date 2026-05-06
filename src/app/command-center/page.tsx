@@ -24,6 +24,7 @@ import { AiManagerCommandPanel } from "./ai-manager-command-panel";
 import { AiManagerVersionRegistryPanel } from "./ai-manager-version-registry-panel";
 import { BenchmarkEvidencePanel } from "./benchmark-evidence-panel";
 import { BenchmarkIntelligencePanel } from "./benchmark-intelligence-panel";
+import { CendorqAgentIntelligencePlaybooksPanel } from "./cendorq-agent-intelligence-playbooks-panel";
 import { ClosedCommandCenterPanel } from "./closed-command-center-panel";
 import { CommandCenterHeroPanel } from "./command-center-hero-panel";
 import { CommandCenterOperatingMap } from "./command-center-operating-map";
@@ -101,6 +102,7 @@ export default async function CommandCenterPage() {
         <LaunchEvidencePanel />
         <ProductionSmokeTargetPanel />
         <AgentOperatingSystemPanel />
+        <CendorqAgentIntelligencePlaybooksPanel />
         <AgentMissionOperatingEnginePanel />
         <AgentMissionRecordsRuntimePanel />
         <AgentMissionReviewGatesRuntimePanel />
