@@ -151,6 +151,16 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     protectionNote: "Review gates stay metadata-only; chief agents cannot approve customer output, and release-captain approval cannot bypass delivery, billing, report, or production gates.",
   },
   {
+    key: "agent-mission-finding-submission-runtime",
+    label: "Agent mission finding submission runtime",
+    order: 108,
+    layer: "intelligence",
+    visibility: "private-gated",
+    dataExposure: "metadata-only",
+    operatorPurpose: "Show assigned-agent finding submission posture, accepted finding recomputation, quality score movement, queue-state movement, output assembly posture, and blocked reason codes.",
+    protectionNote: "Finding submission stays safe-summary-only and cannot approve customer output, report release, production mutation, delivery email, billing action, or provider action.",
+  },
+  {
     key: "owner-configuration-evidence",
     label: "Owner configuration evidence",
     order: 110,
