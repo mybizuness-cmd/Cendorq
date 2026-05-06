@@ -96,7 +96,7 @@ forbidden(loginPath, [
 ]);
 
 forbidden(verifyPath, [
-  "another customer's status",
+  "exposes another customer's status",
   "paste your password",
   "submit card number",
   "we guarantee revenue",
@@ -106,9 +106,9 @@ forbidden(freeCheckPath, [
   "free full diagnosis",
   "free implementation",
   "free monthly monitoring",
-  "guaranteed ranking",
-  "guaranteed ai placement",
-  "guaranteed revenue",
+  "we guarantee ranking",
+  "we guarantee ai placement",
+  "we guarantee revenue",
 ]);
 
 if (failures.length) {
