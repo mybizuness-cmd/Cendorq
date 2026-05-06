@@ -32,6 +32,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-agent-mission-plan-trigger-wiring.mjs",
   "src/scripts/validate-agent-mission-finding-submission-runtime.mjs",
   "src/scripts/validate-agent-mission-chief-review-runtime.mjs",
+  "src/scripts/validate-cendorq-agent-intelligence-playbooks.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
