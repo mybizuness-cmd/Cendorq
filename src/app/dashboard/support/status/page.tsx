@@ -32,7 +32,7 @@ export default function SupportStatusPage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Premium support status</p>
+            <p className="text-sm font-semibold text-cyan-100">Support status</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">Know where the blocker stands and what to do next.</h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
               Status should reduce anxiety, protect private information, and return the customer to billing, reports, support, or plan choice as soon as the blocker is clear.
@@ -70,8 +70,8 @@ export default function SupportStatusPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Premium support status guardrails">
-        Premium support status. Know where the blocker stands and what to do next. Show progress without exposing internals. Continue the paid path. No generic ticket tracker. No internal notes. No raw evidence. No duplicate support loop. {STATUS_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {STATUS_RULES.join(" ")} {CUSTOMER_SUPPORT_STATUS_CONTRACTS.map((status) => `${status.key} ${status.label} ${status.customerMeaning}`).join(" ")}
+      <section className="sr-only" aria-label="Support status guardrails">
+        Support status. Know where the blocker stands and what to do next. Show progress without exposing internals. Continue the paid path. No generic ticket tracker. No internal notes. No raw evidence. No duplicate support loop. {STATUS_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {STATUS_RULES.join(" ")} {CUSTOMER_SUPPORT_STATUS_CONTRACTS.map((status) => `${status.key} ${status.label} ${status.customerMeaning}`).join(" ")}
       </section>
     </main>
   );
