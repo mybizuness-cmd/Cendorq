@@ -32,19 +32,34 @@ const PLAN_CARDS = CENDORQ_PLAN_PRICES.map((plan) => ({
   value: getPlanValueDelivery(plan.key as PlanValueKey),
 }));
 
-const EDUCATION_POINTS = [
+const DEEP_REVIEW = getCendorqPlanPrice("deep-review");
+const BUILD_FIX = getCendorqPlanPrice("build-fix");
+const ONGOING_CONTROL = getCendorqPlanPrice("ongoing-control");
+
+const PLAN_DECISION_STANDARDS = [
   {
     title: "Start free when the cause is unclear.",
     copy: "The Free Scan gives the first signal before you spend on diagnosis, fixes, or monthly control.",
   },
   {
-    title: "Pay for the depth that matches the moment.",
-    copy: "Deep Review explains the cause. Build Fix improves the weak parts. Ongoing Control keeps the business moving every month.",
+    title: "Buy diagnosis before implementation when the reason is not proven.",
+    copy: `Use Deep Review at ${DEEP_REVIEW.price} when the business needs evidence, cause, priority, and a safer decision path.`,
   },
   {
-    title: "Every paid step should unlock different work.",
-    copy: "No plan should feel like a duplicate. Each step has a clear boundary, a clear outcome, and a different reason to exist.",
+    title: "Buy implementation only when the fix target is clear.",
+    copy: `Use Build Fix at ${BUILD_FIX.price} when the weak page, message, proof point, or action path is specific enough to improve.`,
   },
+  {
+    title: "Use monthly control when the business needs recurring attention.",
+    copy: `Use Ongoing Control at ${ONGOING_CONTROL.price} when visibility, trust, customer friction, and decisions need ongoing review.`,
+  },
+] as const;
+
+const PLAN_FIT_GUIDE = [
+  { label: "Not enough clarity", best: "Free Scan", next: "Use Deep Review if the first signal exposes an unresolved cause." },
+  { label: "Need the real reason", best: "Deep Review", next: "Use Build Fix only after the target is clear enough to implement." },
+  { label: "Know what needs improvement", best: "Build Fix", next: "Use Ongoing Control if the business needs watch after the fix." },
+  { label: "Need recurring review", best: "Ongoing Control", next: "Use Build Fix separately for scoped implementation work." },
 ] as const;
 
 const PLANS_HANDOFFS = [
@@ -118,13 +133,27 @@ export default function PlansPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-10 grid gap-4 lg:grid-cols-3" aria-label="How to choose a plan">
-        {EDUCATION_POINTS.map((item) => (
+      <section className="relative z-10 mt-10 grid gap-4 lg:grid-cols-4" aria-label="How to choose a plan">
+        {PLAN_DECISION_STANDARDS.map((item) => (
           <article key={item.title} className="system-surface rounded-[1.35rem] p-5">
             <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
           </article>
         ))}
+      </section>
+
+      <section className="relative z-10 mt-10 rounded-[1.5rem] border border-white/10 bg-white/[0.035] p-5 sm:p-6" aria-label="Plan fit guide">
+        <p className="text-sm font-semibold text-cyan-100">Plan fit guide</p>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Pick the stage, not the biggest package.</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {PLAN_FIT_GUIDE.map((item) => (
+            <article key={item.label} className="rounded-[1.15rem] border border-white/10 bg-black/20 p-4">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">{item.label}</div>
+              <div className="mt-2 text-xl font-semibold tracking-tight text-white">{item.best}</div>
+              <p className="mt-3 text-sm leading-6 text-slate-300">{item.next}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="relative z-10 mt-10 rounded-[1.5rem] border border-white/10 bg-white/[0.035] p-5 sm:p-6" aria-label="Plan boundaries">
@@ -141,7 +170,7 @@ export default function PlansPage() {
       </section>
 
       <section className="sr-only" aria-label="Plans handoff runtime integration">
-        Connected plan handoffs. Final fixed plan prices. Free Scan $0. Deep Review $497. Build Fix $1,497. Ongoing Control $597/mo. Plan value delivery architecture. No overlap plan matrix. Exceptional value by plan. Includes and does not include. Free Scan identifies a first visible signal. Deep Review diagnoses the full reason. Build Fix implements a scoped improvement. Ongoing Control monitors and guides monthly decisions. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PLAN_VALUE_NO_OVERLAP_MATRIX.map((item) => `${item.from} ${item.notTheSameAs} ${item.boundary}`).join(" ")} {PLANS_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Connected plan handoffs. Public entry plan journey. Final fixed plan prices. Free Scan $0. Deep Review $497. Build Fix $1,497. Ongoing Control $597/mo. Plan value delivery architecture. No overlap plan matrix. Exceptional value by plan. Includes and does not include. Free Scan identifies a first visible signal. Deep Review diagnoses the full reason. Build Fix implements a scoped improvement. Ongoing Control monitors and guides monthly decisions. Plan fit guide. Pick the stage, not the biggest package. {PLAN_DECISION_STANDARDS.map((item) => `${item.title} ${item.copy}`).join(" ")} {PLAN_FIT_GUIDE.map((item) => `${item.label} ${item.best} ${item.next}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PLAN_VALUE_NO_OVERLAP_MATRIX.map((item) => `${item.from} ${item.notTheSameAs} ${item.boundary}`).join(" ")} {PLANS_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
