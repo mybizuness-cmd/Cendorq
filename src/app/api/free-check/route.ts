@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
 import path from "node:path";
 
+import { createOrUpdateAgentMissionExecutionRecord } from "@/lib/agent-mission-live-execution-runtime";
 import {
   issueCustomerConfirmationEmail,
   projectCustomerConfirmationEmailSafeResponse,
@@ -195,6 +196,13 @@ export async function POST(request: NextRequest) {
     envelope.entries.sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
     await saveEnvelope(envelope);
 
+    const agentMissionExecution = await createOrUpdateAgentMissionExecutionRecord({
+      planKey: "free-scan",
+      intake: storedEntry.planIntelligenceIntake,
+      executionId: `${storedEntry.id}-free-scan-agent-mission-execution`,
+      now,
+    });
+
     const confirmationEmail = await issueCustomerConfirmationEmail({
       customerIdHash: buildCustomerIdHash(storedEntry),
       signupEmailHash: buildEmailHash(storedEntry.email),
@@ -207,7 +215,7 @@ export async function POST(request: NextRequest) {
     });
     const safeConfirmationEmail = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
 
-    return jsonNoStore({ ok: true, intakeId: storedEntry.id, resultDestination: FREE_SCAN_RESULTS_DESTINATION, planIntelligenceIntake: storedEntry.planIntelligenceIntake, signalQuality: storedEntry.signalQuality, routingHint: storedEntry.routingHint, duplicate, riskFlags: storedEntry.riskFlags, clarityScore: storedEntry.clarityScore, intentStrength: storedEntry.intentStrength, score: storedEntry.score, tier: storedEntry.scoreTier, decision: storedEntry.decision, confidenceLevel: storedEntry.confidenceLevel, dataDepthScore: storedEntry.dataDepthScore, scoreModules: storedEntry.scoreModules, timeSensitivity: storedEntry.timeSensitivity, decisionMoment: storedEntry.decisionMoment, explanationTrace: storedEntry.explanationTrace, confirmationEmail: safeConfirmationEmail, message: duplicate ? "This business already had a recent Free Scan in the system. The existing signal has been updated with the newest submission. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." : "The Free Scan has been captured successfully. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." }, 200);
+    return jsonNoStore({ ok: true, intakeId: storedEntry.id, resultDestination: FREE_SCAN_RESULTS_DESTINATION, planIntelligenceIntake: storedEntry.planIntelligenceIntake, agentMissionExecution: { executionId: agentMissionExecution.executionId, queueState: agentMissionExecution.queueState, qualityScore: agentMissionExecution.qualityScore.total, outputType: agentMissionExecution.outputAssembly.outputType, outputReadiness: agentMissionExecution.outputAssembly.readiness, dashboardDestination: agentMissionExecution.outputAssembly.dashboardDestination, blockedReasonCodes: agentMissionExecution.blockedReasonCodes }, signalQuality: storedEntry.signalQuality, routingHint: storedEntry.routingHint, duplicate, riskFlags: storedEntry.riskFlags, clarityScore: storedEntry.clarityScore, intentStrength: storedEntry.intentStrength, score: storedEntry.score, tier: storedEntry.scoreTier, decision: storedEntry.decision, confidenceLevel: storedEntry.confidenceLevel, dataDepthScore: storedEntry.dataDepthScore, scoreModules: storedEntry.scoreModules, timeSensitivity: storedEntry.timeSensitivity, decisionMoment: storedEntry.decisionMoment, explanationTrace: storedEntry.explanationTrace, confirmationEmail: safeConfirmationEmail, message: duplicate ? "This business already had a recent Free Scan in the system. The existing signal has been updated with the newest submission. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." : "The Free Scan has been captured successfully. Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results." }, 200);
   } catch {
     return jsonNoStore({ ok: false, error: "The submission could not be stored cleanly.", details: ["The intake storage layer was not able to save the Free Scan right now."] }, 500);
   }
