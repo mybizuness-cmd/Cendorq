@@ -1,6 +1,6 @@
 import { FreeCheckAnalytics } from "@/components/free-check/free-check-analytics";
 import { FreeCheckProgressGuard } from "@/components/free-check/free-check-progress-guard";
-import { GuidedFreeCheckFormFocused } from "@/components/free-check/guided-free-check-form-focused";
+import { GuidedFreeCheckFormV3 } from "@/components/free-check/guided-free-check-form-v3";
 import {
   buildBreadcrumbJsonLd,
   buildFaqJsonLd,
@@ -110,7 +110,7 @@ export default function FreeCheckPage() {
           </div>
         </div>
 
-        <GuidedFreeCheckFormFocused className="relative z-10" />
+        <GuidedFreeCheckFormV3 className="relative z-10" />
       </section>
 
       <section className="relative z-10 mt-6 grid gap-3 md:grid-cols-3" aria-label="Free Scan promise">
