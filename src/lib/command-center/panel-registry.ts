@@ -141,6 +141,16 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     protectionNote: "Agent mission records stay safe-summary-only and cannot expose raw customer payloads, credentials, payment data, provider payloads, prompts, internal notes, or cross-customer records.",
   },
   {
+    key: "agent-mission-review-gates-runtime",
+    label: "Agent mission review gates runtime",
+    order: 107,
+    layer: "intelligence",
+    visibility: "private-gated",
+    dataExposure: "metadata-only",
+    operatorPurpose: "Show finding submission acceptance, chief-agent consolidation, release-captain approval posture, reason codes, blocked claims, and gated customer-safe output state.",
+    protectionNote: "Review gates stay metadata-only; chief agents cannot approve customer output, and release-captain approval cannot bypass delivery, billing, report, or production gates.",
+  },
+  {
     key: "owner-configuration-evidence",
     label: "Owner configuration evidence",
     order: 110,
