@@ -16,6 +16,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-trust-legal-plan-boundaries.mjs",
   "src/scripts/validate-mobile-visual-audit-stage-one.mjs",
   "src/scripts/validate-premium-plan-blocks-free-scan-flow.mjs",
+  "src/scripts/validate-premium-customer-platform-dashboard.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
