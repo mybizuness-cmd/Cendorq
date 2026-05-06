@@ -94,7 +94,7 @@ export default function SupportCenterPage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Premium support routing center</p>
+            <p className="text-sm font-semibold text-cyan-100">Support routing center</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">Route the blocker without blurring the plan.</h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
               Support should solve the issue, protect the proof trail, and return the customer to the correct report, billing, plan, or status path.
@@ -154,8 +154,8 @@ export default function SupportCenterPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Premium support routing guardrails">
-        Premium support routing center. Route the blocker without blurring the plan. Support route selector. Pick the narrowest path that matches the blocker. Support should restore momentum without expanding scope silently. Billing issue. Report question. Build Fix scope question. Ongoing Control monthly priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
+      <section className="sr-only" aria-label="Support routing guardrails">
+        Support routing center. Route the blocker without blurring the plan. Support route selector. Pick the narrowest path that matches the blocker. Support should restore momentum without expanding scope silently. Billing issue. Report question. Build Fix scope question. Ongoing Control monthly priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
       </section>
     </main>
   );
