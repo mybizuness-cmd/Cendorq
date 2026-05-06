@@ -20,6 +20,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-premium-report-vault-free-scan-results.mjs",
   "src/scripts/validate-premium-billing-checkout-success.mjs",
   "src/scripts/validate-premium-notifications-support-flow.mjs",
+  "src/scripts/validate-premium-auth-verification-surfaces.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
