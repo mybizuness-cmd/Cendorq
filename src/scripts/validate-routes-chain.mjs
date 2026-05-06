@@ -27,6 +27,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-plan-intelligence-intake-records.mjs",
   "src/scripts/validate-agent-mission-operating-engine.mjs",
   "src/scripts/validate-agent-mission-records-runtime.mjs",
+  "src/scripts/validate-agent-mission-review-gates-runtime.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
