@@ -12,6 +12,7 @@ import { COMMAND_CENTER_READINESS_CHECKS } from "@/lib/command-center/readiness"
 import { getCommandCenterReadinessSummary } from "@/lib/command-center/readiness-summary";
 
 import { AdminCommandCenterControlPanel } from "./admin-command-center-control-panel";
+import { AgentMissionLiveExecutionRuntimePanel } from "./agent-mission-live-execution-runtime-panel";
 import { AgentMissionOperatingEnginePanel } from "./agent-mission-operating-engine-panel";
 import { AgentMissionRecordsRuntimePanel } from "./agent-mission-records-runtime-panel";
 import { AgentMissionReviewGatesRuntimePanel } from "./agent-mission-review-gates-runtime-panel";
@@ -101,6 +102,7 @@ export default async function CommandCenterPage() {
         <AgentMissionOperatingEnginePanel />
         <AgentMissionRecordsRuntimePanel />
         <AgentMissionReviewGatesRuntimePanel />
+        <AgentMissionLiveExecutionRuntimePanel />
         <OwnerConfigurationEvidencePanel />
         <OwnerConfigurationWorkflowPanel />
         <OperatorReadinessMatrix />
