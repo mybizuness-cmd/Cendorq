@@ -1,4 +1,5 @@
 import { projectAgentMissionExecutionPreview } from "@/lib/agent-mission-live-execution-runtime";
+import { projectPlanTriggeredAgentMission } from "@/lib/agent-mission-operating-engine";
 import { AGENT_MISSION_FINDING_SUBMISSION_RULES, projectAgentMissionFindingSubmissionPreview } from "@/lib/agent-mission-finding-submission-runtime";
 
 const PLAN_KEYS = ["free-scan", "deep-review", "build-fix", "ongoing-control"] as const;
@@ -53,24 +54,22 @@ const SAMPLE_FINDING_BY_PLAN = {
 export function AgentMissionFindingSubmissionRuntimePanel() {
   const previews = PLAN_KEYS.map((planKey) => {
     const execution = projectAgentMissionExecutionPreview(planKey);
-    const submission = projectAgentMissionFindingSubmissionPreview(
-      {
-        executionId: `${execution.runtime.missionRecordId}-execution`,
-        createdAt: "preview-time",
-        updatedAt: "preview-time",
-        mission: execution.runtime ? execution.runtime.missionKey ? {} as never : {} as never : {} as never,
-        runtime: execution.runtime,
-        queueState: execution.queueState,
-        findingRecords: execution.runtime.findingRecords,
-        chiefReview: execution.chiefReview,
-        captainApproval: execution.captainApproval,
-        qualityScore: execution.qualityScore,
-        outputAssembly: execution.outputAssembly,
-        auditTrail: [],
-        blockedReasonCodes: execution.blockedReasonCodes,
-      },
-      SAMPLE_FINDING_BY_PLAN[planKey],
-    );
+    const record = {
+      executionId: `${execution.runtime.missionRecordId}-execution`,
+      createdAt: "preview-time",
+      updatedAt: "preview-time",
+      mission: projectPlanTriggeredAgentMission(planKey),
+      runtime: execution.runtime,
+      queueState: execution.queueState,
+      findingRecords: execution.runtime.findingRecords,
+      chiefReview: execution.chiefReview,
+      captainApproval: execution.captainApproval,
+      qualityScore: execution.qualityScore,
+      outputAssembly: execution.outputAssembly,
+      auditTrail: [],
+      blockedReasonCodes: execution.blockedReasonCodes,
+    };
+    const submission = projectAgentMissionFindingSubmissionPreview(record, SAMPLE_FINDING_BY_PLAN[planKey]);
     return { planKey, execution, submission };
   });
 
