@@ -1,3 +1,5 @@
+import { projectPlanValueCommunication } from "@/lib/plan-value-communication-runtime";
+
 export type CendorqPaidPlanKey = "deep-review" | "build-fix" | "ongoing-control";
 export type CendorqPlanKey = "free-scan" | CendorqPaidPlanKey;
 
@@ -129,27 +131,46 @@ export const CENDORQ_CHECKOUT_METADATA_KEYS = [
   "backend_start_signal",
 ] as const;
 
+const DEEP_REVIEW_COMMUNICATION = projectPlanValueCommunication("deep-review", "deep-review-kickoff");
+const BUILD_FIX_COMMUNICATION = projectPlanValueCommunication("build-fix", "build-fix-kickoff");
+const ONGOING_CONTROL_COMMUNICATION = projectPlanValueCommunication("ongoing-control", "ongoing-control-kickoff");
+
 export const CENDORQ_POST_PAYMENT_EMAILS = [
   {
     key: "deep-review-kickoff",
     planKey: "deep-review",
-    subject: "Deep Review is unlocked — confirm the focus",
+    subject: DEEP_REVIEW_COMMUNICATION.subject,
     dashboardPath: "/dashboard/reports",
     customerGoal: "Confirm what Cendorq should diagnose first.",
+    customerPromise: DEEP_REVIEW_COMMUNICATION.customerPromise,
+    includedValue: DEEP_REVIEW_COMMUNICATION.includedValue,
+    notIncluded: DEEP_REVIEW_COMMUNICATION.notIncluded,
+    boundary: DEEP_REVIEW_COMMUNICATION.boundary,
+    safeUpgradeExplanation: DEEP_REVIEW_COMMUNICATION.safeUpgradeExplanation,
   },
   {
     key: "build-fix-kickoff",
     planKey: "build-fix",
-    subject: "Build Fix is unlocked — confirm the page and offer",
+    subject: BUILD_FIX_COMMUNICATION.subject,
     dashboardPath: "/dashboard/support/request",
     customerGoal: "Confirm what should be fixed and what business details are approved.",
+    customerPromise: BUILD_FIX_COMMUNICATION.customerPromise,
+    includedValue: BUILD_FIX_COMMUNICATION.includedValue,
+    notIncluded: BUILD_FIX_COMMUNICATION.notIncluded,
+    boundary: BUILD_FIX_COMMUNICATION.boundary,
+    safeUpgradeExplanation: BUILD_FIX_COMMUNICATION.safeUpgradeExplanation,
   },
   {
     key: "ongoing-control-kickoff",
     planKey: "ongoing-control",
-    subject: "Ongoing Control is active — choose this month’s focus",
+    subject: ONGOING_CONTROL_COMMUNICATION.subject,
     dashboardPath: "/dashboard/billing",
     customerGoal: "Choose the monthly priority and tracking focus.",
+    customerPromise: ONGOING_CONTROL_COMMUNICATION.customerPromise,
+    includedValue: ONGOING_CONTROL_COMMUNICATION.includedValue,
+    notIncluded: ONGOING_CONTROL_COMMUNICATION.notIncluded,
+    boundary: ONGOING_CONTROL_COMMUNICATION.boundary,
+    safeUpgradeExplanation: ONGOING_CONTROL_COMMUNICATION.safeUpgradeExplanation,
   },
 ] as const;
 
