@@ -17,6 +17,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-front-to-back-conversion-standard.mjs",
   "src/scripts/validate-customer-platform-routes.mjs",
   "src/scripts/validate-signup-verification-excellence.mjs",
+  "src/scripts/validate-access-free-scan-handoff.mjs",
   "src/scripts/validate-dashboard-first-session-onboarding.mjs",
   "src/scripts/validate-customer-revenue-command-center.mjs",
   "src/scripts/validate-notification-support-routing.mjs",
