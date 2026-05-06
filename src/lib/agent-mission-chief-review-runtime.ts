@@ -66,7 +66,7 @@ export type ChiefAgentMissionReviewResult = {
 type ChiefAgentMissionReviewEnvelope = FileBackedEnvelope<ChiefAgentMissionReviewRecord>;
 
 const STORAGE_DIR = path.join(process.cwd(), ".cendorq-runtime");
-const STORAGE_FILE = path.join(STORAGE_DIR, "agent-mission-chief-reviews.v1.json");
+const STORAGE_FILE = path.join(STORAGE_DIR, "agent-mission-chief-reviews.v3.json");
 
 export const AGENT_MISSION_CHIEF_REVIEW_RULES = [
   "Chief-agent review must target an existing persisted execution record.",
@@ -103,7 +103,7 @@ export async function submitChiefAgentMissionReview(input: ChiefAgentMissionRevi
   await saveAgentMissionExecutionEnvelope({ ...executionEnvelope, entries: updatedEntries });
 
   const reviewEnvelope = await loadChiefAgentMissionReviewEnvelope();
-  await saveChiefAgentMissionReviewEnvelope({ version: 1, entries: [review, ...reviewEnvelope.entries.filter((entry) => entry.reviewId !== review.reviewId)] });
+  await saveChiefAgentMissionReviewEnvelope({ version: 3, entries: [review, ...reviewEnvelope.entries.filter((entry) => entry.reviewId !== review.reviewId)] });
 
   return {
     ok: review.reasonCodes.length === 0,
