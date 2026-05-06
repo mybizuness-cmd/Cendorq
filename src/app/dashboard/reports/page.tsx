@@ -115,7 +115,7 @@ const REPORT_VAULT_RULES = [
   "Pending, draft, or unavailable reports must never look final.",
   "Free Scan, Deep Review, Build Fix, and Ongoing Control report types must remain visibly separate.",
   "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF attachment.",
-  "The vault must not expose private payloads, internal notes, prompts, secrets, or cross-customer data.",
+  "The vault must not expose internal notes, private records, or cross-customer data.",
 ] as const;
 
 export default function ReportsVaultPage() {
@@ -127,7 +127,7 @@ export default function ReportsVaultPage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Premium report vault</p>
+            <p className="text-sm font-semibold text-cyan-100">Report vault</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
               See every approved report in the dashboard, then recover paid reports from email.
             </h1>
@@ -156,7 +156,7 @@ export default function ReportsVaultPage() {
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.7rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.88)_48%,rgba(14,116,144,0.24))] p-4 shadow-[0_28px_100px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Premium separated report library">
+      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.7rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.88)_48%,rgba(14,116,144,0.24))] p-4 shadow-[0_28px_100px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Separated report library">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-semibold text-cyan-100">Separated report library</p>
@@ -206,8 +206,8 @@ export default function ReportsVaultPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Premium report vault guardrails">
-        Premium report vault. Paid plan report delivery operating system. See every approved report in the dashboard, then recover paid reports from email. Dashboard plus attachment. Every paid plan report must have a dashboard copy at /dashboard/reports. Every paid plan report delivery email must include the approved customer-safe report PDF as an attachment. Four report types. Different delivery rules. Free Scan result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Useful only when report depth and delivery are impossible to confuse. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+      <section className="sr-only" aria-label="Report vault guardrails">
+        Report vault. Paid plan report delivery operating system. See every approved report in the dashboard, then recover paid reports from email. Dashboard plus attachment. Every paid plan report must have a dashboard copy at /dashboard/reports. Every paid plan report delivery email must include the approved customer-safe report PDF as an attachment. Four report types. Different delivery rules. Free Scan result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Useful only when report depth and delivery are impossible to confuse. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );

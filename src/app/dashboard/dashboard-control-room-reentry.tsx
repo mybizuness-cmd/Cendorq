@@ -46,7 +46,7 @@ export function DashboardControlRoomReentry() {
             </div>
           ))}
         </div>
-        <div className="sr-only">Premium dashboard reentry. Leave and come back without losing the thread. No stranded side flows. No restart journey. No token exposure.</div>
+        <div className="sr-only">Dashboard reentry. Leave and come back without losing the thread. No stranded side flows. No restart journey. No token exposure.</div>
       </div>
     </section>
   );
