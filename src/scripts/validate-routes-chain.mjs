@@ -12,6 +12,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-public-plans-excellence.mjs",
   "src/scripts/validate-public-entry-plan-journey.mjs",
+  "src/scripts/validate-homepage-public-frame-elevation.mjs",
   "src/scripts/validate-public-navigation-chrome.mjs",
   "src/scripts/validate-trust-legal-plan-boundaries.mjs",
   "src/scripts/validate-mobile-visual-audit-stage-one.mjs",
