@@ -121,6 +121,16 @@ export const COMMAND_CENTER_PANEL_REGISTRY = [
     protectionNote: "Agents cannot merge, launch, approve reports, or approve customer-facing claims.",
   },
   {
+    key: "agent-mission-operating-engine",
+    label: "Agent mission operating engine",
+    order: 105,
+    layer: "intelligence",
+    visibility: "private-gated",
+    dataExposure: "metadata-only",
+    operatorPurpose: "Show plan-triggered agent missions, structured findings, chief-agent review, release-captain approval gates, and blocked customer claims.",
+    protectionNote: "Agent missions remain metadata-only until persistence, source refs, chief review, and release-captain approval are configured; agents cannot approve customer-facing output or mutate production.",
+  },
+  {
     key: "owner-configuration-evidence",
     label: "Owner configuration evidence",
     order: 110,
