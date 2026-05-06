@@ -6,17 +6,17 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
   title: string;
   eyebrow: string;
   customerSummary: string;
-  conversionRole: string;
+  customerValue: string;
   href: string;
   cta: string;
 })[] = [
   {
-    title: "Confirm your Cendorq inbox once",
-    eyebrow: "One-time setup",
+    title: "Confirm the inbox that owns this workspace",
+    eyebrow: "Access",
     customerSummary:
-      "Confirm this inbox once so report, billing, support, and plan-status emails sent to your signup address are easier to find; email follow-ups still go to your signup address.",
-    conversionRole:
-      "Keeps the customer reachable for report-ready notices, plan education, billing clarity, and support follow-through without repeating confirmation every plan.",
+      "Keep report-ready notices, billing updates, support replies, and plan status connected to the right email.",
+    customerValue:
+      "This protects the workspace and makes it easier to return when Cendorq has something ready.",
     href: "/dashboard/notifications",
     cta: "Confirm inbox",
     customerIdHashPresent: true,
@@ -30,14 +30,14 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
     evidenceBackedRecommendation: false,
   },
   {
-    title: "Optimization scope is protected",
-    eyebrow: "Plan scope",
+    title: "Review what Build Fix can change",
+    eyebrow: "Scope",
     customerSummary:
-      "Build Fix can continue inside the purchased optimization scope. Add Deep Review if you want the full standalone diagnosis behind the work.",
-    conversionRole:
-      "Converts direct Optimization buyers back toward Deep Review through scope clarity and customer understanding, not pressure or unpaid report leakage.",
+      "Build Fix improves the approved target. Deep Review is separate when you need the full reason behind the work.",
+    customerValue:
+      "This prevents scope confusion and keeps implementation from pretending to be full diagnosis.",
     href: "/dashboard/billing",
-    cta: "Review plan scope",
+    cta: "Review scope",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: true,
@@ -50,14 +50,14 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
     intakeOrApprovalIncomplete: true,
   },
   {
-    title: "Monthly command stays evidence-led",
-    eyebrow: "Ongoing control",
+    title: "Keep monthly control evidence-led",
+    eyebrow: "Ongoing",
     customerSummary:
-      "Monthly control can continue from approved scope. Build Fix is recommended only when evidence shows implementation work is needed; monthly emails remain part of the customer lifecycle flow.",
-    conversionRole:
-      "Turns recurring visibility into upgrade education by showing when monthly insight needs paid implementation, while preserving the active monthly plan.",
+      "Ongoing Control keeps watch and decision support active. Build Fix stays separate when the evidence shows implementation is needed.",
+    customerValue:
+      "This keeps monthly guidance useful without turning it into unlimited implementation work.",
     href: "/dashboard/notifications",
-    cta: "View monthly updates",
+    cta: "View updates",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: true,
@@ -77,42 +77,39 @@ const ACTION_INBOX_ITEMS = ACTION_INBOX_CASES.map((item) => ({
 
 export function DashboardActionInbox() {
   return (
-    <section className="relative z-10 mt-8" aria-label="Dashboard action inbox">
-      <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+    <section className="relative z-10 mt-7" aria-label="Dashboard action inbox">
+      <div className="system-panel-authority rounded-[1.7rem] p-4 sm:p-6">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">Dashboard action inbox</div>
-            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-white">
-              The most important customer actions stay visible and conversion-ready without becoming noise.
+            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Action inbox</div>
+            <h2 className="mt-3 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+              Only the actions that protect progress stay here.
             </h2>
-            <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
-              This inbox is a dashboard conversion and action strip, not a substitute for the email orchestration, lifecycle follow-up emails, or the full notification center. Email remains the external delivery channel to the signup address; the dashboard keeps the next best action visible when the customer returns.
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
+              No noise. No internal labels. Each action explains what it helps you do and where to go next.
             </p>
           </div>
-          <Link href="/dashboard/notifications" className="inline-flex rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 text-sm font-bold text-cyan-100 transition hover:bg-cyan-300/15 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Open notification center
+          <Link href="/dashboard/notifications" className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 text-sm font-bold text-cyan-100 transition hover:bg-cyan-300/15 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            Open notifications
           </Link>
         </div>
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-3">
+        <div className="mt-5 grid gap-3 lg:grid-cols-3">
           {ACTION_INBOX_ITEMS.map((item) => (
-            <Link key={item.title} href={item.href} className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-5 text-sm leading-6 text-slate-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.eyebrow} · {item.projection.routingMode}</span>
-              <span className="mt-3 block text-lg font-semibold tracking-tight text-white">{item.title}</span>
+            <Link key={item.title} href={item.href} className="rounded-[1.25rem] border border-white/10 bg-slate-950/45 p-4 text-sm leading-6 text-slate-200 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
+              <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.eyebrow}</span>
+              <span className="mt-3 block text-xl font-semibold tracking-tight text-white">{item.title}</span>
               <span className="mt-3 block text-sm leading-7 text-slate-300">{item.customerSummary}</span>
-              <span className="mt-4 block rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.07] px-4 py-3 text-xs leading-5 text-cyan-50">
-                Conversion role: {item.conversionRole}
-              </span>
-              <span className="mt-3 block rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-xs leading-5 text-slate-400">
-                Next: {item.projection.nextBestPlan}
+              <span className="mt-4 block rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.07] px-4 py-3 text-xs leading-5 text-cyan-50">
+                Why it matters: {item.customerValue}
               </span>
               <span className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-4 py-2 text-xs font-bold text-slate-950">{item.cta}</span>
             </Link>
           ))}
         </div>
 
-        <div className="mt-5 rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-4 text-xs leading-6 text-slate-400">
-          Customer-safe rule: dashboard inbox items must supplement, not replace, signup-email follow-ups and transactional email orchestration. They should convert through evidence, plan-fit education, scope clarity, and one safe next action while avoiding raw payloads, raw evidence, internal notes, risk internals, operator identities, provider payloads, secrets, payment data, unsupported outcome promises, or pressure-based urgency.
+        <div className="sr-only">
+          Customer-led dashboard action inbox. Only the actions that protect progress stay here. No internal labels. No conversion role label. No raw payloads. Next best plan projection retained safely. {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
         </div>
       </div>
     </section>
