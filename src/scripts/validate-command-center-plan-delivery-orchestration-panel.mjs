@@ -5,16 +5,19 @@ const root = process.cwd();
 const panelPath = "src/app/command-center/plan-delivery-orchestration-panel.tsx";
 const pagePath = "src/app/command-center/page.tsx";
 const runtimePath = "src/lib/plan-delivery-orchestration-runtime.ts";
+const fulfillmentPath = "src/lib/plan-value-fulfillment-boundaries.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const failures = [];
 
 expect(panelPath, [
   "PlanDeliveryOrchestrationPanel",
   "projectPlanDeliveryRuntime",
+  "projectPlanValueFulfillment",
+  "fulfillmentByPlan",
   "Plan delivery orchestration",
-  "Private lifecycle posture for Free Scan, Deep Review, Build Fix, and Ongoing Control.",
-  "Operator-only view of intake, evidence, deliverables, email lifecycle, follow-up, agent ownership, approval gates, and safe next actions.",
-  "Delivery is blocked until evidence, ownership, release-captain review, and customer-output approval gates clear.",
+  "Private lifecycle and fulfillment-boundary posture for every plan.",
+  "Operator-only view of intake, evidence, deliverables, lifecycle status, allowed outputs, blocked overlaps, required delivery checks, approval gates, and escalation rules.",
+  "Delivery is blocked until evidence, ownership, release-captain review, customer-output approval, and fulfillment-boundary checks clear.",
   "planDelivery.planCount",
   "planDelivery.readyCount",
   "planDelivery.blockedCount",
@@ -37,6 +40,21 @@ expect(panelPath, [
   "paidRecommendationAllowed",
 ]);
 
+expect(panelPath, [
+  "Allowed deliverables",
+  "Blocked overlap",
+  "Required checks",
+  "Excluded value",
+  "Fulfillment gate",
+  "Escalation rule",
+  "customerFacingSummary",
+  "allowedDeliverables",
+  "blockedOverlap",
+  "requiredBeforeDelivery",
+  "excludedValue",
+  "No cross-plan deliverable leakage",
+]);
+
 expect(pagePath, [
   "PlanDeliveryOrchestrationPanel",
   "./plan-delivery-orchestration-panel",
@@ -55,6 +73,18 @@ expect(runtimePath, [
   "deliveryAllowed",
   "paidRecommendationAllowed",
   "blockedPatterns",
+]);
+
+expect(fulfillmentPath, [
+  "PLAN_VALUE_FULFILLMENT_BOUNDARIES",
+  "PLAN_VALUE_FULFILLMENT_RULES",
+  "projectPlanValueFulfillment",
+  "allowedDeliverables",
+  "blockedOverlap",
+  "requiredBeforeDelivery",
+  "approvalGate",
+  "customerFacingSummary",
+  "escalationRule",
 ]);
 
 expect(routesChainPath, [
