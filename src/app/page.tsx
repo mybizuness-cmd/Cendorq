@@ -30,69 +30,54 @@ const ONGOING_CONTROL = getCendorqPlanPrice("ongoing-control");
 
 const ABOVE_FOLD_DECISION = [
   { label: "Problem", value: "Customers hesitate before they ever contact you." },
-  { label: "What Cendorq checks", value: "Clarity, trust, search/AI visibility, and the next step." },
-  { label: "Safest first move", value: "Start with a Free Scan before buying deeper work." },
+  { label: "Checks", value: "Clarity, trust, visibility, and the next step." },
+  { label: "Move", value: "Start with the Free Scan before paying for deeper work." },
 ] as const;
 
 const DECISION_BREAKS = [
-  {
-    title: "Unclear in seconds",
-    copy: "People may not understand what you do, who it is for, or why it matters fast enough.",
-  },
-  {
-    title: "Not trusted yet",
-    copy: "Weak proof, unclear credibility, thin reviews, or unsupported claims can quietly stop the decision.",
-  },
-  {
-    title: "Found incorrectly",
-    copy: "Search, maps, reviews, social profiles, and AI answers can describe your business in a way that weakens the choice.",
-  },
-  {
-    title: "Hard to act",
-    copy: "If booking, contacting, buying, or opening the next step feels hard, interest turns into silence.",
-  },
+  { title: "Unclear in seconds", copy: "People do not understand the business fast enough." },
+  { title: "Not trusted yet", copy: "The proof is not strong enough to make the choice feel safe." },
+  { title: "Found incorrectly", copy: "Search, maps, reviews, and AI answers weaken the story." },
+  { title: "Hard to act", copy: "The next step feels easier to avoid than complete." },
 ] as const;
 
 const PUBLIC_CUSTOMER_JOURNEY = [
   {
-    label: "1 / First signal",
+    label: "01",
     title: "Free Scan",
+    stage: "First signal",
     copy: "A useful first read before you pay for diagnosis, implementation, or monthly control.",
     href: FREE_SCAN.checkoutPath,
     cta: "Start free scan",
     value: getPlanValueDelivery("free-scan"),
   },
   {
-    label: "2 / Diagnosis",
+    label: "02",
     title: "Deep Review",
-    copy: "Cause-level diagnosis when the first signal is not enough to make a safe decision.",
+    stage: "Cause-level diagnosis",
+    copy: "Use it when the first signal is not enough and guessing would cost more than diagnosis.",
     href: DEEP_REVIEW.checkoutPath,
-    cta: `Unlock Deep Review ${DEEP_REVIEW.price}`,
+    cta: `Unlock ${DEEP_REVIEW.price}`,
     value: getPlanValueDelivery("deep-review"),
   },
   {
-    label: "3 / Implementation",
+    label: "03",
     title: "Build Fix",
-    copy: "Scoped improvement when the weak page, message, proof point, or action path is clear.",
+    stage: "Scoped implementation",
+    copy: "Use it when the weak page, message, proof point, or action path is ready to improve.",
     href: BUILD_FIX.checkoutPath,
-    cta: `Unlock Build Fix ${BUILD_FIX.price}`,
+    cta: `Unlock ${BUILD_FIX.price}`,
     value: getPlanValueDelivery("build-fix"),
   },
   {
-    label: "4 / Control",
+    label: "04",
     title: "Ongoing Control",
-    copy: "Monthly review when visibility, trust, customer friction, and decisions need watch.",
+    stage: "Monthly decision support",
+    copy: "Use it when the business needs recurring review, alerts, priorities, and control.",
     href: ONGOING_CONTROL.checkoutPath,
-    cta: `Start Ongoing Control ${ONGOING_CONTROL.price}`,
+    cta: `Start ${ONGOING_CONTROL.price}`,
     value: getPlanValueDelivery("ongoing-control"),
   },
-] as const;
-
-const HOMEPAGE_TRUST_RULES = [
-  "Free Scan is a first signal, not a full diagnosis.",
-  "Deep Review diagnoses cause before bigger spend.",
-  "Build Fix is scoped implementation, not unlimited site work.",
-  "Ongoing Control is recurring review, not unlimited Build Fix.",
 ] as const;
 
 export default function HomePage() {
@@ -102,7 +87,7 @@ export default function HomePage() {
 
       <section className="relative z-10 grid gap-5 lg:min-h-[calc(100vh-8rem)] lg:grid-cols-[1.02fr_0.98fr] lg:items-center" aria-label="Cendorq entry">
         <div className="max-w-5xl">
-          <p className="text-sm font-semibold text-cyan-100">Mobile visual audit: sharper first impression</p>
+          <p className="text-sm font-semibold text-cyan-100">Business command intelligence</p>
           <h1 className="system-hero-title mt-3 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:mt-4 sm:text-6xl md:text-7xl xl:text-[5.5rem]">
             Find why customers do not choose you.
           </h1>
@@ -160,42 +145,33 @@ export default function HomePage() {
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[1.55rem] border border-white/10 bg-slate-950/55 p-4 sm:rounded-[1.7rem] sm:p-7" aria-label="Public customer journey">
+      <section className="relative z-10 mt-7 rounded-[1.7rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.86)_46%,rgba(14,116,144,0.28))] p-4 shadow-[0_28px_100px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Premium plan stage system">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Public customer journey</p>
-            <h2 className="max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">Start small. Move deeper only when it makes sense.</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">No fake urgency. No wrong-depth push. Diagnosis comes before bigger spend.</p>
+            <p className="text-sm font-semibold text-cyan-100">Plan path</p>
+            <h2 className="max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">Four levels. Four different jobs. No cheap bundle confusion.</h2>
           </div>
-          <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">View pricing from $0 →</Link>
+          <Link href="/plans" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Compare all plans →</Link>
         </div>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-5 grid gap-3 lg:grid-cols-4">
           {PUBLIC_CUSTOMER_JOURNEY.map((stage) => (
-            <Link key={stage.label} href={stage.href} className="rounded-[1.25rem] border border-white/10 bg-white/[0.035] p-4 transition hover:border-cyan-300/24 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:rounded-[1.35rem] sm:p-5">
+            <Link key={stage.label} href={stage.href} className="group relative overflow-hidden rounded-[1.4rem] border border-white/10 bg-slate-950/62 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/60 to-transparent" />
               <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-100">{stage.label}</div>
-                  <h3 className="mt-2 text-xl font-semibold tracking-tight text-white">{stage.title}</h3>
-                </div>
-                <span className="text-sm font-semibold text-cyan-100">{stage.value.price}</span>
+                <span className="text-3xl font-semibold tracking-tight text-cyan-100/80">{stage.label}</span>
+                <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-100">{stage.value.price}</span>
               </div>
+              <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">{stage.stage}</p>
+              <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white">{stage.title}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-300">{stage.copy}</p>
-              <span className="mt-4 inline-flex text-sm font-semibold text-cyan-100">{stage.cta} →</span>
+              <span className="mt-5 inline-flex text-sm font-semibold text-cyan-100 transition group-hover:text-white">{stage.cta} →</span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-3 md:grid-cols-2 xl:grid-cols-4" aria-label="Homepage plan boundary rules">
-        {HOMEPAGE_TRUST_RULES.map((rule) => (
-          <article key={rule} className="system-surface rounded-[1.2rem] p-4 text-sm leading-6 text-slate-200">
-            {rule}
-          </article>
-        ))}
-      </section>
-
-      <section className="sr-only" aria-label="Mobile visual audit homepage guardrails">
-        Mobile visual audit homepage. Sharper first impression. Above fold decision panel. Find why customers do not choose you. Start with the safest read. Public entry plan journey. Public customer journey. Correct plan prices. Free Scan $0. Deep Review $497. Build Fix $1,497. Ongoing Control $597/mo. Free Scan first signal. Deep Review cause-level diagnosis. Build Fix scoped implementation. Ongoing Control monthly control. No fake urgency. No unsupported claims. No guaranteed ranking. No guaranteed AI placement. No guaranteed revenue. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PUBLIC_CUSTOMER_JOURNEY.map((stage) => `${stage.label} ${stage.title} ${stage.value.customerName} ${stage.value.price} ${stage.value.primaryValue} ${stage.value.reportBoundary}`).join(" ")}
+      <section className="sr-only" aria-label="Premium plan block guardrails">
+        Premium plan blocks. Four levels. Four different jobs. No cheap bundle confusion. Remove useless final boundary block before footer. Free Scan $0. Deep Review $497. Build Fix $1,497. Ongoing Control $597/mo. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PUBLIC_CUSTOMER_JOURNEY.map((stage) => `${stage.label} ${stage.title} ${stage.stage} ${stage.value.customerName} ${stage.value.price} ${stage.value.primaryValue} ${stage.value.reportBoundary}`).join(" ")}
       </section>
     </main>
   );
