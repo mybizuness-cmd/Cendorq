@@ -17,7 +17,7 @@ const DEEP_REVIEW = getCendorqPlanPrice("deep-review");
 const BUILD_FIX = getCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL = getCendorqPlanPrice("ongoing-control");
 
-const FEATURED_NOTIFICATION_KEYS = ["email-confirmation-required", "free-scan-ready", "billing-action-required", "security-reauth-required"] satisfies readonly CustomerNotificationKey[];
+const FEATURED_NOTIFICATION_KEYS: readonly CustomerNotificationKey[] = ["email-confirmation-required", "free-scan-ready", "billing-action-required", "security-reauth-required"];
 const FEATURED_NOTIFICATIONS = CUSTOMER_NOTIFICATION_CONTRACTS.filter((notification) => FEATURED_NOTIFICATION_KEYS.includes(notification.key));
 
 const NOTIFICATION_HANDOFFS = [
