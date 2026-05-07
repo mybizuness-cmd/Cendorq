@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 export const alt =
-    "Cendorq — Business Command Intelligence for businesses that need to find where customers lose clarity, trust, visibility, or action before spending more.";
+    "Cendorq — Market Command Intelligence for businesses that need to be easier for customers, search, and AI discovery to understand, trust, and choose.";
 
 export const size = {
     width: 1200,
@@ -15,26 +15,26 @@ export const contentType = "image/png";
 const readouts = [
     {
         label: "Primary role",
-        value: "Business Command Intelligence",
+        value: "Market Command Intelligence",
     },
     {
-        label: "Best first move",
-        value: "Free Scan",
+        label: "First move",
+        value: "Scan",
     },
     {
-        label: "Deeper diagnosis",
-        value: "Deep Review",
+        label: "Proof depth",
+        value: "Diagnose",
     },
     {
-        label: "Continued control",
-        value: "Ongoing Control",
+        label: "Monthly layer",
+        value: "Control",
     },
 ] as const;
 
 const operatingPillars = [
-    "Find hesitation",
+    "Be found",
     "Build trust",
-    "Make the next move clear",
+    "Make choice clear",
 ] as const;
 
 export default function OpenGraphImage() {
@@ -72,7 +72,7 @@ export default function OpenGraphImage() {
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "column" }}>
                                     <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#ffffff" }}>Cendorq</div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#94a3b8" }}>Business Command Intelligence</div>
+                                    <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#94a3b8" }}>Market Command Intelligence</div>
                                 </div>
                             </div>
 
@@ -83,15 +83,15 @@ export default function OpenGraphImage() {
 
                             <div style={{ marginTop: 26, display: "flex", flexDirection: "column", maxWidth: 720 }}>
                                 <div style={{ fontSize: 72, lineHeight: 0.93, fontWeight: 700, letterSpacing: "-0.055em", color: "#f8fafc" }}>
-                                    Stop losing customers
+                                    Be easier to find,
                                 </div>
                                 <div style={{ marginTop: 10, fontSize: 68, lineHeight: 0.93, fontWeight: 700, letterSpacing: "-0.055em", color: "#67e8f9" }}>
-                                    before they call.
+                                    trust, and choose.
                                 </div>
                             </div>
 
                             <div style={{ marginTop: 24, maxWidth: 735, fontSize: 23, lineHeight: 1.52, color: "#cbd5e1" }}>
-                                Cendorq helps businesses find what makes customers hesitate, compare, leave, or choose someone else before spending more on the wrong fix.
+                                Cendorq helps businesses find what customers, search, and AI discovery may be missing before spending deeper on the wrong fix.
                             </div>
                         </div>
 
@@ -107,17 +107,17 @@ export default function OpenGraphImage() {
                     <div style={{ width: 338, display: "flex", flexDirection: "column", gap: 16 }}>
                         <div style={{ display: "flex", flexDirection: "column", borderRadius: 34, border: "1px solid rgba(255,255,255,0.09)", background: "linear-gradient(180deg, rgba(9,18,34,0.92), rgba(6,13,26,0.86))", padding: "22px 22px 20px", boxShadow: "0 1px 0 rgba(255,255,255,0.04) inset, 0 28px 80px rgba(0,0,0,0.36)" }}>
                             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#a5f3fc" }}>
-                                Buyer path
+                                Command path
                             </div>
                             <div style={{ marginTop: 18, fontSize: 30, lineHeight: 1.14, fontWeight: 700, letterSpacing: "-0.04em", color: "#ffffff" }}>
-                                Find the pressure before buying the bigger fix.
+                                Scan before buying the bigger fix.
                             </div>
                             <div style={{ marginTop: 16, fontSize: 16, lineHeight: 1.58, color: "#cbd5e1" }}>
-                                Start free. Diagnose deeper when needed. Fix what matters. Keep control when the base is strong enough.
+                                Start free. Diagnose deeper when needed. Fix what matters. Control when the base is strong enough.
                             </div>
                             <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 10 }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color: "#94a3b8" }}>
-                                    <span>Decision clarity</span>
+                                    <span>Market clarity</span>
                                     <span>88%</span>
                                 </div>
                                 <div style={{ width: "100%", height: 9, borderRadius: 999, overflow: "hidden", background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))" }}>
