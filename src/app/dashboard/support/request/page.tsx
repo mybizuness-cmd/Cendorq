@@ -5,7 +5,7 @@ import { SupportRequestUpdateForm } from "@/components/customer-support/support-
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, CUSTOMER_SUPPORT_INTAKE_RISK_RULES } from "@/lib/customer-support-intake-architecture";
 
 export const metadata = buildMetadata({
-  title: "Start support request | Cendorq",
+  title: "Market resolution intake | Cendorq",
   description: "Start or safely update a protected Cendorq support request with guarded summaries and no raw secrets or payment data.",
   path: "/dashboard/support/request",
   noIndex: true,
@@ -27,16 +27,16 @@ const SAFE_SUMMARY_RULES = [
 export default function SupportRequestPage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-5 text-white sm:px-6 md:py-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.12),transparent_34%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.14),transparent_34%),radial-gradient(circle_at_86%_12%,rgba(14,165,233,0.1),transparent_32%)]" />
 
-      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.55rem] p-4 shadow-[0_28px_110px_rgba(2,8,23,0.42)] sm:rounded-[1.8rem] sm:p-8">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
+      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.8rem] p-4 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/80 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Protected support intake</p>
+            <p className="text-sm font-semibold text-cyan-100">Market resolution intake</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">Send the safe summary that moves the blocker forward.</h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              Support intake should collect enough context to help without turning into a private data dump, duplicate request loop, or plan-expansion shortcut.
+              Support intake should collect enough context to help without turning into a private data dump, duplicate request loop, or command-depth shortcut.
             </p>
           </div>
           <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:p-5">
@@ -50,7 +50,7 @@ export default function SupportRequestPage() {
 
       <section className="relative z-10 mt-5 grid gap-3 md:grid-cols-3" aria-label="Support request paths">
         {REQUEST_PATHS.map((item) => (
-          <Link key={item.title} href={item.href} className="system-surface rounded-[1.25rem] p-4 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
+          <Link key={item.title} href={item.href} className="system-surface rounded-[1.35rem] p-4 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
             <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
             <p className="mt-3 text-sm leading-6 text-slate-300">{item.copy}</p>
           </Link>
@@ -59,8 +59,8 @@ export default function SupportRequestPage() {
 
       <section id="new-support-request" className="relative z-10 mt-7 grid scroll-mt-8 gap-5 lg:grid-cols-[1.1fr_0.9fr]">
         <SupportRequestForm />
-        <aside className="system-surface rounded-[1.45rem] p-4 sm:p-5">
-          <h2 className="text-2xl font-semibold tracking-tight text-white">Safe summary only.</h2>
+        <aside className="system-surface rounded-[1.55rem] p-4 sm:p-5">
+          <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Safe summary only.</h2>
           <div className="mt-4 grid gap-3">
             {SAFE_SUMMARY_RULES.map((rule) => (
               <p key={rule} className="rounded-[1rem] border border-white/10 bg-black/20 p-3 text-sm leading-6 text-slate-300">{rule}</p>
@@ -71,15 +71,15 @@ export default function SupportRequestPage() {
 
       <section id="support-request-update" className="relative z-10 mt-7 grid scroll-mt-8 gap-5 lg:grid-cols-[1.1fr_0.9fr]">
         <SupportRequestUpdateForm />
-        <aside className="system-surface rounded-[1.45rem] p-4 sm:p-5">
-          <h2 className="text-2xl font-semibold tracking-tight text-white">Update only when asked.</h2>
+        <aside className="system-surface rounded-[1.55rem] p-4 sm:p-5">
+          <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Update only when asked.</h2>
           <p className="mt-3 text-sm leading-7 text-slate-300">Use update mode only when the status page asks for safer customer context. Approved updates return the request to protected review.</p>
           <Link href="/dashboard/support/status" className="mt-5 inline-flex text-sm font-semibold text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Check status first →</Link>
         </aside>
       </section>
 
       <section className="sr-only" aria-label="Support request guardrails">
-        Protected support intake. Send the safe summary that moves the blocker forward. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No plan-expansion shortcut. Track status first. {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}
+        Market resolution intake. Send the safe summary that moves the blocker forward. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No command-depth shortcut. Track status first. {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}
       </section>
     </main>
   );
