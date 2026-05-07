@@ -10,18 +10,19 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-premium-report-vault-free-scan-results.mjs";
 
 expect(reportVaultPath, [
-  "Premium report vault",
-  "Proof layer",
-  "See the proof layer without confusing report types.",
-  "The vault should feel like intelligence, not storage.",
+  "Report vault",
+  "Paid plan report delivery operating system",
+  "See every approved report in the dashboard, then recover paid reports from email.",
+  "Dashboard plus attachment",
   "Report state summary",
-  "Premium separated report library",
-  "Four report types. Four different customer decisions.",
+  "Separated report library",
+  "Four report types. Different delivery rules.",
   "Free Scan result",
   "Deep Review report",
   "Build Fix summary",
   "Ongoing Control monthly summary",
-  "Useful only when report depth is impossible to confuse.",
+  "Useful only when report depth and delivery are impossible to confuse.",
+  "Every paid plan report delivery email must include the approved customer-safe report PDF as an attachment.",
   "hover:-translate-y-0.5",
   "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
   "focus:outline-none",
@@ -29,7 +30,7 @@ expect(reportVaultPath, [
 ]);
 
 expect(freeScanResultPath, [
-  "Premium Free Scan result",
+  "Free Scan result",
   "Protected dashboard result",
   "Dashboard-only Free Scan result route",
   "Free Scan result page must remain under /dashboard/reports/free-scan and not public.",
@@ -50,6 +51,8 @@ expect(freeScanResultPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(reportVaultPath, [
+  "Premium report vault",
+  "Premium separated report library",
   "REPORT_VAULT_FIRST_USE_SNAPSHOT",
   "Report vault readiness standards",
   "MiniVaultList",
@@ -59,6 +62,7 @@ forbidden(reportVaultPath, [
 ]);
 
 forbidden(freeScanResultPath, [
+  "Premium Free Scan result",
   "Free Scan results",
   "See what may be costing customer choices first.",
   "How your result is organized",
@@ -77,16 +81,16 @@ forbiddenPathFragments([
   "src/app/reports/free-scan/page.tsx",
 ]);
 
-boundedLength(reportVaultPath, 14500);
+boundedLength(reportVaultPath, 15000);
 boundedLength(freeScanResultPath, 14500);
 
 if (failures.length) {
-  console.error("Premium report vault and Free Scan result validation failed:");
+  console.error("Report vault and Free Scan result validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Premium report vault and Free Scan result validation passed with dashboard-only result route and clear report type separation.");
+console.log("Report vault and Free Scan result validation passed with dashboard-only result route, paid report delivery, and clear report type separation.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -116,7 +120,7 @@ function forbiddenPathFragments(paths) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the premium report standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the report standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {
