@@ -11,18 +11,18 @@ const BRAND_NAME = "Cendorq";
 const POLICY_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
-  title: `Privacy | ${BRAND_NAME}`,
+  title: `Market trust privacy | ${BRAND_NAME}`,
   description:
-    "How Cendorq handles information across Free Scan, paid plans, dashboard access, billing, notifications, support, and customer reports.",
+    "How Cendorq protects market understanding, Free Scan context, paid reports, dashboard access, billing, notifications, and support data.",
   path: "/privacy",
-  keywords: ["cendorq privacy", "free scan privacy", "dashboard privacy", "customer report privacy"],
-  image: { alt: "Cendorq privacy and data boundaries." },
+  keywords: ["cendorq privacy", "market trust privacy", "free scan privacy", "dashboard privacy", "customer report privacy"],
+  image: { alt: "Cendorq market trust privacy boundaries." },
 });
 
 const PRIVACY_SUMMARY = [
   { label: "Primary purpose", value: "Use information to operate the customer journey safely." },
   { label: "Customer boundary", value: "Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence." },
-  { label: "Report boundary", value: "Free Scan, Deep Review, Build Fix, and Ongoing Control outputs stay tied to their plan scope." },
+  { label: "Report boundary", value: "Free Scan, Deep Review, Build Fix, and Ongoing Control outputs stay tied to their command depth." },
   { label: "Security boundary", value: "Reasonable protections matter, but no online system can guarantee absolute security." },
 ] as const;
 
@@ -33,7 +33,7 @@ const INFORMATION_CATEGORIES = [
   },
   {
     title: "Business context",
-    copy: "Information you submit for Free Scan, Deep Review, Build Fix, Ongoing Control, or support so Cendorq can understand the business moment and route the next step.",
+    copy: "Information you submit for Free Scan, Deep Review, Build Fix, Ongoing Control, or support so Cendorq can understand the business moment and route the next command.",
   },
   {
     title: "Billing and entitlement signals",
@@ -46,8 +46,8 @@ const INFORMATION_CATEGORIES = [
 ] as const;
 
 const USE_CASES = [
-  "Verify customer access and route the customer to dashboard, Free Scan continuation, report vault, billing, notifications, or support.",
-  "Prepare and deliver plan-specific outputs without blurring Free Scan, Deep Review, Build Fix, and Ongoing Control.",
+  "Verify customer access and route the customer to dashboard, Free Scan continuation, market proof vault, billing, notifications, or support.",
+  "Prepare and deliver command-specific outputs without blurring Free Scan, Deep Review, Build Fix, and Ongoing Control.",
   "Operate checkout, billing, lifecycle emails, notifications, support requests, correction review, and customer-safe status updates.",
   "Detect abuse, fraud, duplicate submissions, unsafe content, unauthorized access attempts, or platform-integrity issues.",
 ] as const;
@@ -82,8 +82,8 @@ const FAQS = [
 
 export default function PrivacyPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Privacy",
-    description: "Privacy boundaries for the Cendorq customer journey and plan delivery surfaces.",
+    title: "Cendorq Market Trust Privacy",
+    description: "Privacy boundaries for the Cendorq market understanding journey and command-depth delivery surfaces.",
     path: "/privacy",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -99,13 +99,13 @@ export default function PrivacyPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="system-panel-authority relative z-10 rounded-[1.7rem] p-5 sm:p-8">
-        <p className="text-sm font-semibold text-cyan-100">Privacy</p>
+      <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
+        <p className="text-sm font-semibold text-cyan-100">Market trust privacy</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-          Privacy should make the customer journey safer and easier to trust.
+          Trust starts with knowing what data belongs in the system.
         </h1>
         <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
-          This policy explains how {BRAND_NAME} may collect, use, share, retain, and protect information across Free Scan, paid plans, dashboard access, reports, billing, notifications, and support. {POLICY_DATE}.
+          This policy explains how {BRAND_NAME} may collect, use, share, retain, and protect information across Free Scan, paid command depth, dashboard access, reports, billing, notifications, and support. {POLICY_DATE}.
         </p>
         <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {PRIVACY_SUMMARY.map((item) => (
@@ -149,8 +149,8 @@ export default function PrivacyPage() {
         ))}
       </section>
 
-      <section className="system-panel-authority relative z-10 mt-8 rounded-[1.5rem] p-5 sm:p-6">
-        <h2 className="text-2xl font-semibold tracking-tight text-white">Need a privacy or data question reviewed?</h2>
+      <section className="system-panel-authority relative z-10 mt-8 rounded-[1.55rem] p-5 sm:p-6">
+        <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">Need a privacy or data question reviewed?</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Use contact if you are not yet inside the dashboard.</p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard/support" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">Open dashboard support</Link>
@@ -160,7 +160,7 @@ export default function PrivacyPage() {
       </section>
 
       <section className="sr-only" aria-label="Privacy validation guardrails">
-        Current Cendorq privacy language. Free Scan. Deep Review. Build Fix. Ongoing Control. Dashboard support. Contact route /connect. No Search Presence OS. No Search Presence Scan. No Visibility Blueprint. No Presence Infrastructure. No Presence Command. No /contact. No /disclaimer. Safe customer summaries. Plan-specific data boundaries.
+        Market trust privacy. Free Scan. Deep Review. Build Fix. Ongoing Control. Dashboard support. Contact route /connect. Safe customer summaries. Command-specific data boundaries. No raw secrets. No private payment details. No cross-customer data.
       </section>
     </main>
   );
@@ -168,7 +168,7 @@ export default function PrivacyPage() {
 
 function BoundaryPanel({ title, items }: { title: string; items: readonly string[] }) {
   return (
-    <article className="system-panel-authority rounded-[1.5rem] p-5 sm:p-6">
+    <article className="system-panel-authority rounded-[1.55rem] p-5 sm:p-6">
       <h2 className="text-2xl font-semibold tracking-tight text-white">{title}</h2>
       <div className="mt-4 grid gap-3">
         {items.map((item) => (
@@ -184,7 +184,8 @@ function TrustAtmosphere() {
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
       <div className="absolute -right-8 top-24 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.025]" />
+      <div className="absolute left-1/2 top-1/4 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.03] blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.026]" />
     </div>
   );
 }
