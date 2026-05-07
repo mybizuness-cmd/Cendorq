@@ -12,20 +12,20 @@ import {
 import Link from "next/link";
 
 export const metadata = buildMetadata({
-  title: "Free Scan | Cendorq",
+  title: "Free Visibility Scan | Cendorq",
   description:
-    "Start the guided Cendorq Free Scan to find what may be making customers hesitate before spending on the wrong fix.",
+    "Run the Cendorq Free Scan to find the first break in business visibility, clarity, trust, or customer action.",
   path: "/free-check",
   keywords: [
-    "free business scan",
+    "free business visibility scan",
     "cendorq free scan",
-    "business visibility scan",
+    "ai search visibility scan",
+    "business discoverability scan",
     "website trust scan",
     "business clarity scan",
-    "customer hesitation analysis",
-    "ai search visibility intake",
+    "customer choice analysis",
   ],
-  image: { alt: "Cendorq Free Scan." },
+  image: { alt: "Cendorq Free Visibility Scan." },
 });
 
 const TRUST_RULES = [
@@ -34,38 +34,38 @@ const TRUST_RULES = [
   "Verified customers get the dashboard result path",
 ] as const;
 
-const FREE_SCAN_PROMISE = [
-  { label: "Gives", value: "A first signal", detail: "Useful direction before you pay." },
-  { label: "Does not give", value: "Full diagnosis", detail: "Deep Review handles cause-level proof." },
-  { label: "Next", value: "Right paid depth", detail: "Choose only when the result supports it." },
+const SCAN_PROMISE = [
+  { label: "Find", value: "The first visible break", detail: "Visibility, clarity, trust, or action." },
+  { label: "Avoid", value: "The wrong fix", detail: "Do not pay deeper before the signal is clear." },
+  { label: "Open", value: "A dashboard result", detail: "The result stays protected after verification." },
 ] as const;
 
 const FAQS = [
   {
     question: "Is this really free?",
-    answer: "Yes. The Free Scan gives a useful first signal before paid diagnosis, implementation, or monthly control.",
+    answer: "Yes. The Free Scan gives a first signal before paid diagnosis, implementation, or monthly control.",
   },
   {
     question: "What happens after I submit?",
     answer:
-      "After verification, your dashboard takes you to the dedicated Free Scan result path with confidence posture, limitations, and the safest next action.",
+      "After verification, your dashboard opens the Free Scan result with the signal, the limit of confidence, and the safest next action.",
   },
 ] as const;
 
 export default function FreeCheckPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Free Scan",
+    title: "Cendorq Free Visibility Scan",
     description:
-      "A guided Free Scan for businesses that need to find what is making people hesitate before spending more.",
+      "A guided scan for businesses that need to know whether the market can find, understand, trust, and choose them.",
     path: "/free-check",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Free Scan",
+    title: "Cendorq Free Visibility Scan",
     description:
-      "A guided intake that helps businesses identify what may be hurting trust, clarity, AI-search visibility, choice, and action before deeper work begins.",
+      "A guided intake that helps businesses identify the first visible break in AI-search visibility, customer trust, clarity, choice, or action.",
     path: "/free-check",
-    serviceType: "Free Scan",
+    serviceType: "Free Visibility Scan",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -86,14 +86,15 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 grid gap-4 lg:grid-cols-[0.48fr_1.52fr] lg:items-start" aria-label="Free Scan form first">
-        <div className="system-panel-authority rounded-[1.4rem] p-4 sm:rounded-[1.55rem] sm:p-5 lg:sticky lg:top-24">
-          <p className="text-sm font-semibold text-cyan-100">Free first read</p>
+      <section className="relative z-10 grid gap-4 lg:grid-cols-[0.5fr_1.5fr] lg:items-start" aria-label="Free Visibility Scan form first">
+        <div className="relative overflow-hidden rounded-[1.55rem] border border-cyan-300/18 bg-[linear-gradient(145deg,rgba(8,47,73,0.82),rgba(2,8,23,0.94)_52%,rgba(14,116,144,0.24))] p-4 shadow-[0_34px_120px_rgba(2,8,23,0.48)] sm:p-5 lg:sticky lg:top-24">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
+          <p className="text-sm font-semibold text-cyan-100">Free Visibility Scan</p>
           <h1 className="mt-2 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Start the scan now.
+            Find the first break before you buy the fix.
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
-            The form is intentionally early and focused. Cendorq looks for the first visible break in clarity, trust, visibility, or action before you pay for deeper work.
+            Cendorq checks whether your business is clear enough to be found, understood, trusted, and acted on before deeper work begins.
           </p>
           <div className="mt-4 grid gap-2">
             {TRUST_RULES.map((item) => (
@@ -106,7 +107,7 @@ export default function FreeCheckPage() {
             Result opens in dashboard
           </Link>
           <div className="sr-only">
-            Free Scan form visible within the first quarter of the page. Streamlined Free Scan form. No four visible step badges. Current step only. Dedicated dashboard Free Scan result path after verification. Safe business context only.
+            Free Visibility Scan form visible within the first quarter of the page. Streamlined Free Scan form. No four visible step badges. Current step only. Dedicated dashboard Free Scan result path after verification. Safe business context only.
           </div>
         </div>
 
@@ -114,7 +115,7 @@ export default function FreeCheckPage() {
       </section>
 
       <section className="relative z-10 mt-6 grid gap-3 md:grid-cols-3" aria-label="Free Scan promise">
-        {FREE_SCAN_PROMISE.map((item) => (
+        {SCAN_PROMISE.map((item) => (
           <article key={item.label} className="system-surface rounded-[1.2rem] p-4">
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.label}</div>
             <h2 className="mt-2 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
