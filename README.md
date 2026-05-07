@@ -1,6 +1,6 @@
 # Cendorq
 
-Cendorq is a premium Search Presence OS for businesses that need to become easier to understand, easier to trust, and easier to choose before spending more in the wrong place.
+Cendorq is a business visibility command system for companies that need to become easier to understand, easier to trust, and easier to choose before spending more in the wrong place.
 
 The public buyer path is intentionally simple:
 

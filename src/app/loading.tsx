@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 const BRAND_NAME = "Cendorq";
-const CATEGORY_LINE = "Search Presence OS";
+const CATEGORY_LINE = "Business Visibility Command";
 
 const ROUTE_READOUTS = [
     {
@@ -37,7 +37,7 @@ const LOADING_REASONS = [
     {
         title: "The strongest fallback is still a structured route inside the platform.",
         copy:
-            "If a page takes too long, the homepage, Search Presence Scan, Diagnosis, and Pricing routes remain the safest recovery lanes because they preserve the system path instead of forcing random navigation.",
+            "If a page takes too long, the homepage, Free Scan, Deep Review, and Plans routes remain the safest recovery lanes because they preserve the command path instead of forcing random navigation.",
     },
 ] as const;
 
@@ -50,7 +50,7 @@ const LOADING_RULES = [
     {
         title: "If the route keeps stalling, reset into the cleanest system page.",
         copy:
-            "The homepage or Search Presence Scan usually provides the strongest reset because both routes preserve sequence and clarity without forcing a guess.",
+            "The homepage or Free Scan usually provides the strongest reset because both routes preserve sequence and clarity without forcing a guess.",
     },
     {
         title: "Do not let a loading delay collapse the system path.",
@@ -83,11 +83,11 @@ const INTERNAL_STEPS = [
 const RECOVERY_OPTIONS = [
     {
         label: "Strongest restart lane",
-        title: "Start Search Presence Scan",
+        title: "Start Free Scan",
         copy:
             "If the goal is to begin the system properly, the strongest structured fallback is usually the first serious signal layer.",
         href: "/free-check",
-        cta: "Start Search Presence Scan",
+        cta: "Start Free Scan",
         highlighted: true,
     },
     {
@@ -331,7 +331,7 @@ export default function GlobalLoadingPage() {
 
                     <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300">
                         If the page still does not resolve, the strongest fallback is usually
-                        the homepage, Search Presence Scan, Diagnosis, or the system-layers
+                        the homepage, Free Scan, Deep Review, or the command-path
                         view. Those routes restore structure without forcing random navigation
                         after a loading delay.
                     </p>
@@ -347,7 +347,7 @@ export default function GlobalLoadingPage() {
                             href="/free-check"
                             className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
                         >
-                            Start Search Presence Scan
+                            Start Free Scan
                         </Link>
                     </div>
                 </div>

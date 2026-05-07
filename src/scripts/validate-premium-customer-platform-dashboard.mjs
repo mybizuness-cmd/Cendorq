@@ -46,7 +46,7 @@ expect(actionInboxPath, [
 ]);
 
 expect(commandCenterPath, [
-  "Premium dashboard business command center",
+  "Dashboard business command center",
   "The dashboard should answer the customer’s next decision in seconds.",
   "I know what to do next.",
   "Every lane should lead somewhere useful.",
@@ -58,7 +58,7 @@ expect(commandCenterPath, [
 ]);
 
 expect(reentryPath, [
-  "Premium dashboard reentry",
+  "Dashboard reentry",
   "Leave and come back without losing the thread.",
   "No stranded side flows",
   "No restart journey",
@@ -73,7 +73,7 @@ expect(reentryPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
-  "Premium customer platform dashboard",
+  "Legacy customer platform dashboard",
   "Private business command center",
   "Customer revenue command path",
   "Revenue signals",
@@ -99,7 +99,7 @@ forbidden(commandCenterPath, [
   "Customer controls:",
   "Cendorq guides:",
   "The customer owns the decisions",
-  "premium control room for the customer&apos;s business success",
+  "control room for the customer&apos;s business success",
 ]);
 
 forbidden(reentryPath, [

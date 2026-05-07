@@ -17,7 +17,7 @@ The public buyer path is:
 5. Ongoing Control
 6. Connect
 
-The public site should stay plain, premium, trustworthy, buyer-focused, and easy to choose.
+The public site should stay plain, command-grade, trustworthy, buyer-focused, and easy to choose.
 
 ## Current readiness state
 

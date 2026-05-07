@@ -9,11 +9,11 @@ export function FinalCTASection() {
                 </p>
 
                 <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                    Start with the Search Presence Scan before you commit to the wrong fix.
+                    Start with the Free Scan before you commit to the wrong fix.
                 </h2>
 
                 <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
-                    The Search Presence Scan is designed to reveal whether your business may be
+                    The Free Scan is designed to reveal whether your business may be
                     losing trust, clarity, or visibility before deeper work begins.
                 </p>
 
@@ -22,7 +22,7 @@ export function FinalCTASection() {
                         href="/free-check"
                         className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-8 py-4 text-base font-semibold text-slate-950 transition hover:bg-cyan-300"
                     >
-                        Start the Search Presence Scan
+                        Start the Free Scan
                     </Link>
 
                     <Link

@@ -23,7 +23,7 @@ export function HeroSection() {
                         href="/free-check"
                         className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-8 py-4 text-base font-semibold text-slate-950 transition hover:bg-cyan-300"
                     >
-                        Start the Search Presence Scan
+                        Start the Free Scan
                     </Link>
 
                     <Link

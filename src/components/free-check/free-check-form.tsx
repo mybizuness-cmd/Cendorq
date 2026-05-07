@@ -89,7 +89,7 @@ type FreeCheckFormProps = {
 };
 
 const BRAND_NAME = "Cendorq";
-const PRIMARY_LAYER_NAME = "Search Presence Scan";
+const PRIMARY_LAYER_NAME = "Free Scan";
 const DEFAULT_STORAGE_KEY = "cendorq-component-search-presence-scan-draft-v1";
 
 const INITIAL_VALUES: FreeCheckFormValues = {
@@ -220,7 +220,7 @@ const SIDE_NOTES = [
     {
         title: "What happens next",
         copy:
-            "If the signal is strong enough, the likely next move becomes Visibility Blueprint rather than random escalation into the wrong layer.",
+            "If the signal is strong enough, the likely next move becomes Deep Review rather than random escalation into the wrong layer.",
     },
 ] as const;
 
@@ -365,7 +365,7 @@ export function FreeCheckForm({
                 setSubmitState({
                     kind: "error",
                     message:
-                        "The Search Presence Scan could not be submitted cleanly yet. Please review the details and try again.",
+                        "The Free Scan could not be submitted cleanly yet. Please review the details and try again.",
                     details,
                 });
                 setIsSubmitting(false);
@@ -804,8 +804,8 @@ export function FreeCheckForm({
                                         className="system-button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-70"
                                     >
                                         {isSubmitting
-                                            ? "Submitting Search Presence Scan..."
-                                            : "Submit Search Presence Scan"}
+                                            ? "Submitting Free Scan..."
+                                            : "Submit Free Scan"}
                                     </button>
                                 )}
 
@@ -906,7 +906,7 @@ export function FreeCheckForm({
                             Strongest route after this
                         </p>
                         <p className="mt-4 text-sm leading-7 text-slate-300">
-                            Most businesses should still move into Visibility Blueprint before heavier implementation or recurring command. The first signal exists to make that choice cleaner.
+                            Most businesses should still move into Deep Review before heavier implementation or recurring command. The first signal exists to make that choice cleaner.
                         </p>
                     </div>
                 </aside>
@@ -1083,7 +1083,7 @@ function buildReadinessLane(values: FreeCheckFormValues, signalScore: number) {
     if (signalScore >= 62) {
         return {
             routingHint: "blueprint-candidate" as RoutingHint,
-            title: "Visibility Blueprint looks like the most likely next layer.",
+            title: "Deep Review looks like the most likely next layer.",
             copy:
                 "The intake is getting strong enough that a deeper strategic explanation layer may be justified after the first signal is captured.",
         };
@@ -1100,31 +1100,31 @@ function buildReadinessLane(values: FreeCheckFormValues, signalScore: number) {
 function nextMoveFromRoutingHint(routingHint: RoutingHint) {
     if (routingHint === "command-review") {
         return {
-            title: "Review Presence Command after the path is clearer",
+            title: "Review Ongoing Control after the path is clearer",
             copy:
                 "Recurring continuity becomes valuable only after the business is already clear enough to use ongoing direction well.",
-            href: "/pricing/monthly-partner",
-            cta: "View Presence Command",
+            href: "/plans/ongoing-control",
+            cta: "View Ongoing Control",
         };
     }
 
     if (routingHint === "infrastructure-review") {
         return {
-            title: "Visibility Blueprint is still the strongest next move",
+            title: "Deep Review is still the strongest next move",
             copy:
                 "Even when stronger implementation pressure may be needed later, the cleaner next move is usually deeper explanation before concentrated strengthening.",
-            href: "/pricing/full-diagnosis",
-            cta: "View Visibility Blueprint",
+            href: "/plans/deep-review",
+            cta: "View Deep Review",
         };
     }
 
     if (routingHint === "blueprint-candidate") {
         return {
-            title: "Visibility Blueprint is the likely next layer",
+            title: "Deep Review is the likely next layer",
             copy:
                 "The first signal looks strong enough that the business may now benefit from a deeper strategic explanation of what is actually weakening response.",
-            href: "/pricing/full-diagnosis",
-            cta: "View Visibility Blueprint",
+            href: "/plans/deep-review",
+            cta: "View Deep Review",
         };
     }
 
@@ -1132,7 +1132,7 @@ function nextMoveFromRoutingHint(routingHint: RoutingHint) {
         title: "Review the full system path before going deeper",
         copy:
             "The strongest move is usually to understand the system sequence clearly before assuming the business should jump into a heavier layer.",
-        href: "/pricing",
+        href: "/plans",
         cta: "Review System Layers",
     };
 }

@@ -41,7 +41,7 @@ For homepage changes, confirm:
 - The page does not add competing offers above the primary action.
 - The headline, supporting copy, and CTA work together.
 - The visitor can understand the value without technical knowledge.
-- The page feels premium, calm, and direct.
+- The page feels polished, calm, and direct.
 
 ## Plan checks
 

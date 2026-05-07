@@ -2,7 +2,7 @@
 
 Use this checklist for public page copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes.
 
-The goal is simple: keep Cendorq plain, premium, clear, and easy to choose.
+The goal is simple: keep Cendorq plain, command-grade, clear, and easy to choose.
 
 ## Copy principle
 

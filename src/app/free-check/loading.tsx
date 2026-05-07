@@ -7,7 +7,7 @@ export default function FreeCheckLoadingPage() {
 
             <section className="relative z-10 grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
                 <div>
-                    <TopChip>Search Presence Scan loading</TopChip>
+                    <TopChip>Free Scan loading</TopChip>
 
                     <h1 className="system-hero-title mt-5 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
                         Preparing the intake route
@@ -31,7 +31,7 @@ export default function FreeCheckLoadingPage() {
                     <div className="system-panel-authority mt-8 rounded-[1.8rem] p-5 sm:p-6">
                         <p className="system-eyebrow">Why this route matters</p>
                         <h2 className="mt-4 text-2xl font-semibold text-white">
-                            The search presence scan is the first serious filter in the system.
+                            The Free Scan is the first serious filter in the system.
                         </h2>
                         <p className="mt-4 text-sm leading-7 text-slate-300">
                             It is built to capture enough real business signal to show whether

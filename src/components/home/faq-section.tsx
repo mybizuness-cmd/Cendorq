@@ -5,9 +5,9 @@ const faqs = [
             "Yes. One of the main problems Cendorq is built to detect is when a strong real-world business looks weaker online than it actually is.",
     },
     {
-        question: "Is the Search Presence Scan the same thing as a Visibility Blueprint?",
+        question: "Is the Free Scan the same thing as Deep Review?",
         answer:
-            "No. The Search Presence Scan is the lower-friction entry point. It is designed to reveal whether deeper diagnosis is warranted.",
+            "No. The Free Scan is the lower-friction entry point. It is designed to reveal whether deeper diagnosis is warranted.",
     },
     {
         question: "Do I need to be technical to understand the output?",

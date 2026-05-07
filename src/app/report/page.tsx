@@ -9,29 +9,29 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 const BRAND_NAME = "Cendorq";
-const CATEGORY_LINE = "Search Presence OS";
+const CATEGORY_LINE = "Business Visibility Command";
 
 export const metadata = buildMetadata({
   title: "Report Layer",
   description:
-    "Structured report surface for saved Search Presence Scan output, report review, and next-step routing inside Cendorq.",
+    "Structured report surface for saved Free Scan output, report review, and next-step routing inside Cendorq.",
   path: "/report",
   keywords: [
     "cendorq report",
-    "search presence scan report",
+    "free scan report",
     "visibility report layer",
     "saved intake report",
     "report routing surface",
   ],
   image: {
-    alt: "Cendorq report layer - the saved-output route for Search Presence Scan and next-step review.",
+    alt: "Cendorq report layer - the saved-output route for Free Scan and next-step review.",
   },
 });
 
 const ROUTE_READOUTS = [
   { label: "Current role", value: "Saved-output shell" },
   { label: "Best source", value: "Intake Console" },
-  { label: "Primary feed", value: "Search Presence Scan" },
+  { label: "Primary feed", value: "Free Scan" },
   { label: "Next expansion", value: "Saved report rendering" },
 ] as const;
 
@@ -44,7 +44,7 @@ const REPORT_MEANING = [
   {
     title: "The report layer should sit after signal, not replace it.",
     copy:
-      "The strongest source for this surface is still Search Presence Scan and the Intake Console. That keeps report logic grounded in real intake signal instead of generic placeholder output.",
+      "The strongest source for this surface is still Free Scan and the Intake Console. That keeps report logic grounded in real intake signal instead of generic placeholder output.",
   },
   {
     title: "The shell exists to protect sequence while the engine grows.",
@@ -58,7 +58,7 @@ const REPORT_LIFECYCLE = [
     step: "01",
     title: "Signal is collected",
     copy:
-      "Search Presence Scan captures identity, context, and pressure signal so the system has something real to interpret.",
+      "Free Scan captures identity, context, and pressure signal so the system has something real to interpret.",
   },
   {
     step: "02",
@@ -83,7 +83,7 @@ const TRUST_BOUNDARIES = [
   {
     label: "Best entry point",
     value:
-      "Search Presence Scan remains the clearest route into future report logic because it generates the first serious signal the report layer should depend on.",
+      "Free Scan remains the clearest route into future report logic because it generates the first serious signal the report layer should depend on.",
   },
   {
     label: "Best operator surface",
@@ -96,16 +96,16 @@ export default function ReportPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: `${BRAND_NAME} Report Layer`,
     description:
-      "Structured report surface for saved Search Presence Scan output and next-step routing inside Cendorq.",
+      "Structured report surface for saved Free Scan output and next-step routing inside Cendorq.",
     path: "/report",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
     title: `${BRAND_NAME} Report Layer`,
     description:
-      "A saved-output route for Search Presence Scan report review, routing visibility, and future report rendering.",
+      "A saved-output route for Free Scan report review, routing visibility, and future report rendering.",
     path: "/report",
-    serviceType: "Search Presence report surface",
+    serviceType: "Free Scan report surface",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -145,7 +145,7 @@ export default function ReportPage() {
           </p>
 
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            The strongest current source for this layer is still Search Presence Scan and the Intake Console. That keeps future report logic grounded in real signal instead of abstract report theater.
+            The strongest current source for this layer is still Free Scan and the Intake Console. That keeps future report logic grounded in real signal instead of abstract report theater.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -165,7 +165,7 @@ export default function ReportPage() {
               href="/free-check"
               className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
             >
-              Start Search Presence Scan
+              Start Free Scan
             </Link>
           </div>
         </div>
@@ -241,10 +241,10 @@ export default function ReportPage() {
         <div className="system-panel-authority rounded-[2rem] p-6 text-center sm:p-8 md:p-10">
           <TopChip>Strongest next move</TopChip>
           <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Use Intake Console to review operating signal, or return to Search Presence Scan to create it.
+            Use Intake Console to review operating signal, or return to Free Scan to create it.
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300">
-            The report layer is strongest when it stays connected to real intake signal and real routing posture. That means the clearest routes today are still Intake Console for operator review and Search Presence Scan for fresh signal generation.
+            The report layer is strongest when it stays connected to real intake signal and real routing posture. That means the clearest routes today are still Intake Console for operator review and Free Scan for fresh signal generation.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
@@ -257,7 +257,7 @@ export default function ReportPage() {
               href="/free-check"
               className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
             >
-              Start Search Presence Scan
+              Start Free Scan
             </Link>
           </div>
         </div>

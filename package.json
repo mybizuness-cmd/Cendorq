@@ -12,7 +12,7 @@
     "validate-public-drift.mjs",
     "validate-maximum-protection-standard.mjs",
     "validate-owner-maximum-protection-posture.mjs",
-    "validate-public-homepage-premium-entry.mjs",
+    "validate-public-homepage-command-surface.mjs",
     "validate-free-check-intake.mjs",
     "validate-free-check-premium-route-elevation.mjs",
     "validate-free-scan-production-runtime.mjs",

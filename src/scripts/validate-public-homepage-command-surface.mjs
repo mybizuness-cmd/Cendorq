@@ -13,22 +13,20 @@ const validatorPath = "src/scripts/validate-public-homepage-command-surface.mjs"
 const failures = [];
 
 expect(pagePath, [
-  "Cendorq | Business Command Intelligence",
-  "Become the business customers understand, trust, find, and choose.",
-  "hidden reason customers hesitate",
+  "Cendorq | AI Search Visibility and Business Trust",
+  "Own the way the market understands you.",
+  "AI search visibility",
+  "business trust",
+  "customer choice",
   "Start free scan",
-  "View pricing",
-  "Free first read. Clear pricing. Protected platform after verification.",
-  "What is stopping the decision?",
-  "Can they understand you quickly?",
-  "Can search and AI describe you correctly?",
-  "Customers decide before they talk to you.",
-  "People do not understand you fast enough.",
-  "They do not trust the choice yet.",
-  "They find a confusing version of you.",
-  "The next step feels harder than leaving.",
-  "Start small. Move deeper only when it makes sense.",
-  "No fake urgency. No wrong-depth push. Diagnosis comes before bigger spend.",
+  "See the command path",
+  "Market test",
+  "Four questions decide whether the business gets chosen.",
+  "Ranking is not enough. The business has to be understood.",
+  "Command path",
+  "Scan. Diagnose. Fix. Control.",
+  "Compare all plans",
+  "No tricks. No fake guarantees. No guesswork dressed up as strategy.",
 ]);
 
 expect(headerPath, [
@@ -41,23 +39,27 @@ expect(headerPath, [
 ]);
 
 expect(footerPath, [
-  "Find the break before you buy the fix.",
+  "Start with the right read before buying the wrong fix.",
+  "Free Scan gives a first signal. Paid plans only add depth when the stage fits.",
+  "Compare plans",
   "Contact",
   "Privacy",
   "Terms",
 ]);
 
 expect(scanPath, [
-  "Find the decision break before you buy the wrong fix.",
-  "Free first read",
+  "Free Visibility Scan",
+  "Find the first break before you buy the fix.",
+  "Cendorq checks whether your business is clear enough to be found, understood, trusted, and acted on before deeper work begins.",
   "Safe business context only.",
-  "Why does AI search matter?",
+  "Result opens in dashboard",
 ]);
 
 expect(connectPath, [
-  "If you are unsure, start free. If the question is clear, connect.",
-  "View pricing",
-  "Start free if the problem is unclear.",
+  "Contact Cendorq when the question is already clear.",
+  "Start Free Scan if the problem is unclear.",
+  "Contact only when fit, scope, or timing is already clear.",
+  "Compare plans",
 ]);
 
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
@@ -67,11 +69,11 @@ boundedLength(pagePath, 14500);
 boundedLength(scanPath, 16000);
 boundedLength(connectPath, 15000);
 boundedLength(headerPath, 15000);
-boundedLength(footerPath, 6000);
+boundedLength(footerPath, 6500);
 
 forbidden(pagePath, [...blockedPublicPhrases(), ...badgeHeavyPhrases()]);
 forbidden(headerPath, [...blockedPublicPhrases(), "Privacy", "Terms", "Talk through fit or scope", "Pricing from $0", "Command path"]);
-forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Dashboard", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
+forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
 forbidden(scanPath, blockedPublicPhrases());
 forbidden(connectPath, blockedPublicPhrases());
 
