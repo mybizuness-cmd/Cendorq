@@ -18,37 +18,37 @@ const OFFER_CATALOG_ID = `${siteOrigin}#offer-catalog`;
 const THEME_COLOR = "#020617";
 
 const KNOWLEDGE_AREAS = [
-  "Business Command Intelligence",
+  "Market Command Intelligence",
   "Free Scan",
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
   "AI search visibility",
   "Answer engine visibility",
-  "Customer hesitation analysis",
+  "Market signal analysis",
   "Business trust and clarity analysis",
 ] as const;
 
 const LAYER_CATALOG = [
   {
-    name: "Free Scan",
+    name: "Scan",
     path: "/free-check",
-    description: "Guided first-read layer for businesses that need to find what is making people hesitate before spending more.",
+    description: "Guided first market signal for businesses that need to find what customers, search, or AI discovery may be missing before deeper spend.",
   },
   {
-    name: "Deep Review",
+    name: "Diagnose",
     path: "/plans/deep-review",
-    description: "Deeper explanation layer for businesses that need to know what is weak and why before bigger changes begin.",
+    description: "Cause-level proof layer for businesses that need to know what is weakening clarity, trust, visibility, and choice before bigger changes begin.",
   },
   {
-    name: "Build Fix",
+    name: "Fix",
     path: "/plans/build-fix",
-    description: "Focused improvement layer for businesses ready to strengthen the pages, message, trust, and action path customers judge first.",
+    description: "Scoped improvement layer for businesses ready to strengthen the pages, message, proof, trust, and action path customers judge first.",
   },
   {
-    name: "Ongoing Control",
+    name: "Control",
     path: "/plans/ongoing-control",
-    description: "Continued direction layer for businesses ready to keep improving as customers, search, and competitors change.",
+    description: "Recurring command layer for businesses ready to keep improving as customers, search, AI discovery, and competitors change.",
   },
 ] as const;
 
@@ -63,8 +63,9 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   keywords: [
     "Cendorq",
-    "Business Command Intelligence",
+    "Market Command Intelligence",
     "free business scan",
+    "market signal scan",
     "business clarity scan",
     "customer hesitation analysis",
     "deep review",
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
     "AI search visibility",
     "answer engine visibility",
     "business trust analysis",
-    "business decision intelligence",
+    "market proof vault",
   ],
   authors: [{ name: siteConfig.legalName || siteConfig.name }],
   creator: siteConfig.name,
@@ -89,13 +90,13 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     locale: "en_US",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${siteConfig.name} — Business Command Intelligence` }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${siteConfig.name} — Market Command Intelligence` }],
   },
   twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description, images: ["/twitter-image"] },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": 0 },
   },
   icons: {
     icon: [
@@ -173,8 +174,8 @@ function buildStructuredData() {
     areaServed: "Worldwide",
     provider: { "@id": ORGANIZATION_ID },
     brand: { "@id": ORGANIZATION_ID },
-    serviceType: "Business Command Intelligence",
-    hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq Plans", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
+    serviceType: "Market Command Intelligence",
+    hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq Command Path", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
   };
   return [organization, website, service] as const;
 }
