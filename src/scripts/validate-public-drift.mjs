@@ -33,12 +33,15 @@ const activePublicFiles = [
 ];
 
 const requiredCurrentLanguage = [
-  "Business Command Intelligence",
+  "Market Command Intelligence",
   "Free Scan",
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
-  "Connect",
+  "Scan",
+  "Diagnose",
+  "Fix",
+  "Control",
 ];
 
 const forbiddenActiveLanguage = [
@@ -96,9 +99,10 @@ expect("src/layout/site-header.tsx", [
 
 expect("src/lib/seo.ts", [
   "process.env.NEXT_PUBLIC_SITE_URL",
-  "Cendorq helps businesses find where customers lose clarity, trust, visibility, or action",
-  "Cendorq — Business Command Intelligence",
-  "Start with the Free Scan",
+  "Cendorq helps businesses become easier to find, understand, trust, and choose",
+  "Cendorq — Market Command Intelligence",
+  "Find what the market may be missing before you spend deeper",
+  "Market Command Intelligence",
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
@@ -112,23 +116,27 @@ expect("src/app/sitemap.ts", [
 ]);
 
 expect("src/app/layout.tsx", [
-  "Free Scan",
-  "Cendorq Plans",
-  "Business Command Intelligence",
+  "Market Command Intelligence",
+  "Cendorq Command Path",
+  "Market signal analysis",
+  "Scan",
+  "Diagnose",
+  "Fix",
+  "Control",
 ]);
 
 expect("src/app/opengraph-image.tsx", [
-  "Stop losing customers",
+  "Market Command Intelligence",
+  "Be easier to find",
   "Free scan first",
-  "Deep Review",
-  "Ongoing Control",
+  "Scan before buying the bigger fix",
 ]);
 
 expect("src/app/twitter-image.tsx", [
-  "Stop losing customers",
+  "Market Command Intelligence",
+  "Be easier to find",
   "Start with the Free Scan",
-  "Build Fix",
-  "Ongoing Control",
+  "Scan first. Diagnose deeper. Fix what matters.",
 ]);
 
 expect("public/llms.txt", [
@@ -137,9 +145,16 @@ expect("public/llms.txt", [
   "/plans/build-fix",
   "/plans/ongoing-control",
   "/connect",
+  "Market Command Intelligence",
   "make the business easier to understand",
   "make the business easier to trust",
   "make the business easier to choose",
+]);
+
+expect("public/manifest.webmanifest", [
+  "Cendorq — Market Command Intelligence",
+  "Compare Command Path",
+  "Compare Scan, Diagnose, Fix, and Control.",
 ]);
 
 expect("docs/configuration-safety-checklist.md", [
@@ -160,18 +175,31 @@ expect("docs/search-discovery-checklist.md", [
   "Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.",
 ]);
 
+forbid("src/lib/seo.ts", ["Business Command Intelligence", "website trust scan", "conversion clarity review"]);
+forbid("src/app/layout.tsx", ["Business Command Intelligence", "business decision intelligence"]);
+forbid("src/app/opengraph-image.tsx", ["Business Command Intelligence", "Stop losing customers"]);
+forbid("src/app/twitter-image.tsx", ["Business Command Intelligence", "Stop losing customers"]);
+forbid("public/manifest.webmanifest", ["Business Command Intelligence", "View Pricing"]);
+
 if (failures.length) {
   console.error("Public drift validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Cendorq buyer path.");
+console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing required phrase: ${phrase}`);
+  }
+}
+
+function forbid(path, phrases) {
+  const text = read(path);
+  for (const phrase of phrases) {
+    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
 
