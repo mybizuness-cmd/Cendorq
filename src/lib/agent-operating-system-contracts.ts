@@ -2,7 +2,7 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
   id: "agent-operating-system-contract",
   name: "Cendorq Agent Operating System Contract",
   purpose:
-    "Define the controlled multi-agent operating model for Cendorq so parallel agents increase speed, research depth, report quality, design quality, forecasting, and validation coverage without taking release authority, weakening safety, or drifting from the owner-approved platform standard.",
+    "Define the controlled multi-agent operating model for Cendorq so parallel agents increase speed, research depth, report quality, design quality, forecasting, AI visibility intelligence, and validation coverage without taking release authority, weakening safety, or drifting from the owner-approved market command standard.",
   commandHierarchy: [
     {
       key: "owner-command",
@@ -64,13 +64,13 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
       key: "chief-report-truth-agent",
       title: "Chief report truth agent",
       owns: ["report-truth-research-scout", "evidence-conflict-scout", "industry-context-scout"],
-      mission: "Own report evidence standards, source comparison, confidence separation, conflict escalation, and report truth calibration before release captain review.",
+      mission: "Own report evidence standards, source comparison, confidence separation, conflict escalation, AI/search visibility truth, and report calibration before release captain review.",
     },
     {
       key: "chief-product-experience-agent",
-      title: "Chief product experience agent",
-      owns: ["conversion-luxury-ui-scout", "customer-journey-scout", "report-design-quality-scout"],
-      mission: "Own premium customer experience, clarity, conversion ethics, report comprehension, and no-dead-end journey checks before release captain review.",
+      title: "Chief customer command experience agent",
+      owns: ["clear-choice-experience-scout", "customer-journey-scout", "report-design-quality-scout"],
+      mission: "Own customer-facing clarity, clear-choice experience, conversion ethics, report comprehension, and no-dead-end journey checks before release captain review.",
     },
     {
       key: "chief-security-command-agent",
@@ -80,9 +80,9 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
     },
     {
       key: "chief-growth-forecast-agent",
-      title: "Chief growth and forecast agent",
+      title: "Chief market forecast agent",
       owns: ["future-platform-scout", "business-change-forecasting-scout", "analytics-and-growth-scout"],
-      mission: "Own forward-looking business change forecasting, post-website expansion sequencing, and safe growth intelligence before release captain review.",
+      mission: "Own forward-looking market change forecasting, AI/search behavior risk, customer behavior shifts, expansion sequencing, and safe growth intelligence before release captain review.",
     },
   ],
   agentLanes: [
@@ -90,26 +90,26 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
       key: "report-truth-research-scout",
       title: "Report truth and research scout",
       mission:
-        "Gather and compare external evidence, customer-submitted context, observable business signals, market context, category norms, website/social/product signals, and report assumptions so every report separates verified facts, customer claims, external evidence, assumptions, inferences, limitations, and recommended next actions.",
+        "Gather and compare external evidence, customer-submitted context, observable business signals, market context, category norms, website/social/product signals, AI/search visibility signals, and report assumptions so every report separates verified facts, customer claims, external evidence, assumptions, inferences, limitations, and recommended next actions.",
       allowedOutputs: ["source findings", "fact-confidence notes", "assumption gaps", "evidence conflict notes", "report correction suggestions"],
     },
     {
       key: "evidence-conflict-scout",
       title: "Evidence conflict scout",
-      mission: "Find contradictions between customer-provided information, public evidence, business model signals, market norms, website claims, and report recommendations.",
+      mission: "Find contradictions between customer-provided information, public evidence, business model signals, market norms, search visibility signals, website claims, and report recommendations.",
       allowedOutputs: ["conflict reports", "confidence downgrade notes", "verification requests", "safe report caveats"],
     },
     {
       key: "industry-context-scout",
       title: "Industry context scout",
-      mission: "Build category, business-model, geography, revenue-model, platform, creator, ecommerce, SaaS, local service, and digital-product context before customers arrive.",
+      mission: "Build category, business-model, geography, revenue-model, platform, creator, ecommerce, SaaS, local service, digital-product, search behavior, and AI answer context before customers arrive.",
       allowedOutputs: ["industry baselines", "business-model notes", "research source maps", "market assumption checks"],
     },
     {
       key: "report-design-quality-scout",
       title: "Report design and comprehension scout",
       mission:
-        "Pressure-test report layout, customer comprehension, premium visual quality, section hierarchy, business usefulness, and decision clarity without changing truth boundaries or creating unsupported certainty.",
+        "Pressure-test report layout, customer comprehension, concise visual hierarchy, business usefulness, AI/search visibility explanation, and decision clarity without changing truth boundaries or creating unsupported certainty.",
       allowedOutputs: ["layout findings", "visual hierarchy notes", "customer comprehension risks", "report polish suggestions"],
     },
     {
@@ -119,9 +119,9 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
       allowedOutputs: ["findings", "risk summaries", "validator suggestions", "test ideas"],
     },
     {
-      key: "conversion-luxury-ui-scout",
-      title: "Conversion and luxury UI scout",
-      mission: "Review public and customer surfaces for premium positioning, clarity, trust, stage-aware conversion, and non-manipulative calls to action.",
+      key: "clear-choice-experience-scout",
+      title: "Clear-choice experience scout",
+      mission: "Review public and customer surfaces for market-command positioning, clarity, trust, AI/search readability, stage-aware conversion, and non-manipulative calls to action.",
       allowedOutputs: ["copy notes", "layout notes", "trust improvements", "conversion hypotheses"],
     },
     {
@@ -139,13 +139,13 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
     {
       key: "future-platform-scout",
       title: "Future platform scout",
-      mission: "Forecast post-website expansion lanes including mobile app, controlled maintenance, market learning, internationalization, partner channels, enterprise readiness, and business-model adaptation.",
+      mission: "Forecast post-website expansion lanes including mobile app, controlled maintenance, market learning, internationalization, partner channels, enterprise readiness, AI/search visibility intelligence, and business-model adaptation.",
       allowedOutputs: ["future roadmap findings", "dependency notes", "sequencing suggestions", "risk forecasts"],
     },
     {
       key: "business-change-forecasting-scout",
       title: "Business change forecasting scout",
-      mission: "Anticipate customer business risks from search, platform, competitor, pricing, compliance, technology, customer behavior, and market shifts before they become urgent.",
+      mission: "Anticipate customer business risks from search, AI answers, platform, competitor, pricing, compliance, technology, customer behavior, and market shifts before they become urgent.",
       allowedOutputs: ["forecast alerts", "early risk signals", "adaptation suggestions", "monitoring gaps"],
     },
     {
@@ -162,9 +162,9 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
     },
   ],
   calibrationRules: [
-    "Every chief agent and sub-agent must be calibrated against Cendorq truth, safety, privacy, luxury UI, conversion ethics, report usefulness, validation, and launch-gate standards before its findings are accepted.",
+    "Every chief agent and sub-agent must be calibrated against Cendorq truth, safety, privacy, AI/search visibility, customer command clarity, conversion ethics, report usefulness, validation, and launch-gate standards before its findings are accepted.",
     "Agents must use a proof-before-output posture: identify source basis, uncertainty, assumptions, limitations, and verification gaps before proposing customer-facing conclusions.",
-    "Agents must start building safe pre-customer knowledge maps for industries, business models, traffic channels, platform changes, and market risks before customer submissions arrive.",
+    "Agents must start building safe pre-customer knowledge maps for industries, business models, traffic channels, search behavior, AI answer behavior, platform changes, and market risks before customer submissions arrive.",
     "Agents must not treat pre-customer learning as customer-specific truth; it is context only until matched with customer input and external evidence.",
     "Chief agents must reject low-confidence, unsourced, speculative, or unsupported sub-agent findings before they reach release captain review.",
     "Release captain final validation is still required even after chief-agent review.",
@@ -179,18 +179,18 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
   ],
   orchestrationRules: [
     "Agents operate as a coordinated symphony with one conductor: the release captain.",
-    "Agents should proactively inspect areas the owner did not explicitly mention when those areas affect safety, truth, conversion, scalability, reliability, customer trust, or future readiness.",
+    "Agents should proactively inspect areas the owner did not explicitly mention when those areas affect safety, truth, conversion, scalability, reliability, customer trust, AI/search visibility, or future readiness.",
     "Agents should escalate gaps, contradictions, missing validators, weak claims, customer confusion, evidence conflicts, design weaknesses, and future business risks to the release captain.",
     "Agents should not duplicate each other; each agent owns a lane and hands findings back through the release captain.",
-    "Agent work must improve autonomy, speed, reliability, scale, report quality, and business foresight without creating uncontrolled production mutation or authority drift.",
+    "Agent work must improve autonomy, speed, reliability, scale, report quality, business foresight, and market-command consistency without creating uncontrolled production mutation or authority drift.",
   ],
   reportTruthRules: [
     "Reports must not rely solely on customer-submitted information when external evidence can be gathered safely.",
     "Customer-submitted information may be used when relevant, but must be labeled or treated as customer-provided context unless independently verified.",
-    "External evidence, customer-provided context, assumptions, inferences, limitations, confidence, and next actions must stay separated in report logic and customer-facing explanation.",
+    "External evidence, customer-provided context, assumptions, inferences, limitations, confidence, AI/search visibility posture, and next actions must stay separated in report logic and customer-facing explanation.",
     "Contradictions between customer-provided information and external evidence must be surfaced as evidence conflicts, not hidden or treated as certainty.",
     "Reports must use the strongest available evidence without claiming impossible 100 percent certainty.",
-    "Reports may describe high-confidence, evidence-backed findings, but must not claim guaranteed accuracy, guaranteed outcomes, guaranteed revenue, guaranteed ROI, or absolute completeness.",
+    "Reports may describe high-confidence, evidence-backed findings, but must not claim guaranteed accuracy, guaranteed outcomes, guaranteed revenue, guaranteed ROI, guaranteed ranking, guaranteed AI placement, or absolute completeness.",
     "Report agents may research, compare, and pressure-test findings, but final customer-facing report release remains under release captain and approval-gate control.",
   ],
   autonomyRules: [
@@ -236,7 +236,7 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
     {
       key: "business-change-forecasting",
       horizon: "continuous after controlled market learning is approved",
-      focus: "Anticipate market, search, platform, customer behavior, competitor, pricing, compliance, and technology changes that may affect customer businesses before they become urgent.",
+      focus: "Anticipate market, search, AI answer, platform, customer behavior, competitor, pricing, compliance, and technology changes that may affect customer businesses before they become urgent.",
     },
   ],
   releaseRules: [
@@ -244,7 +244,7 @@ export const AGENT_OPERATING_SYSTEM_CONTRACT = {
     "One branch owns one coherent layer.",
     "Agents may run in parallel only when their work is read-only, scoped, and non-authoritative.",
     "Agent findings become code only through release captain branch ownership and validation.",
-    "No agent may create pressure, fake urgency, guaranteed outcome, guaranteed revenue, absolute security, or liability-free claims.",
+    "No agent may create pressure, fake urgency, guaranteed outcome, guaranteed revenue, guaranteed ranking, guaranteed AI placement, absolute security, or liability-free claims.",
     "No agent may store or expose protected internals, raw payloads, raw evidence, protected configuration values, private customer data, or private audit payloads.",
     "No agent may bypass owner approval for provider configuration, payment mapping, production launch, paid launch, report launch, or security posture declarations.",
   ],
@@ -276,6 +276,8 @@ export const AGENT_OPERATING_SYSTEM_BLOCKED_PATTERNS = [
   "agentGuaranteedAccuracyClaim",
   "agentAbsoluteSecurityClaim",
   "agentLiabilityFreeClaim",
+  "agentGuaranteedRankingClaim",
+  "agentGuaranteedAiPlacementClaim",
   "customerOnlyReportTruth",
   "unverifiedCustomerClaimAsFact",
   "hiddenEvidenceConflict",
