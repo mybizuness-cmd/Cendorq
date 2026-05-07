@@ -37,7 +37,7 @@ export default function VerifyEmailPage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-6 lg:grid-cols-[1fr_22rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Premium email verification gate</p>
+            <p className="text-sm font-semibold text-cyan-100">Email verification gate</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
               Confirm the inbox before private work opens.
             </h1>
@@ -88,8 +88,8 @@ export default function VerifyEmailPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Premium verification guardrails">
-        Premium email verification gate. Confirm the inbox before private work opens. Verified destinations. Verification safety standard. Protect access without creating friction or leakage. Cendorq Support at support@cendorq.com. support@cendorq.com. Verification proves inbox ownership. No account-existence leakage. Free Scan result access remains dashboard-only at /dashboard/reports/free-scan. verification click redirects to dashboard. Your welcome email is sent one time after verified profile creation. {CONFIRMATION_STEPS.join(" ")} {DESTINATIONS.map((item) => `${item.label} ${item.value} ${item.href} ${item.detail}`).join(" ")} {VERIFY_RULES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}
+      <section className="sr-only" aria-label="Verification guardrails">
+        Email verification gate. Confirm the inbox before private work opens. Verified destinations. Verification safety standard. Protect access without creating friction or leakage. Cendorq Support at support@cendorq.com. support@cendorq.com. Verification proves inbox ownership. No account-existence leakage. Free Scan result access remains dashboard-only at /dashboard/reports/free-scan. verification click redirects to dashboard. Your welcome email is sent one time after verified profile creation. {CONFIRMATION_STEPS.join(" ")} {DESTINATIONS.map((item) => `${item.label} ${item.value} ${item.href} ${item.detail}`).join(" ")} {VERIFY_RULES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}
       </section>
     </main>
   );

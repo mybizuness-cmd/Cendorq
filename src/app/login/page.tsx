@@ -36,7 +36,7 @@ export default function LoginPage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-6 lg:grid-cols-[1fr_22rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Premium customer re-entry</p>
+            <p className="text-sm font-semibold text-cyan-100">Customer re-entry</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
               Return to the exact customer moment that needs action.
             </h1>
@@ -64,7 +64,7 @@ export default function LoginPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-3 md:grid-cols-3" aria-label="Premium reentry paths">
+      <section className="relative z-10 mt-7 grid gap-3 md:grid-cols-3" aria-label="Customer re-entry paths">
         {REENTRY_PATHS.map((path) => (
           <Link key={path.label} href={path.href} className="system-surface rounded-[1.25rem] p-4 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{path.label}</div>
@@ -85,8 +85,8 @@ export default function LoginPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Premium customer re-entry guardrails">
-        Premium customer re-entry. Return to the exact customer moment that needs action. Magic link first. Premium reentry paths. Login safety standard. Re-entry should restore context without leaking state. Magic-link-first return path. Passkey-ready access. Password fallback. Protected results stay under dashboard routes. No account-existence leakage. No paid-plan pressure before evidence. {REENTRY_PATHS.map((item) => `${item.label} ${item.value} ${item.href} ${item.detail}`).join(" ")} {LOGIN_RULES.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}
+      <section className="sr-only" aria-label="Customer re-entry guardrails">
+        Customer re-entry. Return to the exact customer moment that needs action. Magic link first. Customer re-entry paths. Login safety standard. Re-entry should restore context without leaking state. Magic-link-first return path. Passkey-ready access. Password fallback. Protected results stay under dashboard routes. No account-existence leakage. No paid-plan pressure before evidence. {REENTRY_PATHS.map((item) => `${item.label} ${item.value} ${item.href} ${item.detail}`).join(" ")} {LOGIN_RULES.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}
       </section>
     </main>
   );
