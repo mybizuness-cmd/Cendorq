@@ -11,17 +11,17 @@ const BRAND_NAME = "Cendorq";
 const TERMS_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
-  title: `Terms | ${BRAND_NAME}`,
+  title: `Market command terms | ${BRAND_NAME}`,
   description:
-    "Cendorq terms for plan boundaries, acceptable use, customer reports, billing, support, and platform access.",
+    "Cendorq terms for command-depth boundaries, acceptable use, customer reports, billing, support, and platform access.",
   path: "/terms",
-  keywords: ["cendorq terms", "free scan terms", "deep review terms", "build fix terms", "ongoing control terms"],
-  image: { alt: "Cendorq terms and service boundaries." },
+  keywords: ["cendorq terms", "market command terms", "free scan terms", "deep review terms", "build fix terms", "ongoing control terms"],
+  image: { alt: "Cendorq market command terms and service boundaries." },
 });
 
 const TERMS_SUMMARY = [
   { label: "Core rule", value: "Use the platform honestly and choose the route that matches the customer stage." },
-  { label: "Scope rule", value: "One plan does not silently include another plan's work." },
+  { label: "Scope rule", value: "One command depth does not silently include another command depth's work." },
   { label: "Outcome rule", value: "Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales." },
   { label: "Support rule", value: "Support routes clarify, recover, and review; they do not quietly expand plan scope." },
 ] as const;
@@ -49,8 +49,8 @@ const COMMERCIAL_RULES = [
 
 const CUSTOMER_ROUTES = [
   { title: "Start with Free Scan", href: "/free-check", copy: "Use this when the cause is unclear and a first signal is needed before paid depth." },
-  { title: "Compare pricing", href: "/plans", copy: "Use this when choosing between diagnosis, scoped implementation, and monthly control." },
-  { title: "Open dashboard support", href: "/dashboard/support", copy: "Use this when you are already a customer and need billing, report, scope, access, or correction support." },
+  { title: "Compare command depth", href: "/plans", copy: "Use this when choosing between diagnosis, scoped implementation, and monthly control." },
+  { title: "Open dashboard support", href: "/dashboard/support", copy: "Use this when you are already a customer and need billing, proof, scope, access, or correction support." },
   { title: "Contact Cendorq", href: "/connect", copy: "Use this only when fit, scope, or timing is already clear outside the dashboard." },
 ] as const;
 
@@ -71,8 +71,8 @@ const FAQS = [
 
 export default function TermsPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Terms",
-    description: "Current terms and service boundaries for Cendorq plans and platform use.",
+    title: "Cendorq Market Command Terms",
+    description: "Current terms and service boundaries for Cendorq command-depth plans and platform use.",
     path: "/terms",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -88,10 +88,10 @@ export default function TermsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="system-panel-authority relative z-10 rounded-[1.7rem] p-5 sm:p-8">
-        <p className="text-sm font-semibold text-cyan-100">Terms</p>
+      <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
+        <p className="text-sm font-semibold text-cyan-100">Market command terms</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-          Clear rules keep the plan path impossible to confuse.
+          Clear rules keep the command path impossible to confuse.
         </h1>
         <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
           These terms explain current Cendorq service boundaries, acceptable use, commercial expectations, support limits, and customer routes. {TERMS_DATE}.
@@ -106,7 +106,7 @@ export default function TermsPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Plan service boundaries">
+      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Command-depth service boundaries">
         {PLAN_BOUNDARIES.map((item) => (
           <article key={item.title} className="system-surface rounded-[1.35rem] p-5">
             <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
@@ -138,8 +138,8 @@ export default function TermsPage() {
         ))}
       </section>
 
-      <section className="system-panel-authority relative z-10 mt-8 rounded-[1.5rem] p-5 sm:p-6">
-        <h2 className="text-2xl font-semibold tracking-tight text-white">Questions about scope?</h2>
+      <section className="system-panel-authority relative z-10 mt-8 rounded-[1.55rem] p-5 sm:p-6">
+        <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">Questions about scope?</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Use contact if the question is clear and you are outside the dashboard.</p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard/support" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">Open dashboard support</Link>
@@ -149,7 +149,7 @@ export default function TermsPage() {
       </section>
 
       <section className="sr-only" aria-label="Terms validation guardrails">
-        Current Cendorq terms language. Free Scan. Deep Review. Build Fix. Ongoing Control. Dashboard support. Contact route /connect. No Search Presence OS. No Search Presence Scan. No Visibility Blueprint. No Presence Infrastructure. No Presence Command. No /contact. No /disclaimer. No guaranteed revenue. No guaranteed ranking. No guaranteed AI placement.
+        Market command terms. Free Scan. Deep Review. Build Fix. Ongoing Control. Dashboard support. Contact route /connect. No guaranteed revenue. No guaranteed ranking. No guaranteed AI placement. Command-depth service boundaries. Scope does not silently expand.
       </section>
     </main>
   );
@@ -157,7 +157,7 @@ export default function TermsPage() {
 
 function BoundaryPanel({ title, items }: { title: string; items: readonly string[] }) {
   return (
-    <article className="system-panel-authority rounded-[1.5rem] p-5 sm:p-6">
+    <article className="system-panel-authority rounded-[1.55rem] p-5 sm:p-6">
       <h2 className="text-2xl font-semibold tracking-tight text-white">{title}</h2>
       <div className="mt-4 grid gap-3">
         {items.map((item) => (
@@ -173,7 +173,8 @@ function TrustAtmosphere() {
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
       <div className="absolute -right-8 top-24 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.025]" />
+      <div className="absolute left-1/2 top-1/4 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.03] blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.026]" />
     </div>
   );
 }
