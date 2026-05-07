@@ -70,24 +70,24 @@ export const siteConfig: SiteConfig = {
     shortName: "Cendorq",
     siteUrl: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
     description:
-        "Cendorq helps businesses find where customers lose clarity, trust, visibility, or action so the next move is easier to choose before spending more.",
+        "Cendorq helps businesses become easier to find, understand, trust, and choose as customers, search, and AI discovery change.",
     locale: "en_US",
     twitterHandle: "",
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@cendorq.com",
     supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@cendorq.com",
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "",
     locationLabel: "United States",
-    defaultOgTitle: "Cendorq — Business Command Intelligence",
+    defaultOgTitle: "Cendorq — Market Command Intelligence",
     defaultOgDescription:
-        "Find what makes customers hesitate before they call, book, or buy. Start with the Free Scan, then choose the right depth: Deep Review, Build Fix, or Ongoing Control.",
+        "Find what the market may be missing before you spend deeper. Start with Scan, then choose Diagnose, Fix, or Control.",
     defaultKeywords: [
         "Cendorq",
-        "Business Command Intelligence",
+        "Market Command Intelligence",
         "free business scan",
-        "website trust scan",
+        "market signal scan",
         "business clarity scan",
         "customer hesitation analysis",
-        "conversion clarity review",
+        "market proof vault",
         "business visibility scan",
         "AI search visibility",
         "answer engine visibility",
@@ -98,6 +98,7 @@ export const siteConfig: SiteConfig = {
         "Deep Review",
         "Build Fix",
         "Ongoing Control",
+        "Scan Diagnose Fix Control",
     ],
 } as const;
 
@@ -246,7 +247,7 @@ export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJs
     };
 }
 
-export function buildServiceJsonLd({ title, description, path = "/", serviceType = "Business Command Intelligence" }: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ title, description, path = "/", serviceType = "Market Command Intelligence" }: ServiceJsonLdInput) {
     const normalizedPath = normalizePath(path);
 
     return {
@@ -256,7 +257,7 @@ export function buildServiceJsonLd({ title, description, path = "/", serviceType
         name: cleanString(title) || siteConfig.defaultOgTitle,
         description: cleanString(description) || siteConfig.defaultOgDescription,
         url: absoluteUrl(normalizedPath),
-        serviceType: cleanString(serviceType) || "Business Command Intelligence",
+        serviceType: cleanString(serviceType) || "Market Command Intelligence",
         areaServed: "Worldwide",
         provider: { "@id": organizationSchemaId() },
         brand: { "@id": organizationSchemaId() },
@@ -299,7 +300,7 @@ function buildRobots(noIndex: boolean): Metadata["robots"] {
             noimageindex: false,
             "max-image-preview": "large",
             "max-snippet": -1,
-            "max-video-preview": -1,
+            "max-video-preview": 0,
         },
     };
 }
