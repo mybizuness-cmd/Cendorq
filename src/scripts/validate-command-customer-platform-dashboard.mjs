@@ -9,7 +9,7 @@ const actionInboxPath = "src/app/dashboard/dashboard-action-inbox.tsx";
 const commandCenterPath = "src/app/dashboard/dashboard-business-command-center.tsx";
 const reentryPath = "src/app/dashboard/dashboard-control-room-reentry.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-premium-customer-platform-dashboard.mjs";
+const validatorPath = "src/scripts/validate-command-customer-platform-dashboard.mjs";
 
 expect(dashboardPath, [
   "Visibility command center",

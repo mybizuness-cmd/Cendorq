@@ -7,7 +7,7 @@ const failures = [];
 const billingPath = "src/app/dashboard/billing/page.tsx";
 const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-premium-billing-checkout-success.mjs";
+const validatorPath = "src/scripts/validate-command-billing-checkout-success.mjs";
 
 expect(billingPath, [
   "Plan billing command center",

@@ -10,7 +10,7 @@ const freeScanPath = "src/app/free-check/page.tsx";
 const footerPath = "src/layout/site-footer.tsx";
 const planTemplatePath = "src/components/plans/conversion-plan-page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-premium-plan-blocks-free-scan-flow.mjs";
+const validatorPath = "src/scripts/validate-command-plan-blocks-free-scan-flow.mjs";
 
 expect(homepagePath, [
   "Visibility command path",
