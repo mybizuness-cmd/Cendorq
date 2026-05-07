@@ -11,25 +11,26 @@ const BRAND_NAME = "Cendorq";
 const DISCLAIMER_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
-  title: `AI market command disclaimer | ${BRAND_NAME}`,
+  title: `Market command intelligence disclaimer | ${BRAND_NAME}`,
   description:
-    "Cendorq disclaimer for AI/search visibility, market-command guidance, reports, forecasts, no-guarantee boundaries, and customer responsibility.",
+    "Cendorq disclaimer for Market Command Intelligence, AI/search visibility, command-depth guidance, reports, no-guarantee boundaries, and customer responsibility.",
   path: "/disclaimer",
   keywords: [
     "cendorq disclaimer",
+    "market command intelligence disclaimer",
     "ai search visibility disclaimer",
     "market command disclaimer",
     "no guaranteed ranking",
     "no guaranteed ai placement",
     "business visibility disclaimer",
   ],
-  image: { alt: "Cendorq AI market command disclaimer boundaries." },
+  image: { alt: "Cendorq Market Command Intelligence disclaimer boundaries." },
 });
 
 const SUMMARY = [
-  { label: "Platform role", value: "Decision support for market understanding, AI/search visibility, proof, and next command clarity." },
+  { label: "Platform role", value: "Decision support for market command, AI/search visibility, proof, and next command clarity." },
   { label: "Claim boundary", value: "No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment." },
-  { label: "Report boundary", value: "Signals, diagnosis, fixes, and monthly control use evidence, confidence, limits, and scope." },
+  { label: "Report boundary", value: "Scan, Diagnose, Fix, and Control use evidence, confidence, limits, and scope." },
   { label: "Customer role", value: "You remain responsible for decisions, implementation, budgets, timing, and business commitments." },
 ] as const;
 
@@ -43,7 +44,7 @@ const CORE_BOUNDARIES = [
     copy: "Cendorq may assess whether public signals are clear enough for customers, search, maps, reviews, directories, and AI answers to understand. It does not guarantee ranking, inclusion, summaries, or answer placement.",
   },
   {
-    title: "Reports depend on evidence",
+    title: "Command depth depends on evidence",
     copy: "Free Scan, Deep Review, Build Fix, and Ongoing Control outputs depend on visible evidence, customer context, confidence limits, plan scope, and external conditions.",
   },
 ] as const;
@@ -63,10 +64,10 @@ const NOT_INCLUDED = [
 ] as const;
 
 const BEST_USE = [
-  "Use Free Scan as a first signal, not a full diagnosis.",
-  "Use Deep Review when the cause matters enough to prove before fixing.",
-  "Use Build Fix when a scoped improvement is approved and ready to execute.",
-  "Use Ongoing Control when the business needs recurring monitoring, adjustment, and monthly decision support.",
+  "Use Scan as a first market signal, not a full diagnosis.",
+  "Use Diagnose when the cause matters enough to prove before fixing.",
+  "Use Fix when a scoped improvement is approved and ready to execute.",
+  "Use Control when the business needs recurring monitoring, adjustment, and monthly decision support.",
 ] as const;
 
 const FAQS = [
@@ -86,8 +87,8 @@ const FAQS = [
 
 export default function DisclaimerPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq AI Market Command Disclaimer",
-    description: "Claim boundaries and no-guarantee posture for Cendorq AI/search visibility, market-command guidance, reports, and forecasts.",
+    title: "Cendorq Market Command Intelligence Disclaimer",
+    description: "Claim boundaries and no-guarantee posture for Cendorq Market Command Intelligence, AI/search visibility, command-depth guidance, reports, and forecasts.",
     path: "/disclaimer",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -104,7 +105,7 @@ export default function DisclaimerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
       <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
-        <p className="text-sm font-semibold text-cyan-100">AI market command disclaimer</p>
+        <p className="text-sm font-semibold text-cyan-100">Market command intelligence disclaimer</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
           Strong guidance works best when the limits are clear.
         </h1>
@@ -165,7 +166,7 @@ export default function DisclaimerPage() {
       </section>
 
       <section className="sr-only" aria-label="Disclaimer validation guardrails">
-        AI market command disclaimer. Search is changing. AI/search visibility. Market command boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. No Search Presence OS. No /contact route. Use /connect. Use dashboard support. Free Scan. Deep Review. Build Fix. Ongoing Control.
+        Market Command Intelligence disclaimer. Search is changing. AI/search visibility. Market command boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. No Search Presence OS. No /contact route. Use /connect. Use dashboard support. Scan. Diagnose. Fix. Control. Free Scan. Deep Review. Build Fix. Ongoing Control.
       </section>
     </main>
   );
