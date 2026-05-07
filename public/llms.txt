@@ -1,48 +1,50 @@
 # Cendorq
 
-Cendorq is Business Command Intelligence for businesses that need to become easier to understand, easier to trust, and easier to choose before they spend more money in the wrong place.
+Cendorq is Market Command Intelligence for businesses that need to be easier for customers, search, and AI-powered discovery surfaces to understand, trust, compare, and choose.
 
 ## Primary conversion path
 
-The strongest first action is the Free Scan when the cause is unclear. The public path should stay focused: start free, compare pricing, then return to the protected dashboard when customer work exists. Contact is a footer utility, not a primary buyer-path step.
+The strongest first action is the Free Scan when the market signal is unclear. The public path should stay focused: start free, compare command depth, then return to the protected dashboard when customer work exists. Connect is a fit-and-scope utility, not the primary buyer-path step.
 
-- Free Scan: /free-check
-- Pricing: /plans
+- Scan: /free-check
+- Command path: /plans
 - Dashboard: /dashboard
-- Deep Review: /plans/deep-review
-- Build Fix: /plans/build-fix
-- Ongoing Control: /plans/ongoing-control
-- Contact utility: /connect
+- Diagnose: /plans/deep-review
+- Fix: /plans/build-fix
+- Control: /plans/ongoing-control
+- Connect utility: /connect
 
 ## Route intent
 
-- /: Focused homepage command path. The homepage should help the right customer understand what Cendorq is, why it matters now, what it costs, and what to do next.
-- /free-check: Guided free scan intake. This is the safest first step before deeper spend.
-- /plans: Plain-language comparison of the full Cendorq buyer path.
-- /dashboard: Protected customer platform for reports, notifications, status, and next actions.
-- /plans/deep-review: Deeper review for businesses that need to understand what is weakening clarity, trust, and choice.
-- /plans/build-fix: Build-focused improvement for businesses ready to strengthen pages, message, trust, and action path.
-- /plans/ongoing-control: Continued direction for businesses that need ongoing control, updates, and improvement.
-- /connect: Footer contact utility for clear fit, scope, or timing questions.
+- /: Focused homepage command path. The homepage should help the right customer understand what Cendorq is, why market understanding matters now, what it costs, and what to do next.
+- /free-check: Guided Free Scan intake. This is the safest first signal before deeper spend.
+- /plans: Plain-language comparison of Scan, Diagnose, Fix, and Control.
+- /dashboard: Protected customer command center for reports, proof, notifications, status, and next actions.
+- /dashboard/reports: Protected market proof vault.
+- /plans/deep-review: Diagnose. Deeper review for businesses that need to understand what is weakening clarity, trust, visibility, and choice.
+- /plans/build-fix: Fix. Scoped improvement for businesses ready to strengthen pages, message, proof, trust, and action path.
+- /plans/ongoing-control: Control. Continued direction for businesses that need recurring review, search/AI-change awareness, and monthly decision support.
+- /connect: Fit-and-scope route for clear timing questions.
 
 ## Positioning rules
 
 Cendorq should be described in plain business language. Prefer:
 
-- Business Command Intelligence
+- Market Command Intelligence
+- Scan, Diagnose, Fix, Control
 - Free Scan
-- Pricing
-- Dashboard
-- Deep Review
-- Build Fix
-- Ongoing Control
+- command path
+- market proof vault
+- private market command center
+- make the business easier to find
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
 - stop guessing before spending more
+- protect decisions as search and AI discovery change
 
-Do not use old internal labels or retired package names in active public surfaces.
+Do not use old internal labels, retired package names, or generic premium positioning in active public surfaces.
 
 ## Trust boundaries
 
-Cendorq does not guarantee rankings, revenue, leads, or perfect external search outcomes. It improves clarity, trust, decision quality, and the business path a customer sees before they choose.
+Cendorq does not guarantee rankings, AI placement, revenue, leads, sales, or platform treatment. It improves market clarity, trust, decision quality, and the business path a customer sees before they choose.
