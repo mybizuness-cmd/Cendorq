@@ -42,23 +42,23 @@ const ICON_DEFINITIONS = [
 const SHORTCUTS: readonly ShortcutDefinition[] = [
     {
         name: "Start Free Scan",
-        shortName: "Free Scan",
+        shortName: "Scan",
         description:
-            "Start with the safest first read before spending more on the wrong fix.",
+            "Start with the safest first market signal before spending more on the wrong fix.",
         url: "/free-check",
     },
     {
-        name: "View Pricing",
-        shortName: "Pricing",
+        name: "Compare Command Path",
+        shortName: "Command Path",
         description:
-            "Compare Free Scan, Deep Review, Build Fix, and Ongoing Control.",
+            "Compare Scan, Diagnose, Fix, and Control.",
         url: "/plans",
     },
     {
         name: "Open Dashboard",
         shortName: "Dashboard",
         description:
-            "Return to protected reports, notifications, and next actions.",
+            "Return to protected reports, proof, notifications, and next actions.",
         url: "/dashboard",
     },
 ] as const;
@@ -122,7 +122,7 @@ function resolveDescription(description: string) {
         return cleanedDescription;
     }
 
-    return "Cendorq helps businesses find what makes customers hesitate, compare, leave, or choose someone else before spending more.";
+    return "Cendorq helps businesses become easier for customers, search, and AI discovery to find, understand, trust, and choose before spending more.";
 }
 
 function cleanString(value: string | undefined | null) {
