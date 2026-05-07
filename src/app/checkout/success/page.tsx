@@ -54,6 +54,9 @@ const PLAN_ACTIVATION_COPY: Record<CendorqPaidPlanKey, { activationLabel: string
   },
 };
 
+const PAID_REPORT_DELIVERY_CONFIRMATION =
+  "Paid report delivery confirmation: every paid report must appear in the dashboard report vault and be delivered by email with the approved PDF attachment.";
+
 const ACTIVATION_STEPS = [
   { label: "Payment", value: "Complete", detail: "The plan can now attach to the protected workspace." },
   { label: "Workspace", value: "Updated", detail: "Dashboard, billing, notifications, and support should point to the same plan boundary." },
@@ -138,6 +141,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
         <p className="text-sm font-semibold text-cyan-100">What Cendorq needs next</p>
         <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">{activation.unlockedState}</h2>
         <p className="mt-3 text-sm leading-7 text-slate-300">{activation.boundaryReminder}</p>
+        <p className="mt-3 rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.07] p-3 text-sm leading-7 text-cyan-50">{PAID_REPORT_DELIVERY_CONFIRMATION}</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {revenueStage.requiredCustomerContext.map((item) => (
             <div key={item} className="rounded-[1.1rem] border border-cyan-300/15 bg-cyan-300/[0.07] p-4 text-sm leading-6 text-cyan-50">
@@ -153,8 +157,8 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Premium checkout success guardrails">
-        Premium checkout success activation. Payment complete. Plan unlocked. Now activate the work. Checkout should feel like activation into the platform, not a receipt. Payment should unlock a workflow, not just confirmation. Activation path. The purchase is complete. The delivery path starts now. Dashboard state. Workflow started. Confirmation email. What this unlocks. What this does not unlock. What Cendorq needs next. session_id {sessionId}. Stripe session id. Final fixed plan prices. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Checkout success parity with billing. Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {planValue.customerName} {planValue.price} {planValue.primaryValue} {planValue.customerOutcome} {planValue.reportBoundary} {planValue.upgradeLogic} {activation.activationLabel} {activation.unlockedState} {activation.boundaryReminder} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {revenueStage.planName} {revenueStage.price} {revenueStage.businessPurpose} {revenueStage.conversionJob} {revenueStage.emailMoment} {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_CHECKOUT_METADATA_KEYS.join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
+      <section className="sr-only" aria-label="Checkout success guardrails">
+        Checkout success activation. Payment complete. Plan unlocked. Now activate the work. Checkout should feel like activation into the platform, not a receipt. Payment should unlock a workflow, not just confirmation. Activation path. The purchase is complete. The delivery path starts now. Dashboard state. Workflow started. Confirmation email. What this unlocks. What this does not unlock. What Cendorq needs next. Paid report delivery confirmation. Every paid report must appear in the dashboard report vault and be delivered by email with the approved PDF attachment. session_id {sessionId}. Stripe session id. Final fixed plan prices. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Checkout success parity with billing. Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {planValue.customerName} {planValue.price} {planValue.primaryValue} {planValue.customerOutcome} {planValue.reportBoundary} {planValue.upgradeLogic} {activation.activationLabel} {activation.unlockedState} {activation.boundaryReminder} {PAID_REPORT_DELIVERY_CONFIRMATION} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {revenueStage.planName} {revenueStage.price} {revenueStage.businessPurpose} {revenueStage.conversionJob} {revenueStage.emailMoment} {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_CHECKOUT_METADATA_KEYS.join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
       </section>
     </main>
   );
