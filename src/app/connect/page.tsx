@@ -14,30 +14,30 @@ const contactEmail = normalizeEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL);
 const directEmailHref = contactEmail ? `mailto:${contactEmail}` : "";
 
 export const metadata = buildMetadata({
-  title: "Contact | Cendorq",
+  title: "Market fit entry | Cendorq",
   description:
-    "Contact Cendorq when fit, scope, or timing is already clear. Start the Free Scan first when the problem is still unclear.",
+    "Contact Cendorq when fit, scope, or timing is already clear. Start the Free Scan first when the market signal is still unclear.",
   path: "/connect",
-  keywords: ["cendorq contact", "cendorq connect", "free scan", "pricing", "deep review", "build fix", "ongoing control"],
-  image: { alt: "Cendorq contact page." },
+  keywords: ["cendorq contact", "market fit entry", "cendorq connect", "free scan", "pricing", "deep review", "build fix", "ongoing control"],
+  image: { alt: "Cendorq market fit entry page." },
 });
 
 const CONTACT_RULES = [
-  "Start Free Scan if the problem is unclear.",
-  "Use pricing if you know the depth you need.",
+  "Start Free Scan if the market signal is unclear.",
+  "Use command depth if you know the stage you need.",
   "Contact only when fit, scope, or timing is already clear.",
 ] as const;
 
 const CONTACT_STAGE_ROUTES = [
   { label: "Need a first signal", href: "/free-check", cta: "Start Free Scan", detail: "Use this before contact when the business does not yet know what is breaking the customer decision." },
-  { label: "Need to compare depth", href: "/plans", cta: "Compare plans", detail: "Use this when choosing between Deep Review, Build Fix, and Ongoing Control." },
-  { label: "Already a customer", href: "/dashboard/support", cta: "Open support", detail: "Use dashboard support for billing, report, scope, access, or correction questions." },
+  { label: "Need command depth", href: "/plans", cta: "Compare command path", detail: "Use this when choosing between Deep Review, Build Fix, and Ongoing Control." },
+  { label: "Already a customer", href: "/dashboard/support", cta: "Open support", detail: "Use dashboard support for billing, proof, scope, access, or correction questions." },
 ] as const;
 
 const CONTACT_BOUNDARIES = [
   "Contact is not a replacement for the Free Scan when the cause is unclear.",
   "Contact is not an unlimited consulting lane.",
-  "Contact should not be used to send passwords, card numbers, private keys, tokens, or raw sensitive evidence.",
+  "Contact should not be used to send sensitive account, payment, or security details.",
   "Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate.",
 ] as const;
 
@@ -61,17 +61,17 @@ const FAQS = [
 
 export default function ConnectPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Contact",
+    title: "Cendorq Market Fit Entry",
     description: "A concise routing page for direct Cendorq contact when fit, scope, or timing is already clear.",
     path: "/connect",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Contact Routing",
+    title: "Cendorq Market Fit Entry",
     description:
-      "A simple routing page for choosing between the Free Scan, pricing, dashboard support, and direct contact.",
+      "A simple routing page for choosing between the Free Scan, command depth, dashboard support, and direct contact.",
     path: "/connect",
-    serviceType: "Customer stage routing",
+    serviceType: "Market fit routing",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -90,18 +90,18 @@ export default function ConnectPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 system-panel-authority rounded-[1.7rem] p-5 sm:p-8">
+      <section className="relative z-10 system-panel-authority rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Contact routing</p>
+            <p className="text-sm font-semibold text-cyan-100">Market fit entry</p>
             <h1 className="system-hero-title mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Contact Cendorq when the question is already clear.
+              Contact Cendorq when the market question is already clear.
             </h1>
             <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              {BRAND_NAME} works best when the next move is clear. Start with Free Scan when the problem needs a first read. Use direct contact for fit, scope, timing, or ongoing control questions that are already specific.
+              {BRAND_NAME} works best when the next move is clear. Start with Free Scan when the problem needs a first market signal. Use direct contact for fit, scope, timing, or ongoing control questions that are already specific.
             </p>
           </div>
-          <div className="rounded-[1.2rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
+          <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
             <div className="text-sm font-semibold text-cyan-100">Best first action</div>
             <p className="mt-2 text-sm leading-6 text-slate-200">Start free unless you already know the stage, scope, or timing question.</p>
             <Link href="/free-check" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -123,7 +123,7 @@ export default function ConnectPage() {
             </a>
           ) : null}
           <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Compare plans
+            Compare command path
           </Link>
         </div>
       </section>
@@ -143,7 +143,7 @@ export default function ConnectPage() {
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
       </section>
-      <p className="sr-only">Contact stage routing. If you are unsure, start Free Scan. If the question is clear, connect. View pricing. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
+      <p className="sr-only">Market fit entry. Contact stage routing. If you are unsure, start Free Scan. If the question is clear, connect. View command depth. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
     </main>
   );
 }
@@ -162,7 +162,8 @@ function ConnectAtmosphere() {
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
       <div className="absolute -right-8 top-24 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.025]" />
+      <div className="absolute left-1/2 top-1/4 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.03] blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.026]" />
     </div>
   );
 }
