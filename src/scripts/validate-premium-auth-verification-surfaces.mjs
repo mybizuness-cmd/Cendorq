@@ -11,7 +11,7 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-premium-auth-verification-surfaces.mjs";
 
 expect(signupPath, [
-  "Premium signup trust surface",
+  "Verified workspace trust surface",
   "Create the verified workspace before private results appear.",
   "Verify once. Continue safely.",
   "Signup trust path",
@@ -30,10 +30,10 @@ expect(signupPath, [
 ]);
 
 expect(loginPath, [
-  "Premium customer re-entry",
+  "Customer re-entry",
   "Return to the exact customer moment that needs action.",
   "Magic link first",
-  "Premium reentry paths",
+  "Customer re-entry paths",
   "Login safety standard",
   "Re-entry should restore context without leaking state.",
   "Magic-link-first return path",
@@ -49,7 +49,7 @@ expect(loginPath, [
 ]);
 
 expect(verifyPath, [
-  "Premium email verification gate",
+  "Email verification gate",
   "Confirm the inbox before private work opens.",
   "Verified destinations",
   "Verification safety standard",
@@ -82,7 +82,6 @@ forbidden(loginPath, [
   "REENTRY_DECISION_PATHS",
   "REENTRY_SAFETY_STANDARDS",
   "Pick up where the customer journey actually is.",
-  "Use passkey when available",
 ]);
 
 forbidden(verifyPath, [
@@ -98,12 +97,12 @@ boundedLength(loginPath, 10500);
 boundedLength(verifyPath, 10500);
 
 if (failures.length) {
-  console.error("Premium auth and verification surface validation failed:");
+  console.error("Auth and verification surface validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Premium auth and verification surface validation passed with trust-gated signup, safe re-entry, and dashboard-only verified result access.");
+console.log("Auth and verification surface validation passed with trust-gated signup, safe re-entry, and dashboard-only verified result access.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -127,7 +126,7 @@ function forbidden(path, phrases) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the premium auth standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the auth standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {

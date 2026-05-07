@@ -10,7 +10,7 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-premium-billing-checkout-success.mjs";
 
 expect(billingPath, [
-  "Premium billing command center",
+  "Plan billing command center",
   "Know what is active, what unlocked, and what Cendorq needs next.",
   "Billing should not feel like a receipt drawer.",
   "Billing status summary",
@@ -32,7 +32,7 @@ expect(billingPath, [
 ]);
 
 expect(checkoutSuccessPath, [
-  "Premium checkout success activation",
+  "Checkout success activation",
   "Plan unlocked. Now activate the work.",
   "Checkout should feel like activation into the platform, not a receipt.",
   "Payment should unlock a workflow, not just confirmation.",
@@ -44,6 +44,8 @@ expect(checkoutSuccessPath, [
   "What this unlocks",
   "What this does not unlock",
   "What Cendorq needs next",
+  "Paid report delivery confirmation",
+  "Every paid report must appear in the dashboard report vault and be delivered by email with the approved PDF attachment.",
   "Checkout success parity with billing",
   "Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
   "focus:outline-none",
@@ -53,6 +55,7 @@ expect(checkoutSuccessPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(billingPath, [
+  "Premium billing command center",
   "Billing plan activation matrix",
   "Checkout should unlock the right workflow, not just a receipt.",
   "BILLING_PLAN_ACTIVATION",
@@ -63,6 +66,7 @@ forbidden(billingPath, [
 ]);
 
 forbidden(checkoutSuccessPath, [
+  "Premium checkout success activation",
   "Plan-aware checkout success",
   "What happens after checkout",
   "1. Dashboard updates",
@@ -73,15 +77,15 @@ forbidden(checkoutSuccessPath, [
 ]);
 
 boundedLength(billingPath, 15500);
-boundedLength(checkoutSuccessPath, 14500);
+boundedLength(checkoutSuccessPath, 15000);
 
 if (failures.length) {
-  console.error("Premium billing and checkout success validation failed:");
+  console.error("Billing and checkout success validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Premium billing and checkout success validation passed with active plan command center and activation-based checkout success.");
+console.log("Billing and checkout success validation passed with active plan command center, activation-based checkout success, and paid report delivery confirmation.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -105,7 +109,7 @@ function forbidden(path, phrases) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the premium billing/checkout standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the billing/checkout standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {
