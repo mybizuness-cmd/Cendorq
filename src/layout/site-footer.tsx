@@ -15,17 +15,17 @@ type FooterJourneyItem = {
 const BRAND_NAME = "Cendorq";
 
 const FOOTER_JOURNEY: readonly FooterJourneyItem[] = [
-  { label: "Free Scan", href: "/free-check", description: "First signal before paid depth.", price: "$0" },
-  { label: "Deep Review", href: "/plans/deep-review", description: "Cause-level diagnosis.", price: "$497" },
-  { label: "Build Fix", href: "/plans/build-fix", description: "Scoped implementation.", price: "$1,497" },
-  { label: "Ongoing Control", href: "/plans/ongoing-control", description: "Monthly decision support.", price: "$597/mo" },
+  { label: "Scan", href: "/free-check", description: "First market signal before paid depth.", price: "$0" },
+  { label: "Diagnose", href: "/plans/deep-review", description: "Cause-level proof.", price: "$497" },
+  { label: "Fix", href: "/plans/build-fix", description: "Scoped improvement.", price: "$1,497" },
+  { label: "Control", href: "/plans/ongoing-control", description: "Monthly command.", price: "$597/mo" },
 ];
 
 const FOOTER_LINKS: readonly FooterLinkItem[] = [
-  { label: "Pricing", href: "/plans" },
+  { label: "Command path", href: "/plans" },
   { label: "Dashboard", href: "/dashboard" },
   { label: "Support", href: "/dashboard/support" },
-  { label: "Contact", href: "/connect" },
+  { label: "Connect", href: "/connect" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
 ];
@@ -36,8 +36,8 @@ export function SiteFooter() {
   return (
     <footer className="relative border-t border-cyan-300/10 bg-slate-950" aria-label="Site footer">
       <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-6">
-        <div className="relative overflow-hidden rounded-[1.35rem] border border-cyan-300/14 bg-[radial-gradient(circle_at_top_left,rgba(103,232,249,0.1),transparent_30%),linear-gradient(135deg,rgba(8,47,73,0.42),rgba(2,8,23,0.96)_50%,rgba(15,23,42,0.88))] p-4 shadow-[0_20px_70px_rgba(2,8,23,0.38)] sm:p-5">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/55 to-transparent" />
+        <div className="relative overflow-hidden rounded-[1.45rem] border border-cyan-300/14 bg-[radial-gradient(circle_at_top_left,rgba(103,232,249,0.12),transparent_30%),linear-gradient(135deg,rgba(8,47,73,0.46),rgba(2,8,23,0.96)_50%,rgba(15,23,42,0.88))] p-4 shadow-[0_24px_86px_rgba(2,8,23,0.44)] sm:p-5">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/65 to-transparent" />
           <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
             <div>
               <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-3 text-white transition hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -45,17 +45,17 @@ export function SiteFooter() {
                 <span className="text-lg font-semibold tracking-[0.08em]">{BRAND_NAME}</span>
               </Link>
               <h2 className="mt-4 max-w-xl text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                Start with the right read before buying the wrong fix.
+                Own how the market understands your business.
               </h2>
               <p className="mt-2 max-w-lg text-sm leading-6 text-slate-300">
-                Free Scan gives a first signal. Paid plans only add depth when the stage fits.
+                Start with a real signal. Move deeper only when the command stage fits.
               </p>
               <div className="mt-4 flex flex-col gap-2 sm:flex-row">
                 <Link href="/free-check" className="inline-flex min-h-10 items-center justify-center rounded-2xl bg-cyan-300 px-5 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
                   Start Free Scan
                 </Link>
                 <Link href="/plans" className="inline-flex min-h-10 items-center justify-center rounded-2xl border border-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                  Compare plans
+                  Compare command path
                 </Link>
               </div>
             </div>
@@ -81,9 +81,9 @@ export function SiteFooter() {
                 </Link>
               ))}
             </nav>
-            <p className="text-xs leading-5 text-slate-500">© {year} {BRAND_NAME}. Free Scan is not full diagnosis, implementation, or monthly control.</p>
+            <p className="text-xs leading-5 text-slate-500">© {year} {BRAND_NAME}. Scan is not full diagnosis, implementation, or monthly control.</p>
           </div>
-          <p className="sr-only">Slim footer block. Footer no longer uses bulky plan cards. Customer-facing footer keeps Free Scan, Deep Review, Build Fix, Ongoing Control boundaries clear.</p>
+          <p className="sr-only">Market command footer. Scan. Diagnose. Fix. Control. Customer-facing footer keeps Free Scan, Deep Review, Build Fix, and Ongoing Control boundaries clear.</p>
         </div>
       </div>
     </footer>
