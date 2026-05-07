@@ -10,8 +10,8 @@ import {
 import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES } from "@/lib/plan-value-delivery-architecture";
 
 export const metadata = buildMetadata({
-  title: "Billing command center | Cendorq",
-  description: "Your private Cendorq billing command center for plan access, invoices, command depth, and safe recovery.",
+  title: "Market command depth | Cendorq",
+  description: "Your private Cendorq billing command center for market access, invoices, command depth, and safe recovery.",
   path: "/dashboard/billing",
   noIndex: true,
 });
@@ -29,7 +29,7 @@ const ONGOING_CONTROL = getPaidCendorqPlanPrice("ongoing-control");
 const BILLING_STATUS = [
   { label: "Current access", value: "Free Scan + protected workspace", detail: "Paid command depth appears here after checkout, activation, or subscription state changes." },
   { label: "Next command", value: "Diagnose", detail: "Use Deep Review before bigger fixes when the cause is still uncertain." },
-  { label: "Billing safety", value: "No secrets in support", detail: "Never send card numbers, passwords, private keys, bank details, or tokens in messages." },
+  { label: "Safety", value: "No private payment details", detail: "Support can help without card numbers, private keys, bank details, passwords, or tokens." },
 ] as const;
 
 const PAID_PLAN_COMMANDS = [
@@ -80,13 +80,13 @@ const PAID_PLAN_COMMANDS = [
 
 const BILLING_ACTIONS = [
   { title: "Compare command depth", href: "/plans", copy: "Choose Scan, Diagnose, Fix, or Control only when the stage fits." },
-  { title: "Open notifications", href: "/dashboard/notifications", copy: "See what Cendorq needs next without searching through every page." },
-  { title: "Ask billing support", href: "/dashboard/support", copy: "Resolve billing or access issues without sending private payment details." },
+  { title: "Open signal feed", href: "/dashboard/notifications", copy: "See what Cendorq needs next without searching through every page." },
+  { title: "Ask billing support", href: "/dashboard/support", copy: "Resolve access issues without sending private payment details." },
 ] as const;
 
 const BILLING_SAFETY_RULES = [
   "Billing should show a safe customer projection, not raw provider payloads or internal IDs.",
-  "Failed-payment and invoice recovery should feel calm, clear, and recoverable with no fake urgency.",
+  "Recovery should feel calm, clear, and recoverable with no fake urgency.",
   "Plan guidance must separate current access, pending actions, and future command depth.",
   "Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
 ] as const;
@@ -94,18 +94,18 @@ const BILLING_SAFETY_RULES = [
 export default function BillingPage() {
   return (
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-24 pt-5 text-white sm:px-6 md:py-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(103,232,249,0.12),transparent_34%),radial-gradient(circle_at_84%_12%,rgba(14,165,233,0.08),transparent_30%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(103,232,249,0.14),transparent_34%),radial-gradient(circle_at_84%_12%,rgba(14,165,233,0.1),transparent_30%)]" />
 
-      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.65rem] p-4 shadow-[0_30px_120px_rgba(2,8,23,0.48)] sm:rounded-[1.85rem] sm:p-8">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
+      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.8rem] p-4 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/80 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Billing command center</p>
+            <p className="text-sm font-semibold text-cyan-100">Market command depth</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
               Know what is active, what unlocked, and what depth comes next.
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              Billing is not a receipt drawer. It is the control point for access, boundaries, recovery, and the next command depth.
+              Billing is the command-depth control point: access, boundaries, recovery, and the next market move.
             </p>
           </div>
           <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:p-5">
@@ -121,7 +121,7 @@ export default function BillingPage() {
 
       <section className="relative z-10 mt-5 grid gap-3 md:grid-cols-3" aria-label="Billing status summary">
         {BILLING_STATUS.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.2rem] p-4 sm:rounded-[1.35rem] sm:p-5">
+          <article key={item.label} className="system-surface rounded-[1.35rem] p-4 sm:p-5">
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{item.label}</div>
             <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
             <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
@@ -129,26 +129,26 @@ export default function BillingPage() {
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.7rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.88)_48%,rgba(14,116,144,0.24))] p-4 shadow-[0_28px_100px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Paid command depth system">
+      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.8rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.74),rgba(2,8,23,0.9)_48%,rgba(14,116,144,0.26))] p-4 shadow-[0_30px_110px_rgba(2,8,23,0.44)] sm:p-7" aria-label="Paid command depth system">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-semibold text-cyan-100">Paid command depth</p>
-            <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-4xl">
-              Payment should unlock the right control layer, not just a line item.
+            <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-5xl">
+              Payment should unlock the right command layer.
             </h2>
           </div>
           <Link href="/dashboard/support" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             Billing support →
           </Link>
         </div>
-        <div className="mt-5 divide-y divide-white/10 rounded-[1.2rem] border border-white/10 bg-slate-950/48">
+        <div className="mt-6 divide-y divide-white/10 rounded-[1.35rem] border border-white/10 bg-slate-950/48">
           {PAID_PLAN_COMMANDS.map((item) => (
-            <Link key={item.planKey} href={item.plan.checkoutPath} className="group grid gap-3 px-4 py-4 transition hover:bg-cyan-300/[0.06] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[10rem_1fr_auto] sm:items-center sm:px-5">
+            <Link key={item.planKey} href={item.plan.checkoutPath} className="group grid gap-3 px-4 py-5 transition hover:bg-cyan-300/[0.06] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[10rem_1fr_auto] sm:items-center sm:px-5">
               <div>
-                <div className="text-2xl font-semibold tracking-tight text-white">{item.command}</div>
+                <div className="text-3xl font-semibold tracking-tight text-white">{item.command}</div>
                 <div className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100/75">{item.title}</div>
               </div>
-              <p className="text-sm leading-6 text-slate-300">{item.activation}</p>
+              <p className="max-w-2xl text-sm leading-6 text-slate-300">{item.activation}</p>
               <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
                 <div className="text-sm font-semibold text-cyan-100">{item.plan.price}</div>
                 <span className="mt-1 inline-flex text-sm font-semibold text-cyan-100 transition group-hover:text-white">Open checkout →</span>
@@ -160,16 +160,16 @@ export default function BillingPage() {
 
       <section className="relative z-10 mt-7 grid gap-3 md:grid-cols-3" aria-label="Billing support actions">
         {BILLING_ACTIONS.map((item) => (
-          <Link key={item.href} href={item.href} className="system-surface rounded-[1.25rem] p-4 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
+          <Link key={item.href} href={item.href} className="system-surface rounded-[1.35rem] p-4 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
             <h3 className="text-xl font-semibold tracking-tight text-white">{item.title}</h3>
             <p className="mt-3 text-sm leading-6 text-slate-300">{item.copy}</p>
           </Link>
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[1.45rem] border border-white/10 bg-white/[0.035] p-4 sm:p-5" aria-label="Billing safety standard">
+      <section className="relative z-10 mt-7 rounded-[1.55rem] border border-white/10 bg-white/[0.035] p-4 sm:p-5" aria-label="Billing safety standard">
         <p className="text-sm font-semibold text-cyan-100">Billing safety standard</p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Money moments should feel calm, exact, and recoverable.</h2>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-4xl">Money moments should feel calm, exact, and recoverable.</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {BILLING_SAFETY_RULES.map((rule) => (
             <p key={rule} className="rounded-[1rem] border border-white/10 bg-black/20 p-3 text-xs leading-6 text-slate-300">{rule}</p>
@@ -178,7 +178,7 @@ export default function BillingPage() {
       </section>
 
       <section className="sr-only" aria-label="Billing command standard">
-        Billing command center. Know what is active, what unlocked, and what depth comes next. Billing is the control point for access, boundaries, recovery, and the next command depth. Current access. Next command. Billing safety. Paid command depth. Diagnose. Fix. Control. Payment should unlock the right control layer, not just a line item. No secrets in support. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Market command depth. Billing command center. Know what is active, what unlocked, and what depth comes next. Billing is the command-depth control point for access, boundaries, recovery, and the next market move. Current access. Next command. Safety. Paid command depth. Diagnose. Fix. Control. Payment should unlock the right command layer. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
