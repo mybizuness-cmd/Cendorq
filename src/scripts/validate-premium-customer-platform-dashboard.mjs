@@ -12,7 +12,7 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-premium-customer-platform-dashboard.mjs";
 
 expect(dashboardPath, [
-  "Premium customer platform dashboard",
+  "Customer platform dashboard",
   "Private business command center",
   "Know what is ready, what is blocked, and what moves revenue next.",
   "This dashboard is not an account page.",
@@ -46,7 +46,7 @@ expect(actionInboxPath, [
 ]);
 
 expect(commandCenterPath, [
-  "Premium dashboard business command center",
+  "Dashboard business command center",
   "The dashboard should answer the customer’s next decision in seconds.",
   "I know what to do next.",
   "Every lane should lead somewhere useful.",
@@ -58,7 +58,7 @@ expect(commandCenterPath, [
 ]);
 
 expect(reentryPath, [
-  "Premium dashboard reentry",
+  "Dashboard reentry",
   "Leave and come back without losing the thread.",
   "No stranded side flows",
   "No restart journey",
@@ -73,6 +73,7 @@ expect(reentryPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
+  "Premium customer platform dashboard",
   "Customer revenue command path",
   "Revenue signals",
   "SCORECARDS",
@@ -93,6 +94,7 @@ forbidden(actionInboxPath, [
 ]);
 
 forbidden(commandCenterPath, [
+  "Premium dashboard business command center",
   "This is where the customer controls the business journey",
   "Customer controls:",
   "Cendorq guides:",
@@ -101,6 +103,7 @@ forbidden(commandCenterPath, [
 ]);
 
 forbidden(reentryPath, [
+  "Premium dashboard reentry",
   "Use the dashboard link in any Cendorq email",
   "Resume after session expiry",
   "Recover from support or billing",
@@ -113,12 +116,12 @@ boundedLength(commandCenterPath, 10000);
 boundedLength(reentryPath, 8000);
 
 if (failures.length) {
-  console.error("Premium customer platform dashboard validation failed:");
+  console.error("Customer platform dashboard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Premium customer platform dashboard validation passed with fewer stronger modules, customer-led language, and no internal labels.");
+console.log("Customer platform dashboard validation passed with fewer stronger modules, customer-led language, and no internal labels.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -142,7 +145,7 @@ function forbidden(path, phrases) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the premium dashboard standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the dashboard standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {
