@@ -13,8 +13,8 @@ import {
 } from "@/lib/paid-plan-report-delivery-operating-system";
 
 export const metadata = buildMetadata({
-  title: "Report vault | Cendorq",
-  description: "Your private Cendorq report vault for scan results, paid reports, confidence labels, versions, and next-plan guidance.",
+  title: "Visibility report vault | Cendorq",
+  description: "Your private Cendorq vault for visibility signals, approved reports, paid-report delivery, confidence labels, and next-plan guidance.",
   path: "/dashboard/reports",
   noIndex: true,
 });
@@ -35,12 +35,12 @@ const PAID_REPORT_BY_PLAN = Object.fromEntries(PAID_PLAN_REPORT_DELIVERY_OPERATI
 const REPORT_LIBRARY = [
   {
     planKey: "free-scan",
-    index: "01",
+    command: "Scan",
     reportType: "Free Scan result",
-    stage: "Ready first signal",
+    stage: "First signal",
     href: "/dashboard/reports/free-scan",
     cta: "Open result",
-    deliveryMeaning: "Use this to see the first visible customer-decision signal, confidence posture, limitations, and safest next move.",
+    deliveryMeaning: "Shows the first visible break in visibility, clarity, trust, or action with confidence limits and the safest next move.",
     notThis: "Not full diagnosis, implementation, monthly monitoring, or paid-report attachment delivery.",
     nextDecision: "Unlock Deep Review when the first signal matters enough that guessing would cost more than diagnosis.",
     deliveryChannel: "Dashboard-only protected result unless a separate export is approved later.",
@@ -48,12 +48,12 @@ const REPORT_LIBRARY = [
   },
   {
     planKey: "deep-review",
-    index: "02",
+    command: "Diagnose",
     reportType: "Deep Review report",
-    stage: "Paid diagnosis",
+    stage: "Cause-level proof",
     href: DEEP_REVIEW_PRICE.checkoutPath,
     cta: `Unlock ${DEEP_REVIEW_PRICE.price}`,
-    deliveryMeaning: "Use this when you need the real cause, priority, confidence, and recommendation before fixing the wrong thing.",
+    deliveryMeaning: "Explains why the business is not being found, trusted, or chosen before money is spent on the wrong fix.",
     notThis: "Not done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes.",
     nextDecision: "Use Build Fix only after the diagnosis identifies a scoped target ready for implementation.",
     deliveryChannel: paidDelivery("deep-review"),
@@ -61,12 +61,12 @@ const REPORT_LIBRARY = [
   },
   {
     planKey: "build-fix",
-    index: "03",
+    command: "Fix",
     reportType: "Build Fix summary",
-    stage: "Scoped delivery",
+    stage: "Scoped improvement",
     href: BUILD_FIX_PRICE.checkoutPath,
     cta: `Unlock ${BUILD_FIX_PRICE.price}`,
-    deliveryMeaning: "Use this to understand what changed, why it was in scope, and what still remains outside the fix.",
+    deliveryMeaning: "Shows what changed, why it mattered, and what still remains outside the approved fix.",
     notThis: "Not a full diagnostic report, unlimited site rebuild, recurring monitoring, or unapproved production work.",
     nextDecision: "Use Ongoing Control when the business needs recurring watch after the scoped improvement.",
     deliveryChannel: paidDelivery("build-fix"),
@@ -74,12 +74,12 @@ const REPORT_LIBRARY = [
   },
   {
     planKey: "ongoing-control",
-    index: "04",
+    command: "Control",
     reportType: "Ongoing Control monthly summary",
-    stage: "Recurring control",
+    stage: "Monthly visibility control",
     href: ONGOING_CONTROL_PRICE.checkoutPath,
     cta: `Start ${ONGOING_CONTROL_PRICE.price}`,
-    deliveryMeaning: "Use this to keep priorities, monthly review, alerts, trend awareness, and next decisions under control.",
+    deliveryMeaning: "Keeps priorities, alerts, trend awareness, and next decisions under control as search and competitors move.",
     notThis: "Not unlimited Build Fix, a full Deep Review every month, ad management, ranking guarantees, or guaranteed AI placement.",
     nextDecision: "Use Build Fix separately when monthly control identifies a concrete scoped improvement.",
     deliveryChannel: paidDelivery("ongoing-control"),
@@ -87,7 +87,7 @@ const REPORT_LIBRARY = [
   },
 ] as const satisfies readonly {
   planKey: PlanValueKey;
-  index: string;
+  command: string;
   reportType: string;
   stage: string;
   href: string;
@@ -100,20 +100,20 @@ const REPORT_LIBRARY = [
 }[];
 
 const REPORT_STATE = [
-  { label: "Ready", value: "Free Scan result", detail: "First signal is the only immediately actionable report type in this demo state." },
+  { label: "Ready", value: "Free Scan result", detail: "The first visibility signal is the only immediately actionable report type in this demo state." },
   { label: "Paid delivery", value: "Dashboard + email attachment", detail: "Deep Review, Build Fix, and Ongoing Control reports must appear in the vault and arrive by email with an approved PDF." },
-  { label: "Protected", value: "Customer vault", detail: "Reports stay behind customer ownership and verified access gates." },
+  { label: "Protected", value: "Customer vault", detail: "Visibility records stay behind customer ownership and verified access gates." },
 ] as const;
 
 const REPORT_ACTIONS = [
   { title: "Open Free Scan result", href: "/dashboard/reports/free-scan", value: "Read the first signal" },
   { title: "Ask report support", href: "/dashboard/support", value: "Question or correction" },
-  { title: "Compare plan depth", href: "/plans", value: "Choose the next stage" },
+  { title: "Compare command depth", href: "/plans", value: "Choose the next stage" },
 ] as const;
 
 const REPORT_VAULT_RULES = [
   "Pending, draft, or unavailable reports must never look final.",
-  "Free Scan, Deep Review, Build Fix, and Ongoing Control report types must remain visibly separate.",
+  "Scan, Diagnose, Fix, and Control report types must remain visibly separate.",
   "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF attachment.",
   "The vault must not expose internal notes, private records, or cross-customer data.",
 ] as const;
@@ -123,16 +123,16 @@ export default function ReportsVaultPage() {
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-5 text-white sm:px-6 md:py-10">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(103,232,249,0.12),transparent_32%),radial-gradient(circle_at_86%_8%,rgba(14,165,233,0.08),transparent_34%)]" />
 
-      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.55rem] p-4 shadow-[0_28px_110px_rgba(2,8,23,0.42)] sm:rounded-[1.8rem] sm:p-8">
+      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.65rem] p-4 shadow-[0_30px_120px_rgba(2,8,23,0.48)] sm:rounded-[1.85rem] sm:p-8">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Report vault</p>
+            <p className="text-sm font-semibold text-cyan-100">Visibility report vault</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
-              See every approved report in the dashboard, then recover paid reports from email.
+              Keep the proof of what the market can understand.
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              Free Scan stays as the protected first signal. Paid plan reports must be published in the vault and emailed with the approved customer-safe PDF attachment.
+              This vault stores the business visibility record: first signals, approved reports, paid delivery, confidence limits, and the next command decision.
             </p>
           </div>
           <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:p-5">
@@ -161,27 +161,25 @@ export default function ReportsVaultPage() {
           <div>
             <p className="text-sm font-semibold text-cyan-100">Separated report library</p>
             <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-4xl">
-              Four report types. Different delivery rules.
+              Scan. Diagnose. Fix. Control. Different proof for each stage.
             </h2>
           </div>
           <Link href="/dashboard" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             Back to dashboard →
           </Link>
         </div>
-        <div className="mt-5 grid gap-3 xl:grid-cols-4">
+        <div className="mt-5 divide-y divide-white/10 rounded-[1.2rem] border border-white/10 bg-slate-950/50">
           {REPORT_LIBRARY.map((report) => (
-            <Link key={report.planKey} href={report.href} className="group relative overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/60 p-5 transition hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/55 to-transparent" />
-              <div className="flex items-start justify-between gap-3">
-                <span className="text-3xl font-semibold tracking-tight text-cyan-100/80">{report.index}</span>
-                <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-100">{report.value.price}</span>
+            <Link key={report.planKey} href={report.href} className="group grid gap-3 px-4 py-4 transition hover:bg-cyan-300/[0.06] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[10rem_1fr_auto] sm:items-center sm:px-5">
+              <div>
+                <div className="text-2xl font-semibold tracking-tight text-white">{report.command}</div>
+                <div className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100/75">{report.reportType}</div>
               </div>
-              <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{report.stage}</p>
-              <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white">{report.reportType}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-300">{report.deliveryMeaning}</p>
-              <p className="mt-4 rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.07] p-3 text-xs leading-5 text-cyan-50">Delivery: {report.deliveryChannel}</p>
-              <p className="mt-3 rounded-[1rem] border border-white/10 bg-black/20 p-3 text-xs leading-5 text-slate-400">{report.notThis}</p>
-              <span className="mt-5 inline-flex text-sm font-semibold text-cyan-100 transition group-hover:text-white">{report.cta} →</span>
+              <p className="text-sm leading-6 text-slate-300">{report.deliveryMeaning}</p>
+              <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
+                <div className="text-sm font-semibold text-cyan-100">{report.value.price}</div>
+                <span className="mt-1 inline-flex text-sm font-semibold text-cyan-100 transition group-hover:text-white">{report.cta} →</span>
+              </div>
             </Link>
           ))}
         </div>
@@ -207,7 +205,7 @@ export default function ReportsVaultPage() {
       </section>
 
       <section className="sr-only" aria-label="Report vault guardrails">
-        Report vault. Paid plan report delivery operating system. See every approved report in the dashboard, then recover paid reports from email. Dashboard plus attachment. Every paid plan report must have a dashboard copy at /dashboard/reports. Every paid plan report delivery email must include the approved customer-safe report PDF as an attachment. Four report types. Different delivery rules. Free Scan result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Useful only when report depth and delivery are impossible to confuse. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Visibility report vault. Paid plan report delivery operating system. Keep the proof of what the market can understand. Dashboard plus attachment. Every paid plan report must have a dashboard copy at /dashboard/reports. Every paid plan report delivery email must include the approved customer-safe report PDF as an attachment. Scan. Diagnose. Fix. Control. Different proof for each stage. Free Scan result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Useful only when report depth and delivery are impossible to confuse. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
