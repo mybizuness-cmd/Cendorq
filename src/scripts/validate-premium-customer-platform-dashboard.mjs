@@ -12,21 +12,21 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-premium-customer-platform-dashboard.mjs";
 
 expect(dashboardPath, [
-  "Premium customer platform dashboard",
-  "Private business command center",
-  "Know what is ready, what is blocked, and what moves revenue next.",
-  "This dashboard is not an account page.",
+  "Visibility command center",
+  "Private visibility command center",
+  "Know what the market can see, trust, and act on next.",
+  "This is not an account page.",
   "Next best move",
   "Finish the first signal.",
   "Dashboard decision summary",
   "Command path",
-  "Four levels. Four different jobs. One dashboard decision.",
+  "Scan. Diagnose. Fix. Control.",
   "Dashboard command links",
   "No cheap dashboard blocks",
   "No clutter wall",
   "No internal conversion role labels",
   "hover:-translate-y-0.5",
-  "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
+  "shadow-[0_30px_120px_rgba(2,8,23,0.48)]",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -73,6 +73,8 @@ expect(reentryPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
+  "Premium customer platform dashboard",
+  "Private business command center",
   "Customer revenue command path",
   "Revenue signals",
   "SCORECARDS",
@@ -113,12 +115,12 @@ boundedLength(commandCenterPath, 10000);
 boundedLength(reentryPath, 8000);
 
 if (failures.length) {
-  console.error("Premium customer platform dashboard validation failed:");
+  console.error("Customer platform dashboard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Premium customer platform dashboard validation passed with fewer stronger modules, customer-led language, and no internal labels.");
+console.log("Customer platform dashboard validation passed with command center language, customer-led modules, and no internal labels.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -142,7 +144,7 @@ function forbidden(path, phrases) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the premium dashboard standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the dashboard command standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {
