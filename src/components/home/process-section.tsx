@@ -2,7 +2,7 @@ const processSteps = [
     {
         title: "Structured entry",
         copy:
-            "The Search Presence Scan opens with a cleaner, lower-friction path so strong prospects are not lost before they begin.",
+            "The Free Scan opens with a cleaner, lower-friction path so strong prospects are not lost before they begin.",
     },
     {
         title: "Signal interpretation",

@@ -1,6 +1,6 @@
 # Cendorq Visual Quality Checklist
 
-Use this checklist for public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and premium-feel changes.
+Use this checklist for public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and command-grade experience changes.
 
 The goal is simple: keep Cendorq calm, polished, readable, and easy to choose.
 
@@ -21,7 +21,7 @@ Protect the core path:
 
 Before merging visual changes, confirm:
 
-- The page still feels premium, calm, and direct.
+- The page still feels polished, calm, and direct.
 - The primary action remains visually clear.
 - Section hierarchy is easy to scan.
 - Spacing is consistent across sections.

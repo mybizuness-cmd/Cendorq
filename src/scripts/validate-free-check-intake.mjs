@@ -111,7 +111,7 @@ expect("src/app/free-check/page.tsx", [
 expect("src/components/free-check/guided-free-check-form-v2.tsx", [
   "source: \"free-check\"",
   "Submit free scan",
-  "Premium free scan",
+  "Command free scan",
   "Scan received · verify to view",
   "Confirm your email to open your results.",
   "requestFreeScanVerifyToViewHandoff",

@@ -13,8 +13,8 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-premium-plan-blocks-free-scan-flow.mjs";
 
 expect(homepagePath, [
-  "Premium plan blocks",
-  "Premium plan stage system",
+  "Visibility command path",
+  "Scan. Diagnose. Fix. Control.",
   "Four levels. Four different jobs. No cheap bundle confusion.",
   "Remove useless final boundary block before footer",
   "Plan path",
@@ -30,9 +30,9 @@ expect(homepagePath, [
 ]);
 
 expect(plansPath, [
-  "Premium pricing decision system",
+  "Visibility command path",
   "Buy the right depth. Nothing extra. Nothing vague.",
-  "Four premium pricing cards",
+  "Each plan buys a different level of control.",
   "Each plan buys a different business action.",
   "First signal",
   "Cause-level diagnosis",
@@ -135,12 +135,12 @@ boundedLength(footerPath, 12500);
 boundedLength(planTemplatePath, 14500);
 
 if (failures.length) {
-  console.error("Premium plan blocks and Free Scan flow validation failed:");
+  console.error("Command plan blocks and Free Scan flow validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Premium plan blocks and Free Scan flow validation passed with stronger stage cards, premium pricing, higher form, stronger footer, and customer-led plan pages.");
+console.log("Command plan blocks and Free Scan flow validation passed with stronger stage cards, command pricing, higher form, stronger footer, and customer-led plan pages.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -164,7 +164,7 @@ function forbidden(path, phrases) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the premium visual-flow standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the command visual-flow standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {

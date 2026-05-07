@@ -268,7 +268,7 @@ The homepage has one job:
 
 Get the right customer to start the Free Scan.
 
-Keep it short, strong, premium, and conversion-focused. Every homepage block should either improve trust, clarity, desire, or action. If it does not, remove it or reduce it.
+Keep it short, strong, command-grade, and conversion-focused. Every homepage block should either improve trust, clarity, desire, or action. If it does not, remove it or reduce it.
 
 ## Internal command center rule
 

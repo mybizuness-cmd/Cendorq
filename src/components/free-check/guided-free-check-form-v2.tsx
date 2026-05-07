@@ -235,7 +235,7 @@ export function GuidedFreeCheckForm({ className }: { className?: string }) {
               <div>
                 <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
                   <span className="system-pulse-dot inline-flex h-2 w-2 rounded-full bg-cyan-300" />
-                  Premium free scan
+                  Command free scan
                 </div>
                 <h2 className="mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">{activeStep.title}</h2>
                 <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">{activeStep.copy}</p>

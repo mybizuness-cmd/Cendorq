@@ -9,7 +9,7 @@ const introReadouts = [
   },
   {
     label: "Likely next layer",
-    value: "Visibility Blueprint",
+    value: "Deep Review",
   },
 ] as const;
 
@@ -18,7 +18,7 @@ export function FreeCheckIntro() {
     <section className="relative z-10 mx-auto max-w-7xl px-4 pt-12 sm:px-6 md:pt-16 xl:pt-20">
       <div className="max-w-5xl">
         <div className="system-chip inline-flex items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-          Search Presence Scan
+          Free Scan
         </div>
 
         <h1 className="system-hero-title mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-7xl">
@@ -29,7 +29,7 @@ export function FreeCheckIntro() {
         </h1>
 
         <p className="mt-6 max-w-4xl text-base leading-8 text-slate-300 sm:text-lg">
-          Search Presence Scan is the controlled entry layer inside Cendorq. It is built to help real business owners understand whether trust, clarity, positioning, action friction, discoverability, or recommendation visibility weakness may be suppressing results before stronger pressure gets applied.
+          Free Scan is the controlled entry layer inside Cendorq. It is built to help real business owners understand whether trust, clarity, positioning, action friction, discoverability, or recommendation visibility weakness may be suppressing results before stronger pressure gets applied.
         </p>
 
         <p className="mt-5 max-w-4xl text-base leading-8 text-slate-300 sm:text-lg">

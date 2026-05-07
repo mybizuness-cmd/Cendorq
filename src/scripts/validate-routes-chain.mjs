@@ -10,6 +10,7 @@ const validators = [
 
 const documentedValidatorCoverage = [
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
+  "src/scripts/validate-public-homepage-command-surface.mjs",
   "src/scripts/validate-public-plans-excellence.mjs",
   "src/scripts/validate-public-entry-plan-journey.mjs",
   "src/scripts/validate-homepage-public-frame-elevation.mjs",

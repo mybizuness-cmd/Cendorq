@@ -2,19 +2,19 @@ import { buildMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Search Presence Scan",
+  title: "Free Scan",
   description:
-    "Start with Cendorq's Search Presence Scan to capture a serious first signal around trust, clarity, positioning, and action before the business buys the wrong next step.",
+    "Start with Cendorq's Free Scan to capture a serious first signal around trust, clarity, positioning, and action before the business buys the wrong next step.",
   path: "/free-check",
   keywords: [
-    "search presence scan",
+    "free scan",
     "business first signal",
     "trust clarity positioning scan",
     "search presence diagnosis",
     "business signal analysis",
     "first-step business diagnosis"
   ],
-  imageTitle: "Search Presence Scan",
+  imageTitle: "Free Scan",
   imageSubtitle: "Capture the first serious business signal.",
 });
 

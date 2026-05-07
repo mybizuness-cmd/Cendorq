@@ -93,7 +93,7 @@ Before merging a production change:
   - Build Fix
   - Ongoing Control
   - Connect
-- Confirm public copy is plain, premium, clear, credible, powerful, and easy to choose.
+- Confirm public copy is plain, command-grade, clear, credible, powerful, and easy to choose.
 - Confirm no old public labels were revived in active public surfaces.
 - Confirm closed intelligence was checked for private scoring, private reports, AI-agent prompts, client evidence, direct database exposure, public report indexes, or public evidence indexes.
 - Confirm data quality was checked for source labels, confidence, freshness, evidence, self-reported data, externally observed data, AI-generated data, and human-reviewed data.

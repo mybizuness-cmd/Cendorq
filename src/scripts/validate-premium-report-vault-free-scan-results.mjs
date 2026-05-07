@@ -10,12 +10,12 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-premium-report-vault-free-scan-results.mjs";
 
 expect(reportVaultPath, [
-  "Premium report vault",
+  "Visibility report vault",
   "Proof layer",
   "See the proof layer without confusing report types.",
   "The vault should feel like intelligence, not storage.",
   "Report state summary",
-  "Premium separated report library",
+  "Separated report library",
   "Four report types. Four different customer decisions.",
   "Free Scan result",
   "Deep Review report",
@@ -29,7 +29,7 @@ expect(reportVaultPath, [
 ]);
 
 expect(freeScanResultPath, [
-  "Premium Free Scan result",
+  "Protected dashboard result",
   "Protected dashboard result",
   "Dashboard-only Free Scan result route",
   "Free Scan result page must remain under /dashboard/reports/free-scan and not public.",
@@ -81,12 +81,12 @@ boundedLength(reportVaultPath, 14500);
 boundedLength(freeScanResultPath, 14500);
 
 if (failures.length) {
-  console.error("Premium report vault and Free Scan result validation failed:");
+  console.error("Command report vault and Free Scan result validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Premium report vault and Free Scan result validation passed with dashboard-only result route and clear report type separation.");
+console.log("Command report vault and Free Scan result validation passed with dashboard-only result route and clear report type separation.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -116,7 +116,7 @@ function forbiddenPathFragments(paths) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the premium report standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the command report standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {

@@ -55,7 +55,7 @@ expect(checkoutSuccessPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(billingPath, [
-  "Premium billing command center",
+  "Plan billing command center",
   "Billing plan activation matrix",
   "Checkout should unlock the right workflow, not just a receipt.",
   "BILLING_PLAN_ACTIVATION",
@@ -66,7 +66,7 @@ forbidden(billingPath, [
 ]);
 
 forbidden(checkoutSuccessPath, [
-  "Premium checkout success activation",
+  "Legacy checkout success activation",
   "Plan-aware checkout success",
   "What happens after checkout",
   "1. Dashboard updates",

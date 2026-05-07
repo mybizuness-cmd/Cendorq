@@ -14,7 +14,7 @@ export default function FreeCheckErrorPage({
     reset,
 }: FreeCheckErrorPageProps) {
     useEffect(() => {
-        console.error("Search Presence Scan route error:", error);
+        console.error("Free Scan route error:", error);
     }, [error]);
 
     const reference =
@@ -28,7 +28,7 @@ export default function FreeCheckErrorPage({
 
             <section className="relative z-10 grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
                 <div>
-                    <TopChip>Search Presence Scan interruption</TopChip>
+                    <TopChip>Free Scan interruption</TopChip>
 
                     <h1 className="system-hero-title mt-5 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
                         The intake route hit a problem,
@@ -58,14 +58,14 @@ export default function FreeCheckErrorPage({
                         </h2>
 
                         <p className="mt-4 text-sm leading-7 text-slate-300">
-                            The search presence scan is the first serious signal layer in the system, so
+                            The Free Scan is the first serious signal layer in the system, so
                             it should stay clean, stable, and trustworthy. When this route
                             fails, the right move is not random clicking. The right move is to
                             retry once, then re-enter through a stable path if needed.
                         </p>
 
                         <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                            <GuideTile label="Route state" value="Search Presence Scan failure captured" />
+                            <GuideTile label="Route state" value="Free Scan failure captured" />
                             <GuideTile label="Best reading rule" value="Retry cleanly, then re-enter" />
                         </div>
                     </div>
@@ -86,7 +86,7 @@ export default function FreeCheckErrorPage({
                                     </div>
 
                                     <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                                        Search Presence Scan recovery options
+                                        Free Scan recovery options
                                     </h2>
 
                                     <p className="mt-2 max-w-xl text-sm leading-7 text-slate-300">
@@ -109,7 +109,7 @@ export default function FreeCheckErrorPage({
                                             onClick={reset}
                                             className="system-button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition"
                                         >
-                                            Retry search presence scan
+                                            Retry Free Scan
                                         </button>
                                     }
                                 />

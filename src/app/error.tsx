@@ -29,7 +29,7 @@ type RecoveryOption =
 type Severity = "route-isolated" | "request-layer" | "asset-layer" | "unknown";
 
 const BRAND_NAME = "Cendorq";
-const CATEGORY_LINE = "Search Presence OS";
+const CATEGORY_LINE = "Business Visibility Command";
 
 const ROUTE_READOUTS = [
     {
@@ -64,7 +64,7 @@ const FAILURE_REASONS = [
     {
         title: "A structured retry is stronger than blind navigation.",
         copy:
-            "Retrying once is the cleanest first action. If the same route keeps failing, the strongest fallback is to return to the homepage, the Search Presence Scan, or the system-path layer.",
+            "Retrying once is the cleanest first action. If the same route keeps failing, the strongest fallback is to return to the homepage, the Free Scan, or the command-path layer.",
     },
 ] as const;
 
@@ -77,7 +77,7 @@ const RECOVERY_RULES = [
     {
         title: "If the route fails again, step back into the main system path.",
         copy:
-            "The homepage, Search Presence Scan, Diagnosis, and Pricing routes are the cleanest system re-entry points when a single route becomes unreliable.",
+            "The homepage, Free Scan, Deep Review, and Plans routes are the cleanest system re-entry points when a single route becomes unreliable.",
     },
     {
         title: "Do not confuse route failure with business-path failure.",
@@ -107,11 +107,11 @@ const RECOVERY_OPTIONS: readonly RecoveryOption[] = [
     {
         kind: "link",
         label: "Restart with first signal",
-        title: "Use Search Presence Scan",
+        title: "Use Free Scan",
         copy:
             "If the original goal was to start the platform properly, the strongest structured restart is usually the first serious signal layer.",
         href: "/free-check",
-        cta: "Start Search Presence Scan",
+        cta: "Start Free Scan",
     },
     {
         kind: "link",
@@ -151,10 +151,10 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
         }
 
         if (severity === "request-layer") {
-            return "Retry once, then use Search Presence Scan or the homepage as the clean fallback route.";
+            return "Retry once, then use Free Scan or the homepage as the clean fallback route.";
         }
 
-        return "Retry once, then re-enter through the homepage or Search Presence Scan rather than guessing through unrelated pages.";
+        return "Retry once, then re-enter through the homepage or Free Scan rather than guessing through unrelated pages.";
     }, [severity]);
 
     function handleRetry() {
@@ -325,7 +325,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                             </p>
                             <p className="mt-3 text-sm leading-7 text-slate-200">
                                 If the same route keeps failing after a clean retry, step back into
-                                the homepage, Search Presence Scan, or the system explanation layer
+                                the homepage, Free Scan, or the command explanation layer
                                 instead of cycling through random pages.
                             </p>
                         </div>
