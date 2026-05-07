@@ -42,19 +42,22 @@ expect(componentPath, [
 ]);
 
 expect(plansPath, [
-  "Choose the depth that can move revenue next.",
-  "fixed price",
-  "CENDORQ_PLAN_PRICES",
-  "Start free scan",
+  "Visibility command path",
+  "Choose the depth that matches the business risk.",
+  "Scan first. Diagnose when the cause matters. Fix only when the target is clear. Keep control when visibility, trust, and customer choice need monthly attention.",
+  "Scan",
+  "Diagnose",
+  "Fix",
+  "Control",
+  "Start Free Scan",
   "Unlock Deep Review",
   "Unlock Build Fix",
   "Start Ongoing Control",
-  "Final fixed plan prices",
+  "Each plan buys a different level of control.",
   "Free Scan $0",
   "Deep Review $497",
   "Build Fix $1,497",
   "Ongoing Control $597/mo",
-  "Plans handoff runtime integration",
 ]);
 
 expect(checkoutStartPath, [
@@ -65,13 +68,14 @@ expect(checkoutStartPath, [
 ]);
 
 expect(checkoutSuccessPath, [
-  "Checkout complete | Cendorq",
+  "Command activated | Cendorq",
   "Payment complete",
-  "Post-payment dashboard activation",
-  "Plan entitlement",
-  "Billing record",
-  "Dashboard notification",
-  "Backend work queue",
+  "Activate the command path",
+  "Payment is complete. The command path starts now.",
+  "Command activation",
+  "Diagnose",
+  "Fix",
+  "Control",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -93,15 +97,15 @@ boundedLength(componentPath, 15500);
 boundedLength(plansPath, 16000);
 
 forbidden(componentPath, blockedPlanPhrases());
-forbidden(plansPath, [...blockedPlanPhrases(), "$750+", "$300/mo", "starting at", "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious."]);
+forbidden(plansPath, [...blockedPlanPhrases(), "$750+", "$300/mo", "starting at", "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious.", "Choose the depth that can move revenue next."]);
 
 if (failures.length) {
-  console.error("Public plans simplified excellence validation failed:");
+  console.error("Public plans command alignment validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Public plans simplified excellence validation passed with final fixed prices, checkout orchestration, visible pricing, shorter plan detail pages, hidden platform handoff guardrails, route-chain coverage, and owner posture coverage.");
+console.log("Public plans command alignment validation passed with Scan, Diagnose, Fix, Control positioning and command activation checkout success.");
 
 function blockedPlanPhrases() {
   return [
