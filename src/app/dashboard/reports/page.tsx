@@ -115,7 +115,7 @@ const REPORT_VAULT_RULES = [
   "Pending, draft, or unavailable reports must never look final.",
   "Free Scan, Deep Review, Build Fix, and Ongoing Control report types must remain visibly separate.",
   "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF attachment.",
-  "The vault must not expose private payloads, internal notes, prompts, secrets, or cross-customer data.",
+  "The vault must not expose internal notes, private records, or cross-customer data.",
 ] as const;
 
 export default function ReportsVaultPage() {

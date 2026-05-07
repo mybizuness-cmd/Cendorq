@@ -33,7 +33,7 @@ export default function SupportRequestPage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Support routing protected intake</p>
+            <p className="text-sm font-semibold text-cyan-100">Protected support intake</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">Send the safe summary that moves the blocker forward.</h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
               Support intake should collect enough context to help without turning into a private data dump, duplicate request loop, or plan-expansion shortcut.
@@ -78,8 +78,8 @@ export default function SupportRequestPage() {
         </aside>
       </section>
 
-      <section className="sr-only" aria-label="Support routing request guardrails">
-        Support routing protected intake. Send the safe summary that moves the blocker forward. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No plan-expansion shortcut. Track status first. {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}
+      <section className="sr-only" aria-label="Support request guardrails">
+        Protected support intake. Send the safe summary that moves the blocker forward. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No plan-expansion shortcut. Track status first. {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}
       </section>
     </main>
   );

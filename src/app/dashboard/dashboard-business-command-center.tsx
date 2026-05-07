@@ -85,7 +85,7 @@ export function DashboardBusinessCommandCenter() {
             ))}
           </div>
         </div>
-        <div className="sr-only">Premium dashboard business command center. The dashboard should answer the customer’s next decision in seconds. I know what to do next. No internal documentation wall. Every lane should lead somewhere useful.</div>
+        <div className="sr-only">Dashboard business command center. The dashboard should answer the customer’s next decision in seconds. I know what to do next. No internal documentation wall. Every lane should lead somewhere useful.</div>
       </div>
     </section>
   );

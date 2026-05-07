@@ -146,7 +146,7 @@ export default function CustomerDashboardPage() {
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.7rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.88)_48%,rgba(14,116,144,0.24))] p-4 shadow-[0_28px_100px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Dashboard premium plan path">
+      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.7rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.88)_48%,rgba(14,116,144,0.24))] p-4 shadow-[0_28px_100px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Dashboard plan path">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-semibold text-cyan-100">Command path</p>
@@ -188,8 +188,8 @@ export default function CustomerDashboardPage() {
       <DashboardBusinessCommandCenter />
       <DashboardControlRoomReentry />
 
-      <section className="sr-only" aria-label="Private revenue command center validation guardrails">
-        Private customer platform dashboard. Private business command center. Know what is ready, what is blocked, and what moves revenue next. Next best move. Finish the first signal. Dashboard decision summary. Command path. Four levels. Four different jobs. One dashboard decision. Dashboard command links. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Report vault. Billing. Notifications. Support. {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_REVENUE_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+      <section className="sr-only" aria-label="Dashboard validation guardrails">
+        Customer platform dashboard. Private business command center. Know what is ready, what is blocked, and what moves revenue next. Next best move. Finish the first signal. Dashboard decision summary. Command path. Four levels. Four different jobs. One dashboard decision. Dashboard command links. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Report vault. Billing. Notifications. Support. {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_REVENUE_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );

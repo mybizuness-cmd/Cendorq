@@ -88,7 +88,7 @@ export default function NotificationCenterPage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Decision notifications</p>
+            <p className="text-sm font-semibold text-cyan-100">Notification command feed</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
               Act only on alerts that protect progress.
             </h1>
@@ -164,8 +164,8 @@ export default function NotificationCenterPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Decision notifications guardrails">
-        Decision notifications. Act only on alerts that protect progress. Notifications should feel calm and operational. Quiet priority feed. Four plan moments. One safe next action each. Alert routing types. Featured customer alerts. Quiet feed standard. Alerts should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
+      <section className="sr-only" aria-label="Notification command feed guardrails">
+        Notification command feed. Act only on alerts that protect progress. Notifications should feel calm and operational. Quiet priority feed. Four plan moments. One safe next action each. Alert routing types. Featured customer alerts. Quiet feed standard. Alerts should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
       </section>
     </main>
   );
