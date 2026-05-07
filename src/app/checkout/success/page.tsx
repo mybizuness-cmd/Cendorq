@@ -12,8 +12,8 @@ import {
 } from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
-  title: "Checkout complete | Cendorq",
-  description: "Your Cendorq plan is unlocked. See the next step for Deep Review, Build Fix, or Ongoing Control.",
+  title: "Command activated | Cendorq",
+  description: "Your Cendorq command depth is unlocked. Activate Diagnose, Fix, or Control from the protected dashboard.",
   path: "/checkout/success",
   noIndex: true,
 });
@@ -27,28 +27,31 @@ type CheckoutSuccessPageProps = {
   searchParams?: Promise<CheckoutSuccessSearchParams> | CheckoutSuccessSearchParams;
 };
 
-const PLAN_ACTIVATION_COPY: Record<CendorqPaidPlanKey, { activationLabel: string; dashboardCta: string; dashboardPath: string; unlockedState: string; boundaryReminder: string; customerMoment: string }> = {
+const PLAN_ACTIVATION_COPY: Record<CendorqPaidPlanKey, { command: string; activationLabel: string; dashboardCta: string; dashboardPath: string; unlockedState: string; boundaryReminder: string; customerMoment: string }> = {
   "deep-review": {
+    command: "Diagnose",
     activationLabel: "Diagnosis activation",
     dashboardCta: "Open report vault",
     dashboardPath: "/dashboard/reports",
-    unlockedState: "Deep Review is now the active paid depth. The next job is to confirm what Cendorq should diagnose first.",
+    unlockedState: "Diagnose is now active. The next job is to confirm what Cendorq should prove first.",
     boundaryReminder: "Deep Review unlocks cause-level diagnosis and decision clarity, not done-for-you implementation or recurring monitoring.",
     customerMoment: "You paid to understand the real reason before spending more money.",
   },
   "build-fix": {
-    activationLabel: "Implementation activation",
+    command: "Fix",
+    activationLabel: "Fix activation",
     dashboardCta: "Confirm fix scope",
     dashboardPath: "/dashboard/support/request",
-    unlockedState: "Build Fix is now the active paid depth. The next job is to confirm the scoped fix target and approved business details.",
+    unlockedState: "Fix is now active. The next job is to confirm the scoped target and approved business details.",
     boundaryReminder: "Build Fix unlocks scoped improvement work, not a full diagnostic report, unlimited site rebuild, or monthly control loop.",
     customerMoment: "You paid to improve a known weak point with bounded implementation work.",
   },
   "ongoing-control": {
-    activationLabel: "Monthly control activation",
+    command: "Control",
+    activationLabel: "Control activation",
     dashboardCta: "Choose monthly focus",
     dashboardPath: "/dashboard/billing",
-    unlockedState: "Ongoing Control is now the active paid depth. The next job is to choose the first monthly priority and monitoring scope.",
+    unlockedState: "Control is now active. The next job is to choose the first monthly priority and monitoring scope.",
     boundaryReminder: "Ongoing Control unlocks recurring monitoring and monthly decision support, not unlimited Build Fix work or guaranteed ranking/AI placement.",
     customerMoment: "You paid to keep the business watched, reviewed, and guided every month.",
   },
@@ -58,8 +61,8 @@ const PAID_REPORT_DELIVERY_CONFIRMATION =
   "Paid report delivery confirmation: every paid report must appear in the dashboard report vault and be delivered by email with the approved PDF attachment.";
 
 const ACTIVATION_STEPS = [
-  { label: "Payment", value: "Complete", detail: "The plan can now attach to the protected workspace." },
-  { label: "Workspace", value: "Updated", detail: "Dashboard, billing, notifications, and support should point to the same plan boundary." },
+  { label: "Payment", value: "Complete", detail: "The command depth can now attach to the protected workspace." },
+  { label: "Workspace", value: "Updated", detail: "Dashboard, billing, notifications, and support should point to the same boundary." },
   { label: "Next action", value: "Required", detail: "Cendorq still needs the right customer context before delivery can begin." },
 ] as const;
 
@@ -80,16 +83,16 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
     <main className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-24 pt-5 text-white sm:px-6 md:py-10">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_26%_0%,rgba(103,232,249,0.12),transparent_34%),radial-gradient(circle_at_88%_12%,rgba(14,165,233,0.08),transparent_30%)]" />
 
-      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.55rem] p-4 shadow-[0_28px_110px_rgba(2,8,23,0.42)] sm:rounded-[1.8rem] sm:p-8">
+      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.65rem] p-4 shadow-[0_30px_120px_rgba(2,8,23,0.48)] sm:rounded-[1.85rem] sm:p-8">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div>
             <p className="text-sm font-semibold text-cyan-100">Payment complete · {activation.activationLabel}</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
-              {plan.name} is unlocked. Now activate the work.
+              {activation.command} is unlocked. Activate the command path.
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              {activation.customerMoment} Cendorq now has to route the plan into the dashboard, preserve the boundary, and collect the context needed for delivery.
+              {activation.customerMoment} Cendorq now has to route the command into the dashboard, preserve the boundary, and collect the context needed for delivery.
             </p>
           </div>
           <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:p-5">
@@ -113,12 +116,12 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
         ))}
       </section>
 
-      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.7rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.88)_48%,rgba(14,116,144,0.24))] p-4 shadow-[0_28px_100px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Plan activation after payment">
+      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.7rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.88)_48%,rgba(14,116,144,0.24))] p-4 shadow-[0_28px_100px_rgba(2,8,23,0.42)] sm:p-7" aria-label="Command activation after payment">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-semibold text-cyan-100">Activation path</p>
             <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-4xl">
-              The purchase is complete. The delivery path starts now.
+              Payment is complete. The command path starts now.
             </h2>
           </div>
           <Link href="/dashboard/billing" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -132,7 +135,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
         </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-3 lg:grid-cols-2" aria-label="Plan value boundaries after payment">
+      <section className="relative z-10 mt-7 grid gap-3 lg:grid-cols-2" aria-label="Command value boundaries after payment">
         <BoundaryCard title="What this unlocks" items={planValue.includes.slice(0, 4)} tone="include" />
         <BoundaryCard title="What this does not unlock" items={planValue.doesNotInclude.slice(0, 4)} tone="exclude" />
       </section>
@@ -158,7 +161,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
       </section>
 
       <section className="sr-only" aria-label="Checkout success guardrails">
-        Checkout success activation. Payment complete. Plan unlocked. Now activate the work. Checkout should feel like activation into the platform, not a receipt. Payment should unlock a workflow, not just confirmation. Activation path. The purchase is complete. The delivery path starts now. Dashboard state. Workflow started. Confirmation email. What this unlocks. What this does not unlock. What Cendorq needs next. Paid report delivery confirmation. Every paid report must appear in the dashboard report vault and be delivered by email with the approved PDF attachment. session_id {sessionId}. Stripe session id. Final fixed plan prices. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Checkout success parity with billing. Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {planValue.customerName} {planValue.price} {planValue.primaryValue} {planValue.customerOutcome} {planValue.reportBoundary} {planValue.upgradeLogic} {activation.activationLabel} {activation.unlockedState} {activation.boundaryReminder} {PAID_REPORT_DELIVERY_CONFIRMATION} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {revenueStage.planName} {revenueStage.price} {revenueStage.businessPurpose} {revenueStage.conversionJob} {revenueStage.emailMoment} {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_CHECKOUT_METADATA_KEYS.join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
+        Command activation. Payment complete. Plan unlocked. Activate the command path. Payment should unlock a workflow, not just confirmation. Activation path. Payment is complete. The command path starts now. Dashboard state. Workflow started. Confirmation email. What this unlocks. What this does not unlock. What Cendorq needs next. Paid report delivery confirmation. Every paid report must appear in the dashboard report vault and be delivered by email with the approved PDF attachment. session_id {sessionId}. Stripe session id. Final fixed plan prices. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Checkout success parity with billing. Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {planValue.customerName} {planValue.price} {planValue.primaryValue} {planValue.customerOutcome} {planValue.reportBoundary} {planValue.upgradeLogic} {activation.command} {activation.activationLabel} {activation.unlockedState} {activation.boundaryReminder} {PAID_REPORT_DELIVERY_CONFIRMATION} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {revenueStage.planName} {revenueStage.price} {revenueStage.businessPurpose} {revenueStage.conversionJob} {revenueStage.emailMoment} {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_CHECKOUT_METADATA_KEYS.join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
       </section>
     </main>
   );
