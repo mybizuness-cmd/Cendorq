@@ -142,8 +142,8 @@ export default function PlansPage() {
         </p>
       </section>
 
-      <section className="sr-only" aria-label="Premium pricing decision system guardrails">
-        Premium pricing decision system. Buy the right depth. Nothing extra. Nothing vague. Four premium pricing cards. Free Scan $0. Deep Review $497. Build Fix $1,497. Ongoing Control $597/mo. First signal. Cause-level diagnosis. Scoped implementation. Monthly decision support. Each plan buys a different business action. No overlap. {PLAN_DECISION_STANDARDS.map((item) => `${item.title} ${item.best} ${item.copy}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PLANS_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+      <section className="sr-only" aria-label="Pricing decision system guardrails">
+        Pricing decision system. Buy the right depth. Nothing extra. Nothing vague. Four pricing cards. Free Scan $0. Deep Review $497. Build Fix $1,497. Ongoing Control $597/mo. First signal. Cause-level diagnosis. Scoped implementation. Monthly decision support. Each plan buys a different business action. No overlap. {PLAN_DECISION_STANDARDS.map((item) => `${item.title} ${item.best} ${item.copy}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PLANS_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
