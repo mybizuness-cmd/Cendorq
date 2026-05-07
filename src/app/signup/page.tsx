@@ -44,7 +44,7 @@ export default function SignupPage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="grid gap-6 lg:grid-cols-[1fr_22rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Premium signup trust surface</p>
+            <p className="text-sm font-semibold text-cyan-100">Verified workspace trust surface</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
               Create the verified workspace before private results appear.
             </h1>
@@ -110,8 +110,8 @@ export default function SignupPage() {
         Already verified? <Link className="font-semibold text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950" href={routePath("login")}>Send a magic link</Link>.
       </div>
 
-      <section className="sr-only" aria-label="Premium signup guardrails">
-        Premium signup trust surface. Create the verified workspace before private results appear. Verify once. Continue safely. Signup trust path. Signup safety standard. Trust starts before the dashboard opens. No dashboard or result access before email confirmation. No account-existence leakage. No private data dump. No fake urgency. No hidden checkout pressure. Provider signup, email magic link, and password fallback remain available. {TRUST_STEPS.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {ACCESS_PROMISES.join(" ")} {SIGNUP_RULES.join(" ")} {CUSTOMER_AUTH_METHODS.map((method) => `${method.label} ${method.customerPromise}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_PLATFORM_STAGES.slice(0, 4).map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise}`).join(" ")}
+      <section className="sr-only" aria-label="Signup trust guardrails">
+        Verified workspace trust surface. Create the verified workspace before private results appear. Verify once. Continue safely. Signup trust path. Signup safety standard. Trust starts before the dashboard opens. No dashboard or result access before email confirmation. No account-existence leakage. No private data dump. No fake urgency. No hidden checkout pressure. Provider signup, email magic link, and password fallback remain available. {TRUST_STEPS.map((item) => `${item.label} ${item.value} ${item.detail}`).join(" ")} {ACCESS_PROMISES.join(" ")} {SIGNUP_RULES.join(" ")} {CUSTOMER_AUTH_METHODS.map((method) => `${method.label} ${method.customerPromise}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_PLATFORM_STAGES.slice(0, 4).map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise}`).join(" ")}
       </section>
     </main>
   );
