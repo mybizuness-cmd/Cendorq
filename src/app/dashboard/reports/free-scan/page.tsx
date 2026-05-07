@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import {
+  FREE_SCAN_AI_VISIBILITY_MODEL,
   FREE_SCAN_CONFIDENCE_MODEL,
   FREE_SCAN_EVIDENCE_RULES,
   FREE_SCAN_PRIORITY_MODEL,
@@ -13,7 +14,7 @@ import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
   title: "Market signal result | Cendorq",
-  description: "Your protected Cendorq market signal result, methodology, confidence posture, and next command action.",
+  description: "Your protected Cendorq market signal result, AI/search posture, confidence limits, and next command action.",
   path: "/dashboard/reports/free-scan",
   noIndex: true,
 });
@@ -25,22 +26,30 @@ const SAMPLE_FINDINGS = getFreeScanFindingSummary();
 
 const RESULT_STATE = [
   { label: "Command", value: "Scan", detail: "The first market signal before paid diagnosis or implementation." },
-  { label: "Confidence", value: "Bounded", detail: "Signals are observed, inferred, or marked for deeper review." },
+  { label: "AI/Search posture", value: "First signal only", detail: "The result can show visibility risk without claiming ranking, placement, or full diagnosis." },
   { label: "Next command", value: "Diagnose", detail: "Use Deep Review only when the signal matters enough to prove the cause." },
 ] as const;
 
 const RESULT_DECISION = [
   {
-    title: "What the market may miss",
-    copy: "Where customers, search, or AI answers may lose clarity, trust, confidence, visibility, or momentum to act.",
+    title: "Signal",
+    copy: "What customers, search, maps, reviews, or AI answers may fail to understand about the business first.",
   },
   {
-    title: "What is still unknown",
-    copy: "The full root cause, exact implementation plan, or monthly trend without deeper paid work.",
+    title: "Proof",
+    copy: "What visible evidence supports the first read without using private internals or fake certainty.",
   },
   {
-    title: "What to do next",
-    copy: "Use the first signal to decide whether Diagnose is worth buying before bigger fixes.",
+    title: "Risk",
+    copy: "How weak clarity, proof, trust, visibility, or action can cost choices before the customer reaches the website or takes the next step.",
+  },
+  {
+    title: "Limit",
+    copy: "What the Scan cannot prove without deeper review, comparison, business context, or approved paid work.",
+  },
+  {
+    title: "Next command",
+    copy: "The cleanest next move when the first signal matters enough to prove, fix, or control over time.",
   },
 ] as const;
 
@@ -61,7 +70,7 @@ export default function FreeScanResultsPage() {
           <div>
             <p className="text-sm font-semibold text-cyan-100">Protected market signal</p>
             <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
-              The first market signal is ready.
+              The first AI/search market signal is ready.
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
               This is the Scan layer inside the customer dashboard. It shows what may be visible, unclear, weak, or blocked before Cendorq claims a full diagnosis.
@@ -93,18 +102,22 @@ export default function FreeScanResultsPage() {
           <div>
             <p className="text-sm font-semibold text-cyan-100">Signal intelligence</p>
             <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-5xl">
-              Useful because it is honest about the limit.
+              Useful because it explains the limit before the next move.
             </h2>
           </div>
           <Link href="/dashboard/reports" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             Back to report vault →
           </Link>
         </div>
-        <div className="mt-6 grid gap-3 lg:grid-cols-3">
+        <div className="mt-6 rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/[0.08] p-4">
+          <h3 className="text-xl font-semibold tracking-tight text-white">Search is no longer only a list of links.</h3>
+          <p className="mt-3 text-sm leading-7 text-cyan-50">{FREE_SCAN_AI_VISIBILITY_MODEL.customerExplanation}</p>
+        </div>
+        <div className="mt-5 grid gap-3 lg:grid-cols-5">
           {RESULT_DECISION.map((item) => (
-            <article key={item.title} className="rounded-[1.35rem] border border-white/10 bg-slate-950/60 p-5">
-              <h3 className="text-2xl font-semibold tracking-tight text-white">{item.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
+            <article key={item.title} className="rounded-[1.35rem] border border-white/10 bg-slate-950/60 p-4">
+              <h3 className="text-xl font-semibold tracking-tight text-white">{item.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-300">{item.copy}</p>
             </article>
           ))}
         </div>
@@ -120,6 +133,7 @@ export default function FreeScanResultsPage() {
             </div>
             <h3 className="mt-4 text-xl font-semibold tracking-tight text-white">{finding.findingLabel}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-300">{finding.customerImpact}</p>
+            <p className="mt-3 rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.08] p-3 text-sm leading-6 text-cyan-50">AI/Search: {finding.aiVisibilityImpact}</p>
             <p className="mt-3 rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.08] p-3 text-sm leading-6 text-cyan-50">{finding.bestNextAction}</p>
             <p className="mt-3 text-xs leading-5 text-slate-500">Limit: {finding.limitation}</p>
           </article>
@@ -133,7 +147,7 @@ export default function FreeScanResultsPage() {
 
       <section className="relative z-10 mt-7 rounded-[1.55rem] border border-white/10 bg-white/[0.035] p-4 sm:p-5" aria-label="Free Scan methodology summary">
         <p className="text-sm font-semibold text-cyan-100">Methodology summary</p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Evidence, confidence, and priority stay separate.</h2>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Evidence, confidence, AI/search posture, and priority stay separate.</h2>
         <div className="mt-5 grid gap-3 lg:grid-cols-3">
           {METHODOLOGY_SUMMARY.map((panel) => (
             <article key={panel.title} className="rounded-[1.2rem] border border-white/10 bg-black/20 p-4">
@@ -151,13 +165,14 @@ export default function FreeScanResultsPage() {
             <article key={axis.key} className="rounded-[1.1rem] border border-white/10 bg-white/[0.03] p-4">
               <div className="text-sm font-semibold text-white">{axis.customerLabel}</div>
               <p className="mt-2 text-xs leading-5 text-slate-400">{axis.resultQuestion}</p>
+              <p className="mt-2 text-xs leading-5 text-cyan-100/80">{axis.aiVisibilityRisk}</p>
             </article>
           ))}
         </div>
       </section>
 
       <section className="sr-only" aria-label="Free Scan result guardrails">
-        Market signal result. Protected dashboard result. Dashboard-only Free Scan result route. Free Scan result page must remain under /dashboard/reports/free-scan and not public. The first market signal is ready. Scan layer. Bounded confidence. Signal intelligence. Useful because it is honest about the limit. Evidence confidence and priority stay separate. What this signal includes. What stays outside Scan. Free Scan does not include full root-cause diagnosis, implementation work, or monthly monitoring. Diagnose finds the full reason. No overlap. {FREE_SCAN_VALUE.reportBoundary} {FREE_SCAN_VALUE.upgradeLogic} {PLAN_VALUE_SEPARATION_RULES.join(" ")} Six signals. Clarity Trust Choice Action Visibility Proof. Observed evidence. Inferred judgment. Needs deeper review. Evidence rules. Priority model. Critical Important Watch. Deep Review $497. Accurate results require confidence posture and limitations. {FREE_SCAN_REPORT_QUALITY_RULES.join(" ")}
+        Market signal result. Protected dashboard result. Dashboard-only Free Scan result route. Free Scan result page must remain under /dashboard/reports/free-scan and not public. The first AI/search market signal is ready. Search is no longer only a list of links. Signal Proof Risk Limit Next command. Scan layer. Bounded confidence. Signal intelligence. Useful because it explains the limit before the next move. Evidence confidence AI/search posture and priority stay separate. What this signal includes. What stays outside Scan. Free Scan does not include full root-cause diagnosis, implementation work, monthly monitoring, guaranteed ranking, or guaranteed AI placement. Diagnose finds the full reason. No overlap. {FREE_SCAN_AI_VISIBILITY_MODEL.promise} {FREE_SCAN_AI_VISIBILITY_MODEL.customerTruth} {FREE_SCAN_AI_VISIBILITY_MODEL.reportRule} {FREE_SCAN_VALUE.reportBoundary} {FREE_SCAN_VALUE.upgradeLogic} {PLAN_VALUE_SEPARATION_RULES.join(" ")} Six signals. Clarity Trust Choice Action AI/Search Visibility Proof. Observed evidence. Inferred judgment. Needs deeper review. Evidence rules. Priority model. Critical Important Watch. Deep Review $497. Accurate results require confidence posture and limitations. {FREE_SCAN_REPORT_QUALITY_RULES.join(" ")}
       </section>
     </main>
   );
