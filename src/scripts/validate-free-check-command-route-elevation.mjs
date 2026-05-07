@@ -5,7 +5,7 @@ const root = process.cwd();
 const pagePath = "src/app/free-check/page.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-free-check-premium-route-elevation.mjs";
+const validatorPath = "src/scripts/validate-free-check-command-route-elevation.mjs";
 const failures = [];
 
 expect(pagePath, [

@@ -8,7 +8,7 @@ const signupPath = "src/app/signup/page.tsx";
 const loginPath = "src/app/login/page.tsx";
 const verifyPath = "src/app/verify-email/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-premium-auth-verification-surfaces.mjs";
+const validatorPath = "src/scripts/validate-command-auth-verification-surfaces.mjs";
 
 expect(signupPath, [
   "Verified workspace trust surface",

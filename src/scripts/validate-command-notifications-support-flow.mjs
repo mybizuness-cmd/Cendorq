@@ -9,7 +9,7 @@ const supportPath = "src/app/dashboard/support/page.tsx";
 const supportRequestPath = "src/app/dashboard/support/request/page.tsx";
 const supportStatusPath = "src/app/dashboard/support/status/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-premium-notifications-support-flow.mjs";
+const validatorPath = "src/scripts/validate-command-notifications-support-flow.mjs";
 
 expect(notificationsPath, [
   "Premium notification command feed",
@@ -153,7 +153,7 @@ function forbidden(path, phrases) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the premium notification/support standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the command notification/support standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {

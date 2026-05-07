@@ -7,7 +7,7 @@ const failures = [];
 const reportVaultPath = "src/app/dashboard/reports/page.tsx";
 const freeScanResultPath = "src/app/dashboard/reports/free-scan/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-premium-report-vault-free-scan-results.mjs";
+const validatorPath = "src/scripts/validate-command-report-vault-free-scan-results.mjs";
 
 expect(reportVaultPath, [
   "Visibility report vault",
