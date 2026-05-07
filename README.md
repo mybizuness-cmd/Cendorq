@@ -1,15 +1,15 @@
 # Cendorq
 
-Cendorq is a business visibility command system for companies that need to become easier to understand, easier to trust, and easier to choose before spending more in the wrong place.
+Cendorq is Market Command Intelligence for businesses that need to become easier for customers, search, maps, reviews, and AI discovery to find, understand, trust, compare, and choose before spending more in the wrong place.
 
 The public buyer path is intentionally simple:
 
-1. **Free Scan** — the safest first step
-2. **Plans** — compare the path without confusion
-3. **Deep Review** — understand what is weakening clarity, trust, and choice
-4. **Build Fix** — strengthen pages, message, trust, and action path
-5. **Ongoing Control** — keep improving with continued direction
-6. **Connect** — choose the right communication lane
+1. **Scan** — start with the Free Scan when the market signal is unclear
+2. **Command Path** — compare the path without confusion
+3. **Diagnose** — use Deep Review to understand what is weakening clarity, trust, visibility, and choice
+4. **Fix** — use Build Fix to strengthen pages, message, proof, trust, and action path
+5. **Control** — use Ongoing Control to keep improving with continued direction
+6. **Connect** — use direct contact only when fit, scope, or timing is already clear
 
 The homepage has one job: get the right customer to start the **Free Scan**.
 
@@ -261,15 +261,22 @@ These files are intentional and protected:
 
 Use plain buyer language:
 
+- Market Command Intelligence
+- Scan
+- Diagnose
+- Fix
+- Control
 - Free Scan
-- Plans
 - Deep Review
 - Build Fix
 - Ongoing Control
+- Command Path
 - Connect
+- make the business easier to find
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
 - stop guessing before spending more
+- protect decisions as search and AI discovery change
 
-Avoid reviving old public labels such as Visibility Blueprint, Presence Infrastructure, Presence Command, or Start Search Presence Scan in active public surfaces.
+Avoid reviving old public labels such as Business Command Intelligence, View Pricing, Visibility Blueprint, Presence Infrastructure, Presence Command, or Start Search Presence Scan in active public surfaces.
