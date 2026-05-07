@@ -10,38 +10,40 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-report-vault-free-scan-results.mjs";
 
 expect(reportVaultPath, [
-  "Visibility report vault",
-  "Proof layer",
-  "See the proof layer without confusing report types.",
-  "The vault should feel like intelligence, not storage.",
-  "Report state summary",
-  "Separated report library",
-  "Four report types. Four different customer decisions.",
-  "Free Scan result",
+  "Market proof vault",
+  "Keep the record of what customers and AI search can understand.",
+  "AI/Search posture",
+  "Signal, proof, risk, limit",
+  "Reports explain what is visible, what it may mean, what is limited, and which command comes next.",
+  "Different proof for every command depth.",
+  "First AI/search signal only.",
   "Deep Review report",
   "Build Fix summary",
   "Ongoing Control monthly summary",
-  "Useful only when report depth is impossible to confuse.",
-  "hover:-translate-y-0.5",
-  "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
+  "Useful only when report depth, AI/search posture, and delivery are impossible to confuse.",
+  "no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control",
+  "paidAiPosture",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(freeScanResultPath, [
   "Protected dashboard result",
-  "Protected dashboard result",
   "Dashboard-only Free Scan result route",
   "Free Scan result page must remain under /dashboard/reports/free-scan and not public.",
-  "Your first decision signal is ready.",
-  "This Free Scan result belongs inside the customer dashboard.",
-  "First signal",
-  "Bounded confidence",
-  "Result intelligence",
-  "The first signal is useful because it is bounded.",
-  "Evidence, confidence, and priority stay separate.",
-  "What this result includes",
-  "What stays outside Free Scan",
+  "The first AI/search market signal is ready.",
+  "Search is no longer only a list of links.",
+  "Signal",
+  "Proof",
+  "Risk",
+  "Limit",
+  "Next command",
+  "AI/Search posture",
+  "First signal only",
+  "The result can show visibility risk without claiming ranking, placement, or full diagnosis.",
+  "Evidence, confidence, AI/search posture, and priority stay separate.",
+  "AI/Search: {finding.aiVisibilityImpact}",
+  "Free Scan does not include full root-cause diagnosis, implementation work, monthly monitoring, guaranteed ranking, or guaranteed AI placement.",
   "Deep Review $497",
   "focus:outline-none",
   "focus:ring-2",
@@ -50,15 +52,23 @@ expect(freeScanResultPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(reportVaultPath, [
-  "REPORT_VAULT_FIRST_USE_SNAPSHOT",
-  "Report vault readiness standards",
-  "MiniVaultList",
-  "Available after checkout and expanded review",
-  "Monthly subscription output",
-  "First signal path",
+  "Visibility report vault",
+  "Proof layer",
+  "See the proof layer without confusing report types.",
+  "The vault should feel like intelligence, not storage.",
+  "Four report types. Four different customer decisions.",
+  "Useful only when report depth is impossible to confuse.",
+  "Protected Customer-owned vault",
+  "guaranteed leads.",
+  "algorithm control.",
 ]);
 
 forbidden(freeScanResultPath, [
+  "Your first decision signal is ready.",
+  "This Free Scan result belongs inside the customer dashboard.",
+  "The first signal is useful because it is bounded.",
+  "Evidence, confidence, and priority stay separate.",
+  "What this result includes",
   "Free Scan results",
   "See what may be costing customer choices first.",
   "How your result is organized",
@@ -77,16 +87,16 @@ forbiddenPathFragments([
   "src/app/reports/free-scan/page.tsx",
 ]);
 
-boundedLength(reportVaultPath, 14500);
-boundedLength(freeScanResultPath, 14500);
+boundedLength(reportVaultPath, 17500);
+boundedLength(freeScanResultPath, 17500);
 
 if (failures.length) {
-  console.error("Command report vault and Free Scan result validation failed:");
+  console.error("Command report vault and Free Scan AI command result validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command report vault and Free Scan result validation passed with dashboard-only result route and clear report type separation.");
+console.log("Command report vault and Free Scan AI command result validation passed with dashboard-only route, AI/search posture, bounded claims, and clear report type separation.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
