@@ -6,6 +6,7 @@ const failures = [];
 
 const activePublicFiles = [
   "src/lib/seo.ts",
+  "src/lib/site.ts",
   "src/app/page.tsx",
   "src/components/home/hero-section.tsx",
   "src/components/home/final-cta-section.tsx",
@@ -79,6 +80,8 @@ const forbiddenActiveRoutes = [
   "/pricing/monthly-partner",
   "/diagnosis",
   "/contact",
+  "/profile",
+  "/faq",
 ];
 
 for (const file of activePublicFiles) {
@@ -101,6 +104,15 @@ for (const phrase of forbiddenActiveLanguage) {
 for (const route of forbiddenActiveRoutes) {
   if (combined.includes(route)) failures.push(`Forbidden old public route found in active surfaces: ${route}`);
 }
+
+expect("src/lib/site.ts", [
+  "{ label: \"Free Scan\", href: \"/free-check\" }",
+  "{ label: \"Plans\", href: \"/plans\" }",
+  "{ label: \"Deep Review\", href: \"/plans/deep-review\" }",
+  "{ label: \"Build Fix\", href: \"/plans/build-fix\" }",
+  "{ label: \"Ongoing Control\", href: \"/plans/ongoing-control\" }",
+  "{ label: \"Connect\", href: \"/connect\" }",
+]);
 
 expect("src/components/home/hero-section.tsx", [
   "Market Command Intelligence",
@@ -243,6 +255,7 @@ expect("docs/search-discovery-checklist.md", [
   "Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.",
 ]);
 
+forbid("src/lib/site.ts", ["/pricing", "/diagnosis", "/contact", "/profile", "/faq", "How It Works", "System Layers"]);
 forbid("src/components/home/hero-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Visibility intelligence for businesses"]);
 forbid("src/components/home/final-cta-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan"]);
 forbid("src/app/free-check/error.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Homepage or diagnosis"]);
@@ -262,7 +275,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, homepage hero, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
+console.log("Public drift validation passed. SEO defaults, shared site navigation, structured metadata, share images, active public routes, homepage hero, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
