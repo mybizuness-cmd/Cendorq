@@ -27,17 +27,17 @@ export function serviceSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Search Presence OS",
+    name: "Market Command Intelligence",
     provider: {
       "@type": "Organization",
       name: siteConfig.legalName,
       url: siteConfig.siteUrl,
     },
-    serviceType: "Search presence intelligence, strategic visibility guidance, and system strengthening",
+    serviceType: "Market command intelligence, free scan signal review, deep review diagnosis, build fix guidance, and ongoing control",
     areaServed: "Worldwide",
-    url: absoluteUrl("/diagnosis"),
+    url: absoluteUrl("/plans/deep-review"),
     description:
-      "Structured search-presence diagnosis focused on trust, clarity, positioning, action readiness, and route sequencing.",
+      "Structured market command intelligence focused on helping a business become easier to find, understand, trust, and choose before spending deeper.",
   };
 }
 
@@ -45,8 +45,8 @@ export function contactPageSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: `Contact ${siteConfig.name}`,
-    url: absoluteUrl("/contact"),
+    name: `Connect with ${siteConfig.name}`,
+    url: absoluteUrl("/connect"),
     about: {
       "@type": "Organization",
       name: siteConfig.legalName,
