@@ -31,7 +31,7 @@ export const metadata = buildMetadata({
 const TRUST_RULES = [
   "Business context only",
   "No private credentials or payment details",
-  "Verified customers get the protected dashboard result",
+  "Protected dashboard result after verification",
 ] as const;
 
 const SCAN_PROMISE = [
@@ -82,7 +82,7 @@ export default function FreeCheckPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-10 pt-3 text-white sm:px-6 md:pb-12 md:pt-6 xl:pb-14">
+    <main className="relative isolate overflow-hidden text-white">
       <FreeCheckAtmosphere />
       <FreeCheckProgressGuard />
       <FreeCheckAnalytics />
@@ -92,24 +92,25 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 grid gap-5 lg:grid-cols-[0.58fr_1.42fr] lg:items-start" aria-label="Free Market Signal Scan form first">
-        <div className="relative overflow-hidden rounded-[1.75rem] border border-cyan-300/18 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.16),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.86),rgba(2,8,23,0.95)_52%,rgba(14,116,144,0.26))] p-4 shadow-[0_38px_130px_rgba(2,8,23,0.52)] sm:p-5 lg:sticky lg:top-24">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/80 to-transparent" />
-          <p className="text-sm font-semibold text-cyan-100">Free Market Signal Scan</p>
-          <h1 className="mt-2 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+      <section className="relative mx-auto grid min-h-[calc(100vh-4rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start" aria-label="Free Market Signal Scan form first">
+        <div className="relative z-10 lg:sticky lg:top-24">
+          <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
+            Free Market Signal Scan
+          </div>
+          <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7vw,7.2rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
             See the first signal before you buy the fix.
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
             Cendorq checks whether your business is clear enough to be found, understood, trusted, and chosen before deeper work begins.
           </p>
-          <div className="mt-4 grid gap-2">
+          <div className="mt-7 grid gap-3">
             {TRUST_RULES.map((item) => (
-              <div key={item} className="rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-xs font-semibold leading-5 text-cyan-50">
+              <div key={item} className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] px-5 py-4 text-sm font-bold leading-6 text-cyan-50 shadow-[0_18px_70px_rgba(2,8,23,0.22)]">
                 {item}
               </div>
             ))}
           </div>
-          <Link href="/dashboard/reports/free-scan" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/20 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+          <Link href="/dashboard/reports/free-scan" className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 px-6 py-3 text-sm font-bold text-cyan-50 transition hover:bg-cyan-300/20 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
             Result opens in dashboard
           </Link>
           <div className="sr-only">
@@ -117,41 +118,51 @@ export default function FreeCheckPage() {
           </div>
         </div>
 
-        <GuidedFreeCheckFormV3 className="relative z-10" />
-      </section>
-
-      <section className="relative z-10 mt-7 grid gap-3 md:grid-cols-3" aria-label="Free Scan promise">
-        {SCAN_PROMISE.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.35rem] p-4 sm:p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.label}</div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">{item.value}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.75rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.68),rgba(2,8,23,0.9)_46%,rgba(14,116,144,0.22))] p-5 shadow-[0_28px_100px_rgba(2,8,23,0.38)] sm:p-7" aria-label="Free Scan result preview">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-sm font-semibold text-cyan-100">Dashboard result preview</p>
-            <h2 className="max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">A signal you can actually use.</h2>
-          </div>
-          <Link href="/dashboard/reports/free-scan" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Preview result path →
-          </Link>
+        <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] p-4 shadow-[0_55px_200px_rgba(2,8,23,0.72)] sm:p-6">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
+          <GuidedFreeCheckFormV3 className="relative z-10" />
         </div>
-        <div className="mt-6 grid gap-3 lg:grid-cols-3">
-          {REPORT_PREVIEW.map((item) => (
-            <article key={item.label} className="rounded-[1.25rem] border border-white/10 bg-slate-950/58 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.label}</p>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white">{item.value}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Free Scan promise">
+        <div className="grid gap-4 md:grid-cols-3">
+          {SCAN_PROMISE.map((item, index) => (
+            <article key={item.label} className={index === 1 ? "rounded-[2rem] border border-cyan-200/22 bg-cyan-200/[0.09] p-6 shadow-[0_28px_100px_rgba(2,8,23,0.42)] md:-mt-6 md:mb-6" : "rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]"}>
+              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.label}</div>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-white sm:text-4xl">{item.value}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.detail}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-3 md:grid-cols-2">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Free Scan result preview">
+        <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
+          <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
+            <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Dashboard result preview</p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">A signal you can actually use.</h2>
+              <p className="mt-5 text-base leading-8 text-slate-300">The output is not a pile of generic tips. It gives the signal, the likely impact, and the safest next command.</p>
+              <Link href="/dashboard/reports/free-scan" className="mt-7 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                Preview result path →
+              </Link>
+            </div>
+            <div className="divide-y divide-white/10">
+              {REPORT_PREVIEW.map((item) => (
+                <article key={item.label} className="grid gap-4 p-5 sm:grid-cols-[10rem_1fr] sm:p-7">
+                  <div>
+                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.label}</p>
+                    <h3 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-white">{item.value}</h3>
+                  </div>
+                  <p className="text-sm leading-7 text-slate-300">{item.copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto grid max-w-[92rem] gap-4 px-4 pb-16 sm:px-6 md:grid-cols-2">
         {FAQS.map((item) => (
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
@@ -162,20 +173,19 @@ export default function FreeCheckPage() {
 
 function FreeCheckAtmosphere() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute -left-10 top-4 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
-      <div className="absolute -right-8 top-20 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-      <div className="absolute left-1/2 top-1/4 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.03] blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.022]" />
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(103,232,249,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.11),transparent_27%),linear-gradient(180deg,#020617_0%,#020817_42%,#030712_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.04] blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
     </div>
   );
 }
 
 function FaqCard({ question, answer }: { question: string; answer: string }) {
   return (
-    <article className="system-surface rounded-[1.25rem] p-4 sm:rounded-[1.35rem] sm:p-5">
-      <h3 className="text-xl font-semibold tracking-tight text-white">{question}</h3>
-      <p className="mt-3 text-sm leading-7 text-slate-300">{answer}</p>
+    <article className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]">
+      <h3 className="text-2xl font-semibold tracking-[-0.04em] text-white">{question}</h3>
+      <p className="mt-4 text-sm leading-7 text-slate-300">{answer}</p>
     </article>
   );
 }
