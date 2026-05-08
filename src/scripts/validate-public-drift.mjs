@@ -6,6 +6,7 @@ const failures = [];
 
 const activePublicFiles = [
   "FINAL_SYSTEM_STATUS.md",
+  "VISUAL_EDITOR_UPLOAD_NOTES.md",
   "src/lib/seo.ts",
   "src/lib/site.ts",
   "src/lib/schema.ts",
@@ -116,6 +117,17 @@ expect("FINAL_SYSTEM_STATUS.md", [
   "Ongoing Control",
   "Connect",
   "guided-free-check-form-v3.tsx",
+]);
+
+expect("VISUAL_EDITOR_UPLOAD_NOTES.md", [
+  "Market Command Intelligence",
+  "Free Scan",
+  "Plans",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "Connect",
+  "Scan, Diagnose, Fix, Control",
 ]);
 
 expect("src/lib/site.ts", [
@@ -276,6 +288,7 @@ expect("docs/search-discovery-checklist.md", [
 ]);
 
 forbid("FINAL_SYSTEM_STATUS.md", ["Search Presence Scan", "Visibility Blueprint", "Presence Infrastructure", "Presence Command"]);
+forbid("VISUAL_EDITOR_UPLOAD_NOTES.md", ["Search Presence Scan", "Visibility Blueprint", "Presence Infrastructure", "Presence Command"]);
 forbid("src/lib/site.ts", ["/pricing", "/diagnosis", "/contact", "/profile", "/faq", "How It Works", "System Layers"]);
 forbid("src/lib/schema.ts", ["/pricing", "/diagnosis", "/contact", "Search Presence OS", "search-presence diagnosis"]);
 forbid("src/components/home/hero-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Visibility intelligence for businesses"]);
@@ -297,7 +310,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. Root status, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
+console.log("Public drift validation passed. Root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
