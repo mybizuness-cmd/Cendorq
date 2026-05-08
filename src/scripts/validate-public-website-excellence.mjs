@@ -5,59 +5,66 @@ const root = process.cwd();
 const failures = [];
 const homePath = "src/app/page.tsx";
 const freeCheckPath = "src/app/free-check/page.tsx";
+const plansPath = "src/app/plans/page.tsx";
 const pristineValidatorPath = "src/scripts/validate-most-pristine-system-standard.mjs";
 const packagePath = "package.json";
 
 expect(homePath, [
-  "Business Decision Intelligence",
-  "Proof before pressure",
-  "FRONT_DOOR_SNAPSHOT",
-  "Public website operating snapshot",
-  "Starting point",
-  "Core question",
-  "Output posture",
-  "Next path",
-  "Truthful and bounded",
-  "CENDORQ_SYSTEM_LAYERS",
-  "Cendorq system layers",
-  "Clarity layer",
-  "Trust layer",
-  "Choice layer",
-  "Action layer",
-  "BUSINESS_MODEL_COVERAGE",
-  "Built for more than one revenue path.",
-  "Creator and social channels",
-  "Marketplaces and platform revenue",
-  "TRUST_RULES",
-  "Trust rules stay visible.",
-  "No fake urgency",
-  "No unsupported ROI claims",
-  "No promise of guaranteed business results",
-  "No pressure to buy before the first direction is clear",
+  "Market understanding · AI search visibility · customer choice",
+  "Own how the market understands your business.",
+  "Search is no longer only a list of links.",
+  "Market Understanding Map",
+  "A first read on whether the market can choose you.",
+  "The new standard",
+  "Ranking is not enough. The business has to become the clear choice.",
+  "What Cendorq surfaces",
+  "Not an opinion. A decision signal.",
+  "The operating path",
+  "Scan. Diagnose. Fix. Control.",
+  "No fake ranking promise.",
+  "No vague audit theater.",
+  "No guesswork sold as strategy.",
+  "Evidence, confidence, boundary, next action.",
+  "system-grid-wide",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(freeCheckPath, [
-  "Dedicated scan room",
-  "DEDICATED_SCAN_ROOM_DECISION",
-  "Free Scan page decision",
-  "Primary pattern",
-  "Dedicated page",
-  "Popup role",
-  "Entry only",
-  "Focused flow",
-  "Proof-led",
-  "SCAN_ROOM_STANDARDS",
-  "Why this is not a full popup",
-  "The scan is important enough to deserve focus.",
-  "A small popup can invite someone into the scan, but the actual form should live on this dedicated page.",
-  "Visible labels and clear field purpose",
-  "Step-by-step progress and recovery",
-  "Mobile-friendly spacing and large controls",
-  "Customer-safe copy with no fake urgency",
-  "No browser-exposed protected secrets",
-  "Routeable page that can be resumed or linked from dashboard",
+  "Free Market Signal Scan",
+  "See the first signal before you buy the fix.",
+  "Business context only",
+  "No private credentials or payment details",
+  "Protected dashboard result after verification",
+  "GuidedFreeCheckFormV3",
+  "Dashboard result preview",
+  "A signal you can actually use.",
+  "The output is not a pile of generic tips.",
+  "Result opens in dashboard",
+  "Result opens in dashboard",
+  "Free Market Signal Scan form visible within the first quarter of the page.",
+  "system-grid-wide",
+  "focus:outline-none",
+  "focus:ring-2",
+]);
+
+expect(plansPath, [
+  "Market command path",
+  "Choose the command depth that matches the market risk.",
+  "Scan first. Diagnose when the cause matters.",
+  "Start Free Scan",
+  "Unlock Deep Review",
+  "How to choose a plan",
+  "Each plan buys a different level of command.",
+  "Free Scan finds the first signal.",
+  "Deep Review explains the cause.",
+  "Build Fix improves the selected weak point.",
+  "Ongoing Control keeps the business watched",
+  "No overlap",
+  "PLAN_VALUE_SEPARATION_RULES",
+  "system-grid-wide",
+  "focus:outline-none",
+  "focus:ring-2",
 ]);
 
 expect(pristineValidatorPath, [
@@ -66,10 +73,12 @@ expect(pristineValidatorPath, [
 
 expect(packagePath, [
   "validate:routes",
+  "validate-public-website-excellence.mjs",
 ]);
 
 forbidden(homePath, blockedPatterns());
 forbidden(freeCheckPath, blockedPatterns());
+forbidden(plansPath, blockedPatterns());
 
 if (failures.length) {
   console.error("Public website excellence validation failed:");
@@ -77,7 +86,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public website excellence validation passed.");
+console.log("Public website excellence validation passed for current market-command visual authority surfaces.");
 
 function blockedPatterns() {
   return [
