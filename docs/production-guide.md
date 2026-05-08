@@ -16,10 +16,25 @@ For deployment environment checks, use [`docs/deployment-environment-checklist.m
 For production verification status, use [`docs/production-verification-status.md`](production-verification-status.md).
 For production failures, use [`docs/incident-response.md`](incident-response.md).
 
+## Command design rule
+
+Every production-facing surface should follow the command design standard:
+
+- Apple-level trust and authority
+- Google-level simplicity
+- ChatGPT-level immediate action
+
+Use [`docs/command-design-operating-standard.md`](command-design-operating-standard.md) before changing public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, or validation guardrails.
+
+Core question for every important surface:
+
+> What is the safest next command?
+
 ## Operating standards
 
 Before changing production behavior, use the standard that matches the change:
 
+- [`docs/command-design-operating-standard.md`](command-design-operating-standard.md)
 - [`docs/closed-intelligence-operating-standard.md`](closed-intelligence-operating-standard.md)
 - [`docs/data-quality-governance-standard.md`](data-quality-governance-standard.md)
 - [`docs/learning-memory-standard.md`](learning-memory-standard.md)
@@ -61,7 +76,9 @@ pnpm build
 
 These checks protect:
 
+- command design standard
 - canonical buyer routes
+- public fallback surfaces
 - legacy public-route redirects
 - strict redirect status and `Location` header smoke coverage
 - production hardening headers
@@ -128,6 +145,12 @@ These routes must stay healthy:
 - `/plans/build-fix`
 - `/plans/ongoing-control`
 - `/connect`
+
+Fallback surfaces must also stay present and command-path aligned:
+
+- `src/app/loading.tsx`
+- `src/app/error.tsx`
+- `src/app/not-found.tsx`
 
 Policy and trust routes may remain public when current:
 
@@ -305,7 +328,9 @@ Protected internal bands:
 
 Do not weaken:
 
+- command design standard
 - strict route validation
+- public fallback surface validation
 - Node 24 CI
 - production security headers
 - API no-store/noindex behavior
