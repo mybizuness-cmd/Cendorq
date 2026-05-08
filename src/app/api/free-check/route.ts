@@ -74,15 +74,21 @@ const LEGACY_STORAGE_FILES = [
 ] as const;
 
 const ADMIN_HEADER = "x-intake-admin-key";
+const ALLOWED_ORIGINS_ENV = "INTAKE_ALLOWED_ORIGINS";
 const MAX_REQUEST_BYTES = 32_000;
 const SUBMISSION_COOLDOWN_MS = 45_000;
+const MIN_FORM_COMPLETION_MS = 4_000;
 const MAX_GET_LIMIT = 200;
+const JSON_CONTENT_TYPE = "application/json";
 const READ_KEY_ENV_CANDIDATES = ["INTAKE_CONSOLE_READ_KEY", "INTAKE_ADMIN_KEY"] as const;
 const ROUTING_HINT_VALUES = ["scan-only", "blueprint-candidate", "infrastructure-review", "command-review"] as const satisfies readonly RoutingHint[];
 const NO_STORE_HEADERS = {
   "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
   Pragma: "no-cache",
   Expires: "0",
+  "X-Content-Type-Options": "nosniff",
+  "X-Robots-Tag": "noindex, nofollow",
+  "Referrer-Policy": "same-origin",
 } as const;
 
 export async function OPTIONS() {
@@ -134,6 +140,11 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const contentType = cleanQueryValue(request.headers.get("content-type") ?? "", 120).toLowerCase();
+  if (contentType && !contentType.includes(JSON_CONTENT_TYPE)) return jsonNoStore({ ok: false, error: "The intake submission must be sent as JSON.", details: ["Submit the Free Scan again from the supported form route."] }, 415);
+
+  if (!isAllowedSubmissionOrigin(request)) return jsonNoStore({ ok: false, error: "The intake origin is not allowed to submit this route.", details: ["Submit the Free Scan from the approved Cendorq domain or configured secure origin."] }, 403);
+
   const contentLength = Number(request.headers.get("content-length") || "0");
   if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) return jsonNoStore({ ok: false, error: "The submission is too large to be accepted cleanly.", details: ["Reduce the amount of text in the intake and submit the Free Scan again."] }, 413);
 
@@ -158,6 +169,12 @@ export async function POST(request: NextRequest) {
 
   const incomingSource = cleanSource(parsedBody.source);
   if (parsedBody.source !== undefined && !incomingSource) return jsonNoStore({ ok: false, error: "The submission source is not recognized.", details: ["Submit this intake from the supported Free Scan route."] }, 400);
+
+  const honeypotValue = cleanString(parsedBody.companyWebsite ?? parsedBody.website ?? "", 240);
+  if (honeypotValue) return jsonNoStore({ ok: false, error: "The intake could not be accepted from this submission pattern.", details: ["Clear the submission and try again from the supported Cendorq form."] }, 400);
+
+  const startedAtMs = asNumber(parsedBody.startedAtMs);
+  if (typeof startedAtMs === "number" && Date.now() - startedAtMs < MIN_FORM_COMPLETION_MS) return jsonNoStore({ ok: false, error: "The intake was submitted too quickly to be accepted cleanly.", details: ["Take a moment to review the Free Scan and submit it again."] }, 400);
 
   const input = coerceIncomingInput(parsedBody, incomingSource || undefined);
   const validation = validateFreeCheck(input);
@@ -239,6 +256,47 @@ function configuredReadKey() {
     if (value) return value;
   }
   return "";
+}
+
+function isAllowedSubmissionOrigin(request: NextRequest) {
+  const environment = cleanQueryValue(process.env.NODE_ENV ?? "", 20).toLowerCase();
+  if (environment !== "production") return true;
+  const requestOrigin = resolveSubmissionOrigin(request);
+  if (!requestOrigin) return true;
+  const allowedOrigins = configuredAllowedOrigins();
+  if (allowedOrigins.length === 0) return true;
+  return allowedOrigins.includes(requestOrigin);
+}
+
+function configuredAllowedOrigins() {
+  const configured = cleanQueryValue(process.env[ALLOWED_ORIGINS_ENV] ?? "", 1000);
+  const rawValues = configured ? configured.split(",") : [];
+  if (process.env.NEXT_PUBLIC_SITE_URL) rawValues.push(process.env.NEXT_PUBLIC_SITE_URL);
+  const normalized = rawValues.map((value) => normalizeOrigin(value)).filter(Boolean);
+  return Array.from(new Set(normalized));
+}
+
+function resolveSubmissionOrigin(request: NextRequest) {
+  const candidates = [request.headers.get("origin"), request.headers.get("referer")];
+  for (const candidate of candidates) {
+    const origin = normalizeOrigin(candidate ?? "");
+    if (origin) return origin;
+  }
+  return "";
+}
+
+function normalizeOrigin(value: string) {
+  const cleaned = cleanQueryValue(value, 400);
+  if (!cleaned) return "";
+  try {
+    return new URL(cleaned).origin;
+  } catch {
+    try {
+      return new URL(`https://${cleaned}`).origin;
+    } catch {
+      return "";
+    }
+  }
 }
 
 function coerceIncomingInput(payload: IncomingFreeCheckPayload, source: IntakeSource | undefined): FreeCheckInput {
@@ -390,6 +448,15 @@ function asOptionalString(value: unknown) {
 
 function asBoolean(value: unknown) {
   return typeof value === "boolean" ? value : undefined;
+}
+
+function asNumber(value: unknown) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && value.trim()) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
 }
 
 function cleanString(value: unknown, maxLength: number) {
