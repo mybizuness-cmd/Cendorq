@@ -34,6 +34,107 @@ Before unpacking or merging backend ZIP work, confirm:
 - Health and smoke checks are updated when runtime behavior changes.
 - Privacy, policy, integration, analytics, observability, and AI-agent handoff expectations are considered.
 
+## Current backend ZIP intake finding
+
+The uploaded backend ZIP named `cendorq_ultra_pass_backend_and_system_sweep (1).zip` was inspected as a static intake package.
+
+Important finding: this ZIP is not a clean backend-only package. It is a full older or alternate Next.js App Router system snapshot that includes frontend pages, old pricing routes, public layout files, API routes, middleware, report surfaces, console surfaces, scoring logic, signal logic, validation logic, config files, lockfiles, and generated build artifacts.
+
+Do not merge this ZIP directly into `main`.
+
+Treat the ZIP as a reference source library, not as the source of truth.
+
+The current `main` frontend and buyer path remain the source of truth:
+
+1. Free Scan
+2. Plans
+3. Deep Review
+4. Build Fix
+5. Ongoing Control
+6. Connect
+
+## Current ZIP contents to avoid importing wholesale
+
+Do not wholesale import these ZIP areas without separate review and deliberate rewrite:
+
+- `src/app/page.tsx`
+- `src/app/free-check/page.tsx`
+- `src/app/pricing/**`
+- `src/app/contact/**`
+- `src/components/free-check/free-check-form.tsx`
+- `src/layout/site-header.tsx`
+- `src/layout/site-footer.tsx`
+- `next.config.ts`
+- `package.json`
+- `README.md`
+- `tsconfig.tsbuildinfo`
+
+Reason: those files conflict with the current hardened route strategy, current buyer language, current public frontend, current runtime pins, and current production governance.
+
+## Current ZIP contents worth reviewing selectively
+
+The strongest backend or backend-adjacent candidates to review selectively are:
+
+- `src/app/api/free-check/route.ts`
+- `src/app/report/page.tsx`
+- `src/app/intake-console/page.tsx`
+- `src/lib/intelligence/free-check-intelligence.ts`
+- `src/lib/reports/free-check-report.ts`
+- `src/lib/scoring/free-check-score.ts`
+- `src/lib/signals/free-check-signal.ts`
+- `src/lib/validation/free-check.ts`
+- `src/middleware.ts`
+
+These should be compared against current `main` before any extraction. Current `main` already contains much of this backend/intelligence layer, so extraction should be patch-level, not replacement-level.
+
+## Current ZIP conflict notes
+
+The ZIP uses older public labels and route posture in several places, including:
+
+- Search Presence Snapshot
+- Visibility Blueprint
+- Presence Infrastructure
+- Presence Command
+- `/pricing`
+- `/pricing/full-diagnosis`
+- `/pricing/optimization`
+- `/pricing/monthly-partner`
+- `/contact`
+
+Those should not be revived as active buyer-facing language or active route strategy.
+
+The ZIP `next.config.ts` redirects current `/plans` style paths back toward older `/pricing` paths. That is the opposite of current `main`, where legacy pricing paths redirect into the current buyer path.
+
+The ZIP package baseline is also behind current `main` governance. The ZIP package uses an older Node expectation and lacks the current `validate:routes` and production smoke governance.
+
+The ZIP also includes generated build state such as `tsconfig.tsbuildinfo`, which should not be committed.
+
+## Current ZIP API caution
+
+The ZIP version of `src/app/api/free-check/route.ts` contains useful ideas, including report token handling, stricter no-store response headers, submission-origin checks, JSON content-type checks, and minimum form-completion timing.
+
+However, that ZIP API file must not be copied directly. It contains old public language and static review showed syntax-level defects in the ZIP copy. Any API improvements should be reimplemented carefully in current `main` instead of replacing the current route file.
+
+## Recommended first backend PR
+
+The first backend integration PR should be narrow and safe:
+
+- Compare current `src/app/api/free-check/route.ts` against the ZIP version.
+- Extract only proven safe improvements.
+- Preserve current buyer language.
+- Preserve current `next.config.ts` route strategy.
+- Preserve Node 24 and pnpm governance.
+- Keep `.env.example` limited to safe placeholders.
+- Keep storage behavior documented before production use.
+- Keep health and smoke checks aligned if runtime behavior changes.
+- Update this checklist and `CHANGELOG.md` when meaningful backend intake work lands.
+
+Suggested branch name:
+
+```bash
+backend/free-check-intake-hardening
+```
+
 ## ZIP intake checks
 
 For each backend ZIP:
