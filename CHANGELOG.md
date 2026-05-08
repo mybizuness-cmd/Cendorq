@@ -37,30 +37,13 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Changed
 
+- Recorded the backend ZIP intake analysis for `cendorq_ultra_pass_backend_and_system_sweep (1).zip`, including the finding that it is a full older or alternate Next.js system snapshot rather than a backend-only package.
+- Added backend ZIP merge guidance to preserve the current buyer path, avoid wholesale imports from the ZIP, and selectively review backend-adjacent logic only after comparing against current `main`.
 - Added a compact PR template checklist-gate section so the full readiness system is easier to scan and maintain.
 - Added a PR template AI-agent handoff gate so ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, and project continuity explicitly consider `docs/ai-agent-handoff.md` before merge.
 - Added a PR template final hardening gate so major readiness, launch-adjacent, broad hardening, backend-prep, and production milestone changes explicitly consider `docs/final-hardening-sweep.md` before merge.
 - Added a PR template backend handoff gate so backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, and server-side integrations explicitly consider `docs/backend-handoff-checklist.md` before merge.
-- Added a PR template manual QA and acceptance gate so final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, and post-change signoff explicitly consider `docs/manual-qa-acceptance-checklist.md` before merge.
-- Added a PR template content freshness gate so public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, and outdated buyer-path assumptions explicitly consider `docs/content-freshness-checklist.md` before merge.
-- Added a PR template configuration safety gate so environment variables, public and private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, and production safety changes explicitly consider `docs/configuration-safety-checklist.md` before merge.
-- Added a PR template integration readiness gate so third-party services, API handoffs, payment providers, AI services, email or CRM handoffs, webhooks, external scripts, service keys, integration failures, and production-support expectations explicitly consider `docs/integration-readiness-checklist.md` before merge.
-- Added a PR template analytics and tracking gate so analytics scripts, tracking pixels, event names, attribution, conversion measurement, privacy-sensitive telemetry, consent-sensitive changes, and buyer-path reporting explicitly consider `docs/analytics-tracking-checklist.md` before merge.
-- Added a PR template policy and legal surface gate so public policy pages, terms language, privacy language, security contact surfaces, disclaimers, compliance-sensitive copy, data-use statements, and legal-adjacent public content explicitly consider `docs/policy-legal-surface-checklist.md` before merge.
-- Added a PR template trust and credibility gate so public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, and confidence-building content explicitly consider `docs/trust-credibility-checklist.md` before merge.
-- Added a PR template route and link integrity gate so navigation, internal links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, and buyer-path connection changes explicitly consider `docs/route-link-integrity-checklist.md` before merge.
-- Added a PR template offer integrity gate so Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, and offer-positioning changes explicitly consider `docs/offer-integrity-checklist.md` before merge.
-- Added a PR template lead intake gate so Free Scan, Connect, form, field, validation, success state, error state, routing, and buyer handoff changes explicitly consider `docs/lead-intake-checklist.md` before merge.
-- Added a PR template conversion quality gate so homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, and offer-positioning changes explicitly consider `docs/conversion-quality-checklist.md` before merge.
-- Added a PR template visual quality gate so public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and premium-feel changes explicitly consider `docs/visual-quality-checklist.md` before merge.
-- Added a PR template copy quality gate so public copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes explicitly consider `docs/copy-quality-checklist.md` before merge.
-- Added a PR template privacy and data handling gate so public forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, and integration changes explicitly consider `docs/privacy-data-checklist.md` before merge.
-- Added a PR template accessibility gate so public UI and buyer-path usability changes explicitly consider `docs/accessibility-checklist.md` before merge.
-- Added a PR template performance gate so public UI, asset, script, animation, and buyer-path performance changes explicitly consider `docs/performance-checklist.md` before merge.
-- Added a PR template search discovery gate so metadata, crawler files, canonical routes, redirects, sitemap, robots, `llms.txt`, manifest, health, and public trust surface changes explicitly consider `docs/search-discovery-checklist.md` before merge.
-- Added a PR template dependency gate so package, lockfile, GitHub Actions, runtime pin, dependency automation, and tooling changes explicitly consider `docs/dependency-checklist.md` before merge.
-- Added a PR template deployment environment gate so hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, and deployment configuration changes explicitly consider `docs/deployment-environment-checklist.md` before merge.
-- Added a PR template observability and diagnostics gate so health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, and operational visibility changes explicitly consider `docs/observability-diagnostics-checklist.md` before merge.
+- Added PR template gates for manual QA, content freshness, configuration safety, integration readiness, analytics and tracking, policy and legal surface, trust and credibility, route and link integrity, offer integrity, lead intake, conversion quality, visual quality, copy quality, privacy and data handling, accessibility, performance, search discovery, dependency, deployment environment, and observability and diagnostics checklists.
 
 ### Fixed
 
@@ -81,6 +64,7 @@ For future release notes, include:
 - AI-agent-handoff impact when ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, or project continuity changed
 - final-hardening impact when major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone work changed
 - backend-handoff impact when backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations changed
+- backend-ZIP-intake impact when an uploaded backend ZIP is inspected, accepted, rejected, selectively extracted, or recorded as a reference snapshot
 - manual-QA impact when final human review, browser checks, mobile checks, buyer-path walkthroughs, acceptance criteria, regression risk, visual review, copy review, or post-change signoff changed
 - content-freshness impact when public copy freshness, dated claims, screenshots, examples, plan language, route references, release notes, public labels, or buyer-path assumptions changed
 - configuration-safety impact when environment variables, public/private configuration, runtime defaults, local templates, deployment values, feature flags, config naming, config drift, or production safety changed
