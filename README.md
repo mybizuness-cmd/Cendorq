@@ -13,6 +13,18 @@ The public buyer path is intentionally simple:
 
 The homepage has one job: get the right customer to start the **Free Scan**.
 
+## Command design standard
+
+Every surface should follow the Cendorq command design standard:
+
+- Apple-level trust and authority
+- Google-level simplicity
+- ChatGPT-level immediate action
+
+The full standard is documented and validated here:
+
+- [`docs/command-design-operating-standard.md`](docs/command-design-operating-standard.md)
+
 ## Stack
 
 - Next.js 16
@@ -49,6 +61,7 @@ The public surface sells the outcome. The private system holds the engine.
 
 Full operating standards are protected in:
 
+- [`docs/command-design-operating-standard.md`](docs/command-design-operating-standard.md)
 - [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md)
 - [`docs/data-quality-governance-standard.md`](docs/data-quality-governance-standard.md)
 - [`docs/learning-memory-standard.md`](docs/learning-memory-standard.md)
@@ -117,7 +130,7 @@ pnpm typecheck
 pnpm build
 ```
 
-`pnpm validate:routes` includes `validate-production-smoke-coverage.mjs`, which protects strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and the no-fake-submission smoke rule from disappearing quietly.
+`pnpm validate:routes` includes command design standard validation, public drift validation, strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and the no-fake-submission smoke rule.
 
 After deployment, run:
 
@@ -140,6 +153,7 @@ Read the production operating guide before changing routes, public labels, crawl
 - [`docs/production-guide.md`](docs/production-guide.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
 - [`docs/production-verification-status.md`](docs/production-verification-status.md)
+- [`docs/command-design-operating-standard.md`](docs/command-design-operating-standard.md)
 - [`docs/closed-intelligence-operating-standard.md`](docs/closed-intelligence-operating-standard.md)
 - [`docs/data-quality-governance-standard.md`](docs/data-quality-governance-standard.md)
 - [`docs/learning-memory-standard.md`](docs/learning-memory-standard.md)
@@ -166,6 +180,7 @@ Read the production operating guide before changing routes, public labels, crawl
 
 The guides cover:
 
+- command design standard
 - protected buyer path
 - closed intelligence
 - public/private boundary
