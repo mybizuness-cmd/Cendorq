@@ -21,6 +21,7 @@ const RECOVERY_OPTIONS = [
     copy: "Restore the broadest clean context and re-enter the Cendorq path without losing sequence.",
     href: "/",
     cta: "Go to homepage",
+    highlighted: false,
   },
   {
     label: "Compare command depth",
@@ -28,6 +29,7 @@ const RECOVERY_OPTIONS = [
     copy: "Compare Scan, Diagnose, Fix, and Control without returning to legacy pricing routes.",
     href: "/plans",
     cta: "Review Plans",
+    highlighted: false,
   },
 ] as const;
 
