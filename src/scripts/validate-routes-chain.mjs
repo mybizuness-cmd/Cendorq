@@ -6,6 +6,7 @@ const root = process.cwd();
 
 const validators = [
   "src/scripts/validate-routes.mjs",
+  "src/scripts/validate-command-design-operating-standard.mjs",
 ];
 
 const documentedValidatorCoverage = [
@@ -114,5 +115,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence for the customer revenue/access/checkout flow.`);
+console.log(`\nvalidate:routes chain passed baseline route existence and command design standard coverage for the customer revenue/access/checkout flow.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
