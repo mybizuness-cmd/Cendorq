@@ -6,9 +6,12 @@ const failures = [];
 
 const standardPath = "docs/command-design-operating-standard.md";
 const publicDriftPath = "src/scripts/validate-public-drift.mjs";
+const routeChainPath = "src/scripts/validate-routes-chain.mjs";
+const commandDesignValidatorPath = "src/scripts/validate-command-design-operating-standard.mjs";
 
 expectFile(standardPath);
 expectFile(publicDriftPath);
+expectFile(routeChainPath);
 
 expect(standardPath, [
   "Apple-level trust and authority",
@@ -40,13 +43,18 @@ expect(publicDriftPath, [
   "description: \"Choose the right depth.\"",
 ]);
 
+expect(routeChainPath, [
+  commandDesignValidatorPath,
+  "baseline route existence and command design standard coverage",
+]);
+
 if (failures.length) {
   console.error("Command design operating standard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command design operating standard validation passed. Cendorq has a documented Apple-level trust, Google-level simplicity, and ChatGPT-level immediate-action product standard.");
+console.log("Command design operating standard validation passed. Cendorq has a documented and route-chain-protected Apple-level trust, Google-level simplicity, and ChatGPT-level immediate-action product standard.");
 
 function expectFile(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required file: ${path}`);
