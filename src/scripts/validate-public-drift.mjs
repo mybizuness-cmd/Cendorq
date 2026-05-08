@@ -7,6 +7,7 @@ const failures = [];
 const activePublicFiles = [
   "src/lib/seo.ts",
   "src/app/page.tsx",
+  "src/components/home/final-cta-section.tsx",
   "src/app/free-check/page.tsx",
   "src/app/plans/page.tsx",
   "src/app/plans/deep-review/page.tsx",
@@ -97,6 +98,13 @@ for (const phrase of forbiddenActiveLanguage) {
 for (const route of forbiddenActiveRoutes) {
   if (combined.includes(route)) failures.push(`Forbidden old public route found in active surfaces: ${route}`);
 }
+
+expect("src/components/home/final-cta-section.tsx", [
+  "href=\"/free-check\"",
+  "href=\"/plans\"",
+  "Start the Free Scan",
+  "Review plans",
+]);
 
 expect("src/app/loading.tsx", [
   "Cendorq / Loading",
@@ -209,6 +217,7 @@ expect("docs/search-discovery-checklist.md", [
   "Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.",
 ]);
 
+forbid("src/components/home/final-cta-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan"]);
 forbid("src/app/loading.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
 forbid("src/app/error.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
 forbid("src/layout/site-header-conversion.tsx", ["label: \"Pricing\"", "description: \"Choose the right depth.\""]);
@@ -224,7 +233,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
+console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, homepage final CTA, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
