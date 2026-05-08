@@ -26,6 +26,7 @@ export const metadata = buildMetadata({
   image: {
     alt: "Cendorq report layer - the saved-output route for Free Scan and next-step review.",
   },
+  noIndex: true,
 });
 
 const ROUTE_READOUTS = [
