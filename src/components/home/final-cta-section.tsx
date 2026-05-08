@@ -26,7 +26,7 @@ export function FinalCTASection() {
                     </Link>
 
                     <Link
-                        href="/pricing"
+                        href="/plans"
                         className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10"
                     >
                         Review plans
