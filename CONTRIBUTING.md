@@ -10,6 +10,20 @@ The homepage has one job:
 
 Every public change should improve clarity, trust, desire, action, speed, mobile experience, copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment safety, observability, or production reliability. If a change adds confusion, clutter, delay, data risk, dependency risk, deployment risk, diagnostic noise, discoverability risk, weak copy, or mixed intent, do not ship it.
 
+## Command design standard
+
+Every production-facing change should follow the command design standard:
+
+- Apple-level trust and authority
+- Google-level simplicity
+- ChatGPT-level immediate action
+
+Before changing public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, or validation guardrails, use [`docs/command-design-operating-standard.md`](docs/command-design-operating-standard.md).
+
+Every important surface should answer one question quickly:
+
+> What is the safest next command?
+
 ## Protected buyer path
 
 Keep the public path simple:
@@ -54,6 +68,7 @@ CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
 Use the pull request template and answer the quality gates:
 
 - buyer-path impact
+- command design impact when public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, or validation guardrails change
 - conversion check
 - copy quality check when public language, CTAs, headings, metadata, trust messaging, or plan descriptions change
 - privacy and data handling check when public forms, analytics, third-party scripts, environment values, logs, or customer-sensitive information change
@@ -145,6 +160,7 @@ Do not remove or weaken:
 - `README.md`
 - `CHANGELOG.md`
 - `SECURITY.md`
+- `docs/command-design-operating-standard.md`
 - `docs/production-guide.md`
 - `docs/release-checklist.md`
 - `docs/copy-quality-checklist.md`
@@ -165,6 +181,8 @@ Do not remove or weaken:
 - `public/.well-known/security.txt`
 - `public/manifest.webmanifest`
 - `src/scripts/validate-routes.mjs`
+- `src/scripts/validate-command-design-operating-standard.mjs`
+- `src/scripts/validate-public-drift.mjs`
 - `src/scripts/smoke-production.mjs`
 - `src/app/api/health/route.ts`
 
@@ -179,6 +197,7 @@ Keep changes:
 - direct
 - conversion-focused
 - easy to understand
+- command-path aligned
 
 Avoid:
 
@@ -188,6 +207,7 @@ Avoid:
 - dashboard-like public surfaces
 - unsupported guarantees
 - technical language that reduces buyer clarity
+- fallback states that route users into legacy paths
 
 ## Security and maintenance
 
@@ -195,4 +215,4 @@ Follow `SECURITY.md` for security-sensitive work. Dependency and GitHub Actions 
 
 ## Merge standard
 
-A change is ready when it protects the buyer path, passes CI, keeps public language aligned, accounts for copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment environment, and observability when relevant, updates release history when meaningful, and does not weaken production checks.
+A change is ready when it protects the buyer path, follows the command design standard, passes CI, keeps public language aligned, accounts for copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment environment, and observability when relevant, updates release history when meaningful, and does not weaken production checks.
