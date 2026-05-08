@@ -31,7 +31,11 @@ Use the repo as the source of truth and paste/replace files from:
 ## Canonical system names locked in
 
 - Cendorq
-- Search Presence Scan
-- Visibility Blueprint
-- Presence Infrastructure
-- Presence Command
+- Market Command Intelligence
+- Free Scan
+- Plans
+- Deep Review
+- Build Fix
+- Ongoing Control
+- Connect
+- Scan, Diagnose, Fix, Control
