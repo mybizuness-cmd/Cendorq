@@ -9,6 +9,7 @@ type HeaderLike = {
 type PageSearchParams = Record<string, string | string[] | undefined>;
 type SourceState = "live" | "empty" | "unavailable" | "protected";
 type ConsoleEntry = Record<string, unknown>;
+type ConsoleMetrics = { total: number; flagged: number; priority: number };
 
 type ConsoleData = Readonly<{
   entries: ConsoleEntry[];
@@ -214,8 +215,8 @@ function buildConsoleApiQuery(filters: ConsoleFilters) {
   return params.toString();
 }
 
-function buildMetrics(entries: ConsoleEntry[]) {
-  return entries.reduce(
+function buildMetrics(entries: ConsoleEntry[]): ConsoleMetrics {
+  return entries.reduce<ConsoleMetrics>(
     (summary, entry) => {
       summary.total += 1;
       if (Array.isArray(entry.riskFlags) && entry.riskFlags.length > 0) summary.flagged += 1;
