@@ -14,6 +14,9 @@ const activePublicFiles = [
   "src/app/plans/ongoing-control/page.tsx",
   "src/app/connect/page.tsx",
   "src/app/layout.tsx",
+  "src/app/loading.tsx",
+  "src/app/error.tsx",
+  "src/app/not-found.tsx",
   "src/app/manifest.ts",
   "src/app/opengraph-image.tsx",
   "src/app/twitter-image.tsx",
@@ -66,9 +69,11 @@ const forbiddenActiveLanguage = [
 ];
 
 const forbiddenActiveRoutes = [
+  "/pricing",
   "/pricing/full-diagnosis",
   "/pricing/optimization",
   "/pricing/monthly-partner",
+  "/diagnosis",
   "/contact",
 ];
 
@@ -92,6 +97,29 @@ for (const phrase of forbiddenActiveLanguage) {
 for (const route of forbiddenActiveRoutes) {
   if (combined.includes(route)) failures.push(`Forbidden old public route found in active surfaces: ${route}`);
 }
+
+expect("src/app/loading.tsx", [
+  "Cendorq / Loading",
+  "the cleanest command view",
+  "Start Free Scan",
+  "Review Plans",
+  "homepage, Free Scan, or Plans",
+]);
+
+expect("src/app/error.tsx", [
+  "Cendorq / Route error",
+  "Retry once",
+  "homepage, Free Scan, or Plans",
+  "Start Free Scan",
+  "Review Plans",
+]);
+
+expect("src/app/not-found.tsx", [
+  "Start Free Scan",
+  "Compare Plans",
+  "Return home",
+  "View plans",
+]);
 
 expect("src/layout/site-header.tsx", [
   "export { SiteHeader } from \"./site-header-conversion\";",
@@ -181,6 +209,8 @@ expect("docs/search-discovery-checklist.md", [
   "Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.",
 ]);
 
+forbid("src/app/loading.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
+forbid("src/app/error.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
 forbid("src/layout/site-header-conversion.tsx", ["label: \"Pricing\"", "description: \"Choose the right depth.\""]);
 forbid("src/lib/seo.ts", ["Business Command Intelligence", "website trust scan", "conversion clarity review"]);
 forbid("src/app/layout.tsx", ["Business Command Intelligence", "business decision intelligence"]);
@@ -194,7 +224,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
+console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
