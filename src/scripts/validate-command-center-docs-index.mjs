@@ -6,6 +6,9 @@ const failures = [];
 
 const requiredFiles = [
   "docs/command-center-docs-index.md",
+  "docs/command-design-operating-standard.md",
+  "docs/command-design-release-checklist.md",
+  ".github/PULL_REQUEST_TEMPLATE/command-design.md",
   "docs/maximum-protection-standard.md",
   "docs/owner-maximum-protection-posture.md",
   "docs/command-center-operator-runbook.md",
@@ -16,6 +19,8 @@ const requiredFiles = [
   "package.json",
   "src/scripts/validate-routes-chain.mjs",
   "src/scripts/validate-routes-chain-integrity.mjs",
+  "src/scripts/validate-command-design-operating-standard.mjs",
+  "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-codeql-workflow-integrity.mjs",
@@ -34,6 +39,16 @@ for (const file of requiredFiles) validateFileExists(file);
 validateTextFile("docs/command-center-docs-index.md", [
   "# Command Center Docs Index",
   "private documentation index",
+  "docs/command-design-operating-standard.md",
+  "docs/command-design-release-checklist.md",
+  ".github/PULL_REQUEST_TEMPLATE/command-design.md",
+  "src/scripts/validate-command-design-operating-standard.mjs",
+  "src/scripts/validate-public-drift.mjs",
+  "Required command design paths",
+  "Apple-level trust and authority",
+  "Google-level simplicity",
+  "ChatGPT-level immediate action",
+  "safest-next-command rule",
   "docs/maximum-protection-standard.md",
   "docs/owner-maximum-protection-posture.md",
   "docs/command-center-operator-runbook.md",
@@ -48,6 +63,27 @@ validateTextFile("docs/command-center-docs-index.md", [
   "CodeQL workflow integrity standard",
   "Repo update scanning automation standard",
   "Controlled continuous evolution standard",
+]);
+
+validateTextFile("docs/command-design-operating-standard.md", [
+  "Apple-level trust and authority",
+  "Google-level simplicity",
+  "ChatGPT-level immediate action",
+  "What is the safest next command?",
+]);
+
+validateTextFile("docs/command-design-release-checklist.md", [
+  "# Command Design Release Checklist",
+  "Apple-level trust and authority",
+  "Google-level simplicity",
+  "ChatGPT-level immediate action",
+]);
+
+validateTextFile(".github/PULL_REQUEST_TEMPLATE/command-design.md", [
+  "Command design impact",
+  "Apple-level trust and authority",
+  "Google-level simplicity",
+  "ChatGPT-level immediate action",
 ]);
 
 validateTextFile("docs/command-center-operator-runbook.md", [
@@ -103,6 +139,7 @@ validateTextFile("docs/owner-operating-manual.md", [
 
 validateTextFile("src/scripts/validate-routes-chain.mjs", [
   "validate-routes-chain-integrity.mjs",
+  "validate-command-design-operating-standard.mjs",
   "validate-maximum-protection-standard.mjs",
   "validate-owner-maximum-protection-posture.mjs",
   "validate-command-center-docs-index.mjs",
@@ -124,6 +161,13 @@ validateTextFile("src/scripts/validate-routes-chain-integrity.mjs", [
   "rawEvidenceExposed: false",
 ]);
 
+validateTextFile("src/scripts/validate-command-design-operating-standard.mjs", [
+  "docs/command-design-operating-standard.md",
+  "docs/command-design-release-checklist.md",
+  ".github/PULL_REQUEST_TEMPLATE/command-design.md",
+  "docs/command-center-docs-index.md",
+]);
+
 validateTextFile("src/scripts/validate-codeql-workflow-integrity.mjs", [
   ".github/workflows/codeql.yml",
   "actions/checkout@v6",
@@ -139,7 +183,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with command design, docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required docs index dependency: ${path}`);
