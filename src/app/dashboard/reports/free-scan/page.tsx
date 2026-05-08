@@ -31,26 +31,11 @@ const RESULT_STATE = [
 ] as const;
 
 const RESULT_DECISION = [
-  {
-    title: "Signal",
-    copy: "What customers, search, maps, reviews, or AI answers may fail to understand about the business first.",
-  },
-  {
-    title: "Proof",
-    copy: "What visible evidence supports the first read without using private internals or fake certainty.",
-  },
-  {
-    title: "Risk",
-    copy: "How weak clarity, proof, trust, visibility, or action can cost choices before the customer reaches the website or takes the next step.",
-  },
-  {
-    title: "Limit",
-    copy: "What the Scan cannot prove without deeper review, comparison, business context, or approved paid work.",
-  },
-  {
-    title: "Next command",
-    copy: "The cleanest next move when the first signal matters enough to prove, fix, or control over time.",
-  },
+  { title: "Signal", copy: "What customers, search, maps, reviews, or AI answers may fail to understand about the business first." },
+  { title: "Proof", copy: "What visible evidence supports the first read without using private internals or fake certainty." },
+  { title: "Risk", copy: "How weak clarity, proof, trust, visibility, or action can cost choices before the customer reaches the website or takes the next step." },
+  { title: "Limit", copy: "What the Scan cannot prove without deeper review, comparison, business context, or approved paid work." },
+  { title: "Next command", copy: "The cleanest next move when the first signal matters enough to prove, fix, or control over time." },
 ] as const;
 
 const METHODOLOGY_SUMMARY = [
@@ -61,113 +46,129 @@ const METHODOLOGY_SUMMARY = [
 
 export default function FreeScanResultsPage() {
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-24 pt-5 text-white sm:px-6 md:py-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.14),transparent_34%),radial-gradient(circle_at_90%_10%,rgba(14,165,233,0.1),transparent_30%)]" />
+    <main className="relative isolate overflow-hidden text-white">
+      <ScanResultAtmosphere />
 
-      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.8rem] p-4 shadow-[0_34px_130px_rgba(2,8,23,0.5)] sm:p-8">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/80 to-transparent" />
-        <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
-          <div>
-            <p className="text-sm font-semibold text-cyan-100">Protected market signal</p>
-            <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
-              The first AI/search market signal is ready.
-            </h1>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              This is the Scan layer inside the customer dashboard. It shows what may be visible, unclear, weak, or blocked before Cendorq claims a full diagnosis.
-            </p>
+      <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+        <div className="relative z-10">
+          <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
+            Protected market signal
           </div>
-          <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:p-5">
-            <div className="text-sm font-semibold text-cyan-100">Next command</div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Diagnose</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-200">{DEEP_REVIEW_VALUE.primaryValue}</p>
-            <Link href={DEEP_REVIEW.checkoutPath} className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+          <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
+            The first AI/search market signal is ready.
+          </h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
+            This is the Scan layer inside the customer dashboard. It shows what may be visible, unclear, weak, or blocked before Cendorq claims a full diagnosis.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href={DEEP_REVIEW.checkoutPath} className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Unlock {DEEP_REVIEW.price}
+            </Link>
+            <Link href="/dashboard/reports" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Back to report vault
             </Link>
           </div>
         </div>
-      </section>
 
-      <section className="relative z-10 mt-5 grid gap-3 md:grid-cols-3" aria-label="Market signal state">
-        {RESULT_STATE.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.35rem] p-4 sm:p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{item.label}</div>
-            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.8rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.74),rgba(2,8,23,0.9)_48%,rgba(14,116,144,0.26))] p-4 shadow-[0_30px_110px_rgba(2,8,23,0.44)] sm:p-7" aria-label="Market signal intelligence">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-sm font-semibold text-cyan-100">Signal intelligence</p>
-            <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-5xl">
-              Useful because it explains the limit before the next move.
-            </h2>
+        <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] p-5 shadow-[0_55px_200px_rgba(2,8,23,0.72)] sm:p-7">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Next command</p>
+          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Diagnose</h2>
+          <p className="mt-5 text-base leading-8 text-slate-300">{DEEP_REVIEW_VALUE.primaryValue}</p>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            {RESULT_STATE.slice(0, 2).map((item) => (
+              <article key={item.label} className="rounded-[1.6rem] border border-white/10 bg-black/24 p-5">
+                <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.label}</div>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white">{item.value}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-300">{item.detail}</p>
+              </article>
+            ))}
           </div>
-          <Link href="/dashboard/reports" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Back to report vault →
-          </Link>
         </div>
-        <div className="mt-6 rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/[0.08] p-4">
-          <h3 className="text-xl font-semibold tracking-tight text-white">Search is no longer only a list of links.</h3>
-          <p className="mt-3 text-sm leading-7 text-cyan-50">{FREE_SCAN_AI_VISIBILITY_MODEL.customerExplanation}</p>
-        </div>
-        <div className="mt-5 grid gap-3 lg:grid-cols-5">
-          {RESULT_DECISION.map((item) => (
-            <article key={item.title} className="rounded-[1.35rem] border border-white/10 bg-slate-950/60 p-4">
-              <h3 className="text-xl font-semibold tracking-tight text-white">{item.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-300">{item.copy}</p>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Market signal state">
+        <div className="grid gap-4 md:grid-cols-3">
+          {RESULT_STATE.map((item, index) => (
+            <article key={item.label} className={index === 1 ? "rounded-[2rem] border border-cyan-200/22 bg-cyan-200/[0.09] p-6 shadow-[0_28px_100px_rgba(2,8,23,0.42)] md:-mt-6 md:mb-6" : "rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]"}>
+              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.label}</div>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-white">{item.value}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.detail}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-3 lg:grid-cols-3" aria-label="Structured first findings">
-        {SAMPLE_FINDINGS.slice(0, 3).map((finding) => (
-          <article key={`${finding.axis}-${finding.findingLabel}`} className="system-surface rounded-[1.35rem] p-4 sm:p-5">
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-[11px] font-semibold text-cyan-100">{finding.axisLabel}</span>
-              <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold text-slate-200">{finding.priority}</span>
-              <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold text-slate-200">{finding.confidence}</span>
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Market signal intelligence">
+        <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
+          <div className="grid gap-0 lg:grid-cols-[0.74fr_1.26fr]">
+            <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Signal intelligence</p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Useful because it explains the limit before the next move.</h2>
+              <p className="mt-5 text-base leading-8 text-slate-300">{FREE_SCAN_AI_VISIBILITY_MODEL.customerExplanation}</p>
+              <Link href="/dashboard/reports" className="mt-7 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Back to report vault →</Link>
             </div>
-            <h3 className="mt-4 text-xl font-semibold tracking-tight text-white">{finding.findingLabel}</h3>
-            <p className="mt-3 text-sm leading-7 text-slate-300">{finding.customerImpact}</p>
-            <p className="mt-3 rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.08] p-3 text-sm leading-6 text-cyan-50">AI/Search: {finding.aiVisibilityImpact}</p>
-            <p className="mt-3 rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.08] p-3 text-sm leading-6 text-cyan-50">{finding.bestNextAction}</p>
-            <p className="mt-3 text-xs leading-5 text-slate-500">Limit: {finding.limitation}</p>
-          </article>
-        ))}
+            <div className="grid gap-0 md:grid-cols-2 xl:grid-cols-3">
+              {RESULT_DECISION.map((item) => (
+                <article key={item.title} className="border-b border-white/10 p-5 md:border-r sm:p-6">
+                  <h3 className="text-2xl font-semibold tracking-[-0.04em] text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-3 lg:grid-cols-2" aria-label="Market signal boundaries">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Structured first findings">
+        <div className="grid gap-4 lg:grid-cols-3">
+          {SAMPLE_FINDINGS.slice(0, 3).map((finding) => (
+            <article key={`${finding.axis}-${finding.findingLabel}`} className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]">
+              <div className="flex flex-wrap gap-2">
+                <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-[11px] font-bold text-cyan-100">{finding.axisLabel}</span>
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-bold text-slate-200">{finding.priority}</span>
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-bold text-slate-200">{finding.confidence}</span>
+              </div>
+              <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em] text-white">{finding.findingLabel}</h3>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{finding.customerImpact}</p>
+              <p className="mt-4 rounded-[1.2rem] border border-cyan-300/15 bg-cyan-300/[0.08] p-4 text-sm leading-7 text-cyan-50">AI/Search: {finding.aiVisibilityImpact}</p>
+              <p className="mt-3 rounded-[1.2rem] border border-cyan-300/15 bg-cyan-300/[0.08] p-4 text-sm leading-7 text-cyan-50">{finding.bestNextAction}</p>
+              <p className="mt-4 text-xs leading-5 text-slate-500">Limit: {finding.limitation}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative mx-auto grid max-w-[92rem] gap-4 px-4 pb-10 sm:px-6 lg:grid-cols-2" aria-label="Market signal boundaries">
         <BoundaryCard title="What this signal includes" items={FREE_SCAN_VALUE.includes.slice(0, 4)} tone="include" />
         <BoundaryCard title="What stays outside Scan" items={FREE_SCAN_VALUE.doesNotInclude.slice(0, 4)} tone="exclude" />
       </section>
 
-      <section className="relative z-10 mt-7 rounded-[1.55rem] border border-white/10 bg-white/[0.035] p-4 sm:p-5" aria-label="Free Scan methodology summary">
-        <p className="text-sm font-semibold text-cyan-100">Methodology summary</p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Evidence, confidence, AI/search posture, and priority stay separate.</h2>
-        <div className="mt-5 grid gap-3 lg:grid-cols-3">
-          {METHODOLOGY_SUMMARY.map((panel) => (
-            <article key={panel.title} className="rounded-[1.2rem] border border-white/10 bg-black/20 p-4">
-              <h3 className="text-xl font-semibold tracking-tight text-white">{panel.title}</h3>
-              <div className="mt-3 grid gap-2">
-                {panel.items.map((item) => (
-                  <p key={item} className="rounded-[1rem] border border-white/10 bg-white/[0.03] p-3 text-xs leading-5 text-slate-300">{item}</p>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-          {FREE_SCAN_REPORT_AXES.map((axis) => (
-            <article key={axis.key} className="rounded-[1.1rem] border border-white/10 bg-white/[0.03] p-4">
-              <div className="text-sm font-semibold text-white">{axis.customerLabel}</div>
-              <p className="mt-2 text-xs leading-5 text-slate-400">{axis.resultQuestion}</p>
-              <p className="mt-2 text-xs leading-5 text-cyan-100/80">{axis.aiVisibilityRisk}</p>
-            </article>
-          ))}
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Free Scan methodology summary">
+        <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025)_38%,rgba(103,232,249,0.08))] p-6 shadow-[0_45px_180px_rgba(2,8,23,0.55)] backdrop-blur-2xl sm:p-8 lg:p-10">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Methodology summary</p>
+          <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl">Evidence, confidence, AI/search posture, and priority stay separate.</h2>
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {METHODOLOGY_SUMMARY.map((panel) => (
+              <article key={panel.title} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+                <h3 className="text-2xl font-semibold tracking-[-0.04em] text-white">{panel.title}</h3>
+                <div className="mt-4 grid gap-3">
+                  {panel.items.map((item) => (
+                    <p key={item} className="rounded-[1.2rem] border border-white/10 bg-white/[0.03] p-4 text-xs leading-6 text-slate-300">{item}</p>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {FREE_SCAN_REPORT_AXES.map((axis) => (
+              <article key={axis.key} className="rounded-[1.35rem] border border-white/10 bg-white/[0.03] p-5">
+                <div className="text-base font-semibold text-white">{axis.customerLabel}</div>
+                <p className="mt-3 text-xs leading-6 text-slate-400">{axis.resultQuestion}</p>
+                <p className="mt-3 text-xs leading-6 text-cyan-100/80">{axis.aiVisibilityRisk}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -180,15 +181,25 @@ export default function FreeScanResultsPage() {
 
 function BoundaryCard({ title, items, tone }: { title: string; items: readonly string[]; tone: "include" | "exclude" }) {
   return (
-    <article className="system-surface rounded-[1.35rem] p-4 sm:p-5">
-      <h2 className="text-xl font-semibold tracking-tight text-white">{title}</h2>
-      <div className="mt-4 grid gap-3">
+    <article className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)] sm:p-7">
+      <h2 className="text-3xl font-semibold tracking-[-0.055em] text-white">{title}</h2>
+      <div className="mt-5 grid gap-3">
         {items.map((item) => (
-          <p key={item} className={tone === "include" ? "rounded-[1rem] border border-cyan-300/15 bg-cyan-300/10 p-3 text-sm leading-6 text-slate-200" : "rounded-[1rem] border border-white/10 bg-black/20 p-3 text-sm leading-6 text-slate-400"}>
+          <p key={item} className={tone === "include" ? "rounded-[1.2rem] border border-cyan-300/15 bg-cyan-300/10 p-4 text-sm leading-7 text-slate-200" : "rounded-[1.2rem] border border-white/10 bg-black/20 p-4 text-sm leading-7 text-slate-400"}>
             {item}
           </p>
         ))}
       </div>
     </article>
+  );
+}
+
+function ScanResultAtmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(103,232,249,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.11),transparent_27%),linear-gradient(180deg,#020617_0%,#020817_42%,#030712_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.04] blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
+    </div>
   );
 }
