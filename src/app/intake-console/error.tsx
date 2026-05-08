@@ -32,11 +32,11 @@ const recoveryRoutes: readonly RecoveryRoute[] = [
   },
   {
     kind: "link",
-    title: "Return to the Search Presence Scan",
+    title: "Return to Free Scan",
     copy:
       "Use this if you want to go back to the live intake entry point while the internal console route is unavailable.",
     href: "/free-check",
-    label: "Run Search Presence Scan",
+    label: "Start Free Scan",
   },
   {
     kind: "link",
@@ -128,7 +128,7 @@ export default function IntakeConsoleErrorPage({
           <ReadoutCard
             label="Best next move"
             value="Retry once, then step back cleanly"
-            copy="If the page does not recover immediately, use the Search Presence Scan or homepage instead of forcing a broken console route."
+            copy="If the page does not recover immediately, use Free Scan or the homepage instead of forcing a broken console route."
           />
           <ReadoutCard
             label="Reference"
@@ -206,7 +206,7 @@ export default function IntakeConsoleErrorPage({
                   href="/free-check"
                   className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
                 >
-                  Go to Search Presence Scan
+                  Start Free Scan
                 </Link>
 
                 <Link
@@ -219,7 +219,7 @@ export default function IntakeConsoleErrorPage({
             </div>
 
             <div className="grid gap-4">
-              <InfoTile label="Most stable re-entry" value="Search Presence Scan" />
+              <InfoTile label="Most stable re-entry" value="Free Scan" />
               <InfoTile label="Fallback route" value="Homepage" />
               <InfoTile label="Retry rule" value="Retry once only" />
             </div>
