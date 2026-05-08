@@ -119,96 +119,118 @@ const REPORT_ACTIONS = [
 const REPORT_VAULT_RULES = [
   "Pending, draft, or unavailable reports must never look final.",
   "Scan, Diagnose, Fix, and Control report types must remain visibly separate.",
-  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF attachment.",
+  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF.",
   "AI/search posture must be useful and bounded: no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control.",
 ] as const;
 
 export default function ReportsVaultPage() {
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-5 text-white sm:px-6 md:py-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(103,232,249,0.14),transparent_32%),radial-gradient(circle_at_86%_8%,rgba(14,165,233,0.1),transparent_34%)]" />
+    <main className="relative isolate overflow-hidden text-white">
+      <VaultAtmosphere />
 
-      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.8rem] p-4 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/80 to-transparent" />
-        <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
-          <div>
-            <p className="text-sm font-semibold text-cyan-100">Market proof vault</p>
-            <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">
-              Keep the record of what customers and AI search can understand.
-            </h1>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              This vault stores the business market record: first signals, approved proof, AI/search posture, confidence limits, paid delivery, and the next command decision.
-            </p>
+      <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+        <div className="relative z-10">
+          <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
+            Market proof vault
           </div>
-          <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:p-5">
-            <div className="text-sm font-semibold text-cyan-100">Proof rule</div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Nothing final until it is approved.</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-200">The vault should make report depth, AI/search posture, confidence, and delivery impossible to confuse.</p>
-            <Link href="/dashboard/reports/free-scan" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+          <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
+            Keep the record of what customers and AI search can understand.
+          </h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
+            This vault stores the business market record: first signals, approved proof, AI/search posture, confidence limits, paid delivery, and the next command decision.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/dashboard/reports/free-scan" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Open market signal
             </Link>
+            <Link href="/dashboard" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Back to command center
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] p-5 shadow-[0_55px_200px_rgba(2,8,23,0.72)] sm:p-7">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Proof rule</p>
+          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Nothing final until it is approved.</h2>
+          <p className="mt-5 text-base leading-8 text-slate-300">The vault should make report depth, AI/search posture, confidence, and delivery impossible to confuse.</p>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            {REPORT_STATE.slice(0, 2).map((item) => (
+              <article key={item.label} className="rounded-[1.6rem] border border-white/10 bg-black/24 p-5">
+                <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.label}</div>
+                <div className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white">{item.value}</div>
+                <p className="mt-3 text-sm leading-7 text-slate-300">{item.detail}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="relative z-10 mt-5 grid gap-3 md:grid-cols-3" aria-label="Report state summary">
-        {REPORT_STATE.map((item) => (
-          <article key={item.label} className="system-surface rounded-[1.35rem] p-4 sm:p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{item.label}</div>
-            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{item.value}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.detail}</p>
-          </article>
-        ))}
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Report state summary">
+        <div className="grid gap-4 md:grid-cols-3">
+          {REPORT_STATE.map((item, index) => (
+            <article key={item.label} className={index === 1 ? "rounded-[2rem] border border-cyan-200/22 bg-cyan-200/[0.09] p-6 shadow-[0_28px_100px_rgba(2,8,23,0.42)] md:-mt-6 md:mb-6" : "rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]"}>
+              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.label}</div>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-white">{item.value}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.detail}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section className="relative z-10 mt-7 overflow-hidden rounded-[1.8rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.74),rgba(2,8,23,0.9)_48%,rgba(14,116,144,0.26))] p-4 shadow-[0_30px_110px_rgba(2,8,23,0.44)] sm:p-7" aria-label="Separated report library">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-sm font-semibold text-cyan-100">Separated proof library</p>
-            <h2 className="mt-2 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-5xl">
-              Different proof for every command depth.
-            </h2>
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Separated report library">
+        <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
+          <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
+            <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Separated proof library</p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Different proof for every command depth.</h2>
+              <p className="mt-5 text-base leading-8 text-slate-300">Scan, Diagnose, Fix, and Control cannot look like the same cheap report block. Each one has a different job.</p>
+              <Link href="/dashboard" className="mt-7 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                Back to dashboard →
+              </Link>
+            </div>
+            <div className="divide-y divide-white/10">
+              {REPORT_LIBRARY.map((report) => (
+                <Link key={report.planKey} href={report.href} className="group grid gap-4 p-5 transition hover:bg-cyan-200/[0.06] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[11rem_1fr_auto] sm:items-center sm:p-6">
+                  <div>
+                    <div className="text-4xl font-semibold tracking-[-0.06em] text-white">{report.command}</div>
+                    <div className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-cyan-100/75">{report.reportType}</div>
+                  </div>
+                  <div className="max-w-2xl">
+                    <p className="text-sm leading-6 text-slate-300">{report.deliveryMeaning}</p>
+                    <p className="mt-2 text-xs font-semibold leading-5 text-cyan-100/80">AI/Search posture: {report.aiPosture}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
+                    <div className="text-sm font-black text-cyan-100">{report.value.price}</div>
+                    <span className="mt-1 inline-flex text-sm font-bold text-cyan-100 transition group-hover:text-white">{report.cta} →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-          <Link href="/dashboard" className="text-sm font-semibold text-cyan-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Back to dashboard →
-          </Link>
         </div>
-        <div className="mt-6 divide-y divide-white/10 rounded-[1.35rem] border border-white/10 bg-slate-950/50">
-          {REPORT_LIBRARY.map((report) => (
-            <Link key={report.planKey} href={report.href} className="group grid gap-3 px-4 py-5 transition hover:bg-cyan-300/[0.06] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[10rem_1fr_auto] sm:items-center sm:px-5">
-              <div>
-                <div className="text-3xl font-semibold tracking-tight text-white">{report.command}</div>
-                <div className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100/75">{report.reportType}</div>
-              </div>
-              <div className="max-w-2xl">
-                <p className="text-sm leading-6 text-slate-300">{report.deliveryMeaning}</p>
-                <p className="mt-2 text-xs leading-5 text-cyan-100/80">AI/Search posture: {report.aiPosture}</p>
-              </div>
-              <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
-                <div className="text-sm font-semibold text-cyan-100">{report.value.price}</div>
-                <span className="mt-1 inline-flex text-sm font-semibold text-cyan-100 transition group-hover:text-white">{report.cta} →</span>
-              </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Report actions">
+        <div className="grid gap-4 md:grid-cols-3">
+          {REPORT_ACTIONS.map((item) => (
+            <Link key={item.href} href={item.href} className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)] transition hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.value}</div>
+              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-white">{item.title}</h3>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="relative z-10 mt-7 grid gap-3 md:grid-cols-3" aria-label="Report actions">
-        {REPORT_ACTIONS.map((item) => (
-          <Link key={item.href} href={item.href} className="system-surface rounded-[1.35rem] p-4 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{item.value}</div>
-            <h3 className="mt-2 text-xl font-semibold tracking-tight text-white">{item.title}</h3>
-          </Link>
-        ))}
-      </section>
-
-      <section className="relative z-10 mt-7 rounded-[1.55rem] border border-white/10 bg-white/[0.035] p-4 sm:p-5" aria-label="Vault safety standard">
-        <p className="text-sm font-semibold text-cyan-100">Vault standard</p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Useful only when report depth, AI/search posture, and delivery are impossible to confuse.</h2>
-        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {REPORT_VAULT_RULES.map((rule) => (
-            <p key={rule} className="rounded-[1rem] border border-white/10 bg-black/20 p-3 text-xs leading-6 text-slate-300">{rule}</p>
-          ))}
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Vault safety standard">
+        <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025)_38%,rgba(103,232,249,0.08))] p-6 shadow-[0_45px_180px_rgba(2,8,23,0.55)] backdrop-blur-2xl sm:p-8 lg:p-10">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Vault standard</p>
+          <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl">Useful only when report depth, AI/search posture, and delivery are impossible to confuse.</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {REPORT_VAULT_RULES.map((rule) => (
+              <p key={rule} className="rounded-[1.35rem] border border-white/10 bg-black/25 p-4 text-sm font-semibold leading-7 text-slate-300">{rule}</p>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -227,4 +249,14 @@ function paidDelivery(planKey: "deep-review" | "build-fix" | "ongoing-control") 
 function paidAiPosture(planKey: "deep-review" | "build-fix" | "ongoing-control") {
   const contract = PAID_REPORT_BY_PLAN[planKey];
   return contract?.aiVisibilityValue || "AI/search posture is customer-safe, bounded, and never a ranking or placement guarantee.";
+}
+
+function VaultAtmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(103,232,249,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.11),transparent_27%),linear-gradient(180deg,#020617_0%,#020817_42%,#030712_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.04] blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
+    </div>
+  );
 }
