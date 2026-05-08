@@ -21,6 +21,9 @@ const canonicalRoutes = [
   "src/app/dashboard/support/status/page.tsx",
   "src/app/checkout/start/page.tsx",
   "src/app/checkout/success/page.tsx",
+  "src/app/loading.tsx",
+  "src/app/error.tsx",
+  "src/app/not-found.tsx",
   "src/lib/customer-platform-route-map.ts",
   "src/lib/customer-auth-orchestration.ts",
   "src/lib/pricing-checkout-orchestration.ts",
@@ -40,4 +43,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Canonical route validation passed for ${canonicalRoutes.length} route and orchestration dependencies.`);
+console.log(`Canonical route validation passed for ${canonicalRoutes.length} route and orchestration dependencies, including public fallback surfaces.`);
