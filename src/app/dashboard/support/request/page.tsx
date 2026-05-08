@@ -26,55 +26,81 @@ const SAFE_SUMMARY_RULES = [
 
 export default function SupportRequestPage() {
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-5 text-white sm:px-6 md:py-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(103,232,249,0.14),transparent_34%),radial-gradient(circle_at_86%_12%,rgba(14,165,233,0.1),transparent_32%)]" />
+    <main className="relative isolate overflow-hidden text-white">
+      <RequestAtmosphere />
 
-      <section className="system-panel-authority relative z-10 overflow-hidden rounded-[1.8rem] p-4 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/80 to-transparent" />
-        <div className="grid gap-5 lg:grid-cols-[1fr_20rem] lg:items-start">
-          <div>
-            <p className="text-sm font-semibold text-cyan-100">Market resolution intake</p>
-            <h1 className="mt-3 max-w-5xl text-3xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl">Send the safe summary that moves the blocker forward.</h1>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
-              Support intake should collect enough context to help without turning into a private data dump, duplicate request loop, or command-depth shortcut.
-            </p>
+      <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+        <div className="relative z-10">
+          <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
+            Market resolution intake
           </div>
-          <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4 sm:p-5">
-            <div className="text-sm font-semibold text-cyan-100">After submit</div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Track status first.</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-200">Duplicate requests create noise. Status and notifications show what happens next.</p>
-            <Link href="/dashboard/support/status" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">Track status</Link>
+          <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
+            Send the safe summary that moves the blocker forward.
+          </h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
+            Intake should collect enough context to help without turning into a private data dump, duplicate request loop, or command-depth shortcut.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="#new-support-request" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Start safe request
+            </Link>
+            <Link href="/dashboard/support/status" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Track status first
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] p-5 shadow-[0_55px_200px_rgba(2,8,23,0.72)] sm:p-7">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">After submit</p>
+          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Track status first.</h2>
+          <p className="mt-5 text-base leading-8 text-slate-300">Duplicate requests create noise. Status and notifications show what happens next.</p>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            {REQUEST_PATHS.slice(1).map((item) => (
+              <Link key={item.title} href={item.href} className="rounded-[1.6rem] border border-white/10 bg-black/24 p-5 transition hover:border-cyan-200/30 hover:bg-cyan-200/[0.08]">
+                <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.title}</div>
+                <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="relative z-10 mt-5 grid gap-3 md:grid-cols-3" aria-label="Support request paths">
-        {REQUEST_PATHS.map((item) => (
-          <Link key={item.title} href={item.href} className="system-surface rounded-[1.35rem] p-4 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
-            <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.copy}</p>
-          </Link>
-        ))}
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Support request paths">
+        <div className="grid gap-4 md:grid-cols-3">
+          {REQUEST_PATHS.map((item, index) => (
+            <Link key={item.title} href={item.href} className={index === 0 ? "rounded-[2rem] border border-cyan-200/22 bg-cyan-200/[0.09] p-6 shadow-[0_28px_100px_rgba(2,8,23,0.42)] md:-mt-6 md:mb-6" : "rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)] transition hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950"}>
+              <h2 className="text-3xl font-semibold tracking-[-0.055em] text-white">{item.title}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.copy}</p>
+            </Link>
+          ))}
+        </div>
       </section>
 
-      <section id="new-support-request" className="relative z-10 mt-7 grid scroll-mt-8 gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-        <SupportRequestForm />
-        <aside className="system-surface rounded-[1.55rem] p-4 sm:p-5">
-          <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Safe summary only.</h2>
-          <div className="mt-4 grid gap-3">
+      <section id="new-support-request" className="relative mx-auto grid max-w-[92rem] scroll-mt-8 gap-6 px-4 pb-10 sm:px-6 lg:grid-cols-[1.08fr_0.92fr]">
+        <div className="rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] p-4 shadow-[0_45px_180px_rgba(2,8,23,0.55)] sm:p-6">
+          <SupportRequestForm />
+        </div>
+        <aside className="rounded-[2.5rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)] sm:p-8">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Safe summary only</p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-[-0.055em] text-white sm:text-5xl">Enough context. No secrets.</h2>
+          <div className="mt-6 grid gap-3">
             {SAFE_SUMMARY_RULES.map((rule) => (
-              <p key={rule} className="rounded-[1rem] border border-white/10 bg-black/20 p-3 text-sm leading-6 text-slate-300">{rule}</p>
+              <p key={rule} className="rounded-[1.35rem] border border-white/10 bg-black/25 p-4 text-sm font-semibold leading-7 text-slate-300">{rule}</p>
             ))}
           </div>
         </aside>
       </section>
 
-      <section id="support-request-update" className="relative z-10 mt-7 grid scroll-mt-8 gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-        <SupportRequestUpdateForm />
-        <aside className="system-surface rounded-[1.55rem] p-4 sm:p-5">
-          <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Update only when asked.</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-300">Use update mode only when the status page asks for safer customer context. Approved updates return the request to protected review.</p>
-          <Link href="/dashboard/support/status" className="mt-5 inline-flex text-sm font-semibold text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Check status first →</Link>
+      <section id="support-request-update" className="relative mx-auto grid max-w-[92rem] scroll-mt-8 gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-[1.08fr_0.92fr]">
+        <div className="rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] p-4 shadow-[0_45px_180px_rgba(2,8,23,0.55)] sm:p-6">
+          <SupportRequestUpdateForm />
+        </div>
+        <aside className="rounded-[2.5rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)] sm:p-8">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Update only when asked</p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-[-0.055em] text-white sm:text-5xl">Do not create duplicate noise.</h2>
+          <p className="mt-5 text-sm leading-7 text-slate-300">Use update mode only when the status page asks for safer customer context. Approved updates return the request to protected review.</p>
+          <Link href="/dashboard/support/status" className="mt-6 inline-flex text-sm font-bold text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Check status first →</Link>
         </aside>
       </section>
 
@@ -82,5 +108,15 @@ export default function SupportRequestPage() {
         Market resolution intake. Send the safe summary that moves the blocker forward. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No command-depth shortcut. Track status first. {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}
       </section>
     </main>
+  );
+}
+
+function RequestAtmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(103,232,249,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.11),transparent_27%),linear-gradient(180deg,#020617_0%,#020817_42%,#030712_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.04] blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
+    </div>
   );
 }
