@@ -57,6 +57,8 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Changed
 
+- Hardened Free Scan API intake boundaries with JSON content-type checks, optional production origin allowlisting, stronger no-store response headers, simple bot-pattern rejection, and minimum form-completion timing while preserving current Free Scan language and route strategy.
+- Documented the optional `INTAKE_ALLOWED_ORIGINS` server-only allowlist placeholder for production Free Scan intake submissions.
 - Hardened legacy public-route governance so `/diagnosis`, `/profile`, `/faq`, `/how-it-works`, old pricing paths, and old shorthand routes redirect into the current buyer path instead of remaining discoverable as active routes.
 - Kept sitemap and robots discovery surfaces focused on current buyer-path routes and current policy/trust pages rather than redirected legacy routes.
 - Expanded route validation to protect legacy public-route governance, redirect smoke checks, sitemap exclusions, robots allowlist exclusions, active public-label drift, SEO defaults, the header shim, public discovery surfaces, Free Scan intake validation, and Free Scan API smoke coverage.
@@ -94,6 +96,7 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Security
 
+- Hardened Free Scan intake boundary handling without adding new secrets, credentials, or private buyer-data exposure.
 - No secret, credential, private runtime value, or private buyer-data behavior changes.
 - Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, resilience/continuity, maximum protection, foundation hardening, system synchronization, internal command center boundaries, score-threshold discipline, Free Scan intake consistency, Free Scan API no-store behavior, protected console reads, and public-surface drift prevention.
 - Removed the Free Scan production open-read escape hatch so unauthenticated intake reads remain closed by default in production.
