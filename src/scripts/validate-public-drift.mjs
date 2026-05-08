@@ -97,6 +97,12 @@ expect("src/layout/site-header.tsx", [
   "export { SiteHeader } from \"./site-header-conversion\";",
 ]);
 
+expect("src/layout/site-header-conversion.tsx", [
+  "label: \"Plans\"",
+  "href: \"/plans\"",
+  "description: \"Compare Scan, Diagnose, Fix, and Control.\"",
+]);
+
 expect("src/lib/seo.ts", [
   "process.env.NEXT_PUBLIC_SITE_URL",
   "Cendorq helps businesses become easier to find, understand, trust, and choose",
@@ -175,6 +181,7 @@ expect("docs/search-discovery-checklist.md", [
   "Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.",
 ]);
 
+forbid("src/layout/site-header-conversion.tsx", ["label: \"Pricing\"", "description: \"Choose the right depth.\""]);
 forbid("src/lib/seo.ts", ["Business Command Intelligence", "website trust scan", "conversion clarity review"]);
 forbid("src/app/layout.tsx", ["Business Command Intelligence", "business decision intelligence"]);
 forbid("src/app/opengraph-image.tsx", ["Business Command Intelligence", "Stop losing customers"]);

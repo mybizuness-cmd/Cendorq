@@ -12,7 +12,7 @@ const BRAND_NAME = "Cendorq";
 
 const PRIMARY_NAV: readonly NavItem[] = [
   { label: "Free Scan", href: "/free-check", description: "Start with a first signal.", match: "startsWith" },
-  { label: "Pricing", href: "/plans", description: "Choose the right depth.", match: "startsWith" },
+  { label: "Plans", href: "/plans", description: "Compare Scan, Diagnose, Fix, and Control.", match: "startsWith" },
   { label: "Dashboard", href: "/dashboard", description: "Return to your workspace.", match: "startsWith" },
 ] as const;
 
