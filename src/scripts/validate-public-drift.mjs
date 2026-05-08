@@ -9,6 +9,7 @@ const activePublicFiles = [
   "src/app/page.tsx",
   "src/components/home/final-cta-section.tsx",
   "src/app/free-check/page.tsx",
+  "src/components/free-check/guided-free-check-form-v3.tsx",
   "src/app/plans/page.tsx",
   "src/app/plans/deep-review/page.tsx",
   "src/app/plans/build-fix/page.tsx",
@@ -104,6 +105,14 @@ expect("src/components/home/final-cta-section.tsx", [
   "href=\"/plans\"",
   "Start the Free Scan",
   "Review plans",
+]);
+
+expect("src/components/free-check/guided-free-check-form-v3.tsx", [
+  "GuidedFreeCheckFormV3",
+  "requestFreeScanVerifyToViewHandoff",
+  "requestedDestination: \"/dashboard/reports/free-scan\"",
+  "Compare all plans",
+  "href=\"/plans\"",
 ]);
 
 expect("src/app/loading.tsx", [
@@ -218,6 +227,7 @@ expect("docs/search-discovery-checklist.md", [
 ]);
 
 forbid("src/components/home/final-cta-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan"]);
+forbid("src/components/free-check/guided-free-check-form-v3.tsx", ["/pricing", "/diagnosis", "Search Presence Scan"]);
 forbid("src/app/loading.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
 forbid("src/app/error.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
 forbid("src/layout/site-header-conversion.tsx", ["label: \"Pricing\"", "description: \"Choose the right depth.\""]);
@@ -233,7 +243,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, homepage final CTA, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
+console.log("Public drift validation passed. SEO defaults, structured metadata, share images, active public routes, homepage final CTA, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
