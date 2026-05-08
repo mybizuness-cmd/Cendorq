@@ -128,14 +128,14 @@ export default function FreeCheckErrorPage({
                                 />
 
                                 <ActionCard
-                                    title="Review the system path first"
-                                    copy="Use this if you want to confirm the route sequence before returning to the intake layer."
+                                    title="Review the command path first"
+                                    copy="Use this if you want to compare Scan, Diagnose, Fix, and Control before returning to the intake layer."
                                     action={
                                         <Link
-                                            href="/diagnosis"
+                                            href="/plans/deep-review"
                                             className="system-button-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition"
                                         >
-                                            See how it works
+                                            See Deep Review
                                         </Link>
                                     }
                                 />
@@ -150,7 +150,7 @@ export default function FreeCheckErrorPage({
                                 <StatusTile label="Identity lane" value="Interrupted" />
                                 <StatusTile label="Context lane" value="Interrupted" />
                                 <StatusTile label="Recovery state" value="Available" highlighted />
-                                <StatusTile label="Safe route" value="Homepage or diagnosis" />
+                                <StatusTile label="Safe route" value="Homepage or Deep Review" />
                             </div>
                         </div>
                     </div>
