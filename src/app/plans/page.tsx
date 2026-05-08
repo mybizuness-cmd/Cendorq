@@ -52,10 +52,10 @@ const BUILD_FIX = getCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL = getCendorqPlanPrice("ongoing-control");
 
 const DECISION_STANDARDS = [
-  { title: "Need the first signal", best: "Scan", copy: "Use Free Scan before spending deeper money." },
-  { title: "Need the real cause", best: "Diagnose", copy: `Use ${DEEP_REVIEW.price} Deep Review when guessing would be expensive.` },
-  { title: "Need the weak point improved", best: "Fix", copy: `Use ${BUILD_FIX.price} Build Fix when the target is clear.` },
-  { title: "Need monthly command", best: "Control", copy: `Use ${ONGOING_CONTROL.price} when visibility needs ongoing attention.` },
+  { title: "First signal", best: "Scan", copy: "Use Free Scan before spending deeper money." },
+  { title: "Real cause", best: "Diagnose", copy: `Use ${DEEP_REVIEW.price} Deep Review when guessing would be expensive.` },
+  { title: "Weak point", best: "Fix", copy: `Use ${BUILD_FIX.price} Build Fix when the target is clear.` },
+  { title: "Monthly command", best: "Control", copy: `Use ${ONGOING_CONTROL.price} when visibility needs ongoing attention.` },
 ] as const;
 
 const PLANS_HANDOFFS = [
@@ -79,43 +79,43 @@ export default function PlansPage() {
   const deepReview = getCendorqPlanPrice("deep-review");
 
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-24 pt-6 text-white sm:px-6 md:py-10 xl:py-12">
+    <main className="relative isolate overflow-hidden text-white">
       <PlanAtmosphere />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
 
-      <section className="relative z-10 grid gap-6 lg:grid-cols-[0.84fr_1.16fr] lg:items-center">
-        <div>
-          <p className="text-sm font-semibold text-cyan-100">Market command path</p>
-          <h1 className="system-hero-title mt-3 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:mt-4 sm:text-5xl md:text-6xl">
+      <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+        <div className="relative z-10">
+          <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">Market command path</div>
+          <h1 className="mt-6 max-w-5xl text-[clamp(3.25rem,7.5vw,7.6rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
             Choose the command depth that matches the market risk.
           </h1>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-5 sm:text-lg sm:leading-8">
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
             Scan first. Diagnose when the cause matters. Fix only when the target is clear. Control when visibility, trust, and customer choice need monthly command.
           </p>
-          <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row">
-            <Link href="/free-check" className="system-button-primary inline-flex min-h-11 items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
               Start Free Scan
             </Link>
-            <Link href={deepReview.checkoutPath} className="system-button-secondary inline-flex min-h-11 items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            <Link href={deepReview.checkoutPath} className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
               Unlock Deep Review {deepReview.price}
             </Link>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[1.9rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.74),rgba(2,8,23,0.92)_48%,rgba(14,116,144,0.28))] p-4 shadow-[0_34px_130px_rgba(2,8,23,0.5)] sm:p-5">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
-          <div className="divide-y divide-white/10 rounded-[1.35rem] border border-white/10 bg-slate-950/46">
-            {PLAN_CARDS.map((plan) => (
-              <Link key={plan.key} href={plan.href} className="group grid gap-3 px-4 py-5 transition hover:bg-cyan-300/[0.06] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[9rem_1fr_auto] sm:items-center sm:px-5">
+        <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] shadow-[0_55px_200px_rgba(2,8,23,0.72)]">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
+          <div className="divide-y divide-white/10">
+            {PLAN_CARDS.map((plan, index) => (
+              <Link key={plan.key} href={plan.href} className={index === 1 ? "group grid gap-4 bg-cyan-200/[0.08] p-5 transition hover:bg-cyan-200/[0.12] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[12rem_1fr_auto] sm:items-center sm:p-7" : "group grid gap-4 p-5 transition hover:bg-cyan-200/[0.06] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:grid-cols-[12rem_1fr_auto] sm:items-center sm:p-7"}>
                 <div>
-                  <h2 className="text-3xl font-semibold tracking-tight text-white">{plan.command}</h2>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100/75">{plan.name}</p>
+                  <h2 className="text-5xl font-semibold tracking-[-0.07em] text-white">{plan.command}</h2>
+                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-cyan-100/75">{plan.name}</p>
                 </div>
-                <p className="max-w-2xl text-sm leading-6 text-slate-300">{plan.purpose}</p>
+                <p className="max-w-2xl text-base leading-7 text-slate-300">{plan.purpose}</p>
                 <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
-                  <div className="text-sm font-semibold text-cyan-100">{plan.price}</div>
-                  <span className="mt-1 inline-flex text-sm font-semibold text-cyan-100 transition group-hover:text-white">{plan.cta} →</span>
+                  <div className="text-lg font-black text-cyan-100">{plan.price}</div>
+                  <span className="mt-1 inline-flex text-sm font-bold text-cyan-100 transition group-hover:text-white">{plan.cta} →</span>
                 </div>
               </Link>
             ))}
@@ -123,22 +123,26 @@ export default function PlansPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="How to choose a plan">
-        {DECISION_STANDARDS.map((item) => (
-          <article key={item.title} className="system-surface rounded-[1.35rem] p-4 sm:p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{item.title}</div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">{item.best}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{item.copy}</p>
-          </article>
-        ))}
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="How to choose a plan">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {DECISION_STANDARDS.map((item, index) => (
+            <article key={item.title} className={index === 1 ? "rounded-[2rem] border border-cyan-200/22 bg-cyan-200/[0.09] p-6 shadow-[0_28px_100px_rgba(2,8,23,0.42)] lg:-mt-6 lg:mb-6" : "rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]"}>
+              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.title}</div>
+              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white">{item.best}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.copy}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section className="relative z-10 mt-8 rounded-[1.7rem] border border-white/10 bg-white/[0.035] p-5 sm:p-6" aria-label="Plan separation standard">
-        <p className="text-sm font-semibold text-cyan-100">No overlap</p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-4xl">Each plan buys a different level of command.</h2>
-        <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">
-          Free Scan finds the first signal. Deep Review explains the cause. Build Fix improves the selected weak point. Ongoing Control keeps the business watched as search, AI answers, and competitors move.
-        </p>
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Plan separation standard">
+        <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025)_38%,rgba(103,232,249,0.08))] p-6 shadow-[0_45px_180px_rgba(2,8,23,0.55)] backdrop-blur-2xl sm:p-8 lg:p-10">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">No overlap</p>
+          <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl">Each plan buys a different level of command.</h2>
+          <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-300">
+            Free Scan finds the first signal. Deep Review explains the cause. Build Fix improves the selected weak point. Ongoing Control keeps the business watched as search, AI answers, and competitors move.
+          </p>
+        </div>
       </section>
 
       <section className="sr-only" aria-label="Market command path guardrails">
@@ -150,11 +154,10 @@ export default function PlansPage() {
 
 function PlanAtmosphere() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
-      <div className="absolute -right-8 top-16 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-      <div className="absolute left-1/2 top-1/4 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.03] blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.026]" />
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(103,232,249,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.11),transparent_27%),linear-gradient(180deg,#020617_0%,#020817_42%,#030712_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.04] blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
     </div>
   );
 }
