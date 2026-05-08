@@ -5,7 +5,7 @@ export function HeroSection() {
         <section className="mx-auto max-w-7xl px-6 pb-20 pt-16 md:pb-28 md:pt-24">
             <div className="max-w-5xl">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-400">
-                    Visibility intelligence for businesses
+                    Market Command Intelligence
                 </p>
 
                 <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white md:text-7xl">
@@ -27,10 +27,10 @@ export function HeroSection() {
                     </Link>
 
                     <Link
-                        href="/diagnosis"
+                        href="/plans/deep-review"
                         className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10"
                     >
-                        See how diagnosis works
+                        See how Deep Review works
                     </Link>
                 </div>
 
