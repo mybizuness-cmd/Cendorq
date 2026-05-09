@@ -11,16 +11,19 @@ for (const phrase of [
   "export const dynamic = \"force-dynamic\";",
   "export const revalidate = 0;",
   "export const fetchCache = \"force-no-store\";",
-  "data-cendorq-homepage=\"market-command-home-v1\"",
+  "data-cendorq-homepage=\"market-command-home-v2\"",
+  "Apple-level trust and authority",
+  "Google-level simplicity",
+  "ChatGPT-level immediate action",
   "Cendorq Market Command Intelligence",
   "Become easier to find, trust, and choose.",
   "Cendorq reads the public market path around your business before customers decide.",
+  "Run the Free Scan before buying the bigger fix.",
   "Start Free Scan",
   "Review Plans",
-  "Start with evidence before paid depth.",
-  "Move deeper only when the signal is strong.",
-  "The market either understands you or it moves on.",
-  "The Free Scan starts the system. The protected dashboard carries the result.",
+  "Connect with Cendorq",
+  "Scan first. Then decide what depth is worth it.",
+  "No cluttered audit theater. No fake certainty.",
   "Market Command Intelligence for becoming easier to find, understand, trust, and choose.",
   "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or outcomes.",
   "Scan",
@@ -38,7 +41,7 @@ for (const phrase of [
   "href: \"/plans/build-fix\"",
   "href: \"/plans/ongoing-control\"",
 ]) {
-  if (!combined.includes(phrase)) failures.push(`Homepage/footer polish missing required phrase: ${phrase}`);
+  if (!combined.includes(phrase)) failures.push(`Minimal homepage/footer missing required phrase: ${phrase}`);
 }
 
 for (const phrase of [
@@ -52,11 +55,13 @@ for (const phrase of [
   "href=\"/diagnosis\"",
   "rough temporary",
   "emergency replacement",
-  "The Free Scan form stays intact.",
-  "Dashboard and report paths stay intact.",
-  "No old Pricing or Diagnosis routes on the homepage.",
+  "The market either understands you or it moves on.",
+  "The Free Scan starts the system. The protected dashboard carries the result.",
+  "bg-[#020713]",
+  "system-grid-wide",
+  "MarketCard",
 ]) {
-  if (combined.includes(phrase)) failures.push(`Homepage/footer polish contains forbidden phrase: ${phrase}`);
+  if (combined.includes(phrase)) failures.push(`Minimal homepage/footer contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
@@ -65,4 +70,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Root homepage and public footer are dynamic, premium, customer-facing, and pointed into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
+console.log("Homepage replacement validation passed. Root homepage is light, minimal, action-first, and points into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
