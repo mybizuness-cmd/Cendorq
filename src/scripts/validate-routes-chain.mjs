@@ -8,6 +8,7 @@ const validators = [
   "src/scripts/validate-routes.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
+  "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
 ];
 
 const documentedValidatorCoverage = [
@@ -116,5 +117,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence, command design standard coverage, and active Free Scan form selection coverage for the customer revenue/access/checkout flow.`);
+console.log(`\nvalidate:routes chain passed baseline route existence, command design standard coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
