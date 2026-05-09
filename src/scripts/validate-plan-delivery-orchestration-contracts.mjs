@@ -39,15 +39,52 @@ if (!failures.length) {
     "PLAN_DELIVERY_ORCHESTRATION_CONTRACT",
     "Cendorq Plan Delivery Orchestration Contract",
     "getPlanDeliveryOrchestrationContract",
-    "intake, evidence, report creation, email delivery, follow-up, agent ownership, customer handoffs, and upgrade paths",
-    "free-scan",
-    "deep-review",
-    "build-fix",
-    "ongoing-control",
-    "release-captain-review-required-before-public-report-language-expands-beyond-safe-free-scan-output",
-    "release-captain-report-release-review-required",
-    "customer-output-and-release-captain-approval-required-before-customer-facing-delivery",
-    "controlled-maintenance-and-release-captain-review-required-before-production-impacting-change",
+    "checkout fulfillment, entitlement, intake, evidence, report creation, report release, email delivery, dashboard retargeting, follow-up, continuous nurturing",
+    "Every surface must think in stage, proof, psychology, next action, and long-term value.",
+    "Every customer touch should answer: what happened, why it matters, what is next, what is known, what is unknown, and why this stage fits.",
+    "Every page, dashboard card, email, report, support path, billing state, checkout state, backend trigger, and operator queue must feel like one command system",
+    "stageTargetingStandard",
+    "continuousNurturingStandard",
+    "stageTargetingMatrix",
+    "Retargeting must be based on customer stage, plan ownership, report state, behavior, evidence strength, and next-best-action readiness.",
+    "The dashboard is the primary conversion command room after Free Scan",
+    "Free Scan moves toward AI Readiness Review",
+    "AI Readiness Review moves toward Signal Repair only when repair is justified",
+    "Signal Repair moves toward Readiness Control only when there is a baseline or watchlist reason",
+    "Readiness Control moves toward renewal, expansion, or future feature adoption only when relevant",
+    "free-scan-submitted-not-verified",
+    "free-scan-opened-no-review",
+    "review-purchased-intake-incomplete",
+    "review-delivered-no-repair",
+    "repair-purchased-scope-incomplete",
+    "repair-delivered-no-control",
+    "control-active-value-nurture",
+    "paused-or-canceled-winback",
+    "future-feature-rollout",
+    "timingWindow",
+    "suppressionRules",
+    "proofBoundary",
+    "planWithoutStageTargeting",
+    "retargetingWithoutStageReason",
+    "retargetingWithoutSuppressionRules",
+    "No future feature, market-change alert, retention prompt, retargeting message, or expansion recommendation can be sent as customer-facing nurture unless it has a safe reason, plan fit, customer relevance, suppression review, and no-guarantee language.",
+  ]);
+
+  expect(contractPath, [
+    "Free Scan",
+    "AI Readiness Review",
+    "Signal Repair",
+    "Readiness Control",
+    "Protected Free Scan result",
+    "AI Readiness Review report",
+    "Signal Repair delivery record",
+    "Readiness Control monthly report and dashboard watchlist",
+    "Cendorq branding, report type, business identity, methodology version, evidence boundaries, confidence, limitations, priority, next action, and correction/support path",
+    "idempotent fulfillment",
+    "entitlement activation",
+    "report or work queue creation",
+    "satisfaction loop",
+    "retention/nurture path",
   ]);
 
   expect(deepReviewFoundationPath, [
@@ -206,7 +243,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including Deep Review intake delivery, Build Fix optimization orchestration, Ongoing Control monthly foundation, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including post-payment service sequence, stage-targeted retargeting, continuous nurturing, future feature adoption, Deep Review intake delivery, Build Fix optimization orchestration, Ongoing Control monthly foundation, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
 
 function unsafePhrases() {
   return [
@@ -256,6 +293,10 @@ function unsafePhrases() {
     "unsupportedOutcomePromise: true",
     "localStorage.setItem",
     "sessionStorage.setItem",
+    "genericNurtureSpamAllowed",
+    "retargetingWithoutStageReasonAllowed",
+    "retargetingWithoutSuppressionRulesAllowed",
+    "unsupportedFeatureRolloutPressureAllowed",
   ];
 }
 
