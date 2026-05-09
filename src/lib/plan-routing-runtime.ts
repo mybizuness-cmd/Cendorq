@@ -35,6 +35,7 @@ export type PlanRoutingInput = {
 
 export type PlanRoutingProjection = {
   selectedPlan: PlanRoutingPlanKey;
+  selectedPlanLabel: string;
   routingMode: PlanRoutingMode;
   customerOwnedProjectionReady: boolean;
   purchasedEntitlement: string;
@@ -43,6 +44,8 @@ export type PlanRoutingProjection = {
   nextBestPlan: string;
   followUpCadence: string;
   dashboardReminderAllowed: boolean;
+  dashboardMessageMirrorRequired: boolean;
+  safeDocumentDeliveryMustMatchVault: boolean;
   warningEmailKey: string | null;
   warningEmailAllowed: boolean;
   warningEmailSuppressionReasons: readonly string[];
@@ -66,6 +69,7 @@ export function projectPlanRouting(input: PlanRoutingInput): PlanRoutingProjecti
 
   return {
     selectedPlan: input.selectedPlan,
+    selectedPlanLabel: formatPlanLabel(input.selectedPlan),
     routingMode: input.routingMode,
     customerOwnedProjectionReady: input.customerIdHashPresent && input.verifiedEmail,
     purchasedEntitlement: entitlement?.planKey ?? input.selectedPlan,
@@ -74,6 +78,8 @@ export function projectPlanRouting(input: PlanRoutingInput): PlanRoutingProjecti
     nextBestPlan: getNextBestPlan(input, linear),
     followUpCadence: linear?.followUpCadence ?? getFallbackFollowUp(input),
     dashboardReminderAllowed: input.evidenceBackedRecommendation && !input.customerOptedOutOfNonEssentialEmail,
+    dashboardMessageMirrorRequired: true,
+    safeDocumentDeliveryMustMatchVault: true,
     warningEmailKey: warningEmail?.key ?? null,
     warningEmailAllowed: Boolean(warningEmail && warningEmailSuppressionReasons.length === 0),
     warningEmailSuppressionReasons,
@@ -101,8 +107,8 @@ function findLinearStop(plan: PlanRoutingPlanKey, mode: PlanRoutingMode) {
 
 function findWarningEmail(input: PlanRoutingInput) {
   if (input.routingMode !== "direct-purchase") return null;
-  if (input.selectedPlan === "build-fix" && !input.activeEntitlements.includes("deep-review")) return PLAN_ENTITLEMENT_ROUTING_CONTRACT.directPurchaseWarningEmails.find((email) => email.key === "build-fix-direct-scope-confirmation") ?? null;
-  if (input.selectedPlan === "ongoing-control" && (!input.activeEntitlements.includes("build-fix") || !input.activeEntitlements.includes("deep-review"))) return PLAN_ENTITLEMENT_ROUTING_CONTRACT.directPurchaseWarningEmails.find((email) => email.key === "ongoing-control-direct-scope-confirmation") ?? null;
+  if (input.selectedPlan === "build-fix" && !input.activeEntitlements.includes("deep-review")) return PLAN_ENTITLEMENT_ROUTING_CONTRACT.directPurchaseWarningEmails.find((email) => email.key === "signal-repair-direct-scope-confirmation") ?? null;
+  if (input.selectedPlan === "ongoing-control" && (!input.activeEntitlements.includes("build-fix") || !input.activeEntitlements.includes("deep-review"))) return PLAN_ENTITLEMENT_ROUTING_CONTRACT.directPurchaseWarningEmails.find((email) => email.key === "readiness-control-direct-scope-confirmation") ?? null;
   return null;
 }
 
@@ -114,9 +120,9 @@ function getWarningEmailSuppressionReasons(input: PlanRoutingInput, warningEmail
   if (input.customerOptedOutOfNonEssentialEmail) reasons.push("customerOptedOutOfNonEssentialEmail");
   if (input.supportRequestedNoReminders) reasons.push("supportRequestedNoReminders");
   if (!input.evidenceBackedRecommendation) reasons.push("recommendationNotEvidenceBacked");
-  if (input.selectedPlan === "build-fix" && input.activeEntitlements.includes("deep-review")) reasons.push("deepReviewAlreadyActive");
+  if (input.selectedPlan === "build-fix" && input.activeEntitlements.includes("deep-review")) reasons.push("aiReadinessReviewAlreadyActive");
   if (input.selectedPlan === "ongoing-control" && input.activeEntitlements.includes("build-fix") && input.activeEntitlements.includes("deep-review")) reasons.push("prerequisiteRecommendationsAlreadyActive");
-  if (input.deliveryApproved && input.selectedPlan === "build-fix") reasons.push("buildFixDeliveryAlreadyApproved");
+  if (input.deliveryApproved && input.selectedPlan === "build-fix") reasons.push("signalRepairDeliveryAlreadyApproved");
   return reasons;
 }
 
@@ -155,31 +161,42 @@ function getBlockedPatterns(input: PlanRoutingInput, warningEmailKey: string | n
 
 function getNextBestPlan(input: PlanRoutingInput, linear: (typeof PLAN_ENTITLEMENT_ROUTING_CONTRACT.linearPurchaseSequences)[number] | null) {
   if (linear) return linear.nextBestPlan;
-  if (input.selectedPlan === "build-fix" && !input.activeEntitlements.includes("deep-review")) return "Deep Review when customer-facing diagnostic clarity would materially improve understanding or approval quality.";
-  if (input.selectedPlan === "ongoing-control" && !input.activeEntitlements.includes("build-fix")) return "Build Fix when recurring evidence shows implementation gaps that monthly advisory scope cannot resolve.";
-  if (input.selectedPlan === "ongoing-control" && !input.activeEntitlements.includes("deep-review")) return "Deep Review when standalone diagnostic clarity would improve monthly command quality.";
+  if (input.selectedPlan === "build-fix" && !input.activeEntitlements.includes("deep-review")) return "AI Readiness Review when customer-facing review clarity would materially improve understanding or approval quality.";
+  if (input.selectedPlan === "ongoing-control" && !input.activeEntitlements.includes("build-fix")) return "Signal Repair when recurring evidence shows implementation gaps that monthly advisory scope cannot resolve.";
+  if (input.selectedPlan === "ongoing-control" && !input.activeEntitlements.includes("deep-review")) return "AI Readiness Review when standalone evidence-backed review clarity would improve monthly command quality.";
   return "Continue within the purchased scope and recommend the next plan only when evidence supports it.";
 }
 
 function getFallbackFollowUp(input: PlanRoutingInput) {
-  if (input.selectedPlan === "build-fix") return "scope confirmation, intake reminder when needed, delivery-ready notice, and post-delivery review without pressure";
-  if (input.selectedPlan === "ongoing-control") return "monthly command summary, evidence-backed change alert when appropriate, approval request when needed, and value-proof summary";
-  return "report-ready notice, educational explanation, and evidence-led next-step guidance";
+  if (input.selectedPlan === "build-fix") return "scope confirmation mirrored into the dashboard, intake reminder when needed, delivery-ready notice, and post-delivery review without pressure";
+  if (input.selectedPlan === "ongoing-control") return "monthly command summary mirrored into the dashboard, evidence-backed change alert when appropriate, approval request when needed, and value-proof summary";
+  return "report-ready notice mirrored into the dashboard, educational explanation, and evidence-led next-step guidance";
 }
 
 function buildSafeCustomerLanguage(input: PlanRoutingInput, linear: (typeof PLAN_ENTITLEMENT_ROUTING_CONTRACT.linearPurchaseSequences)[number] | null, warningEmailKey: string | null, reconciliationMessage: string | null) {
-  const base = linear ? `${linear.completedScope} ${linear.notIncluded} ${linear.nextBestPlan}` : `Your ${input.selectedPlan} scope can continue based on the purchased entitlement and available evidence.`;
-  const warning = warningEmailKey ? " A small scope reminder may be sent while work is active so expectations stay clear." : "";
+  const planLabel = formatPlanLabel(input.selectedPlan);
+  const base = linear ? `${linear.completedScope} ${linear.notIncluded} ${linear.nextBestPlan}` : `Your ${planLabel} scope can continue based on the purchased entitlement and available evidence.`;
+  const warning = warningEmailKey ? " A small scope reminder may be sent and mirrored into the dashboard while work is active so expectations stay clear." : "";
   const reconciliation = reconciliationMessage ? ` ${reconciliationMessage}` : "";
-  return safeText(`${base}${warning}${reconciliation}`);
+  const access = " Released reports, billing documents, and PDFs remain vault-first, verified-access-safe, and matched to the dashboard state.";
+  return safeText(`${base}${warning}${reconciliation}${access}`);
+}
+
+function formatPlanLabel(planKey: PlanRoutingPlanKey) {
+  if (planKey === "free-scan") return "Free Scan";
+  if (planKey === "deep-review") return "AI Readiness Review";
+  if (planKey === "build-fix") return "Signal Repair";
+  return "Readiness Control";
 }
 
 function safeText(value: string) {
-  const normalized = value.replace(/\s+/g, " ").trim().slice(0, 620);
+  const normalized = value.replace(/\s+/g, " ").trim().slice(0, 720);
   if (!normalized) return "Plan routing is pending safe projection.";
   const certainRevenue = "guaranteed " + "revenue";
   const certainRoi = "guaranteed " + "roi";
-  if (/password|token|private key|card number|bank detail|raw payload|raw evidence|secret|operator identity|internal note|guaranteed inbox/i.test(normalized) || normalized.toLowerCase().includes(certainRevenue) || normalized.toLowerCase().includes(certainRoi)) {
+  const certainDelivery = "guaranteed " + "deliverability";
+  const certainInbox = "guaranteed " + "inbox";
+  if (/password|token|private key|card number|bank detail|raw payload|raw evidence|secret|operator identity|internal note/i.test(normalized) || normalized.toLowerCase().includes(certainRevenue) || normalized.toLowerCase().includes(certainRoi) || normalized.toLowerCase().includes(certainDelivery) || normalized.toLowerCase().includes(certainInbox)) {
     return "Plan routing language redacted to preserve safe projection.";
   }
   return normalized;
