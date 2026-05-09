@@ -31,11 +31,10 @@ Use the repo as the source of truth and paste/replace files from:
 ## Canonical system names locked in
 
 - Cendorq
-- Market Command Intelligence
+- AI Engine Readiness
 - Free Scan
 - Plans
-- Deep Review
-- Build Fix
-- Ongoing Control
-- Connect
-- Scan, Diagnose, Fix, Control
+- AI Readiness Review
+- Signal Repair
+- Readiness Control
+- Scan, Review, Repair, Control
