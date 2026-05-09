@@ -83,13 +83,6 @@ if (!failures.length) {
     "AI Readiness Review Report",
     "Signal Repair Delivery Record",
     "Readiness Control Monthly Report",
-    "Cendorq header",
-    "executive command summary",
-    "evidence map",
-    "priority severity map",
-    "before state",
-    "monthly command summary",
-    "baseline comparison",
     "genericGeneratedReport",
     "unbrandedReport",
     "crowdedCtaWall",
@@ -97,30 +90,16 @@ if (!failures.length) {
     "No report vault display, downloadable report, delivery summary, or monthly report can ship without Cendorq branding, plan-specific structure, evidence boundaries, confidence, limitations, next action, release status, and correction/support path.",
   ]);
 
-  expect(contractPath, [
-    "Free Scan",
-    "AI Readiness Review",
-    "Signal Repair",
-    "Readiness Control",
-    "Protected Free Scan result",
-    "AI Readiness Review report",
-    "Signal Repair delivery record",
-    "Readiness Control monthly report and dashboard watchlist",
-    "Cendorq branding, report type, business identity, methodology version, evidence boundaries, confidence, limitations, priority, next action, and correction/support path",
-    "idempotent fulfillment",
-    "entitlement activation",
-    "report or work queue creation",
-    "satisfaction loop",
-    "retention/nurture path",
-  ]);
-
   expect(deepReviewFoundationPath, [
     "projectDeepReviewIntakeDeliveryFoundation",
     "getDeepReviewIntakeDeliveryRules",
-    "deep-review-report",
-    "expanded diagnostic questionnaire",
-    "full diagnostic report",
+    "ai-readiness-review-report",
+    "expanded AI Readiness Review questionnaire",
+    "AI Readiness Review report",
     "priority blocker map",
+    "dashboardMessageMirrorRequired: true",
+    "vaultFirstDeliveryRequired: true",
+    "safePdfDeliveryGated: true",
     "unpaidDeliverableLeaked: false",
     "pendingReportPresentedAsFinal: false",
   ]);
@@ -128,12 +107,15 @@ if (!failures.length) {
   expect(buildFixFoundationPath, [
     "projectBuildFixOptimizationOrchestration",
     "getBuildFixOptimizationOrchestrationRules",
-    "Build Fix / Optimization",
-    "approved optimization scope",
+    "Signal Repair",
+    "approved Signal Repair scope",
     "priority implementation task list",
     "customer approval checkpoints",
     "before-after evidence record",
-    "deepReviewReportIncluded: false",
+    "aiReadinessReviewReportIncluded: false",
+    "dashboardMessageMirrorRequired: true",
+    "vaultFirstDeliveryRequired: true",
+    "safePdfDeliveryGated: true",
     "unpaidDeliverableLeaked: false",
     "optimizationWithoutScopeApproval: false",
   ]);
@@ -141,13 +123,16 @@ if (!failures.length) {
   expect(ongoingControlMonthlyPath, [
     "projectOngoingControlMonthlyFoundation",
     "getOngoingControlMonthlyRules",
-    "Ongoing Control / Monthly",
+    "Readiness Control",
     "monthly status summary",
     "approved periodic report",
     "controlled monitoring notices",
-    "dashboard inbox messages",
-    "buildFixIncluded: false",
-    "deepReviewReportIncluded: false",
+    "mirrored dashboard messages",
+    "dashboardMessageMirrorRequired: true",
+    "safePdfDeliveryGated: true",
+    "vaultFirstDeliveryRequired: true",
+    "signalRepairIncluded: false",
+    "aiReadinessReviewReportIncluded: false",
     "fakeUrgencyAllowed: false",
   ]);
 
@@ -158,10 +143,9 @@ if (!failures.length) {
     "educationalReportStandard",
     "planBoundaryRules",
     "conversionStandards",
-    "valuePromise",
-    "educationDepth",
-    "planBoundary",
-    "conversionMethod",
+    "category-defining experience",
+    "dashboard message mirror",
+    "safe PDF or billing document delivery when gates pass",
   ]);
 
   expect(runtimePath, [
@@ -270,7 +254,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including category-defining report presentation, report-vault/download parity, post-payment service sequence, stage-targeted retargeting, continuous nurturing, future feature adoption, Deep Review intake delivery, Build Fix optimization orchestration, Ongoing Control monthly foundation, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including category-defining report presentation, report-vault/download parity, post-payment service sequence, stage-targeted retargeting, continuous nurturing, future feature adoption, AI Readiness Review delivery, Signal Repair orchestration, Readiness Control monthly foundation, dashboard message mirrors, safe PDF gates, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
 
 function unsafePhrases() {
   return [
@@ -300,6 +284,8 @@ function unsafePhrases() {
     "freeScanSubstitute: true",
     "deepReviewReportIncluded: true",
     "buildFixIncluded: true",
+    "aiReadinessReviewReportIncluded: true",
+    "signalRepairIncluded: true",
     "optimizationWithoutScopeApproval: true",
     "uncontrolledProductionMutation: true",
     "uncontrolledAutoMutation: true",
@@ -318,6 +304,13 @@ function unsafePhrases() {
     "secretExposed: true",
     "tokenExposed: true",
     "unsupportedOutcomePromise: true",
+    "Deep Review / Full Scan",
+    "Build Fix / Optimization",
+    "Ongoing Control / Monthly",
+    "premium trust",
+    "premium presentation",
+    "Every plan should feel premium",
+    "dashboard inbox messages",
     "localStorage.setItem",
     "sessionStorage.setItem",
     "genericNurtureSpamAllowed",
