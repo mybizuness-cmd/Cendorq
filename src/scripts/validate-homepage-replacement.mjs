@@ -5,7 +5,8 @@ const root = process.cwd();
 const homepage = readFileSync(join(root, "src/app/page.tsx"), "utf8");
 const footer = readFileSync(join(root, "src/layout/site-footer.tsx"), "utf8");
 const header = readFileSync(join(root, "src/layout/site-header-conversion.tsx"), "utf8");
-const combined = `${homepage}\n${footer}\n${header}`;
+const loading = readFileSync(join(root, "src/app/loading.tsx"), "utf8");
+const combined = `${homepage}\n${footer}\n${header}\n${loading}`;
 const failures = [];
 
 for (const phrase of [
@@ -13,6 +14,7 @@ for (const phrase of [
   "export const revalidate = 0;",
   "export const fetchCache = \"force-no-store\";",
   "data-cendorq-homepage=\"market-command-home-v2\"",
+  "data-cendorq-loading=\"market-command-loading-v2\"",
   "Apple-level trust and authority",
   "Google-level simplicity",
   "ChatGPT-level immediate action",
@@ -20,6 +22,9 @@ for (const phrase of [
   "Become easier to find, trust, and choose.",
   "Cendorq reads the public market path around your business before customers decide.",
   "Run the Free Scan before buying the bigger fix.",
+  "Preparing the cleanest view.",
+  "Safest next step",
+  "Return Home",
   "Start Free Scan",
   "Review Plans",
   "Connect with Cendorq",
@@ -68,6 +73,9 @@ for (const phrase of [
   "text-white sm:text-base",
   "system-grid-wide",
   "MarketCard",
+  "system-panel-authority",
+  "system-button-primary",
+  "Cendorq / Loading",
 ]) {
   if (combined.includes(phrase)) failures.push(`Light public shell contains forbidden phrase: ${phrase}`);
 }
@@ -78,4 +86,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is light, minimal, action-first, and points into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
+console.log("Homepage replacement validation passed. Public shell and loading fallback are light, minimal, action-first, and point into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
