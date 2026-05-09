@@ -87,7 +87,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-12 sm:px-8" aria-label="How Cendorq works">
+      <section id="ai-readiness" className="mx-auto max-w-7xl scroll-mt-24 px-5 pb-12 sm:px-8" aria-label="AI readiness and how Cendorq works">
         <div className="grid gap-4 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_60px_rgba(15,23,42,0.06)] sm:p-8">
             <h2 className="text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">
@@ -123,7 +123,7 @@ export default function HomePage() {
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See what AI engines and customers may be reading wrong. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Whiter body. No hero badge. No AI placement promises.
+        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See what AI engines and customers may be reading wrong. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Whiter body. No hero badge. No AI placement promises. AI Readiness anchor.
       </section>
     </main>
   );
