@@ -15,17 +15,7 @@ const productionGuidePath = "docs/production-guide.md";
 const contributingPath = "CONTRIBUTING.md";
 const commandDesignValidatorPath = "src/scripts/validate-command-design-operating-standard.mjs";
 
-for (const path of [
-  standardPath,
-  releaseChecklistPath,
-  focusedPrTemplatePath,
-  publicDriftPath,
-  routeChainPath,
-  docsIndexPath,
-  readmePath,
-  productionGuidePath,
-  contributingPath,
-]) {
+for (const path of [standardPath, releaseChecklistPath, focusedPrTemplatePath, publicDriftPath, routeChainPath, docsIndexPath, readmePath, productionGuidePath, contributingPath]) {
   expectFile(path);
 }
 
@@ -33,32 +23,36 @@ expect(standardPath, [
   "Apple-level trust and authority",
   "Google-level simplicity",
   "ChatGPT-level immediate action",
-  "What is the safest next command?",
+  "What is the safest next readiness move?",
   "Start Free Scan.",
   "Compare Plans.",
   "Open Dashboard.",
   "Open Intake Console.",
-  "Connect only when fit, scope, or timing is already clear.",
+  "Ask support only when fit, scope, access, or timing needs a human path.",
+  "AI Engine Readiness",
   "Free Scan",
   "Plans",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "Scan, Diagnose, Fix, Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "Scan, Review, Repair, Control",
   "easier to find, understand, trust, and choose",
   "No vague audit theater.",
   "No ranking promises.",
   "No public exposure of private scoring, evidence, report, or operator logic.",
-  "Do not optimize Cendorq for decoration. Optimize it for command.",
+  "Do not optimize Cendorq for decoration. Optimize it for readiness clarity.",
 ]);
 
 expect(releaseChecklistPath, [
   "Apple-level trust and authority",
   "Google-level simplicity",
   "ChatGPT-level immediate action",
-  "What is the safest next command for the user?",
+  "What is the safest next readiness move for the user?",
   "Fallback surfaces are part of the product experience.",
   "homepage, Free Scan, or Plans",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 expect(focusedPrTemplatePath, [
@@ -66,13 +60,16 @@ expect(focusedPrTemplatePath, [
   "Apple-level trust and authority",
   "Google-level simplicity",
   "ChatGPT-level immediate action",
-  "What is the safest next command?",
+  "What is the safest next readiness move?",
   "Fallback, error, loading, or not-found states recover into homepage, Free Scan, or Plans",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 expect(publicDriftPath, [
   "label: \"Plans\"",
-  "description: \"Compare Scan, Diagnose, Fix, and Control.\"",
+  "description: \"Compare Scan, Review, Repair, and Control.\"",
   "src/app/loading.tsx",
   "src/app/error.tsx",
   "src/app/not-found.tsx",
@@ -107,7 +104,7 @@ expect(productionGuidePath, [
   "Apple-level trust and authority",
   "Google-level simplicity",
   "ChatGPT-level immediate action",
-  "What is the safest next command?",
+  "What is the safest next readiness move?",
 ]);
 
 expect(contributingPath, [
@@ -117,13 +114,17 @@ expect(contributingPath, [
   "What is the safest next command?",
 ]);
 
+forbid(standardPath, ["Deep Review", "Build Fix", "Ongoing Control", "Scan, Diagnose, Fix, Control", "Connect only when fit"]);
+forbid(releaseChecklistPath, ["Deep Review", "Build Fix", "Ongoing Control", "Connect for fit", "safest next command"]);
+forbid(focusedPrTemplatePath, ["Deep Review", "Build Fix", "Ongoing Control", "Connect"]);
+
 if (failures.length) {
   console.error("Command design operating standard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command design operating standard validation passed. Cendorq has a documented, route-chain-protected, docs-indexed, PR-template-backed, and release-checklist-backed Apple-level trust, Google-level simplicity, and ChatGPT-level immediate-action product standard.");
+console.log("Command design operating standard validation passed. Cendorq has a documented, route-chain-protected, docs-indexed, PR-template-backed, and release-checklist-backed Apple-level trust, Google-level simplicity, and ChatGPT-level immediate-action readiness standard.");
 
 function expectFile(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required file: ${path}`);
@@ -134,5 +135,13 @@ function expect(path, phrases) {
   const text = readFileSync(join(root, path), "utf8");
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing required phrase: ${phrase}`);
+  }
+}
+
+function forbid(path, phrases) {
+  if (!existsSync(join(root, path))) return;
+  const text = readFileSync(join(root, path), "utf8");
+  for (const phrase of phrases) {
+    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
