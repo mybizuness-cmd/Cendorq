@@ -5,19 +5,19 @@ export const FREE_SCAN_PLAN: PlanPageData & { href: string; label: string } = {
   label: "Free Scan",
   eyebrow: "Scan",
   title: "Find the first weak signal",
-  gradient: "before you spend deeper.",
+  gradient: "before deeper spend.",
   intro:
-    "Free Scan is the entry point for business owners who need to know whether public clarity, proof, trust, action, or AI-readiness may be weak before they pay for deeper work.",
+    "Free Scan is the entry point for owners who need a first authority-level read on whether public clarity, proof, trust, action, or AI-readiness may be weakening the business.",
   ctaHref: "/free-check",
   ctaLabel: "Start Free Scan",
   secondaryHref: "/plans/deep-review",
   secondaryLabel: "See AI Readiness Review",
-  painTitle: "Most businesses do not need another marketing guess first. They need the first visible signal.",
+  painTitle: "The first mistake is spending before the weak signal is known.",
   painCopy:
-    "More ads, more SEO, a redesign, or random content can waste money when the real weakness is public business clarity. Free Scan gives a safer first read without pretending to be a full review.",
+    "More ads, more content, more SEO, or a redesign can feel like progress while the real public signal stays broken. Free Scan gives the first disciplined read without pretending to be a full review.",
   stats: [
-    { label: "Best for", value: "Owners who feel the business should be easier to understand, trust, and choose." },
-    { label: "Main result", value: "A first signal and a safer next move." },
+    { label: "Best for", value: "Owners who need the first real signal before deeper work." },
+    { label: "Main result", value: "A first readiness signal and a safer next move." },
     { label: "Risk reduced", value: "Spending too early on the wrong repair." },
     { label: "Commitment", value: "Free guided first step." },
   ],
@@ -57,16 +57,16 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
   label: "AI Readiness Review",
   eyebrow: "Review",
   title: "Prove what is weakening readiness",
-  gradient: "before you repair the wrong thing.",
+  gradient: "before the wrong move gets expensive.",
   intro:
-    "AI Readiness Review is an evidence-backed review of the signals that help AI engines and customers understand, trust, compare, and choose the business.",
+    "AI Readiness Review is the evidence layer: a disciplined review of the signals that help AI engines and customers understand, trust, compare, and choose the business.",
   ctaHref: "/checkout/start?plan=deep-review",
   ctaLabel: "Start AI Readiness Review",
   secondaryHref: "/free-check",
   secondaryLabel: "Start Free Scan",
-  painTitle: "Bigger changes without evidence can make the wrong problem expensive.",
+  painTitle: "Bigger changes without evidence can turn uncertainty into cost.",
   painCopy:
-    "A redesign, more content, more ads, or random optimization can feel productive while still missing the reason the business is not understood or trusted. Review protects the next investment by making the cause visible.",
+    "A redesign, more content, more ads, or random optimization can look serious while still missing the real reason the business is not understood, trusted, or chosen. Review protects the next decision by making the cause visible.",
   stats: [
     { label: "Best for", value: "Businesses that need evidence before bigger action." },
     { label: "Main result", value: "Cause-level priorities and a stronger repair path." },
@@ -101,7 +101,7 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
   },
   finalTitle: "Use Review when evidence is the missing piece before bigger work.",
   finalCopy:
-    "This is the right layer when the business needs the real reason before it commits to repair or monthly control.",
+    "This is the right layer when the business needs the real reason before it commits to repair or recurring control.",
 };
 
 export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
@@ -116,9 +116,9 @@ export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
   ctaLabel: "Start Signal Repair",
   secondaryHref: "/plans/deep-review",
   secondaryLabel: "See AI Readiness Review",
-  painTitle: "The right repair matters more than more work.",
+  painTitle: "The right repair matters more than more activity.",
   painCopy:
-    "A business can look busy improving things and still leave the weak signal untouched. Signal Repair focuses effort where the customer decision and AI-readiness layer actually break.",
+    "A business can look busy improving things and still leave the decisive weak signal untouched. Signal Repair focuses effort where customer choice and AI-readiness actually break.",
   stats: [
     { label: "Best for", value: "Businesses ready to move from evidence into implementation." },
     { label: "Main result", value: "A stronger public path with clearer customer movement." },
@@ -160,10 +160,10 @@ export const ONGOING_CONTROL_PLAN: PlanPageData & { href: string; label: string 
   href: "/plans/ongoing-control",
   label: "Readiness Control",
   eyebrow: "Control",
-  title: "Keep readiness from drifting",
-  gradient: "as AI engines change.",
+  title: "Keep readiness under command",
+  gradient: "as the market moves.",
   intro:
-    "Readiness Control is the ongoing layer for businesses that need continued monitoring, direction, and adjustment as AI engines, search surfaces, competitors, and customer expectations move.",
+    "Readiness Control is the ongoing layer for businesses that need continued monitoring, direction, forecast refresh, and adjustment as AI engines, search surfaces, competitors, and customer expectations move.",
   ctaHref: "/checkout/start?plan=ongoing-control",
   ctaLabel: "Start Readiness Control",
   secondaryHref: "/plans",
