@@ -16,6 +16,9 @@ const validatorPath = "src/scripts/validate-public-plans-excellence.mjs";
 
 expect(pricingContractPath, [
   "CENDORQ_PLAN_PRICES",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
@@ -27,43 +30,44 @@ expect(pricingContractPath, [
 expect(componentPath, [
   "getCendorqPlanPrice",
   "PLAN_KEY_BY_TITLE",
-  "Compare pricing",
-  "Best for",
-  "Not for",
+  "Compare plans",
+  "Best for you if",
+  "Do not choose this if",
   "Plan guardrails",
   "Buy the right depth.",
-  "Use Deep Review at $497 when the business needs the real reason.",
-  "Use Build Fix at $1,497 when the direction is clear enough to improve.",
-  "Use Ongoing Control at $597/month when the business needs monthly attention.",
+  "Use AI Readiness Review at $497 when the business needs evidence.",
+  "Use Signal Repair at $1,497 when the repair target is clear enough to improve.",
+  "Use Readiness Control at $597/month when the business needs monthly attention.",
   "No fake urgency.",
-  "No unsupported revenue promise.",
+  "No unsupported outcome promise.",
   "No paid push before stage fit is clear.",
   "No protected result before verification.",
 ]);
 
 expect(plansPath, [
-  "Visibility command path",
-  "Choose the depth that matches the business risk.",
-  "Scan first. Diagnose when the cause matters. Fix only when the target is clear. Keep control when visibility, trust, and customer choice need monthly attention.",
+  "AI readiness plans",
+  "Choose the depth that matches the evidence.",
+  "Start with the signal. Pay for deeper work only when the stage fits: Review, Repair, then Control.",
   "Scan",
-  "Diagnose",
-  "Fix",
+  "Review",
+  "Repair",
   "Control",
   "Start Free Scan",
-  "Unlock Deep Review",
-  "Unlock Build Fix",
-  "Start Ongoing Control",
-  "Each plan buys a different level of control.",
+  "Start Review",
+  "Start Repair",
+  "Start Control",
+  "Each plan buys a different level of readiness.",
   "Free Scan $0",
-  "Deep Review $497",
-  "Build Fix $1,497",
-  "Ongoing Control $597/mo",
+  "AI Readiness Review $497",
+  "Signal Repair $1,497",
+  "Readiness Control $597/mo",
+  "Internal keys preserved: deep-review, build-fix, ongoing-control",
 ]);
 
 expect(checkoutStartPath, [
   "Start checkout | Cendorq",
-  "Secure checkout",
-  "Stripe link coming next",
+  "Secure plan handoff",
+  "Checkout handoff paths",
   "Checkout metadata",
 ]);
 
@@ -100,12 +104,12 @@ forbidden(componentPath, blockedPlanPhrases());
 forbidden(plansPath, [...blockedPlanPhrases(), "$750+", "$300/mo", "starting at", "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious.", "Choose the depth that can move revenue next."]);
 
 if (failures.length) {
-  console.error("Public plans command alignment validation failed:");
+  console.error("Public plans AI-readiness alignment validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Public plans command alignment validation passed with Scan, Diagnose, Fix, Control positioning and command activation checkout success.");
+console.log("Public plans AI-readiness validation passed with Scan, Review, Repair, Control positioning and preserved internal checkout keys.");
 
 function blockedPlanPhrases() {
   return [
