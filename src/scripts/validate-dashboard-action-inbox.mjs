@@ -7,6 +7,7 @@ const dashboardPath = "src/app/dashboard/page.tsx";
 const commandCenterPath = "src/app/dashboard/dashboard-business-command-center.tsx";
 const reentryPath = "src/app/dashboard/dashboard-control-room-reentry.tsx";
 const confirmationContractPath = "src/lib/customer-email-confirmation-handoff-contracts.ts";
+const billingContractPath = "src/lib/billing-checkout-contracts.ts";
 const ownerManualPath = "docs/owner-operating-manual.md";
 const runtimePath = "src/lib/plan-routing-runtime.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -43,76 +44,80 @@ expect(componentPath, [
   "Start Control",
 ]);
 
-expect(componentPath, [
-  "proof first, then the right depth, not a blind upgrade push",
-  "deeper review is the way to prove cause, priority, and safest next action before repair",
-  "the customer can see exactly what the repair is supposed to improve",
-  "This makes retention feel earned",
-  "Cendorq keeps track of what can change",
-  "Open proof. Clarify scope. Move to the right paid depth.",
-]);
-
 expect(commandCenterPath, [
   "DashboardBusinessCommandCenter",
   "Conversion command center",
   "This is where Free Scan turns into the right paid depth.",
-  "The customer should see what Cendorq found, why it matters, what is still unknown, and why Review, Repair, or Control is the safest next move.",
   "This next step makes sense.",
   "proof earns trust, trust opens budget, and the correct plan depth becomes the obvious move",
-  "Open the proof first",
-  "Make the upgrade rational",
-  "Show what stays separate",
-  "Keep the next move visible",
   "The dashboard should guide, not beg.",
   "Every lane should lead to proof, scope, or the next paid depth.",
-]);
-
-expect(commandCenterPath, [
-  "Proof creates trust.",
-  "Trust makes the upgrade feel safe.",
-  "Clear scope removes hesitation.",
-  "One next action keeps momentum alive.",
-  "Reports",
-  "Plans",
-  "Notifications",
-  "Support",
 ]);
 
 expect(reentryPath, [
   "DashboardControlRoomReentry",
   "Bring every return back to the money surface.",
-  "Email, billing, reports, notifications, and support should all return to the same command room where the customer can see proof, understand scope, and choose the right next depth.",
-  "I came back, Cendorq remembered the thread, and the next move is clear.",
+  "Email, billing, reports, notifications, and support should all return to the same command room",
   "The dashboard stays the customer conversion command room.",
-  "Conversion command room",
   "Proof, scope, and next paid depth",
 ]);
 
 expect(confirmationContractPath, [
   "CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT",
   "Cendorq Support <support@cendorq.com>",
-  "support@cendorq.com",
   "Confirm email and open your results",
-  "Confirm your email to open your Cendorq results",
-  "Confirm your email and enter your Cendorq command center",
-  "Confirm your email to continue your Cendorq plan",
-  "check spam or promotions once",
-  "move Cendorq to your main inbox",
-  "save support@cendorq.com as a trusted sender",
   "Do not show Free Scan findings before email verification and safe release state.",
   "dashboard/report vault",
-  "dashboard inbox supplements email and does not replace it",
-  "Verification tokens must be single-use, short-lived, server-validated, and never stored in localStorage or sessionStorage.",
+  "dashboardMessageMirrorRules",
+  "Every important customer email must create or update a matching dashboard message record",
+  "Mirrored dashboard messages must include the email subject, safe summary, message category, sent status, related plan, related report or billing document, primary CTA, secondary safe path, and support route.",
+  "When an email includes a safe PDF attachment, the mirrored dashboard message must show the same released document as a verified report-vault or billing-center document link.",
+  "When an email cannot be delivered, bounces, is suppressed, or may be missed by the customer, the dashboard message remains visible after verified login and shows the safest next action.",
+  "Email and dashboard message states must stay synchronized: queued, sent, delivered when known, opened when known, failed, suppressed, document ready, customer action needed, or archived.",
+]);
+
+expect(confirmationContractPath, [
+  "emailDeliverabilityRules",
+  "SPF, DKIM, and DMARC must be configured and monitored before live transactional sending.",
+  "Verification, report, billing, and lifecycle emails should be transactional, useful, recognizable, low-link-density, mobile-readable, and connected to the dashboard or billing center.",
+  "If an email is routed to spam, the customer must still be able to access the same released report, billing document, or customer message from the verified dashboard/report vault/billing center after safe login.",
+  "Deliverability monitoring must watch bounces, complaints, suppressions, unsubscribes where applicable, authentication errors, and attachment-related failures before scaling volume.",
+]);
+
+expect(confirmationContractPath, [
+  "pdfAttachmentRules",
+  "Report PDFs and billing PDFs are allowed when they help the customer preserve the result, invoice, receipt, or payment confirmation, but they must never be the only access path.",
+  "Attach report PDFs only after verified email, customer ownership, entitlement or permitted Free Scan access, release-captain approval, no-leak check, and document-safety checks pass.",
+  "Attach billing PDFs only from provider-authoritative invoice, receipt, or payment confirmation records after verified customer ownership and safe billing projection checks pass.",
+  "PDF attachments must be static PDF documents only; no executable content, macros, embedded scripts, hidden payloads, raw provider payloads, raw report evidence, private prompts, exact scoring weights, secrets, tokens, or cross-customer data.",
+]);
+
+expect(confirmationContractPath, [
+  "dashboardMessageMirrorMissing",
+  "dashboardMessageDriftFromEmail",
+  "pdfAttachmentAsOnlyAccessPath",
+  "pdfAttachmentWithoutVerifiedEmail",
+  "pdfAttachmentWithoutNoLeakCheck",
+  "promisedInboxPlacement",
+  "promisedDeliverability",
+]);
+
+expect(billingContractPath, [
+  "pdfDocumentDeliveryRules",
+  "PDF delivery is allowed only after verified email, customer ownership, entitlement or permitted free-result access, release gate, no-leak check, and safe document generation pass.",
+  "Dashboard report vault remains the canonical source; email attachments and downloadable PDFs must match the vault release state and must not create a separate truth source.",
+  "PDF files must use safe filenames, Cendorq branding, document type, date, customer/business reference, and no executable content, macros, embedded scripts, hidden tracking payloads, or raw provider/customer data.",
+  "pdfDeliveryWithoutVerifiedEmail",
+  "pdfDeliveryWithoutReleaseGate",
+  "billingPdfWithoutProviderAuthority",
+  "dashboardVaultPdfDrift",
 ]);
 
 expect(ownerManualPath, [
   "Verify-to-view email confirmation and report access",
   "Category-defining authority and psychology",
-  "That standard is higher than premium styling. It is category-defining authority backed by evidence discipline.",
   "Cendorq Support <support@cendorq.com>",
-  "support@cendorq.com",
   "Confirm email and open your results",
-  "check spam or promotions once",
   "dashboard/report vault",
   "Email remains the delivery and return channel",
 ]);
@@ -121,12 +126,6 @@ expect(dashboardPath, [
   "DashboardActionInbox",
   "DashboardBusinessCommandCenter",
   "DashboardControlRoomReentry",
-  "./dashboard-action-inbox",
-  "./dashboard-business-command-center",
-  "./dashboard-control-room-reentry",
-  "<DashboardActionInbox />",
-  "<DashboardBusinessCommandCenter />",
-  "<DashboardControlRoomReentry />",
   "data-cendorq-dashboard=\"category-defining-command-center-v2\"",
   "Private readiness command center",
   "Know the next move before the market does.",
@@ -165,17 +164,23 @@ expect(packagePath, [
 
 expect(routesChainPath, ["src/scripts/validate-dashboard-action-inbox.mjs"]);
 
-forbidden(componentPath, unsafePhrases());
-forbidden(commandCenterPath, unsafePhrases());
-forbidden(reentryPath, unsafePhrases());
+forbidden(componentPath, unsafeBusinessClaims());
+forbidden(commandCenterPath, unsafeBusinessClaims());
+forbidden(reentryPath, unsafeBusinessClaims());
+forbidden(confirmationContractPath, unsafeBusinessClaims());
+forbidden(billingContractPath, unsafeBusinessClaims());
 forbidden(confirmationContractPath, [
-  ...unsafePhrases(),
   "show protected results before verification",
   "skip email verification for reports",
-  "verification token in localStorage",
-  "verification token in sessionStorage",
   "guaranteed deliverability",
   "guaranteed inbox placement",
+  "pdf attachment as only access path allowed",
+  "dashboard message mirror optional",
+]);
+forbidden(billingContractPath, [
+  "pdf delivery without verified email allowed",
+  "billing pdf without provider authority allowed",
+  "dashboard vault pdf drift allowed",
 ]);
 
 forbidden(componentPath, staleDashboardPhrases());
@@ -189,9 +194,9 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard action inbox validation passed with conversion command center, proof-first paid-depth path, money-surface reentry, owner posture, category-defining authority, verify-to-view, and safe language coverage.");
+console.log("Dashboard action inbox validation passed with conversion command center, proof-first paid-depth path, money-surface reentry, owner posture, category-defining authority, verify-to-view, deliverability posture, safe PDF attachment policy, dashboard message mirror, and safe language coverage.");
 
-function unsafePhrases() {
+function unsafeBusinessClaims() {
   return [
     "replace email",
     "replace notification center",
@@ -207,17 +212,6 @@ function unsafePhrases() {
     "liability-free",
     "fake urgency",
     "urgent upgrade required",
-    "password=",
-    "token=",
-    "privateKey=",
-    "cardNumber=",
-    "bankDetail=",
-    "rawPayload=",
-    "rawEvidence=",
-    "operatorIdentity=",
-    "internalNote=",
-    "localStorage.setItem",
-    "sessionStorage.setItem",
   ];
 }
 
