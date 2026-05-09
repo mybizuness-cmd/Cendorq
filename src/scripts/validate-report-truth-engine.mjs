@@ -47,19 +47,21 @@ validateTextFile(growthPolicyPath, [
   "serious evidence-backed review process",
   "Business outcomes, rankings, traffic, leads, conversions, revenue, platform behavior, or perfect accuracy",
   "AI Readiness Review must be thorough and extensive",
-  "forecastable movement risks",
-  "post-repair watchlist",
-  "AI/search and platform changes",
-  "competitive movement",
-  "forecast refresh",
+  "It may hint at future monitoring only when the first signal shows movement risk.",
+  "mention Readiness Control only when search, competitor, platform, or customer-decision movement creates a clear monitoring reason",
+  "only when there is a real watchlist or baseline to protect",
   "AI/search movement forecast",
   "Competitive movement forecast",
   "Customer decision forecast",
   "Freshness-based return reason",
   "Compounding value record",
   "Forecast-refresh return reason",
+  "Use this section in AI Readiness Review and Readiness Control when evidence exists. In Free Scan, use only a light hint.",
+  "Keep tone calm and comparative, not panicked or adversarial.",
+  "Use strongly in Readiness Control and dashboard history. Use lightly in sales copy as continuity, not as pressure.",
+  "Use when a real forecast exists. If no forecast is justified, use a simple watchlist or no cadence recommendation.",
   "directional decision aids, not guarantees",
-  "The customer returns because Cendorq gives a rational monitoring cadence tied to business risk and external movement, not a generic subscription pitch.",
+  "rational monitoring cadence tied to business risk and external movement, not a generic subscription pitch",
   "Every business study must consider social media and other platform activity",
   "major revenue source",
   "marketplaces, directories, booking platforms, delivery apps, creator platforms, review platforms, communities, app stores, or industry-specific platforms",
@@ -112,6 +114,10 @@ validateForbidden(growthPolicyPath, [
   "fake lock-in",
   "guaranteed ranking forecast",
   "AI placement promise",
+  "recurring CTA spam",
+  "recurring pitch in every section",
+  "Readiness Control pitch without movement evidence",
+  "heavy recurring pitch from thin evidence",
 ]);
 
 if (failures.length) {
@@ -120,7 +126,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, forecast and recurring-value sections, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
+console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, selective forecast and recurring-value sections, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
