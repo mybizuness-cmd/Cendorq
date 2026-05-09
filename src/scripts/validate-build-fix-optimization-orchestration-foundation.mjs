@@ -23,13 +23,16 @@ expect(foundationPath, [
 
 expect(foundationPath, [
   "build-fix",
-  "Build Fix / Optimization",
-  "approved optimization scope",
+  "Signal Repair",
+  "approved Signal Repair scope",
   "priority implementation task list",
   "customer approval checkpoints",
   "before-after evidence record",
   "customer-safe progress summary",
-  "remaining risks and monthly-control recommendation",
+  "dashboard message mirror",
+  "vault-first delivery summary state",
+  "safe PDF delivery state when gates pass",
+  "remaining risks and Readiness Control recommendation when justified",
 ]);
 
 expect(foundationPath, [
@@ -37,9 +40,12 @@ expect(foundationPath, [
   "approved scope",
   "required asset confirmation",
   "customer approval checkpoints before implementation",
-  "concrete implementation work or a scoped implementation task list",
-  "must not deliver a standalone Deep Review report unless Deep Review entitlement exists",
-  "must not perform uncontrolled production mutations or material changes without customer approval",
+  "concrete scoped improvement work or a scoped implementation task list",
+  "must not deliver a standalone AI Readiness Review report unless AI Readiness Review entitlement exists",
+  "must not perform unapproved production changes or material changes without customer approval",
+  "completion may recommend Readiness Control through remaining risks and baseline tracking",
+  "email delivery must mirror into the dashboard",
+  "PDF delivery must stay vault-first and gated by verification, entitlement, release approval, no-leak checks, and document safety",
 ]);
 
 expect(foundationPath, [
@@ -47,7 +53,10 @@ expect(foundationPath, [
   "customerSafeProgressReportsRequired: true",
   "customerApprovalRequiredBeforeMaterialChange: true",
   "rollbackPostureRequired: true",
-  "deepReviewReportIncluded: false",
+  "aiReadinessReviewReportIncluded: false",
+  "dashboardMessageMirrorRequired: true",
+  "vaultFirstDeliveryRequired: true",
+  "safePdfDeliveryGated: true",
   "unpaidDeliverableLeaked: false",
   "optimizationWithoutScopeApproval: false",
   "uncontrolledProductionMutation: false",
@@ -74,6 +83,11 @@ expect(planValidatorPath, [
 ]);
 
 forbidden(foundationPath, [
+  "Build Fix / Optimization",
+  "standalone Deep Review",
+  "Deep Review entitlement",
+  "Ongoing Control",
+  "monthly-control recommendation",
   "deepReviewReportIncluded: true",
   "unpaidDeliverableLeaked: true",
   "optimizationWithoutScopeApproval: true",
@@ -104,12 +118,12 @@ forbidden(foundationPath, [
 ]);
 
 if (failures.length) {
-  console.error("Build Fix optimization orchestration foundation validation failed:");
+  console.error("Signal Repair orchestration foundation validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Build Fix optimization orchestration foundation validation passed.");
+console.log("Signal Repair orchestration foundation validation passed with current plan language, dashboard message mirror, vault-first delivery, safe PDF gates, approval checkpoints, before-after evidence, and no-leak coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
