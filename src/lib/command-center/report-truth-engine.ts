@@ -148,12 +148,12 @@ export const DELIVERY_RELIABILITY_RULES = [
 
 export const PERSUASIVE_TRUTH_RULES = [
   {
-    key: "truthful-premium-framing",
-    label: "Truthful premium framing",
-    persuasionStandard: "Cendorq should sell with confidence, clarity, contrast, specificity, and premium positioning, but the strongest wording must be reserved for claims that have strong evidence or clear plan-stage fit.",
-    allowedTactics: ["contrast before and after", "show cost of inaction when evidence supports it", "frame next action as safer than guessing", "explain opportunity windows", "use calm urgency when timing risk is visible", "make expert judgment easy to understand"],
-    proofBoundary: "Persuasion must never convert weak evidence into certainty. If confidence is low, the copy can still be useful and compelling by explaining why deeper review is the safest move.",
-    blockedBehavior: ["dark patterns", "fake urgency", "certainty theater", "unsupported fear", "claiming guaranteed outcomes", "using ambiguity to pressure purchase"],
+    key: "category-defining-authority-framing",
+    label: "Category-defining authority framing",
+    persuasionStandard: "Cendorq should sell with command-level authority, category-defining clarity, strategic contrast, specificity, and number-one operating posture. The language should feel above normal agencies and tools, while the strongest claims remain reserved for strong evidence or clear plan-stage fit.",
+    allowedTactics: ["contrast before and after", "show cost of inaction when evidence supports it", "frame next action as safer than guessing", "explain opportunity windows", "use calm urgency when timing risk is visible", "make expert judgment easy to understand", "position Cendorq as the category standard without unsupported public supremacy claims"],
+    proofBoundary: "Persuasion must never convert weak evidence into certainty. If confidence is low, the copy can still feel strong by explaining why deeper review is the safest move and why disciplined proof is part of Cendorq's authority.",
+    blockedBehavior: ["dark patterns", "fake urgency", "certainty theater", "unsupported fear", "claiming guaranteed outcomes", "using ambiguity to pressure purchase", "low-ceiling agency language", "unsupported number-one claims"],
   },
   {
     key: "educate-while-selling",
@@ -168,7 +168,7 @@ export const PERSUASIVE_TRUTH_RULES = [
     label: "Reputation over short-term sale",
     persuasionStandard: "Long-term reputation is more valuable than one conversion. If the evidence does not support a stronger claim, the system should use precise confidence language and sell the correct next step instead of overstating certainty.",
     allowedTactics: ["confidence labels", "bounded findings", "transparent limitations", "correction path", "review-first positioning", "selective urgency"],
-    proofBoundary: "The customer should feel Cendorq is confident because it is disciplined, not because it is exaggerating.",
+    proofBoundary: "The customer should feel Cendorq is strong because it is disciplined, not because it is exaggerating.",
     blockedBehavior: ["sales copy that outruns evidence", "guarantee language", "hiding uncertainty", "manufacturing problems", "making every issue sound urgent"],
   },
 ] as const satisfies readonly PersuasiveTruthRule[];
