@@ -176,6 +176,9 @@ expect(reportTruthEnginePath, [
   "deep-review",
   "build-fix",
   "ongoing-control",
+  "AI Readiness Review before deeper claims",
+  "Signal Repair is the logical next step",
+  "Readiness Control protects, measures, and iterates",
 ]);
 
 expect(reportGrowthSystemPath, [
@@ -185,13 +188,13 @@ expect(reportGrowthSystemPath, [
   "Truthful high-conversion reporting",
   "Every report must look official and Cendorq-branded",
   "analyzed business logo above or beside the business name",
-  "Deep Review must be thorough and extensive",
-  "recommended Build Fix path",
-  "Build Fix reporting must translate diagnosis into action",
-  "recommended Ongoing Control path",
+  "AI Readiness Review must be thorough and extensive",
+  "recommended Signal Repair path",
+  "Signal Repair reporting must translate review into action",
+  "recommended Readiness Control path",
   "social and platform activity",
   "Every business study must consider social media and other platform activity",
-  "bread and butter",
+  "major revenue source",
 ]);
 
 expect(controlledMarketLearningPath, [
@@ -246,7 +249,7 @@ for (const phrase of [
 
 const reportTruthText = read(reportTruthEnginePath);
 const reportGrowthText = read(reportGrowthSystemPath);
-for (const phrase of ["full-diagnosis", "optimization", "monthly-control", "Full Diagnosis", "Optimization", "Monthly Control"]) {
+for (const phrase of ["full-diagnosis", "optimization", "monthly-control", "Full Diagnosis", "Optimization", "Monthly Control", "Deep Review", "Build Fix", "Ongoing Control", "diagnosis", "recommended Build Fix path"]) {
   if (reportTruthText.includes(phrase)) failures.push(`${reportTruthEnginePath} contains retired report plan phrase: ${phrase}`);
   if (reportGrowthText.includes(phrase)) failures.push(`${reportGrowthSystemPath} contains retired report plan phrase: ${phrase}`);
 }
