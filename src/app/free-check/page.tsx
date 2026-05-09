@@ -12,20 +12,19 @@ import {
 import Link from "next/link";
 
 export const metadata = buildMetadata({
-  title: "Free Market Signal Scan | Cendorq",
+  title: "Free Scan | Cendorq",
   description:
-    "Run the Cendorq Free Scan to see the first signal in business visibility, clarity, trust, choice, or customer action.",
+    "Run the Cendorq Free Scan to see the first AI-readiness signal across business clarity, trusted proof, public signals, and customer action.",
   path: "/free-check",
   keywords: [
-    "free market signal scan",
-    "free business visibility scan",
     "cendorq free scan",
-    "ai search visibility scan",
-    "business discoverability scan",
+    "free AI readiness scan",
+    "AI engine readiness scan",
+    "business clarity scan",
     "business trust scan",
-    "customer choice analysis",
+    "AI search visibility scan",
   ],
-  image: { alt: "Cendorq Free Market Signal Scan." },
+  image: { alt: "Cendorq Free Scan." },
 });
 
 const TRUST_RULES = [
@@ -35,21 +34,21 @@ const TRUST_RULES = [
 ] as const;
 
 const SCAN_PROMISE = [
-  { label: "Findability", value: "Can the market find you?", detail: "Search, maps, AI answers, and public discovery signals." },
-  { label: "Clarity", value: "Can buyers understand you?", detail: "Offer, audience, proof, and decision language." },
-  { label: "Choice", value: "Can they choose you?", detail: "Trust, action path, competitor contrast, and next step." },
+  { label: "Clarity", value: "Can AI engines understand you?", detail: "Offer, audience, proof, public facts, and decision language." },
+  { label: "Trust", value: "Can buyers believe you?", detail: "Reviews, proof, consistency, freshness, and confidence signals." },
+  { label: "Action", value: "Can customers choose you?", detail: "Reason to choose, competitor contrast, and next-step friction." },
 ] as const;
 
 const REPORT_PREVIEW = [
-  { label: "Signal", value: "Choice gap", copy: "The business is visible, but the reason to choose it may not be sharp enough." },
+  { label: "Signal", value: "Choice gap", copy: "The business may be visible, but the reason to choose it may not be sharp enough." },
   { label: "Impact", value: "Buyer hesitation", copy: "A ready customer can still compare longer when proof is not close to the decision." },
-  { label: "Next action", value: "Diagnose before fixing", copy: "Prove the cause before spending money on the wrong page, message, or proof point." },
+  { label: "Next action", value: "Review before repair", copy: "Prove the cause before spending money on the wrong page, message, or proof point." },
 ] as const;
 
 const FAQS = [
   {
     question: "Is this really free?",
-    answer: "Yes. The Free Scan gives a first market signal before paid diagnosis, implementation, or monthly control.",
+    answer: "Yes. The Free Scan gives a first AI-readiness signal before paid review, repair, or monthly control.",
   },
   {
     question: "What happens after I submit?",
@@ -60,18 +59,18 @@ const FAQS = [
 
 export default function FreeCheckPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Free Market Signal Scan",
+    title: "Cendorq Free Scan",
     description:
-      "A guided scan for businesses that need to know whether the market can find, understand, trust, and choose them.",
+      "A guided scan for businesses that need to know whether AI engines and customers can understand, trust, and choose them.",
     path: "/free-check",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Free Market Signal Scan",
+    title: "Cendorq Free Scan",
     description:
-      "A guided intake that helps businesses identify the first visible break in AI-search visibility, customer trust, clarity, choice, or action.",
+      "A guided intake that helps businesses identify the first visible break in AI-readiness, customer trust, clarity, choice, or action.",
     path: "/free-check",
-    serviceType: "Free Market Signal Scan",
+    serviceType: "Free AI Readiness Scan",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -82,8 +81,7 @@ export default function FreeCheckPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative isolate overflow-hidden text-white">
-      <FreeCheckAtmosphere />
+    <main className="overflow-hidden bg-white text-slate-950">
       <FreeCheckProgressGuard />
       <FreeCheckAnalytics />
 
@@ -92,69 +90,66 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative mx-auto grid min-h-[calc(100vh-4rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start" aria-label="Free Market Signal Scan form first">
-        <div className="relative z-10 lg:sticky lg:top-24">
-          <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
-            Free Market Signal Scan
-          </div>
-          <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7vw,7.2rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
+      <section className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:py-16" aria-label="Free Scan form first">
+        <div className="lg:sticky lg:top-24">
+          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-slate-400">Free Scan</p>
+          <h1 className="mt-6 max-w-5xl text-[clamp(3rem,7vw,6.7rem)] font-semibold leading-[0.88] tracking-[-0.075em] text-slate-950">
             See the first signal before you buy the fix.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Cendorq checks whether your business is clear enough to be found, understood, trusted, and chosen before deeper work begins.
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
+            Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose before deeper work begins.
           </p>
           <div className="mt-7 grid gap-3">
             {TRUST_RULES.map((item) => (
-              <div key={item} className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] px-5 py-4 text-sm font-bold leading-6 text-cyan-50 shadow-[0_18px_70px_rgba(2,8,23,0.22)]">
+              <div key={item} className="rounded-[1.35rem] border border-slate-200 bg-slate-50 px-5 py-4 text-sm font-semibold leading-6 text-slate-700 shadow-[0_12px_40px_rgba(15,23,42,0.045)]">
                 {item}
               </div>
             ))}
           </div>
-          <Link href="/dashboard/reports/free-scan" className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 px-6 py-3 text-sm font-bold text-cyan-50 transition hover:bg-cyan-300/20 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+          <Link href="/dashboard/reports/free-scan" className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
             Result opens in dashboard
           </Link>
           <div className="sr-only">
-            Free Market Signal Scan form visible within the first quarter of the page. Streamlined Free Scan form. Current step only. Dedicated dashboard Free Scan result path after verification. Safe business context only.
+            Free Scan form visible within the first quarter of the page. Streamlined Free Scan form. Current step only. Dedicated dashboard Free Scan result path after verification. Safe business context only.
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] p-4 shadow-[0_55px_200px_rgba(2,8,23,0.72)] sm:p-6">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <GuidedFreeCheckFormV3 className="relative z-10" />
+        <div className="rounded-[2.55rem] border border-slate-200 bg-slate-950 p-3 shadow-[0_34px_130px_rgba(15,23,42,0.18)] sm:p-5">
+          <GuidedFreeCheckFormV3 />
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Free Scan promise">
+      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="Free Scan promise">
         <div className="grid gap-4 md:grid-cols-3">
           {SCAN_PROMISE.map((item, index) => (
-            <article key={item.label} className={index === 1 ? "rounded-[2rem] border border-cyan-200/22 bg-cyan-200/[0.09] p-6 shadow-[0_28px_100px_rgba(2,8,23,0.42)] md:-mt-6 md:mb-6" : "rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]"}>
-              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.label}</div>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-white sm:text-4xl">{item.value}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-300">{item.detail}</p>
+            <article key={item.label} className={index === 1 ? "rounded-[2rem] border border-slate-300 bg-slate-50 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.08)] md:-mt-5 md:mb-5" : "rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_48px_rgba(15,23,42,0.055)]"}>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">{item.label}</div>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">{item.value}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">{item.detail}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Free Scan result preview">
-        <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
+      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="Free Scan result preview">
+        <div className="overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-[0_24px_90px_rgba(15,23,42,0.09)]">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
-            <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Dashboard result preview</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">A signal you can actually use.</h2>
-              <p className="mt-5 text-base leading-8 text-slate-300">The output is not a pile of generic tips. It gives the signal, the likely impact, and the safest next command.</p>
-              <Link href="/dashboard/reports/free-scan" className="mt-7 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            <div className="border-b border-slate-200 bg-slate-50 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Dashboard result preview</p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">A signal you can actually use.</h2>
+              <p className="mt-5 text-base leading-8 text-slate-600">The output is not a pile of generic tips. It gives the signal, the likely impact, and the safest next layer.</p>
+              <Link href="/dashboard/reports/free-scan" className="mt-7 inline-flex text-sm font-semibold text-slate-500 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
                 Preview result path →
               </Link>
             </div>
-            <div className="divide-y divide-white/10">
+            <div className="divide-y divide-slate-200">
               {REPORT_PREVIEW.map((item) => (
                 <article key={item.label} className="grid gap-4 p-5 sm:grid-cols-[10rem_1fr] sm:p-7">
                   <div>
-                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.label}</p>
-                    <h3 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-white">{item.value}</h3>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">{item.label}</p>
+                    <h3 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.value}</h3>
                   </div>
-                  <p className="text-sm leading-7 text-slate-300">{item.copy}</p>
+                  <p className="text-sm leading-7 text-slate-600">{item.copy}</p>
                 </article>
               ))}
             </div>
@@ -162,7 +157,7 @@ export default function FreeCheckPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto grid max-w-[92rem] gap-4 px-4 pb-16 sm:px-6 md:grid-cols-2">
+      <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-16 sm:px-8 md:grid-cols-2">
         {FAQS.map((item) => (
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
@@ -171,21 +166,11 @@ export default function FreeCheckPage() {
   );
 }
 
-function FreeCheckAtmosphere() {
-  return (
-    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(103,232,249,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.11),transparent_27%),linear-gradient(180deg,#020617_0%,#020817_42%,#030712_100%)]" />
-      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.04] blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
-    </div>
-  );
-}
-
 function FaqCard({ question, answer }: { question: string; answer: string }) {
   return (
-    <article className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]">
-      <h3 className="text-2xl font-semibold tracking-[-0.04em] text-white">{question}</h3>
-      <p className="mt-4 text-sm leading-7 text-slate-300">{answer}</p>
+    <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_48px_rgba(15,23,42,0.055)]">
+      <h3 className="text-2xl font-semibold tracking-[-0.04em] text-slate-950">{question}</h3>
+      <p className="mt-4 text-sm leading-7 text-slate-600">{answer}</p>
     </article>
   );
 }
