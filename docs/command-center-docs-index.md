@@ -1,15 +1,15 @@
 # Command Center Docs Index
 
-This private documentation index keeps the Command Center operating standards easy to find without exposing private records, evidence, intelligence, secrets, reports, prompts, scoring internals, customer data, or private customer conversation contents.
+This private documentation index keeps the Command Center operating standards easy to find without exposing private records, evidence, intelligence, secrets, reports, prompts, scoring internals, customer data, billing records, PDF internals, deliverability internals, or private customer conversation contents.
 
 ## Core standards
 
 - `docs/command-design-operating-standard.md` — product-wide command design standard for Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, safe next command clarity, fallback recovery posture, public/private boundaries, and validation guardrails.
 - `docs/maximum-protection-standard.md` — highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard.
-- `docs/owner-maximum-protection-posture.md` — owner-facing maximum-protection operating posture for public/private boundaries, verified access, operator review, AI/automation limits, validation gates, rollback posture, and release-captain review.
+- `docs/owner-maximum-protection-posture.md` — owner-facing maximum-protection operating posture for public/private boundaries, verified access, operator review, AI/automation limits, evidence separation, validation gates, rollback posture, and release-captain review.
 - `docs/command-center-operator-runbook.md` — cockpit maintenance workflow for closed-by-default, metadata-only, server-rendered, registry-covered Command Center panels.
 - `docs/admin-command-center-safe-projections.md` — admin command-center safe projection map for preview-gated, shared-access-backed, safe-options-backed, registry-contract-backed, route-contract-summary-backed, projection-link-count-backed, panel-contract-strip-backed, panel-summary-display-backed, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces.
-- `docs/owner-operating-manual.md` — owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence.
+- `docs/owner-operating-manual.md` — owner-level operating manual for evidence-backed reports, tailored plan fit, vault-first report access, deliverability posture, dashboard message mirroring, safe PDF/document delivery, conversion moat, market learning, launch review, and post-build operating cadence.
 - `docs/repo-update-scanning-automation.md` — repo update scanning automation standard for Dependabot, CodeQL workflow, dependency integrity, most-pristine, route-chain coverage, and release-captain review posture.
 - `docs/controlled-continuous-evolution.md` — controlled continuous evolution standard for monitored, validated, reviewable, rollback-ready update proposals without uncontrolled production mutation or quality drift.
 - `docs/controlled-maintenance.md` — controlled maintenance standard for safe update queues, review streams, validation gates, rollback planning, and audit-ready maintenance posture.
@@ -64,6 +64,35 @@ Command design applies to public pages, fallback states, protected customer surf
 - Owner configuration evidence runtime: `src/lib/owner-configuration-evidence-runtime.ts`
 - Owner configuration evidence persistence runtime: `src/lib/owner-configuration-evidence-persistence-runtime.ts`
 - Owner configuration evidence approval workflow runtime: `src/lib/owner-configuration-evidence-approval-workflow-runtime.ts`
+
+## Customer delivery and lifecycle source-of-truth areas
+
+- Verify-to-view and email access contract: `src/lib/customer-email-confirmation-handoff-contracts.ts`
+- Billing checkout and safe document contract: `src/lib/billing-checkout-contracts.ts`
+- Pricing checkout orchestration and report trigger matrix: `src/lib/pricing-checkout-orchestration.ts`
+- Plan delivery, report presentation, stage targeting, and continuous nurturing contract: `src/lib/plan-delivery-orchestration-contracts.ts`
+- Dashboard conversion inbox: `src/app/dashboard/dashboard-action-inbox.tsx`
+- Dashboard conversion command center: `src/app/dashboard/dashboard-business-command-center.tsx`
+- Dashboard return path: `src/app/dashboard/dashboard-control-room-reentry.tsx`
+- Checkout success activation surface: `src/app/checkout/success/page.tsx`
+- Public plans path: `src/app/plans/page.tsx`
+- Plan-detail shell: `src/components/plans/conversion-plan-page.tsx`
+- Plan-detail data: `src/app/plans/plan-data.ts`
+
+Customer delivery must remain vault-first, verified-access-first, and dashboard-mirrored. Email, PDF attachments, downloadable PDFs, billing documents, dashboard messages, and report-vault display must all reflect the same safe customer-owned state without becoming separate truth sources.
+
+## Customer delivery validation standard
+
+These validators protect the current checkout-to-report-to-retention delivery chain:
+
+- `src/scripts/validate-pricing-checkout-orchestration.mjs` — plan pricing, checkout metadata, post-payment emails, report triggers, and post-payment service sequence.
+- `src/scripts/validate-billing-checkout-contracts.mjs` — webhook/idempotent fulfillment, entitlement projection, billing recovery, safe PDF document delivery, provider-authoritative billing documents, and no client-only paid access.
+- `src/scripts/validate-dashboard-action-inbox.mjs` — dashboard conversion inbox, proof-first paid-depth path, verify-to-view, deliverability posture, dashboard-message mirror, and safe PDF attachment policy.
+- `src/scripts/validate-plan-delivery-orchestration-contracts.mjs` — plan delivery boundaries, report presentation, stage-targeted retargeting, continuous nurturing, future-feature relevance, and report-vault/download parity.
+- `src/scripts/validate-public-drift.mjs` — public buyer path, Plans alignment, dashboard command language, and old-route/old-language blocking.
+- `src/scripts/validate-owner-operating-manual.mjs` — owner doctrine for vault-first access, deliverability, mirrored dashboard messages, safe PDF delivery, report truth, plan boundaries, and release-captain authority.
+
+Delivery validation must preserve: verified email before protected report access, dashboard/report vault as source of truth, mirrored dashboard messages for important emails, safe PDF delivery only after gates pass, provider-authoritative billing PDFs, no guaranteed deliverability claims, no guaranteed inbox placement claims, no PDF-only access path, and no raw/private data projection.
 
 ## Required private owner configuration paths
 
@@ -172,6 +201,10 @@ These validators must stay wired into `validate:routes`:
 - `src/scripts/validate-customer-experience-standard.mjs`
 - `src/scripts/validate-conversion-moat-standard.mjs`
 - `src/scripts/validate-insights-conversation-standard.mjs`
+- `src/scripts/validate-pricing-checkout-orchestration.mjs`
+- `src/scripts/validate-billing-checkout-contracts.mjs`
+- `src/scripts/validate-dashboard-action-inbox.mjs`
+- `src/scripts/validate-plan-delivery-orchestration-contracts.mjs`
 - `src/scripts/validate-command-center-operator-runbook.mjs`
 - `src/scripts/validate-command-center-docs-index.mjs`
 - `src/scripts/validate-owner-operating-manual.mjs`
@@ -185,4 +218,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, command design standard, fallback recovery guard, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, command design standard, fallback recovery guard, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, customer delivery or safe document delivery rule, dashboard message mirror rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, PDF internals, deliverability internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
