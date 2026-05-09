@@ -4,10 +4,9 @@ Cendorq is built around one protected buyer path:
 
 1. Free Scan
 2. Plans
-3. Deep Review
-4. Build Fix
-5. Ongoing Control
-6. Connect
+3. AI Readiness Review
+4. Signal Repair
+5. Readiness Control
 
 The homepage should stay focused on getting the right customer into the Free Scan. Do not turn the homepage back into a dashboard, route console, pricing comparison, or multi-offer page.
 
@@ -28,7 +27,7 @@ Use [`docs/command-design-operating-standard.md`](command-design-operating-stand
 
 Core question for every important surface:
 
-> What is the safest next command?
+> What is the safest next readiness move?
 
 ## Operating standards
 
@@ -74,40 +73,7 @@ pnpm typecheck
 pnpm build
 ```
 
-These checks protect:
-
-- command design standard
-- canonical buyer routes
-- public fallback surfaces
-- legacy public-route redirects
-- strict redirect status and `Location` header smoke coverage
-- production hardening headers
-- plain-language buyer labels
-- sitemap and robots canonical route focus
-- manifest shortcuts
-- llms.txt context
-- security.txt
-- health endpoint
-- production smoke script
-- production verification status
-- Free Scan API `OPTIONS` smoke coverage
-- protected Free Scan API read behavior
-- no-fake-submission smoke discipline
-- manual and scheduled smoke workflow
-- release checklist
-- incident response runbook
-- closed intelligence
-- data quality
-- learning memory
-- pure signal authority
-- adaptive signal evolution
-- resilience and continuity
-- maximum protection
-- foundation hardening
-- foundation elevation
-- system synchronization QA
-- internal command center boundaries
-- score threshold discipline
+These checks protect canonical buyer routes, public fallback surfaces, legacy redirect behavior, production headers, sitemap and robots focus, manifest shortcuts, llms.txt context, health behavior, Free Scan route behavior, release discipline, incident response, closed intelligence, data quality, learning memory, resilience, maximum protection, foundation hardening, system synchronization, internal command center boundaries, and score threshold discipline.
 
 ## After deployment
 
@@ -123,14 +89,7 @@ or:
 pnpm smoke:production https://www.cendorq.com
 ```
 
-You can also run the manual GitHub Actions workflow:
-
-- Actions
-- Production Smoke Check
-- Run workflow
-- Enter deployed URL: `https://www.cendorq.com`
-
-The production smoke workflow also runs automatically every day against `https://www.cendorq.com`.
+The manual production smoke workflow can also be run from GitHub Actions, and the scheduled workflow runs daily against `https://www.cendorq.com`.
 
 If smoke checks fail or production weakens, follow the incident response runbook before making broad changes.
 
@@ -144,9 +103,8 @@ These routes must stay healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
-- `/connect`
 
-Fallback surfaces must also stay present and command-path aligned:
+Fallback surfaces must also stay present and readiness-path aligned:
 
 - `src/app/loading.tsx`
 - `src/app/error.tsx`
@@ -166,7 +124,8 @@ Legacy routes should redirect only into the current buyer path:
 - `/pricing/full-diagnosis` -> `/plans/deep-review`
 - `/pricing/optimization` -> `/plans/build-fix`
 - `/pricing/monthly-partner` -> `/plans/ongoing-control`
-- `/contact` -> `/connect`
+- `/contact` -> `/free-check`
+- `/connect` -> `/free-check`
 - `/how-it-works` -> `/plans`
 - `/diagnosis` -> `/plans/deep-review`
 - `/profile` -> `/plans`
@@ -192,54 +151,19 @@ These files are intentional and should stay present:
 
 They support crawler clarity, browser metadata, AI-readable context, and public trust hygiene.
 
-Discovery should open the right public pages to search and AI discovery while keeping private surfaces closed:
-
-- no public report index
-- no public evidence index
-- no internal command center indexing
-- no API indexing except safe health behavior
-- no private scoring, prompts, score thresholds, or authority memory in public discovery files
+Discovery should open the right public pages to search and AI discovery while keeping private surfaces closed.
 
 ## Health endpoint
 
-`/api/health` is the production health endpoint.
-
-It should stay:
-
-- dynamic
-- no-store
-- noindex
-- lightweight
-- safe to expose publicly
-
-Expected shape:
-
-```json
-{
-  "ok": true,
-  "service": "cendorq-platform",
-  "status": "healthy",
-  "environment": "...",
-  "commit": "...",
-  "timestamp": "..."
-}
-```
+`/api/health` is the production health endpoint. It should stay dynamic, no-store, noindex, lightweight, and safe to expose publicly.
 
 ## Free Scan API production rule
 
 Production smoke verifies `OPTIONS /api/free-check` returns the allowed methods without creating fake submissions.
 
-For non-local production URLs, production smoke also verifies unauthenticated `GET /api/free-check` stays protected with the expected `401` response. Localhost remains excluded from protected-read smoke so local development does not require production secrets.
+For non-local production URLs, production smoke also verifies unauthenticated `GET /api/free-check` stays protected with the expected response. Localhost remains excluded from protected-read smoke so local development does not require production credentials.
 
-Production protected reads require:
-
-```txt
-x-intake-admin-key: <configured server-only INTAKE_CONSOLE_READ_KEY>
-```
-
-Set `INTAKE_CONSOLE_READ_KEY` in the production hosting environment before relying on the protected intake console. Keep it long, random, server-only, and never committed.
-
-`INTAKE_ADMIN_KEY` is supported only as a server-only alias when the deployment standard prefers that name.
+Set the intake read key in the production hosting environment before relying on the protected intake console. Keep it long, random, server-only, and never committed.
 
 Do not weaken the Free Scan API read boundary, remove the `OPTIONS` check, or create fake Free Scan submissions during smoke checks.
 
@@ -249,17 +173,7 @@ The current Free Scan API stores early intake data through a local runtime file-
 
 Treat this as an early production bridge, not the final durable customer-data system.
 
-Before scaling intake volume or treating submissions as durable business records, choose and implement a real persistence layer that preserves:
-
-- validation
-- duplicate detection
-- scoring
-- signal intelligence
-- report snapshots
-- no-store responses
-- protected admin reads
-- production smoke behavior
-- private/public boundary separation
+Before scaling intake volume or treating submissions as durable business records, choose and implement a real persistence layer that preserves validation, duplicate detection, scoring, signal intelligence, report snapshots, no-store responses, protected admin reads, production smoke behavior, and private/public boundary separation.
 
 Do not expose raw intake records publicly. Do not add public report indexes. Do not weaken protected reads to make dashboards easier.
 
@@ -267,12 +181,13 @@ Do not expose raw intake records publicly. Do not add public report indexes. Do 
 
 Use plain buyer language:
 
+- AI Engine Readiness
 - Free Scan
 - Plans
-- Deep Review
-- Build Fix
-- Ongoing Control
-- Connect
+- AI Readiness Review
+- Signal Repair
+- Readiness Control
+- Scan, Review, Repair, Control
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
@@ -280,9 +195,15 @@ Use plain buyer language:
 
 Avoid reviving old public labels:
 
+- Search Presence Scan
 - Visibility Blueprint
 - Presence Infrastructure
 - Presence Command
+- Deep Review
+- Build Fix
+- Ongoing Control
+- Diagnose
+- Fix as a plan label
 - Start Search Presence Scan
 
 ## Homepage rule
@@ -291,23 +212,13 @@ The homepage has one job:
 
 Get the right customer to start the Free Scan.
 
-Keep it short, strong, command-grade, and conversion-focused. Every homepage block should either improve trust, clarity, desire, or action. If it does not, remove it or reduce it.
+Keep it short, strong, readiness-grade, and conversion-focused. Every homepage block should either improve trust, clarity, desire, or action. If it does not, remove it or reduce it.
 
 ## Internal command center rule
 
 The internal command center is private by default.
 
-It may manage:
-
-- Free Scan review
-- Deep Review automation
-- Build Fix control
-- Ongoing Control cycles
-- report center
-- automation command deck
-- data-quality and learning board
-- score threshold routing
-- smart insights
+It may manage Free Scan review, AI Readiness Review automation, Signal Repair control, Readiness Control cycles, report center, automation command deck, data-quality and learning board, score threshold routing, and smart insights.
 
 It must not expose private reports, evidence, score inputs, authority memory, prompts, customer history, internal notes, or automation controls publicly.
 
@@ -326,31 +237,4 @@ Protected internal bands:
 
 ## Safe production posture
 
-Do not weaken:
-
-- command design standard
-- strict route validation
-- public fallback surface validation
-- Node 24 CI
-- production security headers
-- API no-store/noindex behavior
-- legacy redirect checks
-- smoke checks
-- production verification status protection
-- Free Scan API `OPTIONS` smoke coverage
-- protected Free Scan API read behavior
-- no-fake-submission smoke discipline
-- Free Scan funnel focus
-- release checklist discipline
-- incident response discipline
-- closed intelligence
-- data quality
-- learning memory separation
-- pure signal authority
-- adaptive evolution safety
-- maximum protection
-- foundation hardening
-- foundation elevation
-- system synchronization
-- internal command center boundaries
-- score threshold discipline
+Do not weaken command design, strict route validation, public fallback validation, Node 24 CI, production security headers, API no-store/noindex behavior, legacy redirect checks, smoke checks, production verification status, Free Scan API smoke coverage, protected Free Scan API read behavior, no-fake-submission discipline, Free Scan funnel focus, release checklist discipline, incident response discipline, closed intelligence, data quality, learning memory separation, pure signal authority, adaptive evolution safety, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center boundaries, or score threshold discipline.
