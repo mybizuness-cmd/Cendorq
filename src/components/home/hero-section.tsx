@@ -5,7 +5,7 @@ export function HeroSection() {
         <section className="mx-auto max-w-7xl px-6 pb-20 pt-16 md:pb-28 md:pt-24">
             <div className="max-w-5xl">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-400">
-                    Market Command Intelligence
+                    AI Engine Readiness
                 </p>
 
                 <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white md:text-7xl">
@@ -13,9 +13,7 @@ export function HeroSection() {
                 </h1>
 
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:text-xl">
-                    Cendorq diagnoses the trust, clarity, structure, and visibility
-                    problems that quietly make good businesses look uncertain, confusing,
-                    or easy to overlook.
+                    Cendorq checks whether AI engines and customers can understand what the business does, why it should be trusted, and why someone should choose it.
                 </p>
 
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -30,13 +28,13 @@ export function HeroSection() {
                         href="/plans/deep-review"
                         className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10"
                     >
-                        See how Deep Review works
+                        See how AI Readiness Review works
                     </Link>
                 </div>
 
                 <div className="mt-10 flex flex-wrap gap-3 text-sm text-slate-300">
                     <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
-                        Clear diagnosis before expensive optimization
+                        Clear review before expensive repair
                     </div>
                     <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
                         Built for non-technical business owners
