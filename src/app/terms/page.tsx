@@ -11,26 +11,26 @@ const BRAND_NAME = "Cendorq";
 const TERMS_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
-  title: `Market command terms | ${BRAND_NAME}`,
+  title: `AI readiness terms | ${BRAND_NAME}`,
   description:
-    "Cendorq terms for command-depth boundaries, acceptable use, customer reports, billing, support, and platform access.",
+    "Cendorq terms for readiness-depth boundaries, acceptable use, customer reports, billing, support, and platform access.",
   path: "/terms",
-  keywords: ["cendorq terms", "market command terms", "free scan terms", "deep review terms", "build fix terms", "ongoing control terms"],
-  image: { alt: "Cendorq market command terms and service boundaries." },
+  keywords: ["cendorq terms", "AI readiness terms", "free scan terms", "AI Readiness Review terms", "Signal Repair terms", "Readiness Control terms"],
+  image: { alt: "Cendorq AI readiness terms and service boundaries." },
 });
 
 const TERMS_SUMMARY = [
   { label: "Core rule", value: "Use the platform honestly and choose the route that matches the customer stage." },
-  { label: "Scope rule", value: "One command depth does not silently include another command depth's work." },
+  { label: "Scope rule", value: "One readiness depth does not silently include another readiness depth's work." },
   { label: "Outcome rule", value: "Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales." },
   { label: "Support rule", value: "Support routes clarify, recover, and review; they do not quietly expand plan scope." },
 ] as const;
 
 const PLAN_BOUNDARIES = [
-  { title: "Free Scan", copy: "A first signal with evidence boundaries, confidence posture, limitations, and the safest next action. It is not full diagnosis, implementation, or monthly monitoring." },
-  { title: "Deep Review", copy: "Cause-level diagnosis and decision clarity. It is not done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes." },
-  { title: "Build Fix", copy: "Scoped implementation for an approved target. It is not a full diagnostic report, unlimited site work, recurring monitoring, or unapproved production work." },
-  { title: "Ongoing Control", copy: "Recurring monitoring and monthly decision support. It is not unlimited Build Fix work, repeated full Deep Review, ad management, or guaranteed ranking/AI placement." },
+  { title: "Free Scan", copy: "A first signal with evidence boundaries, confidence posture, limitations, and the safest next action. It is not full review, implementation, or monthly monitoring." },
+  { title: "AI Readiness Review", copy: "Evidence-backed review and decision clarity. It is not done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes." },
+  { title: "Signal Repair", copy: "Scoped implementation for an approved target. It is not a full review report, unlimited site work, recurring monitoring, or unapproved production work." },
+  { title: "Readiness Control", copy: "Recurring monitoring and monthly decision support. It is not unlimited Signal Repair work, repeated full AI Readiness Review, ad management, or guaranteed ranking/AI placement." },
 ] as const;
 
 const ACCEPTABLE_USE = [
@@ -49,30 +49,30 @@ const COMMERCIAL_RULES = [
 
 const CUSTOMER_ROUTES = [
   { title: "Start with Free Scan", href: "/free-check", copy: "Use this when the cause is unclear and a first signal is needed before paid depth." },
-  { title: "Compare command depth", href: "/plans", copy: "Use this when choosing between diagnosis, scoped implementation, and monthly control." },
+  { title: "Compare readiness depth", href: "/plans", copy: "Use this when choosing between review, scoped implementation, and monthly control." },
   { title: "Open dashboard support", href: "/dashboard/support", copy: "Use this when you are already a customer and need billing, proof, scope, access, or correction support." },
-  { title: "Contact Cendorq", href: "/connect", copy: "Use this only when fit, scope, or timing is already clear outside the dashboard." },
+  { title: "Start Free Scan", href: "/free-check", copy: "Use this when fit, scope, or timing is still unclear outside the dashboard." },
 ] as const;
 
 const FAQS = [
   {
-    question: "Does Free Scan include Deep Review?",
-    answer: "No. Free Scan is the first signal. Deep Review is a paid cause-level diagnosis with a deeper report boundary.",
+    question: "Does Free Scan include AI Readiness Review?",
+    answer: "No. Free Scan is the first signal. AI Readiness Review is a paid evidence-backed review with a deeper report boundary.",
   },
   {
-    question: "Does Build Fix include unlimited implementation?",
-    answer: "No. Build Fix is scoped implementation tied to an approved target and delivery boundary.",
+    question: "Does Signal Repair include unlimited implementation?",
+    answer: "No. Signal Repair is scoped implementation tied to an approved target and delivery boundary.",
   },
   {
-    question: "Does Ongoing Control include unlimited Build Fix work?",
-    answer: "No. Ongoing Control provides recurring monitoring and monthly decision support. Scoped implementation remains separate.",
+    question: "Does Readiness Control include unlimited Signal Repair work?",
+    answer: "No. Readiness Control provides recurring monitoring and monthly decision support. Scoped implementation remains separate.",
   },
 ] as const;
 
 export default function TermsPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Market Command Terms",
-    description: "Current terms and service boundaries for Cendorq command-depth plans and platform use.",
+    title: "Cendorq AI Readiness Terms",
+    description: "Current terms and service boundaries for Cendorq readiness-depth plans and platform use.",
     path: "/terms",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -89,9 +89,9 @@ export default function TermsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
       <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
-        <p className="text-sm font-semibold text-cyan-100">Market command terms</p>
+        <p className="text-sm font-semibold text-cyan-100">AI readiness terms</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-          Clear rules keep the command path impossible to confuse.
+          Clear rules keep the readiness path impossible to confuse.
         </h1>
         <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
           These terms explain current Cendorq service boundaries, acceptable use, commercial expectations, support limits, and customer routes. {TERMS_DATE}.
@@ -106,7 +106,7 @@ export default function TermsPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Command-depth service boundaries">
+      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Readiness-depth service boundaries">
         {PLAN_BOUNDARIES.map((item) => (
           <article key={item.title} className="system-surface rounded-[1.35rem] p-5">
             <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
@@ -122,7 +122,7 @@ export default function TermsPage() {
 
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Customer routes">
         {CUSTOMER_ROUTES.map((route) => (
-          <Link key={route.href} href={route.href} className="system-surface rounded-[1.35rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+          <Link key={`${route.href}-${route.title}`} href={route.href} className="system-surface rounded-[1.35rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             <h2 className="text-xl font-semibold tracking-tight text-white">{route.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">{route.copy}</p>
           </Link>
@@ -140,16 +140,16 @@ export default function TermsPage() {
 
       <section className="system-panel-authority relative z-10 mt-8 rounded-[1.55rem] p-5 sm:p-6">
         <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">Questions about scope?</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Use contact if the question is clear and you are outside the dashboard.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Start with the Free Scan if the question is clear and you are outside the dashboard.</p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard/support" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">Open dashboard support</Link>
-          <Link href="/connect" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Contact Cendorq</Link>
+          <Link href="/free-check" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Start Free Scan</Link>
           <Link href="/privacy" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Read privacy</Link>
         </div>
       </section>
 
       <section className="sr-only" aria-label="Terms validation guardrails">
-        Market command terms. Free Scan. Deep Review. Build Fix. Ongoing Control. Dashboard support. Contact route /connect. No guaranteed revenue. No guaranteed ranking. No guaranteed AI placement. Command-depth service boundaries. Scope does not silently expand.
+        AI readiness terms. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Dashboard support. Free Scan route /free-check. No guaranteed revenue. No guaranteed ranking. No guaranteed AI placement. Readiness-depth service boundaries. Scope does not silently expand.
       </section>
     </main>
   );
