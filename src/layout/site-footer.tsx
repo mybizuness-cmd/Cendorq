@@ -6,18 +6,18 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-slate-200 bg-[#fffefa] text-slate-950" aria-label="Site footer">
+    <footer className="relative border-t border-slate-200 bg-white text-slate-950" aria-label="Site footer">
       <div className="mx-auto max-w-7xl px-5 py-5 sm:px-8">
-        <div className="flex flex-col gap-3 text-xs leading-5 text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+        <div className="flex flex-col gap-3 text-xs leading-5 text-slate-500 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-5xl">
             <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-2 text-slate-950 transition hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
               <BrandMark />
               <span className="text-sm font-semibold tracking-[0.08em]">{BRAND_NAME}</span>
             </Link>
-            <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-flex" />
-            <p>Market Command Intelligence for becoming easier to find, understand, trust, and choose.</p>
-            <span className="hidden h-1 w-1 rounded-full bg-slate-300 lg:inline-flex" />
-            <p>Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or outcomes.</p>
+            <p className="mt-2 leading-5">
+              AI engine readiness for businesses that need to be understood, trusted, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.
+            </p>
+            <p className="mt-2 text-slate-400">© {year} {BRAND_NAME}. All rights reserved.</p>
           </div>
 
           <div className="flex items-center gap-4 font-semibold">
@@ -27,10 +27,11 @@ export function SiteFooter() {
             <Link href="/terms" className="transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
               Terms
             </Link>
+            <Link href="/disclaimer" className="transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              Disclaimer
+            </Link>
           </div>
         </div>
-
-        <p className="mt-3 text-xs text-slate-400">© {year} {BRAND_NAME}. All rights reserved.</p>
       </div>
     </footer>
   );
