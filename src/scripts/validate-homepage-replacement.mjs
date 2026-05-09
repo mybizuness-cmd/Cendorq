@@ -31,7 +31,7 @@ for (const phrase of [
   "Drive action",
   "Free Scan can surface the first AI/search visibility, trust, proof, or action signal.",
   "It does not promise rankings, AI placement, leads, or a complete diagnosis.",
-  "No guaranteed AI placement",
+  "No AI placement promises",
   "Start Free Scan",
   "Review Plans",
   "Plans",
