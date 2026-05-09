@@ -43,6 +43,7 @@ expect(contractPath, [
   "/checkout/start?plan=deep-review",
   "/checkout/start?plan=build-fix",
   "/checkout/start?plan=ongoing-control",
+  "The customer clicks one clear plan action from Plans, dashboard, report vault, billing, or notifications.",
   "CENDORQ_CHECKOUT_ORCHESTRATION",
   "CENDORQ_CHECKOUT_METADATA_KEYS",
   "CENDORQ_POST_PAYMENT_EMAILS",
@@ -70,6 +71,9 @@ forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checko
   "guaranteed ROI",
   "guaranteed revenue",
   "guaranteed result",
+  "from pricing, dashboard",
+  "from pricing",
+  "pricing page",
   "localStorage.setItem",
   "sessionStorage.setItem",
 ]);
@@ -80,7 +84,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Pricing checkout orchestration validation passed. Final prices, Cendorq revenue operating system, checkout start, checkout success, dashboard billing, plan pages, metadata, and post-payment emails stay synchronized.");
+console.log("Pricing checkout orchestration validation passed. Final prices, Cendorq revenue operating system, checkout start, checkout success, dashboard billing, plan pages, metadata, current Plans wording, and post-payment emails stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
