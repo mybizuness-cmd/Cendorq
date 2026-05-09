@@ -5,6 +5,7 @@ import { spawnSync } from "node:child_process";
 const root = process.cwd();
 
 const validators = [
+  "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-routes.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
@@ -65,7 +66,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-customer-notification-center.mjs",
   "src/scripts/validate-customer-support-center.mjs",
   "src/scripts/validate-dashboard-support-status-entry.mjs",
-  "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-free-check-intake.mjs",
@@ -122,5 +122,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, and executed customer delivery validators for checkout, billing, dashboard conversion inbox, and plan delivery lifecycle.`);
+console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, and executed customer delivery validators for checkout, billing, dashboard conversion inbox, and plan delivery lifecycle.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, owner doctrine, and report truth standards.`);
