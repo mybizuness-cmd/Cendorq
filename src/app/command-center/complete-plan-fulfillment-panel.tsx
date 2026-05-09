@@ -11,58 +11,68 @@ const fulfillment = projectCompletePlanFulfillment([
       "agent work assignment",
       "production work",
       "quality review",
+      "dashboard message mirror",
+      "dashboard update",
+      "report vault update",
     ],
     completedArtifacts: [
-      "scan received confirmation",
-      "free scan intake record",
-      "initial owned-surface and safe public signal notes",
-      "first-read facts, assumptions, limitations, and next actions",
-      "free scan report draft",
-      "safe free-report review",
+      "free-scan safe intake artifact",
+      "free-scan evidence summary artifact",
+      "free-scan educational explanation artifact",
+      "free-scan value boundary artifact",
+      "free-scan dashboard message mirror artifact",
     ],
     customerEducationReviewed: true,
     valueExceedsPriceReviewed: true,
     planBoundaryProtected: true,
     conversionMethodApproved: false,
+    dashboardMessageMirrorReviewed: true,
+    safeDocumentDeliveryReviewed: false,
     releaseCaptainApproved: false,
-    safeSummary: "Free Scan is nearly delivery-ready but still requires release-captain approval and conversion-method review before customer-facing follow-up.",
+    safeSummary: "Free Scan is nearly delivery-ready but still requires release-captain approval, safe document review, and conversion-method review before customer-facing follow-up.",
   },
   {
     planKey: "deep-review",
-    completedStages: ["customer confirmation", "safe intake", "evidence collection", "truth separation"],
-    completedArtifacts: ["purchase received confirmation", "expanded diagnostic questionnaire", "expanded evidence packet", "fact, claim, inference, limitation, and conflict map"],
+    completedStages: ["customer confirmation", "safe intake", "evidence collection", "truth separation", "dashboard message mirror"],
+    completedArtifacts: ["deep-review safe intake artifact", "deep-review evidence summary artifact", "deep-review dashboard message mirror artifact"],
     customerEducationReviewed: false,
     valueExceedsPriceReviewed: false,
     planBoundaryProtected: true,
     conversionMethodApproved: false,
+    dashboardMessageMirrorReviewed: true,
+    safeDocumentDeliveryReviewed: false,
     releaseCaptainApproved: false,
-    safeSummary: "Deep Review needs report production, education review, value review, and release approval before stronger diagnosis delivery.",
+    safeSummary: "AI Readiness Review needs report production, education review, value review, safe document review, and release approval before evidence-backed report delivery.",
   },
   {
     planKey: "build-fix",
-    completedStages: ["customer confirmation", "safe intake"],
-    completedArtifacts: ["optimization purchase confirmation", "scope, assets, and approval checklist"],
+    completedStages: ["customer confirmation", "safe intake", "dashboard message mirror"],
+    completedArtifacts: ["build-fix safe intake artifact", "build-fix dashboard message mirror artifact"],
     customerEducationReviewed: false,
     valueExceedsPriceReviewed: false,
     planBoundaryProtected: false,
     conversionMethodApproved: false,
+    dashboardMessageMirrorReviewed: true,
+    safeDocumentDeliveryReviewed: false,
     releaseCaptainApproved: false,
-    safeSummary: "Build Fix needs scope evidence, implementation rationale, work queue, quality review, and boundary protection before delivery.",
+    safeSummary: "Signal Repair needs scope evidence, implementation rationale, work queue, quality review, boundary protection, and safe delivery summary gates before delivery.",
   },
   {
     planKey: "ongoing-control",
-    completedStages: ["customer confirmation", "safe intake", "evidence collection"],
-    completedArtifacts: ["subscription active confirmation", "monitoring scope and cadence", "monthly evidence and change signal packet"],
+    completedStages: ["customer confirmation", "safe intake", "evidence collection", "dashboard message mirror"],
+    completedArtifacts: ["ongoing-control safe intake artifact", "ongoing-control evidence summary artifact", "ongoing-control dashboard message mirror artifact"],
     customerEducationReviewed: false,
     valueExceedsPriceReviewed: false,
     planBoundaryProtected: true,
     conversionMethodApproved: false,
+    dashboardMessageMirrorReviewed: true,
+    safeDocumentDeliveryReviewed: false,
     releaseCaptainApproved: false,
-    safeSummary: "Ongoing Control needs forecast explanation, recurring value review, conversion method approval, and release-captain approval before customer-facing monthly delivery.",
+    safeSummary: "Readiness Control needs forecast explanation, recurring value review, conversion method approval, safe document review, and release-captain approval before customer-facing monthly delivery.",
   },
 ]);
 
-const visualStages = ["intake", "evidence", "education", "value", "boundary", "conversion", "approval", "delivery"] as const;
+const visualStages = ["intake", "evidence", "education", "value", "boundary", "conversion", "mirror", "documents", "approval", "delivery"] as const;
 
 export function CompletePlanFulfillmentPanel() {
   return (
@@ -73,11 +83,11 @@ export function CompletePlanFulfillmentPanel() {
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-violet-200">Complete plan fulfillment</p>
             <h2 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              A-to-Z plan delivery cockpit: value, education, boundaries, conversion, stages, artifacts, and approval.
+              A-to-Z plan delivery cockpit: value, education, boundaries, conversion, mirror, documents, stages, artifacts, and approval.
             </h2>
           </div>
           <p className="max-w-2xl text-sm leading-6 text-slate-400">
-            Private operator view for ensuring each plan delivers more value than its price, teaches the customer clearly, protects higher-tier revenue streams, and only converts through evidence-led plan fit.
+            Private operator view for ensuring each plan delivers more value than its price, teaches the customer clearly, protects higher-tier revenue streams, mirrors important messages into the dashboard, gates safe PDFs, and only converts through evidence-led plan fit.
           </p>
         </div>
 
@@ -93,7 +103,7 @@ export function CompletePlanFulfillmentPanel() {
         <article className="mt-7 rounded-3xl border border-white/10 bg-slate-950/60 p-5">
           <p className="text-sm font-semibold text-white">Fulfillment projections</p>
           <p className="mt-3 text-sm leading-6 text-slate-400">
-            These projections are not customer-facing approvals. They show which education, value, boundary, conversion, stage, artifact, and release-captain gates still block plan delivery.
+            These projections are not customer-facing approvals. They show which education, value, boundary, conversion, dashboard-message mirror, safe-document, stage, artifact, and release-captain gates still block plan delivery.
           </p>
           <div className="mt-5 grid gap-4 lg:grid-cols-2">
             {fulfillment.projections.map((projection) => {
@@ -103,6 +113,8 @@ export function CompletePlanFulfillmentPanel() {
                 { label: "Value", done: projection.valueExceedsPriceReviewed },
                 { label: "Boundary", done: projection.planBoundaryProtected },
                 { label: "Conversion", done: projection.conversionMethodApproved },
+                { label: "Mirror", done: projection.dashboardMessageMirrorReviewed },
+                { label: "Documents", done: projection.safeDocumentDeliveryReviewed },
                 { label: "Captain", done: projection.releaseCaptainApproved },
                 { label: "Delivery", done: projection.customerFacingDeliveryAllowed },
               ];
@@ -134,6 +146,8 @@ export function CompletePlanFulfillmentPanel() {
                       <div className="grid min-w-[9rem] gap-2 text-xs font-semibold uppercase tracking-[0.12em]">
                         <StatusPill label="delivery" ok={projection.customerFacingDeliveryAllowed} />
                         <StatusPill label="upgrade" ok={projection.upgradeOrRetentionAllowed} />
+                        <StatusPill label="mirror" ok={projection.dashboardMessageMirrorReviewed} />
+                        <StatusPill label="documents" ok={projection.safeDocumentDeliveryReviewed} />
                       </div>
                     </div>
                   </div>
@@ -161,15 +175,15 @@ function VisualMatrixOverview() {
         <div>
           <p className="text-sm font-semibold text-white">A-to-Z visual fulfillment map</p>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-            The matrix makes the hidden delivery system visible: every plan must move from safe intake to evidence, education, value proof, plan-boundary protection, conversion review, release-captain approval, and delivery.
+            The matrix makes the hidden delivery system visible: every plan must move from safe intake to evidence, education, value proof, plan-boundary protection, conversion review, dashboard-message mirror, safe-document delivery, release-captain approval, and delivery.
           </p>
         </div>
         <span className="rounded-full border border-violet-200/20 bg-violet-200/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-violet-100">operator visual</span>
       </div>
-      <div className="mt-5 grid gap-3 lg:grid-cols-8">
+      <div className="mt-5 grid gap-3 lg:grid-cols-10">
         {visualStages.map((stage, index) => (
           <div key={stage} className="rounded-2xl border border-white/10 bg-white/[0.035] p-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">0{index + 1}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">{String(index + 1).padStart(2, "0")}</p>
             <p className="mt-2 text-sm font-semibold capitalize text-slate-100">{stage}</p>
           </div>
         ))}
@@ -203,7 +217,7 @@ function ProgressRail({ label, percent, detail }: { label: string; percent: numb
 
 function GateGrid({ gates }: { gates: readonly { label: string; done: boolean }[] }) {
   return (
-    <div className="mt-4 grid gap-2 sm:grid-cols-3">
+    <div className="mt-4 grid gap-2 sm:grid-cols-4">
       {gates.map((gate) => (
         <div key={gate.label} className={`rounded-2xl border px-3 py-2 ${gate.done ? "border-emerald-200/20 bg-emerald-200/10" : "border-amber-200/20 bg-amber-200/10"}`}>
           <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${gate.done ? "text-emerald-100" : "text-amber-100"}`}>{gate.label}</p>
