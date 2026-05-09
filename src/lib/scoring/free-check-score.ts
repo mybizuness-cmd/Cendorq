@@ -242,10 +242,10 @@ function buildSummary({
 }
 
 function humanizeRoutingHint(value: RoutingHint) {
-    if (value === "scan-only") return "scan-only";
-    if (value === "blueprint-candidate") return "Visibility Blueprint candidate";
-    if (value === "infrastructure-review") return "Presence Infrastructure review";
-    return "Presence Command review";
+    if (value === "scan-only") return "Free Scan";
+    if (value === "blueprint-candidate") return "AI Readiness Review";
+    if (value === "infrastructure-review") return "Signal Repair review";
+    return "Readiness Control review";
 }
 
 function dedupeReasons(reasons: readonly string[]) {
