@@ -5,26 +5,26 @@ const processSteps = [
             "The Free Scan opens with a cleaner, lower-friction path so strong prospects are not lost before the first signal appears.",
     },
     {
-        title: "Diagnose clearly",
+        title: "Review clearly",
         copy:
-            "Deep Review is the deeper layer for proving what is actually weakening clarity, trust, visibility, choice, or action.",
+            "AI Readiness Review is the deeper layer for proving what is actually weakening clarity, trust, visibility, choice, or action.",
     },
     {
-        title: "Fix what matters",
+        title: "Repair what matters",
         copy:
-            "Build Fix turns the strongest diagnosed issue into a scoped improvement instead of pushing effort in the wrong direction.",
+            "Signal Repair turns the strongest reviewed issue into a scoped improvement instead of pushing effort in the wrong direction.",
     },
     {
         title: "Control the path",
         copy:
-            "Ongoing Control keeps the business under watch as customers, competitors, search, reviews, and AI discovery keep moving.",
+            "Readiness Control keeps the business under watch as customers, competitors, search, reviews, and AI discovery keep moving.",
     },
 ];
 
 const positioningBullets = [
     "Cendorq is not built to guess loudly.",
     "It is built to detect what is suppressing confidence.",
-    "That makes the next command cleaner, safer, and easier to trust.",
+    "That makes the next readiness move cleaner, safer, and easier to trust.",
 ];
 
 export function ProcessSection() {
@@ -38,14 +38,14 @@ export function ProcessSection() {
                         </p>
 
                         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                            One command path: Scan, Diagnose, Fix, Control.
+                            One readiness path: Scan, Review, Repair, Control.
                         </h2>
 
                         <p className="mt-6 text-base leading-8 text-slate-300 md:text-lg">
                             Generic effort often creates more noise. Cendorq is built
                             around evidence, confidence, plan boundaries, and structured
                             next actions so the business moves deeper only when the next
-                            command is justified.
+                            readiness layer is justified.
                         </p>
 
                         <div className="mt-8 space-y-3">
