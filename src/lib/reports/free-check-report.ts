@@ -167,28 +167,28 @@ export function buildFreeCheckReportSnapshot(entry: FreeCheckReportInput): FreeC
 function recommendRoute(routingHint: ReportRoutingHint) {
   if (routingHint === "command-review") {
     return {
-      title: "Ongoing Control may become the right path after the base is stable.",
+      title: "Readiness Control may become the right path after the base is stable.",
       copy: "The signal suggests the business may eventually benefit from continued direction, monitoring, and improvement. Sequence still matters: the base should be clear enough before ongoing work begins.",
       href: "/plans/ongoing-control",
-      cta: "Review Ongoing Control",
+      cta: "Review Readiness Control",
     };
   }
 
   if (routingHint === "infrastructure-review") {
     return {
-      title: "Build Fix pressure is visible, but the cause still matters.",
-      copy: "Implementation pressure is appearing already. If the weakness is clear, Build Fix may be right. If not, Deep Review protects the path before bigger work begins.",
+      title: "Signal Repair pressure is visible, but the cause still matters.",
+      copy: "Implementation pressure is appearing already. If the weakness is clear, Signal Repair may be right. If not, AI Readiness Review protects the path before bigger work begins.",
       href: "/plans/build-fix",
-      cta: "Review Build Fix",
+      cta: "Review Signal Repair",
     };
   }
 
   if (routingHint === "blueprint-candidate") {
     return {
-      title: "Deep Review is the strongest next step.",
-      copy: "The intake has enough signal quality to justify a deeper diagnosis before the business spends harder in the wrong place.",
+      title: "AI Readiness Review is the strongest next step.",
+      copy: "The intake has enough signal quality to justify a deeper review before the business spends harder in the wrong place.",
       href: "/plans/deep-review",
-      cta: "Open Deep Review",
+      cta: "Open AI Readiness Review",
     };
   }
 
@@ -205,7 +205,7 @@ function buildExecutiveSummary(entry: FreeCheckReportInput, recommendationTitle:
   const location = [entry.city, entry.stateRegion, entry.country].filter(Boolean).join(", ");
   const locationSuffix = location ? ` in ${location}` : "";
 
-  return `${businessLabel}${locationSuffix} is currently reading as a ${entry.scoreTier}-tier / ${entry.decision} Free Scan intake with ${entry.confidenceLevel} confidence, signal quality ${entry.signalQuality}/100, and data depth ${entry.dataDepthScore}/100. The strongest visible pressure is ${humanizePressure(entry.strongestPressure)}. This is a first-read signal, not a final diagnosis. The controlled route recommendation is: ${recommendationTitle}`;
+  return `${businessLabel}${locationSuffix} is currently reading as a ${entry.scoreTier}-tier / ${entry.decision} Free Scan intake with ${entry.confidenceLevel} confidence, signal quality ${entry.signalQuality}/100, and data depth ${entry.dataDepthScore}/100. The strongest visible pressure is ${humanizePressure(entry.strongestPressure)}. This is a first-read signal, not a final review. The controlled route recommendation is: ${recommendationTitle}`;
 }
 
 function buildPriorityActions(entry: FreeCheckReportInput) {
@@ -228,7 +228,7 @@ function buildPriorityActions(entry: FreeCheckReportInput) {
   }
 
   if (actions.length === 0) {
-    actions.push("The business has enough baseline structure to justify a deeper diagnosis instead of another vague first-pass recommendation.");
+    actions.push("The business has enough baseline structure to justify a deeper review instead of another vague first-pass recommendation.");
   }
 
   return actions.slice(0, 5);
@@ -236,12 +236,12 @@ function buildPriorityActions(entry: FreeCheckReportInput) {
 
 function buildLimitations(entry: FreeCheckReportInput) {
   const limitations = [
-    "The Free Scan uses submitted business context and visible customer-facing signals; it does not claim full diagnosis from private or unavailable evidence.",
-    "Observed signals and inferred judgments must stay separated before a customer treats the result as a fix plan.",
+    "The Free Scan uses submitted business context and visible customer-facing signals; it does not claim full review from private or unavailable evidence.",
+    "Observed signals and inferred judgments must stay separated before a customer treats the result as a repair plan.",
   ];
 
   if (entry.confidenceLevel === "low") {
-    limitations.push("Confidence is low, so the safest next action is to improve context or use Deep Review before spending on implementation.");
+    limitations.push("Confidence is low, so the safest next action is to improve context or use AI Readiness Review before spending on implementation.");
   }
 
   if (entry.dataDepthScore < 60) {
@@ -280,7 +280,7 @@ function buildRiskInterpretation(entry: FreeCheckReportInput) {
 }
 
 function explainConfidence(confidence: ReportConfidenceLevel) {
-  if (confidence === "high") return "The intake has enough depth to make the first-read direction more useful, while still staying short of a final diagnosis.";
+  if (confidence === "high") return "The intake has enough depth to make the first-read direction more useful, while still staying short of a final review.";
   if (confidence === "medium") return "The intake has workable signal, but deeper review would improve cause-level precision.";
   return "The intake is still thin, so Cendorq should avoid overconfident conclusions and gather more evidence before implementation.";
 }
