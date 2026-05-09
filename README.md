@@ -1,15 +1,14 @@
 # Cendorq
 
-Cendorq is Market Command Intelligence for businesses that need to become easier for customers, search, maps, reviews, and AI discovery to find, understand, trust, compare, and choose before spending more in the wrong place.
+Cendorq is AI Engine Readiness for businesses that need to become easier for customers, search, maps, reviews, and AI discovery to find, understand, trust, compare, and choose before spending more in the wrong place.
 
 The public buyer path is intentionally simple:
 
-1. **Scan** — start with the Free Scan when the market signal is unclear
-2. **Command Path** — compare the path without confusion
-3. **Diagnose** — use Deep Review to understand what is weakening clarity, trust, visibility, and choice
-4. **Fix** — use Build Fix to strengthen pages, message, proof, trust, and action path
-5. **Control** — use Ongoing Control to keep improving with continued direction
-6. **Connect** — use direct contact only when fit, scope, or timing is already clear
+1. **Scan** — start with the Free Scan when the readiness signal is unclear
+2. **Readiness Path** — compare the path without confusion
+3. **Review** — use AI Readiness Review to understand what is weakening clarity, trust, visibility, and choice
+4. **Repair** — use Signal Repair to strengthen pages, message, proof, trust, and action path
+5. **Control** — use Readiness Control to keep improving with continued direction
 
 The homepage has one job: get the right customer to start the **Free Scan**.
 
@@ -233,7 +232,6 @@ These routes must stay healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
-- `/connect`
 
 Policy and trust routes may stay public when current:
 
@@ -251,7 +249,8 @@ Protected redirects include:
 - `/pricing/full-diagnosis` -> `/plans/deep-review`
 - `/pricing/optimization` -> `/plans/build-fix`
 - `/pricing/monthly-partner` -> `/plans/ongoing-control`
-- `/contact` -> `/connect`
+- `/contact` -> `/free-check`
+- `/connect` -> `/free-check`
 - `/how-it-works` -> `/plans`
 - `/diagnosis` -> `/plans/deep-review`
 - `/profile` -> `/plans`
@@ -276,17 +275,16 @@ These files are intentional and protected:
 
 Use plain buyer language:
 
-- Market Command Intelligence
+- AI Engine Readiness
 - Scan
-- Diagnose
-- Fix
+- Review
+- Repair
 - Control
 - Free Scan
-- Deep Review
-- Build Fix
-- Ongoing Control
-- Command Path
-- Connect
+- AI Readiness Review
+- Signal Repair
+- Readiness Control
+- Readiness Path
 - make the business easier to find
 - make the business easier to understand
 - make the business easier to trust
@@ -294,4 +292,4 @@ Use plain buyer language:
 - stop guessing before spending more
 - protect decisions as search and AI discovery change
 
-Avoid reviving old public labels such as Business Command Intelligence, View Pricing, Visibility Blueprint, Presence Infrastructure, Presence Command, or Start Search Presence Scan in active public surfaces.
+Avoid reviving old public labels such as Business Command Intelligence, Market Command Intelligence, Diagnose, Fix, Deep Review, Build Fix, Ongoing Control, View Pricing, Visibility Blueprint, Presence Infrastructure, Presence Command, or Start Search Presence Scan in active public surfaces.
