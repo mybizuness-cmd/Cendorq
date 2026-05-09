@@ -30,6 +30,10 @@ const coreValidators = [
   "src/scripts/validate-customer-platform-standard.mjs",
   "src/scripts/validate-customer-experience-standard.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
+  "src/scripts/validate-pricing-checkout-orchestration.mjs",
+  "src/scripts/validate-billing-checkout-contracts.mjs",
+  "src/scripts/validate-dashboard-action-inbox.mjs",
+  "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
   "src/scripts/validate-insights-conversation-standard.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
@@ -66,6 +70,22 @@ if (!failures.length) {
     "customer-platform-standard",
     "customer-experience-standard",
     "conversion-moat-standard",
+    "pricing-checkout-orchestration",
+    "Pricing checkout orchestration",
+    "plan prices, checkout metadata, success paths, post-payment emails, report triggers, and post-payment service sequence",
+    "billing-checkout-contracts",
+    "Billing checkout contracts",
+    "webhook/idempotent fulfillment, entitlement projection, provider-authoritative billing documents, safe PDF document delivery, billing recovery, and no client-only paid access",
+    "dashboard-action-inbox",
+    "Dashboard action inbox",
+    "dashboard conversion inbox, proof-first paid-depth path, money-surface reentry, verify-to-view, deliverability posture, dashboard-message mirror, and safe PDF attachment policy",
+    "plan-delivery-orchestration-contracts",
+    "Plan delivery orchestration contracts",
+    "plan delivery boundaries, category-defining report presentation, post-payment service sequence, stage-targeted retargeting, continuous nurturing, future-feature relevance, and report-vault/download parity",
+    "docs-index",
+    "customer delivery source-of-truth files, safe-document doctrine, dashboard-message mirror doctrine",
+    "owner-operating-manual",
+    "vault-first access, deliverability posture, safe PDFs, dashboard message mirroring",
     "insights-conversation-standard",
   ]);
 
@@ -103,7 +123,7 @@ if (!failures.length) {
   ]);
 
   const registryEntries = [...registryText.matchAll(/scriptPath: "([^"]+)"/g)].map((match) => match[1]);
-  if (registryEntries.length < 40) failures.push(`${registryPath} expected at least 40 validator entries, found ${registryEntries.length}`);
+  if (registryEntries.length < 44) failures.push(`${registryPath} expected at least 44 validator entries, found ${registryEntries.length}`);
 }
 
 if (failures.length) {
@@ -112,7 +132,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and command-center, maximum protection, owner posture through the route chain, controlled evolution, controlled maintenance, report truth, report evidence, customer platform, customer experience, conversion moat, insights conversation, owner manual, and closed-intelligence guardrails remain covered.");
+console.log("Command Center validation registry validation passed. Registered guardrail scripts exist, validate:routes delegates to the orchestrator, and command-center, maximum protection, owner posture through the route chain, controlled evolution, controlled maintenance, report truth, report evidence, checkout orchestration, billing safe-document delivery, dashboard message mirror, plan delivery lifecycle, customer platform, customer experience, conversion moat, insights conversation, owner manual, and closed-intelligence guardrails remain covered.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required validation registry dependency: ${path}`);
