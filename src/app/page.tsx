@@ -6,20 +6,20 @@ export const revalidate = 0;
 export const fetchCache = "force-no-store";
 
 export const metadata = buildMetadata({
-  title: "Cendorq | AI Search Visibility and Market Command Intelligence",
+  title: "Cendorq | AI Engine Readiness for Businesses",
   description:
-    "Cendorq checks whether AI engines can understand what a business does, why it should be trusted, and why customers should choose it. Start with the Free Scan before spending on bigger fixes.",
+    "Cendorq checks whether AI engines and customers can understand, trust, and choose a business. Start with the Free Scan before spending on deeper AI-readiness work.",
   path: "/",
   keywords: [
     "cendorq",
     "AI readiness for business",
-    "AI search visibility",
+    "AI engine readiness",
     "AI answer visibility",
     "business clarity scan",
-    "business trust scan",
-    "market command intelligence",
+    "business trust signals",
+    "AI readiness review",
   ],
-  image: { alt: "Cendorq AI Search Visibility and Market Command Intelligence." },
+  image: { alt: "Cendorq AI Engine Readiness for businesses." },
 });
 
 const PATH = [
@@ -27,37 +27,37 @@ const PATH = [
     label: "Scan",
     href: "/free-check",
     line: "Find the first weak signal before you spend deeper.",
-    body: "Cendorq reads the public layer AI engines and customers can see first: clarity, proof, trust, action, and the path to choose.",
+    body: "Free Scan reads the public layer AI engines and customers can see first: clarity, proof, trust, action, and the path to choose.",
     checks: ["Business clarity", "AI/search read", "First trust gap"],
-    action: "Start the scan",
+    action: "Start Free Scan",
   },
   {
-    label: "Diagnose",
+    label: "Review",
     href: "/plans/deep-review",
-    line: "Separate the visible symptom from the real cause.",
-    body: "A deeper review connects what looks weak to why it is weak, so the next move is based on evidence, not guesswork.",
+    line: "Prove the cause before changing the system.",
+    body: "AI Readiness Review connects the visible symptom to the deeper reason the business may not be understood, trusted, or chosen.",
     checks: ["Cause-level proof", "Signal priority", "Decision friction"],
-    action: "Review the diagnosis",
+    action: "See the review",
   },
   {
-    label: "Fix",
+    label: "Repair",
     href: "/plans/build-fix",
     line: "Improve the strongest proven weak point.",
-    body: "The fix is scoped around the place where clarity, proof, or action is most likely to change how the business is understood.",
+    body: "Signal Repair is scoped around the place where clarity, proof, or action is most likely to change how the business is understood.",
     checks: ["Message repair", "Proof upgrade", "Action path"],
-    action: "See the fix path",
+    action: "See Signal Repair",
   },
   {
     label: "Control",
     href: "/plans/ongoing-control",
     line: "Keep the business ready as AI engines change.",
-    body: "Cendorq keeps watch on the signals that can drift: clarity, trust, proof, visibility, and the next action customers should take.",
+    body: "Readiness Control keeps watch on signals that can drift: clarity, trust, proof, visibility, and the next action customers should take.",
     checks: ["Signal watch", "Readiness drift", "Market movement"],
-    action: "See control",
+    action: "See Readiness Control",
   },
 ] as const;
 
-const SIGNALS = ["Get found", "Be understood", "Prove trust", "Win choice", "Make action clear"] as const;
+const SIGNALS = ["Clear facts", "Trusted proof", "Consistent signals", "Reason to choose", "Action path"] as const;
 
 const softButton = "inline-flex items-center justify-center border border-slate-300 bg-white font-semibold text-slate-950 shadow-sm transition duration-200 hover:border-slate-400 hover:bg-slate-50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
 
@@ -97,12 +97,12 @@ export default function HomePage() {
       <section id="ai-readiness" className="mx-auto max-w-7xl scroll-mt-24 px-5 pb-14 sm:px-8" aria-label="AI readiness and how Cendorq works">
         <div className="grid gap-5 lg:grid-cols-[0.74fr_1.26fr] lg:items-stretch">
           <div className="rounded-[2.25rem] border border-slate-200 bg-white p-6 shadow-[0_18px_70px_rgba(15,23,42,0.065)] sm:p-8 lg:p-9">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">The system path</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">The readiness path</p>
             <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">
               AI is becoming the new first impression.
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-600">
-              To be recommended, a business needs clear facts, trusted proof, consistent signals, and a reason to choose. Cendorq finds the weak signal first without promising rankings, leads, revenue, or AI placement.
+              To be recommended or trusted, a business needs clear facts, trusted proof, consistent signals, and a reason to choose. Cendorq finds what is weak first without promising rankings, leads, revenue, or AI placement.
             </p>
             <p className="mt-5 rounded-[1.35rem] border border-slate-200 bg-slate-50 px-5 py-4 text-sm font-semibold leading-6 text-slate-700">
               The goal is not to decorate the business. The goal is to make the business easier for AI engines and customers to understand, trust, and act on.
@@ -138,7 +138,7 @@ export default function HomePage() {
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See what AI engines and customers may be reading wrong. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Whiter body. No hero badge. No card badges. No card numbers. No card prices. Richer system cards. Softer hover states. No AI placement promises. AI Readiness anchor.
+        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Internal keys preserved: deep-review, build-fix, ongoing-control. Scan. Review. Repair. Control. Start Free Scan. Review Plans. Whiter body. No hero badge. No card badges. No card numbers. No card prices. Richer system cards. Softer hover states. No AI placement promises. AI Readiness anchor.
       </section>
     </main>
   );
