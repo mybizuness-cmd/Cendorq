@@ -10,7 +10,7 @@ const failures = [];
 
 expect(pagePath, [
   "Free Scan",
-  "See the first signal before you buy the fix.",
+  "See the first signal before you buy deeper work.",
   "Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose before deeper work begins.",
   "Business context only",
   "No private credentials or payment details",
@@ -49,6 +49,7 @@ expect(routesChainPath, [
 ]);
 
 forbidden(pagePath, [
+  "See the first signal before you buy the fix.",
   "Premium Free Scan room",
   "Command Free Scan room",
   "guaranteed ROI",
