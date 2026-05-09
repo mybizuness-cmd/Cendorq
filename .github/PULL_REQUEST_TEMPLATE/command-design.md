@@ -11,7 +11,7 @@ This PR follows the Cendorq command design standard:
 - [ ] Apple-level trust and authority
 - [ ] Google-level simplicity
 - [ ] ChatGPT-level immediate action
-- [ ] The affected surface answers: What is the safest next command?
+- [ ] The affected surface answers: What is the safest next readiness move?
 - [ ] Primary action remains obvious.
 - [ ] Secondary actions do not compete with the main path.
 - [ ] Public/private boundaries remain intact.
@@ -24,10 +24,9 @@ Use `docs/command-design-operating-standard.md` before changing public pages, fa
 - [ ] Homepage
 - [ ] Free Scan
 - [ ] Plans
-- [ ] Deep Review
-- [ ] Build Fix
-- [ ] Ongoing Control
-- [ ] Connect
+- [ ] AI Readiness Review
+- [ ] Signal Repair
+- [ ] Readiness Control
 - [ ] Dashboard or protected customer surface
 - [ ] Intake console or internal operator surface
 - [ ] Report shell or report rendering surface
