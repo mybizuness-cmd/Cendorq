@@ -17,7 +17,16 @@ const validators = [
 ];
 
 const documentedValidatorCoverage = [
+  "src/scripts/validate-command-center-migrations.mjs",
+  "src/scripts/validate-command-center-schema.mjs",
+  "src/scripts/validate-command-center-readiness.mjs",
+  "src/scripts/validate-command-center-security-posture.mjs",
+  "src/scripts/validate-command-center-panel-registry.mjs",
+  "src/scripts/validate-command-center-panel-safety.mjs",
+  "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
   "src/scripts/validate-public-homepage-command-surface.mjs",
   "src/scripts/validate-public-homepage-command-entry.mjs",
   "src/scripts/validate-public-plans-excellence.mjs",
@@ -48,6 +57,10 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-cendorq-agent-intelligence-playbooks.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-report-truth-engine.mjs",
+  "src/scripts/validate-report-evidence-orchestration.mjs",
+  "src/scripts/validate-report-evidence-record-contracts.mjs",
+  "src/scripts/validate-report-evidence-record-runtime.mjs",
+  "src/scripts/validate-report-generation-rendering-contracts.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-front-to-back-conversion-standard.mjs",
   "src/scripts/validate-customer-platform-routes.mjs",
@@ -67,7 +80,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-customer-support-center.mjs",
   "src/scripts/validate-dashboard-support-status-entry.mjs",
   "src/scripts/validate-public-drift.mjs",
-  "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-free-check-intake.mjs",
   "src/scripts/validate-free-check-command-route-elevation.mjs",
   "src/scripts/validate-customer-platform-handoff-contracts.mjs",
@@ -90,6 +102,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-customer-session-auth-contracts.mjs",
   "src/scripts/validate-production-auth-provider-contracts.mjs",
   "src/scripts/validate-verified-welcome-email-contracts.mjs",
+  "src/scripts/validate-insights-conversation-standard.mjs",
   "src/scripts/validate-command-center-validation-registry.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
@@ -123,4 +136,4 @@ for (const validatorPath of validators) {
 }
 
 console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, and executed customer delivery validators for checkout, billing, dashboard conversion inbox, and plan delivery lifecycle.`);
-console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, owner doctrine, and report truth standards.`);
+console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including command-center schema/readiness/security, checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, owner doctrine, report truth, evidence runtime, customer platform, conversion moat, insights conversation, and closed intelligence standards.`);
