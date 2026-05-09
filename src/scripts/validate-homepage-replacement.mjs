@@ -19,9 +19,9 @@ for (const phrase of [
   "Scan. Diagnose. Fix. Control.",
   "href=\"/free-check\"",
   "href=\"/plans\"",
-  "href=\"/plans/deep-review\"",
-  "href=\"/plans/build-fix\"",
-  "href=\"/plans/ongoing-control\"",
+  "href: \"/plans/deep-review\"",
+  "href: \"/plans/build-fix\"",
+  "href: \"/plans/ongoing-control\"",
 ]) {
   if (!homepage.includes(phrase)) failures.push(`Homepage replacement missing required phrase: ${phrase}`);
 }
