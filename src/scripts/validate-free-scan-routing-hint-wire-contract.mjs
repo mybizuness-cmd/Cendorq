@@ -48,41 +48,41 @@ expect("db/migrations/0001_command_center_foundation.sql", [
 // Every customer-facing interpretation must use current plan language.
 expect("src/lib/signals/free-check-signal.ts", [
   "if (value === \"scan-only\") return \"Free Scan only\";",
-  "if (value === \"blueprint-candidate\") return \"Deep Review candidate\";",
-  "if (value === \"infrastructure-review\") return \"Build Fix review\";",
-  "return \"Ongoing Control review\";",
+  "if (value === \"blueprint-candidate\") return \"AI Readiness Review candidate\";",
+  "if (value === \"infrastructure-review\") return \"Signal Repair review\";",
+  "return \"Readiness Control review\";",
 ]);
 
 expect("src/lib/intelligence/free-check-intelligence.ts", [
   "if (signals.routingHint === \"blueprint-candidate\")",
-  "move into Deep Review",
+  "move into AI Readiness Review",
   "if (signals.routingHint === \"infrastructure-review\")",
-  "showing Build Fix pressure",
+  "showing Signal Repair pressure",
   "if (signals.routingHint === \"command-review\")",
-  "showing possible Ongoing Control pressure",
-  "if (value === \"blueprint-candidate\") return \"Deep Review candidate\";",
-  "if (value === \"infrastructure-review\") return \"Build Fix review\";",
-  "return \"Ongoing Control review\";",
+  "showing possible Readiness Control pressure",
+  "if (value === \"blueprint-candidate\") return \"AI Readiness Review candidate\";",
+  "if (value === \"infrastructure-review\") return \"Signal Repair review\";",
+  "return \"Readiness Control review\";",
 ]);
 
 expect("src/lib/reports/free-check-report.ts", [
   "if (routingHint === \"command-review\")",
-  "Ongoing Control may become the right path",
+  "Readiness Control may become the right path",
   "href: \"/plans/ongoing-control\"",
   "if (routingHint === \"infrastructure-review\")",
-  "Build Fix pressure is visible",
+  "Signal Repair pressure is visible",
   "href: \"/plans/build-fix\"",
   "if (routingHint === \"blueprint-candidate\")",
-  "Deep Review is the strongest next step",
+  "AI Readiness Review is the strongest next step",
   "href: \"/plans/deep-review\"",
 ]);
 
 expect("src/components/free-check/guided-free-check-form-v3.tsx", [
-  "if (routingHint === \"command-review\") return { title: \"Ongoing Control may fit later.\"",
+  "if (routingHint === \"command-review\") return { title: \"Readiness Control may fit later.\"",
   "href: \"/plans/ongoing-control\"",
-  "if (routingHint === \"infrastructure-review\") return { title: \"Build Fix may fit later.\"",
+  "if (routingHint === \"infrastructure-review\") return { title: \"Signal Repair may fit later.\"",
   "href: \"/plans/build-fix\"",
-  "if (routingHint === \"blueprint-candidate\") return { title: \"Deep Review may be the right next depth.\"",
+  "if (routingHint === \"blueprint-candidate\") return { title: \"AI Readiness Review may be the right next depth.\"",
   "href: \"/plans/deep-review\"",
 ]);
 
@@ -103,6 +103,12 @@ for (const file of customerFacingFiles) {
     "View Presence Infrastructure",
     "View Presence Command",
     "Search Presence Scan only",
+    "Deep Review candidate",
+    "Build Fix review",
+    "Ongoing Control review",
+    "Deep Review may be",
+    "Build Fix may be",
+    "Ongoing Control may",
   ]) {
     if (text.includes(phrase)) failures.push(`${file} leaks retired buyer-facing routing label: ${phrase}`);
   }
@@ -114,7 +120,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan routing hint wire contract validation passed. Stable internal routing hint keys remain backward compatible, while every customer-facing interpretation maps to current Free Scan, Deep Review, Build Fix, and Ongoing Control language.");
+console.log("Free Scan routing hint wire contract validation passed. Stable internal routing hint keys remain backward compatible, while every customer-facing interpretation maps to current Free Scan, AI Readiness Review, Signal Repair, and Readiness Control language.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
