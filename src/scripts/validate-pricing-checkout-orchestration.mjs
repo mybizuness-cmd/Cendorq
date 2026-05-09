@@ -21,15 +21,17 @@ expect(architecturePath, [
   "CENDORQ_BUSINESS_ARCHITECTURE_RULES",
   "CENDORQ_PLAN_PERSONALIZATION_FIELDS",
   "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "Turn anonymous interest into a verified customer account",
-  "Convert uncertainty into an evidence-backed diagnosis",
-  "Turn known friction into a concrete customer-facing improvement",
-  "Create recurring revenue",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "Turn anonymous interest into a verified customer account, a protected report-vault result, and a dashboard relationship.",
+  "Convert uncertainty into evidence-backed AI-readiness review",
+  "Turn a known weak page, message, proof, or action path into scoped customer-facing improvement work.",
+  "Create recurring value by keeping clarity, proof, search posture, AI-readiness, customer friction, and market movement under monthly watch.",
   "Every paid plan must unlock a workflow",
   "Every checkout must return to a Cendorq success state",
+  "Every important email must mirror into the dashboard",
+  "Every report or billing PDF must stay gated by verification, ownership, release/provider authority, no-leak checks, and document safety.",
   "Every mobile screen must lead with the action",
 ]);
 
@@ -43,22 +45,37 @@ expect(contractPath, [
   "/checkout/start?plan=deep-review",
   "/checkout/start?plan=build-fix",
   "/checkout/start?plan=ongoing-control",
-  "The customer clicks one clear plan action from Plans, dashboard, report vault, billing, or notifications.",
   "CENDORQ_CHECKOUT_ORCHESTRATION",
+  "CENDORQ_POST_PAYMENT_SERVICE_SEQUENCE",
+  "CENDORQ_REPORT_TRIGGER_MATRIX",
   "CENDORQ_CHECKOUT_METADATA_KEYS",
   "CENDORQ_POST_PAYMENT_EMAILS",
+  "getCendorqReportTrigger",
+  "idempotent-fulfillment",
+  "branded-report-release",
+  "follow-up-satisfaction-retention",
 ]);
 
-expect(pricingPath, ["CENDORQ_PLAN_PRICES", "Unlock Deep Review", "Unlock Build Fix", "Start Ongoing Control"]);
-expect(planTemplatePath, ["getCendorqPlanPrice", "After payment:"]);
-expect(billingPath, ["getPaidCendorqPlanPrice", "Unlock Deep Review", "After payment:"]);
+expect(pricingPath, [
+  "CENDORQ_PLAN_PRICES",
+  "Choose the level of command your business is ready for.",
+  "The command path",
+  "Scan. Review. Repair. Control.",
+]);
+expect(planTemplatePath, ["getCendorqPlanPrice", "Homepage-aligned plan detail", "Choose this when", "Do not choose this when"]);
+expect(billingPath, ["getPaidCendorqPlanPrice", "After payment:"]);
 expect(checkoutStartPath, ["Start checkout | Cendorq", "Secure checkout", "Stripe link coming next"]);
 expect(checkoutSuccessPath, [
-  "Checkout complete | Cendorq",
+  "Readiness activated | Cendorq",
   "Payment complete",
   "getCendorqRevenueStage",
   "What Cendorq needs next",
-  "Post-payment dashboard activation",
+  "Paid report delivery confirmation",
+  "dashboard report vault first",
+  "dashboard message mirror",
+  "downloadable PDF",
+  "PDF attachment delivery",
+  "verification, entitlement, release, and document-safety gates pass",
 ]);
 
 forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath, architecturePath, contractPath], [
@@ -76,6 +93,9 @@ forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checko
   "pricing page",
   "localStorage.setItem",
   "sessionStorage.setItem",
+  "Deep Review is unlocked",
+  "Build Fix is unlocked",
+  "Ongoing Control is active",
 ]);
 
 if (failures.length) {
@@ -84,7 +104,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Pricing checkout orchestration validation passed. Final prices, Cendorq revenue operating system, checkout start, checkout success, dashboard billing, plan pages, metadata, current Plans wording, and post-payment emails stay synchronized.");
+console.log("Pricing checkout orchestration validation passed. Current plan names, final prices, Cendorq revenue operating system, checkout start, checkout success, dashboard billing, Plans surfaces, metadata, post-payment service sequence, report triggers, safe PDF delivery, and dashboard message mirror stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
