@@ -72,14 +72,17 @@ expect(checkoutStartPath, [
 ]);
 
 expect(checkoutSuccessPath, [
-  "Command activated | Cendorq",
+  "Readiness activated | Cendorq",
   "Payment complete",
-  "Activate the command path",
-  "Payment is complete. The command path starts now.",
-  "Command activation",
-  "Diagnose",
-  "Fix",
+  "Activate the readiness path",
+  "Payment is complete. The readiness path starts now.",
+  "Readiness activation",
+  "Review",
+  "Repair",
   "Control",
+  "AI Readiness Review $497",
+  "Signal Repair $1,497",
+  "Readiness Control $597/month",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -167,5 +170,5 @@ function forbidden(path, phrases) {
 }
 
 function read(path) {
-  return readFileSync(join(root, path), "utf8");
+  return readFileSync(join(root, path), "utf8" );
 }
