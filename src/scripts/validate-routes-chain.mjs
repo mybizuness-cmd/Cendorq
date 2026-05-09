@@ -9,6 +9,10 @@ const validators = [
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
   "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
+  "src/scripts/validate-pricing-checkout-orchestration.mjs",
+  "src/scripts/validate-billing-checkout-contracts.mjs",
+  "src/scripts/validate-dashboard-action-inbox.mjs",
+  "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
 ];
 
 const documentedValidatorCoverage = [
@@ -42,10 +46,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-agent-mission-chief-review-runtime.mjs",
   "src/scripts/validate-cendorq-agent-intelligence-playbooks.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
-  "src/scripts/validate-pricing-checkout-orchestration.mjs",
-  "src/scripts/validate-billing-checkout-contracts.mjs",
-  "src/scripts/validate-dashboard-action-inbox.mjs",
-  "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
   "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-front-to-back-conversion-standard.mjs",
@@ -90,6 +90,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-customer-session-auth-contracts.mjs",
   "src/scripts/validate-production-auth-provider-contracts.mjs",
   "src/scripts/validate-verified-welcome-email-contracts.mjs",
+  "src/scripts/validate-command-center-validation-registry.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-closed-intelligence.mjs",
@@ -121,5 +122,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence, command design standard coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
-console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, and report truth standards.`);
+console.log(`\nvalidate:routes chain passed baseline route existence, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, and executed customer delivery validators for checkout, billing, dashboard conversion inbox, and plan delivery lifecycle.`);
+console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, owner doctrine, and report truth standards.`);
