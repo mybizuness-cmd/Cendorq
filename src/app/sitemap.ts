@@ -21,13 +21,13 @@ const ROUTES: readonly RouteDefinition[] = [
     },
     {
         path: "/free-check",
-        priority: 0.98,
+        priority: 0.99,
         changeFrequency: "weekly",
         includeInProduction: true,
     },
     {
         path: "/plans",
-        priority: 0.95,
+        priority: 0.94,
         changeFrequency: "weekly",
         includeInProduction: true,
     },
@@ -50,8 +50,8 @@ const ROUTES: readonly RouteDefinition[] = [
         includeInProduction: true,
     },
     {
-        path: "/connect",
-        priority: 0.76,
+        path: "/login",
+        priority: 0.45,
         changeFrequency: "monthly",
         includeInProduction: true,
     },
