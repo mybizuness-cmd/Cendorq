@@ -3,18 +3,17 @@
 This package reflects the current Cendorq direction:
 
 - canonical brand: Cendorq
-- canonical product category: Market Command Intelligence
+- canonical product category: AI Engine Readiness
 - canonical buyer path:
   - Free Scan
   - Plans
-  - Deep Review
-  - Build Fix
-  - Ongoing Control
-  - Connect
-- canonical command sequence:
+  - AI Readiness Review
+  - Signal Repair
+  - Readiness Control
+- canonical readiness sequence:
   - Scan
-  - Diagnose
-  - Fix
+  - Review
+  - Repair
   - Control
 - canonical SEO and metadata contract: `src/lib/seo.ts`
 - canonical shared navigation contract: `src/lib/site.ts`
@@ -23,7 +22,7 @@ This package reflects the current Cendorq direction:
 
 ## Operating posture
 
-The public surface should make the business easier to find, understand, trust, and choose before the customer spends deeper.
+The public surface should make the business easier for customers, search, maps, reviews, and AI discovery to find, understand, trust, and choose before the customer spends deeper.
 
 The protected customer surface should stay aligned with dashboard, reports, billing, notifications, support, and next actions.
 
