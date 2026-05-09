@@ -19,7 +19,7 @@ const failures = [];
 
 expect(manualPath, [
   "# Cendorq Owner Operating Manual",
-  "Cendorq should win by being more accurate, more useful, more trusted, more tailored, and more operationally disciplined than generic competitors from the first interaction.",
+  "Cendorq should win by being more accurate, more useful, more trusted, more tailored, more current, and more operationally disciplined than generic competitors from the first interaction.",
   "The standard is not to promise impossible certainty.",
   "proof before output",
   "evidence before recommendation",
@@ -27,7 +27,42 @@ expect(manualPath, [
   "contradictions surfaced instead of hidden",
   "customer context separated from verified facts",
   "assumptions separated from inferences",
-  "plan advice tied to actual stage, blockers, evidence, and readiness",
+  "forecast direction separated from fact",
+  "plan advice tied to actual stage, blockers, evidence, movement risk, and readiness",
+]);
+
+expect(manualPath, [
+  "## Selective recurring readiness moat",
+  "Cendorq should not be positioned as a one-time audit, but recurring value must be placed carefully.",
+  "Do not make every page, block, email, or CTA scream monthly control.",
+  "Recurring value belongs strongest in:",
+  "AI Readiness Review report conclusions when movement risk is visible",
+  "Signal Repair post-repair watchlists",
+  "Readiness Control reports",
+  "dashboard readiness history",
+  "report vault baseline comparisons",
+  "forecast refresh notes when evidence supports a forecast",
+  "Recurring value may appear lightly in:",
+  "homepage trust hints",
+  "Plans comparison",
+  "Free Scan next-step guidance",
+  "confirmation and lifecycle emails",
+  "The recurring reason must be true",
+  "The value is not generic monthly reporting.",
+]);
+
+expect(manualPath, [
+  "## Forecast operating model",
+  "Forecasts may appear in reports when they are grounded in evidence and clearly labeled as directional decision aids.",
+  "evidence inputs",
+  "assumptions",
+  "confidence level",
+  "time horizon",
+  "what would change the forecast",
+  "what is unknown",
+  "the safest next action",
+  "refresh timing or trigger",
+  "Forecasts must not claim guaranteed rankings, guaranteed placement, exact traffic, exact revenue, exact future demand, or certainty over platform behavior.",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -67,7 +102,7 @@ expect(manualPath, [
   "Do not skip gates to move faster.",
   "Do not disable validators to make an update pass.",
   "Do not hide failures or silently weaken safeguards.",
-  "Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, and operator safety.",
+  "Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, forecast usefulness, selective recurring value, and operator safety.",
 ]);
 
 expect(manualPath, [
@@ -129,26 +164,26 @@ expect(manualPath, [
 
 expect(manualPath, [
   "The customer journey is: Free Scan or plan entry, check-your-inbox gate, email confirmation, protected dashboard, report vault, inbox messages, support, billing, and plan-specific delivery.",
-  "Free Scan and Deep Review report access should route to `/dashboard/reports` after safe verification and release state.",
+  "Free Scan and AI Readiness Review report access should route to `/dashboard/reports` after safe verification and release state.",
   "Customer confirmation email dispatch now uses a controlled chain: queue record, provider preparation, audit transition, state mutation, admin preview, admin dry-run, provider configuration contract, provider send interface, and customer-safe delivery status projection.",
   "The dashboard inbox is for customer-owned command-center messages, plan nudges, report readiness, support status, billing reminders, security steps, and recovery paths.",
   "It supplements external email orchestration and must not replace transactional confirmation or lifecycle email.",
 ]);
 
 expect(manualPath, [
-  "Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or Deep Review.",
-  "Deep Review is the paid full diagnostic path and requires active entitlement, verified email, paid intake, research review, and release approval.",
-  "Buying Build Fix directly does not include a standalone Deep Review report unless that entitlement exists.",
-  "Buying Ongoing Control directly does not include Build Fix implementation or a standalone Deep Review report unless those entitlements exist.",
+  "Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or AI Readiness Review.",
+  "AI Readiness Review is the paid evidence-backed review path and requires active entitlement, verified email, paid intake, research review, and release approval.",
+  "Buying Signal Repair directly does not include a standalone AI Readiness Review report unless that entitlement exists.",
+  "Buying Readiness Control directly does not include Signal Repair implementation or a standalone AI Readiness Review report unless those entitlements exist.",
   "A later purchase after prior delivery creates a new entitlement, not an automatic unlimited redo.",
 ]);
 
 expect(manualPath, [
   "Free Scan is a protected first-read report.",
-  "Deep Review is the paid full diagnostic report.",
-  "Build Fix is scoped implementation with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation.",
-  "Ongoing Control is recurring monthly status, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.",
-  "Ongoing Control may recommend Build Fix when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.",
+  "AI Readiness Review is the paid evidence-backed review report.",
+  "Signal Repair is scoped implementation with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation.",
+  "Readiness Control is recurring monthly status, forecast refresh when justified, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.",
+  "Readiness Control may recommend Signal Repair when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.",
 ]);
 
 expect(manualPath, [
@@ -202,8 +237,10 @@ expect(manualPath, [
   "conflicts or contradictions",
   "limitations",
   "confidence",
+  "forecast direction",
   "recommendations",
   "next actions",
+  "refresh triggers",
 ]);
 
 expect(manualPath, [
@@ -216,14 +253,15 @@ expect(manualPath, [
   "Conversion pass",
   "Release-captain pass",
   "No report should blur a customer claim into a verified fact.",
+  "No report should blur a forecast into a guaranteed outcome.",
 ]);
 
 expect(manualPath, [
   "## Tailored plan operating model",
   "### Free Scan",
-  "### Deep Review",
-  "### Build Fix",
-  "### Ongoing Control",
+  "### AI Readiness Review",
+  "### Signal Repair",
+  "### Readiness Control",
   "Plans must not be generic packages.",
   "They must behave like stage-specific operating paths.",
 ]);
@@ -232,18 +270,23 @@ expect(manualPath, [
   "## Market-learning loop",
   "what friction patterns are recurring",
   "what proof signals are becoming more important",
-  "which report modules create the most useful customer action",
+  "what AI/search visibility changes are becoming material",
+  "which forecast triggers are most useful and safe",
   "learning must be privacy-safe",
+  "forecasts must stay directional and confidence-labeled",
+  "recurring-value language must be strongest only where it belongs",
   "patterns must be reviewed, versioned, and tested before changing customer-facing behavior",
 ]);
 
 expect(manualPath, [
   "## Conversion moat",
-  "diagnose before selling",
+  "review before selling",
   "show the real blocker",
   "show why the blocker matters",
+  "show what changed or may change",
   "show what can be done next",
   "show which plan fits that stage",
+  "show when to return only when the evidence gives a real reason",
   "Conversion copy should be direct, premium, calm, and confident.",
 ]);
 
@@ -281,6 +324,8 @@ expect(manualPath, [
   "Customer-facing report rendering and PDF parity",
   "Production auth integration",
   "Provider payment mapping and webhook entitlement verification",
+  "Forecast module rendering and forecast refresh history",
+  "Recurring readiness baseline comparison",
 ]);
 
 expect(manualPath, [
@@ -288,9 +333,11 @@ expect(manualPath, [
   "Daily during build",
   "Weekly after launch",
   "Monthly after launch",
+  "review forecast usefulness",
+  "review recurring-value strength",
   "## Final operating principle",
   "Cendorq should not win by promising the impossible.",
-  "It should win by being more disciplined, more evidence-backed, more tailored, more useful, more honest, and more operationally complete than competitors.",
+  "It should win by being more disciplined, more evidence-backed, more current, more tailored, more useful, more honest, and more operationally complete than competitors.",
 ]);
 
 expect(docsIndexPath, [
@@ -317,7 +364,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+console.log("Owner operating manual validation passed with selective recurring readiness moat, forecast governance, customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
 
 function unsafePhrases() {
   return [
@@ -331,8 +378,8 @@ function unsafePhrases() {
     "private audit payloads may be exposed",
     "automatic unlimited redo",
     "dashboard inbox replaces email",
-    "Ongoing Control includes Build Fix implementation",
-    "Build Fix includes standalone Deep Review report",
+    "Readiness Control includes Signal Repair implementation",
+    "Signal Repair includes standalone AI Readiness Review report",
     "provider-level placement guarantee",
     "captain may skip audit",
     "blind feature marching is allowed",
