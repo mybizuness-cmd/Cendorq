@@ -1,4 +1,4 @@
-export type ReportPlanStage = "free-scan" | "full-diagnosis" | "optimization" | "monthly-control";
+export type ReportPlanStage = "free-scan" | "deep-review" | "build-fix" | "ongoing-control";
 
 export type EvidenceSourceClass =
   | "customer-provided"
@@ -100,7 +100,7 @@ export const BUSINESS_ENRICHMENT_RULES = [
       "compare public business profiles and directory listings",
       "flag ambiguity when multiple plausible businesses match",
     ],
-    fallbackPolicy: "If identity confidence is not strong, the report can produce only a limited scan with clear uncertainty and must recommend Full Diagnosis before deeper claims.",
+    fallbackPolicy: "If identity confidence is not strong, the report can produce only a limited scan with clear uncertainty and must recommend Deep Review before deeper claims.",
   },
   {
     key: "presence-discovery",
@@ -127,7 +127,7 @@ export const BUSINESS_ENRICHMENT_RULES = [
       "compare visibility, trust, conversion, and offer clarity signals",
       "separate observed facts from strategic inference",
     ],
-    fallbackPolicy: "If market context is weak, keep competitive claims conservative and frame them as preliminary opportunities for Full Diagnosis.",
+    fallbackPolicy: "If market context is weak, keep competitive claims conservative and frame them as preliminary opportunities for Deep Review.",
   },
 ] as const satisfies readonly BusinessEnrichmentRule[];
 
@@ -135,16 +135,16 @@ export const REPORT_METRIC_RULES = [
   {
     key: "visibility-score",
     label: "Visibility score",
-    planStages: ["free-scan", "full-diagnosis", "optimization", "monthly-control"],
+    planStages: ["free-scan", "deep-review", "build-fix", "ongoing-control"],
     requiredEvidence: ["business-website", "public-search-result", "business-profile", "directory-listing"],
     calculationPolicy: "Use weighted visibility signals such as discoverability of the canonical website, profile presence, listing consistency, category relevance, and search-result footprint. Store weights by formula version and expose only customer-safe explanations.",
-    confidencePolicy: "High confidence requires resolved identity plus multiple independent public sources. Lower confidence must be labeled and should push toward Full Diagnosis.",
+    confidencePolicy: "High confidence requires resolved identity plus multiple independent public sources. Lower confidence must be labeled and should push toward Deep Review.",
     forbiddenBehavior: ["inventing search rank", "treating one source as complete proof", "hiding missing evidence", "claiming guaranteed lead volume"],
   },
   {
     key: "trust-score",
     label: "Trust score",
-    planStages: ["free-scan", "full-diagnosis", "optimization", "monthly-control"],
+    planStages: ["free-scan", "deep-review", "build-fix", "ongoing-control"],
     requiredEvidence: ["business-profile", "review-platform", "business-website", "directory-listing"],
     calculationPolicy: "Combine review footprint, review recency, profile completeness, trust markers, listing consistency, and visible credibility gaps with documented weights and confidence labels.",
     confidencePolicy: "Verified trust scoring requires enough public review/profile evidence. Sparse evidence must be labeled as limited, not as a definitive reputation conclusion.",
@@ -153,7 +153,7 @@ export const REPORT_METRIC_RULES = [
   {
     key: "conversion-friction-score",
     label: "Conversion friction score",
-    planStages: ["full-diagnosis", "optimization", "monthly-control"],
+    planStages: ["deep-review", "build-fix", "ongoing-control"],
     requiredEvidence: ["business-website", "technical-scan", "operator-reviewed"],
     calculationPolicy: "Score contact clarity, offer clarity, mobile usability, call-to-action path, form friction, speed signals, page structure, and trust markers with traceable observations.",
     confidencePolicy: "Full confidence requires page-level observations or technical scan outputs. Free Scan may preview likely friction only when supported by visible website evidence.",
@@ -162,7 +162,7 @@ export const REPORT_METRIC_RULES = [
   {
     key: "priority-severity-index",
     label: "Priority severity index",
-    planStages: ["full-diagnosis", "optimization", "monthly-control"],
+    planStages: ["deep-review", "build-fix", "ongoing-control"],
     requiredEvidence: ["calculated-metric", "operator-reviewed"],
     calculationPolicy: "Rank issues by severity, confidence, business impact, implementation difficulty, and plan fit. Store issue-level inputs and formula version for audit.",
     confidencePolicy: "Priority can be strong only when both impact evidence and issue evidence are strong. Otherwise show as recommended investigation priority.",
@@ -171,7 +171,7 @@ export const REPORT_METRIC_RULES = [
   {
     key: "progress-delta",
     label: "Progress delta",
-    planStages: ["monthly-control"],
+    planStages: ["ongoing-control"],
     requiredEvidence: ["calculated-metric", "technical-scan", "business-profile", "operator-reviewed"],
     calculationPolicy: "Compare current period to baseline using the same metric definitions, source classes, formula versions, and confidence thresholds. Separate observed changes from likely causes.",
     confidencePolicy: "Progress claims require comparable baselines. If sources or methods changed, label the delta as non-comparable or partially comparable.",
@@ -182,23 +182,23 @@ export const REPORT_METRIC_RULES = [
 export const REPORT_CONVERSION_RULES = [
   {
     fromStage: "free-scan",
-    nextStage: "full-diagnosis",
-    pitchPosition: "After showing the highest-confidence visible gaps and uncertainty limits, explain that Full Diagnosis is required to verify causes, quantify priorities, and produce a complete repair plan.",
-    requiredProof: ["at least one verified or strong visible issue", "clear explanation of what Free Scan cannot prove", "specific next questions Full Diagnosis answers"],
+    nextStage: "deep-review",
+    pitchPosition: "After showing the highest-confidence visible gaps and uncertainty limits, explain that Deep Review is required to verify causes, quantify priorities, and produce a complete decision path.",
+    requiredProof: ["at least one verified or strong visible issue", "clear explanation of what Free Scan cannot prove", "specific next questions Deep Review answers"],
     forbiddenBehavior: ["fear-only selling", "inventing urgency", "guaranteeing results", "hiding uncertainty"],
   },
   {
-    fromStage: "full-diagnosis",
-    nextStage: "optimization",
-    pitchPosition: "After the complete diagnosis and priority severity index, explain why Optimization is the logical next step to fix the highest-impact proven issues.",
+    fromStage: "deep-review",
+    nextStage: "build-fix",
+    pitchPosition: "After the complete diagnosis and priority severity index, explain why Build Fix is the logical next step to address the highest-impact proven issues.",
     requiredProof: ["ranked issue list", "evidence-backed cause explanation", "implementation path", "expected outcome type without guarantee"],
     forbiddenBehavior: ["selling fixes not supported by diagnosis", "claiming exact ROI without verified model inputs", "burying low confidence"],
   },
   {
-    fromStage: "optimization",
-    nextStage: "monthly-control",
-    pitchPosition: "After implementation priorities, explain why Monthly Control protects, measures, and iterates the improvements instead of treating growth as a one-time project.",
-    requiredProof: ["implemented or approved optimization scope", "baseline metrics", "monitoring plan", "recurring risk or opportunity explanation"],
+    fromStage: "build-fix",
+    nextStage: "ongoing-control",
+    pitchPosition: "After implementation priorities, explain why Ongoing Control protects, measures, and iterates the improvements instead of treating growth as a one-time project.",
+    requiredProof: ["implemented or approved Build Fix scope", "baseline metrics", "monitoring plan", "recurring risk or opportunity explanation"],
     forbiddenBehavior: ["claiming ongoing growth is automatic", "using vanity metrics as proof", "ignoring baseline comparability"],
   },
 ] as const satisfies readonly ReportConversionRule[];

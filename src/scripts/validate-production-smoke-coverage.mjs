@@ -173,6 +173,9 @@ expect(reportTruthEnginePath, [
   "minimum-input-enrichment",
   "calculation inputs, formula label, evidence references, confidence level, and rounding policy",
   "must never claim 100% certainty, perfect accuracy, or guaranteed outcomes",
+  "deep-review",
+  "build-fix",
+  "ongoing-control",
 ]);
 
 expect(reportGrowthSystemPath, [
@@ -182,7 +185,10 @@ expect(reportGrowthSystemPath, [
   "Truthful high-conversion reporting",
   "Every report must look official and Cendorq-branded",
   "analyzed business logo above or beside the business name",
-  "Full Diagnosis must be thorough and extensive",
+  "Deep Review must be thorough and extensive",
+  "recommended Build Fix path",
+  "Build Fix reporting must translate diagnosis into action",
+  "recommended Ongoing Control path",
   "social and platform activity",
   "Every business study must consider social media and other platform activity",
   "bread and butter",
@@ -238,13 +244,20 @@ for (const phrase of [
   if (smokeText.includes(phrase)) failures.push(`Production smoke script contains forbidden or risky phrase: ${phrase}`);
 }
 
+const reportTruthText = read(reportTruthEnginePath);
+const reportGrowthText = read(reportGrowthSystemPath);
+for (const phrase of ["full-diagnosis", "optimization", "monthly-control", "Full Diagnosis", "Optimization", "Monthly Control"]) {
+  if (reportTruthText.includes(phrase)) failures.push(`${reportTruthEnginePath} contains retired report plan phrase: ${phrase}`);
+  if (reportGrowthText.includes(phrase)) failures.push(`${reportGrowthSystemPath} contains retired report plan phrase: ${phrase}`);
+}
+
 if (failures.length) {
   console.error("Production smoke coverage validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, protected owner configuration evidence/workflow API checks, protected report evidence API checks, Command Center panel guard validators, validation registry visibility, owner maximum-protection posture, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, protected owner configuration evidence/workflow API checks, protected report evidence API checks, Command Center panel guard validators, validation registry visibility, owner maximum-protection posture, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, current report plan-stage wording, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
