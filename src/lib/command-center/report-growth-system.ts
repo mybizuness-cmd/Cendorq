@@ -30,6 +30,7 @@ export type ReportForecastSectionRule = {
   sectionPurpose: string;
   requiredInputs: readonly string[];
   customerValue: string;
+  placementRule: string;
   blockedBehavior: readonly string[];
 };
 
@@ -39,6 +40,7 @@ export type RecurringReportValueRule = {
   recurringValue: string;
   whyCustomerReturns: string;
   proofRequired: readonly string[];
+  placementRule: string;
   blockedBehavior: readonly string[];
 };
 
@@ -70,8 +72,8 @@ export const REPORT_GROWTH_SYSTEM_RULES = [
   {
     key: "recurring-value-without-fake-lock-in",
     label: "Recurring value without fake lock-in",
-    requirement: "Reports must make the real reason for recurring Cendorq work obvious: search, AI answers, competitors, platform behavior, customer expectations, proof signals, and conversion paths keep moving. Recurrence must be earned with fresh evidence, not forced with fear.",
-    blockedBehavior: ["fake lock-in", "invented monthly emergency", "subscription pitch without changed evidence", "one-time audit positioning", "hiding cheaper or safer next actions"],
+    requirement: "Reports should make recurring value visible only where it belongs: fresh evidence, changed signals, competitor movement, platform movement, forecast refresh, post-repair watchlists, or Readiness Control. Recurrence must be earned with evidence, not forced with fear.",
+    blockedBehavior: ["fake lock-in", "invented monthly emergency", "subscription pitch without changed evidence", "one-time audit positioning", "hiding cheaper or safer next actions", "recurring pitch in every section"],
   },
 ] as const satisfies readonly ReportGrowthSystemRule[];
 
@@ -79,23 +81,23 @@ export const PLAN_REPORT_DEPTH_RULES = [
   {
     planStage: "free-scan",
     depthStandard: "Free Scan must be fast, useful, and honest: it should expose the strongest visible issues, explain uncertainty limits, and avoid pretending to be a complete AI Readiness Review.",
-    conversionStandard: "It should promote AI Readiness Review by showing what visible evidence suggests and what Free Scan cannot fully verify without deeper analysis.",
+    conversionStandard: "It should promote AI Readiness Review by showing what visible evidence suggests and what Free Scan cannot fully verify without deeper analysis. It may hint at future monitoring only when the first signal shows movement risk.",
     requiredSections: ["business identity confidence", "highest-confidence visible gaps", "evidence and uncertainty summary", "recommended AI Readiness Review next step"],
-    blockedBehavior: ["complete-review claims", "unsupported revenue claims", "fear-only selling", "hiding scan limitations"],
+    blockedBehavior: ["complete-review claims", "unsupported revenue claims", "fear-only selling", "hiding scan limitations", "heavy recurring pitch from thin evidence"],
   },
   {
     planStage: "deep-review",
-    depthStandard: "AI Readiness Review must be thorough and extensive: it should verify root causes, explore the business model, website, profiles, reviews, social and platform activity, conversion paths, revenue paths, category context, competitive context, technical blockers, trust gaps, priority severity, and the first forecastable movement risks.",
-    conversionStandard: "It should promote Signal Repair by proving which issues matter most, why they matter commercially, what repair work is required, and why implementation is the logical next step, without lying, exaggerating, or creating anything false. It should also show when Readiness Control will become valuable if search, competitors, or customer-decision signals continue moving.",
-    requiredSections: ["resolved business identity", "business model and revenue context", "visibility and discovery", "trust and reputation", "website and conversion friction", "social media and platform activity", "competitive and category context", "priority severity index", "forecastable movement risks", "recommended Signal Repair path"],
-    blockedBehavior: ["shallow review", "unsupported repair recommendation", "invented urgency", "ranking issues without evidence", "overlooking social or platform revenue", "forecast without confidence label"],
+    depthStandard: "AI Readiness Review must be thorough and extensive: it should verify root causes, explore the business model, website, profiles, reviews, social and platform activity, conversion paths, revenue paths, category context, competitive context, technical blockers, trust gaps, priority severity, and forecastable movement risks only when evidence supports them.",
+    conversionStandard: "It should promote Signal Repair by proving which issues matter most, why they matter commercially, what repair work is required, and why implementation is the logical next step. It should mention Readiness Control only when search, competitor, platform, or customer-decision movement creates a clear monitoring reason.",
+    requiredSections: ["resolved business identity", "business model and revenue context", "visibility and discovery", "trust and reputation", "website and conversion friction", "social media and platform activity", "competitive and category context", "priority severity index", "recommended Signal Repair path"],
+    blockedBehavior: ["shallow review", "unsupported repair recommendation", "invented urgency", "ranking issues without evidence", "overlooking social or platform revenue", "forecast without confidence label", "Readiness Control pitch without movement evidence"],
   },
   {
     planStage: "build-fix",
     depthStandard: "Signal Repair reporting must translate review into action: it should show approved repairs, implementation sequence, expected outcome type, confidence, evidence, constraints, what remains unverified, and what should be monitored after the repair lands.",
-    conversionStandard: "It should promote Readiness Control by showing why measurement, iteration, regression prevention, platform monitoring, competitive movement, and compounding improvements matter after implementation.",
+    conversionStandard: "It should promote Readiness Control by showing why measurement, iteration, regression prevention, platform monitoring, competitive movement, and compounding improvements matter after implementation, but only when there is a real watchlist or baseline to protect.",
     requiredSections: ["approved Signal Repair scope", "issue-to-repair mapping", "implementation sequence", "expected outcome type without guarantee", "measurement baseline", "post-repair watchlist", "recommended Readiness Control path"],
-    blockedBehavior: ["repairs not tied to review", "guaranteed ROI", "ignoring measurement", "claiming implementation alone creates permanent growth", "missing post-repair monitoring need"],
+    blockedBehavior: ["repairs not tied to review", "guaranteed ROI", "ignoring measurement", "claiming implementation alone creates permanent growth", "missing post-repair monitoring need", "generic monthly upsell"],
   },
   {
     planStage: "ongoing-control",
@@ -112,8 +114,9 @@ export const REPORT_FORECAST_SECTION_RULES = [
     label: "AI/search movement forecast",
     sectionPurpose: "Show how search and AI discovery conditions may affect the business if current clarity, proof, source visibility, and customer-choice signals stay the same.",
     requiredInputs: ["current visibility evidence", "source/link eligibility evidence", "content helpfulness evidence", "business proof evidence", "confidence label", "assumptions", "review horizon"],
-    customerValue: "The customer sees why a report is not a one-time snapshot: the search environment can change, the business can drift, and the next review can prevent blind spending.",
-    blockedBehavior: ["guaranteed ranking forecast", "exact traffic prediction", "unlabeled assumptions", "AI placement promise", "fear-based forecast"],
+    customerValue: "The customer sees when a report should be refreshed because the search environment can change, the business can drift, and the next review can prevent blind spending.",
+    placementRule: "Use this section in AI Readiness Review and Readiness Control when evidence exists. In Free Scan, use only a light hint. Do not place it on every page or every report block.",
+    blockedBehavior: ["guaranteed ranking forecast", "exact traffic prediction", "unlabeled assumptions", "AI placement promise", "fear-based forecast", "forecast section on thin evidence"],
   },
   {
     key: "competitive-movement-forecast",
@@ -121,15 +124,17 @@ export const REPORT_FORECAST_SECTION_RULES = [
     sectionPurpose: "Show how competitor proof, positioning, reviews, content, platform presence, and conversion paths may change the customer's relative readiness position.",
     requiredInputs: ["public competitor evidence", "category context", "customer-choice signal", "comparison friction", "confidence label", "watchlist trigger"],
     customerValue: "The customer sees what competitors are doing publicly and why Cendorq should re-check movement instead of assuming the market stays still.",
-    blockedBehavior: ["private competitor data", "panic language", "copycat recommendation", "unsupported competitor threat", "competitor certainty"],
+    placementRule: "Use when competitor evidence is meaningful. Keep tone calm and comparative, not panicked or adversarial.",
+    blockedBehavior: ["private competitor data", "panic language", "copycat recommendation", "unsupported competitor threat", "competitor certainty", "competitor section with no competitor evidence"],
   },
   {
     key: "customer-decision-forecast",
     label: "Customer decision forecast",
     sectionPurpose: "Show how buyer questions, objections, trust needs, proof expectations, and action friction may evolve if the business keeps the same message and proof structure.",
     requiredInputs: ["current customer-friction evidence", "offer clarity evidence", "trust proof evidence", "review/social signal", "confidence label", "refresh trigger"],
-    customerValue: "The customer understands that conversion clarity expires when customer expectations and comparison habits move.",
-    blockedBehavior: ["invented customer psychology", "unsupported objection claims", "static buyer assumption", "upsell-only recommendation"],
+    customerValue: "The customer understands when conversion clarity may become stale because expectations and comparison habits move.",
+    placementRule: "Use inside deeper reports and Readiness Control when customer-decision evidence exists. Do not turn it into generic psychology copy.",
+    blockedBehavior: ["invented customer psychology", "unsupported objection claims", "static buyer assumption", "upsell-only recommendation", "generic forecast filler"],
   },
 ] as const satisfies readonly ReportForecastSectionRule[];
 
@@ -137,10 +142,11 @@ export const RECURRING_REPORT_VALUE_RULES = [
   {
     key: "freshness-based-return-reason",
     label: "Freshness-based return reason",
-    recurringValue: "Every recurring report should show what evidence is fresh, aging, stale, missing, improved, weakened, or newly risky.",
+    recurringValue: "Recurring reports should show what evidence is fresh, aging, stale, missing, improved, weakened, or newly risky.",
     whyCustomerReturns: "The customer returns because old clarity can become stale, old proof can lose force, competitors can improve, and AI/search surfaces can change what they surface.",
     proofRequired: ["evidence age", "source comparability", "changed signal", "unchanged signal", "recommended refresh timing"],
-    blockedBehavior: ["monthly report with no changed evidence", "recurrence without freshness reason", "hiding stale data", "manufacturing change"],
+    placementRule: "Use in report vault, Readiness Control, dashboard watchlists, and post-report next actions. Do not make it a headline on every public page.",
+    blockedBehavior: ["monthly report with no changed evidence", "recurrence without freshness reason", "hiding stale data", "manufacturing change", "recurring CTA spam"],
   },
   {
     key: "compounding-value-record",
@@ -148,7 +154,8 @@ export const RECURRING_REPORT_VALUE_RULES = [
     recurringValue: "Reports should build on previous reports so the customer sees a compounding readiness record instead of disconnected one-off deliverables.",
     whyCustomerReturns: "The customer returns because Cendorq preserves context, tracks deltas, protects improvements, and shows the next safest move with less waste each cycle.",
     proofRequired: ["previous baseline", "current baseline", "delta explanation", "completed work", "open watchlist", "next priority"],
-    blockedBehavior: ["resetting context", "duplicate report language", "no baseline comparison", "selling repeated review without added insight"],
+    placementRule: "Use strongly in Readiness Control and dashboard history. Use lightly in sales copy as continuity, not as pressure.",
+    blockedBehavior: ["resetting context", "duplicate report language", "no baseline comparison", "selling repeated review without added insight", "overexplaining retention strategy to the buyer"],
   },
   {
     key: "forecast-refresh-return-reason",
@@ -156,7 +163,8 @@ export const RECURRING_REPORT_VALUE_RULES = [
     recurringValue: "Reports should explain when a forecast should be refreshed and what event, platform shift, competitor movement, or evidence age would justify returning sooner.",
     whyCustomerReturns: "The customer returns because Cendorq gives a rational monitoring cadence tied to business risk and external movement, not a generic subscription pitch.",
     proofRequired: ["forecast horizon", "confidence label", "trigger condition", "watchlist signal", "business risk level"],
-    blockedBehavior: ["generic monthly pitch", "mandatory cadence without evidence", "forecast certainty", "over-monitoring low-risk customers"],
+    placementRule: "Use when a real forecast exists. If no forecast is justified, use a simple watchlist or no cadence recommendation.",
+    blockedBehavior: ["generic monthly pitch", "mandatory cadence without evidence", "forecast certainty", "over-monitoring low-risk customers", "forcing forecast refresh into every report"],
   },
 ] as const satisfies readonly RecurringReportValueRule[];
 
