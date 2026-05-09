@@ -4,7 +4,8 @@ import { join } from "node:path";
 const root = process.cwd();
 const homepage = readFileSync(join(root, "src/app/page.tsx"), "utf8");
 const footer = readFileSync(join(root, "src/layout/site-footer.tsx"), "utf8");
-const combined = `${homepage}\n${footer}`;
+const header = readFileSync(join(root, "src/layout/site-header-conversion.tsx"), "utf8");
+const combined = `${homepage}\n${footer}\n${header}`;
 const failures = [];
 
 for (const phrase of [
@@ -26,6 +27,10 @@ for (const phrase of [
   "No cluttered audit theater. No fake certainty.",
   "Market Command Intelligence for becoming easier to find, understand, trust, and choose.",
   "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or outcomes.",
+  "bg-[#fbfbf8]/88",
+  "text-slate-950",
+  "Start free scan",
+  "Menu",
   "Scan",
   "Diagnose",
   "Fix",
@@ -41,7 +46,7 @@ for (const phrase of [
   "href: \"/plans/build-fix\"",
   "href: \"/plans/ongoing-control\"",
 ]) {
-  if (!combined.includes(phrase)) failures.push(`Minimal homepage/footer missing required phrase: ${phrase}`);
+  if (!combined.includes(phrase)) failures.push(`Light public shell missing required phrase: ${phrase}`);
 }
 
 for (const phrase of [
@@ -58,10 +63,13 @@ for (const phrase of [
   "The market either understands you or it moves on.",
   "The Free Scan starts the system. The protected dashboard carries the result.",
   "bg-[#020713]",
+  "bg-slate-950/88",
+  "supports-[backdrop-filter]:bg-slate-950/76",
+  "text-white sm:text-base",
   "system-grid-wide",
   "MarketCard",
 ]) {
-  if (combined.includes(phrase)) failures.push(`Minimal homepage/footer contains forbidden phrase: ${phrase}`);
+  if (combined.includes(phrase)) failures.push(`Light public shell contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
@@ -70,4 +78,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Root homepage is light, minimal, action-first, and points into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
+console.log("Homepage replacement validation passed. Public shell is light, minimal, action-first, and points into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
