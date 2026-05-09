@@ -40,7 +40,7 @@ const CUSTOMER_DECISION_PROMPTS: Record<CendorqPlanKey, { question: string; answ
   "free-scan": {
     question: "You need the first signal before you spend deeper.",
     answer: "Start here. See what may be unclear, under-proven, or hard to choose without paying for deeper review too early.",
-    warning: "Free Scan is a first read, not full diagnosis, implementation, monitoring, or a guaranteed outcome.",
+    warning: "Free Scan is a first read, not full review, implementation, monitoring, or a guaranteed outcome.",
   },
   "deep-review": {
     question: "You need evidence before bigger changes.",
