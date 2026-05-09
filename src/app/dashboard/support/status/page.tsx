@@ -4,7 +4,7 @@ import { SupportStatusList } from "@/components/customer-support/support-status-
 import { CUSTOMER_SUPPORT_STATUS_CONTRACTS } from "@/lib/customer-support-status-contracts";
 
 export const metadata = buildMetadata({
-  title: "Market resolution status | Cendorq",
+  title: "Readiness resolution status | Cendorq",
   description: "View customer-safe Cendorq support request status without internal notes, raw evidence, or private security and billing details.",
   path: "/dashboard/support/status",
   noIndex: true,
@@ -13,7 +13,7 @@ export const metadata = buildMetadata({
 const STATUS_ACTIONS = [
   { title: "Review status", href: "#support-status-list", copy: "Start with the customer-safe status before sending another request." },
   { title: "Send safe update", href: "/dashboard/support/request", copy: "Add context only when the status asks for it." },
-  { title: "Return to command depth", href: "/dashboard/billing", copy: "Continue the plan or invoice path once the blocker is clear." },
+  { title: "Return to readiness depth", href: "/dashboard/billing", copy: "Continue the plan or invoice path once the blocker is clear." },
 ] as const;
 
 const STATUS_RULES = [
@@ -31,13 +31,13 @@ export default function SupportStatusPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
-            Market resolution status
+            Readiness resolution status
           </div>
           <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
             Know where the blocker stands and what to do next.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Status should reduce anxiety, protect private information, and return the customer to proof, account, help, or command depth as soon as the blocker is clear.
+            Status should reduce anxiety, protect private information, and return the customer to proof, account, help, or readiness depth as soon as the blocker is clear.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="#support-status-list" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -52,7 +52,7 @@ export default function SupportStatusPage() {
         <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] p-5 shadow-[0_55px_200px_rgba(2,8,23,0.72)] sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">After resolution</p>
-          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Return to the right command.</h2>
+          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Return to the right layer.</h2>
           <p className="mt-5 text-base leading-8 text-slate-300">Help should restore confidence and move the customer back to the right operating lane.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {STATUS_ACTIONS.slice(1).map((item) => (
@@ -95,7 +95,7 @@ export default function SupportStatusPage() {
       </section>
 
       <section className="sr-only" aria-label="Support status guardrails">
-        Market resolution status. Know where the blocker stands and what to do next. Show progress without exposing internals. Return to the right command. No generic ticket tracker. No internal notes. No raw evidence. No duplicate support loop. {STATUS_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {STATUS_RULES.join(" ")} {CUSTOMER_SUPPORT_STATUS_CONTRACTS.map((status) => `${status.key} ${status.label} ${status.customerMeaning}`).join(" ")}
+        Readiness resolution status. Know where the blocker stands and what to do next. Show progress without exposing internals. Return to the right layer. No generic ticket tracker. No internal notes. No raw evidence. No duplicate support loop. {STATUS_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {STATUS_RULES.join(" ")} {CUSTOMER_SUPPORT_STATUS_CONTRACTS.map((status) => `${status.key} ${status.label} ${status.customerMeaning}`).join(" ")}
       </section>
     </main>
   );
