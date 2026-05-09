@@ -111,12 +111,13 @@ expect(contributingPath, [
   standardPath,
   "Command design standard",
   "command design impact",
-  "What is the safest next command?",
+  "What is the safest next readiness move?",
 ]);
 
 forbid(standardPath, ["Deep Review", "Build Fix", "Ongoing Control", "Scan, Diagnose, Fix, Control", "Connect only when fit"]);
 forbid(releaseChecklistPath, ["Deep Review", "Build Fix", "Ongoing Control", "Connect for fit", "safest next command"]);
 forbid(focusedPrTemplatePath, ["Deep Review", "Build Fix", "Ongoing Control", "Connect"]);
+forbid(contributingPath, ["Deep Review", "Build Fix", "Ongoing Control", "safest next command", "Connect"]);
 
 if (failures.length) {
   console.error("Command design operating standard validation failed:");
