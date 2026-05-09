@@ -20,6 +20,9 @@ for (const phrase of [
   "clear, trusted, and ready to be chosen",
   "Start with the Free Scan. See what AI engines and customers may be reading wrong.",
   "AI is becoming the new first impression.",
+  "id=\"ai-readiness\"",
+  "AI Readiness",
+  "Sign in",
   "To be recommended, a business needs clear facts, trusted proof, consistent signals, and a reason to choose.",
   "without promising rankings, leads, or AI placement.",
   "Get found",
@@ -34,9 +37,6 @@ for (const phrase of [
   "Start Free Scan",
   "Review Plans",
   "Plans",
-  "Dashboard",
-  "Support",
-  "Menu",
   "Privacy",
   "Terms",
   "No AI placement promises",
@@ -48,6 +48,8 @@ for (const phrase of [
   "Control",
   "href=\"/free-check\"",
   "href=\"/plans\"",
+  "href=\"/login\"",
+  "href=\"/#ai-readiness\"",
   "href: \"/plans/deep-review\"",
   "href: \"/plans/build-fix\"",
   "href: \"/plans/ongoing-control\"",
@@ -73,6 +75,11 @@ for (const phrase of [
   "Run the Free Scan before buying the bigger fix.",
   "Become easier to find, trust, and choose.",
   "If AI cannot understand your business, customers may never get the chance to.",
+  "Dashboard\", href: \"/dashboard\"",
+  "Support\", href: \"/dashboard/support\"",
+  "aria-controls=\"site-menu\"",
+  "Open site menu",
+  "Close site menu",
   "href=\"/pricing\"",
   "href=\"/diagnosis\"",
   "rough temporary",
@@ -102,4 +109,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is white, compact, calm, urgent, and positioned around AI engines and AI readiness without overpromising.");
+console.log("Homepage replacement validation passed. Public shell is white, compact, calm, urgent, and positioned around AI engines and AI readiness without a dropdown menu.");
