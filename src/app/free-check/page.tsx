@@ -94,7 +94,7 @@ export default function FreeCheckPage() {
         <div className="lg:sticky lg:top-24">
           <p className="text-xs font-semibold uppercase tracking-[0.34em] text-slate-400">Free Scan</p>
           <h1 className="mt-6 max-w-5xl text-[clamp(3rem,7vw,6.7rem)] font-semibold leading-[0.88] tracking-[-0.075em] text-slate-950">
-            See the first signal before you buy the fix.
+            See the first signal before you buy deeper work.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
             Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose before deeper work begins.
