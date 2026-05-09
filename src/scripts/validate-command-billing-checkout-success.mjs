@@ -10,34 +10,31 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-billing-checkout-success.mjs";
 
 expect(billingPath, [
-  "Plan billing command center",
-  "Know what is active, what unlocked, and what Cendorq needs next.",
-  "Billing should not feel like a receipt drawer.",
+  "Readiness plan depth",
+  "Know what is active, what unlocked, and what depth comes next.",
+  "readiness-depth control point",
   "Billing status summary",
-  "Paid plan command system",
-  "Payment should unlock a workflow, not just a line item.",
+  "Paid readiness depth",
+  "Payment should unlock the right readiness layer.",
   "Money moments should feel calm, exact, and recoverable.",
   "Current access",
-  "Next paid depth",
-  "Billing safety",
-  "No secrets in support",
-  "Deep Review $497",
-  "Build Fix $1,497",
-  "Ongoing Control $597/month",
+  "Next layer",
+  "Safety",
+  "No private payment details",
+  "AI Readiness Review $497",
+  "Signal Repair $1,497",
+  "Readiness Control $597/month",
   "Checkout success parity",
-  "hover:-translate-y-0.5",
-  "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(checkoutSuccessPath, [
-  "Checkout success activation",
-  "Plan unlocked. Now activate the work.",
-  "Checkout should feel like activation into the platform, not a receipt.",
+  "Readiness activated | Cendorq",
+  "Plan unlocked. Activate the readiness path.",
   "Payment should unlock a workflow, not just confirmation.",
   "Activation path",
-  "The purchase is complete. The delivery path starts now.",
+  "Payment is complete. The readiness path starts now.",
   "Dashboard state",
   "Workflow started",
   "Confirmation email",
@@ -48,6 +45,9 @@ expect(checkoutSuccessPath, [
   "Every paid report must appear in the dashboard report vault and be delivered by email with the approved PDF attachment.",
   "Checkout success parity with billing",
   "Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
+  "AI Readiness Review $497",
+  "Signal Repair $1,497",
+  "Readiness Control $597/month",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -55,7 +55,6 @@ expect(checkoutSuccessPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(billingPath, [
-  "Plan billing command center",
   "Billing plan activation matrix",
   "Checkout should unlock the right workflow, not just a receipt.",
   "BILLING_PLAN_ACTIVATION",
@@ -85,7 +84,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Billing and checkout success validation passed with active plan command center, activation-based checkout success, and paid report delivery confirmation.");
+console.log("Billing and checkout success validation passed with readiness plan depth, activation-based checkout success, and paid report delivery confirmation.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
