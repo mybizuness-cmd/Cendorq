@@ -82,7 +82,7 @@ export const REPORT_TRUTH_RULES = [
   {
     key: "recommendation-must-map-to-plan",
     label: "Recommendation must map to plan",
-    requirement: "Each report must explain what is wrong, why it matters commercially, what proof supports the diagnosis, and which next plan is the correct next step based on severity, confidence, and required depth of work.",
+    requirement: "Each report must explain what is wrong, why it matters commercially, what proof supports the review, and which next plan is the correct next step based on severity, confidence, and required depth of work.",
     blockedIfMissing: true,
   },
 ] as const satisfies readonly ReportTruthRule[];
@@ -100,7 +100,7 @@ export const BUSINESS_ENRICHMENT_RULES = [
       "compare public business profiles and directory listings",
       "flag ambiguity when multiple plausible businesses match",
     ],
-    fallbackPolicy: "If identity confidence is not strong, the report can produce only a limited scan with clear uncertainty and must recommend Deep Review before deeper claims.",
+    fallbackPolicy: "If identity confidence is not strong, the report can produce only a limited scan with clear uncertainty and must recommend AI Readiness Review before deeper claims.",
   },
   {
     key: "presence-discovery",
@@ -127,7 +127,7 @@ export const BUSINESS_ENRICHMENT_RULES = [
       "compare visibility, trust, conversion, and offer clarity signals",
       "separate observed facts from strategic inference",
     ],
-    fallbackPolicy: "If market context is weak, keep competitive claims conservative and frame them as preliminary opportunities for Deep Review.",
+    fallbackPolicy: "If market context is weak, keep competitive claims conservative and frame them as preliminary opportunities for AI Readiness Review.",
   },
 ] as const satisfies readonly BusinessEnrichmentRule[];
 
@@ -138,7 +138,7 @@ export const REPORT_METRIC_RULES = [
     planStages: ["free-scan", "deep-review", "build-fix", "ongoing-control"],
     requiredEvidence: ["business-website", "public-search-result", "business-profile", "directory-listing"],
     calculationPolicy: "Use weighted visibility signals such as discoverability of the canonical website, profile presence, listing consistency, category relevance, and search-result footprint. Store weights by formula version and expose only customer-safe explanations.",
-    confidencePolicy: "High confidence requires resolved identity plus multiple independent public sources. Lower confidence must be labeled and should push toward Deep Review.",
+    confidencePolicy: "High confidence requires resolved identity plus multiple independent public sources. Lower confidence must be labeled and should push toward AI Readiness Review.",
     forbiddenBehavior: ["inventing search rank", "treating one source as complete proof", "hiding missing evidence", "claiming guaranteed lead volume"],
   },
   {
@@ -157,7 +157,7 @@ export const REPORT_METRIC_RULES = [
     requiredEvidence: ["business-website", "technical-scan", "operator-reviewed"],
     calculationPolicy: "Score contact clarity, offer clarity, mobile usability, call-to-action path, form friction, speed signals, page structure, and trust markers with traceable observations.",
     confidencePolicy: "Full confidence requires page-level observations or technical scan outputs. Free Scan may preview likely friction only when supported by visible website evidence.",
-    forbiddenBehavior: ["diagnosing hidden analytics without access", "claiming exact lost revenue without verified inputs", "turning assumptions into facts"],
+    forbiddenBehavior: ["claiming hidden analytics conclusions without access", "claiming exact lost revenue without verified inputs", "turning assumptions into facts"],
   },
   {
     key: "priority-severity-index",
@@ -183,22 +183,22 @@ export const REPORT_CONVERSION_RULES = [
   {
     fromStage: "free-scan",
     nextStage: "deep-review",
-    pitchPosition: "After showing the highest-confidence visible gaps and uncertainty limits, explain that Deep Review is required to verify causes, quantify priorities, and produce a complete decision path.",
-    requiredProof: ["at least one verified or strong visible issue", "clear explanation of what Free Scan cannot prove", "specific next questions Deep Review answers"],
+    pitchPosition: "After showing the highest-confidence visible gaps and uncertainty limits, explain that AI Readiness Review is required to verify causes, quantify priorities, and produce a complete decision path.",
+    requiredProof: ["at least one verified or strong visible issue", "clear explanation of what Free Scan cannot prove", "specific next questions AI Readiness Review answers"],
     forbiddenBehavior: ["fear-only selling", "inventing urgency", "guaranteeing results", "hiding uncertainty"],
   },
   {
     fromStage: "deep-review",
     nextStage: "build-fix",
-    pitchPosition: "After the complete diagnosis and priority severity index, explain why Build Fix is the logical next step to address the highest-impact proven issues.",
+    pitchPosition: "After the complete review and priority severity index, explain why Signal Repair is the logical next step to address the highest-impact proven issues.",
     requiredProof: ["ranked issue list", "evidence-backed cause explanation", "implementation path", "expected outcome type without guarantee"],
-    forbiddenBehavior: ["selling fixes not supported by diagnosis", "claiming exact ROI without verified model inputs", "burying low confidence"],
+    forbiddenBehavior: ["selling repairs not supported by review", "claiming exact ROI without verified model inputs", "burying low confidence"],
   },
   {
     fromStage: "build-fix",
     nextStage: "ongoing-control",
-    pitchPosition: "After implementation priorities, explain why Ongoing Control protects, measures, and iterates the improvements instead of treating growth as a one-time project.",
-    requiredProof: ["implemented or approved Build Fix scope", "baseline metrics", "monitoring plan", "recurring risk or opportunity explanation"],
+    pitchPosition: "After implementation priorities, explain why Readiness Control protects, measures, and iterates the improvements instead of treating growth as a one-time project.",
+    requiredProof: ["implemented or approved Signal Repair scope", "baseline metrics", "monitoring plan", "recurring risk or opportunity explanation"],
     forbiddenBehavior: ["claiming ongoing growth is automatic", "using vanity metrics as proof", "ignoring baseline comparability"],
   },
 ] as const satisfies readonly ReportConversionRule[];
