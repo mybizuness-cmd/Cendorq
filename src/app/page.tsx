@@ -23,90 +23,107 @@ export const metadata = buildMetadata({
 });
 
 const PATH = [
-  { label: "Scan", href: "/free-check", detail: "First signal", price: "$0" },
-  { label: "Diagnose", href: "/plans/deep-review", detail: "Cause-level proof", price: "$497" },
-  { label: "Fix", href: "/plans/build-fix", detail: "Scoped improvement", price: "$1,497" },
-  { label: "Control", href: "/plans/ongoing-control", detail: "Monthly watch", price: "$597/mo" },
+  {
+    label: "Scan",
+    href: "/free-check",
+    detail: "First signal",
+    price: "$0",
+    copy: "Find the clearest starting point before buying more depth.",
+  },
+  {
+    label: "Diagnose",
+    href: "/plans/deep-review",
+    detail: "Cause-level proof",
+    price: "$497",
+    copy: "Confirm what is actually weakening the customer path.",
+  },
+  {
+    label: "Fix",
+    href: "/plans/build-fix",
+    detail: "Scoped improvement",
+    price: "$1,497",
+    copy: "Turn the strongest diagnosis into a focused change.",
+  },
+  {
+    label: "Control",
+    href: "/plans/ongoing-control",
+    detail: "Monthly watch",
+    price: "$597/mo",
+    copy: "Keep visibility, proof, and friction from drifting again.",
+  },
 ] as const;
 
-const PROOF = ["Findability", "Clarity", "Trust", "Choice", "Action"] as const;
+const SIGNALS = ["Get found", "Be clear", "Build trust", "Win choice", "Drive action"] as const;
 
 export default function HomePage() {
   return (
-    <main data-cendorq-homepage="market-command-home-v2" className="min-h-screen overflow-hidden bg-[#fbfbf8] text-slate-950">
-      <section className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl flex-col items-center justify-center px-5 py-14 text-center sm:px-8 lg:py-20">
-        <p className="rounded-full border border-slate-200 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500 shadow-sm">
-          Cendorq Market Command Intelligence
-        </p>
-
-        <h1 className="mt-8 max-w-5xl text-[clamp(3.6rem,9vw,8.4rem)] font-semibold leading-[0.9] tracking-[-0.085em] text-slate-950">
+    <main data-cendorq-homepage="market-command-home-v3" className="min-h-screen overflow-hidden bg-[#fffefa] text-slate-950">
+      <section className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col items-center justify-center px-5 py-10 text-center sm:px-8 lg:py-12">
+        <h1 className="max-w-6xl text-[clamp(3.15rem,8vw,7.35rem)] font-semibold leading-[0.9] tracking-[-0.085em] text-slate-950">
           Become easier to find, trust, and choose.
         </h1>
 
-        <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
+        <p className="mt-5 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
           Cendorq reads the public market path around your business before customers decide. Start with a Free Scan. Move deeper only when the next command is clear.
         </p>
 
-        <div className="mt-10 w-full max-w-3xl rounded-[2rem] border border-slate-200 bg-white p-2 shadow-[0_30px_100px_rgba(15,23,42,0.10)]">
+        <div className="mt-7 w-full max-w-4xl rounded-[2.25rem] border border-slate-200 bg-white p-2.5 shadow-[0_30px_100px_rgba(15,23,42,0.11)]">
           <div className="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-center">
-            <div className="px-5 py-4 text-left">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">First command</p>
-              <p className="mt-1 text-base font-semibold text-slate-950">Run the Free Scan before buying the bigger fix.</p>
-            </div>
-            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-[1.45rem] bg-slate-950 px-8 py-4 text-base font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-              Start Free Scan
+            <p className="px-5 py-4 text-left text-lg font-semibold leading-7 text-slate-950 sm:text-xl">
+              Run the Free Scan before buying the bigger fix.
+            </p>
+            <Link href="/free-check" className="inline-flex min-h-14 min-w-52 items-center justify-center rounded-[1.55rem] bg-slate-950 px-8 py-4 text-base font-semibold text-white shadow-[0_14px_34px_rgba(15,23,42,0.22)] transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              Start Free Scan →
             </Link>
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm font-medium text-slate-500">
-          {PROOF.map((item) => (
-            <span key={item} className="rounded-full bg-slate-100 px-4 py-2">
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-slate-600">
+          {SIGNALS.map((item) => (
+            <span key={item} className="rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm">
               {item}
             </span>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8" aria-label="How Cendorq works">
-        <div className="rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:p-8 lg:p-10">
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Simple path</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">
-                Scan first. Then decide what depth is worth it.
-              </h2>
-              <p className="mt-5 text-base leading-8 text-slate-600">
-                No cluttered audit theater. No fake certainty. Cendorq separates the first signal from deeper diagnosis, implementation, and ongoing control.
-              </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link href="/plans" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:border-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-                  Review Plans
-                </Link>
-                <Link href="/connect" className="inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-slate-500 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-                  Connect with Cendorq
-                </Link>
-              </div>
+      <section className="mx-auto max-w-7xl px-5 pb-14 sm:px-8" aria-label="How Cendorq works">
+        <div className="grid gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
+          <div className="rounded-[2.25rem] border border-slate-200 bg-white p-6 shadow-[0_18px_70px_rgba(15,23,42,0.07)] sm:p-8">
+            <h2 className="text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">
+              Scan first. Then decide what depth is worth it.
+            </h2>
+            <p className="mt-5 text-base leading-8 text-slate-600">
+              No cluttered audit theater. No fake certainty. Cendorq separates the first signal from deeper diagnosis, implementation, and ongoing control.
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link href="/free-check" className="inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+                Start Free Scan
+              </Link>
+              <Link href="/plans" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:border-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+                Review Plans
+              </Link>
             </div>
+          </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              {PATH.map((stage) => (
-                <Link key={stage.href} href={stage.href} className="group rounded-[1.75rem] border border-slate-200 bg-[#fbfbf8] p-5 transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white hover:shadow-[0_18px_60px_rgba(15,23,42,0.08)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-                  <div className="flex items-center justify-between gap-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">{stage.detail}</p>
-                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-500">{stage.price}</span>
-                  </div>
-                  <h3 className="mt-5 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{stage.label}</h3>
-                  <p className="mt-4 text-sm font-semibold text-slate-500 transition group-hover:text-slate-950">Open {stage.label} -&gt;</p>
-                </Link>
-              ))}
-            </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {PATH.map((stage) => (
+              <Link key={stage.href} href={stage.href} className="group rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_12px_50px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_22px_70px_rgba(15,23,42,0.10)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+                <div className="flex items-center justify-between gap-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">{stage.detail}</p>
+                  <span className="rounded-full border border-slate-200 bg-[#fffefa] px-3 py-1 text-xs font-semibold text-slate-600">{stage.price}</span>
+                </div>
+                <h3 className="mt-5 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{stage.label}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{stage.copy}</p>
+                <p className="mt-5 text-sm font-semibold text-slate-500 transition group-hover:text-slate-950">Open {stage.label} →</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq Market Command Intelligence homepage replacement. Apple-level trust and authority. Google-level simplicity. ChatGPT-level immediate action. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans.
+        Cendorq homepage replacement. Apple-level trust and authority. Google-level simplicity. ChatGPT-level immediate action. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. CTA above the fold. Wider shell. Whiter body. No hero badge. Better signal labels.
       </section>
     </main>
   );
