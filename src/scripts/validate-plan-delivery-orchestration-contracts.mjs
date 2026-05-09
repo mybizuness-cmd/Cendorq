@@ -46,6 +46,8 @@ if (!failures.length) {
     "stageTargetingStandard",
     "continuousNurturingStandard",
     "stageTargetingMatrix",
+    "reportPresentationStandard",
+    "planReportStructures",
     "Retargeting must be based on customer stage, plan ownership, report state, behavior, evidence strength, and next-best-action readiness.",
     "The dashboard is the primary conversion command room after Free Scan",
     "Free Scan moves toward AI Readiness Review",
@@ -68,6 +70,31 @@ if (!failures.length) {
     "retargetingWithoutStageReason",
     "retargetingWithoutSuppressionRules",
     "No future feature, market-change alert, retention prompt, retargeting message, or expansion recommendation can be sent as customer-facing nurture unless it has a safe reason, plan fit, customer relevance, suppression review, and no-guarantee language.",
+  ]);
+
+  expect(contractPath, [
+    "Every customer-facing result must look like a Cendorq category-defining business document, not a generic generated report.",
+    "Every report/result must include the Cendorq logo or wordmark, report type, plan name, business identity, generated date, methodology version, release status, confidence legend, and support/correction path.",
+    "Every report/result must separate verified facts, customer-provided context, observed public evidence, assumptions, inferences, limitations, contradictions, forecast direction, recommendations, next actions, and refresh triggers.",
+    "Every report/result must show one strongest next action and one secondary safe path, not a crowded CTA wall.",
+    "Every paid report/result must include a plain-English executive command summary, evidence map, priority map, what Cendorq checked, what Cendorq could not verify, what changed or should be watched, and why the next plan stage may or may not fit.",
+    "Report vault display and downloadable report/PDF parity must preserve the same structure, logo, status, evidence boundaries, confidence, limitations, next action, and support/correction path.",
+    "Protected Free Scan Result",
+    "AI Readiness Review Report",
+    "Signal Repair Delivery Record",
+    "Readiness Control Monthly Report",
+    "Cendorq header",
+    "executive command summary",
+    "evidence map",
+    "priority severity map",
+    "before state",
+    "monthly command summary",
+    "baseline comparison",
+    "genericGeneratedReport",
+    "unbrandedReport",
+    "crowdedCtaWall",
+    "downloadableReportDrift",
+    "No report vault display, downloadable report, delivery summary, or monthly report can ship without Cendorq branding, plan-specific structure, evidence boundaries, confidence, limitations, next action, release status, and correction/support path.",
   ]);
 
   expect(contractPath, [
@@ -243,7 +270,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan delivery orchestration contracts validation passed, including post-payment service sequence, stage-targeted retargeting, continuous nurturing, future feature adoption, Deep Review intake delivery, Build Fix optimization orchestration, Ongoing Control monthly foundation, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
+console.log("Plan delivery orchestration contracts validation passed, including category-defining report presentation, report-vault/download parity, post-payment service sequence, stage-targeted retargeting, continuous nurturing, future feature adoption, Deep Review intake delivery, Build Fix optimization orchestration, Ongoing Control monthly foundation, fulfillment, entitlement routing, routing runtime, routing panel, linear paths, warning emails, post-delivery reconciliation, and command-center panel coverage.");
 
 function unsafePhrases() {
   return [
@@ -297,6 +324,11 @@ function unsafePhrases() {
     "retargetingWithoutStageReasonAllowed",
     "retargetingWithoutSuppressionRulesAllowed",
     "unsupportedFeatureRolloutPressureAllowed",
+    "genericGeneratedReportAllowed",
+    "unbrandedReportAllowed",
+    "crowdedCtaWallAllowed",
+    "forecastWithoutEvidenceAllowed",
+    "downloadableReportDriftAllowed",
   ];
 }
 
