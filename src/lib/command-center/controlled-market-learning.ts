@@ -53,6 +53,15 @@ export type ForecastGovernanceRule = {
   blockedBehavior: readonly string[];
 };
 
+export type SelectivePlacementRule = {
+  key: string;
+  label: string;
+  placementPolicy: string;
+  strongestSurfaces: readonly string[];
+  lightHintSurfaces: readonly string[];
+  blockedBehavior: readonly string[];
+};
+
 export const CONTROLLED_MARKET_LEARNING_RULES = [
   {
     key: "cross-business-pattern-learning",
@@ -84,22 +93,41 @@ export const CONTROLLED_MARKET_LEARNING_RULES = [
   },
 ] as const satisfies readonly MarketLearningRule[];
 
+export const SELECTIVE_RECURRING_VALUE_PLACEMENT_RULES = [
+  {
+    key: "selective-not-everywhere",
+    label: "Selective recurring value placement",
+    placementPolicy: "Recurring value should be strongest where it naturally matters: report findings, Readiness Control, forecast refresh, dashboard watchlists, and post-repair monitoring. Other public surfaces may hint calmly, but must not repeat the same subscription argument everywhere.",
+    strongestSurfaces: ["AI Readiness Review report", "Signal Repair post-repair watchlist", "Readiness Control report", "dashboard readiness watchlist", "forecast refresh note"],
+    lightHintSurfaces: ["homepage", "plans overview", "Free Scan result", "footer", "confirmation email"],
+    blockedBehavior: ["recurring pitch on every block", "loud subscription pressure", "fake urgency", "same sentence repeated across pages", "turning every CTA into Readiness Control"],
+  },
+  {
+    key: "enterprise-style-retention",
+    label: "Enterprise-style retention discipline",
+    placementPolicy: "Model the retention posture after strong subscription and customer-success businesses: provide ongoing value, prove progress, reduce customer work, make the next step obvious, and give customers a reason to stay because the product keeps helping them make better decisions.",
+    strongestSurfaces: ["customer dashboard", "report vault", "billing entitlement state", "monthly control summary", "support follow-up"],
+    lightHintSurfaces: ["public plan copy", "email subject strategy", "not-found and error recovery"],
+    blockedBehavior: ["retention by confusion", "forced lock-in", "hiding cancellation or scope boundaries", "overexplaining enterprise strategy in buyer copy", "making the product feel needy"],
+  },
+] as const satisfies readonly SelectivePlacementRule[];
+
 export const RECURRING_VALUE_MOAT_RULES = [
   {
     key: "search-and-ai-volatility-review",
     label: "Search and AI volatility review",
-    customerValue: "Customers should return because search behavior, AI answer surfaces, source-link patterns, local packs, shopping surfaces, social proof, and comparison paths keep changing faster than a one-time report can safely cover.",
-    recurrenceReason: "Recurring review turns Cendorq into the business's readiness radar: it shows what changed, what weakened, what competitors improved, what platforms shifted, and what action is safest now.",
+    customerValue: "Where evidence supports it, show that search behavior, AI answer surfaces, source-link patterns, local visibility, social proof, and comparison paths can change faster than a one-time report can safely cover.",
+    recurrenceReason: "Recurring review is positioned as a readiness radar only when there is a real signal to watch: what changed, what weakened, what competitors improved, what platforms shifted, or what action is safest now.",
     requiredEvidence: ["search-platform-pattern", "social-platform-pattern", "customer-demand-pattern", "operator-reviewed-pattern"],
-    blockedBehavior: ["fake urgency", "invented algorithm claims", "claiming guaranteed search placement", "one-time report dependency", "using fear instead of evidence"],
+    blockedBehavior: ["fake urgency", "invented algorithm claims", "claiming guaranteed search placement", "one-time report dependency", "using fear instead of evidence", "making volatility the headline everywhere"],
   },
   {
     key: "competitive-movement-review",
     label: "Competitive movement review",
-    customerValue: "Reports should make competitive movement visible by tracking public competitor positioning, proof, offers, reviews, content, platform activity, conversion paths, and customer-choice signals over time.",
-    recurrenceReason: "A business has a reason to return when Cendorq can show whether competitors are gaining trust, clarity, visibility, or conversion advantage and what response is evidence-backed.",
+    customerValue: "When competitive evidence exists, reports should make public competitor movement visible without panic: positioning, proof, offers, reviews, content, platform activity, conversion paths, and customer-choice signals.",
+    recurrenceReason: "A business has a reason to return when Cendorq can calmly show whether competitors are gaining trust, clarity, visibility, or conversion advantage and what response is evidence-backed.",
     requiredEvidence: ["public-competitor-pattern", "category-performance-pattern", "business-study-pattern", "operator-reviewed-pattern"],
-    blockedBehavior: ["copying competitors blindly", "using private competitor data", "unsupported competitive threats", "turning competitor movement into panic", "one-size-fits-all recommendations"],
+    blockedBehavior: ["copying competitors blindly", "using private competitor data", "unsupported competitive threats", "turning competitor movement into panic", "one-size-fits-all recommendations", "competitor talk with no evidence"],
   },
   {
     key: "customer-decision-drift-review",
@@ -112,10 +140,10 @@ export const RECURRING_VALUE_MOAT_RULES = [
   {
     key: "compounding-readiness-record",
     label: "Compounding readiness record",
-    customerValue: "Every recurring report should leave the customer with a clear record of what changed, what improved, what still needs attention, what is newly risky, and what should be reviewed next.",
-    recurrenceReason: "The customer keeps coming back because Cendorq becomes the trusted continuity layer, not a disposable one-time audit.",
+    customerValue: "Recurring reports should leave the customer with a clean record of what changed, what improved, what still needs attention, what is newly risky, and what should be reviewed next.",
+    recurrenceReason: "The customer keeps coming back because Cendorq preserves context and continuity, not because every surface loudly asks them to come back.",
     requiredEvidence: ["business-study-pattern", "conversion-system-pattern", "search-platform-pattern", "public-competitor-pattern", "operator-reviewed-pattern"],
-    blockedBehavior: ["resetting context every report", "hiding unresolved work", "manufacturing new problems", "recommending more work without changed evidence", "making recurrence feel arbitrary"],
+    blockedBehavior: ["resetting context every report", "hiding unresolved work", "manufacturing new problems", "recommending more work without changed evidence", "making recurrence feel arbitrary", "recurring pitch without changed context"],
   },
 ] as const satisfies readonly RecurringValueMoatRule[];
 
@@ -126,7 +154,7 @@ export const FORECAST_GOVERNANCE_RULES = [
     forecastPurpose: "Forecasts may show likely direction, momentum, risk, and opportunity windows when grounded in observed platform changes, public competitor movement, customer demand signals, historical report baselines, and operator-reviewed assumptions.",
     confidencePolicy: "Every forecast must label confidence, evidence inputs, assumptions, time horizon, what would change the forecast, and what is unknown. Forecasts are directional decision aids, not guarantees.",
     requiredEvidence: ["search-platform-pattern", "customer-demand-pattern", "public-competitor-pattern", "business-study-pattern", "operator-reviewed-pattern"],
-    blockedBehavior: ["forecast as fact", "guaranteed rankings", "guaranteed revenue", "exact future traffic claims", "hidden assumptions", "long-range certainty"],
+    blockedBehavior: ["forecast as fact", "guaranteed rankings", "guaranteed revenue", "exact future traffic claims", "hidden assumptions", "long-range certainty", "forecast section on thin evidence"],
   },
   {
     key: "forecast-to-next-action",
@@ -150,7 +178,7 @@ export const SELF_EVOLUTION_CONTROL_RULES = [
   {
     key: "review-gated-evolution",
     label: "Review-gated evolution",
-    evolutionPurpose: "Use market learning to improve report methods, scoring assumptions, plan positioning, product strategy, recurring value architecture, forecast logic, and internal opportunity discovery.",
+    evolutionPurpose: "Use market learning to improve report methods, scoring assumptions, plan positioning, product strategy, selective recurring value architecture, forecast logic, and internal opportunity discovery.",
     approvalGate: "No learned pattern can change customer-facing reports, pricing, plan promises, scoring, recommendations, forecasts, cadence recommendations, or AI behavior until it is reviewed, versioned, tested, and approved.",
     blockedBehavior: ["autonomous production changes", "agent drift", "unreviewed prompt changes", "silent scoring changes", "unapproved customer-facing claims"],
   },
@@ -175,8 +203,8 @@ export const CENDORQ_LEVERAGE_RULES = [
     key: "new-income-source-discovery",
     label: "New income source discovery",
     opportunityType: "Cendorq product and revenue expansion",
-    discoveryPolicy: "When repeated business studies reveal recurring high-value needs, unmet market demand, underserved categories, forecast needs, competitive monitoring needs, or repeatable fixes, Cendorq may identify new service lines, report modules, vertical offers, platform integrations, data products, or subscription controls.",
-    monetizationPolicy: "New Cendorq revenue opportunities must be validated with evidence, customer value, operational feasibility, pricing logic, risk review, and brand fit before being offered.",
+    discoveryPolicy: "When repeated business studies reveal recurring high-value needs, unmet market demand, underserved categories, forecast needs, competitive monitoring needs, or repeatable repairs, Cendorq may identify new service lines, report modules, vertical offers, platform integrations, data products, or subscription controls.",
+    monetizationPolicy: "New Cendorq revenue opportunities must be validated with evidence, customer value, operational feasibility, pricing logic, risk review, brand fit, and selective placement before being offered.",
     blockedBehavior: ["launching unsupported offers", "exploiting customer data", "overpromising demand", "copying competitors blindly", "adding revenue streams that weaken trust"],
   },
   {
@@ -200,6 +228,7 @@ export const CENDORQ_LEVERAGE_RULES = [
 export function getControlledMarketLearningPolicy() {
   return {
     marketLearningRules: CONTROLLED_MARKET_LEARNING_RULES,
+    selectiveRecurringValuePlacementRules: SELECTIVE_RECURRING_VALUE_PLACEMENT_RULES,
     recurringValueMoatRules: RECURRING_VALUE_MOAT_RULES,
     forecastGovernanceRules: FORECAST_GOVERNANCE_RULES,
     selfEvolutionControlRules: SELF_EVOLUTION_CONTROL_RULES,
