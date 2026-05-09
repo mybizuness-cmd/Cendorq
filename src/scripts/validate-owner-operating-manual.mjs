@@ -32,6 +32,48 @@ expect(manualPath, [
 ]);
 
 expect(manualPath, [
+  "## Highest practical accuracy model",
+  "Internally, the operating goal is maximum practical accuracy every time.",
+  "Publicly, Cendorq must not translate that into impossible guarantee language.",
+  "use the strongest available research path for the plan stage",
+  "resolve business identity before making material claims",
+  "triangulate sources when practical",
+  "check evidence age and freshness",
+  "separate verified facts from assumptions, inferences, forecasts, and unknowns",
+  "keep useful bounded observations instead of deleting them just because they are not perfect",
+  "require captain review before customer-facing release",
+  "When customer input is thin, the standard is not to fail, guess, or produce a fake-complete report.",
+  "What is known.",
+  "What was checked.",
+  "What could not be verified yet.",
+  "What confidence level applies.",
+  "What the safest next action is.",
+  "What information would unlock stronger analysis.",
+]);
+
+expect(manualPath, [
+  "## Agent-to-captain verification model",
+  "Cendorq should not depend on one agent's raw competence.",
+  "The workflow must streamline research and proof from agent to captain to owner-facing release posture.",
+  "Agents can:",
+  "Agents must:",
+  "cite or store evidence references where applicable",
+  "label confidence",
+  "preserve useful findings with limits",
+  "downgrade claims when evidence is weak",
+  "avoid hiding missing information",
+  "avoid selling harder than proof supports",
+  "Captain review must verify:",
+  "source relevance",
+  "evidence age",
+  "identity resolution",
+  "contradiction handling",
+  "forecast boundaries",
+  "recurring-value placement",
+  "selling language",
+]);
+
+expect(manualPath, [
   "## Selective recurring readiness moat",
   "Cendorq should not be positioned as a one-time audit, but recurring value must be placed carefully.",
   "Do not make every page, block, email, or CTA scream monthly control.",
@@ -108,7 +150,7 @@ expect(manualPath, [
 expect(manualPath, [
   "## Controlled maintenance",
   "Controlled maintenance is the operating discipline that keeps Cendorq current without letting update work become uncontrolled production mutation.",
-  "No queued update may mutate production automatically.",
+  "No queued update may mutate production automatically",
   "Every material maintenance release still requires validation, approval state, rollback planning, and an audit reason.",
   "Maintenance output must never expose raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys.",
   "Maintenance copy must never claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI or business outcomes.",
@@ -364,7 +406,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with selective recurring readiness moat, forecast governance, customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+console.log("Owner operating manual validation passed with highest practical accuracy, agent-to-captain verification, selective recurring readiness moat, forecast governance, customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
 
 function unsafePhrases() {
   return [
