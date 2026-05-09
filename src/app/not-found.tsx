@@ -24,16 +24,16 @@ const RECOVERY_ROUTES = [
   {
     label: "Need the full path",
     title: "Compare Plans",
-    copy: "See the Cendorq path from first read to deeper review, build work, and ongoing control.",
+    copy: "See the Cendorq path from first signal to deeper review, scoped repair, and ongoing control.",
     href: "/plans",
     cta: "View plans",
   },
   {
     label: "Need direction",
-    title: "Connect",
-    copy: "Choose the right lane when the question is clear enough to discuss fit, scope, or timing.",
-    href: "/connect",
-    cta: "Choose lane",
+    title: "Return home",
+    copy: "Reset to the cleanest public entry before choosing the next readiness step.",
+    href: "/",
+    cta: "Return home",
   },
 ] as const;
 
