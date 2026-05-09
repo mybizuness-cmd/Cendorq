@@ -8,7 +8,7 @@ export const fetchCache = "force-no-store";
 export const metadata = buildMetadata({
   title: "Cendorq | AI Search Visibility and Market Command Intelligence",
   description:
-    "Cendorq checks whether AI can understand what a business does, why it should be trusted, and why customers should choose it. Start with the Free Scan before spending on bigger fixes.",
+    "Cendorq checks whether AI engines can understand what a business does, why it should be trusted, and why customers should choose it. Start with the Free Scan before spending on bigger fixes.",
   path: "/",
   keywords: [
     "cendorq",
@@ -28,7 +28,7 @@ const PATH = [
     href: "/free-check",
     detail: "First read",
     price: "$0",
-    copy: "Find where AI and customers may misunderstand, distrust, or skip the business.",
+    copy: "Find where AI engines and customers may misunderstand, distrust, or skip the business.",
   },
   {
     label: "Diagnose",
@@ -60,7 +60,7 @@ export default function HomePage() {
     <main data-cendorq-homepage="market-command-home-v4" className="min-h-screen overflow-hidden bg-white text-slate-950">
       <section className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col items-center justify-center px-5 py-9 text-center sm:px-8 lg:py-10">
         <h1 className="max-w-6xl text-[clamp(3.1rem,8vw,7.35rem)] font-semibold leading-[0.9] tracking-[-0.085em] text-slate-950">
-          If AI cannot understand your business, customers may never get the chance to.
+          If AI engines cannot understand your business, customers may never get the chance to.
         </h1>
 
         <p className="mt-5 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="mt-7 w-full max-w-4xl rounded-[2rem] border border-slate-200 bg-white p-2.5 shadow-[0_24px_80px_rgba(15,23,42,0.09)]">
           <div className="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-center">
             <p className="px-5 py-4 text-left text-lg font-semibold leading-7 text-slate-950 sm:text-xl">
-              Start with the Free Scan. See what AI and customers may be reading wrong.
+              Start with the Free Scan. See what AI engines and customers may be reading wrong.
             </p>
             <Link href="/free-check" className="inline-flex min-h-14 min-w-52 items-center justify-center rounded-[1.35rem] border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-sm transition hover:bg-slate-950 hover:text-white focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
               Start Free Scan →
@@ -123,7 +123,7 @@ export default function HomePage() {
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq homepage replacement. If AI cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See what AI and customers may be reading wrong. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Whiter body. No hero badge. No AI placement promises.
+        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See what AI engines and customers may be reading wrong. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Whiter body. No hero badge. No AI placement promises.
       </section>
     </main>
   );
