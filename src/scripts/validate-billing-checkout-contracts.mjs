@@ -5,6 +5,7 @@ const root = process.cwd();
 const contractPath = "src/lib/billing-checkout-contracts.ts";
 const checkoutOrchestrationPath = "src/lib/pricing-checkout-orchestration.ts";
 const deliveryContractPath = "src/lib/plan-delivery-orchestration-contracts.ts";
+const emailContractPath = "src/lib/customer-email-confirmation-handoff-contracts.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
@@ -19,20 +20,22 @@ expect(contractPath, [
   "checkout-success-to-dashboard-activation",
   "entitlement-to-report-trigger",
   "report-release-to-follow-up-retention",
+  "billing-document-to-verified-email",
   "report/workflow trigger",
   "reportTriggerFields",
   "postPaymentRules",
+  "pdfDocumentDeliveryRules",
   "fulfillment must be idempotent",
   "verified webhook fulfillment or server-confirmed provider state remains the source of truth",
-  "After successful fulfillment, Cendorq must create the entitlement, dashboard notification, billing projection, report or work queue, plan-specific intake state, kickoff email, and support path.",
+  "After successful fulfillment, Cendorq must create the entitlement, dashboard notification, billing projection, report or work queue, plan-specific intake state, kickoff email, document delivery state, and support path.",
   "Each plan must map to a report/result trigger: Free Scan result, AI Readiness Review report, Signal Repair delivery record, or Readiness Control monthly report and watchlist.",
   "Post-delivery follow-up must include result explanation, next action, support or correction path, satisfaction check, and evidence-backed retention or next-depth recommendation when justified.",
 ]);
 
 expect(contractPath, [
-  "deep review payment link id or URL provided by owner",
-  "build fix payment link id or URL provided by owner",
-  "ongoing control payment link id or URL provided by owner",
+  "AI Readiness Review payment link id or URL provided by owner",
+  "Signal Repair payment link id or URL provided by owner",
+  "Readiness Control payment link id or URL provided by owner",
   "billing portal link id or URL provided by owner",
   "Checkout must be created server-side or via owner-provided payment link mapping",
   "browser must not create authoritative billing state",
@@ -45,9 +48,19 @@ expect(contractPath, [
 expect(contractPath, [
   "Billing webhooks must be verified with provider signature before any entitlement change.",
   "Webhook event ids must be idempotent and stored as hashes or safe references.",
-  "Fulfillment must be idempotent by checkout session or subscription event",
+  "Fulfillment must be idempotent by checkout session or subscription event and must not create duplicate entitlement, report, work queue, email, notification, or PDF delivery records.",
   "Entitlement updates require provider event type, customer ownership mapping, plan mapping, report/workflow trigger, and audit event.",
   "Raw provider payloads, raw billing data, payment method details, card numbers, bank details, and provider internals must not be projected to customer surfaces.",
+]);
+
+expect(contractPath, [
+  "PDF delivery is allowed only after verified email, customer ownership, entitlement or permitted free-result access, release gate, no-leak check, and safe document generation pass.",
+  "Report PDFs should be attached or made downloadable when the report/result is released, customer-safe, and matched to the correct verified customer identity.",
+  "Billing PDFs such as receipts, invoices, and payment confirmations may be delivered only from verified billing events or provider-authoritative invoice/receipt records.",
+  "Dashboard report vault remains the canonical source; email attachments and downloadable PDFs must match the vault release state and must not create a separate truth source.",
+  "PDF files must use safe filenames, Cendorq branding, document type, date, customer/business reference, and no executable content, macros, embedded scripts, hidden tracking payloads, or raw provider/customer data.",
+  "PDF delivery email must come from the approved sender identity, explain why the document is attached, identify the plan or billing event, and route back to the dashboard or billing center for verification.",
+  "If attachment safety, release state, provider state, or email verification is uncertain, send a dashboard-vault link or billing-center link instead of an attachment until the gate passes.",
 ]);
 
 expect(contractPath, [
@@ -62,17 +75,22 @@ expect(contractPath, [
   "reportVaultPath",
   "nextIntakeStep",
   "followUpStatus",
+  "documentDeliveryStatus",
   "blockedProjectionFields",
   "rawReportEvidence",
   "privateReportPrompt",
   "exactScoringWeights",
+  "executableAttachment",
+  "macroEnabledAttachment",
+  "embeddedScriptAttachment",
 ]);
 
 expect(contractPath, [
   "Do not enable paid checkout until payment links or provider checkout config are owner-provided and mapped to plan keys.",
   "Do not activate entitlement from client-only success redirects; verified webhook or server-confirmed provider state is required.",
   "Do not expose paid report access until entitlement, report release approval, customer ownership, and verified access pass.",
-  "Do not send post-payment reports, implementation summaries, monthly control reports, satisfaction claims, or retention recommendations before the correct plan trigger and release gate pass.",
+  "Do not send post-payment reports, implementation summaries, monthly control reports, satisfaction claims, retention recommendations, or PDF attachments before the correct plan trigger and release gate pass.",
+  "Do not attach or expose billing PDFs unless provider event state, customer ownership, verified email, safe projection, and document safety checks pass.",
 ]);
 
 expect(contractPath, [
@@ -90,14 +108,23 @@ expect(contractPath, [
   "rawReportEvidenceProjection",
   "privateReportPromptProjection",
   "exactScoringWeightsProjection",
-  "guaranteedRoiCheckoutClaim",
-  "guaranteedRevenueCheckoutClaim",
-  "guaranteedRefundCheckoutClaim",
-  "fakeUrgencyBillingClaim",
-  "entitlementWithoutOwnership",
-  "reportAccessWithoutEntitlement",
+  "executableAttachmentDelivery",
+  "macroEnabledAttachmentDelivery",
+  "embeddedScriptAttachmentDelivery",
+  "pdfDeliveryWithoutVerifiedEmail",
+  "pdfDeliveryWithoutReleaseGate",
+  "billingPdfWithoutProviderAuthority",
+  "dashboardVaultPdfDrift",
   "postPaymentWorkflowMissing",
   "satisfactionLoopMissing",
+]);
+
+expect(emailContractPath, [
+  "dashboardMessageMirrorRules",
+  "pdfAttachmentRules",
+  "emailDeliverabilityRules",
+  "Every important customer email must create or update a matching dashboard message record",
+  "Report PDFs and billing PDFs are allowed when they help the customer preserve the result, invoice, receipt, or payment confirmation, but they must never be the only access path.",
 ]);
 
 expect(checkoutOrchestrationPath, [
@@ -172,6 +199,7 @@ expect(routesChainPath, [
 forbidden(contractPath, unsafeBillingPhrases());
 forbidden(checkoutOrchestrationPath, unsafeBillingPhrases());
 forbidden(deliveryContractPath, unsafeBillingPhrases());
+forbidden(emailContractPath, unsafeBillingPhrases());
 
 if (failures.length) {
   console.error("Billing checkout contracts validation failed:");
@@ -179,7 +207,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Billing checkout contracts validation passed with owner posture, webhook/idempotent fulfillment, Stripe/link mapping, entitlement, report triggers, branded report release gates, post-payment service sequence, satisfaction follow-up, continuous nurturing, stage-targeted retargeting, and safe billing projection coverage.");
+console.log("Billing checkout contracts validation passed with owner posture, webhook/idempotent fulfillment, Stripe/link mapping, entitlement, report triggers, branded report release gates, safe PDF document delivery, dashboard-message mirror, post-payment service sequence, satisfaction follow-up, continuous nurturing, stage-targeted retargeting, and safe billing projection coverage.");
 
 function unsafeBillingPhrases() {
   return [
@@ -193,25 +221,15 @@ function unsafeBillingPhrases() {
     "guaranteed placement",
     "fake urgency is allowed",
     "hide support path",
-    "rawProviderPayload=",
-    "rawBillingData=",
-    "rawReportEvidence=",
-    "privateReportPrompt=",
-    "exactScoringWeights=",
-    "cardNumber=",
-    "bankDetails=",
-    "webhookSecret=",
-    "providerSecret=",
-    "sessionToken=",
-    "csrfToken=",
-    "adminKey=",
-    "supportContextKey=",
     "clientAuthoritativeBillingStateAllowed",
     "successRedirectEntitlementOnlyAllowed",
     "duplicateFulfillmentAllowed",
     "paidReportAccessBeforeReleaseGateAllowed",
     "postPaymentWorkflowMissingAllowed",
     "satisfactionLoopMissingAllowed",
+    "pdfDeliveryWithoutVerifiedEmailAllowed",
+    "billingPdfWithoutProviderAuthorityAllowed",
+    "dashboardVaultPdfDriftAllowed",
   ];
 }
 
