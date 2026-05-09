@@ -4,13 +4,15 @@ This manual defines how Cendorq should be operated from first customer touch thr
 
 ## Highest-level objective
 
-Cendorq should win by being more accurate, more useful, more trusted, more tailored, more current, and more operationally disciplined than generic competitors from the first interaction.
+Cendorq should be built to become the category-defining authority for business AI readiness, not a normal agency, audit tool, or consulting workflow.
+
+The operating standard is to be more accurate, more useful, more trusted, more tailored, more current, more psychologically clear, more operationally disciplined, and more strategically complete than generic competitors from the first interaction.
 
 The standard is not to promise impossible certainty. The standard is to build the strongest practical evidence system: customer context, safe external evidence, internal records, confidence labels, contradictions, limitations, next actions, selective forecast refresh triggers, competitive movement review, and release-captain review.
 
 ## Non-negotiable truth rule
 
-Cendorq must never claim guaranteed accuracy, guaranteed revenue, guaranteed ROI, guaranteed rankings, guaranteed security, impossible-to-hack status, liability-free status, or a guaranteed repair.
+Cendorq must never claim guaranteed accuracy, guaranteed revenue, guaranteed ROI, guaranteed rankings, guaranteed security, impossible-to-hack status, liability-free status, guaranteed delivery outcomes, mistake-free operation, or a guaranteed repair.
 
 Cendorq can and should claim a stronger operating posture:
 
@@ -23,6 +25,100 @@ Cendorq can and should claim a stronger operating posture:
 - forecast direction separated from fact
 - plan advice tied to actual stage, blockers, evidence, movement risk, and readiness
 - every customer-facing output reviewed through the truth and safety rules
+
+## Highest practical accuracy model
+
+Internally, the operating goal is maximum practical accuracy every time. Publicly, Cendorq must not translate that into impossible guarantee language.
+
+Highest practical accuracy means:
+
+- use the strongest available research path for the plan stage
+- resolve business identity before making material claims
+- triangulate sources when practical
+- check evidence age and freshness
+- separate verified facts from assumptions, inferences, forecasts, and unknowns
+- keep useful bounded observations instead of deleting them just because they are not perfect
+- label confidence clearly
+- preserve contradiction notes
+- keep calculation traces and methodology versions
+- require captain review before customer-facing release
+- keep correction paths available when better evidence appears
+
+When customer input is thin, the standard is not to fail, guess, or produce a fake-complete report. The standard is to deliver the strongest safe output available:
+
+1. What is known.
+2. What was checked.
+3. What could not be verified yet.
+4. What confidence level applies.
+5. What the safest next action is.
+6. What information would unlock stronger analysis.
+
+## Agent-to-captain verification model
+
+Cendorq should not depend on one agent's raw competence. The workflow must streamline research and proof from agent to captain to owner-facing release posture.
+
+Agents can:
+
+- scout
+- research
+- compare
+- classify evidence
+- identify contradictions
+- draft bounded findings
+- draft customer-safe education and selling language
+
+Agents must:
+
+- cite or store evidence references where applicable
+- label confidence
+- preserve useful findings with limits
+- downgrade claims when evidence is weak
+- avoid hiding missing information
+- avoid selling harder than proof supports
+
+Captain review must verify:
+
+- source relevance
+- evidence age
+- identity resolution
+- contradiction handling
+- confidence labels
+- plan fit
+- customer safety
+- forecast boundaries
+- recurring-value placement
+- selling language
+
+Captain review must reject:
+
+- unsupported claims
+- fake certainty
+- fear-based urgency
+- over-strict deletion of useful bounded findings
+- customer-facing recommendations without proof
+- public guarantee language
+
+## Category-defining authority and psychology
+
+Cendorq should not sound like a small service provider asking for attention. It should feel like the business readiness authority that understands the market, the buyer, the proof, the risk, and the safest next move.
+
+The psychology should be strong because the system is strong:
+
+- clear hierarchy
+- controlled confidence
+- sharp contrast
+- proof-led authority
+- calm urgency only when timing risk exists
+- simple next actions
+- no desperate persuasion
+- no weak agency language
+- no fake certainty
+
+The public experience should make the buyer feel:
+
+> This is operating above the normal category. This understands what matters, what is changing, and what I should do next.
+
+That standard is higher than premium styling. It is category-defining authority backed by evidence discipline.
 
 ## Competitive edge from the opening
 
@@ -108,7 +204,7 @@ Forecasts must not claim guaranteed rankings, guaranteed placement, exact traffi
 
 The strongest Free Scan and paid-plan access flow is verify-to-view.
 
-After a Free Scan or paid-plan intake is submitted, Cendorq should not reveal protected results before email verification. The customer should see a premium check-your-inbox gate that names the sender clearly:
+After a Free Scan or paid-plan intake is submitted, Cendorq should not reveal protected results before email verification. The customer should see a category-level check-your-inbox gate that names the sender clearly:
 
 - Cendorq Support <support@cendorq.com>
 
@@ -398,7 +494,7 @@ The strongest conversion posture is:
 - never collect payment information through support copy
 - never imply a guaranteed result
 
-Conversion copy should be direct, premium, calm, and confident. It should not be desperate, exaggerated, repetitive, or fear-based.
+Conversion copy should be direct, category-defining, psychologically clear, calm, and confident. It should not be desperate, exaggerated, repetitive, weak, low-ceiling, or fear-based.
 
 ## Owner command and release captain model
 
@@ -523,7 +619,7 @@ Agents may scout, compare, research, draft, forecast, and pressure-test. Agents 
 
 ### Customer-facing language policy
 
-Customer-facing language should be truthful, evidence-led, premium, calm, and specific. It must avoid fake urgency, dark patterns, impossible certainty, guaranteed business outcomes, guaranteed deliverability, guaranteed security outcomes, and unsupported legal or billing promises.
+Customer-facing language should be truthful, evidence-led, category-defining, psychologically clear, calm, and specific. It must avoid fake urgency, dark patterns, impossible certainty, guaranteed business outcomes, guaranteed deliverability, guaranteed security outcomes, and unsupported legal or billing promises.
 
 ## What remains to take Cendorq higher
 
