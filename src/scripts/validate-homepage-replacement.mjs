@@ -13,45 +13,45 @@ for (const phrase of [
   "export const dynamic = \"force-dynamic\";",
   "export const revalidate = 0;",
   "export const fetchCache = \"force-no-store\";",
-  "data-cendorq-homepage=\"market-command-home-v2\"",
+  "data-cendorq-homepage=\"market-command-home-v3\"",
   "data-cendorq-loading=\"market-command-loading-v2\"",
   "Apple-level trust and authority",
   "Google-level simplicity",
   "ChatGPT-level immediate action",
-  "Cendorq Market Command Intelligence",
   "Become easier to find, trust, and choose.",
   "Cendorq reads the public market path around your business before customers decide.",
   "Run the Free Scan before buying the bigger fix.",
-  "Preparing the cleanest view.",
-  "Safest next step",
-  "Return Home",
-  "Start Free Scan",
-  "Review Plans",
-  "Connect with Cendorq",
+  "Start Free Scan →",
+  "Get found",
+  "Be clear",
+  "Build trust",
+  "Win choice",
+  "Drive action",
   "Scan first. Then decide what depth is worth it.",
   "No cluttered audit theater. No fake certainty.",
+  "Start Free Scan",
+  "Review Plans",
+  "Plans",
+  "Dashboard",
+  "Support",
+  "Menu",
+  "Privacy",
+  "Terms",
   "Market Command Intelligence for becoming easier to find, understand, trust, and choose.",
   "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or outcomes.",
-  "bg-[#fbfbf8]/88",
-  "text-slate-950",
-  "Start free scan",
-  "Menu",
+  "bg-[#fffefa]",
+  "max-w-7xl",
   "Scan",
   "Diagnose",
   "Fix",
   "Control",
-  "Findability",
-  "Clarity",
-  "Trust",
-  "Choice",
-  "Action",
   "href=\"/free-check\"",
   "href=\"/plans\"",
   "href: \"/plans/deep-review\"",
   "href: \"/plans/build-fix\"",
   "href: \"/plans/ongoing-control\"",
 ]) {
-  if (!combined.includes(phrase)) failures.push(`Light public shell missing required phrase: ${phrase}`);
+  if (!combined.includes(phrase)) failures.push(`Feedback homepage shell missing required phrase: ${phrase}`);
 }
 
 for (const phrase of [
@@ -61,6 +61,14 @@ for (const phrase of [
   "Visibility Blueprint",
   "Presence Infrastructure",
   "Presence Command",
+  "Cendorq Market Command Intelligence</p>",
+  "First command",
+  "Findability",
+  "Clarity",
+  "Trust\", \"Choice",
+  "Connect with Cendorq",
+  "Connect",
+  "Simple path",
   "href=\"/pricing\"",
   "href=\"/diagnosis\"",
   "rough temporary",
@@ -68,6 +76,7 @@ for (const phrase of [
   "The market either understands you or it moves on.",
   "The Free Scan starts the system. The protected dashboard carries the result.",
   "bg-[#020713]",
+  "bg-[#fbfbf8]",
   "bg-slate-950/88",
   "supports-[backdrop-filter]:bg-slate-950/76",
   "text-white sm:text-base",
@@ -77,7 +86,7 @@ for (const phrase of [
   "system-button-primary",
   "Cendorq / Loading",
 ]) {
-  if (combined.includes(phrase)) failures.push(`Light public shell contains forbidden phrase: ${phrase}`);
+  if (combined.includes(phrase)) failures.push(`Feedback homepage shell contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
@@ -86,4 +95,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell and loading fallback are light, minimal, action-first, and point into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
+console.log("Homepage replacement validation passed. Public shell matches the feedback pass: whiter, wider, simpler, action-first, compact footer, and protected app paths.");

@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-const READOUTS = ["Findability", "Clarity", "Trust", "Choice", "Action"] as const;
+const READOUTS = ["Get found", "Be clear", "Build trust", "Win choice", "Drive action"] as const;
 
 export default function GlobalLoadingPage() {
   return (
-    <main data-cendorq-loading="market-command-loading-v2" className="min-h-screen bg-[#fbfbf8] px-5 py-16 text-slate-950 sm:px-8">
+    <main data-cendorq-loading="market-command-loading-v2" className="min-h-screen bg-[#fffefa] px-5 py-16 text-slate-950 sm:px-8">
       <section className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-5xl flex-col items-center justify-center text-center">
         <p className="rounded-full border border-slate-200 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500 shadow-sm">
           Cendorq Market Command Intelligence
