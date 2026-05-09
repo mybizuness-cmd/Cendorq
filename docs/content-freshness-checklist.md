@@ -12,10 +12,9 @@ Protect the core path:
 
 1. Free Scan
 2. Plans
-3. Deep Review
-4. Build Fix
-5. Ongoing Control
-6. Connect
+3. AI Readiness Review
+4. Signal Repair
+5. Readiness Control
 
 ## Required checks
 
@@ -36,9 +35,15 @@ Before merging freshness-sensitive changes, confirm:
 
 Avoid reviving old active public labels such as:
 
+- Search Presence Scan
 - Visibility Blueprint
 - Presence Infrastructure
 - Presence Command
+- Deep Review
+- Build Fix
+- Ongoing Control
+- Diagnose
+- Fix as a plan label
 - Start Search Presence Scan
 
 Historical references are only acceptable when clearly marked as history and not used as active buyer language.
@@ -58,10 +63,10 @@ For screenshots, examples, or sample data, confirm:
 For plan or offer content, confirm:
 
 - Free Scan remains the safest first step.
-- Plans, Deep Review, Build Fix, and Ongoing Control stay distinct.
+- Plans, AI Readiness Review, Signal Repair, and Readiness Control stay distinct.
 - Offer language matches current pricing and scope expectations.
 - No old route names, old pricing labels, or outdated packages are used.
-- Connect remains clear for buyers who need conversation first.
+- `/connect` remains a legacy redirect to Free Scan, not an active buyer destination.
 
 ## Release-history checks
 
@@ -87,7 +92,7 @@ pnpm build
 For production-impacting content freshness changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
