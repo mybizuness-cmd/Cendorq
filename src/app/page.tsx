@@ -59,6 +59,8 @@ const PATH = [
 
 const SIGNALS = ["Get found", "Be understood", "Prove trust", "Win choice", "Make action clear"] as const;
 
+const softButton = "inline-flex items-center justify-center border border-slate-300 bg-white font-semibold text-slate-950 shadow-sm transition duration-200 hover:border-slate-400 hover:bg-slate-50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+
 export default function HomePage() {
   return (
     <main data-cendorq-homepage="market-command-home-v5" className="min-h-screen overflow-hidden bg-white text-slate-950">
@@ -77,7 +79,7 @@ export default function HomePage() {
             <p className="px-5 py-4 text-left text-lg font-semibold leading-7 text-slate-950 sm:text-xl">
               Start with the Free Scan. See what AI engines and customers may be reading wrong.
             </p>
-            <Link href="/free-check" className="inline-flex min-h-14 min-w-52 items-center justify-center rounded-[1.35rem] border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-sm transition hover:bg-slate-950 hover:text-white focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/free-check" className={`${softButton} min-h-14 min-w-52 rounded-[1.35rem] px-8 py-4 text-base`}>
               Start Free Scan →
             </Link>
           </div>
@@ -106,10 +108,10 @@ export default function HomePage() {
               The goal is not to decorate the business. The goal is to make the business easier for AI engines and customers to understand, trust, and act on.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link href="/free-check" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-950 hover:text-white focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              <Link href="/free-check" className={`${softButton} min-h-12 rounded-full px-6 py-3 text-sm`}>
                 Start Free Scan
               </Link>
-              <Link href="/plans" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-950 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              <Link href="/plans" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-600 transition duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
                 Review Plans
               </Link>
             </div>
@@ -117,18 +119,18 @@ export default function HomePage() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {PATH.map((stage) => (
-              <Link key={stage.href} href={stage.href} className="group flex min-h-[18rem] flex-col rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_48px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_26px_74px_rgba(15,23,42,0.10)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              <Link key={stage.href} href={stage.href} className="group flex min-h-[18rem] flex-col rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_48px_rgba(15,23,42,0.055)] transition duration-200 hover:border-slate-300 hover:bg-slate-50/40 hover:shadow-[0_22px_62px_rgba(15,23,42,0.085)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
                 <h3 className="text-4xl font-semibold tracking-[-0.065em] text-slate-950">{stage.label}</h3>
                 <p className="mt-3 text-lg font-semibold leading-7 tracking-[-0.025em] text-slate-900">{stage.line}</p>
                 <p className="mt-4 text-sm leading-7 text-slate-600">{stage.body}</p>
                 <div className="mt-6 grid gap-2 text-sm font-medium text-slate-600">
                   {stage.checks.map((item) => (
-                    <span key={item} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-[0_8px_22px_rgba(15,23,42,0.035)]">
+                    <span key={item} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-[0_8px_22px_rgba(15,23,42,0.035)] transition duration-200 group-hover:border-slate-300">
                       {item}
                     </span>
                   ))}
                 </div>
-                <p className="mt-auto pt-6 text-sm font-semibold text-slate-500 transition group-hover:text-slate-950">{stage.action} →</p>
+                <p className="mt-auto pt-6 text-sm font-semibold text-slate-500 transition duration-200 group-hover:text-slate-950">{stage.action} →</p>
               </Link>
             ))}
           </div>
@@ -136,7 +138,7 @@ export default function HomePage() {
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See what AI engines and customers may be reading wrong. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Whiter body. No hero badge. No card badges. No card numbers. No card prices. Richer system cards. No AI placement promises. AI Readiness anchor.
+        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See what AI engines and customers may be reading wrong. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Whiter body. No hero badge. No card badges. No card numbers. No card prices. Richer system cards. Softer hover states. No AI placement promises. AI Readiness anchor.
       </section>
     </main>
   );
