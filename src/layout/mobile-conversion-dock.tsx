@@ -45,18 +45,18 @@ export function MobileConversionDock() {
         <div className="flex items-center gap-2">
           <div className="min-w-0 flex-1 px-3">
             <div className="truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-200">
-              Free first read
+              Free Scan first
             </div>
             <div className="mt-0.5 truncate text-sm font-semibold text-white">
-              Find the break first
+              Find the readiness break
             </div>
           </div>
           <Link
             href="/free-check"
-            onClick={() => trackConversionEvent("mobile_dock_click", { label: "Start free scan", href: "/free-check" })}
+            onClick={() => trackConversionEvent("mobile_dock_click", { label: "Start Free Scan", href: "/free-check" })}
             className="system-button-primary inline-flex shrink-0 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.98]"
           >
-            Start free
+            Start Scan
           </Link>
         </div>
       </div>
