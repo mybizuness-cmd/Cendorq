@@ -10,17 +10,17 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-report-vault-free-scan-results.mjs";
 
 expect(reportVaultPath, [
-  "Market proof vault",
-  "Keep the record of what customers and AI search can understand.",
-  "AI/Search posture",
+  "Readiness proof vault",
+  "Keep the record of what customers and AI engines can understand.",
+  "AI-readiness posture",
   "Signal, proof, risk, limit",
-  "Reports explain what is visible, what it may mean, what is limited, and which command comes next.",
-  "Different proof for every command depth.",
-  "First AI/search signal only.",
-  "Deep Review report",
-  "Build Fix summary",
-  "Ongoing Control monthly summary",
-  "Useful only when report depth, AI/search posture, and delivery are impossible to confuse.",
+  "Reports explain what is visible, what it may mean, what is limited, and which layer comes next.",
+  "Different proof for every readiness depth.",
+  "First AI-readiness signal only.",
+  "AI Readiness Review report",
+  "Signal Repair summary",
+  "Readiness Control monthly summary",
+  "Useful only when report depth, AI-readiness posture, and delivery are impossible to confuse.",
   "no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control",
   "paidAiPosture",
   "focus:outline-none",
@@ -31,20 +31,19 @@ expect(freeScanResultPath, [
   "Protected dashboard result",
   "Dashboard-only Free Scan result route",
   "Free Scan result page must remain under /dashboard/reports/free-scan and not public.",
-  "The first AI/search market signal is ready.",
-  "Search is no longer only a list of links.",
+  "The first AI-readiness signal is ready.",
   "Signal",
   "Proof",
   "Risk",
   "Limit",
-  "Next command",
-  "AI/Search posture",
+  "Next layer",
+  "AI-readiness posture",
   "First signal only",
-  "The result can show visibility risk without claiming ranking, placement, or full diagnosis.",
-  "Evidence, confidence, AI/search posture, and priority stay separate.",
-  "AI/Search: {finding.aiVisibilityImpact}",
-  "Free Scan does not include full root-cause diagnosis, implementation work, monthly monitoring, guaranteed ranking, or guaranteed AI placement.",
-  "Deep Review $497",
+  "The result can show readiness risk without claiming ranking, placement, or full review.",
+  "Evidence, confidence, AI-readiness posture, and priority stay separate.",
+  "AI-readiness: {finding.aiVisibilityImpact}",
+  "Free Scan does not include full root-cause review, implementation work, monthly monitoring, guaranteed ranking, or guaranteed AI placement.",
+  "AI Readiness Review $497",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -52,6 +51,12 @@ expect(freeScanResultPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(reportVaultPath, [
+  "Market proof vault",
+  "AI/Search posture",
+  "Different proof for every command depth.",
+  "Deep Review report",
+  "Build Fix summary",
+  "Ongoing Control monthly summary",
   "Visibility report vault",
   "Proof layer",
   "See the proof layer without confusing report types.",
@@ -64,6 +69,11 @@ forbidden(reportVaultPath, [
 ]);
 
 forbidden(freeScanResultPath, [
+  "The first AI/search market signal is ready.",
+  "Search is no longer only a list of links.",
+  "AI/Search posture",
+  "AI/Search: {finding.aiVisibilityImpact}",
+  "Next command",
   "Your first decision signal is ready.",
   "This Free Scan result belongs inside the customer dashboard.",
   "The first signal is useful because it is bounded.",
@@ -91,12 +101,12 @@ boundedLength(reportVaultPath, 17500);
 boundedLength(freeScanResultPath, 17500);
 
 if (failures.length) {
-  console.error("Command report vault and Free Scan AI command result validation failed:");
+  console.error("Readiness report vault and Free Scan result validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command report vault and Free Scan AI command result validation passed with dashboard-only route, AI/search posture, bounded claims, and clear report type separation.");
+console.log("Readiness report vault and Free Scan result validation passed with dashboard-only route, AI-readiness posture, bounded claims, and clear report type separation.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -126,7 +136,7 @@ function forbiddenPathFragments(paths) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the command report standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the readiness report standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {
