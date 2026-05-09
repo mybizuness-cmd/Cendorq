@@ -87,7 +87,7 @@ export const CENDORQ_PAID_PLAN_KEYS = ["deep-review", "build-fix", "ongoing-cont
 export const CENDORQ_CHECKOUT_ORCHESTRATION = [
   {
     step: "plan-click",
-    customerExperience: "The customer clicks one clear plan action from pricing, dashboard, report vault, billing, or notifications.",
+    customerExperience: "The customer clicks one clear plan action from Plans, dashboard, report vault, billing, or notifications.",
     systemAction: "Create a plan-specific checkout attempt and attach customer, business, scan, report, and source context when available.",
   },
   {
