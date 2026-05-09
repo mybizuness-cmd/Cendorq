@@ -30,8 +30,23 @@ const requiredFiles = [
   "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-report-evidence-record-runtime.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
+  "src/scripts/validate-pricing-checkout-orchestration.mjs",
+  "src/scripts/validate-billing-checkout-contracts.mjs",
+  "src/scripts/validate-dashboard-action-inbox.mjs",
+  "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
   "src/lib/command-center/validation-registry.ts",
   "src/lib/controlled-continuous-evolution-contracts.ts",
+  "src/lib/customer-email-confirmation-handoff-contracts.ts",
+  "src/lib/billing-checkout-contracts.ts",
+  "src/lib/pricing-checkout-orchestration.ts",
+  "src/lib/plan-delivery-orchestration-contracts.ts",
+  "src/app/dashboard/dashboard-action-inbox.tsx",
+  "src/app/dashboard/dashboard-business-command-center.tsx",
+  "src/app/dashboard/dashboard-control-room-reentry.tsx",
+  "src/app/checkout/success/page.tsx",
+  "src/app/plans/page.tsx",
+  "src/components/plans/conversion-plan-page.tsx",
+  "src/app/plans/plan-data.ts",
 ];
 
 for (const file of requiredFiles) validateFileExists(file);
@@ -54,6 +69,9 @@ validateTextFile("docs/command-center-docs-index.md", [
   "docs/command-center-operator-runbook.md",
   "docs/admin-command-center-safe-projections.md",
   "docs/owner-operating-manual.md",
+  "vault-first report access",
+  "dashboard message mirroring",
+  "safe PDF/document delivery",
   "docs/repo-update-scanning-automation.md",
   "docs/controlled-continuous-evolution.md",
   "src/lib/command-center/validation-registry.ts",
@@ -63,6 +81,41 @@ validateTextFile("docs/command-center-docs-index.md", [
   "CodeQL workflow integrity standard",
   "Repo update scanning automation standard",
   "Controlled continuous evolution standard",
+]);
+
+validateTextFile("docs/command-center-docs-index.md", [
+  "## Customer delivery and lifecycle source-of-truth areas",
+  "src/lib/customer-email-confirmation-handoff-contracts.ts",
+  "src/lib/billing-checkout-contracts.ts",
+  "src/lib/pricing-checkout-orchestration.ts",
+  "src/lib/plan-delivery-orchestration-contracts.ts",
+  "src/app/dashboard/dashboard-action-inbox.tsx",
+  "src/app/dashboard/dashboard-business-command-center.tsx",
+  "src/app/dashboard/dashboard-control-room-reentry.tsx",
+  "src/app/checkout/success/page.tsx",
+  "src/app/plans/page.tsx",
+  "src/components/plans/conversion-plan-page.tsx",
+  "src/app/plans/plan-data.ts",
+  "Customer delivery must remain vault-first, verified-access-first, and dashboard-mirrored.",
+  "Email, PDF attachments, downloadable PDFs, billing documents, dashboard messages, and report-vault display must all reflect the same safe customer-owned state without becoming separate truth sources.",
+]);
+
+validateTextFile("docs/command-center-docs-index.md", [
+  "## Customer delivery validation standard",
+  "src/scripts/validate-pricing-checkout-orchestration.mjs",
+  "src/scripts/validate-billing-checkout-contracts.mjs",
+  "src/scripts/validate-dashboard-action-inbox.mjs",
+  "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
+  "src/scripts/validate-owner-operating-manual.mjs",
+  "verified email before protected report access",
+  "dashboard/report vault as source of truth",
+  "mirrored dashboard messages for important emails",
+  "safe PDF delivery only after gates pass",
+  "provider-authoritative billing PDFs",
+  "no guaranteed deliverability claims",
+  "no guaranteed inbox placement claims",
+  "no PDF-only access path",
+  "no raw/private data projection",
 ]);
 
 validateTextFile("docs/command-design-operating-standard.md", [
@@ -135,6 +188,9 @@ validateTextFile("docs/owner-operating-manual.md", [
   "proof before output",
   "evidence before recommendation",
   "Conversion moat",
+  "dashboard/report vault is the canonical protected display location",
+  "Every important customer email should create or update a matching dashboard message record",
+  "PDFs must never be the only access path.",
 ]);
 
 validateTextFile("src/scripts/validate-routes-chain.mjs", [
@@ -148,6 +204,10 @@ validateTextFile("src/scripts/validate-routes-chain.mjs", [
   "validate-report-truth-engine.mjs",
   "validate-report-evidence-record-runtime.mjs",
   "validate-command-center-owner-configuration-workflow-smoke.mjs",
+  "validate-pricing-checkout-orchestration.mjs",
+  "validate-billing-checkout-contracts.mjs",
+  "validate-dashboard-action-inbox.mjs",
+  "validate-plan-delivery-orchestration-contracts.mjs",
 ]);
 
 validateTextFile("src/scripts/validate-routes-chain-integrity.mjs", [
@@ -175,7 +235,34 @@ validateTextFile("src/scripts/validate-codeql-workflow-integrity.mjs", [
   "github/codeql-action/analyze@v4",
 ]);
 
+validateTextFile("src/lib/customer-email-confirmation-handoff-contracts.ts", [
+  "dashboardMessageMirrorRules",
+  "emailDeliverabilityRules",
+  "pdfAttachmentRules",
+]);
+
+validateTextFile("src/lib/billing-checkout-contracts.ts", [
+  "pdfDocumentDeliveryRules",
+  "billing-document-to-verified-email",
+  "documentDeliveryStatus",
+]);
+
+validateTextFile("src/lib/plan-delivery-orchestration-contracts.ts", [
+  "reportPresentationStandard",
+  "stageTargetingMatrix",
+  "continuousNurturingStandard",
+]);
+
+validateTextFile("src/lib/pricing-checkout-orchestration.ts", [
+  "CENDORQ_POST_PAYMENT_SERVICE_SEQUENCE",
+  "CENDORQ_REPORT_TRIGGER_MATRIX",
+  "getCendorqReportTrigger",
+]);
+
 validateTextFile("package.json", ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
+
+forbidden("docs/command-center-docs-index.md", unsafePhrases());
+forbidden("docs/owner-operating-manual.md", unsafePhrases());
 
 if (failures.length) {
   console.error("Command Center docs index validation failed:");
@@ -183,7 +270,20 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with command design, docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with command design, docs index, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
+
+function unsafePhrases() {
+  return [
+    "guaranteed deliverability",
+    "guaranteed inbox placement",
+    "pdf-only access path",
+    "PDF-only access path",
+    "dashboard message mirror optional",
+    "report vault optional",
+    "raw/private data projection allowed",
+    "separate truth source allowed",
+  ];
+}
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required docs index dependency: ${path}`);
@@ -196,6 +296,14 @@ function validateTextFile(path, phrases) {
   }
   const text = read(path);
   for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing required docs index phrase: ${phrase}`);
+}
+
+function forbidden(path, phrases) {
+  if (!existsSync(join(root, path))) return;
+  const text = read(path).toLowerCase();
+  for (const phrase of phrases) {
+    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden docs index phrase: ${phrase}`);
+  }
 }
 
 function read(path) {
