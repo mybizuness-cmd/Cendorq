@@ -23,14 +23,16 @@ expect(foundationPath, [
 
 expect(foundationPath, [
   "ongoing-control",
-  "Ongoing Control / Monthly",
+  "Readiness Control",
   "monthly status summary",
   "approved periodic report",
   "controlled monitoring notices",
-  "dashboard inbox messages",
+  "mirrored dashboard messages",
   "email follow-up when appropriate",
   "plan-fit guidance",
-  "optimization recommendation when implementation gaps are found",
+  "safe PDF delivery state when gates pass",
+  "Signal Repair recommendation when implementation gaps are found",
+  "feature adoption or renewal recommendation when evidence supports it",
 ]);
 
 expect(foundationPath, [
@@ -40,20 +42,26 @@ expect(foundationPath, [
   "baseline",
   "monthly review",
   "release approval",
-  "not a substitute for Build Fix implementation or a standalone Deep Review report unless the matching entitlement exists",
+  "not a substitute for Signal Repair implementation or a standalone AI Readiness Review report unless the matching entitlement exists",
   "controlled monitoring and approval gates",
-  "not uncontrolled production mutation or autonomous business changes",
+  "not unapproved production changes or autonomous business changes",
+  "email delivery must mirror into the dashboard",
+  "PDF delivery must stay vault-first and gated by verification, entitlement, release approval, no-leak checks, and document safety",
+  "future-feature and renewal recommendations must be tied to plan state, report history, evidence freshness, movement, or real customer relevance",
 ]);
 
 expect(foundationPath, [
   "monthlyStatusRequired: true",
   "periodicReportRequired: true",
   "controlledMonitoringRequired: true",
-  "dashboardInboxRequired: true",
+  "dashboardMessageMirrorRequired: true",
   "emailFollowUpAllowed: true",
   "planFitGuidanceRequired: true",
-  "buildFixIncluded: false",
-  "deepReviewReportIncluded: false",
+  "signalRepairRecommendationAllowed",
+  "safePdfDeliveryGated: true",
+  "vaultFirstDeliveryRequired: true",
+  "signalRepairIncluded: false",
+  "aiReadinessReviewReportIncluded: false",
   "uncontrolledAutoMutation: false",
   "fakeUrgencyAllowed: false",
 ]);
@@ -79,6 +87,11 @@ expect(planValidatorPath, [
 ]);
 
 forbidden(foundationPath, [
+  "Ongoing Control / Monthly",
+  "Build Fix implementation",
+  "standalone Deep Review",
+  "dashboard inbox messages",
+  "optimization recommendation",
   "buildFixIncluded: true",
   "deepReviewReportIncluded: true",
   "uncontrolledAutoMutation: true",
@@ -107,12 +120,12 @@ forbidden(foundationPath, [
 ]);
 
 if (failures.length) {
-  console.error("Ongoing Control monthly foundation validation failed:");
+  console.error("Readiness Control monthly foundation validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Ongoing Control monthly foundation validation passed.");
+console.log("Readiness Control monthly foundation validation passed with current plan language, mirrored dashboard messages, vault-first monthly summaries, safe PDF gates, controlled monitoring, feature/renewal relevance, and no-leak coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
