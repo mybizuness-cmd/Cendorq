@@ -9,14 +9,28 @@ const packagePath = "package.json";
 
 validateTextFile(policyPath, [
   "REPORT_TRUTH_RULES",
+  "DELIVERY_RELIABILITY_RULES",
+  "AGENT_VERIFICATION_RULES",
   "BUSINESS_ENRICHMENT_RULES",
   "REPORT_METRIC_RULES",
   "REPORT_CONVERSION_RULES",
   "getReportTruthEnginePolicy",
   "Treat form fields as useful clues, not final proof.",
+  "Minimum information delivery",
+  "When the customer gives thin information, Cendorq must still attempt the strongest safe research path",
+  "Always deliver the safest useful output",
+  "highest-confidence useful output available",
+  "what is known, what is unknown, what was checked, why confidence is limited, and what would unlock stronger analysis",
+  "Highest practical accuracy",
+  "source triangulation, evidence age checks, contradiction checks, calculation traces, operator review, and correction paths",
+  "Claims must be classified as verified fact, customer-provided context, observed evidence, inference, forecast, or unknown before release.",
+  "Streamlined command chain",
+  "Research should move from agent to captain to owner-facing release posture",
+  "Agent research discipline",
+  "Truth before selling",
   "business name plus website or address",
   "calculation inputs, formula label, evidence references, confidence level, and rounding policy",
-  "must never claim 100% certainty, perfect accuracy, or guaranteed outcomes",
+  "must never claim 100% certainty, perfect accuracy, guaranteed outcomes, or mistake-free operation",
   "visibility-score",
   "trust-score",
   "conversion-friction-score",
@@ -46,7 +60,6 @@ validateTextFile(growthPolicyPath, [
   "small Cendorq-branded footer",
   "serious evidence-backed review process",
   "Business outcomes, rankings, traffic, leads, conversions, revenue, platform behavior, or perfect accuracy",
-  "AI Readiness Review must be thorough and extensive",
   "It may hint at future monitoring only when the first signal shows movement risk.",
   "mention Readiness Control only when search, competitor, platform, or customer-decision movement creates a clear monitoring reason",
   "only when there is a real watchlist or baseline to protect",
@@ -74,10 +87,16 @@ validateTextFile(packagePath, [
 
 validateForbidden(policyPath, [
   "100% accurate",
+  "100 percent accuracy guarantee",
   "100% certainty: true",
   "perfect accuracy: true",
+  "mistake-free guarantee",
   "unverified fact",
   "ignore missing evidence",
+  "empty report because input is thin allowed",
+  "guessing to look complete allowed",
+  "agent-only final approval allowed",
+  "sales before proof allowed",
   "full-diagnosis",
   "optimization",
   "monthly-control",
@@ -95,7 +114,7 @@ validateForbidden(growthPolicyPath, [
   "guaranteing traffic",
   "guaranteing leads",
   "guaranteing conversions",
-  "guaranteeing revenue",
+  "guaranteing revenue",
   "promising legal immunity",
   "lying allowed",
   "full-diagnosis",
@@ -126,7 +145,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, selective forecast and recurring-value sections, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
+console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, proof-gated delivery reliability, agent-to-captain verification, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, selective forecast and recurring-value sections, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
