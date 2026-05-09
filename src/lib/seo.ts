@@ -90,12 +90,11 @@ export const siteConfig: SiteConfig = {
         "business clarity scan",
         "business trust scan",
         "business visibility scan",
-        "market command intelligence",
-        "free business scan",
-        "Deep Review",
-        "Build Fix",
-        "Ongoing Control",
-        "Scan Diagnose Fix Control",
+        "free scan",
+        "AI Readiness Review",
+        "Signal Repair",
+        "Readiness Control",
+        "Scan Review Repair Control",
     ],
 } as const;
 
@@ -244,7 +243,7 @@ export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJs
     };
 }
 
-export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI engine readiness and market command intelligence" }: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI engine readiness for business clarity, trusted proof, and action paths" }: ServiceJsonLdInput) {
     const normalizedPath = normalizePath(path);
 
     return {
@@ -254,7 +253,7 @@ export function buildServiceJsonLd({ title, description, path = "/", serviceType
         name: cleanString(title) || siteConfig.defaultOgTitle,
         description: cleanString(description) || siteConfig.defaultOgDescription,
         url: absoluteUrl(normalizedPath),
-        serviceType: cleanString(serviceType) || "AI engine readiness and market command intelligence",
+        serviceType: cleanString(serviceType) || "AI engine readiness for business clarity, trusted proof, and action paths",
         areaServed: "Worldwide",
         provider: { "@id": organizationSchemaId() },
         brand: { "@id": organizationSchemaId() },
