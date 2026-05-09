@@ -12,7 +12,9 @@ expect(contractPath, [
   "getPlanPostDeliveryReconciliationContract",
   "A second purchase after delivery creates a new entitlement; it does not automatically convert the already-delivered work into an unlimited redo.",
   "scoped reconciliation addendum",
-  "protecting the business from unpaid rework",
+  "unpaid rework, duplicate fulfillment, unsafe PDF delivery, and plan-boundary loopholes",
+  "Every reconciliation email must mirror into the dashboard",
+  "reconciliation document or PDF must match report-vault state",
 ]);
 
 expect(contractPath, [
@@ -29,21 +31,23 @@ expect(contractPath, [
 ]);
 
 expect(contractPath, [
-  "build-fix-then-deep-review",
-  "ongoing-control-then-build-fix",
-  "ongoing-control-then-deep-review",
-  "deep-review-then-build-fix-after-delay",
-  "alignment review against completed Build Fix",
+  "signal-repair-then-ai-readiness-review",
+  "readiness-control-then-signal-repair",
+  "readiness-control-then-ai-readiness-review",
+  "ai-readiness-review-then-signal-repair-after-delay",
+  "alignment review against completed Signal Repair",
   "future monthly integration guidance",
   "future-cycle application note",
   "freshness check",
+  "dashboard-message mirror",
 ]);
 
 expect(contractPath, [
-  "Deliver Deep Review fully. Compare it to the completed Build Fix. Provide an alignment addendum if the direction is consistent or minor. If the Deep Review reveals material changes, offer a scoped Build Fix alignment/change order instead of free redo.",
+  "Deliver AI Readiness Review fully. Compare it to the completed Signal Repair.",
+  "offer a scoped Signal Repair alignment/change order instead of free redo",
   "Do not redo previously completed monthly cycles unless there was a Cendorq error or the customer buys a retroactive alignment scope.",
   "Prior monthly summaries stand as based on the evidence available at the time unless there was a Cendorq error.",
-  "If the business has changed, perform a scoped freshness check before Build Fix",
+  "If the business has changed, perform a scoped freshness check before Signal Repair",
 ]);
 
 expect(contractPath, [
@@ -51,20 +55,23 @@ expect(contractPath, [
   "Never promise that buying the skipped plan later automatically reopens every previously delivered scope.",
   "Offer a focused alignment scope when new findings materially change previously delivered work.",
   "Use credit or discount language only when strategically approved; do not create automatic discount entitlement.",
+  "Mirror reconciliation messages into the dashboard and link to report-vault or billing-center documents when safe.",
 ]);
 
 expect(contractPath, [
   "Second purchase unlocks the purchased plan, not unlimited re-performance of earlier paid work.",
   "Material redo, reimplementation, or retroactive monthly reconstruction requires a new paid scope unless caused by Cendorq error.",
   "Corrections caused by Cendorq error are handled as corrections, not new revenue opportunities.",
-  "A reconciliation addendum may be included to preserve trust, but it must not become a substitute for Build Fix, Deep Review, or Ongoing Control deliverables.",
+  "A reconciliation addendum may be included to preserve trust, but it must not become a substitute for Signal Repair, AI Readiness Review, or Readiness Control deliverables.",
+  "A reconciliation PDF may be attached or made downloadable only when it is vault-matched, verified-access-safe, release-approved, and document-safety checked.",
 ]);
 
 expect(contractPath, [
   "Every post-delivery second-purchase request must be classified into no-change, minor alignment, Cendorq error correction, material rework, or future-cycle application.",
   "Customer-facing reconciliation must identify what was previously delivered, what the new purchase unlocks, what is included now, what is not included, and the recommended next action.",
-  "Release-captain review is required before promising a redo, correction, discount, credit, change order, or retroactive monthly update.",
+  "Release-captain review is required before promising a redo, correction, discount, credit, change order, retroactive monthly update, or reconciliation PDF delivery.",
   "Report vault and dashboard must show entitlements accurately and must not imply a full redo is included unless a new scope or correction record allows it.",
+  "Every reconciliation email must mirror into the dashboard and every reconciliation document must remain vault-first, no-leak checked, and safe to access after verified login.",
 ]);
 
 expect(planValidatorPath, [
@@ -77,10 +84,18 @@ expect(planValidatorPath, [
 forbidden(contractPath, [
   "automatic full redo",
   "unlimited redo is included",
-  "free redo",
   "redo everything for free",
   "retroactive monthly redo included",
   "discount entitlement",
+  "Build Fix",
+  "Deep Review",
+  "Ongoing Control",
+  "completed Build Fix",
+  "Deliver Deep Review fully",
+  "substitute for Build Fix",
+  "substitute for Deep Review",
+  "substitute for Ongoing Control",
+  "premium",
   "guaranteed ROI",
   "guaranteed revenue",
   "guaranteed accuracy",
@@ -107,7 +122,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan post-delivery reconciliation contracts validation passed.");
+console.log("Plan post-delivery reconciliation contracts validation passed with current plan names, dashboard-message reconciliation, vault-first safe PDF delivery, second-purchase boundaries, correction paths, and no automatic redo coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
