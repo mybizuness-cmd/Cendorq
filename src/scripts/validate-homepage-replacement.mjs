@@ -12,11 +12,22 @@ for (const phrase of [
   "data-cendorq-homepage=\"market-command-home-v1\"",
   "Cendorq Market Command Intelligence",
   "Become easier to find, trust, and choose.",
+  "Cendorq reads the public market path around your business before customers decide.",
   "Start Free Scan",
   "Review Plans",
   "The Free Scan form stays intact.",
   "Dashboard and report paths stay intact.",
-  "Scan. Diagnose. Fix. Control.",
+  "The market either understands you or it moves on.",
+  "The Free Scan starts the system. The protected dashboard carries the result.",
+  "Scan",
+  "Diagnose",
+  "Fix",
+  "Control",
+  "Findability",
+  "Clarity",
+  "Trust",
+  "Choice",
+  "Action",
   "href=\"/free-check\"",
   "href=\"/plans\"",
   "href: \"/plans/deep-review\"",
@@ -35,6 +46,8 @@ for (const phrase of [
   "Presence Command",
   "href=\"/pricing\"",
   "href=\"/diagnosis\"",
+  "rough temporary",
+  "emergency replacement",
 ]) {
   if (homepage.includes(phrase)) failures.push(`Homepage replacement contains forbidden phrase: ${phrase}`);
 }
@@ -45,4 +58,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Root homepage is dynamic, no-store, current-language, and points into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
+console.log("Homepage replacement validation passed. Root homepage is dynamic, no-store, premium command-entry language, and points into the existing Free Scan and Plans path without touching dashboard, reports, billing, support, or APIs.");
