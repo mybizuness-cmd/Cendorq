@@ -4,8 +4,8 @@ import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES, type PlanValueKey } from "@/lib/plan-value-delivery-architecture";
 
 export const metadata = buildMetadata({
-  title: "Market resolution routing | Cendorq",
-  description: "Your private Cendorq support routing center for proof questions, corrections, billing help, security review, and command-depth guidance.",
+  title: "Readiness resolution routing | Cendorq",
+  description: "Your private Cendorq support routing center for proof questions, corrections, billing help, security review, and readiness-depth guidance.",
   path: "/dashboard/support",
   noIndex: true,
 });
@@ -21,7 +21,7 @@ const SUPPORT_ROUTES = [
     title: "Restore access or payment flow first.",
     href: "/dashboard/billing",
     cta: "Open billing",
-    value: "Recover payment, invoice, or command-depth access without sending card data through support.",
+    value: "Recover payment, invoice, or readiness-depth access without sending card data through support.",
     boundary: "Support can route the issue, but payment changes require approved billing gates.",
   },
   {
@@ -29,16 +29,16 @@ const SUPPORT_ROUTES = [
     label: "Proof question",
     title: "Understand the signal before acting.",
     href: "/dashboard/reports",
-    cta: "Open market proof",
-    value: "Clarify confidence, limits, evidence boundaries, and next-command logic.",
-    boundary: "A Free Scan question does not become full Deep Review diagnosis unless unlocked.",
+    cta: "Open readiness proof",
+    value: "Clarify confidence, limits, evidence boundaries, and next-readiness logic.",
+    boundary: "A Free Scan question does not become full AI Readiness Review unless unlocked.",
   },
   {
     key: "scope-question",
-    label: "Fix scope",
+    label: "Repair scope",
     title: "Confirm what can be improved.",
     href: BUILD_FIX.checkoutPath,
-    cta: `See Build Fix ${BUILD_FIX.price}`,
+    cta: `See Signal Repair ${BUILD_FIX.price}`,
     value: "Decide whether a known weak page, message, proof point, or action path is ready for scoped work.",
     boundary: "No unlimited implementation, full rebuild, monthly monitoring, or unapproved production work.",
   },
@@ -48,15 +48,15 @@ const SUPPORT_ROUTES = [
     title: "Choose what should be watched.",
     href: ONGOING_CONTROL.checkoutPath,
     cta: `Start ${ONGOING_CONTROL.price}`,
-    value: "Turn recurring visibility questions into a monthly focus, review cadence, alerts, and decision support.",
-    boundary: "Not unlimited Build Fix, repeated Deep Review, ad management, or guaranteed ranking/AI placement.",
+    value: "Turn recurring readiness questions into a monthly focus, review cadence, alerts, and decision support.",
+    boundary: "Not unlimited Signal Repair, repeated AI Readiness Review, ad management, or guaranteed ranking/AI placement.",
   },
   {
     key: "account-access",
     label: "Account access",
-    title: "Restore safe command entry.",
+    title: "Restore safe workspace entry.",
     href: "/login",
-    cta: "Send magic link",
+    cta: "Sign in",
     value: "Recover access without exposing account internals, session tokens, or private security data.",
     boundary: "Support cannot expose raw security payloads, attacker details, or internal risk logic.",
   },
@@ -72,17 +72,17 @@ const SUPPORT_ROUTES = [
 ] as const;
 
 const PLAN_SUPPORT = [
-  { planKey: "free-scan", command: "Scan", href: "/dashboard/reports/free-scan", cta: "Open signal", role: "Explain the first signal, confidence posture, and why deeper diagnosis may be needed.", mustNot: "No full root-cause diagnosis, implementation direction, or monthly monitoring.", value: getPlanValueDelivery("free-scan") },
-  { planKey: "deep-review", command: "Diagnose", href: DEEP_REVIEW.checkoutPath, cta: `Unlock ${DEEP_REVIEW.price}`, role: "Help the customer understand cause-level diagnosis, evidence, priority, and decision path.", mustNot: "No done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes.", value: getPlanValueDelivery("deep-review") },
-  { planKey: "build-fix", command: "Fix", href: BUILD_FIX.checkoutPath, cta: `Unlock ${BUILD_FIX.price}`, role: "Clarify scope, approved business details, output approval, and delivery expectations.", mustNot: "No unlimited site work, monthly monitoring, or unapproved production changes.", value: getPlanValueDelivery("build-fix") },
-  { planKey: "ongoing-control", command: "Control", href: ONGOING_CONTROL.checkoutPath, cta: `Start ${ONGOING_CONTROL.price}`, role: "Help select monthly priorities, review cadence, monitoring scope, and decision support needs.", mustNot: "No unlimited Build Fix, ranking guarantees, AI answer placement guarantees, or ad management.", value: getPlanValueDelivery("ongoing-control") },
+  { planKey: "free-scan", command: "Scan", href: "/dashboard/reports/free-scan", cta: "Open signal", role: "Explain the first signal, confidence posture, and why deeper review may be needed.", mustNot: "No full root-cause review, implementation direction, or monthly monitoring.", value: getPlanValueDelivery("free-scan") },
+  { planKey: "deep-review", command: "Review", href: DEEP_REVIEW.checkoutPath, cta: `Unlock ${DEEP_REVIEW.price}`, role: "Help the customer understand evidence-backed review, priority, and decision path.", mustNot: "No done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes.", value: getPlanValueDelivery("deep-review") },
+  { planKey: "build-fix", command: "Repair", href: BUILD_FIX.checkoutPath, cta: `Unlock ${BUILD_FIX.price}`, role: "Clarify scope, approved business details, output approval, and delivery expectations.", mustNot: "No unlimited site work, monthly monitoring, or unapproved production changes.", value: getPlanValueDelivery("build-fix") },
+  { planKey: "ongoing-control", command: "Control", href: ONGOING_CONTROL.checkoutPath, cta: `Start ${ONGOING_CONTROL.price}`, role: "Help select monthly priorities, review cadence, monitoring scope, and decision support needs.", mustNot: "No unlimited Signal Repair, ranking guarantees, AI answer placement guarantees, or ad management.", value: getPlanValueDelivery("ongoing-control") },
 ] as const satisfies readonly { planKey: PlanValueKey; command: string; href: string; cta: string; role: string; mustNot: string; value: ReturnType<typeof getPlanValueDelivery> }[];
 
 const SUPPORT_RULES = [
   "Pick the narrowest support path before submitting a request.",
   "Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, or unrelated private evidence.",
   "Support can explain process, status, and next steps; approved outcomes require the right review gate.",
-  "Support must separate billing, proof questions, Fix scope, Control priority, account access, and correction paths.",
+  "Support must separate billing, proof questions, Repair scope, Control priority, account access, and correction paths.",
 ] as const;
 
 export default function SupportCenterPage() {
@@ -93,13 +93,13 @@ export default function SupportCenterPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
-            Market resolution routing
+            Readiness resolution routing
           </div>
           <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
-            Route the blocker without weakening the command path.
+            Route the blocker without weakening the readiness path.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Help should restore momentum, protect the proof trail, and return the customer to the right report, account, command depth, or status path.
+            Help should restore momentum, protect the proof trail, and return the customer to the right report, account, readiness depth, or status path.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/support/status" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -152,7 +152,7 @@ export default function SupportCenterPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Command support boundaries">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Readiness support boundaries">
         <div className="grid gap-4 lg:grid-cols-4">
           {PLAN_SUPPORT.map((plan) => (
             <Link key={plan.planKey} href={plan.href} className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)] transition hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -182,7 +182,7 @@ export default function SupportCenterPage() {
       </section>
 
       <section className="sr-only" aria-label="Support routing guardrails">
-        Market resolution routing. Route the blocker without weakening the command path. Resolution selector. Pick the narrowest path that matches the blocker. Help should restore momentum without expanding scope silently. Access issue. Proof question. Fix scope. Control priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. Scan. Diagnose. Fix. Control. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
+        Readiness resolution routing. Route the blocker without weakening the readiness path. Resolution selector. Pick the narrowest path that matches the blocker. Help should restore momentum without expanding scope silently. Access issue. Proof question. Repair scope. Control priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. Scan. Review. Repair. Control. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
       </section>
     </main>
   );
