@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const READOUTS = ["Get found", "Be clear", "Build trust", "Win choice", "Drive action"] as const;
+const READOUTS = ["Get found", "Be answer-ready", "Build trust", "Win choice", "Drive action"] as const;
 
 export default function GlobalLoadingPage() {
   return (

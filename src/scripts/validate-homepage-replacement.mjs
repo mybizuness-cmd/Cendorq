@@ -18,17 +18,20 @@ for (const phrase of [
   "Apple-level trust and authority",
   "Google-level simplicity",
   "ChatGPT-level immediate action",
+  "AI Search Visibility and Market Command Intelligence",
+  "customers, search, maps, reviews, and AI answers",
   "Become easier to find, trust, and choose.",
-  "Cendorq reads the public market path around your business before customers decide.",
+  "Cendorq checks how your business reads across customers, search, maps, reviews, and AI answers.",
   "Run the Free Scan before buying the bigger fix.",
   "Start Free Scan →",
   "Get found",
-  "Be clear",
+  "Be answer-ready",
   "Build trust",
   "Win choice",
   "Drive action",
-  "Scan first. Then decide what depth is worth it.",
-  "No cluttered audit theater. No fake certainty.",
+  "Free Scan can surface the first AI/search visibility, trust, proof, or action signal.",
+  "It does not promise rankings, AI placement, leads, or a complete diagnosis.",
+  "No AI placement promises",
   "Start Free Scan",
   "Review Plans",
   "Plans",
@@ -51,7 +54,7 @@ for (const phrase of [
   "href: \"/plans/build-fix\"",
   "href: \"/plans/ongoing-control\"",
 ]) {
-  if (!combined.includes(phrase)) failures.push(`Feedback homepage shell missing required phrase: ${phrase}`);
+  if (!combined.includes(phrase)) failures.push(`AI visibility homepage shell missing required phrase: ${phrase}`);
 }
 
 for (const phrase of [
@@ -66,6 +69,7 @@ for (const phrase of [
   "Findability",
   "Clarity",
   "Trust\", \"Choice",
+  "Be clear",
   "Connect with Cendorq",
   "Connect",
   "Simple path",
@@ -73,6 +77,10 @@ for (const phrase of [
   "href=\"/diagnosis\"",
   "rough temporary",
   "emergency replacement",
+  "guaranteed AI placement",
+  "guaranteed ranking",
+  "guaranteed leads",
+  "guaranteed revenue",
   "The market either understands you or it moves on.",
   "The Free Scan starts the system. The protected dashboard carries the result.",
   "bg-[#020713]",
@@ -86,7 +94,7 @@ for (const phrase of [
   "system-button-primary",
   "Cendorq / Loading",
 ]) {
-  if (combined.includes(phrase)) failures.push(`Feedback homepage shell contains forbidden phrase: ${phrase}`);
+  if (combined.includes(phrase)) failures.push(`AI visibility homepage shell contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
@@ -95,4 +103,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell matches the feedback pass: whiter, wider, simpler, action-first, compact footer, and protected app paths.");
+console.log("Homepage replacement validation passed. Public shell is whiter, wider, action-first, and accurately references bounded AI/search visibility without overpromising.");
