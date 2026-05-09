@@ -124,7 +124,7 @@ export default function HomePage() {
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq homepage replacement. Apple-level trust and authority. Google-level simplicity. ChatGPT-level immediate action. AI search visibility. AI answers. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. CTA above the fold. Wider shell. Whiter body. No hero badge. Better signal labels. No guaranteed AI placement.
+        Cendorq homepage replacement. Apple-level trust and authority. Google-level simplicity. ChatGPT-level immediate action. AI search visibility. AI answers. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. CTA above the fold. Wider shell. Whiter body. No hero badge. Better signal labels. No AI placement promises.
       </section>
     </main>
   );
