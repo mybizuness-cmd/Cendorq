@@ -43,6 +43,10 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-cendorq-agent-intelligence-playbooks.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
+  "src/scripts/validate-billing-checkout-contracts.mjs",
+  "src/scripts/validate-dashboard-action-inbox.mjs",
+  "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
+  "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-front-to-back-conversion-standard.mjs",
   "src/scripts/validate-customer-platform-routes.mjs",
@@ -118,4 +122,4 @@ for (const validatorPath of validators) {
 }
 
 console.log(`\nvalidate:routes chain passed baseline route existence, command design standard coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
-console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
+console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, and report truth standards.`);
