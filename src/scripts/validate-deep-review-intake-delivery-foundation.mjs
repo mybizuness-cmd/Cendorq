@@ -22,14 +22,17 @@ expect(foundationPath, [
 
 expect(foundationPath, [
   "deep-review",
-  "Deep Review / Full Scan",
-  "deep-review-report",
-  "expanded diagnostic questionnaire",
-  "full diagnostic report",
+  "AI Readiness Review",
+  "ai-readiness-review-report",
+  "expanded AI Readiness Review questionnaire",
+  "AI Readiness Review report",
   "priority blocker map",
   "confidence-labeled findings",
   "limitations and assumptions section",
   "plan-fit next actions",
+  "dashboard message mirror",
+  "vault-first released report state",
+  "safe PDF delivery state when gates pass",
 ]);
 
 expect(foundationPath, [
@@ -38,9 +41,14 @@ expect(foundationPath, [
   "completed paid intake",
   "research review",
   "release approval",
+  "dashboardMessageMirrorRequired: true",
+  "vaultFirstDeliveryRequired: true",
+  "safePdfDeliveryGated: true",
   "must not request passwords, tokens, private keys, payment details, raw security payloads, or unrestricted private evidence",
   "must not be presented as final before research review and release approval",
-  "must not leak through Free Scan, Build Fix, or Ongoing Control without entitlement",
+  "must not leak through Free Scan, Signal Repair, or Readiness Control without entitlement",
+  "email delivery must mirror into the dashboard",
+  "PDF delivery must stay vault-first and gated by verification, entitlement, release approval, no-leak checks, and document safety",
 ]);
 
 expect(foundationPath, [
@@ -79,6 +87,10 @@ expect(planValidatorPath, [
 ]);
 
 forbidden(foundationPath, [
+  "Deep Review / Full Scan",
+  "full diagnostic report",
+  "Build Fix",
+  "Ongoing Control",
   "unpaidDeliverableLeaked: true",
   "freeScanSubstitute: true",
   "pendingReportPresentedAsFinal: true",
@@ -107,12 +119,12 @@ forbidden(foundationPath, [
 ]);
 
 if (failures.length) {
-  console.error("Deep Review intake delivery foundation validation failed:");
+  console.error("AI Readiness Review intake delivery foundation validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Deep Review intake delivery foundation validation passed.");
+console.log("AI Readiness Review intake delivery foundation validation passed with vault-first delivery, dashboard message mirror, safe PDF gates, entitlement, verification, release approval, and no-leak coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
