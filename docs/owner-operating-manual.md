@@ -4,13 +4,13 @@ This manual defines how Cendorq should be operated from first customer touch thr
 
 ## Highest-level objective
 
-Cendorq should win by being more accurate, more useful, more trusted, more tailored, and more operationally disciplined than generic competitors from the first interaction.
+Cendorq should win by being more accurate, more useful, more trusted, more tailored, more current, and more operationally disciplined than generic competitors from the first interaction.
 
-The standard is not to promise impossible certainty. The standard is to build the strongest practical evidence system: customer context, safe external evidence, internal records, confidence labels, contradictions, limitations, next actions, and release-captain review.
+The standard is not to promise impossible certainty. The standard is to build the strongest practical evidence system: customer context, safe external evidence, internal records, confidence labels, contradictions, limitations, next actions, selective forecast refresh triggers, competitive movement review, and release-captain review.
 
 ## Non-negotiable truth rule
 
-Cendorq must never claim guaranteed accuracy, guaranteed revenue, guaranteed ROI, guaranteed rankings, guaranteed security, impossible-to-hack status, liability-free status, or a guaranteed fix.
+Cendorq must never claim guaranteed accuracy, guaranteed revenue, guaranteed ROI, guaranteed rankings, guaranteed security, impossible-to-hack status, liability-free status, or a guaranteed repair.
 
 Cendorq can and should claim a stronger operating posture:
 
@@ -20,7 +20,8 @@ Cendorq can and should claim a stronger operating posture:
 - contradictions surfaced instead of hidden
 - customer context separated from verified facts
 - assumptions separated from inferences
-- plan advice tied to actual stage, blockers, evidence, and readiness
+- forecast direction separated from fact
+- plan advice tied to actual stage, blockers, evidence, movement risk, and readiness
 - every customer-facing output reviewed through the truth and safety rules
 
 ## Competitive edge from the opening
@@ -29,14 +30,79 @@ The first touch must immediately feel different from a normal agency, consultant
 
 The opening experience should show:
 
-1. Cendorq diagnoses before selling.
+1. Cendorq reviews before selling.
 2. Cendorq does not use fake urgency.
 3. Cendorq does not ask for private secrets or unnecessary raw data.
-4. Cendorq separates what is known, unknown, likely, and risky.
+4. Cendorq separates what is known, unknown, likely, forecastable, and risky.
 5. Cendorq gives one safe next action instead of generic advice.
 6. Cendorq routes the customer into dashboard, notifications, report vault, billing, and support without dead ends.
 
 The Free Scan is the opening wedge. It should make the customer feel that Cendorq is already thinking like an operator, not a template generator.
+
+## Selective recurring readiness moat
+
+Cendorq should not be positioned as a one-time audit, but recurring value must be placed carefully. Do not make every page, block, email, or CTA scream monthly control.
+
+Recurring value belongs strongest in:
+
+- AI Readiness Review report conclusions when movement risk is visible
+- Signal Repair post-repair watchlists
+- Readiness Control reports
+- dashboard readiness history
+- report vault baseline comparisons
+- forecast refresh notes when evidence supports a forecast
+
+Recurring value may appear lightly in:
+
+- homepage trust hints
+- Plans comparison
+- Free Scan next-step guidance
+- confirmation and lifecycle emails
+- footer or policy-safe support copy
+
+The recurring reason must be true: search, AI answers, customer expectations, public proof, competitors, social platforms, local visibility, review signals, conversion paths, and category norms can move. But the system should only emphasize that when the evidence or product stage makes it useful.
+
+Customers should return because Cendorq can answer calmly:
+
+1. What changed since the last report?
+2. What got stronger?
+3. What got weaker?
+4. What became newly risky?
+5. What did competitors improve?
+6. What customer questions or objections appear to be shifting?
+7. What should be monitored next?
+8. What is safe to repair now?
+9. What should not be touched yet?
+
+The value is not generic monthly reporting. The value is continuity, movement detection, compounding context, forecast refresh where justified, and safer decision-making.
+
+## Forecast operating model
+
+Forecasts may appear in reports when they are grounded in evidence and clearly labeled as directional decision aids.
+
+A forecast section must include:
+
+- evidence inputs
+- assumptions
+- confidence level
+- time horizon
+- what would change the forecast
+- what is unknown
+- the safest next action
+- refresh timing or trigger
+
+Forecasts may cover:
+
+- AI/search movement risk
+- competitor movement
+- customer decision drift
+- review or proof freshness
+- platform visibility changes
+- conversion path risk
+- category demand movement
+- recurring monitoring value
+
+Forecasts must not claim guaranteed rankings, guaranteed placement, exact traffic, exact revenue, exact future demand, or certainty over platform behavior.
 
 ## Verify-to-view email confirmation and report access
 
@@ -58,20 +124,14 @@ Subject strategy should stay stage-aware and calm:
 - Dashboard access: Confirm your email and enter your Cendorq command center
 - Paid plan access: Confirm your email to continue your Cendorq plan
 
-The confirmation click should do several jobs at once:
-
-1. Confirm the signup email server-side.
-2. Consume the verification token once.
-3. Create a real customer interaction with Cendorq Support <support@cendorq.com>, which can help future Cendorq messages be easier to find without promising provider-level placement.
-4. Route the customer to the exact protected destination they earned: dashboard, dashboard/report vault, dashboard notifications, billing, support, or the relevant plan workspace.
-5. Preserve the customer command center as the main place to view current report state, next actions, plan scope, and support or billing handoffs.
+The confirmation click should confirm the signup email server-side, consume the verification token once, create a real customer interaction with Cendorq Support, route the customer to the exact protected destination they earned, and preserve the customer command center as the main place to view current report state, next actions, plan scope, and support or billing handoffs.
 
 Report display strategy:
 
 - The dashboard is the control room and summary surface.
 - The dashboard/report vault is the canonical protected display location for report state and released reports.
 - Free Scan results should unlock inside the dashboard/report vault after email verification and safe release state.
-- Full reports should have dedicated report-vault views for readability, evidence separation, visual sections, downloadable assets when allowed, and next-step conversion guidance.
+- Full reports should have dedicated report-vault views for readability, evidence separation, visual sections, selective forecast sections when qualified, downloadable assets when allowed, and next-step conversion guidance.
 - Email remains the delivery and return channel; dashboard inbox items supplement email orchestration and never replace lifecycle or follow-up emails to the signup address.
 
 Safety and deliverability rules:
@@ -100,6 +160,7 @@ Every report should be assembled from layers of evidence.
 2. Safe external evidence
    - public website observations
    - public search visibility signals
+   - AI/search source and link visibility signals where observable
    - public social/platform activity where safe and relevant
    - public review or reputation signals where safe and relevant
    - public competitor/category context where safe and relevant
@@ -119,8 +180,11 @@ Every report should be assembled from layers of evidence.
    - conversion blockers
    - platform inconsistencies
    - trust gaps
+   - competitor movement
+   - customer decision drift
    - plan fit
    - urgency level
+   - forecastable risk
    - next action priority
 
 5. Confidence and limits
@@ -141,10 +205,12 @@ Every substantial report should keep these sections distinct:
 - conflicts or contradictions
 - limitations
 - confidence
+- forecast direction
 - recommendations
 - next actions
+- refresh triggers
 
-No report should blur a customer claim into a verified fact.
+No report should blur a customer claim into a verified fact. No report should blur a forecast into a guaranteed outcome.
 
 ## Strongest practical report workflow
 
@@ -165,28 +231,29 @@ No report should blur a customer claim into a verified fact.
    - avoid smoothing over inconsistencies
 
 4. Report truth pass
-   - separate facts, assumptions, inferences, limitations, and confidence
+   - separate facts, assumptions, inferences, limitations, forecast direction, and confidence
    - remove unsupported claims
    - remove impossible certainty
    - remove guaranteed outcomes
 
 5. Plan-fit pass
    - match recommendation to actual stage
-   - Free Scan should diagnose and route
-   - Deep Review should deeply explain and prioritize
-   - Build Fix should fix defined blockers
-   - Ongoing Control should monitor, improve, and adapt over time
+   - Free Scan should review and route
+   - AI Readiness Review should deeply explain and prioritize
+   - Signal Repair should repair defined blockers
+   - Readiness Control should monitor, forecast, improve, and adapt over time
 
 6. Conversion pass
    - show clear value without pressure
-   - show what is blocked, what can be improved, and why the next plan fits
+   - show what is blocked, what can be improved, what may move next, and why the next plan fits
    - avoid fake urgency and inflated promises
-   - use proof, stage fit, and customer readiness
+   - use proof, stage fit, movement risk, and customer readiness
 
 7. Release-captain pass
    - final validation before customer-facing report release
    - confirm no raw/private/internal data leaked
    - confirm confidence and limitations are visible
+   - confirm forecast sections are labeled, bounded, and only present when justified
    - confirm next actions are specific and safe
 
 ## Tailored plan operating model
@@ -204,14 +271,15 @@ Must not:
 - pretend to be a complete audit
 - claim final truth from thin input
 - create false urgency
+- push recurring control from weak evidence
 
-### Deep Review
+### AI Readiness Review
 
 Purpose:
-- produce a thorough diagnostic report
+- produce a thorough evidence-backed review
 - gather stronger evidence
 - identify real root causes
-- prioritize fixes by impact, confidence, and feasibility
+- prioritize repairs by impact, confidence, feasibility, and movement risk
 
 Must include:
 - evidence map
@@ -220,32 +288,38 @@ Must include:
 - limitations
 - next action sequence
 - plan fit explanation
+- forecastable movement risks only when evidence supports them
 
-### Build Fix
+### Signal Repair
 
 Purpose:
-- fix defined blockers from diagnosis
+- repair defined blockers from review
 - improve customer-facing trust, conversion, clarity, and operational flow
 
 Must include:
-- scoped fixes
-- evidence-backed reason for each fix
+- scoped repairs
+- evidence-backed reason for each repair
 - before/after posture
+- post-repair watchlist when there is a real baseline to protect
 - safety and rollback awareness
 
-### Ongoing Control
+### Readiness Control
 
 Purpose:
 - monitor changes
 - adapt recommendations
 - track evidence over time
+- refresh forecasts when justified
 - catch drift before it hurts the business
 
 Must include:
 - recurring evidence review
 - market/category context
+- competitor movement when visible
+- AI/search and platform movement when relevant
 - progress and blocker tracking
 - safe improvement recommendations
+- next-month priorities
 
 ## Market-learning loop
 
@@ -257,14 +331,18 @@ The learning loop should identify:
 - which categories have similar trust gaps
 - what proof signals are becoming more important
 - what social/platform signals correlate with stronger conversion posture
-- where competitors are weak
+- what AI/search visibility changes are becoming material
+- where competitors are weak or strengthening
 - which report modules create the most useful customer action
 - which plan transitions are most natural and ethical
+- which forecast triggers are most useful and safe
 
 Rules:
 
 - learning must be privacy-safe
 - customer-specific truth must not be generalized as universal truth
+- forecasts must stay directional and confidence-labeled
+- recurring-value language must be strongest only where it belongs
 - patterns must be reviewed, versioned, and tested before changing customer-facing behavior
 - agents may scout and compare, but release captain remains final validator
 
@@ -277,14 +355,14 @@ Controlled continuous evolution means automated systems may detect, propose, tes
 Owner posture:
 
 - Prefer small coherent batches over large mixed changes.
-- Keep dependency, security, framework, accessibility, performance, conversion copy, legal language, report-truthfulness, support lifecycle, billing, and operator-safety updates traceable.
+- Keep dependency, security, framework, accessibility, performance, conversion copy, legal language, report-truthfulness, forecast logic, support lifecycle, billing, and operator-safety updates traceable.
 - Treat Vercel, `validate:routes`, route-chain integrity, validation registry, docs index, operator runbook, and most-pristine coverage as the minimum operating rails.
 - Do not skip gates to move faster.
 - Do not disable validators to make an update pass.
 - Do not hide failures or silently weaken safeguards.
 - Do not allow automated update systems to approve customer-facing claims, billing behavior, security readiness, report release, public launch, or paid launch.
 
-Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, and operator safety. Any update that lowers those standards must be held, redesigned, or rejected.
+Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, forecast usefulness, selective recurring value, and operator safety. Any update that lowers those standards must be held, redesigned, or rejected.
 
 ## Controlled maintenance
 
@@ -292,7 +370,7 @@ Controlled maintenance is the operating discipline that keeps Cendorq current wi
 
 Owner posture:
 
-- Maintenance may discover, classify, and queue dependency, security, smoke, performance, schema, route, content, and claim updates.
+- Maintenance may discover, classify, and queue dependency, security, smoke, performance, schema, route, content, claim, forecast, and report-cadence updates.
 - No queued update may mutate production automatically.
 - Every material maintenance release still requires validation, approval state, rollback planning, and an audit reason.
 - Maintenance output must never expose raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys.
@@ -307,18 +385,20 @@ Cendorq should convert because the customer feels understood, not pressured.
 
 The strongest conversion posture is:
 
-- diagnose before selling
+- review before selling
 - show the real blocker
 - show why the blocker matters
+- show what changed or may change
 - show what can be done next
 - show which plan fits that stage
+- show when to return only when the evidence gives a real reason
 - make the next step easy
 - keep support available
 - keep billing separate and safe
 - never collect payment information through support copy
 - never imply a guaranteed result
 
-Conversion copy should be direct, premium, calm, and confident. It should not be desperate, exaggerated, or fear-based.
+Conversion copy should be direct, premium, calm, and confident. It should not be desperate, exaggerated, repetitive, or fear-based.
 
 ## Owner command and release captain model
 
@@ -370,8 +450,10 @@ After public launch, owner should review:
 - billing friction
 - customer drop-off points
 - evidence conflicts
+- forecast accuracy and forecast usefulness
 - market trend findings
 - recurring blockers across categories
+- competitor movement patterns
 - plan conversion patterns
 - customer objections
 
@@ -381,7 +463,7 @@ This update records the current customer operations architecture now built into 
 
 ### Customer journey and verification
 
-The customer journey is: Free Scan or plan entry, check-your-inbox gate, email confirmation, protected dashboard, report vault, inbox messages, support, billing, and plan-specific delivery. The verify-to-view flow must keep protected results out of public or unverified surfaces. Free Scan and Deep Review report access should route to `/dashboard/reports` after safe verification and release state.
+The customer journey is: Free Scan or plan entry, check-your-inbox gate, email confirmation, protected dashboard, report vault, inbox messages, support, billing, and plan-specific delivery. The verify-to-view flow must keep protected results out of public or unverified surfaces. Free Scan and AI Readiness Review report access should route to `/dashboard/reports` after safe verification and release state.
 
 The sender identity remains Cendorq Support <support@cendorq.com>. The customer can be told to check spam or promotions once and save the sender, but copy must not claim provider-level placement or delivery control.
 
@@ -405,9 +487,9 @@ Inbox messages must use one safe primary CTA, clear category, suppression rules,
 
 ### Report vault and protected reports
 
-The report vault is the canonical protected location for report state, released reports, limitations, confidence labels, and next actions. Pending, draft, unavailable, correction-requested, or unapproved work must not be presented as final truth.
+The report vault is the canonical protected location for report state, released reports, limitations, confidence labels, selective forecast sections, freshness state, and next actions. Pending, draft, unavailable, correction-requested, or unapproved work must not be presented as final truth.
 
-Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or Deep Review. They should separate verified facts, observations, assumptions, inferences, limitations, recommendations, next actions, and plan-fit explanation. Deep Review is the paid full diagnostic path and requires active entitlement, verified email, paid intake, research review, and release approval.
+Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or AI Readiness Review. They should separate verified facts, observations, assumptions, inferences, limitations, recommendations, next actions, and plan-fit explanation. AI Readiness Review is the paid evidence-backed review path and requires active entitlement, verified email, paid intake, research review, and release approval.
 
 ### Plan orchestration and skipped prior-plan handling
 
@@ -415,17 +497,17 @@ Customers may buy plans non-linearly. Cendorq should educate without blocking pu
 
 Rules:
 
-- Buying Build Fix directly does not include a standalone Deep Review report unless that entitlement exists.
-- Buying Ongoing Control directly does not include Build Fix implementation or a standalone Deep Review report unless those entitlements exist.
+- Buying Signal Repair directly does not include a standalone AI Readiness Review report unless that entitlement exists.
+- Buying Readiness Control directly does not include Signal Repair implementation or a standalone AI Readiness Review report unless those entitlements exist.
 - Internal orientation analysis may support purchased work, but unpaid standalone deliverables must not become customer-facing artifacts.
 - A later purchase after prior delivery creates a new entitlement, not an automatic unlimited redo.
 - Rework, addenda, corrections, credits, discounts, or scope changes require release-captain review and the correct approval path.
 
 ### Plan delivery boundaries
 
-Free Scan is a protected first-read report. Deep Review is the paid full diagnostic report. Build Fix is scoped implementation with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation. Ongoing Control is recurring monthly status, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.
+Free Scan is a protected first-read report. AI Readiness Review is the paid evidence-backed review report. Signal Repair is scoped implementation with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation. Readiness Control is recurring monthly status, forecast refresh when justified, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.
 
-Ongoing Control may recommend Build Fix when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.
+Readiness Control may recommend Signal Repair when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.
 
 ### Support, billing, and report boundaries
 
@@ -461,19 +543,22 @@ Customer-facing language should be truthful, evidence-led, premium, calm, and sp
 12. Provider payment mapping and webhook entitlement verification
 13. Production smoke execution against configured production target
 14. Live audit history for support, reports, billing, launch, and operator actions
+15. Forecast module rendering and forecast refresh history
+16. Recurring readiness baseline comparison
 
 ### Next product layers
 
 1. Free Scan result experience
-2. Deep Review report experience
-3. Build Fix scope and delivery experience
-4. Ongoing Control monthly report experience
-5. Dashboard insight conversation
-6. Notification lifecycle
-7. Report vault release flow
-8. Billing upgrade flow
-9. Support escalation and correction flow
-10. Owner command-center review workflow
+2. AI Readiness Review report experience
+3. Signal Repair scope and delivery experience
+4. Readiness Control monthly report experience
+5. Forecast and movement dashboard
+6. Dashboard insight conversation
+7. Notification lifecycle
+8. Report vault release flow
+9. Billing upgrade flow
+10. Support escalation and correction flow
+11. Owner command-center review workflow
 
 ### Next intelligence layers
 
@@ -487,6 +572,8 @@ Customer-facing language should be truthful, evidence-led, premium, calm, and sp
 8. Monthly drift detection
 9. Customer journey prediction
 10. Plan-fit recommendation audit
+11. AI/search movement tracking
+12. Forecast confidence calibration
 
 ## Highest-level operating cadence
 
@@ -503,6 +590,7 @@ Weekly after launch:
 - review report quality
 - review conversion blockers
 - review evidence conflicts
+- review forecast usefulness
 - review support patterns
 - review market changes
 - update playbooks and validators
@@ -515,9 +603,10 @@ Monthly after launch:
 - review audit readiness
 - review privacy posture
 - review support and billing friction
+- review recurring-value strength
 
 ## Final operating principle
 
-Cendorq should not win by promising the impossible. It should win by being more disciplined, more evidence-backed, more tailored, more useful, more honest, and more operationally complete than competitors.
+Cendorq should not win by promising the impossible. It should win by being more disciplined, more evidence-backed, more current, more tailored, more useful, more honest, and more operationally complete than competitors.
 
-The customer should feel from the first screen that Cendorq is not selling a generic service. It is running a controlled business diagnostic and improvement system with proof, judgment, and safe execution.
+The customer should feel from the first screen that Cendorq is not selling a generic service. It is running a controlled business readiness and improvement system with proof, judgment, continuity, forecast awareness, and safe execution.
