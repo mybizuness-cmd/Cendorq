@@ -31,6 +31,8 @@ expect(runtimePath, [
   "valueExceedsPriceReviewed",
   "planBoundaryProtected",
   "conversionMethodApproved",
+  "dashboardMessageMirrorReviewed",
+  "safeDocumentDeliveryReviewed",
   "customerFacingDeliveryAllowed",
   "upgradeOrRetentionAllowed",
   "educationalCustomerExplanation",
@@ -46,10 +48,14 @@ expect(runtimePath, [
   "valueAbovePriceReviewMissing",
   "planBoundaryProtectionMissing",
   "conversionMethodReviewMissing",
+  "dashboardMessageMirrorReviewMissing",
+  "safeDocumentDeliveryReviewMissing",
   "Review educational explanation so the customer understands what the finding means and why it matters.",
   "Verify the plan deliverable provides practical value above the price paid without overstating results.",
   "Confirm the plan gives full promised value without giving away higher-tier revenue streams.",
   "Approve the business-appropriate conversion method before customer-facing follow-up.",
+  "Confirm every important customer message mirrors into the dashboard with the same safe next action.",
+  "Confirm report or billing PDF delivery stays vault-first, gated, and not a separate source of truth.",
 ]);
 
 expect(runtimePath, [
@@ -58,7 +64,12 @@ expect(runtimePath, [
   "in-progress",
   "blocked",
   "complete",
-  "Deliver through dashboard, report vault, email, notification, and support handoff with plan-appropriate next step.",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "dashboard message mirror artifact",
+  "safe document delivery artifact",
+  "Deliver through dashboard, report vault, mirrored dashboard message, email, safe document path when gates pass, and support handoff with plan-appropriate next step.",
   "Fulfillment explanation redacted to preserve safe projection.",
 ]);
 
@@ -68,10 +79,9 @@ expect(matrixPath, [
   "educationalReportStandard",
   "planBoundaryRules",
   "conversionStandards",
-  "valuePromise",
-  "educationDepth",
-  "planBoundary",
-  "conversionMethod",
+  "category-defining experience",
+  "dashboard message mirror",
+  "safe PDF or billing document delivery when gates pass",
 ]);
 
 expect(planValidatorPath, [
@@ -104,6 +114,10 @@ forbidden(runtimePath, [
   "rawEvidence=",
   "operatorIdentity=",
   "internalNote=",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "Deliver through dashboard, report vault, email, notification",
   "localStorage.setItem",
   "sessionStorage.setItem",
 ]);
@@ -114,7 +128,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Complete plan fulfillment runtime validation passed.");
+console.log("Complete plan fulfillment runtime validation passed with current plan names, dashboard message mirror review, safe document delivery review, vault-first PDF posture, and release-captain delivery gates.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
