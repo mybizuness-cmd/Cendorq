@@ -34,9 +34,12 @@ validateTextFile(policyPath, [
 validateTextFile(growthPolicyPath, [
   "REPORT_GROWTH_SYSTEM_RULES",
   "PLAN_REPORT_DEPTH_RULES",
+  "REPORT_FORECAST_SECTION_RULES",
+  "RECURRING_REPORT_VALUE_RULES",
   "PLATFORM_REVENUE_SIGNAL_RULES",
   "getReportGrowthSystemPolicy",
   "Truthful high-conversion reporting",
+  "Recurring value without fake lock-in",
   "Every report section must explain what the section measures",
   "Every report must look official and Cendorq-branded",
   "analyzed business logo above or beside the business name",
@@ -44,10 +47,19 @@ validateTextFile(growthPolicyPath, [
   "serious evidence-backed review process",
   "Business outcomes, rankings, traffic, leads, conversions, revenue, platform behavior, or perfect accuracy",
   "AI Readiness Review must be thorough and extensive",
-  "website, profiles, reviews, social and platform activity",
-  "recommended Signal Repair path",
-  "Signal Repair reporting must translate review into action",
-  "recommended Readiness Control path",
+  "forecastable movement risks",
+  "post-repair watchlist",
+  "AI/search and platform changes",
+  "competitive movement",
+  "forecast refresh",
+  "AI/search movement forecast",
+  "Competitive movement forecast",
+  "Customer decision forecast",
+  "Freshness-based return reason",
+  "Compounding value record",
+  "Forecast-refresh return reason",
+  "directional decision aids, not guarantees",
+  "The customer returns because Cendorq gives a rational monitoring cadence tied to business risk and external movement, not a generic subscription pitch.",
   "Every business study must consider social media and other platform activity",
   "major revenue source",
   "marketplaces, directories, booking platforms, delivery apps, creator platforms, review platforms, communities, app stores, or industry-specific platforms",
@@ -81,7 +93,7 @@ validateForbidden(growthPolicyPath, [
   "guaranteing traffic",
   "guaranteing leads",
   "guaranteing conversions",
-  "guaranteing revenue",
+  "guaranteeing revenue",
   "promising legal immunity",
   "lying allowed",
   "full-diagnosis",
@@ -95,6 +107,11 @@ validateForbidden(growthPolicyPath, [
   "Ongoing Control",
   "diagnosis",
   "bread and butter",
+  "forecast as fact allowed",
+  "generic monthly pitch allowed",
+  "fake lock-in",
+  "guaranteed ranking forecast",
+  "AI placement promise",
 ]);
 
 if (failures.length) {
@@ -103,7 +120,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
+console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, forecast and recurring-value sections, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
