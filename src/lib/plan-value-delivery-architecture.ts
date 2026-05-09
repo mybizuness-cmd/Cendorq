@@ -19,7 +19,7 @@ export const PLAN_VALUE_DELIVERY_ARCHITECTURE = [
     key: "free-scan",
     customerName: "Free Scan",
     price: "$0",
-    primaryValue: "Reveal the first visible AI-readiness signal without pretending to be a full diagnosis.",
+    primaryValue: "Reveal the first visible AI-readiness signal without pretending to be a full review.",
     customerOutcome: "The customer sees where public clarity, proof, trust, or action may be weak before spending on deeper work.",
     includes: [
       "Protected dashboard Free Scan result",
@@ -29,13 +29,13 @@ export const PLAN_VALUE_DELIVERY_ARCHITECTURE = [
       "Best next move guidance",
     ],
     doesNotInclude: [
-      "Full root-cause diagnosis",
+      "Full root-cause review",
       "Implementation work",
       "Monthly monitoring",
       "Private-data investigation",
       "Guaranteed ranking, AI placement, leads, or revenue",
     ],
-    reportBoundary: "Directional first-read result only. It can identify the first visible risk but must not present itself as final diagnosis.",
+    reportBoundary: "Directional first-read result only. It can identify the first visible risk but must not present itself as final review.",
     upgradeLogic: "Upgrade to AI Readiness Review when the first signal matters enough that guessing would be more expensive than evidence-backed review.",
     bestWhen: "The customer needs a safe first read before spending money.",
     avoidWhen: "The customer already knows the exact repair and needs implementation only.",
@@ -110,7 +110,7 @@ export const PLAN_VALUE_DELIVERY_ARCHITECTURE = [
       "Guaranteed ranking or AI answer placement",
       "Guaranteed leads or revenue",
     ],
-    reportBoundary: "Recurring control and monitoring. It should not be confused with unlimited implementation or repeated full diagnostic reports.",
+    reportBoundary: "Recurring control and monitoring. It should not be confused with unlimited implementation or repeated full review reports.",
     upgradeLogic: "Use Signal Repair when monitoring identifies a concrete improvement that needs implementation.",
     bestWhen: "The business needs ongoing readiness attention after the first issue is understood or stabilized.",
     avoidWhen: "The customer only needs one first read or one specific repair.",
@@ -119,7 +119,7 @@ export const PLAN_VALUE_DELIVERY_ARCHITECTURE = [
 
 export const PLAN_VALUE_SEPARATION_RULES = [
   "Free Scan identifies a first visible signal; AI Readiness Review proves the reason; Signal Repair implements a scoped improvement; Readiness Control monitors and guides monthly decisions.",
-  "Never sell Free Scan as a full diagnosis.",
+  "Never sell Free Scan as a full review.",
   "Never sell AI Readiness Review as done-for-you implementation.",
   "Never sell Signal Repair as unlimited implementation or recurring monitoring.",
   "Never sell Readiness Control as unlimited repair work or guaranteed ranking, AI placement, leads, or revenue.",
