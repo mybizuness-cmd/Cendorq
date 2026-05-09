@@ -230,6 +230,25 @@ Report display strategy:
 - Full reports should have dedicated report-vault views for readability, evidence separation, visual sections, selective forecast sections when qualified, downloadable assets when allowed, and next-step conversion guidance.
 - Email remains the delivery and return channel; dashboard inbox items supplement email orchestration and never replace lifecycle or follow-up emails to the signup address.
 
+Deliverability and access strategy:
+
+- Cendorq should configure and monitor SPF, DKIM, and DMARC before live transactional sending.
+- Customer-facing emails should use a consistent recognizable sender, useful transactional content, low-link-density structure, mobile-readable layout, and dashboard/billing/report-vault return paths.
+- No customer-facing copy may promise guaranteed inbox placement, guaranteed deliverability, or provider-level control.
+- If an email is missed, filtered, suppressed, or routed poorly by an inbox provider, the same safe message, document status, and next action must still be accessible after verified login in the dashboard.
+- Every important customer email should create or update a matching dashboard message record with subject, safe summary, category, sent state when known, related plan, related report or billing document, primary CTA, secondary safe path, and support route.
+- Dashboard message mirrors must never expose raw provider payloads, raw report evidence, raw billing data, private prompts, exact scoring weights, secrets, tokens, internal notes, operator identities, or cross-customer data.
+
+Safe PDF and document delivery:
+
+- Report PDFs and billing PDFs may be attached or made downloadable when they help the customer preserve a released report, invoice, receipt, or payment confirmation.
+- PDFs must never be the only access path. The dashboard report vault or billing center remains the canonical source of truth.
+- Report PDFs require verified email, customer ownership, entitlement or permitted Free Scan access, release-captain approval, no-leak checks, and document-safety checks.
+- Billing PDFs require provider-authoritative invoice, receipt, or payment-confirmation records, verified ownership, and safe billing projection checks.
+- PDF files should be static documents with safe filenames, Cendorq branding, document type, date, and non-sensitive customer or business reference.
+- PDF delivery must not include executable content, macros, embedded scripts, hidden unsafe payloads, raw provider payloads, raw report evidence, private prompts, exact scoring weights, secrets, tokens, or cross-customer data.
+- If PDF attachment safety, provider state, release state, or verification is uncertain, send the dashboard/report-vault/billing-center path first and attach or enable download only after the gate passes.
+
 Safety and deliverability rules:
 
 - Do not claim guaranteed inbox placement, guaranteed deliverability, or provider-level control.
@@ -237,6 +256,7 @@ Safety and deliverability rules:
 - Expired or failed verification must use a safe resend path without account-existence leakage.
 - Redirect only to allowlisted customer destinations.
 - Do not show protected report findings before verification and safe release state.
+- Do not make email, PDF attachment, dashboard message, or billing portal the only customer access path when the customer needs a released report or billing document.
 
 ## Report accuracy operating model
 
@@ -579,6 +599,8 @@ Operational rules:
 
 The dashboard remains the command center. The dashboard inbox is for customer-owned command-center messages, plan nudges, report readiness, support status, billing reminders, security steps, and recovery paths. It supplements external email orchestration and must not replace transactional confirmation or lifecycle email.
 
+Every important customer email must create or update a mirrored dashboard message so the customer can see the same safe communication after verified login. Mirrored messages must carry the safe summary, category, sent or document state when known, related plan, related report or billing document, primary action, secondary safe path, and support route.
+
 Inbox messages must use one safe primary CTA, clear category, suppression rules, and customer-owned projections. Billing messages route to billing center. Support messages route to support center or support status. Security messages avoid sensitive operational details and ask for safe re-verification only through approved routes.
 
 ### Report vault and protected reports
@@ -586,6 +608,14 @@ Inbox messages must use one safe primary CTA, clear category, suppression rules,
 The report vault is the canonical protected location for report state, released reports, limitations, confidence labels, selective forecast sections, freshness state, and next actions. Pending, draft, unavailable, correction-requested, or unapproved work must not be presented as final truth.
 
 Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or AI Readiness Review. They should separate verified facts, observations, assumptions, inferences, limitations, recommendations, next actions, and plan-fit explanation. AI Readiness Review is the paid evidence-backed review path and requires active entitlement, verified email, paid intake, research review, and release approval.
+
+PDF report delivery must match report-vault state. A report PDF or downloadable report should not exist as a separate source of truth. It should mirror the released report structure, Cendorq branding, confidence labels, evidence boundaries, limitations, next action, and correction/support path.
+
+### Billing documents and safe PDF delivery
+
+Billing documents should be delivered through verified provider state, the billing center, mirrored dashboard messages, and email when safe. Receipt, invoice, and payment-confirmation PDFs may be attached or made downloadable only when customer ownership, provider authority, safe projection, and document-safety gates pass.
+
+PDF delivery is allowed when it helps the customer preserve a released report or billing document. It must not be the only access path. If an attachment is not safe or not ready, Cendorq should route the customer to the verified report vault or billing center first and attach or enable download only when the gate passes.
 
 ### Plan orchestration and skipped prior-plan handling
 
