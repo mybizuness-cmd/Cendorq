@@ -14,8 +14,8 @@ import { DashboardBusinessCommandCenter } from "./dashboard-business-command-cen
 import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
 
 export const metadata = buildMetadata({
-  title: "Market command center | Cendorq",
-  description: "Your private Cendorq command center for market signals, report status, billing, support, notifications, and guided next action.",
+  title: "Readiness workspace | Cendorq",
+  description: "Your private Cendorq workspace for AI-readiness signals, report status, billing, support, notifications, and guided next action.",
   path: "/dashboard",
   noIndex: true,
 });
@@ -30,10 +30,10 @@ const BUILD_FIX_PRICE = getCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL_PRICE = getCendorqPlanPrice("ongoing-control");
 
 const DASHBOARD_DECISION = [
-  { label: "Market state", value: "First signal ready", detail: "Start by proving where the market may not understand the business." },
-  { label: "Next action", value: "Open the signal", detail: "Read the protected result before buying deeper diagnosis, implementation, or monthly control." },
-  { label: "Unlocked now", value: "Scan layer", detail: "A first market signal with confidence, limitation, and next-action boundaries." },
-  { label: "Not unlocked yet", value: "Deeper command", detail: "Diagnose, Fix, and Control stay separate until the stage fits." },
+  { label: "Readiness state", value: "First signal ready", detail: "Start by seeing where AI engines or customers may not understand the business." },
+  { label: "Next action", value: "Open the signal", detail: "Read the protected result before buying deeper review, repair, or monthly control." },
+  { label: "Unlocked now", value: "Scan layer", detail: "A first AI-readiness signal with confidence, limitation, and next-action boundaries." },
+  { label: "Not unlocked yet", value: "Deeper work", detail: "Review, Repair, and Control stay separate until the stage fits." },
 ] as const;
 
 const CUSTOMER_COMMAND_PATH = [
@@ -41,28 +41,28 @@ const CUSTOMER_COMMAND_PATH = [
     planKey: "free-scan",
     command: "Scan",
     href: "/dashboard/reports/free-scan",
-    cta: "Open market signal",
+    cta: "Open readiness signal",
     price: FREE_SCAN_VALUE.price,
     value: FREE_SCAN_VALUE,
-    buyerMoment: "Find the first break in findability, clarity, trust, choice, or action.",
+    buyerMoment: "Find the first break in clarity, proof, trust, action, or AI-readiness.",
   },
   {
     planKey: "deep-review",
-    command: "Diagnose",
+    command: "Review",
     href: DEEP_REVIEW_PRICE.checkoutPath,
     cta: `Unlock ${DEEP_REVIEW_PRICE.price}`,
     price: DEEP_REVIEW_VALUE.price,
     value: DEEP_REVIEW_VALUE,
-    buyerMoment: "Expose why the business is not being found, understood, trusted, or chosen.",
+    buyerMoment: "Prove why the business may not be understood, trusted, or chosen.",
   },
   {
     planKey: "build-fix",
-    command: "Fix",
+    command: "Repair",
     href: BUILD_FIX_PRICE.checkoutPath,
     cta: `Unlock ${BUILD_FIX_PRICE.price}`,
     price: BUILD_FIX_VALUE.price,
     value: BUILD_FIX_VALUE,
-    buyerMoment: "Improve the weak page, proof, message, or action path.",
+    buyerMoment: "Repair the weak page, proof, message, or action path.",
   },
   {
     planKey: "ongoing-control",
@@ -71,7 +71,7 @@ const CUSTOMER_COMMAND_PATH = [
     cta: `Start ${ONGOING_CONTROL_PRICE.price}`,
     price: ONGOING_CONTROL_VALUE.price,
     value: ONGOING_CONTROL_VALUE,
-    buyerMoment: "Keep visibility, trust, and priority watched as AI search and competitors move.",
+    buyerMoment: "Keep readiness, trust, and priority watched as AI engines and competitors move.",
   },
 ] as const satisfies readonly {
   planKey: PlanValueKey;
@@ -84,8 +84,8 @@ const CUSTOMER_COMMAND_PATH = [
 }[];
 
 const COMMAND_LINKS = [
-  { title: "Market proof", copy: "See signals, approved reports, and proof boundaries.", href: "/dashboard/reports" },
-  { title: "Command depth", copy: "See active access, invoices, and upgrade path.", href: "/dashboard/billing" },
+  { title: "Readiness proof", copy: "See signals, approved reports, and proof boundaries.", href: "/dashboard/reports" },
+  { title: "Plan depth", copy: "See active access, invoices, and upgrade path.", href: "/dashboard/billing" },
   { title: "Signal feed", copy: "See what needs attention next.", href: "/dashboard/notifications" },
   { title: "Support routing", copy: "Resolve blockers without sending private details.", href: "/dashboard/support" },
 ] as const;
@@ -106,17 +106,17 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
-            Private market command center
+            Private readiness workspace
           </div>
           <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
-            Know what the market can find, trust, and choose next.
+            Know what AI engines and customers can trust next.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            This is not an account page. It is the operating surface for market understanding: open the signal, read the proof, and move deeper only when the command stage fits.
+            This is not an account page. It is the operating surface for AI-readiness: open the signal, read the proof, and move deeper only when the stage fits.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/reports/free-scan" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Open market signal
+              Open readiness signal
             </Link>
             <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
               Continue Free Scan
@@ -128,7 +128,7 @@ export default function CustomerDashboardPage() {
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Next best move</p>
           <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Open the first signal.</h2>
-          <p className="mt-5 text-base leading-8 text-slate-300">Then decide whether the business needs diagnosis, a targeted fix, or monthly control.</p>
+          <p className="mt-5 text-base leading-8 text-slate-300">Then decide whether the business needs review, a targeted repair, or monthly control.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {DASHBOARD_DECISION.slice(0, 2).map((item) => (
               <article key={item.label} className="rounded-[1.6rem] border border-white/10 bg-black/24 p-5">
@@ -153,13 +153,13 @@ export default function CustomerDashboardPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Dashboard command path">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Dashboard readiness path">
         <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Command path</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Scan. Diagnose. Fix. Control.</h2>
-              <p className="mt-5 text-base leading-8 text-slate-300">Every action in the dashboard should return the customer to the right command layer.</p>
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Readiness path</p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Scan. Review. Repair. Control.</h2>
+              <p className="mt-5 text-base leading-8 text-slate-300">Every action in the dashboard should return the customer to the right readiness layer.</p>
               <Link href="/plans" className="mt-7 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
                 Compare all plans →
               </Link>
@@ -199,7 +199,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
 
       <section className="sr-only" aria-label="Dashboard validation guardrails">
-        Market command center. Private market command center. Know what the market can find, trust, and choose next. Next best move. Open the first signal. Dashboard decision summary. Command path. Scan. Diagnose. Fix. Control. Dashboard command links. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Market proof. Command depth. Signal feed. Support routing. {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.command} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Readiness workspace. Private readiness workspace. Know what AI engines and customers can trust next. Next best move. Open the first signal. Dashboard decision summary. Readiness path. Scan. Review. Repair. Control. Dashboard command links. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Readiness proof. Plan depth. Signal feed. Support routing. {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.command} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
