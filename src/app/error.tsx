@@ -11,7 +11,7 @@ type GlobalErrorProps = {
 const READOUTS = [
   { label: "System state", value: "Route interruption" },
   { label: "Best posture", value: "Retry once" },
-  { label: "Fallback rule", value: "Return to the command path" },
+  { label: "Fallback rule", value: "Return to the readiness path" },
 ] as const;
 
 const RECOVERY_LINKS = [
@@ -25,14 +25,14 @@ const RECOVERY_LINKS = [
   {
     label: "Restart with first signal",
     title: "Start Free Scan",
-    copy: "Use the first signal layer when the safest next command is still unclear.",
+    copy: "Use the first signal layer when the safest next readiness move is still unclear.",
     href: "/free-check",
     cta: "Start Free Scan",
   },
   {
-    label: "Compare command depth",
+    label: "Compare readiness depth",
     title: "Review Plans",
-    copy: "Compare Scan, Diagnose, Fix, and Control without returning to legacy recovery routes.",
+    copy: "Compare Scan, Review, Repair, and Control without returning to legacy recovery routes.",
     href: "/plans",
     cta: "Review Plans",
   },
@@ -67,7 +67,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Retry once. If the route still fails, recover into the clean command path instead of guessing through unrelated pages.
+            Retry once. If the route still fails, recover into the clean readiness path instead of guessing through unrelated pages.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -120,6 +120,8 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           </div>
         </div>
       </section>
+
+      <span className="sr-only">Use homepage, Free Scan, or Plans after a route error.</span>
     </main>
   );
 }
