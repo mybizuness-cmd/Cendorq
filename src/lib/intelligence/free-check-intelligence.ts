@@ -129,13 +129,13 @@ function buildDecisionMoment(signals: SignalResult, scoring: ScoreResult, confid
     return "The business has enough signal for a strong next-step decision without forcing premature escalation.";
   }
   if (signals.routingHint === "blueprint-candidate") {
-    return "The strongest decision moment is whether the business should move into Deep Review before bigger fix pressure increases.";
+    return "The strongest decision moment is whether the business should move into AI Readiness Review before bigger repair pressure increases.";
   }
   if (signals.routingHint === "infrastructure-review") {
-    return "The business is showing Build Fix pressure, but the system should still protect diagnosis before heavier action.";
+    return "The business is showing Signal Repair pressure, but the system should still protect review before heavier action.";
   }
   if (signals.routingHint === "command-review") {
-    return "The business is showing possible Ongoing Control pressure, but the base should be stable before recurring work begins.";
+    return "The business is showing possible Readiness Control pressure, but the base should be stable before recurring work begins.";
   }
   return "The strongest decision moment is improving first-signal quality so the next recommendation can be trusted more confidently.";
 }
@@ -162,9 +162,9 @@ function buildExplanationTrace(
 
 function humanizeRoutingHint(value: SignalResult["routingHint"]) {
   if (value === "scan-only") return "Free Scan only";
-  if (value === "blueprint-candidate") return "Deep Review candidate";
-  if (value === "infrastructure-review") return "Build Fix review";
-  return "Ongoing Control review";
+  if (value === "blueprint-candidate") return "AI Readiness Review candidate";
+  if (value === "infrastructure-review") return "Signal Repair review";
+  return "Readiness Control review";
 }
 
 function looksBusinessEmail(email: string) {
