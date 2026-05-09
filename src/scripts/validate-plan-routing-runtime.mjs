@@ -38,6 +38,7 @@ expect(runtimePath, [
 ]);
 
 expect(runtimePath, [
+  "selectedPlanLabel",
   "customerOwnedProjectionReady",
   "purchasedEntitlement",
   "includedScope",
@@ -45,6 +46,8 @@ expect(runtimePath, [
   "nextBestPlan",
   "followUpCadence",
   "dashboardReminderAllowed",
+  "dashboardMessageMirrorRequired",
+  "safeDocumentDeliveryMustMatchVault",
   "warningEmailKey",
   "warningEmailAllowed",
   "warningEmailSuppressionReasons",
@@ -62,17 +65,27 @@ expect(runtimePath, [
   "deep-review-stops",
   "build-fix-stops",
   "ongoing-control-active",
-  "build-fix-direct-scope-confirmation",
-  "ongoing-control-direct-scope-confirmation",
+  "signal-repair-direct-scope-confirmation",
+  "readiness-control-direct-scope-confirmation",
   "noWarningEmailNeeded",
   "customerOwnershipMissing",
   "verifiedEmailMissing",
   "customerOptedOutOfNonEssentialEmail",
   "supportRequestedNoReminders",
   "recommendationNotEvidenceBacked",
-  "deepReviewAlreadyActive",
+  "aiReadinessReviewAlreadyActive",
   "prerequisiteRecommendationsAlreadyActive",
-  "buildFixDeliveryAlreadyApproved",
+  "signalRepairDeliveryAlreadyApproved",
+]);
+
+expect(runtimePath, [
+  "AI Readiness Review when customer-facing review clarity would materially improve understanding or approval quality.",
+  "Signal Repair when recurring evidence shows implementation gaps that monthly advisory scope cannot resolve.",
+  "AI Readiness Review when standalone evidence-backed review clarity would improve monthly command quality.",
+  "scope confirmation mirrored into the dashboard",
+  "monthly command summary mirrored into the dashboard",
+  "report-ready notice mirrored into the dashboard",
+  "Released reports, billing documents, and PDFs remain vault-first, verified-access-safe, and matched to the dashboard state.",
 ]);
 
 expect(runtimePath, [
@@ -83,6 +96,8 @@ expect(runtimePath, [
   "warningEmailWithoutEvidence",
   "materialReworkWithoutDirectionChange",
   "Plan routing language redacted to preserve safe projection.",
+  "guaranteed " + "deliverability",
+  "guaranteed " + "inbox",
 ]);
 
 expect(entitlementPath, [
@@ -90,12 +105,18 @@ expect(entitlementPath, [
   "linearPurchaseSequences",
   "directPurchaseWarningEmails",
   "loopholeProtections",
+  "signal-repair-direct-scope-confirmation",
+  "readiness-control-direct-scope-confirmation",
+  "dashboard message mirror",
+  "safe PDF state when gates pass",
 ]);
 
 expect(reconciliationPath, [
   "PLAN_POST_DELIVERY_RECONCILIATION_CONTRACT",
   "material-rework-change-order",
   "Second purchase unlocks the purchased plan, not unlimited re-performance of earlier paid work.",
+  "dashboard-message mirror",
+  "reconciliation PDF",
 ]);
 
 expect(welcomePath, [
@@ -117,10 +138,16 @@ forbidden(runtimePath, [
   "inboxConfirmationAllowed: true",
   "customerFacingDeliveryAllowed: true",
   "upgradeOrRetentionAllowed: true",
+  "build-fix-direct-scope-confirmation",
+  "ongoing-control-direct-scope-confirmation",
+  "deepReviewAlreadyActive",
+  "buildFixDeliveryAlreadyApproved",
+  "Deep Review when",
+  "Build Fix when",
+  "Ongoing Control",
   "guaranteed ROI",
   "guaranteed revenue",
   "guaranteed accuracy",
-  "guaranteed inbox",
   "guaranteed primary inbox",
   "100% accurate",
   "100 percent accurate",
@@ -147,7 +174,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan routing runtime validation passed.");
+console.log("Plan routing runtime validation passed with current plan names, mirrored dashboard messages, vault-first safe documents, current warning email keys, suppression rules, reconciliation outcomes, and safe customer language coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
