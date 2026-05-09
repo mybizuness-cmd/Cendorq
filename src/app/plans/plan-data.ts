@@ -14,11 +14,11 @@ export const FREE_SCAN_PLAN: PlanPageData & { href: string; label: string } = {
   secondaryLabel: "See AI Readiness Review",
   painTitle: "Most businesses do not need another marketing guess first. They need the first visible signal.",
   painCopy:
-    "More ads, more SEO, a redesign, or random content can waste money when the real weakness is public business clarity. Free Scan gives a safer first read without pretending to be a full diagnosis.",
+    "More ads, more SEO, a redesign, or random content can waste money when the real weakness is public business clarity. Free Scan gives a safer first read without pretending to be a full review.",
   stats: [
     { label: "Best for", value: "Owners who feel the business should be easier to understand, trust, and choose." },
     { label: "Main result", value: "A first signal and a safer next move." },
-    { label: "Risk reduced", value: "Spending too early on the wrong fix." },
+    { label: "Risk reduced", value: "Spending too early on the wrong repair." },
     { label: "Commitment", value: "Free guided first step." },
   ],
   features: [
@@ -123,7 +123,7 @@ export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
     { label: "Best for", value: "Businesses ready to move from evidence into implementation." },
     { label: "Main result", value: "A stronger public path with clearer customer movement." },
     { label: "Risk reduced", value: "Cosmetic changes that do not improve readiness." },
-    { label: "Comes after", value: "AI Readiness Review or a clear internal diagnosis." },
+    { label: "Comes after", value: "AI Readiness Review or a clear internal first signal." },
   ],
   features: [
     {
@@ -194,7 +194,7 @@ export const ONGOING_CONTROL_PLAN: PlanPageData & { href: string; label: string 
   fit: {
     good: [
       "The business already has a strong enough base to maintain and improve.",
-      "You want continued direction instead of occasional emergency fixes.",
+      "You want continued direction instead of occasional emergency repairs.",
       "The business needs a steady system, not a one-time push.",
     ],
     bad: [
