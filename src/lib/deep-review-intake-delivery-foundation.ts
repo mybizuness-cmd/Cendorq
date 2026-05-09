@@ -11,11 +11,11 @@ export type DeepReviewIntakeDeliveryInput = {
 export type DeepReviewIntakeDeliveryProjection = {
   ok: boolean;
   planKey: "deep-review";
-  planLabel: "Deep Review / Full Scan";
+  planLabel: "AI Readiness Review";
   stage: DeepReviewIntakeStage;
   dashboardPath: "/dashboard/reports";
   intakePath: "/dashboard";
-  reportType: "deep-review-report";
+  reportType: "ai-readiness-review-report";
   customerMessage: string;
   requiredNextAction: string;
   deliverables: readonly string[];
@@ -23,6 +23,9 @@ export type DeepReviewIntakeDeliveryProjection = {
   releaseApprovalRequired: true;
   emailVerificationRequired: true;
   entitlementRequired: true;
+  dashboardMessageMirrorRequired: true;
+  vaultFirstDeliveryRequired: true;
+  safePdfDeliveryGated: true;
   unpaidDeliverableLeaked: false;
   freeScanSubstitute: false;
   pendingReportPresentedAsFinal: false;
@@ -41,12 +44,15 @@ export type DeepReviewIntakeDeliveryProjection = {
 };
 
 const DEEP_REVIEW_DELIVERABLES = [
-  "expanded diagnostic questionnaire",
-  "full diagnostic report",
+  "expanded AI Readiness Review questionnaire",
+  "AI Readiness Review report",
   "priority blocker map",
   "confidence-labeled findings",
   "limitations and assumptions section",
   "plan-fit next actions",
+  "dashboard message mirror",
+  "vault-first released report state",
+  "safe PDF delivery state when gates pass",
 ] as const;
 
 const EVIDENCE_SEPARATION = [
@@ -61,13 +67,15 @@ const EVIDENCE_SEPARATION = [
 ] as const;
 
 export const DEEP_REVIEW_INTAKE_DELIVERY_RULES = [
-  "Deep Review delivery requires active entitlement, verified email, completed paid intake, research review, and release approval",
-  "Deep Review may ask additional business questions after payment when more detail improves report precision",
-  "Deep Review must not request passwords, tokens, private keys, payment details, raw security payloads, or unrestricted private evidence",
-  "Deep Review must separate verified facts, customer context, observed evidence, assumptions, inferences, limitations, recommendations, and next actions",
-  "Deep Review report delivery must not be presented as final before research review and release approval",
-  "Deep Review is a paid deeper diagnosis and must not leak through Free Scan, Build Fix, or Ongoing Control without entitlement",
-  "Deep Review conversion language must be educational, evidence-led, and free of fake urgency or guaranteed outcome claims",
+  "AI Readiness Review delivery requires active entitlement, verified email, completed paid intake, research review, and release approval",
+  "AI Readiness Review may ask additional business questions after payment when more detail improves report precision",
+  "AI Readiness Review must not request passwords, tokens, private keys, payment details, raw security payloads, or unrestricted private evidence",
+  "AI Readiness Review must separate verified facts, customer context, observed evidence, assumptions, inferences, limitations, recommendations, and next actions",
+  "AI Readiness Review report delivery must not be presented as final before research review and release approval",
+  "AI Readiness Review is a paid deeper review and must not leak through Free Scan, Signal Repair, or Readiness Control without entitlement",
+  "AI Readiness Review conversion language must be educational, evidence-led, and free of fake urgency or guaranteed outcome claims",
+  "AI Readiness Review email delivery must mirror into the dashboard so the customer can recover the same safe message after verified login",
+  "AI Readiness Review PDF delivery must stay vault-first and gated by verification, entitlement, release approval, no-leak checks, and document safety",
 ] as const;
 
 export function projectDeepReviewIntakeDeliveryFoundation(input: DeepReviewIntakeDeliveryInput): DeepReviewIntakeDeliveryProjection {
@@ -75,11 +83,11 @@ export function projectDeepReviewIntakeDeliveryFoundation(input: DeepReviewIntak
   return {
     ok: stage === "ready-for-delivery",
     planKey: "deep-review",
-    planLabel: "Deep Review / Full Scan",
+    planLabel: "AI Readiness Review",
     stage,
     dashboardPath: "/dashboard/reports",
     intakePath: "/dashboard",
-    reportType: "deep-review-report",
+    reportType: "ai-readiness-review-report",
     customerMessage: getCustomerMessage(stage),
     requiredNextAction: getRequiredNextAction(stage),
     deliverables: DEEP_REVIEW_DELIVERABLES,
@@ -87,6 +95,9 @@ export function projectDeepReviewIntakeDeliveryFoundation(input: DeepReviewIntak
     releaseApprovalRequired: true,
     emailVerificationRequired: true,
     entitlementRequired: true,
+    dashboardMessageMirrorRequired: true,
+    vaultFirstDeliveryRequired: true,
+    safePdfDeliveryGated: true,
     unpaidDeliverableLeaked: false,
     freeScanSubstitute: false,
     pendingReportPresentedAsFinal: false,
@@ -118,15 +129,15 @@ function deriveStage(input: DeepReviewIntakeDeliveryInput): DeepReviewIntakeStag
 }
 
 function getCustomerMessage(stage: DeepReviewIntakeStage) {
-  if (stage === "payment-required") return "Deep Review requires an active paid entitlement before the full diagnostic report can begin.";
-  if (stage === "intake-needed") return "Complete the protected Deep Review intake so Cendorq can build the deeper diagnostic report with the right context.";
-  if (stage === "research-in-progress") return "Your Deep Review is in progress. Cendorq is separating facts, assumptions, limitations, and recommendations before release.";
-  if (stage === "report-pending-approval") return "Your Deep Review is awaiting release approval and is not final until the safe report checks pass.";
-  return "Your Deep Review is ready in the protected report vault.";
+  if (stage === "payment-required") return "AI Readiness Review requires an active paid entitlement before the evidence-backed report can begin.";
+  if (stage === "intake-needed") return "Complete the protected AI Readiness Review intake so Cendorq can build the deeper report with the right context.";
+  if (stage === "research-in-progress") return "Your AI Readiness Review is in progress. Cendorq is separating facts, assumptions, limitations, and recommendations before release.";
+  if (stage === "report-pending-approval") return "Your AI Readiness Review is awaiting release approval and is not final until the safe report checks pass.";
+  return "Your AI Readiness Review is ready in the protected report vault.";
 }
 
 function getRequiredNextAction(stage: DeepReviewIntakeStage) {
-  if (stage === "payment-required") return "Choose Deep Review from the plans page if you want the paid full diagnostic report.";
+  if (stage === "payment-required") return "Choose AI Readiness Review from the plans page if you want the paid evidence-backed report.";
   if (stage === "intake-needed") return "Complete the paid intake questions from your dashboard.";
   if (stage === "research-in-progress") return "Watch the report vault for status without treating in-progress work as final.";
   if (stage === "report-pending-approval") return "Wait for approved delivery or use support for safe status questions.";
