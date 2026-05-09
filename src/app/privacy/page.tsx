@@ -11,18 +11,18 @@ const BRAND_NAME = "Cendorq";
 const POLICY_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
-  title: `Market trust privacy | ${BRAND_NAME}`,
+  title: `AI readiness privacy | ${BRAND_NAME}`,
   description:
-    "How Cendorq protects market understanding, Free Scan context, paid reports, dashboard access, billing, notifications, and support data.",
+    "How Cendorq protects AI-readiness context, Free Scan inputs, paid reports, dashboard access, billing, notifications, and support data.",
   path: "/privacy",
-  keywords: ["cendorq privacy", "market trust privacy", "free scan privacy", "dashboard privacy", "customer report privacy"],
-  image: { alt: "Cendorq market trust privacy boundaries." },
+  keywords: ["cendorq privacy", "AI readiness privacy", "free scan privacy", "dashboard privacy", "customer report privacy"],
+  image: { alt: "Cendorq AI readiness privacy boundaries." },
 });
 
 const PRIVACY_SUMMARY = [
   { label: "Primary purpose", value: "Use information to operate the customer journey safely." },
   { label: "Customer boundary", value: "Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence." },
-  { label: "Report boundary", value: "Free Scan, Deep Review, Build Fix, and Ongoing Control outputs stay tied to their command depth." },
+  { label: "Report boundary", value: "Free Scan, AI Readiness Review, Signal Repair, and Readiness Control outputs stay tied to their readiness depth." },
   { label: "Security boundary", value: "Reasonable protections matter, but no online system can guarantee absolute security." },
 ] as const;
 
@@ -33,7 +33,7 @@ const INFORMATION_CATEGORIES = [
   },
   {
     title: "Business context",
-    copy: "Information you submit for Free Scan, Deep Review, Build Fix, Ongoing Control, or support so Cendorq can understand the business moment and route the next command.",
+    copy: "Information you submit for Free Scan, AI Readiness Review, Signal Repair, Readiness Control, or support so Cendorq can understand the business moment and route the next step.",
   },
   {
     title: "Billing and entitlement signals",
@@ -46,8 +46,8 @@ const INFORMATION_CATEGORIES = [
 ] as const;
 
 const USE_CASES = [
-  "Verify customer access and route the customer to dashboard, Free Scan continuation, market proof vault, billing, notifications, or support.",
-  "Prepare and deliver command-specific outputs without blurring Free Scan, Deep Review, Build Fix, and Ongoing Control.",
+  "Verify customer access and route the customer to dashboard, Free Scan continuation, readiness proof vault, billing, notifications, or support.",
+  "Prepare and deliver readiness-specific outputs without blurring Free Scan, AI Readiness Review, Signal Repair, and Readiness Control.",
   "Operate checkout, billing, lifecycle emails, notifications, support requests, correction review, and customer-safe status updates.",
   "Detect abuse, fraud, duplicate submissions, unsafe content, unauthorized access attempts, or platform-integrity issues.",
 ] as const;
@@ -61,18 +61,18 @@ const SHARING_BOUNDARIES = [
 
 const CUSTOMER_CHOICES = [
   { title: "Choose what you submit", copy: "Free Scan and support work best with useful business context, but sensitive secrets should not be submitted." },
-  { title: "Ask for review", copy: "Use dashboard support or the contact route for privacy, correction, data, communication, or access questions." },
+  { title: "Ask for review", copy: "Use dashboard support or the Free Scan route for privacy, correction, data, communication, or access questions." },
   { title: "Use browser controls", copy: "Your browser, device, cookie, and email settings may affect certain technical or communication preferences." },
 ] as const;
 
 const FAQS = [
   {
     question: "Why does Cendorq collect business information?",
-    answer: "Business context helps Cendorq produce a useful first signal, diagnose paid-plan questions, route support, and keep the customer journey coherent.",
+    answer: "Business context helps Cendorq produce a useful first signal, review paid-plan questions, route support, and keep the customer journey coherent.",
   },
   {
     question: "Should I send sensitive secrets?",
-    answer: "No. Do not submit passwords, card numbers, private keys, session tokens, or unrelated private evidence through Free Scan, contact, or support.",
+    answer: "No. Do not submit passwords, card numbers, private keys, session tokens, or unrelated private evidence through Free Scan or support.",
   },
   {
     question: "Does Cendorq guarantee perfect security?",
@@ -82,8 +82,8 @@ const FAQS = [
 
 export default function PrivacyPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Market Trust Privacy",
-    description: "Privacy boundaries for the Cendorq market understanding journey and command-depth delivery surfaces.",
+    title: "Cendorq AI Readiness Privacy",
+    description: "Privacy boundaries for the Cendorq AI-readiness journey and plan-depth delivery surfaces.",
     path: "/privacy",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -100,12 +100,12 @@ export default function PrivacyPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
       <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
-        <p className="text-sm font-semibold text-cyan-100">Market trust privacy</p>
+        <p className="text-sm font-semibold text-cyan-100">AI readiness privacy</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
           Trust starts with knowing what data belongs in the system.
         </h1>
         <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
-          This policy explains how {BRAND_NAME} may collect, use, share, retain, and protect information across Free Scan, paid command depth, dashboard access, reports, billing, notifications, and support. {POLICY_DATE}.
+          This policy explains how {BRAND_NAME} may collect, use, share, retain, and protect information across Free Scan, paid readiness depth, dashboard access, reports, billing, notifications, and support. {POLICY_DATE}.
         </p>
         <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {PRIVACY_SUMMARY.map((item) => (
@@ -151,16 +151,16 @@ export default function PrivacyPage() {
 
       <section className="system-panel-authority relative z-10 mt-8 rounded-[1.55rem] p-5 sm:p-6">
         <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">Need a privacy or data question reviewed?</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Use contact if you are not yet inside the dashboard.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Start with the Free Scan if you are not yet inside the dashboard.</p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard/support" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">Open dashboard support</Link>
-          <Link href="/connect" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Contact Cendorq</Link>
+          <Link href="/free-check" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Start Free Scan</Link>
           <Link href="/terms" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Read terms</Link>
         </div>
       </section>
 
       <section className="sr-only" aria-label="Privacy validation guardrails">
-        Market trust privacy. Free Scan. Deep Review. Build Fix. Ongoing Control. Dashboard support. Contact route /connect. Safe customer summaries. Command-specific data boundaries. No raw secrets. No private payment details. No cross-customer data.
+        AI readiness privacy. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Dashboard support. Free Scan route /free-check. Safe customer summaries. Readiness-specific data boundaries. No raw secrets. No private payment details. No cross-customer data.
       </section>
     </main>
   );
