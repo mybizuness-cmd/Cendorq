@@ -5,24 +5,10 @@ type FooterLinkItem = {
   href: string;
 };
 
-type FooterJourneyItem = {
-  label: string;
-  href: string;
-  description: string;
-  price: string;
-};
-
 const BRAND_NAME = "Cendorq";
 
-const FOOTER_JOURNEY: readonly FooterJourneyItem[] = [
-  { label: "Scan", href: "/free-check", description: "First market signal before paid depth.", price: "$0" },
-  { label: "Diagnose", href: "/plans/deep-review", description: "Cause-level proof.", price: "$497" },
-  { label: "Fix", href: "/plans/build-fix", description: "Scoped improvement.", price: "$1,497" },
-  { label: "Control", href: "/plans/ongoing-control", description: "Monthly command.", price: "$597/mo" },
-];
-
 const FOOTER_LINKS: readonly FooterLinkItem[] = [
-  { label: "Command path", href: "/plans" },
+  { label: "Plans", href: "/plans" },
   { label: "Dashboard", href: "/dashboard" },
   { label: "Support", href: "/dashboard/support" },
   { label: "Connect", href: "/connect" },
@@ -34,57 +20,44 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-cyan-300/10 bg-slate-950" aria-label="Site footer">
-      <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-6">
-        <div className="relative overflow-hidden rounded-[1.45rem] border border-cyan-300/14 bg-[radial-gradient(circle_at_top_left,rgba(103,232,249,0.12),transparent_30%),linear-gradient(135deg,rgba(8,47,73,0.46),rgba(2,8,23,0.96)_50%,rgba(15,23,42,0.88))] p-4 shadow-[0_24px_86px_rgba(2,8,23,0.44)] sm:p-5">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/65 to-transparent" />
-          <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-            <div>
-              <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-3 text-white transition hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                <BrandMark />
-                <span className="text-lg font-semibold tracking-[0.08em]">{BRAND_NAME}</span>
-              </Link>
-              <h2 className="mt-4 max-w-xl text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                Own how the market understands your business.
-              </h2>
-              <p className="mt-2 max-w-lg text-sm leading-6 text-slate-300">
-                Start with a real signal. Move deeper only when the command stage fits.
-              </p>
-              <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                <Link href="/free-check" className="inline-flex min-h-10 items-center justify-center rounded-2xl bg-cyan-300 px-5 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-                  Start Free Scan
-                </Link>
-                <Link href="/plans" className="inline-flex min-h-10 items-center justify-center rounded-2xl border border-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                  Compare command path
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              {FOOTER_JOURNEY.map((item) => (
-                <Link key={item.href} href={item.href} className="group rounded-[1rem] border border-white/10 bg-slate-950/42 p-3 transition hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-                  <div className="flex items-start justify-between gap-2">
-                    <span className="text-sm font-semibold text-white">{item.label}</span>
-                    <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-2 py-0.5 text-[11px] font-semibold text-cyan-100">{item.price}</span>
-                  </div>
-                  <p className="mt-2 text-xs leading-5 text-slate-400">{item.description}</p>
-                </Link>
-              ))}
-            </div>
+    <footer className="relative border-t border-white/10 bg-[#020713]" aria-label="Site footer">
+      <div className="mx-auto max-w-[86rem] px-5 py-8 sm:px-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-3 text-white transition hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              <BrandMark />
+              <span className="text-base font-semibold tracking-[0.08em]">{BRAND_NAME}</span>
+            </Link>
+            <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400">
+              Market Command Intelligence for becoming easier to find, understand, trust, and choose.
+            </p>
           </div>
 
-          <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 lg:flex-row lg:items-center lg:justify-between">
-            <nav aria-label="Footer trust navigation" className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-400">
+          <div className="flex flex-col gap-4 lg:items-end">
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-slate-400">
               {FOOTER_LINKS.map((item) => (
                 <Link key={item.href} href={item.href} className="transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
                   {item.label}
                 </Link>
               ))}
             </nav>
-            <p className="text-xs leading-5 text-slate-500">© {year} {BRAND_NAME}. Scan is not full diagnosis, implementation, or monthly control.</p>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center lg:justify-end">
+              <Link href="/free-check" className="inline-flex min-h-10 items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-black text-slate-950 transition hover:bg-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+                Start Free Scan
+              </Link>
+              <Link href="/plans" className="inline-flex min-h-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-5 py-2.5 text-sm font-bold text-white transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                Review Plans
+              </Link>
+            </div>
           </div>
-          <p className="sr-only">Market command footer. Scan. Diagnose. Fix. Control. Customer-facing footer keeps Free Scan, Deep Review, Build Fix, and Ongoing Control boundaries clear.</p>
         </div>
+
+        <div className="mt-6 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs leading-5 text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {year} {BRAND_NAME}. All rights reserved.</p>
+          <p>Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or outcomes.</p>
+        </div>
+
+        <p className="sr-only">Minimal Market Command footer. Free Scan. Deep Review. Build Fix. Ongoing Control.</p>
       </div>
     </footer>
   );
