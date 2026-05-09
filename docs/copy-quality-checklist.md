@@ -2,7 +2,7 @@
 
 Use this checklist for public page copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes.
 
-The goal is simple: keep Cendorq plain, command-grade, clear, and easy to choose.
+The goal is simple: keep Cendorq plain, readiness-grade, clear, and easy to choose.
 
 ## Copy principle
 
@@ -12,10 +12,9 @@ Protect the core path:
 
 1. Free Scan
 2. Plans
-3. Deep Review
-4. Build Fix
-5. Ongoing Control
-6. Connect
+3. AI Readiness Review
+4. Signal Repair
+5. Readiness Control
 
 ## Required checks
 
@@ -38,12 +37,14 @@ Before merging public copy changes, confirm:
 
 Use plain buyer language:
 
+- AI Engine Readiness
 - Free Scan
 - Plans
-- Deep Review
-- Build Fix
-- Ongoing Control
-- Connect
+- AI Readiness Review
+- Signal Repair
+- Readiness Control
+- Scan, Review, Repair, Control
+- make the business easier to find
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
@@ -53,9 +54,15 @@ Use plain buyer language:
 
 Avoid reviving old public labels:
 
+- Search Presence Scan
 - Visibility Blueprint
 - Presence Infrastructure
 - Presence Command
+- Deep Review
+- Build Fix
+- Ongoing Control
+- Diagnose
+- Fix as a plan label
 - Start Search Presence Scan
 
 Avoid vague or bloated phrases:
@@ -103,7 +110,7 @@ pnpm build
 For production-impacting copy changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
