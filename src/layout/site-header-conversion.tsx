@@ -2,6 +2,11 @@ import Link from "next/link";
 
 const BRAND_NAME = "Cendorq";
 
+const NAV_LINKS = [
+  { label: "AI Readiness", href: "/#ai-readiness", description: "Understand the AI Engine Readiness path." },
+  { label: "Plans", href: "/plans", description: "Compare Scan, Review, Repair, and Control." },
+] as const;
+
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white text-slate-950">
@@ -12,12 +17,12 @@ export function SiteHeader() {
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-7 text-sm font-semibold text-slate-600 md:flex">
-          <Link href="/#ai-readiness" className="transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-            AI Readiness
-          </Link>
-          <Link href="/plans" className="transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-            Plans
-          </Link>
+          {NAV_LINKS.map((item) => (
+            <Link key={item.href} href={item.href} title={item.description} className="transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              {item.label}
+              <span className="sr-only"> — {item.description}</span>
+            </Link>
+          ))}
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
