@@ -1,14 +1,14 @@
 import Link from "next/link";
 
 const REENTRY_PATHS = [
-  { title: "Latest notice", copy: "Open report, billing, support, or plan updates in one place.", action: "Open notifications", path: "/dashboard/notifications" },
-  { title: "Workspace", copy: "Return from the public site without restarting the journey.", action: "Go to dashboard", path: "/dashboard" },
-  { title: "Billing or scope", copy: "Review what is active, included, blocked, or ready to unlock.", action: "Open billing", path: "/dashboard/billing" },
-  { title: "Support status", copy: "See what is being reviewed without losing context.", action: "Open support", path: "/dashboard/support/status" },
+  { title: "Latest signal", copy: "Open the newest report, plan, support, or billing action without losing context.", action: "Open notifications", path: "/dashboard/notifications" },
+  { title: "Command center", copy: "Return from the public site to the private selling and proof surface.", action: "Go to dashboard", path: "/dashboard" },
+  { title: "Billing or scope", copy: "Review what is active, what is separate, and what is ready to unlock.", action: "Open billing", path: "/dashboard/billing" },
+  { title: "Support status", copy: "Resolve blockers while keeping the next paid depth clear.", action: "Open support", path: "/dashboard/support/status" },
 ] as const;
 
 const REENTRY_RULES = [
-  "The dashboard stays the customer control room.",
+  "The dashboard stays the customer conversion command room.",
   "Expired sessions should resume safely instead of restarting the journey.",
   "Support, billing, reports, and notifications should always link back to the dashboard.",
   "Re-entry copy must avoid account-existence leakage, token exposure, and pressure language.",
@@ -21,12 +21,12 @@ export function DashboardControlRoomReentry() {
         <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Return path</div>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Leave and come back without losing the thread.</h2>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Bring every return back to the money surface.</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">
-              The dashboard should feel permanent. Email, billing, reports, notifications, and support all return to the same business control room.
+              Email, billing, reports, notifications, and support should all return to the same command room where the customer can see proof, understand scope, and choose the right next depth.
             </p>
             <div className="mt-4 rounded-[1.2rem] border border-cyan-300/15 bg-cyan-300/[0.07] p-4 text-sm leading-7 text-cyan-50">
-              Best experience: “I can come back whenever I’m ready, and Cendorq picks up where I left off.”
+              Best experience: “I came back, Cendorq remembered the thread, and the next move is clear.”
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -46,7 +46,7 @@ export function DashboardControlRoomReentry() {
             </div>
           ))}
         </div>
-        <div className="sr-only">Dashboard reentry. Leave and come back without losing the thread. No stranded side flows. No restart journey. No token exposure.</div>
+        <div className="sr-only">Dashboard reentry. Bring every return back to the money surface. Conversion command room. Proof, scope, and next paid depth. No stranded side flows. No restart journey. No token exposure.</div>
       </div>
     </section>
   );
