@@ -1,41 +1,42 @@
 # Cendorq
 
-Cendorq is Market Command Intelligence for businesses that need to be easier for customers, search, and AI-powered discovery surfaces to understand, trust, compare, and choose.
+Cendorq is AI Engine Readiness for businesses that need to be easier for customers, search, and AI-powered discovery surfaces to understand, trust, compare, and choose.
 
 ## Primary conversion path
 
-The strongest first action is the Free Scan when the market signal is unclear. The public path should stay focused: start free, compare command depth, then return to the protected dashboard when customer work exists. Connect is a fit-and-scope utility, not the primary buyer-path step.
+The strongest first action is the Free Scan when the readiness signal is unclear. The public path should stay focused: start free, compare readiness depth, then return to the protected dashboard when customer work exists.
 
 - Scan: /free-check
-- Command path: /plans
+- Readiness path: /plans
 - Dashboard: /dashboard
-- Diagnose: /plans/deep-review
-- Fix: /plans/build-fix
+- Review: /plans/deep-review
+- Repair: /plans/build-fix
 - Control: /plans/ongoing-control
-- Connect utility: /connect
 
 ## Route intent
 
-- /: Focused homepage command path. The homepage should help the right customer understand what Cendorq is, why market understanding matters now, what it costs, and what to do next.
+- /: Focused homepage readiness path. The homepage should help the right customer understand what Cendorq is, why AI-readiness matters now, what it costs, and what to do next.
 - /free-check: Guided Free Scan intake. This is the safest first signal before deeper spend.
-- /plans: Plain-language comparison of Scan, Diagnose, Fix, and Control.
-- /dashboard: Protected customer command center for reports, proof, notifications, status, and next actions.
-- /dashboard/reports: Protected market proof vault.
-- /plans/deep-review: Diagnose. Deeper review for businesses that need to understand what is weakening clarity, trust, visibility, and choice.
-- /plans/build-fix: Fix. Scoped improvement for businesses ready to strengthen pages, message, proof, trust, and action path.
-- /plans/ongoing-control: Control. Continued direction for businesses that need recurring review, search/AI-change awareness, and monthly decision support.
-- /connect: Fit-and-scope route for clear timing questions.
+- /plans: Plain-language comparison of Scan, Review, Repair, and Control.
+- /dashboard: Protected customer readiness workspace for reports, proof, notifications, status, and next actions.
+- /dashboard/reports: Protected readiness proof vault.
+- /plans/deep-review: Review. Deeper AI Readiness Review for businesses that need to understand what is weakening clarity, trust, visibility, and choice.
+- /plans/build-fix: Repair. Signal Repair for businesses ready to strengthen pages, message, proof, trust, and action path.
+- /plans/ongoing-control: Control. Readiness Control for businesses that need recurring review, search/AI-change awareness, and monthly decision support.
 
 ## Positioning rules
 
 Cendorq should be described in plain business language. Prefer:
 
-- Market Command Intelligence
-- Scan, Diagnose, Fix, Control
+- AI Engine Readiness
+- Scan, Review, Repair, Control
 - Free Scan
-- command path
-- market proof vault
-- private market command center
+- AI Readiness Review
+- Signal Repair
+- Readiness Control
+- readiness path
+- readiness proof vault
+- private readiness workspace
 - make the business easier to find
 - make the business easier to understand
 - make the business easier to trust
@@ -47,4 +48,4 @@ Do not use old internal labels, retired package names, or generic premium positi
 
 ## Trust boundaries
 
-Cendorq does not guarantee rankings, AI placement, revenue, leads, sales, or platform treatment. It improves market clarity, trust, decision quality, and the business path a customer sees before they choose.
+Cendorq does not guarantee rankings, AI placement, revenue, leads, sales, or platform treatment. It improves business clarity, trust, decision quality, and the path a customer sees before they choose.
