@@ -19,7 +19,7 @@ export type OngoingControlMonthlyInput = {
 export type OngoingControlMonthlyProjection = {
   ok: boolean;
   planKey: "ongoing-control";
-  planLabel: "Ongoing Control / Monthly";
+  planLabel: "Readiness Control";
   stage: OngoingControlMonthlyStage;
   dashboardPath: "/dashboard";
   inboxPath: "/dashboard/notifications";
@@ -31,12 +31,14 @@ export type OngoingControlMonthlyProjection = {
   monthlyStatusRequired: true;
   periodicReportRequired: true;
   controlledMonitoringRequired: true;
-  dashboardInboxRequired: true;
+  dashboardMessageMirrorRequired: true;
   emailFollowUpAllowed: true;
   planFitGuidanceRequired: true;
-  optimizationRecommendationAllowed: boolean;
-  buildFixIncluded: false;
-  deepReviewReportIncluded: false;
+  signalRepairRecommendationAllowed: boolean;
+  safePdfDeliveryGated: true;
+  vaultFirstDeliveryRequired: true;
+  signalRepairIncluded: false;
+  aiReadinessReviewReportIncluded: false;
   uncontrolledAutoMutation: false;
   fakeUrgencyAllowed: false;
   unsupportedOutcomePromise: false;
@@ -56,10 +58,12 @@ const ONGOING_CONTROL_DELIVERABLES = [
   "monthly status summary",
   "approved periodic report",
   "controlled monitoring notices",
-  "dashboard inbox messages",
+  "mirrored dashboard messages",
   "email follow-up when appropriate",
   "plan-fit guidance",
-  "optimization recommendation when implementation gaps are found",
+  "safe PDF delivery state when gates pass",
+  "Signal Repair recommendation when implementation gaps are found",
+  "feature adoption or renewal recommendation when evidence supports it",
 ] as const;
 
 const APPROVAL_GATES = [
@@ -69,16 +73,20 @@ const APPROVAL_GATES = [
   "baseline established before comparison",
   "monthly review completed before customer-facing summary",
   "release-captain approval before monthly report delivery",
+  "safe document gate before PDF delivery",
 ] as const;
 
 export const ONGOING_CONTROL_MONTHLY_RULES = [
-  "Ongoing Control requires active entitlement, verified account, approved monitoring scope, baseline, monthly review, and release approval before customer-facing monthly summary",
-  "Ongoing Control provides recurring status, approved monthly summary, monitoring notices, dashboard inbox messages, email follow-ups, plan-fit guidance, and optimization recommendations when implementation gaps are found",
-  "Ongoing Control is not a substitute for Build Fix implementation or a standalone Deep Review report unless the matching entitlement exists",
-  "Ongoing Control must use controlled monitoring and approval gates, not unapproved production changes or autonomous business changes",
-  "Ongoing Control must preserve truthful status, comparable baselines, visible regressions, limitations, and safe next actions",
-  "Ongoing Control recommendations must be evidence-led and calm, without fake urgency or certain-growth claims",
-  "Ongoing Control output must not expose private payloads, evidence, security material, billing material, internal notes, operator identities, risk internals, prompts, secrets, or tokens",
+  "Readiness Control requires active entitlement, verified account, approved monitoring scope, baseline, monthly review, and release approval before customer-facing monthly summary",
+  "Readiness Control provides recurring status, approved monthly summary, monitoring notices, mirrored dashboard messages, email follow-ups, plan-fit guidance, and Signal Repair recommendations when implementation gaps are found",
+  "Readiness Control is not a substitute for Signal Repair implementation or a standalone AI Readiness Review report unless the matching entitlement exists",
+  "Readiness Control must use controlled monitoring and approval gates, not unapproved production changes or autonomous business changes",
+  "Readiness Control must preserve truthful status, comparable baselines, visible regressions, limitations, and safe next actions",
+  "Readiness Control recommendations must be evidence-led and calm, without fake urgency or certain-growth claims",
+  "Readiness Control output must not expose private payloads, evidence, security material, billing material, internal notes, operator identities, risk internals, prompts, secrets, or tokens",
+  "Readiness Control email delivery must mirror into the dashboard so the customer can recover the same safe message after verified login",
+  "Readiness Control PDF delivery must stay vault-first and gated by verification, entitlement, release approval, no-leak checks, and document safety",
+  "Readiness Control future-feature and renewal recommendations must be tied to plan state, report history, evidence freshness, movement, or real customer relevance",
 ] as const;
 
 export function projectOngoingControlMonthlyFoundation(input: OngoingControlMonthlyInput): OngoingControlMonthlyProjection {
@@ -86,7 +94,7 @@ export function projectOngoingControlMonthlyFoundation(input: OngoingControlMont
   return {
     ok: stage === "summary-ready",
     planKey: "ongoing-control",
-    planLabel: "Ongoing Control / Monthly",
+    planLabel: "Readiness Control",
     stage,
     dashboardPath: "/dashboard",
     inboxPath: "/dashboard/notifications",
@@ -98,12 +106,14 @@ export function projectOngoingControlMonthlyFoundation(input: OngoingControlMont
     monthlyStatusRequired: true,
     periodicReportRequired: true,
     controlledMonitoringRequired: true,
-    dashboardInboxRequired: true,
+    dashboardMessageMirrorRequired: true,
     emailFollowUpAllowed: true,
     planFitGuidanceRequired: true,
-    optimizationRecommendationAllowed: input.foundationalOptimizationRecommended === true,
-    buildFixIncluded: false,
-    deepReviewReportIncluded: false,
+    signalRepairRecommendationAllowed: input.foundationalOptimizationRecommended === true,
+    safePdfDeliveryGated: true,
+    vaultFirstDeliveryRequired: true,
+    signalRepairIncluded: false,
+    aiReadinessReviewReportIncluded: false,
     uncontrolledAutoMutation: false,
     fakeUrgencyAllowed: false,
     unsupportedOutcomePromise: false,
@@ -133,18 +143,18 @@ function deriveStage(input: OngoingControlMonthlyInput): OngoingControlMonthlySt
 }
 
 function getCustomerMessage(stage: OngoingControlMonthlyStage) {
-  if (stage === "subscription-required") return "Ongoing Control requires an active subscription and verified account before monthly command summaries can begin.";
+  if (stage === "subscription-required") return "Readiness Control requires an active subscription and verified account before monthly command summaries can begin.";
   if (stage === "scope-required") return "Cendorq needs an approved monitoring scope and baseline before monthly comparisons are useful.";
-  if (stage === "monitoring-active") return "Your Ongoing Control workspace is active and monitoring is being reviewed for the next approved summary.";
+  if (stage === "monitoring-active") return "Your Readiness Control workspace is active and monitoring is being reviewed for the next approved summary.";
   if (stage === "monthly-review") return "Your monthly review is being prepared with controlled status, regressions, opportunities, and limitations.";
   if (stage === "summary-pending-approval") return "Your monthly summary is awaiting release approval before customer-facing delivery.";
-  return "Your Ongoing Control monthly summary is ready in your command center.";
+  return "Your Readiness Control monthly summary is ready in your command center.";
 }
 
 function getRequiredNextAction(stage: OngoingControlMonthlyStage) {
-  if (stage === "subscription-required") return "Activate Ongoing Control and verify your account before monthly status begins.";
+  if (stage === "subscription-required") return "Activate Readiness Control and verify your account before monthly status begins.";
   if (stage === "scope-required") return "Confirm monitoring scope and baseline so future monthly reports are comparable.";
-  if (stage === "monitoring-active") return "Watch dashboard inbox and email updates while the monthly review is prepared.";
+  if (stage === "monitoring-active") return "Watch dashboard messages and email updates while the monthly review is prepared.";
   if (stage === "monthly-review") return "Review pending status without treating unreleased analysis as final.";
   if (stage === "summary-pending-approval") return "Wait for approved delivery or use support for safe status questions.";
   return "Open your monthly summary, review progress and regressions, and choose the next safe action.";
