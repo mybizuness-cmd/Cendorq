@@ -11,14 +11,14 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
   cta: string;
 })[] = [
   {
-    title: "Confirm the inbox that owns this workspace",
-    eyebrow: "Access",
+    title: "Open the signal before buying deeper work",
+    eyebrow: "Next command",
     customerSummary:
-      "Keep report-ready notices, billing updates, support replies, and plan status connected to the right email.",
+      "Read the protected Free Scan result first. The dashboard should make the next paid move feel obvious only after the signal is understood.",
     customerValue:
-      "This protects the workspace and makes it easier to return when Cendorq has something ready.",
-    href: "/dashboard/notifications",
-    cta: "Confirm inbox",
+      "This turns the dashboard into the conversion room: proof first, then the right depth, not a blind upgrade push.",
+    href: "/dashboard/reports/free-scan",
+    cta: "Open signal",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: false,
@@ -30,14 +30,33 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
     evidenceBackedRecommendation: false,
   },
   {
-    title: "Review what Build Fix can change",
-    eyebrow: "Scope",
+    title: "Unlock Review when the cause needs proof",
+    eyebrow: "Upgrade path",
     customerSummary:
-      "Build Fix improves the approved target. Deep Review is separate when you need the full reason behind the work.",
+      "AI Readiness Review is the next depth when the first signal shows that guessing would be expensive.",
     customerValue:
-      "This prevents scope confusion and keeps implementation from pretending to be full diagnosis.",
-    href: "/dashboard/billing",
-    cta: "Review scope",
+      "The sale should feel rational: deeper review is the way to prove cause, priority, and safest next action before repair.",
+    href: "/checkout/start?plan=deep-review",
+    cta: "Unlock Review",
+    customerIdHashPresent: true,
+    verifiedEmail: true,
+    welcomeSent: true,
+    inboxConfirmationSent: true,
+    inboxConfirmationCompleted: true,
+    selectedPlan: "deep-review",
+    activeEntitlements: ["deep-review"],
+    routingMode: "linear-stop",
+    evidenceBackedRecommendation: true,
+  },
+  {
+    title: "Move to Repair only when the weak signal is clear",
+    eyebrow: "Scope discipline",
+    customerSummary:
+      "Signal Repair should feel like the decisive move after enough evidence exists, not another generic service card.",
+    customerValue:
+      "This protects trust and increases close quality because the customer can see exactly what the repair is supposed to improve.",
+    href: "/checkout/start?plan=build-fix",
+    cta: "Start Repair",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: true,
@@ -50,14 +69,14 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
     intakeOrApprovalIncomplete: true,
   },
   {
-    title: "Keep monthly control evidence-led",
-    eyebrow: "Ongoing",
+    title: "Keep Control for signals worth watching",
+    eyebrow: "Recurring value",
     customerSummary:
-      "Ongoing Control keeps watch and decision support active. Build Fix stays separate when the evidence shows implementation is needed.",
+      "Readiness Control belongs when there is a real baseline, watchlist, competitor movement, forecast refresh, or proof freshness reason.",
     customerValue:
-      "This keeps monthly guidance useful without turning it into unlimited implementation work.",
-    href: "/dashboard/notifications",
-    cta: "View updates",
+      "This makes retention feel earned: the customer returns because Cendorq keeps track of what can change, not because the dashboard pressures them.",
+    href: "/checkout/start?plan=ongoing-control",
+    cta: "Start Control",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: true,
@@ -81,22 +100,22 @@ export function DashboardActionInbox() {
       <div className="system-panel-authority rounded-[1.7rem] p-4 sm:p-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Action inbox</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Conversion inbox</div>
             <h2 className="mt-3 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-              Only the actions that protect progress stay here.
+              The dashboard sells the next depth by making the proof impossible to ignore.
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
-              No noise. No internal labels. Each action explains what it helps you do and where to go next.
+              No clutter, no panic, no account-page energy. Every action should either open proof, clarify scope, or move the customer to the right paid depth.
             </p>
           </div>
-          <Link href="/dashboard/notifications" className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 text-sm font-bold text-cyan-100 transition hover:bg-cyan-300/15 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Open notifications
+          <Link href="/dashboard/reports/free-scan" className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 text-sm font-bold text-cyan-100 transition hover:bg-cyan-300/15 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+            Open Free Scan result
           </Link>
         </div>
 
-        <div className="mt-5 grid gap-3 lg:grid-cols-3">
-          {ACTION_INBOX_ITEMS.map((item) => (
-            <Link key={item.title} href={item.href} className="rounded-[1.25rem] border border-white/10 bg-slate-950/45 p-4 text-sm leading-6 text-slate-200 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
+        <div className="mt-5 grid gap-3 lg:grid-cols-4">
+          {ACTION_INBOX_ITEMS.map((item, index) => (
+            <Link key={item.title} href={item.href} className={index === 1 ? "rounded-[1.25rem] border border-cyan-200/30 bg-cyan-300/12 p-4 text-sm leading-6 text-slate-200 shadow-[0_24px_90px_rgba(34,211,238,0.1)] transition hover:-translate-y-0.5 hover:border-cyan-200/50 hover:bg-cyan-300/16 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5" : "rounded-[1.25rem] border border-white/10 bg-slate-950/45 p-4 text-sm leading-6 text-slate-200 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5"}>
               <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.eyebrow}</span>
               <span className="mt-3 block text-xl font-semibold tracking-tight text-white">{item.title}</span>
               <span className="mt-3 block text-sm leading-7 text-slate-300">{item.customerSummary}</span>
@@ -109,7 +128,7 @@ export function DashboardActionInbox() {
         </div>
 
         <div className="sr-only">
-          Customer-led dashboard action inbox. Only the actions that protect progress stay here. No internal labels. No conversion role label. No raw payloads. Next best plan projection retained safely. {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
+          Customer-led dashboard conversion inbox. The dashboard sells the next depth by making the proof impossible to ignore. Open proof. Clarify scope. Move to the right paid depth. No internal labels. No conversion role label. No raw payloads. Next best plan projection retained safely. {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
         </div>
       </div>
     </section>
