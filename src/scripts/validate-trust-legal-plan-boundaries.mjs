@@ -11,52 +11,51 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-trust-legal-plan-boundaries.mjs";
 
 expect(privacyPath, [
-  "Market trust privacy",
+  "AI readiness privacy",
   "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "dashboard support",
-  "/connect",
+  "/free-check",
   "Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence.",
   "reasonable safeguards",
   "no online system can honestly guarantee absolute security",
-  "Command-specific data boundaries",
+  "Readiness-specific data boundaries",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(termsPath, [
-  "Market command terms",
-  "Clear rules keep the command path impossible to confuse.",
+  "AI readiness terms",
+  "Clear rules keep the readiness path impossible to confuse.",
   "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "dashboard support",
-  "/connect",
-  "One command depth does not silently include another command depth's work.",
+  "/free-check",
+  "One readiness depth does not silently include another readiness depth's work.",
   "Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales.",
   "Free Scan is the first signal.",
-  "Build Fix is scoped implementation",
-  "Ongoing Control provides recurring monitoring and monthly decision support.",
+  "Signal Repair is scoped implementation",
+  "Readiness Control provides recurring monitoring and monthly decision support.",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(disclaimerPath, [
-  "AI market command disclaimer",
+  "AI readiness disclaimer",
   "Strong guidance works best when the limits are clear.",
   "AI/search visibility is bounded",
   "No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment.",
-  "Use each command for the decision it was built to support.",
-  "Use Free Scan as a first signal, not a full diagnosis.",
-  "Use Deep Review when the cause matters enough to prove before fixing.",
-  "Use Build Fix when a scoped improvement is approved and ready to execute.",
-  "Use Ongoing Control when the business needs recurring monitoring, adjustment, and monthly decision support.",
+  "Use each readiness layer for the decision it was built to support.",
+  "Use Scan as a first readiness signal, not a full review.",
+  "Use Review when the cause matters enough to prove before repairing.",
+  "Use Repair when a scoped improvement is approved and ready to execute.",
+  "Use Control when the business needs recurring monitoring, adjustment, and monthly decision support.",
   "/dashboard/support",
-  "/connect",
-  "No Search Presence OS",
+  "/free-check",
   "No /contact route",
   "focus:outline-none",
   "focus:ring-2",
@@ -65,13 +64,18 @@ expect(disclaimerPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(privacyPath, [
+  "Market trust privacy",
   "Search Presence OS",
   "Search Presence Scan",
   "Visibility Blueprint",
   "Presence Infrastructure",
   "Presence Command",
   "/contact",
+  "/connect",
   "/disclaimer",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "guarantee absolute security",
   "guaranteed revenue",
   "guaranteed ranking",
@@ -79,13 +83,18 @@ forbidden(privacyPath, [
 ]);
 
 forbidden(termsPath, [
+  "Market command terms",
   "Search Presence OS",
   "Search Presence Scan",
   "Visibility Blueprint",
   "Presence Infrastructure",
   "Presence Command",
   "/contact",
+  "/connect",
   "/disclaimer",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "guaranteed revenue",
   "guaranteed ranking",
   "guaranteed ai placement",
@@ -94,6 +103,8 @@ forbidden(termsPath, [
 ]);
 
 forbidden(disclaimerPath, [
+  "AI market command disclaimer",
+  "Market Command Intelligence disclaimer",
   "Search Presence OS",
   "search-presence",
   "Search Presence Scan",
@@ -101,6 +112,10 @@ forbidden(disclaimerPath, [
   "Presence Infrastructure",
   "Presence Command",
   "/contact",
+  "/connect",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "guaranteed ranking.",
   "guaranteed AI placement.",
   "guaranteed leads.",
@@ -113,12 +128,12 @@ boundedLength(termsPath, 17500);
 boundedLength(disclaimerPath, 15000);
 
 if (failures.length) {
-  console.error("Trust legal AI command boundary validation failed:");
+  console.error("Trust legal AI readiness boundary validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Trust legal AI command boundary validation passed with current plan names, safe routes, no stale trust links, and AI/search no-guarantee posture.");
+console.log("Trust legal AI readiness boundary validation passed with current plan names, safe routes, no stale trust links, and AI/search no-guarantee posture.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
