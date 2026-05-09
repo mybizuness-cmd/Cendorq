@@ -9,35 +9,34 @@ const validatorPath = "src/scripts/validate-free-check-command-route-elevation.m
 const failures = [];
 
 expect(pagePath, [
-  "Command Free Scan room",
-  "Find the decision break before you buy the wrong fix.",
-  "enter safe context",
-  "hand off into dashboard, notifications, and report vault",
-  "SCAN_ROOM_TRUST_RAIL",
-  "Dedicated page, not a cramped popup",
-  "Safe business context only",
-  "Pending means pending, not final truth",
-  "Dashboard, notifications, and report vault handoff",
-  "It turns customer hesitation into a safer first direction.",
-  "without treating pending or incomplete input as final analysis",
+  "Free Scan",
+  "See the first signal before you buy the fix.",
+  "Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose before deeper work begins.",
+  "Business context only",
+  "No private credentials or payment details",
+  "Protected dashboard result after verification",
+  "AI-readiness signal",
+  "Result opens in dashboard",
+  "Free Scan form visible within the first quarter of the page",
+  "Dedicated dashboard Free Scan result path after verification",
 ]);
 
 expect(pagePath, [
-  "Submit only business context needed for the first read, not passwords, private keys, card data, tokens, or unrelated raw evidence.",
-  "Treat incomplete, interrupted, or pending scan state as pending instead of final analysis.",
-  "After submission, use dashboard, notifications, and report vault before creating duplicate support requests.",
-  "Plan guidance should come from scan evidence, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
+  "Can AI engines understand you?",
+  "Can buyers believe you?",
+  "Can customers choose you?",
+  "Review before repair",
+  "Prove the cause before spending money on the wrong page, message, or proof point.",
+  "The output is not a pile of generic tips.",
+  "Free Scan gives a first AI-readiness signal before paid review, repair, or monthly control.",
 ]);
 
 expect(pagePath, [
-  "GuidedFreeCheckForm",
+  "GuidedFreeCheckFormV3",
   "FreeCheckProgressGuard",
   "FreeCheckAnalytics",
-  "/dashboard",
-  "/dashboard/notifications",
-  "/dashboard/reports",
-  "No browser-exposed protected secrets",
-  "Routeable page that can be resumed or linked from dashboard",
+  "/dashboard/reports/free-scan",
+  "bg-white text-slate-950",
 ]);
 
 expect(packagePath, [
@@ -51,6 +50,7 @@ expect(routesChainPath, [
 
 forbidden(pagePath, [
   "Premium Free Scan room",
+  "Command Free Scan room",
   "guaranteed ROI",
   "guaranteed revenue",
   "guaranteed business results",
@@ -75,12 +75,12 @@ forbidden(pagePath, [
 ]);
 
 if (failures.length) {
-  console.error("Free Check command route validation failed:");
+  console.error("Free Scan route validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Free Check command route validation passed. validate:routes delegates through the orchestrator and the Free Check route remains wired into the route chain with command-grade public language.");
+console.log("Free Scan route validation passed with AI-readiness positioning, verified dashboard result path, and preserved intake wiring.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
