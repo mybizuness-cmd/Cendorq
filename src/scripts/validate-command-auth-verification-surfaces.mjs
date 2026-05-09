@@ -11,57 +11,51 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-auth-verification-surfaces.mjs";
 
 expect(signupPath, [
-  "Verified workspace trust surface",
-  "Create the verified workspace before private results appear.",
+  "Verified workspace",
+  "Create the workspace through the Free Scan path.",
   "Verify once. Continue safely.",
   "Signup trust path",
   "Signup safety standard",
   "Trust starts before the dashboard opens.",
   "No dashboard or result access before email confirmation.",
   "No account-existence leakage",
-  "No private data dump",
   "No fake urgency",
   "No hidden checkout pressure",
-  "Provider signup, email magic link, and password fallback remain available.",
-  "shadow-[0_28px_110px_rgba(2,8,23,0.42)]",
-  "hover:-translate-y-0.5",
+  "No fake OAuth buttons unless backend supports them.",
+  "bg-white text-slate-950",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(loginPath, [
   "Customer re-entry",
-  "Return to the exact customer moment that needs action.",
-  "Magic link first",
+  "Return to the workspace without starting over.",
+  "Access standard",
   "Customer re-entry paths",
-  "Login safety standard",
-  "Re-entry should restore context without leaking state.",
-  "Magic-link-first return path",
-  "Passkey-ready access",
-  "Password fallback",
+  "One workspace. Clear next step.",
+  "Magic-link-first return path when backend supports it.",
+  "Passkey-ready access is future only unless backend support is enabled.",
   "Protected results stay under dashboard routes",
   "No account-existence leakage",
   "No paid-plan pressure before evidence",
-  "shadow-[0_28px_110px_rgba(2,8,23,0.42)]",
-  "hover:-translate-y-0.5",
+  "bg-white text-slate-950",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(verifyPath, [
-  "Email verification gate",
-  "Confirm the inbox before private work opens.",
+  "Email verification",
+  "Confirm the inbox before private results open.",
   "Verified destinations",
   "Verification safety standard",
-  "Protect access without creating friction or leakage.",
+  "Protect access without friction or leakage.",
   "Cendorq Support at support@cendorq.com",
   "Verification proves inbox ownership",
   "No account-existence leakage",
   "Free Scan result access remains dashboard-only at /dashboard/reports/free-scan.",
   "verification click redirects to dashboard",
   "Your welcome email is sent one time after verified profile creation.",
-  "shadow-[0_28px_110px_rgba(2,8,23,0.42)]",
-  "hover:-translate-y-0.5",
+  "bg-white text-slate-950",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -75,6 +69,9 @@ forbidden(signupPath, [
   "ACCOUNT_PROTECTION_RULES",
   "Create the workspace that protects your first signal and keeps every next step connected.",
   "Access to first signal journey",
+  "Continue with Google",
+  "Continue with Microsoft",
+  "Continue with Apple",
 ]);
 
 forbidden(loginPath, [
@@ -82,6 +79,7 @@ forbidden(loginPath, [
   "REENTRY_DECISION_PATHS",
   "REENTRY_SAFETY_STANDARDS",
   "Pick up where the customer journey actually is.",
+  "Use passkey",
 ]);
 
 forbidden(verifyPath, [
@@ -102,7 +100,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Auth and verification surface validation passed with trust-gated signup, safe re-entry, and dashboard-only verified result access.");
+console.log("Auth and verification surface validation passed with white public pages, honest access copy, and dashboard-only verified result access.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
