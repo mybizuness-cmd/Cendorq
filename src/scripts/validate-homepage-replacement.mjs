@@ -6,7 +6,11 @@ const homepage = readFileSync(join(root, "src/app/page.tsx"), "utf8");
 const footer = readFileSync(join(root, "src/layout/site-footer.tsx"), "utf8");
 const header = readFileSync(join(root, "src/layout/site-header-conversion.tsx"), "utf8");
 const loading = readFileSync(join(root, "src/app/loading.tsx"), "utf8");
-const combined = `${homepage}\n${footer}\n${header}\n${loading}`;
+const layout = readFileSync(join(root, "src/app/layout.tsx"), "utf8");
+const robots = readFileSync(join(root, "src/app/robots.ts"), "utf8");
+const sitemap = readFileSync(join(root, "src/app/sitemap.ts"), "utf8");
+const seo = readFileSync(join(root, "src/lib/seo.ts"), "utf8");
+const combined = `${homepage}\n${footer}\n${header}\n${loading}\n${layout}\n${robots}\n${sitemap}\n${seo}`;
 const failures = [];
 
 for (const phrase of [
@@ -23,6 +27,9 @@ for (const phrase of [
   "id=\"ai-readiness\"",
   "AI Readiness",
   "Sign in",
+  "AI engine readiness",
+  "AI readiness for business",
+  "answer engine visibility",
   "To be recommended, a business needs clear facts, trusted proof, consistent signals, and a reason to choose.",
   "without promising rankings, leads, or AI placement.",
   "Get found",
@@ -53,6 +60,12 @@ for (const phrase of [
   "href: \"/plans/deep-review\"",
   "href: \"/plans/build-fix\"",
   "href: \"/plans/ongoing-control\"",
+  "\"/api/\"",
+  "\"/admin/\"",
+  "\"/dashboard/\"",
+  "\"/checkout/\"",
+  "\"/sitemap.xml\"",
+  "termsOfService",
 ]) {
   if (!combined.includes(phrase)) failures.push(`Polished AI readiness shell missing required phrase: ${phrase}`);
 }
@@ -109,4 +122,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is white, compact, calm, urgent, and positioned around AI engines and AI readiness without a dropdown menu.");
+console.log("Homepage replacement validation passed. Public shell is white, compact, calm, urgent, search-compliant, and positioned around AI engines and AI readiness without a dropdown menu.");
