@@ -70,31 +70,28 @@ export const siteConfig: SiteConfig = {
     shortName: "Cendorq",
     siteUrl: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
     description:
-        "Cendorq helps businesses become easier to find, understand, trust, and choose as customers, search, and AI discovery change.",
+        "Cendorq checks whether AI engines can understand what a business does, why it should be trusted, and why customers should choose it.",
     locale: "en_US",
     twitterHandle: "",
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@cendorq.com",
     supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@cendorq.com",
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "",
     locationLabel: "United States",
-    defaultOgTitle: "Cendorq — Market Command Intelligence",
+    defaultOgTitle: "Cendorq — AI Engine Readiness",
     defaultOgDescription:
-        "Find what the market may be missing before you spend deeper. Start with Scan, then choose Diagnose, Fix, or Control.",
+        "If AI engines cannot understand your business, customers may never get the chance to. Start with the Free Scan.",
     defaultKeywords: [
         "Cendorq",
-        "Market Command Intelligence",
-        "free business scan",
-        "market signal scan",
-        "business clarity scan",
-        "customer hesitation analysis",
-        "market proof vault",
-        "business visibility scan",
+        "AI engine readiness",
+        "AI readiness for business",
         "AI search visibility",
+        "AI answer visibility",
         "answer engine visibility",
-        "local business visibility",
-        "professional service visibility",
-        "service business website audit",
-        "business trust and clarity",
+        "business clarity scan",
+        "business trust scan",
+        "business visibility scan",
+        "market command intelligence",
+        "free business scan",
         "Deep Review",
         "Build Fix",
         "Ongoing Control",
@@ -247,7 +244,7 @@ export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJs
     };
 }
 
-export function buildServiceJsonLd({ title, description, path = "/", serviceType = "Market Command Intelligence" }: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI engine readiness and market command intelligence" }: ServiceJsonLdInput) {
     const normalizedPath = normalizePath(path);
 
     return {
@@ -257,7 +254,7 @@ export function buildServiceJsonLd({ title, description, path = "/", serviceType
         name: cleanString(title) || siteConfig.defaultOgTitle,
         description: cleanString(description) || siteConfig.defaultOgDescription,
         url: absoluteUrl(normalizedPath),
-        serviceType: cleanString(serviceType) || "Market Command Intelligence",
+        serviceType: cleanString(serviceType) || "AI engine readiness and market command intelligence",
         areaServed: "Worldwide",
         provider: { "@id": organizationSchemaId() },
         brand: { "@id": organizationSchemaId() },
