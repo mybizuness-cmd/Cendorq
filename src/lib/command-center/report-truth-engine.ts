@@ -65,6 +65,15 @@ export type AgentVerificationRule = {
   blockedBehavior: readonly string[];
 };
 
+export type PersuasiveTruthRule = {
+  key: string;
+  label: string;
+  persuasionStandard: string;
+  allowedTactics: readonly string[];
+  proofBoundary: string;
+  blockedBehavior: readonly string[];
+};
+
 export const REPORT_TRUTH_RULES = [
   {
     key: "separate-input-from-evidence",
@@ -137,12 +146,39 @@ export const DELIVERY_RELIABILITY_RULES = [
   },
 ] as const satisfies readonly DeliveryReliabilityRule[];
 
+export const PERSUASIVE_TRUTH_RULES = [
+  {
+    key: "truthful-premium-framing",
+    label: "Truthful premium framing",
+    persuasionStandard: "Cendorq should sell with confidence, clarity, contrast, specificity, and premium positioning, but the strongest wording must be reserved for claims that have strong evidence or clear plan-stage fit.",
+    allowedTactics: ["contrast before and after", "show cost of inaction when evidence supports it", "frame next action as safer than guessing", "explain opportunity windows", "use calm urgency when timing risk is visible", "make expert judgment easy to understand"],
+    proofBoundary: "Persuasion must never convert weak evidence into certainty. If confidence is low, the copy can still be useful and compelling by explaining why deeper review is the safest move.",
+    blockedBehavior: ["dark patterns", "fake urgency", "certainty theater", "unsupported fear", "claiming guaranteed outcomes", "using ambiguity to pressure purchase"],
+  },
+  {
+    key: "educate-while-selling",
+    label: "Educate while selling",
+    persuasionStandard: "Sales copy should teach the customer how to think about readiness, proof, customer choice, AI/search movement, and repair timing while making the next purchase path obvious.",
+    allowedTactics: ["simple buyer education", "stage comparison", "what this plan includes and excludes", "why this next step is safer", "what happens if nothing changes", "what evidence would improve confidence"],
+    proofBoundary: "Education must stay concise and practical. It should not drown the customer in methodology or expose private scoring logic.",
+    blockedBehavior: ["overexplaining until conversion dies", "hiding plan boundaries", "technical clutter", "methodology dumping", "selling a higher plan when a lower step is safer"],
+  },
+  {
+    key: "reputation-over-short-term-sale",
+    label: "Reputation over short-term sale",
+    persuasionStandard: "Long-term reputation is more valuable than one conversion. If the evidence does not support a stronger claim, the system should use precise confidence language and sell the correct next step instead of overstating certainty.",
+    allowedTactics: ["confidence labels", "bounded findings", "transparent limitations", "correction path", "review-first positioning", "selective urgency"],
+    proofBoundary: "The customer should feel Cendorq is confident because it is disciplined, not because it is exaggerating.",
+    blockedBehavior: ["sales copy that outruns evidence", "guarantee language", "hiding uncertainty", "manufacturing problems", "making every issue sound urgent"],
+  },
+] as const satisfies readonly PersuasiveTruthRule[];
+
 export const AGENT_VERIFICATION_RULES = [
   {
     key: "agent-research-discipline",
     label: "Agent research discipline",
     agentStandard: "Agents must gather, compare, cite, classify, and label evidence before producing report claims. They should keep useful bounded findings instead of omitting them, but must label weak confidence clearly.",
-    captainStandard: "Captain review verifies source relevance, evidence age, contradictions, completeness, plan fit, and safe wording before anything becomes customer-facing.",
+    captainStandard: "Captain review verifies source relevance, evidence age, contradictions, completeness, plan fit, safe wording, and persuasion boundaries before anything becomes customer-facing.",
     blockedBehavior: ["agent improvisation as fact", "omitting useful evidence because it is imperfect", "overstating weak evidence", "unsupported competitor claims", "unverified customer-facing recommendations"],
   },
   {
@@ -274,6 +310,7 @@ export function getReportTruthEnginePolicy() {
   return {
     truthRules: REPORT_TRUTH_RULES,
     deliveryReliabilityRules: DELIVERY_RELIABILITY_RULES,
+    persuasiveTruthRules: PERSUASIVE_TRUTH_RULES,
     agentVerificationRules: AGENT_VERIFICATION_RULES,
     enrichmentRules: BUSINESS_ENRICHMENT_RULES,
     metricRules: REPORT_METRIC_RULES,
