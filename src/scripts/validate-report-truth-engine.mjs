@@ -10,6 +10,7 @@ const packagePath = "package.json";
 validateTextFile(policyPath, [
   "REPORT_TRUTH_RULES",
   "DELIVERY_RELIABILITY_RULES",
+  "PERSUASIVE_TRUTH_RULES",
   "AGENT_VERIFICATION_RULES",
   "BUSINESS_ENRICHMENT_RULES",
   "REPORT_METRIC_RULES",
@@ -26,6 +27,15 @@ validateTextFile(policyPath, [
   "Claims must be classified as verified fact, customer-provided context, observed evidence, inference, forecast, or unknown before release.",
   "Streamlined command chain",
   "Research should move from agent to captain to owner-facing release posture",
+  "Category-defining authority framing",
+  "command-level authority, category-defining clarity, strategic contrast, specificity, and number-one operating posture",
+  "above normal agencies and tools",
+  "position Cendorq as the category standard without unsupported public supremacy claims",
+  "Persuasion must never convert weak evidence into certainty.",
+  "disciplined proof is part of Cendorq's authority",
+  "The customer should feel Cendorq is strong because it is disciplined, not because it is exaggerating.",
+  "Educate while selling",
+  "Reputation over short-term sale",
   "Agent research discipline",
   "Truth before selling",
   "business name plus website or address",
@@ -97,6 +107,13 @@ validateForbidden(policyPath, [
   "guessing to look complete allowed",
   "agent-only final approval allowed",
   "sales before proof allowed",
+  "dark patterns allowed",
+  "fake urgency allowed",
+  "certainty theater allowed",
+  "guarantee language allowed",
+  "sales copy that outruns evidence allowed",
+  "unsupported number-one claims allowed",
+  "low-ceiling agency language allowed",
   "full-diagnosis",
   "optimization",
   "monthly-control",
@@ -145,7 +162,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, proof-gated delivery reliability, agent-to-captain verification, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, selective forecast and recurring-value sections, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
+console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, proof-gated delivery reliability, category-defining authority persuasion, agent-to-captain verification, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, selective forecast and recurring-value sections, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
