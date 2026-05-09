@@ -21,7 +21,6 @@ const activePublicFiles = [
   "src/app/plans/deep-review/page.tsx",
   "src/app/plans/build-fix/page.tsx",
   "src/app/plans/ongoing-control/page.tsx",
-  "src/app/connect/page.tsx",
   "src/app/layout.tsx",
   "src/app/loading.tsx",
   "src/app/error.tsx",
@@ -45,18 +44,19 @@ const activePublicFiles = [
 ];
 
 const requiredCurrentLanguage = [
-  "Market Command Intelligence",
+  "AI Engine Readiness",
   "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "Scan",
-  "Diagnose",
-  "Fix",
+  "Review",
+  "Repair",
   "Control",
 ];
 
 const forbiddenActiveLanguage = [
+  "Market Command Intelligence",
   "Free Search Presence Scan",
   "free search presence scan",
   "Search Presence OS",
@@ -75,6 +75,12 @@ const forbiddenActiveLanguage = [
   "presence infrastructure",
   "presence command",
   "visibility operating system",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "Diagnose",
+  "command path",
+  "Command Path",
 ];
 
 const forbiddenActiveRoutes = [
@@ -84,6 +90,7 @@ const forbiddenActiveRoutes = [
   "/pricing/monthly-partner",
   "/diagnosis",
   "/contact",
+  "/connect",
   "/profile",
   "/faq",
 ];
@@ -110,60 +117,56 @@ for (const route of forbiddenActiveRoutes) {
 }
 
 expect("FINAL_SYSTEM_STATUS.md", [
-  "canonical product category: Market Command Intelligence",
+  "canonical product category: AI Engine Readiness",
   "Free Scan",
   "Plans",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "Connect",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "guided-free-check-form-v3.tsx",
 ]);
 
 expect("VISUAL_EDITOR_UPLOAD_NOTES.md", [
-  "Market Command Intelligence",
+  "AI Engine Readiness",
   "Free Scan",
   "Plans",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "Connect",
-  "Scan, Diagnose, Fix, Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "Scan, Review, Repair, Control",
 ]);
 
 expect("src/lib/site.ts", [
   "{ label: \"Free Scan\", href: \"/free-check\" }",
   "{ label: \"Plans\", href: \"/plans\" }",
-  "{ label: \"Deep Review\", href: \"/plans/deep-review\" }",
-  "{ label: \"Build Fix\", href: \"/plans/build-fix\" }",
-  "{ label: \"Ongoing Control\", href: \"/plans/ongoing-control\" }",
-  "{ label: \"Connect\", href: \"/connect\" }",
+  "{ label: \"AI Readiness Review\", href: \"/plans/deep-review\" }",
+  "{ label: \"Signal Repair\", href: \"/plans/build-fix\" }",
+  "{ label: \"Readiness Control\", href: \"/plans/ongoing-control\" }",
 ]);
 
 expect("src/lib/schema.ts", [
-  "name: \"Market Command Intelligence\"",
+  "name: \"AI Engine Readiness\"",
   "absoluteUrl(\"/plans/deep-review\")",
-  "absoluteUrl(\"/connect\")",
   "easier to find, understand, trust, and choose",
 ]);
 
 expect("src/components/home/hero-section.tsx", [
-  "Market Command Intelligence",
+  "AI Engine Readiness",
   "href=\"/free-check\"",
   "href=\"/plans/deep-review\"",
   "Start the Free Scan",
-  "See how Deep Review works",
+  "See how AI Readiness Review works",
 ]);
 
 expect("src/components/home/process-section.tsx", [
-  "One command path: Scan, Diagnose, Fix, Control.",
+  "One readiness path: Scan, Review, Repair, Control.",
   "Scan first",
-  "Diagnose clearly",
-  "Fix what matters",
+  "Review clearly",
+  "Repair what matters",
   "Control the path",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 expect("src/components/home/final-cta-section.tsx", [
@@ -176,8 +179,8 @@ expect("src/components/home/final-cta-section.tsx", [
 expect("src/app/free-check/error.tsx", [
   "Free Scan interruption",
   "href=\"/plans/deep-review\"",
-  "See Deep Review",
-  "Homepage or Deep Review",
+  "See AI Readiness Review",
+  "Homepage or AI Readiness Review",
 ]);
 
 expect("src/components/free-check/guided-free-check-form-v3.tsx", [
@@ -190,7 +193,7 @@ expect("src/components/free-check/guided-free-check-form-v3.tsx", [
 
 expect("src/app/loading.tsx", [
   "Cendorq / Loading",
-  "the cleanest command view",
+  "the cleanest readiness view",
   "Start Free Scan",
   "Review Plans",
   "homepage, Free Scan, or Plans",
@@ -218,18 +221,18 @@ expect("src/layout/site-header.tsx", [
 expect("src/layout/site-header-conversion.tsx", [
   "label: \"Plans\"",
   "href: \"/plans\"",
-  "description: \"Compare Scan, Diagnose, Fix, and Control.\"",
+  "description: \"Compare Scan, Review, Repair, and Control.\"",
 ]);
 
 expect("src/lib/seo.ts", [
   "process.env.NEXT_PUBLIC_SITE_URL",
-  "Cendorq helps businesses become easier to find, understand, trust, and choose",
-  "Cendorq — Market Command Intelligence",
-  "Find what the market may be missing before you spend deeper",
-  "Market Command Intelligence",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
+  "Cendorq checks whether AI engines can understand what a business does",
+  "Cendorq — AI Engine Readiness",
+  "If AI engines cannot understand your business, customers may never get the chance to.",
+  "AI Engine Readiness",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 expect("src/app/sitemap.ts", [
@@ -240,27 +243,26 @@ expect("src/app/sitemap.ts", [
 ]);
 
 expect("src/app/layout.tsx", [
-  "Market Command Intelligence",
-  "Cendorq Command Path",
-  "Market signal analysis",
+  "AI Engine Readiness",
+  "Cendorq AI Readiness Path",
   "Scan",
-  "Diagnose",
-  "Fix",
+  "Review",
+  "Repair",
   "Control",
 ]);
 
 expect("src/app/opengraph-image.tsx", [
-  "Market Command Intelligence",
+  "AI Engine Readiness",
   "Be easier to find",
   "Free scan first",
-  "Scan before buying the bigger fix",
+  "Scan before buying the bigger repair",
 ]);
 
 expect("src/app/twitter-image.tsx", [
-  "Market Command Intelligence",
+  "AI Engine Readiness",
   "Be easier to find",
   "Start with the Free Scan",
-  "Scan first. Diagnose deeper. Fix what matters.",
+  "Scan first. Review deeper. Repair what matters.",
 ]);
 
 expect("public/llms.txt", [
@@ -268,17 +270,16 @@ expect("public/llms.txt", [
   "/plans/deep-review",
   "/plans/build-fix",
   "/plans/ongoing-control",
-  "/connect",
-  "Market Command Intelligence",
+  "AI Engine Readiness",
   "make the business easier to understand",
   "make the business easier to trust",
   "make the business easier to choose",
 ]);
 
 expect("public/manifest.webmanifest", [
-  "Cendorq — Market Command Intelligence",
-  "Compare Command Path",
-  "Compare Scan, Diagnose, Fix, and Control.",
+  "Cendorq — AI Engine Readiness",
+  "Compare Readiness Path",
+  "Compare Scan, Review, Repair, and Control.",
 ]);
 
 expect("docs/configuration-safety-checklist.md", [
@@ -299,23 +300,23 @@ expect("docs/search-discovery-checklist.md", [
   "Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.",
 ]);
 
-forbid("FINAL_SYSTEM_STATUS.md", ["Search Presence Scan", "Visibility Blueprint", "Presence Infrastructure", "Presence Command"]);
-forbid("VISUAL_EDITOR_UPLOAD_NOTES.md", ["Search Presence Scan", "Visibility Blueprint", "Presence Infrastructure", "Presence Command"]);
-forbid("src/lib/site.ts", ["/pricing", "/diagnosis", "/contact", "/profile", "/faq", "How It Works", "System Layers"]);
-forbid("src/lib/schema.ts", ["/pricing", "/diagnosis", "/contact", "Search Presence OS", "search-presence diagnosis"]);
-forbid("src/components/home/hero-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Visibility intelligence for businesses"]);
-forbid("src/components/home/process-section.tsx", ["/pricing", "/diagnosis", "generic optimization", "Diagnosis before optimization", "future optimization"]);
+forbid("FINAL_SYSTEM_STATUS.md", ["Search Presence Scan", "Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Market Command Intelligence", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
+forbid("VISUAL_EDITOR_UPLOAD_NOTES.md", ["Search Presence Scan", "Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Market Command Intelligence", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
+forbid("src/lib/site.ts", ["/pricing", "/diagnosis", "/contact", "/connect", "/profile", "/faq", "How It Works", "System Layers", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
+forbid("src/lib/schema.ts", ["/pricing", "/diagnosis", "/contact", "/connect", "Search Presence OS", "search-presence diagnosis", "Market Command Intelligence"]);
+forbid("src/components/home/hero-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Visibility intelligence for businesses", "Market Command Intelligence", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
+forbid("src/components/home/process-section.tsx", ["/pricing", "/diagnosis", "generic optimization", "Diagnosis before optimization", "future optimization", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
 forbid("src/components/home/final-cta-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan"]);
-forbid("src/app/free-check/error.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Homepage or diagnosis"]);
+forbid("src/app/free-check/error.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Homepage or diagnosis", "Deep Review"]);
 forbid("src/components/free-check/guided-free-check-form-v3.tsx", ["/pricing", "/diagnosis", "Search Presence Scan"]);
-forbid("src/app/loading.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
+forbid("src/app/loading.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan", "command view"]);
 forbid("src/app/error.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
-forbid("src/layout/site-header-conversion.tsx", ["label: \"Pricing\"", "description: \"Choose the right depth.\""]);
-forbid("src/lib/seo.ts", ["Business Command Intelligence", "website trust scan", "conversion clarity review"]);
-forbid("src/app/layout.tsx", ["Business Command Intelligence", "business decision intelligence"]);
-forbid("src/app/opengraph-image.tsx", ["Business Command Intelligence", "Stop losing customers"]);
-forbid("src/app/twitter-image.tsx", ["Business Command Intelligence", "Stop losing customers"]);
-forbid("public/manifest.webmanifest", ["Business Command Intelligence", "View Pricing"]);
+forbid("src/layout/site-header-conversion.tsx", ["label: \"Pricing\"", "description: \"Choose the right depth.\"", "Diagnose", "Fix", "Deep Review", "Build Fix", "Ongoing Control"]);
+forbid("src/lib/seo.ts", ["Business Command Intelligence", "Market Command Intelligence", "website trust scan", "conversion clarity review", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
+forbid("src/app/layout.tsx", ["Business Command Intelligence", "Market Command Intelligence", "business decision intelligence", "Diagnose", "Fix"]);
+forbid("src/app/opengraph-image.tsx", ["Business Command Intelligence", "Market Command Intelligence", "Stop losing customers", "Diagnose", "Fix"]);
+forbid("src/app/twitter-image.tsx", ["Business Command Intelligence", "Market Command Intelligence", "Stop losing customers", "Diagnose", "Fix"]);
+forbid("public/manifest.webmanifest", ["Business Command Intelligence", "Market Command Intelligence", "View Pricing", "Diagnose", "Fix"]);
 
 if (failures.length) {
   console.error("Public drift validation failed:");
@@ -323,7 +324,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. Root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, dormant homepage process section, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
+console.log("Public drift validation passed. Root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, dormant homepage process section, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current AI Engine Readiness buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
