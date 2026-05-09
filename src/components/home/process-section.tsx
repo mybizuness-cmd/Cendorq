@@ -1,30 +1,30 @@
 const processSteps = [
     {
-        title: "Structured entry",
+        title: "Scan first",
         copy:
-            "The Free Scan opens with a cleaner, lower-friction path so strong prospects are not lost before they begin.",
+            "The Free Scan opens with a cleaner, lower-friction path so strong prospects are not lost before the first signal appears.",
     },
     {
-        title: "Signal interpretation",
+        title: "Diagnose clearly",
         copy:
-            "Inputs are prepared to support deeper normalization, scoring, and business intelligence in later platform layers.",
+            "Deep Review is the deeper layer for proving what is actually weakening clarity, trust, visibility, choice, or action.",
     },
     {
-        title: "Diagnosis before optimization",
+        title: "Fix what matters",
         copy:
-            "The system is designed to identify what is actually wrong before more effort is spent in the wrong direction.",
+            "Build Fix turns the strongest diagnosed issue into a scoped improvement instead of pushing effort in the wrong direction.",
     },
     {
-        title: "Strategic next actions",
+        title: "Control the path",
         copy:
-            "The eventual goal is not just a score. It is a clear understanding of what to fix next and why it matters.",
+            "Ongoing Control keeps the business under watch as customers, competitors, search, reviews, and AI discovery keep moving.",
     },
 ];
 
 const positioningBullets = [
     "Cendorq is not built to guess loudly.",
     "It is built to detect what is suppressing confidence.",
-    "That makes future optimization cleaner, smarter, and more profitable.",
+    "That makes the next command cleaner, safer, and easier to trust.",
 ];
 
 export function ProcessSection() {
@@ -38,13 +38,14 @@ export function ProcessSection() {
                         </p>
 
                         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                            This platform is being built to think before it pushes.
+                            One command path: Scan, Diagnose, Fix, Control.
                         </h2>
 
                         <p className="mt-6 text-base leading-8 text-slate-300 md:text-lg">
-                            Generic optimization often creates more noise. Cendorq is built
-                            around diagnosis, confidence, and structured next actions so the
-                            system can become smarter and more valuable over time.
+                            Generic effort often creates more noise. Cendorq is built
+                            around evidence, confidence, plan boundaries, and structured
+                            next actions so the business moves deeper only when the next
+                            command is justified.
                         </p>
 
                         <div className="mt-8 space-y-3">

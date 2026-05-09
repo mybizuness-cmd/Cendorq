@@ -12,6 +12,7 @@ const activePublicFiles = [
   "src/lib/schema.ts",
   "src/app/page.tsx",
   "src/components/home/hero-section.tsx",
+  "src/components/home/process-section.tsx",
   "src/components/home/final-cta-section.tsx",
   "src/app/free-check/page.tsx",
   "src/app/free-check/error.tsx",
@@ -154,6 +155,17 @@ expect("src/components/home/hero-section.tsx", [
   "See how Deep Review works",
 ]);
 
+expect("src/components/home/process-section.tsx", [
+  "One command path: Scan, Diagnose, Fix, Control.",
+  "Scan first",
+  "Diagnose clearly",
+  "Fix what matters",
+  "Control the path",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+]);
+
 expect("src/components/home/final-cta-section.tsx", [
   "href=\"/free-check\"",
   "href=\"/plans\"",
@@ -292,6 +304,7 @@ forbid("VISUAL_EDITOR_UPLOAD_NOTES.md", ["Search Presence Scan", "Visibility Blu
 forbid("src/lib/site.ts", ["/pricing", "/diagnosis", "/contact", "/profile", "/faq", "How It Works", "System Layers"]);
 forbid("src/lib/schema.ts", ["/pricing", "/diagnosis", "/contact", "Search Presence OS", "search-presence diagnosis"]);
 forbid("src/components/home/hero-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Visibility intelligence for businesses"]);
+forbid("src/components/home/process-section.tsx", ["/pricing", "/diagnosis", "generic optimization", "Diagnosis before optimization", "future optimization"]);
 forbid("src/components/home/final-cta-section.tsx", ["/pricing", "/diagnosis", "Search Presence Scan"]);
 forbid("src/app/free-check/error.tsx", ["/pricing", "/diagnosis", "Search Presence Scan", "Homepage or diagnosis"]);
 forbid("src/components/free-check/guided-free-check-form-v3.tsx", ["/pricing", "/diagnosis", "Search Presence Scan"]);
@@ -310,7 +323,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. Root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
+console.log("Public drift validation passed. Root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, dormant homepage process section, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current Market Command Intelligence buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
