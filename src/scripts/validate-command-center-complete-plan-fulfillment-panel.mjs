@@ -26,19 +26,27 @@ expect(panelPath, [
 ]);
 
 expect(panelPath, [
-  "value, education, boundaries, conversion, stages, artifacts, and approval",
-  "Private operator view for ensuring each plan delivers more value than its price",
-  "protects higher-tier revenue streams",
+  "value, education, boundaries, conversion, mirror, documents, stages, artifacts, and approval",
+  "mirrors important messages into the dashboard",
+  "gates safe PDFs",
   "evidence-led plan fit",
-  "Customer education",
-  "Value and boundary",
-  "Customer education reviewed",
-  "Value above price reviewed",
-  "Plan boundary protected",
-  "Conversion method approved",
-  "Release-captain approved",
-  "Customer-facing delivery allowed",
-  "Upgrade / retention allowed",
+  "dashboard-message mirror",
+  "safe-document delivery",
+  "dashboardMessageMirrorReviewed",
+  "safeDocumentDeliveryReviewed",
+  "Mirror",
+  "Documents",
+  "mirror: {ok ? \"yes\" : \"no\"}",
+]);
+
+expect(panelPath, [
+  "AI Readiness Review needs report production",
+  "Signal Repair needs scope evidence",
+  "Readiness Control needs forecast explanation",
+  "free-scan dashboard message mirror artifact",
+  "deep-review dashboard message mirror artifact",
+  "build-fix dashboard message mirror artifact",
+  "ongoing-control dashboard message mirror artifact",
 ]);
 
 expect(panelPath, [
@@ -48,6 +56,8 @@ expect(panelPath, [
   "value",
   "boundary",
   "conversion",
+  "mirror",
+  "documents",
   "approval",
   "delivery",
   "from-violet-300 via-sky-300 to-emerald-300",
@@ -72,6 +82,8 @@ expect(runtimePath, [
   "valueExceedsPriceReviewed",
   "planBoundaryProtected",
   "conversionMethodApproved",
+  "dashboardMessageMirrorReviewed",
+  "safeDocumentDeliveryReviewed",
   "customerFacingDeliveryAllowed",
   "upgradeOrRetentionAllowed",
 ]);
@@ -113,6 +125,12 @@ forbidden(panelPath, [
   "rawEvidence=",
   "operatorIdentity=",
   "internalNote=",
+  "Deep Review needs",
+  "Build Fix needs",
+  "Ongoing Control needs",
+  "optimization purchase confirmation",
+  "expanded diagnostic questionnaire",
+  "notification, and support handoff",
   "localStorage.setItem",
   "sessionStorage.setItem",
 ]);
@@ -123,7 +141,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center complete plan fulfillment panel validation passed.");
+console.log("Command center complete plan fulfillment panel validation passed with dashboard-message mirror gates, safe-document gates, current plan copy, and vault-first delivery posture.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
