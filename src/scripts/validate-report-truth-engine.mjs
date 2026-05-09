@@ -23,12 +23,12 @@ validateTextFile(policyPath, [
   "priority-severity-index",
   "progress-delta",
   "free-scan",
-  "full-diagnosis",
-  "optimization",
-  "monthly-control",
-  "Full Diagnosis is required to verify causes",
-  "Optimization is the logical next step",
-  "Monthly Control protects, measures, and iterates",
+  "deep-review",
+  "build-fix",
+  "ongoing-control",
+  "Deep Review is required to verify causes",
+  "Build Fix is the logical next step",
+  "Ongoing Control protects, measures, and iterates",
 ]);
 
 validateTextFile(growthPolicyPath, [
@@ -43,9 +43,11 @@ validateTextFile(growthPolicyPath, [
   "small Cendorq-branded footer",
   "serious evidence-backed review process",
   "Business outcomes, rankings, traffic, leads, conversions, revenue, platform behavior, or perfect accuracy",
-  "Full Diagnosis must be thorough and extensive",
+  "Deep Review must be thorough and extensive",
   "website, profiles, reviews, social and platform activity",
-  "recommended Optimization path",
+  "recommended Build Fix path",
+  "Build Fix reporting must translate diagnosis into action",
+  "recommended Ongoing Control path",
   "Every business study must consider social media and other platform activity",
   "bread and butter",
   "marketplaces, directories, booking platforms, delivery apps, creator platforms, review platforms, communities, app stores, or industry-specific platforms",
@@ -62,16 +64,28 @@ validateForbidden(policyPath, [
   "perfect accuracy: true",
   "unverified fact",
   "ignore missing evidence",
+  "full-diagnosis",
+  "optimization",
+  "monthly-control",
+  "Full Diagnosis",
+  "Optimization is the logical next step",
+  "Monthly Control",
 ]);
 
 validateForbidden(growthPolicyPath, [
   "guaranteeing rankings",
   "guaranteeing traffic",
-  "guaranteing leads",
+  "guaranteeing leads",
   "guaranteeing conversions",
   "guaranteeing revenue",
   "promising legal immunity",
   "lying allowed",
+  "full-diagnosis",
+  "optimization",
+  "monthly-control",
+  "Full Diagnosis",
+  "Optimization",
+  "Monthly Control",
 ]);
 
 if (failures.length) {
@@ -80,7 +94,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, traceable calculations, confidence labels, plan-by-plan report depth, truthful high-conversion logic, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
+console.log("Report truth engine validation passed. Report generation standards require independent evidence, minimum-input enrichment, traceable calculations, confidence labels, current plan-by-plan report depth, truthful high-conversion logic, social and platform revenue discovery, modern official branding, customer-safe footer safeguards, and plan-upgrade logic without perfect-accuracy or guaranteed-result claims.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
