@@ -22,7 +22,7 @@ Before changing public pages, fallback states, protected customer surfaces, inte
 
 Every important surface should answer one question quickly:
 
-> What is the safest next command?
+> What is the safest next readiness move?
 
 ## Protected buyer path
 
@@ -30,12 +30,11 @@ Keep the public path simple:
 
 1. Free Scan
 2. Plans
-3. Deep Review
-4. Build Fix
-5. Ongoing Control
-6. Connect
+3. AI Readiness Review
+4. Signal Repair
+5. Readiness Control
 
-Use plain buyer language. Avoid bringing back old public labels or making the site sound technical when the buyer needs clarity.
+Use plain buyer language. Avoid bringing back old public labels or making the site sound technical when the buyer needs clarity. `/connect` is a legacy redirect to `/free-check`, not an active buyer destination.
 
 ## Before opening work
 
@@ -60,7 +59,7 @@ pnpm build
 For changes that affect production behavior after deploy, also plan to run:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## PR expectations
@@ -149,7 +148,6 @@ Do not remove or weaken the critical routes:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
-- `/connect`
 
 Legacy public URLs should redirect into the current buyer path. The canonical route list should stay clean.
 
@@ -197,7 +195,7 @@ Keep changes:
 - direct
 - conversion-focused
 - easy to understand
-- command-path aligned
+- readiness-path aligned
 
 Avoid:
 
