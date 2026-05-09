@@ -66,9 +66,9 @@ const SIGNALS = [
 ] as const;
 
 const TRUST_POINTS = [
-  "The Free Scan form stays intact.",
-  "Dashboard and report paths stay intact.",
-  "No old Pricing or Diagnosis routes on the homepage.",
+  "Start with evidence before paid depth.",
+  "Move deeper only when the signal is strong.",
+  "See the path before committing to the fix.",
   "No fake guarantees, no vague audit theater, no clutter.",
 ] as const;
 
@@ -77,14 +77,14 @@ export default function HomePage() {
     <main data-cendorq-homepage="market-command-home-v1" className="relative isolate min-h-screen overflow-hidden bg-[#020713] text-white">
       <HomeBackground />
 
-      <section className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-[88rem] flex-col px-5 py-10 sm:px-8 lg:justify-center lg:py-16">
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+      <section className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-[86rem] flex-col px-5 py-10 sm:px-8 lg:justify-center lg:py-14">
+        <div className="grid gap-8 xl:grid-cols-[1.04fr_0.96fr] xl:items-center">
           <div className="relative z-10">
             <div className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-black uppercase tracking-[0.24em] text-cyan-100 shadow-[0_1px_0_rgba(255,255,255,0.08)_inset]">
               Cendorq Market Command Intelligence
             </div>
 
-            <h1 className="mt-7 max-w-5xl text-[clamp(3.4rem,8vw,7.8rem)] font-semibold leading-[0.85] tracking-[-0.085em] text-white">
+            <h1 className="mt-7 max-w-5xl text-[clamp(3.1rem,7.4vw,7.2rem)] font-semibold leading-[0.86] tracking-[-0.085em] text-white">
               Become easier to find, trust, and choose.
             </h1>
 
@@ -114,8 +114,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[88rem] px-5 pb-16 sm:px-8" aria-label="Cendorq command path">
-        <div className="grid gap-4 lg:grid-cols-4">
+      <section className="relative mx-auto max-w-[86rem] px-5 pb-14 sm:px-8" aria-label="Cendorq command path">
+        <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
           {COMMAND_PATH.map((stage) => (
             <Link key={stage.verb} href={stage.href} className="group rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_100px_rgba(0,0,0,0.25)] transition hover:-translate-y-1 hover:border-cyan-200/35 hover:bg-cyan-200/[0.055] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
               <div className="flex items-center justify-between gap-4">
@@ -125,27 +125,25 @@ export default function HomePage() {
                 </span>
               </div>
               <h2 className="mt-6 text-4xl font-semibold tracking-[-0.06em] text-white">{stage.verb}</h2>
-              <p className="mt-4 min-h-24 text-sm leading-7 text-slate-300">{stage.promise}</p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{stage.promise}</p>
               <span className="mt-5 inline-flex text-sm font-bold text-cyan-100 transition group-hover:text-white">{stage.cta} -&gt;</span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[88rem] px-5 pb-20 sm:px-8" aria-label="Cendorq trust boundaries">
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:p-6">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {TRUST_POINTS.map((point) => (
-              <p key={point} className="rounded-[1.25rem] border border-white/10 bg-black/20 px-4 py-4 text-sm font-bold leading-6 text-slate-200">
-                {point}
-              </p>
-            ))}
-          </div>
+      <section className="relative mx-auto max-w-[86rem] px-5 pb-16 sm:px-8" aria-label="Cendorq trust boundaries">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {TRUST_POINTS.map((point) => (
+            <p key={point} className="rounded-[1.35rem] border border-white/10 bg-white/[0.035] px-5 py-4 text-sm font-bold leading-6 text-slate-200">
+              {point}
+            </p>
+          ))}
         </div>
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage replacement verification">
-        Cendorq Market Command Intelligence homepage replacement. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Dashboard and report paths stay intact.
+        Cendorq Market Command Intelligence homepage replacement. Free Scan. Deep Review. Build Fix. Ongoing Control. Scan. Diagnose. Fix. Control. Start Free Scan. Review Plans. Start with evidence before paid depth. Move deeper only when the signal is strong.
       </section>
     </main>
   );
