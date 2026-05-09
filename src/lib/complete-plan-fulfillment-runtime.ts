@@ -12,6 +12,8 @@ export type CompletePlanFulfillmentInput = {
   valueExceedsPriceReviewed?: boolean;
   planBoundaryProtected?: boolean;
   conversionMethodApproved?: boolean;
+  dashboardMessageMirrorReviewed?: boolean;
+  safeDocumentDeliveryReviewed?: boolean;
   safeSummary?: string;
 };
 
@@ -34,6 +36,8 @@ export type CompletePlanFulfillmentProjection = {
   valueExceedsPriceReviewed: boolean;
   planBoundaryProtected: boolean;
   conversionMethodApproved: boolean;
+  dashboardMessageMirrorReviewed: boolean;
+  safeDocumentDeliveryReviewed: boolean;
   customerFacingDeliveryAllowed: boolean;
   upgradeOrRetentionAllowed: boolean;
   nextAction: string;
@@ -63,7 +67,9 @@ export function projectCompletePlanFulfillment(inputs: readonly CompletePlanFulf
       !projection.customerEducationReviewed ||
       !projection.valueExceedsPriceReviewed ||
       !projection.planBoundaryProtected ||
-      !projection.conversionMethodApproved,
+      !projection.conversionMethodApproved ||
+      !projection.dashboardMessageMirrorReviewed ||
+      !projection.safeDocumentDeliveryReviewed,
   ).length;
 
   return {
@@ -90,7 +96,9 @@ export function projectCompletePlan(input: CompletePlanFulfillmentInput): Comple
       input.customerEducationReviewed &&
       input.valueExceedsPriceReviewed &&
       input.planBoundaryProtected &&
-      input.conversionMethodApproved,
+      input.conversionMethodApproved &&
+      input.dashboardMessageMirrorReviewed &&
+      input.safeDocumentDeliveryReviewed,
   );
   const customerFacingDeliveryAllowed = missingStages.length === 0 && missingArtifacts.length === 0 && allReviewsClear && blockedPatterns.length === 0;
   const stageState = getStageState(missingStages, blockedPatterns, customerFacingDeliveryAllowed);
@@ -114,6 +122,8 @@ export function projectCompletePlan(input: CompletePlanFulfillmentInput): Comple
     valueExceedsPriceReviewed: Boolean(input.valueExceedsPriceReviewed),
     planBoundaryProtected: Boolean(input.planBoundaryProtected),
     conversionMethodApproved: Boolean(input.conversionMethodApproved),
+    dashboardMessageMirrorReviewed: Boolean(input.dashboardMessageMirrorReviewed),
+    safeDocumentDeliveryReviewed: Boolean(input.safeDocumentDeliveryReviewed),
     customerFacingDeliveryAllowed,
     upgradeOrRetentionAllowed: customerFacingDeliveryAllowed && input.planKey !== "free-scan",
     nextAction: getNextAction(missingStages, missingArtifacts, input, blockedPatterns),
@@ -129,6 +139,8 @@ function buildArtifactNames(plan: PlanMatrixEntry) {
     `${plan.planKey} evidence summary artifact`,
     `${plan.planKey} educational explanation artifact`,
     `${plan.planKey} value boundary artifact`,
+    `${plan.planKey} dashboard message mirror artifact`,
+    `${plan.planKey} safe document delivery artifact`,
     `${plan.planKey} release-captain approval artifact`,
   ] as const;
 }
@@ -137,18 +149,18 @@ function getRequiredOwners(plan: PlanMatrixEntry) {
   if (plan.planKey === "free-scan") return ["automation", "release-captain", "support"];
   if (plan.planKey === "deep-review") return ["research", "report-truth", "release-captain", "support"];
   if (plan.planKey === "build-fix") return ["implementation", "quality-review", "release-captain", "support"];
-  return ["ongoing-control", "market-learning", "release-captain", "support"];
+  return ["readiness-control", "market-learning", "release-captain", "support"];
 }
 
 function formatPlanName(planKey: CompletePlanKey) {
-  return planKey
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
+  if (planKey === "free-scan") return "Free Scan";
+  if (planKey === "deep-review") return "AI Readiness Review";
+  if (planKey === "build-fix") return "Signal Repair";
+  return "Readiness Control";
 }
 
 function buildCompletionGoal(plan: PlanMatrixEntry) {
-  return `${formatPlanName(plan.planKey)} fulfillment complete with customer education, value above price, plan-boundary protection, conversion review, and release-captain approval.`;
+  return `${formatPlanName(plan.planKey)} fulfillment complete with customer education, value above price, plan-boundary protection, conversion review, dashboard message mirror, safe document delivery gate, and release-captain approval.`;
 }
 
 function detectFulfillmentBlocks(
@@ -164,6 +176,8 @@ function detectFulfillmentBlocks(
   if (!input.valueExceedsPriceReviewed) blocks.push("valueAbovePriceReviewMissing");
   if (!input.planBoundaryProtected) blocks.push("planBoundaryProtectionMissing");
   if (!input.conversionMethodApproved) blocks.push("conversionMethodReviewMissing");
+  if (!input.dashboardMessageMirrorReviewed) blocks.push("dashboardMessageMirrorReviewMissing");
+  if (!input.safeDocumentDeliveryReviewed) blocks.push("safeDocumentDeliveryReviewMissing");
   return blocks;
 }
 
@@ -186,9 +200,11 @@ function getNextAction(
   if (!input.valueExceedsPriceReviewed) return "Verify the plan deliverable provides practical value above the price paid without overstating results.";
   if (!input.planBoundaryProtected) return "Confirm the plan gives full promised value without giving away higher-tier revenue streams.";
   if (!input.conversionMethodApproved) return "Approve the business-appropriate conversion method before customer-facing follow-up.";
+  if (!input.dashboardMessageMirrorReviewed) return "Confirm every important customer message mirrors into the dashboard with the same safe next action.";
+  if (!input.safeDocumentDeliveryReviewed) return "Confirm report or billing PDF delivery stays vault-first, gated, and not a separate source of truth.";
   if (!input.releaseCaptainApproved) return "Route the complete fulfillment package through release-captain approval.";
   if (blockedPatterns.length) return "Resolve fulfillment blockers before delivery.";
-  return "Deliver through dashboard, report vault, email, notification, and support handoff with plan-appropriate next step.";
+  return "Deliver through dashboard, report vault, mirrored dashboard message, email, safe document path when gates pass, and support handoff with plan-appropriate next step.";
 }
 
 function buildEducationalExplanation(educationDepth: string, valuePromise: string) {
