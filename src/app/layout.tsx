@@ -24,11 +24,10 @@ const KNOWLEDGE_AREAS = [
   "Business clarity",
   "Business trust signals",
   "Answer engine visibility",
-  "Market Command Intelligence",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
 ] as const;
 
 const LAYER_CATALOG = [
@@ -38,14 +37,14 @@ const LAYER_CATALOG = [
     description: "First-read scan that helps a business see where AI engines and customers may misunderstand, distrust, or skip it.",
   },
   {
-    name: "Diagnose",
+    name: "Review",
     path: "/plans/deep-review",
-    description: "Cause-level review of the signals weakening business clarity, proof, visibility, and customer choice.",
+    description: "AI-readiness review of the signals weakening business clarity, proof, visibility, and customer choice.",
   },
   {
-    name: "Fix",
+    name: "Repair",
     path: "/plans/build-fix",
-    description: "Focused improvement layer for the clearest weak point after evidence shows what matters most.",
+    description: "Focused repair layer for the clearest weak point after evidence shows what matters most.",
   },
   {
     name: "Control",
@@ -72,11 +71,10 @@ export const metadata: Metadata = {
     "answer engine visibility",
     "business clarity scan",
     "business trust scan",
-    "market command intelligence",
-    "free business scan",
-    "deep review",
-    "build fix",
-    "ongoing control",
+    "free scan",
+    "AI Readiness Review",
+    "Signal Repair",
+    "Readiness Control",
   ],
   authors: [{ name: siteConfig.legalName || siteConfig.name }],
   creator: siteConfig.name,
@@ -168,9 +166,9 @@ function buildStructuredData() {
     areaServed: "Worldwide",
     provider: { "@id": ORGANIZATION_ID },
     brand: { "@id": ORGANIZATION_ID },
-    serviceType: "AI engine readiness and market command intelligence",
+    serviceType: "AI engine readiness for business clarity, trusted proof, public signals, and action paths",
     termsOfService: absoluteUrl("/terms"),
-    hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq Command Path", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
+    hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq AI Readiness Path", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
   };
   return [organization, website, service] as const;
 }
