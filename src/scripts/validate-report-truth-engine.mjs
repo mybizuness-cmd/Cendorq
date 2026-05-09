@@ -26,9 +26,9 @@ validateTextFile(policyPath, [
   "deep-review",
   "build-fix",
   "ongoing-control",
-  "Deep Review is required to verify causes",
-  "Build Fix is the logical next step",
-  "Ongoing Control protects, measures, and iterates",
+  "AI Readiness Review is required to verify causes",
+  "Signal Repair is the logical next step",
+  "Readiness Control protects, measures, and iterates",
 ]);
 
 validateTextFile(growthPolicyPath, [
@@ -43,13 +43,13 @@ validateTextFile(growthPolicyPath, [
   "small Cendorq-branded footer",
   "serious evidence-backed review process",
   "Business outcomes, rankings, traffic, leads, conversions, revenue, platform behavior, or perfect accuracy",
-  "Deep Review must be thorough and extensive",
+  "AI Readiness Review must be thorough and extensive",
   "website, profiles, reviews, social and platform activity",
-  "recommended Build Fix path",
-  "Build Fix reporting must translate diagnosis into action",
-  "recommended Ongoing Control path",
+  "recommended Signal Repair path",
+  "Signal Repair reporting must translate review into action",
+  "recommended Readiness Control path",
   "Every business study must consider social media and other platform activity",
-  "bread and butter",
+  "major revenue source",
   "marketplaces, directories, booking platforms, delivery apps, creator platforms, review platforms, communities, app stores, or industry-specific platforms",
 ]);
 
@@ -70,14 +70,18 @@ validateForbidden(policyPath, [
   "Full Diagnosis",
   "Optimization is the logical next step",
   "Monthly Control",
+  "Deep Review is required",
+  "Build Fix is the logical next step",
+  "Ongoing Control protects",
+  "diagnosis",
 ]);
 
 validateForbidden(growthPolicyPath, [
-  "guaranteeing rankings",
-  "guaranteeing traffic",
-  "guaranteeing leads",
-  "guaranteeing conversions",
-  "guaranteeing revenue",
+  "guaranteing rankings",
+  "guaranteing traffic",
+  "guaranteing leads",
+  "guaranteing conversions",
+  "guaranteing revenue",
   "promising legal immunity",
   "lying allowed",
   "full-diagnosis",
@@ -86,6 +90,11 @@ validateForbidden(growthPolicyPath, [
   "Full Diagnosis",
   "Optimization",
   "Monthly Control",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "diagnosis",
+  "bread and butter",
 ]);
 
 if (failures.length) {
