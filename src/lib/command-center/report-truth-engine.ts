@@ -48,6 +48,23 @@ export type ReportConversionRule = {
   forbiddenBehavior: readonly string[];
 };
 
+export type DeliveryReliabilityRule = {
+  key: string;
+  label: string;
+  deliveryStandard: string;
+  minimumSafeOutput: string;
+  proofGate: string;
+  blockedBehavior: readonly string[];
+};
+
+export type AgentVerificationRule = {
+  key: string;
+  label: string;
+  agentStandard: string;
+  captainStandard: string;
+  blockedBehavior: readonly string[];
+};
+
 export const REPORT_TRUTH_RULES = [
   {
     key: "separate-input-from-evidence",
@@ -59,6 +76,12 @@ export const REPORT_TRUTH_RULES = [
     key: "minimum-input-enrichment",
     label: "Minimum-input enrichment",
     requirement: "The back end must be able to start from a business name plus website or address and attempt to resolve the business identity, location, website, profiles, public listings, review footprint, and technical presence before scoring.",
+    blockedIfMissing: true,
+  },
+  {
+    key: "minimum-information-delivery",
+    label: "Minimum information delivery",
+    requirement: "When the customer gives thin information, Cendorq must still attempt the strongest safe research path: resolve identity, gather public evidence, label what is missing, produce the highest-confidence useful output available, and clearly explain what cannot be verified yet.",
     blockedIfMissing: true,
   },
   {
@@ -76,7 +99,7 @@ export const REPORT_TRUTH_RULES = [
   {
     key: "no-perfect-accuracy-claim",
     label: "No perfect accuracy claim",
-    requirement: "Reports must aim for maximum practical accuracy and factuality, but must never claim 100% certainty, perfect accuracy, or guaranteed outcomes unless the claim is a direct deterministic calculation from verified inputs.",
+    requirement: "Reports must aim for maximum practical accuracy and factuality, but must never claim 100% certainty, perfect accuracy, guaranteed outcomes, or mistake-free operation unless the claim is a direct deterministic calculation from verified inputs.",
     blockedIfMissing: true,
   },
   {
@@ -86,6 +109,50 @@ export const REPORT_TRUTH_RULES = [
     blockedIfMissing: true,
   },
 ] as const satisfies readonly ReportTruthRule[];
+
+export const DELIVERY_RELIABILITY_RULES = [
+  {
+    key: "always-deliver-safe-output",
+    label: "Always deliver the safest useful output",
+    deliveryStandard: "Cendorq should not fail just because customer input is thin. It should deliver the strongest safe output available for the plan stage: confirmed facts, observed evidence, limitations, confidence, missing inputs, and the safest next action.",
+    minimumSafeOutput: "At minimum, produce a bounded report state that says what is known, what is unknown, what was checked, why confidence is limited, and what would unlock stronger analysis.",
+    proofGate: "Every output must pass evidence separation, confidence labeling, no-guarantee language, and release-captain review before it becomes customer-facing.",
+    blockedBehavior: ["empty report because input is thin", "guessing to look complete", "claiming perfect accuracy", "hiding missing evidence", "selling paid work without proof"],
+  },
+  {
+    key: "highest-practical-accuracy",
+    label: "Highest practical accuracy",
+    deliveryStandard: "Accuracy should be treated as an operating discipline: source triangulation, evidence age checks, contradiction checks, calculation traces, operator review, and correction paths should raise truth quality as high as practical.",
+    minimumSafeOutput: "If evidence cannot reach strong confidence, the customer-facing output must say so plainly and still provide a useful next action.",
+    proofGate: "Claims must be classified as verified fact, customer-provided context, observed evidence, inference, forecast, or unknown before release.",
+    blockedBehavior: ["100 percent accuracy guarantee", "mistake-free guarantee", "unlabeled inference", "unlabeled forecast", "certainty theater", "removing useful findings just because they are not perfect"],
+  },
+  {
+    key: "streamlined-command-chain",
+    label: "Streamlined command chain",
+    deliveryStandard: "Research should move from agent to captain to owner-facing release posture with clear responsibility, proof requirements, and escalation rules so output quality does not depend on one agent's raw competence.",
+    minimumSafeOutput: "If an agent cannot verify a claim, it must downgrade confidence, ask for evidence only when necessary, or route to captain review instead of inventing certainty.",
+    proofGate: "Captain review must check evidence, contradictions, plan fit, customer safety, and selling language before release.",
+    blockedBehavior: ["agent-only final approval", "unreviewed customer-facing claims", "captain rubber-stamping", "strictness that deletes useful bounded observations", "unsupported selling language"],
+  },
+] as const satisfies readonly DeliveryReliabilityRule[];
+
+export const AGENT_VERIFICATION_RULES = [
+  {
+    key: "agent-research-discipline",
+    label: "Agent research discipline",
+    agentStandard: "Agents must gather, compare, cite, classify, and label evidence before producing report claims. They should keep useful bounded findings instead of omitting them, but must label weak confidence clearly.",
+    captainStandard: "Captain review verifies source relevance, evidence age, contradictions, completeness, plan fit, and safe wording before anything becomes customer-facing.",
+    blockedBehavior: ["agent improvisation as fact", "omitting useful evidence because it is imperfect", "overstating weak evidence", "unsupported competitor claims", "unverified customer-facing recommendations"],
+  },
+  {
+    key: "truth-before-selling",
+    label: "Truth before selling",
+    agentStandard: "Agents may educate and sell, but every sales recommendation must follow proof, confidence, scope, and plan-fit checks.",
+    captainStandard: "Captain review must reject copy that sells harder than the evidence supports, while preserving clean, confident conversion language when the proof is strong.",
+    blockedBehavior: ["sales before proof", "fear-based urgency", "hiding cheaper next actions", "claiming guaranteed outcomes", "weak evidence turned into priority sales copy"],
+  },
+] as const satisfies readonly AgentVerificationRule[];
 
 export const BUSINESS_ENRICHMENT_RULES = [
   {
@@ -100,7 +167,7 @@ export const BUSINESS_ENRICHMENT_RULES = [
       "compare public business profiles and directory listings",
       "flag ambiguity when multiple plausible businesses match",
     ],
-    fallbackPolicy: "If identity confidence is not strong, the report can produce only a limited scan with clear uncertainty and must recommend AI Readiness Review before deeper claims.",
+    fallbackPolicy: "If identity confidence is not strong, the report must still deliver a limited, useful, confidence-labeled scan with clear uncertainty and should recommend AI Readiness Review before deeper claims.",
   },
   {
     key: "presence-discovery",
@@ -114,7 +181,7 @@ export const BUSINESS_ENRICHMENT_RULES = [
       "discover social and content surfaces when relevant",
       "discover technical blockers visible from public pages",
     ],
-    fallbackPolicy: "Missing surfaces should be scored as missing only when the absence is supported by a completed search attempt and logged as evidence; otherwise label unknown.",
+    fallbackPolicy: "Missing surfaces should be scored as missing only when the absence is supported by a completed search attempt and logged as evidence; otherwise label unknown while still returning useful bounded findings.",
   },
   {
     key: "competitive-context",
@@ -127,7 +194,7 @@ export const BUSINESS_ENRICHMENT_RULES = [
       "compare visibility, trust, conversion, and offer clarity signals",
       "separate observed facts from strategic inference",
     ],
-    fallbackPolicy: "If market context is weak, keep competitive claims conservative and frame them as preliminary opportunities for AI Readiness Review.",
+    fallbackPolicy: "If market context is weak, keep competitive claims conservative and frame them as preliminary opportunities for AI Readiness Review instead of omitting the whole category or inventing certainty.",
   },
 ] as const satisfies readonly BusinessEnrichmentRule[];
 
@@ -185,7 +252,7 @@ export const REPORT_CONVERSION_RULES = [
     nextStage: "deep-review",
     pitchPosition: "After showing the highest-confidence visible gaps and uncertainty limits, explain that AI Readiness Review is required to verify causes, quantify priorities, and produce a complete decision path.",
     requiredProof: ["at least one verified or strong visible issue", "clear explanation of what Free Scan cannot prove", "specific next questions AI Readiness Review answers"],
-    forbiddenBehavior: ["fear-only selling", "inventing urgency", "guaranteeing results", "hiding uncertainty"],
+    forbiddenBehavior: ["fear-only selling", "inventing urgency", "guaranteing results", "hiding uncertainty"],
   },
   {
     fromStage: "deep-review",
@@ -206,6 +273,8 @@ export const REPORT_CONVERSION_RULES = [
 export function getReportTruthEnginePolicy() {
   return {
     truthRules: REPORT_TRUTH_RULES,
+    deliveryReliabilityRules: DELIVERY_RELIABILITY_RULES,
+    agentVerificationRules: AGENT_VERIFICATION_RULES,
     enrichmentRules: BUSINESS_ENRICHMENT_RULES,
     metricRules: REPORT_METRIC_RULES,
     conversionRules: REPORT_CONVERSION_RULES,
