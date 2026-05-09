@@ -20,78 +20,72 @@ expect(componentPath, [
   "projectPlanRouting",
   "type PlanRoutingInput",
   "Dashboard action inbox",
-  "The most important customer actions stay visible and conversion-ready without becoming noise.",
-  "This inbox is a dashboard conversion and action strip, not a substitute for the email orchestration, lifecycle follow-up emails, or the full notification center.",
-  "Email remains the external delivery channel to the signup address; the dashboard keeps the next best action visible when the customer returns.",
-  "Open notification center",
-  "Customer-safe rule",
+  "Conversion inbox",
+  "The dashboard sells the next depth by making the proof impossible to ignore.",
+  "No clutter, no panic, no account-page energy.",
+  "Every action should either open proof, clarify scope, or move the customer to the right paid depth.",
+  "Open Free Scan result",
+  "Customer-led dashboard conversion inbox",
 ]);
 
 expect(componentPath, [
-  "Confirm your Cendorq inbox once",
-  "Optimization scope is protected",
-  "Monthly command stays evidence-led",
-  "One-time setup",
-  "Plan scope",
-  "Ongoing control",
-  "Confirm inbox",
-  "Review plan scope",
-  "View monthly updates",
+  "Open the signal before buying deeper work",
+  "Unlock Review when the cause needs proof",
+  "Move to Repair only when the weak signal is clear",
+  "Keep Control for signals worth watching",
+  "Next command",
+  "Upgrade path",
+  "Scope discipline",
+  "Recurring value",
+  "Open signal",
+  "Unlock Review",
+  "Start Repair",
+  "Start Control",
 ]);
 
 expect(componentPath, [
-  "Conversion role",
-  "Keeps the customer reachable for report-ready notices, plan education, billing clarity, and support follow-through without repeating confirmation every plan.",
-  "Converts direct Optimization buyers back toward Deep Review through scope clarity and customer understanding, not pressure or unpaid report leakage.",
-  "Turns recurring visibility into upgrade education by showing when monthly insight needs paid implementation, while preserving the active monthly plan.",
-  "convert through evidence, plan-fit education, scope clarity, and one safe next action",
-]);
-
-expect(componentPath, [
-  "report, billing, support, and plan-status emails sent to your signup address are easier to find",
-  "Build Fix can continue inside the purchased optimization scope.",
-  "Add Deep Review if you want the full standalone diagnosis behind the work.",
-  "email follow-ups still go to your signup address",
-  "Monthly control can continue from approved scope.",
-  "Build Fix is recommended only when evidence shows implementation work is needed",
-  "monthly emails remain part of the customer lifecycle flow",
-]);
-
-expect(componentPath, [
-  "raw payloads",
-  "raw evidence",
-  "internal notes",
-  "risk internals",
-  "operator identities",
-  "provider payloads",
-  "secrets",
-  "payment data",
-  "unsupported outcome promises",
-  "pressure-based urgency",
+  "proof first, then the right depth, not a blind upgrade push",
+  "deeper review is the way to prove cause, priority, and safest next action before repair",
+  "the customer can see exactly what the repair is supposed to improve",
+  "This makes retention feel earned",
+  "Cendorq keeps track of what can change",
+  "Open proof. Clarify scope. Move to the right paid depth.",
 ]);
 
 expect(commandCenterPath, [
   "DashboardBusinessCommandCenter",
-  "This is where the customer controls the business journey",
-  "Cendorq guiding the smartest next move",
-  "premium control room for the customer",
-  "The customer owns the decisions; Cendorq guides the strategy, sequencing, and safeguards.",
-  "Conversion should come from confidence, education, proof, and visible momentum—not pressure or confusion.",
-  "Diagnose",
-  "Decide",
-  "Act",
-  "Protect",
+  "Conversion command center",
+  "This is where Free Scan turns into the right paid depth.",
+  "The customer should see what Cendorq found, why it matters, what is still unknown, and why Review, Repair, or Control is the safest next move.",
+  "This next step makes sense.",
+  "proof earns trust, trust opens budget, and the correct plan depth becomes the obvious move",
+  "Open the proof first",
+  "Make the upgrade rational",
+  "Show what stays separate",
+  "Keep the next move visible",
+  "The dashboard should guide, not beg.",
+  "Every lane should lead to proof, scope, or the next paid depth.",
+]);
+
+expect(commandCenterPath, [
+  "Proof creates trust.",
+  "Trust makes the upgrade feel safe.",
+  "Clear scope removes hesitation.",
+  "One next action keeps momentum alive.",
+  "Reports",
+  "Plans",
+  "Notifications",
+  "Support",
 ]);
 
 expect(reentryPath, [
   "DashboardControlRoomReentry",
-  "They can leave today and come back to the same business control room tomorrow.",
-  "Use the dashboard link in any Cendorq email",
-  "Return from the public site",
-  "Resume after session expiry",
-  "Recover from support or billing",
-  "safe sign-in or magic-link re-auth",
-  "return them to the dashboard without restarting the scan or purchase journey",
+  "Bring every return back to the money surface.",
+  "Email, billing, reports, notifications, and support should all return to the same command room where the customer can see proof, understand scope, and choose the right next depth.",
+  "I came back, Cendorq remembered the thread, and the next move is clear.",
+  "The dashboard stays the customer conversion command room.",
+  "Conversion command room",
+  "Proof, scope, and next paid depth",
 ]);
 
 expect(confirmationContractPath, [
@@ -113,6 +107,8 @@ expect(confirmationContractPath, [
 
 expect(ownerManualPath, [
   "Verify-to-view email confirmation and report access",
+  "Category-defining authority and psychology",
+  "That standard is higher than premium styling. It is category-defining authority backed by evidence discipline.",
   "Cendorq Support <support@cendorq.com>",
   "support@cendorq.com",
   "Confirm email and open your results",
@@ -131,9 +127,14 @@ expect(dashboardPath, [
   "<DashboardActionInbox />",
   "<DashboardBusinessCommandCenter />",
   "<DashboardControlRoomReentry />",
-  "Customer command room",
-  "Control the next move. Cendorq guides the smartest path.",
-  "Connected dashboard handoffs",
+  "data-cendorq-dashboard=\"category-defining-command-center-v2\"",
+  "Private readiness command center",
+  "Know the next move before the market does.",
+  "protected command surface",
+  "Next best command",
+  "Open the first signal.",
+  "Compare command path",
+  "Category-defining authority",
 ]);
 
 expect(runtimePath, [
@@ -177,13 +178,18 @@ forbidden(confirmationContractPath, [
   "guaranteed inbox placement",
 ]);
 
+forbidden(componentPath, staleDashboardPhrases());
+forbidden(commandCenterPath, staleDashboardPhrases());
+forbidden(reentryPath, staleDashboardPhrases());
+forbidden(dashboardPath, staleDashboardPhrases());
+
 if (failures.length) {
   console.error("Dashboard action inbox validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Dashboard action inbox validation passed with owner posture, command-center, re-entry, and verify-to-view coverage.");
+console.log("Dashboard action inbox validation passed with conversion command center, proof-first paid-depth path, money-surface reentry, owner posture, category-defining authority, verify-to-view, and safe language coverage.");
 
 function unsafePhrases() {
   return [
@@ -212,6 +218,23 @@ function unsafePhrases() {
     "internalNote=",
     "localStorage.setItem",
     "sessionStorage.setItem",
+  ];
+}
+
+function staleDashboardPhrases() {
+  return [
+    "premium control room",
+    "Optimization scope",
+    "Monthly command",
+    "monthly control",
+    "Ongoing control",
+    "Deep Review",
+    "Build Fix",
+    "Diagnose",
+    "full standalone diagnosis",
+    "notification center",
+    "Customer command room",
+    "Control the next move. Cendorq guides the smartest path.",
   ];
 }
 
