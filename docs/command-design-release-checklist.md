@@ -12,7 +12,7 @@ The product direction is:
 
 Every release should answer this before merge:
 
-> What is the safest next command for the user?
+> What is the safest next readiness move for the user?
 
 ## Pre-merge check
 
@@ -21,7 +21,7 @@ Confirm the change:
 - keeps one dominant action per surface
 - keeps Free Scan as the clearest first action when the user is uncertain
 - keeps Plans as the clean comparison path
-- keeps Connect for fit, scope, or timing only
+- keeps support for fit, scope, access, or timing only
 - avoids competing CTAs
 - avoids legacy routes as active recovery paths
 - avoids old public labels
@@ -40,7 +40,7 @@ Confirm:
 - the primary CTA is obvious within seconds
 - supporting text is shorter than it wants to be
 - secondary links clarify instead of competing
-- route labels use current language: Free Scan, Plans, Deep Review, Build Fix, Ongoing Control, Connect
+- route labels use current language: Free Scan, Plans, AI Readiness Review, Signal Repair, Readiness Control
 - no public page behaves like an internal dashboard or route console
 
 ## Protected surface check
@@ -61,9 +61,9 @@ Fallback surfaces are part of the product experience.
 Confirm:
 
 - loading states preserve sequence instead of adding route chaos
-- error states retry once, then recover into the command path
-- not-found states recover into Free Scan, Plans, home, or Connect when appropriate
-- no fallback points to `/pricing`, `/diagnosis`, `/contact`, or old public labels as active user actions
+- error states retry once, then recover into the readiness path
+- not-found states recover into Free Scan, Plans, or home when appropriate
+- no fallback points to `/pricing`, `/diagnosis`, `/contact`, `/connect`, or old public labels as active user actions
 
 ## Validation check
 
