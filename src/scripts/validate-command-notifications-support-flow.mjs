@@ -12,51 +12,50 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-notifications-support-flow.mjs";
 
 expect(notificationsPath, [
-  "Premium notification command feed",
-  "Act only on alerts that protect progress.",
-  "Notifications should feel calm and operational.",
-  "Quiet priority feed",
-  "Four plan moments. One safe next action each.",
-  "Alert routing types",
-  "Featured customer alerts",
+  "Readiness signal feed",
+  "Act only on signals that protect readiness progress.",
+  "Priority readiness feed",
+  "Scan. Review. Repair. Control. One safe next action each.",
+  "Signal routing types",
+  "Featured customer signals",
   "Quiet feed standard",
-  "Alerts should create confidence, not noise.",
+  "Signals should create confidence, not noise.",
   "No generic notification clutter",
   "No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety.",
-  "hover:-translate-y-0.5",
-  "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
+  "Readiness proof",
+  "Readiness alerts must name the value, the boundary, and the next action before sending customers to checkout.",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(supportPath, [
-  "Premium support routing center",
-  "Route the blocker without blurring the plan.",
-  "Support route selector",
+  "Readiness resolution routing",
+  "Route the blocker without weakening the readiness path.",
+  "Resolution selector",
   "Pick the narrowest path that matches the blocker.",
-  "Support should restore momentum without expanding scope silently.",
-  "Billing issue",
-  "Report question",
-  "Scope question",
-  "Monthly priority",
+  "Help should restore momentum without expanding scope silently.",
+  "Access issue",
+  "Proof question",
+  "Repair scope",
+  "Control priority",
   "Account access",
   "Correction or dispute",
   "No support dumping ground",
   "No raw secrets",
   "No duplicate request anxiety",
-  "hover:-translate-y-0.5",
+  "Scan. Review. Repair. Control.",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(supportRequestPath, [
-  "Premium protected support intake",
+  "Readiness resolution intake",
   "Send the safe summary that moves the blocker forward.",
   "Safe summary only.",
   "Update only when asked.",
   "No duplicate requests",
   "No private data dump",
-  "No plan-expansion shortcut",
+  "No readiness-depth shortcut",
   "Track status first.",
   "New blocker",
   "Asked for context",
@@ -66,15 +65,16 @@ expect(supportRequestPath, [
 ]);
 
 expect(supportStatusPath, [
-  "Premium support status",
+  "Readiness resolution status",
   "Know where the blocker stands and what to do next.",
   "Show progress without exposing internals.",
-  "Continue the paid path.",
+  "Return to the right layer.",
   "No generic ticket tracker",
   "No internal notes",
   "No raw evidence",
   "No duplicate support loop",
   "Status safety standard",
+  "Return to readiness depth",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -82,24 +82,33 @@ expect(supportStatusPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(notificationsPath, [
+  "Premium notification command feed",
+  "Market signal feed",
   "Plan notification decision routes",
   "Every alert needs a value, a boundary, and a safe next action.",
   "ALERT_ROUTING_STANDARDS",
   "FIRST_USE_SNAPSHOT",
   "NOTIFICATION_GROUPS",
   "SupportLifecycleNotificationList",
+  "Scan. Diagnose. Fix. Control.",
 ]);
 
 forbidden(supportPath, [
+  "Premium support routing center",
+  "Market resolution routing",
+  "Route the blocker without blurring the plan.",
   "Support routing map",
   "Plan support boundaries",
   "SUPPORT_FIRST_USE_SNAPSHOT",
   "SUPPORT_FIRST_USE_ACTIONS",
   "SUPPORT_FIRST_USE_RULES",
   "SUPPORT_SAFETY_RULES",
+  "Scan. Diagnose. Fix. Control.",
 ]);
 
 forbidden(supportRequestPath, [
+  "Premium protected support intake",
+  "Market resolution intake",
   "REQUEST_PATHS = [\n  { title: \"Resolve report question\"",
   "Get the blocker out of the way.",
   "Resolve report question",
@@ -111,6 +120,8 @@ forbidden(supportRequestPath, [
 ]);
 
 forbidden(supportStatusPath, [
+  "Premium support status",
+  "Market resolution status",
   "Resolve the issue and keep the account moving.",
   "MOMENTUM_ACTIONS",
   "SUPPORT_STATUS_FIRST_USE_SNAPSHOT",
@@ -124,12 +135,12 @@ boundedLength(supportRequestPath, 9500);
 boundedLength(supportStatusPath, 8500);
 
 if (failures.length) {
-  console.error("Premium notifications and support flow validation failed:");
+  console.error("Readiness notifications and support flow validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Premium notifications and support flow validation passed with quiet alerts, routed support, safe intake, and customer-safe status.");
+console.log("Readiness notifications and support flow validation passed with quiet signals, routed support, safe intake, and customer-safe status.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -153,7 +164,7 @@ function forbidden(path, phrases) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the command notification/support standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the readiness notification/support standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {
