@@ -1,6 +1,6 @@
 # Cendorq Command Design Operating Standard
 
-Cendorq should feel like a market command system, not a normal agency website.
+Cendorq should feel like an AI-readiness command system, not a normal agency website.
 
 The full product direction is:
 
@@ -14,7 +14,7 @@ This standard applies to public pages, protected customer surfaces, internal ope
 
 Every important surface must help the user answer one question quickly:
 
-> What is the safest next command?
+> What is the safest next readiness move?
 
 The answer should usually be one of these:
 
@@ -22,7 +22,7 @@ The answer should usually be one of these:
 2. Compare Plans.
 3. Open Dashboard.
 4. Open Intake Console.
-5. Connect only when fit, scope, or timing is already clear.
+5. Ask support only when fit, scope, access, or timing needs a human path.
 
 ## Apple-level trust and authority
 
@@ -35,7 +35,7 @@ Required behavior:
 - Keep visual language premium, serious, and intentional.
 - Make the offer feel protected, not desperate.
 - Avoid fake certainty, fake guarantees, and overpromising.
-- State boundaries clearly: first signal, deeper diagnosis, scoped fix, monthly control.
+- State boundaries clearly: first signal, evidence-backed review, scoped repair, monthly control.
 
 Forbidden behavior:
 
@@ -43,7 +43,7 @@ Forbidden behavior:
 - No loud agency language.
 - No ranking promises.
 - No cluttered choice sets.
-- No old public labels.
+- No retired public labels.
 - No public exposure of private scoring, evidence, report, or operator logic.
 
 ## Google-level simplicity
@@ -53,11 +53,11 @@ Cendorq should be easy to operate before it is impressive.
 Required behavior:
 
 - Keep primary navigation short.
-- Use current route language: Free Scan, Plans, Dashboard, Connect.
+- Use current route language: Free Scan, Plans, Dashboard, Support.
 - Use one dominant action per surface.
 - Let secondary actions support the main path, not compete with it.
 - Prefer direct route labels over clever labels.
-- Keep the buyer path visible: Scan, Diagnose, Fix, Control.
+- Keep the buyer path visible: Scan, Review, Repair, Control.
 
 Forbidden behavior:
 
@@ -82,7 +82,7 @@ Forbidden behavior:
 
 - Do not make users read the whole site before action.
 - Do not make the report shell pretend to be a full engine before it is ready.
-- Do not make contact the first move when the problem is unclear.
+- Do not make generic contact the first move when the problem is unclear.
 
 ## Public path
 
@@ -91,10 +91,9 @@ The public buyer path is:
 1. Home
 2. Free Scan
 3. Plans
-4. Deep Review
-5. Build Fix
-6. Ongoing Control
-7. Connect
+4. AI Readiness Review
+5. Signal Repair
+6. Readiness Control
 
 The public path sells the outcome and routes the user. It must not expose protected scoring internals, private report evidence, private prompts, operator logic, customer-owned data, or command-center internals.
 
@@ -118,13 +117,14 @@ Protected surfaces should be stable, guarded, current-language aligned, and clea
 
 Use this language:
 
+- AI Engine Readiness
 - Free Scan
 - Plans
-- Deep Review
-- Build Fix
-- Ongoing Control
-- Command Path
-- Scan, Diagnose, Fix, Control
+- AI Readiness Review
+- Signal Repair
+- Readiness Control
+- Readiness Path
+- Scan, Review, Repair, Control
 - easier to find, understand, trust, and choose
 - first signal
 - safest next action
@@ -137,12 +137,17 @@ Avoid this language on active public surfaces:
 - Presence Infrastructure
 - Presence Command
 - Start Search Presence Scan
+- Deep Review
+- Build Fix
+- Ongoing Control
+- Diagnose
+- Fix as a plan label
 - vague audit theater
 - ranking guarantees
 
 ## Design standard
 
-Cendorq should feel dark, precise, premium, and controlled. Use depth, focus, spacing, and hierarchy to create authority. Avoid decorative overload.
+Cendorq should feel precise, premium, and controlled. Use depth, focus, spacing, and hierarchy to create authority. Avoid decorative overload.
 
 Every major page should pass this test:
 
@@ -162,11 +167,11 @@ Examples:
 - Route changes should be guarded by route validation.
 - Private/report shells should use `noIndex` unless intentionally public.
 - Legacy language should be forbidden in active public surfaces.
-- New command surfaces should document the safest next action and recovery path.
+- New readiness surfaces should document the safest next action and recovery path.
 
 ## Operating principle
 
-Do not optimize Cendorq for decoration. Optimize it for command.
+Do not optimize Cendorq for decoration. Optimize it for readiness clarity.
 
 A user should feel:
 
