@@ -368,9 +368,9 @@ function humanizePressure(value: SignalPressure) {
 
 function humanizeRoutingHint(value: RoutingHint) {
     if (value === "scan-only") return "Free Scan only";
-    if (value === "blueprint-candidate") return "Deep Review candidate";
-    if (value === "infrastructure-review") return "Build Fix review";
-    return "Ongoing Control review";
+    if (value === "blueprint-candidate") return "AI Readiness Review candidate";
+    if (value === "infrastructure-review") return "Signal Repair review";
+    return "Readiness Control review";
 }
 
 function humanizeFlag(flag: string) {
