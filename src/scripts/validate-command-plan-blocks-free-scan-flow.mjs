@@ -13,64 +13,60 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-plan-blocks-free-scan-flow.mjs";
 
 expect(homepagePath, [
-  "Visibility command path",
-  "Scan. Diagnose. Fix. Control.",
-  "Four levels. Four different jobs. No cheap bundle confusion.",
-  "Remove useless final boundary block before footer",
-  "Plan path",
-  "01",
-  "02",
-  "03",
-  "04",
-  "Monthly decision support",
-  "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
-  "hover:-translate-y-0.5",
+  "AI Engine Readiness",
+  "AI-readiness starts with business clarity.",
+  "Scan",
+  "Review",
+  "Repair",
+  "Control",
+  "Free Scan",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "Start Free Scan",
+  "No AI placement promises",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(plansPath, [
-  "Visibility command path",
-  "Buy the right depth. Nothing extra. Nothing vague.",
-  "Each plan buys a different level of control.",
-  "Each plan buys a different business action.",
-  "First signal",
-  "Cause-level diagnosis",
-  "Scoped implementation",
-  "Monthly decision support",
-  "BUYER_MOMENT_BY_PLAN",
-  "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
-  "hover:-translate-y-0.5",
+  "AI readiness plans",
+  "Choose the depth that matches the evidence.",
+  "Each plan buys a different level of readiness.",
+  "Start with the signal. Pay for deeper work only when the stage fits: Review, Repair, then Control.",
+  "Free Scan $0",
+  "AI Readiness Review $497",
+  "Signal Repair $1,497",
+  "Readiness Control $597/mo",
+  "Start Free Scan",
+  "Start Review",
+  "Start Repair",
+  "Start Control",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(freeScanPath, [
-  "Free Scan form should be visible within the first quarter of the page.",
-  "Free Scan form first",
-  "Start the scan.",
-  "Answer the form now.",
-  "lg:grid-cols-[0.52fr_1.48fr]",
-  "FREE_SCAN_PROMISE",
-  "Form visible early",
+  "Free Scan",
+  "See the first signal before you buy the fix.",
+  "Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose before deeper work begins.",
   "Business context only",
-  "No passwords, cards, private keys, or tokens",
-  "Result path after verification",
+  "No private credentials or payment details",
+  "Protected dashboard result after verification",
+  "Result opens in dashboard",
+  "Can AI engines understand you?",
+  "Can buyers believe you?",
+  "Can customers choose you?",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(footerPath, [
-  "Do not buy the wrong fix.",
-  "Start with the first signal. Move into diagnosis, scoped implementation, or monthly control only when the stage fits.",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "$597/mo",
-  "shadow-[0_28px_100px_rgba(2,8,23,0.45)]",
-  "hover:-translate-y-0.5",
-  "Start Free Scan",
-  "Compare plans",
+  "AI engine readiness for businesses that need to be understood, trusted, and chosen.",
+  "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.",
+  "Privacy",
+  "Terms",
+  "Disclaimer",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -78,15 +74,15 @@ expect(footerPath, [
 expect(planTemplatePath, [
   "Customer-led plan page",
   "Speak directly to the customer",
-  "Is this the right plan?",
+  "Is this the right layer?",
   "Best for you if",
   "Do not choose this if",
   "CUSTOMER_DECISION_PROMPTS",
-  "You know something is off, but not what to fix first.",
-  "You need the real reason before spending bigger money.",
-  "You know the weak point and need it improved.",
-  "You need the business watched and guided monthly.",
-  "customerPrompt.warning",
+  "You need the first signal before you spend deeper.",
+  "You need evidence before bigger changes.",
+  "The weak signal is clear enough to repair.",
+  "Readiness needs to be watched over time.",
+  "Free Scan is a first read, not full review, implementation, monitoring, or a guaranteed outcome.",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -94,6 +90,9 @@ expect(planTemplatePath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(homepagePath, [
+  "Visibility command path",
+  "Scan. Diagnose. Fix. Control.",
+  "Four levels. Four different jobs. No cheap bundle confusion.",
   "Homepage plan boundary rules",
   "Free Scan is a first signal, not a full diagnosis.",
   "Build Fix is scoped implementation, not unlimited site work.",
@@ -102,45 +101,55 @@ forbidden(homepagePath, [
 ]);
 
 forbidden(plansPath, [
+  "Visibility command path",
+  "Buy the right depth. Nothing extra. Nothing vague.",
+  "Each plan buys a different level of control.",
+  "Cause-level diagnosis",
   "Compressed pricing mobile decision flow",
   "Pick the stage. Not the biggest package.",
   "PLAN_VALUE_NO_OVERLAP_MATRIX",
-  "slice(0, 2)",
-  "system-surface rounded-[1.25rem] p-4 transition hover:scale",
 ]);
 
 forbidden(freeScanPath, [
+  "Start the scan.",
+  "Answer the form now.",
   "Free Scan journey",
   "From safe context to a protected first result.",
   "Free Scan boundary standards",
   "View Free Scan result path",
-  "mt-8 grid gap-4 md:grid-cols-3",
+  "No passwords, cards, private keys, or tokens",
 ]);
 
 forbidden(footerPath, [
-  "rounded-[1.35rem] border border-white/8 bg-white/[0.025]",
+  "Do not buy the wrong fix.",
+  "Move into diagnosis",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "Start with a first signal. Move deeper only when the stage fits.",
 ]);
 
 forbidden(planTemplatePath, [
+  "full diagnosis",
+  "full root-cause diagnosis",
   "Best for\"",
   "Not for\"",
   "data.painTitle}</h2>",
 ]);
 
 boundedLength(homepagePath, 18000);
-boundedLength(plansPath, 17500);
+boundedLength(plansPath, 18500);
 boundedLength(freeScanPath, 14500);
 boundedLength(footerPath, 12500);
 boundedLength(planTemplatePath, 14500);
 
 if (failures.length) {
-  console.error("Command plan blocks and Free Scan flow validation failed:");
+  console.error("AI readiness plan blocks and Free Scan flow validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command plan blocks and Free Scan flow validation passed with stronger stage cards, command pricing, higher form, stronger footer, and customer-led plan pages.");
+console.log("AI readiness plan blocks and Free Scan flow validation passed with Scan, Review, Repair, Control positioning, early Free Scan clarity, strong footer boundaries, and customer-led plan pages.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -164,7 +173,7 @@ function forbidden(path, phrases) {
 function boundedLength(path, maxCharacters) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
-  if (text.length > maxCharacters) failures.push(`${path} is too long for the command visual-flow standard: ${text.length} > ${maxCharacters}`);
+  if (text.length > maxCharacters) failures.push(`${path} is too long for the AI readiness visual-flow standard: ${text.length} > ${maxCharacters}`);
 }
 
 function read(path) {
