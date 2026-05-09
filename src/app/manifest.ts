@@ -1,8 +1,8 @@
 import { siteConfig } from "@/lib/seo";
 import type { MetadataRoute } from "next";
 
-const APP_BACKGROUND = "#020817";
-const APP_THEME = "#020817";
+const APP_BACKGROUND = "#ffffff";
+const APP_THEME = "#ffffff";
 
 type ShortcutDefinition = Readonly<{
     name: string;
@@ -44,14 +44,14 @@ const SHORTCUTS: readonly ShortcutDefinition[] = [
         name: "Start Free Scan",
         shortName: "Scan",
         description:
-            "Start with the safest first market signal before spending more on the wrong fix.",
+            "Start with the safest first AI-readiness signal before spending more on the wrong repair.",
         url: "/free-check",
     },
     {
-        name: "Compare Command Path",
-        shortName: "Command Path",
+        name: "Compare Readiness Path",
+        shortName: "Plans",
         description:
-            "Compare Scan, Diagnose, Fix, and Control.",
+            "Compare Scan, Review, Repair, and Control.",
         url: "/plans",
     },
     {
@@ -69,7 +69,7 @@ export default function manifest(): MetadataRoute.Manifest {
         name: resolveManifestName(siteConfig.legalName, siteConfig.name),
         short_name: resolveShortName(siteConfig.shortName, siteConfig.name),
         description: resolveDescription(siteConfig.description),
-        start_url: "/",
+        start_url: "/free-check?source=generated-manifest",
         scope: "/",
         display: "standalone",
         display_override: ["standalone", "minimal-ui", "browser"],
@@ -100,10 +100,10 @@ export default function manifest(): MetadataRoute.Manifest {
 function resolveManifestName(legalName: string, fallback: string) {
     const cleanedLegalName = cleanString(legalName);
     if (cleanedLegalName) {
-        return cleanedLegalName;
+        return `${cleanedLegalName} — AI Engine Readiness`;
     }
 
-    return cleanString(fallback) || "Cendorq";
+    return cleanString(fallback) || "Cendorq — AI Engine Readiness";
 }
 
 function resolveShortName(shortName: string, fallback: string) {
