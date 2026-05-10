@@ -6,6 +6,7 @@ const componentPath = "src/app/dashboard/dashboard-action-inbox.tsx";
 const dashboardPath = "src/app/dashboard/page.tsx";
 const commandCenterPath = "src/app/dashboard/dashboard-business-command-center.tsx";
 const reentryPath = "src/app/dashboard/dashboard-control-room-reentry.tsx";
+const bestStandardPath = "src/lib/best-of-best-operating-standard.ts";
 const confirmationContractPath = "src/lib/customer-email-confirmation-handoff-contracts.ts";
 const billingContractPath = "src/lib/billing-checkout-contracts.ts";
 const ownerManualPath = "docs/owner-operating-manual.md";
@@ -18,6 +19,8 @@ const failures = [];
 
 expect(componentPath, [
   "DashboardActionInbox",
+  "BEST_OF_BEST_OPERATING_STANDARD",
+  "BEST_OF_BEST_DASHBOARD_RULES",
   "projectPlanRouting",
   "type PlanRoutingInput",
   "Dashboard action inbox",
@@ -30,6 +33,15 @@ expect(componentPath, [
 ]);
 
 expect(componentPath, [
+  "Best-of-best dashboard action standard",
+  "One strongest action",
+  "Proof before pressure",
+  "Value and boundary visible",
+  "Dashboard as source of truth",
+  "one strongest action",
+  "proof before pressure",
+  "value and boundary visible",
+  "dashboard as source of truth",
   "Open the signal before buying deeper work",
   "Unlock Review when the cause needs proof",
   "Move to Repair only when the weak signal is clear",
@@ -42,6 +54,15 @@ expect(componentPath, [
   "Unlock Review",
   "Start Repair",
   "Start Control",
+]);
+
+expect(bestStandardPath, [
+  "Cendorq Best-of-Best Operating Standard",
+  "Every customer action must have one strongest next move, one secondary safe route when needed, and visible boundaries about what is included and not included.",
+  "The strongest companies make high-value decisions feel simple without making the system shallow.",
+  "The front website must create category authority before the customer ever reaches checkout, but the private dashboard must prove that authority after payment.",
+  "generic SaaS dashboard copy",
+  "equal-weight CTA wall",
 ]);
 
 expect(commandCenterPath, [
@@ -194,7 +215,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard action inbox validation passed with conversion command center, proof-first paid-depth path, money-surface reentry, owner posture, category-defining authority, verify-to-view, deliverability posture, safe PDF attachment policy, dashboard message mirror, and safe language coverage.");
+console.log("Dashboard action inbox validation passed with best-of-best dashboard action standard, conversion command center, proof-first paid-depth path, money-surface reentry, owner posture, category-defining authority, verify-to-view, deliverability posture, safe PDF attachment policy, dashboard message mirror, and safe language coverage.");
 
 function unsafeBusinessClaims() {
   return [
