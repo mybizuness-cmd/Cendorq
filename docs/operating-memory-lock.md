@@ -6,6 +6,11 @@ This file keeps new operating standards from being treated as side notes.
 
 - `docs/current-operating-research-notes.md`
 - `src/scripts/validate-current-operating-research-notes.mjs`
+- `docs/brand-trademark-operating-standard.md`
+- `src/scripts/validate-brand-trademark-operating-standard.mjs`
+- `src/scripts/validate-logo-readiness-standard.mjs`
+- `docs/legal-trust-crawler-readiness-standard.md`
+- `src/scripts/validate-legal-trust-crawler-readiness-standard.mjs`
 - `docs/support-channel-operating-standard.md`
 - `src/scripts/validate-support-channel-operating-standard.mjs`
 - `src/lib/unified-experience-alignment.ts`
