@@ -65,6 +65,12 @@ const AUTHORITY_RULES = [
   "Every stronger recommendation must be tied to evidence.",
 ] as const;
 
+const AFTER_PURCHASE_STANDARDS = [
+  { title: "Vault first", copy: "Released reports and billing documents live in the verified dashboard, not only in email." },
+  { title: "Messages mirrored", copy: "Important emails are reflected as dashboard messages so the customer can recover the same next action." },
+  { title: "PDFs gated", copy: "Downloadable or attached PDFs are enabled only when verification, entitlement, release, and document-safety checks pass." },
+] as const;
+
 const PLANS_HANDOFFS = [
   projectCustomerPlatformHandoff({ surfaceKey: "plans-to-free-scan-or-dashboard", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
   projectCustomerPlatformHandoff({ surfaceKey: "dashboard-to-plans", customerOwned: true, verifiedAccess: true, safeProjectionReady: true }),
@@ -164,6 +170,18 @@ export default function PlansPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="After purchase access standard">
+        <div className="grid gap-4 lg:grid-cols-3">
+          {AFTER_PURCHASE_STANDARDS.map((item) => (
+            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_48px_rgba(15,23,42,0.055)]">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">After purchase</div>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.title}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">{item.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Plan separation standard">
         <div className="overflow-hidden rounded-[2.5rem] border border-slate-200 bg-slate-50 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.07)] sm:p-8 lg:p-10">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">No overlap</p>
@@ -175,7 +193,7 @@ export default function PlansPage() {
       </section>
 
       <section className="sr-only" aria-label="AI readiness plan path guardrails">
-        AI readiness plans. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Internal keys preserved: deep-review, build-fix, ongoing-control. Each plan buys a different level of readiness. No overlap. No guaranteed rankings, AI placement, leads, or revenue. Category-defining authority. Number-one operating posture. Choose the depth that matches the evidence. {AUTHORITY_RULES.join(" ")} {DECISION_STANDARDS.map((item) => `${item.title} ${item.best} ${item.copy}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PLANS_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        AI readiness plans. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Internal keys preserved: deep-review, build-fix, ongoing-control. Each plan buys a different level of readiness. No overlap. No guaranteed rankings, AI placement, leads, or revenue. Category-defining authority. Number-one operating posture. Choose the depth that matches the evidence. After purchase access: vault first, dashboard message mirror, safe PDF delivery gates, verified access, entitlement, release, and document-safety checks. {AUTHORITY_RULES.join(" ")} {AFTER_PURCHASE_STANDARDS.map((item) => `${item.title} ${item.copy}`).join(" ")} {DECISION_STANDARDS.map((item) => `${item.title} ${item.best} ${item.copy}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PLANS_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
