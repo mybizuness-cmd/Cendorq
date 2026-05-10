@@ -9,6 +9,11 @@ const checks = [
     "Operating Memory Lock",
     "docs/current-operating-research-notes.md",
     "src/scripts/validate-current-operating-research-notes.mjs",
+    "docs/brand-trademark-operating-standard.md",
+    "src/scripts/validate-brand-trademark-operating-standard.mjs",
+    "src/scripts/validate-logo-readiness-standard.mjs",
+    "docs/legal-trust-crawler-readiness-standard.md",
+    "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
     "docs/support-channel-operating-standard.md",
     "src/scripts/validate-support-channel-operating-standard.mjs",
     "src/lib/unified-experience-alignment.ts",
@@ -18,14 +23,25 @@ const checks = [
   ]],
   ["src/scripts/validate-routes-chain.mjs", [
     "src/scripts/validate-operating-memory-lock.mjs",
+    "src/scripts/validate-brand-trademark-operating-standard.mjs",
+    "src/scripts/validate-logo-readiness-standard.mjs",
+    "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
     "src/scripts/validate-unified-experience-alignment.mjs",
     "src/scripts/validate-surface-level-alignment.mjs",
   ]],
   ["src/scripts/validate-routes-chain-integrity.mjs", [
     "src/scripts/validate-operating-memory-lock.mjs",
     "docs/operating-memory-lock.md",
+    "src/scripts/validate-brand-trademark-operating-standard.mjs",
+    "src/scripts/validate-logo-readiness-standard.mjs",
+    "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
     "src/scripts/validate-unified-experience-alignment.mjs",
     "src/scripts/validate-surface-level-alignment.mjs",
+  ]],
+  ["docs/command-center-docs-index.md", [
+    "docs/brand-trademark-operating-standard.md",
+    "docs/legal-trust-crawler-readiness-standard.md",
+    "src/scripts/validate-logo-readiness-standard.mjs",
   ]],
   ["docs/owner-operating-manual.md", [
     "Unified surface lock",
@@ -41,7 +57,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operating memory lock validation passed.");
+console.log("Operating memory lock validation passed with current research, brand/trademark, logo readiness, legal/trust/crawler, support channel, unified alignment, and surface-level standards locked.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
