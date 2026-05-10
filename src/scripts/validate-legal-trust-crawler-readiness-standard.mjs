@@ -40,6 +40,15 @@ const checks = [
     "No guaranteed ranking",
     "No guaranteed AI placement",
   ]],
+  ["src/layout/site-footer.tsx", [
+    "href=\"/privacy\"",
+    "href=\"/terms\"",
+    "href=\"/disclaimer\"",
+    "Privacy",
+    "Terms",
+    "Disclaimer",
+    "not a guarantee of rankings, leads, revenue, or AI placement",
+  ]],
   ["public/.well-known/security.txt", ["Contact"]],
   ["src/app/sitemap.ts", ["/privacy", "/terms", "/disclaimer"]],
   ["src/app/robots.ts", ["sitemap"]],
@@ -56,7 +65,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Legal trust crawler readiness standard validation passed with policy, crawler, ad-platform, privacy, terms, disclaimer, security contact, sitemap, robots, route-chain, and docs-index coverage.");
+console.log("Legal trust crawler readiness standard validation passed with policy, footer trust discovery, crawler, ad-platform, privacy, terms, disclaimer, security contact, sitemap, robots, route-chain, and docs-index coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
