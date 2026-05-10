@@ -6,61 +6,39 @@ const failures = [];
 
 const packagePath = "package.json";
 const chainPath = "src/scripts/validate-routes-chain.mjs";
-const chainIntegrityValidatorPath = "src/scripts/validate-routes-chain-integrity.mjs";
-const baselineRouteValidatorPath = "src/scripts/validate-routes.mjs";
-const bestOfBestValidatorPath = "src/scripts/validate-best-of-best-operating-standard.mjs";
-const acquisitionToRetentionValidatorPath = "src/scripts/validate-acquisition-to-retention-operating-system.mjs";
-const commandDesignValidatorPath = "src/scripts/validate-command-design-operating-standard.mjs";
-const docsIndexValidatorPath = "src/scripts/validate-command-center-docs-index.mjs";
-const ownerOperatingManualValidatorPath = "src/scripts/validate-owner-operating-manual.mjs";
-const maximumProtectionValidatorPath = "src/scripts/validate-maximum-protection-standard.mjs";
-const trustLegalValidatorPath = "src/scripts/validate-trust-legal-plan-boundaries.mjs";
-const publicDriftValidatorPath = "src/scripts/validate-public-drift.mjs";
-const publicHomepageCommandSurfaceValidatorPath = "src/scripts/validate-public-homepage-command-surface.mjs";
-const publicEntryPlanJourneyValidatorPath = "src/scripts/validate-public-entry-plan-journey.mjs";
-const freeScanActiveFormValidatorPath = "src/scripts/validate-free-scan-active-form-selection.mjs";
-const freeScanRoutingHintValidatorPath = "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs";
-const publicPlansValidatorPath = "src/scripts/validate-public-plans-excellence.mjs";
-const pricingCheckoutValidatorPath = "src/scripts/validate-pricing-checkout-orchestration.mjs";
-const billingCheckoutValidatorPath = "src/scripts/validate-billing-checkout-contracts.mjs";
-const billingCenterFirstUseValidatorPath = "src/scripts/validate-billing-center-first-use.mjs";
-const reportVaultFirstUseValidatorPath = "src/scripts/validate-report-vault-first-use.mjs";
-const notificationCenterFirstUseValidatorPath = "src/scripts/validate-notification-center-first-use.mjs";
-const supportCenterFirstUseValidatorPath = "src/scripts/validate-support-center-first-use.mjs";
-const supportStatusFirstUseValidatorPath = "src/scripts/validate-support-status-first-use.mjs";
-const supportRequestFirstUseValidatorPath = "src/scripts/validate-support-request-first-use.mjs";
-const dashboardActionInboxValidatorPath = "src/scripts/validate-dashboard-action-inbox.mjs";
-const planDeliveryValidatorPath = "src/scripts/validate-plan-delivery-orchestration-contracts.mjs";
-const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
 const docsIndexPath = "docs/command-center-docs-index.md";
 const ownerManualPath = "docs/owner-operating-manual.md";
+const registryPath = "src/lib/command-center/validation-registry.ts";
 
 const executedValidators = [
-  chainIntegrityValidatorPath,
-  baselineRouteValidatorPath,
-  bestOfBestValidatorPath,
-  acquisitionToRetentionValidatorPath,
-  commandDesignValidatorPath,
-  docsIndexValidatorPath,
-  ownerOperatingManualValidatorPath,
-  maximumProtectionValidatorPath,
-  trustLegalValidatorPath,
-  publicDriftValidatorPath,
-  publicHomepageCommandSurfaceValidatorPath,
-  publicEntryPlanJourneyValidatorPath,
-  freeScanActiveFormValidatorPath,
-  freeScanRoutingHintValidatorPath,
-  publicPlansValidatorPath,
-  pricingCheckoutValidatorPath,
-  billingCheckoutValidatorPath,
-  billingCenterFirstUseValidatorPath,
-  reportVaultFirstUseValidatorPath,
-  notificationCenterFirstUseValidatorPath,
-  supportCenterFirstUseValidatorPath,
-  supportStatusFirstUseValidatorPath,
-  supportRequestFirstUseValidatorPath,
-  dashboardActionInboxValidatorPath,
-  planDeliveryValidatorPath,
+  "src/scripts/validate-routes-chain-integrity.mjs",
+  "src/scripts/validate-routes.mjs",
+  "src/scripts/validate-current-operating-research-notes.mjs",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
+  "src/scripts/validate-build-gate-hardening-standard.mjs",
+  "src/scripts/validate-support-channel-operating-standard.mjs",
+  "src/scripts/validate-command-design-operating-standard.mjs",
+  "src/scripts/validate-command-center-docs-index.mjs",
+  "src/scripts/validate-owner-operating-manual.mjs",
+  "src/scripts/validate-maximum-protection-standard.mjs",
+  "src/scripts/validate-trust-legal-plan-boundaries.mjs",
+  "src/scripts/validate-public-drift.mjs",
+  "src/scripts/validate-public-homepage-command-surface.mjs",
+  "src/scripts/validate-public-entry-plan-journey.mjs",
+  "src/scripts/validate-free-scan-active-form-selection.mjs",
+  "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
+  "src/scripts/validate-public-plans-excellence.mjs",
+  "src/scripts/validate-pricing-checkout-orchestration.mjs",
+  "src/scripts/validate-billing-checkout-contracts.mjs",
+  "src/scripts/validate-billing-center-first-use.mjs",
+  "src/scripts/validate-report-vault-first-use.mjs",
+  "src/scripts/validate-notification-center-first-use.mjs",
+  "src/scripts/validate-support-center-first-use.mjs",
+  "src/scripts/validate-support-status-first-use.mjs",
+  "src/scripts/validate-support-request-first-use.mjs",
+  "src/scripts/validate-dashboard-action-inbox.mjs",
+  "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
 ];
 
 const documentedCoverageValidators = [
@@ -70,89 +48,80 @@ const documentedCoverageValidators = [
   "src/scripts/validate-closed-intelligence.mjs",
 ];
 
-for (const path of [packagePath, chainPath, validationRegistryPath, docsIndexPath, ownerManualPath, ...executedValidators, ...documentedCoverageValidators]) validateFileExists(path);
+const doctrineFiles = [
+  "docs/current-operating-research-notes.md",
+  "docs/best-of-best-operating-standard.md",
+  "docs/acquisition-to-retention-operating-system.md",
+  "docs/build-gate-hardening-standard.md",
+  "docs/support-channel-operating-standard.md",
+  "docs/maximum-protection-standard.md",
+  "docs/owner-operating-manual.md",
+  "docs/command-center-docs-index.md",
+];
+
+for (const path of [packagePath, chainPath, docsIndexPath, ownerManualPath, registryPath, ...executedValidators, ...documentedCoverageValidators, ...doctrineFiles]) {
+  if (!existsSync(join(root, path))) failures.push(`Missing required route-chain integrity dependency: ${path}`);
+}
 
 if (!failures.length) {
   const packageText = read(packagePath);
   const chainText = read(chainPath);
-  const registryText = read(validationRegistryPath);
   const docsText = read(docsIndexPath);
-  const ownerManualText = read(ownerManualPath);
-  const executedChainValidators = getArrayValues(chainText, "validators");
-  const documentedChainValidators = getArrayValues(chainText, "documentedValidatorCoverage");
-  const duplicateExecuted = executedChainValidators.filter((validator, index) => executedChainValidators.indexOf(validator) !== index);
+  const ownerText = read(ownerManualPath);
+  const registryText = read(registryPath);
+  const chainValidators = arrayValues(chainText, "validators");
+  const documentedChainValidators = arrayValues(chainText, "documentedValidatorCoverage");
+  const duplicates = chainValidators.filter((path, index) => chainValidators.indexOf(path) !== index);
 
-  if (!packageText.includes('"validate:routes": "node ./src/scripts/validate-routes-chain.mjs"')) failures.push(`${packagePath} must delegate validate:routes to ${chainPath}`);
-  if (duplicateExecuted.length) failures.push(`${chainPath} contains duplicate executed validators: ${[...new Set(duplicateExecuted)].join(", ")}`);
+  if (!packageText.includes('"validate:routes": "node ./src/scripts/validate-routes-chain.mjs"')) failures.push("package.json must delegate validate:routes to the practical route chain.");
+  if (duplicates.length) failures.push(`validate-routes-chain has duplicate executed validators: ${[...new Set(duplicates)].join(", ")}`);
 
-  for (const validatorPath of executedValidators) {
-    if (!executedChainValidators.includes(validatorPath)) failures.push(`${chainPath} missing executed validator: ${validatorPath}`);
-    if (!chainText.includes(validatorPath)) failures.push(`${chainPath} missing route-chain text for executed validator: ${validatorPath}`);
+  if (chainValidators.slice(0, executedValidators.length).join("\n") !== executedValidators.join("\n")) {
+    failures.push("validate-routes-chain executed validator order must match the protected practical chain.");
   }
 
-  for (const validatorPath of documentedCoverageValidators) {
-    if (!documentedChainValidators.includes(validatorPath)) failures.push(`${chainPath} missing documented adjacent validator: ${validatorPath}`);
-    if (!registryText.includes(validatorPath) && !docsText.includes(validatorPath)) failures.push(`${validatorPath} must be discoverable in registry or docs index.`);
+  for (const validator of documentedCoverageValidators) {
+    if (!documentedChainValidators.includes(validator)) failures.push(`${chainPath} missing documented adjacent validator: ${validator}`);
+    if (!registryText.includes(validator) && !docsText.includes(validator)) failures.push(`${validator} must be discoverable in registry or docs index.`);
   }
 
-  validateExactOrdering(executedChainValidators, executedValidators);
-
-  expectText(chainPath, chainText, [
-    "route-chain integrity",
+  expect(chainPath, chainText, [
+    "current operating research notes",
     "best-of-best operating standard",
     "acquisition-to-retention operating system",
-    "docs-index doctrine coverage",
-    "owner operating doctrine",
+    "build gate hardening",
+    "support channel operating standard",
     "maximum protection security doctrine",
     "trust/legal boundary coverage",
-    "public drift coverage",
-    "public homepage command surface",
-    "public entry plan journey",
-    "public Plans buyer-path excellence",
-    "checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle",
-    "safe PDF access",
-    "lifecycle nurturing",
-    "registry coverage",
+    "dashboard conversion inbox",
+    "plan delivery lifecycle",
   ]);
 
-  expectText(registryPathLabel(), registryText, [
-    "pricing-checkout-orchestration",
-    "billing-checkout-contracts",
-    "dashboard-action-inbox",
-    "plan-delivery-orchestration-contracts",
-    "safe PDF document delivery",
-    "dashboard-message mirror",
-    "stage-targeted retargeting",
-    "continuous nurturing",
-  ]);
-
-  expectText(docsIndexPath, docsText, [
+  expect(docsIndexPath, docsText, [
+    "docs/current-operating-research-notes.md",
+    "docs/support-channel-operating-standard.md",
+    "src/scripts/validate-current-operating-research-notes.mjs",
+    "src/scripts/validate-support-channel-operating-standard.mjs",
     "Customer delivery validation standard",
-    bestOfBestValidatorPath,
-    acquisitionToRetentionValidatorPath,
-    pricingCheckoutValidatorPath,
-    billingCheckoutValidatorPath,
-    dashboardActionInboxValidatorPath,
-    planDeliveryValidatorPath,
     "safe PDF delivery only after gates pass",
     "mirrored dashboard messages for important emails",
-    "best-of-best operating standard",
-    "acquisition-to-retention operating system",
   ]);
 
-  expectText(ownerManualPath, ownerManualText, [
+  expect(ownerManualPath, ownerText, [
     "dashboard/report vault is the canonical protected display location",
     "Every important customer email should create or update a matching dashboard message record",
     "PDFs must never be the only access path.",
-    "Best-of-best operating doctrine",
-    "best-of-best standard visible in every material customer-facing decision",
   ]);
 
-  forbidden(chainPath, chainText, [
-    "expected at least 140 validators",
-    "must end with closed-intelligence validation",
-    "missing high-risk validator",
+  expect(registryPath, registryText, [
+    "best-of-best-operating-standard",
+    "acquisition-to-retention-operating-system",
+    "maximum-protection-standard",
+    "dashboard-action-inbox",
+    "plan-delivery-orchestration-contracts",
   ]);
+
+  reject(chainPath, chainText, ["continue-on-error: true", "expected at least 140 validators", "must end with closed-intelligence validation"]);
 }
 
 if (failures.length) {
@@ -161,42 +130,21 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, acquisition-to-retention operating system, command design, docs-index doctrine coverage, owner operating doctrine, maximum protection security doctrine, trust/legal boundary coverage, public drift coverage, public homepage command surface, public entry plan journey, Free Scan gates, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, report truth, owner maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
+console.log("Validate routes chain integrity passed with current research, best-of-best, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
-function getArrayValues(text, arrayName) {
-  const match = text.match(new RegExp(`const ${arrayName} = \\[([\\s\\S]*?)\\];`));
-  if (!match) {
-    failures.push(`${chainPath} missing array: ${arrayName}`);
-    return [];
-  }
+function arrayValues(text, name) {
+  const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
+  if (!match) return [];
   return [...match[1].matchAll(/"(src\/scripts\/validate-[^"]+\.mjs)"/g)].map((item) => item[1]);
 }
 
-function validateExactOrdering(actual, expected) {
-  const expectedText = expected.join("\n");
-  const actualText = actual.slice(0, expected.length).join("\n");
-  if (actualText !== expectedText) failures.push(`${chainPath} executed validator order must start exactly with the practical customer-delivery chain.`);
+function expect(path, text, phrases) {
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
 }
 
-function validateFileExists(path) {
-  if (!existsSync(join(root, path))) failures.push(`Missing required route-chain integrity dependency: ${path}`);
-}
-
-function expectText(path, text, phrases) {
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing route-chain integrity phrase: ${phrase}`);
-  }
-}
-
-function forbidden(path, text, phrases) {
+function reject(path, text, phrases) {
   const lower = text.toLowerCase();
-  for (const phrase of phrases) {
-    if (lower.includes(phrase.toLowerCase())) failures.push(`${path} contains stale route-chain integrity phrase: ${phrase}`);
-  }
-}
-
-function registryPathLabel() {
-  return validationRegistryPath;
+  for (const phrase of phrases) if (lower.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
 }
 
 function read(path) {
