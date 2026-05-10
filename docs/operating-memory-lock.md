@@ -11,6 +11,10 @@ This file keeps new operating standards from being treated as side notes.
 - `src/scripts/validate-logo-readiness-standard.mjs`
 - `docs/legal-trust-crawler-readiness-standard.md`
 - `src/scripts/validate-legal-trust-crawler-readiness-standard.mjs`
+- `docs/owner-brand-legal-trust-addendum.md`
+- `src/scripts/validate-owner-brand-legal-trust-addendum.mjs`
+- `src/lib/command-center/validation-registry-brand-legal-addendum.ts`
+- `src/scripts/validate-brand-legal-validation-registry-addendum.mjs`
 - `docs/support-channel-operating-standard.md`
 - `src/scripts/validate-support-channel-operating-standard.mjs`
 - `src/lib/unified-experience-alignment.ts`
