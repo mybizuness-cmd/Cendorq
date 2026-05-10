@@ -66,12 +66,18 @@ expect(headerPath, [
 ]);
 
 expect(footerPath, [
-  "Start with the right read before buying the wrong fix.",
-  "Free Scan gives a first signal. Paid plans only add depth when the stage fits.",
-  "Compare plans",
-  "Contact",
+  "AI engine readiness for businesses that need to be understood, trusted, and chosen",
+  "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.",
+  "href=\"/privacy\"",
+  "href=\"/terms\"",
+  "href=\"/disclaimer\"",
   "Privacy",
   "Terms",
+  "Disclaimer",
+  "BrandMark",
+  "bg-cyan-500",
+  "bg-slate-950",
+  "bg-indigo-400",
 ]);
 
 expect(scanPath, [
@@ -114,7 +120,7 @@ boundedLength(footerPath, 6500);
 
 forbidden(pagePath, [...blockedPublicPhrases(), ...staleHomepagePhrases(), ...badgeHeavyPhrases()]);
 forbidden(headerPath, [...blockedPublicPhrases(), "Pricing", "Talk through fit or scope", "Pricing from $0", "Command path"]);
-forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
+forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo", "/pricing", "/contact", "/connect"]);
 forbidden(scanPath, [...blockedPublicPhrases(), "Free Visibility Scan", "Search Presence Scan", "Find the first break before you buy the fix."]);
 
 if (failures.length) {
@@ -123,7 +129,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with current AI Engine Readiness homepage, best-of-best hierarchy, simplified public header, compact footer, Free Scan result path, no stale pricing/diagnose language, and no unsupported guarantees.");
+console.log("Public command surface validation passed with current AI Engine Readiness homepage, best-of-best hierarchy, simplified public header, compact trust footer, Free Scan result path, no stale pricing/diagnose language, and no unsupported guarantees.");
 
 function badgeHeavyPhrases() {
   return [
