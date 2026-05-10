@@ -13,7 +13,7 @@ const DISCLAIMER_DATE = "Effective date: April 2026";
 export const metadata = buildMetadata({
   title: `AI readiness disclaimer | ${BRAND_NAME}`,
   description:
-    "Cendorq disclaimer for AI readiness, AI/search visibility, plan guidance, reports, no-guarantee boundaries, and customer responsibility.",
+    "Cendorq disclaimer for AI readiness, search visibility, plan guidance, reports, forecasts, security boundaries, no-guarantee posture, and customer responsibility.",
   path: "/disclaimer",
   keywords: [
     "cendorq disclaimer",
@@ -24,42 +24,48 @@ export const metadata = buildMetadata({
     "no guaranteed ai placement",
     "business visibility disclaimer",
   ],
-  image: { alt: "Cendorq AI readiness disclaimer boundaries." },
+  image: { alt: "Cendorq AI readiness disclaimer and customer-protective boundaries." },
 });
 
 const SUMMARY = [
-  { label: "Platform role", value: "Decision support for AI readiness, visibility, proof, and next-step clarity." },
-  { label: "Claim boundary", value: "No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment." },
-  { label: "Report boundary", value: "Scan, Review, Repair, and Control use evidence, confidence, limits, and scope." },
-  { label: "Customer role", value: "You remain responsible for decisions, implementation, budgets, timing, and business commitments." },
+  { label: "Platform role", value: "Decision support for AI readiness, visibility, proof, report clarity, and next-step discipline." },
+  { label: "Claim boundary", value: "No guaranteed rankings, AI placement, leads, revenue, sales, security outcome, or platform treatment." },
+  { label: "Report boundary", value: "Scan, Review, Repair, and Control use evidence, confidence, limits, scope, and safe release state." },
+  { label: "Customer role", value: "You remain responsible for decisions, implementation, budgets, timing, credentials, and business commitments." },
 ] as const;
 
 const CORE_BOUNDARIES = [
   {
     title: "Guidance, not certainty",
-    copy: "Cendorq helps a business see what may be weakening visibility, trust, proof, clarity, choice, or action. It does not erase uncertainty or become a guarantee engine.",
+    copy: "Cendorq helps a business see what may be weakening visibility, trust, proof, clarity, choice, action, or readiness. It does not erase uncertainty or become a guarantee engine.",
   },
   {
     title: "AI/search visibility is bounded",
-    copy: "Cendorq may assess whether public signals are clear enough for customers, search, maps, reviews, directories, and AI answers to understand. It does not guarantee ranking, inclusion, summaries, or answer placement.",
+    copy: "Cendorq may assess whether public signals are clear enough for customers, search, maps, reviews, directories, and AI answers to understand. It does not guarantee ranking, inclusion, summaries, crawl behavior, or answer placement.",
   },
   {
     title: "Readiness depth depends on evidence",
-    copy: "Free Scan, AI Readiness Review, Signal Repair, and Readiness Control outputs depend on visible evidence, customer context, confidence limits, plan scope, and external conditions.",
+    copy: "Free Scan, AI Readiness Review, Signal Repair, and Readiness Control outputs depend on visible evidence, customer context, confidence limits, plan scope, external conditions, and release state.",
+  },
+  {
+    title: "Security is practical, not magical",
+    copy: "Cendorq can use safeguards, access controls, validation gates, monitoring, and recovery paths, but no online system can honestly promise that no outage, error, incident, attack, or third-party change can ever occur.",
   },
 ] as const;
 
 const EXTERNAL_FACTORS = [
-  "Search engines, AI answer systems, maps, reviews, directories, social platforms, and third-party profiles can change independently.",
-  "Customers, competitors, pricing, demand, timing, reputation, implementation quality, and economic conditions can affect outcomes.",
-  "A recommendation that is useful now may need review later if the market, platform behavior, or business context changes.",
-  "No serious system can honestly promise control over every external platform, buyer decision, or competitive move.",
+  "Search engines, AI answer systems, maps, reviews, directories, social platforms, browsers, inbox providers, and third-party profiles can change independently.",
+  "Customers, competitors, pricing, demand, timing, reputation, implementation quality, security posture, and economic conditions can affect outcomes.",
+  "A recommendation that is useful now may need review later if the market, platform behavior, threat environment, or business context changes.",
+  "No serious system can honestly promise control over every external platform, buyer decision, competitor move, crawl event, inbox provider, attack path, or future condition.",
 ] as const;
 
 const NOT_INCLUDED = [
-  "legal, financial, tax, medical, or licensed professional advice",
-  "guaranteed ranking, guaranteed AI placement, guaranteed leads, guaranteed revenue, or guaranteed sales",
-  "algorithm control, ad-management guarantees, or third-party platform treatment guarantees",
+  "legal, financial, tax, medical, insurance, compliance-certification, or licensed professional advice",
+  "guaranteed ranking, guaranteed AI placement, guaranteed leads, guaranteed revenue, guaranteed sales, or guaranteed platform treatment",
+  "guaranteed inbox placement, guaranteed deliverability, guaranteed crawl behavior, guaranteed indexing, or guaranteed search serving",
+  "guaranteed security outcome, impossible-to-hack status, incident-free operation, liability-free operation, or control over every attacker or third-party service",
+  "algorithm control, ad-management guarantees, third-party platform treatment guarantees, or public-search number-one promises",
   "unlimited implementation, unlimited revisions, or plan scope beyond the purchased readiness depth",
 ] as const;
 
@@ -70,6 +76,13 @@ const BEST_USE = [
   "Use Control when the business needs recurring monitoring, adjustment, and monthly decision support.",
 ] as const;
 
+const CUSTOMER_TRANSPARENCY = [
+  "Read Cendorq outputs through evidence, confidence, limitations, assumptions, forecast direction, plan scope, and safe next action.",
+  "Use dashboard, report vault, billing center, provider-authoritative billing state, and support status as the safer recovery paths when documents, emails, or messages need review.",
+  "Do not send passwords, card data, private keys, provider secrets, unrelated private evidence, or raw attack material through public forms or support messages.",
+  "Cendorq can explain useful methodology at a customer-safe level without exposing private prompts, exact scoring weights, raw provider payloads, raw evidence dumps, cross-customer data, or internal security mechanics.",
+] as const;
+
 const FAQS = [
   {
     question: "Does Cendorq guarantee AI visibility or search rankings?",
@@ -77,18 +90,22 @@ const FAQS = [
   },
   {
     question: "Does this reduce Cendorq's value?",
-    answer: "No. It protects the value by keeping claims honest. The value is clearer judgment, stronger proof, better next decisions, and less wasted motion in a market where customers and AI/search surfaces keep changing.",
+    answer: "No. It protects the value by keeping claims honest. The value is clearer judgment, stronger proof, better next decisions, safer recovery paths, and less wasted motion in a market where customers, platforms, security risks, and AI/search surfaces keep changing.",
   },
   {
     question: "How should I use Cendorq outputs?",
-    answer: "Use them as structured business guidance. Read every output through its evidence, confidence, limitation, scope, and next-step boundary before making decisions.",
+    answer: "Use them as structured business guidance. Read every output through its evidence, confidence, limitation, scope, forecast boundary, and next-step boundary before making decisions.",
+  },
+  {
+    question: "Why does Cendorq state limits clearly?",
+    answer: "Because strong guidance and strong protection work better when limits are visible. Cendorq can be confident, useful, and rigorous without claiming control over every platform, buyer, security event, or future condition.",
   },
 ] as const;
 
 export default function DisclaimerPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq AI Readiness Disclaimer",
-    description: "Claim boundaries and no-guarantee posture for Cendorq AI readiness, AI/search visibility, plan guidance, reports, and forecasts.",
+    description: "Claim boundaries and no-guarantee posture for Cendorq AI readiness, AI/search visibility, plan guidance, reports, forecasts, security, and platform conditions.",
     path: "/disclaimer",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -107,10 +124,10 @@ export default function DisclaimerPage() {
       <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
         <p className="text-sm font-semibold text-cyan-100">AI readiness disclaimer</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-          Strong guidance works best when the limits are clear.
+          Strong guidance works best when the limits are clear and the next action stays useful.
         </h1>
         <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
-          Cendorq helps businesses understand what may be weakening visibility, trust, proof, clarity, choice, and action in a changing search and AI-answer world. This page keeps the claim boundaries explicit. {DISCLAIMER_DATE}.
+          Cendorq helps businesses understand what may be weakening visibility, trust, proof, clarity, choice, action, and readiness in a changing search and AI-answer world. This page keeps the claim boundaries explicit without weakening the value. {DISCLAIMER_DATE}.
         </p>
         <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {SUMMARY.map((item) => (
@@ -122,7 +139,7 @@ export default function DisclaimerPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3" aria-label="Core disclaimer boundaries">
+      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Core disclaimer boundaries">
         {CORE_BOUNDARIES.map((item) => (
           <article key={item.title} className="system-surface rounded-[1.35rem] p-5">
             <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
@@ -146,7 +163,11 @@ export default function DisclaimerPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-3" aria-label="Disclaimer questions">
+      <section className="relative z-10 mt-8">
+        <BoundaryPanel title="Customer-safe transparency" items={CUSTOMER_TRANSPARENCY} />
+      </section>
+
+      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-4" aria-label="Disclaimer questions">
         {FAQS.map((item) => (
           <article key={item.question} className="system-surface rounded-[1.35rem] p-5">
             <h2 className="text-xl font-semibold tracking-tight text-white">{item.question}</h2>
@@ -166,7 +187,7 @@ export default function DisclaimerPage() {
       </section>
 
       <section className="sr-only" aria-label="Disclaimer validation guardrails">
-        AI readiness disclaimer. Search is changing. AI/search visibility. Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. No /contact route. Use /free-check. Use dashboard support. Scan. Review. Repair. Control. Free Scan. AI Readiness Review. Signal Repair. Readiness Control.
+        AI readiness disclaimer. Search is changing. AI/search visibility. Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No guaranteed sales. No guaranteed security outcome. No guaranteed inbox placement. No guaranteed crawl behavior. No algorithm control. No /contact route. Use /free-check. Use dashboard support. Customer-safe transparency. No raw evidence dumps. No exact scoring weights. No private prompts. Scan. Review. Repair. Control. Free Scan. AI Readiness Review. Signal Repair. Readiness Control.
       </section>
     </main>
   );
