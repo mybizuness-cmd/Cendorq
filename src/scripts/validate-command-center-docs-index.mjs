@@ -9,6 +9,7 @@ const requiredFiles = [
   "docs/current-operating-research-notes.md",
   "docs/brand-trademark-operating-standard.md",
   "docs/legal-trust-crawler-readiness-standard.md",
+  "docs/owner-brand-legal-trust-addendum.md",
   "docs/best-of-best-operating-standard.md",
   "docs/acquisition-to-retention-operating-system.md",
   "docs/build-gate-hardening-standard.md",
@@ -33,6 +34,7 @@ const requiredFiles = [
   "src/scripts/validate-brand-trademark-operating-standard.mjs",
   "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+  "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -76,6 +78,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "docs/current-operating-research-notes.md",
   "docs/brand-trademark-operating-standard.md",
   "docs/legal-trust-crawler-readiness-standard.md",
+  "docs/owner-brand-legal-trust-addendum.md",
   "docs/best-of-best-operating-standard.md",
   "docs/acquisition-to-retention-operating-system.md",
   "docs/build-gate-hardening-standard.md",
@@ -88,6 +91,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "brand and trademark operating standard",
   "logo ownership",
   "legal, trust, crawler",
+  "owner addendum",
   "policy pages",
   "private-customer discovery boundaries",
   "current-source refresh standard",
@@ -121,6 +125,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "src/scripts/validate-brand-trademark-operating-standard.mjs",
   "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+  "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "src/scripts/validate-build-gate-hardening-standard.mjs",
@@ -159,6 +164,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "src/scripts/validate-brand-trademark-operating-standard.mjs",
   "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+  "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "src/scripts/validate-build-gate-hardening-standard.mjs",
@@ -172,6 +178,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "Delivery validation must preserve: acquisition-to-retention operating system",
   "brand and trademark operating standard",
   "legal/trust/crawler readiness",
+  "owner brand/legal/trust addendum",
   "best-of-best operating standard",
   "verified email before protected report access",
   "dashboard/report vault as source of truth",
@@ -200,6 +207,13 @@ validateTextFile("docs/legal-trust-crawler-readiness-standard.md", [
   "Public trust protection should be clear, calm, findable, and properly placed.",
   "Private customer areas should not be discovery surfaces.",
   "Dispute-risk reduction",
+]);
+
+validateTextFile("docs/owner-brand-legal-trust-addendum.md", [
+  "# Owner Brand, Logo, Legal, and Trust Addendum",
+  "Confirm logo source artwork",
+  "Keep public crawler surfaces useful and private customer surfaces protected.",
+  "Trust language should protect Cendorq while increasing buyer confidence.",
 ]);
 
 validateTextFile("docs/best-of-best-operating-standard.md", [
@@ -270,6 +284,9 @@ validateTextFile("docs/current-operating-research-notes.md", [
 validateTextFile("docs/operating-memory-lock.md", [
   "# Operating Memory Lock",
   "src/scripts/validate-current-operating-research-notes.mjs",
+  "src/scripts/validate-brand-trademark-operating-standard.mjs",
+  "src/scripts/validate-logo-readiness-standard.mjs",
+  "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
   "src/scripts/validate-support-channel-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -362,6 +379,7 @@ validateTextFile("src/scripts/validate-routes-chain.mjs", [
   "validate-brand-trademark-operating-standard.mjs",
   "validate-logo-readiness-standard.mjs",
   "validate-legal-trust-crawler-readiness-standard.mjs",
+  "validate-owner-brand-legal-trust-addendum.mjs",
   "validate-best-of-best-operating-standard.mjs",
   "validate-unified-experience-alignment.mjs",
   "validate-surface-level-alignment.mjs",
@@ -383,6 +401,7 @@ validateTextFile("src/scripts/validate-routes-chain-integrity.mjs", [
   "validate-brand-trademark-operating-standard.mjs",
   "validate-logo-readiness-standard.mjs",
   "validate-legal-trust-crawler-readiness-standard.mjs",
+  "validate-owner-brand-legal-trust-addendum.mjs",
   "validate-best-of-best-operating-standard.mjs",
   "validate-unified-experience-alignment.mjs",
   "validate-surface-level-alignment.mjs",
@@ -423,6 +442,7 @@ forbidden("docs/command-center-docs-index.md", unsafePhrases());
 forbidden("docs/owner-operating-manual.md", unsafePhrases());
 forbidden("docs/best-of-best-operating-standard.md", unsafePhrases());
 forbidden("docs/acquisition-to-retention-operating-system.md", unsafePhrases());
+forbidden("docs/owner-brand-legal-trust-addendum.md", unsafePhrases());
 
 if (failures.length) {
   console.error("Command Center docs index validation failed:");
@@ -430,7 +450,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with current research, brand/logo readiness, legal trust crawler readiness, best-of-best, build gates, device performance, support channels, acquisition-to-retention, command design, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with current research, brand/logo readiness, legal trust crawler readiness, owner addendum, best-of-best, build gates, device performance, support channels, acquisition-to-retention, command design, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, owner manual, and report evidence runtime coverage.");
 
 function unsafePhrases() {
   return [
