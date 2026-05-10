@@ -7,6 +7,7 @@ const failures = [];
 const requiredFiles = [
   "docs/command-center-docs-index.md",
   "docs/best-of-best-operating-standard.md",
+  "docs/acquisition-to-retention-operating-system.md",
   "docs/command-design-operating-standard.md",
   "docs/command-design-release-checklist.md",
   ".github/PULL_REQUEST_TEMPLATE/command-design.md",
@@ -21,6 +22,7 @@ const requiredFiles = [
   "src/scripts/validate-routes-chain.mjs",
   "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
@@ -58,9 +60,19 @@ validateTextFile("docs/command-center-docs-index.md", [
   "# Command Center Docs Index",
   "private documentation index",
   "docs/best-of-best-operating-standard.md",
+  "docs/acquisition-to-retention-operating-system.md",
   "src/lib/best-of-best-operating-standard.ts",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "best-of-best operating standard",
+  "page/subpage architecture",
+  "no-clutter design",
+  "future-proofing",
+  "full journey operating standard",
+  "public discovery",
+  "SEO/AI-readiness visibility",
+  "dashboard retention",
+  "reactivation",
   "Apple-level clarity",
   "Stripe-level billing trust",
   "Shopify-level owner empowerment",
@@ -79,8 +91,10 @@ validateTextFile("docs/command-center-docs-index.md", [
   "Google-level simplicity",
   "ChatGPT-level immediate action",
   "safest-next-command rule",
-  "Best-of-best operating standard applies before downstream customer-delivery validators",
+  "Acquisition-to-retention operating system applies across public discovery, landing, conversion, checkout, dashboard, reports, lifecycle email, support, retention, reactivation, and security/privacy boundaries.",
   "docs/maximum-protection-standard.md",
+  "safe indexing",
+  "detection, response, recovery",
   "docs/owner-maximum-protection-posture.md",
   "docs/command-center-operator-runbook.md",
   "docs/admin-command-center-safe-projections.md",
@@ -119,13 +133,23 @@ validateTextFile("docs/command-center-docs-index.md", [
 validateTextFile("docs/command-center-docs-index.md", [
   "## Customer delivery validation standard",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
-  "research-inspired Cendorq-specific quality bar",
+  "page/subpage architecture",
+  "no-clutter design",
+  "future-proofing",
+  "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
+  "full journey validation for discovery before the visit",
+  "landing clarity",
+  "public page roles",
+  "lifecycle email",
+  "dashboard retention",
+  "reactivation",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-billing-checkout-contracts.mjs",
   "src/scripts/validate-dashboard-action-inbox.mjs",
   "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
-  "Delivery validation must preserve: best-of-best operating standard",
+  "Delivery validation must preserve: acquisition-to-retention operating system",
+  "best-of-best operating standard",
   "verified email before protected report access",
   "dashboard/report vault as source of truth",
   "mirrored dashboard messages for important emails",
@@ -133,6 +157,8 @@ validateTextFile("docs/command-center-docs-index.md", [
   "provider-authoritative billing PDFs",
   "no guaranteed deliverability claims",
   "no guaranteed inbox placement claims",
+  "no guaranteed ranking or traffic promises",
+  "no guaranteed indexing or AI answer placement promises",
   "no PDF-only access path",
   "no raw/private data projection",
 ]);
@@ -140,6 +166,9 @@ validateTextFile("docs/command-center-docs-index.md", [
 validateTextFile("docs/best-of-best-operating-standard.md", [
   "# Best-of-Best Operating Standard",
   "Research-inspired operating principles",
+  "Page and subpage operating system",
+  "No-clutter design doctrine",
+  "Future-proofing doctrine",
   "Non-negotiable Cendorq quality bar",
   "Money-making discipline",
   "Blocked patterns",
@@ -147,6 +176,25 @@ validateTextFile("docs/best-of-best-operating-standard.md", [
   "Validator coverage",
   "src/lib/best-of-best-operating-standard.ts",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
+]);
+
+validateTextFile("docs/acquisition-to-retention-operating-system.md", [
+  "# Acquisition-to-Retention Operating System",
+  "Discovery before the visit",
+  "Landing experience",
+  "Public page roles",
+  "Conversion path",
+  "After checkout",
+  "Email and lifecycle nurturing",
+  "Dashboard conversion and retention",
+  "Report value and forecast usefulness",
+  "Support and recovery",
+  "Retention and reactivation",
+  "Security and privacy across the journey",
+  "Continuous improvement loop",
+  "Blocked patterns",
+  "guaranteed ranking or traffic promises",
+  "guaranteed indexing or AI answer placement promises",
 ]);
 
 validateTextFile("docs/command-design-operating-standard.md", [
@@ -182,6 +230,8 @@ validateTextFile("docs/maximum-protection-standard.md", [
   "# Cendorq Maximum Protection Standard",
   "Default posture: deny by default.",
   "Public content may teach the category, but it must not expose the private machine.",
+  "Safe indexing and public discovery boundary",
+  "Detection, response, and recovery",
 ]);
 
 validateTextFile("docs/owner-maximum-protection-posture.md", [
@@ -227,6 +277,7 @@ validateTextFile("docs/owner-operating-manual.md", [
 validateTextFile("src/scripts/validate-routes-chain.mjs", [
   "validate-routes-chain-integrity.mjs",
   "validate-best-of-best-operating-standard.mjs",
+  "validate-acquisition-to-retention-operating-system.mjs",
   "validate-command-design-operating-standard.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-owner-operating-manual.mjs",
@@ -238,6 +289,7 @@ validateTextFile("src/scripts/validate-routes-chain.mjs", [
 
 validateTextFile("src/scripts/validate-routes-chain-integrity.mjs", [
   "validate-best-of-best-operating-standard.mjs",
+  "validate-acquisition-to-retention-operating-system.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-owner-operating-manual.mjs",
 ]);
@@ -253,6 +305,12 @@ validateTextFile("src/scripts/validate-best-of-best-operating-standard.mjs", [
   "docs/best-of-best-operating-standard.md",
   "src/lib/best-of-best-operating-standard.ts",
   "docs/command-center-docs-index.md",
+]);
+
+validateTextFile("src/scripts/validate-acquisition-to-retention-operating-system.mjs", [
+  "docs/acquisition-to-retention-operating-system.md",
+  "Discovery before the visit",
+  "Email and lifecycle nurturing",
 ]);
 
 validateTextFile("src/scripts/validate-codeql-workflow-integrity.mjs", [
@@ -291,6 +349,7 @@ validateTextFile("package.json", ["validate:routes", "node ./src/scripts/validat
 forbidden("docs/command-center-docs-index.md", unsafePhrases());
 forbidden("docs/owner-operating-manual.md", unsafePhrases());
 forbidden("docs/best-of-best-operating-standard.md", unsafePhrases());
+forbidden("docs/acquisition-to-retention-operating-system.md", unsafePhrases());
 
 if (failures.length) {
   console.error("Command Center docs index validation failed:");
@@ -298,12 +357,16 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with best-of-best operating standard, command design, docs index, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with best-of-best operating standard, acquisition-to-retention operating system, command design, docs index, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, owner manual, and report evidence runtime coverage.");
 
 function unsafePhrases() {
   return [
     "guaranteed deliverability is allowed",
     "guaranteed inbox placement is allowed",
+    "guaranteed ranking is allowed",
+    "guaranteed traffic is allowed",
+    "guaranteed indexing is allowed",
+    "guaranteed AI answer placement is allowed",
     "pdf-only access path allowed",
     "PDF-only access path allowed",
     "dashboard message mirror optional",
