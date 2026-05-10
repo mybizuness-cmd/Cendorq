@@ -4,9 +4,10 @@ This private documentation index keeps the Command Center operating standards ea
 
 ## Core standards
 
-- `docs/best-of-best-operating-standard.md` — best-of-best operating standard translating Apple-level clarity, Stripe-level billing trust, Shopify-level owner empowerment, Salesforce-level system consistency, Microsoft-level calm interaction, Atlassian-level documented foundations, Nielsen Norman usability discipline, and Intercom-level support into Cendorq-specific product quality, revenue-surface, dashboard, report, billing, support, lifecycle, document-delivery, and validator-backed operating rules.
+- `docs/best-of-best-operating-standard.md` — best-of-best operating standard translating Apple-level clarity, Stripe-level billing trust, Shopify-level owner empowerment, Salesforce-level system consistency, Microsoft-level calm interaction, Atlassian-level documented foundations, Nielsen Norman usability discipline, Intercom-level support, page/subpage architecture, no-clutter design, and future-proofing into Cendorq-specific product quality, revenue-surface, dashboard, report, billing, support, lifecycle, document-delivery, and validator-backed operating rules.
+- `docs/acquisition-to-retention-operating-system.md` — full journey operating standard for public discovery, SEO/AI-readiness visibility, landing clarity, public page roles, conversion, checkout, lifecycle email, dashboard retention, report value, support recovery, security/privacy boundaries, reactivation, and continuous improvement without guaranteed ranking, traffic, indexing, AI placement, or revenue claims.
 - `docs/command-design-operating-standard.md` — product-wide command design standard for Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, safe next command clarity, fallback recovery posture, public/private boundaries, and validation guardrails.
-- `docs/maximum-protection-standard.md` — highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard.
+- `docs/maximum-protection-standard.md` — highest-protection security, data, AI, evidence, database, audit, emergency, safe indexing, secure update, detection, response, recovery, and public-boundary standard.
 - `docs/owner-maximum-protection-posture.md` — owner-facing maximum-protection operating posture for public/private boundaries, verified access, operator review, AI/automation limits, evidence separation, validation gates, rollback posture, and release-captain review.
 - `docs/command-center-operator-runbook.md` — cockpit maintenance workflow for closed-by-default, metadata-only, server-rendered, registry-covered Command Center panels.
 - `docs/admin-command-center-safe-projections.md` — admin command-center safe projection map for preview-gated, shared-access-backed, safe-options-backed, registry-contract-backed, route-contract-summary-backed, projection-link-count-backed, panel-contract-strip-backed, panel-summary-display-backed, no-store, read-only API index, summary, audit trail, mission brief, agent findings, and forecast escalation review surfaces.
@@ -20,17 +21,20 @@ This private documentation index keeps the Command Center operating standards ea
 - `docs/best-of-best-operating-standard.md`
 - `src/lib/best-of-best-operating-standard.ts`
 - `src/scripts/validate-best-of-best-operating-standard.mjs`
+- `docs/acquisition-to-retention-operating-system.md`
+- `src/scripts/validate-acquisition-to-retention-operating-system.mjs`
 - `docs/command-design-operating-standard.md`
 - `docs/command-design-release-checklist.md`
 - `src/scripts/validate-command-design-operating-standard.mjs`
 - `src/scripts/validate-public-drift.mjs`
 - `.github/PULL_REQUEST_TEMPLATE/command-design.md`
 
-Command design applies to public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, and validation guardrails. It must preserve Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, and the safest-next-command rule without exposing private mechanics. Best-of-best operating standard applies before downstream customer-delivery validators so public pages, dashboard sales surfaces, billing, report vault, notifications, support, lifecycle, and plan delivery inherit one Cendorq quality bar.
+Command design applies to public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, and validation guardrails. It must preserve Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, and the safest-next-command rule without exposing private mechanics. Best-of-best operating standard applies before downstream customer-delivery validators so public pages, dashboard sales surfaces, billing, report vault, notifications, support, lifecycle, and plan delivery inherit one Cendorq quality bar. Acquisition-to-retention operating system applies across public discovery, landing, conversion, checkout, dashboard, reports, lifecycle email, support, retention, reactivation, and security/privacy boundaries.
 
 ## Required source-of-truth areas
 
 - Best-of-best operating standard: `src/lib/best-of-best-operating-standard.ts`
+- Acquisition-to-retention operating system: `docs/acquisition-to-retention-operating-system.md`
 - Access gate: `src/lib/command-center/access.ts`
 - Security posture: `src/lib/command-center/security-posture.ts`
 - Panel registry: `src/lib/command-center/panel-registry.ts`
@@ -90,7 +94,8 @@ Customer delivery must remain vault-first, verified-access-first, dashboard-mirr
 
 These validators protect the current checkout-to-report-to-retention delivery chain:
 
-- `src/scripts/validate-best-of-best-operating-standard.mjs` — research-inspired Cendorq-specific quality bar for product hierarchy, billing trust, customer empowerment, system consistency, calm interaction, documented foundations, usability discipline, human support, money-making recovery, and blocked generic patterns.
+- `src/scripts/validate-best-of-best-operating-standard.mjs` — research-inspired Cendorq-specific quality bar for product hierarchy, page/subpage architecture, no-clutter design, future-proofing, billing trust, customer empowerment, system consistency, calm interaction, documented foundations, usability discipline, human support, money-making recovery, and blocked generic patterns.
+- `src/scripts/validate-acquisition-to-retention-operating-system.mjs` — full journey validation for discovery before the visit, landing clarity, public page roles, conversion, checkout, lifecycle email, dashboard retention, report value, support recovery, security/privacy boundaries, reactivation, and continuous improvement.
 - `src/scripts/validate-pricing-checkout-orchestration.mjs` — plan pricing, checkout metadata, post-payment emails, report triggers, and post-payment service sequence.
 - `src/scripts/validate-billing-checkout-contracts.mjs` — webhook/idempotent fulfillment, entitlement projection, billing recovery, safe PDF document delivery, provider-authoritative billing documents, and no client-only paid access.
 - `src/scripts/validate-dashboard-action-inbox.mjs` — dashboard conversion inbox, proof-first paid-depth path, verify-to-view, deliverability posture, dashboard-message mirror, and safe PDF attachment policy.
@@ -98,7 +103,7 @@ These validators protect the current checkout-to-report-to-retention delivery ch
 - `src/scripts/validate-public-drift.mjs` — public buyer path, Plans alignment, dashboard command language, and old-route/old-language blocking.
 - `src/scripts/validate-owner-operating-manual.mjs` — owner doctrine for vault-first access, deliverability, mirrored dashboard messages, safe PDF delivery, report truth, plan boundaries, and release-captain authority.
 
-Delivery validation must preserve: best-of-best operating standard, verified email before protected report access, dashboard/report vault as source of truth, mirrored dashboard messages for important emails, safe PDF delivery only after gates pass, provider-authoritative billing PDFs, no guaranteed deliverability claims, no guaranteed inbox placement claims, no PDF-only access path, and no raw/private data projection.
+Delivery validation must preserve: acquisition-to-retention operating system, best-of-best operating standard, verified email before protected report access, dashboard/report vault as source of truth, mirrored dashboard messages for important emails, safe PDF delivery only after gates pass, provider-authoritative billing PDFs, no guaranteed deliverability claims, no guaranteed inbox placement claims, no guaranteed ranking or traffic promises, no guaranteed indexing or AI answer placement promises, no PDF-only access path, and no raw/private data projection.
 
 ## Required private owner configuration paths
 
@@ -171,6 +176,7 @@ These validators must stay wired into `validate:routes`:
 
 - `src/scripts/validate-routes-chain-integrity.mjs`
 - `src/scripts/validate-best-of-best-operating-standard.mjs`
+- `src/scripts/validate-acquisition-to-retention-operating-system.mjs`
 - `src/scripts/validate-command-design-operating-standard.mjs`
 - `src/scripts/validate-public-drift.mjs`
 - `src/scripts/validate-maximum-protection-standard.mjs`
@@ -225,4 +231,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, command design standard, best-of-best operating standard, fallback recovery guard, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, customer delivery or safe document delivery rule, dashboard message mirror rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, PDF internals, deliverability internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, command design standard, best-of-best operating standard, acquisition-to-retention operating system, fallback recovery guard, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, customer delivery or safe document delivery rule, dashboard message mirror rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, PDF internals, deliverability internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
