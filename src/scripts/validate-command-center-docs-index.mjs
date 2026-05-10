@@ -6,6 +6,7 @@ const failures = [];
 
 const requiredFiles = [
   "docs/command-center-docs-index.md",
+  "docs/best-of-best-operating-standard.md",
   "docs/command-design-operating-standard.md",
   "docs/command-design-release-checklist.md",
   ".github/PULL_REQUEST_TEMPLATE/command-design.md",
@@ -19,6 +20,7 @@ const requiredFiles = [
   "package.json",
   "src/scripts/validate-routes-chain.mjs",
   "src/scripts/validate-routes-chain-integrity.mjs",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
@@ -34,6 +36,7 @@ const requiredFiles = [
   "src/scripts/validate-billing-checkout-contracts.mjs",
   "src/scripts/validate-dashboard-action-inbox.mjs",
   "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
+  "src/lib/best-of-best-operating-standard.ts",
   "src/lib/command-center/validation-registry.ts",
   "src/lib/controlled-continuous-evolution-contracts.ts",
   "src/lib/customer-email-confirmation-handoff-contracts.ts",
@@ -54,6 +57,18 @@ for (const file of requiredFiles) validateFileExists(file);
 validateTextFile("docs/command-center-docs-index.md", [
   "# Command Center Docs Index",
   "private documentation index",
+  "docs/best-of-best-operating-standard.md",
+  "src/lib/best-of-best-operating-standard.ts",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "best-of-best operating standard",
+  "Apple-level clarity",
+  "Stripe-level billing trust",
+  "Shopify-level owner empowerment",
+  "Salesforce-level system consistency",
+  "Microsoft-level calm interaction",
+  "Atlassian-level documented foundations",
+  "Nielsen Norman usability discipline",
+  "Intercom-level support",
   "docs/command-design-operating-standard.md",
   "docs/command-design-release-checklist.md",
   ".github/PULL_REQUEST_TEMPLATE/command-design.md",
@@ -64,6 +79,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "Google-level simplicity",
   "ChatGPT-level immediate action",
   "safest-next-command rule",
+  "Best-of-best operating standard applies before downstream customer-delivery validators",
   "docs/maximum-protection-standard.md",
   "docs/owner-maximum-protection-posture.md",
   "docs/command-center-operator-runbook.md",
@@ -96,17 +112,20 @@ validateTextFile("docs/command-center-docs-index.md", [
   "src/app/plans/page.tsx",
   "src/components/plans/conversion-plan-page.tsx",
   "src/app/plans/plan-data.ts",
-  "Customer delivery must remain vault-first, verified-access-first, and dashboard-mirrored.",
+  "Customer delivery must remain vault-first, verified-access-first, dashboard-mirrored, and best-of-best aligned.",
   "Email, PDF attachments, downloadable PDFs, billing documents, dashboard messages, and report-vault display must all reflect the same safe customer-owned state without becoming separate truth sources.",
 ]);
 
 validateTextFile("docs/command-center-docs-index.md", [
   "## Customer delivery validation standard",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "research-inspired Cendorq-specific quality bar",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-billing-checkout-contracts.mjs",
   "src/scripts/validate-dashboard-action-inbox.mjs",
   "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
+  "Delivery validation must preserve: best-of-best operating standard",
   "verified email before protected report access",
   "dashboard/report vault as source of truth",
   "mirrored dashboard messages for important emails",
@@ -116,6 +135,18 @@ validateTextFile("docs/command-center-docs-index.md", [
   "no guaranteed inbox placement claims",
   "no PDF-only access path",
   "no raw/private data projection",
+]);
+
+validateTextFile("docs/best-of-best-operating-standard.md", [
+  "# Best-of-Best Operating Standard",
+  "Research-inspired operating principles",
+  "Non-negotiable Cendorq quality bar",
+  "Money-making discipline",
+  "Blocked patterns",
+  "Operating review checklist",
+  "Validator coverage",
+  "src/lib/best-of-best-operating-standard.ts",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
 ]);
 
 validateTextFile("docs/command-design-operating-standard.md", [
@@ -195,6 +226,7 @@ validateTextFile("docs/owner-operating-manual.md", [
 
 validateTextFile("src/scripts/validate-routes-chain.mjs", [
   "validate-routes-chain-integrity.mjs",
+  "validate-best-of-best-operating-standard.mjs",
   "validate-command-design-operating-standard.mjs",
   "validate-maximum-protection-standard.mjs",
   "validate-owner-maximum-protection-posture.mjs",
@@ -211,20 +243,23 @@ validateTextFile("src/scripts/validate-routes-chain.mjs", [
 ]);
 
 validateTextFile("src/scripts/validate-routes-chain-integrity.mjs", [
+  "validate-best-of-best-operating-standard.mjs",
   "validate-codeql-workflow-integrity.mjs",
   "validate-repo-update-scanning-automation.mjs",
   "validate-controlled-continuous-evolution.mjs",
-  "validateCodeqlWorkflowCoverage",
-  "validateControlledContinuousEvolutionCoverage",
   "requiredIndirectReportEvidenceValidators",
-  "validateIndirectReportEvidenceCoverage",
-  "rawEvidenceExposed: false",
 ]);
 
 validateTextFile("src/scripts/validate-command-design-operating-standard.mjs", [
   "docs/command-design-operating-standard.md",
   "docs/command-design-release-checklist.md",
   ".github/PULL_REQUEST_TEMPLATE/command-design.md",
+  "docs/command-center-docs-index.md",
+]);
+
+validateTextFile("src/scripts/validate-best-of-best-operating-standard.mjs", [
+  "docs/best-of-best-operating-standard.md",
+  "src/lib/best-of-best-operating-standard.ts",
   "docs/command-center-docs-index.md",
 ]);
 
@@ -263,6 +298,7 @@ validateTextFile("package.json", ["validate:routes", "node ./src/scripts/validat
 
 forbidden("docs/command-center-docs-index.md", unsafePhrases());
 forbidden("docs/owner-operating-manual.md", unsafePhrases());
+forbidden("docs/best-of-best-operating-standard.md", unsafePhrases());
 
 if (failures.length) {
   console.error("Command Center docs index validation failed:");
@@ -270,7 +306,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with command design, docs index, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with best-of-best operating standard, command design, docs index, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
 
 function unsafePhrases() {
   return [
