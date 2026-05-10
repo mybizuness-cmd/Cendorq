@@ -11,6 +11,7 @@ const validators = [
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
+  "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
   "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
   "src/scripts/validate-public-plans-excellence.mjs",
@@ -82,7 +83,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-customer-notification-center.mjs",
   "src/scripts/validate-customer-support-center.mjs",
   "src/scripts/validate-dashboard-support-status-entry.mjs",
-  "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-free-check-intake.mjs",
   "src/scripts/validate-free-check-command-route-elevation.mjs",
   "src/scripts/validate-customer-platform-handoff-contracts.mjs",
@@ -136,5 +136,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, best-of-best operating standard, command design standard coverage, docs-index doctrine coverage, owner operating doctrine, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle.`);
+console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, best-of-best operating standard, command design standard coverage, docs-index doctrine coverage, owner operating doctrine, public drift coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including command-center schema/readiness/security, checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, report truth, evidence runtime, customer platform, conversion moat, insights conversation, and closed intelligence standards.`);
