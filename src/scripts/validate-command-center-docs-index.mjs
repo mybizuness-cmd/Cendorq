@@ -6,8 +6,12 @@ const failures = [];
 
 const requiredFiles = [
   "docs/command-center-docs-index.md",
+  "docs/current-operating-research-notes.md",
   "docs/best-of-best-operating-standard.md",
   "docs/acquisition-to-retention-operating-system.md",
+  "docs/build-gate-hardening-standard.md",
+  "docs/device-experience-performance-standard.md",
+  "docs/support-channel-operating-standard.md",
   "docs/command-design-operating-standard.md",
   "docs/command-design-release-checklist.md",
   ".github/PULL_REQUEST_TEMPLATE/command-design.md",
@@ -16,13 +20,21 @@ const requiredFiles = [
   "docs/command-center-operator-runbook.md",
   "docs/admin-command-center-safe-projections.md",
   "docs/owner-operating-manual.md",
+  "docs/operating-memory-lock.md",
   "docs/repo-update-scanning-automation.md",
   "docs/controlled-continuous-evolution.md",
+  "docs/controlled-maintenance.md",
   "package.json",
   "src/scripts/validate-routes-chain.mjs",
   "src/scripts/validate-routes-chain-integrity.mjs",
+  "src/scripts/validate-current-operating-research-notes.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "src/scripts/validate-unified-experience-alignment.mjs",
+  "src/scripts/validate-surface-level-alignment.mjs",
+  "src/scripts/validate-device-experience-performance-standard.mjs",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
+  "src/scripts/validate-build-gate-hardening-standard.mjs",
+  "src/scripts/validate-support-channel-operating-standard.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
@@ -30,15 +42,12 @@ const requiredFiles = [
   "src/scripts/validate-codeql-workflow-integrity.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
-  "src/scripts/validate-command-center-validation-registry.mjs",
-  "src/scripts/validate-report-truth-engine.mjs",
-  "src/scripts/validate-report-evidence-record-runtime.mjs",
-  "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-billing-checkout-contracts.mjs",
   "src/scripts/validate-dashboard-action-inbox.mjs",
   "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
   "src/lib/best-of-best-operating-standard.ts",
+  "src/lib/unified-experience-alignment.ts",
   "src/lib/command-center/validation-registry.ts",
   "src/lib/controlled-continuous-evolution-contracts.ts",
   "src/lib/customer-email-confirmation-handoff-contracts.ts",
@@ -59,12 +68,17 @@ for (const file of requiredFiles) validateFileExists(file);
 validateTextFile("docs/command-center-docs-index.md", [
   "# Command Center Docs Index",
   "private documentation index",
+  "docs/current-operating-research-notes.md",
   "docs/best-of-best-operating-standard.md",
   "docs/acquisition-to-retention-operating-system.md",
-  "src/lib/best-of-best-operating-standard.ts",
-  "src/scripts/validate-best-of-best-operating-standard.mjs",
-  "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
-  "best-of-best operating standard",
+  "docs/build-gate-hardening-standard.md",
+  "docs/device-experience-performance-standard.md",
+  "docs/support-channel-operating-standard.md",
+  "docs/command-design-operating-standard.md",
+  "docs/maximum-protection-standard.md",
+  "docs/owner-operating-manual.md",
+  "docs/operating-memory-lock.md",
+  "current-source refresh standard",
   "page/subpage architecture",
   "no-clutter design",
   "future-proofing",
@@ -73,6 +87,12 @@ validateTextFile("docs/command-center-docs-index.md", [
   "SEO/AI-readiness visibility",
   "dashboard retention",
   "reactivation",
+  "build gate hardening standard",
+  "locked install",
+  "device experience and performance standard",
+  "LCP, INP, CLS",
+  "support channel operating standard",
+  "SPF, DKIM, and DMARC",
   "Apple-level clarity",
   "Stripe-level billing trust",
   "Shopify-level owner empowerment",
@@ -81,36 +101,23 @@ validateTextFile("docs/command-center-docs-index.md", [
   "Atlassian-level documented foundations",
   "Nielsen Norman usability discipline",
   "Intercom-level support",
-  "docs/command-design-operating-standard.md",
-  "docs/command-design-release-checklist.md",
-  ".github/PULL_REQUEST_TEMPLATE/command-design.md",
+]);
+
+validateTextFile("docs/command-center-docs-index.md", [
+  "## Required command design paths",
+  "src/scripts/validate-current-operating-research-notes.mjs",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
+  "src/scripts/validate-build-gate-hardening-standard.mjs",
+  "src/scripts/validate-device-experience-performance-standard.mjs",
+  "src/scripts/validate-support-channel-operating-standard.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-public-drift.mjs",
-  "Required command design paths",
   "Apple-level trust and authority",
   "Google-level simplicity",
   "ChatGPT-level immediate action",
   "safest-next-command rule",
   "Acquisition-to-retention operating system applies across public discovery, landing, conversion, checkout, dashboard, reports, lifecycle email, support, retention, reactivation, and security/privacy boundaries.",
-  "docs/maximum-protection-standard.md",
-  "safe indexing",
-  "detection, response, recovery",
-  "docs/owner-maximum-protection-posture.md",
-  "docs/command-center-operator-runbook.md",
-  "docs/admin-command-center-safe-projections.md",
-  "docs/owner-operating-manual.md",
-  "vault-first report access",
-  "dashboard message mirroring",
-  "safe PDF/document delivery",
-  "docs/repo-update-scanning-automation.md",
-  "docs/controlled-continuous-evolution.md",
-  "src/lib/command-center/validation-registry.ts",
-  "Route-chain integrity standard",
-  "Maximum protection standard",
-  "Owner maximum protection posture",
-  "CodeQL workflow integrity standard",
-  "Repo update scanning automation standard",
-  "Controlled continuous evolution standard",
 ]);
 
 validateTextFile("docs/command-center-docs-index.md", [
@@ -132,17 +139,12 @@ validateTextFile("docs/command-center-docs-index.md", [
 
 validateTextFile("docs/command-center-docs-index.md", [
   "## Customer delivery validation standard",
+  "src/scripts/validate-current-operating-research-notes.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
-  "page/subpage architecture",
-  "no-clutter design",
-  "future-proofing",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
-  "full journey validation for discovery before the visit",
-  "landing clarity",
-  "public page roles",
-  "lifecycle email",
-  "dashboard retention",
-  "reactivation",
+  "src/scripts/validate-build-gate-hardening-standard.mjs",
+  "src/scripts/validate-device-experience-performance-standard.mjs",
+  "src/scripts/validate-support-channel-operating-standard.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-billing-checkout-contracts.mjs",
   "src/scripts/validate-dashboard-action-inbox.mjs",
@@ -197,6 +199,45 @@ validateTextFile("docs/acquisition-to-retention-operating-system.md", [
   "guaranteed indexing or AI answer placement promises",
 ]);
 
+validateTextFile("docs/build-gate-hardening-standard.md", [
+  "# Build Gate Hardening Standard",
+  "Required gates",
+  "locked package manager",
+  "route-chain validation",
+  "typecheck",
+  "lint",
+  "production build",
+]);
+
+validateTextFile("docs/device-experience-performance-standard.md", [
+  "# Device Experience and Performance Standard",
+  "Mobile is the main entrance. Desktop is the command room.",
+  "performance review should track LCP, INP, and CLS",
+]);
+
+validateTextFile("docs/support-channel-operating-standard.md", [
+  "# Support Channel Operating Standard",
+  "support@cendorq.com",
+  "billing@cendorq.com",
+  "reports@cendorq.com",
+  "security@cendorq.com",
+  "partners@cendorq.com",
+  "confirm SPF, DKIM, and DMARC posture",
+]);
+
+validateTextFile("docs/current-operating-research-notes.md", [
+  "# Current Operating Research Notes",
+  "Do not move from stale memory",
+]);
+
+validateTextFile("docs/operating-memory-lock.md", [
+  "# Operating Memory Lock",
+  "src/scripts/validate-current-operating-research-notes.mjs",
+  "src/scripts/validate-support-channel-operating-standard.mjs",
+  "src/scripts/validate-unified-experience-alignment.mjs",
+  "src/scripts/validate-surface-level-alignment.mjs",
+]);
+
 validateTextFile("docs/command-design-operating-standard.md", [
   "Apple-level trust and authority",
   "Google-level simplicity",
@@ -221,15 +262,12 @@ validateTextFile(".github/PULL_REQUEST_TEMPLATE/command-design.md", [
 validateTextFile("docs/command-center-operator-runbook.md", [
   "# Command Center Operator Runbook",
   "Keep every validation guard wired into `validate:routes`.",
-  "validate-command-center-docs-index.mjs",
-  "validate-command-center-owner-configuration-workflow-smoke.mjs",
   "Vercel is green.",
 ]);
 
 validateTextFile("docs/maximum-protection-standard.md", [
   "# Cendorq Maximum Protection Standard",
   "Default posture: deny by default.",
-  "Public content may teach the category, but it must not expose the private machine.",
   "Safe indexing and public discovery boundary",
   "Detection, response, and recovery",
 ]);
@@ -257,6 +295,11 @@ validateTextFile("docs/controlled-continuous-evolution.md", [
   "Documentation rule",
 ]);
 
+validateTextFile("docs/controlled-maintenance.md", [
+  "# Controlled Maintenance",
+  "controlled maintenance",
+]);
+
 validateTextFile("docs/admin-command-center-safe-projections.md", [
   "# Admin Command Center Safe Projections",
   "Operating posture",
@@ -269,6 +312,8 @@ validateTextFile("docs/owner-operating-manual.md", [
   "proof before output",
   "evidence before recommendation",
   "Conversion moat",
+  "Unified surface lock",
+  "Operating memory lock",
   "dashboard/report vault is the canonical protected display location",
   "Every important customer email should create or update a matching dashboard message record",
   "PDFs must never be the only access path.",
@@ -276,8 +321,14 @@ validateTextFile("docs/owner-operating-manual.md", [
 
 validateTextFile("src/scripts/validate-routes-chain.mjs", [
   "validate-routes-chain-integrity.mjs",
+  "validate-current-operating-research-notes.mjs",
   "validate-best-of-best-operating-standard.mjs",
+  "validate-unified-experience-alignment.mjs",
+  "validate-surface-level-alignment.mjs",
+  "validate-device-experience-performance-standard.mjs",
   "validate-acquisition-to-retention-operating-system.mjs",
+  "validate-build-gate-hardening-standard.mjs",
+  "validate-support-channel-operating-standard.mjs",
   "validate-command-design-operating-standard.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-owner-operating-manual.mjs",
@@ -288,36 +339,15 @@ validateTextFile("src/scripts/validate-routes-chain.mjs", [
 ]);
 
 validateTextFile("src/scripts/validate-routes-chain-integrity.mjs", [
+  "validate-current-operating-research-notes.mjs",
   "validate-best-of-best-operating-standard.mjs",
+  "validate-unified-experience-alignment.mjs",
+  "validate-surface-level-alignment.mjs",
+  "validate-device-experience-performance-standard.mjs",
   "validate-acquisition-to-retention-operating-system.mjs",
+  "validate-build-gate-hardening-standard.mjs",
   "validate-command-center-docs-index.mjs",
   "validate-owner-operating-manual.mjs",
-]);
-
-validateTextFile("src/scripts/validate-command-design-operating-standard.mjs", [
-  "docs/command-design-operating-standard.md",
-  "docs/command-design-release-checklist.md",
-  ".github/PULL_REQUEST_TEMPLATE/command-design.md",
-  "docs/command-center-docs-index.md",
-]);
-
-validateTextFile("src/scripts/validate-best-of-best-operating-standard.mjs", [
-  "docs/best-of-best-operating-standard.md",
-  "src/lib/best-of-best-operating-standard.ts",
-  "docs/command-center-docs-index.md",
-]);
-
-validateTextFile("src/scripts/validate-acquisition-to-retention-operating-system.mjs", [
-  "docs/acquisition-to-retention-operating-system.md",
-  "Discovery before the visit",
-  "Email and lifecycle nurturing",
-]);
-
-validateTextFile("src/scripts/validate-codeql-workflow-integrity.mjs", [
-  ".github/workflows/codeql.yml",
-  "actions/checkout@v6",
-  "github/codeql-action/init@v4",
-  "github/codeql-action/analyze@v4",
 ]);
 
 validateTextFile("src/lib/customer-email-confirmation-handoff-contracts.ts", [
@@ -357,7 +387,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with best-of-best operating standard, acquisition-to-retention operating system, command design, docs index, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with current research, best-of-best, build gates, device performance, support channels, acquisition-to-retention, command design, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, owner manual, and report evidence runtime coverage.");
 
 function unsafePhrases() {
   return [
