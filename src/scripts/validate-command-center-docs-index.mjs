@@ -10,6 +10,7 @@ const requiredFiles = [
   "docs/brand-trademark-operating-standard.md",
   "docs/legal-trust-crawler-readiness-standard.md",
   "docs/owner-brand-legal-trust-addendum.md",
+  "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
   "docs/best-of-best-operating-standard.md",
   "docs/acquisition-to-retention-operating-system.md",
   "docs/build-gate-hardening-standard.md",
@@ -35,6 +36,7 @@ const requiredFiles = [
   "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
   "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+  "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -79,6 +81,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "docs/brand-trademark-operating-standard.md",
   "docs/legal-trust-crawler-readiness-standard.md",
   "docs/owner-brand-legal-trust-addendum.md",
+  "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
   "docs/best-of-best-operating-standard.md",
   "docs/acquisition-to-retention-operating-system.md",
   "docs/build-gate-hardening-standard.md",
@@ -92,6 +95,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "logo ownership",
   "legal, trust, crawler",
   "owner addendum",
+  "brand/legal validation registry addendum",
   "policy pages",
   "private-customer discovery boundaries",
   "current-source refresh standard",
@@ -126,6 +130,8 @@ validateTextFile("docs/command-center-docs-index.md", [
   "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
   "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+  "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
+  "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "src/scripts/validate-build-gate-hardening-standard.mjs",
@@ -165,6 +171,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
   "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+  "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "src/scripts/validate-build-gate-hardening-standard.mjs",
@@ -179,6 +186,7 @@ validateTextFile("docs/command-center-docs-index.md", [
   "brand and trademark operating standard",
   "legal/trust/crawler readiness",
   "owner brand/legal/trust addendum",
+  "brand/legal validation registry addendum",
   "best-of-best operating standard",
   "verified email before protected report access",
   "dashboard/report vault as source of truth",
@@ -192,6 +200,15 @@ validateTextFile("docs/command-center-docs-index.md", [
   "no guaranteed trademark registration or competitor blocking claims",
   "no PDF-only access path",
   "no raw/private data projection",
+]);
+
+validateTextFile("src/lib/command-center/validation-registry-brand-legal-addendum.ts", [
+  "BRAND_LEGAL_VALIDATION_REGISTRY_ADDENDUM",
+  "current-operating-research-notes",
+  "brand-trademark-operating-standard",
+  "logo-readiness-standard",
+  "legal-trust-crawler-readiness-standard",
+  "owner-brand-legal-trust-addendum",
 ]);
 
 validateTextFile("docs/brand-trademark-operating-standard.md", [
@@ -380,6 +397,7 @@ validateTextFile("src/scripts/validate-routes-chain.mjs", [
   "validate-logo-readiness-standard.mjs",
   "validate-legal-trust-crawler-readiness-standard.mjs",
   "validate-owner-brand-legal-trust-addendum.mjs",
+  "validate-brand-legal-validation-registry-addendum.mjs",
   "validate-best-of-best-operating-standard.mjs",
   "validate-unified-experience-alignment.mjs",
   "validate-surface-level-alignment.mjs",
@@ -402,6 +420,7 @@ validateTextFile("src/scripts/validate-routes-chain-integrity.mjs", [
   "validate-logo-readiness-standard.mjs",
   "validate-legal-trust-crawler-readiness-standard.mjs",
   "validate-owner-brand-legal-trust-addendum.mjs",
+  "validate-brand-legal-validation-registry-addendum.mjs",
   "validate-best-of-best-operating-standard.mjs",
   "validate-unified-experience-alignment.mjs",
   "validate-surface-level-alignment.mjs",
@@ -450,7 +469,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with current research, brand/logo readiness, legal trust crawler readiness, owner addendum, best-of-best, build gates, device performance, support channels, acquisition-to-retention, command design, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with current research, brand/logo readiness, legal trust crawler readiness, owner addendum, brand/legal registry addendum, best-of-best, build gates, device performance, support channels, acquisition-to-retention, command design, owner posture, customer delivery source-of-truth contracts, vault-first report access, dashboard message mirroring, safe PDF/document delivery, checkout fulfillment, billing contracts, plan delivery lifecycle, route-chain integrity, owner manual, and report evidence runtime coverage.");
 
 function unsafePhrases() {
   return [
