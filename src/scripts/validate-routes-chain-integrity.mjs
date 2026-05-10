@@ -10,6 +10,7 @@ const docsIndexPath = "docs/command-center-docs-index.md";
 const ownerManualPath = "docs/owner-operating-manual.md";
 const registryPath = "src/lib/command-center/validation-registry.ts";
 const memoryLockPath = "docs/operating-memory-lock.md";
+const brandLegalRegistryAddendumPath = "src/lib/command-center/validation-registry-brand-legal-addendum.ts";
 
 const executedValidators = [
   "src/scripts/validate-routes-chain-integrity.mjs",
@@ -20,6 +21,7 @@ const executedValidators = [
   "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
   "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+  "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -63,6 +65,7 @@ const doctrineFiles = [
   "docs/brand-trademark-operating-standard.md",
   "docs/legal-trust-crawler-readiness-standard.md",
   "docs/owner-brand-legal-trust-addendum.md",
+  brandLegalRegistryAddendumPath,
   "docs/best-of-best-operating-standard.md",
   "src/lib/unified-experience-alignment.ts",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -86,6 +89,7 @@ if (!failures.length) {
   const ownerText = read(ownerManualPath);
   const registryText = read(registryPath);
   const memoryLockText = read(memoryLockPath);
+  const brandLegalRegistryText = read(brandLegalRegistryAddendumPath);
   const chainValidators = arrayValues(chainText, "validators");
   const documentedChainValidators = arrayValues(chainText, "documentedValidatorCoverage");
   const duplicates = chainValidators.filter((path, index) => chainValidators.indexOf(path) !== index);
@@ -106,6 +110,7 @@ if (!failures.length) {
     "logo readiness standard",
     "legal/trust/crawler readiness",
     "owner brand legal trust addendum",
+    "brand/legal validation registry addendum",
     "best-of-best operating standard",
     "unified experience alignment",
     "surface-level alignment",
@@ -117,6 +122,15 @@ if (!failures.length) {
     "trust/legal boundary coverage",
     "dashboard conversion inbox",
     "plan delivery lifecycle",
+  ]);
+
+  expect(brandLegalRegistryAddendumPath, brandLegalRegistryText, [
+    "BRAND_LEGAL_VALIDATION_REGISTRY_ADDENDUM",
+    "current-operating-research-notes",
+    "brand-trademark-operating-standard",
+    "logo-readiness-standard",
+    "legal-trust-crawler-readiness-standard",
+    "owner-brand-legal-trust-addendum",
   ]);
 
   expect(memoryLockPath, memoryLockText, [
@@ -223,7 +237,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed with operating memory lock, current research, brand/trademark, logo readiness, legal/trust/crawler readiness, owner brand legal trust addendum, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
+console.log("Validate routes chain integrity passed with operating memory lock, current research, brand/trademark, logo readiness, legal/trust/crawler readiness, owner brand legal trust addendum, brand/legal validation registry addendum, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
 function arrayValues(text, name) {
   const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
