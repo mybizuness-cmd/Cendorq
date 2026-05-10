@@ -7,6 +7,7 @@ const root = process.cwd();
 const validators = [
   "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-routes.mjs",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
   "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
@@ -135,5 +136,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, dashboard conversion inbox, and plan delivery lifecycle.`);
+console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, best-of-best operating standard, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, dashboard conversion inbox, and plan delivery lifecycle.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including command-center schema/readiness/security, checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, owner doctrine, report truth, evidence runtime, customer platform, conversion moat, insights conversation, and closed intelligence standards.`);
