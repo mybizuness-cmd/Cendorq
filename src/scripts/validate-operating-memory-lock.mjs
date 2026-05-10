@@ -14,6 +14,10 @@ const checks = [
     "src/scripts/validate-logo-readiness-standard.mjs",
     "docs/legal-trust-crawler-readiness-standard.md",
     "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+    "docs/owner-brand-legal-trust-addendum.md",
+    "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+    "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
     "docs/support-channel-operating-standard.md",
     "src/scripts/validate-support-channel-operating-standard.mjs",
     "src/lib/unified-experience-alignment.ts",
@@ -26,6 +30,8 @@ const checks = [
     "src/scripts/validate-brand-trademark-operating-standard.mjs",
     "src/scripts/validate-logo-readiness-standard.mjs",
     "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+    "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
     "src/scripts/validate-unified-experience-alignment.mjs",
     "src/scripts/validate-surface-level-alignment.mjs",
   ]],
@@ -35,13 +41,18 @@ const checks = [
     "src/scripts/validate-brand-trademark-operating-standard.mjs",
     "src/scripts/validate-logo-readiness-standard.mjs",
     "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+    "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
     "src/scripts/validate-unified-experience-alignment.mjs",
     "src/scripts/validate-surface-level-alignment.mjs",
   ]],
   ["docs/command-center-docs-index.md", [
     "docs/brand-trademark-operating-standard.md",
     "docs/legal-trust-crawler-readiness-standard.md",
+    "docs/owner-brand-legal-trust-addendum.md",
+    "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
     "src/scripts/validate-logo-readiness-standard.mjs",
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
   ]],
   ["docs/owner-operating-manual.md", [
     "Unified surface lock",
@@ -57,7 +68,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operating memory lock validation passed with current research, brand/trademark, logo readiness, legal/trust/crawler, support channel, unified alignment, and surface-level standards locked.");
+console.log("Operating memory lock validation passed with current research, brand/trademark, logo readiness, legal/trust/crawler, owner addendum, brand/legal registry addendum, support channel, unified alignment, and surface-level standards locked.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
