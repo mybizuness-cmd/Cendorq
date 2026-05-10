@@ -49,6 +49,22 @@ const checks = [
     "Disclaimer",
     "not a guarantee of rankings, leads, revenue, or AI placement",
   ]],
+  ["src/app/manifest.ts", [
+    "Start Free Scan",
+    "Compare Readiness Path",
+    "Review AI Readiness",
+    "url: \"/free-check\"",
+    "url: \"/plans\"",
+    "url: \"/plans/deep-review\"",
+  ]],
+  ["public/manifest.webmanifest", [
+    "Start Free Scan",
+    "Compare Readiness Path",
+    "Review AI Readiness",
+    "\"url\": \"/free-check?source=app-shortcut\"",
+    "\"url\": \"/plans?source=app-shortcut\"",
+    "\"url\": \"/plans/deep-review?source=app-shortcut\"",
+  ]],
   ["public/.well-known/security.txt", ["Contact"]],
   ["src/app/sitemap.ts", ["/privacy", "/terms", "/disclaimer"]],
   ["src/app/robots.ts", ["sitemap"]],
@@ -59,13 +75,16 @@ const checks = [
 
 for (const [path, phrases] of checks) expect(path, phrases);
 
+forbid("src/app/manifest.ts", ["Open Dashboard", "url: \"/dashboard\"", "/pricing", "/contact", "/connect"]);
+forbid("public/manifest.webmanifest", ["Open Dashboard", "\"url\": \"/dashboard", "/pricing", "/contact", "/connect"]);
+
 if (failures.length) {
   console.error("Legal trust crawler readiness standard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Legal trust crawler readiness standard validation passed with policy, footer trust discovery, crawler, ad-platform, privacy, terms, disclaimer, security contact, sitemap, robots, route-chain, and docs-index coverage.");
+console.log("Legal trust crawler readiness standard validation passed with public manifest shortcuts, policy, footer trust discovery, crawler, ad-platform, privacy, terms, disclaimer, security contact, sitemap, robots, route-chain, and docs-index coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -74,4 +93,10 @@ function expect(path, phrases) {
   }
   const text = readFileSync(join(root, path), "utf8");
   for (const phrase of phrases) if (!text.toLowerCase().includes(String(phrase).toLowerCase())) failures.push(`${path} missing phrase: ${phrase}`);
+}
+
+function forbid(path, phrases) {
+  if (!existsSync(join(root, path))) return;
+  const text = readFileSync(join(root, path), "utf8").toLowerCase();
+  for (const phrase of phrases) if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
 }
