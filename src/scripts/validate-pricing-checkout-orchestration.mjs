@@ -61,10 +61,41 @@ expect(pricingPath, [
   "Choose the level of command your business is ready for.",
   "The command path",
   "Scan. Review. Repair. Control.",
+  "After purchase access standard",
+  "Vault first",
+  "Messages mirrored",
+  "PDFs gated",
 ]);
-expect(planTemplatePath, ["getCendorqPlanPrice", "Homepage-aligned plan detail", "Choose this when", "Do not choose this when"]);
+
+expect(planTemplatePath, [
+  "getCendorqPlanPrice",
+  "Homepage-aligned plan detail",
+  "Choose this when",
+  "Do not choose this when",
+  "PLAN_AFTER_PURCHASE_STANDARDS",
+  "Vault first",
+  "Messages mirrored",
+  "PDFs gated",
+]);
+
 expect(billingPath, ["getPaidCendorqPlanPrice", "After payment:"]);
-expect(checkoutStartPath, ["Start checkout | Cendorq", "Secure checkout", "Stripe link coming next"]);
+
+expect(checkoutStartPath, [
+  "Start checkout | Cendorq",
+  "Secure plan handoff",
+  "Choose the checkout path that matches the work.",
+  "Checkout handoff paths",
+  "Checkout metadata",
+  "Payment should unlock the exact readiness layer.",
+  "Released reports and billing documents stay vault-first inside the verified dashboard/report vault or billing center.",
+  "Important checkout, report, billing, and lifecycle emails mirror into dashboard messages.",
+  "Downloadable or attached PDFs activate only after verification, entitlement or provider authority, release, no-leak, and document-safety gates pass.",
+  "Vault-first report access",
+  "Dashboard message mirror",
+  "Safe PDF delivery gates",
+  "No PDF-only access path",
+]);
+
 expect(checkoutSuccessPath, [
   "Readiness activated | Cendorq",
   "Payment complete",
@@ -88,14 +119,24 @@ forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checko
   "guaranteed ROI",
   "guaranteed revenue",
   "guaranteed result",
+  "guaranteed deliverability",
+  "guaranteed inbox",
   "from pricing, dashboard",
   "from pricing",
   "pricing page",
+  "Stripe link coming next",
+  "Secure checkout",
+  "PDF-only access path",
+  "pdf-only access path",
+  "separate truth source allowed",
   "localStorage.setItem",
   "sessionStorage.setItem",
   "Deep Review is unlocked",
   "Build Fix is unlocked",
   "Ongoing Control is active",
+  "Deep Review / Full Scan",
+  "Build Fix / Optimization",
+  "Ongoing Control / Monthly",
 ]);
 
 if (failures.length) {
@@ -104,7 +145,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Pricing checkout orchestration validation passed. Current plan names, final prices, Cendorq revenue operating system, checkout start, checkout success, dashboard billing, Plans surfaces, metadata, post-payment service sequence, report triggers, safe PDF delivery, and dashboard message mirror stay synchronized.");
+console.log("Pricing checkout orchestration validation passed. Current plan names, final prices, Cendorq revenue operating system, checkout start, checkout success, dashboard billing, Plans surfaces, metadata, post-payment service sequence, report triggers, vault-first access, safe PDF delivery, and dashboard message mirror stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
