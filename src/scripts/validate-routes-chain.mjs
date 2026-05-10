@@ -18,6 +18,7 @@ const validators = [
   "src/scripts/validate-report-vault-first-use.mjs",
   "src/scripts/validate-notification-center-first-use.mjs",
   "src/scripts/validate-support-center-first-use.mjs",
+  "src/scripts/validate-support-status-first-use.mjs",
   "src/scripts/validate-dashboard-action-inbox.mjs",
   "src/scripts/validate-plan-delivery-orchestration-contracts.mjs",
 ];
@@ -75,7 +76,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-customer-revenue-command-center.mjs",
   "src/scripts/validate-notification-support-routing.mjs",
   "src/scripts/validate-checkout-billing-plan-activation.mjs",
-  "src/scripts/validate-support-status-first-use.mjs",
   "src/scripts/validate-support-request-first-use.mjs",
   "src/scripts/validate-customer-notification-center.mjs",
   "src/scripts/validate-customer-support-center.mjs",
@@ -136,5 +136,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, best-of-best operating standard, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, dashboard conversion inbox, and plan delivery lifecycle.`);
+console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, best-of-best operating standard, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, dashboard conversion inbox, and plan delivery lifecycle.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including command-center schema/readiness/security, checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, owner doctrine, report truth, evidence runtime, customer platform, conversion moat, insights conversation, and closed intelligence standards.`);
