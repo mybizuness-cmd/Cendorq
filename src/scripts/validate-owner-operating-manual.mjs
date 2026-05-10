@@ -3,6 +3,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const manualPath = "docs/owner-operating-manual.md";
+const bestOfBestDocPath = "docs/best-of-best-operating-standard.md";
+const bestOfBestStandardPath = "src/lib/best-of-best-operating-standard.ts";
+const bestOfBestValidatorPath = "src/scripts/validate-best-of-best-operating-standard.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const captainAuditDocPath = "docs/captain-audit-hardening-control-plane.md";
 const docsIndexPath = "docs/command-center-docs-index.md";
@@ -23,6 +26,54 @@ expect(manualPath, [
   "customer context separated from verified facts",
   "forecast direction separated from fact",
   "plan advice tied to actual stage, blockers, evidence, movement risk, and readiness",
+]);
+
+expect(manualPath, [
+  "## Best-of-best operating doctrine",
+  "Apple-level clarity",
+  "Stripe-level billing trust",
+  "Shopify-level owner empowerment",
+  "Salesforce-level system consistency",
+  "Microsoft-level calm interaction",
+  "Atlassian-level documented foundations",
+  "Nielsen Norman usability discipline",
+  "Intercom-level human support",
+  "the public website must create authority before checkout",
+  "the dashboard must prove that authority after payment",
+  "one strongest next move",
+  "billing must stay provider-authoritative",
+  "report and billing documents must be vault-first or provider-authoritative first",
+  "notifications and emails must mirror important customer messages into the dashboard when applicable",
+  "support must acknowledge the human issue",
+  "plan progression must sell through evidence, stage fit, and usefulness",
+  "validators and docs must protect the quality bar",
+  "docs/best-of-best-operating-standard.md",
+  "src/lib/best-of-best-operating-standard.ts",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "must run before downstream customer-delivery validators",
+]);
+
+expect(bestOfBestDocPath, [
+  "# Best-of-Best Operating Standard",
+  "Research-inspired operating principles",
+  "Non-negotiable Cendorq quality bar",
+  "Money-making discipline",
+  "Blocked patterns",
+  "Operating review checklist",
+]);
+
+expect(bestOfBestStandardPath, [
+  "BEST_OF_BEST_OPERATING_STANDARD",
+  "Cendorq Best-of-Best Operating Standard",
+  "Apple-level clarity and visual hierarchy",
+  "Stripe-level billing trust and self-serve recovery",
+  "Shopify-level merchant empowerment without overwhelm",
+]);
+
+expect(bestOfBestValidatorPath, [
+  "docs/best-of-best-operating-standard.md",
+  "src/lib/best-of-best-operating-standard.ts",
+  "docs/command-center-docs-index.md",
 ]);
 
 expect(manualPath, [
@@ -53,6 +104,11 @@ expect(manualPath, [
   "forecast boundaries",
   "recurring-value placement",
   "selling language",
+  "best-of-best operating standard alignment",
+  "generic SaaS dashboard copy",
+  "template-like public page or report structure",
+  "support blame language",
+  "plan boundary blur",
 ]);
 
 expect(manualPath, [
@@ -140,6 +196,7 @@ expect(manualPath, [
   "Release-captain pass",
   "No report should blur a customer claim into a verified fact.",
   "No report should blur a forecast into a guaranteed outcome.",
+  "confirm best-of-best operating standard alignment",
 ]);
 
 expect(manualPath, [
@@ -218,8 +275,17 @@ expect(manualPath, [
   "Provider payment mapping and webhook entitlement verification",
   "Forecast module rendering and forecast refresh history",
   "Recurring readiness baseline comparison",
+  "Best-of-best drift review across public website, dashboard, checkout, billing, reports, notifications, support, lifecycle, and plan delivery",
+  "Best-of-best conversion and recovery audit across every customer-facing surface",
   "## Final operating principle",
   "Cendorq should not win by promising the impossible.",
+  "best-of-best operating discipline",
+]);
+
+expect(manualPath, [
+  "keep best-of-best standard visible in every material customer-facing decision",
+  "review best-of-best drift across public, dashboard, billing, report, notification, support, lifecycle, and plan surfaces",
+  "review whether Cendorq still feels category-defining rather than generic",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -256,16 +322,20 @@ expect(docsIndexPath, [
   "docs/owner-operating-manual.md",
   "src/scripts/validate-owner-operating-manual.mjs",
   "owner-level operating manual",
+  "docs/best-of-best-operating-standard.md",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
 ]);
 
 expect(routesChainPath, [
   "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
+  "src/scripts/validate-best-of-best-operating-standard.mjs",
 ]);
 
 forbidden(manualPath, unsafePhrases());
 forbidden(ownerMaximumProtectionPath, unsafePhrases());
 forbidden(captainAuditDocPath, unsafePhrases());
+forbidden(bestOfBestDocPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Owner operating manual validation failed:");
@@ -273,7 +343,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with category-defining authority, highest practical accuracy, agent-to-captain verification, selective recurring readiness moat, forecast governance, vault-first report access, deliverability posture, dashboard message mirror, safe PDF delivery, customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+console.log("Owner operating manual validation passed with best-of-best doctrine, category-defining authority, highest practical accuracy, agent-to-captain verification, selective recurring readiness moat, forecast governance, vault-first report access, deliverability posture, dashboard message mirror, safe PDF delivery, customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, plan boundary, no-leak, agent orchestration, drift review cadence, and safe language coverage.");
 
 function unsafePhrases() {
   return [
