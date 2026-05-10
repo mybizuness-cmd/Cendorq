@@ -9,6 +9,7 @@ const chainPath = "src/scripts/validate-routes-chain.mjs";
 const docsIndexPath = "docs/command-center-docs-index.md";
 const ownerManualPath = "docs/owner-operating-manual.md";
 const registryPath = "src/lib/command-center/validation-registry.ts";
+const memoryLockPath = "docs/operating-memory-lock.md";
 
 const executedValidators = [
   "src/scripts/validate-routes-chain-integrity.mjs",
@@ -52,7 +53,7 @@ const documentedCoverageValidators = [
 ];
 
 const doctrineFiles = [
-  "docs/operating-memory-lock.md",
+  memoryLockPath,
   "docs/current-operating-research-notes.md",
   "docs/best-of-best-operating-standard.md",
   "src/lib/unified-experience-alignment.ts",
@@ -75,14 +76,13 @@ if (!failures.length) {
   const docsText = read(docsIndexPath);
   const ownerText = read(ownerManualPath);
   const registryText = read(registryPath);
-  const memoryLockText = read("docs/operating-memory-lock.md");
+  const memoryLockText = read(memoryLockPath);
   const chainValidators = arrayValues(chainText, "validators");
   const documentedChainValidators = arrayValues(chainText, "documentedValidatorCoverage");
   const duplicates = chainValidators.filter((path, index) => chainValidators.indexOf(path) !== index);
 
   if (!packageText.includes('"validate:routes": "node ./src/scripts/validate-routes-chain.mjs"')) failures.push("package.json must delegate validate:routes to the practical route chain.");
   if (duplicates.length) failures.push(`validate-routes-chain has duplicate executed validators: ${[...new Set(duplicates)].join(", ")}`);
-
   if (chainValidators.slice(0, executedValidators.length).join("\n") !== executedValidators.join("\n")) failures.push("validate-routes-chain executed validator order must match the protected practical chain.");
 
   for (const validator of documentedCoverageValidators) {
@@ -105,7 +105,7 @@ if (!failures.length) {
     "plan delivery lifecycle",
   ]);
 
-  expect("docs/operating-memory-lock.md", memoryLockText, [
+  expect(memoryLockPath, memoryLockText, [
     "Operating Memory Lock",
     "docs/current-operating-research-notes.md",
     "src/scripts/validate-current-operating-research-notes.mjs",
@@ -133,16 +133,16 @@ if (!failures.length) {
   ]);
 
   expect(docsIndexPath, docsText, [
-    "docs/current-operating-research-notes.md",
-    "docs/support-channel-operating-standard.md",
-    "src/scripts/validate-current-operating-research-notes.mjs",
-    "src/scripts/validate-support-channel-operating-standard.mjs",
+    "docs/best-of-best-operating-standard.md",
+    "docs/acquisition-to-retention-operating-system.md",
     "Customer delivery validation standard",
     "safe PDF delivery only after gates pass",
     "mirrored dashboard messages for important emails",
   ]);
 
   expect(ownerManualPath, ownerText, [
+    "Unified surface lock",
+    "Operating memory lock",
     "dashboard/report vault is the canonical protected display location",
     "Every important customer email should create or update a matching dashboard message record",
     "PDFs must never be the only access path.",
