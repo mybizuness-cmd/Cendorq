@@ -91,6 +91,25 @@ const BILLING_SAFETY_RULES = [
   "Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
 ] as const;
 
+const BILLING_DOCUMENT_RULES = [
+  {
+    title: "Provider authority",
+    copy: "Receipts, invoices, and payment confirmations should come from verified provider state before any billing PDF is shown or attached.",
+  },
+  {
+    title: "Billing center first",
+    copy: "Billing documents should remain available here after verified login, even if an email is missed, filtered, or suppressed.",
+  },
+  {
+    title: "Mirrored messages",
+    copy: "Important billing emails should mirror into dashboard messages with the same safe action, document state, and support path.",
+  },
+  {
+    title: "Safe PDFs",
+    copy: "Billing PDFs must use safe filenames, Cendorq context, no raw provider data, and no card, bank, secret, token, or internal risk details.",
+  },
+] as const;
+
 export default function BillingPage() {
   return (
     <main className="relative isolate overflow-hidden text-white">
@@ -105,7 +124,7 @@ export default function BillingPage() {
             Know what is active, what unlocked, and what depth comes next.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            This is the readiness-depth control point: access, boundaries, recovery, and the next AI-readiness move.
+            This is the readiness-depth control point: access, boundaries, recovery, provider-backed billing documents, and the next AI-readiness move.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href={DEEP_REVIEW.checkoutPath} className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -176,6 +195,18 @@ export default function BillingPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Billing document access standard">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {BILLING_DOCUMENT_RULES.map((item) => (
+            <article key={item.title} className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]">
+              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">Billing documents</div>
+              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-white">{item.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Account access actions">
         <div className="grid gap-4 md:grid-cols-3">
           {BILLING_ACTIONS.map((item) => (
@@ -200,7 +231,7 @@ export default function BillingPage() {
       </section>
 
       <section className="sr-only" aria-label="Account access readiness standard">
-        Readiness plan depth. Account access command center. Know what is active, what unlocked, and what depth comes next. Readiness-depth control point for access, boundaries, recovery, and the next AI-readiness move. Current access. Next layer. Safety. Paid readiness depth. Review. Repair. Control. Payment should unlock the right readiness layer. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Readiness plan depth. Account access command center. Know what is active, what unlocked, and what depth comes next. Readiness-depth control point for access, boundaries, recovery, provider-backed billing documents, and the next AI-readiness move. Current access. Next layer. Safety. Paid readiness depth. Review. Repair. Control. Payment should unlock the right readiness layer. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/month. Provider-authoritative receipts, invoices, and payment confirmations. Billing center first. Mirrored dashboard messages. Safe billing PDFs. No private payment details. No raw provider payloads. No card numbers, bank details, secrets, tokens, internal risk details, or unsafe document projection. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {BILLING_DOCUMENT_RULES.map((item) => `${item.title} ${item.copy}`).join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
