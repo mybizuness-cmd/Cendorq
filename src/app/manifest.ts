@@ -55,11 +55,11 @@ const SHORTCUTS: readonly ShortcutDefinition[] = [
         url: "/plans",
     },
     {
-        name: "Open Dashboard",
-        shortName: "Dashboard",
+        name: "Review AI Readiness",
+        shortName: "Review",
         description:
-            "Return to protected reports, proof, notifications, and next actions.",
-        url: "/dashboard",
+            "Open the public AI Readiness Review path before protected dashboard work begins.",
+        url: "/plans/deep-review",
     },
 ] as const;
 
