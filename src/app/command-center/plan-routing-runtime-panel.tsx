@@ -3,7 +3,7 @@ import { projectPlanRouting, type PlanRoutingInput } from "@/lib/plan-routing-ru
 const routingCases: readonly (PlanRoutingInput & { label: string; intent: string })[] = [
   {
     label: "Free Scan stop",
-    intent: "Linear customer stops after Free Scan and needs helpful, non-pressure follow-up.",
+    intent: "Linear customer stops after Free Scan and needs helpful, non-pressure follow-up mirrored into the dashboard.",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: true,
@@ -15,8 +15,8 @@ const routingCases: readonly (PlanRoutingInput & { label: string; intent: string
     evidenceBackedRecommendation: true,
   },
   {
-    label: "Direct Build Fix",
-    intent: "Customer starts with Optimization, so Cendorq keeps payment flowing while protecting Deep Review entitlement.",
+    label: "Direct Signal Repair",
+    intent: "Customer starts with Signal Repair, so Cendorq keeps payment flowing while protecting AI Readiness Review entitlement and safe document boundaries.",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: true,
@@ -29,8 +29,8 @@ const routingCases: readonly (PlanRoutingInput & { label: string; intent: string
     intakeOrApprovalIncomplete: true,
   },
   {
-    label: "Direct Monthly",
-    intent: "Customer starts with Monthly, so Cendorq runs approved scope and recommends Build Fix only when evidence supports it.",
+    label: "Direct Readiness Control",
+    intent: "Customer starts with Readiness Control, so Cendorq runs approved scope and recommends Signal Repair only when evidence supports it.",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: true,
@@ -42,8 +42,8 @@ const routingCases: readonly (PlanRoutingInput & { label: string; intent: string
     evidenceBackedRecommendation: true,
   },
   {
-    label: "Late Deep Review after Build Fix",
-    intent: "Customer buys the skipped Full Scan after Optimization delivery and asks for alignment.",
+    label: "Late AI Readiness Review after Signal Repair",
+    intent: "Customer buys the skipped AI Readiness Review after Signal Repair delivery and asks for alignment.",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: true,
@@ -60,7 +60,7 @@ const routingCases: readonly (PlanRoutingInput & { label: string; intent: string
   },
   {
     label: "First signup inbox confirmation",
-    intent: "New customer receives one-time inbox handshake before future report, billing, and support email cadence.",
+    intent: "New customer receives one-time inbox handshake before future report, billing, support, dashboard-message, and safe-document cadence.",
     customerIdHashPresent: true,
     verifiedEmail: true,
     welcomeSent: false,
@@ -84,11 +84,11 @@ export function PlanRoutingRuntimePanel() {
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-100">Plan routing runtime</p>
             <h2 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              Operator visibility for plan stops, direct purchases, late add-ons, warning emails, and one-time inbox confirmation.
+              Operator visibility for plan stops, direct purchases, late add-ons, warning emails, dashboard-message mirrors, safe documents, and one-time inbox confirmation.
             </h2>
           </div>
           <p className="max-w-2xl text-sm leading-6 text-slate-400">
-            This private panel projects what the runtime would allow, suppress, or reconcile before any customer-facing email, dashboard reminder, report-vault change, or scope promise is released.
+            This private panel projects what the runtime would allow, suppress, or reconcile before any customer-facing email, dashboard message, report-vault change, PDF/document delivery, or scope promise is released.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export function PlanRoutingRuntimePanel() {
             <div>
               <p className="text-sm font-semibold text-white">Decision matrix</p>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-                Runtime projections expose the customer-owned state, included and excluded scope, allowed reminder posture, reconciliation outcome, and inbox confirmation gate without showing raw provider payloads or internal notes.
+                Runtime projections expose the customer-owned state, included and excluded scope, allowed reminder posture, dashboard-message mirror requirement, safe-document state, reconciliation outcome, and inbox confirmation gate without showing raw provider payloads or internal notes.
               </p>
             </div>
             <span className="rounded-full border border-cyan-200/20 bg-cyan-200/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-100">safe projection</span>
@@ -117,14 +117,17 @@ export function PlanRoutingRuntimePanel() {
                   <div>
                     <p className="text-sm font-semibold text-slate-100">{label}</p>
                     <p className="mt-1 text-xs leading-5 text-slate-500">{intent}</p>
+                    <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-100">{projection.selectedPlanLabel}</p>
                   </div>
                   <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">{projection.routingMode}</span>
                 </div>
 
-                <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                <div className="mt-4 grid gap-2 sm:grid-cols-5">
                   <StatusTile label="owned" ok={projection.customerOwnedProjectionReady} />
                   <StatusTile label="warning email" ok={projection.warningEmailAllowed} />
                   <StatusTile label="inbox confirm" ok={projection.inboxConfirmationAllowed} />
+                  <StatusTile label="mirror" ok={projection.dashboardMessageMirrorRequired} />
+                  <StatusTile label="documents" ok={projection.safeDocumentDeliveryMustMatchVault} />
                 </div>
 
                 <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/60 p-4">
