@@ -15,6 +15,19 @@ This standard translates outside best-in-class operating patterns into Cendorq-s
 - **Nielsen Norman-level usability discipline**: customer surfaces must show system status, match real customer language, prevent errors, support recognition over recall, and provide recovery paths.
 - **Intercom-level human support**: support and lifecycle messages must be human, specific, proactive, honest about limitations, and focused on resolution rather than inbox cleanup.
 
+## Page and subpage operating system
+
+Every page and subpage must have a clear job, a clear audience stage, and a clear source-of-truth role.
+
+- Homepage creates category authority and the strongest start path.
+- Plans page handles pricing, plan comparison, and stage selection.
+- Plan-detail pages handle one plan, one buyer objection, one checkout path, and one fallback to comparison.
+- Dashboard pages handle proof, state, next action, and recovery.
+- Report vault pages handle released report truth, confidence, limits, documents, and correction/support paths.
+- Billing pages handle provider-authoritative billing state, receipt/invoice recovery, and safe document access.
+- Support pages handle resolution routing, status, safe request intake, and anxiety reduction.
+- Legal and trust pages explain boundaries without becoming noisy sales pages.
+
 ## Unified surface alignment doctrine
 
 Every surface must feel like one Cendorq system, not isolated pages.
@@ -26,6 +39,28 @@ Every surface must feel like one Cendorq system, not isolated pages.
 - Billing, report vault, notifications, support, and lifecycle messages must reflect the same customer-owned state.
 - Mobile is the main entrance; desktop is the command room; both must feel intentionally designed.
 - Blocks and sections should feel rich through hierarchy, spacing, proof, and restraint rather than noise.
+
+## No-clutter design doctrine
+
+Simple does not mean thin. Rich does not mean crowded.
+
+- Use fewer stronger modules over many equal-weight sections.
+- Decoration without decision value must be removed.
+- Repeated CTAs must reinforce one path instead of competing for attention.
+- Subpages should feel uniform in system language while still serving their specific job.
+- Dark private dashboard surfaces should feel powerful, calm, and recoverable.
+- Public surfaces should feel authoritative, fast, and easy to understand.
+- Blocks should earn their place through hierarchy, proof, next action, or recovery value.
+
+## Future-proofing doctrine
+
+AI/search behavior, customer expectations, competitors, security threats, platform policies, inbox delivery, and buyer psychology will keep changing. Cendorq must evolve without losing its operating identity.
+
+- Controlled continuous evolution protects the system from stale assumptions.
+- Customer-facing claims must evolve with evidence, not hype.
+- Security, SEO, accessibility, performance, legal boundaries, customer support, billing trust, and report truth must be reviewed as living systems.
+- Public pages should preserve a safe path for stronger future pages, campaigns, structured data, reporting, and customer education.
+- Every major surface change should be checked against current-source research, unified surface alignment, mobile/desktop behavior, and route-chain validation.
 
 ## Non-negotiable Cendorq quality bar
 
