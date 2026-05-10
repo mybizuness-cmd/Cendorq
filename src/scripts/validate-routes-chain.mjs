@@ -11,6 +11,8 @@ const validators = [
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
+  "src/scripts/validate-maximum-protection-standard.mjs",
+  "src/scripts/validate-trust-legal-plan-boundaries.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-public-homepage-command-surface.mjs",
   "src/scripts/validate-public-entry-plan-journey.mjs",
@@ -36,14 +38,12 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-command-center-security-posture.mjs",
   "src/scripts/validate-command-center-panel-registry.mjs",
   "src/scripts/validate-command-center-panel-safety.mjs",
-  "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-controlled-continuous-evolution.mjs",
   "src/scripts/validate-controlled-maintenance-contracts.mjs",
   "src/scripts/validate-public-homepage-command-entry.mjs",
   "src/scripts/validate-homepage-public-frame-elevation.mjs",
   "src/scripts/validate-public-navigation-chrome.mjs",
-  "src/scripts/validate-trust-legal-plan-boundaries.mjs",
   "src/scripts/validate-mobile-visual-audit-stage-one.mjs",
   "src/scripts/validate-command-plan-blocks-free-scan-flow.mjs",
   "src/scripts/validate-elevated-free-scan-form-v3.mjs",
@@ -136,5 +136,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, best-of-best operating standard, command design standard coverage, docs-index doctrine coverage, owner operating doctrine, public drift coverage, public homepage command surface, public entry plan journey, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle.`);
+console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, best-of-best operating standard, command design standard coverage, docs-index doctrine coverage, owner operating doctrine, maximum protection security doctrine, trust/legal boundary coverage, public drift coverage, public homepage command surface, public entry plan journey, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including command-center schema/readiness/security, checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, report truth, evidence runtime, customer platform, conversion moat, insights conversation, and closed intelligence standards.`);
