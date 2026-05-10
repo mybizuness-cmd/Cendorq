@@ -12,10 +12,10 @@ Protect the core path:
 
 1. Free Scan
 2. Plans
-3. Deep Review
-4. Build Fix
-5. Ongoing Control
-6. Connect
+3. AI Readiness Review
+4. Signal Repair
+5. Readiness Control
+6. Dashboard recovery
 
 ## Required checks
 
