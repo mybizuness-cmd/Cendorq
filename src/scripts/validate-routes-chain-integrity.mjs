@@ -13,6 +13,7 @@ const registryPath = "src/lib/command-center/validation-registry.ts";
 const executedValidators = [
   "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-routes.mjs",
+  "src/scripts/validate-operating-memory-lock.mjs",
   "src/scripts/validate-current-operating-research-notes.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
@@ -50,6 +51,7 @@ const documentedCoverageValidators = [
 ];
 
 const doctrineFiles = [
+  "docs/operating-memory-lock.md",
   "docs/current-operating-research-notes.md",
   "docs/best-of-best-operating-standard.md",
   "src/lib/unified-experience-alignment.ts",
@@ -71,6 +73,7 @@ if (!failures.length) {
   const docsText = read(docsIndexPath);
   const ownerText = read(ownerManualPath);
   const registryText = read(registryPath);
+  const memoryLockText = read("docs/operating-memory-lock.md");
   const chainValidators = arrayValues(chainText, "validators");
   const documentedChainValidators = arrayValues(chainText, "documentedValidatorCoverage");
   const duplicates = chainValidators.filter((path, index) => chainValidators.indexOf(path) !== index);
@@ -88,6 +91,7 @@ if (!failures.length) {
   }
 
   expect(chainPath, chainText, [
+    "operating memory lock",
     "current operating research notes",
     "best-of-best operating standard",
     "unified experience alignment",
@@ -98,6 +102,15 @@ if (!failures.length) {
     "trust/legal boundary coverage",
     "dashboard conversion inbox",
     "plan delivery lifecycle",
+  ]);
+
+  expect("docs/operating-memory-lock.md", memoryLockText, [
+    "Operating Memory Lock",
+    "docs/current-operating-research-notes.md",
+    "src/scripts/validate-current-operating-research-notes.mjs",
+    "docs/support-channel-operating-standard.md",
+    "src/scripts/validate-support-channel-operating-standard.mjs",
+    "doctrine file, a validator, route-chain execution, route-chain integrity coverage, and docs visibility",
   ]);
 
   expect("src/lib/unified-experience-alignment.ts", read("src/lib/unified-experience-alignment.ts"), [
@@ -142,7 +155,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed with current research, best-of-best, unified experience alignment, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
+console.log("Validate routes chain integrity passed with operating memory lock, current research, best-of-best, unified experience alignment, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
 function arrayValues(text, name) {
   const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
