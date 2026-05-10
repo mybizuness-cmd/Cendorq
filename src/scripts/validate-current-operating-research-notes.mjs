@@ -14,11 +14,25 @@ const checks = [
     "LCP, INP, and CLS",
     "Campaign reporting should use stable UTM naming",
     "Public sharing needs clean metadata, canonical URLs, and share images.",
+    "Advertising readiness needs clean landing pages, crawlable public routes, policy-safe claims, privacy-safe analytics, verified domains where required, and conversion events that do not leak private customer data.",
+    "Meta, search, and other ad crawlers should see the public buyer path, not private dashboards, reports, billing documents, support records, command-center pages, customer files, or protected APIs.",
+    "Traffic attribution should separate organic, referral, paid, email, lifecycle, dashboard-return, and support-return paths without storing sensitive customer content in public analytics payloads.",
+    "Trademark strategy can prepare names, category language, specimens, use evidence, and filing steps, but cannot guarantee registration or competitor blocking.",
+    "Security posture should track current advisories, dependency updates, runtime exposure, webhook verification, secret rotation, malware containment, and patch urgency without disabling validators to pass.",
+    "Deliverability posture should use recognizable sender identity, SPF, DKIM, DMARC, low-noise transactional content, dashboard mirrors, and safe recovery while avoiding guaranteed inbox-placement claims.",
+    "Customer document posture should keep reports and billing PDFs static, no-leak checked, branded, entitlement-gated or provider-authoritative, and never the only access path.",
+    "Research-to-build rule",
+    "Blocked research drift",
     "Do not move from stale memory",
   ]],
   ["docs/operating-memory-lock.md", [
     "docs/current-operating-research-notes.md",
     "src/scripts/validate-current-operating-research-notes.mjs",
+  ]],
+  ["docs/command-center-docs-index.md", [
+    "docs/current-operating-research-notes.md",
+    "src/scripts/validate-current-operating-research-notes.mjs",
+    "advertising readiness",
   ]],
   ["src/scripts/validate-routes-chain.mjs", [
     "src/scripts/validate-current-operating-research-notes.mjs",
@@ -37,7 +51,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Current operating research notes validation passed.");
+console.log("Current operating research notes validation passed with current-source research, search/AI discovery, Core Web Vitals, advertising readiness, attribution, brand filing boundaries, security patch posture, deliverability, document gates, and research-to-build coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
