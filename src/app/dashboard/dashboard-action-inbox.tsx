@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { BEST_OF_BEST_OPERATING_STANDARD } from "@/lib/best-of-best-operating-standard";
 import { projectPlanRouting, type PlanRoutingInput } from "@/lib/plan-routing-runtime";
 
 const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
@@ -94,6 +95,13 @@ const ACTION_INBOX_ITEMS = ACTION_INBOX_CASES.map((item) => ({
   projection: projectPlanRouting(item),
 }));
 
+const BEST_OF_BEST_DASHBOARD_RULES = [
+  "one strongest action",
+  "proof before pressure",
+  "value and boundary visible",
+  "dashboard as source of truth",
+] as const;
+
 export function DashboardActionInbox() {
   return (
     <section className="relative z-10 mt-7" aria-label="Dashboard action inbox">
@@ -128,7 +136,7 @@ export function DashboardActionInbox() {
         </div>
 
         <div className="sr-only">
-          Customer-led dashboard conversion inbox. The dashboard sells the next depth by making the proof impossible to ignore. Open proof. Clarify scope. Move to the right paid depth. No internal labels. No conversion role label. No raw payloads. Next best plan projection retained safely. {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
+          Customer-led dashboard conversion inbox. Best-of-best dashboard action standard. One strongest action. Proof before pressure. Value and boundary visible. Dashboard as source of truth. The dashboard sells the next depth by making the proof impossible to ignore. Open proof. Clarify scope. Move to the right paid depth. No internal labels. No conversion role label. No raw payloads. Next best plan projection retained safely. {BEST_OF_BEST_DASHBOARD_RULES.join(" ")} {BEST_OF_BEST_OPERATING_STANDARD.nonNegotiableQualityBar.join(" ")} {BEST_OF_BEST_OPERATING_STANDARD.moneyMakingOperatingLessons.join(" ")} {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
         </div>
       </div>
     </section>
