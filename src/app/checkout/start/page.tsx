@@ -44,8 +44,9 @@ const CHECKOUT_HANDOFFS = [
 
 const CHECKOUT_TRUST_POINTS = [
   "Plan context stays attached to the customer workspace.",
-  "Success page explains what unlocks and what does not.",
-  "Billing, dashboard, notifications, support, and fulfillment use the same plan boundary.",
+  "Released reports and billing documents stay vault-first inside the verified dashboard/report vault or billing center.",
+  "Important checkout, report, billing, and lifecycle emails mirror into dashboard messages.",
+  "Downloadable or attached PDFs activate only after verification, entitlement or provider authority, release, no-leak, and document-safety gates pass.",
 ] as const;
 
 export default function CheckoutStartPage() {
@@ -62,7 +63,7 @@ export default function CheckoutStartPage() {
             Choose the checkout path that matches the work.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Checkout should never feel unfinished. Each paid plan keeps the account, business context, entitlement, dashboard, email, and fulfillment boundary connected after payment.
+            Checkout should never feel unfinished. Each paid plan keeps the account, business context, entitlement, dashboard, report vault, mirrored dashboard messages, email, support, safe document delivery, and fulfillment boundary connected after payment.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href={DEEP_REVIEW.checkoutPath} className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -122,7 +123,7 @@ export default function CheckoutStartPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025)_38%,rgba(103,232,249,0.08))] p-6 shadow-[0_45px_180px_rgba(2,8,23,0.55)] backdrop-blur-2xl sm:p-8 lg:p-10">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">What happens after payment</p>
           <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl">The checkout is only credible if the readiness layer continues cleanly.</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-4">
             {CHECKOUT_TRUST_POINTS.map((point) => (
               <p key={point} className="rounded-[1.35rem] border border-white/10 bg-black/25 p-4 text-sm font-semibold leading-7 text-slate-300">{point}</p>
             ))}
@@ -135,7 +136,7 @@ export default function CheckoutStartPage() {
       </section>
 
       <section className="sr-only" aria-label="Mobile visual audit checkout start guardrails">
-        Mobile visual audit checkout. Secure plan handoff. Choose the checkout path that matches the work. No unfinished Stripe placeholder. Start secure handoff. Final fixed plan prices. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/month. Success URL includes session_id. Checkout orchestration. Checkout metadata. {CHECKOUT_HANDOFFS.map((item) => `${item.title} ${item.plan.name} ${item.plan.price} ${item.value.reportBoundary}`).join(" ")} {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_CHECKOUT_METADATA_KEYS.join(" ")}
+        Mobile visual audit checkout. Secure plan handoff. Choose the checkout path that matches the work. No unfinished Stripe placeholder. Start secure handoff. Final fixed plan prices. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/month. Success URL includes session_id. Checkout orchestration. Checkout metadata. Vault-first report access. Dashboard message mirror. Safe PDF delivery gates. Verified dashboard/report vault or billing center first. No PDF-only access path. Verification, entitlement or provider authority, release, no-leak, and document-safety gates. {CHECKOUT_TRUST_POINTS.join(" ")} {CHECKOUT_HANDOFFS.map((item) => `${item.title} ${item.plan.name} ${item.plan.price} ${item.value.reportBoundary}`).join(" ")} {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_CHECKOUT_METADATA_KEYS.join(" ")}
       </section>
     </main>
   );
