@@ -2,10 +2,11 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES, type PlanValueKey } from "@/lib/plan-value-delivery-architecture";
+import { BEST_OF_BEST_OPERATING_STANDARD } from "@/lib/best-of-best-operating-standard";
 
 export const metadata = buildMetadata({
   title: "Readiness resolution routing | Cendorq",
-  description: "Your private Cendorq support routing center for proof questions, corrections, billing help, security review, and readiness-depth guidance.",
+  description: "Your private Cendorq support routing center for proof questions, corrections, billing help, security review, readiness-depth guidance, mirrored messages, and safe recovery.",
   path: "/dashboard/support",
   noIndex: true,
 });
@@ -21,8 +22,8 @@ const SUPPORT_ROUTES = [
     title: "Restore access or payment flow first.",
     href: "/dashboard/billing",
     cta: "Open billing",
-    value: "Recover payment, invoice, or readiness-depth access without sending card data through support.",
-    boundary: "Support can route the issue, but payment changes require approved billing gates.",
+    value: "Recover payment, invoice, billing PDF, or readiness-depth access without sending card data through support.",
+    boundary: "Support can route the issue, but payment changes require approved billing gates and provider-authoritative state.",
   },
   {
     key: "report-question",
@@ -30,8 +31,17 @@ const SUPPORT_ROUTES = [
     title: "Understand the signal before acting.",
     href: "/dashboard/reports",
     cta: "Open readiness proof",
-    value: "Clarify confidence, limits, evidence boundaries, and next-readiness logic.",
+    value: "Clarify confidence, limits, evidence boundaries, report-vault state, and next-readiness logic.",
     boundary: "A Free Scan question does not become full AI Readiness Review unless unlocked.",
+  },
+  {
+    key: "message-recovery",
+    label: "Message recovery",
+    title: "Recover the same safe next action.",
+    href: "/dashboard/notifications",
+    cta: "Open signal feed",
+    value: "Find mirrored dashboard messages when an email was missed, filtered, suppressed, or delayed.",
+    boundary: "Dashboard messages recover safe customer actions; they do not expose raw email provider payloads or private internals.",
   },
   {
     key: "scope-question",
@@ -66,23 +76,32 @@ const SUPPORT_ROUTES = [
     title: "Request bounded review.",
     href: "/dashboard/support/request",
     cta: "Start request",
-    value: "Ask Cendorq to review something incomplete, wrong, outdated, or misunderstood.",
+    value: "Ask Cendorq to review something incomplete, wrong, outdated, misunderstood, or mismatched with the released vault state.",
     boundary: "Changes require review gates before anything becomes customer-facing.",
   },
 ] as const;
 
 const PLAN_SUPPORT = [
   { planKey: "free-scan", command: "Scan", href: "/dashboard/reports/free-scan", cta: "Open signal", role: "Explain the first signal, confidence posture, and why deeper review may be needed.", mustNot: "No full root-cause review, implementation direction, or monthly monitoring.", value: getPlanValueDelivery("free-scan") },
-  { planKey: "deep-review", command: "Review", href: DEEP_REVIEW.checkoutPath, cta: `Unlock ${DEEP_REVIEW.price}`, role: "Help the customer understand evidence-backed review, priority, and decision path.", mustNot: "No done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes.", value: getPlanValueDelivery("deep-review") },
-  { planKey: "build-fix", command: "Repair", href: BUILD_FIX.checkoutPath, cta: `Unlock ${BUILD_FIX.price}`, role: "Clarify scope, approved business details, output approval, and delivery expectations.", mustNot: "No unlimited site work, monthly monitoring, or unapproved production changes.", value: getPlanValueDelivery("build-fix") },
-  { planKey: "ongoing-control", command: "Control", href: ONGOING_CONTROL.checkoutPath, cta: `Start ${ONGOING_CONTROL.price}`, role: "Help select monthly priorities, review cadence, monitoring scope, and decision support needs.", mustNot: "No unlimited Signal Repair, ranking guarantees, AI answer placement guarantees, or ad management.", value: getPlanValueDelivery("ongoing-control") },
+  { planKey: "deep-review", command: "Review", href: DEEP_REVIEW.checkoutPath, cta: `Unlock ${DEEP_REVIEW.price}`, role: "Help the customer understand evidence-backed review, priority, report-vault status, and decision path.", mustNot: "No done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes.", value: getPlanValueDelivery("deep-review") },
+  { planKey: "build-fix", command: "Repair", href: BUILD_FIX.checkoutPath, cta: `Unlock ${BUILD_FIX.price}`, role: "Clarify scope, approved business details, output approval, before-after evidence, and delivery expectations.", mustNot: "No unlimited site work, monthly monitoring, or unapproved production changes.", value: getPlanValueDelivery("build-fix") },
+  { planKey: "ongoing-control", command: "Control", href: ONGOING_CONTROL.checkoutPath, cta: `Start ${ONGOING_CONTROL.price}`, role: "Help select monthly priorities, review cadence, monitoring scope, movement signals, and decision support needs.", mustNot: "No unlimited Signal Repair, ranking guarantees, AI answer placement guarantees, or ad management.", value: getPlanValueDelivery("ongoing-control") },
 ] as const satisfies readonly { planKey: PlanValueKey; command: string; href: string; cta: string; role: string; mustNot: string; value: ReturnType<typeof getPlanValueDelivery> }[];
+
+const BEST_SUPPORT_STANDARD = [
+  { title: "Acknowledge first", copy: "Support should make the customer feel understood before routing: what happened, what state is visible, and what Cendorq can safely do next." },
+  { title: "One next move", copy: "Every support path should provide one strongest next action and one fallback recovery route, not a wall of equal options." },
+  { title: "Mirror continuity", copy: "Important support, correction, report, billing, or lifecycle messages should mirror into the dashboard when applicable." },
+  { title: "Document-safe recovery", copy: "Report and billing document questions route back to vault or billing center state before PDF, attachment, or correction promises." },
+] as const;
 
 const SUPPORT_RULES = [
   "Pick the narrowest support path before submitting a request.",
-  "Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, or unrelated private evidence.",
+  "Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, raw provider payloads, or unrelated private evidence.",
   "Support can explain process, status, and next steps; approved outcomes require the right review gate.",
-  "Support must separate billing, proof questions, Repair scope, Control priority, account access, and correction paths.",
+  "Support must separate billing, proof questions, message recovery, Repair scope, Control priority, account access, and correction paths.",
+  "Support should acknowledge the human issue, show the current safe state, give one strongest next move, and avoid duplicate-request anxiety.",
+  "Support must never imply a PDF, email, or attachment is more authoritative than report vault, billing center, provider state, or release-captain approval.",
 ] as const;
 
 export default function SupportCenterPage() {
@@ -99,7 +118,7 @@ export default function SupportCenterPage() {
             Route the blocker without weakening the readiness path.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Help should restore momentum, protect the proof trail, and return the customer to the right report, account, readiness depth, or status path.
+            Help should restore momentum, acknowledge the issue, protect the proof trail, recover missed messages, and return the customer to the right report, account, billing, readiness depth, or status path.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/support/status" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -115,7 +134,7 @@ export default function SupportCenterPage() {
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Best recovery path</p>
           <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Track, then act.</h2>
-          <p className="mt-5 text-base leading-8 text-slate-300">Check status first. Submit a safe request only when the issue needs review or new context.</p>
+          <p className="mt-5 text-base leading-8 text-slate-300">Check status first. Submit a safe request only when the issue needs review, correction, or new context.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {SUPPORT_ROUTES.slice(0, 2).map((route) => (
               <Link key={route.key} href={route.href} className="rounded-[1.6rem] border border-white/10 bg-black/24 p-5 transition hover:border-cyan-200/30 hover:bg-cyan-200/[0.08]">
@@ -125,6 +144,18 @@ export default function SupportCenterPage() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Best support recovery standard">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {BEST_SUPPORT_STANDARD.map((item) => (
+            <article key={item.title} className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]">
+              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">Best-of-best support</p>
+              <h2 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-white">{item.title}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -173,7 +204,7 @@ export default function SupportCenterPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025)_38%,rgba(103,232,249,0.08))] p-6 shadow-[0_45px_180px_rgba(2,8,23,0.55)] backdrop-blur-2xl sm:p-8 lg:p-10">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Help safety standard</p>
           <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl">Help should restore momentum without expanding scope silently.</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {SUPPORT_RULES.map((rule) => (
               <p key={rule} className="rounded-[1.35rem] border border-white/10 bg-black/25 p-4 text-sm font-semibold leading-7 text-slate-300">{rule}</p>
             ))}
@@ -182,7 +213,7 @@ export default function SupportCenterPage() {
       </section>
 
       <section className="sr-only" aria-label="Support routing guardrails">
-        Readiness resolution routing. Route the blocker without weakening the readiness path. Resolution selector. Pick the narrowest path that matches the blocker. Help should restore momentum without expanding scope silently. Access issue. Proof question. Repair scope. Control priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. Scan. Review. Repair. Control. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
+        Readiness resolution routing. Best-of-best support. Acknowledge first. One next move. Mirror continuity. Document-safe recovery. Route the blocker without weakening the readiness path. Resolution selector. Pick the narrowest path that matches the blocker. Help should restore momentum without expanding scope silently. Access issue. Proof question. Message recovery. Repair scope. Control priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. No PDF, email, or attachment is more authoritative than vault, billing center, provider state, or release-captain approval. {BEST_SUPPORT_STANDARD.map((item) => `${item.title} ${item.copy}`).join(" ")} {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {BEST_OF_BEST_OPERATING_STANDARD.nonNegotiableQualityBar.join(" ")} {BEST_OF_BEST_OPERATING_STANDARD.researchInspiredPrinciples.map((principle) => `${principle.sourcePattern} ${principle.cendorqRule}`).join(" ")}
       </section>
     </main>
   );
