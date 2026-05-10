@@ -25,6 +25,8 @@ expect(pricingContractPath, [
   "CENDORQ_CHECKOUT_ORCHESTRATION",
   "CENDORQ_CHECKOUT_METADATA_KEYS",
   "CENDORQ_POST_PAYMENT_EMAILS",
+  "CENDORQ_POST_PAYMENT_SERVICE_SEQUENCE",
+  "CENDORQ_REPORT_TRIGGER_MATRIX",
 ]);
 
 expect(componentPath, [
@@ -46,8 +48,10 @@ expect(componentPath, [
 
 expect(plansPath, [
   "AI readiness plans",
-  "Choose the depth that matches the evidence.",
-  "Start with the signal. Pay for deeper work only when the stage fits: Review, Repair, then Control.",
+  "Choose the level of command your business is ready for.",
+  "Cendorq does not sell random packages.",
+  "find the signal, prove the cause, repair the weakness, then keep readiness under control.",
+  "Start with the safest evidence path. Move deeper only when the stage fits.",
   "Scan",
   "Review",
   "Repair",
@@ -56,12 +60,27 @@ expect(plansPath, [
   "Start Review",
   "Start Repair",
   "Start Control",
-  "Each plan buys a different level of readiness.",
+  "Each plan buys a different depth.",
+  "No stage pretends to be another stage.",
+  "No guaranteed rankings, leads, revenue, or AI placement.",
+  "Every stronger recommendation must be tied to evidence.",
   "Free Scan $0",
   "AI Readiness Review $497",
   "Signal Repair $1,497",
   "Readiness Control $597/mo",
   "Internal keys preserved: deep-review, build-fix, ongoing-control",
+]);
+
+expect(plansPath, [
+  "AFTER_PURCHASE_STANDARDS",
+  "After purchase access standard",
+  "Vault first",
+  "Released reports and billing documents live in the verified dashboard, not only in email.",
+  "Messages mirrored",
+  "Important emails are reflected as dashboard messages so the customer can recover the same next action.",
+  "PDFs gated",
+  "Downloadable or attached PDFs are enabled only when verification, entitlement, release, and document-safety checks pass.",
+  "After purchase access: vault first, dashboard message mirror, safe PDF delivery gates, verified access, entitlement, release, and document-safety checks.",
 ]);
 
 expect(checkoutStartPath, [
@@ -83,6 +102,11 @@ expect(checkoutSuccessPath, [
   "AI Readiness Review $497",
   "Signal Repair $1,497",
   "Readiness Control $597/month",
+  "dashboard report vault first",
+  "dashboard message mirror",
+  "downloadable PDF",
+  "PDF attachment delivery",
+  "document-safety gates pass",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -101,10 +125,26 @@ expect(packagePath, ["validate:routes"]);
 expect(routesChainPath, [validatorPath, "validate-owner-maximum-protection-posture.mjs"]);
 
 boundedLength(componentPath, 15500);
-boundedLength(plansPath, 16000);
+boundedLength(plansPath, 22000);
 
 forbidden(componentPath, blockedPlanPhrases());
-forbidden(plansPath, [...blockedPlanPhrases(), "$750+", "$300/mo", "starting at", "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious.", "Choose the depth that can move revenue next."]);
+forbidden(plansPath, [
+  ...blockedPlanPhrases(),
+  "$750+",
+  "$300/mo",
+  "starting at",
+  "Best first move",
+  "Start free if the cause is unclear. Pay when the next depth is obvious.",
+  "Choose the depth that can move revenue next.",
+  "guaranteed inbox",
+  "guaranteed deliverability",
+  "PDF-only access path",
+  "pdf-only access path",
+  "separate truth source allowed",
+  "Deep Review / Full Scan",
+  "Build Fix / Optimization",
+  "Ongoing Control / Monthly",
+]);
 
 if (failures.length) {
   console.error("Public plans AI-readiness alignment validation failed:");
@@ -112,7 +152,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans AI-readiness validation passed with Scan, Review, Repair, Control positioning and preserved internal checkout keys.");
+console.log("Public plans AI-readiness validation passed with Scan, Review, Repair, Control positioning, vault-first access, mirrored dashboard messages, safe PDF gates, and preserved internal checkout keys.");
 
 function blockedPlanPhrases() {
   return [
