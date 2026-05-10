@@ -12,6 +12,8 @@ const docsIndexPath = "docs/command-center-docs-index.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const continuousEvolutionContractPath = "src/lib/controlled-continuous-evolution-contracts.ts";
 const controlledMaintenanceContractPath = "src/lib/controlled-maintenance-contracts.ts";
+const unifiedAlignmentPath = "src/lib/unified-experience-alignment.ts";
+const memoryLockPath = "docs/operating-memory-lock.md";
 const failures = [];
 
 expect(manualPath, [
@@ -53,9 +55,49 @@ expect(manualPath, [
   "must run before downstream customer-delivery validators",
 ]);
 
+expect(manualPath, [
+  "## Unified surface lock",
+  "public pages, plan pages, checkout, dashboard, report vault, billing, notifications, support, lifecycle, and owner operations aligned as one operating system",
+  "homepage creates category clarity and the strongest start path without becoming a pricing table",
+  "plan and plan-detail pages carry pricing, comparison, scope, fit, and what-happens-next clarity",
+  "dashboard surfaces act as the customer command room",
+  "backend triggers support the same journey the frontend communicates",
+  "mobile is the main entrance and desktop is the command room",
+  "blocks feel rich through hierarchy, spacing, proof, rhythm, and restraint rather than noise",
+  "src/lib/unified-experience-alignment.ts",
+  "src/scripts/validate-unified-experience-alignment.mjs",
+  "src/scripts/validate-surface-level-alignment.mjs",
+]);
+
+expect(manualPath, [
+  "## Operating memory lock",
+  "A standard is locked only when it has:",
+  "a doctrine or source file",
+  "a validator",
+  "route-chain execution",
+  "route-chain integrity coverage",
+  "docs or owner visibility",
+  "docs/operating-memory-lock.md",
+  "src/scripts/validate-operating-memory-lock.mjs",
+]);
+
+expect(unifiedAlignmentPath, [
+  "UNIFIED_EXPERIENCE_ALIGNMENT",
+  "Homepage creates category clarity",
+  "Plans and plan-detail pages carry pricing",
+  "Dashboard surfaces act as the customer command room",
+  "Mobile is the main entrance; desktop is the command room",
+]);
+
+expect(memoryLockPath, [
+  "Operating Memory Lock",
+  "doctrine file, a validator, route-chain execution, route-chain integrity coverage, and docs visibility",
+]);
+
 expect(bestOfBestDocPath, [
   "# Best-of-Best Operating Standard",
   "Research-inspired operating principles",
+  "Unified surface alignment doctrine",
   "Non-negotiable Cendorq quality bar",
   "Money-making discipline",
   "Blocked patterns",
@@ -94,21 +136,17 @@ expect(manualPath, [
 expect(manualPath, [
   "## Agent-to-captain verification model",
   "Cendorq should not depend on one agent's raw competence.",
-  "Agents can:",
-  "Agents must:",
   "Captain review must verify:",
-  "source relevance",
-  "evidence age",
-  "identity resolution",
-  "contradiction handling",
-  "forecast boundaries",
-  "recurring-value placement",
-  "selling language",
   "best-of-best operating standard alignment",
+  "unified surface alignment",
+  "owner memory lock coverage",
   "generic SaaS dashboard copy",
   "template-like public page or report structure",
   "support blame language",
   "plan boundary blur",
+  "disconnected dashboard state",
+  "homepage pricing clutter",
+  "cheap-looking generic blocks",
 ]);
 
 expect(manualPath, [
@@ -275,17 +313,24 @@ expect(manualPath, [
   "Provider payment mapping and webhook entitlement verification",
   "Forecast module rendering and forecast refresh history",
   "Recurring readiness baseline comparison",
-  "Best-of-best drift review across public website, dashboard, checkout, billing, reports, notifications, support, lifecycle, and plan delivery",
-  "Best-of-best conversion and recovery audit across every customer-facing surface",
+  "Unified surface alignment drift review across homepage, plans, pricing, dashboard, billing, report vault, support, and backend triggers",
+  "Operating memory lock checks for every new standard",
+  "Unified block and section audit across public and private customer surfaces",
+  "Mobile-first and desktop-command-room audit after every major surface change",
+  "Surface alignment scoring",
+  "Memory-lock coverage scoring",
   "## Final operating principle",
-  "Cendorq should not win by promising the impossible.",
-  "best-of-best operating discipline",
+  "unified surface alignment",
+  "memory-locked standards",
 ]);
 
 expect(manualPath, [
   "keep best-of-best standard visible in every material customer-facing decision",
+  "keep unified surface alignment visible in every public, dashboard, billing, report, support, and backend-triggered customer decision",
+  "keep memory locks attached to every new operating standard",
   "review best-of-best drift across public, dashboard, billing, report, notification, support, lifecycle, and plan surfaces",
-  "review whether Cendorq still feels category-defining rather than generic",
+  "review unified surface alignment drift across homepage, plans, pricing, dashboard, report vault, billing, support, and lifecycle",
+  "review whether the whole customer path still feels seamless on mobile and desktop",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -330,6 +375,9 @@ expect(routesChainPath, [
   "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "src/scripts/validate-unified-experience-alignment.mjs",
+  "src/scripts/validate-surface-level-alignment.mjs",
+  "src/scripts/validate-operating-memory-lock.mjs",
 ]);
 
 forbidden(manualPath, unsafePhrases());
@@ -343,7 +391,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with best-of-best doctrine, category-defining authority, highest practical accuracy, agent-to-captain verification, selective recurring readiness moat, forecast governance, vault-first report access, deliverability posture, dashboard message mirror, safe PDF delivery, customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, plan boundary, no-leak, agent orchestration, drift review cadence, and safe language coverage.");
+console.log("Owner operating manual validation passed with best-of-best doctrine, unified surface lock, operating memory lock, category-defining authority, highest practical accuracy, agent-to-captain verification, selective recurring readiness moat, forecast governance, vault-first report access, deliverability posture, dashboard message mirror, safe PDF delivery, customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, plan boundary, no-leak, agent orchestration, drift review cadence, and safe language coverage.");
 
 function unsafePhrases() {
   return [
