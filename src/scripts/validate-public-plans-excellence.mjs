@@ -32,18 +32,32 @@ expect(pricingContractPath, [
 expect(componentPath, [
   "getCendorqPlanPrice",
   "PLAN_KEY_BY_TITLE",
-  "Compare plans",
-  "Best for you if",
-  "Do not choose this if",
+  "Compare Plans",
+  "Choose this when",
+  "Do not choose this when",
   "Plan guardrails",
   "Buy the right depth.",
   "Use AI Readiness Review at $497 when the business needs evidence.",
   "Use Signal Repair at $1,497 when the repair target is clear enough to improve.",
-  "Use Readiness Control at $597/month when the business needs monthly attention.",
+  "Use Readiness Control at $597/month when the business needs watch, refresh, and adjustment.",
   "No fake urgency.",
   "No unsupported outcome promise.",
   "No paid push before stage fit is clear.",
   "No protected result before verification.",
+]);
+
+expect(componentPath, [
+  "PLAN_AFTER_PURCHASE_STANDARDS",
+  "After purchase standard",
+  "Vault first",
+  "Released reports, delivery summaries, and billing documents stay in the verified dashboard/report vault or billing center first.",
+  "Messages mirrored",
+  "Important email actions mirror into the dashboard with the same safe next step and support path.",
+  "PDFs gated",
+  "Downloadable or attached PDFs turn on only after verification, entitlement or provider authority, release, no-leak, and document-safety gates pass.",
+  "Verified dashboard/report vault or billing center first.",
+  "Same safe next step and support path.",
+  "Verification, entitlement or provider authority, release, no-leak, and document-safety gates pass.",
 ]);
 
 expect(plansPath, [
@@ -124,10 +138,20 @@ expect(ownerMaximumProtectionValidatorPath, [
 expect(packagePath, ["validate:routes"]);
 expect(routesChainPath, [validatorPath, "validate-owner-maximum-protection-posture.mjs"]);
 
-boundedLength(componentPath, 15500);
+boundedLength(componentPath, 22000);
 boundedLength(plansPath, 22000);
 
-forbidden(componentPath, blockedPlanPhrases());
+forbidden(componentPath, [
+  ...blockedPlanPhrases(),
+  "guaranteed inbox",
+  "guaranteed deliverability",
+  "PDF-only access path",
+  "pdf-only access path",
+  "separate truth source allowed",
+  "Deep Review / Full Scan",
+  "Build Fix / Optimization",
+  "Ongoing Control / Monthly",
+]);
 forbidden(plansPath, [
   ...blockedPlanPhrases(),
   "$750+",
@@ -152,7 +176,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans AI-readiness validation passed with Scan, Review, Repair, Control positioning, vault-first access, mirrored dashboard messages, safe PDF gates, and preserved internal checkout keys.");
+console.log("Public plans AI-readiness validation passed with Scan, Review, Repair, Control positioning, plan-detail after-purchase access standards, vault-first access, mirrored dashboard messages, safe PDF gates, and preserved internal checkout keys.");
 
 function blockedPlanPhrases() {
   return [
