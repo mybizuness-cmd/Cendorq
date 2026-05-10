@@ -224,6 +224,21 @@ expect("src/layout/site-header-conversion.tsx", [
   "description: \"Compare Scan, Review, Repair, and Control.\"",
 ]);
 
+expect("src/layout/site-footer.tsx", [
+  "AI engine readiness for businesses that need to be understood, trusted, and chosen",
+  "not a guarantee of rankings, leads, revenue, or AI placement",
+  "href=\"/privacy\"",
+  "href=\"/terms\"",
+  "href=\"/disclaimer\"",
+  "Privacy",
+  "Terms",
+  "Disclaimer",
+  "BrandMark",
+  "bg-cyan-500",
+  "bg-slate-950",
+  "bg-indigo-400",
+]);
+
 expect("src/lib/seo.ts", [
   "process.env.NEXT_PUBLIC_SITE_URL",
   "Cendorq checks whether AI engines can understand what a business does",
@@ -325,6 +340,7 @@ forbid("src/components/free-check/guided-free-check-form-v3.tsx", ["/pricing", "
 forbid("src/app/loading.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan", "command view"]);
 forbid("src/app/error.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
 forbid("src/layout/site-header-conversion.tsx", ["label: \"Pricing\"", "description: \"Choose the right depth.\"", "Diagnose", "Fix", "Deep Review", "Build Fix", "Ongoing Control"]);
+forbid("src/layout/site-footer.tsx", ["guarantee of rankings", "guarantee of leads", "guarantee of revenue", "guarantee of AI placement", "/pricing", "/contact", "/connect"]);
 forbid("src/lib/seo.ts", ["Business Command Intelligence", "Market Command Intelligence", "website trust scan", "conversion clarity review", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
 forbid("src/app/layout.tsx", ["Business Command Intelligence", "Market Command Intelligence", "business decision intelligence", "Diagnose", "Fix"]);
 forbid("src/app/opengraph-image.tsx", ["Business Command Intelligence", "Market Command Intelligence", "Stop losing customers", "Diagnose", "Fix"]);
@@ -340,7 +356,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed. Root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, dormant homepage process section, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists use the current AI Engine Readiness buyer path.");
+console.log("Public drift validation passed with footer trust links, footer no-guarantee boundary, root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, dormant homepage process section, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists using the current AI Engine Readiness buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
