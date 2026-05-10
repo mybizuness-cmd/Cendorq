@@ -2,7 +2,7 @@ export const BEST_OF_BEST_OPERATING_STANDARD = {
   id: "best-of-best-operating-standard",
   name: "Cendorq Best-of-Best Operating Standard",
   purpose:
-    "Translate outside best-in-class operating patterns from trillion-dollar and category-defining companies into Cendorq's own practical standard for product quality, customer trust, revenue surfaces, support, document delivery, dashboard continuity, and public experience discipline.",
+    "Translate outside best-in-class operating patterns from trillion-dollar and category-defining companies into Cendorq's own practical standard for product quality, customer trust, revenue surfaces, support, document delivery, dashboard continuity, security posture, legal trust boundaries, page architecture, subpage architecture, and public experience discipline.",
   researchInspiredPrinciples: [
     {
       sourcePattern: "Apple-level clarity and visual hierarchy",
@@ -60,11 +60,48 @@ export const BEST_OF_BEST_OPERATING_STANDARD = {
       proofRequirement:
         "A support interaction is not excellent unless it acknowledges the issue, explains the current state, gives one safe next action, and invites recovery without blaming the customer.",
     },
+    {
+      sourcePattern: "Best-in-class page-system discipline",
+      cendorqRule:
+        "Every page and subpage must have one job, one strongest action, one trust boundary, one recovery path, and one clear reason to exist inside the larger Cendorq operating system.",
+      proofRequirement:
+        "A page should be removed, merged, or redesigned if it cannot explain why it exists, what decision it advances, what it protects, and where the customer should go next.",
+    },
+  ],
+  pageAndSubpageOperatingSystem: [
+    "Homepage creates category authority, explains the AI Engine Readiness problem, and sends the customer to Free Scan or Plans without clutter.",
+    "Free Scan captures only useful business context, blocks sensitive data, confirms the first signal, and routes protected results to verified dashboard/report-vault access.",
+    "Plans explains Scan, Review, Repair, and Control as different decision depths with visible prices, boundaries, after-purchase access rules, and no unsupported outcome claims.",
+    "Plan-detail pages sell one plan at a time with the same global design language, plan-specific proof, included/not-included boundaries, safe checkout path, and one secondary route back to comparison.",
+    "Checkout confirms the selected depth, preserves Stripe/provider-authoritative billing trust, avoids collecting unsafe data, and routes post-payment state into dashboard, billing, messages, and report triggers.",
+    "Dashboard is the private money surface: proof first, next best action second, support/billing/report recovery always available, and no generic account-page energy.",
+    "Report vault is the protected source of truth for released findings, confidence, limitations, forecasts, documents, and correction routes before any PDF or attachment.",
+    "Billing center is provider-authoritative, document-safe, recoverable, and separated from support so no customer is asked for card data or raw payment secrets.",
+    "Notification center mirrors important customer messages, document states, next actions, and support routes so email is not the only recovery path.",
+    "Support center, support status, and support request intake acknowledge the issue, choose the right source of truth first, prevent duplicate anxiety, and collect only safe summaries.",
+    "Terms, privacy, and disclaimer pages protect the company and customer with plain-language boundaries, confident value framing, no impossible guarantees, and clean routes back to action.",
+    "Command-center and admin pages stay private, metadata-first, review-gated, and never expose the private engine, scoring weights, prompts, raw evidence, raw billing payloads, secrets, or cross-customer data.",
+  ],
+  noClutterDesignDoctrine: [
+    "Simple does not mean thin; simple means the hard thinking has already been done before the customer sees the page.",
+    "Every surface should prefer fewer stronger modules over many equal-weight sections.",
+    "A page may be visually rich only when the richness clarifies value, trust, hierarchy, or action; decoration without decision value must be removed.",
+    "Repeated CTAs must reinforce one path, not create competing decisions.",
+    "Subpages should feel uniform in system language and interaction quality while still being specific to their exact job.",
+    "Dark private dashboard surfaces should feel powerful, calm, and controlled; public surfaces should feel authoritative, clear, and easy to start.",
+  ],
+  futureProofingDoctrine: [
+    "Cendorq must assume AI/search behavior, customer expectations, competitors, security threats, platform policies, inbox delivery, and buyer psychology will keep changing.",
+    "Future-proofing means controlled continuous evolution: research, compare, test, validate, review, release, monitor, and recover without uncontrolled production mutation.",
+    "Customer-facing claims must evolve with evidence, not hype; when evidence changes, reports, lifecycle messages, dashboard guidance, and plan-fit logic should change through approved gates.",
+    "Security, SEO, accessibility, performance, legal boundaries, customer support, billing trust, and report truth must be reviewed as living systems, not launch-day checkboxes.",
+    "The system should always preserve a safe path for stronger future pages, new plan modules, new report sections, better forecasts, and cleaner dashboard actions without breaking the current customer journey.",
   ],
   nonNegotiableQualityBar: [
     "Cendorq must not look or feel like a template, agency package, generic SaaS dashboard, checkout placeholder, support ticket graveyard, or AI-generated report library.",
     "Every customer-facing surface must feel intentional, calm, high-conviction, proof-aware, and unmistakably Cendorq.",
     "Every customer action must have one strongest next move, one secondary safe route when needed, and visible boundaries about what is included and not included.",
+    "Every page and subpage must have a clear job, a clear decision, a clear owner of truth, a clear safe recovery path, and a clear reason to exist.",
     "Every paid or protected output must be recoverable from the verified dashboard, not trapped in email or an unsafe PDF attachment.",
     "Every document path must be vault-first or provider-authoritative first, no-leak checked, release/provider gated, and never a separate source of truth.",
     "Every plan surface must preserve plan value separation: Free Scan, AI Readiness Review, Signal Repair, and Readiness Control cannot blur into each other.",
@@ -80,6 +117,7 @@ export const BEST_OF_BEST_OPERATING_STANDARD = {
     "Support quality protects retention when it is personal, honest, proactive, and resolution-oriented.",
     "Document delivery earns trust only when the dashboard or provider system remains the source of truth.",
     "The front website must create category authority before the customer ever reaches checkout, but the private dashboard must prove that authority after payment.",
+    "Subpages make money when they reduce uncertainty, answer the exact buying objection for that stage, and return the customer to the right next command without adding noise.",
   ],
   operatingReviewChecklist: [
     "Does the surface instantly communicate what Cendorq is, what the customer should do, and why this is different from generic AI or agency tools?",
@@ -90,13 +128,17 @@ export const BEST_OF_BEST_OPERATING_STANDARD = {
     "Does the report vault remain the canonical protected view before PDFs or attachments?",
     "Does every important email have a mirrored dashboard message when applicable?",
     "Does support answer the human question, acknowledge the state, provide one next move, and keep the customer from duplicate anxiety?",
+    "Does the page or subpage have one job, one strongest action, one trust boundary, one recovery path, and one reason to exist?",
     "Does the system protect plan separation and future revenue while still delivering more practical value than the price paid?",
-    "Would this feel credible beside Apple-level clarity, Stripe-level trust, Shopify-level owner empowerment, Salesforce-level consistency, Microsoft-level calm, Atlassian-level foundations, and Intercom-level support?",
+    "Would this feel credible beside Apple-level clarity, Stripe-level trust, Shopify-level owner empowerment, Salesforce-level consistency, Microsoft-level calm, Atlassian-level foundations, Nielsen Norman usability discipline, and Intercom-level support?",
   ],
   blockedPatterns: [
     "template-like hero section",
     "generic SaaS dashboard copy",
     "equal-weight CTA wall",
+    "page without one job",
+    "subpage without source-of-truth role",
+    "clutter disguised as value",
     "email-only report access",
     "PDF-only customer truth",
     "raw provider payload display",
