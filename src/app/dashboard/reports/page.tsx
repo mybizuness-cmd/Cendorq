@@ -14,7 +14,7 @@ import {
 
 export const metadata = buildMetadata({
   title: "Readiness proof vault | Cendorq",
-  description: "Your private Cendorq vault for AI-readiness signals, approved reports, paid-report delivery, confidence labels, and next-step guidance.",
+  description: "Your private Cendorq vault for AI-readiness signals, approved reports, confidence labels, safe document delivery, and next-step guidance.",
   path: "/dashboard/reports",
   noIndex: true,
 });
@@ -44,7 +44,7 @@ const REPORT_LIBRARY = [
     aiPosture: "First AI-readiness signal only. It can show where the business may be unclear to customers and answer systems, but it is not a complete review.",
     notThis: "Not full review, implementation, monthly monitoring, guaranteed ranking, guaranteed AI placement, or paid-report attachment delivery.",
     nextDecision: "Unlock AI Readiness Review when the first signal matters enough that guessing would cost more than evidence.",
-    deliveryChannel: "Dashboard-only protected result unless a separate export is approved later.",
+    deliveryChannel: "Verified dashboard report vault first; export or PDF delivery only when a separate safe document gate is approved.",
     value: getPlanValueDelivery("free-scan"),
   },
   {
@@ -107,7 +107,7 @@ const REPORT_LIBRARY = [
 const REPORT_STATE = [
   { label: "Ready", value: "Readiness signal result", detail: "The first readiness signal is the only immediately actionable report type in this demo state." },
   { label: "AI-readiness posture", value: "Signal, proof, risk, limit", detail: "Reports explain what is visible, what it may mean, what is limited, and which layer comes next." },
-  { label: "Paid proof", value: "Dashboard + email attachment", detail: "AI Readiness Review, Signal Repair, and Readiness Control reports must appear in the vault and arrive by email with an approved PDF." },
+  { label: "Released delivery", value: "Vault first + mirrored", detail: "Paid reports must appear in the verified report vault first; email, mirrored dashboard messages, downloadable PDFs, or attachments activate only after entitlement, release, no-leak, and document-safety gates." },
 ] as const;
 
 const REPORT_ACTIONS = [
@@ -116,10 +116,30 @@ const REPORT_ACTIONS = [
   { title: "Compare readiness depth", href: "/plans", value: "Choose the next stage" },
 ] as const;
 
+const REPORT_DOCUMENT_RULES = [
+  {
+    title: "Vault is source",
+    copy: "The report vault is the canonical customer view. Email, dashboard messages, downloads, and PDFs must match this released state.",
+  },
+  {
+    title: "Messages mirrored",
+    copy: "Report-ready, correction, support, and delivery emails should mirror into dashboard messages with the same safe next action.",
+  },
+  {
+    title: "PDFs gated",
+    copy: "Report PDFs are static, branded, no-leak checked, and enabled only after entitlement, verified access, release, and document-safety gates pass.",
+  },
+  {
+    title: "Correction path visible",
+    copy: "Questions, corrections, and revised reports route through support and release-captain approval before customer-facing changes.",
+  },
+] as const;
+
 const REPORT_VAULT_RULES = [
   "Pending, draft, or unavailable reports must never look final.",
   "Scan, Review, Repair, and Control report types must remain visibly separate.",
-  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF.",
+  "Every paid plan report must be accessible from the verified dashboard report vault before any email, downloadable PDF, or attachment path is enabled.",
+  "Email summaries, mirrored dashboard messages, downloadable PDFs, and attachments must not create a separate source of truth from the report vault.",
   "AI-readiness posture must be useful and bounded: no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control.",
 ] as const;
 
@@ -137,7 +157,7 @@ export default function ReportsVaultPage() {
             Keep the record of what customers and AI engines can understand.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            This vault stores the business readiness record: first signals, approved proof, AI-readiness posture, confidence limits, paid delivery, and the next decision.
+            This vault stores the business readiness record: first signals, approved proof, AI-readiness posture, confidence limits, safe document state, and the next decision.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/reports/free-scan" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -199,6 +219,7 @@ export default function ReportsVaultPage() {
                   <div className="max-w-2xl">
                     <p className="text-sm leading-6 text-slate-300">{report.deliveryMeaning}</p>
                     <p className="mt-2 text-xs font-semibold leading-5 text-cyan-100/80">AI-readiness posture: {report.aiPosture}</p>
+                    <p className="mt-2 text-xs font-semibold leading-5 text-slate-400">Delivery: {report.deliveryChannel}</p>
                   </div>
                   <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
                     <div className="text-sm font-black text-cyan-100">{report.value.price}</div>
@@ -208,6 +229,18 @@ export default function ReportsVaultPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Report document delivery standard">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {REPORT_DOCUMENT_RULES.map((item) => (
+            <article key={item.title} className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]">
+              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">Report documents</div>
+              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-white">{item.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -226,7 +259,7 @@ export default function ReportsVaultPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025)_38%,rgba(103,232,249,0.08))] p-6 shadow-[0_45px_180px_rgba(2,8,23,0.55)] backdrop-blur-2xl sm:p-8 lg:p-10">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Vault standard</p>
           <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl">Useful only when report depth, AI-readiness posture, and delivery are impossible to confuse.</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
             {REPORT_VAULT_RULES.map((rule) => (
               <p key={rule} className="rounded-[1.35rem] border border-white/10 bg-black/25 p-4 text-sm font-semibold leading-7 text-slate-300">{rule}</p>
             ))}
@@ -235,7 +268,7 @@ export default function ReportsVaultPage() {
       </section>
 
       <section className="sr-only" aria-label="Report vault guardrails">
-        Readiness proof vault. Paid plan report delivery operating system. Keep the record of what customers and AI engines can understand. Nothing final until approved. Scan. Review. Repair. Control. Different proof for every readiness depth. AI-readiness posture. Readiness signal result dashboard-only protected result. AI Readiness Review report dashboard plus email attachment. Signal Repair summary dashboard plus email attachment. Readiness Control monthly summary dashboard plus email attachment. Useful only when report depth, AI-readiness posture, and delivery are impossible to confuse. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Readiness proof vault. Paid plan report delivery operating system. Keep the record of what customers and AI engines can understand. Nothing final until approved. Scan. Review. Repair. Control. Different proof for every readiness depth. AI-readiness posture. Readiness signal result vault-first protected result. AI Readiness Review report vault-first with mirrored dashboard message and safe document gates. Signal Repair summary vault-first with mirrored dashboard message and safe document gates. Readiness Control monthly summary vault-first with mirrored dashboard message and safe document gates. Useful only when report depth, AI-readiness posture, and delivery are impossible to confuse. Report documents. Vault is source. Messages mirrored. PDFs gated. Correction path visible. No separate source of truth. No PDF-only access path. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_DOCUMENT_RULES.map((item) => `${item.title} ${item.copy}`).join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
@@ -243,7 +276,7 @@ export default function ReportsVaultPage() {
 
 function paidDelivery(planKey: "deep-review" | "build-fix" | "ongoing-control") {
   const contract = PAID_REPORT_BY_PLAN[planKey];
-  return contract ? `Dashboard report plus ${contract.attachmentContentType} email attachment after ${contract.releaseGate}.` : "Dashboard report plus approved email attachment.";
+  return contract ? `Vault-first report with mirrored dashboard message, email summary, downloadable PDF, or attachment only after ${contract.releaseGate}, entitlement, no-leak, and document-safety gates pass.` : "Vault-first report with mirrored dashboard message and safe document delivery only after approval gates pass.";
 }
 
 function paidAiPosture(planKey: "deep-review" | "build-fix" | "ongoing-control") {
