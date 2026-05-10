@@ -17,6 +17,7 @@ const executedValidators = [
   "src/scripts/validate-current-operating-research-notes.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
+  "src/scripts/validate-surface-level-alignment.mjs",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "src/scripts/validate-build-gate-hardening-standard.mjs",
   "src/scripts/validate-support-channel-operating-standard.mjs",
@@ -55,6 +56,7 @@ const doctrineFiles = [
   "docs/current-operating-research-notes.md",
   "docs/best-of-best-operating-standard.md",
   "src/lib/unified-experience-alignment.ts",
+  "src/scripts/validate-surface-level-alignment.mjs",
   "docs/acquisition-to-retention-operating-system.md",
   "docs/build-gate-hardening-standard.md",
   "docs/support-channel-operating-standard.md",
@@ -81,9 +83,7 @@ if (!failures.length) {
   if (!packageText.includes('"validate:routes": "node ./src/scripts/validate-routes-chain.mjs"')) failures.push("package.json must delegate validate:routes to the practical route chain.");
   if (duplicates.length) failures.push(`validate-routes-chain has duplicate executed validators: ${[...new Set(duplicates)].join(", ")}`);
 
-  if (chainValidators.slice(0, executedValidators.length).join("\n") !== executedValidators.join("\n")) {
-    failures.push("validate-routes-chain executed validator order must match the protected practical chain.");
-  }
+  if (chainValidators.slice(0, executedValidators.length).join("\n") !== executedValidators.join("\n")) failures.push("validate-routes-chain executed validator order must match the protected practical chain.");
 
   for (const validator of documentedCoverageValidators) {
     if (!documentedChainValidators.includes(validator)) failures.push(`${chainPath} missing documented adjacent validator: ${validator}`);
@@ -95,6 +95,7 @@ if (!failures.length) {
     "current operating research notes",
     "best-of-best operating standard",
     "unified experience alignment",
+    "surface-level alignment",
     "acquisition-to-retention operating system",
     "build gate hardening",
     "support channel operating standard",
@@ -120,6 +121,15 @@ if (!failures.length) {
     "Dashboard surfaces act as the customer command room",
     "Mobile is the main entrance; desktop is the command room",
     "cheap-looking generic blocks",
+  ]);
+
+  expect("src/scripts/validate-surface-level-alignment.mjs", read("src/scripts/validate-surface-level-alignment.mjs"), [
+    "src/app/page.tsx",
+    "src/app/plans/page.tsx",
+    "src/app/dashboard/dashboard-business-command-center.tsx",
+    "src/app/dashboard/billing/page.tsx",
+    "src/app/dashboard/reports/page.tsx",
+    "src/app/dashboard/support/page.tsx",
   ]);
 
   expect(docsIndexPath, docsText, [
@@ -155,7 +165,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed with operating memory lock, current research, best-of-best, unified experience alignment, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
+console.log("Validate routes chain integrity passed with operating memory lock, current research, best-of-best, unified experience alignment, surface-level alignment, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
 function arrayValues(text, name) {
   const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
