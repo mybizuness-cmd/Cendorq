@@ -5,6 +5,8 @@ This private documentation index keeps the Command Center operating standards ea
 ## Core standards
 
 - `docs/current-operating-research-notes.md` — current-source refresh standard for search, AI discovery, analytics, performance, advertising readiness, brand filing preparation, security, deployment posture, public sharing, campaign naming, and the rule to not move from stale memory.
+- `docs/brand-trademark-operating-standard.md` — brand and trademark operating standard for wordmark, signal mark, logo ownership, source artwork, clearance review, five owner filing steps, specimens, qualified legal review, and no guaranteed trademark registration or competitor blocking claims.
+- `docs/legal-trust-crawler-readiness-standard.md` — legal, trust, crawler, ad-platform, and public reputation readiness standard for policy pages, concise claim boundaries, crawler-friendly public trust signals, private-customer discovery boundaries, and dispute-risk reduction.
 - `docs/best-of-best-operating-standard.md` — best-of-best operating standard translating Apple-level clarity, Stripe-level billing trust, Shopify-level owner empowerment, Salesforce-level system consistency, Microsoft-level calm interaction, Atlassian-level documented foundations, Nielsen Norman usability discipline, Intercom-level support, page/subpage architecture, no-clutter design, and future-proofing into Cendorq-specific product quality, revenue-surface, dashboard, report, billing, support, lifecycle, document-delivery, and validator-backed operating rules.
 - `docs/acquisition-to-retention-operating-system.md` — full journey operating standard for public discovery, SEO/AI-readiness visibility, landing clarity, public page roles, conversion, checkout, lifecycle email, dashboard retention, report value, support recovery, security/privacy boundaries, reactivation, and continuous improvement without guaranteed ranking, traffic, indexing, AI placement, or revenue claims.
 - `docs/build-gate-hardening-standard.md` — build gate hardening standard for locked install, validate:routes, typecheck, lint, production build, CodeQL adjacency, minimal workflow permissions, no deploy mutation in validation workflow, rollback posture, and release-captain review.
@@ -24,6 +26,11 @@ This private documentation index keeps the Command Center operating standards ea
 
 - `docs/current-operating-research-notes.md`
 - `src/scripts/validate-current-operating-research-notes.mjs`
+- `docs/brand-trademark-operating-standard.md`
+- `src/scripts/validate-brand-trademark-operating-standard.mjs`
+- `src/scripts/validate-logo-readiness-standard.mjs`
+- `docs/legal-trust-crawler-readiness-standard.md`
+- `src/scripts/validate-legal-trust-crawler-readiness-standard.mjs`
 - `docs/best-of-best-operating-standard.md`
 - `src/lib/best-of-best-operating-standard.ts`
 - `src/scripts/validate-best-of-best-operating-standard.mjs`
@@ -41,13 +48,15 @@ This private documentation index keeps the Command Center operating standards ea
 - `src/scripts/validate-command-design-operating-standard.mjs`
 - `src/scripts/validate-public-drift.mjs`
 
-Command design applies to public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, and validation guardrails. It must preserve Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, and the safest-next-command rule without exposing private mechanics. Best-of-best operating standard applies before downstream customer-delivery validators so public pages, dashboard sales surfaces, billing, report vault, notifications, support, lifecycle, and plan delivery inherit one Cendorq quality bar. Acquisition-to-retention operating system applies across public discovery, landing, conversion, checkout, dashboard, reports, lifecycle email, support, retention, reactivation, and security/privacy boundaries.
+Command design applies to public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, legal/trust surfaces, crawler-facing public trust signals, and validation guardrails. It must preserve Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, and the safest-next-command rule without exposing private mechanics. Best-of-best operating standard applies before downstream customer-delivery validators so public pages, dashboard sales surfaces, billing, report vault, notifications, support, lifecycle, and plan delivery inherit one Cendorq quality bar. Acquisition-to-retention operating system applies across public discovery, landing, conversion, checkout, dashboard, reports, lifecycle email, support, retention, reactivation, and security/privacy boundaries.
 
 ## Required source-of-truth areas
 
 - Best-of-best operating standard: `src/lib/best-of-best-operating-standard.ts`
 - Acquisition-to-retention operating system: `docs/acquisition-to-retention-operating-system.md`
 - Current operating research notes: `docs/current-operating-research-notes.md`
+- Brand and trademark operating standard: `docs/brand-trademark-operating-standard.md`
+- Legal, trust, and crawler readiness standard: `docs/legal-trust-crawler-readiness-standard.md`
 - Build gate hardening standard: `docs/build-gate-hardening-standard.md`
 - Device experience and performance standard: `docs/device-experience-performance-standard.md`
 - Support channel operating standard: `docs/support-channel-operating-standard.md`
@@ -57,37 +66,8 @@ Command design applies to public pages, fallback states, protected customer surf
 - Security posture: `src/lib/command-center/security-posture.ts`
 - Panel registry: `src/lib/command-center/panel-registry.ts`
 - Validation registry: `src/lib/command-center/validation-registry.ts`
-- Admin command-center safe projection registry, route contract metadata, route contract summary, and projection link count: `src/lib/admin-command-center-safe-projection-registry.ts`
-- Admin command-center safe access helper: `src/lib/admin-command-center-safe-access.ts`
-- Admin command-center safe response and options helper: `src/lib/admin-command-center-safe-response.ts`
-- Report truth engine: `src/lib/command-center/report-truth-engine.ts`
-- Report evidence orchestration: `src/lib/command-center/report-evidence-orchestration.ts`
-- Report evidence orchestration runtime: `src/lib/command-center/report-evidence-orchestration-runtime.ts`
-- Report evidence record contracts: `src/lib/command-center/report-evidence-record-contracts.ts`
-- Report evidence record runtime: `src/lib/command-center/report-evidence-record-runtime.ts`
-- Report evidence record persistence runtime: `src/lib/command-center/report-evidence-record-persistence-runtime.ts`
-- Report growth system: `src/lib/command-center/report-growth-system.ts`
-- Controlled market learning: `src/lib/command-center/controlled-market-learning.ts`
 - Controlled continuous evolution: `src/lib/controlled-continuous-evolution-contracts.ts`
 - Controlled maintenance: `src/lib/controlled-maintenance-contracts.ts`
-- Enterprise operating standard: `src/lib/command-center/enterprise-operating-standard.ts`
-- Audit defense system: `src/lib/command-center/audit-defense-system.ts`
-- Most-pristine system standard: `src/lib/command-center/most-pristine-system-standard.ts`
-- Audit/report record contracts: `src/lib/command-center/audit-report-record-contracts.ts`
-- Scale resilience standard: `src/lib/command-center/scale-resilience-standard.ts`
-- Customer platform standard: `src/lib/command-center/customer-platform-standard.ts`
-- Customer command experience standard: `src/lib/command-center/customer-command-experience-standard.ts`
-- Conversion moat standard: `src/lib/command-center/conversion-moat-standard.ts`
-- Insights conversation standard: `src/lib/command-center/insights-conversation-standard.ts`
-- Readiness summary: `src/lib/command-center/readiness-summary.ts`
-- Database readiness: `src/lib/command-center/database-readiness.ts`
-- Auth readiness: `src/lib/command-center/auth-readiness.ts`
-- File storage readiness: `src/lib/command-center/file-storage-readiness.ts`
-- Billing readiness: `src/lib/command-center/billing-readiness.ts`
-- Delivery readiness: `src/lib/command-center/delivery-readiness.ts`
-- Automation readiness: `src/lib/command-center/automation-readiness.ts`
-- Governance readiness: `src/lib/command-center/governance-readiness.ts`
-- Intelligence readiness: `src/lib/command-center/intelligence-readiness.ts`
 
 ## Customer delivery and lifecycle source-of-truth areas
 
@@ -110,6 +90,9 @@ Customer delivery must remain vault-first, verified-access-first, dashboard-mirr
 These validators protect the current checkout-to-report-to-retention delivery chain:
 
 - `src/scripts/validate-current-operating-research-notes.mjs` — current-source discipline for search, AI discovery, analytics, performance, advertising readiness, brand filing preparation, security, and deployment posture.
+- `src/scripts/validate-brand-trademark-operating-standard.mjs` — brand/trademark operating discipline for distinctive assets, logo ownership posture, five owner filing steps, qualified legal review, no guaranteed registration, and no guaranteed competitor blocking.
+- `src/scripts/validate-logo-readiness-standard.mjs` — signal-mark readiness validation for source artwork, visual clearance, owner files, small-size recognition, and wordmark-plus-signal consistency.
+- `src/scripts/validate-legal-trust-crawler-readiness-standard.mjs` — legal/trust/crawler validation for policy pages, sitemap, robots, security contact, public trust signals, concise boundaries, and private-customer discovery separation.
 - `src/scripts/validate-best-of-best-operating-standard.mjs` — research-inspired Cendorq-specific quality bar for product hierarchy, page/subpage architecture, no-clutter design, future-proofing, billing trust, customer empowerment, system consistency, calm interaction, documented foundations, usability discipline, human support, money-making recovery, and blocked generic patterns.
 - `src/scripts/validate-acquisition-to-retention-operating-system.mjs` — full journey validation for discovery before the visit, landing clarity, public page roles, conversion, checkout, lifecycle email, dashboard retention, report value, support recovery, security/privacy boundaries, reactivation, and continuous improvement.
 - `src/scripts/validate-build-gate-hardening-standard.mjs` — build-gate validation for locked install, validate:routes, typecheck, lint, production build, CodeQL adjacency, minimal workflow permissions, no deploy mutation, and rollback posture.
@@ -122,40 +105,16 @@ These validators protect the current checkout-to-report-to-retention delivery ch
 - `src/scripts/validate-public-drift.mjs` — public buyer path, Plans alignment, dashboard command language, and old-route/old-language blocking.
 - `src/scripts/validate-owner-operating-manual.mjs` — owner doctrine for vault-first access, deliverability, mirrored dashboard messages, safe PDF delivery, report truth, plan boundaries, and release-captain authority.
 
-Delivery validation must preserve: acquisition-to-retention operating system, best-of-best operating standard, verified email before protected report access, dashboard/report vault as source of truth, mirrored dashboard messages for important emails, safe PDF delivery only after gates pass, provider-authoritative billing PDFs, no guaranteed deliverability claims, no guaranteed inbox placement claims, no guaranteed ranking or traffic promises, no guaranteed indexing or AI answer placement promises, no PDF-only access path, and no raw/private data projection.
+Delivery validation must preserve: acquisition-to-retention operating system, brand and trademark operating standard, legal/trust/crawler readiness, best-of-best operating standard, verified email before protected report access, dashboard/report vault as source of truth, mirrored dashboard messages for important emails, safe PDF delivery only after gates pass, provider-authoritative billing PDFs, no guaranteed deliverability claims, no guaranteed inbox placement claims, no guaranteed ranking or traffic promises, no guaranteed indexing or AI answer placement promises, no guaranteed trademark registration or competitor blocking claims, no PDF-only access path, and no raw/private data projection.
 
 ## Route-chain integrity standard
 
-`src/scripts/validate-routes-chain-integrity.mjs` must run first in `validate:routes`, preserve validator ordering, block duplicate validators, require high-risk guardrail files, verify current research, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, maximum-protection standard coverage, CodeQL workflow integrity coverage, repo update scanning automation coverage, controlled continuous evolution coverage, and indirect report evidence validators.
+`src/scripts/validate-routes-chain-integrity.mjs` must run first in `validate:routes`, preserve validator ordering, block duplicate validators, require high-risk guardrail files, verify current research, brand/trademark operating standard, logo readiness, legal/trust/crawler readiness, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, maximum-protection standard coverage, CodeQL workflow integrity coverage, repo update scanning automation coverage, controlled continuous evolution coverage, and indirect report evidence validators.
 
 ## Maximum protection standard
 
 `src/scripts/validate-maximum-protection-standard.mjs` must keep `docs/maximum-protection-standard.md`, `src/lib/command-center/validation-registry.ts`, and `validate:routes` aligned with Cendorq's highest-protection doctrine. Maximum protection must preserve data classification, deny-by-default access, server-side private data handling, secret handling, exfiltration prevention, AI-agent containment, report protection, evidence protection, supply-chain protection, database protection, auditability, emergency controls, partner boundaries, safe indexing, detection, response, recovery, and public doctrine boundaries without exposing private mechanics.
 
-## Owner maximum protection posture
-
-`src/scripts/validate-owner-maximum-protection-posture.mjs` must keep `docs/owner-maximum-protection-posture.md`, `docs/maximum-protection-standard.md`, the validation registry anchor, and `validate:routes` aligned with owner-level operating decisions.
-
-## CodeQL workflow integrity standard
-
-`src/scripts/validate-codeql-workflow-integrity.mjs` must keep `.github/workflows/codeql.yml`, `actions/checkout@v6`, `github/codeql-action/init@v4`, `github/codeql-action/analyze@v4`, JavaScript/TypeScript analysis, and secure permissions aligned.
-
-## Repo update scanning automation standard
-
-`src/scripts/validate-repo-update-scanning-automation.mjs` must keep `docs/repo-update-scanning-automation.md`, `.github/dependabot.yml`, `.github/workflows/codeql.yml`, dependency integrity, most-pristine coverage, and release-captain review posture aligned.
-
-## Controlled continuous evolution standard
-
-`src/scripts/validate-controlled-continuous-evolution.mjs` must keep `docs/controlled-continuous-evolution.md`, `src/lib/controlled-continuous-evolution-contracts.ts`, route-chain integrity, validation registry, docs index, operator runbook, owner operating manual, and most-pristine coverage aligned with monitored, validated, reviewable, reversible updates.
-
-## Controlled maintenance standard
-
-`src/scripts/validate-controlled-maintenance-contracts.mjs` must keep `docs/controlled-maintenance.md`, `src/lib/controlled-maintenance-contracts.ts`, and `validate:routes` aligned with safe update queues, review streams, validation gates, rollback planning, and audit-ready maintenance posture.
-
-## Required cockpit validators
-
-These validators must stay wired into `validate:routes`: `src/scripts/validate-routes-chain-integrity.mjs`, `src/scripts/validate-current-operating-research-notes.mjs`, `src/scripts/validate-best-of-best-operating-standard.mjs`, `src/scripts/validate-unified-experience-alignment.mjs`, `src/scripts/validate-surface-level-alignment.mjs`, `src/scripts/validate-device-experience-performance-standard.mjs`, `src/scripts/validate-acquisition-to-retention-operating-system.mjs`, `src/scripts/validate-build-gate-hardening-standard.mjs`, `src/scripts/validate-support-channel-operating-standard.mjs`, `src/scripts/validate-command-design-operating-standard.mjs`, `src/scripts/validate-public-drift.mjs`, `src/scripts/validate-maximum-protection-standard.mjs`, `src/scripts/validate-owner-maximum-protection-posture.mjs`, `src/scripts/validate-codeql-workflow-integrity.mjs`, `src/scripts/validate-command-center-validation-registry.mjs`, `src/scripts/validate-report-truth-engine.mjs`, `src/scripts/validate-pricing-checkout-orchestration.mjs`, `src/scripts/validate-billing-checkout-contracts.mjs`, `src/scripts/validate-dashboard-action-inbox.mjs`, `src/scripts/validate-plan-delivery-orchestration-contracts.mjs`, `src/scripts/validate-command-center-operator-runbook.mjs`, `src/scripts/validate-command-center-docs-index.mjs`, `src/scripts/validate-owner-operating-manual.mjs`, and `src/scripts/validate-production-smoke-coverage.mjs`.
-
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, command design standard, best-of-best operating standard, acquisition-to-retention operating system, build gate hardening standard, device experience and performance standard, support channel operating standard, current operating research note, fallback recovery guard, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, customer delivery or safe document delivery rule, dashboard message mirror rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, PDF internals, deliverability internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, command design standard, brand/trademark operating standard, logo readiness standard, legal/trust/crawler readiness standard, best-of-best operating standard, acquisition-to-retention operating system, build gate hardening standard, device experience and performance standard, support channel operating standard, current operating research note, fallback recovery guard, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, customer delivery or safe document delivery rule, dashboard message mirror rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, PDF internals, deliverability internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
