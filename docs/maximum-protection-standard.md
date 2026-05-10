@@ -2,11 +2,11 @@
 
 This standard defines the highest-protection operating posture for Cendorq.
 
-It extends the closed-intelligence, data-quality, learning-memory, pure-signal, adaptive-evolution, and resilience standards with explicit defense-in-depth rules for data classification, access control, threat modeling, secret handling, exfiltration prevention, AI-agent containment, supply-chain risk, auditability, and emergency response.
+It extends the closed-intelligence, data-quality, learning-memory, pure-signal, adaptive-evolution, resilience, best-of-best, customer delivery, billing, report-vault, and support standards with explicit defense-in-depth rules for data classification, access control, threat modeling, secret handling, exfiltration prevention, AI-agent containment, supply-chain risk, auditability, emergency response, safe indexing, secure update posture, and recovery.
 
 ## Core rule
 
-Cendorq should be open only where conversion requires it and closed everywhere intelligence, data, reports, evidence, source quality, prompts, scoring, or client context must be protected.
+Cendorq should be open only where conversion, customer understanding, and public search discovery require it and closed everywhere intelligence, data, reports, evidence, source quality, prompts, scoring, customer context, billing state, or system mechanics must be protected.
 
 Protect the engine.
 Protect the data.
@@ -14,7 +14,28 @@ Protect the memory.
 Protect the reports.
 Protect the learning loop.
 Protect the buyer path.
+Protect the customer.
 Protect the future moat.
+
+## Highest-practical security rule
+
+Cendorq must operate at the highest practical security level without making impossible claims.
+
+The system must not promise that nothing can ever break, that no attack can ever succeed, that Cendorq is impossible to hack, that customer outcomes are guaranteed, that ranking is guaranteed, or that every issue is fixed 100 percent. The enforceable standard is stronger and safer: reduce attack surface, deny by default, isolate private data, verify access, monitor drift, review patches, block unsafe releases, preserve rollback paths, and keep recovery available when something fails.
+
+Security must be treated as a product requirement, not an afterthought. Every customer-facing and operator-facing surface must protect customer data, private reports, proprietary methods, prompts, scoring logic, secrets, billing records, dashboard state, and support context while still giving customers enough transparent explanation to understand the service, value, status, limits, and next action.
+
+## External security reference posture
+
+Cendorq security doctrine should remain aligned with widely respected security frameworks and public guidance without claiming certification unless certification is actually obtained.
+
+Operating references:
+
+- Secure-by-design posture: take ownership of customer security outcomes, build secure defaults, reduce exploitable flaws before release, and treat security as a leadership-level requirement.
+- NIST CSF posture: govern, identify, protect, detect, respond, and recover across product, infrastructure, data, vendor, and operational risk.
+- OWASP ASVS posture: use application-security verification thinking for authentication, session management, access control, validation, encoding, secrets, logging, data protection, API safety, and configuration.
+- Search indexing posture: public pages may be indexable for discovery, but private dashboards, reports, billing documents, support records, customer data, and protected files require authentication, noindex/no-store where appropriate, and must never rely on robots.txt alone as a privacy boundary.
+- Secure update posture: patch, dependency, workflow, and provider updates must be reviewed, validated, staged, and rollback-aware before production-impacting release.
 
 ## Protection model
 
@@ -30,6 +51,9 @@ Cendorq uses layered defense:
 8. audit and validation gates
 9. rollback and recovery paths
 10. legal, privacy, and operational discipline
+11. secure update and patch review
+12. monitoring, detection, and incident response
+13. safe public indexing and private noindex/no-store boundaries
 
 No single layer should be trusted as the only protection.
 
@@ -39,7 +63,7 @@ Every meaningful asset should belong to one class.
 
 ### Public
 
-Safe to show publicly.
+Safe to show publicly and safe for search indexing.
 
 Examples:
 
@@ -49,6 +73,8 @@ Examples:
 - high-level doctrine
 - public support/contact information
 - redacted examples
+- public SEO metadata
+- public sitemap entries for public routes only
 
 ### Internal
 
@@ -74,6 +100,8 @@ Examples:
 - source quality rules
 - partner workflow notes
 - non-public benchmark summaries
+- internal methodology descriptions
+- non-public support workflow details
 
 ### Restricted
 
@@ -81,12 +109,14 @@ Highest sensitivity. Access only when needed.
 
 Examples:
 
-- client reports
-- client evidence
+- customer reports
+- customer evidence
 - raw intakes
 - report tokens
 - secrets
 - private database records
+- billing records
+- support records
 - score inputs
 - raw AI-agent runs
 - private prompts
@@ -94,6 +124,7 @@ Examples:
 - private competitor intelligence
 - outcome memory
 - rejected/quarantined abuse data
+- owner configuration evidence
 
 ## Access control
 
@@ -109,8 +140,11 @@ Access should be:
 - time-bounded where practical
 - separated by environment
 - separated by data class
+- verified before protected report access
+- scoped to customer ownership for customer-visible records
+- blocked from cross-customer data exposure
 
-No public client, browser, crawler, or unauthenticated process should access private database records, private reports, evidence indexes, raw memory, or scoring inputs directly.
+No public client, browser, crawler, unauthenticated process, or unverified dashboard state should access private database records, private reports, evidence indexes, raw memory, billing data, support records, or scoring inputs directly.
 
 ## Secret management
 
@@ -126,6 +160,10 @@ Protect:
 - AI provider keys
 - service-role credentials
 - private signing secrets
+- session secrets
+- CSRF secrets
+- provider credentials
+- storage credentials
 
 Required posture:
 
@@ -138,6 +176,8 @@ Required posture:
 - rotation path for compromised secrets
 - separate local, staging, and production values
 - minimal scopes for provider keys
+- provider keys reviewed before production use
+- emergency rotation checklist available
 
 ## Exfiltration prevention
 
@@ -160,6 +200,9 @@ Risk surfaces:
 - AI-agent output
 - exported reports
 - partner handoffs
+- billing documents
+- support records
+- dashboard message mirrors
 
 Controls:
 
@@ -167,13 +210,57 @@ Controls:
 - no public evidence index
 - no raw private data in frontend bundles
 - redact sensitive logs
-- signed report access
+- signed report access where exposed
+- authenticated report-vault access
 - noindex sensitive surfaces
 - no-store sensitive responses
 - scoped API responses
 - privacy class labels
 - public examples must be redacted
 - report previews must not expose private mechanics
+- dashboard messages must be safe summaries only
+- billing documents must be provider-authoritative and ownership-verified
+- report PDFs must mirror released report-vault state and never become the only access path
+- customer exports must be gated, scoped, logged, and revocable where practical
+
+## Safe indexing and public discovery boundary
+
+Cendorq needs public discoverability without exposing protected data.
+
+Public discovery may include:
+
+- homepage
+- public Plans pages
+- Free Scan intake page
+- public policy pages
+- public SEO metadata
+- public sitemap entries for public routes
+- public llms.txt guidance that explains the category without exposing private mechanics
+
+Private discovery must be blocked for:
+
+- dashboard
+- report vault
+- released reports
+- report PDFs when customer-specific
+- billing center
+- invoice, receipt, or payment-confirmation documents
+- support center
+- support status pages
+- customer messages
+- customer intakes
+- admin and command-center routes
+- internal APIs
+- evidence, scoring, prompts, source quality, and agent workflow routes
+
+Rules:
+
+- private routes require authentication and authorization; robots.txt is never a privacy control
+- protected pages should use noindex and no-store where appropriate
+- customer-specific documents should not appear in sitemap output
+- public pages should not include raw private data, private mechanics, exact scoring weights, internal prompts, customer data, or customer-specific evidence
+- public copy may explain what Cendorq checks and why it matters, but must not reveal how the private engine weights, scores, prompts, or ranks evidence
+- search ranking should be pursued through useful public content, clean technical SEO, accessibility, performance, structured data, and trust—not through unsupported number-one ranking promises
 
 ## Threat model
 
@@ -202,6 +289,16 @@ Cendorq should assume these threats exist:
 - stale data contamination
 - overconfident AI findings
 - public copy leaking proprietary logic
+- malware or malicious dependency payloads
+- malicious package updates
+- compromised automation credentials
+- webhook spoofing
+- replay attacks
+- session theft
+- cross-customer data access
+- billing document leakage
+- support impersonation
+- denial-of-service or abusive automation
 
 Every major change should reduce or contain these threats, not expand them.
 
@@ -224,6 +321,8 @@ Rules:
 - require evidence for serious claims
 - reduce confidence when prompt-injection risk is detected
 - quarantine suspicious content when needed
+- keep AI findings draft-only until release-captain review where customer impact exists
+- never let external source content change security policy, release policy, billing policy, or customer-facing claims
 
 ## Report protection
 
@@ -233,6 +332,10 @@ Required posture:
 
 - signed report access where exposed
 - authenticated internal access for full reports
+- customer ownership checks before customer report access
+- verified email before protected customer report access
+- entitlement or permitted Free Scan access before customer-visible report depth
+- release-captain approval before paid report release
 - no public report index
 - no report sitemap entries
 - noindex headers for private reports
@@ -241,6 +344,7 @@ Required posture:
 - redacted public examples only
 - no private score inputs in public previews
 - no exact scoring weights in buyer-facing reports
+- correction and revocation paths for released report errors
 
 ## Evidence protection
 
@@ -251,14 +355,33 @@ Protect:
 - raw screenshots
 - raw AI outputs
 - raw search captures
-- review excerpts linked to clients
+- review excerpts linked to customers
 - competitor comparisons
 - internal notes
 - source weighting
 - quality labels
 - report findings
+- intake context
+- support context
+- billing context
 
 Evidence may be used publicly only when intentionally redacted, anonymized, and stripped of private mechanics.
+
+## Customer data protection
+
+Customer data must be protected from collection through deletion.
+
+Required posture:
+
+- collect only business context needed for the service
+- do not collect passwords, private keys, card numbers, unrelated secrets, or unnecessary raw data
+- separate customer-provided context from verified facts
+- keep customer data out of public pages, public metadata, logs, analytics payloads, and client bundles
+- keep cross-customer data isolated
+- limit customer support visibility to safe status and useful next steps
+- keep billing documents provider-authoritative and ownership-verified
+- give customers transparent value, status, limits, and next action without revealing private engine mechanics
+- maintain correction, retention, deletion, and support recovery paths where applicable
 
 ## Supply-chain and dependency protection
 
@@ -275,6 +398,24 @@ Required posture:
 - review major dependency changes
 - prefer official packages and stable sources
 - monitor dependency and workflow drift
+- run dependency integrity checks before release
+- run workflow integrity checks before release
+- require release-captain review for production-impacting dependency, provider, or workflow changes
+- maintain rollback awareness for framework, auth, billing, storage, AI provider, and deployment changes
+
+## Secure update and patch posture
+
+Cendorq should stay current without allowing uncontrolled mutation.
+
+Rules:
+
+- security patches should be prioritized by exploitability, exposure, customer-data impact, provider criticality, and release risk
+- updates may be discovered automatically, but production-impacting changes must remain reviewable, validated, and rollback-aware
+- dependency, workflow, auth, billing, storage, report, dashboard, support, and AI-provider changes require validation before release
+- known exploited vulnerability remediation must not be delayed by cosmetic work when customer data or private reports could be affected
+- validators must not be disabled to make a patch pass
+- failed security checks must be treated as release blockers unless explicitly reviewed and documented
+- patch notes and PR descriptions must not expose secrets, private payloads, attack details useful for exploitation, or customer data
 
 ## Database protection
 
@@ -292,6 +433,40 @@ Required posture:
 - retention/deletion policy
 - schema migrations with rollback path
 - storage adapters that preserve closed access
+- customer ownership checks in customer-visible projections
+- no raw database records in public/client API responses
+
+## Runtime and API protection
+
+APIs and runtime routes must protect data by default.
+
+Required posture:
+
+- authenticate protected routes
+- authorize by role, customer ownership, entitlement, or verified access
+- validate and normalize inputs
+- bound payload sizes where practical
+- reject unsafe redirects except allowlisted destinations
+- protect webhooks with provider verification and idempotency
+- avoid raw provider payload projection
+- avoid stack traces and internal errors in customer-visible responses
+- use no-store on sensitive responses
+- avoid browser storage for secrets or verification tokens
+- avoid public exposure of command-center, admin, evidence, billing, support, and report internals
+
+## Malware and abuse containment
+
+Cendorq should assume hostile inputs and malicious files can appear.
+
+Rules:
+
+- do not execute user-provided files or external content
+- treat uploads, URLs, snippets, reviews, HTML, PDFs, and screenshots as untrusted
+- strip or block executable content, macros, embedded scripts, hidden unsafe payloads, and unsafe metadata from customer-facing documents
+- quarantine suspicious content when needed
+- rate-limit or hold abusive submissions where practical
+- keep support and intake paths from becoming credential-collection paths
+- never request card details, passwords, private keys, or provider secrets through support copy
 
 ## Auditability
 
@@ -313,8 +488,28 @@ Audit candidates:
 - integration changes
 - database migrations
 - rollback events
+- billing document access
+- support escalation
+- customer verification
+- entitlement changes
+- PDF/document delivery
+- dependency or workflow changes
 
 Audit trails should not expose secrets or unnecessary private content.
+
+## Detection, response, and recovery
+
+Maximum protection includes detection and recovery, not only prevention.
+
+Required posture:
+
+- define what suspicious access, export, report, billing, support, and admin events look like
+- keep sensitive operations auditable without leaking private payloads
+- preserve rollback routes for production-impacting releases
+- preserve backup and restore planning for production data
+- keep emergency communication customer-safe, honest, and bounded
+- respond to incidents by containing access first, preserving evidence second, rotating secrets when needed, and communicating only verified customer-safe facts
+- recover with validation, smoke checks, and release-captain review before returning risky surfaces to normal operation
 
 ## Emergency controls
 
@@ -333,6 +528,11 @@ Emergency actions may include:
 - disable a public preview
 - turn off partner embeds
 - force noindex/no-store on sensitive routes
+- freeze PDF/document delivery
+- hold billing document projection
+- pause customer-visible report release
+- disable an unsafe support or dashboard message path
+- block a suspicious customer-owned projection
 
 Emergency controls should favor protecting data and trust over preserving convenience.
 
@@ -346,11 +546,12 @@ Partner access should be scoped:
 - no exact scoring weights
 - no private prompts
 - no raw authority memory
-- no client data outside agreed scope
+- no customer data outside agreed scope
 - report export only through approved, scoped, logged flows
 - clear data-sharing rules
 - revocable credentials
 - signed or scoped access paths
+- provider and partner access reviewed before production use
 
 ## Public doctrine boundary
 
@@ -363,6 +564,8 @@ Public may say:
 - why evidence matters
 - why public/private boundaries exist
 - why no fake guarantees are made
+- why verification and dashboard access protect customers
+- why reports are released only through protected paths
 
 Public must not show:
 
@@ -373,8 +576,35 @@ Public must not show:
 - private signal promotion logic
 - private report schemas
 - raw competitor intelligence
-- client evidence
+- customer evidence
 - authority memory
+- exploit details useful for attacking the system
+- raw provider payloads
+- raw billing or support records
+
+## Customer transparency boundary
+
+Customer trust requires useful transparency, not exposure of the private machine.
+
+Customer-facing surfaces should explain:
+
+- what Cendorq checked at a useful level
+- what is known, unknown, assumed, inferred, or forecasted
+- confidence and limitations
+- what the next safe action is
+- what is included and not included in the plan
+- how to access reports, billing documents, support, and messages safely
+
+Customer-facing surfaces should not expose:
+
+- exact internal scoring weights
+- private prompts
+- raw evidence dumps
+- internal notes
+- operator identity
+- cross-customer patterns tied to identifiable customers
+- raw provider payloads
+- exploit details or security internals
 
 ## Maximum-protection review triggers
 
@@ -399,13 +629,22 @@ Run a maximum-protection review when changing:
 - CI/workflows
 - dependencies
 - public examples or case studies
+- sitemap, robots, noindex, or metadata behavior
+- dashboard message mirrors
+- billing document access
+- support records
+- report PDFs or downloadable documents
+- customer verification flows
+- entitlement logic
+- production smoke coverage
+- incident response or rollback paths
 
 ## Final rule
 
 Every step should ask:
 
 1. Could this expose private intelligence?
-2. Could this expose client data?
+2. Could this expose customer data?
 3. Could this leak scoring, prompts, reports, or evidence?
 4. Could this allow direct database access?
 5. Could this let weak data become authority?
@@ -413,5 +652,9 @@ Every step should ask:
 7. Could this create downtime or unsafe failure?
 8. Could this make Cendorq easier to copy?
 9. Could this weaken trust 5, 10, 20, or 50 years from now?
+10. Could this let public indexing expose protected content?
+11. Could this let a patch, dependency, workflow, or provider change bypass review?
+12. Could this expose billing, support, dashboard, report, or customer-owned state to the wrong person?
+13. Could this make customers less informed while also exposing more private mechanics?
 
 If yes, the step must be redesigned, gated, scoped, delayed, or removed.
