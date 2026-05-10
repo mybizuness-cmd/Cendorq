@@ -283,21 +283,34 @@ expect("public/manifest.webmanifest", [
 ]);
 
 expect("docs/configuration-safety-checklist.md", [
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "Dashboard recovery",
   "`NEXT_PUBLIC_SITE_URL` is the canonical public site URL used by SEO metadata, sitemap, robots, and structured data.",
   "`CENDORQ_BASE_URL` is the public smoke/deployment verification target used by production smoke checks.",
   "Do not put secrets, admin keys, customer data, or private endpoint URLs in either public URL variable.",
 ]);
 
 expect("docs/deployment-environment-checklist.md", [
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "Dashboard recovery",
   "`NEXT_PUBLIC_SITE_URL` is set to the canonical public origin used by SEO metadata, sitemap, robots, and structured data.",
   "`CENDORQ_BASE_URL` is set to the deployed origin that production smoke checks should verify.",
   "`NEXT_PUBLIC_SITE_URL` and `CENDORQ_BASE_URL` are documented together when public URL assumptions change.",
 ]);
 
 expect("docs/search-discovery-checklist.md", [
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "Dashboard recovery",
   "`NEXT_PUBLIC_SITE_URL` controls canonical metadata, sitemap output, robots host behavior, and structured data origin.",
   "`CENDORQ_BASE_URL` controls production smoke target selection and should match the intended deployed origin.",
   "Public URL assumptions are documented in `.env.example` before discovery or deployment behavior changes.",
+  "/contact` -> `/plans",
 ]);
 
 forbid("FINAL_SYSTEM_STATUS.md", ["Search Presence Scan", "Visibility Blueprint", "Presence Infrastructure", "Presence Command", "Market Command Intelligence", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
@@ -317,6 +330,9 @@ forbid("src/app/layout.tsx", ["Business Command Intelligence", "Market Command I
 forbid("src/app/opengraph-image.tsx", ["Business Command Intelligence", "Market Command Intelligence", "Stop losing customers", "Diagnose", "Fix"]);
 forbid("src/app/twitter-image.tsx", ["Business Command Intelligence", "Market Command Intelligence", "Stop losing customers", "Diagnose", "Fix"]);
 forbid("public/manifest.webmanifest", ["Business Command Intelligence", "Market Command Intelligence", "View Pricing", "Diagnose", "Fix"]);
+forbid("docs/configuration-safety-checklist.md", ["Deep Review", "Build Fix", "Ongoing Control", "Connect"]);
+forbid("docs/deployment-environment-checklist.md", ["Deep Review", "Build Fix", "Ongoing Control", "Connect"]);
+forbid("docs/search-discovery-checklist.md", ["Deep Review", "Build Fix", "Ongoing Control", "Connect", "/connect"]);
 
 if (failures.length) {
   console.error("Public drift validation failed:");
