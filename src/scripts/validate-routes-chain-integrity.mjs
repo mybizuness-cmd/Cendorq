@@ -19,6 +19,7 @@ const executedValidators = [
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-surface-level-alignment.mjs",
+  "src/scripts/validate-device-experience-performance-standard.mjs",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "src/scripts/validate-build-gate-hardening-standard.mjs",
   "src/scripts/validate-support-channel-operating-standard.mjs",
@@ -58,6 +59,7 @@ const doctrineFiles = [
   "docs/best-of-best-operating-standard.md",
   "src/lib/unified-experience-alignment.ts",
   "src/scripts/validate-surface-level-alignment.mjs",
+  "docs/device-experience-performance-standard.md",
   "docs/acquisition-to-retention-operating-system.md",
   "docs/build-gate-hardening-standard.md",
   "docs/support-channel-operating-standard.md",
@@ -96,6 +98,7 @@ if (!failures.length) {
     "best-of-best operating standard",
     "unified experience alignment",
     "surface-level alignment",
+    "device experience and performance",
     "acquisition-to-retention operating system",
     "build gate hardening",
     "support channel operating standard",
@@ -112,6 +115,12 @@ if (!failures.length) {
     "docs/support-channel-operating-standard.md",
     "src/scripts/validate-support-channel-operating-standard.mjs",
     "doctrine file, a validator, route-chain execution, route-chain integrity coverage, and docs visibility",
+  ]);
+
+  expect("docs/device-experience-performance-standard.md", read("docs/device-experience-performance-standard.md"), [
+    "Device Experience and Performance Standard",
+    "Mobile is the main entrance. Desktop is the command room.",
+    "performance review should track LCP, INP, and CLS",
   ]);
 
   expect("src/lib/unified-experience-alignment.ts", read("src/lib/unified-experience-alignment.ts"), [
@@ -165,7 +174,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed with operating memory lock, current research, best-of-best, unified experience alignment, surface-level alignment, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
+console.log("Validate routes chain integrity passed with operating memory lock, current research, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
 function arrayValues(text, name) {
   const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
