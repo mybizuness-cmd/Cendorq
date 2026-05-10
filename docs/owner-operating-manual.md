@@ -28,6 +28,34 @@ This means:
 
 The best-of-best source doctrine lives in `docs/best-of-best-operating-standard.md`, the executable standard lives in `src/lib/best-of-best-operating-standard.ts`, and validation lives in `src/scripts/validate-best-of-best-operating-standard.mjs`. That validator must run before downstream customer-delivery validators so public pages, dashboard sales surfaces, billing, report vault, notification center, support, lifecycle, and plan delivery inherit the same operating bar.
 
+## Unified surface lock
+
+Cendorq must keep public pages, plan pages, checkout, dashboard, report vault, billing, notifications, support, lifecycle, and owner operations aligned as one operating system.
+
+Owner review should check:
+
+- homepage creates category clarity and the strongest start path without becoming a pricing table
+- plan and plan-detail pages carry pricing, comparison, scope, fit, and what-happens-next clarity
+- dashboard surfaces act as the customer command room with proof, state, and next best action before secondary detail
+- billing, report vault, notifications, support, and lifecycle messages reflect the same customer-owned state
+- backend triggers support the same journey the frontend communicates
+- mobile is the main entrance and desktop is the command room
+- blocks feel rich through hierarchy, spacing, proof, rhythm, and restraint rather than noise
+
+The executable alignment source lives in `src/lib/unified-experience-alignment.ts`. Surface enforcement lives in `src/scripts/validate-unified-experience-alignment.mjs` and `src/scripts/validate-surface-level-alignment.mjs`. These must stay wired into `validate:routes` and route-chain integrity.
+
+## Operating memory lock
+
+New operating decisions must not become loose notes. A standard is locked only when it has:
+
+1. a doctrine or source file
+2. a validator
+3. route-chain execution
+4. route-chain integrity coverage
+5. docs or owner visibility
+
+The continuity lock lives in `docs/operating-memory-lock.md` and `src/scripts/validate-operating-memory-lock.mjs`.
+
 ## Non-negotiable truth rule
 
 Cendorq must never claim guaranteed accuracy, guaranteed revenue, guaranteed ROI, guaranteed rankings, guaranteed security, impossible-to-hack status, liability-free status, guaranteed delivery outcomes, mistake-free operation, or a guaranteed repair.
@@ -107,6 +135,8 @@ Captain review must verify:
 - recurring-value placement
 - selling language
 - best-of-best operating standard alignment
+- unified surface alignment
+- owner memory lock coverage
 
 Captain review must reject:
 
@@ -120,6 +150,9 @@ Captain review must reject:
 - template-like public page or report structure
 - support blame language
 - plan boundary blur
+- disconnected dashboard state
+- homepage pricing clutter
+- cheap-looking generic blocks
 
 ## Category-defining authority and psychology
 
@@ -599,6 +632,8 @@ After public launch, owner should review:
 - plan conversion patterns
 - customer objections
 - best-of-best standard drift
+- unified surface alignment drift
+- operating memory lock coverage
 
 ## Customer operations architecture update
 
@@ -699,6 +734,8 @@ Customer-facing language should be truthful, evidence-led, category-defining, ps
 15. Forecast module rendering and forecast refresh history
 16. Recurring readiness baseline comparison
 17. Best-of-best drift review across public website, dashboard, checkout, billing, reports, notifications, support, lifecycle, and plan delivery
+18. Unified surface alignment drift review across homepage, plans, pricing, dashboard, billing, report vault, support, and backend triggers
+19. Operating memory lock checks for every new standard
 
 ### Next product layers
 
@@ -714,6 +751,8 @@ Customer-facing language should be truthful, evidence-led, category-defining, ps
 10. Support escalation and correction flow
 11. Owner command-center review workflow
 12. Best-of-best conversion and recovery audit across every customer-facing surface
+13. Unified block and section audit across public and private customer surfaces
+14. Mobile-first and desktop-command-room audit after every major surface change
 
 ### Next intelligence layers
 
@@ -729,6 +768,8 @@ Customer-facing language should be truthful, evidence-led, category-defining, ps
 10. Plan-fit recommendation audit
 11. AI/search movement tracking
 12. Forecast confidence calibration
+13. Surface alignment scoring
+14. Memory-lock coverage scoring
 
 ## Highest-level operating cadence
 
@@ -740,6 +781,8 @@ Daily during build:
 - keep safety claims bounded
 - keep launch approval separate from evidence
 - keep best-of-best standard visible in every material customer-facing decision
+- keep unified surface alignment visible in every public, dashboard, billing, report, support, and backend-triggered customer decision
+- keep memory locks attached to every new operating standard
 
 Weekly after launch:
 - review customer outcomes
@@ -751,6 +794,7 @@ Weekly after launch:
 - review market changes
 - update playbooks and validators
 - review best-of-best drift across public, dashboard, billing, report, notification, support, lifecycle, and plan surfaces
+- review unified surface alignment drift across homepage, plans, pricing, dashboard, report vault, billing, support, and lifecycle
 
 Monthly after launch:
 - refresh market-learning summaries
@@ -762,9 +806,10 @@ Monthly after launch:
 - review support and billing friction
 - review recurring-value strength
 - review whether Cendorq still feels category-defining rather than generic
+- review whether the whole customer path still feels seamless on mobile and desktop
 
 ## Final operating principle
 
 Cendorq should not win by promising the impossible. It should win by being more disciplined, more evidence-backed, more current, more tailored, more useful, more honest, more recoverable, and more operationally complete than competitors.
 
-The customer should feel from the first screen that Cendorq is not selling a generic service. It is running a controlled business readiness and improvement system with proof, judgment, continuity, forecast awareness, best-of-best operating discipline, and safe execution.
+The customer should feel from the first screen that Cendorq is not selling a generic service. It is running a controlled business readiness and improvement system with proof, judgment, continuity, forecast awareness, best-of-best operating discipline, unified surface alignment, memory-locked standards, and safe execution.
