@@ -90,6 +90,7 @@ if (!failures.length) {
   const registryText = read(registryPath);
   const memoryLockText = read(memoryLockPath);
   const brandLegalRegistryText = read(brandLegalRegistryAddendumPath);
+  const logoValidatorText = read("src/scripts/validate-logo-readiness-standard.mjs");
   const chainValidators = arrayValues(chainText, "validators");
   const documentedChainValidators = arrayValues(chainText, "documentedValidatorCoverage");
   const duplicates = chainValidators.filter((path, index) => chainValidators.indexOf(path) !== index);
@@ -142,9 +143,20 @@ if (!failures.length) {
     "src/scripts/validate-logo-readiness-standard.mjs",
     "docs/legal-trust-crawler-readiness-standard.md",
     "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+    "docs/owner-brand-legal-trust-addendum.md",
+    "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+    "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
     "docs/support-channel-operating-standard.md",
     "src/scripts/validate-support-channel-operating-standard.mjs",
     "doctrine file, a validator, route-chain execution, route-chain integrity coverage, and docs visibility",
+  ]);
+
+  expect("src/scripts/validate-logo-readiness-standard.mjs", logoValidatorText, [
+    "Logo readiness standard",
+    "src/layout/site-header-conversion.tsx",
+    "src/layout/site-footer.tsx",
+    "header and footer signal-mark consistency",
   ]);
 
   expect("docs/owner-brand-legal-trust-addendum.md", read("docs/owner-brand-legal-trust-addendum.md"), [
@@ -166,12 +178,6 @@ if (!failures.length) {
     "Logo ownership and proprietary readiness",
     "Signal mark design direction",
     "Cendorq signal mark",
-  ]);
-
-  expect("src/scripts/validate-logo-readiness-standard.mjs", read("src/scripts/validate-logo-readiness-standard.mjs"), [
-    "Logo readiness standard",
-    "src/layout/site-header-conversion.tsx",
-    "function BrandMark()",
   ]);
 
   expect("docs/device-experience-performance-standard.md", read("docs/device-experience-performance-standard.md"), [
@@ -205,6 +211,8 @@ if (!failures.length) {
     "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
     "docs/owner-brand-legal-trust-addendum.md",
     "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
+    "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
     "docs/best-of-best-operating-standard.md",
     "docs/acquisition-to-retention-operating-system.md",
     "Customer delivery validation standard",
