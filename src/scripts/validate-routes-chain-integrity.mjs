@@ -12,6 +12,7 @@ const bestOfBestValidatorPath = "src/scripts/validate-best-of-best-operating-sta
 const commandDesignValidatorPath = "src/scripts/validate-command-design-operating-standard.mjs";
 const docsIndexValidatorPath = "src/scripts/validate-command-center-docs-index.mjs";
 const ownerOperatingManualValidatorPath = "src/scripts/validate-owner-operating-manual.mjs";
+const publicDriftValidatorPath = "src/scripts/validate-public-drift.mjs";
 const freeScanActiveFormValidatorPath = "src/scripts/validate-free-scan-active-form-selection.mjs";
 const freeScanRoutingHintValidatorPath = "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs";
 const publicPlansValidatorPath = "src/scripts/validate-public-plans-excellence.mjs";
@@ -36,6 +37,7 @@ const executedValidators = [
   commandDesignValidatorPath,
   docsIndexValidatorPath,
   ownerOperatingManualValidatorPath,
+  publicDriftValidatorPath,
   freeScanActiveFormValidatorPath,
   freeScanRoutingHintValidatorPath,
   publicPlansValidatorPath,
@@ -54,7 +56,6 @@ const executedValidators = [
 const documentedCoverageValidators = [
   "src/scripts/validate-command-center-validation-registry.mjs",
   "src/scripts/validate-report-truth-engine.mjs",
-  "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-closed-intelligence.mjs",
@@ -92,6 +93,7 @@ if (!failures.length) {
     "best-of-best operating standard",
     "docs-index doctrine coverage",
     "owner operating doctrine",
+    "public drift coverage",
     "public Plans buyer-path excellence",
     "checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle",
     "safe PDF access",
@@ -143,7 +145,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, command design, docs-index doctrine coverage, owner operating doctrine, Free Scan gates, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
+console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, command design, docs-index doctrine coverage, owner operating doctrine, public drift coverage, Free Scan gates, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
 
 function getArrayValues(text, arrayName) {
   const match = text.match(new RegExp(`const ${arrayName} = \\[([\\s\\S]*?)\\];`));
