@@ -9,9 +9,12 @@ const chainPath = "src/scripts/validate-routes-chain.mjs";
 const chainIntegrityValidatorPath = "src/scripts/validate-routes-chain-integrity.mjs";
 const baselineRouteValidatorPath = "src/scripts/validate-routes.mjs";
 const bestOfBestValidatorPath = "src/scripts/validate-best-of-best-operating-standard.mjs";
+const acquisitionToRetentionValidatorPath = "src/scripts/validate-acquisition-to-retention-operating-system.mjs";
 const commandDesignValidatorPath = "src/scripts/validate-command-design-operating-standard.mjs";
 const docsIndexValidatorPath = "src/scripts/validate-command-center-docs-index.mjs";
 const ownerOperatingManualValidatorPath = "src/scripts/validate-owner-operating-manual.mjs";
+const maximumProtectionValidatorPath = "src/scripts/validate-maximum-protection-standard.mjs";
+const trustLegalValidatorPath = "src/scripts/validate-trust-legal-plan-boundaries.mjs";
 const publicDriftValidatorPath = "src/scripts/validate-public-drift.mjs";
 const publicHomepageCommandSurfaceValidatorPath = "src/scripts/validate-public-homepage-command-surface.mjs";
 const publicEntryPlanJourneyValidatorPath = "src/scripts/validate-public-entry-plan-journey.mjs";
@@ -36,9 +39,12 @@ const executedValidators = [
   chainIntegrityValidatorPath,
   baselineRouteValidatorPath,
   bestOfBestValidatorPath,
+  acquisitionToRetentionValidatorPath,
   commandDesignValidatorPath,
   docsIndexValidatorPath,
   ownerOperatingManualValidatorPath,
+  maximumProtectionValidatorPath,
+  trustLegalValidatorPath,
   publicDriftValidatorPath,
   publicHomepageCommandSurfaceValidatorPath,
   publicEntryPlanJourneyValidatorPath,
@@ -60,7 +66,6 @@ const executedValidators = [
 const documentedCoverageValidators = [
   "src/scripts/validate-command-center-validation-registry.mjs",
   "src/scripts/validate-report-truth-engine.mjs",
-  "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-closed-intelligence.mjs",
 ];
@@ -95,8 +100,11 @@ if (!failures.length) {
   expectText(chainPath, chainText, [
     "route-chain integrity",
     "best-of-best operating standard",
+    "acquisition-to-retention operating system",
     "docs-index doctrine coverage",
     "owner operating doctrine",
+    "maximum protection security doctrine",
+    "trust/legal boundary coverage",
     "public drift coverage",
     "public homepage command surface",
     "public entry plan journey",
@@ -121,6 +129,7 @@ if (!failures.length) {
   expectText(docsIndexPath, docsText, [
     "Customer delivery validation standard",
     bestOfBestValidatorPath,
+    acquisitionToRetentionValidatorPath,
     pricingCheckoutValidatorPath,
     billingCheckoutValidatorPath,
     dashboardActionInboxValidatorPath,
@@ -128,6 +137,7 @@ if (!failures.length) {
     "safe PDF delivery only after gates pass",
     "mirrored dashboard messages for important emails",
     "best-of-best operating standard",
+    "acquisition-to-retention operating system",
   ]);
 
   expectText(ownerManualPath, ownerManualText, [
@@ -151,7 +161,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, command design, docs-index doctrine coverage, owner operating doctrine, public drift coverage, public homepage command surface, public entry plan journey, Free Scan gates, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
+console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, acquisition-to-retention operating system, command design, docs-index doctrine coverage, owner operating doctrine, maximum protection security doctrine, trust/legal boundary coverage, public drift coverage, public homepage command surface, public entry plan journey, Free Scan gates, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, report truth, owner maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
 
 function getArrayValues(text, arrayName) {
   const match = text.match(new RegExp(`const ${arrayName} = \\[([\\s\\S]*?)\\];`));
