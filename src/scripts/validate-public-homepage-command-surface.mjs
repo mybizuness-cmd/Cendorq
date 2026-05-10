@@ -6,36 +6,63 @@ const pagePath = "src/app/page.tsx";
 const headerPath = "src/layout/site-header-conversion.tsx";
 const footerPath = "src/layout/site-footer.tsx";
 const scanPath = "src/app/free-check/page.tsx";
-const connectPath = "src/app/connect/page.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-homepage-command-surface.mjs";
+const bestStandardPath = "src/lib/best-of-best-operating-standard.ts";
+const bestDocPath = "docs/best-of-best-operating-standard.md";
 const failures = [];
 
 expect(pagePath, [
-  "Cendorq | AI Search Visibility and Business Trust",
-  "Own the way the market understands you.",
-  "AI search visibility",
-  "business trust",
-  "customer choice",
-  "Start free scan",
-  "See the command path",
-  "Market test",
-  "Four questions decide whether the business gets chosen.",
-  "Ranking is not enough. The business has to be understood.",
-  "Command path",
-  "Scan. Diagnose. Fix. Control.",
-  "Compare all plans",
-  "No tricks. No fake guarantees. No guesswork dressed up as strategy.",
+  "Cendorq | AI Engine Readiness for Businesses",
+  "AI Engine Readiness",
+  "If AI engines cannot understand your business, customers may never get the chance to.",
+  "AI-readiness starts with business clarity.",
+  "Start with the Free Scan. See what AI engines and customers may be reading wrong.",
+  "Start Free Scan",
+  "Review Plans",
+  "The readiness path",
+  "AI is becoming the new first impression.",
+  "Cendorq finds what is weak first without promising rankings, leads, revenue, or AI placement.",
+  "The goal is not to decorate the business.",
+  "Scan",
+  "Review",
+  "Repair",
+  "Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "No AI placement promises",
+]);
+
+expect(pagePath, [
+  "Find the first weak signal before you spend deeper.",
+  "Prove the cause before changing the system.",
+  "Improve the strongest proven weak point.",
+  "Keep the business ready as AI engines change.",
+  "Clear facts",
+  "Trusted proof",
+  "Consistent signals",
+  "Reason to choose",
+  "Action path",
+  "href=\"/free-check\"",
+  "href=\"/plans\"",
+  "href: \"/plans/deep-review\"",
+  "href: \"/plans/build-fix\"",
+  "href: \"/plans/ongoing-control\"",
 ]);
 
 expect(headerPath, [
-  "Free Scan",
-  "Pricing",
-  "Dashboard",
-  "max-h-[calc(100dvh-4.25rem)]",
-  "overflow-y-auto",
-  "Start free scan",
+  "Cendorq",
+  "AI Readiness",
+  "Understand the AI Engine Readiness path.",
+  "Plans",
+  "Compare Scan, Review, Repair, and Control.",
+  "Sign in",
+  "Start Free Scan",
+  "href=\"/free-check\"",
+  "href=\"/plans\"",
+  "href=\"/login\"",
 ]);
 
 expect(footerPath, [
@@ -48,34 +75,47 @@ expect(footerPath, [
 ]);
 
 expect(scanPath, [
-  "Free Visibility Scan",
-  "Find the first break before you buy the fix.",
-  "Cendorq checks whether your business is clear enough to be found, understood, trusted, and acted on before deeper work begins.",
-  "Safe business context only.",
+  "Free Scan | Cendorq",
+  "Run the Cendorq Free Scan to see the first AI-readiness signal",
+  "See the first signal before you buy deeper work.",
+  "Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose before deeper work begins.",
+  "Business context only",
+  "No private credentials or payment details",
+  "Protected dashboard result after verification",
   "Result opens in dashboard",
+  "A signal you can actually use.",
+  "The output is not a pile of generic tips.",
+  "Review before repair",
 ]);
 
-expect(connectPath, [
-  "Contact Cendorq when the question is already clear.",
-  "Start Free Scan if the problem is unclear.",
-  "Contact only when fit, scope, or timing is already clear.",
-  "Compare plans",
+expect(bestStandardPath, [
+  "BEST_OF_BEST_OPERATING_STANDARD",
+  "Apple-level clarity and visual hierarchy",
+  "Every public and customer surface must reveal the primary action, the customer value, the boundary, and the next safe step",
+  "template-like hero section",
+  "generic SaaS dashboard copy",
+  "equal-weight CTA wall",
+]);
+
+expect(bestDocPath, [
+  "# Best-of-Best Operating Standard",
+  "Apple-level clarity and visual hierarchy",
+  "Every customer-facing surface must have one strongest next move",
+  "Does the page show hierarchy, harmony, calm focus, and one strongest action rather than equal-weight blocks?",
 ]);
 
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
-expect(routesChainPath, [validatorPath]);
+expect(routesChainPath, [validatorPath, "src/scripts/validate-public-drift.mjs"]);
 
-boundedLength(pagePath, 14500);
-boundedLength(scanPath, 16000);
-boundedLength(connectPath, 15000);
-boundedLength(headerPath, 15000);
+boundedLength(pagePath, 15000);
+boundedLength(scanPath, 17000);
+boundedLength(headerPath, 7000);
 boundedLength(footerPath, 6500);
 
-forbidden(pagePath, [...blockedPublicPhrases(), ...badgeHeavyPhrases()]);
-forbidden(headerPath, [...blockedPublicPhrases(), "Privacy", "Terms", "Talk through fit or scope", "Pricing from $0", "Command path"]);
+forbidden(pagePath, [...blockedPublicPhrases(), ...staleHomepagePhrases(), ...badgeHeavyPhrases()]);
+forbidden(headerPath, [...blockedPublicPhrases(), "Pricing", "Talk through fit or scope", "Pricing from $0", "Command path"]);
 forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
-forbidden(scanPath, blockedPublicPhrases());
-forbidden(connectPath, blockedPublicPhrases());
+forbidden(scanPath, [...blockedPublicPhrases(), "Free Visibility Scan", "Search Presence Scan", "Find the first break before you buy the fix."]);
 
 if (failures.length) {
   console.error("Public command surface validation failed:");
@@ -83,7 +123,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with simplified customer-facing language, scrollable mobile menu, compact footer, fewer badges, no repeated final CTA block, and Contact kept as a footer utility.");
+console.log("Public command surface validation passed with current AI Engine Readiness homepage, best-of-best hierarchy, simplified public header, compact footer, Free Scan result path, no stale pricing/diagnose language, and no unsupported guarantees.");
 
 function badgeHeavyPhrases() {
   return [
@@ -95,6 +135,21 @@ function badgeHeavyPhrases() {
     "Highest-converting path",
     "Conversion without pressure",
     "Final command path",
+  ];
+}
+
+function staleHomepagePhrases() {
+  return [
+    "Own the way the market understands you.",
+    "Market test",
+    "Four questions decide whether the business gets chosen.",
+    "Ranking is not enough. The business has to be understood.",
+    "Scan. Diagnose. Fix. Control.",
+    "See the command path",
+    "Compare all plans",
+    "No tricks. No fake guarantees. No guesswork dressed up as strategy.",
+    "business trust",
+    "customer choice",
   ];
 }
 
@@ -128,6 +183,11 @@ function blockedPublicPhrases() {
     "support" + "Context" + "Key=",
     "localStorage.setItem",
     "sessionStorage.setItem",
+    "Market Command Intelligence",
+    "Deep Review",
+    "Build Fix",
+    "Ongoing Control",
+    "Diagnose",
   ];
 }
 
