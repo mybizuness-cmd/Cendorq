@@ -48,10 +48,10 @@
       "icons": [{ "src": "/icon", "sizes": "192x192", "type": "image/png" }]
     },
     {
-      "name": "Open Dashboard",
-      "short_name": "Dashboard",
-      "description": "Return to protected reports, proof, notifications, and next actions.",
-      "url": "/dashboard?source=app-shortcut",
+      "name": "Review AI Readiness",
+      "short_name": "Review",
+      "description": "Open the public AI Readiness Review path before protected dashboard work begins.",
+      "url": "/plans/deep-review?source=app-shortcut",
       "icons": [{ "src": "/icon", "sizes": "192x192", "type": "image/png" }]
     }
   ]
