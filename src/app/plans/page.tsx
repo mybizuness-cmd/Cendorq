@@ -35,7 +35,7 @@ const PURPOSE_BY_PLAN: Record<CendorqPlanKey, string> = {
   "free-scan": "Expose the first visible gap in clarity, proof, trust, action, or AI-readiness before deeper spend.",
   "deep-review": "Prove what is weakening the business across AI/search understanding, customer trust, comparison, and choice.",
   "build-fix": "Repair the strongest proven weakness in message, page, proof, structure, or action path.",
-  "ongoing-control": "Keep the business under readiness command as AI surfaces, competitors, proof, and customer expectations move.",
+  "ongoing-control": "Keep the business under readiness control as AI surfaces, competitors, proof, and customer expectations move.",
 };
 
 const PLAN_CARDS = CENDORQ_PLAN_PRICES.map((plan) => ({
@@ -55,7 +55,7 @@ const DECISION_STANDARDS = [
   { title: "First signal", best: "Scan", copy: "Use Free Scan when the first visible weakness is still unclear." },
   { title: "Proof", best: "Review", copy: `Use ${DEEP_REVIEW.name} when the next move needs evidence before spend.` },
   { title: "Execution", best: "Repair", copy: `Use ${BUILD_FIX.name} when the weakness is clear enough to improve.` },
-  { title: "Command", best: "Control", copy: `Use ${ONGOING_CONTROL.name} when the base needs watch, refresh, and adjustment.` },
+  { title: "Control", best: "Control", copy: `Use ${ONGOING_CONTROL.name} when the base needs watch, refresh, and adjustment.` },
 ] as const;
 
 const AUTHORITY_RULES = [
@@ -100,7 +100,7 @@ export default function PlansPage() {
       <section className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col items-center justify-center px-5 py-10 text-center sm:px-8 lg:py-12">
         <p className="text-xs font-semibold uppercase tracking-[0.34em] text-slate-400">AI Readiness Plans</p>
         <h1 className="mt-6 max-w-6xl text-[clamp(2.55rem,6.8vw,5.85rem)] font-semibold uppercase leading-[0.92] tracking-[-0.065em] text-slate-950">
-          Choose the level of command your business is ready for.
+          Choose the level of readiness your business is ready for.
         </h1>
         <p className="mt-6 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
           Cendorq does not sell random packages. It separates the work into four operating depths: find the signal, prove the cause, repair the weakness, then keep readiness under control.
@@ -129,11 +129,11 @@ export default function PlansPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-12 sm:px-8" aria-label="Cendorq plan command path">
+      <section className="mx-auto max-w-7xl px-5 pb-12 sm:px-8" aria-label="Cendorq readiness path">
         <div className="overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-[0_28px_100px_rgba(15,23,42,0.1)]">
           <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
             <div className="border-b border-slate-200 bg-slate-50 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">The command path</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">The readiness path</p>
               <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Review. Repair. Control.</h2>
               <p className="mt-5 text-base leading-8 text-slate-600">
                 The page should feel simple because the decision is disciplined. Each plan has a different job, price, and proof standard.
