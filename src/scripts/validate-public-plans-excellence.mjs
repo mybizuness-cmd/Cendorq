@@ -62,7 +62,7 @@ expect(componentPath, [
 
 expect(plansPath, [
   "AI readiness plans",
-  "Choose the level of command your business is ready for.",
+  "Choose the level of readiness your business is ready for.",
   "Cendorq does not sell random packages.",
   "find the signal, prove the cause, repair the weakness, then keep readiness under control.",
   "Start with the safest evidence path. Move deeper only when the stage fits.",
@@ -160,6 +160,8 @@ forbidden(plansPath, [
   "Best first move",
   "Start free if the cause is unclear. Pay when the next depth is obvious.",
   "Choose the depth that can move revenue next.",
+  "Choose the level of command your business is ready for.",
+  "The command path",
   "guaranteed inbox",
   "guaranteed deliverability",
   "PDF-only access path",
