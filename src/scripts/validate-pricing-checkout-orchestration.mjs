@@ -58,8 +58,8 @@ expect(contractPath, [
 
 expect(pricingPath, [
   "CENDORQ_PLAN_PRICES",
-  "Choose the level of command your business is ready for.",
-  "The command path",
+  "Choose the level of readiness your business is ready for.",
+  "The readiness path",
   "Scan. Review. Repair. Control.",
   "After purchase access standard",
   "Vault first",
@@ -126,6 +126,8 @@ forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checko
   "pricing page",
   "Stripe link coming next",
   "Secure checkout",
+  "Choose the level of command your business is ready for.",
+  "The command path",
   "PDF-only access path",
   "pdf-only access path",
   "separate truth source allowed",
