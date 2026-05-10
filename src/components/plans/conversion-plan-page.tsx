@@ -74,6 +74,21 @@ const PLAN_TRUST_RULES = [
   "No protected result before verification.",
 ] as const;
 
+const PLAN_AFTER_PURCHASE_STANDARDS = [
+  {
+    title: "Vault first",
+    copy: "Released reports, delivery summaries, and billing documents stay in the verified dashboard/report vault or billing center first.",
+  },
+  {
+    title: "Messages mirrored",
+    copy: "Important email actions mirror into the dashboard with the same safe next step and support path.",
+  },
+  {
+    title: "PDFs gated",
+    copy: "Downloadable or attached PDFs turn on only after verification, entitlement or provider authority, release, no-leak, and document-safety gates pass.",
+  },
+] as const;
+
 const primaryButton = "inline-flex min-h-14 items-center justify-center rounded-[1.35rem] border border-slate-950 bg-slate-950 px-8 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
 const secondaryButton = "inline-flex min-h-14 items-center justify-center rounded-[1.35rem] border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
 
@@ -146,6 +161,18 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="After purchase standard">
+        <div className="grid gap-4 lg:grid-cols-3">
+          {PLAN_AFTER_PURCHASE_STANDARDS.map((item) => (
+            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_50px_rgba(15,23,42,0.045)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">After purchase</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.title}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">{item.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="Customer problem this plan solves">
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_70px_rgba(15,23,42,0.06)] sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Why this exists</p>
@@ -166,7 +193,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
       </section>
 
       <section className="sr-only" aria-label="Plan guardrails">
-        Customer-led plan page. Homepage-aligned plan detail. Category-defining authority. Command-level plan page. Speak directly to the customer. Is this the right layer? Choose this when. Do not choose this when. Plan price. Final fixed plan prices. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/month. Checkout start. Checkout success. Stripe session metadata. Post-payment dashboard activation. Buy the right depth. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
+        Customer-led plan page. Homepage-aligned plan detail. Category-defining authority. Command-level plan page. Speak directly to the customer. Is this the right layer? Choose this when. Do not choose this when. Plan price. Final fixed plan prices. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/month. Checkout start. Checkout success. Stripe session metadata. Post-payment dashboard activation. Vault first. Messages mirrored. PDFs gated. Verified dashboard/report vault or billing center first. Same safe next step and support path. Verification, entitlement or provider authority, release, no-leak, and document-safety gates pass. Buy the right depth. {data.finalTitle} {data.finalCopy} {PLAN_AFTER_PURCHASE_STANDARDS.map((item) => `${item.title} ${item.copy}`).join(" ")} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
       </section>
     </main>
   );
