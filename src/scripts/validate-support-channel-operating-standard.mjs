@@ -24,7 +24,7 @@ const checks = [
   ["src/app/dashboard/support/page.tsx", ["support", "dashboard"]],
   ["src/app/dashboard/support/status/page.tsx", ["support", "status"]],
   ["src/app/dashboard/billing/page.tsx", ["billing"]],
-  ["src/app/dashboard/report-vault/page.tsx", ["report"]],
+  ["src/app/dashboard/reports/page.tsx", ["Readiness proof vault", "Vault is source"]],
   ["docs/owner-operating-manual.md", ["dashboard/report vault is the canonical protected display location"]],
 ];
 
