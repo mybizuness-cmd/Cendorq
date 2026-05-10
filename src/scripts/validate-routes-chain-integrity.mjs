@@ -20,6 +20,7 @@ const reportVaultFirstUseValidatorPath = "src/scripts/validate-report-vault-firs
 const notificationCenterFirstUseValidatorPath = "src/scripts/validate-notification-center-first-use.mjs";
 const supportCenterFirstUseValidatorPath = "src/scripts/validate-support-center-first-use.mjs";
 const supportStatusFirstUseValidatorPath = "src/scripts/validate-support-status-first-use.mjs";
+const supportRequestFirstUseValidatorPath = "src/scripts/validate-support-request-first-use.mjs";
 const dashboardActionInboxValidatorPath = "src/scripts/validate-dashboard-action-inbox.mjs";
 const planDeliveryValidatorPath = "src/scripts/validate-plan-delivery-orchestration-contracts.mjs";
 const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
@@ -41,6 +42,7 @@ const executedValidators = [
   notificationCenterFirstUseValidatorPath,
   supportCenterFirstUseValidatorPath,
   supportStatusFirstUseValidatorPath,
+  supportRequestFirstUseValidatorPath,
   dashboardActionInboxValidatorPath,
   planDeliveryValidatorPath,
 ];
@@ -87,7 +89,7 @@ if (!failures.length) {
     "route-chain integrity",
     "best-of-best operating standard",
     "public Plans buyer-path excellence",
-    "checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, dashboard conversion inbox, and plan delivery lifecycle",
+    "checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle",
     "safe PDF access",
     "lifecycle nurturing",
     "registry coverage",
@@ -134,7 +136,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, command design and Free Scan gates next, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, docs, owner manual, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
+console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, command design and Free Scan gates next, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, docs, owner manual, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
 
 function getArrayValues(text, arrayName) {
   const match = text.match(new RegExp(`const ${arrayName} = \\[([\\s\\S]*?)\\];`));
