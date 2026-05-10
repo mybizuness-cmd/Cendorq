@@ -280,6 +280,17 @@ expect("src/app/twitter-image.tsx", [
   "Scan first. Review deeper. Repair what matters.",
 ]);
 
+expect("src/app/manifest.ts", [
+  "Cendorq — AI Engine Readiness",
+  "Start Free Scan",
+  "Compare Readiness Path",
+  "Review AI Readiness",
+  "Open the public AI Readiness Review path before protected dashboard work begins.",
+  "url: \"/free-check\"",
+  "url: \"/plans\"",
+  "url: \"/plans/deep-review\"",
+]);
+
 expect("public/llms.txt", [
   "/free-check",
   "/plans/deep-review",
@@ -295,6 +306,11 @@ expect("public/manifest.webmanifest", [
   "Cendorq — AI Engine Readiness",
   "Compare Readiness Path",
   "Compare Scan, Review, Repair, and Control.",
+  "Review AI Readiness",
+  "Open the public AI Readiness Review path before protected dashboard work begins.",
+  "\"url\": \"/free-check?source=app-shortcut\"",
+  "\"url\": \"/plans?source=app-shortcut\"",
+  "\"url\": \"/plans/deep-review?source=app-shortcut\"",
 ]);
 
 expect("docs/configuration-safety-checklist.md", [
@@ -341,11 +357,12 @@ forbid("src/app/loading.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Pres
 forbid("src/app/error.tsx", ["/pricing", "/diagnosis", "Pricing", "Search Presence Scan"]);
 forbid("src/layout/site-header-conversion.tsx", ["label: \"Pricing\"", "description: \"Choose the right depth.\"", "Diagnose", "Fix", "Deep Review", "Build Fix", "Ongoing Control"]);
 forbid("src/layout/site-footer.tsx", ["guarantee of rankings", "guarantee of leads", "guarantee of revenue", "guarantee of AI placement", "/pricing", "/contact", "/connect"]);
+forbid("src/app/manifest.ts", ["Open Dashboard", "url: \"/dashboard\"", "Dashboard", "/pricing", "/contact", "/connect"]);
+forbid("public/manifest.webmanifest", ["Open Dashboard", "/dashboard", "Business Command Intelligence", "Market Command Intelligence", "View Pricing", "Diagnose", "Fix"]);
 forbid("src/lib/seo.ts", ["Business Command Intelligence", "Market Command Intelligence", "website trust scan", "conversion clarity review", "Deep Review", "Build Fix", "Ongoing Control", "Diagnose"]);
 forbid("src/app/layout.tsx", ["Business Command Intelligence", "Market Command Intelligence", "business decision intelligence", "Diagnose", "Fix"]);
 forbid("src/app/opengraph-image.tsx", ["Business Command Intelligence", "Market Command Intelligence", "Stop losing customers", "Diagnose", "Fix"]);
 forbid("src/app/twitter-image.tsx", ["Business Command Intelligence", "Market Command Intelligence", "Stop losing customers", "Diagnose", "Fix"]);
-forbid("public/manifest.webmanifest", ["Business Command Intelligence", "Market Command Intelligence", "View Pricing", "Diagnose", "Fix"]);
 forbid("docs/configuration-safety-checklist.md", ["Deep Review", "Build Fix", "Ongoing Control", "Connect"]);
 forbid("docs/deployment-environment-checklist.md", ["Deep Review", "Build Fix", "Ongoing Control", "Connect"]);
 forbid("docs/search-discovery-checklist.md", ["Deep Review", "Build Fix", "Ongoing Control", "Connect", "/connect"]);
@@ -356,7 +373,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with footer trust links, footer no-guarantee boundary, root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, dormant homepage process section, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists using the current AI Engine Readiness buyer path.");
+console.log("Public drift validation passed with public-only manifest shortcuts, footer trust links, footer no-guarantee boundary, root status, upload notes, SEO defaults, shared site navigation, structured data, share images, active public routes, homepage hero, dormant homepage process section, homepage final CTA, Free Scan error recovery, active Free Scan form, loading/error/not-found fallback surfaces, report recommendations, signal summaries, intelligence summaries, llms.txt, manifest, header shim, footer, mobile dock, public URL config guidance, and discovery/deployment checklists using the current AI Engine Readiness buyer path.");
 
 function expect(path, phrases) {
   const text = read(path);
