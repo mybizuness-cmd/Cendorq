@@ -16,6 +16,8 @@ const executedValidators = [
   "src/scripts/validate-routes.mjs",
   "src/scripts/validate-operating-memory-lock.mjs",
   "src/scripts/validate-current-operating-research-notes.mjs",
+  "src/scripts/validate-brand-trademark-operating-standard.mjs",
+  "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -56,6 +58,7 @@ const documentedCoverageValidators = [
 const doctrineFiles = [
   memoryLockPath,
   "docs/current-operating-research-notes.md",
+  "docs/brand-trademark-operating-standard.md",
   "docs/best-of-best-operating-standard.md",
   "src/lib/unified-experience-alignment.ts",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -95,6 +98,8 @@ if (!failures.length) {
   expect(chainPath, chainText, [
     "operating memory lock",
     "current operating research notes",
+    "brand/trademark operating standard",
+    "logo readiness standard",
     "best-of-best operating standard",
     "unified experience alignment",
     "surface-level alignment",
@@ -115,6 +120,19 @@ if (!failures.length) {
     "docs/support-channel-operating-standard.md",
     "src/scripts/validate-support-channel-operating-standard.mjs",
     "doctrine file, a validator, route-chain execution, route-chain integrity coverage, and docs visibility",
+  ]);
+
+  expect("docs/brand-trademark-operating-standard.md", read("docs/brand-trademark-operating-standard.md"), [
+    "Brand and Trademark Operating Standard",
+    "Logo ownership and proprietary readiness",
+    "Signal mark design direction",
+    "Cendorq signal mark",
+  ]);
+
+  expect("src/scripts/validate-logo-readiness-standard.mjs", read("src/scripts/validate-logo-readiness-standard.mjs"), [
+    "Logo readiness standard",
+    "src/layout/site-header-conversion.tsx",
+    "function BrandMark()",
   ]);
 
   expect("docs/device-experience-performance-standard.md", read("docs/device-experience-performance-standard.md"), [
@@ -142,6 +160,8 @@ if (!failures.length) {
   ]);
 
   expect(docsIndexPath, docsText, [
+    "docs/brand-trademark-operating-standard.md",
+    "src/scripts/validate-brand-trademark-operating-standard.mjs",
     "docs/best-of-best-operating-standard.md",
     "docs/acquisition-to-retention-operating-system.md",
     "Customer delivery validation standard",
@@ -174,7 +194,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed with operating memory lock, current research, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
+console.log("Validate routes chain integrity passed with operating memory lock, current research, brand/trademark, logo readiness, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
 function arrayValues(text, name) {
   const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
