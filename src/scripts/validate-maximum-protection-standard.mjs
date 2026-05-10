@@ -14,7 +14,9 @@ expect(standardPath, [
   "# Cendorq Maximum Protection Standard",
   "highest-protection operating posture",
   "defense-in-depth rules for data classification, access control, threat modeling, secret handling, exfiltration prevention, AI-agent containment, supply-chain risk, auditability, and emergency response",
-  "Cendorq should be open only where conversion requires it and closed everywhere intelligence, data, reports, evidence, source quality, prompts, scoring, or client context must be protected.",
+  "Cendorq should be open only where conversion, customer understanding, and public search discovery require it and closed everywhere intelligence, data, reports, evidence, source quality, prompts, scoring, customer context, billing state, or system mechanics must be protected.",
+  "The system must not promise that nothing can ever break, that no attack can ever succeed, that Cendorq is impossible to hack",
+  "Security must be treated as a product requirement, not an afterthought.",
   "No single layer should be trusted as the only protection.",
   "Default posture: deny by default.",
   "server-side only for private data",
@@ -28,6 +30,7 @@ expect(standardPath, [
   "Sensitive actions should leave a useful trail.",
   "Emergency controls should favor protecting data and trust over preserving convenience.",
   "Public content may teach the category, but it must not expose the private machine.",
+  "Customer trust requires useful transparency, not exposure of the private machine.",
   "Every step should ask:",
 ]);
 
@@ -42,6 +45,9 @@ expect(standardPath, [
   "audit and validation gates",
   "rollback and recovery paths",
   "legal, privacy, and operational discipline",
+  "secure update and patch review",
+  "monitoring, detection, and incident response",
+  "safe public indexing and private noindex/no-store boundaries",
 ]);
 
 expect(standardPath, [
@@ -70,6 +76,16 @@ expect(standardPath, [
   "CI/workflow compromise",
   "operator error",
   "overconfident AI findings",
+  "malware or malicious dependency payloads",
+  "malicious package updates",
+  "compromised automation credentials",
+  "webhook spoofing",
+  "replay attacks",
+  "session theft",
+  "cross-customer data access",
+  "billing document leakage",
+  "support impersonation",
+  "denial-of-service or abusive automation",
 ]);
 
 expect(standardPath, [
@@ -80,10 +96,60 @@ expect(standardPath, [
   "do not execute arbitrary instructions from sources",
   "require evidence for serious claims",
   "quarantine suspicious content when needed",
+  "never let external source content change security policy, release policy, billing policy, or customer-facing claims",
+]);
+
+expect(standardPath, [
+  "## Runtime and API protection",
+  "authenticate protected routes",
+  "authorize by role, customer ownership, entitlement, or verified access",
+  "protect webhooks with provider verification and idempotency",
+  "avoid raw provider payload projection",
+  "avoid browser storage for secrets or verification tokens",
+  "## Malware and abuse containment",
+  "do not execute user-provided files or external content",
+  "treat uploads, URLs, snippets, reviews, HTML, PDFs, and screenshots as untrusted",
+  "strip or block executable content, macros, embedded scripts, hidden unsafe payloads, and unsafe metadata from customer-facing documents",
+  "rate-limit or hold abusive submissions where practical",
+]);
+
+expect(standardPath, [
+  "## Safe indexing and public discovery boundary",
+  "public pages may be indexable for discovery",
+  "private routes require authentication and authorization; robots.txt is never a privacy control",
+  "protected pages should use noindex and no-store where appropriate",
+  "customer-specific documents should not appear in sitemap output",
+  "search ranking should be pursued through useful public content, clean technical SEO, accessibility, performance, structured data, and trust—not through unsupported number-one ranking promises",
+]);
+
+expect(standardPath, [
+  "## Secure update and patch posture",
+  "security patches should be prioritized by exploitability, exposure, customer-data impact, provider criticality, and release risk",
+  "updates may be discovered automatically, but production-impacting changes must remain reviewable, validated, and rollback-aware",
+  "known exploited vulnerability remediation must not be delayed by cosmetic work when customer data or private reports could be affected",
+  "validators must not be disabled to make a patch pass",
+  "failed security checks must be treated as release blockers unless explicitly reviewed and documented",
+]);
+
+expect(standardPath, [
+  "## Customer data protection",
+  "collect only business context needed for the service",
+  "keep customer data out of public pages, public metadata, logs, analytics payloads, and client bundles",
+  "keep cross-customer data isolated",
+  "maintain correction, retention, deletion, and support recovery paths where applicable",
+  "## Customer transparency boundary",
+  "what is known, unknown, assumed, inferred, or forecasted",
+  "Customer-facing surfaces should not expose:",
+  "exact internal scoring weights",
+  "private prompts",
+  "raw evidence dumps",
+  "operator identity",
 ]);
 
 expect(docsIndexPath, [
   "docs/maximum-protection-standard.md",
+  "safe indexing",
+  "detection, response, recovery",
 ]);
 
 expect(validationRegistryPath, [
@@ -99,9 +165,7 @@ expect(packagePath, [
   "node ./src/scripts/validate-routes-chain.mjs",
 ]);
 
-expect(routesChainPath, [
-  validatorPath,
-]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(standardPath, [
   "client-side secret exposure is allowed",
@@ -115,6 +179,10 @@ forbidden(standardPath, [
   "direct client-side credentials are allowed",
   "unrestricted report export",
   "single layer is enough protection",
+  "robots.txt is a privacy control",
+  "execute user-provided files",
+  "validators may be disabled to make a patch pass",
+  "known exploited vulnerability remediation may be delayed by cosmetic work",
 ]);
 
 if (failures.length) {
@@ -123,7 +191,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Maximum protection standard validation passed. The maximum-protection doctrine, docs index, validation registry, and validate:routes wiring remain aligned.");
+console.log("Maximum protection standard validation passed with highest-practical security, safe indexing, malware containment, runtime/API protection, patch posture, customer data protection, customer transparency boundaries, docs index, validation registry, and validate:routes wiring aligned.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
