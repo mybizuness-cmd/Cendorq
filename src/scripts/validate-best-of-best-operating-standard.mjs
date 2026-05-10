@@ -18,6 +18,10 @@ expect(standardPath, [
   "support",
   "document delivery",
   "dashboard continuity",
+  "security posture",
+  "legal trust boundaries",
+  "page architecture",
+  "subpage architecture",
   "public experience discipline",
 ]);
 
@@ -33,6 +37,7 @@ expect(standardPath, [
   "Quality decisions must be centralized, validator-backed, reusable, and discoverable",
   "Customer surfaces must show system status, match real customer language, prevent errors, support recognition over recall, and provide recovery paths",
   "Support and lifecycle messages must be human, specific, proactive, honest about limitations, and focused on resolution",
+  "Every page and subpage must have one job, one strongest action, one trust boundary, one recovery path, and one clear reason to exist inside the larger Cendorq operating system.",
 ]);
 
 expect(doctrinePath, [
@@ -42,6 +47,12 @@ expect(doctrinePath, [
   "The company standard is to make every customer-facing and operator-facing decision feel intentional, calm, high-conviction, proof-aware, and unmistakably Cendorq.",
 ]);
 
+expect(standardPath, pageSubpagePhrases());
+expect(doctrinePath, pageSubpagePhrases());
+expect(standardPath, noClutterPhrases());
+expect(doctrinePath, noClutterPhrases());
+expect(standardPath, futureProofingPhrases());
+expect(doctrinePath, futureProofingPhrases());
 expect(standardPath, qualityBarPhrases());
 expect(doctrinePath, qualityBarPhrases());
 
@@ -53,6 +64,7 @@ expect(doctrinePath, [
   "The public website must create category authority before checkout, but the private dashboard must prove that authority after payment.",
   "Support quality protects retention when it is personal, honest, proactive, resolution-oriented, and connected to dashboard status.",
   "Document delivery earns trust only when the dashboard, report vault, billing center, or provider system remains the source of truth.",
+  "Subpages make money when they reduce uncertainty, answer the exact buying objection for that stage, and return the customer to the right next command without adding noise.",
 ]);
 
 expect(standardPath, checklistPhrases());
@@ -62,6 +74,9 @@ expect(doctrinePath, blockedPatterns());
 
 expect(doctrinePath, [
   "## Research-inspired operating principles",
+  "## Page and subpage operating system",
+  "## No-clutter design doctrine",
+  "## Future-proofing doctrine",
   "## Non-negotiable Cendorq quality bar",
   "## Money-making discipline",
   "## Blocked patterns",
@@ -88,7 +103,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Best-of-best operating standard validation passed with research-inspired principles, Cendorq-specific operating rules, operator doctrine documentation, money-making lessons, review checklist, docs-index visibility, and blocked-pattern coverage.");
+console.log("Best-of-best operating standard validation passed with research-inspired principles, page/subpage operating system, no-clutter design doctrine, future-proofing doctrine, Cendorq-specific operating rules, operator doctrine documentation, money-making lessons, review checklist, docs-index visibility, and blocked-pattern coverage.");
 
 function bestOfBestPrinciples() {
   return [
@@ -100,6 +115,49 @@ function bestOfBestPrinciples() {
     "Atlassian-level documented foundations",
     "Nielsen Norman-level usability",
     "Intercom-level",
+    "Best-in-class page-system discipline",
+  ];
+}
+
+function pageSubpagePhrases() {
+  return [
+    "pageAndSubpageOperatingSystem",
+    "Homepage creates category authority",
+    "Free Scan captures only useful business context",
+    "Plans explains Scan, Review, Repair, and Control",
+    "Plan-detail pages sell one plan at a time",
+    "Checkout confirms the selected depth",
+    "Dashboard is the private money surface",
+    "Report vault is the protected source of truth",
+    "Billing center is provider-authoritative",
+    "Notification center mirrors important customer messages",
+    "Support center, support status, and support request intake acknowledge the issue",
+    "Terms, privacy, and disclaimer pages protect the company and customer",
+    "Command-center and admin pages stay private",
+  ];
+}
+
+function noClutterPhrases() {
+  return [
+    "noClutterDesignDoctrine",
+    "Simple does not mean thin",
+    "fewer stronger modules over many equal-weight sections",
+    "Decoration without decision value must be removed",
+    "Repeated CTAs must reinforce one path",
+    "Subpages should feel uniform in system language",
+    "Dark private dashboard surfaces should feel powerful",
+    "Public surfaces should feel authoritative",
+  ];
+}
+
+function futureProofingPhrases() {
+  return [
+    "futureProofingDoctrine",
+    "AI/search behavior, customer expectations, competitors, security threats, platform policies, inbox delivery, and buyer psychology will keep changing",
+    "controlled continuous evolution",
+    "Customer-facing claims must evolve with evidence, not hype",
+    "Security, SEO, accessibility, performance, legal boundaries, customer support, billing trust, and report truth must be reviewed as living systems",
+    "preserve a safe path for stronger future pages",
   ];
 }
 
@@ -108,6 +166,9 @@ function qualityBarPhrases() {
     "Every customer-facing surface",
     "one strongest next move",
     "visible boundaries about what is included and not included",
+    "Every page and subpage must have a clear job",
+    "a clear owner of truth",
+    "a clear safe recovery path",
     "recoverable from the verified dashboard",
     "Every document path must be vault-first or provider-authoritative first",
     "Every plan surface must preserve plan value separation",
@@ -127,6 +188,7 @@ function moneyMakingPhrases() {
     "Support quality protects retention when it is personal, honest, proactive, and resolution-oriented.",
     "Document delivery earns trust only when the dashboard or provider system remains the source of truth.",
     "The front website must create category authority before the customer ever reaches checkout, but the private dashboard must prove that authority after payment.",
+    "Subpages make money when they reduce uncertainty, answer the exact buying objection for that stage, and return the customer to the right next command without adding noise.",
   ];
 }
 
@@ -140,6 +202,7 @@ function checklistPhrases() {
     "Does the report vault remain the canonical protected view before PDFs or attachments?",
     "Does every important email have a mirrored dashboard message when applicable?",
     "Does support answer the human question, acknowledge the state, provide one next move",
+    "Does the page or subpage have one job, one strongest action, one trust boundary, one recovery path, and one reason to exist?",
     "Does the system protect plan separation and future revenue",
   ];
 }
@@ -149,6 +212,9 @@ function blockedPatterns() {
     "template-like hero section",
     "generic SaaS dashboard copy",
     "equal-weight CTA wall",
+    "page without one job",
+    "subpage without source-of-truth role",
+    "clutter disguised as value",
     "email-only report access",
     "PDF-only customer truth",
     "raw provider payload display",
