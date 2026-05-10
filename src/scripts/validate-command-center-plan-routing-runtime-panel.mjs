@@ -13,7 +13,7 @@ expect(panelPath, [
   "projectPlanRouting",
   "type PlanRoutingInput",
   "Plan routing runtime",
-  "Operator visibility for plan stops, direct purchases, late add-ons, warning emails, and one-time inbox confirmation.",
+  "Operator visibility for plan stops, direct purchases, late add-ons, warning emails, dashboard-message mirrors, safe documents, and one-time inbox confirmation.",
   "Decision matrix",
   "safe projection",
   "Safe customer language",
@@ -26,9 +26,9 @@ expect(panelPath, [
 
 expect(panelPath, [
   "Free Scan stop",
-  "Direct Build Fix",
-  "Direct Monthly",
-  "Late Deep Review after Build Fix",
+  "Direct Signal Repair",
+  "Direct Readiness Control",
+  "Late AI Readiness Review after Signal Repair",
   "First signup inbox confirmation",
   "linear-stop",
   "direct-purchase",
@@ -39,6 +39,21 @@ expect(panelPath, [
   "inboxConfirmationAllowed",
   "reconciliationOutcome",
   "customerOwnedProjectionReady",
+  "selectedPlanLabel",
+  "dashboardMessageMirrorRequired",
+  "safeDocumentDeliveryMustMatchVault",
+  "mirror",
+  "documents",
+]);
+
+expect(panelPath, [
+  "dashboard-message mirror requirement",
+  "safe-document state",
+  "Customer starts with Signal Repair",
+  "protecting AI Readiness Review entitlement and safe document boundaries",
+  "Customer starts with Readiness Control",
+  "recommends Signal Repair only when evidence supports it",
+  "dashboard-message, and safe-document cadence",
 ]);
 
 expect(pagePath, [
@@ -54,9 +69,17 @@ expect(pagePath, [
 expect(runtimePath, [
   "projectPlanRouting",
   "PlanRoutingProjection",
+  "selectedPlanLabel",
+  "dashboardMessageMirrorRequired",
+  "safeDocumentDeliveryMustMatchVault",
+  "signal-repair-direct-scope-confirmation",
+  "readiness-control-direct-scope-confirmation",
+  "aiReadinessReviewAlreadyActive",
+  "signalRepairDeliveryAlreadyApproved",
   "warningEmailWithoutEvidence",
   "inboxConfirmationAlreadyCompleted",
   "material-rework-change-order",
+  "Released reports, billing documents, and PDFs remain vault-first",
   "safeCustomerLanguage",
 ]);
 
@@ -69,6 +92,13 @@ expect(planValidatorPath, [
 ]);
 
 forbidden(panelPath, [
+  "Direct Build Fix",
+  "Direct Monthly",
+  "Late Deep Review after Build Fix",
+  "Customer starts with Optimization",
+  "Customer starts with Monthly",
+  "skipped Full Scan",
+  "Deep Review after Build Fix",
   "guaranteed ROI",
   "guaranteed revenue",
   "guaranteed accuracy",
@@ -99,7 +129,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center plan routing runtime panel validation passed.");
+console.log("Command center plan routing runtime panel validation passed with current plan language, dashboard-message mirror visibility, safe-document state, warning-email suppression, reconciliation, and safe customer language coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
