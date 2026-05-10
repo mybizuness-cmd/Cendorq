@@ -11,6 +11,7 @@ const baselineRouteValidatorPath = "src/scripts/validate-routes.mjs";
 const commandDesignValidatorPath = "src/scripts/validate-command-design-operating-standard.mjs";
 const freeScanActiveFormValidatorPath = "src/scripts/validate-free-scan-active-form-selection.mjs";
 const freeScanRoutingHintValidatorPath = "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs";
+const publicPlansValidatorPath = "src/scripts/validate-public-plans-excellence.mjs";
 const pricingCheckoutValidatorPath = "src/scripts/validate-pricing-checkout-orchestration.mjs";
 const billingCheckoutValidatorPath = "src/scripts/validate-billing-checkout-contracts.mjs";
 const dashboardActionInboxValidatorPath = "src/scripts/validate-dashboard-action-inbox.mjs";
@@ -25,6 +26,7 @@ const executedValidators = [
   commandDesignValidatorPath,
   freeScanActiveFormValidatorPath,
   freeScanRoutingHintValidatorPath,
+  publicPlansValidatorPath,
   pricingCheckoutValidatorPath,
   billingCheckoutValidatorPath,
   dashboardActionInboxValidatorPath,
@@ -50,7 +52,6 @@ if (!failures.length) {
   const registryText = read(validationRegistryPath);
   const docsText = read(docsIndexPath);
   const ownerManualText = read(ownerManualPath);
-  const chainValidators = [...chainText.matchAll(/"(src\/scripts\/validate-[^"]+\.mjs)"/g)].map((match) => match[1]);
   const executedChainValidators = getArrayValues(chainText, "validators");
   const documentedChainValidators = getArrayValues(chainText, "documentedValidatorCoverage");
   const duplicateExecuted = executedChainValidators.filter((validator, index) => executedChainValidators.indexOf(validator) !== index);
@@ -72,6 +73,7 @@ if (!failures.length) {
 
   expectText(chainPath, chainText, [
     "route-chain integrity",
+    "public Plans buyer-path excellence",
     "executed customer delivery validators for checkout, billing, dashboard conversion inbox, and plan delivery lifecycle",
     "safe PDF access",
     "lifecycle nurturing",
@@ -119,7 +121,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, command design and Free Scan gates next, then executed customer-delivery validators for checkout orchestration, billing safe-document delivery, dashboard message mirror, and plan delivery lifecycle. Adjacent registry, docs, owner manual, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
+console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, command design and Free Scan gates next, public Plans buyer-path excellence, then executed customer-delivery validators for checkout orchestration, billing safe-document delivery, dashboard message mirror, and plan delivery lifecycle. Adjacent registry, docs, owner manual, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
 
 function getArrayValues(text, arrayName) {
   const match = text.match(new RegExp(`const ${arrayName} = \\[([\\s\\S]*?)\\];`));
