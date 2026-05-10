@@ -14,6 +14,7 @@ const freeScanRoutingHintValidatorPath = "src/scripts/validate-free-scan-routing
 const publicPlansValidatorPath = "src/scripts/validate-public-plans-excellence.mjs";
 const pricingCheckoutValidatorPath = "src/scripts/validate-pricing-checkout-orchestration.mjs";
 const billingCheckoutValidatorPath = "src/scripts/validate-billing-checkout-contracts.mjs";
+const billingCenterFirstUseValidatorPath = "src/scripts/validate-billing-center-first-use.mjs";
 const dashboardActionInboxValidatorPath = "src/scripts/validate-dashboard-action-inbox.mjs";
 const planDeliveryValidatorPath = "src/scripts/validate-plan-delivery-orchestration-contracts.mjs";
 const validationRegistryPath = "src/lib/command-center/validation-registry.ts";
@@ -29,6 +30,7 @@ const executedValidators = [
   publicPlansValidatorPath,
   pricingCheckoutValidatorPath,
   billingCheckoutValidatorPath,
+  billingCenterFirstUseValidatorPath,
   dashboardActionInboxValidatorPath,
   planDeliveryValidatorPath,
 ];
@@ -74,7 +76,7 @@ if (!failures.length) {
   expectText(chainPath, chainText, [
     "route-chain integrity",
     "public Plans buyer-path excellence",
-    "executed customer delivery validators for checkout, billing, dashboard conversion inbox, and plan delivery lifecycle",
+    "checkout handoff, billing contracts, billing center safe-document access, dashboard conversion inbox, and plan delivery lifecycle",
     "safe PDF access",
     "lifecycle nurturing",
     "registry coverage",
@@ -121,7 +123,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, command design and Free Scan gates next, public Plans buyer-path excellence, then executed customer-delivery validators for checkout orchestration, billing safe-document delivery, dashboard message mirror, and plan delivery lifecycle. Adjacent registry, docs, owner manual, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
+console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, command design and Free Scan gates next, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, docs, owner manual, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
 
 function getArrayValues(text, arrayName) {
   const match = text.match(new RegExp(`const ${arrayName} = \\[([\\s\\S]*?)\\];`));
