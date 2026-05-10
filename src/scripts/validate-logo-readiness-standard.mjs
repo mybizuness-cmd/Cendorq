@@ -24,6 +24,16 @@ const checks = [
     "bg-slate-950",
     "bg-indigo-400",
   ]],
+  ["src/layout/site-footer.tsx", [
+    "function BrandMark()",
+    "bg-cyan-500",
+    "bg-slate-950",
+    "bg-indigo-400",
+    "AI engine readiness for businesses that need to be understood, trusted, and chosen",
+    "Privacy",
+    "Terms",
+    "Disclaimer",
+  ]],
   ["src/scripts/validate-routes-chain.mjs", [
     "src/scripts/validate-logo-readiness-standard.mjs",
   ]],
@@ -40,7 +50,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Logo readiness standard validation passed.");
+console.log("Logo readiness standard validation passed with header and footer signal-mark consistency.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
