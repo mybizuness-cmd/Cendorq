@@ -19,6 +19,7 @@ const executedValidators = [
   "src/scripts/validate-brand-trademark-operating-standard.mjs",
   "src/scripts/validate-logo-readiness-standard.mjs",
   "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+  "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -61,6 +62,7 @@ const doctrineFiles = [
   "docs/current-operating-research-notes.md",
   "docs/brand-trademark-operating-standard.md",
   "docs/legal-trust-crawler-readiness-standard.md",
+  "docs/owner-brand-legal-trust-addendum.md",
   "docs/best-of-best-operating-standard.md",
   "src/lib/unified-experience-alignment.ts",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -103,6 +105,7 @@ if (!failures.length) {
     "brand/trademark operating standard",
     "logo readiness standard",
     "legal/trust/crawler readiness",
+    "owner brand legal trust addendum",
     "best-of-best operating standard",
     "unified experience alignment",
     "surface-level alignment",
@@ -128,6 +131,12 @@ if (!failures.length) {
     "docs/support-channel-operating-standard.md",
     "src/scripts/validate-support-channel-operating-standard.mjs",
     "doctrine file, a validator, route-chain execution, route-chain integrity coverage, and docs visibility",
+  ]);
+
+  expect("docs/owner-brand-legal-trust-addendum.md", read("docs/owner-brand-legal-trust-addendum.md"), [
+    "Owner Brand, Logo, Legal, and Trust Addendum",
+    "Keep public crawler surfaces useful and private customer surfaces protected.",
+    "Trust language should protect Cendorq while increasing buyer confidence.",
   ]);
 
   expect("docs/legal-trust-crawler-readiness-standard.md", read("docs/legal-trust-crawler-readiness-standard.md"), [
@@ -212,7 +221,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed with operating memory lock, current research, brand/trademark, logo readiness, legal/trust/crawler readiness, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
+console.log("Validate routes chain integrity passed with operating memory lock, current research, brand/trademark, logo readiness, legal/trust/crawler readiness, owner brand legal trust addendum, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
 function arrayValues(text, name) {
   const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
