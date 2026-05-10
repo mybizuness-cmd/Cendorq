@@ -10,6 +10,8 @@ const chainIntegrityValidatorPath = "src/scripts/validate-routes-chain-integrity
 const baselineRouteValidatorPath = "src/scripts/validate-routes.mjs";
 const bestOfBestValidatorPath = "src/scripts/validate-best-of-best-operating-standard.mjs";
 const commandDesignValidatorPath = "src/scripts/validate-command-design-operating-standard.mjs";
+const docsIndexValidatorPath = "src/scripts/validate-command-center-docs-index.mjs";
+const ownerOperatingManualValidatorPath = "src/scripts/validate-owner-operating-manual.mjs";
 const freeScanActiveFormValidatorPath = "src/scripts/validate-free-scan-active-form-selection.mjs";
 const freeScanRoutingHintValidatorPath = "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs";
 const publicPlansValidatorPath = "src/scripts/validate-public-plans-excellence.mjs";
@@ -32,6 +34,8 @@ const executedValidators = [
   baselineRouteValidatorPath,
   bestOfBestValidatorPath,
   commandDesignValidatorPath,
+  docsIndexValidatorPath,
+  ownerOperatingManualValidatorPath,
   freeScanActiveFormValidatorPath,
   freeScanRoutingHintValidatorPath,
   publicPlansValidatorPath,
@@ -49,8 +53,6 @@ const executedValidators = [
 
 const documentedCoverageValidators = [
   "src/scripts/validate-command-center-validation-registry.mjs",
-  "src/scripts/validate-command-center-docs-index.mjs",
-  "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
@@ -88,12 +90,13 @@ if (!failures.length) {
   expectText(chainPath, chainText, [
     "route-chain integrity",
     "best-of-best operating standard",
+    "docs-index doctrine coverage",
+    "owner operating doctrine",
     "public Plans buyer-path excellence",
     "checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle",
     "safe PDF access",
     "lifecycle nurturing",
     "registry coverage",
-    "owner doctrine",
   ]);
 
   expectText(registryPathLabel(), registryText, [
@@ -109,18 +112,22 @@ if (!failures.length) {
 
   expectText(docsIndexPath, docsText, [
     "Customer delivery validation standard",
+    bestOfBestValidatorPath,
     pricingCheckoutValidatorPath,
     billingCheckoutValidatorPath,
     dashboardActionInboxValidatorPath,
     planDeliveryValidatorPath,
     "safe PDF delivery only after gates pass",
     "mirrored dashboard messages for important emails",
+    "best-of-best operating standard",
   ]);
 
   expectText(ownerManualPath, ownerManualText, [
     "dashboard/report vault is the canonical protected display location",
     "Every important customer email should create or update a matching dashboard message record",
     "PDFs must never be the only access path.",
+    "Best-of-best operating doctrine",
+    "best-of-best standard visible in every material customer-facing decision",
   ]);
 
   forbidden(chainPath, chainText, [
@@ -136,7 +143,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, command design and Free Scan gates next, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, docs, owner manual, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
+console.log("Validate routes chain integrity passed. The practical route-chain runs integrity first, baseline routes second, best-of-best operating standard, command design, docs-index doctrine coverage, owner operating doctrine, Free Scan gates, public Plans buyer-path excellence, checkout handoff, billing contracts, billing center safe-document access, report vault safe-document access, notification center message mirrors, support center recovery, support status recovery, support request intake, dashboard conversion inbox, and plan delivery lifecycle. Adjacent registry, report truth, maximum protection, and closed-intelligence validators remain discoverable without forcing stale huge-chain execution.");
 
 function getArrayValues(text, arrayName) {
   const match = text.match(new RegExp(`const ${arrayName} = \\[([\\s\\S]*?)\\];`));
