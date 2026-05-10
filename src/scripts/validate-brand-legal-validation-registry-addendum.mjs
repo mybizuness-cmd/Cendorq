@@ -19,9 +19,24 @@ const checks = [
     "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
     "getBrandLegalValidationRegistryAddendum",
   ]],
-  ["src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-brand-legal-validation-registry-addendum.mjs"]],
-  ["src/scripts/validate-routes-chain-integrity.mjs", ["src/scripts/validate-brand-legal-validation-registry-addendum.mjs"]],
-  ["docs/command-center-docs-index.md", ["validation-registry-brand-legal-addendum.ts"]],
+  ["src/scripts/validate-routes-chain.mjs", [
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
+    "brand/legal validation registry addendum",
+  ]],
+  ["src/scripts/validate-routes-chain-integrity.mjs", [
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
+    "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
+    "brand/legal validation registry addendum",
+  ]],
+  ["docs/command-center-docs-index.md", [
+    "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
+    "brand/legal validation registry addendum",
+  ]],
+  ["docs/operating-memory-lock.md", [
+    "src/lib/command-center/validation-registry-brand-legal-addendum.ts",
+    "src/scripts/validate-brand-legal-validation-registry-addendum.mjs",
+  ]],
 ];
 
 for (const [path, phrases] of checks) expect(path, phrases);
@@ -32,7 +47,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Brand legal validation registry addendum validation passed.");
+console.log("Brand legal validation registry addendum validation passed with route-chain, route-chain integrity, docs-index, and memory-lock coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
