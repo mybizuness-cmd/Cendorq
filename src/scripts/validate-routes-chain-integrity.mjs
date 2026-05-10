@@ -18,6 +18,7 @@ const executedValidators = [
   "src/scripts/validate-current-operating-research-notes.mjs",
   "src/scripts/validate-brand-trademark-operating-standard.mjs",
   "src/scripts/validate-logo-readiness-standard.mjs",
+  "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
   "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -59,6 +60,7 @@ const doctrineFiles = [
   memoryLockPath,
   "docs/current-operating-research-notes.md",
   "docs/brand-trademark-operating-standard.md",
+  "docs/legal-trust-crawler-readiness-standard.md",
   "docs/best-of-best-operating-standard.md",
   "src/lib/unified-experience-alignment.ts",
   "src/scripts/validate-surface-level-alignment.mjs",
@@ -100,6 +102,7 @@ if (!failures.length) {
     "current operating research notes",
     "brand/trademark operating standard",
     "logo readiness standard",
+    "legal/trust/crawler readiness",
     "best-of-best operating standard",
     "unified experience alignment",
     "surface-level alignment",
@@ -120,6 +123,14 @@ if (!failures.length) {
     "docs/support-channel-operating-standard.md",
     "src/scripts/validate-support-channel-operating-standard.mjs",
     "doctrine file, a validator, route-chain execution, route-chain integrity coverage, and docs visibility",
+  ]);
+
+  expect("docs/legal-trust-crawler-readiness-standard.md", read("docs/legal-trust-crawler-readiness-standard.md"), [
+    "Legal, Trust, and Crawler Readiness Standard",
+    "Public trust protection should be clear, calm, findable, and properly placed.",
+    "Private customer areas should not be discovery surfaces.",
+    "Dispute-risk reduction",
+    "easy to trust, easy to crawl, easy to verify, and hard to misunderstand",
   ]);
 
   expect("docs/brand-trademark-operating-standard.md", read("docs/brand-trademark-operating-standard.md"), [
@@ -194,7 +205,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed with operating memory lock, current research, brand/trademark, logo readiness, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
+console.log("Validate routes chain integrity passed with operating memory lock, current research, brand/trademark, logo readiness, legal/trust/crawler readiness, best-of-best, unified experience alignment, surface-level alignment, device experience and performance, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
 function arrayValues(text, name) {
   const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
