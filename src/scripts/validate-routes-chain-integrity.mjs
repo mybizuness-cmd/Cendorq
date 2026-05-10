@@ -15,6 +15,7 @@ const executedValidators = [
   "src/scripts/validate-routes.mjs",
   "src/scripts/validate-current-operating-research-notes.mjs",
   "src/scripts/validate-best-of-best-operating-standard.mjs",
+  "src/scripts/validate-unified-experience-alignment.mjs",
   "src/scripts/validate-acquisition-to-retention-operating-system.mjs",
   "src/scripts/validate-build-gate-hardening-standard.mjs",
   "src/scripts/validate-support-channel-operating-standard.mjs",
@@ -51,6 +52,7 @@ const documentedCoverageValidators = [
 const doctrineFiles = [
   "docs/current-operating-research-notes.md",
   "docs/best-of-best-operating-standard.md",
+  "src/lib/unified-experience-alignment.ts",
   "docs/acquisition-to-retention-operating-system.md",
   "docs/build-gate-hardening-standard.md",
   "docs/support-channel-operating-standard.md",
@@ -88,6 +90,7 @@ if (!failures.length) {
   expect(chainPath, chainText, [
     "current operating research notes",
     "best-of-best operating standard",
+    "unified experience alignment",
     "acquisition-to-retention operating system",
     "build gate hardening",
     "support channel operating standard",
@@ -95,6 +98,15 @@ if (!failures.length) {
     "trust/legal boundary coverage",
     "dashboard conversion inbox",
     "plan delivery lifecycle",
+  ]);
+
+  expect("src/lib/unified-experience-alignment.ts", read("src/lib/unified-experience-alignment.ts"), [
+    "UNIFIED_EXPERIENCE_ALIGNMENT",
+    "Homepage creates category clarity",
+    "Plans and plan-detail pages carry pricing",
+    "Dashboard surfaces act as the customer command room",
+    "Mobile is the main entrance; desktop is the command room",
+    "cheap-looking generic blocks",
   ]);
 
   expect(docsIndexPath, docsText, [
@@ -130,7 +142,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Validate routes chain integrity passed with current research, best-of-best, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
+console.log("Validate routes chain integrity passed with current research, best-of-best, unified experience alignment, acquisition-to-retention, build gates, support channels, public/customer delivery, legal/security, dashboard, support, billing, report vault, and plan delivery validators wired in order.");
 
 function arrayValues(text, name) {
   const match = text.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`));
