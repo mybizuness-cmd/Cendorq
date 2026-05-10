@@ -10,6 +10,24 @@ The operating standard is to be more accurate, more useful, more trusted, more t
 
 The standard is not to promise impossible certainty. The standard is to build the strongest practical evidence system: customer context, safe external evidence, internal records, confidence labels, contradictions, limitations, next actions, selective forecast refresh triggers, competitive movement review, and release-captain review.
 
+## Best-of-best operating doctrine
+
+Cendorq should learn from the discipline of the strongest companies without copying them. The operating bar is Apple-level clarity, Stripe-level billing trust, Shopify-level owner empowerment, Salesforce-level system consistency, Microsoft-level calm interaction, Atlassian-level documented foundations, Nielsen Norman usability discipline, and Intercom-level human support, translated into Cendorq's own category-defining system.
+
+This means:
+
+- the public website must create authority before checkout without sounding like a generic agency or AI report template
+- the dashboard must prove that authority after payment through proof, status, billing, reports, support, and recovery
+- every customer-facing surface needs one strongest next move, visible boundaries, and one safe fallback route when needed
+- billing must stay provider-authoritative, self-serve, verified-access-first, and recoverable without raw payment data
+- report and billing documents must be vault-first or provider-authoritative first and never a separate source of truth
+- notifications and emails must mirror important customer messages into the dashboard when applicable
+- support must acknowledge the human issue, show the current safe state, give one next move, and avoid duplicate anxiety
+- plan progression must sell through evidence, stage fit, and usefulness, not pressure or fake urgency
+- validators and docs must protect the quality bar so Cendorq does not rely on memory, taste, or one-off hero work
+
+The best-of-best source doctrine lives in `docs/best-of-best-operating-standard.md`, the executable standard lives in `src/lib/best-of-best-operating-standard.ts`, and validation lives in `src/scripts/validate-best-of-best-operating-standard.mjs`. That validator must run before downstream customer-delivery validators so public pages, dashboard sales surfaces, billing, report vault, notification center, support, lifecycle, and plan delivery inherit the same operating bar.
+
 ## Non-negotiable truth rule
 
 Cendorq must never claim guaranteed accuracy, guaranteed revenue, guaranteed ROI, guaranteed rankings, guaranteed security, impossible-to-hack status, liability-free status, guaranteed delivery outcomes, mistake-free operation, or a guaranteed repair.
@@ -88,6 +106,7 @@ Captain review must verify:
 - forecast boundaries
 - recurring-value placement
 - selling language
+- best-of-best operating standard alignment
 
 Captain review must reject:
 
@@ -97,6 +116,10 @@ Captain review must reject:
 - over-strict deletion of useful bounded findings
 - customer-facing recommendations without proof
 - public guarantee language
+- generic SaaS dashboard copy
+- template-like public page or report structure
+- support blame language
+- plan boundary blur
 
 ## Category-defining authority and psychology
 
@@ -132,6 +155,8 @@ The opening experience should show:
 4. Cendorq separates what is known, unknown, likely, forecastable, and risky.
 5. Cendorq gives one safe next action instead of generic advice.
 6. Cendorq routes the customer into dashboard, notifications, report vault, billing, and support without dead ends.
+7. Cendorq keeps the same truth across email, dashboard messages, report vault, billing center, and support.
+8. Cendorq makes the right paid depth feel earned by proof, not forced by pressure.
 
 The Free Scan is the opening wedge. It should make the customer feel that Cendorq is already thinking like an operator, not a template generator.
 
@@ -371,6 +396,7 @@ No report should blur a customer claim into a verified fact. No report should bl
    - confirm confidence and limitations are visible
    - confirm forecast sections are labeled, bounded, and only present when justified
    - confirm next actions are specific and safe
+   - confirm best-of-best operating standard alignment
 
 ## Tailored plan operating model
 
@@ -472,7 +498,7 @@ Owner posture:
 
 - Prefer small coherent batches over large mixed changes.
 - Keep dependency, security, framework, accessibility, performance, conversion copy, legal language, report-truthfulness, forecast logic, support lifecycle, billing, and operator-safety updates traceable.
-- Treat Vercel, `validate:routes`, route-chain integrity, validation registry, docs index, operator runbook, and most-pristine coverage as the minimum operating rails.
+- Treat Vercel, `validate:routes`, route-chain integrity, validation registry, docs index, operator runbook, owner operating manual, and most-pristine coverage as the minimum operating rails.
 - Do not skip gates to move faster.
 - Do not disable validators to make an update pass.
 - Do not hide failures or silently weaken safeguards.
@@ -572,6 +598,7 @@ After public launch, owner should review:
 - competitor movement patterns
 - plan conversion patterns
 - customer objections
+- best-of-best standard drift
 
 ## Customer operations architecture update
 
@@ -671,6 +698,7 @@ Customer-facing language should be truthful, evidence-led, category-defining, ps
 14. Live audit history for support, reports, billing, launch, and operator actions
 15. Forecast module rendering and forecast refresh history
 16. Recurring readiness baseline comparison
+17. Best-of-best drift review across public website, dashboard, checkout, billing, reports, notifications, support, lifecycle, and plan delivery
 
 ### Next product layers
 
@@ -685,6 +713,7 @@ Customer-facing language should be truthful, evidence-led, category-defining, ps
 9. Billing upgrade flow
 10. Support escalation and correction flow
 11. Owner command-center review workflow
+12. Best-of-best conversion and recovery audit across every customer-facing surface
 
 ### Next intelligence layers
 
@@ -710,6 +739,7 @@ Daily during build:
 - keep command-center private
 - keep safety claims bounded
 - keep launch approval separate from evidence
+- keep best-of-best standard visible in every material customer-facing decision
 
 Weekly after launch:
 - review customer outcomes
@@ -720,6 +750,7 @@ Weekly after launch:
 - review support patterns
 - review market changes
 - update playbooks and validators
+- review best-of-best drift across public, dashboard, billing, report, notification, support, lifecycle, and plan surfaces
 
 Monthly after launch:
 - refresh market-learning summaries
@@ -730,9 +761,10 @@ Monthly after launch:
 - review privacy posture
 - review support and billing friction
 - review recurring-value strength
+- review whether Cendorq still feels category-defining rather than generic
 
 ## Final operating principle
 
-Cendorq should not win by promising the impossible. It should win by being more disciplined, more evidence-backed, more current, more tailored, more useful, more honest, and more operationally complete than competitors.
+Cendorq should not win by promising the impossible. It should win by being more disciplined, more evidence-backed, more current, more tailored, more useful, more honest, more recoverable, and more operationally complete than competitors.
 
-The customer should feel from the first screen that Cendorq is not selling a generic service. It is running a controlled business readiness and improvement system with proof, judgment, continuity, forecast awareness, and safe execution.
+The customer should feel from the first screen that Cendorq is not selling a generic service. It is running a controlled business readiness and improvement system with proof, judgment, continuity, forecast awareness, best-of-best operating discipline, and safe execution.
