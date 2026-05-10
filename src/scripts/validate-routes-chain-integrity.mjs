@@ -189,6 +189,8 @@ if (!failures.length) {
     "src/scripts/validate-brand-trademark-operating-standard.mjs",
     "docs/legal-trust-crawler-readiness-standard.md",
     "src/scripts/validate-legal-trust-crawler-readiness-standard.mjs",
+    "docs/owner-brand-legal-trust-addendum.md",
+    "src/scripts/validate-owner-brand-legal-trust-addendum.mjs",
     "docs/best-of-best-operating-standard.md",
     "docs/acquisition-to-retention-operating-system.md",
     "Customer delivery validation standard",
