@@ -8,7 +8,7 @@ import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES, type PlanValueKey } 
 
 export const metadata = buildMetadata({
   title: "Readiness signal feed | Cendorq",
-  description: "Your private Cendorq signal feed for AI-readiness proof, billing, support, account, and security actions.",
+  description: "Your private Cendorq signal feed for AI-readiness proof, mirrored messages, document states, billing, support, account, and security actions.",
   path: "/dashboard/notifications",
   noIndex: true,
 });
@@ -76,9 +76,30 @@ const ALERT_TYPES = [
   { title: "Security signal", copy: "Re-authenticate calmly without exposing attacker details or risk internals.", href: "/login" },
 ] as const;
 
+const MESSAGE_ACCESS_RULES = [
+  {
+    title: "Email mirrored",
+    copy: "Important emails should appear here as dashboard messages with the same safe next action, related plan, and support path.",
+  },
+  {
+    title: "Document state visible",
+    copy: "Report and billing document alerts route to the report vault or billing center instead of exposing raw files, provider payloads, or private document internals.",
+  },
+  {
+    title: "Missed email recovery",
+    copy: "If email is missed, filtered, suppressed, or delayed, verified dashboard access still carries the safe message and destination.",
+  },
+  {
+    title: "Suppression respected",
+    copy: "Non-essential reminders stay quiet when the customer acted, opted out, support paused reminders, or no evidence-backed next step exists.",
+  },
+] as const;
+
 const QUIET_FEED_RULES = [
   "Every alert must explain why it matters and where the customer can act safely.",
+  "Every important email must mirror here as a customer-owned dashboard message when applicable.",
   "Notifications show safe customer summaries, not raw evidence, secrets, prompts, private internals, or raw billing IDs.",
+  "Report and billing document alerts must route to the report vault or billing center and never expose raw provider or document internals.",
   "Readiness alerts must name the value, the boundary, and the next action before sending customers to checkout.",
   "Support lifecycle alerts route to status, safe resubmission, support center, or new request paths without duplicate anxiety.",
 ] as const;
@@ -97,7 +118,7 @@ export default function NotificationCenterPage() {
             Act only on signals that protect readiness progress.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            This feed should stay quiet until something matters: proof is ready, access changes, support needs context, or a safer action is required.
+            This feed should stay quiet until something matters: proof is ready, access changes, support needs context, document state changes, an email needs a dashboard mirror, or a safer action is required.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/reports" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
@@ -131,7 +152,7 @@ export default function NotificationCenterPage() {
             <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
               <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Priority readiness feed</p>
               <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Scan. Review. Repair. Control. One safe next action each.</h2>
-              <p className="mt-5 text-base leading-8 text-slate-300">No generic clutter. Every signal should point to proof, access, status, or safe recovery.</p>
+              <p className="mt-5 text-base leading-8 text-slate-300">No generic clutter. Every signal should point to proof, access, document state, status, or safe recovery.</p>
               <Link href="/dashboard/support/status" className="mt-7 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Track support status →</Link>
             </div>
             <div className="divide-y divide-white/10">
@@ -164,6 +185,18 @@ export default function NotificationCenterPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Dashboard message mirror standard">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {MESSAGE_ACCESS_RULES.map((item) => (
+            <article key={item.title} className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_24px_90px_rgba(2,8,23,0.34)]">
+              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">Message access</div>
+              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-white">{item.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{item.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Featured customer signals">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {FEATURED_NOTIFICATIONS.map((notification) => (
@@ -183,7 +216,7 @@ export default function NotificationCenterPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025)_38%,rgba(103,232,249,0.08))] p-6 shadow-[0_45px_180px_rgba(2,8,23,0.55)] backdrop-blur-2xl sm:p-8 lg:p-10">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Quiet feed standard</p>
           <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl">Signals should create confidence, not noise.</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {QUIET_FEED_RULES.map((rule) => (
               <p key={rule} className="rounded-[1.35rem] border border-white/10 bg-black/25 p-4 text-sm font-semibold leading-7 text-slate-300">{rule}</p>
             ))}
@@ -192,7 +225,7 @@ export default function NotificationCenterPage() {
       </section>
 
       <section className="sr-only" aria-label="Notification readiness feed guardrails">
-        Readiness signal feed. Act only on signals that protect readiness progress. Priority readiness feed. Scan. Review. Repair. Control. One safe next action each. Signal routing types. Featured customer signals. Quiet feed standard. Signals should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.command} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
+        Readiness signal feed. Act only on signals that protect readiness progress. Priority readiness feed. Scan. Review. Repair. Control. One safe next action each. Signal routing types. Featured customer signals. Dashboard message mirror standard. Message access. Email mirrored. Document state visible. Missed email recovery. Suppression respected. Quiet feed standard. Signals should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, raw provider payloads, raw document internals, attacker details, risk-scoring internals, or duplicate-request anxiety. Dashboard message mirror. Email state. Document state. Safe document gates. No separate source of truth. No guaranteed inbox. No guaranteed deliverability. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.command} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {MESSAGE_ACCESS_RULES.map((item) => `${item.title} ${item.copy}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
       </section>
     </main>
   );
