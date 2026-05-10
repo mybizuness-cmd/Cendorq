@@ -10,6 +10,7 @@ const validators = [
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
   "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
+  "src/scripts/validate-public-plans-excellence.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-billing-checkout-contracts.mjs",
   "src/scripts/validate-dashboard-action-inbox.mjs",
@@ -29,7 +30,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-controlled-maintenance-contracts.mjs",
   "src/scripts/validate-public-homepage-command-surface.mjs",
   "src/scripts/validate-public-homepage-command-entry.mjs",
-  "src/scripts/validate-public-plans-excellence.mjs",
   "src/scripts/validate-public-entry-plan-journey.mjs",
   "src/scripts/validate-homepage-public-frame-elevation.mjs",
   "src/scripts/validate-public-navigation-chrome.mjs",
@@ -135,5 +135,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, and executed customer delivery validators for checkout, billing, dashboard conversion inbox, and plan delivery lifecycle.`);
+console.log(`\nvalidate:routes chain passed route-chain integrity, baseline route existence, command design standard coverage, active Free Scan form selection coverage, Free Scan routing hint wire contract coverage, public Plans buyer-path excellence, and executed customer delivery validators for checkout, billing, dashboard conversion inbox, and plan delivery lifecycle.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards, including command-center schema/readiness/security, checkout fulfillment, billing contracts, dashboard conversion inbox, report delivery, safe PDF access, lifecycle nurturing, registry coverage, owner doctrine, report truth, evidence runtime, customer platform, conversion moat, insights conversation, and closed intelligence standards.`);
