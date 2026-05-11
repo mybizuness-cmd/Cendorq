@@ -10,20 +10,27 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
-const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-950 bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition hover:border-slate-700 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
-const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-slate-500 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
-const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+type LoginSearchParams = {
+  auth?: string;
+  provider?: string;
+  returnTo?: string;
+};
+
+const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-950 bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition hover:border-slate-700 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-slate-500 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2";
+const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2";
 
 const CUSTOMER_ACCESS_POINTS = [
-  "If this browser already has access, Cendorq can take you straight back to the workspace.",
-  "If you are on a new device, use the same email from your Free Scan or purchase.",
-  "Your Free Scan starts the workspace; sign in only brings you back to it.",
-  "If a provider is not connected yet, use email and check for a message from support@cendorq.com.",
+  "Use the same email you used for the Free Scan, purchase, or support request.",
+  "If this browser is already trusted, Cendorq can return you to the workspace without starting over.",
+  "If you are on a new device, send yourself a secure access link and continue from your inbox.",
+  "If a provider is not connected yet, email access is still available from support@cendorq.com.",
 ] as const;
 
-export default function LoginPage({ searchParams }: { searchParams?: { auth?: string; provider?: string; returnTo?: string } }) {
-  const returnTo = safeReturnTo(searchParams?.returnTo);
-  const authNotice = buildAuthNotice(searchParams?.auth, searchParams?.provider);
+export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
+  const resolvedSearchParams = await Promise.resolve(searchParams || {});
+  const returnTo = safeReturnTo(resolvedSearchParams.returnTo);
+  const authNotice = buildAuthNotice(resolvedSearchParams.auth, resolvedSearchParams.provider);
 
   return (
     <main className="min-h-screen overflow-hidden bg-white text-slate-950">
@@ -45,7 +52,7 @@ export default function LoginPage({ searchParams }: { searchParams?: { auth?: st
             <p className="mt-4 text-sm leading-7 text-slate-600">Choose how you want to receive access to your workspace.</p>
           </div>
 
-          {authNotice ? <div className={`mt-6 rounded-[1.25rem] border p-4 text-sm font-semibold leading-6 ${authNotice.tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-950" : "border-amber-200 bg-amber-50 text-amber-950"}`}>{authNotice.message}</div> : null}
+          {authNotice ? <div role="status" aria-live="polite" className={`mt-6 rounded-[1.25rem] border p-4 text-sm font-semibold leading-6 ${authNotice.tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-950" : "border-amber-200 bg-amber-50 text-amber-950"}`}>{authNotice.message}</div> : null}
 
           <form className="mt-6 grid gap-3" action="/api/auth/email" method="get">
             <input type="hidden" name="returnTo" value={returnTo} />
@@ -85,7 +92,7 @@ export default function LoginPage({ searchParams }: { searchParams?: { auth?: st
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Create access. Come back without starting over. Cendorq never emails a password. Provider sign-in confirms account identity; Free Scan remains the business-context intake. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
+      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Create access. Come back without starting over. Cendorq never emails a password. Check your inbox for Cendorq Support. Provider sign-in confirms account identity; Free Scan remains the business-context intake. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
     </main>
   );
 }

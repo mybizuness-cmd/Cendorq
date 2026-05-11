@@ -72,19 +72,19 @@ export default function PlansPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
 
-      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:py-16">
+      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:py-16">
         <div>
-          <h1 className="max-w-5xl text-[clamp(3.2rem,7.4vw,7rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">
+          <h1 className="max-w-5xl text-[clamp(2.85rem,6.2vw,6.25rem)] font-semibold leading-[0.92] tracking-[-0.078em] text-slate-950">
             Choose the right AI-readiness depth.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
             Start with a first signal. Move deeper only when the evidence supports it.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
               Start Free Scan
             </Link>
-            <Link href="/plans/deep-review" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/plans/deep-review" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
               See AI Readiness Review
             </Link>
           </div>
@@ -93,7 +93,7 @@ export default function PlansPage() {
         <div className="overflow-hidden rounded-[2.4rem] border border-slate-200 bg-white shadow-[0_30px_110px_rgba(15,23,42,0.1)]">
           <div className="divide-y divide-slate-200">
             {PLAN_CARDS.map((plan) => (
-              <Link key={plan.key} href={plan.href} className="group grid gap-4 p-5 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:p-6">
+              <Link key={plan.key} href={plan.href} className="group grid gap-4 p-5 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:p-6">
                 <div>
                   <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-950">{plan.stage}</h2>
                   <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{plan.name}</p>
@@ -133,7 +133,7 @@ export default function PlansPage() {
       </section>
 
       <section className="sr-only" aria-label="AI readiness plans guardrails">
-        Plans. Choose the right AI-readiness depth. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. No guaranteed rankings, leads, revenue, or AI placement.
+        Plans. Choose the right AI-readiness depth. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. No guaranteed rankings, leads, revenue, or AI placement. Premium laptop plans hero scale.
       </section>
     </main>
   );
