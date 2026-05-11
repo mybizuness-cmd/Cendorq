@@ -7,8 +7,8 @@ import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES, type PlanValueKey } from "@/lib/plan-value-delivery-architecture";
 
 export const metadata = buildMetadata({
-  title: "Market signal feed | Cendorq",
-  description: "Your private Cendorq signal feed for market proof, billing, support, account, and security actions that protect command progress.",
+  title: "Readiness signal feed | Cendorq",
+  description: "Your private Cendorq signal feed for readiness proof, billing, support, account, and security actions that protect progress.",
   path: "/dashboard/notifications",
   noIndex: true,
 });
@@ -30,16 +30,16 @@ const PRIORITY_FEED = [
   {
     planKey: "free-scan",
     command: "Scan",
-    moment: "Market signal ready",
+    moment: "Readiness signal ready",
     value: "Read the first signal before buying deeper work.",
-    boundary: "Not full diagnosis, implementation, or monthly monitoring.",
+    boundary: "Not full review, implementation, or monthly monitoring.",
     href: "/dashboard/reports/free-scan",
     cta: "Open signal",
     plan: getPlanValueDelivery("free-scan"),
   },
   {
     planKey: "deep-review",
-    command: "Diagnose",
+    command: "Review",
     moment: "Cause needs proof",
     value: "Move from first signal into proof when guessing would be expensive.",
     boundary: "Not implementation, unlimited revisions, or recurring control.",
@@ -49,8 +49,8 @@ const PRIORITY_FEED = [
   },
   {
     planKey: "build-fix",
-    command: "Fix",
-    moment: "Fix target is clear",
+    command: "Repair",
+    moment: "Repair target is clear",
     value: "Turn an approved weak point into scoped implementation.",
     boundary: "Not a full site rebuild or monthly monitoring.",
     href: BUILD_FIX.checkoutPath,
@@ -62,7 +62,7 @@ const PRIORITY_FEED = [
     command: "Control",
     moment: "Monthly watch is needed",
     value: "Keep visibility, trust, friction, and monthly decisions under review.",
-    boundary: "Not unlimited Build Fix, ad management, ranking guarantees, or AI placement guarantees.",
+    boundary: "Not unlimited Signal Repair, ad management, ranking guarantees, or AI placement guarantees.",
     href: ONGOING_CONTROL.checkoutPath,
     cta: `Start ${ONGOING_CONTROL.price}`,
     plan: getPlanValueDelivery("ongoing-control"),
@@ -70,7 +70,7 @@ const PRIORITY_FEED = [
 ] as const satisfies readonly { planKey: PlanValueKey; command: string; moment: string; value: string; boundary: string; href: string; cta: string; plan: ReturnType<typeof getPlanValueDelivery> }[];
 
 const ALERT_TYPES = [
-  { title: "Proof signal", copy: "Open the exact market record before making a paid decision.", href: "/dashboard/reports" },
+  { title: "Proof signal", copy: "Open the exact readiness record before making a paid decision.", href: "/dashboard/reports" },
   { title: "Access signal", copy: "Recover checkout or invoice access without sending card data to support.", href: "/dashboard/billing" },
   { title: "Support signal", copy: "Track status before creating duplicate support noise.", href: "/dashboard/support/status" },
   { title: "Security signal", copy: "Re-authenticate calmly without exposing attacker details or risk internals.", href: "/login" },
@@ -79,7 +79,7 @@ const ALERT_TYPES = [
 const QUIET_FEED_RULES = [
   "Every alert must explain why it matters and where the customer can act safely.",
   "Notifications show safe customer summaries, not raw evidence, secrets, prompts, private internals, or raw billing IDs.",
-  "Command alerts must name the value, the boundary, and the next action before sending customers to checkout.",
+  "Readiness alerts must name the value, the boundary, and the next action before sending customers to checkout.",
   "Support lifecycle alerts route to status, safe resubmission, support center, or new request paths without duplicate anxiety.",
 ] as const;
 
@@ -91,17 +91,17 @@ export default function NotificationCenterPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
-            Market signal feed
+            Readiness signal feed
           </div>
           <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
-            Act only on signals that protect market progress.
+            Act only on signals that protect readiness progress.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
             This feed should stay quiet until something matters: proof is ready, access changes, support needs context, or a safer action is required.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/reports" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Open market proof
+              Open readiness proof
             </Link>
             <Link href="/dashboard/support/status" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
               Track status
@@ -125,12 +125,12 @@ export default function NotificationCenterPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Priority command feed">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Priority readiness feed">
         <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Priority command feed</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Scan. Diagnose. Fix. Control. One safe next action each.</h2>
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Priority readiness feed</p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Scan. Review. Repair. Control. One safe next action each.</h2>
               <p className="mt-5 text-base leading-8 text-slate-300">No generic clutter. Every signal should point to proof, access, status, or safe recovery.</p>
               <Link href="/dashboard/support/status" className="mt-7 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Track support status →</Link>
             </div>
@@ -191,8 +191,8 @@ export default function NotificationCenterPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Notification command feed guardrails">
-        Market signal feed. Act only on signals that protect market progress. Priority command feed. Scan. Diagnose. Fix. Control. One safe next action each. Signal routing types. Featured customer signals. Quiet feed standard. Signals should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.command} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
+      <section className="sr-only" aria-label="Notification readiness feed guardrails">
+        Readiness signal feed. Act only on signals that protect readiness progress. Priority readiness feed. Scan. Review. Repair. Control. One safe next action each. Signal routing types. Featured customer signals. Quiet feed standard. Signals should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.command} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
       </section>
     </main>
   );
