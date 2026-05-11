@@ -25,12 +25,16 @@ export function setCustomerRememberedSessionCookie(response: NextResponse, input
   const secret = getSessionSecret();
   if (!secret) return false;
 
+  const customerIdHash = cleanHash(input.customerIdHash);
+  const signupEmailHash = cleanHash(input.signupEmailHash);
+  if (!customerIdHash || !signupEmailHash) return false;
+
   const issuedAt = Math.floor(Date.now() / 1000);
   const expiresAt = issuedAt + SESSION_TTL_SECONDS;
   const payload = [
     SESSION_VERSION,
-    cleanHash(input.customerIdHash),
-    cleanHash(input.signupEmailHash),
+    customerIdHash,
+    signupEmailHash,
     String(issuedAt),
     String(expiresAt),
     randomBytes(16).toString("base64url"),

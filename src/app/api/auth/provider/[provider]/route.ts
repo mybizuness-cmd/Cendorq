@@ -1,4 +1,5 @@
 import { getConfiguredCustomerAuthProviderUrl, getCustomerAuthProvider } from "@/lib/customer-auth-provider-config";
+import { safeDashboardPath } from "@/lib/customer-remembered-session-runtime";
 import { NextResponse, type NextRequest } from "next/server";
 
 const LOGIN_PATH = "/login";
@@ -21,9 +22,9 @@ export async function GET(request: NextRequest, context: { params: Promise<{ pro
   }
 
   const destination = new URL(configuredUrl);
-  const requestedReturnTo = request.nextUrl.searchParams.get("returnTo");
-  if (requestedReturnTo && requestedReturnTo.startsWith("/")) {
-    destination.searchParams.set("returnTo", requestedReturnTo);
+  const safeReturnTo = safeDashboardPath(request.nextUrl.searchParams.get("returnTo"));
+  if (safeReturnTo) {
+    destination.searchParams.set("returnTo", safeReturnTo);
   }
 
   return NextResponse.redirect(destination);
