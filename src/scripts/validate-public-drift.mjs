@@ -4,7 +4,10 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 
-const activePublicFiles = [
+const activeFiles = [
+  "src/app/page.tsx",
+  "src/app/dashboard/page.tsx",
+  "src/lib/cendorq-experience-system.ts",
   "src/app/api/customer/email/confirm/route.ts",
   "src/app/api/auth/continue/route.ts",
   "src/app/api/auth/email/route.ts",
@@ -14,9 +17,47 @@ const activePublicFiles = [
   "src/lib/customer-email-verification-token-runtime.ts",
 ];
 
-for (const file of activePublicFiles) {
-  if (!existsSync(join(root, file))) failures.push(`Missing active public drift file: ${file}`);
+for (const file of activeFiles) {
+  if (!existsSync(join(root, file))) failures.push(`Missing active drift file: ${file}`);
 }
+
+expect("src/lib/cendorq-experience-system.ts", [
+  "CENDORQ_EXPERIENCE_SYSTEM",
+  "CENDORQ_EXPERIENCE_GUARDRAILS",
+  "CENDORQ_SIGNAL_WORDS",
+  "World-class visual experience",
+  "Uncluttered pages",
+  "Cendorq-specific signal language",
+]);
+
+expect("src/app/page.tsx", [
+  "cinematic-ai-readiness-experience",
+  "CENDORQ_EXPERIENCE_SYSTEM",
+  "CENDORQ_SIGNAL_WORDS",
+  "If AI engines cannot understand your business",
+  "AI is becoming the place customers meet you first.",
+  "Scan. Review. Repair. Control.",
+  "Distinct Cendorq signal experience",
+  "Unified Cendorq Experience System",
+]);
+
+expect("src/app/dashboard/page.tsx", [
+  "AI readiness control center",
+  "Private AI readiness control center",
+  "Open readiness signal",
+  "Scan. Review. Repair. Control.",
+  "Readiness proof",
+  "Plan depth",
+  "Unified Cendorq Experience System",
+]);
+
+forbidden("src/app/dashboard/page.tsx", [
+  "Private market command center",
+  "Open market signal",
+  "Scan. Diagnose. Fix. Control.",
+  "Market proof",
+  "Command depth",
+]);
 
 expect("src/app/api/customer/email/confirm/route.ts", [
   "projectSafeConfirmationResponse",
@@ -88,12 +129,19 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.");
+console.log("Public drift validation passed with Cendorq Experience System, cinematic homepage, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.");
 
 function expect(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing required phrase: ${phrase}`);
+  }
+}
+
+function forbidden(path, phrases) {
+  const text = read(path);
+  for (const phrase of phrases) {
+    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
 
