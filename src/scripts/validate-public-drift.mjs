@@ -9,6 +9,7 @@ const activePublicFiles = [
   "src/app/free-check/page.tsx",
   "src/components/free-check/guided-free-check-form-v3.tsx",
   "src/app/verify-email/page.tsx",
+  "src/app/checkout/success/page.tsx",
   "src/app/plans/page.tsx",
   "src/app/plans/deep-review/page.tsx",
   "src/app/plans/build-fix/page.tsx",
@@ -141,6 +142,15 @@ expect("src/app/verify-email/page.tsx", [
   "text-[clamp(2.85rem,6.2vw,6.2rem)]",
 ]);
 
+expect("src/app/checkout/success/page.tsx", [
+  "Payment complete",
+  "Your AI Readiness Review is confirmed.",
+  "Your Signal Repair is confirmed.",
+  "Your Readiness Control subscription is confirmed.",
+  "Premium checkout success hero scale",
+  "text-[clamp(2.85rem,5.7vw,5.9rem)]",
+]);
+
 expect("src/components/free-check/guided-free-check-form-v3.tsx", [
   "Start with what customers see.",
   "requestFreeScanVerifyToViewHandoff",
@@ -170,7 +180,8 @@ expect("src/components/plans/conversion-plan-page.tsx", [
   "AI Readiness Review $497",
   "Signal Repair $1,497",
   "Readiness Control $597/mo",
-  "text-[clamp(3rem,6vw,6.15rem)]",
+  "text-[clamp(2.85rem,5.7vw,5.9rem)]",
+  "Premium plan detail hero scale",
 ]);
 
 expect("src/layout/site-header-conversion.tsx", [
@@ -289,7 +300,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header navigation, visible customer auth notices, secure email access, premium laptop hero scaling, white verification surface, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header navigation, visible customer auth notices, secure email access, premium laptop hero scaling, white verification surface, polished checkout success, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
 
 function expect(path, phrases) {
   const text = read(path);
