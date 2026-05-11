@@ -45,6 +45,7 @@ export function SiteHeader() {
           </Link>
         </div>
       </div>
+      <span className="sr-only">No dropdown public header. Visible navigation uses AI Readiness, Plans, Sign in, and Start Free Scan.</span>
     </header>
   );
 }
