@@ -1,4 +1,6 @@
 import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 import {
   enqueueCustomerEmailDispatch,
@@ -14,6 +16,12 @@ import { getCustomerEmailTemplateContracts } from "./customer-email-template-con
 import { buildCendorqEmailLayout, buildCendorqEmailText, sendCendorqEmail } from "./cendorq-email-sender";
 
 const FREE_SCAN_CONFIRMATION_SUBJECT = "Confirm your email to open your Cendorq results";
+const FREE_SCAN_INTAKE_STORAGE_FILES = [
+  path.join(process.cwd(), ".cendorq-runtime", "free-check-intakes.v3.json"),
+  path.join(process.cwd(), ".cendorq-runtime", "search-presence-scan-intakes.v3.json"),
+  path.join(process.cwd(), ".cendorq-runtime", "search-presence-scan-intakes.v2.json"),
+  path.join(process.cwd(), ".default-ai-runtime", "free-check-intakes.json"),
+] as const;
 
 export type CustomerConfirmationEmailIssuanceInput = IssueCustomerEmailVerificationTokenInput & {
   customerEmailHash: string;
@@ -109,7 +117,7 @@ export async function issueCustomerConfirmationEmail(
     auditEventId: token.tokenId,
   });
 
-  const recipientEmail = cleanEmail(input.customerEmail);
+  const recipientEmail = await resolveCustomerConfirmationRecipientEmail(input);
   const providerDelivery = await sendConfirmationProviderEmail({
     recipientEmail,
     subject,
@@ -230,6 +238,37 @@ async function sendConfirmationProviderEmail(input: {
   };
 }
 
+async function resolveCustomerConfirmationRecipientEmail(input: CustomerConfirmationEmailIssuanceInput) {
+  const directEmail = cleanEmail(input.customerEmail);
+  if (directEmail) return directEmail;
+
+  const intakeId = cleanIdentifier(input.intakeId);
+  if (!intakeId) return "";
+
+  for (const storageFile of FREE_SCAN_INTAKE_STORAGE_FILES) {
+    const resolved = await resolveEmailFromFreeScanIntakeFile(storageFile, intakeId, input.customerEmailHash);
+    if (resolved) return resolved;
+  }
+
+  return "";
+}
+
+async function resolveEmailFromFreeScanIntakeFile(storageFile: string, intakeId: string, expectedEmailHash: string) {
+  try {
+    const raw = await readFile(storageFile, "utf8");
+    const parsed = JSON.parse(raw) as unknown;
+    const entries = isRecord(parsed) && Array.isArray(parsed.entries) ? parsed.entries : [];
+    const match = entries.find((entry) => isRecord(entry) && cleanIdentifier(entry.id) === intakeId);
+    if (!isRecord(match)) return "";
+    const email = cleanEmail(match.email);
+    if (!email) return "";
+    const emailHash = hashEmail(email);
+    return cleanHash(expectedEmailHash) === emailHash ? email : "";
+  } catch {
+    return "";
+  }
+}
+
 function pickSubject(journeyKey: CustomerConfirmationEmailIssuanceInput["journeyKey"], fallback: string) {
   if (journeyKey === "free-scan-submitted") return FREE_SCAN_CONFIRMATION_SUBJECT;
   const byJourney = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.recommendedSubjects.find((subject) => {
@@ -288,8 +327,21 @@ function cleanHash(value: unknown) {
   return /^[a-f0-9]{24,96}$/.test(cleaned) ? cleaned : "";
 }
 
+function cleanIdentifier(value: unknown) {
+  if (typeof value !== "string") return "";
+  return /^[a-zA-Z0-9:_-]{8,180}$/.test(value) ? value : "";
+}
+
+function hashEmail(email: string) {
+  return createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
+}
+
 function hashUrl(value: string) {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function getConfirmationEmailTemplateContract() {
