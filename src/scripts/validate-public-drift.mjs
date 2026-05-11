@@ -79,6 +79,8 @@ const forbiddenActiveLanguage = [
   "VerifyAtmosphere",
   "text-white",
   "bg-cyan",
+  "Signup safety standard",
+  "Identity is access",
 ];
 
 const forbiddenActiveRoutes = [
@@ -194,6 +196,14 @@ expect("src/layout/site-header-conversion.tsx", [
   "without sticky mouse-click focus bubbles",
 ]);
 
+expect("src/layout/site-footer.tsx", [
+  "AI engine readiness for businesses that need to be understood, trusted, and chosen.",
+  "focus-visible:ring",
+  "Privacy",
+  "Terms",
+  "Disclaimer",
+]);
+
 expect("src/lib/customer-auth-provider-config.ts", [
   "Continue with Google",
   "Continue with Microsoft",
@@ -250,16 +260,22 @@ expect("src/app/login/page.tsx", [
 ]);
 
 expect("src/app/signup/page.tsx", [
-  "Start the workspace with the Free Scan.",
-  "Free Scan starts the workspace.",
+  "Start with the Free Scan.",
+  "Run the Free Scan.",
+  "Check your email.",
+  "Use the same email later.",
   "Cendorq sends secure access from support@cendorq.com.",
-  "No generated password is emailed.",
-  "The account username is the email used for the Free Scan or payment.",
-  "Provider sign-in confirms identity; it does not replace the business Free Scan intake.",
+  "No password is generated or emailed.",
+  "Your account email is the email used for the Free Scan or payment.",
+  "Cendorq never emails a password",
+  "Provider sign-in is for account access; it does not replace the business Free Scan.",
   "Continue with Google",
   "Continue with Microsoft",
   "Continue with Apple",
-  "text-[clamp(3rem,6vw,6.15rem)]",
+  "Continue with LinkedIn",
+  "Continue with Facebook",
+  "text-[clamp(2.85rem,5.7vw,5.9rem)]",
+  "Premium signup hero scale",
 ]);
 
 expect("src/app/privacy/page.tsx", [
@@ -300,7 +316,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header navigation, visible customer auth notices, secure email access, premium laptop hero scaling, white verification surface, polished checkout success, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header/footer navigation, visible customer auth notices, secure email access, polished signup language, premium laptop hero scaling, white verification surface, polished checkout success, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
 
 function expect(path, phrases) {
   const text = read(path);
