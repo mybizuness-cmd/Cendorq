@@ -58,7 +58,7 @@ const PLAN_TRUST_RULES = [
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+  "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2";
 
 export function ConversionPlanPage({ data }: { data: PlanPageData }) {
   const plan = getCendorqPlanPrice(PLAN_KEY_BY_TITLE[data.title] || "free-scan");
@@ -67,10 +67,10 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
 
   return (
     <main className="overflow-hidden bg-white text-slate-950">
-      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-16">
+      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.84fr_1.16fr] lg:items-center lg:py-16">
         <div>
           <p className="text-sm font-semibold text-slate-400">{data.eyebrow}</p>
-          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,6vw,6.15rem)] font-semibold leading-[0.94] tracking-[-0.072em] text-slate-950">
+          <h1 className="mt-4 max-w-5xl text-[clamp(2.85rem,5.7vw,5.9rem)] font-semibold leading-[0.94] tracking-[-0.072em] text-slate-950">
             {data.title}
             <span className="block text-cyan-500">{data.gradient}</span>
           </h1>
@@ -82,7 +82,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
               {primaryLabel}
             </Link>
             {data.secondaryHref && data.secondaryLabel ? (
-              <Link href={data.secondaryHref} className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              <Link href={data.secondaryHref} className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
                 {data.secondaryLabel}
               </Link>
             ) : null}
@@ -93,10 +93,10 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">{plan.name}</p>
-              <div className="mt-2 text-5xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">{plan.price}</div>
+              <div className="mt-2 text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">{plan.price}</div>
               <div className="mt-2 text-sm font-semibold text-slate-500">{plan.cadence}</div>
             </div>
-            <Link href="/plans" className="text-sm font-semibold text-slate-500 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/plans" className="text-sm font-semibold text-slate-500 transition hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
               Review all plans →
             </Link>
           </div>
@@ -139,7 +139,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
       </section>
 
       <section className="sr-only" aria-label="Plan guardrails">
-        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
+        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Premium plan detail hero scale. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
       </section>
     </main>
   );
