@@ -1,6 +1,6 @@
 import { buildMetadata } from "@/lib/seo";
 import Link from "next/link";
-import { CENDORQ_EXPERIENCE_GUARDRAILS, CENDORQ_EXPERIENCE_SYSTEM, CENDORQ_SIGNAL_WORDS } from "@/lib/cendorq-experience-system";
+import { CENDORQ_EXPERIENCE_GUARDRAILS, CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -97,40 +97,56 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[38rem] lg:ml-auto" aria-hidden="true">
-            <div className="absolute -inset-8 rounded-[3.25rem] bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.24),transparent_44%)] blur-2xl" />
-            <div className="relative rounded-[2.7rem] border border-white/90 bg-white/72 p-3 shadow-[0_36px_120px_rgba(15,23,42,0.16)] backdrop-blur-2xl">
-              <div className="overflow-hidden rounded-[2.15rem] border border-slate-200 bg-[linear-gradient(145deg,#ffffff,#f2fbff_58%,#ffffff)] p-5 shadow-inner sm:p-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">First signal</p>
-                    <h2 className="mt-3 text-[clamp(2rem,3.4vw,3.5rem)] font-semibold leading-[0.97] tracking-[-0.065em] text-slate-950">Can they choose you?</h2>
-                  </div>
-                  <div className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm">
-                    <span className="h-6 w-2 rounded-full bg-cyan-400" />
-                    <span className="mx-[3px] h-9 w-2 rounded-full bg-slate-950" />
-                    <span className="h-6 w-2 rounded-full bg-indigo-300" />
-                  </div>
-                </div>
+          <div className="relative mx-auto w-full max-w-[39rem] lg:ml-auto" aria-hidden="true">
+            <div className="absolute -inset-10 rounded-[3.6rem] bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.28),transparent_44%)] blur-2xl" />
+            <div className="relative overflow-hidden rounded-[3rem] border border-white/90 bg-white/58 p-3 shadow-[0_42px_140px_rgba(15,23,42,0.17)] backdrop-blur-2xl">
+              <div className="relative min-h-[32rem] overflow-hidden rounded-[2.35rem] border border-slate-200 bg-[radial-gradient(circle_at_50%_20%,#ffffff_0%,#eefbff_44%,#dff4ff_100%)] p-6 shadow-inner sm:p-8">
+                <div className="absolute inset-x-8 top-12 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+                <div className="absolute inset-y-10 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-slate-300 to-transparent" />
+                <div className="absolute -right-20 top-10 h-64 w-64 rounded-full border border-cyan-200/80 bg-cyan-100/20" />
+                <div className="absolute -bottom-24 left-2 h-72 w-72 rounded-full border border-indigo-200/80 bg-indigo-100/20" />
 
-                <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                  {CENDORQ_SIGNAL_WORDS.map((signal, index) => (
-                    <div key={signal} className="rounded-[1.25rem] border border-slate-200 bg-white/88 p-4 shadow-[0_12px_35px_rgba(15,23,42,0.06)]">
-                      <div className="flex items-center justify-between text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
-                        <span>{signal}</span>
-                        <span>{index + 1}</span>
-                      </div>
-                      <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-slate-100">
-                        <div className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-slate-950 to-indigo-500" style={{ width: `${66 + index * 8}%` }} />
+                <div className="relative flex min-h-[28rem] flex-col justify-between">
+                  <div className="max-w-sm">
+                    <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">Live business read</p>
+                    <h2 className="mt-4 text-[clamp(2.15rem,3.65vw,3.75rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950">What does the market understand?</h2>
+                    <p className="mt-4 text-sm font-medium leading-7 text-slate-600">Cendorq maps visible signals into a safer first action instead of burying the customer in disconnected cards.</p>
+                  </div>
+
+                  <div className="relative mt-8 h-56 sm:h-64">
+                    <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-900 bg-slate-950 text-white shadow-[0_24px_70px_rgba(15,23,42,0.25)]">
+                      <div className="flex h-full flex-col items-center justify-center text-center">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-200">Cendorq</span>
+                        <span className="mt-1 text-sm font-semibold">First read</span>
                       </div>
                     </div>
-                  ))}
-                </div>
 
-                <div className="mt-5 rounded-[1.55rem] border border-slate-800 bg-[linear-gradient(135deg,#020617,#172554_68%,#083344)] p-5 text-white shadow-[0_20px_60px_rgba(15,23,42,0.24)]">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-200">Cendorq path</p>
-                  <p className="mt-3 text-2xl font-semibold tracking-[-0.045em]">Scan. Review. Repair. Control.</p>
-                  <p className="mt-2 text-sm font-medium leading-6 text-slate-200">One clear path from first signal to stronger readiness.</p>
+                    {READINESS_PATH.map((stage, index) => {
+                      const positions = [
+                        "left-0 top-4",
+                        "right-0 top-2",
+                        "left-4 bottom-2",
+                        "right-4 bottom-5",
+                      ] as const;
+                      return (
+                        <div key={stage.label} className={`absolute ${positions[index]} w-32 rounded-[1.35rem] border border-white/90 bg-white/88 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.1)] backdrop-blur`}>
+                          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">{stage.label}</p>
+                          <p className="mt-2 text-sm font-semibold leading-5 text-slate-950">{stage.name}</p>
+                        </div>
+                      );
+                    })}
+
+                    <div className="absolute left-[21%] top-[32%] h-px w-[22%] rotate-[20deg] bg-slate-300" />
+                    <div className="absolute right-[21%] top-[32%] h-px w-[22%] -rotate-[20deg] bg-slate-300" />
+                    <div className="absolute bottom-[31%] left-[25%] h-px w-[22%] -rotate-[24deg] bg-slate-300" />
+                    <div className="absolute bottom-[33%] right-[25%] h-px w-[22%] rotate-[22deg] bg-slate-300" />
+                  </div>
+
+                  <div className="rounded-[1.55rem] border border-slate-800 bg-[linear-gradient(135deg,#020617,#172554_68%,#083344)] p-5 text-white shadow-[0_20px_60px_rgba(15,23,42,0.24)]">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-200">Customer path</p>
+                    <p className="mt-3 text-2xl font-semibold tracking-[-0.045em]">Scan. Review. Repair. Control.</p>
+                    <p className="mt-2 text-sm font-medium leading-6 text-slate-200">One connected system from first signal to stronger readiness.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -206,7 +222,7 @@ export default function HomePage() {
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq homepage replacement. Cinematic homepage experience. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. AI is becoming the place customers meet you first. Start with the Free Scan. See the first place your business may be unclear, under-trusted, or harder to choose. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Scan. Review. Repair. Control. Start Free Scan. Review Plans. White body. No hero badge. No card prices. No AI placement promises. AI Readiness anchor. Premium laptop hero scale. Distinct Cendorq signal experience. Unified Cendorq Experience System. Stronger laptop composition. Improved contrast. Visible final CTA. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")}
+        Cendorq homepage replacement. Cinematic homepage experience. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. AI is becoming the place customers meet you first. Start with the Free Scan. See the first place your business may be unclear, under-trusted, or harder to choose. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Scan. Review. Repair. Control. Start Free Scan. Review Plans. White body. No hero badge. No card prices. No signal word mini card grid. No AI placement promises. AI Readiness anchor. Premium laptop hero scale. Distinct Cendorq signal experience. Unified Cendorq Experience System. Stronger laptop composition. Improved contrast. Visible final CTA. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")}
       </section>
     </main>
   );
