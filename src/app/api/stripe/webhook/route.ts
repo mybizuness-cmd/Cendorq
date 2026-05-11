@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 
-import { buildCendorqEmailLayout, buildCendorqEmailText, sendCendorqEmail } from "@/lib/cendorq-email-sender";
+import { buildCendorqEmailLayout, buildCendorqEmailText, cleanCendorqEmailAddress, sendCendorqEmail } from "@/lib/cendorq-email-sender";
 import { CENDORQ_POST_PAYMENT_EMAILS, getPaidCendorqPlanPrice, type CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
 
 export const runtime = "nodejs";
@@ -135,7 +135,7 @@ function inferPaidPlanKey(session: Record<string, unknown>): CendorqPaidPlanKey 
 
 function inferCustomerEmail(session: Record<string, unknown>) {
   const customerDetails = isRecord(session.customer_details) ? session.customer_details : {};
-  return cleanEmail(stringValue(customerDetails.email) || stringValue(session.customer_email));
+  return cleanCendorqEmailAddress(stringValue(customerDetails.email) || stringValue(session.customer_email));
 }
 
 function cleanBaseUrl(value: string) {
@@ -148,20 +148,25 @@ function cleanBaseUrl(value: string) {
 }
 
 function safeEqualHex(left: string, right: string) {
-  if (!/^[a-f0-9]+$/i.test(left) || !/^[a-f0-9]+$/i.test(right)) return false;
+  if (!isHex(left) || !isHex(right)) return false;
   const leftBuffer = Buffer.from(left, "hex");
   const rightBuffer = Buffer.from(right, "hex");
   if (leftBuffer.length !== rightBuffer.length) return false;
   return timingSafeEqual(leftBuffer, rightBuffer);
 }
 
-function stringValue(value: unknown) {
-  return typeof value === "string" ? value : "";
+function isHex(value: string) {
+  if (!value || value.length % 2 !== 0) return false;
+  for (const character of value.toLowerCase()) {
+    const isDigit = character >= "0" && character <= "9";
+    const isHexLetter = character >= "a" && character <= "f";
+    if (!isDigit && !isHexLetter) return false;
+  }
+  return true;
 }
 
-function cleanEmail(value: string) {
-  const cleaned = value.trim().toLowerCase();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : "";
+function stringValue(value: unknown) {
+  return typeof value === "string" ? value : "";
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
