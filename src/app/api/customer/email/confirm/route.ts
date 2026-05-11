@@ -4,6 +4,7 @@ import { setCustomerRememberedSessionCookie } from "@/lib/customer-remembered-se
 import {
   getCustomerEmailVerificationNoStoreHeaders,
   verifyCustomerEmailConfirmationToken,
+  type CustomerEmailVerificationResult,
 } from "@/lib/customer-email-verification-token-runtime";
 
 export const runtime = "nodejs";
@@ -37,20 +38,10 @@ export async function GET(request: NextRequest) {
     return response;
   }
 
-  return NextResponse.json(
-    {
-      ok: false,
-      decision: result.decision,
-      noStore: true,
-      senderDisplay: result.senderDisplay,
-      safeCustomerMessage: result.safeCustomerMessage,
-      recoveryPath: "/free-check",
-      dashboardPath: "/dashboard",
-      tokenState: result.tokenState,
-      blockedPatterns: result.blockedPatterns,
-    },
-    { status: 409, headers: getCustomerEmailVerificationNoStoreHeaders() },
-  );
+  return NextResponse.json(projectSafeConfirmationResponse(result), {
+    status: 409,
+    headers: getCustomerEmailVerificationNoStoreHeaders(),
+  });
 }
 
 export async function POST(request: NextRequest) {
@@ -61,10 +52,32 @@ export async function POST(request: NextRequest) {
     safeReleaseReady: payload.safeReleaseReady === true,
   });
 
-  return NextResponse.json(result, {
+  return NextResponse.json(projectSafeConfirmationResponse(result), {
     status: result.status === 303 ? 200 : result.status,
     headers: getCustomerEmailVerificationNoStoreHeaders(),
   });
+}
+
+function projectSafeConfirmationResponse(result: CustomerEmailVerificationResult) {
+  return {
+    ok: result.ok,
+    decision: result.decision,
+    noStore: true,
+    senderDisplay: result.senderDisplay,
+    safeCustomerMessage: result.safeCustomerMessage,
+    recoveryPath: "/free-check",
+    dashboardPath: result.ok ? result.redirectPath : "/dashboard",
+    tokenState: result.tokenState,
+    blockedPatterns: result.blockedPatterns,
+    rememberedSession: {
+      eligible: result.rememberedSession.eligible,
+      cookieOnly: true,
+      customerIdHashReturned: false,
+      signupEmailHashReturned: false,
+      rawEmailReturned: false,
+      rawTokenReturned: false,
+    },
+  } as const;
 }
 
 async function readSafeJson(request: NextRequest) {
