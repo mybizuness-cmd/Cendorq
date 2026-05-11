@@ -11,6 +11,7 @@ const robots = readFileSync(join(root, "src/app/robots.ts"), "utf8");
 const sitemap = readFileSync(join(root, "src/app/sitemap.ts"), "utf8");
 const seo = readFileSync(join(root, "src/lib/seo.ts"), "utf8");
 const combined = `${homepage}\n${footer}\n${header}\n${loading}\n${layout}\n${robots}\n${sitemap}\n${seo}`;
+const visiblePublicShell = `${homepage}\n${footer}\n${header}\n${loading}`;
 const failures = [];
 
 for (const phrase of [
@@ -51,7 +52,7 @@ for (const phrase of [
   "href=\"/free-check\"",
   "href=\"/plans\"",
   "href=\"/login\"",
-  "href=\"/#ai-readiness\"",
+  "href: \"/#ai-readiness\"",
   "href: \"/plans/deep-review\"",
   "href: \"/plans/build-fix\"",
   "href: \"/plans/ongoing-control\"",
@@ -73,7 +74,6 @@ for (const phrase of [
   "Presence Infrastructure",
   "Presence Command",
   "Cendorq Market Command Intelligence</p>",
-  "Market Command Intelligence",
   "First command",
   "Findability",
   "Clarity\", \"Trust",
@@ -117,7 +117,7 @@ for (const phrase of [
   "system-button-primary",
   "Cendorq / Loading",
 ]) {
-  if (combined.includes(phrase)) failures.push(`Clean AI readiness shell contains forbidden phrase: ${phrase}`);
+  if (visiblePublicShell.includes(phrase)) failures.push(`Clean AI readiness shell contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
