@@ -10,6 +10,7 @@ export type CendorqPlanPrice = {
   price: string;
   amountCents: number;
   stripeMode: "none" | "payment" | "subscription";
+  paymentLink: string | null;
   cadence: string;
   checkoutPath: string;
   successPath: string;
@@ -27,6 +28,7 @@ export const CENDORQ_PLAN_PRICES = [
     price: "$0",
     amountCents: 0,
     stripeMode: "none",
+    paymentLink: null,
     cadence: "entry signal",
     checkoutPath: "/free-check",
     successPath: "/dashboard",
@@ -42,6 +44,7 @@ export const CENDORQ_PLAN_PRICES = [
     price: "$497",
     amountCents: 49700,
     stripeMode: "payment",
+    paymentLink: "https://buy.stripe.com/9B64gAa28eGwdiIbdhcZa05",
     cadence: "one-time review",
     checkoutPath: "/checkout/start?plan=deep-review",
     successPath: "/checkout/success?plan=deep-review&session_id={CHECKOUT_SESSION_ID}",
@@ -57,6 +60,7 @@ export const CENDORQ_PLAN_PRICES = [
     price: "$1,497",
     amountCents: 149700,
     stripeMode: "payment",
+    paymentLink: "https://buy.stripe.com/dRm5kE0ry2XObaA2GLcZa06",
     cadence: "one-time repair",
     checkoutPath: "/checkout/start?plan=build-fix",
     successPath: "/checkout/success?plan=build-fix&session_id={CHECKOUT_SESSION_ID}",
@@ -72,6 +76,7 @@ export const CENDORQ_PLAN_PRICES = [
     price: "$597/mo",
     amountCents: 59700,
     stripeMode: "subscription",
+    paymentLink: "https://buy.stripe.com/28EcN65LSaqgdiI1CHcZa07",
     cadence: "monthly control",
     checkoutPath: "/checkout/start?plan=ongoing-control",
     successPath: "/checkout/success?plan=ongoing-control&session_id={CHECKOUT_SESSION_ID}",
@@ -92,8 +97,8 @@ export const CENDORQ_CHECKOUT_ORCHESTRATION = [
   },
   {
     step: "checkout-start",
-    customerExperience: "Stripe opens with the correct product, exact price, customer email, billing details, and promotional consent when needed.",
-    systemAction: "Start a hosted Checkout Session with plan metadata, client reference, success URL, cancel URL, and customer email prefill.",
+    customerExperience: "Cendorq confirms the selected plan, price, and next step before handing the customer to secure Stripe payment.",
+    systemAction: "Use the plan key to select the correct hosted Stripe payment link and preserve the Cendorq success path expectation.",
   },
   {
     step: "payment-confirmed",
