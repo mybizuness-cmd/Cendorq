@@ -9,24 +9,9 @@ type CendorqEmailSendInput = {
 };
 
 type CendorqEmailSendResult =
-  | {
-      ok: true;
-      provider: "resend";
-      id: string;
-      skipped: false;
-    }
-  | {
-      ok: true;
-      provider: "resend";
-      id: "email-provider-not-configured";
-      skipped: true;
-    }
-  | {
-      ok: false;
-      provider: "resend";
-      error: string;
-      skipped: false;
-    };
+  | { ok: true; provider: "resend"; id: string; skipped: false }
+  | { ok: true; provider: "resend"; id: "email-provider-not-configured"; skipped: true }
+  | { ok: false; provider: "resend"; error: string; skipped: false };
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const DEFAULT_FROM = "Cendorq Support <support@cendorq.com>";
@@ -35,19 +20,21 @@ const MAX_SUBJECT_LENGTH = 140;
 const MAX_PREHEADER_LENGTH = 220;
 const TAG_NAME_LIMIT = 40;
 const TAG_VALUE_LIMIT = 80;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_EMAIL_LOCAL_LENGTH = 64;
+const MAX_EMAIL_DOMAIN_LENGTH = 253;
+const EMAIL_LOCAL_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789.!#$%&'*+-/=?^_`{|}~";
+const EMAIL_DOMAIN_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-.";
 
 export async function sendCendorqEmail(input: CendorqEmailSendInput): Promise<CendorqEmailSendResult> {
   const apiKey = cleanEnv(process.env.RESEND_API_KEY);
-  const to = cleanEmail(input.to);
+  const to = cleanCendorqEmailAddress(input.to);
   const subject = cleanSubject(input.subject);
   const preheader = cleanPreheader(input.preheader);
   const html = typeof input.html === "string" ? input.html : "";
   const text = typeof input.text === "string" ? input.text : "";
 
-  if (!apiKey) {
-    return { ok: true, provider: "resend", id: "email-provider-not-configured", skipped: true };
-  }
-
+  if (!apiKey) return { ok: true, provider: "resend", id: "email-provider-not-configured", skipped: true };
   if (!to || !subject || !html || !text) {
     return { ok: false, provider: "resend", error: "Email payload is missing a safe recipient, subject, html, or text body.", skipped: false };
   }
@@ -55,14 +42,11 @@ export async function sendCendorqEmail(input: CendorqEmailSendInput): Promise<Ce
   try {
     const response = await fetch(RESEND_ENDPOINT, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         from: cleanSender(process.env.EMAIL_FROM) || DEFAULT_FROM,
         to,
-        reply_to: cleanEmail(input.replyTo || process.env.EMAIL_REPLY_TO || process.env.SUPPORT_EMAIL) || DEFAULT_REPLY_TO,
+        reply_to: cleanCendorqEmailAddress(input.replyTo || process.env.EMAIL_REPLY_TO || process.env.SUPPORT_EMAIL) || DEFAULT_REPLY_TO,
         subject,
         html: withHiddenPreheader(preheader, html),
         text,
@@ -72,38 +56,16 @@ export async function sendCendorqEmail(input: CendorqEmailSendInput): Promise<Ce
 
     const payload = (await response.json().catch(() => null)) as { id?: unknown; message?: unknown; error?: unknown } | null;
     if (!response.ok) {
-      return {
-        ok: false,
-        provider: "resend",
-        error: cleanText(payload?.message || payload?.error || `Resend returned ${response.status}`, 240),
-        skipped: false,
-      };
+      return { ok: false, provider: "resend", error: cleanText(payload?.message || payload?.error || `Resend returned ${response.status}`, 240), skipped: false };
     }
 
     return { ok: true, provider: "resend", id: cleanText(payload?.id, 120) || "sent", skipped: false };
   } catch (error) {
-    return {
-      ok: false,
-      provider: "resend",
-      error: error instanceof Error ? cleanText(error.message, 240) : "Resend request failed.",
-      skipped: false,
-    };
+    return { ok: false, provider: "resend", error: error instanceof Error ? cleanText(error.message, 240) : "Resend request failed.", skipped: false };
   }
 }
 
-export function buildCendorqEmailLayout({
-  title,
-  intro,
-  ctaLabel,
-  ctaUrl,
-  secondary,
-}: {
-  title: string;
-  intro: string;
-  ctaLabel: string;
-  ctaUrl: string;
-  secondary?: string;
-}) {
+export function buildCendorqEmailLayout({ title, intro, ctaLabel, ctaUrl, secondary }: { title: string; intro: string; ctaLabel: string; ctaUrl: string; secondary?: string }) {
   const safeTitle = escapeHtml(cleanText(title, 180));
   const safeIntro = escapeHtml(cleanText(intro, 900));
   const safeCta = escapeHtml(cleanText(ctaLabel, 90));
@@ -150,33 +112,30 @@ export function buildCendorqEmailLayout({
 }
 
 export function buildCendorqEmailText({ title, intro, ctaLabel, ctaUrl, secondary }: { title: string; intro: string; ctaLabel: string; ctaUrl: string; secondary?: string }) {
-  return [
-    "Cendorq",
-    "",
-    cleanText(title, 180),
-    "",
-    cleanText(intro, 900),
-    secondary ? `\n${cleanText(secondary, 900)}` : "",
-    "",
-    `${cleanText(ctaLabel, 90)}: ${cleanUrl(ctaUrl)}`,
-    "",
-    "Cendorq will never ask for your password, private key, card number, or session token by email.",
-  ]
-    .filter(Boolean)
-    .join("\n");
+  return ["Cendorq", "", cleanText(title, 180), "", cleanText(intro, 900), secondary ? `\n${cleanText(secondary, 900)}` : "", "", `${cleanText(ctaLabel, 90)}: ${cleanUrl(ctaUrl)}`, "", "Cendorq will never ask for your password, private key, card number, or session token by email."].filter(Boolean).join("\n");
+}
+
+export function cleanCendorqEmailAddress(value: unknown) {
+  if (typeof value !== "string") return "";
+  const cleaned = value.trim().toLowerCase();
+  if (cleaned.length < 6 || cleaned.length > MAX_EMAIL_LENGTH) return "";
+  if (containsUnsafeEmailWhitespaceOrDelimiters(cleaned)) return "";
+
+  const atIndex = cleaned.indexOf("@");
+  if (atIndex <= 0 || atIndex !== cleaned.lastIndexOf("@")) return "";
+
+  const local = cleaned.slice(0, atIndex);
+  const domain = cleaned.slice(atIndex + 1);
+  return isSafeEmailLocalPart(local) && isSafeEmailDomain(domain) ? cleaned : "";
 }
 
 function withHiddenPreheader(preheader: string, html: string) {
-  const safePreheader = escapeHtml(preheader);
-  return `<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${safePreheader}</div>${html}`;
+  return `<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${escapeHtml(preheader)}</div>${html}`;
 }
 
 function projectTags(tags: CendorqEmailSendInput["tags"]) {
   if (!tags) return undefined;
-  return Object.entries(tags)
-    .map(([name, value]) => ({ name: cleanTag(name, TAG_NAME_LIMIT), value: cleanTag(value, TAG_VALUE_LIMIT) }))
-    .filter((tag) => tag.name && tag.value)
-    .slice(0, 10);
+  return Object.entries(tags).map(([name, value]) => ({ name: cleanTag(name, TAG_NAME_LIMIT), value: cleanTag(value, TAG_VALUE_LIMIT) })).filter((tag) => tag.name && tag.value).slice(0, 10);
 }
 
 function cleanEnv(value: unknown) {
@@ -188,10 +147,31 @@ function cleanSender(value: unknown) {
   return cleaned.includes("<") && cleaned.includes(">") ? cleaned : "";
 }
 
-function cleanEmail(value: unknown) {
-  if (typeof value !== "string") return "";
-  const cleaned = value.trim().toLowerCase();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : "";
+function isSafeEmailLocalPart(value: string) {
+  if (!value || value.length > MAX_EMAIL_LOCAL_LENGTH) return false;
+  if (value.startsWith(".") || value.endsWith(".") || value.includes("..")) return false;
+  for (const character of value) if (!EMAIL_LOCAL_CHARS.includes(character)) return false;
+  return true;
+}
+
+function isSafeEmailDomain(value: string) {
+  if (!value || value.length > MAX_EMAIL_DOMAIN_LENGTH) return false;
+  if (!value.includes(".") || value.startsWith(".") || value.endsWith(".") || value.includes("..")) return false;
+  for (const character of value) if (!EMAIL_DOMAIN_CHARS.includes(character)) return false;
+  return value.split(".").every((label) => isSafeEmailDomainLabel(label));
+}
+
+function isSafeEmailDomainLabel(value: string) {
+  return Boolean(value && value.length <= 63 && !value.startsWith("-") && !value.endsWith("-"));
+}
+
+function containsUnsafeEmailWhitespaceOrDelimiters(value: string) {
+  for (const character of value) {
+    const code = character.charCodeAt(0);
+    if (code <= 32 || code === 127) return true;
+    if (character === "<" || character === ">" || character === "," || character === ";" || character === ":" || character === "\"" || character === "'") return true;
+  }
+  return false;
 }
 
 function cleanSubject(value: unknown) {
@@ -203,7 +183,11 @@ function cleanPreheader(value: unknown) {
 }
 
 function cleanTag(value: unknown, max: number) {
-  return cleanText(value, max).toLowerCase().replace(/[^a-z0-9_-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+  return cleanText(value, max).toLowerCase().split("").map((character) => (isTagCharacter(character) ? character : "-")).join("").split("-").filter(Boolean).join("-");
+}
+
+function isTagCharacter(character: string) {
+  return (character >= "a" && character <= "z") || (character >= "0" && character <= "9") || character === "_" || character === "-";
 }
 
 function cleanUrl(value: string) {
@@ -218,14 +202,30 @@ function cleanUrl(value: string) {
 
 function cleanText(value: unknown, max: number) {
   if (typeof value !== "string") return "";
-  return value.replace(/[\u0000-\u001F\u007F]/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
+  let output = "";
+  let lastWasSpace = false;
+  for (const character of value) {
+    if (output.length >= max) break;
+    const code = character.charCodeAt(0);
+    const shouldBecomeSpace = code <= 31 || code === 127 || character === "\u200B" || character === "\u200C" || character === "\u200D" || character === "\uFEFF" || character === "\n" || character === "\r" || character === "\t";
+    if (shouldBecomeSpace) {
+      if (!lastWasSpace && output) output += " ";
+      lastWasSpace = true;
+    } else {
+      output += character;
+      lastWasSpace = false;
+    }
+  }
+  return output.trim();
 }
 
 function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return value.split("").map((character) => {
+    if (character === "&") return "&amp;";
+    if (character === "<") return "&lt;";
+    if (character === ">") return "&gt;";
+    if (character === "\"") return "&quot;";
+    if (character === "'") return "&#039;";
+    return character;
+  }).join("");
 }
