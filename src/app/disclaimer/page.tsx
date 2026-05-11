@@ -11,26 +11,26 @@ const BRAND_NAME = "Cendorq";
 const DISCLAIMER_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
-  title: `Market command intelligence disclaimer | ${BRAND_NAME}`,
+  title: `Disclaimer | ${BRAND_NAME}`,
   description:
-    "Cendorq disclaimer for Market Command Intelligence, AI/search visibility, command-depth guidance, reports, no-guarantee boundaries, and customer responsibility.",
+    "Cendorq disclaimer for AI Engine Readiness, AI/search visibility, readiness-depth guidance, reports, no-guarantee boundaries, and customer responsibility.",
   path: "/disclaimer",
   keywords: [
     "cendorq disclaimer",
-    "market command intelligence disclaimer",
+    "AI engine readiness disclaimer",
     "ai search visibility disclaimer",
-    "market command disclaimer",
+    "readiness disclaimer",
     "no guaranteed ranking",
     "no guaranteed ai placement",
     "business visibility disclaimer",
   ],
-  image: { alt: "Cendorq Market Command Intelligence disclaimer boundaries." },
+  image: { alt: "Cendorq disclaimer boundaries." },
 });
 
 const SUMMARY = [
-  { label: "Platform role", value: "Decision support for market command, AI/search visibility, proof, and next command clarity." },
+  { label: "Platform role", value: "Decision support for AI readiness, search visibility, proof, and next-step clarity." },
   { label: "Claim boundary", value: "No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment." },
-  { label: "Report boundary", value: "Scan, Diagnose, Fix, and Control use evidence, confidence, limits, and scope." },
+  { label: "Report boundary", value: "Scan, Review, Repair, and Control use evidence, confidence, limits, and scope." },
   { label: "Customer role", value: "You remain responsible for decisions, implementation, budgets, timing, and business commitments." },
 ] as const;
 
@@ -44,8 +44,8 @@ const CORE_BOUNDARIES = [
     copy: "Cendorq may assess whether public signals are clear enough for customers, search, maps, reviews, directories, and AI answers to understand. It does not guarantee ranking, inclusion, summaries, or answer placement.",
   },
   {
-    title: "Command depth depends on evidence",
-    copy: "Free Scan, Deep Review, Build Fix, and Ongoing Control outputs depend on visible evidence, customer context, confidence limits, plan scope, and external conditions.",
+    title: "Readiness depth depends on evidence",
+    copy: "Free Scan, AI Readiness Review, Signal Repair, and Readiness Control outputs depend on visible evidence, customer context, confidence limits, plan scope, and external conditions.",
   },
 ] as const;
 
@@ -60,20 +60,20 @@ const NOT_INCLUDED = [
   "legal, financial, tax, medical, or licensed professional advice",
   "guaranteed ranking, guaranteed AI placement, guaranteed leads, guaranteed revenue, or guaranteed sales",
   "algorithm control, ad-management guarantees, or third-party platform treatment guarantees",
-  "unlimited implementation, unlimited revisions, or plan scope beyond the purchased command depth",
+  "unlimited implementation, unlimited revisions, or plan scope beyond the purchased readiness depth",
 ] as const;
 
 const BEST_USE = [
-  "Use Scan as a first market signal, not a full diagnosis.",
-  "Use Diagnose when the cause matters enough to prove before fixing.",
-  "Use Fix when a scoped improvement is approved and ready to execute.",
+  "Use Scan as a first readiness signal, not a full diagnosis.",
+  "Use Review when the cause matters enough to prove before repair.",
+  "Use Repair when a scoped improvement is approved and ready to execute.",
   "Use Control when the business needs recurring monitoring, adjustment, and monthly decision support.",
 ] as const;
 
 const FAQS = [
   {
     question: "Does Cendorq guarantee AI visibility or search rankings?",
-    answer: "No. Cendorq can help assess and improve clarity, proof, structure, and market understanding, but it does not guarantee ranking, AI placement, inclusion, leads, revenue, sales, or third-party platform treatment.",
+    answer: "No. Cendorq can help assess and improve clarity, proof, structure, and business understanding, but it does not guarantee ranking, AI placement, inclusion, leads, revenue, sales, or third-party platform treatment.",
   },
   {
     question: "Does this reduce Cendorq's value?",
@@ -81,14 +81,14 @@ const FAQS = [
   },
   {
     question: "How should I use Cendorq outputs?",
-    answer: "Use them as structured business guidance. Read every output through its evidence, confidence, limitation, scope, and next-command boundary before making decisions.",
+    answer: "Use them as structured business guidance. Read every output through its evidence, confidence, limitation, scope, and next-step boundary before making decisions.",
   },
 ] as const;
 
 export default function DisclaimerPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Market Command Intelligence Disclaimer",
-    description: "Claim boundaries and no-guarantee posture for Cendorq Market Command Intelligence, AI/search visibility, command-depth guidance, reports, and forecasts.",
+    title: "Cendorq Disclaimer",
+    description: "Claim boundaries and no-guarantee posture for Cendorq AI Engine Readiness, AI/search visibility, readiness-depth guidance, reports, and forecasts.",
     path: "/disclaimer",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -105,7 +105,7 @@ export default function DisclaimerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
       <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
-        <p className="text-sm font-semibold text-cyan-100">Market command intelligence disclaimer</p>
+        <p className="text-sm font-semibold text-cyan-100">Disclaimer</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
           Strong guidance works best when the limits are clear.
         </h1>
@@ -138,7 +138,7 @@ export default function DisclaimerPage() {
 
       <section className="relative z-10 mt-8 rounded-[1.55rem] border border-cyan-300/15 bg-cyan-300/[0.07] p-5 sm:p-6">
         <p className="text-sm font-semibold text-cyan-100">Best use</p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-4xl">Use each command for the decision it was built to support.</h2>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-4xl">Use each readiness depth for the decision it was built to support.</h2>
         <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {BEST_USE.map((item) => (
             <p key={item} className="rounded-[1rem] border border-white/10 bg-slate-950/45 p-3 text-sm leading-6 text-slate-200">{item}</p>
@@ -157,16 +157,16 @@ export default function DisclaimerPage() {
 
       <section className="system-panel-authority relative z-10 mt-8 rounded-[1.55rem] p-5 sm:p-6">
         <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">Questions about boundaries?</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Use connect if you are outside the dashboard and need fit, scope, or timing clarity.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Start with the Free Scan if you are outside the dashboard and need first-step clarity.</p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
           <Link href="/dashboard/support" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">Open dashboard support</Link>
-          <Link href="/connect" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Contact Cendorq</Link>
+          <Link href="/free-check" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Start Free Scan</Link>
           <Link href="/terms" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Read terms</Link>
         </div>
       </section>
 
       <section className="sr-only" aria-label="Disclaimer validation guardrails">
-        Market Command Intelligence disclaimer. Search is changing. AI/search visibility. Market command boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. No Search Presence OS. No /contact route. Use /connect. Use dashboard support. Scan. Diagnose. Fix. Control. Free Scan. Deep Review. Build Fix. Ongoing Control.
+        Disclaimer. Search is changing. AI/search visibility. AI Engine Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. Use dashboard support. Scan. Review. Repair. Control. Free Scan. AI Readiness Review. Signal Repair. Readiness Control.
       </section>
     </main>
   );
