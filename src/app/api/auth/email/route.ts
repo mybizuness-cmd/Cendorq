@@ -1,0 +1,69 @@
+import { createHash } from "node:crypto";
+import { issueCustomerConfirmationEmail, projectCustomerConfirmationEmailSafeResponse } from "@/lib/customer-confirmation-email-issuance-runtime";
+import { NextResponse, type NextRequest } from "next/server";
+
+const LOGIN_PATH = "/login";
+const DEFAULT_DESTINATION = "/dashboard";
+const SAFE_DASHBOARD_PATHS = [
+  "/dashboard",
+  "/dashboard/reports",
+  "/dashboard/reports/free-scan",
+  "/dashboard/billing",
+  "/dashboard/support",
+  "/dashboard/notifications",
+] as const;
+
+export async function GET(request: NextRequest) {
+  const email = cleanEmail(request.nextUrl.searchParams.get("email"));
+  const returnTo = safeDashboardPath(request.nextUrl.searchParams.get("returnTo")) || DEFAULT_DESTINATION;
+  const loginUrl = new URL(LOGIN_PATH, request.url);
+  loginUrl.searchParams.set("returnTo", returnTo);
+
+  if (!email) {
+    loginUrl.searchParams.set("auth", "email-required");
+    return NextResponse.redirect(loginUrl);
+  }
+
+  try {
+    const emailHash = hashEmail(email);
+    const confirmationEmail = await issueCustomerConfirmationEmail({
+      customerIdHash: hashEmail(`customer:${emailHash}`),
+      signupEmailHash: emailHash,
+      customerEmailHash: emailHash,
+      journeyKey: "support-or-billing-entry",
+      requestedDestination: returnTo,
+      issueReason: "account-recovery",
+      baseUrl: request.nextUrl.origin,
+      customerEmail: email,
+    });
+
+    const safePayload = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
+    loginUrl.searchParams.set("auth", safePayload.providerDelivery.sent || safePayload.queued ? "email-sent" : "email-queued");
+    return NextResponse.redirect(loginUrl);
+  } catch {
+    loginUrl.searchParams.set("auth", "email-queued");
+    return NextResponse.redirect(loginUrl);
+  }
+}
+
+function safeDashboardPath(value: string | null) {
+  if (!value) return null;
+  return SAFE_DASHBOARD_PATHS.find((path) => value === path || value.startsWith(`${path}/`)) || null;
+}
+
+function cleanEmail(value: unknown) {
+  if (typeof value !== "string") return "";
+  const cleaned = value.trim().toLowerCase();
+  if (cleaned.length < 6 || cleaned.length > 254) return "";
+  const atIndex = cleaned.indexOf("@");
+  if (atIndex <= 0 || atIndex !== cleaned.lastIndexOf("@")) return "";
+  const local = cleaned.slice(0, atIndex);
+  const domain = cleaned.slice(atIndex + 1);
+  if (!local || local.length > 64 || local.startsWith(".") || local.endsWith(".") || local.includes("..")) return "";
+  if (!domain || domain.length > 253 || !domain.includes(".") || domain.startsWith(".") || domain.endsWith(".") || domain.includes("..")) return "";
+  return domain.split(".").every((label) => Boolean(label && label.length <= 63 && !label.startsWith("-") && !label.endsWith("-"))) ? cleaned : "";
+}
+
+function hashEmail(value: string) {
+  return createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
+}
