@@ -3,8 +3,9 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const LOGIN_PATH = "/login";
 
-export function GET(request: NextRequest, context: { params: { provider: string } }) {
-  const provider = getCustomerAuthProvider(context.params.provider);
+export async function GET(request: NextRequest, context: { params: Promise<{ provider: string }> }) {
+  const params = await context.params;
+  const provider = getCustomerAuthProvider(params.provider);
   const loginUrl = new URL(LOGIN_PATH, request.url);
 
   if (!provider) {
