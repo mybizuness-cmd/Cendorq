@@ -10,7 +10,8 @@ const layout = readFileSync(join(root, "src/app/layout.tsx"), "utf8");
 const robots = readFileSync(join(root, "src/app/robots.ts"), "utf8");
 const sitemap = readFileSync(join(root, "src/app/sitemap.ts"), "utf8");
 const seo = readFileSync(join(root, "src/lib/seo.ts"), "utf8");
-const combined = `${homepage}\n${footer}\n${header}\n${loading}\n${layout}\n${robots}\n${sitemap}\n${seo}`;
+const experienceSystem = readFileSync(join(root, "src/lib/cendorq-experience-system.ts"), "utf8");
+const combined = `${homepage}\n${footer}\n${header}\n${loading}\n${layout}\n${robots}\n${sitemap}\n${seo}\n${experienceSystem}`;
 const visiblePublicShell = `${homepage}\n${footer}\n${header}\n${loading}`;
 const failures = [];
 
@@ -18,14 +19,16 @@ for (const phrase of [
   "export const dynamic = \"force-dynamic\";",
   "export const revalidate = 0;",
   "export const fetchCache = \"force-no-store\";",
-  "data-cendorq-homepage=\"ai-readiness-clean-path\"",
+  "data-cendorq-homepage=\"cinematic-ai-readiness-experience\"",
+  "CENDORQ_EXPERIENCE_SYSTEM",
+  "CENDORQ_EXPERIENCE_GUARDRAILS",
+  "CENDORQ_SIGNAL_WORDS",
   "Cendorq | AI Engine Readiness for Businesses",
   "If AI engines cannot understand your business, customers may never get the chance to.",
-  "AI-readiness starts with business clarity.",
-  "clear, trusted, and ready to be chosen",
+  "Cendorq turns AI-readiness into a clear path",
   "Start with the Free Scan.",
   "See the first place your business may be unclear, under-trusted, or harder to choose.",
-  "AI is becoming the new first impression.",
+  "AI is becoming the place customers meet you first.",
   "id=\"ai-readiness\"",
   "AI Readiness",
   "Sign in",
@@ -43,12 +46,15 @@ for (const phrase of [
   "Privacy",
   "Terms",
   "No AI placement promises",
-  "bg-white text-slate-950",
+  "bg-slate-50 text-slate-950",
   "max-w-7xl",
   "Scan",
   "Review",
   "Repair",
   "Control",
+  "Scan. Review. Repair. Control.",
+  "Distinct Cendorq signal experience",
+  "Unified Cendorq Experience System",
   "href=\"/free-check\"",
   "href=\"/plans\"",
   "href=\"/login\"",
@@ -63,7 +69,7 @@ for (const phrase of [
   "\"/sitemap.xml\"",
   "termsOfService",
 ]) {
-  if (!combined.includes(phrase)) failures.push(`Clean AI readiness shell missing required phrase: ${phrase}`);
+  if (!combined.includes(phrase)) failures.push(`Cinematic AI readiness shell missing required phrase: ${phrase}`);
 }
 
 for (const phrase of [
@@ -111,13 +117,11 @@ for (const phrase of [
   "bg-slate-950/88",
   "supports-[backdrop-filter]:bg-slate-950/76",
   "text-white sm:text-base",
-  "system-grid-wide",
-  "MarketCard",
   "system-panel-authority",
   "system-button-primary",
   "Cendorq / Loading",
 ]) {
-  if (visiblePublicShell.includes(phrase)) failures.push(`Clean AI readiness shell contains forbidden phrase: ${phrase}`);
+  if (visiblePublicShell.includes(phrase)) failures.push(`Cinematic AI readiness shell contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
@@ -126,4 +130,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is white, compact, calm, customer-facing, search-compliant, and positioned around AI engines and AI readiness without stale badges or dropdown clutter.");
+console.log("Homepage replacement validation passed. Public shell is cinematic, uncluttered, customer-facing, search-compliant, and positioned around AI engines and AI readiness with a distinct Cendorq experience system.");
