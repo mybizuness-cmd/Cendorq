@@ -69,7 +69,9 @@ const forbiddenActiveLanguage = [
   "Focused change",
   "Monthly watch",
   "Open dashboard support",
-  "generated password is emailed",
+  "Your generated password is",
+  "Temporary password:",
+  "Here is your password",
 ];
 
 const forbiddenActiveRoutes = [
