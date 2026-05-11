@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
 }
 
 function projectEmailAccessState(payload: ReturnType<typeof projectCustomerConfirmationEmailSafeResponse>) {
-  if (payload.providerDelivery.sent) return "email-sent";
+  if (payload.providerDelivery.sent) return "email-accepted";
   if (payload.providerDelivery.skipped) return "email-unavailable";
   return "email-queued";
 }
