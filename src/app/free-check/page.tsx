@@ -1,6 +1,7 @@
 import { FreeCheckAnalytics } from "@/components/free-check/free-check-analytics";
 import { FreeCheckProgressGuard } from "@/components/free-check/free-check-progress-guard";
 import { GuidedFreeCheckFormV3 } from "@/components/free-check/guided-free-check-form-v3";
+import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import {
   buildBreadcrumbJsonLd,
   buildFaqJsonLd,
@@ -64,7 +65,7 @@ export default function FreeCheckPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="overflow-hidden bg-white text-slate-950">
+    <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
       <FreeCheckProgressGuard />
       <FreeCheckAnalytics />
 
@@ -73,28 +74,34 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-16" aria-label="Free Scan form">
-        <div>
-          <h1 className="max-w-5xl text-[clamp(2.85rem,6.2vw,6.2rem)] font-semibold leading-[0.92] tracking-[-0.078em] text-slate-950">
-            See the first signal before you buy deeper work.
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose.
-          </p>
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-500">
-            The scan asks for basic business context only. Do not enter passwords, card numbers, private keys, or confidential customer records.
-          </p>
-        </div>
+      <section className="relative overflow-hidden px-5 py-12 sm:px-8 lg:py-16" aria-label="Free Scan form">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_8%,rgba(125,211,252,0.3),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
+        <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+          <div>
+            <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>Free Scan</p>
+            <h1 className="mt-6 max-w-5xl text-[clamp(3.15rem,6.2vw,6.35rem)] font-semibold leading-[0.9] tracking-[-0.084em] text-slate-950">
+              See the first signal before you buy deeper work.
+            </h1>
+            <p className="mt-6 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
+              Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose.
+            </p>
+            <p className="mt-5 max-w-2xl text-sm font-medium leading-7 text-slate-500">
+              The scan asks for basic business context only. Do not enter passwords, card numbers, private keys, or confidential customer records.
+            </p>
+          </div>
 
-        <GuidedFreeCheckFormV3 className="relative z-10" />
+          <div className="rounded-[2.75rem] border border-white/80 bg-white/72 p-3 shadow-[0_36px_130px_rgba(15,23,42,0.13)] backdrop-blur-2xl">
+            <GuidedFreeCheckFormV3 className="relative z-10" />
+          </div>
+        </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pb-14 sm:px-8" aria-label="What the Free Scan checks">
         <div className="grid gap-4 md:grid-cols-3">
           {CLARITY_POINTS.map((item) => (
-            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_48px_rgba(15,23,42,0.055)]">
+            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.06)]">
               <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{item.copy}</p>
+              <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.copy}</p>
             </article>
           ))}
         </div>
@@ -102,15 +109,15 @@ export default function FreeCheckPage() {
 
       <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-16 sm:px-8 md:grid-cols-2" aria-label="Free Scan questions">
         {FAQS.map((item) => (
-          <article key={item.question} className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-[0_14px_48px_rgba(15,23,42,0.05)]">
+          <article key={item.question} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.055)]">
             <h2 className="text-2xl font-semibold tracking-[-0.04em] text-slate-950">{item.question}</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-600">{item.answer}</p>
+            <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.answer}</p>
           </article>
         ))}
       </section>
 
       <section className="sr-only" aria-label="Free Scan verification">
-        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Basic business context only. No passwords, card numbers, private keys, or confidential customer records. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Premium Free Scan hero scale.
+        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Basic business context only. No passwords, card numbers, private keys, or confidential customer records. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Premium Free Scan hero scale. Unified Cendorq Experience System.
       </section>
     </main>
   );
