@@ -10,7 +10,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-5 py-5 sm:px-8">
         <div className="flex flex-col gap-3 text-xs leading-5 text-slate-500 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-5xl">
-            <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-2 text-slate-950 transition hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-2 text-slate-950 transition hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
               <BrandMark />
               <span className="text-sm font-semibold tracking-[0.08em]">{BRAND_NAME}</span>
             </Link>
@@ -21,13 +21,13 @@ export function SiteFooter() {
           </div>
 
           <div className="flex items-center gap-4 font-semibold">
-            <Link href="/privacy" className="transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/privacy" className="transition hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
               Privacy
             </Link>
-            <Link href="/terms" className="transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/terms" className="transition hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
               Terms
             </Link>
-            <Link href="/disclaimer" className="transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/disclaimer" className="transition hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
               Disclaimer
             </Link>
           </div>
