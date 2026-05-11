@@ -1,7 +1,7 @@
 export type CendorqRevenueStageKey =
   | "first-signal"
-  | "paid-diagnosis"
-  | "paid-implementation"
+  | "paid-review"
+  | "paid-repair"
   | "recurring-control";
 
 export type CendorqRevenueStage = {
@@ -22,13 +22,13 @@ export type CendorqRevenueStage = {
 export const CENDORQ_REVENUE_OPERATING_SYSTEM = [
   {
     key: "first-signal",
-    customerName: "Find the first reason",
+    customerName: "Find the first signal",
     planName: "Free Scan",
     price: "$0",
     businessPurpose: "Turn anonymous interest into a verified customer account and a dashboard relationship.",
     customerFeeling: "This feels useful before I pay, and it shows me what might be costing choices.",
     conversionJob: "Earn the first paid step by showing a clear limitation, evidence gap, or unresolved cause.",
-    dashboardState: "Verified customer workspace with scan status, first-read progress, report vault entry, billing path, notifications, and support recovery.",
+    dashboardState: "Verified customer workspace with scan status, first-signal progress, report vault entry, billing path, notifications, and support recovery.",
     backendWorkflow: "Create account, verify email, create business profile shell, start scan record, and prepare recommendation state.",
     requiredCustomerContext: [
       "Business name and website or primary link",
@@ -37,19 +37,19 @@ export const CENDORQ_REVENUE_OPERATING_SYSTEM = [
       "Location or market served",
       "Main concern or goal",
     ],
-    emailMoment: "Verified welcome plus scan continuation if the first read is incomplete.",
-    nextBestAction: "Continue the Free Scan or unlock Deep Review when the cause is not clear enough to fix yet.",
+    emailMoment: "Verified welcome plus scan continuation if the first signal is incomplete.",
+    nextBestAction: "Continue the Free Scan or start AI Readiness Review when the cause is not clear enough to repair yet.",
   },
   {
-    key: "paid-diagnosis",
-    customerName: "Get the full reason",
-    planName: "Deep Review",
+    key: "paid-review",
+    customerName: "Understand the real reason",
+    planName: "AI Readiness Review",
     price: "$497",
-    businessPurpose: "Convert uncertainty into an evidence-backed diagnosis before the customer buys fixes, ads, or redesign work.",
+    businessPurpose: "Convert uncertainty into an evidence-backed review before the customer buys repairs, ads, or redesign work.",
     customerFeeling: "Now I understand why customers hesitate and what deserves money first.",
-    conversionJob: "Move from free signal to paid diagnosis by making the cost of guessing feel larger than the price of clarity.",
-    dashboardState: "Paid diagnosis unlocked with report status, required context, evidence progress, billing record, and report vault destination.",
-    backendWorkflow: "Create Deep Review order, entitlement, diagnosis queue item, evidence checklist, report shell, notification, and kickoff email.",
+    conversionJob: "Move from free signal to paid review by making the cost of guessing feel larger than the price of clarity.",
+    dashboardState: "AI Readiness Review unlocked with report status, required context, evidence progress, billing record, and report vault destination.",
+    backendWorkflow: "Create AI Readiness Review order, entitlement, review queue item, evidence checklist, report shell, notification, and kickoff email.",
     requiredCustomerContext: [
       "Business URL or main page to review",
       "Most important customer action",
@@ -58,19 +58,19 @@ export const CENDORQ_REVENUE_OPERATING_SYSTEM = [
       "Known competitors or alternatives",
       "Any existing Free Scan result or report id",
     ],
-    emailMoment: "Deep Review is unlocked. Confirm the focus so the diagnosis can begin.",
+    emailMoment: "AI Readiness Review is confirmed. Confirm the focus so the review can begin.",
     nextBestAction: "Confirm the review focus and track report progress in the dashboard.",
   },
   {
-    key: "paid-implementation",
-    customerName: "Fix what costs choices",
-    planName: "Build Fix",
+    key: "paid-repair",
+    customerName: "Repair what costs choices",
+    planName: "Signal Repair",
     price: "$1,497",
-    businessPurpose: "Turn known friction into a concrete customer-facing improvement that can help conversion.",
+    businessPurpose: "Turn known friction into a concrete customer-facing improvement that can help customers understand, trust, and choose the business.",
     customerFeeling: "The weak part is getting handled, and I know what Cendorq needs from me.",
-    conversionJob: "Move diagnosed customers into implementation when the problem is clear enough to improve now.",
-    dashboardState: "Build Fix unlocked with implementation intake, current priority, approved business details, support route, and delivery progress.",
-    backendWorkflow: "Create Build Fix order, entitlement, implementation workspace, asset/context checklist, owner task, notification, and kickoff email.",
+    conversionJob: "Move reviewed or clear-priority customers into implementation when the problem is clear enough to improve now.",
+    dashboardState: "Signal Repair unlocked with repair intake, current priority, approved business details, support route, and delivery progress.",
+    backendWorkflow: "Create Signal Repair order, entitlement, repair workspace, asset/context checklist, owner task, notification, and kickoff email.",
     requiredCustomerContext: [
       "Page, section, offer, or action path to improve",
       "Approved business description",
@@ -79,16 +79,16 @@ export const CENDORQ_REVENUE_OPERATING_SYSTEM = [
       "Proof, reviews, examples, or assets available",
       "Approval contact",
     ],
-    emailMoment: "Build Fix is unlocked. Confirm the page, offer, and approved details.",
-    nextBestAction: "Confirm the fix details and track implementation progress inside the dashboard.",
+    emailMoment: "Signal Repair is confirmed. Confirm the target, offer, and approved details.",
+    nextBestAction: "Confirm the repair details and track implementation progress inside the dashboard.",
   },
   {
     key: "recurring-control",
-    customerName: "Keep monthly control",
-    planName: "Ongoing Control",
+    customerName: "Keep readiness under control",
+    planName: "Readiness Control",
     price: "$597/month",
-    businessPurpose: "Create recurring revenue by keeping visibility, trust, customer friction, and revenue movement under monthly watch.",
-    customerFeeling: "Cendorq is watching the business with me, not leaving me after one report.",
+    businessPurpose: "Create recurring revenue by keeping visibility, trust, AI-readiness, customer friction, and revenue movement under monthly watch.",
+    customerFeeling: "Cendorq is watching the business with me, not leaving me after one report or repair.",
     conversionJob: "Retain customers who need continuous improvement, changing-market awareness, and monthly decision support.",
     dashboardState: "Active subscription with monthly priority, recurring review cycle, alerts, report history, billing state, and support path.",
     backendWorkflow: "Create subscription entitlement, monthly control cycle, monitoring checklist, recurring report queue, notification schedule, and kickoff email.",
@@ -100,7 +100,7 @@ export const CENDORQ_REVENUE_OPERATING_SYSTEM = [
       "Approval contact",
       "Known launches, campaigns, or market changes",
     ],
-    emailMoment: "Ongoing Control is active. Choose this month’s focus.",
+    emailMoment: "Readiness Control is active. Choose this month’s focus.",
     nextBestAction: "Set the first monthly focus and review the dashboard control state.",
   },
 ] as const satisfies readonly CendorqRevenueStage[];
@@ -127,7 +127,7 @@ export const CENDORQ_PLAN_PERSONALIZATION_FIELDS = {
     "scan_id",
   ],
   "build-fix": [
-    "fix_target",
+    "repair_target",
     "approved_business_description",
     "primary_cta",
     "brand_constraints",
