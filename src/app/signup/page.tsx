@@ -39,7 +39,7 @@ export default function SignupPage() {
       <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-16">
         <div>
           <p className="text-sm font-semibold text-slate-400">Create access</p>
-          <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Create access without confusing identity with business context.</h1>
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,6vw,6.15rem)] font-semibold leading-[0.94] tracking-[-0.072em] text-slate-950">Create access without confusing identity with business context.</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">An account can confirm who owns the workspace. The Free Scan explains the business. New customers should start with the Free Scan unless a workspace already exists.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/free-check" className={BUTTON_PRIMARY}>Start Free Scan</Link>
@@ -50,7 +50,7 @@ export default function SignupPage() {
 
         <div className="rounded-[2.4rem] border border-slate-200 bg-white p-6 shadow-[0_30px_110px_rgba(15,23,42,0.1)] sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Best first step</p>
-          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Start with business facts.</h2>
+          <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Start with business facts.</h2>
           <p className="mt-5 text-base leading-8 text-slate-600">Use the Free Scan to capture the business name, website, audience, offer, location, and weak signal. Account access can then protect the result and let the customer return.</p>
           <div className="mt-7 grid gap-3">
             <Link href="/free-check" className={BUTTON_PRIMARY}>Start Free Scan</Link>
@@ -68,7 +68,7 @@ export default function SignupPage() {
       <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Signup safety standard">
         <div className="rounded-[2.25rem] border border-slate-200 bg-slate-50 p-6 sm:p-8">
           <p className="text-sm font-semibold text-slate-400">Signup safety standard</p>
-          <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-6xl">Trust starts before the dashboard opens.</h2>
+          <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Trust starts before the dashboard opens.</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{SIGNUP_RULES.map((rule) => <p key={rule} className="rounded-[1.35rem] border border-slate-200 bg-white p-4 text-sm font-semibold leading-7 text-slate-600">{rule}</p>)}</div>
           <div className="mt-7 text-sm text-slate-600">Already verified? <Link className="font-semibold text-slate-950 underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2" href={routePath("login")}>Sign in</Link>.</div>
         </div>
