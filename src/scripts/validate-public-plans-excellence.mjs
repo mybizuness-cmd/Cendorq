@@ -8,14 +8,15 @@ const plansPath = "src/app/plans/page.tsx";
 const pricingContractPath = "src/lib/pricing-checkout-orchestration.ts";
 const checkoutStartPath = "src/app/checkout/start/page.tsx";
 const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
-const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
-const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-plans-excellence.mjs";
 
 expect(pricingContractPath, [
   "CENDORQ_PLAN_PRICES",
+  "name: \"AI Readiness Review\"",
+  "name: \"Signal Repair\"",
+  "name: \"Readiness Control\"",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
@@ -27,37 +28,35 @@ expect(pricingContractPath, [
 expect(componentPath, [
   "getCendorqPlanPrice",
   "PLAN_KEY_BY_TITLE",
-  "Compare pricing",
-  "Best for",
-  "Not for",
+  "What this helps you decide",
+  "Best when",
+  "Not the right first step when",
   "Plan guardrails",
   "Buy the right depth.",
-  "Use Deep Review at $497 when the business needs the real reason.",
-  "Use Build Fix at $1,497 when the direction is clear enough to improve.",
-  "Use Ongoing Control at $597/month when the business needs monthly attention.",
+  "Use AI Readiness Review when the business needs evidence before repair.",
+  "Use Signal Repair when the weak point is clear enough to improve.",
+  "Use Readiness Control when the business needs ongoing attention.",
   "No fake urgency.",
   "No unsupported revenue promise.",
-  "No paid push before stage fit is clear.",
-  "No protected result before verification.",
+  "No guaranteed ranking or AI placement.",
 ]);
 
 expect(plansPath, [
-  "Visibility command path",
-  "Choose the depth that matches the business risk.",
-  "Scan first. Diagnose when the cause matters. Fix only when the target is clear. Keep control when visibility, trust, and customer choice need monthly attention.",
+  "Choose the right AI-readiness depth.",
+  "Start with a first signal. Move deeper only when the evidence supports it.",
   "Scan",
-  "Diagnose",
-  "Fix",
+  "Review",
+  "Repair",
   "Control",
   "Start Free Scan",
-  "Unlock Deep Review",
-  "Unlock Build Fix",
-  "Start Ongoing Control",
-  "Each plan buys a different level of control.",
+  "Start AI Readiness Review",
+  "Start Signal Repair",
+  "Start Readiness Control",
+  "One path. Four depths.",
   "Free Scan $0",
-  "Deep Review $497",
-  "Build Fix $1,497",
-  "Ongoing Control $597/mo",
+  "AI Readiness Review $497",
+  "Signal Repair $1,497",
+  "Readiness Control $597/mo",
 ]);
 
 expect(checkoutStartPath, [
@@ -68,36 +67,21 @@ expect(checkoutStartPath, [
 ]);
 
 expect(checkoutSuccessPath, [
-  "Command activated | Cendorq",
+  "Checkout complete | Cendorq",
   "Payment complete",
-  "Activate the command path",
-  "Payment is complete. The command path starts now.",
-  "Command activation",
-  "Diagnose",
-  "Fix",
-  "Control",
-]);
-
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
+  "getCendorqRevenueStage",
+  "What Cendorq needs next",
+  "Post-payment dashboard activation",
 ]);
 
 expect(packagePath, ["validate:routes"]);
-expect(routesChainPath, [validatorPath, "validate-owner-maximum-protection-posture.mjs"]);
+expect(routesChainPath, [validatorPath]);
 
 boundedLength(componentPath, 15500);
 boundedLength(plansPath, 16000);
 
 forbidden(componentPath, blockedPlanPhrases());
-forbidden(plansPath, [...blockedPlanPhrases(), "$750+", "$300/mo", "starting at", "Best first move", "Start free if the cause is unclear. Pay when the next depth is obvious.", "Choose the depth that can move revenue next."]);
+forbidden(plansPath, [...blockedPlanPhrases(), "$750+", "$300/mo", "starting at", "Unlock Build Fix", "Compare pricing", "Diagnose"]);
 
 if (failures.length) {
   console.error("Public plans command alignment validation failed:");
@@ -105,7 +89,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans command alignment validation passed with Scan, Diagnose, Fix, Control positioning and command activation checkout success.");
+console.log("Public plans command alignment validation passed with Scan, Review, Repair, Control positioning and AI-readiness plan names.");
 
 function blockedPlanPhrases() {
   return [
@@ -131,6 +115,8 @@ function blockedPlanPhrases() {
     "csrfToken",
     "localStorage.setItem",
     "sessionStorage.setItem",
+    "After payment:",
+    "Do not treat this",
   ];
 }
 
