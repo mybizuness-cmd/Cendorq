@@ -33,27 +33,30 @@ const PLAN_ACTIVATION_COPY: Record<CendorqPaidPlanKey, { stage: string; dashboar
     stage: "AI Readiness Review",
     dashboardCta: "Open review dashboard",
     dashboardPath: "/dashboard/reports",
-    thanks: "Thank you. Your AI Readiness Review is confirmed.",
-    next: "Cendorq will route you into the dashboard so the review path can collect the right business context and show status clearly.",
+    thanks: "Your AI Readiness Review is confirmed.",
+    next: "Continue into the dashboard so Cendorq can keep the review path, status, and business context protected.",
     emailMoment: "A confirmation email should also explain the next review step.",
   },
   "build-fix": {
     stage: "Signal Repair",
     dashboardCta: "Open repair intake",
     dashboardPath: "/dashboard/support/request",
-    thanks: "Thank you. Your Signal Repair is confirmed.",
-    next: "Cendorq will route you into the dashboard so the repair scope, approved business details, and next required action stay protected.",
+    thanks: "Your Signal Repair is confirmed.",
+    next: "Continue into the dashboard so the repair scope, approved details, and next required action stay protected.",
     emailMoment: "A confirmation email should also explain what Cendorq needs before repair begins.",
   },
   "ongoing-control": {
     stage: "Readiness Control",
     dashboardCta: "Open control dashboard",
     dashboardPath: "/dashboard/billing",
-    thanks: "Thank you. Your Readiness Control subscription is confirmed.",
-    next: "Cendorq will route you into the dashboard so the monthly focus, billing state, and control path stay connected.",
+    thanks: "Your Readiness Control subscription is confirmed.",
+    next: "Continue into the dashboard so monthly focus, billing state, and the control path stay connected.",
     emailMoment: "A confirmation email should also explain the first control-cycle step.",
   },
 };
+
+const BUTTON_PRIMARY = "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2";
 
 export default async function CheckoutSuccessPage({ searchParams }: CheckoutSuccessPageProps) {
   const resolvedSearchParams = await searchParams;
@@ -69,10 +72,10 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
     <main className="overflow-hidden bg-white text-slate-950">
       <CheckoutDashboardRedirect destination={activation.dashboardPath} />
 
-      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-16">
+      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.84fr_1.16fr] lg:items-center lg:py-16">
         <div>
           <p className="text-sm font-semibold text-slate-400">Payment complete</p>
-          <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">
+          <h1 className="mt-4 max-w-5xl text-[clamp(2.85rem,5.7vw,5.9rem)] font-semibold leading-[0.94] tracking-[-0.072em] text-slate-950">
             {activation.thanks}
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
@@ -82,10 +85,10 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
             You will be redirected automatically. If it does not happen, use the dashboard button below.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href={activation.dashboardPath} className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href={activation.dashboardPath} className={BUTTON_PRIMARY}>
               {activation.dashboardCta}
             </Link>
-            <Link href="/dashboard/billing" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link href="/dashboard/billing" className={BUTTON_SECONDARY}>
               Open billing
             </Link>
           </div>
@@ -93,7 +96,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
 
         <div className="rounded-[2.4rem] border border-slate-200 bg-white p-6 shadow-[0_30px_110px_rgba(15,23,42,0.1)] sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Confirmed plan</p>
-          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">{activation.stage}</h2>
+          <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">{activation.stage}</h2>
           <p className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-slate-950">{plan.price}</p>
           <p className="mt-1 text-sm font-semibold text-slate-500">{plan.cadence}</p>
           <div className="mt-6 grid gap-3">
@@ -114,7 +117,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
       </section>
 
       <section className="sr-only" aria-label="Checkout success dashboard redirect guardrails">
-        Checkout complete. Payment complete. Thank you page. Automatic dashboard redirect. Redirect after payment. Dashboard destination. Open review dashboard. Open repair intake. Open control dashboard. AI Readiness Review. Signal Repair. Readiness Control. session_id {sessionId}. Stripe session id. Post-payment dashboard activation. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
+        Checkout complete. Payment complete. Thank you page. Automatic dashboard redirect. Redirect after payment. Premium checkout success hero scale. Dashboard destination. Open review dashboard. Open repair intake. Open control dashboard. AI Readiness Review. Signal Repair. Readiness Control. session_id {sessionId}. Stripe session id. Post-payment dashboard activation. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
       </section>
     </main>
   );
