@@ -14,23 +14,23 @@ const contactEmail = normalizeEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL);
 const directEmailHref = contactEmail ? `mailto:${contactEmail}` : "";
 
 export const metadata = buildMetadata({
-  title: "Market fit entry | Cendorq",
+  title: "Contact | Cendorq",
   description:
-    "Contact Cendorq when fit, scope, or timing is already clear. Start the Free Scan first when the market signal is still unclear.",
+    "Contact Cendorq when fit, scope, or timing is already clear. Start the Free Scan first when the first readiness signal is still unclear.",
   path: "/connect",
-  keywords: ["cendorq contact", "market fit entry", "cendorq connect", "free scan", "pricing", "deep review", "build fix", "ongoing control"],
-  image: { alt: "Cendorq market fit entry page." },
+  keywords: ["cendorq contact", "cendorq connect", "free scan", "AI Readiness Review", "Signal Repair", "Readiness Control"],
+  image: { alt: "Cendorq contact and readiness routing page." },
 });
 
 const CONTACT_RULES = [
-  "Start Free Scan if the market signal is unclear.",
-  "Use command depth if you know the stage you need.",
+  "Start Free Scan if the first readiness signal is unclear.",
+  "Use Plans if you know the readiness depth you need.",
   "Contact only when fit, scope, or timing is already clear.",
 ] as const;
 
 const CONTACT_STAGE_ROUTES = [
-  { label: "Need a first signal", href: "/free-check", cta: "Start Free Scan", detail: "Use this before contact when the business does not yet know what is breaking the customer decision." },
-  { label: "Need command depth", href: "/plans", cta: "Compare command path", detail: "Use this when choosing between Deep Review, Build Fix, and Ongoing Control." },
+  { label: "Need a first signal", href: "/free-check", cta: "Start Free Scan", detail: "Use this before contact when the business does not yet know what is weakening clarity, trust, proof, or choice." },
+  { label: "Need readiness depth", href: "/plans", cta: "Compare plans", detail: "Use this when choosing between AI Readiness Review, Signal Repair, and Readiness Control." },
   { label: "Already a customer", href: "/dashboard/support", cta: "Open support", detail: "Use dashboard support for billing, proof, scope, access, or correction questions." },
 ] as const;
 
@@ -38,7 +38,7 @@ const CONTACT_BOUNDARIES = [
   "Contact is not a replacement for the Free Scan when the cause is unclear.",
   "Contact is not an unlimited consulting lane.",
   "Contact should not be used to send sensitive account, payment, or security details.",
-  "Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate.",
+  "Plan questions should keep Free Scan, AI Readiness Review, Signal Repair, and Readiness Control visibly separate.",
 ] as const;
 
 const FAQS = [
@@ -50,28 +50,28 @@ const FAQS = [
   {
     question: "What if I am not sure which plan fits?",
     answer:
-      "Start free. The scan is designed to reduce guessing before you pay for Deep Review, Build Fix, or Ongoing Control.",
+      "Start free. The scan is designed to reduce guessing before you pay for AI Readiness Review, Signal Repair, or Readiness Control.",
   },
   {
     question: "When does direct contact make sense?",
     answer:
-      "Direct contact makes sense when the business already has a clear question about fit, scope, timing, or ongoing control.",
+      "Direct contact makes sense when the business already has a clear question about fit, scope, timing, or ongoing readiness control.",
   },
 ] as const;
 
 export default function ConnectPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Market Fit Entry",
+    title: "Cendorq Contact",
     description: "A concise routing page for direct Cendorq contact when fit, scope, or timing is already clear.",
     path: "/connect",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Market Fit Entry",
+    title: "Cendorq Contact",
     description:
-      "A simple routing page for choosing between the Free Scan, command depth, dashboard support, and direct contact.",
+      "A simple routing page for choosing between the Free Scan, plans, dashboard support, and direct contact.",
     path: "/connect",
-    serviceType: "Market fit routing",
+    serviceType: "AI-readiness routing",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -93,12 +93,12 @@ export default function ConnectPage() {
       <section className="relative z-10 system-panel-authority rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Market fit entry</p>
+            <p className="text-sm font-semibold text-cyan-100">Contact Cendorq</p>
             <h1 className="system-hero-title mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Contact Cendorq when the market question is already clear.
+              Contact Cendorq when the readiness question is already clear.
             </h1>
             <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              {BRAND_NAME} works best when the next move is clear. Start with Free Scan when the problem needs a first market signal. Use direct contact for fit, scope, timing, or ongoing control questions that are already specific.
+              {BRAND_NAME} works best when the next move is clear. Start with Free Scan when the problem needs a first readiness signal. Use direct contact for fit, scope, timing, or readiness-control questions that are already specific.
             </p>
           </div>
           <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
@@ -123,7 +123,7 @@ export default function ConnectPage() {
             </a>
           ) : null}
           <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Compare command path
+            Compare plans
           </Link>
         </div>
       </section>
@@ -143,7 +143,7 @@ export default function ConnectPage() {
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
       </section>
-      <p className="sr-only">Market fit entry. Contact stage routing. If you are unsure, start Free Scan. If the question is clear, connect. View command depth. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
+      <p className="sr-only">Contact Cendorq. Contact stage routing. If you are unsure, start Free Scan. If the question is clear, connect. View readiness plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
     </main>
   );
 }
