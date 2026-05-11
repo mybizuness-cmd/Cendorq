@@ -235,8 +235,11 @@ expect("src/app/api/auth/email/route.ts", [
   "issueCustomerConfirmationEmail",
   "support-or-billing-entry",
   "account-recovery",
+  "projectEmailAccessState",
   "email-sent",
   "email-queued",
+  "email-unavailable",
+  "providerDelivery.skipped",
   "customerEmail: email",
 ]);
 
@@ -251,6 +254,8 @@ expect("src/app/login/page.tsx", [
   "Continue with Facebook",
   "Create access",
   "Check your inbox for Cendorq Support <support@cendorq.com>",
+  "Email delivery is not fully connected yet.",
+  "Your access request was saved, but email delivery has not completed yet.",
   "Come back without starting over.",
   "Cendorq never emails a password.",
   "role=\"status\"",
@@ -316,7 +321,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header/footer navigation, visible customer auth notices, secure email access, polished signup language, premium laptop hero scaling, white verification surface, polished checkout success, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header/footer navigation, truthful email access delivery states, visible customer auth notices, polished signup language, premium laptop hero scaling, white verification surface, polished checkout success, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
 
 function expect(path, phrases) {
   const text = read(path);
