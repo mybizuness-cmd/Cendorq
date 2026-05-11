@@ -14,6 +14,10 @@ type StepNumber = 0 | 1 | 2 | 3;
 type Step = { title: string; copy: string; fields: Array<keyof FormValues> };
 
 const INITIAL_VALUES: FormValues = { fullName: "", email: "", businessName: "", websiteUrl: "", country: "", stateRegion: "", city: "", businessType: "", primaryOffer: "", audience: "", biggestIssue: "", competitors: "", notes: "" };
+const PRIMARY_CTA_CLASS = "inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:text-slate-950 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70";
+const SECONDARY_CTA_CLASS = "inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+const EMAIL_LOCAL_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789.!#$%&'*+-/=?^_`{|}~";
+const EMAIL_DOMAIN_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-.";
 
 const STEPS: readonly Step[] = [
   { title: "Start with what customers see.", copy: "Use the business name, website, and email tied to this scan.", fields: ["businessName", "websiteUrl", "fullName", "email"] },
@@ -42,7 +46,7 @@ const LABELS: Record<keyof FormValues, { label: string; helper: string; placehol
 };
 
 const SUCCESS_NEXT_STEPS = ["Your answers were received.", "Check your inbox to verify access.", "Your protected result opens in the customer workspace."] as const;
-const RECOVERY_TILES = ["Your typed answers stay protected while you fix the issue.", "Check highlighted fields or retry if the connection failed.", "The safest next move is still to complete the Free Scan first."] as const;
+const RECOVERY_TILES = ["Your typed answers stay protected while you fix the issue.", "Check highlighted fields or retry if the connection failed.", "Complete the Free Scan first so the next step starts from real context."] as const;
 
 export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
   const [step, setStep] = useState<StepNumber>(0);
@@ -86,8 +90,8 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
     setIsSubmitting(true);
     setSubmitState({ kind: "idle" });
     try {
-      const submittedEmail = values.email;
-      const response = await fetch("/api/free-check", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...values, websiteUrl: normalizeWebsite(values.websiteUrl), source: "free-check" }) });
+      const submittedEmail = values.email.trim();
+      const response = await fetch("/api/free-check", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...values, email: submittedEmail, websiteUrl: normalizeWebsite(values.websiteUrl), source: "free-check" }) });
       const data = (await response.json().catch(() => null)) as ApiResponse | null;
       if (!response.ok || !data || data.ok === false) {
         const failure = data && data.ok === false ? data : null;
@@ -131,15 +135,15 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
           <div className="grid gap-4 md:grid-cols-2">{activeStep.fields.map((field) => <FieldControl key={field} field={field} values={values} errors={errors} onChange={updateValue} />)}</div>
           <div className="mt-6 flex flex-col gap-4 border-t border-slate-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-3">
-              {step > 0 ? <button type="button" onClick={() => setStep((current) => Math.max(0, current - 1) as StepNumber)} className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">Back</button> : null}
-              {step < STEPS.length - 1 ? <button type="button" onClick={nextStep} className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">Continue</button> : <button type="submit" disabled={isSubmitting} className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70">{isSubmitting ? "Submitting scan..." : "Submit Free Scan"}</button>}
+              {step > 0 ? <button type="button" onClick={() => setStep((current) => Math.max(0, current - 1) as StepNumber)} className={SECONDARY_CTA_CLASS}>Back</button> : null}
+              {step < STEPS.length - 1 ? <button type="button" onClick={nextStep} className={PRIMARY_CTA_CLASS}>Continue</button> : <button type="submit" disabled={isSubmitting} className={PRIMARY_CTA_CLASS}>{isSubmitting ? "Submitting scan..." : "Submit Free Scan"}</button>}
             </div>
             <div className="text-sm leading-6 text-slate-500">Use business context only. Do not enter private credentials.</div>
           </div>
           {submitState.kind === "success" ? <SuccessState state={submitState} /> : null}
           {submitState.kind === "error" ? <ErrorState state={submitState} /> : null}
         </form>
-        <div className="sr-only">Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, inbox guidance, plan-fit CTA, compare plans CTA, recovery guidance, and safe-data warnings.</div>
+        <div className="sr-only">Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, inbox guidance, clean public CTAs, recovery guidance, and safe-data warnings.</div>
       </div>
     </section>
   );
@@ -164,7 +168,7 @@ function renderInput(field: keyof FormValues, values: FormValues, onChange: (eve
 function SuccessState({ state }: { state: Extract<SubmitState, { kind: "success" }> }) {
   const nextMove = successNextMove(state.routingHint);
   const handoff = state.handoff.handoff;
-  return <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-emerald-200 bg-emerald-50 p-5 sm:p-6"><div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-700">Scan received</div><h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-slate-950">Confirm your email to open the result.</h3><p className="mt-3 text-sm leading-7 text-slate-700">{state.message}</p><div className="mt-5 grid gap-3 md:grid-cols-3">{SUCCESS_NEXT_STEPS.map((item) => <div key={item} className="rounded-[1.1rem] border border-emerald-200 bg-white px-4 py-4 text-sm font-semibold leading-6 text-slate-700">{item}</div>)}</div><div className="mt-5 rounded-[1.25rem] border border-slate-200 bg-white p-4"><div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">After verification</div><p className="mt-2 text-sm leading-7 text-slate-700">{handoff.safeCustomerMessage}</p><p className="mt-2 text-xs leading-6 text-slate-500">{handoff.reportVisibilityRule}</p></div><div className="mt-5 flex flex-col gap-3 sm:flex-row"><Link href={handoff.verifiedDestination} className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">{handoff.primaryCta}</Link><Link href={nextMove.href} className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">{nextMove.cta}</Link><Link href="/plans" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">Compare plans</Link></div></div>;
+  return <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-emerald-200 bg-emerald-50 p-5 sm:p-6"><div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-700">Scan received</div><h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-slate-950">Confirm your email to open the result.</h3><p className="mt-3 text-sm leading-7 text-slate-700">{state.message}</p><div className="mt-5 grid gap-3 md:grid-cols-3">{SUCCESS_NEXT_STEPS.map((item) => <div key={item} className="rounded-[1.1rem] border border-emerald-200 bg-white px-4 py-4 text-sm font-semibold leading-6 text-slate-700">{item}</div>)}</div><div className="mt-5 rounded-[1.25rem] border border-slate-200 bg-white p-4"><div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">After verification</div><p className="mt-2 text-sm leading-7 text-slate-700">{handoff.safeCustomerMessage}</p><p className="mt-2 text-xs leading-6 text-slate-500">{handoff.reportVisibilityRule}</p></div><div className="mt-5 flex flex-col gap-3 sm:flex-row"><Link href={handoff.verifiedDestination} className={PRIMARY_CTA_CLASS}>{handoff.primaryCta}</Link><Link href={nextMove.href} className={SECONDARY_CTA_CLASS}>{nextMove.cta}</Link><Link href="/plans" className={SECONDARY_CTA_CLASS}>Compare plans</Link></div></div>;
 }
 
 function ErrorState({ state }: { state: Extract<SubmitState, { kind: "error" }> }) {
@@ -178,10 +182,96 @@ function successNextMove(routingHint: RoutingHint) {
   return { title: "Start with the first signal before spending deeper.", copy: "The Free Scan keeps the next move safer when the business still needs clear context.", href: "/plans", cta: "Compare plans" };
 }
 
-function validateFields(values: FormValues, fields: Array<keyof FormValues>) { const errors: Partial<Record<keyof FormValues, string>> = {}; for (const field of fields) { if (field === "fullName" && values.fullName.trim().length < 2) errors.fullName = "Enter your name."; if (field === "email" && !looksLikeEmail(values.email)) errors.email = "Enter a valid business email."; if (field === "businessName" && values.businessName.trim().length < 2) errors.businessName = "Enter the business name."; if (field === "websiteUrl" && !looksLikeWebsite(values.websiteUrl)) errors.websiteUrl = "Enter the main website."; if (field === "country" && values.country.trim().length < 2) errors.country = "Choose a country."; if (field === "stateRegion" && values.stateRegion.trim().length < 2) errors.stateRegion = "Enter a state or region."; if (field === "city" && values.city.trim().length < 2) errors.city = "Enter the main city."; if (field === "businessType" && values.businessType.trim().length < 3) errors.businessType = "Choose the business type."; if (field === "primaryOffer" && values.primaryOffer.trim().length < 10) errors.primaryOffer = "Explain what the business sells."; if (field === "audience" && values.audience.trim().length < 30) errors.audience = "Describe the best customer in more detail."; if (field === "biggestIssue" && values.biggestIssue.trim().length < 45) errors.biggestIssue = "Explain what feels wrong in more detail."; } return errors; }
-function buildQualityScore(values: FormValues) { const checks = [values.fullName.length >= 2, looksLikeEmail(values.email), values.businessName.length >= 2, looksLikeWebsite(values.websiteUrl), values.country.length >= 2, values.stateRegion.length >= 2, values.city.length >= 2, values.businessType.length >= 3, values.primaryOffer.length >= 10, values.audience.length >= 30, values.biggestIssue.length >= 45, values.competitors.length >= 8, values.notes.length >= 10]; return Math.min(100, Math.round((checks.filter(Boolean).length / checks.length) * 100)); }
-function buildNextMove(score: number, values: FormValues) { const text = `${values.primaryOffer} ${values.audience} ${values.biggestIssue} ${values.notes}`.toLowerCase(); if (score >= 86 && /(ongoing|monthly|monitor|maintain|manage|support)/.test(text)) return { routingHint: "command-review" as RoutingHint, title: "Possible Readiness Control fit", copy: "Recurring pressure may need continued direction after the first result." }; if (score >= 78 && /(website|booking|calls|leads|trust|confusing|unclear|conversion|choose)/.test(text)) return { routingHint: "infrastructure-review" as RoutingHint, title: "Possible Signal Repair fit", copy: "A specific page, message, proof point, or action path may need scoped improvement." }; if (score >= 60) return { routingHint: "blueprint-candidate" as RoutingHint, title: "Likely AI Readiness Review fit", copy: "There may be enough detail to review what is holding the business back." }; return { routingHint: "scan-only" as RoutingHint, title: "Keep building the first signal", copy: "A little more clear detail will make the scan more useful." }; }
-function normalizeWebsite(value: string) { const trimmed = value.trim(); if (!trimmed) return ""; return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`; }
-function looksLikeEmail(value: string) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()); }
-function looksLikeWebsite(value: string) { try { const url = new URL(normalizeWebsite(value)); return Boolean(url.hostname.includes(".") && ["http:", "https:"].includes(url.protocol)); } catch { return false; } }
-function autocompleteFor(field: keyof FormValues) { if (field === "fullName") return "name"; if (field === "email") return "email"; if (field === "businessName") return "organization"; if (field === "websiteUrl") return "url"; if (field === "country") return "country-name"; if (field === "stateRegion") return "address-level1"; if (field === "city") return "address-level2"; return "off"; }
+function validateFields(values: FormValues, fields: Array<keyof FormValues>) {
+  const errors: Partial<Record<keyof FormValues, string>> = {};
+  for (const field of fields) {
+    if (field === "fullName" && values.fullName.trim().length < 2) errors.fullName = "Enter your name.";
+    if (field === "email" && !looksLikeEmail(values.email)) errors.email = "Enter a valid business email.";
+    if (field === "businessName" && values.businessName.trim().length < 2) errors.businessName = "Enter the business name.";
+    if (field === "websiteUrl" && !looksLikeWebsite(values.websiteUrl)) errors.websiteUrl = "Enter the main website.";
+    if (field === "country" && values.country.trim().length < 2) errors.country = "Choose a country.";
+    if (field === "stateRegion" && values.stateRegion.trim().length < 2) errors.stateRegion = "Enter a state or region.";
+    if (field === "city" && values.city.trim().length < 2) errors.city = "Enter the main city.";
+    if (field === "businessType" && values.businessType.trim().length < 3) errors.businessType = "Choose the business type.";
+    if (field === "primaryOffer" && values.primaryOffer.trim().length < 10) errors.primaryOffer = "Explain what the business sells.";
+    if (field === "audience" && values.audience.trim().length < 30) errors.audience = "Describe the best customer in more detail.";
+    if (field === "biggestIssue" && values.biggestIssue.trim().length < 45) errors.biggestIssue = "Explain what feels wrong in more detail.";
+  }
+  return errors;
+}
+
+function buildQualityScore(values: FormValues) {
+  const checks = [values.fullName.length >= 2, looksLikeEmail(values.email), values.businessName.length >= 2, looksLikeWebsite(values.websiteUrl), values.country.length >= 2, values.stateRegion.length >= 2, values.city.length >= 2, values.businessType.length >= 3, values.primaryOffer.length >= 10, values.audience.length >= 30, values.biggestIssue.length >= 45, values.competitors.length >= 8, values.notes.length >= 10];
+  return Math.min(100, Math.round((checks.filter(Boolean).length / checks.length) * 100));
+}
+
+function buildNextMove(score: number, values: FormValues) {
+  const text = `${values.primaryOffer} ${values.audience} ${values.biggestIssue} ${values.notes}`.toLowerCase();
+  if (score >= 86 && includesAny(text, ["ongoing", "monthly", "monitor", "maintain", "manage", "support"])) return { routingHint: "command-review" as RoutingHint, title: "Possible Readiness Control fit", copy: "Recurring pressure may need continued direction after the first result." };
+  if (score >= 78 && includesAny(text, ["website", "booking", "calls", "leads", "trust", "confusing", "unclear", "conversion", "choose"])) return { routingHint: "infrastructure-review" as RoutingHint, title: "Possible Signal Repair fit", copy: "A specific page, message, proof point, or action path may need scoped improvement." };
+  if (score >= 60) return { routingHint: "blueprint-candidate" as RoutingHint, title: "Likely AI Readiness Review fit", copy: "There may be enough detail to review what is holding the business back." };
+  return { routingHint: "scan-only" as RoutingHint, title: "Keep building the first signal", copy: "A little more clear detail will make the scan more useful." };
+}
+
+function normalizeWebsite(value: string) {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  const lower = trimmed.toLowerCase();
+  return lower.startsWith("http://") || lower.startsWith("https://") ? trimmed : `https://${trimmed}`;
+}
+
+function looksLikeEmail(value: string) {
+  const cleaned = value.trim().toLowerCase();
+  if (cleaned.length < 6 || cleaned.length > 254) return false;
+  if (hasUnsafeEmailCharacter(cleaned)) return false;
+  const atIndex = cleaned.indexOf("@");
+  if (atIndex <= 0 || atIndex !== cleaned.lastIndexOf("@")) return false;
+  const local = cleaned.slice(0, atIndex);
+  const domain = cleaned.slice(atIndex + 1);
+  return isSafeEmailLocalPart(local) && isSafeEmailDomain(domain);
+}
+
+function isSafeEmailLocalPart(value: string) {
+  if (!value || value.length > 64 || value.startsWith(".") || value.endsWith(".") || value.includes("..")) return false;
+  for (const character of value) if (!EMAIL_LOCAL_CHARS.includes(character)) return false;
+  return true;
+}
+
+function isSafeEmailDomain(value: string) {
+  if (!value || value.length > 253 || !value.includes(".") || value.startsWith(".") || value.endsWith(".") || value.includes("..")) return false;
+  for (const character of value) if (!EMAIL_DOMAIN_CHARS.includes(character)) return false;
+  return value.split(".").every((label) => Boolean(label && label.length <= 63 && !label.startsWith("-") && !label.endsWith("-")));
+}
+
+function hasUnsafeEmailCharacter(value: string) {
+  for (const character of value) {
+    const code = character.charCodeAt(0);
+    if (code <= 32 || code === 127) return true;
+    if (character === "<" || character === ">" || character === "," || character === ";" || character === ":" || character === "\"") return true;
+  }
+  return false;
+}
+
+function looksLikeWebsite(value: string) {
+  try {
+    const url = new URL(normalizeWebsite(value));
+    return Boolean(url.hostname.includes(".") && ["http:", "https:"].includes(url.protocol));
+  } catch {
+    return false;
+  }
+}
+
+function includesAny(value: string, terms: string[]) {
+  return terms.some((term) => value.includes(term));
+}
+
+function autocompleteFor(field: keyof FormValues) {
+  if (field === "fullName") return "name";
+  if (field === "email") return "email";
+  if (field === "businessName") return "organization";
+  if (field === "websiteUrl") return "url";
+  if (field === "country") return "country-name";
+  if (field === "stateRegion") return "address-level1";
+  if (field === "city") return "address-level2";
+  return "off";
+}
