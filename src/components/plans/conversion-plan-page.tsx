@@ -70,7 +70,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
       <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-16">
         <div>
           <p className="text-sm font-semibold text-slate-400">{data.eyebrow}</p>
-          <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,6vw,6.15rem)] font-semibold leading-[0.94] tracking-[-0.072em] text-slate-950">
             {data.title}
             <span className="block text-cyan-500">{data.gradient}</span>
           </h1>
