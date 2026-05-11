@@ -31,7 +31,7 @@ export default function LoginPage() {
       <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-16">
         <div>
           <p className="text-sm font-semibold text-slate-400">Account access</p>
-          <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Return to the customer workspace without starting over.</h1>
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,6vw,6.15rem)] font-semibold leading-[0.94] tracking-[-0.072em] text-slate-950">Return to the customer workspace without starting over.</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">Use the same email to return to saved Free Scan context, protected result paths, reports, billing, notifications, and support history. Account access confirms identity; the Free Scan captures business context.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard" className={BUTTON_PRIMARY}>Open workspace</Link>
@@ -41,7 +41,7 @@ export default function LoginPage() {
 
         <div className="rounded-[2.4rem] border border-slate-200 bg-white p-6 shadow-[0_30px_110px_rgba(15,23,42,0.1)] sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Magic link first</p>
-          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Send my workspace link.</h2>
+          <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Send my workspace link.</h2>
           <p className="mt-5 text-base leading-8 text-slate-600">The link should confirm the session and return the customer to the protected route that matches the account state.</p>
           <form className="mt-7 grid gap-3" action="/dashboard">
             <label className="grid gap-2 text-sm font-semibold text-slate-800">
@@ -65,7 +65,7 @@ export default function LoginPage() {
       <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Login safety standard">
         <div className="rounded-[2.25rem] border border-slate-200 bg-slate-50 p-6 sm:p-8">
           <p className="text-sm font-semibold text-slate-400">Login safety standard</p>
-          <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-6xl">Re-entry should restore context without leaking state.</h2>
+          <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Re-entry should restore context without leaking state.</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{LOGIN_RULES.map((rule) => <p key={rule} className="rounded-[1.35rem] border border-slate-200 bg-white p-4 text-sm font-semibold leading-7 text-slate-600">{rule}</p>)}</div>
         </div>
       </section>
