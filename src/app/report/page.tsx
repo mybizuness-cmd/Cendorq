@@ -9,48 +9,48 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 const BRAND_NAME = "Cendorq";
-const CATEGORY_LINE = "Business Visibility Command";
+const CATEGORY_LINE = "AI Readiness";
 
 export const metadata = buildMetadata({
-  title: "Report Layer",
+  title: "Report access | Cendorq",
   description:
-    "Structured report surface for saved Free Scan output, report review, and next-step routing inside Cendorq.",
+    "Customer-safe report access surface for Free Scan results, readiness reports, and next-step routing inside Cendorq.",
   path: "/report",
   keywords: [
     "cendorq report",
     "free scan report",
-    "visibility report layer",
-    "saved intake report",
-    "report routing surface",
+    "AI readiness report",
+    "saved report",
+    "customer report access",
   ],
   image: {
-    alt: "Cendorq report layer - the saved-output route for Free Scan and next-step review.",
+    alt: "Cendorq report access for Free Scan and readiness reports.",
   },
   noIndex: true,
 });
 
 const ROUTE_READOUTS = [
-  { label: "Current role", value: "Saved-output shell" },
-  { label: "Best source", value: "Intake Console" },
+  { label: "Current role", value: "Report access shell" },
+  { label: "Best source", value: "Customer dashboard" },
   { label: "Primary feed", value: "Free Scan" },
   { label: "Next expansion", value: "Saved report rendering" },
 ] as const;
 
 const REPORT_MEANING = [
   {
-    title: "This route keeps the report layer real before the full engine is expanded.",
+    title: "Reports should open from the protected workspace.",
     copy:
-      "The page preserves a stable destination for saved output, report review, and next-step routing without forcing undefined live state during build or typecheck.",
+      "Customer-facing report access should stay connected to verified dashboard access instead of exposing private context on a loose public route.",
   },
   {
     title: "The report layer should sit after signal, not replace it.",
     copy:
-      "The strongest source for this surface is still Free Scan and the Intake Console. That keeps report logic grounded in real intake signal instead of generic placeholder output.",
+      "Free Scan creates the first readiness signal. The dashboard is where that signal can become a protected result, review path, or next-step decision.",
   },
   {
-    title: "The shell exists to protect sequence while the engine grows.",
+    title: "This shell protects sequence while the report layer grows.",
     copy:
-      "A controlled report surface is stronger than a broken dynamic layer. The system keeps the route alive, clear, and expandable instead of pretending heavier report state is ready before it is stable.",
+      "A controlled report surface is stronger than a broken dynamic layer. The route stays alive, clear, and expandable without pretending heavier report state is ready before it is stable.",
   },
 ] as const;
 
@@ -59,19 +59,19 @@ const REPORT_LIFECYCLE = [
     step: "01",
     title: "Signal is collected",
     copy:
-      "Free Scan captures identity, context, and pressure signal so the system has something real to interpret.",
+      "Free Scan captures the business context and first readiness signal so the system has something real to interpret.",
   },
   {
     step: "02",
-    title: "Operator review stabilizes",
+    title: "Access is verified",
     copy:
-      "The Intake Console remains the strongest operating surface for reading routing quality, signal quality, and next-step posture before final report output expands.",
+      "The customer workspace keeps report access tied to the right email, plan, support history, and protected result path.",
   },
   {
     step: "03",
     title: "Saved output becomes the visible layer",
     copy:
-      "The report route is the destination where that stabilized signal and routing logic can later render as a stronger saved-output experience.",
+      "The report route can later render stronger saved-output experiences while dashboard access remains the safest customer home.",
   },
 ] as const;
 
@@ -79,7 +79,7 @@ const TRUST_BOUNDARIES = [
   {
     label: "Current state",
     value:
-      "This route is intentionally a strong shell, not a fake full report engine. It is stable now so the next report layer can grow on a clean base.",
+      "This route is intentionally a strong customer-safe shell, not a fake full report engine. It is stable now so the next report layer can grow on a clean base.",
   },
   {
     label: "Best entry point",
@@ -87,31 +87,31 @@ const TRUST_BOUNDARIES = [
       "Free Scan remains the clearest route into future report logic because it generates the first serious signal the report layer should depend on.",
   },
   {
-    label: "Best operator surface",
+    label: "Best customer surface",
     value:
-      "Intake Console remains the best current surface for reviewing signal quality, routing posture, and saved-intake direction before final report expansion.",
+      "The dashboard remains the best current surface for protected results, billing, support, and next-step readiness decisions.",
   },
 ] as const;
 
 export default function ReportPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: `${BRAND_NAME} Report Layer`,
+    title: `${BRAND_NAME} Report Access`,
     description:
-      "Structured report surface for saved Free Scan output and next-step routing inside Cendorq.",
+      "Customer-safe report access surface for Free Scan results and next-step routing inside Cendorq.",
     path: "/report",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: `${BRAND_NAME} Report Layer`,
+    title: `${BRAND_NAME} Report Access`,
     description:
-      "A saved-output route for Free Scan report review, routing visibility, and future report rendering.",
+      "A customer-safe route for Free Scan report access, dashboard routing, and future report rendering.",
     path: "/report",
-    serviceType: "Free Scan report surface",
+    serviceType: "Free Scan report access",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "/" },
-    { name: "Report Layer", path: "/report" },
+    { name: "Report Access", path: "/report" },
   ]);
 
   return (
@@ -128,39 +128,39 @@ export default function ReportPage() {
           <span className="text-white/20">/</span>
           <span className="text-white/70">{CATEGORY_LINE}</span>
           <span className="text-white/20">/</span>
-          <span className="text-cyan-100">Report layer</span>
+          <span className="text-cyan-100">Report access</span>
         </div>
       </section>
 
       <section className="relative z-10 grid gap-10 pt-10 lg:grid-cols-[0.94fr_1.06fr] lg:items-start">
         <div>
-          <TopChip>Report layer</TopChip>
+          <TopChip>Report access</TopChip>
 
           <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl xl:text-7xl">
-            Keep the report surface stable
-            <span className="system-gradient-text block">before the heavier output engine expands.</span>
+            Reports should stay connected
+            <span className="system-gradient-text block">to the protected customer workspace.</span>
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            This route is the saved-output layer inside Cendorq. It keeps the report destination alive, legible, and expandable while the fuller rendering engine grows on top of a stable route instead of a fragile one.
+            This route keeps report access clear while the fuller saved-output experience grows. Free Scan creates the first signal; the dashboard keeps results, billing, support, and next steps protected.
           </p>
 
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            The strongest current source for this layer is still Free Scan and the Intake Console. That keeps future report logic grounded in real signal instead of abstract report theater.
+            If you already have access, continue into the dashboard. If you are starting fresh, begin with the Free Scan.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <AuthorityPill>Stable output shell</AuthorityPill>
+            <AuthorityPill>Protected workspace first</AuthorityPill>
             <AuthorityPill>Signal before report</AuthorityPill>
             <AuthorityPill>Expandable by design</AuthorityPill>
           </div>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/intake-console"
+              href="/dashboard/reports"
               className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
             >
-              Open Intake Console
+              Open dashboard reports
             </Link>
             <Link
               href="/free-check"
@@ -184,10 +184,10 @@ export default function ReportPage() {
                     Report route active
                   </div>
                   <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                    The report route should stay trustworthy even before the full engine is live.
+                    Report access should stay trustworthy even before the full report layer is expanded.
                   </h2>
                   <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
-                    A strong shell is not a compromise here. It is the correct operating move while saved-output rendering is being stabilized around real intake signal and operator review.
+                    A strong shell is the correct move while saved-output rendering is being stabilized around verified customer access and real readiness signal.
                   </p>
                 </div>
 
@@ -222,7 +222,7 @@ export default function ReportPage() {
         <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8 md:p-10">
           <TopChip>Report lifecycle</TopChip>
           <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            The report route becomes strongest when it grows from real signal instead of placeholder output.
+            The report route becomes strongest when it grows from real signal and verified access.
           </h2>
           <div className="mt-8 grid gap-4">
             {REPORT_LIFECYCLE.map((item, index) => (
@@ -242,17 +242,17 @@ export default function ReportPage() {
         <div className="system-panel-authority rounded-[2rem] p-6 text-center sm:p-8 md:p-10">
           <TopChip>Strongest next move</TopChip>
           <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Use Intake Console to review operating signal, or return to Free Scan to create it.
+            Open dashboard reports if you are verified, or return to Free Scan to create the first signal.
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300">
-            The report layer is strongest when it stays connected to real intake signal and real routing posture. That means the clearest routes today are still Intake Console for operator review and Free Scan for fresh signal generation.
+            The report layer is strongest when it stays connected to real readiness signal and verified customer access.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              href="/intake-console"
+              href="/dashboard/reports"
               className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
             >
-              Open Intake Console
+              Open dashboard reports
             </Link>
             <Link
               href="/free-check"
