@@ -49,13 +49,13 @@ const READINESS_PATH = [
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+  "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2";
 
 export default function HomePage() {
   return (
     <main data-cendorq-homepage="ai-readiness-clean-path" className="min-h-screen overflow-hidden bg-white text-slate-950">
       <section className="mx-auto flex min-h-[calc(100vh-4.25rem)] max-w-7xl flex-col items-center justify-center px-5 py-12 text-center sm:px-8 lg:py-16">
-        <h1 className="max-w-6xl text-[clamp(3.1rem,8vw,7.35rem)] font-semibold leading-[0.9] tracking-[-0.085em] text-slate-950">
+        <h1 className="max-w-6xl text-[clamp(2.9rem,7.1vw,6.65rem)] font-semibold leading-[0.92] tracking-[-0.082em] text-slate-950">
           If AI engines cannot understand your business, customers may never get the chance to.
         </h1>
 
@@ -91,7 +91,7 @@ export default function HomePage() {
               <Link href="/free-check" className={CTA_CLASS}>
                 Start Free Scan
               </Link>
-              <Link href="/plans" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              <Link href="/plans" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
                 Review Plans
               </Link>
             </div>
@@ -99,7 +99,7 @@ export default function HomePage() {
 
           <div className="grid gap-3 sm:grid-cols-2">
             {READINESS_PATH.map((stage) => (
-              <Link key={stage.href} href={stage.href} className="group rounded-[1.65rem] border border-slate-200 bg-white p-5 shadow-[0_10px_38px_rgba(15,23,42,0.045)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 hover:shadow-[0_20px_60px_rgba(15,23,42,0.085)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+              <Link key={stage.href} href={stage.href} className="group rounded-[1.65rem] border border-slate-200 bg-white p-5 shadow-[0_10px_38px_rgba(15,23,42,0.045)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 hover:shadow-[0_20px_60px_rgba(15,23,42,0.085)] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">{stage.label}</p>
                 <h3 className="mt-5 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{stage.name}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600">{stage.copy}</p>
@@ -111,7 +111,7 @@ export default function HomePage() {
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See the first place your business may be unclear, under-trusted, or harder to choose. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Scan. Review. Repair. Control. Start Free Scan. Review Plans. White body. No hero badge. No card prices. No AI placement promises. AI Readiness anchor.
+        Cendorq homepage replacement. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. Start with the Free Scan. See the first place your business may be unclear, under-trusted, or harder to choose. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Scan. Review. Repair. Control. Start Free Scan. Review Plans. White body. No hero badge. No card prices. No AI placement promises. AI Readiness anchor. Premium laptop hero scale.
       </section>
     </main>
   );
