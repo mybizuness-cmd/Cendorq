@@ -18,6 +18,10 @@ const activePublicFiles = [
   "src/app/privacy/page.tsx",
   "src/app/terms/page.tsx",
   "src/app/disclaimer/page.tsx",
+  "src/app/api/auth/continue/route.ts",
+  "src/app/api/auth/email/route.ts",
+  "src/app/api/auth/provider/[provider]/route.ts",
+  "src/lib/customer-auth-provider-config.ts",
   "src/layout/site-header.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
@@ -65,6 +69,7 @@ const forbiddenActiveLanguage = [
   "Focused change",
   "Monthly watch",
   "Open dashboard support",
+  "generated password is emailed",
 ];
 
 const forbiddenActiveRoutes = [
@@ -92,7 +97,7 @@ for (const phrase of requiredCurrentLanguage) {
 }
 
 for (const phrase of forbiddenActiveLanguage) {
-  if (combined.includes(phrase)) failures.push(`Forbidden old public language found in active surfaces: ${phrase}`);
+  if (combined.includes(phrase)) failures.push(`Forbidden old or unsafe public language found in active surfaces: ${phrase}`);
 }
 
 for (const route of forbiddenActiveRoutes) {
@@ -154,19 +159,67 @@ expect("src/layout/site-header-conversion.tsx", [
   "No dropdown",
 ]);
 
+expect("src/lib/customer-auth-provider-config.ts", [
+  "Continue with Google",
+  "Continue with Microsoft",
+  "Continue with Apple",
+  "Continue with LinkedIn",
+  "Continue with Facebook",
+  "CENDORQ_AUTH_GOOGLE_URL",
+  "CENDORQ_AUTH_MICROSOFT_URL",
+  "CENDORQ_AUTH_APPLE_URL",
+  "CENDORQ_AUTH_LINKEDIN_URL",
+  "CENDORQ_AUTH_FACEBOOK_URL",
+  "Provider routes must fail safely when provider URLs are not configured.",
+]);
+
+expect("src/app/api/auth/continue/route.ts", [
+  "cendorq_customer_session",
+  "session-required",
+  "SAFE_DASHBOARD_PATHS",
+  "NextResponse.redirect",
+]);
+
+expect("src/app/api/auth/provider/[provider]/route.ts", [
+  "provider-not-ready",
+  "getConfiguredCustomerAuthProviderUrl",
+  "returnTo",
+  "NextResponse.redirect",
+]);
+
+expect("src/app/api/auth/email/route.ts", [
+  "issueCustomerConfirmationEmail",
+  "support-or-billing-entry",
+  "account-recovery",
+  "email-sent",
+  "email-queued",
+  "customerEmail: email",
+]);
+
 expect("src/app/login/page.tsx", [
-  "Account access",
-  "Return to the customer workspace without starting over.",
-  "Sign in restores account access; it does not replace the business Free Scan intake.",
-  "OAuth provider buttons require a real auth backend before they are displayed.",
+  "Sign in to your workspace.",
+  "Continue if remembered",
+  "Continue with email",
+  "Continue with Google",
+  "Continue with Microsoft",
+  "Continue with Apple",
+  "Continue with LinkedIn",
+  "Continue with Facebook",
+  "Check your inbox for Cendorq Support <support@cendorq.com>",
+  "Provider sign-in confirms account identity; Free Scan remains the business-context intake.",
   "text-[clamp(3rem,6vw,6.15rem)]",
 ]);
 
 expect("src/app/signup/page.tsx", [
-  "Create access without confusing identity with business context.",
-  "Start with the Free Scan when the business has not been captured yet.",
-  "No fake Google, Microsoft, Apple, passkey, or provider buttons before backend support exists.",
-  "OAuth provider buttons require a real auth backend before they are displayed.",
+  "Start the workspace with the Free Scan.",
+  "Free Scan starts the workspace.",
+  "Cendorq sends secure access from support@cendorq.com.",
+  "No generated password is emailed.",
+  "The account username is the email used for the Free Scan or payment.",
+  "Provider sign-in confirms identity; it does not replace the business Free Scan intake.",
+  "Continue with Google",
+  "Continue with Microsoft",
+  "Continue with Apple",
   "text-[clamp(3rem,6vw,6.15rem)]",
 ]);
 
@@ -208,7 +261,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, visible header navigation, auth/access separation, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, visible header navigation, customer auth provider entry, secure email access, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
 
 function expect(path, phrases) {
   const text = read(path);
