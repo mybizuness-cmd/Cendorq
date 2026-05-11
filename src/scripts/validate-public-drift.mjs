@@ -72,6 +72,7 @@ const forbiddenActiveLanguage = [
   "Your generated password is",
   "Temporary password:",
   "Here is your password",
+  "Provider routes must fail safely when provider URLs are not configured.",
 ];
 
 const forbiddenActiveRoutes = [
@@ -99,7 +100,7 @@ for (const phrase of requiredCurrentLanguage) {
 }
 
 for (const phrase of forbiddenActiveLanguage) {
-  if (combined.includes(phrase)) failures.push(`Forbidden old or unsafe public language found in active surfaces: ${phrase}`);
+  if (combined.includes(phrase)) failures.push(`Forbidden old, internal, or unsafe public language found in active surfaces: ${phrase}`);
 }
 
 for (const route of forbiddenActiveRoutes) {
@@ -157,8 +158,7 @@ expect("src/layout/site-header-conversion.tsx", [
   "label: \"Plans\"",
   "Sign in",
   "Start Free Scan",
-  "lg:hidden",
-  "No dropdown",
+  "single stable row",
 ]);
 
 expect("src/lib/customer-auth-provider-config.ts", [
@@ -172,7 +172,6 @@ expect("src/lib/customer-auth-provider-config.ts", [
   "CENDORQ_AUTH_APPLE_URL",
   "CENDORQ_AUTH_LINKEDIN_URL",
   "CENDORQ_AUTH_FACEBOOK_URL",
-  "Provider routes must fail safely when provider URLs are not configured.",
 ]);
 
 expect("src/app/api/auth/continue/route.ts", [
@@ -199,17 +198,19 @@ expect("src/app/api/auth/email/route.ts", [
 ]);
 
 expect("src/app/login/page.tsx", [
-  "Sign in to your workspace.",
+  "Return to your Cendorq workspace.",
   "Continue if remembered",
-  "Continue with email",
+  "Send secure access link",
   "Continue with Google",
   "Continue with Microsoft",
   "Continue with Apple",
   "Continue with LinkedIn",
   "Continue with Facebook",
+  "Create access",
   "Check your inbox for Cendorq Support <support@cendorq.com>",
-  "Provider sign-in confirms account identity; Free Scan remains the business-context intake.",
-  "text-[clamp(3rem,6vw,6.15rem)]",
+  "Come back without starting over.",
+  "Cendorq never emails a password.",
+  "text-[clamp(2.75rem,5.6vw,5.85rem)]",
 ]);
 
 expect("src/app/signup/page.tsx", [
@@ -263,7 +264,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, visible header navigation, customer auth provider entry, secure email access, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row header navigation, customer-facing auth copy, secure email access, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
 
 function expect(path, phrases) {
   const text = read(path);
