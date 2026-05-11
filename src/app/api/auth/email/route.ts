@@ -38,12 +38,18 @@ export async function GET(request: NextRequest) {
     });
 
     const safePayload = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
-    loginUrl.searchParams.set("auth", safePayload.providerDelivery.sent || safePayload.queued ? "email-sent" : "email-queued");
+    loginUrl.searchParams.set("auth", projectEmailAccessState(safePayload));
     return NextResponse.redirect(loginUrl);
   } catch {
     loginUrl.searchParams.set("auth", "email-queued");
     return NextResponse.redirect(loginUrl);
   }
+}
+
+function projectEmailAccessState(payload: ReturnType<typeof projectCustomerConfirmationEmailSafeResponse>) {
+  if (payload.providerDelivery.sent) return "email-sent";
+  if (payload.providerDelivery.skipped) return "email-unavailable";
+  return "email-queued";
 }
 
 function safeDashboardPath(value: string | null) {
