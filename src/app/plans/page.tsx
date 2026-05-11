@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
+import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { CENDORQ_PLAN_PRICES, getCendorqPlanPrice, type CendorqPlanKey } from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
@@ -68,43 +69,49 @@ export default function PlansPage() {
   ]);
 
   return (
-    <main className="overflow-hidden bg-white text-slate-950">
+    <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
 
-      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:py-16">
-        <div>
-          <h1 className="max-w-5xl text-[clamp(2.85rem,6.2vw,6.25rem)] font-semibold leading-[0.92] tracking-[-0.078em] text-slate-950">
-            Choose the right AI-readiness depth.
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Start with a first signal. Move deeper only when the evidence supports it.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
-              Start Free Scan
-            </Link>
-            <Link href="/plans/deep-review" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
-              See AI Readiness Review
-            </Link>
-          </div>
-        </div>
-
-        <div className="overflow-hidden rounded-[2.4rem] border border-slate-200 bg-white shadow-[0_30px_110px_rgba(15,23,42,0.1)]">
-          <div className="divide-y divide-slate-200">
-            {PLAN_CARDS.map((plan) => (
-              <Link key={plan.key} href={plan.href} className="group grid gap-4 p-5 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:p-6">
-                <div>
-                  <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-950">{plan.stage}</h2>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{plan.name}</p>
-                </div>
-                <p className="max-w-2xl text-sm leading-7 text-slate-600">{plan.purpose}</p>
-                <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
-                  <div className="text-lg font-semibold text-slate-950">{plan.price}</div>
-                  <span className="mt-1 inline-flex text-sm font-semibold text-slate-500 transition group-hover:text-slate-950">{plan.cta} →</span>
-                </div>
+      <section className="relative overflow-hidden px-5 py-12 sm:px-8 lg:py-16">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_0%,rgba(125,211,252,0.28),transparent_36%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
+        <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.74fr_1.26fr] lg:items-center">
+          <div>
+            <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>Plan depth</p>
+            <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,6.3vw,6.45rem)] font-semibold leading-[0.9] tracking-[-0.084em] text-slate-950">
+              Choose the right AI-readiness depth.
+            </h1>
+            <p className="mt-6 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
+              Start with a first signal. Move deeper only when the evidence supports it.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
+                Start Free Scan
               </Link>
-            ))}
+              <Link href="/plans/deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
+                See AI Readiness Review
+              </Link>
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/76 p-3 shadow-[0_36px_130px_rgba(15,23,42,0.13)] backdrop-blur-2xl">
+            <div className="overflow-hidden rounded-[2.2rem] border border-slate-200 bg-white">
+              <div className="divide-y divide-slate-200">
+                {PLAN_CARDS.map((plan) => (
+                  <Link key={plan.key} href={plan.href} className="group grid gap-4 p-5 transition hover:bg-sky-50/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 sm:grid-cols-[8.5rem_1fr_auto] sm:items-center sm:p-6">
+                    <div>
+                      <h2 className="text-4xl font-semibold tracking-[-0.065em] text-slate-950">{plan.stage}</h2>
+                      <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-slate-500">{plan.name}</p>
+                    </div>
+                    <p className="max-w-2xl text-sm font-medium leading-7 text-slate-600">{plan.purpose}</p>
+                    <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
+                      <div className="text-lg font-semibold text-slate-950">{plan.price}</div>
+                      <span className="mt-1 inline-flex text-sm font-bold text-slate-500 transition group-hover:text-slate-950">{plan.cta} →</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -112,28 +119,28 @@ export default function PlansPage() {
       <section className="mx-auto max-w-7xl px-5 pb-12 sm:px-8" aria-label="How to choose a plan">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {DECISION_STANDARDS.map((item) => (
-            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_48px_rgba(15,23,42,0.055)]">
+            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.06)]">
               <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{item.copy}</p>
+              <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.copy}</p>
             </article>
           ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Plan separation standard">
-        <div className="rounded-[2.5rem] border border-slate-200 bg-slate-50 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.06)] sm:p-8 lg:p-10">
-          <h2 className="max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-6xl">One path. Four depths.</h2>
-          <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-600">
+        <div className="overflow-hidden rounded-[3rem] border border-slate-800 bg-[linear-gradient(135deg,#020617,#172554_58%,#083344)] p-6 text-white shadow-[0_36px_130px_rgba(15,23,42,0.28)] sm:p-8 lg:p-10">
+          <h2 className="max-w-5xl text-4xl font-semibold tracking-[-0.06em] sm:text-6xl">One path. Four depths.</h2>
+          <p className="mt-5 max-w-4xl text-base font-medium leading-8 text-slate-200 sm:text-lg">
             Free Scan finds the first signal. AI Readiness Review explains the likely cause. Signal Repair improves the selected weak point. Readiness Control keeps the business watched as search, AI answers, and customers move.
           </p>
-          <p className="mt-4 text-sm leading-7 text-slate-500">
+          <p className="mt-4 text-sm leading-7 text-slate-300">
             Current pricing: AI Readiness Review {deepReview.price}, Signal Repair $1,497, Readiness Control $597/mo. Cendorq does not guarantee rankings, leads, revenue, or AI placement.
           </p>
         </div>
       </section>
 
       <section className="sr-only" aria-label="AI readiness plans guardrails">
-        Plans. Choose the right AI-readiness depth. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. No guaranteed rankings, leads, revenue, or AI placement. Premium laptop plans hero scale.
+        Plans. Choose the right AI-readiness depth. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. No guaranteed rankings, leads, revenue, or AI placement. Premium laptop plans hero scale. Unified Cendorq Experience System.
       </section>
     </main>
   );
