@@ -247,7 +247,7 @@ function hasUnsafeEmailCharacter(value: string) {
   for (const character of value) {
     const code = character.charCodeAt(0);
     if (code <= 32 || code === 127) return true;
-    if (character === "<" || character === ">" || character === "," || character === ";" || character === ":" || character === "\"" || character === "'") return true;
+    if (character === "<" || character === ">" || character === "," || character === ";" || character === ":" || character === "\"") return true;
   }
   return false;
 }
