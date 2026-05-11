@@ -8,6 +8,7 @@ const activePublicFiles = [
   "src/app/page.tsx",
   "src/app/free-check/page.tsx",
   "src/components/free-check/guided-free-check-form-v3.tsx",
+  "src/app/verify-email/page.tsx",
   "src/app/plans/page.tsx",
   "src/app/plans/deep-review/page.tsx",
   "src/app/plans/build-fix/page.tsx",
@@ -73,6 +74,10 @@ const forbiddenActiveLanguage = [
   "Temporary password:",
   "Here is your password",
   "Provider routes must fail safely when provider URLs are not configured.",
+  "Email verification gate",
+  "VerifyAtmosphere",
+  "text-white",
+  "bg-cyan",
 ];
 
 const forbiddenActiveRoutes = [
@@ -100,7 +105,7 @@ for (const phrase of requiredCurrentLanguage) {
 }
 
 for (const phrase of forbiddenActiveLanguage) {
-  if (combined.includes(phrase)) failures.push(`Forbidden old, internal, or unsafe public language found in active surfaces: ${phrase}`);
+  if (combined.includes(phrase)) failures.push(`Forbidden old, internal, dark, or unsafe public language found in active surfaces: ${phrase}`);
 }
 
 for (const route of forbiddenActiveRoutes) {
@@ -122,6 +127,18 @@ expect("src/app/free-check/page.tsx", [
   "See the first signal before you buy deeper work.",
   "Cendorq checks whether your business is clear enough for AI engines and customers",
   "GuidedFreeCheckFormV3",
+  "text-[clamp(2.85rem,6.2vw,6.2rem)]",
+  "Premium Free Scan hero scale",
+]);
+
+expect("src/app/verify-email/page.tsx", [
+  "Email confirmation",
+  "Confirm the inbox before the workspace opens.",
+  "Check your email.",
+  "Cendorq Support at support@cendorq.com",
+  "White public verification surface",
+  "Premium verify email hero scale",
+  "text-[clamp(2.85rem,6.2vw,6.2rem)]",
 ]);
 
 expect("src/components/free-check/guided-free-check-form-v3.tsx", [
@@ -272,7 +289,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header navigation, visible customer auth notices, secure email access, premium laptop hero scaling, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header navigation, visible customer auth notices, secure email access, premium laptop hero scaling, white verification surface, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
 
 function expect(path, phrases) {
   const text = read(path);
