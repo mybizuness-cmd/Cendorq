@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CheckoutDashboardRedirect } from "./dashboard-redirect";
 import { buildMetadata } from "@/lib/seo";
 import { getCendorqRevenueStage } from "@/lib/cendorq-revenue-operating-system";
 import {
@@ -25,7 +26,9 @@ type CheckoutSuccessPageProps = {
   searchParams?: Promise<CheckoutSuccessSearchParams> | CheckoutSuccessSearchParams;
 };
 
-const PLAN_ACTIVATION_COPY: Record<CendorqPaidPlanKey, { stage: string; dashboardCta: string; dashboardPath: string; thanks: string; next: string; emailMoment: string }> = {
+type DashboardDestination = "/dashboard/reports" | "/dashboard/support/request" | "/dashboard/billing";
+
+const PLAN_ACTIVATION_COPY: Record<CendorqPaidPlanKey, { stage: string; dashboardCta: string; dashboardPath: DashboardDestination; thanks: string; next: string; emailMoment: string }> = {
   "deep-review": {
     stage: "AI Readiness Review",
     dashboardCta: "Open review dashboard",
@@ -52,8 +55,6 @@ const PLAN_ACTIVATION_COPY: Record<CendorqPaidPlanKey, { stage: string; dashboar
   },
 };
 
-const REDIRECT_DELAY_MS = 4200;
-
 export default async function CheckoutSuccessPage({ searchParams }: CheckoutSuccessPageProps) {
   const resolvedSearchParams = await searchParams;
   const planKey = normalizePaidPlanKey(resolvedSearchParams?.plan);
@@ -66,11 +67,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
 
   return (
     <main className="overflow-hidden bg-white text-slate-950">
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `window.setTimeout(function(){ window.location.href = ${JSON.stringify(activation.dashboardPath)}; }, ${REDIRECT_DELAY_MS});`,
-        }}
-      />
+      <CheckoutDashboardRedirect destination={activation.dashboardPath} />
 
       <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-16">
         <div>
