@@ -26,10 +26,22 @@ export const metadata = buildMetadata({
   image: { alt: "Cendorq Free Scan." },
 });
 
-const CLARITY_POINTS = [
-  { title: "Clarity", copy: "Can a new customer quickly understand what the business does and who it is for?" },
-  { title: "Trust", copy: "Is there enough proof nearby for someone to believe the business is real and worth choosing?" },
-  { title: "Action", copy: "Is the next step clear enough for a serious customer to move forward?" },
+const SCAN_SYSTEM_STEPS = [
+  {
+    step: "01",
+    title: "Share the business context.",
+    copy: "Use the public details customers already need to understand: name, website, location, offer, audience, and the point that feels weak.",
+  },
+  {
+    step: "02",
+    title: "Cendorq forms the first read.",
+    copy: "The scan looks for the first place the business may be harder to understand, trust, or choose without pretending to be a full paid review.",
+  },
+  {
+    step: "03",
+    title: "Open results after verification.",
+    copy: "The result stays protected until email confirmation, then opens inside the customer workspace so the next step has a safe return path.",
+  },
 ] as const;
 
 const FAQS = [
@@ -74,15 +86,17 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative overflow-hidden px-5 py-12 sm:px-8 lg:py-16" aria-label="Free Scan form">
+      <section className="relative overflow-hidden px-5 py-10 sm:px-8 lg:py-12 xl:py-16" aria-label="Free Scan form">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_8%,rgba(125,211,252,0.3),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
-        <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+        <div className="absolute left-[-14rem] top-20 h-[34rem] w-[34rem] rounded-full bg-cyan-200/35 blur-3xl" aria-hidden="true" />
+        <div className="absolute right-[-16rem] top-32 h-[38rem] w-[38rem] rounded-full bg-indigo-200/35 blur-3xl" aria-hidden="true" />
+        <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-8 lg:min-h-[min(44rem,calc(100vh-4.25rem))] lg:grid-cols-[0.82fr_1.18fr] lg:items-center xl:min-h-[calc(100vh-4.25rem)]">
           <div>
             <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>Free Scan</p>
-            <h1 className="mt-6 max-w-5xl text-[clamp(3.15rem,6.2vw,6.35rem)] font-semibold leading-[0.9] tracking-[-0.084em] text-slate-950">
+            <h1 className="mt-5 max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
               See the first signal before you buy deeper work.
             </h1>
-            <p className="mt-6 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
+            <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
               Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose.
             </p>
             <p className="mt-5 max-w-2xl text-sm font-medium leading-7 text-slate-500">
@@ -90,20 +104,42 @@ export default function FreeCheckPage() {
             </p>
           </div>
 
-          <div className="rounded-[2.75rem] border border-white/80 bg-white/72 p-3 shadow-[0_36px_130px_rgba(15,23,42,0.13)] backdrop-blur-2xl">
+          <div className="rounded-[2.65rem] border border-white/80 bg-white/72 p-3 shadow-[0_34px_120px_rgba(15,23,42,0.12)] backdrop-blur-2xl">
             <GuidedFreeCheckFormV3 className="relative z-10" />
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-14 sm:px-8" aria-label="What the Free Scan checks">
-        <div className="grid gap-4 md:grid-cols-3">
-          {CLARITY_POINTS.map((item) => (
-            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.06)]">
-              <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.title}</h2>
-              <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.copy}</p>
-            </article>
-          ))}
+      <section className="relative px-5 pb-14 sm:px-8 lg:pb-20" aria-label="How the Free Scan moves from intake to protected results">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[3rem] border border-slate-200 bg-white shadow-[0_30px_110px_rgba(15,23,42,0.08)]">
+          <div className="grid gap-0 lg:grid-cols-[0.92fr_1.08fr]">
+            <div className="relative overflow-hidden border-b border-slate-200 bg-[linear-gradient(135deg,#020617,#172554_62%,#083344)] p-6 text-white sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(125,211,252,0.3),transparent_30%),radial-gradient(circle_at_82%_70%,rgba(99,102,241,0.24),transparent_34%)]" aria-hidden="true" />
+              <div className="relative">
+                <p className="text-sm font-bold text-cyan-200">Protected first read</p>
+                <h2 className="mt-4 max-w-3xl text-[clamp(2.45rem,4.4vw,5rem)] font-semibold leading-[0.98] tracking-[-0.07em]">
+                  A scan should feel guided, not like another form to survive.
+                </h2>
+                <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-200">
+                  The Free Scan collects only the context needed to form the first read, then routes the customer toward a protected result instead of exposing unfinished analysis on the public page.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-7 lg:p-8">
+              <div className="grid gap-3">
+                {SCAN_SYSTEM_STEPS.map((item) => (
+                  <article key={item.step} className="grid gap-4 rounded-[1.8rem] border border-slate-200 bg-white/88 p-5 shadow-[0_14px_45px_rgba(15,23,42,0.055)] sm:grid-cols-[4rem_1fr] sm:items-start">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-sm font-black text-slate-950 shadow-sm">{item.step}</div>
+                    <div>
+                      <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.title}</h3>
+                      <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{item.copy}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -117,7 +153,7 @@ export default function FreeCheckPage() {
       </section>
 
       <section className="sr-only" aria-label="Free Scan verification">
-        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Basic business context only. No passwords, card numbers, private keys, or confidential customer records. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Premium Free Scan hero scale. Unified Cendorq Experience System.
+        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Basic business context only. No passwords, card numbers, private keys, or confidential customer records. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Premium Free Scan hero scale. Unified Cendorq Experience System. No generic Clarity Trust Action body card block. Protected first read. Check inbox for Cendorq Support support@cendorq.com after submission.
       </section>
     </main>
   );
