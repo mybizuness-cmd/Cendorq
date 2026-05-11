@@ -8,27 +8,44 @@ const NAV_LINKS = [
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-11 items-center justify-center rounded-full border border-slate-950 bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+  "inline-flex min-h-11 items-center justify-center rounded-full border border-slate-950 bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:text-slate-950 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+
+const NAV_LINK_CLASS =
+  "inline-flex min-h-10 shrink-0 items-center justify-center rounded-full px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 text-slate-950 backdrop-blur-xl">
-      <div className="mx-auto flex min-h-[4.25rem] max-w-7xl items-center justify-between gap-4 px-5 py-2.5 sm:px-8">
-        <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex min-w-0 items-center gap-2.5 rounded-full px-1.5 py-1.5 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-          <BrandMark />
-          <span className="truncate text-sm font-semibold tracking-[0.16em] text-slate-950 sm:text-base">{BRAND_NAME}</span>
-        </Link>
+      <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-2.5 sm:px-8 lg:min-h-[4.25rem] lg:flex-row lg:items-center lg:justify-between lg:gap-4">
+        <div className="flex min-w-0 items-center justify-between gap-3">
+          <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex min-w-0 items-center gap-2.5 rounded-full px-1.5 py-1.5 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <BrandMark />
+            <span className="truncate text-sm font-semibold tracking-[0.16em] text-slate-950 sm:text-base">{BRAND_NAME}</span>
+          </Link>
 
-        <nav aria-label="Primary navigation" className="hidden items-center gap-7 text-sm font-semibold text-slate-600 md:flex">
+          <div className="flex shrink-0 items-center gap-2 lg:hidden">
+            <Link href="/login" className="hidden items-center justify-center rounded-full px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 sm:inline-flex">
+              Sign in
+            </Link>
+            <Link href="/free-check" className={CTA_CLASS}>
+              Start Free Scan
+            </Link>
+          </div>
+        </div>
+
+        <nav aria-label="Primary navigation" className="-mx-1 flex items-center gap-1 overflow-x-auto pb-0.5 sm:mx-0 sm:gap-2 lg:justify-center lg:overflow-visible">
           {NAV_LINKS.map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-full px-1.5 py-1 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+            <Link key={item.href} href={item.href} className={NAV_LINK_CLASS}>
               {item.label}
             </Link>
           ))}
+          <Link href="/login" className={`${NAV_LINK_CLASS} sm:hidden`}>
+            Sign in
+          </Link>
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
-          <Link href="/login" className="hidden items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 sm:inline-flex">
+        <div className="hidden shrink-0 items-center gap-2 lg:flex">
+          <Link href="/login" className="inline-flex min-h-11 items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
             Sign in
           </Link>
           <Link href="/free-check" className={CTA_CLASS}>
