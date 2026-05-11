@@ -17,30 +17,25 @@ for (const phrase of [
   "export const dynamic = \"force-dynamic\";",
   "export const revalidate = 0;",
   "export const fetchCache = \"force-no-store\";",
-  "data-cendorq-homepage=\"market-command-home-v4\"",
-  "AI Search Visibility and Market Command Intelligence",
+  "data-cendorq-homepage=\"ai-readiness-clean-path\"",
+  "Cendorq | AI Engine Readiness for Businesses",
   "If AI engines cannot understand your business, customers may never get the chance to.",
   "AI-readiness starts with business clarity.",
   "clear, trusted, and ready to be chosen",
-  "Start with the Free Scan. See what AI engines and customers may be reading wrong.",
+  "Start with the Free Scan.",
+  "See the first place your business may be unclear, under-trusted, or harder to choose.",
   "AI is becoming the new first impression.",
   "id=\"ai-readiness\"",
   "AI Readiness",
   "Sign in",
   "AI engine readiness",
   "AI readiness for business",
-  "answer engine visibility",
-  "To be recommended, a business needs clear facts, trusted proof, consistent signals, and a reason to choose.",
-  "without promising rankings, leads, or AI placement.",
-  "Get found",
-  "Be understood",
-  "Prove trust",
-  "Win choice",
-  "Make action clear",
-  "First read",
-  "Cause proof",
-  "Focused change",
-  "Monthly watch",
+  "business trust signals",
+  "without promising rankings, leads, revenue, or AI placement.",
+  "Free Scan",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "Start Free Scan",
   "Review Plans",
   "Plans",
@@ -50,8 +45,8 @@ for (const phrase of [
   "bg-white text-slate-950",
   "max-w-7xl",
   "Scan",
-  "Diagnose",
-  "Fix",
+  "Review",
+  "Repair",
   "Control",
   "href=\"/free-check\"",
   "href=\"/plans\"",
@@ -67,7 +62,7 @@ for (const phrase of [
   "\"/sitemap.xml\"",
   "termsOfService",
 ]) {
-  if (!combined.includes(phrase)) failures.push(`Polished AI readiness shell missing required phrase: ${phrase}`);
+  if (!combined.includes(phrase)) failures.push(`Clean AI readiness shell missing required phrase: ${phrase}`);
 }
 
 for (const phrase of [
@@ -78,12 +73,12 @@ for (const phrase of [
   "Presence Infrastructure",
   "Presence Command",
   "Cendorq Market Command Intelligence</p>",
+  "Market Command Intelligence",
   "First command",
   "Findability",
   "Clarity\", \"Trust",
   "Be clear",
   "Connect with Cendorq",
-  "Connect",
   "Simple path",
   "Run the Free Scan before buying the bigger fix.",
   "Become easier to find, trust, and choose.",
@@ -101,6 +96,15 @@ for (const phrase of [
   "guaranteed ranking",
   "guaranteed leads",
   "guaranteed revenue",
+  "First read",
+  "Cause proof",
+  "Focused change",
+  "Monthly watch",
+  "Free Market Signal Scan",
+  "Dashboard result preview",
+  "Business context only",
+  "No private credentials or payment details",
+  "Protected dashboard result after verification",
   "bg-[#020713]",
   "bg-[#fbfbf8]",
   "bg-[#fffefa]",
@@ -113,7 +117,7 @@ for (const phrase of [
   "system-button-primary",
   "Cendorq / Loading",
 ]) {
-  if (combined.includes(phrase)) failures.push(`Polished AI readiness shell contains forbidden phrase: ${phrase}`);
+  if (combined.includes(phrase)) failures.push(`Clean AI readiness shell contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
@@ -122,4 +126,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is white, compact, calm, urgent, search-compliant, and positioned around AI engines and AI readiness without a dropdown menu.");
+console.log("Homepage replacement validation passed. Public shell is white, compact, calm, customer-facing, search-compliant, and positioned around AI engines and AI readiness without stale badges or dropdown clutter.");
