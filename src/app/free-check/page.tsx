@@ -9,7 +9,6 @@ import {
   buildWebPageJsonLd,
   toJsonLd,
 } from "@/lib/seo";
-import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
@@ -74,9 +73,9 @@ export default function FreeCheckPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:py-16" aria-label="Free Scan form">
+      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-16" aria-label="Free Scan form">
         <div>
-          <h1 className="max-w-5xl text-[clamp(3.2rem,7.4vw,7rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">
+          <h1 className="max-w-5xl text-[clamp(2.85rem,6.2vw,6.2rem)] font-semibold leading-[0.92] tracking-[-0.078em] text-slate-950">
             See the first signal before you buy deeper work.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
@@ -111,7 +110,7 @@ export default function FreeCheckPage() {
       </section>
 
       <section className="sr-only" aria-label="Free Scan verification">
-        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Basic business context only. No passwords, card numbers, private keys, or confidential customer records. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control.
+        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Basic business context only. No passwords, card numbers, private keys, or confidential customer records. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Premium Free Scan hero scale.
       </section>
     </main>
   );
