@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+import { setCustomerRememberedSessionCookie } from "@/lib/customer-remembered-session-runtime";
 import {
   getCustomerEmailVerificationNoStoreHeaders,
   verifyCustomerEmailConfirmationToken,
@@ -20,10 +21,20 @@ export async function GET(request: NextRequest) {
 
   if (result.ok && result.decision === "verified-redirect") {
     const redirectUrl = new URL(result.redirectPath, request.url);
-    return NextResponse.redirect(redirectUrl, {
+    const response = NextResponse.redirect(redirectUrl, {
       status: 303,
       headers: getCustomerEmailVerificationNoStoreHeaders(),
     });
+
+    if (result.rememberedSession.eligible) {
+      setCustomerRememberedSessionCookie(response, {
+        customerIdHash: result.rememberedSession.customerIdHash,
+        signupEmailHash: result.rememberedSession.signupEmailHash,
+        destination: result.redirectPath,
+      });
+    }
+
+    return response;
   }
 
   return NextResponse.json(

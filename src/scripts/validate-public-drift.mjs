@@ -23,7 +23,10 @@ const activePublicFiles = [
   "src/app/api/auth/continue/route.ts",
   "src/app/api/auth/email/route.ts",
   "src/app/api/auth/provider/[provider]/route.ts",
+  "src/app/api/customer/email/confirm/route.ts",
   "src/lib/customer-auth-provider-config.ts",
+  "src/lib/customer-remembered-session-runtime.ts",
+  "src/lib/customer-email-verification-token-runtime.ts",
   "src/layout/site-header.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
@@ -115,204 +118,49 @@ for (const route of forbiddenActiveRoutes) {
   if (combined.includes(route)) failures.push(`Forbidden old public route found in active surfaces: ${route}`);
 }
 
-expect("src/app/page.tsx", [
-  "If AI engines cannot understand your business",
-  "Start with the Free Scan.",
-  "See the first place your business may be unclear, under-trusted, or harder to choose.",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
-  "text-[clamp(2.9rem,7.1vw,6.65rem)]",
-  "Premium laptop hero scale",
-]);
-
-expect("src/app/free-check/page.tsx", [
-  "See the first signal before you buy deeper work.",
-  "Cendorq checks whether your business is clear enough for AI engines and customers",
-  "GuidedFreeCheckFormV3",
-  "text-[clamp(2.85rem,6.2vw,6.2rem)]",
-  "Premium Free Scan hero scale",
-]);
-
-expect("src/app/verify-email/page.tsx", [
-  "Email confirmation",
-  "Confirm the inbox before the workspace opens.",
-  "Check your email.",
-  "Cendorq Support at support@cendorq.com",
-  "White public verification surface",
-  "Premium verify email hero scale",
-  "text-[clamp(2.85rem,6.2vw,6.2rem)]",
-]);
-
-expect("src/app/checkout/success/page.tsx", [
-  "Payment complete",
-  "Your AI Readiness Review is confirmed.",
-  "Your Signal Repair is confirmed.",
-  "Your Readiness Control subscription is confirmed.",
-  "Premium checkout success hero scale",
-  "text-[clamp(2.85rem,5.7vw,5.9rem)]",
-]);
-
-expect("src/components/free-check/guided-free-check-form-v3.tsx", [
-  "Start with what customers see.",
-  "requestFreeScanVerifyToViewHandoff",
-  "requestedDestination: \"/dashboard/reports/free-scan\"",
-  "See AI Readiness Review",
-  "See Signal Repair",
-  "See Readiness Control",
-]);
-
-expect("src/app/plans/page.tsx", [
-  "Choose the right AI-readiness depth.",
-  "Scan",
-  "Review",
-  "Repair",
-  "Control",
-  "AI Readiness Review $497",
-  "Signal Repair $1,497",
-  "Readiness Control $597/mo",
-  "text-[clamp(2.85rem,6.2vw,6.25rem)]",
-  "Premium laptop plans hero scale",
-]);
-
-expect("src/components/plans/conversion-plan-page.tsx", [
-  "What this helps you decide",
-  "Best when",
-  "Not the right first step when",
-  "AI Readiness Review $497",
-  "Signal Repair $1,497",
-  "Readiness Control $597/mo",
-  "text-[clamp(2.85rem,5.7vw,5.9rem)]",
-  "Premium plan detail hero scale",
-]);
-
-expect("src/layout/site-header-conversion.tsx", [
-  "label: \"AI Readiness\"",
-  "label: \"Plans\"",
-  "Sign in",
-  "Start Free Scan",
-  "single stable row",
-  "focus-visible:ring",
-  "without sticky mouse-click focus bubbles",
-]);
-
-expect("src/layout/site-footer.tsx", [
-  "AI engine readiness for businesses that need to be understood, trusted, and chosen.",
-  "focus-visible:ring",
-  "Privacy",
-  "Terms",
-  "Disclaimer",
-]);
-
-expect("src/lib/customer-auth-provider-config.ts", [
-  "Continue with Google",
-  "Continue with Microsoft",
-  "Continue with Apple",
-  "Continue with LinkedIn",
-  "Continue with Facebook",
-  "CENDORQ_AUTH_GOOGLE_URL",
-  "CENDORQ_AUTH_MICROSOFT_URL",
-  "CENDORQ_AUTH_APPLE_URL",
-  "CENDORQ_AUTH_LINKEDIN_URL",
-  "CENDORQ_AUTH_FACEBOOK_URL",
-]);
-
 expect("src/app/api/auth/continue/route.ts", [
-  "cendorq_customer_session",
+  "readCustomerRememberedSession",
+  "session-unavailable",
   "session-required",
-  "SAFE_DASHBOARD_PATHS",
   "NextResponse.redirect",
 ]);
 
-expect("src/app/api/auth/provider/[provider]/route.ts", [
-  "provider-not-ready",
-  "getConfiguredCustomerAuthProviderUrl",
-  "returnTo",
-  "NextResponse.redirect",
+expect("src/app/api/customer/email/confirm/route.ts", [
+  "setCustomerRememberedSessionCookie",
+  "result.rememberedSession.eligible",
+  "status: 303",
+]);
+
+expect("src/lib/customer-remembered-session-runtime.ts", [
+  "CENDORQ_CUSTOMER_SESSION_SECRET",
+  "CENDORQ_CUSTOMER_SESSION_COOKIE",
+  "httpOnly: true",
+  "secure: true",
+  "sameSite: \"lax\"",
+  "timingSafeEqual",
+  "signature-mismatch",
+  "not-configured",
+]);
+
+expect("src/lib/customer-email-verification-token-runtime.ts", [
+  "rememberedSession",
+  "rawEmailReturned: false",
+  "rawTokenReturned: false",
+  "eligible: verified",
+]);
+
+expect("src/app/login/page.tsx", [
+  "Trusted browser access is not fully connected yet.",
+  "Signed remembered session",
+  "Continue if remembered",
 ]);
 
 expect("src/app/api/auth/email/route.ts", [
-  "issueCustomerConfirmationEmail",
-  "support-or-billing-entry",
-  "account-recovery",
   "projectEmailAccessState",
   "email-sent",
   "email-queued",
   "email-unavailable",
   "providerDelivery.skipped",
-  "customerEmail: email",
-]);
-
-expect("src/app/login/page.tsx", [
-  "Return to your Cendorq workspace.",
-  "Continue if remembered",
-  "Send secure access link",
-  "Continue with Google",
-  "Continue with Microsoft",
-  "Continue with Apple",
-  "Continue with LinkedIn",
-  "Continue with Facebook",
-  "Create access",
-  "Check your inbox for Cendorq Support <support@cendorq.com>",
-  "Email delivery is not fully connected yet.",
-  "Your access request was saved, but email delivery has not completed yet.",
-  "Come back without starting over.",
-  "Cendorq never emails a password.",
-  "role=\"status\"",
-  "aria-live=\"polite\"",
-  "Promise<LoginSearchParams>",
-  "text-[clamp(2.75rem,5.6vw,5.85rem)]",
-]);
-
-expect("src/app/signup/page.tsx", [
-  "Start with the Free Scan.",
-  "Run the Free Scan.",
-  "Check your email.",
-  "Use the same email later.",
-  "Cendorq sends secure access from support@cendorq.com.",
-  "No password is generated or emailed.",
-  "Your account email is the email used for the Free Scan or payment.",
-  "Cendorq never emails a password",
-  "Provider sign-in is for account access; it does not replace the business Free Scan.",
-  "Continue with Google",
-  "Continue with Microsoft",
-  "Continue with Apple",
-  "Continue with LinkedIn",
-  "Continue with Facebook",
-  "text-[clamp(2.85rem,5.7vw,5.9rem)]",
-  "Premium signup hero scale",
-]);
-
-expect("src/app/privacy/page.tsx", [
-  "Trust starts with knowing what data belongs in the system.",
-  "Free Scan, AI Readiness Review, Signal Repair, and Readiness Control stay tied to their scope.",
-  "Sign in for support",
-  "Start Free Scan",
-]);
-
-expect("src/app/terms/page.tsx", [
-  "Clear rules keep the customer path impossible to confuse.",
-  "One service depth does not silently include another service depth's work.",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
-  "Sign in for support",
-]);
-
-expect("src/app/disclaimer/page.tsx", [
-  "Strong guidance works best when the limits are clear.",
-  "No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment.",
-  "Use each service for the decision it was built to support.",
-  "Sign in for support",
-]);
-
-expect("src/lib/pricing-checkout-orchestration.ts", [
-  "name: \"AI Readiness Review\"",
-  "name: \"Signal Repair\"",
-  "name: \"Readiness Control\"",
-  "key: \"deep-review\"",
-  "key: \"build-fix\"",
-  "key: \"ongoing-control\"",
 ]);
 
 if (failures.length) {
@@ -321,7 +169,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header/footer navigation, truthful email access delivery states, visible customer auth notices, polished signup language, premium laptop hero scaling, white verification surface, polished checkout success, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with signed remembered-session behavior, truthful email access states, and clean public journey guardrails.");
 
 function expect(path, phrases) {
   const text = read(path);

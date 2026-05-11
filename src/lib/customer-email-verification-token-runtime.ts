@@ -58,6 +58,13 @@ export type CustomerEmailVerificationResult = {
   safeCustomerMessage: string;
   reportVisibilityRule: string;
   dashboardModule: string;
+  rememberedSession: {
+    eligible: boolean;
+    customerIdHash: string;
+    signupEmailHash: string;
+    rawEmailReturned: false;
+    rawTokenReturned: false;
+  };
   tokenState: {
     tokenAccepted: boolean;
     tokenConsumed: boolean;
@@ -191,6 +198,13 @@ function buildStoredResult(
     safeCustomerMessage: verified ? projection.safeCustomerMessage : GENERIC_FAILURE_MESSAGE,
     reportVisibilityRule: projection.reportVisibilityRule,
     dashboardModule: projection.dashboardModule,
+    rememberedSession: {
+      eligible: verified && Boolean(entry.customerIdHash && entry.signupEmailHash),
+      customerIdHash: verified ? entry.customerIdHash : "",
+      signupEmailHash: verified ? entry.signupEmailHash : "",
+      rawEmailReturned: false,
+      rawTokenReturned: false,
+    },
     tokenState: {
       tokenAccepted: accepted,
       tokenConsumed: consumed,
@@ -222,6 +236,13 @@ function buildFailureResult(
     safeCustomerMessage: GENERIC_FAILURE_MESSAGE,
     reportVisibilityRule: "Only show customer-owned safe projections after email verification and safe release state.",
     dashboardModule: "safe resend or dashboard recovery path",
+    rememberedSession: {
+      eligible: false,
+      customerIdHash: "",
+      signupEmailHash: "",
+      rawEmailReturned: false,
+      rawTokenReturned: false,
+    },
     tokenState: {
       tokenAccepted: accepted,
       tokenConsumed: consumed,
