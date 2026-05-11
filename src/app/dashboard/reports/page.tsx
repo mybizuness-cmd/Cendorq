@@ -13,8 +13,8 @@ import {
 } from "@/lib/paid-plan-report-delivery-operating-system";
 
 export const metadata = buildMetadata({
-  title: "Market proof vault | Cendorq",
-  description: "Your private Cendorq vault for market signals, AI/search posture, approved reports, paid-report delivery, confidence labels, and next-command guidance.",
+  title: "Readiness proof vault | Cendorq",
+  description: "Your private Cendorq vault for readiness signals, AI/search posture, approved reports, paid-report delivery, confidence labels, and next-step guidance.",
   path: "/dashboard/reports",
   noIndex: true,
 });
@@ -36,56 +36,56 @@ const REPORT_LIBRARY = [
   {
     planKey: "free-scan",
     command: "Scan",
-    reportType: "Market signal result",
+    reportType: "Readiness signal result",
     stage: "First signal",
     href: "/dashboard/reports/free-scan",
     cta: "Open result",
     deliveryMeaning: "Shows the first visible break in findability, AI/search readability, clarity, trust, choice, or action with confidence limits and the safest next move.",
     aiPosture: "First AI/search signal only. It can show where the business may be unclear to customers and answer systems, but it is not a complete visibility audit.",
     notThis: "Not full diagnosis, implementation, monthly monitoring, guaranteed ranking, guaranteed AI placement, or paid-report attachment delivery.",
-    nextDecision: "Unlock Deep Review when the first signal matters enough that guessing would cost more than diagnosis.",
+    nextDecision: "Unlock AI Readiness Review when the first signal matters enough that guessing would cost more than review.",
     deliveryChannel: "Dashboard-only protected result unless a separate export is approved later.",
     value: getPlanValueDelivery("free-scan"),
   },
   {
     planKey: "deep-review",
-    command: "Diagnose",
-    reportType: "Deep Review report",
+    command: "Review",
+    reportType: "AI Readiness Review report",
     stage: "Cause-level proof",
     href: DEEP_REVIEW_PRICE.checkoutPath,
     cta: `Unlock ${DEEP_REVIEW_PRICE.price}`,
-    deliveryMeaning: "Explains why the business is not being found, trusted, understood, or chosen before money is spent on the wrong fix.",
+    deliveryMeaning: "Explains why the business may not be found, trusted, understood, or chosen before money is spent on the wrong repair.",
     aiPosture: paidAiPosture("deep-review"),
     notThis: "Not done-for-you implementation, unlimited revisions, ad management, guaranteed ranking, guaranteed AI placement, or guaranteed outcomes.",
-    nextDecision: "Use Build Fix only after the diagnosis identifies a scoped target ready for implementation.",
+    nextDecision: "Use Signal Repair only after the review identifies a scoped target ready for improvement.",
     deliveryChannel: paidDelivery("deep-review"),
     value: getPlanValueDelivery("deep-review"),
   },
   {
     planKey: "build-fix",
-    command: "Fix",
-    reportType: "Build Fix summary",
+    command: "Repair",
+    reportType: "Signal Repair summary",
     stage: "Scoped improvement",
     href: BUILD_FIX_PRICE.checkoutPath,
     cta: `Unlock ${BUILD_FIX_PRICE.price}`,
-    deliveryMeaning: "Shows what changed, why it mattered, and what still remains outside the approved fix.",
+    deliveryMeaning: "Shows what changed, why it mattered, and what still remains outside the approved repair.",
     aiPosture: paidAiPosture("build-fix"),
     notThis: "Not a full diagnostic report, unlimited site rebuild, recurring monitoring, guaranteed ranking, guaranteed AI placement, or unapproved production work.",
-    nextDecision: "Use Ongoing Control when the business needs recurring watch after the scoped improvement.",
+    nextDecision: "Use Readiness Control when the business needs recurring watch after the scoped improvement.",
     deliveryChannel: paidDelivery("build-fix"),
     value: getPlanValueDelivery("build-fix"),
   },
   {
     planKey: "ongoing-control",
     command: "Control",
-    reportType: "Ongoing Control monthly summary",
-    stage: "Monthly market control",
+    reportType: "Readiness Control monthly summary",
+    stage: "Monthly readiness control",
     href: ONGOING_CONTROL_PRICE.checkoutPath,
     cta: `Start ${ONGOING_CONTROL_PRICE.price}`,
     deliveryMeaning: "Keeps priorities, alerts, AI/search posture, trend awareness, and next decisions under control as search, customers, and competitors move.",
     aiPosture: paidAiPosture("ongoing-control"),
-    notThis: "Not unlimited Build Fix, a full Deep Review every month, ad management, ranking guarantees, algorithm control, or guaranteed AI placement.",
-    nextDecision: "Use Build Fix separately when monthly control identifies a concrete scoped improvement.",
+    notThis: "Not unlimited Signal Repair, a full AI Readiness Review every month, ad management, ranking guarantees, algorithm control, or guaranteed AI placement.",
+    nextDecision: "Use Signal Repair separately when monthly control identifies a concrete scoped improvement.",
     deliveryChannel: paidDelivery("ongoing-control"),
     value: getPlanValueDelivery("ongoing-control"),
   },
@@ -105,20 +105,20 @@ const REPORT_LIBRARY = [
 }[];
 
 const REPORT_STATE = [
-  { label: "Ready", value: "Market signal result", detail: "The first market signal is the only immediately actionable report type in this demo state." },
-  { label: "AI/Search posture", value: "Signal, proof, risk, limit", detail: "Reports explain what is visible, what it may mean, what is limited, and which command comes next." },
-  { label: "Paid proof", value: "Dashboard + email attachment", detail: "Deep Review, Build Fix, and Ongoing Control reports must appear in the vault and arrive by email with an approved PDF." },
+  { label: "Ready", value: "Readiness signal result", detail: "The first readiness signal is the only immediately actionable report type in this demo state." },
+  { label: "AI/Search posture", value: "Signal, proof, risk, limit", detail: "Reports explain what is visible, what it may mean, what is limited, and which step comes next." },
+  { label: "Paid proof", value: "Dashboard + email attachment", detail: "AI Readiness Review, Signal Repair, and Readiness Control reports must appear in the vault and arrive by email with an approved PDF." },
 ] as const;
 
 const REPORT_ACTIONS = [
-  { title: "Open market signal", href: "/dashboard/reports/free-scan", value: "Read the first proof" },
+  { title: "Open readiness signal", href: "/dashboard/reports/free-scan", value: "Read the first proof" },
   { title: "Ask report support", href: "/dashboard/support", value: "Question or correction" },
-  { title: "Compare command depth", href: "/plans", value: "Choose the next stage" },
+  { title: "Compare readiness depth", href: "/plans", value: "Choose the next stage" },
 ] as const;
 
 const REPORT_VAULT_RULES = [
   "Pending, draft, or unavailable reports must never look final.",
-  "Scan, Diagnose, Fix, and Control report types must remain visibly separate.",
+  "Scan, Review, Repair, and Control report types must remain visibly separate.",
   "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF.",
   "AI/search posture must be useful and bounded: no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control.",
 ] as const;
@@ -131,20 +131,20 @@ export default function ReportsVaultPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-100 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
-            Market proof vault
+            Readiness proof vault
           </div>
           <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
             Keep the record of what customers and AI search can understand.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            This vault stores the business market record: first signals, approved proof, AI/search posture, confidence limits, paid delivery, and the next command decision.
+            This vault stores the business readiness record: first signals, approved proof, AI/search posture, confidence limits, paid delivery, and the next readiness decision.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/reports/free-scan" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Open market signal
+              Open readiness signal
             </Link>
             <Link href="/dashboard" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Back to command center
+              Back to control center
             </Link>
           </div>
         </div>
@@ -183,8 +183,8 @@ export default function ReportsVaultPage() {
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
               <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Separated proof library</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Different proof for every command depth.</h2>
-              <p className="mt-5 text-base leading-8 text-slate-300">Scan, Diagnose, Fix, and Control cannot look like the same cheap report block. Each one has a different job.</p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Different proof for every readiness depth.</h2>
+              <p className="mt-5 text-base leading-8 text-slate-300">Scan, Review, Repair, and Control cannot look like the same cheap report block. Each one has a different job.</p>
               <Link href="/dashboard" className="mt-7 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
                 Back to dashboard →
               </Link>
@@ -235,7 +235,7 @@ export default function ReportsVaultPage() {
       </section>
 
       <section className="sr-only" aria-label="Report vault guardrails">
-        Market proof vault. Paid plan report delivery operating system. Keep the record of what customers and AI search can understand. Nothing final until approved. Scan. Diagnose. Fix. Control. Different proof for every command depth. AI/Search posture. Market signal result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Useful only when report depth, AI/search posture, and delivery are impossible to confuse. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Readiness proof vault. Paid plan report delivery operating system. Keep the record of what customers and AI search can understand. Nothing final until approved. Scan. Review. Repair. Control. Different proof for every readiness depth. AI/Search posture. Readiness signal result dashboard-only protected result. AI Readiness Review report dashboard plus email attachment. Signal Repair summary dashboard plus email attachment. Readiness Control monthly summary dashboard plus email attachment. Useful only when report depth, AI/search posture, and delivery are impossible to confuse. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
