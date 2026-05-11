@@ -24,7 +24,7 @@ const CUSTOMER_ACCESS_POINTS = [
   "Use the same email you used for the Free Scan, purchase, or support request.",
   "If this browser is already trusted, Cendorq can return you to the workspace without starting over.",
   "If you are on a new device, send yourself a secure access link and continue from your inbox.",
-  "If a provider is not connected yet, email access is still available from support@cendorq.com.",
+  "If email delivery is unavailable, contact support@cendorq.com and include the email you used for Cendorq.",
 ] as const;
 
 export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
@@ -92,7 +92,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Create access. Come back without starting over. Cendorq never emails a password. Check your inbox for Cendorq Support. Provider sign-in confirms account identity; Free Scan remains the business-context intake. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
+      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Email sent. Email queued. Email unavailable. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Create access. Come back without starting over. Cendorq never emails a password. Check your inbox for Cendorq Support. Email delivery is not fully connected yet. Provider sign-in confirms account identity; Free Scan remains the business-context intake. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
     </main>
   );
 }
@@ -103,11 +103,13 @@ function safeReturnTo(value: string | undefined) {
 }
 
 function buildAuthNotice(auth: string | undefined, provider: string | undefined): { tone: "success" | "warning"; message: string } | null {
-  if (auth === "provider-not-ready") return { tone: "warning", message: `${provider ? `${titleCase(provider)} sign-in` : "This sign-in option"} is not connected yet. Use email for now, and Cendorq will send the secure access link from support@cendorq.com.` };
+  if (auth === "provider-not-ready") return { tone: "warning", message: `${provider ? `${titleCase(provider)} sign-in` : "This sign-in option"} is not connected yet. Use email or contact support@cendorq.com for access help.` };
   if (auth === "session-required") return { tone: "warning", message: "This browser does not have an active Cendorq session yet. Sign in with email or a provider to continue." };
   if (auth === "unknown-provider") return { tone: "warning", message: "That sign-in provider is not available. Use email or another provider." };
   if (auth === "email-required") return { tone: "warning", message: "Enter the account email that should receive the secure Cendorq access link." };
-  if (auth === "email-sent" || auth === "email-queued") return { tone: "success", message: "Check your inbox for Cendorq Support <support@cendorq.com>. If this email has access, the secure workspace link will be there." };
+  if (auth === "email-sent") return { tone: "success", message: "Check your inbox for Cendorq Support <support@cendorq.com>. The secure workspace link is on the way." };
+  if (auth === "email-queued") return { tone: "warning", message: "Your access request was saved, but email delivery has not completed yet. Try again shortly or contact support@cendorq.com." };
+  if (auth === "email-unavailable") return { tone: "warning", message: "Email delivery is not fully connected yet. Contact support@cendorq.com for access help and include the email you used for Cendorq." };
   return null;
 }
 
