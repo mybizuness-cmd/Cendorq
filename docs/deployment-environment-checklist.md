@@ -1,21 +1,21 @@
 # Cendorq Deployment Environment Checklist
 
-Use this checklist for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, intake-console, and deployment configuration changes.
+Use this checklist for hosting, domain, DNS, environment variable, redirect, header, health, smoke-check, intake-console, email, checkout, auth, and deployment configuration changes.
 
 The goal is simple: keep production predictable, safe to deploy, and easy to verify.
 
 ## Deployment principle
 
-Deployment configuration supports trust. If a hosting, domain, redirect, header, intake, or environment change makes production harder to verify or easier to break, the buyer path is weakened.
+Deployment configuration supports trust. If a hosting, domain, redirect, header, intake, checkout, auth, email, or environment change makes production harder to verify or easier to break, the buyer path is weakened.
 
 Protect the core path:
 
 1. Free Scan
 2. Plans
-3. Deep Review
-4. Build Fix
-5. Ongoing Control
-6. Connect
+3. AI Readiness Review
+4. Signal Repair
+5. Readiness Control
+6. Login, signup, email confirmation, and checkout success
 
 ## Required checks
 
@@ -35,6 +35,10 @@ Before merging deployment environment changes, confirm:
 - Production smoke checks still target the intended deployed URL.
 - Production smoke checks still verify Free Scan API `OPTIONS` without creating fake submissions.
 - Production smoke checks still verify unauthenticated Free Scan API reads stay protected.
+- Email access reports `email-sent`, `email-queued`, or `email-unavailable` truthfully.
+- Remembered-session access fails safely when the signed session secret is absent or invalid.
+- Provider auth buttons fail safely when provider URLs are absent.
+- Checkout success returns customers to the intended dashboard path after payment.
 - Scheduled and manual smoke workflows still work.
 - Rollback remains clear if the deploy weakens production.
 
@@ -44,7 +48,7 @@ For domain, base URL, or DNS-related changes, confirm:
 
 - `https://www.cendorq.com` remains the canonical production URL unless intentionally changed.
 - `https://cendorq.com` remains the apex redirect context unless intentionally changed.
-- `NEXT_PUBLIC_SITE_URL` is set to the canonical public origin used by SEO metadata, sitemap, robots, and structured data.
+- `NEXT_PUBLIC_SITE_URL` is set to the canonical public origin used by SEO metadata, sitemap, robots, structured data, email links, and protected redirect construction.
 - `CENDORQ_BASE_URL` is set to the deployed origin that production smoke checks should verify.
 - Smoke checks use the intended base URL.
 - Metadata, sitemap, robots, `llms.txt`, and security contact surfaces stay aligned.
@@ -65,6 +69,69 @@ For environment variable changes, confirm:
 - `INTAKE_CONSOLE_READ_KEY` is long, random, server-only, and never committed.
 - `INTAKE_ADMIN_KEY` is only used as a server-only alias when the deployment standard prefers it.
 - `NEXT_PUBLIC_SITE_URL` and `CENDORQ_BASE_URL` are documented together when public URL assumptions change.
+
+### Current required production variables
+
+Set these in Vercel production before relying on the full customer journey:
+
+- `NEXT_PUBLIC_SITE_URL`
+- `CENDORQ_BASE_URL`
+- `INTAKE_CONSOLE_READ_KEY`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `STRIPE_PRICE_DEEP_REVIEW`
+- `STRIPE_PRICE_BUILD_FIX`
+- `STRIPE_PRICE_ONGOING_CONTROL`
+- `RESEND_API_KEY`
+- `EMAIL_FROM`
+- `EMAIL_REPLY_TO`
+- `SUPPORT_EMAIL`
+- `CENDORQ_CUSTOMER_SESSION_SECRET`
+
+`CENDORQ_CUSTOMER_SESSION_SECRET` must be a random value with at least 32 characters. Without it, `Continue if remembered` fails safely and returns the visitor to sign in.
+
+### Stripe checks
+
+For Stripe changes, confirm:
+
+- `STRIPE_SECRET_KEY` is set only server-side.
+- `STRIPE_WEBHOOK_SECRET` is set only server-side.
+- Price IDs match the intended plans:
+  - `STRIPE_PRICE_DEEP_REVIEW` → AI Readiness Review
+  - `STRIPE_PRICE_BUILD_FIX` → Signal Repair
+  - `STRIPE_PRICE_ONGOING_CONTROL` → Readiness Control
+- Public fallback payment links point to the intended Stripe products:
+  - `NEXT_PUBLIC_STRIPE_AI_READINESS_PAYMENT_LINK`
+  - `NEXT_PUBLIC_STRIPE_SIGNAL_REPAIR_PAYMENT_LINK`
+  - `NEXT_PUBLIC_STRIPE_READINESS_CONTROL_PAYMENT_LINK`
+- Stripe metadata includes enough plan context for routing and post-payment email logic.
+- Webhook events are verified with the Stripe signing secret.
+- Checkout success pages do not expose private Stripe secrets.
+
+### Email checks
+
+For email changes, confirm:
+
+- `RESEND_API_KEY` is set only server-side.
+- `EMAIL_FROM` uses `Cendorq Support <support@cendorq.com>` or an approved support sender.
+- `EMAIL_REPLY_TO` and `SUPPORT_EMAIL` use monitored inboxes.
+- If provider delivery is skipped or unavailable, the login page reports `email-unavailable` instead of claiming an email was sent.
+- Email confirmation links do not expose raw tokens after use.
+- Confirmation POST responses return a safe projection only.
+- Confirmation GET can set the signed remembered-session cookie only after verification.
+
+### Auth and remembered-session checks
+
+For login, signup, provider auth, and remembered-session changes, confirm:
+
+- `CENDORQ_CUSTOMER_SESSION_SECRET` is present, random, and at least 32 characters in production.
+- Remembered-session cookies are HttpOnly, Secure, SameSite=Lax, signed, and short enough to avoid header issues.
+- `Continue if remembered` validates the signed cookie and does not trust arbitrary cookie names.
+- Missing, expired, malformed, unsigned, or mis-signed sessions return to login safely.
+- Provider auth URLs are HTTPS-only.
+- Provider URLs are left blank until the provider is actually configured.
+- Provider return paths are restricted to safe dashboard paths.
+- Provider buttons fail safely with a clear login notice when a provider is not configured.
 
 ## Intake backend readiness checks
 
@@ -96,7 +163,7 @@ For deployment-sensitive changes, confirm:
 
 - Standard CI passes before merge.
 - Production smoke is run after deploy when relevant.
-- Production smoke covers public routes, discovery files, strict redirects, health, Free Scan API `OPTIONS`, and protected Free Scan read behavior.
+- Production smoke covers public routes, discovery files, strict redirects, health, Free Scan API `OPTIONS`, protected Free Scan read behavior, login, signup, email confirmation surfaces, and checkout success surfaces.
 - The incident response runbook is used if smoke fails.
 - The rollback path is small, clear, and safe.
 
