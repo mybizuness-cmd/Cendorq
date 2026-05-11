@@ -11,30 +11,22 @@ const planTemplatePath = "src/components/plans/conversion-plan-page.tsx";
 const billingPath = "src/app/dashboard/billing/page.tsx";
 const checkoutStartPath = "src/app/checkout/start/page.tsx";
 const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
+const stripeWebhookPath = "src/app/api/stripe/webhook/route.ts";
+const emailSenderPath = "src/lib/cendorq-email-sender.ts";
+const confirmationEmailPath = "src/lib/customer-confirmation-email-issuance-runtime.ts";
 
-for (const path of [architecturePath, contractPath, pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath]) {
+for (const path of [architecturePath, contractPath, pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath, stripeWebhookPath, emailSenderPath, confirmationEmailPath]) {
   if (!existsSync(join(root, path))) failures.push(`Missing pricing checkout dependency: ${path}`);
 }
 
-expect(architecturePath, [
-  "CENDORQ_REVENUE_OPERATING_SYSTEM",
-  "CENDORQ_BUSINESS_ARCHITECTURE_RULES",
-  "CENDORQ_PLAN_PERSONALIZATION_FIELDS",
-  "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "Turn anonymous interest into a verified customer account",
-  "Convert uncertainty into an evidence-backed diagnosis",
-  "Turn known friction into a concrete customer-facing improvement",
-  "Create recurring revenue",
-  "Every paid plan must unlock a workflow",
-  "Every checkout must return to a Cendorq success state",
-  "Every mobile screen must lead with the action",
-]);
-
 expect(contractPath, [
   "CENDORQ_PLAN_PRICES",
+  "paymentLink: \"https://buy.stripe.com/9B64gAa28eGwdiIbdhcZa05\"",
+  "paymentLink: \"https://buy.stripe.com/dRm5kE0ry2XObaA2GLcZa06\"",
+  "paymentLink: \"https://buy.stripe.com/28EcN65LSaqgdiI1CHcZa07\"",
+  "name: \"AI Readiness Review\"",
+  "name: \"Signal Repair\"",
+  "name: \"Readiness Control\"",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
@@ -43,25 +35,65 @@ expect(contractPath, [
   "/checkout/start?plan=deep-review",
   "/checkout/start?plan=build-fix",
   "/checkout/start?plan=ongoing-control",
-  "The customer clicks one clear plan action from Plans, dashboard, report vault, billing, or notifications.",
+  "Cendorq confirms the selected plan, price, and next step before handing the customer to secure Stripe payment.",
   "CENDORQ_CHECKOUT_ORCHESTRATION",
   "CENDORQ_CHECKOUT_METADATA_KEYS",
   "CENDORQ_POST_PAYMENT_EMAILS",
 ]);
 
-expect(pricingPath, ["CENDORQ_PLAN_PRICES", "Unlock Deep Review", "Unlock Build Fix", "Start Ongoing Control"]);
-expect(planTemplatePath, ["getCendorqPlanPrice", "After payment:"]);
-expect(billingPath, ["getPaidCendorqPlanPrice", "Unlock Deep Review", "After payment:"]);
-expect(checkoutStartPath, ["Start checkout | Cendorq", "Secure checkout", "Stripe link coming next"]);
+expect(pricingPath, ["CENDORQ_PLAN_PRICES", "Start AI Readiness Review", "Start Signal Repair", "Start Readiness Control"]);
+expect(planTemplatePath, ["getCendorqPlanPrice", "What this helps you decide"]);
+expect(billingPath, ["getPaidCendorqPlanPrice"]);
+expect(checkoutStartPath, [
+  "Start checkout | Cendorq",
+  "Secure payment",
+  "Continue to secure payment",
+  "Confirm AI Readiness Review before payment.",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "No fake urgency",
+  "No ranking guarantee",
+  "No AI placement guarantee",
+]);
 expect(checkoutSuccessPath, [
-  "Checkout complete | Cendorq",
+  "Payment complete | Cendorq",
   "Payment complete",
-  "getCendorqRevenueStage",
-  "What Cendorq needs next",
+  "Automatic dashboard redirect",
+  "Open review dashboard",
+  "Open repair intake",
+  "Open control dashboard",
   "Post-payment dashboard activation",
 ]);
+expect(emailSenderPath, [
+  "RESEND_ENDPOINT",
+  "RESEND_API_KEY",
+  "Cendorq Support <support@cendorq.com>",
+  "sendCendorqEmail",
+  "buildCendorqEmailLayout",
+  "buildCendorqEmailText",
+]);
+expect(confirmationEmailPath, [
+  "sendCendorqEmail",
+  "customerEmail?: string | null",
+  "providerDelivery",
+  "rawEmailReturnedToBrowser: false",
+]);
+expect(stripeWebhookPath, [
+  "STRIPE_WEBHOOK_SECRET",
+  "checkout.session.completed",
+  "verifyStripeSignature",
+  "sendCendorqEmail",
+  "paid-plan-kickoff",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "/dashboard/reports",
+  "/dashboard/support/request",
+  "/dashboard/billing",
+]);
 
-forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath, architecturePath, contractPath], [
+forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checkoutSuccessPath, architecturePath, contractPath, stripeWebhookPath, emailSenderPath, confirmationEmailPath], [
   "$750+",
   "$300/mo",
   "starting at",
@@ -74,6 +106,7 @@ forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checko
   "from pricing, dashboard",
   "from pricing",
   "pricing page",
+  "Stripe link coming next",
   "localStorage.setItem",
   "sessionStorage.setItem",
 ]);
@@ -84,7 +117,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Pricing checkout orchestration validation passed. Final prices, Cendorq revenue operating system, checkout start, checkout success, dashboard billing, plan pages, metadata, current Plans wording, and post-payment emails stay synchronized.");
+console.log("Pricing checkout orchestration validation passed. Final prices, live Stripe payment links, Cendorq confirmation checkout start, dashboard success redirect, Resend email sender, Stripe webhook, plan pages, metadata, AI-readiness Plans wording, and post-payment emails stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;

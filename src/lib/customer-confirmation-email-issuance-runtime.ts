@@ -1,7 +1,10 @@
 import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 import {
   enqueueCustomerEmailDispatch,
+  updateCustomerEmailDispatchQueueState,
   type CustomerEmailDispatchQueueSafeProjection,
 } from "./customer-email-dispatch-queue-runtime";
 import {
@@ -10,13 +13,21 @@ import {
 } from "./customer-email-verification-token-runtime";
 import { CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT } from "./customer-email-confirmation-handoff-contracts";
 import { getCustomerEmailTemplateContracts } from "./customer-email-template-contracts";
+import { buildCendorqEmailLayout, buildCendorqEmailText, sendCendorqEmail } from "./cendorq-email-sender";
 
 const FREE_SCAN_CONFIRMATION_SUBJECT = "Confirm your email to open your Cendorq results";
+const FREE_SCAN_INTAKE_STORAGE_FILES = [
+  path.join(process.cwd(), ".cendorq-runtime", "free-check-intakes.v3.json"),
+  path.join(process.cwd(), ".cendorq-runtime", "search-presence-scan-intakes.v3.json"),
+  path.join(process.cwd(), ".cendorq-runtime", "search-presence-scan-intakes.v2.json"),
+  path.join(process.cwd(), ".default-ai-runtime", "free-check-intakes.json"),
+] as const;
 
 export type CustomerConfirmationEmailIssuanceInput = IssueCustomerEmailVerificationTokenInput & {
   customerEmailHash: string;
   baseUrl: string;
   businessName?: string | null;
+  customerEmail?: string | null;
 };
 
 export type CustomerConfirmationEmailPayload = {
@@ -35,6 +46,13 @@ export type CustomerConfirmationEmailPayload = {
   destination: string;
   safePreviewText: string;
   dispatchQueue: CustomerEmailDispatchQueueSafeProjection;
+  providerDelivery: {
+    attempted: boolean;
+    sent: boolean;
+    skipped: boolean;
+    provider: "resend";
+    providerMessageIdHash: string;
+  };
   providerReadyPayload: {
     templateKey: "confirm-email";
     senderDisplay: "Cendorq Support <support@cendorq.com>";
@@ -71,6 +89,20 @@ export async function issueCustomerConfirmationEmail(
   const sender = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.senderIdentity;
   const businessName = cleanText(input.businessName, 80) || "your business";
   const toHash = cleanHash(input.customerEmailHash);
+  const providerReadyPayload = {
+    templateKey: "confirm-email" as const,
+    senderDisplay: sender.display,
+    subject,
+    preheader,
+    primaryCta: token.primaryCta,
+    bodyIntro: `Your Cendorq results for ${businessName} are protected behind one email confirmation step.`,
+    bodyGuidance:
+      "Use the confirmation button to verify your email and open your private Cendorq dashboard. If the email was filtered, move Cendorq to your main inbox or save support@cendorq.com as a trusted sender.",
+    bodyFooter:
+      "This confirmation link is single-use and expires. Cendorq will never ask for your password, card number, private key, or session token in this email.",
+    confirmationUrl,
+  };
+
   const dispatchQueue = await enqueueCustomerEmailDispatch({
     customerIdHash: input.customerIdHash,
     recipientEmailRef: toHash,
@@ -84,6 +116,24 @@ export async function issueCustomerConfirmationEmail(
     expiresAt: token.expiresAt,
     auditEventId: token.tokenId,
   });
+
+  const recipientEmail = await resolveCustomerConfirmationRecipientEmail(input);
+  const providerDelivery = await sendConfirmationProviderEmail({
+    recipientEmail,
+    subject,
+    preheader,
+    primaryCta: token.primaryCta,
+    confirmationUrl,
+    businessName,
+    destination: token.destination,
+    queueId: dispatchQueue.queueId,
+  });
+
+  if (providerDelivery.sent) {
+    await updateCustomerEmailDispatchQueueState({ queueId: dispatchQueue.queueId, toState: "sent", expectedState: "queued" });
+  } else if (providerDelivery.attempted && !providerDelivery.skipped) {
+    await updateCustomerEmailDispatchQueueState({ queueId: dispatchQueue.queueId, toState: "failed", expectedState: "queued", failureReason: "Provider delivery failed." });
+  }
 
   return {
     ok: true,
@@ -101,19 +151,8 @@ export async function issueCustomerConfirmationEmail(
     destination: token.destination,
     safePreviewText: `Check your inbox for ${sender.display}. Confirm once to open your Cendorq results for ${businessName}.`,
     dispatchQueue,
-    providerReadyPayload: {
-      templateKey: "confirm-email",
-      senderDisplay: sender.display,
-      subject,
-      preheader,
-      primaryCta: token.primaryCta,
-      bodyIntro: `Your Cendorq results for ${businessName} are protected behind one email confirmation step.`,
-      bodyGuidance:
-        "Use the confirmation button to verify your email and open your private Cendorq dashboard. If the email was filtered, move Cendorq to your main inbox or save support@cendorq.com as a trusted sender.",
-      bodyFooter:
-        "This confirmation link is single-use and expires. Cendorq will never ask for your password, card number, private key, or session token in this email.",
-      confirmationUrl,
-    },
+    providerDelivery,
+    providerReadyPayload,
     safety: {
       rawTokenReturnedToBrowser: false,
       tokenHashReturnedToBrowser: false,
@@ -146,8 +185,88 @@ export function projectCustomerConfirmationEmailSafeResponse(payload: CustomerCo
     destination: payload.destination,
     safePreviewText: payload.safePreviewText,
     dispatchQueue: payload.dispatchQueue,
+    providerDelivery: payload.providerDelivery,
     safety: payload.safety,
   } as const;
+}
+
+async function sendConfirmationProviderEmail(input: {
+  recipientEmail: string;
+  subject: string;
+  preheader: string;
+  primaryCta: string;
+  confirmationUrl: string;
+  businessName: string;
+  destination: string;
+  queueId: string;
+}) {
+  if (!input.recipientEmail) {
+    return { attempted: false, sent: false, skipped: true, provider: "resend" as const, providerMessageIdHash: "" };
+  }
+
+  const html = buildCendorqEmailLayout({
+    title: input.subject,
+    intro: `Your Cendorq results for ${input.businessName} are protected behind one email confirmation step.`,
+    ctaLabel: input.primaryCta,
+    ctaUrl: input.confirmationUrl,
+    secondary:
+      "Use the confirmation button to verify your email and open your private Cendorq dashboard. This link is single-use and expires.",
+  });
+  const text = buildCendorqEmailText({
+    title: input.subject,
+    intro: `Your Cendorq results for ${input.businessName} are protected behind one email confirmation step.`,
+    ctaLabel: input.primaryCta,
+    ctaUrl: input.confirmationUrl,
+    secondary:
+      "Use the confirmation button to verify your email and open your private Cendorq dashboard. This link is single-use and expires.",
+  });
+  const result = await sendCendorqEmail({
+    to: input.recipientEmail,
+    subject: input.subject,
+    preheader: input.preheader,
+    html,
+    text,
+    tags: { template: "confirm-email", destination: input.destination, queue: input.queueId },
+  });
+
+  return {
+    attempted: true,
+    sent: result.ok && !result.skipped,
+    skipped: result.ok && result.skipped,
+    provider: "resend" as const,
+    providerMessageIdHash: result.ok && !result.skipped ? hashUrl(result.id) : "",
+  };
+}
+
+async function resolveCustomerConfirmationRecipientEmail(input: CustomerConfirmationEmailIssuanceInput) {
+  const directEmail = cleanEmail(input.customerEmail);
+  if (directEmail) return directEmail;
+
+  const intakeId = cleanIdentifier(input.intakeId);
+  if (!intakeId) return "";
+
+  for (const storageFile of FREE_SCAN_INTAKE_STORAGE_FILES) {
+    const resolved = await resolveEmailFromFreeScanIntakeFile(storageFile, intakeId, input.customerEmailHash);
+    if (resolved) return resolved;
+  }
+
+  return "";
+}
+
+async function resolveEmailFromFreeScanIntakeFile(storageFile: string, intakeId: string, expectedEmailHash: string) {
+  try {
+    const raw = await readFile(storageFile, "utf8");
+    const parsed = JSON.parse(raw) as unknown;
+    const entries = isRecord(parsed) && Array.isArray(parsed.entries) ? parsed.entries : [];
+    const match = entries.find((entry) => isRecord(entry) && cleanIdentifier(entry.id) === intakeId);
+    if (!isRecord(match)) return "";
+    const email = cleanEmail(match.email);
+    if (!email) return "";
+    const emailHash = hashEmail(email);
+    return cleanHash(expectedEmailHash) === emailHash ? email : "";
+  } catch {
+    return "";
+  }
 }
 
 function pickSubject(journeyKey: CustomerConfirmationEmailIssuanceInput["journeyKey"], fallback: string) {
@@ -196,14 +315,33 @@ function cleanText(value: unknown, max = 120) {
   return value.replace(/\s+/g, " ").trim().slice(0, max);
 }
 
+function cleanEmail(value: unknown) {
+  if (typeof value !== "string") return "";
+  const cleaned = value.trim().toLowerCase();
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : "";
+}
+
 function cleanHash(value: unknown) {
   if (typeof value !== "string") return "";
   const cleaned = value.trim().toLowerCase();
   return /^[a-f0-9]{24,96}$/.test(cleaned) ? cleaned : "";
 }
 
+function cleanIdentifier(value: unknown) {
+  if (typeof value !== "string") return "";
+  return /^[a-zA-Z0-9:_-]{8,180}$/.test(value) ? value : "";
+}
+
+function hashEmail(email: string) {
+  return createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
+}
+
 function hashUrl(value: string) {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function getConfirmationEmailTemplateContract() {
