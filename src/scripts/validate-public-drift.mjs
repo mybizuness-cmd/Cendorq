@@ -114,7 +114,8 @@ expect("src/app/page.tsx", [
   "AI Readiness Review",
   "Signal Repair",
   "Readiness Control",
-  "text-[clamp(3rem,6.8vw,6.65rem)]",
+  "text-[clamp(2.9rem,7.1vw,6.65rem)]",
+  "Premium laptop hero scale",
 ]);
 
 expect("src/app/free-check/page.tsx", [
@@ -141,6 +142,8 @@ expect("src/app/plans/page.tsx", [
   "AI Readiness Review $497",
   "Signal Repair $1,497",
   "Readiness Control $597/mo",
+  "text-[clamp(2.85rem,6.2vw,6.25rem)]",
+  "Premium laptop plans hero scale",
 ]);
 
 expect("src/components/plans/conversion-plan-page.tsx", [
@@ -159,6 +162,8 @@ expect("src/layout/site-header-conversion.tsx", [
   "Sign in",
   "Start Free Scan",
   "single stable row",
+  "focus-visible:ring",
+  "without sticky mouse-click focus bubbles",
 ]);
 
 expect("src/lib/customer-auth-provider-config.ts", [
@@ -210,6 +215,9 @@ expect("src/app/login/page.tsx", [
   "Check your inbox for Cendorq Support <support@cendorq.com>",
   "Come back without starting over.",
   "Cendorq never emails a password.",
+  "role=\"status\"",
+  "aria-live=\"polite\"",
+  "Promise<LoginSearchParams>",
   "text-[clamp(2.75rem,5.6vw,5.85rem)]",
 ]);
 
@@ -264,7 +272,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row header navigation, customer-facing auth copy, secure email access, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, single-row focus-visible header navigation, visible customer auth notices, secure email access, premium laptop hero scaling, Free Scan workspace start, preserved internal checkout keys, and no stale public plan clutter.");
 
 function expect(path, phrases) {
   const text = read(path);
