@@ -1,25 +1,25 @@
 # Cendorq
 
-Cendorq is Market Command Intelligence for businesses that need to become easier for customers, search, maps, reviews, and AI discovery to find, understand, trust, compare, and choose before spending more in the wrong place.
+Cendorq is AI Engine Readiness for businesses that need to become easier for customers, search, maps, reviews, and AI engines to understand, trust, compare, and choose before spending more in the wrong place.
 
 The public buyer path is intentionally simple:
 
-1. **Scan** — start with the Free Scan when the market signal is unclear
-2. **Command Path** — compare the path without confusion
-3. **Diagnose** — use Deep Review to understand what is weakening clarity, trust, visibility, and choice
-4. **Fix** — use Build Fix to strengthen pages, message, proof, trust, and action path
-5. **Control** — use Ongoing Control to keep improving with continued direction
-6. **Connect** — use direct contact only when fit, scope, or timing is already clear
+1. **Scan** — start with the Free Scan when the first weak signal is unclear
+2. **Review** — use AI Readiness Review to understand what is weakening clarity, trust, proof, or choice
+3. **Repair** — use Signal Repair to improve the page, message, proof, or action path that matters most
+4. **Control** — use Readiness Control to keep readiness from drifting as search, AI answers, competitors, and customers change
 
-The homepage has one job: get the right customer to start the **Free Scan**.
+The homepage has one job: get the right visitor to start the **Free Scan**.
 
-## Command design standard
+## Public design standard
 
-Every surface should follow the Cendorq command design standard:
+Every public surface should follow the Cendorq public design standard:
 
 - Apple-level trust and authority
 - Google-level simplicity
 - ChatGPT-level immediate action
+- plain customer-facing language
+- no fake urgency, fake provider auth, or unsupported outcome promises
 
 The full standard is documented and validated here:
 
@@ -51,13 +51,46 @@ Runtime pins are kept in:
 
 Use `.env.example` as the safe local template. Copy it to `.env.local` only when local development needs environment values.
 
-Never commit real secrets, private tokens, customer data, private keys, report tokens, service-role credentials, or private prompts.
+Never commit real secrets, private tokens, customer data, private keys, webhook secrets, provider secrets, report tokens, service-role credentials, or private prompts.
+
+Required production variables for the current customer journey:
+
+- `NEXT_PUBLIC_SITE_URL`
+- `CENDORQ_BASE_URL`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `STRIPE_PRICE_DEEP_REVIEW`
+- `STRIPE_PRICE_BUILD_FIX`
+- `STRIPE_PRICE_ONGOING_CONTROL`
+- `RESEND_API_KEY`
+- `EMAIL_FROM`
+- `EMAIL_REPLY_TO`
+- `SUPPORT_EMAIL`
+- `CENDORQ_CUSTOMER_SESSION_SECRET`
+
+The session secret must be a random value with at least 32 characters. Without it, remembered-session access fails safely and sends the visitor back to sign in.
+
+Optional provider auth start URLs:
+
+- `CENDORQ_AUTH_GOOGLE_URL`
+- `CENDORQ_AUTH_MICROSOFT_URL`
+- `CENDORQ_AUTH_APPLE_URL`
+- `CENDORQ_AUTH_LINKEDIN_URL`
+- `CENDORQ_AUTH_FACEBOOK_URL`
+
+Provider URLs must be HTTPS. Leave them blank until a provider is actually configured. Buttons fail safely when provider URLs are absent.
+
+Public Stripe payment-link fallbacks are also documented in `.env.example`:
+
+- `NEXT_PUBLIC_STRIPE_AI_READINESS_PAYMENT_LINK`
+- `NEXT_PUBLIC_STRIPE_SIGNAL_REPAIR_PAYMENT_LINK`
+- `NEXT_PUBLIC_STRIPE_READINESS_CONTROL_PAYMENT_LINK`
 
 ## Operating doctrine
 
 Cendorq is public where it must convert and private where it must protect intelligence.
 
-The public surface sells the outcome. The private system holds the engine.
+The public surface sells the customer path. The private system holds the engine.
 
 Full operating standards are protected in:
 
@@ -178,51 +211,6 @@ Read the production operating guide before changing routes, public labels, crawl
 - [`docs/incident-response.md`](docs/incident-response.md)
 - [`CHANGELOG.md`](CHANGELOG.md)
 
-The guides cover:
-
-- command design standard
-- protected buyer path
-- closed intelligence
-- public/private boundary
-- protected reports and evidence
-- private database posture
-- data quality
-- learning memory
-- pure signal authority
-- adaptive signal evolution
-- resilience and continuity
-- maximum protection
-- foundation hardening
-- foundation elevation
-- system synchronization QA
-- internal command center
-- score threshold operating rules
-- production verification status
-- strict redirect status and `Location` header smoke checks
-- Free Scan API `OPTIONS` and protected Free Scan API read behavior
-- smoke coverage validation guard
-- legacy public routes and redirects
-- pre-merge checks
-- copy quality checks
-- privacy and data handling checks
-- accessibility checks
-- performance checks
-- search discovery checks
-- dependency and supply-chain checks
-- deployment environment checks
-- observability and diagnostics checks
-- post-deploy smoke checks
-- release checklist
-- rollback checklist
-- incident response
-- release history
-- critical route list
-- discovery and trust files
-- health endpoint expectations
-- language rules
-- homepage conversion rule
-- safe production posture
-
 ## Critical public routes
 
 These routes must stay healthy:
@@ -233,7 +221,10 @@ These routes must stay healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
-- `/connect`
+- `/login`
+- `/signup`
+- `/verify-email`
+- `/checkout/success`
 
 Policy and trust routes may stay public when current:
 
@@ -251,7 +242,7 @@ Protected redirects include:
 - `/pricing/full-diagnosis` -> `/plans/deep-review`
 - `/pricing/optimization` -> `/plans/build-fix`
 - `/pricing/monthly-partner` -> `/plans/ongoing-control`
-- `/contact` -> `/connect`
+- `/contact` -> `/plans`
 - `/how-it-works` -> `/plans`
 - `/diagnosis` -> `/plans/deep-review`
 - `/profile` -> `/plans`
@@ -274,24 +265,21 @@ These files are intentional and protected:
 
 ## Language rule
 
-Use plain buyer language:
+Use plain customer language:
 
-- Market Command Intelligence
-- Scan
-- Diagnose
-- Fix
-- Control
+- AI Engine Readiness
 - Free Scan
-- Deep Review
-- Build Fix
-- Ongoing Control
-- Command Path
-- Connect
-- make the business easier to find
+- AI Readiness Review
+- Signal Repair
+- Readiness Control
+- Scan
+- Review
+- Repair
+- Control
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
 - stop guessing before spending more
 - protect decisions as search and AI discovery change
 
-Avoid reviving old public labels such as Business Command Intelligence, View Pricing, Visibility Blueprint, Presence Infrastructure, Presence Command, or Start Search Presence Scan in active public surfaces.
+Avoid reviving old public labels such as Business Command Intelligence, Market Command Intelligence, Search Presence OS, Visibility Blueprint, Presence Infrastructure, Presence Command, View Pricing, Deep Review, Build Fix, Ongoing Control, or Start Search Presence Scan in active public surfaces.
