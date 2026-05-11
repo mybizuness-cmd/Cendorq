@@ -19,16 +19,16 @@ const THEME_COLOR = "#ffffff";
 
 const KNOWLEDGE_AREAS = [
   "AI engine readiness",
+  "AI readiness for business",
   "AI search visibility",
   "AI answer visibility",
   "Business clarity",
   "Business trust signals",
   "Answer engine visibility",
-  "Market Command Intelligence",
   "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ] as const;
 
 const LAYER_CATALOG = [
@@ -38,19 +38,19 @@ const LAYER_CATALOG = [
     description: "First-read scan that helps a business see where AI engines and customers may misunderstand, distrust, or skip it.",
   },
   {
-    name: "Diagnose",
+    name: "Review",
     path: "/plans/deep-review",
-    description: "Cause-level review of the signals weakening business clarity, proof, visibility, and customer choice.",
+    description: "Cause-level AI readiness review of the signals weakening business clarity, proof, visibility, and customer choice.",
   },
   {
-    name: "Fix",
+    name: "Repair",
     path: "/plans/build-fix",
-    description: "Focused improvement layer for the clearest weak point after evidence shows what matters most.",
+    description: "Focused signal repair for the clearest weak point after evidence shows what matters most.",
   },
   {
     name: "Control",
     path: "/plans/ongoing-control",
-    description: "Recurring control layer to keep AI readiness, trust signals, proof, and action paths from drifting.",
+    description: "Recurring readiness control that keeps AI readiness, trust signals, proof, and action paths from drifting.",
   },
 ] as const;
 
@@ -71,12 +71,12 @@ export const metadata: Metadata = {
     "AI answer visibility",
     "answer engine visibility",
     "business clarity scan",
-    "business trust scan",
-    "market command intelligence",
+    "business trust signals",
     "free business scan",
-    "deep review",
-    "build fix",
-    "ongoing control",
+    "free scan",
+    "AI readiness review",
+    "signal repair",
+    "readiness control",
   ],
   authors: [{ name: siteConfig.legalName || siteConfig.name }],
   creator: siteConfig.name,
@@ -168,9 +168,9 @@ function buildStructuredData() {
     areaServed: "Worldwide",
     provider: { "@id": ORGANIZATION_ID },
     brand: { "@id": ORGANIZATION_ID },
-    serviceType: "AI engine readiness and market command intelligence",
+    serviceType: "AI engine readiness and business signal improvement",
     termsOfService: absoluteUrl("/terms"),
-    hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq Command Path", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
+    hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq Readiness Path", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
   };
   return [organization, website, service] as const;
 }
