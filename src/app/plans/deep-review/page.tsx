@@ -3,18 +3,18 @@ import { buildBreadcrumbJsonLd, buildMetadata, buildServiceJsonLd, buildWebPageJ
 import { DEEP_REVIEW_PLAN } from "../plan-data";
 
 export const metadata = buildMetadata({
-  title: "Deep Review | Cendorq",
+  title: "AI Readiness Review | Cendorq",
   description:
-    "Deep Review turns customer hesitation into an evidence-led diagnosis before the business spends deeper.",
+    "AI Readiness Review gives evidence on why AI engines and customers may not understand, trust, or choose the business yet.",
   path: "/plans/deep-review",
-  keywords: ["cendorq deep review", "business diagnosis", "visibility review", "trust and clarity review"],
-  image: { alt: "Cendorq Deep Review command diagnosis page." },
+  keywords: ["cendorq AI Readiness Review", "AI readiness review", "business clarity review", "trust and proof review"],
+  image: { alt: "Cendorq AI Readiness Review page." },
 });
 
 export default function DeepReviewPage() {
-  const webPageJsonLd = buildWebPageJsonLd({ title: "Cendorq Deep Review", description: DEEP_REVIEW_PLAN.intro, path: "/plans/deep-review" });
-  const serviceJsonLd = buildServiceJsonLd({ title: "Cendorq Deep Review", description: DEEP_REVIEW_PLAN.intro, path: "/plans/deep-review", serviceType: "Business command diagnosis" });
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Plans", path: "/plans" }, { name: "Deep Review", path: "/plans/deep-review" }]);
+  const webPageJsonLd = buildWebPageJsonLd({ title: "Cendorq AI Readiness Review", description: DEEP_REVIEW_PLAN.intro, path: "/plans/deep-review" });
+  const serviceJsonLd = buildServiceJsonLd({ title: "Cendorq AI Readiness Review", description: DEEP_REVIEW_PLAN.intro, path: "/plans/deep-review", serviceType: "AI-readiness review" });
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Plans", path: "/plans" }, { name: "AI Readiness Review", path: "/plans/deep-review" }]);
 
   return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} /><ConversionPlanPage data={DEEP_REVIEW_PLAN} /></>;
 }
