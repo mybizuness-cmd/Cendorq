@@ -13,6 +13,11 @@ const activePublicFiles = [
   "src/app/plans/build-fix/page.tsx",
   "src/app/plans/ongoing-control/page.tsx",
   "src/components/plans/conversion-plan-page.tsx",
+  "src/app/login/page.tsx",
+  "src/app/signup/page.tsx",
+  "src/app/privacy/page.tsx",
+  "src/app/terms/page.tsx",
+  "src/app/disclaimer/page.tsx",
   "src/layout/site-header.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
@@ -39,6 +44,8 @@ const forbiddenActiveLanguage = [
   "Presence Infrastructure",
   "Presence Command",
   "Market Command Intelligence",
+  "Market command terms",
+  "Market command intelligence disclaimer",
   "Deep Review is",
   "Build Fix is",
   "Ongoing Control is",
@@ -54,10 +61,10 @@ const forbiddenActiveLanguage = [
   "Dashboard result preview",
   "A signal you can actually use",
   "Business seen by customers",
-  "First read",
   "Cause proof",
   "Focused change",
   "Monthly watch",
+  "Open dashboard support",
 ];
 
 const forbiddenActiveRoutes = [
@@ -99,6 +106,7 @@ expect("src/app/page.tsx", [
   "AI Readiness Review",
   "Signal Repair",
   "Readiness Control",
+  "text-[clamp(3rem,6.8vw,6.65rem)]",
 ]);
 
 expect("src/app/free-check/page.tsx", [
@@ -134,6 +142,7 @@ expect("src/components/plans/conversion-plan-page.tsx", [
   "AI Readiness Review $497",
   "Signal Repair $1,497",
   "Readiness Control $597/mo",
+  "text-[clamp(3rem,6vw,6.15rem)]",
 ]);
 
 expect("src/layout/site-header-conversion.tsx", [
@@ -141,6 +150,47 @@ expect("src/layout/site-header-conversion.tsx", [
   "label: \"Plans\"",
   "Sign in",
   "Start Free Scan",
+  "lg:hidden",
+  "No dropdown",
+]);
+
+expect("src/app/login/page.tsx", [
+  "Account access",
+  "Return to the customer workspace without starting over.",
+  "Sign in restores account access; it does not replace the business Free Scan intake.",
+  "OAuth provider buttons require a real auth backend before they are displayed.",
+  "text-[clamp(3rem,6vw,6.15rem)]",
+]);
+
+expect("src/app/signup/page.tsx", [
+  "Create access without confusing identity with business context.",
+  "Start with the Free Scan when the business has not been captured yet.",
+  "No fake Google, Microsoft, Apple, passkey, or provider buttons before backend support exists.",
+  "OAuth provider buttons require a real auth backend before they are displayed.",
+  "text-[clamp(3rem,6vw,6.15rem)]",
+]);
+
+expect("src/app/privacy/page.tsx", [
+  "Trust starts with knowing what data belongs in the system.",
+  "Free Scan, AI Readiness Review, Signal Repair, and Readiness Control stay tied to their scope.",
+  "Sign in for support",
+  "Start Free Scan",
+]);
+
+expect("src/app/terms/page.tsx", [
+  "Clear rules keep the customer path impossible to confuse.",
+  "One service depth does not silently include another service depth's work.",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "Sign in for support",
+]);
+
+expect("src/app/disclaimer/page.tsx", [
+  "Strong guidance works best when the limits are clear.",
+  "No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment.",
+  "Use each service for the decision it was built to support.",
+  "Sign in for support",
 ]);
 
 expect("src/lib/pricing-checkout-orchestration.ts", [
@@ -158,7 +208,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, preserved internal checkout keys, and no stale public plan clutter.");
+console.log("Public drift validation passed with AI Engine Readiness naming, clean public pages, visible header navigation, auth/access separation, preserved internal checkout keys, and no stale public plan clutter.");
 
 function expect(path, phrases) {
   const text = read(path);
