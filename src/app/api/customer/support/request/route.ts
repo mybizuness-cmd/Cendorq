@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { randomUUID } from "node:crypto";
 import path from "node:path";
 
+import { CENDORQ_WORK_START_GATES, type CendorqWorkStartGateKey } from "@/lib/cendorq-work-start-intake-gates";
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, type CustomerSupportIntakeType } from "@/lib/customer-support-intake-architecture";
 import { cleanGatewayString, jsonNoStore, optionsNoStore, verifyAdminReadAccess } from "@/lib/customer-access-gateway-runtime";
 import { requireCustomerSession } from "@/lib/customer-session-auth-runtime";
@@ -17,6 +18,11 @@ type StoredSupportRequest = {
   customerIdHash: string;
   businessContext: string;
   requestType: CustomerSupportIntakeType;
+  workStartGate: CendorqWorkStartGateKey;
+  workStartPlanKey: string;
+  workStartRequiredBeforeQueue: string[];
+  workStartBackendStartRule: string;
+  workStartBlockedPattern: string;
   safeDescription: string;
   safeSummary: string;
   decision: SupportRiskDecision;
@@ -64,9 +70,11 @@ export async function GET(request: NextRequest) {
     const limit = clampInteger(request.nextUrl.searchParams.get("limit"), 1, MAX_GET_LIMIT, 50);
     const requestType = normalizeRequestType(request.nextUrl.searchParams.get("requestType"));
     const decision = normalizeDecision(request.nextUrl.searchParams.get("decision"));
+    const workStartGate = normalizeWorkStartGate(request.nextUrl.searchParams.get("workStartGate"));
     const entries = envelope.entries
       .filter((entry) => (requestType ? entry.requestType === requestType : true))
       .filter((entry) => (decision ? entry.decision === decision : true))
+      .filter((entry) => (workStartGate ? entry.workStartGate === workStartGate : true))
       .slice(0, limit)
       .map(projectEntryForConsole);
 
@@ -113,16 +121,19 @@ export async function POST(request: NextRequest) {
   const flow = CUSTOMER_SUPPORT_INTAKE_FLOWS.find((candidate) => candidate.key === requestType);
   if (!flow) return jsonNoStore({ ok: false, error: "The support request flow is not configured.", details: ["Choose a supported support path and try again."] }, 400);
 
+  const workStartGateKey = normalizeWorkStartGate(payload.workStartGate) || "review-intake";
+  const workStartGate = getWorkStartGate(workStartGateKey);
   const businessContext = cleanString(payload.businessContext, 160);
   const safeDescription = cleanString(payload.safeDescription, 1400);
   const acknowledgement = payload.customerAcknowledgement === true;
   const fieldErrors: Record<string, string> = {};
   if (!businessContext) fieldErrors.businessContext = "Business or account context is required.";
   if (!safeDescription || safeDescription.length < 20) fieldErrors.safeDescription = "A safe support description of at least 20 characters is required.";
+  if (!workStartGate) fieldErrors.workStartGate = "Choose whether this is review intake, repair prerequisite context, or control baseline context.";
   if (!acknowledgement) fieldErrors.customerAcknowledgement = "Safety acknowledgement is required before support intake.";
   if (Object.keys(fieldErrors).length) return jsonNoStore({ ok: false, error: "The support request needs a stronger safe summary before it can be accepted.", fieldErrors }, 400);
 
-  const risk = evaluateSupportRisk([businessContext, safeDescription].join(" "), requestType);
+  const risk = evaluateSupportRisk([businessContext, safeDescription, workStartGate.customerTitle].join(" "), requestType);
   if (risk.decision === "block") return jsonNoStore({ ok: false, error: risk.customerMessage, details: risk.details }, 400);
 
   const now = new Date().toISOString();
@@ -131,8 +142,13 @@ export async function POST(request: NextRequest) {
     customerIdHash: sessionAccess.customerIdHash,
     businessContext,
     requestType,
+    workStartGate: workStartGate.key,
+    workStartPlanKey: workStartGate.planKey,
+    workStartRequiredBeforeQueue: [...workStartGate.requiredBeforeQueue],
+    workStartBackendStartRule: workStartGate.backendStartRule,
+    workStartBlockedPattern: workStartGate.blockedPattern,
     safeDescription,
-    safeSummary: buildSafeSummary({ requestType, businessContext, safeDescription }),
+    safeSummary: buildSafeSummary({ requestType, businessContext, safeDescription, workStartGate: workStartGate.customerTitle }),
     decision: risk.decision,
     riskFlags: risk.riskFlags,
     sourceRoute: "/dashboard/support/request",
@@ -142,15 +158,15 @@ export async function POST(request: NextRequest) {
     customerOwnershipRequired: true,
     supportAuditRequired: true,
     downstreamProcessingAllowed: risk.decision === "allow" || risk.decision === "sanitize",
-    operatorReviewRequired: risk.decision !== "allow" || requestType === "correction-request" || requestType === "security-concern" || requestType === "billing-help",
+    operatorReviewRequired: risk.decision !== "allow" || requestType === "correction-request" || requestType === "security-concern" || requestType === "billing-help" || workStartGate.key !== "review-intake",
   };
 
   try {
     const envelope = await loadEnvelope();
     envelope.entries.unshift(storedEntry);
-    envelope.entries.sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
+    envelope.entries.sort((left, right) => right.updatedAt.localeCompare(left));
     await saveEnvelope(envelope);
-    return jsonNoStore({ ok: true, supportRequestId: storedEntry.id, requestType, decision: storedEntry.decision, operatorReviewRequired: storedEntry.operatorReviewRequired, downstreamProcessingAllowed: storedEntry.downstreamProcessingAllowed, message: "The support request was captured with a safe summary and routed through the protected support path." }, 200);
+    return jsonNoStore({ ok: true, supportRequestId: storedEntry.id, requestType, workStartGate: storedEntry.workStartGate, workStartPlanKey: storedEntry.workStartPlanKey, decision: storedEntry.decision, operatorReviewRequired: storedEntry.operatorReviewRequired, downstreamProcessingAllowed: storedEntry.downstreamProcessingAllowed, message: "The support request was captured with a safe summary and routed through the protected Cendorq work-start gate." }, 200);
   } catch {
     return jsonNoStore({ ok: false, error: "The support request could not be stored cleanly.", details: ["The support request storage layer was not able to save the request right now."] }, 500);
   }
@@ -200,20 +216,27 @@ function evaluateSupportRisk(text: string, requestType: CustomerSupportIntakeTyp
   return { decision: "allow" as const, riskFlags, customerMessage: "The support request can be accepted.", details: [] };
 }
 
-function buildSafeSummary({ requestType, businessContext, safeDescription }: { requestType: CustomerSupportIntakeType; businessContext: string; safeDescription: string }) {
-  return [requestType, businessContext, safeDescription.slice(0, 420)].join(" | ");
+function buildSafeSummary({ requestType, businessContext, safeDescription, workStartGate }: { requestType: CustomerSupportIntakeType; businessContext: string; safeDescription: string; workStartGate: string }) {
+  return [requestType, workStartGate, businessContext, safeDescription.slice(0, 420)].join(" | ");
 }
 
 function normalizeStoredEntryFromUnknown(value: unknown) {
   if (!isRecord(value)) return null;
   const requestType = normalizeRequestType(value.requestType);
   if (!requestType) return null;
+  const workStartGateKey = normalizeWorkStartGate(value.workStartGate) || "review-intake";
+  const workStartGate = getWorkStartGate(workStartGateKey) || CENDORQ_WORK_START_GATES[0];
   const now = new Date().toISOString();
   return {
     id: cleanString(value.id, 120) || randomUUID(),
     customerIdHash: cleanString(value.customerIdHash, 120),
     businessContext: cleanString(value.businessContext, 160),
     requestType,
+    workStartGate: workStartGate.key,
+    workStartPlanKey: workStartGate.planKey,
+    workStartRequiredBeforeQueue: normalizeStringArray(value.workStartRequiredBeforeQueue, 120).length ? normalizeStringArray(value.workStartRequiredBeforeQueue, 120) : [...workStartGate.requiredBeforeQueue],
+    workStartBackendStartRule: cleanString(value.workStartBackendStartRule, 300) || workStartGate.backendStartRule,
+    workStartBlockedPattern: cleanString(value.workStartBlockedPattern, 220) || workStartGate.blockedPattern,
     safeDescription: cleanString(value.safeDescription, 1400),
     safeSummary: cleanString(value.safeSummary, 600),
     decision: normalizeDecision(value.decision) || "allow",
@@ -240,6 +263,14 @@ function projectEntryForConsole(entry: StoredSupportRequest): SupportRequestView
 
 function normalizeRequestType(value: unknown): CustomerSupportIntakeType | null {
   return typeof value === "string" && SUPPORT_REQUEST_TYPES.includes(value as CustomerSupportIntakeType) ? (value as CustomerSupportIntakeType) : null;
+}
+
+function normalizeWorkStartGate(value: unknown): CendorqWorkStartGateKey | null {
+  return typeof value === "string" && CENDORQ_WORK_START_GATES.some((gate) => gate.key === value) ? (value as CendorqWorkStartGateKey) : null;
+}
+
+function getWorkStartGate(key: CendorqWorkStartGateKey) {
+  return CENDORQ_WORK_START_GATES.find((gate) => gate.key === key);
 }
 
 function normalizeDecision(value: unknown): SupportRiskDecision | null {
