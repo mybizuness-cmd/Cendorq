@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { randomUUID } from "node:crypto";
 import path from "node:path";
 
+import { CENDORQ_WORK_START_GATES, type CendorqWorkStartGate, type CendorqWorkStartGateKey } from "@/lib/cendorq-work-start-intake-gates";
 import { jsonNoStore, optionsNoStore, cleanGatewayString } from "@/lib/customer-access-gateway-runtime";
 import { requireCustomerSession } from "@/lib/customer-session-auth-runtime";
 import { buildSupportLifecycleCommunicationPlan, projectSupportLifecycleCommunicationPlan } from "@/lib/customer-support-lifecycle-communication-runtime";
@@ -18,6 +19,11 @@ type StoredSupportRequest = {
   id: string;
   businessContext: string;
   requestType: CustomerSupportStatusRequestType;
+  workStartGate: CendorqWorkStartGateKey;
+  workStartPlanKey: string;
+  workStartRequiredBeforeQueue: string[];
+  workStartBackendStartRule: string;
+  workStartBlockedPattern: string;
   safeDescription: string;
   safeSummary: string;
   decision: SupportRiskDecision;
@@ -37,6 +43,13 @@ type SupportStatusEnvelope = FileBackedEnvelope<StoredSupportRequest>;
 type CustomerSupportStatusView = {
   supportRequestId: string;
   requestType: CustomerSupportStatusRequestType;
+  workStartGate: CendorqWorkStartGateKey;
+  workStartPlanKey: string;
+  workStartGateTitle: string;
+  workStartCustomerAction: string;
+  workStartRequiredBeforeQueue: string[];
+  workStartBackendStartRule: string;
+  workStartBlockedPattern: string;
   businessContext: string;
   safeSummary: string;
   customerVisibleStatus: CustomerSupportCustomerVisibleStatus;
@@ -72,6 +85,7 @@ export async function GET(request: NextRequest) {
     const envelope = await loadEnvelope();
     const requestedId = cleanGatewayString(request.nextUrl.searchParams.get("id") ?? "", 120);
     const requestType = normalizeRequestType(request.nextUrl.searchParams.get("requestType"));
+    const workStartGate = normalizeWorkStartGate(request.nextUrl.searchParams.get("workStartGate"));
     const limit = clampInteger(request.nextUrl.searchParams.get("limit"), 1, MAX_GET_LIMIT, 20);
 
     const ownedEntries = envelope.entries.filter((entry) => entry.customerIdHash === sessionAccess.customerIdHash);
@@ -87,6 +101,7 @@ export async function GET(request: NextRequest) {
 
     const entries = ownedEntries
       .filter((entry) => (requestType ? entry.requestType === requestType : true))
+      .filter((entry) => (workStartGate ? entry.workStartGate === workStartGate : true))
       .slice(0, limit)
       .map(projectSupportStatus);
 
@@ -110,6 +125,8 @@ function normalizeStoredEntryFromUnknown(value: unknown) {
   if (!isRecord(value)) return null;
   const requestType = normalizeRequestType(value.requestType);
   if (!requestType) return null;
+  const workStartGateKey = normalizeWorkStartGate(value.workStartGate) || "review-intake";
+  const workStartGate = getWorkStartGate(workStartGateKey);
   const now = new Date().toISOString();
 
   return {
@@ -117,6 +134,11 @@ function normalizeStoredEntryFromUnknown(value: unknown) {
     [CUSTOMER_ID_HASH_FIELD]: cleanString(value.customerIdHash, 120),
     businessContext: cleanString(value.businessContext, 160),
     requestType,
+    workStartGate: workStartGate.key,
+    workStartPlanKey: cleanString(value.workStartPlanKey, 80) || workStartGate.planKey,
+    workStartRequiredBeforeQueue: normalizeStringArray(value.workStartRequiredBeforeQueue, 120).length ? normalizeStringArray(value.workStartRequiredBeforeQueue, 120) : [...workStartGate.requiredBeforeQueue],
+    workStartBackendStartRule: cleanString(value.workStartBackendStartRule, 300) || workStartGate.backendStartRule,
+    workStartBlockedPattern: cleanString(value.workStartBlockedPattern, 220) || workStartGate.blockedPattern,
     safeDescription: cleanString(value.safeDescription, 1400),
     safeSummary: cleanString(value.safeSummary, 600),
     decision: normalizeDecision(value.decision) || "allow",
@@ -135,6 +157,7 @@ function normalizeStoredEntryFromUnknown(value: unknown) {
 function projectSupportStatus(entry: StoredSupportRequest): CustomerSupportStatusView {
   const customerVisibleStatus = mapCustomerVisibleStatus(entry);
   const statusContract = CUSTOMER_SUPPORT_STATUS_CONTRACTS.find((candidate) => candidate.key === customerVisibleStatus) ?? CUSTOMER_SUPPORT_STATUS_CONTRACTS[0];
+  const gate = getWorkStartGate(entry.workStartGate);
   const communicationPlan = projectSupportLifecycleCommunicationPlan(
     buildSupportLifecycleCommunicationPlan({
       supportRequestId: entry.id,
@@ -148,6 +171,13 @@ function projectSupportStatus(entry: StoredSupportRequest): CustomerSupportStatu
   return {
     supportRequestId: entry.id,
     requestType: entry.requestType,
+    workStartGate: entry.workStartGate,
+    workStartPlanKey: entry.workStartPlanKey || gate.planKey,
+    workStartGateTitle: gate.customerTitle,
+    workStartCustomerAction: gate.customerSafeAction,
+    workStartRequiredBeforeQueue: entry.workStartRequiredBeforeQueue.length ? entry.workStartRequiredBeforeQueue : [...gate.requiredBeforeQueue],
+    workStartBackendStartRule: entry.workStartBackendStartRule || gate.backendStartRule,
+    workStartBlockedPattern: entry.workStartBlockedPattern || gate.blockedPattern,
     businessContext: entry.businessContext,
     safeSummary: entry.safeSummary,
     customerVisibleStatus,
@@ -177,6 +207,14 @@ function sortStoredEntriesByUpdatedAt(entries: StoredSupportRequest[]) {
 
 function normalizeRequestType(value: unknown): CustomerSupportStatusRequestType | null {
   return typeof value === "string" && SUPPORT_REQUEST_TYPES.includes(value as CustomerSupportStatusRequestType) ? (value as CustomerSupportStatusRequestType) : null;
+}
+
+function normalizeWorkStartGate(value: unknown): CendorqWorkStartGateKey | null {
+  return typeof value === "string" && CENDORQ_WORK_START_GATES.some((gate) => gate.key === value) ? (value as CendorqWorkStartGateKey) : null;
+}
+
+function getWorkStartGate(key: CendorqWorkStartGateKey): CendorqWorkStartGate {
+  return CENDORQ_WORK_START_GATES.find((gate) => gate.key === key) ?? CENDORQ_WORK_START_GATES[0];
 }
 
 function normalizeDecision(value: unknown): SupportRiskDecision | null {
