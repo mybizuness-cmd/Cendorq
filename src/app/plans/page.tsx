@@ -14,9 +14,16 @@ export const metadata = buildMetadata({
 
 const CTA_LABEL_BY_PLAN: Record<CendorqPlanKey, string> = {
   "free-scan": "Start Free Scan",
-  "deep-review": "Start AI Readiness Review",
-  "build-fix": "Start Signal Repair",
-  "ongoing-control": "Start Readiness Control",
+  "deep-review": "Start review checkout",
+  "build-fix": "Start repair checkout",
+  "ongoing-control": "Start control checkout",
+};
+
+const DETAIL_LABEL_BY_PLAN: Record<CendorqPlanKey, string> = {
+  "free-scan": "Open Free Scan",
+  "deep-review": "View review details",
+  "build-fix": "View repair details",
+  "ongoing-control": "View control details",
 };
 
 const STAGE_BY_PLAN: Record<CendorqPlanKey, string> = {
@@ -43,7 +50,9 @@ const PLAN_ROUTE_BY_KEY: Record<CendorqPlanKey, string> = {
 const PLAN_CARDS = CENDORQ_PLAN_PRICES.map((plan) => ({
   ...plan,
   href: PLAN_ROUTE_BY_KEY[plan.key],
+  actionHref: plan.checkoutPath,
   cta: CTA_LABEL_BY_PLAN[plan.key],
+  detailCta: DETAIL_LABEL_BY_PLAN[plan.key],
   stage: STAGE_BY_PLAN[plan.key],
   purpose: PURPOSE_BY_PLAN[plan.key],
 }));
@@ -82,33 +91,36 @@ export default function PlansPage() {
               Choose the right AI-readiness depth.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Start with a first signal. Move deeper only when the evidence supports it.
+              Start free when the first signal is unclear. When you already know the right paid depth, go straight to checkout confirmation.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
                 Start Free Scan
               </Link>
-              <Link href="/plans/deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
-                See AI Readiness Review
+              <Link href="/checkout/start?plan=deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
+                Start review checkout
               </Link>
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/70 p-3 shadow-[0_34px_120px_rgba(15,23,42,0.12)] backdrop-blur-2xl">
-            <div className="rounded-[2.2rem] border border-slate-200 bg-[linear-gradient(145deg,#ffffff,#f7fcff_55%,#ffffff)] p-3 sm:p-4">
+          <div className="overflow-hidden rounded-[2.4rem] border border-white/80 bg-white/70 p-3 shadow-[0_30px_100px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:rounded-[2.7rem]">
+            <div className="rounded-[1.9rem] border border-slate-200 bg-[linear-gradient(145deg,#ffffff,#f7fcff_55%,#ffffff)] p-3 sm:rounded-[2.2rem] sm:p-4">
               <div className="grid gap-3 lg:grid-cols-2">
                 {PLAN_CARDS.map((plan, index) => (
-                  <Link key={plan.key} href={plan.href} className={index === 1 ? "group rounded-[1.8rem] border border-cyan-200 bg-cyan-50/80 p-5 shadow-[0_18px_60px_rgba(14,165,233,0.12)] transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2" : "group rounded-[1.8rem] border border-slate-200 bg-white/88 p-5 shadow-[0_16px_50px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2"}>
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">{plan.stage}</p>
-                        <h2 className="mt-3 text-3xl font-semibold tracking-[-0.06em] text-slate-950">{plan.name}</h2>
-                      </div>
-                      <div className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-bold text-slate-950 shadow-sm">{plan.price}</div>
-                    </div>
+                  <article key={plan.key} className={index === 1 ? "rounded-[1.6rem] border border-cyan-200 bg-cyan-50/80 p-5 shadow-[0_16px_48px_rgba(14,165,233,0.1)] sm:rounded-[1.8rem]" : "rounded-[1.6rem] border border-slate-200 bg-white/88 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.05)] sm:rounded-[1.8rem]"}>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">{plan.stage}</p>
+                    <h2 className="mt-3 text-3xl font-semibold tracking-[-0.06em] text-slate-950">{plan.name}</h2>
+                    <p className="mt-2 text-base font-bold text-slate-950">{plan.price} <span className="text-sm font-semibold text-slate-500">{plan.cadence}</span></p>
                     <p className="mt-4 min-h-[4.25rem] text-sm font-medium leading-7 text-slate-600">{plan.purpose}</p>
-                    <span className="mt-5 inline-flex text-sm font-bold text-slate-500 transition group-hover:text-slate-950">{plan.cta} →</span>
-                  </Link>
+                    <div className="mt-5 grid gap-2">
+                      <Link href={plan.actionHref} className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
+                        {plan.cta}
+                      </Link>
+                      <Link href={plan.href} className="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
+                        {plan.detailCta}
+                      </Link>
+                    </div>
+                  </article>
                 ))}
               </div>
             </div>
@@ -127,7 +139,7 @@ export default function PlansPage() {
                   Each plan is a deeper layer of the same system.
                 </h2>
                 <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-200">
-                  The customer should not have to decode a pricing table. Cendorq shows the safer next depth based on how much evidence the business already has.
+                  The customer should not have to decode a pricing table. Start free when the first signal is unclear; use checkout when the right paid depth is already obvious.
                 </p>
               </div>
             </div>
@@ -163,7 +175,7 @@ export default function PlansPage() {
       </section>
 
       <section className="sr-only" aria-label="AI readiness plans guardrails">
-        Plans. Choose the right AI-readiness depth. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. No guaranteed rankings, leads, revenue, or AI placement. Premium laptop plans hero scale. Unified Cendorq Experience System. Readiness path system panel. No standalone generic decision card row.
+        Plans. Choose the right AI-readiness depth. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. Start review checkout. Start repair checkout. Start control checkout. View review details. View repair details. View control details. No guaranteed rankings, leads, revenue, or AI placement. Premium laptop plans hero scale. Unified Cendorq Experience System. Readiness path system panel. No standalone generic decision card row. Shorter checkout path from plans to checkout confirmation.
       </section>
     </main>
   );
