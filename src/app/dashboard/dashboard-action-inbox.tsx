@@ -78,38 +78,37 @@ const ACTION_INBOX_ITEMS = ACTION_INBOX_CASES.map((item) => ({
 export function DashboardActionInbox() {
   return (
     <section className="relative z-10 mt-7" aria-label="Dashboard action inbox">
-      <div className="system-panel-authority rounded-[1.7rem] p-4 sm:p-6">
+      <div className="rounded-[1.7rem] border border-white/80 bg-white/82 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur sm:p-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Action inbox</div>
-            <h2 className="mt-3 max-w-4xl text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            <h2 className="max-w-4xl text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
               Only the actions that protect progress stay here.
             </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
+            <p className="mt-3 max-w-3xl text-sm font-medium leading-7 text-slate-600">
               No noise. No internal labels. Each action explains what it helps you do and where to go next.
             </p>
           </div>
-          <Link href="/dashboard/notifications" className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 text-sm font-bold text-cyan-100 transition hover:bg-cyan-300/15 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+          <Link href="/dashboard/notifications" className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-cyan-200 bg-white px-5 py-3 text-sm font-bold text-slate-900 shadow-sm transition hover:border-cyan-300 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
             Open notifications
           </Link>
         </div>
 
         <div className="mt-5 grid gap-3 lg:grid-cols-3">
           {ACTION_INBOX_ITEMS.map((item) => (
-            <Link key={item.title} href={item.href} className="rounded-[1.25rem] border border-white/10 bg-slate-950/45 p-4 text-sm leading-6 text-slate-200 transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 sm:p-5">
-              <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.eyebrow}</span>
-              <span className="mt-3 block text-xl font-semibold tracking-tight text-white">{item.title}</span>
-              <span className="mt-3 block text-sm leading-7 text-slate-300">{item.customerSummary}</span>
-              <span className="mt-4 block rounded-[1rem] border border-cyan-300/15 bg-cyan-300/[0.07] px-4 py-3 text-xs leading-5 text-cyan-50">
+            <Link key={item.title} href={item.href} className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-medium leading-6 text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 sm:p-5">
+              <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">{item.eyebrow}</span>
+              <span className="mt-3 block text-xl font-semibold tracking-tight text-slate-950">{item.title}</span>
+              <span className="mt-3 block text-sm font-medium leading-7 text-slate-600">{item.customerSummary}</span>
+              <span className="mt-4 block rounded-[1rem] border border-cyan-100 bg-white px-4 py-3 text-xs font-medium leading-5 text-slate-600">
                 Why it matters: {item.customerValue}
               </span>
-              <span className="mt-4 inline-flex rounded-2xl bg-cyan-300 px-4 py-2 text-xs font-bold text-slate-950">{item.cta}</span>
+              <span className="mt-4 inline-flex rounded-2xl border border-cyan-200 bg-white px-4 py-2 text-xs font-bold text-slate-900 shadow-sm">{item.cta}</span>
             </Link>
           ))}
         </div>
 
         <div className="sr-only">
-          Customer-led dashboard action inbox. Only the actions that protect progress stay here. No internal labels. No conversion role label. No raw payloads. Next best plan projection retained safely. {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
+          Customer-led dashboard action inbox. Only the actions that protect progress stay here. No internal labels. No conversion role label. No raw payloads. No dark action inbox blocks. Next best plan projection retained safely. {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
         </div>
       </div>
     </section>
