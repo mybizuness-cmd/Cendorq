@@ -1,9 +1,9 @@
 export const CENDORQ_EXPERIENCE_SYSTEM = {
-  pageShell: "min-h-screen overflow-hidden bg-slate-50 text-slate-950",
-  atmosphericShell: "relative overflow-hidden bg-gradient-to-b from-white via-sky-50 to-slate-50",
+  pageShell: "min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950",
+  atmosphericShell: "relative overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)]",
   maxWidth: "mx-auto max-w-7xl",
   heroGrid: "relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center",
-  eyebrow: "inline-flex rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 shadow-sm backdrop-blur",
+  eyebrow: "inline-flex rounded-full border border-white/80 bg-white/78 px-4 py-2 text-xs font-semibold text-slate-500 shadow-sm backdrop-blur",
   heroHeadline: "text-[clamp(3.05rem,14vw,6.35rem)] font-semibold leading-[0.88] tracking-[-0.084em] text-slate-950 sm:text-[clamp(3.4rem,8vw,6.35rem)] lg:text-[clamp(3.4rem,6.25vw,6.35rem)]",
   pageHeadline: "text-[clamp(2.85rem,12vw,5.9rem)] font-semibold leading-[0.92] tracking-[-0.078em] text-slate-950 sm:text-[clamp(3.1rem,7vw,5.9rem)] lg:text-[clamp(3rem,5.8vw,5.9rem)]",
   sectionHeadline: "text-[clamp(2.45rem,10vw,5.2rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950 sm:text-[clamp(2.8rem,6vw,5.2rem)] lg:text-[clamp(2.6rem,4.8vw,5.2rem)]",
@@ -13,12 +13,12 @@ export const CENDORQ_EXPERIENCE_SYSTEM = {
   mutedText: "text-sm font-medium leading-7 text-slate-500",
   mobileActionRow: "grid gap-3 sm:flex sm:flex-row",
   mobileTouchButton: "min-h-14 w-full sm:w-auto",
-  primaryButton: "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 active:translate-y-0 sm:w-auto",
-  secondaryButton: "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white/70 px-8 py-4 text-base font-semibold text-slate-700 shadow-sm backdrop-blur transition duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 active:translate-y-0 sm:w-auto",
+  primaryButton: "inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[0_16px_42px_rgba(14,165,233,0.13)] transition duration-200 hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 active:translate-y-0 sm:w-auto",
+  secondaryButton: "inline-flex min-h-14 items-center justify-center rounded-full border border-white/80 bg-white/70 px-8 py-4 text-base font-semibold text-slate-700 shadow-sm backdrop-blur transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-white hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 active:translate-y-0 sm:w-auto",
   glassPanel: "rounded-[2.2rem] border border-white/80 bg-white/70 p-2.5 shadow-2xl backdrop-blur-2xl sm:rounded-[3rem] sm:p-3",
-  whitePanel: "rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl sm:rounded-[2.5rem] sm:p-8",
-  darkPanel: "rounded-[2.25rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-2xl sm:rounded-[3rem] sm:p-8 lg:p-12",
-  card: "rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-lg transition duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 active:translate-y-0 sm:rounded-[1.85rem]",
+  whitePanel: "rounded-[2rem] border border-white/80 bg-white/82 p-5 shadow-xl backdrop-blur sm:rounded-[2.5rem] sm:p-8",
+  darkPanel: "rounded-[2.25rem] border border-cyan-100 bg-white/86 p-5 text-slate-950 shadow-2xl backdrop-blur sm:rounded-[3rem] sm:p-8 lg:p-12",
+  card: "rounded-[1.6rem] border border-white/80 bg-white/82 p-5 shadow-lg backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 active:translate-y-0 sm:rounded-[1.85rem]",
 } as const;
 
 export const CENDORQ_TYPOGRAPHY_STANDARD = {

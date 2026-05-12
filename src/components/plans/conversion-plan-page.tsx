@@ -66,12 +66,11 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
 
   return (
     <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
-      <section className="relative overflow-hidden px-5 py-10 sm:px-8 lg:py-12 xl:py-16">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
-        <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-8 lg:min-h-[min(42rem,calc(100vh-4.25rem))] lg:grid-cols-[0.82fr_1.18fr] lg:items-center xl:min-h-[calc(100vh-4.25rem)]">
+      <section className="relative overflow-hidden px-5 py-8 sm:px-8 lg:py-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_0%,rgba(125,211,252,0.25),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
+        <div className="relative mx-auto grid max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
           <div>
-            <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>{data.eyebrow}</p>
-            <h1 className="mt-5 max-w-5xl text-[clamp(3rem,5.05vw,5.85rem)] font-semibold leading-[0.92] tracking-[-0.078em] text-slate-950 xl:text-[clamp(3.35rem,5.7vw,6.35rem)]">
+            <h1 className="max-w-5xl text-[clamp(2.8rem,5vw,5.6rem)] font-semibold leading-[0.92] tracking-[-0.078em] text-slate-950">
               {data.title}
               <span className="block text-cyan-500">{data.gradient}</span>
             </h1>
@@ -90,11 +89,11 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
             </div>
           </div>
 
-          <div className="rounded-[2.3rem] border border-white/80 bg-white/72 p-3 shadow-[0_28px_100px_rgba(15,23,42,0.11)] backdrop-blur-2xl">
-            <div className="rounded-[1.85rem] border border-slate-200 bg-white p-5 sm:rounded-[2.2rem] sm:p-7">
+          <div className="rounded-[2.3rem] border border-white/80 bg-white/72 p-3 shadow-[0_24px_80px_rgba(15,23,42,0.085)] backdrop-blur-2xl">
+            <div className="rounded-[1.85rem] border border-slate-200 bg-[linear-gradient(180deg,#ffffff,#f8fcff)] p-5 sm:rounded-[2.2rem] sm:p-7">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="text-sm font-bold uppercase tracking-[0.18em] text-slate-500">{plan.name}</p>
+                  <p className="text-sm font-bold text-slate-500">{plan.name}</p>
                   <div className="mt-2 text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">{plan.price}</div>
                   <div className="mt-2 text-sm font-semibold text-slate-500">{plan.cadence}</div>
                 </div>
@@ -102,14 +101,14 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
                   Review all plans →
                 </Link>
               </div>
-              <div className="mt-6 rounded-[1.45rem] border border-slate-200 bg-slate-50 p-5">
+              <div className="mt-6 rounded-[1.45rem] border border-cyan-100 bg-cyan-50/60 p-5">
                 <h2 className="text-2xl font-semibold tracking-[-0.045em] text-slate-950">What this helps you decide</h2>
                 <p className={`mt-3 ${CENDORQ_EXPERIENCE_SYSTEM.supportText}`}>{PLAN_NEXT_STEP[plan.key]}</p>
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {data.stats.slice(0, 4).map((item) => (
                   <div key={item.label} className="rounded-[1.25rem] border border-slate-200 bg-white p-4">
-                    <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">{item.label}</div>
+                    <div className="text-xs font-bold text-slate-500">{item.label}</div>
                     <p className="mt-2 text-sm font-semibold leading-6 text-slate-700">{item.value}</p>
                   </div>
                 ))}
@@ -119,42 +118,36 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="Customer problem this plan solves">
-        <div className="rounded-[2.25rem] border border-slate-200 bg-white p-6 shadow-[0_20px_70px_rgba(15,23,42,0.06)] sm:p-8">
-          <h2 className="max-w-4xl text-[clamp(2.45rem,4vw,4.6rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">{data.painTitle}</h2>
-          <p className={`mt-5 max-w-4xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>{data.painCopy}</p>
+      <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label="Customer problem this plan solves">
+        <div className="rounded-[2.25rem] border border-slate-200 bg-white/88 p-5 shadow-[0_16px_55px_rgba(15,23,42,0.045)] backdrop-blur sm:p-7">
+          <h2 className="max-w-4xl text-[clamp(2.2rem,4vw,4.2rem)] font-semibold leading-[0.99] tracking-[-0.065em] text-slate-950">{data.painTitle}</h2>
+          <p className={`mt-4 max-w-4xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>{data.painCopy}</p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="How this plan works">
-        <div className="overflow-hidden rounded-[3rem] border border-slate-200 bg-white shadow-[0_30px_110px_rgba(15,23,42,0.08)]">
-          <div className="grid gap-0 lg:grid-cols-[0.88fr_1.12fr]">
-            <div className="relative overflow-hidden border-b border-slate-200 bg-[linear-gradient(135deg,#020617,#172554_62%,#083344)] p-6 text-white sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(125,211,252,0.32),transparent_30%),radial-gradient(circle_at_82%_76%,rgba(99,102,241,0.24),transparent_34%)]" aria-hidden="true" />
-              <div className="relative">
-                <p className="text-sm font-bold text-cyan-200">Plan system</p>
-                <h2 className="mt-4 max-w-3xl text-[clamp(2.45rem,4.2vw,4.8rem)] font-semibold leading-[0.98] tracking-[-0.07em]">
-                  What this plan moves into focus.
-                </h2>
-                <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-200">
-                  Each plan detail page should help the customer understand the next safe depth without feeling like a stack of unrelated feature cards.
-                </p>
-              </div>
+      <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label="How this plan works">
+        <div className="overflow-hidden rounded-[2.25rem] border border-slate-200 bg-[radial-gradient(circle_at_20%_0%,rgba(125,211,252,0.16),transparent_34%),linear-gradient(180deg,#ffffff,#f8fcff)] p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] sm:p-7">
+          <div className="grid gap-4 lg:grid-cols-[0.7fr_1.3fr] lg:items-start">
+            <div>
+              <h2 className="max-w-3xl text-[clamp(2.2rem,4vw,4.2rem)] font-semibold leading-[0.99] tracking-[-0.065em] text-slate-950">
+                What this plan moves into focus.
+              </h2>
+              <p className="mt-4 max-w-2xl text-base font-medium leading-7 text-slate-600">
+                The goal is to choose the next safe depth, not to bury the customer in another dark block.
+              </p>
             </div>
 
-            <div className="relative bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-7 lg:p-8">
-              <div className="absolute left-12 top-10 hidden h-[calc(100%-5rem)] w-px bg-gradient-to-b from-cyan-200 via-slate-300 to-indigo-200 sm:block" aria-hidden="true" />
-              <div className="grid gap-3">
-                {visibleFeatures.map((item, index) => (
-                  <article key={item.title} className="relative grid gap-4 rounded-[1.8rem] border border-slate-200 bg-white/88 p-5 shadow-[0_14px_45px_rgba(15,23,42,0.055)] sm:grid-cols-[4rem_1fr] sm:items-start">
-                    <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-black text-slate-950 shadow-sm">{index + 1}</div>
-                    <div>
-                      <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.title}</h3>
-                      <p className={`mt-3 ${CENDORQ_EXPERIENCE_SYSTEM.supportText}`}>{item.copy}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
+            <div className="relative grid gap-3">
+              <div className="absolute left-7 top-7 hidden h-[calc(100%-3.5rem)] w-px bg-gradient-to-b from-cyan-200 via-slate-300 to-indigo-200 sm:block" aria-hidden="true" />
+              {visibleFeatures.map((item, index) => (
+                <article key={item.title} className="relative grid gap-4 rounded-[1.55rem] border border-slate-200 bg-white/88 p-4 shadow-[0_10px_32px_rgba(15,23,42,0.04)] sm:grid-cols-[3rem_1fr] sm:items-start">
+                  <div className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-cyan-100 bg-cyan-50 text-sm font-black text-slate-950 shadow-sm">{index + 1}</div>
+                  <div>
+                    <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.title}</h3>
+                    <p className={`mt-2 ${CENDORQ_EXPERIENCE_SYSTEM.supportText}`}>{item.copy}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </div>
@@ -166,7 +159,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
       </section>
 
       <section className="sr-only" aria-label="Plan guardrails">
-        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Premium plan detail hero scale. Responsive mobile-first plan detail page. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. Unified plan system panel. No standalone feature card grid. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
+        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Premium plan detail hero scale. Responsive mobile-first plan detail page. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. No heavy blue subpage block. No block description headers. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
       </section>
     </main>
   );
@@ -178,9 +171,9 @@ export function PlanOverviewPage() {
 
 function FitPanel({ title, items, muted = false }: { title: string; items: readonly string[]; muted?: boolean }) {
   return (
-    <section className={muted ? "rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-[0_14px_48px_rgba(15,23,42,0.045)]" : "rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.055)]"}>
+    <section className={muted ? "rounded-[2rem] border border-slate-200 bg-slate-50 p-5 shadow-[0_12px_40px_rgba(15,23,42,0.035)]" : "rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_14px_45px_rgba(15,23,42,0.045)]"}>
       <h2 className={CENDORQ_EXPERIENCE_SYSTEM.cardHeadline}>{title}</h2>
-      <div className="mt-5 grid gap-3">
+      <div className="mt-4 grid gap-3">
         {items.map((item) => (
           <div key={item} className="rounded-[1.25rem] border border-slate-200 bg-white px-4 py-4 text-sm font-semibold leading-7 text-slate-700">
             {item}
