@@ -135,7 +135,7 @@ function SignalMap() {
           </div>
 
           <div className="relative mx-auto mt-4 h-[17.5rem] w-full max-w-[20rem] sm:h-56 sm:max-w-none">
-            <div className="absolute left-1/2 top-1/2 flex h-22 w-22 -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-900 bg-slate-950 text-white shadow-[0_18px_56px_rgba(15,23,42,0.22)] sm:h-24 sm:w-24">
+            <div className="absolute left-1/2 top-1/2 flex h-[5.5rem] w-[5.5rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-900 bg-slate-950 text-white shadow-[0_18px_56px_rgba(15,23,42,0.22)] sm:h-24 sm:w-24">
               <div className="flex h-full w-full flex-col items-center justify-center text-center">
                 <span className="text-[8px] font-bold uppercase tracking-[0.17em] text-cyan-200 sm:text-[9px]">Cendorq</span>
                 <span className="mt-1 text-[11px] font-semibold sm:text-xs">Signal map</span>
@@ -150,7 +150,7 @@ function SignalMap() {
                 "right-0 bottom-2 sm:right-4 sm:bottom-3",
               ] as const;
               return (
-                <div key={stage.label} className={`absolute ${positions[index]} w-[8.05rem] rounded-[1.05rem] border border-white/90 bg-white/90 p-3 shadow-[0_12px_30px_rgba(15,23,42,0.08)] backdrop-blur sm:w-30`}>
+                <div key={stage.label} className={`absolute ${positions[index]} w-[8.05rem] rounded-[1.05rem] border border-white/90 bg-white/90 p-3 shadow-[0_12px_30px_rgba(15,23,42,0.08)] backdrop-blur sm:w-[7.5rem]`}>
                   <p className="text-[8px] font-black uppercase tracking-[0.19em] text-slate-500 sm:text-[9px]">{stage.label}</p>
                   <p className="mt-1 text-sm font-semibold leading-5 text-slate-950">{stage.name}</p>
                 </div>
