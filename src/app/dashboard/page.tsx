@@ -3,6 +3,7 @@ import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_GUARDRAILS } from "@/lib/cendorq-experience-system";
 import { CUSTOMER_PLATFORM_STAGES } from "@/lib/customer-platform-route-map";
 import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
+import { resolveCendorqCustomerJourney } from "@/lib/customer-journey-orchestrator";
 import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 import {
   getPlanValueDelivery,
@@ -35,6 +36,53 @@ const DASHBOARD_DECISION = [
   { label: "Next action", value: "Open the signal", detail: "Read the protected result before buying deeper review, repair, or ongoing control." },
   { label: "Unlocked now", value: "Scan layer", detail: "A first readiness signal with confidence, limitation, and next-action boundaries." },
   { label: "Not unlocked yet", value: "Deeper readiness", detail: "Review, Repair, and Control stay separate until the stage fits." },
+] as const;
+
+const JOURNEY_DECISIONS = [
+  {
+    label: "Current first action",
+    title: "Free Scan intake",
+    href: "/dashboard/reports/free-scan",
+    decision: resolveCendorqCustomerJourney({
+      purchasedPlan: "free-scan",
+      source: "dashboard",
+      completedEvidence: ["emailVerified", "businessProfileExists"],
+      completedIntake: ["business name"],
+    }),
+  },
+  {
+    label: "Paid review gate",
+    title: "AI Readiness Review",
+    href: "/dashboard/reports",
+    decision: resolveCendorqCustomerJourney({
+      purchasedPlan: "deep-review",
+      source: "dashboard",
+      completedEvidence: ["customerOwnershipVerified"],
+      completedIntake: ["business URL or main page"],
+    }),
+  },
+  {
+    label: "Repair protection",
+    title: "Signal Repair",
+    href: "/dashboard/support/request",
+    decision: resolveCendorqCustomerJourney({
+      purchasedPlan: "build-fix",
+      source: "dashboard",
+      completedEvidence: ["customerOwnershipVerified"],
+      completedIntake: ["repair target"],
+    }),
+  },
+  {
+    label: "Control baseline",
+    title: "Readiness Control",
+    href: "/dashboard/billing",
+    decision: resolveCendorqCustomerJourney({
+      purchasedPlan: "ongoing-control",
+      source: "dashboard",
+      completedEvidence: ["customerOwnershipVerified"],
+      completedIntake: ["monthly priority"],
+    }),
+  },
 ] as const;
 
 const CUSTOMER_COMMAND_PATH = [
@@ -154,6 +202,55 @@ export default function CustomerDashboardPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Cendorq journey resolver">
+        <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.95)_48%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
+          <div className="border-b border-white/10 p-6 sm:p-8 lg:p-10">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Journey resolver</p>
+            <div className="mt-4 grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">Cendorq decides what can start before work starts.</h2>
+              <p className="max-w-3xl text-base leading-8 text-slate-300">
+                Purchases unlock the correct workflow, but delivery only moves when ownership, intake, evidence, diagnosis, and approval fit the stage. This keeps Repair and Control from quietly becoming unpaid Review work.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-0 lg:grid-cols-4">
+            {JOURNEY_DECISIONS.map((item) => {
+              const blocked = item.decision.backendWorkState === "do-not-start";
+              const ready = item.decision.deliveryCanStart;
+              const statusLabel = ready ? "Ready" : blocked ? "Held" : "Needs input";
+              return (
+                <Link key={item.label} href={item.href} className="group border-b border-white/10 p-5 transition hover:bg-cyan-200/[0.06] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 lg:border-b-0 lg:border-r last:lg:border-r-0 sm:p-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100/75">{item.label}</div>
+                    <span className={ready ? "rounded-full border border-emerald-200/30 bg-emerald-200/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-emerald-100" : blocked ? "rounded-full border border-amber-200/30 bg-amber-200/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-amber-100" : "rounded-full border border-cyan-200/30 bg-cyan-200/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-cyan-100"}>
+                      {statusLabel}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-white">{item.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-slate-300">{item.decision.safeCustomerMessage}</p>
+                  <dl className="mt-5 grid gap-3 text-sm">
+                    <div>
+                      <dt className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-100/70">Fulfillment</dt>
+                      <dd className="mt-1 font-semibold text-white">{humanize(item.decision.fulfillmentState)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-100/70">Backend</dt>
+                      <dd className="mt-1 font-semibold text-white">{humanize(item.decision.backendWorkState)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-100/70">Missing</dt>
+                      <dd className="mt-1 text-slate-300">{item.decision.missingRequirements.length ? item.decision.missingRequirements.slice(0, 2).join(", ") : "Nothing blocking the next queue."}</dd>
+                    </div>
+                  </dl>
+                  <span className="mt-5 inline-flex text-sm font-bold text-cyan-100 transition group-hover:text-white">Open next step →</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Dashboard readiness path">
         <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.94)_46%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
@@ -200,7 +297,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
 
       <section className="sr-only" aria-label="Dashboard validation guardrails">
-        AI readiness control center. Private AI readiness control center. Know what AI engines and customers can understand next. Next best move. Open the first signal. Dashboard decision summary. Readiness path. Scan. Review. Repair. Control. Dashboard command links. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Readiness proof. Plan depth. Signal feed. Support routing. Unified Cendorq Experience System. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")} {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.command} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        AI readiness control center. Private AI readiness control center. Know what AI engines and customers can understand next. Next best move. Open the first signal. Dashboard decision summary. Cendorq journey resolver. Journey resolver. Fulfillment state. Backend work state. Held prerequisite required. Held intake required. Delivery can start only after ownership, intake, evidence, diagnosis, and approval fit the Cendorq stage. Readiness path. Scan. Review. Repair. Control. Dashboard command links. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Readiness proof. Plan depth. Signal feed. Support routing. Unified Cendorq Experience System. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")} {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.command} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {JOURNEY_DECISIONS.map((item) => `${item.label} ${item.title} ${item.decision.customerStage} ${item.decision.fulfillmentState} ${item.decision.backendWorkState} ${item.decision.customerNextAction} ${item.decision.operatorNextAction} ${item.decision.missingRequirements.join(" ")}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
@@ -214,4 +311,8 @@ function DashboardAtmosphere() {
       <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
     </div>
   );
+}
+
+function humanize(value: string) {
+  return value.replaceAll("-", " ");
 }
