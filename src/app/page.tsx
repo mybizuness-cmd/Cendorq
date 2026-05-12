@@ -108,7 +108,7 @@ export default function HomePage() {
 
                 <div className="relative flex min-h-[28rem] flex-col justify-between">
                   <div className="max-w-sm">
-                    <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">Live business read</p>
+                    <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">Business signal map</p>
                     <h2 className="mt-4 text-[clamp(2.15rem,3.65vw,3.75rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950">What does the market understand?</h2>
                     <p className="mt-4 text-sm font-medium leading-7 text-slate-600">Cendorq maps visible signals into a safer first action instead of burying the customer in disconnected cards.</p>
                   </div>
@@ -117,7 +117,7 @@ export default function HomePage() {
                     <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-900 bg-slate-950 text-white shadow-[0_24px_70px_rgba(15,23,42,0.25)]">
                       <div className="flex h-full flex-col items-center justify-center text-center">
                         <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-200">Cendorq</span>
-                        <span className="mt-1 text-sm font-semibold">First read</span>
+                        <span className="mt-1 text-sm font-semibold">Signal map</span>
                       </div>
                     </div>
 
