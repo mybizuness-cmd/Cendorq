@@ -48,11 +48,11 @@ const PLAN_CARDS = CENDORQ_PLAN_PRICES.map((plan) => ({
   purpose: PURPOSE_BY_PLAN[plan.key],
 }));
 
-const DECISION_STANDARDS = [
-  { title: "Scan", copy: "Start when the first weak signal is still unclear." },
-  { title: "Review", copy: "Use evidence before spending on deeper repair work." },
-  { title: "Repair", copy: "Improve the strongest proven weak point." },
-  { title: "Control", copy: "Keep readiness under ongoing review." },
+const PLAN_PATH = [
+  { stage: "Scan", copy: "Start with the first visible signal before committing to deeper work." },
+  { stage: "Review", copy: "Use evidence to understand what is weakening the business path." },
+  { stage: "Repair", copy: "Improve the selected weak point only after the cause is clear." },
+  { stage: "Control", copy: "Keep readiness from drifting as the market, AI answers, and customers change." },
 ] as const;
 
 const deepReview = getCendorqPlanPrice("deep-review");
@@ -116,14 +116,37 @@ export default function PlansPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-12 sm:px-8" aria-label="How to choose a plan">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {DECISION_STANDARDS.map((item) => (
-            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.06)]">
-              <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.title}</h2>
-              <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.copy}</p>
-            </article>
-          ))}
+      <section className="mx-auto max-w-7xl px-5 pb-12 sm:px-8" aria-label="How the readiness path works">
+        <div className="overflow-hidden rounded-[3rem] border border-slate-200 bg-white shadow-[0_30px_110px_rgba(15,23,42,0.08)]">
+          <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="relative overflow-hidden border-b border-slate-200 bg-[linear-gradient(135deg,#020617,#172554_62%,#083344)] p-6 text-white sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(125,211,252,0.32),transparent_30%),radial-gradient(circle_at_82%_76%,rgba(99,102,241,0.24),transparent_34%)]" aria-hidden="true" />
+              <div className="relative">
+                <p className="text-sm font-bold text-cyan-200">Readiness path</p>
+                <h2 className="mt-4 max-w-3xl text-[clamp(2.45rem,4.4vw,5rem)] font-semibold leading-[0.98] tracking-[-0.07em]">
+                  Each plan is a deeper layer of the same system.
+                </h2>
+                <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-200">
+                  The customer should not have to decode a pricing table. Cendorq shows the safer next depth based on how much evidence the business already has.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-7 lg:p-8">
+              <div className="absolute left-12 top-10 hidden h-[calc(100%-5rem)] w-px bg-gradient-to-b from-cyan-200 via-slate-300 to-indigo-200 sm:block" aria-hidden="true" />
+              <div className="grid gap-3">
+                {PLAN_PATH.map((item, index) => (
+                  <div key={item.stage} className="relative grid gap-4 rounded-[1.8rem] border border-slate-200 bg-white/88 p-5 shadow-[0_14px_45px_rgba(15,23,42,0.055)] sm:grid-cols-[4rem_1fr] sm:items-start">
+                    <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-black text-slate-950 shadow-sm">{index + 1}</div>
+                    <div>
+                      <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.stage}</h3>
+                      <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{item.copy}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -140,7 +163,7 @@ export default function PlansPage() {
       </section>
 
       <section className="sr-only" aria-label="AI readiness plans guardrails">
-        Plans. Choose the right AI-readiness depth. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. No guaranteed rankings, leads, revenue, or AI placement. Premium laptop plans hero scale. Unified Cendorq Experience System.
+        Plans. Choose the right AI-readiness depth. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. No guaranteed rankings, leads, revenue, or AI placement. Premium laptop plans hero scale. Unified Cendorq Experience System. Readiness path system panel. No standalone generic decision card row.
       </section>
     </main>
   );
