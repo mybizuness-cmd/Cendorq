@@ -20,6 +20,13 @@ type CustomerSupportCommunicationPlan = {
 type CustomerSupportStatusEntry = {
   supportRequestId: string;
   requestType: string;
+  workStartGate: string;
+  workStartPlanKey: string;
+  workStartGateTitle: string;
+  workStartCustomerAction: string;
+  workStartRequiredBeforeQueue: string[];
+  workStartBackendStartRule: string;
+  workStartBlockedPattern: string;
   businessContext: string;
   safeSummary: string;
   customerVisibleStatus: "received" | "reviewing" | "waiting-on-customer" | "in-specialist-review" | "resolved" | "closed";
@@ -162,6 +169,7 @@ export function SupportStatusList() {
                   <StatusDetail label="Processing" value={entry.downstreamProcessingAllowed ? "Allowed" : "Held for review"} />
                   <StatusDetail label="Operator review" value={entry.operatorReviewRequired ? "Required" : "Not required"} />
                 </div>
+                <WorkStartGatePanel entry={entry} />
                 <CommunicationPlanPanel communicationPlan={entry.communicationPlan} supportRequestId={entry.supportRequestId} />
                 <div className="mt-4 rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/10 p-4 text-xs leading-6 text-cyan-50">
                   {entry.customerVisibleStatus === "waiting-on-customer" ? "Use the safe update path for this request. Cendorq will not ask you to paste rejected raw content again." : entry.customerSafeStatus}
@@ -172,6 +180,29 @@ export function SupportStatusList() {
         </div>
       ) : null}
     </section>
+  );
+}
+
+function WorkStartGatePanel({ entry }: { entry: CustomerSupportStatusEntry }) {
+  const required = entry.workStartRequiredBeforeQueue.length ? entry.workStartRequiredBeforeQueue.slice(0, 4).join(" • ") : "No queue requirements projected.";
+  return (
+    <div className="mt-4 rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/10 p-4">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">Cendorq work-start gate</div>
+          <p className="mt-2 text-sm font-semibold text-white">{entry.workStartGateTitle}</p>
+          <p className="mt-2 max-w-3xl text-xs leading-6 text-cyan-50/80">{entry.workStartCustomerAction}</p>
+        </div>
+        <Link href={buildGatePath(entry)} className="rounded-2xl border border-cyan-200/25 px-4 py-3 text-center text-xs font-semibold text-cyan-50 transition hover:bg-cyan-200/10">
+          Open gate path
+        </Link>
+      </div>
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <StatusDetail label="Plan layer" value={entry.workStartPlanKey} />
+        <StatusDetail label="Required before queue" value={required} />
+        <StatusDetail label="Blocked pattern" value={entry.workStartBlockedPattern} />
+      </div>
+    </div>
   );
 }
 
@@ -218,6 +249,12 @@ function buildCustomerSupportStatusPath(entry: CustomerSupportStatusEntry) {
 function buildCommunicationPlanPath(communicationPlan: CustomerSupportCommunicationPlan, supportRequestId: string) {
   if (communicationPlan.status === "waiting-on-customer") return buildSafeSupportUpdatePath(supportRequestId);
   return communicationPlan.primaryPath;
+}
+
+function buildGatePath(entry: CustomerSupportStatusEntry) {
+  if (entry.workStartGate === "repair-prerequisite") return "/dashboard/support/request";
+  if (entry.workStartGate === "control-baseline") return "/dashboard/billing";
+  return "/dashboard/reports";
 }
 
 function buildSafeSupportUpdatePath(supportRequestId: string) {
