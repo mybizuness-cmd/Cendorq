@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MailProviderLinks, MAIL_PROVIDER_GUARDRAIL_COPY } from "@/components/auth/mail-provider-links";
 import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
-import { CUSTOMER_AUTH_PROVIDERS, type CustomerAuthProviderKey } from "@/lib/customer-auth-provider-config";
+import { CUSTOMER_AUTH_PROVIDERS, isCustomerAuthProviderConfigured, type CustomerAuthProviderKey } from "@/lib/customer-auth-provider-config";
 import { CUSTOMER_AUTH_METHODS, CUSTOMER_EMAIL_DELIVERABILITY_STANDARD, CUSTOMER_EMAIL_ORCHESTRATION_STEPS, CUSTOMER_EMAIL_REVENUE_SEQUENCE } from "@/lib/customer-auth-orchestration";
 
 export const metadata = buildMetadata({
@@ -25,39 +25,39 @@ const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underl
 const CUSTOMER_ACCESS_POINTS = [
   "Use the same email you used for the Free Scan, purchase, or support request.",
   "Email access is passwordless. Cendorq should never ask you to remember a generated password.",
-  "Provider sign-in is account identity only. It does not replace the Free Scan business intake.",
-  "If provider access is not connected yet, use email or contact support@cendorq.com with your Cendorq email.",
+  "Provider sign-in appears only as active when the provider is configured.",
+  "If provider access is unavailable, use email or contact support@cendorq.com with your Cendorq email.",
 ] as const;
 
 const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { mark: string; label: string; unavailable: string; className: string }> = {
   google: {
     mark: "G",
     label: "Continue with Google",
-    unavailable: "Google sign-in is not connected yet. Use email access or support.",
+    unavailable: "Google sign-in is not connected yet. Use email access.",
     className: "border-slate-300 bg-white text-slate-950 hover:border-slate-500 hover:bg-slate-50",
   },
   microsoft: {
     mark: "M",
     label: "Continue with Microsoft",
-    unavailable: "Microsoft sign-in is not connected yet. Use email access or support.",
+    unavailable: "Microsoft sign-in is not connected yet. Use email access.",
     className: "border-slate-300 bg-white text-slate-950 hover:border-slate-500 hover:bg-slate-50",
   },
   apple: {
     mark: "APPLE",
     label: "Continue with Apple",
-    unavailable: "Apple sign-in is not connected yet. Use email access or support.",
+    unavailable: "Apple sign-in is not connected yet. Use email access.",
     className: "border-slate-950 bg-slate-950 text-white hover:bg-slate-800",
   },
   linkedin: {
     mark: "in",
     label: "Continue with LinkedIn",
-    unavailable: "LinkedIn sign-in is not connected yet. Use email access or support.",
+    unavailable: "LinkedIn sign-in is not connected yet. Use email access.",
     className: "border-[#0A66C2] bg-[#0A66C2] text-white hover:bg-[#0759aa]",
   },
   facebook: {
     mark: "f",
     label: "Continue with Facebook",
-    unavailable: "Facebook sign-in is not connected yet. Use email access or support.",
+    unavailable: "Facebook sign-in is not connected yet. Use email access.",
     className: "border-[#1877F2] bg-[#1877F2] text-white hover:bg-[#1265d8]",
   },
 };
@@ -67,38 +67,42 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
   const returnTo = safeReturnTo(resolvedSearchParams.returnTo);
   const authNotice = buildAuthNotice(resolvedSearchParams.auth, resolvedSearchParams.provider);
   const showMailboxShortcuts = resolvedSearchParams.auth === "email-sent" || resolvedSearchParams.auth === "email-queued";
+  const providerStates = CUSTOMER_AUTH_PROVIDERS.map((provider) => ({
+    key: provider.key,
+    configured: isCustomerAuthProviderConfigured(provider),
+  }));
 
   return (
     <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
-      <section className="relative overflow-hidden px-5 py-10 sm:px-8 lg:py-14">
+      <section className="relative overflow-hidden px-5 py-8 sm:px-8 lg:py-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
-        <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+        <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
           <div>
             <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>Account access</p>
-            <h1 className="mt-6 max-w-5xl text-[clamp(3rem,5.2vw,5.4rem)] font-semibold leading-[0.94] tracking-[-0.076em] text-slate-950">Return to your Cendorq workspace.</h1>
-            <p className="mt-6 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">Use the same email from your Free Scan, purchase, or support history. Signing in confirms account identity; the Free Scan is where Cendorq learns the business.</p>
-            <div className="mt-8 grid gap-3 sm:max-w-xl sm:grid-cols-2">
+            <h1 className="mt-5 max-w-5xl text-[clamp(2.7rem,4.8vw,5.1rem)] font-semibold leading-[0.95] tracking-[-0.074em] text-slate-950">Return to your Cendorq workspace.</h1>
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email from your Free Scan, purchase, or support history. Email is the reliable access path while provider sign-in is connected and tested.</p>
+            <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
               <Link href={`/api/auth/continue?returnTo=${encodeURIComponent(returnTo)}`} className={BUTTON_PRIMARY}>Continue if remembered</Link>
               <Link href="/signup" className={BUTTON_SECONDARY}>Sign up</Link>
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-xl rounded-[2.75rem] border border-white/80 bg-white/76 p-3 shadow-[0_36px_130px_rgba(15,23,42,0.13)] backdrop-blur-2xl">
-            <div className="rounded-[2.2rem] border border-slate-200 bg-white p-6 sm:p-8">
+          <div className="mx-auto w-full max-w-xl rounded-[2.35rem] border border-white/80 bg-white/76 p-3 shadow-[0_26px_90px_rgba(15,23,42,0.1)] backdrop-blur-2xl">
+            <div className="rounded-[1.9rem] border border-slate-200 bg-white p-5 sm:p-7">
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Cendorq</p>
-                <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Sign in</h2>
-                <p className="mt-4 text-sm font-medium leading-7 text-slate-600">Choose how you want to access your workspace.</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Sign in</h2>
+                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">Email works now. Provider access becomes active only after configuration.</p>
               </div>
 
               {authNotice ? (
-                <div role="status" aria-live="polite" className={`mt-6 rounded-[1.25rem] border p-4 text-sm font-semibold leading-6 ${authNotice.tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-950" : "border-amber-200 bg-amber-50 text-amber-950"}`}>
+                <div role="status" aria-live="polite" className={`mt-5 rounded-[1.25rem] border p-4 text-sm font-semibold leading-6 ${authNotice.tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-950" : "border-amber-200 bg-amber-50 text-amber-950"}`}>
                   <p>{authNotice.message}</p>
                   {showMailboxShortcuts ? <MailProviderLinks className="mt-4" /> : null}
                 </div>
               ) : null}
 
-              <form className="mt-6 grid gap-3" action="/api/auth/email" method="get">
+              <form className="mt-5 grid gap-3" action="/api/auth/email" method="get">
                 <input type="hidden" name="returnTo" value={returnTo} />
                 <label className="grid gap-2 text-sm font-semibold text-slate-800">
                   Email
@@ -107,15 +111,15 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
                 <button type="submit" className={BUTTON_PRIMARY}>Send secure access link</button>
               </form>
 
-              <div className="my-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400"><span className="h-px flex-1 bg-slate-200" />or<span className="h-px flex-1 bg-slate-200" /></div>
+              <div className="my-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400"><span className="h-px flex-1 bg-slate-200" />optional providers<span className="h-px flex-1 bg-slate-200" /></div>
 
-              <div className="grid gap-3">
-                {CUSTOMER_AUTH_PROVIDERS.map((provider) => (
-                  <ProviderButton key={provider.key} providerKey={provider.key} returnTo={returnTo} />
+              <div className="grid gap-2">
+                {providerStates.map((provider) => (
+                  <ProviderButton key={provider.key} providerKey={provider.key} returnTo={returnTo} configured={provider.configured} />
                 ))}
               </div>
 
-              <div className="mt-6 rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4 text-center">
+              <div className="mt-5 rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4 text-center">
                 <h3 className="text-sm font-semibold text-slate-950">New to Cendorq?</h3>
                 <p className="mt-2 text-sm font-medium leading-6 text-slate-600">Start with the Free Scan when you want Cendorq to understand the business. Sign up when you only need account identity and workspace access.</p>
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row"><Link href="/free-check" className={BUTTON_PRIMARY}>Start Free Scan</Link><Link href="/signup" className={BUTTON_SECONDARY}>Sign up</Link></div>
@@ -127,27 +131,36 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Customer access help">
-        <div className="rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.055)] sm:p-8">
+      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="Customer access help">
+        <div className="rounded-[2.2rem] border border-slate-200 bg-white p-5 shadow-[0_12px_38px_rgba(15,23,42,0.045)] sm:p-6">
           <p className="text-sm font-bold text-slate-500">How access works</p>
-          <h2 className="mt-3 max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Account access and business intake are separate.</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{CUSTOMER_ACCESS_POINTS.map((rule) => <p key={rule} className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4 text-sm font-semibold leading-7 text-slate-600">{rule}</p>)}</div>
-          <p className="mt-6 text-sm leading-7 text-slate-600">Need Cendorq to understand your business? <Link className={SMALL_LINK} href="/free-check">Run the Free Scan</Link>. Already have a workspace? Use the same email or provider above.</p>
+          <h2 className="mt-3 max-w-5xl text-3xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">Account access and business intake are separate.</h2>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{CUSTOMER_ACCESS_POINTS.map((rule) => <p key={rule} className="rounded-[1.2rem] border border-slate-200 bg-slate-50 p-4 text-sm font-semibold leading-6 text-slate-600">{rule}</p>)}</div>
+          <p className="mt-5 text-sm leading-7 text-slate-600">Need Cendorq to understand your business? <Link className={SMALL_LINK} href="/free-check">Run the Free Scan</Link>. Already have a workspace? Use the same email above.</p>
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Email accepted. Email queued. Email unavailable. Trusted browser access may require secure session configuration. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Sign up. Create account. Account access and business intake are separate. Cendorq never emails a password. Provider sign-in confirms account identity; Free Scan remains the business-context intake. Unified Cendorq Experience System. {MAIL_PROVIDER_GUARDRAIL_COPY}. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
+      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Email accepted. Email queued. Email unavailable. Trusted browser access may require secure session configuration. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Sign up. Create account. Disabled unavailable provider buttons. Account access and business intake are separate. Cendorq never emails a password. Provider sign-in confirms account identity; Free Scan remains the business-context intake. Unified Cendorq Experience System. {MAIL_PROVIDER_GUARDRAIL_COPY}. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
     </main>
   );
 }
 
-function ProviderButton({ providerKey, returnTo }: { providerKey: CustomerAuthProviderKey; returnTo: string }) {
+function ProviderButton({ providerKey, returnTo, configured }: { providerKey: CustomerAuthProviderKey; returnTo: string; configured: boolean }) {
   const brand = PROVIDER_BRAND[providerKey];
+  if (!configured) {
+    return (
+      <div className="inline-flex min-h-12 w-full cursor-not-allowed items-center justify-between gap-3 rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-400" aria-disabled="true" title={brand.unavailable}>
+        <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-white px-2 text-xs font-black text-slate-500 shadow-sm">{brand.mark}</span>
+        <span>{brand.label}</span>
+        <span className="text-xs">Unavailable</span>
+      </div>
+    );
+  }
   return (
-    <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className={`inline-flex min-h-14 w-full items-center justify-between gap-3 rounded-full border px-5 py-3.5 text-sm font-semibold shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 ${brand.className}`} aria-label={brand.label} title={brand.unavailable}>
+    <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className={`inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full border px-4 py-3 text-sm font-semibold shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 ${brand.className}`} aria-label={brand.label}>
       <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-white px-2 text-xs font-black text-slate-950 shadow-sm">{brand.mark}</span>
       <span>{brand.label}</span>
-      <span className="text-xs opacity-70">Not connected</span>
+      <span className="text-xs opacity-70">Connected</span>
     </Link>
   );
 }
