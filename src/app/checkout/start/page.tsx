@@ -47,65 +47,59 @@ export default function CheckoutStartPage({ searchParams }: { searchParams?: { p
   const paymentLink = plan.paymentLink || "/plans";
 
   return (
-    <main className="overflow-hidden bg-white text-slate-950">
-      <section className="mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:py-16">
-        <div>
-          <p className="text-sm font-semibold text-slate-400">Secure payment</p>
-          <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">
-            Confirm {copy.title} before payment.
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Cendorq keeps the plan choice clear before handing you to Stripe. No hidden upgrade, no fake urgency, and no promise of rankings, leads, revenue, or AI placement.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href={paymentLink} className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-white px-8 py-4 text-base font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-              Continue to secure payment — {plan.price}
-            </a>
-            <Link href="/plans" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
-              Review plans
-            </Link>
-          </div>
-        </div>
-
-        <div className="rounded-[2.4rem] border border-slate-200 bg-white p-6 shadow-[0_30px_110px_rgba(15,23,42,0.1)] sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">{copy.stage}</p>
-          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">{copy.title}</h2>
-          <p className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-slate-950">{plan.price}</p>
-          <p className="mt-1 text-sm font-semibold text-slate-500">{plan.cadence}</p>
-          <p className="mt-6 text-base leading-8 text-slate-600">{copy.description}</p>
-          <div className="mt-6 grid gap-3">
-            <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">Best when</div>
-              <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{copy.bestFor}</p>
-            </div>
-            <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">After checkout</div>
-              <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{copy.next}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Checkout plan options">
-        <div className="grid gap-4 md:grid-cols-3">
-          {PAID_PLAN_KEYS.map((key) => {
-            const item = getPaidCendorqPlanPrice(key);
-            const itemCopy = PLAN_COPY[key];
-            const selected = key === planKey;
-            return (
-              <Link key={key} href={`/checkout/start?plan=${key}`} className={selected ? "rounded-[2rem] border border-slate-950 bg-white p-6 shadow-[0_20px_70px_rgba(15,23,42,0.1)] transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2" : "rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_14px_48px_rgba(15,23,42,0.055)] transition hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2"}>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">{itemCopy.stage}</p>
-                <h3 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.name}</h3>
-                <p className="mt-2 text-lg font-semibold text-slate-950">{item.price}</p>
-                <p className="mt-4 text-sm leading-7 text-slate-600">{item.primaryCustomerPromise}</p>
+    <main className="overflow-hidden bg-[linear-gradient(180deg,#ffffff,#f7fbff_58%,#eef8ff)] text-slate-950">
+      <section className="relative px-5 py-10 sm:px-8 lg:py-14">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_0%,rgba(125,211,252,0.28),transparent_34%)]" aria-hidden="true" />
+        <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.22em] text-slate-500">Secure payment</p>
+            <h1 className="mt-5 max-w-5xl text-[clamp(2.85rem,10vw,6rem)] font-semibold leading-[0.9] tracking-[-0.08em] text-slate-950 sm:text-[clamp(3.1rem,7vw,6.4rem)]">
+              Confirm {copy.title} before Stripe.
+            </h1>
+            <p className="mt-6 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
+              One last confirmation before secure payment. No hidden upgrade, no fake urgency, and no promise of rankings, leads, revenue, or AI placement.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a href={paymentLink} className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-950 bg-slate-950 px-8 py-4 text-base font-bold text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+                Continue to secure payment — {plan.price}
+              </a>
+              <Link href="/plans" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+                Change plan
               </Link>
-            );
-          })}
+            </div>
+          </div>
+
+          <div className="rounded-[2.3rem] border border-white/80 bg-white/75 p-3 shadow-[0_30px_110px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:rounded-[2.7rem]">
+            <div className="rounded-[1.85rem] border border-slate-200 bg-white p-6 sm:rounded-[2.2rem] sm:p-8">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">{copy.stage}</p>
+                  <h2 className="mt-4 text-[clamp(2.55rem,10vw,4.6rem)] font-semibold leading-[0.92] tracking-[-0.07em] text-slate-950 sm:text-6xl">{copy.title}</h2>
+                </div>
+                <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-bold text-slate-950 shadow-sm">{plan.price}</div>
+              </div>
+              <p className="mt-6 text-base font-medium leading-8 text-slate-600">{copy.description}</p>
+              <div className="mt-6 grid gap-3">
+                <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
+                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Best when</div>
+                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{copy.bestFor}</p>
+                </div>
+                <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
+                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">After payment</div>
+                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{copy.next}</p>
+                </div>
+                <div className="rounded-[1.35rem] border border-cyan-200 bg-cyan-50 p-4">
+                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">Selected plan</div>
+                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{plan.name} · {plan.price} · {plan.cadence}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="sr-only" aria-label="Checkout guardrails">
-        Start checkout. Secure checkout. Stripe payment links. AI Readiness Review payment link. Signal Repair payment link. Readiness Control payment link. No fake urgency. No ranking guarantee. No AI placement guarantee. No guaranteed leads or revenue. Checkout metadata. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")}
+        Start checkout. Secure checkout. Focused checkout confirmation. Selected plan only. No lower plan-switching grid. Stripe payment links. AI Readiness Review payment link. Signal Repair payment link. Readiness Control payment link. No fake urgency. No ranking guarantee. No AI placement guarantee. No guaranteed leads or revenue. Checkout metadata. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")}
       </section>
     </main>
   );
