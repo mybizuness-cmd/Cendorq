@@ -147,8 +147,8 @@ export function resolveCendorqCustomerJourney(input: CendorqCustomerJourneyInput
 
   let fulfillmentState: CendorqFulfillmentState = "ready-for-work-queue";
   let backendWorkState: CendorqBackendWorkState = rule.readyBackendWorkState;
-  let customerNextAction = revenueStage.nextBestAction;
-  let operatorNextAction = revenueStage.backendWorkflow;
+  let customerNextAction: string = revenueStage.nextBestAction;
+  let operatorNextAction: string = revenueStage.backendWorkflow;
   const missingRequirements: string[] = [];
 
   if (missingOwnership) {
