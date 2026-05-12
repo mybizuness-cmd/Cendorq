@@ -1,4 +1,5 @@
-import { resolveCendorqCustomerJourney, type CendorqPaidPlanKey } from "@/lib/customer-journey-orchestrator";
+import { resolveCendorqCustomerJourney } from "@/lib/customer-journey-orchestrator";
+import type { CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
 
 export type CendorqWorkStartGateKey = "review-intake" | "repair-prerequisite" | "control-baseline";
 
