@@ -2,6 +2,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { SupportRequestForm } from "@/components/customer-support/support-request-form";
 import { SupportRequestUpdateForm } from "@/components/customer-support/support-request-update-form";
+import { CENDORQ_WORK_START_GATE_PROJECTIONS } from "@/lib/cendorq-work-start-intake-gates";
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, CUSTOMER_SUPPORT_INTAKE_RISK_RULES } from "@/lib/customer-support-intake-architecture";
 
 export const metadata = buildMetadata({
@@ -38,29 +39,64 @@ export default function SupportRequestPage() {
             Send the safe summary that moves the blocker forward.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Intake should collect enough context to help without turning into a private data dump, duplicate request loop, or command-depth shortcut.
+            Intake should collect enough context to help without turning into a private data dump, duplicate request loop, or command-depth shortcut. Work starts only when the right Cendorq gate is clear.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="#new-support-request" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Start safe request
+            <Link href="#work-start-gates" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Check work-start gates
             </Link>
-            <Link href="/dashboard/support/status" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Track status first
+            <Link href="#new-support-request" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Start safe request
             </Link>
           </div>
         </div>
 
         <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] p-5 shadow-[0_55px_200px_rgba(2,8,23,0.72)] sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">After submit</p>
-          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Track status first.</h2>
-          <p className="mt-5 text-base leading-8 text-slate-300">Duplicate requests create noise. Status and notifications show what happens next.</p>
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Before work starts</p>
+          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Gate the queue.</h2>
+          <p className="mt-5 text-base leading-8 text-slate-300">Review needs intake. Repair needs diagnosis and scope. Control needs a baseline. Payment alone should not start the wrong work.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {REQUEST_PATHS.slice(1).map((item) => (
               <Link key={item.title} href={item.href} className="rounded-[1.6rem] border border-white/10 bg-black/24 p-5 transition hover:border-cyan-200/30 hover:bg-cyan-200/[0.08]">
                 <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">{item.title}</div>
                 <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
               </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="work-start-gates" className="relative mx-auto max-w-[92rem] scroll-mt-8 px-4 pb-10 sm:px-6" aria-label="Cendorq work start gates">
+        <div className="overflow-hidden rounded-[2.5rem] border border-cyan-300/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.72),rgba(2,8,23,0.95)_48%,rgba(14,116,144,0.22))] shadow-[0_45px_180px_rgba(2,8,23,0.55)]">
+          <div className="border-b border-white/10 p-6 sm:p-8 lg:p-10">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Work-start gates</p>
+            <div className="mt-4 grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-white sm:text-6xl">What Cendorq needs before backend work starts.</h2>
+              <p className="max-w-3xl text-base leading-8 text-slate-300">
+                These gates keep delivery clean. They tell the customer what to provide and tell the backend whether to collect intake, hold for evidence, or move the work into the right queue.
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-0 lg:grid-cols-3">
+            {CENDORQ_WORK_START_GATE_PROJECTIONS.map((gate) => (
+              <article key={gate.key} className="border-b border-white/10 p-5 lg:border-b-0 lg:border-r last:lg:border-r-0 sm:p-6">
+                <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100/75">{gate.customerTitle}</div>
+                <h3 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-white">{gate.planKey === "deep-review" ? "Review" : gate.planKey === "build-fix" ? "Repair" : "Control"}</h3>
+                <p className="mt-4 text-sm leading-7 text-slate-300">{gate.customerPromise}</p>
+                <div className="mt-5 rounded-[1.35rem] border border-white/10 bg-black/24 p-4">
+                  <div className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-100/70">Backend rule</div>
+                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-300">{gate.backendStartRule}</p>
+                </div>
+                <div className="mt-4 rounded-[1.35rem] border border-cyan-200/20 bg-cyan-200/[0.08] p-4">
+                  <div className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-100">Required before queue</div>
+                  <ul className="mt-3 grid gap-2 text-sm leading-6 text-slate-300">
+                    {gate.requiredBeforeQueue.slice(0, 4).map((item) => <li key={item}>• {item}</li>)}
+                  </ul>
+                </div>
+                <p className="mt-4 text-sm font-semibold leading-7 text-amber-100">{gate.blockedPattern}</p>
+                <Link href={gate.dashboardHref} className="mt-5 inline-flex text-sm font-bold text-cyan-100 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Open gate path →</Link>
+              </article>
             ))}
           </div>
         </div>
@@ -105,7 +141,7 @@ export default function SupportRequestPage() {
       </section>
 
       <section className="sr-only" aria-label="Support request guardrails">
-        Market resolution intake. Send the safe summary that moves the blocker forward. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No command-depth shortcut. Track status first. {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}
+        Market resolution intake. Send the safe summary that moves the blocker forward. Work-start gates. What Cendorq needs before backend work starts. Review intake gate. Repair prerequisite gate. Control baseline gate. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No command-depth shortcut. Track status first. {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CENDORQ_WORK_START_GATE_PROJECTIONS.map((gate) => `${gate.key} ${gate.planKey} ${gate.customerTitle} ${gate.customerPromise} ${gate.backendStartRule} ${gate.customerSafeAction} ${gate.blockedPattern} ${gate.requiredBeforeQueue.join(" ")} ${gate.decision.fulfillmentState} ${gate.decision.backendWorkState}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}
       </section>
     </main>
   );
