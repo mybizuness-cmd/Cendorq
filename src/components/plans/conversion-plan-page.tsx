@@ -62,6 +62,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
   const plan = getCendorqPlanPrice(PLAN_KEY_BY_TITLE[data.title] || "free-scan");
   const primaryHref = plan.stripeMode === "none" ? data.ctaHref : plan.checkoutPath;
   const primaryLabel = plan.stripeMode === "none" ? data.ctaLabel : `${data.ctaLabel} — ${plan.price}`;
+  const visibleFeatures = data.features.slice(0, 3);
 
   return (
     <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
@@ -125,14 +126,37 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="What this plan does">
-        <div className="grid gap-4 lg:grid-cols-3">
-          {data.features.slice(0, 3).map((item) => (
-            <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.055)]">
-              <h3 className={CENDORQ_EXPERIENCE_SYSTEM.cardHeadline}>{item.title}</h3>
-              <p className={`mt-4 ${CENDORQ_EXPERIENCE_SYSTEM.supportText}`}>{item.copy}</p>
-            </article>
-          ))}
+      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="How this plan works">
+        <div className="overflow-hidden rounded-[3rem] border border-slate-200 bg-white shadow-[0_30px_110px_rgba(15,23,42,0.08)]">
+          <div className="grid gap-0 lg:grid-cols-[0.88fr_1.12fr]">
+            <div className="relative overflow-hidden border-b border-slate-200 bg-[linear-gradient(135deg,#020617,#172554_62%,#083344)] p-6 text-white sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(125,211,252,0.32),transparent_30%),radial-gradient(circle_at_82%_76%,rgba(99,102,241,0.24),transparent_34%)]" aria-hidden="true" />
+              <div className="relative">
+                <p className="text-sm font-bold text-cyan-200">Plan system</p>
+                <h2 className="mt-4 max-w-3xl text-[clamp(2.45rem,4.2vw,4.8rem)] font-semibold leading-[0.98] tracking-[-0.07em]">
+                  What this plan moves into focus.
+                </h2>
+                <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-200">
+                  Each plan detail page should help the customer understand the next safe depth without feeling like a stack of unrelated feature cards.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-7 lg:p-8">
+              <div className="absolute left-12 top-10 hidden h-[calc(100%-5rem)] w-px bg-gradient-to-b from-cyan-200 via-slate-300 to-indigo-200 sm:block" aria-hidden="true" />
+              <div className="grid gap-3">
+                {visibleFeatures.map((item, index) => (
+                  <article key={item.title} className="relative grid gap-4 rounded-[1.8rem] border border-slate-200 bg-white/88 p-5 shadow-[0_14px_45px_rgba(15,23,42,0.055)] sm:grid-cols-[4rem_1fr] sm:items-start">
+                    <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-black text-slate-950 shadow-sm">{index + 1}</div>
+                    <div>
+                      <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.title}</h3>
+                      <p className={`mt-3 ${CENDORQ_EXPERIENCE_SYSTEM.supportText}`}>{item.copy}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -142,7 +166,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
       </section>
 
       <section className="sr-only" aria-label="Plan guardrails">
-        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Premium plan detail hero scale. Responsive mobile-first plan detail page. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
+        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Premium plan detail hero scale. Responsive mobile-first plan detail page. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. Unified plan system panel. No standalone feature card grid. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
       </section>
     </main>
   );
