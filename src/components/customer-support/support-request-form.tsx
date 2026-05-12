@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
+import { CENDORQ_WORK_START_GATES, type CendorqWorkStartGateKey } from "@/lib/cendorq-work-start-intake-gates";
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, type CustomerSupportIntakeType } from "@/lib/customer-support-intake-architecture";
 
 type SupportRequestFormValues = {
   requestType: CustomerSupportIntakeType;
+  workStartGate: CendorqWorkStartGateKey;
   businessContext: string;
   safeDescription: string;
   customerAcknowledgement: boolean;
@@ -15,6 +17,8 @@ type SupportRequestApiSuccess = {
   ok: true;
   supportRequestId: string;
   requestType: CustomerSupportIntakeType;
+  workStartGate: CendorqWorkStartGateKey;
+  workStartPlanKey: string;
   decision: "allow" | "sanitize" | "challenge" | "block" | "quarantine";
   operatorReviewRequired: boolean;
   downstreamProcessingAllowed: boolean;
@@ -38,6 +42,7 @@ type SubmitState =
 
 const INITIAL_VALUES: SupportRequestFormValues = {
   requestType: "report-question",
+  workStartGate: "review-intake",
   businessContext: "",
   safeDescription: "",
   customerAcknowledgement: false,
@@ -52,6 +57,10 @@ export function SupportRequestForm() {
   const selectedFlow = useMemo(
     () => CUSTOMER_SUPPORT_INTAKE_FLOWS.find((flow) => flow.key === values.requestType) ?? CUSTOMER_SUPPORT_INTAKE_FLOWS[0],
     [values.requestType],
+  );
+  const selectedGate = useMemo(
+    () => CENDORQ_WORK_START_GATES.find((gate) => gate.key === values.workStartGate) ?? CENDORQ_WORK_START_GATES[0],
+    [values.workStartGate],
   );
 
   const localFieldErrors = useMemo(() => validateLocally(values), [values]);
@@ -126,11 +135,34 @@ export function SupportRequestForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="system-panel-authority rounded-[2rem] p-6">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Protected request form</div>
-      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Submit a safe support request.</h2>
+      <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Protected work-start intake</div>
+      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Submit the context Cendorq needs before work starts.</h2>
       <p className="mt-3 text-sm leading-7 text-slate-300">{SECRET_WARNING}</p>
 
       <div className="mt-6 grid gap-5">
+        <label className="grid gap-2">
+          <span className="text-sm font-semibold text-white">Cendorq work-start gate</span>
+          <select
+            name="workStartGate"
+            value={values.workStartGate}
+            onChange={handleChange}
+            className="rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/50"
+          >
+            {CENDORQ_WORK_START_GATES.map((gate) => (
+              <option key={gate.key} value={gate.key}>
+                {gate.customerTitle}
+              </option>
+            ))}
+          </select>
+          <FieldError message={getFieldError(state, localFieldErrors, "workStartGate")} />
+        </label>
+
+        <div className="rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/10 p-4">
+          <div className="text-sm font-semibold text-cyan-50">{selectedGate.customerSafeAction}</div>
+          <p className="mt-2 text-xs leading-6 text-cyan-50/80">{selectedGate.customerPromise}</p>
+          <p className="mt-3 text-xs font-semibold leading-6 text-amber-100">{selectedGate.blockedPattern}</p>
+        </div>
+
         <label className="grid gap-2">
           <span className="text-sm font-semibold text-white">Request type</span>
           <select
@@ -147,7 +179,7 @@ export function SupportRequestForm() {
           </select>
         </label>
 
-        <div className="rounded-[1.25rem] border border-cyan-300/15 bg-cyan-300/10 p-4">
+        <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-4">
           <div className="text-sm font-semibold text-cyan-50">{selectedFlow.primaryOutcome}</div>
           <p className="mt-2 text-xs leading-6 text-cyan-50/80">{selectedFlow.purpose}</p>
         </div>
@@ -159,7 +191,7 @@ export function SupportRequestForm() {
             value={values.businessContext}
             onChange={handleChange}
             maxLength={160}
-            placeholder="Business name, location, account area, or report context"
+            placeholder="Business name, website, account area, report, repair target, or control baseline"
             className="rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-300/50"
             aria-invalid={Boolean(getFieldError(state, localFieldErrors, "businessContext"))}
           />
@@ -174,7 +206,7 @@ export function SupportRequestForm() {
             onChange={handleChange}
             maxLength={1400}
             rows={8}
-            placeholder="Explain the request in your own words. Summarize the issue instead of pasting sensitive records or raw evidence."
+            placeholder="Summarize the context needed for this gate. For Review: business/page/audience/concern. For Repair: diagnosis or target plus approved scope. For Control: baseline and monthly priority. Do not paste secrets or raw evidence."
             className="rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm leading-7 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-300/50"
             aria-invalid={Boolean(getFieldError(state, localFieldErrors, "safeDescription"))}
           />
@@ -184,6 +216,13 @@ export function SupportRequestForm() {
           </div>
           <FieldError message={getFieldError(state, localFieldErrors, "safeDescription")} />
         </label>
+
+        <div className="rounded-[1.25rem] border border-white/10 bg-black/20 p-4">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-100">Required before queue</div>
+          <ul className="mt-3 grid gap-2 text-xs leading-6 text-slate-300">
+            {selectedGate.requiredBeforeQueue.slice(0, 5).map((item) => <li key={item}>• {item}</li>)}
+          </ul>
+        </div>
 
         <label className="flex gap-3 rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-4 text-sm leading-7 text-slate-200">
           <input
@@ -205,7 +244,7 @@ export function SupportRequestForm() {
           disabled={!canSubmit}
           className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {state.kind === "submitting" ? "Submitting protected request..." : "Submit protected request"}
+          {state.kind === "submitting" ? "Submitting protected intake..." : "Submit protected intake"}
         </button>
         <button
           type="button"
@@ -224,6 +263,8 @@ export function SupportRequestForm() {
           <div className="text-sm font-semibold text-emerald-50">{state.response.message}</div>
           <div className="mt-3 grid gap-2 text-xs leading-6 text-emerald-50/80 sm:grid-cols-2">
             <div>Request ID: {state.response.supportRequestId}</div>
+            <div>Gate: {state.response.workStartGate}</div>
+            <div>Plan: {state.response.workStartPlanKey}</div>
             <div>Decision: {state.response.decision}</div>
             <div>Operator review: {state.response.operatorReviewRequired ? "required" : "not required"}</div>
             <div>Processing: {state.response.downstreamProcessingAllowed ? "allowed" : "held"}</div>
@@ -262,6 +303,7 @@ export function SupportRequestForm() {
 
 function validateLocally(values: SupportRequestFormValues) {
   const errors: Partial<Record<keyof SupportRequestFormValues, string>> = {};
+  if (!values.workStartGate) errors.workStartGate = "Choose a work-start gate.";
   if (!values.businessContext.trim()) errors.businessContext = "Business or account context is required.";
   if (values.safeDescription.trim().length < 20) errors.safeDescription = "A safe description of at least 20 characters is required.";
   if (!values.customerAcknowledgement) errors.customerAcknowledgement = "Safety acknowledgement is required before submit.";
