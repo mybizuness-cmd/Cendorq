@@ -27,6 +27,8 @@ type CheckoutSuccessPageProps = {
   searchParams?: Promise<CheckoutSuccessSearchParams> | CheckoutSuccessSearchParams;
 };
 
+type CheckoutSuccessDashboardDestination = "/dashboard/reports" | "/dashboard/support/request" | "/dashboard/billing";
+
 const POST_PAYMENT_CONTEXT: Record<CendorqPaidPlanKey, { stage: string; title: string; dashboardCta: string; completedEvidence: readonly ["customerOwnershipVerified"]; completedIntake: readonly string[] }> = {
   "deep-review": {
     stage: "AI Readiness Review",
@@ -64,6 +66,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
     completedEvidence: context.completedEvidence,
     completedIntake: context.completedIntake,
   });
+  const dashboardDestination = normalizeDashboardDestination(journey.dashboardDestination);
   const email = CENDORQ_POST_PAYMENT_EMAILS.find((item) => item.planKey === planKey);
   const emailCopy = email ? `${email.subject}. ${email.customerGoal}` : "A confirmation email should also explain the next step.";
   const statusLabel = journey.deliveryCanStart ? "Ready for queue" : journey.backendWorkState === "do-not-start" ? "Held safely" : "Next input needed";
@@ -75,7 +78,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
 
   return (
     <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
-      <CheckoutDashboardRedirect destination={journey.dashboardDestination} />
+      <CheckoutDashboardRedirect destination={dashboardDestination} />
 
       <section className="relative overflow-hidden px-5 py-12 sm:px-8 lg:py-16">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
@@ -92,7 +95,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
               Payment unlocks the workflow. Cendorq starts delivery only when the required ownership, intake, evidence, diagnosis, and approval state fit the stage.
             </p>
             <div className={`mt-8 ${CENDORQ_EXPERIENCE_SYSTEM.mobileActionRow}`}>
-              <Link href={journey.dashboardDestination} className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>
+              <Link href={dashboardDestination} className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>
                 {context.dashboardCta}
               </Link>
               <Link href="/dashboard/billing" className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>
@@ -149,6 +152,11 @@ function normalizePaidPlanKey(candidate: string | string[] | undefined): Cendorq
 
 function normalizeQueryValue(candidate: string | string[] | undefined) {
   return Array.isArray(candidate) ? candidate[0] : candidate;
+}
+
+function normalizeDashboardDestination(value: string): CheckoutSuccessDashboardDestination {
+  if (value === "/dashboard/support/request" || value === "/dashboard/billing" || value === "/dashboard/reports") return value;
+  return "/dashboard/reports";
 }
 
 function humanize(value: string) {
