@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { randomUUID } from "node:crypto";
 import path from "node:path";
 
-import { CENDORQ_WORK_START_GATES, type CendorqWorkStartGateKey } from "@/lib/cendorq-work-start-intake-gates";
+import { CENDORQ_WORK_START_GATES, type CendorqWorkStartGate, type CendorqWorkStartGateKey } from "@/lib/cendorq-work-start-intake-gates";
 import { CUSTOMER_SUPPORT_INTAKE_FLOWS, type CustomerSupportIntakeType } from "@/lib/customer-support-intake-architecture";
 import { cleanGatewayString, jsonNoStore, optionsNoStore, verifyAdminReadAccess } from "@/lib/customer-access-gateway-runtime";
 import { requireCustomerSession } from "@/lib/customer-session-auth-runtime";
@@ -129,7 +129,6 @@ export async function POST(request: NextRequest) {
   const fieldErrors: Record<string, string> = {};
   if (!businessContext) fieldErrors.businessContext = "Business or account context is required.";
   if (!safeDescription || safeDescription.length < 20) fieldErrors.safeDescription = "A safe support description of at least 20 characters is required.";
-  if (!workStartGate) fieldErrors.workStartGate = "Choose whether this is review intake, repair prerequisite context, or control baseline context.";
   if (!acknowledgement) fieldErrors.customerAcknowledgement = "Safety acknowledgement is required before support intake.";
   if (Object.keys(fieldErrors).length) return jsonNoStore({ ok: false, error: "The support request needs a stronger safe summary before it can be accepted.", fieldErrors }, 400);
 
@@ -225,7 +224,7 @@ function normalizeStoredEntryFromUnknown(value: unknown) {
   const requestType = normalizeRequestType(value.requestType);
   if (!requestType) return null;
   const workStartGateKey = normalizeWorkStartGate(value.workStartGate) || "review-intake";
-  const workStartGate = getWorkStartGate(workStartGateKey) || CENDORQ_WORK_START_GATES[0];
+  const workStartGate = getWorkStartGate(workStartGateKey);
   const now = new Date().toISOString();
   return {
     id: cleanString(value.id, 120) || randomUUID(),
@@ -269,8 +268,8 @@ function normalizeWorkStartGate(value: unknown): CendorqWorkStartGateKey | null 
   return typeof value === "string" && CENDORQ_WORK_START_GATES.some((gate) => gate.key === value) ? (value as CendorqWorkStartGateKey) : null;
 }
 
-function getWorkStartGate(key: CendorqWorkStartGateKey) {
-  return CENDORQ_WORK_START_GATES.find((gate) => gate.key === key);
+function getWorkStartGate(key: CendorqWorkStartGateKey): CendorqWorkStartGate {
+  return CENDORQ_WORK_START_GATES.find((gate) => gate.key === key) ?? CENDORQ_WORK_START_GATES[0];
 }
 
 function normalizeDecision(value: unknown): SupportRiskDecision | null {
