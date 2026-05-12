@@ -76,6 +76,12 @@ export function getCustomerAuthProvider(key: string | undefined) {
   return CUSTOMER_AUTH_PROVIDERS.find((provider) => provider.key === key);
 }
 
+export function isCustomerAuthProviderConfigured(provider: CustomerAuthProvider, options?: { baseUrl?: string }) {
+  if (cleanUrl(process.env[provider.envKey])) return true;
+  if (!cleanEnv(process.env[provider.clientIdEnvKey])) return false;
+  return Boolean(cleanUrl(process.env[provider.redirectUriEnvKey]) || buildDefaultRedirectUri(provider.key, options?.baseUrl));
+}
+
 export function getConfiguredCustomerAuthProviderUrl(provider: CustomerAuthProvider, options?: { state?: string; returnTo?: string; baseUrl?: string }) {
   const manualUrl = cleanUrl(process.env[provider.envKey]);
   if (manualUrl) return appendProviderState(manualUrl, options);
