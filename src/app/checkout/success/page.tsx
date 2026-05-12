@@ -65,6 +65,11 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
   const revenueStage = getCendorqRevenueStage(plan.name);
   const email = CENDORQ_POST_PAYMENT_EMAILS.find((item) => item.planKey === planKey);
   const emailCopy = email ? `${email.subject}. ${email.customerGoal}` : activation.emailMoment;
+  const activationSteps = [
+    { label: "Plan", value: activation.stage, copy: `${plan.price} ${plan.cadence}` },
+    { label: "Dashboard", value: activation.dashboardPath, copy: "The protected workspace is the return path after payment." },
+    { label: "Next", value: revenueStage.nextBestAction, copy: emailCopy },
+  ] as const;
 
   return (
     <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
@@ -95,23 +100,26 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
           </div>
 
           <div className={CENDORQ_EXPERIENCE_SYSTEM.glassPanel}>
-            <div className="rounded-[1.85rem] border border-slate-200 bg-white p-5 sm:rounded-[2.35rem] sm:p-8">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Confirmed plan</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">{activation.stage}</h2>
-              <p className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-slate-950">{plan.price}</p>
-              <p className="mt-1 text-sm font-semibold text-slate-500">{plan.cadence}</p>
-              <div className="mt-6 grid gap-3">
-                <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Dashboard destination</div>
-                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{activation.dashboardPath}</p>
-                </div>
-                <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Next step</div>
-                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{revenueStage.nextBestAction}</p>
-                </div>
-                <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Confirmation</div>
-                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{emailCopy}</p>
+            <div className="overflow-hidden rounded-[1.85rem] border border-slate-200 bg-white sm:rounded-[2.35rem]">
+              <div className="border-b border-slate-200 bg-[linear-gradient(135deg,#020617,#172554_62%,#083344)] p-6 text-white sm:p-8">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-200">Confirmed plan</p>
+                <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl">{activation.stage}</h2>
+                <p className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-white">{plan.price}</p>
+                <p className="mt-1 text-sm font-semibold text-slate-300">{plan.cadence}</p>
+              </div>
+              <div className="relative bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-6">
+                <div className="absolute left-10 top-8 hidden h-[calc(100%-4rem)] w-px bg-gradient-to-b from-cyan-200 via-slate-300 to-indigo-200 sm:block" aria-hidden="true" />
+                <div className="grid gap-3">
+                  {activationSteps.map((item, index) => (
+                    <article key={item.label} className="relative grid gap-4 rounded-[1.6rem] border border-slate-200 bg-white/88 p-5 shadow-[0_14px_45px_rgba(15,23,42,0.055)] sm:grid-cols-[3.4rem_1fr] sm:items-start">
+                      <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-black text-slate-950 shadow-sm">{index + 1}</div>
+                      <div>
+                        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">{item.label}</div>
+                        <p className="mt-2 text-lg font-semibold leading-7 tracking-[-0.025em] text-slate-950">{item.value}</p>
+                        <p className="mt-2 text-sm font-medium leading-7 text-slate-600">{item.copy}</p>
+                      </div>
+                    </article>
+                  ))}
                 </div>
               </div>
             </div>
@@ -120,7 +128,7 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
       </section>
 
       <section className="sr-only" aria-label="Checkout success dashboard redirect guardrails">
-        Checkout complete. Payment complete. Thank you page. Automatic dashboard redirect. Redirect after payment. Premium checkout success hero scale. Responsive mobile-first checkout success page. Unified Cendorq Experience System. Dashboard destination. Open review dashboard. Open repair intake. Open control dashboard. AI Readiness Review. Signal Repair. Readiness Control. session_id {sessionId}. Stripe session id. Post-payment dashboard activation. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
+        Checkout complete. Payment complete. Thank you page. Automatic dashboard redirect. Redirect after payment. Premium checkout success hero scale. Responsive mobile-first checkout success page. Unified Cendorq Experience System. Dashboard destination. Open review dashboard. Open repair intake. Open control dashboard. AI Readiness Review. Signal Repair. Readiness Control. Confirmed plan. Post-payment system flow. No generic receipt card stack. session_id {sessionId}. Stripe session id. Post-payment dashboard activation. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
       </section>
     </main>
   );
