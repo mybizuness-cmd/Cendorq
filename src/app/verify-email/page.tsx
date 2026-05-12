@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MailProviderLinks, MAIL_PROVIDER_GUARDRAIL_COPY } from "@/components/auth/mail-provider-links";
 import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { CUSTOMER_EMAIL_ORCHESTRATION_STEPS, CUSTOMER_EMAIL_REVENUE_SEQUENCE } from "@/lib/customer-auth-orchestration";
@@ -62,6 +63,7 @@ export default function VerifyEmailPage() {
                   </article>
                 ))}
               </div>
+              <MailProviderLinks className="mt-6" />
             </div>
           </div>
         </div>
@@ -93,7 +95,7 @@ export default function VerifyEmailPage() {
       </section>
 
       <section className="sr-only" aria-label="Verification guardrails">
-        Email confirmation. Confirm the inbox before the workspace opens. White public verification surface. Send secure access link. Check your email. Cendorq Support at support@cendorq.com. Private results stay behind verified dashboard access. Free Scan result access remains dashboard-only at /dashboard/reports/free-scan. Verification safety. Premium verify email hero scale. Responsive mobile-first verify email page. Unified Cendorq Experience System. {CONFIRMATION_STEPS.join(" ")} {DESTINATIONS.map((item) => `${item.label} ${item.value} ${item.href} ${item.detail}`).join(" ")} {VERIFY_RULES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}
+        Email confirmation. Confirm the inbox before the workspace opens. White public verification surface. Send secure access link. Check your email. Cendorq Support at support@cendorq.com. Private results stay behind verified dashboard access. Free Scan result access remains dashboard-only at /dashboard/reports/free-scan. Verification safety. Premium verify email hero scale. Responsive mobile-first verify email page. Unified Cendorq Experience System. {MAIL_PROVIDER_GUARDRAIL_COPY}. {CONFIRMATION_STEPS.join(" ")} {DESTINATIONS.map((item) => `${item.label} ${item.value} ${item.href} ${item.detail}`).join(" ")} {VERIFY_RULES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}
       </section>
     </main>
   );
