@@ -14,8 +14,8 @@ type StepNumber = 0 | 1 | 2 | 3;
 type Step = { title: string; copy: string; fields: Array<keyof FormValues> };
 
 const INITIAL_VALUES: FormValues = { fullName: "", email: "", businessName: "", websiteUrl: "", country: "", stateRegion: "", city: "", businessType: "", primaryOffer: "", audience: "", biggestIssue: "", competitors: "", notes: "" };
-const PRIMARY_CTA_CLASS = "inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition duration-200 hover:border-slate-700 hover:bg-slate-50 hover:text-slate-950 hover:shadow-[inset_0_0_0_1px_rgba(15,23,42,0.12),0_10px_28px_rgba(15,23,42,0.1)] focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70";
-const SECONDARY_CTA_CLASS = "inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+const PRIMARY_CTA_CLASS = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-200 bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_10px_28px_rgba(14,165,233,0.12)] transition duration-200 hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70";
+const SECONDARY_CTA_CLASS = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
 const EMAIL_LOCAL_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789.!#$%&'*+-/=?^_`{|}~";
 const EMAIL_DOMAIN_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-.";
 
@@ -119,8 +119,8 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
             <h2 className="max-w-3xl text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">{activeStep.title}</h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">{activeStep.copy}</p>
           </div>
-          <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50 px-4 py-3 sm:min-w-[10rem]">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Scan strength</div>
+          <div className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/60 px-4 py-3 sm:min-w-[10rem]">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">Scan strength</div>
             <div className="mt-1 text-3xl font-semibold text-slate-950">{qualityScore}%</div>
             <div className="mt-1 text-xs leading-5 text-slate-500">Clear answers improve the first signal.</div>
           </div>
@@ -128,7 +128,7 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
 
         <div className="mt-5">
           <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400"><span>Step {step + 1} of {STEPS.length}</span><span>{progress}% complete</span></div>
-          <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-100"><span className="block h-full rounded-full bg-slate-950 transition-all" style={{ width: `${progress}%` }} /></div>
+          <div className="mt-2 h-2 overflow-hidden rounded-full bg-cyan-50"><span className="block h-full rounded-full bg-cyan-300 transition-all" style={{ width: `${progress}%` }} /></div>
         </div>
 
         <form className="mt-6" onSubmit={submit} noValidate>
@@ -143,7 +143,7 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
           {submitState.kind === "success" ? <SuccessState state={submitState} /> : null}
           {submitState.kind === "error" ? <ErrorState state={submitState} /> : null}
         </form>
-        <div className="sr-only">Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, inbox guidance, clean public CTAs, recovery guidance, and safe-data warnings.</div>
+        <div className="sr-only">Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, inbox guidance, clean public CTAs, recovery guidance, safe-data warnings, light cyan progress bar, and no black form buttons.</div>
       </div>
     </section>
   );
@@ -156,7 +156,7 @@ function FieldControl({ field, values, errors, onChange }: { field: keyof FormVa
 }
 
 function renderInput(field: keyof FormValues, values: FormValues, onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void) {
-  const commonClass = "w-full rounded-[1.05rem] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-950/10";
+  const commonClass = "w-full rounded-[1.05rem] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/70";
   const copy = LABELS[field];
   if (field === "country") return <select id={field} name={field} value={values[field]} onChange={onChange} className={commonClass}><option value="">Select country</option>{COUNTRIES.map((item) => <option key={item} value={item}>{item}</option>)}</select>;
   if (field === "stateRegion" && values.country === "United States") return <select id={field} name={field} value={values[field]} onChange={onChange} className={commonClass}><option value="">Select a state</option>{US_STATES.map((item) => <option key={item} value={item}>{item}</option>)}</select>;
