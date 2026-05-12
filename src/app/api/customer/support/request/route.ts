@@ -177,7 +177,7 @@ async function loadEnvelope(): Promise<SupportEnvelope> {
 }
 
 async function saveEnvelope(envelope: SupportEnvelope) {
-  await saveFileBackedEnvelope({ storageDir: STORAGE_DIR, storageFile, envelope, createTempId: randomUUID });
+  await saveFileBackedEnvelope({ storageDir: STORAGE_DIR, storageFile: STORAGE_FILE, envelope, createTempId: randomUUID });
 }
 
 function configuredSupportAllowedOrigins() {
