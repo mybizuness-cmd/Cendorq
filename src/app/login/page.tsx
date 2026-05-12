@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MailProviderLinks, MAIL_PROVIDER_GUARDRAIL_COPY } from "@/components/auth/mail-provider-links";
 import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { CUSTOMER_AUTH_PROVIDERS, type CustomerAuthProviderKey } from "@/lib/customer-auth-provider-config";
@@ -65,6 +66,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
   const resolvedSearchParams = await Promise.resolve(searchParams || {});
   const returnTo = safeReturnTo(resolvedSearchParams.returnTo);
   const authNotice = buildAuthNotice(resolvedSearchParams.auth, resolvedSearchParams.provider);
+  const showMailboxShortcuts = resolvedSearchParams.auth === "email-sent" || resolvedSearchParams.auth === "email-queued";
 
   return (
     <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
@@ -89,7 +91,12 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
                 <p className="mt-4 text-sm font-medium leading-7 text-slate-600">Choose how you want to access your workspace.</p>
               </div>
 
-              {authNotice ? <div role="status" aria-live="polite" className={`mt-6 rounded-[1.25rem] border p-4 text-sm font-semibold leading-6 ${authNotice.tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-950" : "border-amber-200 bg-amber-50 text-amber-950"}`}>{authNotice.message}</div> : null}
+              {authNotice ? (
+                <div role="status" aria-live="polite" className={`mt-6 rounded-[1.25rem] border p-4 text-sm font-semibold leading-6 ${authNotice.tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-950" : "border-amber-200 bg-amber-50 text-amber-950"}`}>
+                  <p>{authNotice.message}</p>
+                  {showMailboxShortcuts ? <MailProviderLinks className="mt-4" /> : null}
+                </div>
+              ) : null}
 
               <form className="mt-6 grid gap-3" action="/api/auth/email" method="get">
                 <input type="hidden" name="returnTo" value={returnTo} />
@@ -129,7 +136,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Email accepted. Email queued. Email unavailable. Trusted browser access may require secure session configuration. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Sign up. Create account. Account access and business intake are separate. Cendorq never emails a password. Provider sign-in confirms account identity; Free Scan remains the business-context intake. Unified Cendorq Experience System. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
+      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Email accepted. Email queued. Email unavailable. Trusted browser access may require secure session configuration. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Sign up. Create account. Account access and business intake are separate. Cendorq never emails a password. Provider sign-in confirms account identity; Free Scan remains the business-context intake. Unified Cendorq Experience System. {MAIL_PROVIDER_GUARDRAIL_COPY}. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
     </main>
   );
 }
