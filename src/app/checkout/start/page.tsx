@@ -9,13 +9,14 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
-const PLAN_COPY: Record<CendorqPaidPlanKey, { stage: string; title: string; description: string; bestFor: string; next: string }> = {
+const PLAN_COPY: Record<CendorqPaidPlanKey, { stage: string; title: string; description: string; bestFor: string; next: string; prerequisite: string }> = {
   "deep-review": {
     stage: "Review",
     title: "AI Readiness Review",
     description: "Evidence-backed review for businesses that need to understand what is weakening clarity, trust, proof, or choice before buying repair work.",
     bestFor: "You know something is off, but the right fix is not proven yet.",
     next: "After payment, Cendorq opens the review path and asks for the business context needed to begin.",
+    prerequisite: "This is the recommended first paid step when the cause is not proven yet.",
   },
   "build-fix": {
     stage: "Repair",
@@ -23,6 +24,7 @@ const PLAN_COPY: Record<CendorqPaidPlanKey, { stage: string; title: string; desc
     description: "Focused repair for the page, message, proof, or action path that makes the business harder to understand, trust, or choose.",
     bestFor: "You know the weak point and are ready to improve it.",
     next: "After payment, Cendorq opens the repair path and confirms the approved business details needed to begin.",
+    prerequisite: "Repair can move fastest after an AI Readiness Review or approved diagnosis. If the target is not proven yet, Cendorq will hold repair and route you to the right review step first.",
   },
   "ongoing-control": {
     stage: "Control",
@@ -30,6 +32,7 @@ const PLAN_COPY: Record<CendorqPaidPlanKey, { stage: string; title: string; desc
     description: "Monthly readiness control for businesses that need clarity, trusted proof, public signals, and action paths kept under review.",
     bestFor: "You have a strong enough base and need ongoing attention.",
     next: "After payment, Cendorq opens the monthly control path and confirms the priority focus for the first cycle.",
+    prerequisite: "Control works best after a baseline review, approved diagnosis, or prior repair history. If there is no baseline yet, Cendorq will help set that before monthly control begins.",
   },
 };
 
@@ -85,12 +88,12 @@ export default function CheckoutStartPage({ searchParams }: { searchParams?: { p
                   <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{copy.bestFor}</p>
                 </div>
                 <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">After payment</div>
-                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{copy.next}</p>
+                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Before work starts</div>
+                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{copy.prerequisite}</p>
                 </div>
                 <div className="rounded-[1.35rem] border border-cyan-200 bg-cyan-50 p-4">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">Selected plan</div>
-                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{plan.name} · {plan.price} · {plan.cadence}</p>
+                  <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">After payment</div>
+                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{copy.next}</p>
                 </div>
               </div>
             </div>
@@ -99,7 +102,7 @@ export default function CheckoutStartPage({ searchParams }: { searchParams?: { p
       </section>
 
       <section className="sr-only" aria-label="Checkout guardrails">
-        Start checkout. Secure checkout. Focused checkout confirmation. Selected plan only. No lower plan-switching grid. Stripe payment links. AI Readiness Review payment link. Signal Repair payment link. Readiness Control payment link. No fake urgency. No ranking guarantee. No AI placement guarantee. No guaranteed leads or revenue. Checkout metadata. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")}
+        Start checkout. Secure checkout. Focused checkout confirmation. Selected plan only. Non-blocking prerequisite guidance. Signal Repair may require AI Readiness Review or supported diagnosis before work starts. Readiness Control may require baseline before monitoring starts. No lower plan-switching grid. Stripe payment links. AI Readiness Review payment link. Signal Repair payment link. Readiness Control payment link. No fake urgency. No ranking guarantee. No AI placement guarantee. No guaranteed leads or revenue. Checkout metadata. {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")}
       </section>
     </main>
   );
