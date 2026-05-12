@@ -54,8 +54,7 @@ export default function HomePage() {
 
         <div className="relative mx-auto grid w-full max-w-7xl gap-6 lg:grid-cols-[minmax(0,0.94fr)_minmax(24rem,1.06fr)] lg:items-center">
           <div className="max-w-[43rem] text-left">
-            <p className="text-xs font-bold uppercase tracking-[0.26em] text-slate-500 sm:text-sm">AI Engine Readiness</p>
-            <h1 className="mt-4 text-[clamp(2.55rem,11vw,5rem)] font-semibold leading-[0.91] tracking-[-0.08em] text-slate-950 lg:text-[clamp(3rem,4.85vw,5.35rem)]">
+            <h1 className="text-[clamp(2.55rem,11vw,5rem)] font-semibold leading-[0.91] tracking-[-0.08em] text-slate-950 lg:text-[clamp(3rem,4.85vw,5.35rem)]">
               If AI engines cannot understand your business, customers may never get the chance to.
             </h1>
             <p className="mt-4 max-w-2xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">
@@ -112,7 +111,7 @@ export default function HomePage() {
       </section>
 
       <section className="sr-only" aria-label="Cendorq homepage verification">
-        Cendorq homepage replacement. Cinematic homepage experience. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. AI is becoming the place customers meet you first. Start with the Free Scan. See the first place your business may be unclear, under-trusted, or harder to choose. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Scan. Review. Repair. Control. Scan. Review. Repair. Control. Start Free Scan. Review Plans. White body. No hero badge. No card prices. No signal word mini card grid. No AI placement promises. AI Readiness anchor. Premium laptop hero scale. Distinct Cendorq signal experience. Unified Cendorq Experience System. Stronger laptop composition. Improved contrast. Visible final CTA. Reduced dead spacing from video audit. CENDORQ_SIGNAL_WORDS. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")}
+        Cendorq homepage replacement. Cinematic homepage experience. Connected system map. No block description headers. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. AI is becoming the place customers meet you first. Start with the Free Scan. See the first place your business may be unclear, under-trusted, or harder to choose. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Scan. Review. Repair. Control. Start Free Scan. Review Plans. White body. No hero badge. No card prices. No signal word mini card grid. No AI placement promises. Unified Cendorq Experience System. Stronger connected system map composition. Improved contrast. Visible final CTA. Reduced dead spacing from video audit. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")}
       </section>
     </main>
   );
@@ -121,46 +120,51 @@ export default function HomePage() {
 function SignalMap() {
   return (
     <div className="relative mx-auto w-full max-w-[34rem] lg:ml-auto" aria-hidden="true">
-      <div className="absolute -inset-8 rounded-[3.2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.24),transparent_44%)] blur-2xl" />
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/90 bg-white/58 p-3 shadow-[0_24px_80px_rgba(15,23,42,0.11)] backdrop-blur-2xl sm:rounded-[2.7rem]">
-        <div className="relative min-h-[29rem] overflow-hidden rounded-[1.55rem] border border-slate-200 bg-[radial-gradient(circle_at_50%_20%,#ffffff_0%,#eefbff_44%,#dff4ff_100%)] p-5 shadow-inner sm:min-h-[27rem] sm:rounded-[2.2rem] sm:p-7">
-          <div className="absolute inset-x-8 top-10 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
-          <div className="absolute inset-y-8 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-slate-300 to-transparent" />
+      <div className="absolute -inset-8 rounded-[3.2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.26),transparent_44%)] blur-2xl" />
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/90 bg-white/62 p-3 shadow-[0_24px_80px_rgba(15,23,42,0.11)] backdrop-blur-2xl sm:rounded-[2.7rem]">
+        <div className="relative min-h-[29rem] overflow-hidden rounded-[1.55rem] border border-slate-200 bg-[radial-gradient(circle_at_48%_30%,#ffffff_0%,#effcff_42%,#dff4ff_100%)] p-5 shadow-inner sm:min-h-[27rem] sm:rounded-[2.2rem] sm:p-7">
+          <div className="absolute inset-x-8 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-300 to-transparent" />
+          <div className="absolute inset-y-8 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-cyan-300 to-transparent" />
+          <div className="absolute left-1/2 top-1/2 h-[18.5rem] w-[18.5rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/90 bg-cyan-100/10" />
+          <div className="absolute left-1/2 top-1/2 h-[12.5rem] w-[12.5rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-200/80 bg-indigo-100/10" />
           <div className="absolute -right-20 top-10 h-56 w-56 rounded-full border border-cyan-200/80 bg-cyan-100/20" />
           <div className="absolute -bottom-24 left-2 h-64 w-64 rounded-full border border-indigo-200/80 bg-indigo-100/20" />
 
           <div className="relative max-w-sm">
             <h2 className="text-[clamp(1.85rem,7.5vw,3.05rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950 sm:text-[clamp(2rem,3.1vw,3.05rem)]">What does the market understand?</h2>
-            <p className="mt-3 text-sm font-medium leading-6 text-slate-600">Cendorq maps visible signals into a safer first action instead of burying the customer in disconnected cards.</p>
+            <p className="mt-3 text-sm font-medium leading-6 text-slate-600">Cendorq connects the visible signals into one safer next action.</p>
           </div>
 
           <div className="relative mx-auto mt-4 h-[17.5rem] w-full max-w-[20rem] sm:h-56 sm:max-w-none">
-            <div className="absolute left-1/2 top-1/2 flex h-[5.5rem] w-[5.5rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-900 bg-slate-950 text-white shadow-[0_18px_56px_rgba(15,23,42,0.22)] sm:h-24 sm:w-24">
+            <div className="absolute left-1/2 top-1/2 z-20 flex h-[6rem] w-[6rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-900 bg-slate-950 text-white shadow-[0_18px_56px_rgba(15,23,42,0.25)] sm:h-[6.25rem] sm:w-[6.25rem]">
               <div className="flex h-full w-full flex-col items-center justify-center text-center">
                 <span className="text-[8px] font-bold uppercase tracking-[0.17em] text-cyan-200 sm:text-[9px]">Cendorq</span>
-                <span className="mt-1 text-[11px] font-semibold sm:text-xs">Signal map</span>
+                <span className="mt-1 text-[11px] font-semibold sm:text-xs">Readiness</span>
               </div>
             </div>
 
             {READINESS_PATH.map((stage, index) => {
               const positions = [
-                "left-0 top-2 sm:left-1 sm:top-3",
-                "right-0 top-5 sm:right-1 sm:top-2",
-                "left-1 bottom-5 sm:left-4 sm:bottom-1",
-                "right-0 bottom-2 sm:right-4 sm:bottom-3",
+                "left-0 top-1 sm:left-3 sm:top-1",
+                "right-0 top-1 sm:right-3 sm:top-1",
+                "left-0 bottom-1 sm:left-3 sm:bottom-1",
+                "right-0 bottom-1 sm:right-3 sm:bottom-1",
               ] as const;
               return (
-                <div key={stage.label} className={`absolute ${positions[index]} w-[8.05rem] rounded-[1.05rem] border border-white/90 bg-white/90 p-3 shadow-[0_12px_30px_rgba(15,23,42,0.08)] backdrop-blur sm:w-[7.5rem]`}>
-                  <p className="text-[8px] font-black uppercase tracking-[0.19em] text-slate-500 sm:text-[9px]">{stage.label}</p>
+                <div key={stage.label} className={`absolute z-10 ${positions[index]} w-[8.15rem] rounded-[1.05rem] border border-white/95 bg-white/92 p-3 shadow-[0_12px_30px_rgba(15,23,42,0.09)] backdrop-blur sm:w-[8rem]`}>
+                  <p className="text-[8px] font-black uppercase tracking-[0.19em] text-cyan-700 sm:text-[9px]">{stage.label}</p>
                   <p className="mt-1 text-sm font-semibold leading-5 text-slate-950">{stage.name}</p>
+                  <p className="mt-1 hidden text-[11px] font-semibold leading-4 text-slate-500 sm:block">{stage.copy}</p>
                 </div>
               );
             })}
 
-            <div className="absolute left-[22%] top-[32%] h-px w-[24%] rotate-[20deg] bg-slate-300" />
-            <div className="absolute right-[22%] top-[35%] h-px w-[22%] -rotate-[20deg] bg-slate-300" />
-            <div className="absolute bottom-[32%] left-[24%] h-px w-[23%] -rotate-[24deg] bg-slate-300" />
-            <div className="absolute bottom-[31%] right-[24%] h-px w-[23%] rotate-[22deg] bg-slate-300" />
+            <div className="absolute left-[20%] top-[27%] h-px w-[31%] rotate-[18deg] bg-cyan-300" />
+            <div className="absolute right-[20%] top-[27%] h-px w-[31%] -rotate-[18deg] bg-cyan-300" />
+            <div className="absolute bottom-[27%] left-[20%] h-px w-[31%] -rotate-[18deg] bg-cyan-300" />
+            <div className="absolute bottom-[27%] right-[20%] h-px w-[31%] rotate-[18deg] bg-cyan-300" />
+            <div className="absolute left-[19%] top-1/2 h-px w-[62%] -translate-y-1/2 bg-cyan-200/70" />
+            <div className="absolute left-1/2 top-[18%] h-[64%] w-px -translate-x-1/2 bg-cyan-200/70" />
           </div>
         </div>
       </div>
