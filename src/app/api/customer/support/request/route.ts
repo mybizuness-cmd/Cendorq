@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
   try {
     const envelope = await loadEnvelope();
     envelope.entries.unshift(storedEntry);
-    envelope.entries.sort((left, right) => right.updatedAt.localeCompare(left));
+    envelope.entries.sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
     await saveEnvelope(envelope);
     return jsonNoStore({ ok: true, supportRequestId: storedEntry.id, requestType, workStartGate: storedEntry.workStartGate, workStartPlanKey: storedEntry.workStartPlanKey, decision: storedEntry.decision, operatorReviewRequired: storedEntry.operatorReviewRequired, downstreamProcessingAllowed: storedEntry.downstreamProcessingAllowed, message: "The support request was captured with a safe summary and routed through the protected Cendorq work-start gate." }, 200);
   } catch {
@@ -177,7 +177,7 @@ async function loadEnvelope(): Promise<SupportEnvelope> {
 }
 
 async function saveEnvelope(envelope: SupportEnvelope) {
-  await saveFileBackedEnvelope({ storageDir: STORAGE_DIR, storageFile: STORAGE_FILE, envelope, createTempId: randomUUID });
+  await saveFileBackedEnvelope({ storageDir: STORAGE_DIR, storageFile, envelope, createTempId: randomUUID });
 }
 
 function configuredSupportAllowedOrigins() {
