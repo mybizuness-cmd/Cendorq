@@ -62,7 +62,6 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   applicationName: siteConfig.name,
   referrer: "origin-when-cross-origin",
-  manifest: "/manifest.webmanifest",
   keywords: [
     "Cendorq",
     "AI engine readiness",
@@ -84,7 +83,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   category: "business",
   formatDetection: { telephone: false, address: false, email: false },
-  appleWebApp: { capable: true, title: siteConfig.shortName, statusBarStyle: "default" },
   openGraph: {
     type: "website",
     url: siteOrigin,
