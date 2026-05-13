@@ -31,6 +31,7 @@ export type PlanPageData = {
 };
 
 const PLAN_KEY_BY_TITLE: Record<string, CendorqPlanKey> = {
+  "Start with the first signal": "free-scan",
   "Find the first weak signal": "free-scan",
   "Find what is weakening readiness": "deep-review",
   "Prove what is weakening readiness": "deep-review",
@@ -40,7 +41,7 @@ const PLAN_KEY_BY_TITLE: Record<string, CendorqPlanKey> = {
 };
 
 const PLAN_NEXT_STEP: Record<CendorqPlanKey, string> = {
-  "free-scan": "Start with a first signal before choosing deeper work.",
+  "free-scan": "Start with a first signal before choosing paid depth.",
   "deep-review": "Use this when evidence should guide the next investment.",
   "build-fix": "Use this when the weak point is clear enough to improve.",
   "ongoing-control": "Use this when the business needs ongoing attention and readiness control.",
@@ -121,7 +122,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
                 What this plan moves into focus.
               </h2>
               <p className="mt-4 max-w-2xl text-base font-medium leading-7 text-slate-600">
-                The goal is to choose the next safe depth, not to bury the customer in another dark block.
+                The goal is to make the next move easier to understand, not to add more noise.
               </p>
             </div>
 
