@@ -1,5 +1,7 @@
 export type CustomerAuthProviderKey = "google" | "microsoft" | "apple" | "linkedin" | "facebook";
 
+const FULL_PROVIDER_SESSION_READY_ENV_KEY = "CENDORQ_AUTH_PROVIDER_SESSION_READY";
+
 export type CustomerAuthProvider = {
   key: CustomerAuthProviderKey;
   label: string;
@@ -92,7 +94,7 @@ export function getConfiguredCustomerAuthProviderUrl(provider: CustomerAuthProvi
 }
 
 export function isCustomerAuthProviderReady(provider: CustomerAuthProvider) {
-  return readEnabledFlag(process.env[provider.readyEnvKey]);
+  return readEnabledFlag(process.env[provider.readyEnvKey]) && readEnabledFlag(process.env[FULL_PROVIDER_SESSION_READY_ENV_KEY]);
 }
 
 function resolveCustomerAuthProviderUrl(provider: CustomerAuthProvider, options?: { state?: string; returnTo?: string; baseUrl?: string }) {
@@ -173,5 +175,5 @@ export const CUSTOMER_AUTH_SESSION_STANDARD = [
   "Provider sign-in confirms account identity; Free Scan remains the business-context intake.",
   "A first-time provider sign-in may create an account workspace, but Free Scan results require business readiness intake.",
   "Provider routes must fail safely when provider client IDs or redirect URLs are not configured.",
-  "Provider buttons stay hidden until the full token exchange, profile fetch, workspace creation or restoration, and Cendorq session creation are production-ready.",
+  `Provider buttons stay hidden until ${FULL_PROVIDER_SESSION_READY_ENV_KEY}, token exchange, profile fetch, workspace creation or restoration, and Cendorq session creation are production-ready.`,
 ] as const;
