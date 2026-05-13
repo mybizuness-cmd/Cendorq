@@ -93,6 +93,9 @@ export async function GET() {
       acceptedInput: "safe-summary-only" as const,
       persistenceMode: "append-only-safe-projection" as const,
       rawEvidenceExposed: false,
+      customerFacingOutputApproved: false,
+      publicReportReleaseApproved: false,
+      paidPlanRecommendationApproved: false,
     },
     { status: 200, headers: safeHeaders() },
   );
@@ -136,6 +139,9 @@ export async function POST(request: Request) {
       acceptedInput: "safe-summary-only" as const,
       persistenceMode: "append-only-safe-projection" as const,
       rawEvidenceExposed: false,
+      customerFacingOutputApproved: false,
+      publicReportReleaseApproved: false,
+      paidPlanRecommendationApproved: false,
     },
     { status: 202, headers: safeHeaders() },
   );
