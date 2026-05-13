@@ -2,7 +2,7 @@
 
 import { businessTypes } from "@/lib/free-check";
 import Link from "next/link";
-import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type ChangeEvent, type FormEvent } from "react";
 
 import { requestFreeScanVerifyToViewHandoff, type FreeScanVerifyToViewClientHandoff } from "./free-scan-verify-to-view-client-handoff";
 
@@ -52,7 +52,7 @@ const RECOVERY_TILES = ["Your typed answers stay protected while you fix the iss
 
 export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
   const [step, setStep] = useState<StepNumber>(0);
-  const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
+  const [values, setValues] = useState<FormValues>(() => readSavedFreeScanProgress());
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [submitState, setSubmitState] = useState<SubmitState>({ kind: "idle" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,6 +62,10 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
   const progress = hasStarted ? Math.round(((step + 1) / STEPS.length) * 100) : 0;
   const qualityScore = useMemo(() => buildQualityScore(values), [values]);
   const likelyMove = useMemo(() => buildNextMove(qualityScore, values), [qualityScore, values]);
+
+  useEffect(() => {
+    recordFreeScanProgress(values);
+  }, [values]);
 
   function updateValue(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const key = event.target.name as keyof FormValues;
@@ -147,7 +151,7 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
           {submitState.kind === "success" ? <SuccessState state={submitState} /> : null}
           {submitState.kind === "error" ? <ErrorState state={submitState} /> : null}
         </form>
-        <div className="sr-only">Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, inbox guidance, clean public CTAs, recovery guidance, safe-data warnings, light cyan progress bar, and no black form buttons.</div>
+        <div className="sr-only">Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, inbox guidance, clean public CTAs, recovery guidance, safe-data warnings, light cyan progress bar, device progress events, submitted marker, and no black form buttons.</div>
       </div>
     </section>
   );
@@ -186,6 +190,34 @@ function successNextMove(routingHint: RoutingHint) {
   return { title: "Start with the first signal before spending deeper.", copy: "The Free Scan keeps the next move safer when the business still needs clear context.", href: "/plans", cta: "Compare plans" };
 }
 
+function readSavedFreeScanProgress() {
+  if (typeof window === "undefined") return INITIAL_VALUES;
+  try {
+    const raw = window.localStorage.getItem(FREE_SCAN_PROGRESS_KEY);
+    if (!raw) return INITIAL_VALUES;
+    const stored = JSON.parse(raw) as { values?: Partial<FormValues> };
+    return { ...INITIAL_VALUES, ...sanitizeFormValues(stored.values || {}) };
+  } catch {
+    return INITIAL_VALUES;
+  }
+}
+
+function recordFreeScanProgress(values: FormValues) {
+  if (typeof window === "undefined") return;
+  try {
+    const hasStarted = Object.values(values).some((value) => value.trim().length > 0);
+    if (!hasStarted) {
+      window.localStorage.removeItem(FREE_SCAN_PROGRESS_KEY);
+      window.dispatchEvent(new Event("cendorq:free-check:progress"));
+      return;
+    }
+    window.localStorage.setItem(FREE_SCAN_PROGRESS_KEY, JSON.stringify({ savedAt: new Date().toISOString(), values }));
+    window.dispatchEvent(new Event("cendorq:free-check:progress"));
+  } catch {
+    window.dispatchEvent(new Event("cendorq:free-check:progress"));
+  }
+}
+
 function recordFreeScanSubmitted({ intakeId, routingHint }: { intakeId: string; routingHint: RoutingHint }) {
   if (typeof window === "undefined") return;
   try {
@@ -195,6 +227,14 @@ function recordFreeScanSubmitted({ intakeId, routingHint }: { intakeId: string; 
   } catch {
     window.dispatchEvent(new Event("cendorq:free-check:submitted"));
   }
+}
+
+function sanitizeFormValues(values: Partial<FormValues>) {
+  return (Object.keys(INITIAL_VALUES) as Array<keyof FormValues>).reduce<Partial<FormValues>>((safeValues, key) => {
+    const value = values[key];
+    if (typeof value === "string") safeValues[key] = value.slice(0, 2000);
+    return safeValues;
+  }, {});
 }
 
 function validateFields(values: FormValues, fields: Array<keyof FormValues>) {
