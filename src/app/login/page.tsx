@@ -48,7 +48,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
             <h1 className="max-w-5xl text-[clamp(2.7rem,4.8vw,5.1rem)] font-semibold leading-[0.95] tracking-[-0.074em] text-slate-950">Return to your Cendorq workspace.</h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email or connected provider. Returning customers go back to the workspace. First-time customers create access through the same path.</p>
             <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
-              <Link href={`/api/auth/continue?returnTo=${encodeURIComponent(returnTo)}`} className={BUTTON_PRIMARY}>Continue if remembered</Link>
+              <Link href={`/api/auth/continue?returnTo=${encodeURIComponent(returnTo)}`} className={BUTTON_PRIMARY}>Open dashboard</Link>
               <Link href="/signup" className={BUTTON_SECONDARY}>Create workspace</Link>
             </div>
           </div>
@@ -113,7 +113,7 @@ function ProviderButton({ providerKey, returnTo }: { providerKey: CustomerAuthPr
     <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className="inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-950 shadow-[0_8px_24px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2" aria-label={brand.label}>
       <span className={`inline-flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-xs font-black shadow-sm ${brand.ringClass} ${brand.markClass}`} aria-hidden="true">{brand.mark}</span>
       <span>{brand.label}</span>
-      <span className="text-xs font-semibold text-slate-500">Access</span>
+      <span className="text-xs font-semibold text-slate-400" aria-hidden="true">›</span>
     </Link>
   );
 }
@@ -124,18 +124,18 @@ function safeReturnTo(value: string | undefined) {
 }
 
 function buildAuthNotice(auth: string | undefined, provider: string | undefined): { tone: "success" | "warning"; message: string } | null {
-  if (auth === "provider-not-ready") return { tone: "warning", message: `${provider ? `${titleCase(provider)} sign-in` : "This sign-in option"} is not connected yet. Use email access or contact support@cendorq.com for workspace help.` };
-  if (auth === "provider-callback-pending") return { tone: "warning", message: `${provider ? `${titleCase(provider)} sign-in` : "Provider sign-in"} returned to Cendorq, but account creation and session exchange are not fully connected yet. Use email access for the working sign-in path.` };
-  if (auth === "provider-callback-missing-code") return { tone: "warning", message: `${provider ? `${titleCase(provider)} sign-in` : "Provider sign-in"} returned without the required access code. Try email access or restart the provider flow after it is configured.` };
-  if (auth === "provider-cancelled") return { tone: "warning", message: `${provider ? `${titleCase(provider)} sign-in` : "Provider sign-in"} was cancelled or denied. Use email access to continue.` };
-  if (auth === "session-unavailable") return { tone: "warning", message: "Trusted browser access is not fully connected yet. Sign in with email or a provider to continue." };
-  if (auth === "session-required") return { tone: "warning", message: "This browser does not have an active Cendorq session yet. Sign in with email or a provider to continue." };
-  if (auth === "unknown-provider") return { tone: "warning", message: "That sign-in provider is not available. Use email access to continue." };
+  if (auth === "provider-not-ready") return { tone: "warning", message: `${provider ? `${titleCase(provider)} access` : "That access option"} is not ready for this account yet. Use email access to continue with the same workspace email.` };
+  if (auth === "provider-callback-pending") return { tone: "warning", message: `Cendorq could not finish ${provider ? `${titleCase(provider)} access` : "provider access"}. Use email access to continue with the same workspace email.` };
+  if (auth === "provider-callback-missing-code") return { tone: "warning", message: `Cendorq could not finish ${provider ? `${titleCase(provider)} access` : "provider access"}. Use email access to continue with the same workspace email.` };
+  if (auth === "provider-cancelled") return { tone: "warning", message: `${provider ? `${titleCase(provider)} access` : "Provider access"} was cancelled. Use email access to continue.` };
+  if (auth === "session-unavailable") return { tone: "warning", message: "This browser is not remembered yet. Use email access or a connected provider to continue." };
+  if (auth === "session-required") return { tone: "warning", message: "This browser does not have an active Cendorq session yet. Use email access or a connected provider to continue." };
+  if (auth === "unknown-provider") return { tone: "warning", message: "That access option is not available. Use email access to continue." };
   if (auth === "email-required") return { tone: "warning", message: "Enter the account email that should receive the secure Cendorq access link." };
   if (auth === "email-sent") return { tone: "success", message: "Check your inbox for the secure Cendorq access link. Confirm once, then continue to your dashboard." };
-  if (auth === "email-queued") return { tone: "warning", message: "Your access request was saved, but email delivery has not completed yet. Try again shortly or contact support@cendorq.com." };
-  if (auth === "email-unavailable") return { tone: "warning", message: "Email delivery is not fully connected yet. Contact support@cendorq.com for access help and include the email you used for Cendorq." };
-  if (auth === "email-link-used") return { tone: "warning", message: "That secure link was already used. Continue if this browser is remembered, or request a new access link below." };
+  if (auth === "email-queued") return { tone: "warning", message: "Your access request was received. Email delivery is still preparing, so try again shortly if the message does not arrive." };
+  if (auth === "email-unavailable") return { tone: "warning", message: "Cendorq could not send the access email yet. Try again shortly or use another verified access path when available." };
+  if (auth === "email-link-used") return { tone: "warning", message: "That secure link was already used. Open the dashboard if this browser is remembered, or request a new access link below." };
   if (auth === "email-link-expired") return { tone: "warning", message: "That secure link expired. Request a new access link below." };
   if (auth === "email-link-invalid") return { tone: "warning", message: "That secure link could not be verified. Request a new access link below." };
   return null;
