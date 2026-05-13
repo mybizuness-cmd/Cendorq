@@ -5,6 +5,7 @@ export type CustomerAuthProvider = {
   label: string;
   cta: string;
   envKey: string;
+  readyEnvKey: string;
   clientIdEnvKey: string;
   redirectUriEnvKey: string;
   authorizationEndpoint: string;
@@ -18,6 +19,7 @@ export const CUSTOMER_AUTH_PROVIDERS: readonly CustomerAuthProvider[] = [
     label: "Google",
     cta: "Continue with Google",
     envKey: "CENDORQ_AUTH_GOOGLE_URL",
+    readyEnvKey: "CENDORQ_AUTH_GOOGLE_READY",
     clientIdEnvKey: "GOOGLE_CLIENT_ID",
     redirectUriEnvKey: "GOOGLE_REDIRECT_URI",
     authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
@@ -29,6 +31,7 @@ export const CUSTOMER_AUTH_PROVIDERS: readonly CustomerAuthProvider[] = [
     label: "Microsoft",
     cta: "Continue with Microsoft",
     envKey: "CENDORQ_AUTH_MICROSOFT_URL",
+    readyEnvKey: "CENDORQ_AUTH_MICROSOFT_READY",
     clientIdEnvKey: "MICROSOFT_CLIENT_ID",
     redirectUriEnvKey: "MICROSOFT_REDIRECT_URI",
     authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
@@ -40,6 +43,7 @@ export const CUSTOMER_AUTH_PROVIDERS: readonly CustomerAuthProvider[] = [
     label: "Apple",
     cta: "Continue with Apple",
     envKey: "CENDORQ_AUTH_APPLE_URL",
+    readyEnvKey: "CENDORQ_AUTH_APPLE_READY",
     clientIdEnvKey: "APPLE_CLIENT_ID",
     redirectUriEnvKey: "APPLE_REDIRECT_URI",
     authorizationEndpoint: "https://appleid.apple.com/auth/authorize",
@@ -51,6 +55,7 @@ export const CUSTOMER_AUTH_PROVIDERS: readonly CustomerAuthProvider[] = [
     label: "LinkedIn",
     cta: "Continue with LinkedIn",
     envKey: "CENDORQ_AUTH_LINKEDIN_URL",
+    readyEnvKey: "CENDORQ_AUTH_LINKEDIN_READY",
     clientIdEnvKey: "LINKEDIN_CLIENT_ID",
     redirectUriEnvKey: "LINKEDIN_REDIRECT_URI",
     authorizationEndpoint: "https://www.linkedin.com/oauth/v2/authorization",
@@ -62,6 +67,7 @@ export const CUSTOMER_AUTH_PROVIDERS: readonly CustomerAuthProvider[] = [
     label: "Facebook / Meta",
     cta: "Continue with Facebook",
     envKey: "CENDORQ_AUTH_FACEBOOK_URL",
+    readyEnvKey: "CENDORQ_AUTH_FACEBOOK_READY",
     clientIdEnvKey: "FACEBOOK_CLIENT_ID",
     redirectUriEnvKey: "FACEBOOK_REDIRECT_URI",
     authorizationEndpoint: "https://www.facebook.com/v19.0/dialog/oauth",
@@ -77,12 +83,19 @@ export function getCustomerAuthProvider(key: string | undefined) {
 }
 
 export function isCustomerAuthProviderConfigured(provider: CustomerAuthProvider, options?: { baseUrl?: string }) {
-  if (cleanUrl(process.env[provider.envKey])) return true;
-  if (!cleanEnv(process.env[provider.clientIdEnvKey])) return false;
-  return Boolean(cleanUrl(process.env[provider.redirectUriEnvKey]) || buildDefaultRedirectUri(provider.key, options?.baseUrl));
+  return isCustomerAuthProviderReady(provider) && Boolean(resolveCustomerAuthProviderUrl(provider, options));
 }
 
 export function getConfiguredCustomerAuthProviderUrl(provider: CustomerAuthProvider, options?: { state?: string; returnTo?: string; baseUrl?: string }) {
+  if (!isCustomerAuthProviderReady(provider)) return null;
+  return resolveCustomerAuthProviderUrl(provider, options);
+}
+
+export function isCustomerAuthProviderReady(provider: CustomerAuthProvider) {
+  return readEnabledFlag(process.env[provider.readyEnvKey]);
+}
+
+function resolveCustomerAuthProviderUrl(provider: CustomerAuthProvider, options?: { state?: string; returnTo?: string; baseUrl?: string }) {
   const manualUrl = cleanUrl(process.env[provider.envKey]);
   if (manualUrl) return appendProviderState(manualUrl, options);
 
@@ -149,10 +162,16 @@ function cleanEnv(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function readEnabledFlag(value: unknown) {
+  const cleaned = cleanEnv(value).toLowerCase();
+  return cleaned === "1" || cleaned === "true" || cleaned === "enabled" || cleaned === "ready";
+}
+
 export const CUSTOMER_AUTH_SESSION_STANDARD = [
   "Returning customers should continue automatically when a trusted session is present.",
   "Changed device, expired session, cleared browser, or risk signal should return to sign in.",
   "Provider sign-in confirms account identity; Free Scan remains the business-context intake.",
   "A first-time provider sign-in may create an account workspace, but Free Scan results require business readiness intake.",
   "Provider routes must fail safely when provider client IDs or redirect URLs are not configured.",
+  "Provider buttons stay hidden until the full token exchange, profile fetch, workspace creation or restoration, and Cendorq session creation are production-ready.",
 ] as const;
