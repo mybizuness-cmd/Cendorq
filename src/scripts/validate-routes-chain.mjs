@@ -11,6 +11,7 @@ const validators = [
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
+  "src/scripts/validate-closed-intelligence.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
   "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
 ];
@@ -89,7 +90,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-verified-welcome-email-contracts.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
-  "src/scripts/validate-closed-intelligence.mjs",
 ];
 
 const missing = validators.filter((validatorPath) => !existsSync(join(root, validatorPath)));
@@ -118,5 +118,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
+console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
