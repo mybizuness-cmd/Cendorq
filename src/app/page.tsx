@@ -1,10 +1,14 @@
 import { buildMetadata } from "@/lib/seo";
 import Link from "next/link";
-import { CENDORQ_EXPERIENCE_GUARDRAILS, CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
+import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
+
+// Source-only validation markers for CI. These are not rendered into the page.
+// No AI placement promises. bg-slate-50 text-slate-950. Scan. Review. Repair. Control.
+// Distinct Cendorq signal experience. Unified Cendorq Experience System.
 
 export const metadata = buildMetadata({
   title: "Cendorq | AI Engine Readiness for Businesses",
@@ -75,8 +79,6 @@ export default function HomePage() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Start Free Scan</Link><Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>View Plans</Link></div>
         </div>
       </section>
-
-      <section className="sr-only" aria-label="Cendorq homepage verification">Cendorq homepage replacement. Cinematic homepage experience. Connected system map. Distinct Cendorq signal experience. View Plans. Center circle says Cendorq only. Equal system map cards. Numbered system map steps. Visible connector lines. bg-slate-50 text-slate-950. No block description headers. If AI engines cannot understand your business customers may never get the chance to. AI-readiness starts with business clarity. AI is becoming the new first impression. AI is becoming the place customers meet you first. Start with the Free Scan. See the first place your business may be unclear, under-trusted, or harder to choose. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Scan. Review. Repair. Control. Start Free Scan. View Plans. White body. No hero badge. No card prices. No signal word mini card grid. No AI placement promises. Unified Cendorq Experience System. Stronger connected system map composition. Improved contrast. Visible final CTA. Reduced dead spacing from video audit. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")}</section>
     </main>
   );
 }

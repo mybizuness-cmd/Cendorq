@@ -145,10 +145,6 @@ export default function FreeCheckPage() {
           </article>
         ))}
       </section>
-
-      <section className="sr-only" aria-label="Free Scan verification">
-        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Find the first place your business may be unclear. Start with what customers can already see. No extra context warning block under hero. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Premium Free Scan hero scale. Unified Cendorq Experience System. No generic Clarity Trust Action body card block. No dark blue Free Scan block. No black Free Scan button. Protected first read. Check inbox for Cendorq Support support@cendorq.com after submission.
-      </section>
     </main>
   );
 }

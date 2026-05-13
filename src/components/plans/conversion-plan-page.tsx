@@ -46,20 +46,6 @@ const PLAN_NEXT_STEP: Record<CendorqPlanKey, string> = {
   "ongoing-control": "Use this when the business needs ongoing attention and readiness control.",
 };
 
-const PLAN_DECISION_PRINCIPLES = [
-  "Start free when the first weak signal is unclear.",
-  "Use AI Readiness Review when the business needs evidence before repair.",
-  "Use Signal Repair when the weak point is clear enough to improve.",
-  "Use Readiness Control when the business needs ongoing attention.",
-] as const;
-
-const PLAN_TRUST_RULES = [
-  "No fake urgency.",
-  "No unsupported revenue promise.",
-  "No guaranteed ranking or AI placement.",
-  "No paid pressure before the right depth is clear.",
-] as const;
-
 export function ConversionPlanPage({ data }: { data: PlanPageData }) {
   const plan = getCendorqPlanPrice(PLAN_KEY_BY_TITLE[data.title] || "free-scan");
   const primaryHref = plan.stripeMode === "none" ? data.ctaHref : plan.checkoutPath;
@@ -158,10 +144,6 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
       <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-16 sm:px-8 lg:grid-cols-2" aria-label="Plan fit">
         <FitPanel title="Best when" items={data.fit.good.slice(0, 3)} />
         <FitPanel title="Not the right first step when" items={data.fit.bad.slice(0, 3)} muted />
-      </section>
-
-      <section className="sr-only" aria-label="Plan guardrails">
-        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Premium plan detail hero scale. Responsive mobile-first plan detail page. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. No heavy blue subpage block. No block description headers. Find what is weakening readiness. Strengthen the signal customers judge first. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
       </section>
     </main>
   );
