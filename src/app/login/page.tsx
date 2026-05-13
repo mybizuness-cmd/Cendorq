@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { MailProviderLinks, MAIL_PROVIDER_GUARDRAIL_COPY } from "@/components/auth/mail-provider-links";
+import { MailProviderLinks } from "@/components/auth/mail-provider-links";
 import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { CUSTOMER_AUTH_PROVIDERS, isCustomerAuthProviderConfigured, type CustomerAuthProviderKey } from "@/lib/customer-auth-provider-config";
-import { CUSTOMER_AUTH_METHODS, CUSTOMER_EMAIL_DELIVERABILITY_STANDARD, CUSTOMER_EMAIL_ORCHESTRATION_STEPS, CUSTOMER_EMAIL_REVENUE_SEQUENCE } from "@/lib/customer-auth-orchestration";
 
 export const metadata = buildMetadata({
   title: "Sign in | Cendorq",
@@ -25,17 +24,17 @@ const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underl
 const CUSTOMER_ACCESS_POINTS = [
   "Use the same email you used for the Free Scan, purchase, or support request.",
   "Email access is passwordless. Cendorq should never ask you to remember a generated password.",
-  "Provider sign-in appears only as active when the provider is configured.",
+  "Provider sign-in appears only after the full provider access path is configured.",
   "If provider access is unavailable, use email or contact support@cendorq.com with your Cendorq email.",
 ] as const;
 
 const ACTIVE_PROVIDER_BUTTON_CLASS = "border-cyan-100 bg-white text-slate-800 hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-950";
-const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { mark: string; label: string; unavailable: string; className: string }> = {
-  google: { mark: "G", label: "Continue with Google", unavailable: "Google sign-in is not connected yet. Use email access.", className: ACTIVE_PROVIDER_BUTTON_CLASS },
-  microsoft: { mark: "M", label: "Continue with Microsoft", unavailable: "Microsoft sign-in is not connected yet. Use email access.", className: ACTIVE_PROVIDER_BUTTON_CLASS },
-  apple: { mark: "APPLE", label: "Continue with Apple", unavailable: "Apple sign-in is not connected yet. Use email access.", className: ACTIVE_PROVIDER_BUTTON_CLASS },
-  linkedin: { mark: "in", label: "Continue with LinkedIn", unavailable: "LinkedIn sign-in is not connected yet. Use email access.", className: ACTIVE_PROVIDER_BUTTON_CLASS },
-  facebook: { mark: "f", label: "Continue with Facebook", unavailable: "Facebook sign-in is not connected yet. Use email access.", className: ACTIVE_PROVIDER_BUTTON_CLASS },
+const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { mark: string; label: string; className: string }> = {
+  google: { mark: "G", label: "Continue with Google", className: ACTIVE_PROVIDER_BUTTON_CLASS },
+  microsoft: { mark: "M", label: "Continue with Microsoft", className: ACTIVE_PROVIDER_BUTTON_CLASS },
+  apple: { mark: "APPLE", label: "Continue with Apple", className: ACTIVE_PROVIDER_BUTTON_CLASS },
+  linkedin: { mark: "in", label: "Continue with LinkedIn", className: ACTIVE_PROVIDER_BUTTON_CLASS },
+  facebook: { mark: "f", label: "Continue with Facebook", className: ACTIVE_PROVIDER_BUTTON_CLASS },
 };
 
 export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
@@ -43,7 +42,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
   const returnTo = safeReturnTo(resolvedSearchParams.returnTo);
   const authNotice = buildAuthNotice(resolvedSearchParams.auth, resolvedSearchParams.provider);
   const showMailboxShortcuts = resolvedSearchParams.auth === "email-sent" || resolvedSearchParams.auth === "email-queued";
-  const providerStates = CUSTOMER_AUTH_PROVIDERS.map((provider) => ({ key: provider.key, configured: isCustomerAuthProviderConfigured(provider) }));
+  const configuredProviders = CUSTOMER_AUTH_PROVIDERS.filter((provider) => isCustomerAuthProviderConfigured(provider));
 
   return (
     <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
@@ -64,13 +63,20 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Cendorq</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Sign in</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">Email works now. Provider access becomes active only after configuration.</p>
+                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">No password to remember. Cendorq sends a secure link to your inbox.</p>
               </div>
 
               {authNotice ? (
                 <div role="status" aria-live="polite" className={`mt-5 rounded-[1.25rem] border p-4 text-sm font-semibold leading-6 ${authNotice.tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-950" : "border-amber-200 bg-amber-50 text-amber-950"}`}>
                   <p>{authNotice.message}</p>
                   {showMailboxShortcuts ? <MailProviderLinks className="mt-4" /> : null}
+                </div>
+              ) : null}
+
+              {configuredProviders.length > 0 ? (
+                <div className="mt-5 grid gap-2">
+                  {configuredProviders.map((provider) => <ProviderButton key={provider.key} providerKey={provider.key} returnTo={returnTo} />)}
+                  <div className="flex items-center gap-3 pt-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400"><span className="h-px flex-1 bg-slate-200" />or use email<span className="h-px flex-1 bg-slate-200" /></div>
                 </div>
               ) : null}
 
@@ -82,14 +88,6 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
                 </label>
                 <button type="submit" className={BUTTON_PRIMARY}>Send secure access link</button>
               </form>
-
-              <div className="my-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400"><span className="h-px flex-1 bg-slate-200" />optional providers<span className="h-px flex-1 bg-slate-200" /></div>
-
-              <div className="grid gap-2">
-                {providerStates.map((provider) => (
-                  <ProviderButton key={provider.key} providerKey={provider.key} returnTo={returnTo} configured={provider.configured} />
-                ))}
-              </div>
 
               <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/55 p-4 text-center">
                 <h3 className="text-sm font-semibold text-slate-950">New to Cendorq?</h3>
@@ -110,23 +108,12 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
           <p className="mt-5 text-sm leading-7 text-slate-600">Need Cendorq to understand your business? <Link className={SMALL_LINK} href="/free-check">Run the Free Scan</Link>. Already have a workspace? Use the same email above.</p>
         </div>
       </section>
-
-      <section className="sr-only" aria-label="Customer auth provider guardrails">Return to your Cendorq workspace. Send secure access link. Email accepted. Email queued. Email unavailable. Trusted browser access may require secure session configuration. Continue with Google. Continue with Microsoft. Continue with Apple. Continue with LinkedIn. Continue with Facebook. Sign up. Create account. Disabled unavailable provider buttons. Light provider buttons. No black auth buttons. Provider callback pending. Provider callback missing code. Provider cancelled. Account access and business intake are separate. Cendorq never emails a password. Provider sign-in confirms account identity; Free Scan remains the business-context intake. Unified Cendorq Experience System. {MAIL_PROVIDER_GUARDRAIL_COPY}. {CUSTOMER_AUTH_PROVIDERS.map((provider) => `${provider.cta} ${provider.envKey} ${provider.trustRole}`).join(" ")} {CUSTOMER_ACCESS_POINTS.join(" ")} {CUSTOMER_AUTH_METHODS.map((item) => `${item.label} ${item.priority} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((item) => `${item.label} ${item.customerPromise} ${item.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_DELIVERABILITY_STANDARD.join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((item) => `${item.label} ${item.trigger} ${item.targetPath} ${item.purpose}`).join(" ")}</section>
     </main>
   );
 }
 
-function ProviderButton({ providerKey, returnTo, configured }: { providerKey: CustomerAuthProviderKey; returnTo: string; configured: boolean }) {
+function ProviderButton({ providerKey, returnTo }: { providerKey: CustomerAuthProviderKey; returnTo: string }) {
   const brand = PROVIDER_BRAND[providerKey];
-  if (!configured) {
-    return (
-      <div className="inline-flex min-h-12 w-full cursor-not-allowed items-center justify-between gap-3 rounded-full border border-cyan-100 bg-white/70 px-4 py-3 text-sm font-semibold text-slate-400" aria-disabled="true" title={brand.unavailable}>
-        <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-cyan-50 px-2 text-xs font-black text-slate-500 shadow-sm">{brand.mark}</span>
-        <span>{brand.label}</span>
-        <span className="text-xs">Unavailable</span>
-      </div>
-    );
-  }
   return (
     <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className={`inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full border px-4 py-3 text-sm font-semibold shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 ${brand.className}`} aria-label={brand.label}>
       <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-cyan-50 px-2 text-xs font-black text-slate-950 shadow-sm">{brand.mark}</span>
@@ -148,11 +135,14 @@ function buildAuthNotice(auth: string | undefined, provider: string | undefined)
   if (auth === "provider-cancelled") return { tone: "warning", message: `${provider ? `${titleCase(provider)} sign-in` : "Provider sign-in"} was cancelled or denied. Use email access to continue.` };
   if (auth === "session-unavailable") return { tone: "warning", message: "Trusted browser access is not fully connected yet. Sign in with email or a provider to continue." };
   if (auth === "session-required") return { tone: "warning", message: "This browser does not have an active Cendorq session yet. Sign in with email or a provider to continue." };
-  if (auth === "unknown-provider") return { tone: "warning", message: "That sign-in provider is not available. Use email or another provider." };
+  if (auth === "unknown-provider") return { tone: "warning", message: "That sign-in provider is not available. Use email access to continue." };
   if (auth === "email-required") return { tone: "warning", message: "Enter the account email that should receive the secure Cendorq access link." };
-  if (auth === "email-sent") return { tone: "success", message: "Cendorq accepted your access request. Check your inbox and spam for Cendorq Support <support@cendorq.com>. If it does not arrive, contact support@cendorq.com with the same email." };
+  if (auth === "email-sent") return { tone: "success", message: "Check your inbox for the secure Cendorq access link. Confirm once, then continue to your dashboard." };
   if (auth === "email-queued") return { tone: "warning", message: "Your access request was saved, but email delivery has not completed yet. Try again shortly or contact support@cendorq.com." };
   if (auth === "email-unavailable") return { tone: "warning", message: "Email delivery is not fully connected yet. Contact support@cendorq.com for access help and include the email you used for Cendorq." };
+  if (auth === "email-link-used") return { tone: "warning", message: "That secure link was already used. Continue if this browser is remembered, or request a new access link below." };
+  if (auth === "email-link-expired") return { tone: "warning", message: "That secure link expired. Request a new access link below." };
+  if (auth === "email-link-invalid") return { tone: "warning", message: "That secure link could not be verified. Request a new access link below." };
   return null;
 }
 

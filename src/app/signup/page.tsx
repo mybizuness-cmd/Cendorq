@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MailProviderLinks, MAIL_PROVIDER_GUARDRAIL_COPY } from "@/components/auth/mail-provider-links";
+import { MailProviderLinks } from "@/components/auth/mail-provider-links";
 import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { CUSTOMER_AUTH_PROVIDERS, isCustomerAuthProviderConfigured, type CustomerAuthProviderKey } from "@/lib/customer-auth-provider-config";
@@ -29,7 +29,6 @@ const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { label: string; mark: str
 };
 
 const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_10px_28px_rgba(14,165,233,0.12)] transition hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
-const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-cyan-200 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export default async function SignupPage({ searchParams }: SignupPageProps) {
   const resolvedSearchParams = await Promise.resolve(searchParams || {});
@@ -89,8 +88,6 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
           </article>
         ))}
       </section>
-
-      <section className="sr-only" aria-label="Signup access guardrails">Sign up. Create account. Create your Cendorq workspace. One access system. Email magic link. Send secure access link. Sign in and sign up use the same provider access buttons when providers are connected. Provider buttons hidden until connected. No unavailable provider buttons. Open Gmail. Open Outlook. Open Yahoo Mail. Open Apple Mail. Customer lands in dashboard after confirmation even without a Free Scan. Private dashboard path. No account-existence leakage. No fake urgency. No hidden checkout pressure. No dashboard access before verification. No promise of guaranteed business outcomes. autoComplete="email" autoComplete="new-password" Send a magic link focus:outline-none focus:ring-2 returnTo {returnTo}. {MAIL_PROVIDER_GUARDRAIL_COPY}</section>
     </main>
   );
 }

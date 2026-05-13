@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { MailProviderLinks, MAIL_PROVIDER_GUARDRAIL_COPY } from "@/components/auth/mail-provider-links";
+import { MailProviderLinks } from "@/components/auth/mail-provider-links";
 import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
-import { CUSTOMER_EMAIL_ORCHESTRATION_STEPS, CUSTOMER_EMAIL_REVENUE_SEQUENCE } from "@/lib/customer-auth-orchestration";
 
 export const metadata = buildMetadata({ title: "Confirm your email | Cendorq", description: "Confirm your Cendorq email address and continue to your dashboard.", path: "/verify-email", noIndex: true });
 
@@ -50,8 +49,6 @@ export default function VerifyEmailPage() {
           </div>
         </div>
       </section>
-
-      <section className="sr-only" aria-label="Verification guardrails">Email confirmation. Check your email to continue. Confirm once. Land inside the dashboard. Open dashboard after confirmation. Send a magic link. Request a new link. verification click redirects to dashboard. Verified access. Continue Free Scan. Paid path. For privacy, Cendorq keeps confirmation guidance bounded and never exposes another customer's status. Dashboard, Free Scan history, report status, billing, notifications, and support status stay gated until the email is verified. Cendorq will not ask for passwords, card numbers, private keys, or session tokens through email confirmation support. If the message is missing, use the retry path calmly rather than creating duplicate accounts or sharing private evidence. VERIFICATION_SAFETY_NOTES AFTER_CONFIRMATION_PATH After confirmation path Verification safety notes {MAIL_PROVIDER_GUARDRAIL_COPY}. {CONFIRMATION_STEPS.join(" ")} {VERIFY_RULES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}</section>
     </main>
   );
 }
