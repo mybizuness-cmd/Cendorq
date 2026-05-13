@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CheckoutDashboardRedirect } from "./dashboard-redirect";
 import { MailProviderLinks } from "@/components/auth/mail-provider-links";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
+import { resolveCustomerAccountContinuation } from "@/lib/customer-account-continuation-standard";
 import { resolveCendorqCustomerJourney } from "@/lib/customer-journey-orchestrator";
 import { resolvePaidPlanContinuationAction } from "@/lib/paid-plan-continuation-standard";
 import { CENDORQ_PAID_PLAN_KEYS, getPaidCendorqPlanPrice, type CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
@@ -9,7 +10,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({ title: "Payment complete | Cendorq", description: "Your Cendorq plan is confirmed. Check your email for workspace access.", path: "/checkout/success", noIndex: true });
 
-type SearchParams = { plan?: string | string[]; session_id?: string | string[] };
+type SearchParams = { plan?: string | string[]; session_id?: string | string[]; email?: string | string[] };
 type PageProps = { searchParams?: Promise<SearchParams> | SearchParams };
 
 const PLAN_COPY: Record<CendorqPaidPlanKey, { stage: string; title: string }> = {
@@ -22,10 +23,12 @@ export default async function CheckoutSuccessPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const planKey = normalizePlan(params?.plan);
   const sessionId = normalizeValue(params?.session_id) || "pending-session";
+  const checkoutEmail = normalizeValue(params?.email) || "";
   const plan = getPaidCendorqPlanPrice(planKey);
   const planCopy = PLAN_COPY[planKey];
   const journey = resolveCendorqCustomerJourney({ purchasedPlan: planKey, source: "checkout-success", sessionId, completedEvidence: ["customerOwnershipVerified"], completedIntake: [] });
   const continuation = resolvePaidPlanContinuationAction({ planKey, fulfillmentState: journey.fulfillmentState, dashboardDestination: journey.dashboardDestination, customerNextAction: journey.customerNextAction });
+  const accountContinuation = resolveCustomerAccountContinuation({ email: checkoutEmail, origin: "checkout", checkoutSessionId: sessionId, preferredDestination: continuation.href });
   const status = journey.deliveryCanStart ? "Ready for queue" : journey.backendWorkState === "do-not-start" ? "Held safely" : "Next input needed";
 
   return (
@@ -36,7 +39,7 @@ export default async function CheckoutSuccessPage({ searchParams }: PageProps) {
         <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.84fr_1.16fr] lg:items-center">
           <div>
             <h1 className={`max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.pageHeadline}`}>{planCopy.title}</h1>
-            <p className={`mt-6 max-w-3xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>Payment is complete. Cendorq will use the checkout email to create or return your workspace.</p>
+            <p className={`mt-6 max-w-3xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>{accountContinuation.customerMessage}</p>
             <div className="mt-6 max-w-3xl rounded-[1.6rem] border border-cyan-200 bg-cyan-50/70 p-5 shadow-[0_14px_45px_rgba(14,165,233,0.08)]">
               <div className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-700">One next step</div>
               <h2 className="mt-2 text-2xl font-semibold tracking-[-0.045em] text-slate-950">{continuation.title}</h2>
@@ -57,7 +60,8 @@ export default async function CheckoutSuccessPage({ searchParams }: PageProps) {
               </div>
               <div className="grid gap-3 bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-6">
                 <Step number="1" label="Plan" value={planCopy.stage} copy={`${plan.price} ${plan.cadence}`} />
-                <Step number="2" label="Next" value={status} copy={continuation.customerCopy} />
+                <Step number="2" label="Workspace" value="Create or return access" copy={accountContinuation.operatorMessage} />
+                <Step number="3" label="Next" value={status} copy={continuation.customerCopy} />
                 <article className="rounded-[1.6rem] border border-cyan-200 bg-cyan-50 p-5 shadow-[0_14px_45px_rgba(14,165,233,0.08)]">
                   <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">Open your inbox</div>
                   <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">Find the message from Cendorq Support and confirm once to open your workspace.</p>
