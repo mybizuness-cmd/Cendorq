@@ -70,7 +70,7 @@ export const siteConfig: SiteConfig = {
     shortName: "Cendorq",
     siteUrl: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
     description:
-        "Cendorq checks whether AI engines can understand what a business does, why it should be trusted, and why customers should choose it.",
+        "Cendorq checks whether AI engines and customers can understand, trust, and choose a business clearly.",
     locale: "en_US",
     twitterHandle: "",
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@cendorq.com",
@@ -84,18 +84,8 @@ export const siteConfig: SiteConfig = {
         "Cendorq",
         "AI engine readiness",
         "AI readiness for business",
-        "AI search visibility",
-        "AI answer visibility",
-        "answer engine visibility",
         "business clarity scan",
-        "business trust scan",
-        "business visibility scan",
-        "market command intelligence",
-        "free business scan",
-        "Deep Review",
-        "Build Fix",
-        "Ongoing Control",
-        "Scan Diagnose Fix Control",
+        "business trust signals",
     ],
 } as const;
 
@@ -132,7 +122,7 @@ export function buildMetadata({
         buildImageAlt({ title: resolvedTitle, imageTitle, imageSubtitle });
     const imageWidth = clampNumber(image?.width, 200, 4000, 1200);
     const imageHeight = clampNumber(image?.height, 200, 4000, 630);
-    const mergedKeywords = dedupeStrings([...siteConfig.defaultKeywords, ...keywords]);
+    const mergedKeywords = dedupeStrings([...siteConfig.defaultKeywords, ...keywords]).slice(0, 10);
     const twitterHandle = normalizeTwitterHandle(siteConfig.twitterHandle);
     const locale = normalizeLocale(siteConfig.locale);
 
@@ -189,6 +179,7 @@ export function buildWebsiteJsonLd() {
         "@id": websiteSchemaId(),
         url: siteConfig.siteUrl,
         name: siteConfig.name,
+        alternateName: siteConfig.shortName,
         description: siteConfig.defaultOgDescription,
         inLanguage: normalizeLocale(siteConfig.locale),
         publisher: { "@id": organizationSchemaId() },
@@ -244,7 +235,7 @@ export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJs
     };
 }
 
-export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI engine readiness and market command intelligence" }: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI engine readiness" }: ServiceJsonLdInput) {
     const normalizedPath = normalizePath(path);
 
     return {
@@ -254,7 +245,7 @@ export function buildServiceJsonLd({ title, description, path = "/", serviceType
         name: cleanString(title) || siteConfig.defaultOgTitle,
         description: cleanString(description) || siteConfig.defaultOgDescription,
         url: absoluteUrl(normalizedPath),
-        serviceType: cleanString(serviceType) || "AI engine readiness and market command intelligence",
+        serviceType: cleanString(serviceType) || "AI engine readiness",
         areaServed: "Worldwide",
         provider: { "@id": organizationSchemaId() },
         brand: { "@id": organizationSchemaId() },

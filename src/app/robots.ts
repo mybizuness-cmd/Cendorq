@@ -10,7 +10,6 @@ const PUBLIC_ALLOWLIST = [
     "/plans/deep-review",
     "/plans/build-fix",
     "/plans/ongoing-control",
-    "/login",
     "/privacy",
     "/terms",
     "/disclaimer",
@@ -22,6 +21,9 @@ const PRIVATE_DISALLOWLIST = [
     "/intake-console",
     "/checkout/",
     "/dashboard/",
+    "/login",
+    "/signup",
+    "/verify-email",
     "/_next/",
 ] as const satisfies readonly RulePath[];
 

@@ -1,9 +1,14 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 
-import { buildCendorqEmailLayout, buildCendorqEmailText, cleanCendorqEmailAddress, sendCendorqEmail } from "@/lib/cendorq-email-sender";
+import { cleanCendorqEmailAddress } from "@/lib/cendorq-email-sender";
+import {
+  issueCustomerConfirmationEmail,
+  projectCustomerConfirmationEmailSafeResponse,
+} from "@/lib/customer-confirmation-email-issuance-runtime";
 import { resolveCendorqCustomerJourney, type CendorqJourneyEvidenceKey } from "@/lib/customer-journey-orchestrator";
-import { CENDORQ_POST_PAYMENT_EMAILS, getPaidCendorqPlanPrice, type CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
+import { getPaidCendorqPlanPrice, type CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
+import type { CustomerEmailConfirmationJourneyKey } from "@/lib/customer-email-confirmation-handoff-runtime";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -60,10 +65,11 @@ export async function POST(request: NextRequest) {
   const plan = getPaidCendorqPlanPrice(planKey);
   const metadata = isRecord(session.metadata) ? session.metadata : {};
   const sessionId = stringValue(session.id) || event.id || "checkout-session";
+  const stripeCustomerId = stringValue(session.customer) || stringValue(metadata.customer_id);
   const journey = resolveCendorqCustomerJourney({
     purchasedPlan: planKey,
     customerEmail: email,
-    customerId: stringValue(session.customer) || stringValue(metadata.customer_id),
+    customerId: stripeCustomerId,
     businessId: stringValue(metadata.business_id),
     sessionId,
     source: "stripe-webhook",
@@ -71,28 +77,24 @@ export async function POST(request: NextRequest) {
     completedIntake: inferCompletedIntake(metadata),
   });
 
-  const kickoff = CENDORQ_POST_PAYMENT_EMAILS.find((item) => item.planKey === planKey);
-  const baseUrl = cleanBaseUrl(process.env.NEXT_PUBLIC_APP_URL || "https://cendorq.com");
-  const dashboardUrl = new URL(journey.dashboardDestination, baseUrl).toString();
-  const subject = kickoff?.subject || `${plan.name} is confirmed`;
-  const preheader = journey.customerNextAction;
-  const secondary = `${plan.name} ${plan.price}. ${journey.safeCustomerMessage}`;
-  const cta = journey.fulfillmentState === "held-prerequisite-required" ? "Open required next step" : journey.deliveryCanStart ? "Open workflow" : "Complete next step";
-
-  const result = await sendCendorqEmail({
-    to: email,
-    subject,
-    preheader,
-    html: buildCendorqEmailLayout({ title: subject, intro: journey.safeCustomerMessage, ctaLabel: cta, ctaUrl: dashboardUrl, secondary }),
-    text: buildCendorqEmailText({ title: subject, intro: journey.safeCustomerMessage, ctaLabel: cta, ctaUrl: dashboardUrl, secondary }),
-    tags: { template: journey.emailTemplateKey, plan: planKey, event: event.id || sessionId, fulfillment: journey.fulfillmentState },
+  const confirmationEmail = await issueCustomerConfirmationEmail({
+    customerIdHash: hashStableCustomerId(stripeCustomerId || email, planKey),
+    signupEmailHash: hashEmail(email),
+    customerEmailHash: hashEmail(email),
+    journeyKey: journeyKeyForPlan(planKey),
+    requestedDestination: journey.dashboardDestination,
+    intakeId: cleanOptionalIdentifier(sessionId),
+    baseUrl: cleanBaseUrl(process.env.NEXT_PUBLIC_APP_URL || request.nextUrl.origin || "https://cendorq.com"),
+    customerEmail: email,
   });
+  const safeConfirmationEmail = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
 
   return json({
-    ok: result.ok,
-    sent: result.ok && !result.skipped,
-    skipped: result.ok && result.skipped,
+    ok: true,
+    sent: safeConfirmationEmail.providerDelivery.sent,
+    skipped: safeConfirmationEmail.providerDelivery.skipped,
     planKey,
+    planName: plan.name,
     dashboardPath: journey.dashboardDestination,
     fulfillmentState: journey.fulfillmentState,
     backendWorkState: journey.backendWorkState,
@@ -101,7 +103,14 @@ export async function POST(request: NextRequest) {
     paidWorkCanStart: journey.paidWorkCanStart,
     missingRequirements: journey.missingRequirements,
     auditTags: journey.auditTags,
-  }, result.ok ? 200 : 500);
+    confirmationEmail: safeConfirmationEmail,
+    accountAccess: {
+      createdOrReturnedByPaymentEmail: true,
+      rawEmailReturned: false,
+      rawTokenReturned: false,
+      destination: journey.dashboardDestination,
+    },
+  }, safeConfirmationEmail.providerDelivery.attempted && !safeConfirmationEmail.providerDelivery.sent && !safeConfirmationEmail.providerDelivery.skipped ? 500 : 200);
 }
 
 export async function GET() {
@@ -183,6 +192,12 @@ function inferCompletedIntake(metadata: Record<string, unknown>) {
   return stringValue(metadata.completed_intake).split(",").map((item) => item.trim()).filter(Boolean);
 }
 
+function journeyKeyForPlan(planKey: CendorqPaidPlanKey): CustomerEmailConfirmationJourneyKey {
+  if (planKey === "build-fix") return "build-fix-purchased-or-submitted";
+  if (planKey === "ongoing-control") return "ongoing-control-started";
+  return "deep-review-purchased-or-submitted";
+}
+
 function cleanBaseUrl(value: string) {
   try {
     const url = new URL(value);
@@ -190,6 +205,19 @@ function cleanBaseUrl(value: string) {
   } catch {
     return "https://cendorq.com";
   }
+}
+
+function hashStableCustomerId(value: string, planKey: CendorqPaidPlanKey) {
+  return createHash("sha256").update(`paid:${planKey}:${value.trim().toLowerCase()}`).digest("hex");
+}
+
+function hashEmail(email: string) {
+  return createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
+}
+
+function cleanOptionalIdentifier(value: string) {
+  const cleaned = value.trim().replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 180);
+  return cleaned.length >= 8 ? cleaned : null;
 }
 
 function safeEqualHex(left: string, right: string) {
