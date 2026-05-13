@@ -21,7 +21,7 @@ const CUSTOMER_ACCESS_POINTS = [
   "Use the same email or provider you used for the Free Scan, purchase, or support request.",
   "One provider button should sign in returning customers or create the workspace for first-time customers.",
   "Email access is passwordless. Cendorq should never ask you to remember a generated password.",
-  "Provider sign-in appears only after account creation, session creation, and return-to-dashboard are fully connected.",
+  "Free Scan business context stays separate from account access, but the same verified email can connect both.",
 ] as const;
 
 const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { mark: string; label: string; markClass: string; ringClass: string }> = {
@@ -46,7 +46,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,4.8vw,5.1rem)] font-semibold leading-[0.95] tracking-[-0.074em] text-slate-950">Return to your Cendorq workspace.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email or connected provider. First-time customers can create the workspace through the same access path, then start the Free Scan from the dashboard.</p>
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email or connected provider. Returning customers go back to the workspace. First-time customers create access through the same path.</p>
             <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
               <Link href={`/api/auth/continue?returnTo=${encodeURIComponent(returnTo)}`} className={BUTTON_PRIMARY}>Continue if remembered</Link>
               <Link href="/signup" className={BUTTON_SECONDARY}>Create workspace</Link>
@@ -87,7 +87,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
               <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/55 p-4 text-center">
                 <h3 className="text-sm font-semibold text-slate-950">Need Cendorq to understand the business?</h3>
                 <p className="mt-2 text-sm font-medium leading-6 text-slate-600">Run the Free Scan when you need business context. Account access alone should still open the dashboard.</p>
-                <div className="mt-4 flex flex-col gap-3 sm:flex-row"><Link href="/free-check" className={BUTTON_PRIMARY}>Start Free Scan</Link><Link href="/signup" className={BUTTON_SECONDARY}>Create workspace</Link></div>
+                <div className="mt-4"><Link href="/free-check" className={BUTTON_PRIMARY}>Start Free Scan</Link></div>
               </div>
 
               <p className="mt-5 text-center text-xs font-medium leading-5 text-slate-500">Cendorq never emails a password. Access uses a secure email link, a trusted session, or a connected provider.</p>
