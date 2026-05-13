@@ -15,8 +15,8 @@ type SignupSearchParams = { returnTo?: string };
 type SignupPageProps = { searchParams?: Promise<SignupSearchParams> | SignupSearchParams };
 
 const ACCESS_POINTS = [
-  { title: "One button, two cases", copy: "The same provider path should sign in returning customers or create access for first-time customers." },
-  { title: "Land in the dashboard", copy: "A new customer can enter the workspace first, then start the Free Scan from the dashboard." },
+  { title: "One secure path", copy: "Use the same email or provider whether you are creating access or returning later." },
+  { title: "Land in the dashboard", copy: "New customers can open the workspace first, then start the Free Scan from one clear next action." },
   { title: "Keep the scan separate", copy: "Account access should not force a business scan before the customer can reach the workspace." },
 ] as const;
 
@@ -43,7 +43,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.076em] text-slate-950">Create your Cendorq workspace.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use email or a connected provider. The same Google, Apple, or Microsoft-style path should sign in returning customers or create the workspace automatically for first-time customers.</p>
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use email or a connected provider. The same secure path can create first-time access or bring returning customers back later.</p>
             <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
               <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Already have access?</Link>
               <Link href="/free-check" className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Start Free Scan</Link>
@@ -99,7 +99,7 @@ function ProviderButton({ providerKey, returnTo }: { providerKey: CustomerAuthPr
     <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className="inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-950 shadow-[0_8px_24px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2" aria-label={brand.label}>
       <span className={`inline-flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-xs font-black shadow-sm ${brand.ringClass} ${brand.markClass}`} aria-hidden="true">{brand.mark}</span>
       <span>{brand.label}</span>
-      <span className="text-xs font-semibold text-slate-500">Access</span>
+      <span className="text-xs font-semibold text-slate-400" aria-hidden="true">›</span>
     </Link>
   );
 }
