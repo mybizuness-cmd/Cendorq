@@ -11,7 +11,7 @@ const CHIEF_REVIEW_SAMPLE_BY_PLAN = {
     consolidatedFacts: ["The Free Scan mission must stay a first visible signal, not a full diagnosis."],
     priorityFindings: ["Show one strongest observed issue and one safe next action."],
     evidenceConflicts: ["No full diagnostic evidence has been reviewed yet."],
-    safeLimitations: ["Do not imply implementation, full diagnosis, or guaranteed revenue."],
+    safeLimitations: ["Do not imply implementation, full diagnosis, or certain revenue results."],
     requiredCaptainNotes: ["Confirm dashboard-only Free Scan result boundary before customer output."],
   },
   "deep-review": {
@@ -38,7 +38,7 @@ const CHIEF_REVIEW_SAMPLE_BY_PLAN = {
     consolidatedFacts: ["Ongoing Control must compare current state against a baseline and select one monthly priority."],
     priorityFindings: ["Show stable signal, regression, confidence, and next monthly priority."],
     evidenceConflicts: ["First cycle trend depth is limited until more history exists."],
-    safeLimitations: ["Do not imply guaranteed ranking, guaranteed AI placement, or unlimited Build Fix."],
+    safeLimitations: ["Do not imply assured ranking, assured AI placement, or unlimited Build Fix."],
     requiredCaptainNotes: ["Require monthly review gate and plan boundary before customer output."],
   },
 } as const;
