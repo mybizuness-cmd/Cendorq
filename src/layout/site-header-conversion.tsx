@@ -9,7 +9,7 @@ const NAV_LINKS = [
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-10 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-white px-3 py-2 text-sm font-semibold text-slate-950 shadow-[0_8px_24px_rgba(14,165,233,0.1)] transition duration-200 hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-11 sm:px-5 sm:py-2.5";
+  "inline-flex min-h-10 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-950 shadow-[0_10px_28px_rgba(15,23,42,0.08)] transition duration-200 hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-11 sm:px-5 sm:py-2.5";
 
 const NAV_LINK_CLASS =
   "inline-flex min-h-9 shrink-0 items-center justify-center rounded-full px-2 py-2 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-3";
@@ -36,7 +36,7 @@ export function SiteHeader() {
           <span className="hidden sm:inline">Start Free Scan</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the Cendorq homepage. Mobile navigation keeps Plans, Sign in, and Scan visible without clipping AI Readiness. Header CTA uses the light white/cyan button system. href="/login"</span>
+      <span className="sr-only">Logo links to the Cendorq homepage. Mobile navigation keeps Plans, Sign in, and Scan visible without clipping AI Readiness. Header CTA uses a visible white button with black text. href="/login"</span>
     </header>
   );
 }
