@@ -15,20 +15,21 @@ type SignupSearchParams = { returnTo?: string };
 type SignupPageProps = { searchParams?: Promise<SignupSearchParams> | SignupSearchParams };
 
 const ACCESS_POINTS = [
-  { title: "Use one access method", copy: "Email, Google, Apple, or Microsoft should create the account or return the customer to it." },
+  { title: "One button, two cases", copy: "The same provider path should sign in returning customers or create access for first-time customers." },
   { title: "Land in the dashboard", copy: "A new customer can enter the workspace first, then start the Free Scan from the dashboard." },
   { title: "Keep the scan separate", copy: "Account access should not force a business scan before the customer can reach the workspace." },
 ] as const;
 
-const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { label: string; mark: string; className: string }> = {
-  google: { label: "Continue with Google", mark: "G", className: "border-slate-200 bg-white text-slate-800 hover:border-slate-300 hover:bg-slate-50" },
-  microsoft: { label: "Continue with Microsoft", mark: "▦", className: "border-sky-100 bg-white text-slate-800 hover:border-sky-200 hover:bg-sky-50" },
-  apple: { label: "Continue with Apple", mark: "", className: "border-slate-200 bg-white text-slate-900 hover:border-slate-300 hover:bg-slate-50" },
-  linkedin: { label: "Continue with LinkedIn", mark: "in", className: "border-blue-100 bg-white text-slate-800 hover:border-blue-200 hover:bg-blue-50" },
-  facebook: { label: "Continue with Facebook", mark: "f", className: "border-blue-100 bg-white text-slate-800 hover:border-blue-200 hover:bg-blue-50" },
+const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { label: string; mark: string; markClass: string; ringClass: string }> = {
+  google: { label: "Continue with Google", mark: "G", markClass: "text-red-500", ringClass: "border-red-100 bg-red-50" },
+  microsoft: { label: "Continue with Microsoft", mark: "M", markClass: "text-blue-600", ringClass: "border-blue-100 bg-blue-50" },
+  apple: { label: "Continue with Apple", mark: "", markClass: "text-slate-950", ringClass: "border-slate-200 bg-white" },
+  linkedin: { label: "Continue with LinkedIn", mark: "in", markClass: "text-blue-700", ringClass: "border-blue-100 bg-blue-50" },
+  facebook: { label: "Continue with Facebook", mark: "f", markClass: "text-blue-700", ringClass: "border-blue-100 bg-blue-50" },
 };
 
-const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_10px_28px_rgba(14,165,233,0.12)] transition hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_10px_28px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-slate-950 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export default async function SignupPage({ searchParams }: SignupPageProps) {
   const resolvedSearchParams = await Promise.resolve(searchParams || {});
@@ -42,7 +43,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.076em] text-slate-950">Create your Cendorq workspace.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use email to create or return to your workspace. When Google, Apple, Microsoft, or another provider is connected, the same button should sign you in or create the account automatically.</p>
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use email or a connected provider. The same Google, Apple, or Microsoft-style path should sign in returning customers or create the workspace automatically for first-time customers.</p>
             <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
               <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Already have access?</Link>
               <Link href="/free-check" className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Start Free Scan</Link>
@@ -50,11 +51,11 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
           </div>
 
           <div className="mx-auto w-full max-w-xl rounded-[2.35rem] border border-white/80 bg-white/76 p-3 shadow-[0_26px_90px_rgba(15,23,42,0.1)] backdrop-blur-2xl">
-            <div className="rounded-[1.9rem] border border-cyan-100 bg-white p-5 sm:p-7">
+            <div className="rounded-[1.9rem] border border-slate-200 bg-white p-5 sm:p-7">
               <div className="text-center">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">Cendorq</p>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Cendorq</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Create or access your workspace.</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">No password to remember. Cendorq sends a secure link to your inbox.</p>
+                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">No password to remember. Use one secure path to reach the workspace.</p>
               </div>
 
               {configuredProviders.length > 0 ? (
@@ -95,10 +96,10 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
 function ProviderButton({ providerKey, returnTo }: { providerKey: CustomerAuthProviderKey; returnTo: string }) {
   const brand = PROVIDER_BRAND[providerKey];
   return (
-    <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className={`inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full border px-4 py-3 text-sm font-semibold shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 ${brand.className}`} aria-label={brand.label}>
-      <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full border border-slate-200 bg-white px-2 text-xs font-black text-slate-950 shadow-sm">{brand.mark}</span>
+    <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className="inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-950 shadow-[0_8px_24px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2" aria-label={brand.label}>
+      <span className={`inline-flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-xs font-black shadow-sm ${brand.ringClass} ${brand.markClass}`} aria-hidden="true">{brand.mark}</span>
       <span>{brand.label}</span>
-      <span className="text-xs opacity-70">↗</span>
+      <span className="text-xs font-semibold text-slate-500">Access</span>
     </Link>
   );
 }
