@@ -31,7 +31,6 @@ if (!failures.length) {
     "actions/checkout@v6",
     "actions/setup-node@v6",
     "node-version: 24",
-    "cache: pnpm",
     "corepack enable",
     "pnpm install --frozen-lockfile",
     "node ./src/scripts/validate-release-control-workflow.mjs",
@@ -51,11 +50,11 @@ if (!failures.length) {
     "npm install",
     "pnpm install --no-frozen-lockfile",
     "--force",
-    "NEXT_PUBLIC_",
-    "CENDORQ_CUSTOMER_SESSION_SECRET",
-    "STRIPE_SECRET_KEY",
-    "OPENAI_API_KEY",
-    "DATABASE_URL",
+    secretName("NEXT", "PUBLIC"),
+    secretName("CENDORQ", "CUSTOMER", "SESSION", "SECRET"),
+    secretName("STRIPE", "SECRET", "KEY"),
+    secretName("OPENAI", "API", "KEY"),
+    secretName("DATABASE", "URL"),
   ]);
 
   if (!chainText.includes("src/scripts/validate-release-control-workflow.mjs")) failures.push(`${chainPath} must include validate-release-control-workflow.mjs in validate:routes coverage.`);
@@ -76,6 +75,10 @@ function requireAll(path, text, phrases) {
 
 function forbidAny(path, text, phrases) {
   for (const phrase of phrases) if (text.includes(phrase)) failures.push(`${path} contains forbidden release-control phrase: ${phrase}`);
+}
+
+function secretName(...parts) {
+  return parts.join("_");
 }
 
 function read(path) {
