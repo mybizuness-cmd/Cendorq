@@ -60,7 +60,7 @@ export default async function CheckoutSuccessPage({ searchParams }: PageProps) {
               </div>
               <div className="grid gap-3 bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-6">
                 <Step number="1" label="Plan" value={planCopy.stage} copy={`${plan.price} ${plan.cadence}`} />
-                <Step number="2" label="Workspace" value="Create or return access" copy={accountContinuation.operatorMessage} />
+                <Step number="2" label="Workspace" value="Create or return access" copy={accountContinuation.customerMessage} />
                 <Step number="3" label="Next" value={status} copy={continuation.customerCopy} />
                 <article className="rounded-[1.6rem] border border-cyan-200 bg-cyan-50 p-5 shadow-[0_14px_45px_rgba(14,165,233,0.08)]">
                   <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">Open your inbox</div>
