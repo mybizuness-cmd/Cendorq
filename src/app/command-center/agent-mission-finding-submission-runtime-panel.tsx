@@ -14,7 +14,7 @@ const SAMPLE_FINDING_BY_PLAN = {
     risks: ["The scan can overstate certainty if limitations are not shown."],
     recommendation: "Keep the Free Scan output focused on the strongest first visible signal and a safe next action.",
     confidence: "medium" as const,
-    blockedCustomerClaims: ["full diagnosis", "guaranteed revenue", "implementation included"],
+    blockedCustomerClaims: ["full diagnosis", "certain revenue results", "implementation included"],
   },
   "deep-review": {
     agentKey: "evidence-conflict-scout",
@@ -25,7 +25,7 @@ const SAMPLE_FINDING_BY_PLAN = {
     risks: ["A recommendation can become generic if cause and priority are not separated."],
     recommendation: "Separate symptoms from causes and mark every priority with evidence confidence.",
     confidence: "medium" as const,
-    blockedCustomerClaims: ["implementation included", "complete certainty", "guaranteed ROI"],
+    blockedCustomerClaims: ["implementation included", "complete certainty", "assured ROI"],
   },
   "build-fix": {
     agentKey: "conversion-luxury-ui-scout",
@@ -36,7 +36,7 @@ const SAMPLE_FINDING_BY_PLAN = {
     risks: ["Scope can expand if out-of-scope work is not named."],
     recommendation: "Confirm scope, preserve before-state, and prepare approval-ready implementation summary.",
     confidence: "medium" as const,
-    blockedCustomerClaims: ["unlimited implementation", "unapproved production change", "guaranteed conversion lift"],
+    blockedCustomerClaims: ["unlimited implementation", "unapproved production change", "assured conversion lift"],
   },
   "ongoing-control": {
     agentKey: "business-change-forecasting-scout",
@@ -47,7 +47,7 @@ const SAMPLE_FINDING_BY_PLAN = {
     risks: ["Monthly status can become noise without a selected priority."],
     recommendation: "Compare against the last available baseline and select one next monthly priority.",
     confidence: "medium" as const,
-    blockedCustomerClaims: ["guaranteed ranking", "guaranteed AI placement", "unlimited Build Fix"],
+    blockedCustomerClaims: ["assured ranking", "assured AI placement", "unlimited Build Fix"],
   },
 } as const;
 
