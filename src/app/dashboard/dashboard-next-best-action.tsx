@@ -8,6 +8,7 @@ const FREE_SCAN_PROGRESS_KEY = "cendorq.free-check.progress.v1";
 const FREE_SCAN_SUBMITTED_KEY = "cendorq.free-check.submitted.v1";
 
 type DashboardActionState = "start-free-scan" | "continue-free-scan" | "open-free-scan-result";
+type ActionSource = "device" | "server" | "fallback";
 
 type StoredProgress = {
   savedAt?: string;
@@ -20,30 +21,51 @@ type StoredSubmitted = {
   routingHint?: string;
 };
 
+type SafeFreeScanStatusResponse = {
+  ok?: boolean;
+  status?: "submitted" | "result-ready" | "not-found" | "missing-intake-id";
+  nextAction?: "start-free-scan" | "open-free-scan-result";
+  resultDestination?: string;
+  message?: string;
+};
+
+type ActionView = {
+  state: DashboardActionState;
+  source: ActionSource;
+  serverMessage?: string;
+};
+
 export function DashboardNextBestAction() {
-  const [actionState, setActionState] = useState<DashboardActionState>("start-free-scan");
+  const [actionView, setActionView] = useState<ActionView>({ state: "start-free-scan", source: "fallback" });
 
   useEffect(() => {
-    setActionState(resolveActionState());
+    let cancelled = false;
 
-    const sync = () => setActionState(resolveActionState());
+    const sync = async () => {
+      const next = await resolveActionView();
+      if (!cancelled) setActionView(next);
+    };
+
+    void sync();
     window.addEventListener("storage", sync);
     window.addEventListener("focus", sync);
     window.addEventListener("cendorq:free-check:submitted", sync);
     return () => {
+      cancelled = true;
       window.removeEventListener("storage", sync);
       window.removeEventListener("focus", sync);
       window.removeEventListener("cendorq:free-check:submitted", sync);
     };
   }, []);
 
-  const action = useMemo(() => buildAction(actionState), [actionState]);
+  const action = useMemo(() => buildAction(actionView), [actionView]);
 
   return (
     <div className="mt-8 max-w-xl rounded-[1.55rem] border border-white/80 bg-white/80 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur">
       <div className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-700">Next best action</div>
       <h2 className="mt-2 text-2xl font-semibold tracking-[-0.045em] text-slate-950">{action.title}</h2>
       <p className="mt-2 text-sm font-medium leading-6 text-slate-600">{action.copy}</p>
+      {actionView.source === "server" ? <p className="mt-2 text-xs font-semibold leading-5 text-cyan-700">Checked against Cendorq status.</p> : null}
       <Link href={action.href} className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} mt-4 w-full justify-center sm:w-auto`}>
         {action.cta}
       </Link>
@@ -51,17 +73,17 @@ export function DashboardNextBestAction() {
   );
 }
 
-function buildAction(actionState: DashboardActionState) {
-  if (actionState === "open-free-scan-result") {
+function buildAction(actionView: ActionView) {
+  if (actionView.state === "open-free-scan-result") {
     return {
       title: "Your scan was submitted.",
-      copy: "Open the protected result area. If the result still needs email confirmation, Cendorq will guide you back to access recovery.",
+      copy: actionView.serverMessage || "Open the protected result area. If the result still needs email confirmation, Cendorq will guide you back to access recovery.",
       href: "/dashboard/reports/free-scan",
       cta: "Open Free Scan result",
     };
   }
 
-  if (actionState === "continue-free-scan") {
+  if (actionView.state === "continue-free-scan") {
     return {
       title: "Continue your Free Scan.",
       copy: "Cendorq found saved scan progress on this device. Continue from the form instead of starting over.",
@@ -78,20 +100,38 @@ function buildAction(actionState: DashboardActionState) {
   };
 }
 
-function resolveActionState(): DashboardActionState {
-  if (hasSubmittedMarker()) return "open-free-scan-result";
-  if (hasMeaningfulDraft()) return "continue-free-scan";
-  return "start-free-scan";
+async function resolveActionView(): Promise<ActionView> {
+  const submitted = getSubmittedMarker();
+  if (submitted?.intakeId) {
+    const serverStatus = await fetchSafeFreeScanStatus(submitted.intakeId);
+    if (serverStatus?.nextAction === "open-free-scan-result") {
+      return { state: "open-free-scan-result", source: "server", serverMessage: serverStatus.message };
+    }
+  }
+
+  if (submitted) return { state: "open-free-scan-result", source: "device" };
+  if (hasMeaningfulDraft()) return { state: "continue-free-scan", source: "device" };
+  return { state: "start-free-scan", source: "fallback" };
 }
 
-function hasSubmittedMarker() {
+async function fetchSafeFreeScanStatus(intakeId: string) {
+  try {
+    const response = await fetch(`/api/customer/free-scan/status?intakeId=${encodeURIComponent(intakeId)}`, { cache: "no-store", credentials: "same-origin" });
+    if (!response.ok) return null;
+    return (await response.json()) as SafeFreeScanStatusResponse;
+  } catch {
+    return null;
+  }
+}
+
+function getSubmittedMarker() {
   const raw = safeGetLocalStorage(FREE_SCAN_SUBMITTED_KEY);
-  if (!raw) return false;
+  if (!raw) return null;
   try {
     const stored = JSON.parse(raw) as StoredSubmitted;
-    return Boolean(stored.submittedAt || stored.intakeId);
+    return stored.submittedAt || stored.intakeId ? stored : null;
   } catch {
-    return false;
+    return null;
   }
 }
 

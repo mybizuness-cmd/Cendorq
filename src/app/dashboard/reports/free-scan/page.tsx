@@ -7,10 +7,9 @@ import {
   FREE_SCAN_EVIDENCE_RULES,
   FREE_SCAN_PRIORITY_MODEL,
   FREE_SCAN_REPORT_AXES,
-  FREE_SCAN_REPORT_QUALITY_RULES,
   getFreeScanFindingSummary,
 } from "@/lib/free-scan-report-methodology";
-import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES } from "@/lib/plan-value-delivery-architecture";
+import { getPlanValueDelivery } from "@/lib/plan-value-delivery-architecture";
 import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
@@ -159,10 +158,6 @@ export default function FreeScanResultsPage() {
             ))}
           </div>
         </div>
-      </section>
-
-      <section className="sr-only" aria-label="Free Scan result guardrails">
-        Market signal result. Light Free Scan result. No black Free Scan result blocks. No dark blue Free Scan result blocks. Protected dashboard result. Dashboard-only Free Scan result route. Free Scan result page must remain under /dashboard/reports/free-scan and not public. The first AI/search market signal is ready. Signal Proof Risk Limit Next command. Scan layer. Bounded confidence. Signal intelligence. Useful because it explains the limit before the next move. Evidence confidence AI/search posture and priority stay separate. What this signal includes. What stays outside Scan. Free Scan does not include full root-cause diagnosis, implementation work, monthly monitoring, guaranteed ranking, or guaranteed AI placement. Diagnose finds the full reason. Deep Review routes to plan detail page before payment. No overlap. {FREE_SCAN_AI_VISIBILITY_MODEL.promise} {FREE_SCAN_AI_VISIBILITY_MODEL.customerTruth} {FREE_SCAN_AI_VISIBILITY_MODEL.reportRule} {FREE_SCAN_VALUE.reportBoundary} {FREE_SCAN_VALUE.upgradeLogic} {PLAN_VALUE_SEPARATION_RULES.join(" ")} Six signals. Clarity Trust Choice Action AI/Search Visibility Proof. Observed evidence. Inferred judgment. Needs deeper review. Evidence rules. Priority model. Critical Important Watch. Deep Review $497. Accurate results require confidence posture and limitations. {FREE_SCAN_REPORT_QUALITY_RULES.join(" ")}
       </section>
     </main>
   );
