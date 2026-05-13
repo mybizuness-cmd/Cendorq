@@ -18,6 +18,8 @@ const PRIMARY_CTA_CLASS = "inline-flex min-h-12 items-center justify-center roun
 const SECONDARY_CTA_CLASS = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
 const EMAIL_LOCAL_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789.!#$%&'*+-/=?^_`{|}~";
 const EMAIL_DOMAIN_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-.";
+const FREE_SCAN_PROGRESS_KEY = "cendorq.free-check.progress.v1";
+const FREE_SCAN_SUBMITTED_KEY = "cendorq.free-check.submitted.v1";
 
 const STEPS: readonly Step[] = [
   { title: "Start with what customers see.", copy: "Use the business name, website, and email tied to this scan.", fields: ["businessName", "websiteUrl", "fullName", "email"] },
@@ -99,8 +101,10 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
         return;
       }
 
+      const routingHint = data.routingHint || likelyMove.routingHint;
       const handoff = await requestFreeScanVerifyToViewHandoff({ signupEmail: submittedEmail, intakeId: data.intakeId, requestedDestination: "/dashboard/reports/free-scan", verificationTokenIssued: true, safeReleaseReady: false });
-      setSubmitState({ kind: "success", message: data.message, quality: data.signalQuality, routingHint: data.routingHint || likelyMove.routingHint, handoff });
+      recordFreeScanSubmitted({ intakeId: data.intakeId, routingHint });
+      setSubmitState({ kind: "success", message: data.message, quality: data.signalQuality, routingHint, handoff });
       setValues(INITIAL_VALUES);
       setErrors({});
       setStep(0);
@@ -180,6 +184,17 @@ function successNextMove(routingHint: RoutingHint) {
   if (routingHint === "infrastructure-review") return { title: "Signal Repair may fit later.", copy: "Use it when a specific weak point is ready for scoped improvement.", href: "/plans/build-fix", cta: "See Signal Repair" };
   if (routingHint === "blueprint-candidate") return { title: "AI Readiness Review may be the right next depth.", copy: "Use it when the scan shows you need evidence-backed review before paying for repair.", href: "/plans/deep-review", cta: "See AI Readiness Review" };
   return { title: "Start with the first signal before spending deeper.", copy: "The Free Scan keeps the next move safer when the business still needs clear context.", href: "/plans", cta: "Compare plans" };
+}
+
+function recordFreeScanSubmitted({ intakeId, routingHint }: { intakeId: string; routingHint: RoutingHint }) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(FREE_SCAN_PROGRESS_KEY);
+    window.localStorage.setItem(FREE_SCAN_SUBMITTED_KEY, JSON.stringify({ submittedAt: new Date().toISOString(), intakeId, routingHint }));
+    window.dispatchEvent(new Event("cendorq:free-check:submitted"));
+  } catch {
+    window.dispatchEvent(new Event("cendorq:free-check:submitted"));
+  }
 }
 
 function validateFields(values: FormValues, fields: Array<keyof FormValues>) {

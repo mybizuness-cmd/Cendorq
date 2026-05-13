@@ -1,19 +1,18 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
-import { CENDORQ_EXPERIENCE_GUARDRAILS, CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
-import { CUSTOMER_PLATFORM_STAGES } from "@/lib/customer-platform-route-map";
+import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 import { resolveCendorqCustomerJourney } from "@/lib/customer-journey-orchestrator";
 import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 import {
   getPlanValueDelivery,
-  PLAN_VALUE_SEPARATION_RULES,
   type PlanValueKey,
 } from "@/lib/plan-value-delivery-architecture";
 
 import { DashboardActionInbox } from "./dashboard-action-inbox";
 import { DashboardBusinessCommandCenter } from "./dashboard-business-command-center";
 import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
+import { DashboardNextBestAction } from "./dashboard-next-best-action";
 
 export const metadata = buildMetadata({
   title: "AI readiness control center | Cendorq",
@@ -32,21 +31,32 @@ const BUILD_FIX_PRICE = getCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL_PRICE = getCendorqPlanPrice("ongoing-control");
 
 const DASHBOARD_DECISION = [
-  { label: "Readiness state", value: "First signal ready", detail: "Start by seeing where AI engines and customers may not clearly understand the business." },
-  { label: "Next action", value: "Open the signal", detail: "Read the protected result before buying deeper review, repair, or ongoing control." },
-  { label: "Unlocked now", value: "Scan layer", detail: "A first readiness signal with confidence, limitation, and next-action boundaries." },
-  { label: "Not unlocked yet", value: "Deeper readiness", detail: "Review, Repair, and Control stay separate until the stage fits." },
+  { label: "Workspace state", value: "Access ready", detail: "Your Cendorq workspace is open. The next step changes based on whether a scan is new, in progress, or already submitted." },
+  { label: "Recommended first move", value: "One clear action", detail: "Cendorq shows Start, Continue, or Open Result instead of multiple equal Free Scan buttons." },
+  { label: "Unlocked now", value: "Account access", detail: "Dashboard, support, billing entry, and plan paths stay connected to the same verified inbox." },
+  { label: "Not forced", value: "Paid depth", detail: "Review, Repair, and Control remain separate until the business is ready for that depth." },
 ] as const;
 
 const JOURNEY_DECISIONS = [
   {
     label: "Current first action",
     title: "Free Scan intake",
+    href: "/free-check",
+    decision: resolveCendorqCustomerJourney({
+      purchasedPlan: "free-scan",
+      source: "dashboard",
+      completedEvidence: ["emailVerified"],
+      completedIntake: [],
+    }),
+  },
+  {
+    label: "Protected result",
+    title: "Free Scan result",
     href: "/dashboard/reports/free-scan",
     decision: resolveCendorqCustomerJourney({
       purchasedPlan: "free-scan",
       source: "dashboard",
-      completedEvidence: ["emailVerified", "businessProfileExists"],
+      completedEvidence: ["emailVerified", "businessProfileExists", "freeScanComplete"],
       completedIntake: ["business name"],
     }),
   },
@@ -72,28 +82,17 @@ const JOURNEY_DECISIONS = [
       completedIntake: ["repair target"],
     }),
   },
-  {
-    label: "Control baseline",
-    title: "Readiness Control",
-    href: "/dashboard/billing",
-    decision: resolveCendorqCustomerJourney({
-      purchasedPlan: "ongoing-control",
-      source: "dashboard",
-      completedEvidence: ["customerOwnershipVerified"],
-      completedIntake: ["monthly priority"],
-    }),
-  },
 ] as const;
 
 const CUSTOMER_COMMAND_PATH = [
   {
     planKey: "free-scan",
     command: "Scan",
-    href: "/dashboard/reports/free-scan",
-    cta: "Open readiness signal",
+    href: "/free-check",
+    cta: "Open Free Scan path",
     price: FREE_SCAN_VALUE.price,
     value: FREE_SCAN_VALUE,
-    buyerMoment: "Find the first break in clarity, trust, proof, choice, or action.",
+    buyerMoment: "Give Cendorq the business context needed to find the first weak signal.",
   },
   {
     planKey: "deep-review",
@@ -133,10 +132,10 @@ const CUSTOMER_COMMAND_PATH = [
 }[];
 
 const COMMAND_LINKS = [
-  { title: "Readiness proof", copy: "See signals, approved reports, and proof boundaries.", href: "/dashboard/reports" },
-  { title: "Plan depth", copy: "See active access, invoices, and upgrade path.", href: "/dashboard/billing" },
-  { title: "Signal feed", copy: "See what needs attention next.", href: "/dashboard/notifications" },
-  { title: "Support routing", copy: "Resolve blockers without sending private details.", href: "/dashboard/support" },
+  { title: "Reports", copy: "Open protected scan and review outputs when they are ready.", href: "/dashboard/reports" },
+  { title: "Billing", copy: "See plan access, invoices, and checkout recovery paths.", href: "/dashboard/billing" },
+  { title: "Notifications", copy: "See what needs attention next.", href: "/dashboard/notifications" },
+  { title: "Support", copy: "Resolve blockers without sending private details.", href: "/dashboard/support" },
 ] as const;
 
 const DASHBOARD_HANDOFFS = [
@@ -155,25 +154,18 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <h1 className="max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-slate-950">
-            Know what AI engines and customers can understand next.
+            Your Cendorq workspace is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            This is the private operating surface for readiness: open the signal, read the proof, and move deeper only when the stage fits.
+            Cendorq checks this device for scan progress and shows one clear next action: start the Free Scan, continue it, or open the protected result.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/dashboard/reports/free-scan" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
-              Open readiness signal
-            </Link>
-            <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
-              Continue Free Scan
-            </Link>
-          </div>
+          <DashboardNextBestAction />
         </div>
 
         <div className="relative overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/74 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Open the first signal.</h2>
-          <p className="mt-5 text-base font-medium leading-8 text-slate-600">Then decide whether the business needs deeper review, targeted repair, or ongoing control.</p>
+          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">One next step.</h2>
+          <p className="mt-5 text-base font-medium leading-8 text-slate-600">The dashboard should not force a purchase or assume a scan exists. It keeps account access, scan intake, reports, support, and billing connected.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {DASHBOARD_DECISION.slice(0, 2).map((item) => (
               <article key={item.label} className="rounded-[1.6rem] border border-cyan-100 bg-cyan-50/50 p-5 shadow-sm">
@@ -202,9 +194,9 @@ export default function CustomerDashboardPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
           <div className="border-b border-cyan-100 p-6 sm:p-8 lg:p-10">
             <div className="grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Cendorq decides what can start before work starts.</h2>
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Cendorq keeps the next step separate.</h2>
               <p className="max-w-3xl text-base font-medium leading-8 text-slate-600">
-                Purchases unlock the correct workflow, but delivery only moves when ownership, intake, evidence, diagnosis, and approval fit the stage. This keeps Repair and Control from quietly becoming unpaid Review work.
+                A workspace can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts. Each path stays clear so customers do not get pushed into the wrong step.
               </p>
             </div>
           </div>
@@ -251,7 +243,7 @@ export default function CustomerDashboardPage() {
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
               <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Review. Repair. Control.</h2>
-              <p className="mt-5 text-base font-medium leading-8 text-slate-600">Every action in the dashboard should return the customer to the right readiness layer.</p>
+              <p className="mt-5 text-base font-medium leading-8 text-slate-600">Every dashboard action should return the customer to the right readiness layer.</p>
               <Link href="/plans" className="mt-7 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
                 Compare all plans →
               </Link>
@@ -289,10 +281,6 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-
-      <section className="sr-only" aria-label="Dashboard validation guardrails">
-        AI readiness control center. Private AI readiness control center. Know what AI engines and customers can understand next. Next best move. Open the first signal. Dashboard decision summary. Cendorq journey resolver. Journey resolver. Fulfillment state. Backend work state. Held prerequisite required. Held intake required. Delivery can start only after ownership, intake, evidence, diagnosis, and approval fit the Cendorq stage. Readiness path. Scan. Review. Repair. Control. Dashboard command links. Light customer dashboard. No black dashboard blocks. No dark blue dashboard blocks. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Readiness proof. Plan depth. Signal feed. Support routing. Unified Cendorq Experience System. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")} {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.command} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {JOURNEY_DECISIONS.map((item) => `${item.label} ${item.title} ${item.decision.customerStage} ${item.decision.fulfillmentState} ${item.decision.backendWorkState} ${item.decision.customerNextAction} ${item.decision.operatorNextAction} ${item.decision.missingRequirements.join(" ")}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
-      </section>
     </main>
   );
 }
