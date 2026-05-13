@@ -31,21 +31,21 @@ const BUILD_FIX_PRICE = getCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL_PRICE = getCendorqPlanPrice("ongoing-control");
 
 const DASHBOARD_DECISION = [
-  { label: "Readiness state", value: "First signal ready", detail: "Start by seeing where AI engines and customers may not clearly understand the business." },
-  { label: "Next action", value: "Open the signal", detail: "Read the protected result before buying deeper review, repair, or ongoing control." },
-  { label: "Unlocked now", value: "Scan layer", detail: "A first readiness signal with confidence, limitation, and next-action boundaries." },
-  { label: "Not unlocked yet", value: "Deeper readiness", detail: "Review, Repair, and Control stay separate until the stage fits." },
+  { label: "Workspace state", value: "Account ready", detail: "The workspace can exist before results. Readiness results require Free Scan business intake." },
+  { label: "Next action", value: "Start Free Scan", detail: "Share the business context Cendorq needs before deeper review, repair, or control makes sense." },
+  { label: "Unlocked now", value: "Workspace access", detail: "Use the dashboard for account access, support routing, plan depth, and readiness next steps." },
+  { label: "Requires intake", value: "Readiness results", detail: "The first signal, reports, and paid recommendations should not appear final until the business scan exists." },
 ] as const;
 
 const CUSTOMER_COMMAND_PATH = [
   {
     planKey: "free-scan",
     command: "Scan",
-    href: "/dashboard/reports/free-scan",
-    cta: "Open readiness signal",
+    href: "/free-check",
+    cta: "Start Free Scan",
     price: FREE_SCAN_VALUE.price,
     value: FREE_SCAN_VALUE,
-    buyerMoment: "Find the first break in clarity, trust, proof, choice, or action.",
+    buyerMoment: "Create the first business readiness signal before buying deeper work.",
   },
   {
     planKey: "deep-review",
@@ -85,9 +85,9 @@ const CUSTOMER_COMMAND_PATH = [
 }[];
 
 const COMMAND_LINKS = [
-  { title: "Readiness proof", copy: "See signals, approved reports, and proof boundaries.", href: "/dashboard/reports" },
+  { title: "Start Free Scan", copy: "Create the business intake required for the first readiness signal.", href: "/free-check" },
+  { title: "Readiness proof", copy: "See signals, approved reports, and proof boundaries when they exist.", href: "/dashboard/reports" },
   { title: "Plan depth", copy: "See active access, invoices, and upgrade path.", href: "/dashboard/billing" },
-  { title: "Signal feed", copy: "See what needs attention next.", href: "/dashboard/notifications" },
   { title: "Support routing", copy: "Resolve blockers without sending private details.", href: "/dashboard/support" },
 ] as const;
 
@@ -110,17 +110,17 @@ export default function CustomerDashboardPage() {
             Private AI readiness control center
           </div>
           <h1 className="mt-6 max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-white">
-            Know what AI engines and customers can understand next.
+            Start the business signal before the dashboard pretends it has results.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            This is not a basic account page. It is the private operating surface for readiness: open the signal, read the proof, and move deeper only when the stage fits.
+            Account access gets the customer into a workspace. Free Scan gives Cendorq the business context needed to create the first readiness signal.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/dashboard/reports/free-scan" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Open readiness signal
+            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full bg-cyan-200 px-9 py-4 text-base font-black text-slate-950 shadow-[0_22px_80px_rgba(103,232,249,0.24)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+              Start Free Scan
             </Link>
-            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Continue Free Scan
+            <Link href="/dashboard/reports" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-9 py-4 text-base font-bold text-white shadow-[0_18px_70px_rgba(2,8,23,0.32)] transition hover:border-cyan-200/40 hover:bg-cyan-200/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+              View reports
             </Link>
           </div>
         </div>
@@ -128,7 +128,7 @@ export default function CustomerDashboardPage() {
         <div className="relative overflow-hidden rounded-[2.7rem] border border-cyan-200/22 bg-[radial-gradient(circle_at_50%_0%,rgba(103,232,249,0.2),transparent_36%),linear-gradient(145deg,rgba(8,47,73,0.9),rgba(2,8,23,0.98)_52%,rgba(14,116,144,0.32))] p-5 shadow-[0_55px_200px_rgba(2,8,23,0.72)] sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Next best move</p>
-          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Open the first signal.</h2>
+          <h2 className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white sm:text-6xl">Run the scan.</h2>
           <p className="mt-5 text-base leading-8 text-slate-300">Then decide whether the business needs deeper review, targeted repair, or ongoing control.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {DASHBOARD_DECISION.slice(0, 2).map((item) => (
@@ -200,7 +200,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
 
       <section className="sr-only" aria-label="Dashboard validation guardrails">
-        AI readiness control center. Private AI readiness control center. Know what AI engines and customers can understand next. Next best move. Open the first signal. Dashboard decision summary. Readiness path. Scan. Review. Repair. Control. Dashboard command links. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Readiness proof. Plan depth. Signal feed. Support routing. Unified Cendorq Experience System. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")} {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.command} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        AI readiness control center. Private AI readiness control center. Start the business signal before the dashboard pretends it has results. Account access gets the customer into a workspace. Free Scan gives Cendorq the business context needed to create the first readiness signal. Next best move. Run the scan. Dashboard decision summary. Readiness path. Scan. Review. Repair. Control. Dashboard command links. No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Customer-led dashboard. Start Free Scan. Readiness proof. Plan depth. Support routing. Unified Cendorq Experience System. {CENDORQ_EXPERIENCE_GUARDRAILS.join(" ")} {CUSTOMER_PLATFORM_STAGES.map((stage) => `${stage.key} ${stage.label} ${stage.customerPromise} ${stage.conversionRole}`).join(" ")} {CUSTOMER_COMMAND_PATH.map((stage) => `${stage.planKey} ${stage.command} ${stage.value.customerName} ${stage.value.primaryValue} ${stage.value.customerOutcome} ${stage.buyerMoment}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {DASHBOARD_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
