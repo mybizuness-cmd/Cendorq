@@ -34,22 +34,23 @@ expect("src/lib/cendorq-experience-system.ts", [
 expect("src/app/page.tsx", [
   "cinematic-ai-readiness-experience",
   "CENDORQ_EXPERIENCE_SYSTEM",
-  "CENDORQ_SIGNAL_WORDS",
   "If AI engines cannot understand your business",
   "AI is becoming the place customers meet you first.",
   "Scan. Review. Repair. Control.",
   "Distinct Cendorq signal experience",
   "Unified Cendorq Experience System",
+  "Start Free Scan",
+  "View Plans",
 ]);
 
 expect("src/app/dashboard/page.tsx", [
   "AI readiness control center",
-  "Private AI readiness control center",
-  "Open readiness signal",
+  "Your Cendorq workspace is ready.",
+  "one clear next action",
   "Scan. Review. Repair. Control.",
-  "Readiness proof",
-  "Plan depth",
-  "Unified Cendorq Experience System",
+  "Open protected scan and review outputs when they are ready.",
+  "getPlanValueDelivery",
+  "DashboardNextBestAction",
 ]);
 
 forbidden("src/app/dashboard/page.tsx", [
@@ -78,8 +79,8 @@ expect("src/app/api/auth/continue/route.ts", [
 
 expect("src/app/api/auth/provider/[provider]/route.ts", [
   "safeDashboardPath",
-  "const safeReturnTo = safeDashboardPath",
-  "destination.searchParams.set(\"returnTo\", safeReturnTo)",
+  "const returnTo = safeDashboardPath",
+  "loginUrl.searchParams.set(\"returnTo\", returnTo)",
   "provider-not-ready",
 ]);
 
@@ -101,9 +102,11 @@ expect("src/lib/customer-email-verification-token-runtime.ts", [
 ]);
 
 expect("src/app/login/page.tsx", [
-  "Trusted browser access is not fully connected yet.",
-  "Signed remembered session",
-  "Email unavailable",
+  "No password to remember",
+  "This browser is not remembered yet.",
+  "email-unavailable",
+  "Use the same email or connected provider",
+  "Free Scan business context stays separate from account access",
 ]);
 
 expect("src/app/api/auth/email/route.ts", [
