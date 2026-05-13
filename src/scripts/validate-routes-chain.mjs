@@ -13,6 +13,7 @@ const validators = [
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-closed-intelligence.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
+  "src/scripts/validate-command-center-docs-index.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
   "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
 ];
@@ -67,6 +68,13 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-customer-support-center.mjs",
   "src/scripts/validate-dashboard-support-status-entry.mjs",
   "src/scripts/validate-routes-chain-integrity.mjs",
+  "src/scripts/validate-codeql-workflow-integrity.mjs",
+  "src/scripts/validate-repo-update-scanning-automation.mjs",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/scripts/validate-command-center-validation-registry.mjs",
+  "src/scripts/validate-report-truth-engine.mjs",
+  "src/scripts/validate-report-evidence-record-runtime.mjs",
+  "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "src/scripts/validate-free-check-intake.mjs",
   "src/scripts/validate-free-check-command-route-elevation.mjs",
   "src/scripts/validate-customer-platform-handoff-contracts.mjs",
@@ -89,7 +97,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-customer-session-auth-contracts.mjs",
   "src/scripts/validate-production-auth-provider-contracts.mjs",
   "src/scripts/validate-verified-welcome-email-contracts.mjs",
-  "src/scripts/validate-command-center-docs-index.mjs",
 ];
 
 const missing = validators.filter((validatorPath) => !existsSync(join(root, validatorPath)));
@@ -118,5 +125,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, owner operating manual coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
+console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, owner operating manual coverage, command-center docs-index coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
