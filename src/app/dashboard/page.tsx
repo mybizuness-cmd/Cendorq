@@ -12,6 +12,7 @@ import {
 import { DashboardActionInbox } from "./dashboard-action-inbox";
 import { DashboardBusinessCommandCenter } from "./dashboard-business-command-center";
 import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
+import { DashboardNextBestAction } from "./dashboard-next-best-action";
 
 export const metadata = buildMetadata({
   title: "AI readiness control center | Cendorq",
@@ -30,8 +31,8 @@ const BUILD_FIX_PRICE = getCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL_PRICE = getCendorqPlanPrice("ongoing-control");
 
 const DASHBOARD_DECISION = [
-  { label: "Workspace state", value: "Access ready", detail: "Your Cendorq workspace is open. The next step is either starting the Free Scan or opening an existing protected result." },
-  { label: "Recommended first move", value: "Start or continue Free Scan", detail: "Use the scan when Cendorq still needs business context before deeper readiness work." },
+  { label: "Workspace state", value: "Access ready", detail: "Your Cendorq workspace is open. The next step changes based on whether a scan is new, in progress, or already submitted." },
+  { label: "Recommended first move", value: "One clear action", detail: "Cendorq shows Start, Continue, or Open Result instead of multiple equal Free Scan buttons." },
   { label: "Unlocked now", value: "Account access", detail: "Dashboard, support, billing entry, and plan paths stay connected to the same verified inbox." },
   { label: "Not forced", value: "Paid depth", detail: "Review, Repair, and Control remain separate until the business is ready for that depth." },
 ] as const;
@@ -88,7 +89,7 @@ const CUSTOMER_COMMAND_PATH = [
     planKey: "free-scan",
     command: "Scan",
     href: "/free-check",
-    cta: "Start or continue Free Scan",
+    cta: "Open Free Scan path",
     price: FREE_SCAN_VALUE.price,
     value: FREE_SCAN_VALUE,
     buyerMoment: "Give Cendorq the business context needed to find the first weak signal.",
@@ -156,21 +157,14 @@ export default function CustomerDashboardPage() {
             Your Cendorq workspace is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Start with the Free Scan when Cendorq still needs business context. If you already have a protected result or paid plan, use the dashboard cards below to continue from the right place.
+            Cendorq checks this device for scan progress and shows one clear next action: start the Free Scan, continue it, or open the protected result.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
-              Start or continue Free Scan
-            </Link>
-            <Link href="/dashboard/reports" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
-              Open reports
-            </Link>
-          </div>
+          <DashboardNextBestAction />
         </div>
 
         <div className="relative overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/74 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Choose the next clean step.</h2>
+          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">One next step.</h2>
           <p className="mt-5 text-base font-medium leading-8 text-slate-600">The dashboard should not force a purchase or assume a scan exists. It keeps account access, scan intake, reports, support, and billing connected.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {DASHBOARD_DECISION.slice(0, 2).map((item) => (
