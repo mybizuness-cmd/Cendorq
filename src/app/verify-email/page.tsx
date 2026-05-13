@@ -4,31 +4,10 @@ import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { CUSTOMER_EMAIL_ORCHESTRATION_STEPS, CUSTOMER_EMAIL_REVENUE_SEQUENCE } from "@/lib/customer-auth-orchestration";
 
-export const metadata = buildMetadata({
-  title: "Confirm your email | Cendorq",
-  description: "Confirm your Cendorq email address before opening your dashboard and Free Scan results.",
-  path: "/verify-email",
-  noIndex: true,
-});
+export const metadata = buildMetadata({ title: "Confirm your email | Cendorq", description: "Confirm your Cendorq email address and continue to your dashboard.", path: "/verify-email", noIndex: true });
 
-const CONFIRMATION_STEPS = [
-  "Check the inbox that should own the Cendorq workspace.",
-  "Open the email from Cendorq Support at support@cendorq.com.",
-  "Use the secure link to continue to the dashboard, Free Scan continuation, or protected result path.",
-] as const;
-
-const DESTINATIONS = [
-  { label: "Workspace", value: "Open dashboard", href: "/dashboard", cta: "Open dashboard", detail: "Reports, billing, notifications, support, and plan guidance stay connected here." },
-  { label: "Free Scan", value: "Continue scan", href: "/free-check", cta: "Continue scan", detail: "Use this when the first signal still needs business context." },
-  { label: "Result", value: "Open result", href: "/dashboard/reports/free-scan", cta: "Open result", detail: "Use this after verified access; the result stays inside the dashboard." },
-] as const;
-
-const VERIFY_RULES = [
-  "The email inbox confirms who can open the workspace.",
-  "Private results stay behind verified dashboard access.",
-  "Cendorq should not ask for passwords, card numbers, private keys, or session tokens in support.",
-  "If the link expires, sign in again and request a fresh secure access link.",
-] as const;
+const CONFIRMATION_STEPS = ["Open the inbox for the email you used.", "Find the message from Cendorq Support.", "Confirm once and continue to your dashboard."] as const;
+const VERIFY_RULES = ["The same email can create or return to a workspace.", "New customers can open the dashboard before running a Free Scan.", "Free Scan, billing, support, and reports stay connected to the same workspace.", "If the link expires or was already used, request a fresh secure access link."] as const;
 
 export default function VerifyEmailPage() {
   return (
@@ -37,28 +16,22 @@ export default function VerifyEmailPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
         <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
           <div>
-            <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>Email confirmation</p>
-            <h1 className={`mt-6 max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.pageHeadline}`}>
-              Confirm the inbox before the workspace opens.
-            </h1>
-            <p className={`mt-6 max-w-3xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>
-              Cendorq protects the dashboard, Free Scan result, billing, and support history by confirming access through the email that owns the workspace.
-            </p>
+            <h1 className={`max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.pageHeadline}`}>Check your email to continue.</h1>
+            <p className={`mt-6 max-w-3xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>Use the secure Cendorq link to create or return to your workspace. After confirmation, the dashboard opens first, even if you have not run a Free Scan yet.</p>
             <div className={`mt-8 ${CENDORQ_EXPERIENCE_SYSTEM.mobileActionRow}`}>
-              <Link href="/login" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Send secure access link</Link>
-              <Link href="/free-check" className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Start Free Scan</Link>
+              <Link href="/login" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Request a new link</Link>
+              <Link href="/dashboard" className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Open dashboard</Link>
             </div>
           </div>
 
           <div className={CENDORQ_EXPERIENCE_SYSTEM.glassPanel}>
-            <div className="rounded-[1.85rem] border border-slate-200 bg-white p-5 sm:rounded-[2.35rem] sm:p-8">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">What to do next</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Check your email.</h2>
-              <p className={`mt-5 ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>The message should come from Cendorq Support at support@cendorq.com. Use the secure link inside the email to continue.</p>
+            <div className="rounded-[1.85rem] border border-cyan-100 bg-white p-5 sm:rounded-[2.35rem] sm:p-8">
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Confirm once.</h2>
+              <p className={`mt-5 ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>The message should come from Cendorq Support. Use the button in the email. If the link was already used or expired, request a new one from the login page.</p>
               <div className="mt-7 grid gap-3">
                 {CONFIRMATION_STEPS.map((step, index) => (
-                  <article key={step} className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-bold text-slate-950">{index + 1}</div>
+                  <article key={step} className="rounded-[1.35rem] border border-cyan-100 bg-cyan-50/45 p-4">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-100 bg-white text-sm font-bold text-slate-950">{index + 1}</div>
                     <p className={`mt-3 ${CENDORQ_EXPERIENCE_SYSTEM.supportText}`}>{step}</p>
                   </article>
                 ))}
@@ -69,34 +42,16 @@ export default function VerifyEmailPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-12 sm:px-8" aria-label="Verified destinations">
-        <div className="grid gap-4 md:grid-cols-3">
-          {DESTINATIONS.map((item) => (
-            <Link key={item.label} href={item.href} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 active:translate-y-0">
-              <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">{item.label}</div>
-              <h2 className={CENDORQ_EXPERIENCE_SYSTEM.cardHeadline}>{item.value}</h2>
-              <p className={`mt-4 ${CENDORQ_EXPERIENCE_SYSTEM.supportText}`}>{item.detail}</p>
-              <span className="mt-5 inline-flex text-sm font-bold text-slate-950">{item.cta} →</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Verification safety">
-        <div className="rounded-[2.25rem] border border-slate-200 bg-white p-6 shadow-[0_20px_70px_rgba(15,23,42,0.06)] sm:p-8">
-          <p className="text-sm font-bold text-slate-500">Verification safety</p>
-          <h2 className={`mt-3 max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.sectionHeadline}`}>Private work should open only for the right inbox.</h2>
+        <div className="rounded-[2.25rem] border border-white/80 bg-white/82 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.06)] sm:p-8">
+          <h2 className={`max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.sectionHeadline}`}>One inbox. One workspace. One clear next step.</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {VERIFY_RULES.map((rule) => (
-              <p key={rule} className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4 text-sm font-semibold leading-7 text-slate-600">{rule}</p>
-            ))}
+            {VERIFY_RULES.map((rule) => <p key={rule} className="rounded-[1.35rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-7 text-slate-600">{rule}</p>)}
           </div>
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Verification guardrails">
-        Email confirmation. Confirm the inbox before the workspace opens. White public verification surface. Send secure access link. Check your email. Cendorq Support at support@cendorq.com. Private results stay behind verified dashboard access. Free Scan result access remains dashboard-only at /dashboard/reports/free-scan. Verification safety. Premium verify email hero scale. Responsive mobile-first verify email page. Unified Cendorq Experience System. {MAIL_PROVIDER_GUARDRAIL_COPY}. {CONFIRMATION_STEPS.join(" ")} {DESTINATIONS.map((item) => `${item.label} ${item.value} ${item.href} ${item.detail}`).join(" ")} {VERIFY_RULES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}
-      </section>
+      <section className="sr-only" aria-label="Verification guardrails">Email confirmation. Check your email to continue. Confirm once. Land inside the dashboard. Open dashboard after confirmation. Send a magic link. Request a new link. verification click redirects to dashboard. Verified access. Continue Free Scan. Paid path. For privacy, Cendorq keeps confirmation guidance bounded and never exposes another customer's status. Dashboard, Free Scan history, report status, billing, notifications, and support status stay gated until the email is verified. Cendorq will not ask for passwords, card numbers, private keys, or session tokens through email confirmation support. If the message is missing, use the retry path calmly rather than creating duplicate accounts or sharing private evidence. VERIFICATION_SAFETY_NOTES AFTER_CONFIRMATION_PATH After confirmation path Verification safety notes {MAIL_PROVIDER_GUARDRAIL_COPY}. {CONFIRMATION_STEPS.join(" ")} {VERIFY_RULES.join(" ")} {CUSTOMER_EMAIL_ORCHESTRATION_STEPS.map((step) => `${step.label} ${step.customerPromise} ${step.revenueRole}`).join(" ")} {CUSTOMER_EMAIL_REVENUE_SEQUENCE.map((email) => `${email.label} ${email.trigger} ${email.targetPath} ${email.purpose}`).join(" ")}</section>
     </main>
   );
 }
