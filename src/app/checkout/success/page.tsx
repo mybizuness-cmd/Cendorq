@@ -4,16 +4,15 @@ import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { resolveCendorqCustomerJourney } from "@/lib/customer-journey-orchestrator";
 import {
-  CENDORQ_CHECKOUT_ORCHESTRATION,
   CENDORQ_PAID_PLAN_KEYS,
-  CENDORQ_POST_PAYMENT_EMAILS,
   getPaidCendorqPlanPrice,
   type CendorqPaidPlanKey,
 } from "@/lib/pricing-checkout-orchestration";
+import { MailProviderLinks } from "@/components/auth/mail-provider-links";
 
 export const metadata = buildMetadata({
   title: "Payment complete | Cendorq",
-  description: "Your Cendorq plan is confirmed. Continue into the protected dashboard for the next step.",
+  description: "Your Cendorq plan is confirmed. Check your email for secure workspace access.",
   path: "/checkout/success",
   noIndex: true,
 });
@@ -43,13 +42,11 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
   const context = POST_PAYMENT_CONTEXT[planKey];
   const journey = resolveCendorqCustomerJourney({ purchasedPlan: planKey, source: "checkout-success", sessionId, completedEvidence: context.completedEvidence, completedIntake: context.completedIntake });
   const dashboardDestination = normalizeDashboardDestination(journey.dashboardDestination);
-  const email = CENDORQ_POST_PAYMENT_EMAILS.find((item) => item.planKey === planKey);
-  const emailCopy = email ? `${email.subject}. ${email.customerGoal}` : "A confirmation email should also explain the next step.";
   const statusLabel = journey.deliveryCanStart ? "Ready for queue" : journey.backendWorkState === "do-not-start" ? "Held safely" : "Next input needed";
   const activationSteps = [
     { label: "Plan", value: context.stage, copy: `${plan.price} ${plan.cadence}` },
-    { label: "Status", value: statusLabel, copy: journey.safeCustomerMessage },
-    { label: "Next", value: humanize(journey.backendWorkState), copy: journey.customerNextAction },
+    { label: "Account access", value: "Check your email", copy: "Cendorq sends a secure workspace link to the email used at checkout. Confirm once, then continue to the dashboard." },
+    { label: "Next", value: statusLabel, copy: journey.customerNextAction },
   ] as const;
 
   return (
@@ -60,18 +57,18 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
         <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.84fr_1.16fr] lg:items-center">
           <div>
             <h1 className={`max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.pageHeadline}`}>{context.title}</h1>
-            <p className={`mt-6 max-w-3xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>{journey.safeCustomerMessage}</p>
-            <p className={`mt-4 max-w-2xl ${CENDORQ_EXPERIENCE_SYSTEM.mutedText}`}>Payment unlocks the workflow. Cendorq starts delivery only when the required ownership, intake, evidence, diagnosis, and approval state fit the stage.</p>
+            <p className={`mt-6 max-w-3xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>Payment is complete. Cendorq will use the email from checkout to create or return your workspace, then send a secure access link.</p>
+            <p className={`mt-4 max-w-2xl ${CENDORQ_EXPERIENCE_SYSTEM.mutedText}`}>The dashboard opens the next required step. Delivery starts only when the required ownership, intake, evidence, diagnosis, and approval state fit the selected stage.</p>
             <div className={`mt-8 ${CENDORQ_EXPERIENCE_SYSTEM.mobileActionRow}`}>
               <Link href={dashboardDestination} className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>{context.dashboardCta}</Link>
-              <Link href="/dashboard/billing" className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Open billing</Link>
+              <Link href="/login?returnTo=/dashboard" className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Request access link</Link>
             </div>
           </div>
 
           <div className={CENDORQ_EXPERIENCE_SYSTEM.glassPanel}>
             <div className="overflow-hidden rounded-[1.85rem] border border-white/80 bg-white/84 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur sm:rounded-[2.35rem]">
               <div className="border-b border-cyan-100 bg-[radial-gradient(circle_at_20%_0%,rgba(125,211,252,0.2),transparent_35%),linear-gradient(180deg,#ffffff,#effcff)] p-6 sm:p-8">
-                <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-700">Resolved journey state</div>
+                <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-700">Payment confirmed</div>
                 <h2 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">{context.stage}</h2>
                 <p className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-slate-950">{plan.price}</p>
                 <p className="mt-1 text-sm font-semibold text-slate-600">{plan.cadence}</p>
@@ -87,18 +84,15 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
                     </article>
                   ))}
                   <article className="relative rounded-[1.6rem] border border-cyan-200 bg-cyan-50 p-5 shadow-[0_14px_45px_rgba(14,165,233,0.08)]">
-                    <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">Missing before work can start</div>
-                    <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">{journey.missingRequirements.length ? journey.missingRequirements.join(", ") : "No blocker detected for the next workflow queue."}</p>
-                    <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{emailCopy}</p>
+                    <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">Open your inbox</div>
+                    <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">Find the message from Cendorq Support and confirm once to open your workspace.</p>
+                    <MailProviderLinks className="mt-4" />
                   </article>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <section className="sr-only" aria-label="Checkout success dashboard redirect guardrails">
-        Checkout complete. Payment complete. Light checkout success panel. No dark checkout success block. Thank you page. Automatic dashboard redirect. Redirect after payment. Premium checkout success hero scale. Responsive mobile-first checkout success page. Unified Cendorq Experience System. Dashboard destination. Open review dashboard. Open repair intake. Open control dashboard. AI Readiness Review. Signal Repair. Readiness Control. Confirmed plan. Resolved journey state. Fulfillment state. Backend work state. Missing before work can start. Payment unlocks the workflow but delivery only starts when ownership, intake, evidence, diagnosis, and approval fit the stage. Post-payment system flow. No generic receipt card stack. session_id {sessionId}. Stripe session id. Post-payment dashboard activation. {journey.customerStage} {journey.fulfillmentState} {journey.backendWorkState} {journey.customerNextAction} {journey.operatorNextAction} {journey.missingRequirements.join(" ")} {CENDORQ_CHECKOUT_ORCHESTRATION.map((step) => `${step.step} ${step.customerExperience} ${step.systemAction}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((item) => `${item.key} ${item.planKey} ${item.subject} ${item.dashboardPath} ${item.customerGoal}`).join(" ")}
       </section>
     </main>
   );
