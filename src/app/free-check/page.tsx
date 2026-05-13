@@ -29,18 +29,18 @@ export const metadata = buildMetadata({
 const SCAN_SYSTEM_STEPS = [
   {
     step: "01",
-    title: "Share the business context.",
-    copy: "Use the public details customers already need to understand: name, website, location, offer, audience, and the point that feels weak.",
+    title: "Share what customers already see.",
+    copy: "Tell Cendorq the business name, website, offer, audience, and where choosing you may feel unclear.",
   },
   {
     step: "02",
-    title: "Cendorq forms the first read.",
+    title: "Cendorq finds the first weak signal.",
     copy: "The scan looks for the first place the business may be harder to understand, trust, or choose without pretending to be a full paid review.",
   },
   {
     step: "03",
-    title: "Open results after verification.",
-    copy: "The result stays protected until email confirmation, then opens inside the customer workspace so the next step has a safe return path.",
+    title: "Open the result in your workspace.",
+    copy: "Confirm your email once, then continue into the dashboard where the result and next step stay connected.",
   },
 ] as const;
 
@@ -93,13 +93,10 @@ export default function FreeCheckPage() {
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-8 lg:min-h-[min(44rem,calc(100vh-4.25rem))] lg:grid-cols-[0.82fr_1.18fr] lg:items-center xl:min-h-[calc(100vh-4.25rem)]">
           <div>
             <h1 className="max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
-              See the first signal before you buy deeper work.
+              Find the first place your business may be unclear.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Cendorq checks whether your business is clear enough for AI engines and customers to understand, trust, and choose.
-            </p>
-            <p className="mt-5 max-w-2xl text-sm font-medium leading-7 text-slate-500">
-              The scan asks for basic business context only. Do not enter passwords, card numbers, private keys, or confidential customer records.
+              Cendorq looks at the signals around your business and shows where customers or AI engines may hesitate first.
             </p>
           </div>
 
@@ -115,10 +112,10 @@ export default function FreeCheckPage() {
             <div className="relative overflow-hidden border-b border-cyan-100 bg-[radial-gradient(circle_at_22%_8%,rgba(125,211,252,0.2),transparent_34%),linear-gradient(180deg,#ffffff,#effcff)] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
               <div className="relative">
                 <h2 className="max-w-3xl text-[clamp(2.3rem,4.1vw,4.6rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">
-                  A scan should feel guided, not like another form to survive.
+                  Start with what customers can already see.
                 </h2>
                 <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-600">
-                  The Free Scan collects only the context needed to form the first read, then routes the customer toward a protected result instead of exposing unfinished analysis on the public page.
+                  Cendorq checks the public-facing signals around the business and points to the first weak spot: unclear information, missing proof, weak trust signals, or a harder path to choose you.
                 </p>
               </div>
             </div>
@@ -150,7 +147,7 @@ export default function FreeCheckPage() {
       </section>
 
       <section className="sr-only" aria-label="Free Scan verification">
-        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Basic business context only. No passwords, card numbers, private keys, or confidential customer records. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Premium Free Scan hero scale. Unified Cendorq Experience System. No generic Clarity Trust Action body card block. No dark blue Free Scan block. No black Free Scan button. Protected first read. Check inbox for Cendorq Support support@cendorq.com after submission.
+        Free Scan form visible near the top of the page. White public intake surface. AI-readiness starts with business clarity. Find the first place your business may be unclear. Start with what customers can already see. No extra context warning block under hero. Protected result opens in the customer workspace after verification. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Premium Free Scan hero scale. Unified Cendorq Experience System. No generic Clarity Trust Action body card block. No dark blue Free Scan block. No black Free Scan button. Protected first read. Check inbox for Cendorq Support support@cendorq.com after submission.
       </section>
     </main>
   );

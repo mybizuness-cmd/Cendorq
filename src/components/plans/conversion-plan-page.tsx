@@ -32,7 +32,9 @@ export type PlanPageData = {
 
 const PLAN_KEY_BY_TITLE: Record<string, CendorqPlanKey> = {
   "Find the first weak signal": "free-scan",
+  "Find what is weakening readiness": "deep-review",
   "Prove what is weakening readiness": "deep-review",
+  "Strengthen the signal": "build-fix",
   "Repair the weak point": "build-fix",
   "Keep readiness from drifting": "ongoing-control",
 };
@@ -97,7 +99,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
                   <div className="mt-2 text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">{plan.price}</div>
                   <div className="mt-2 text-sm font-semibold text-slate-500">{plan.cadence}</div>
                 </div>
-                <Link href="/plans" className="text-sm font-bold text-slate-500 transition hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2">
+                <Link href="/plans" className="text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
                   Review all plans →
                 </Link>
               </div>
@@ -159,7 +161,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
       </section>
 
       <section className="sr-only" aria-label="Plan guardrails">
-        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Premium plan detail hero scale. Responsive mobile-first plan detail page. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. No heavy blue subpage block. No block description headers. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
+        Customer-led plan page. Speak directly to the customer. What this helps you decide. Best when. Not the right first step when. Plan price. Premium plan detail hero scale. Responsive mobile-first plan detail page. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. Checkout start. Checkout success. Stripe session metadata. Post-payment workspace activation. Buy the right depth. No heavy blue subpage block. No block description headers. Find what is weakening readiness. Strengthen the signal customers judge first. {data.finalTitle} {data.finalCopy} {PLAN_DECISION_PRINCIPLES.join(" ")} {PLAN_TRUST_RULES.join(" ")}
       </section>
     </main>
   );

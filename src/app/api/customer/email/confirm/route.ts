@@ -38,8 +38,11 @@ export async function GET(request: NextRequest) {
     return response;
   }
 
-  return NextResponse.json(projectSafeConfirmationResponse(result), {
-    status: 409,
+  const recoveryUrl = new URL("/login", request.url);
+  recoveryUrl.searchParams.set("returnTo", "/dashboard");
+  recoveryUrl.searchParams.set("auth", mapConfirmationFailureToNotice(result));
+  return NextResponse.redirect(recoveryUrl, {
+    status: 303,
     headers: getCustomerEmailVerificationNoStoreHeaders(),
   });
 }
@@ -58,6 +61,12 @@ export async function POST(request: NextRequest) {
   });
 }
 
+function mapConfirmationFailureToNotice(result: CustomerEmailVerificationResult) {
+  if (result.decision === "already-used") return "email-link-used";
+  if (result.tokenState.tokenExpired) return "email-link-expired";
+  return "email-link-invalid";
+}
+
 function projectSafeConfirmationResponse(result: CustomerEmailVerificationResult) {
   return {
     ok: result.ok,
@@ -65,7 +74,7 @@ function projectSafeConfirmationResponse(result: CustomerEmailVerificationResult
     noStore: true,
     senderDisplay: result.senderDisplay,
     safeCustomerMessage: result.safeCustomerMessage,
-    recoveryPath: "/free-check",
+    recoveryPath: "/login",
     dashboardPath: result.ok ? result.redirectPath : "/dashboard",
     tokenState: result.tokenState,
     blockedPatterns: result.blockedPatterns,
