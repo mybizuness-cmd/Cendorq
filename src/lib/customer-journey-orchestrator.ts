@@ -104,7 +104,8 @@ const PLAN_RULES: Record<CendorqPlanKey, PlanRule> = {
     emailTemplateKey: "deep-review-kickoff",
     requiredIntake: ["business URL or main page", "review focus", "top customer type", "main concern", "competitors or alternatives"],
     requiredEvidenceBeforeWork: ["customerOwnershipVerified"],
-    blockedIfMissingPrerequisite: false,
+    prerequisitePlan: "free-scan",
+    blockedIfMissingPrerequisite: true,
     readyBackendWorkState: "ready-for-review-queue",
   },
   "build-fix": {
@@ -129,7 +130,8 @@ const PLAN_RULES: Record<CendorqPlanKey, PlanRule> = {
   },
 };
 
-const PREREQUISITE_EVIDENCE: Record<Exclude<CendorqPaidPlanKey, "deep-review">, readonly CendorqJourneyEvidenceKey[]> = {
+const PREREQUISITE_EVIDENCE: Record<CendorqPaidPlanKey, readonly CendorqJourneyEvidenceKey[]> = {
+  "deep-review": ["freeScanComplete"],
   "build-fix": ["deepReviewComplete", "supportedDiagnosisApproved"],
   "ongoing-control": ["deepReviewComplete", "supportedDiagnosisApproved", "repairComplete"],
 };
@@ -209,9 +211,19 @@ export function resolveCendorqCustomerJourney(input: CendorqCustomerJourneyInput
 }
 
 function getMissingPrerequisite(plan: CendorqPlanKey, evidence: Set<CendorqJourneyEvidenceKey>) {
-  if (plan !== "build-fix" && plan !== "ongoing-control") return null;
-  const accepted = PREREQUISITE_EVIDENCE[plan];
+  if (plan === "free-scan") return null;
+  const accepted = PREREQUISITE_EVIDENCE[plan as CendorqPaidPlanKey];
   if (accepted.some((item) => evidence.has(item))) return null;
+
+  if (plan === "deep-review") {
+    return {
+      prerequisitePlan: "free-scan" as const,
+      missing: ["completed Free Scan or approved business-context intake"],
+      customerNextAction: "Your AI Readiness Review is confirmed, but Cendorq needs the Free Scan or equivalent business-context intake before review work starts. Complete the scan first so the review has the right business context.",
+      operatorNextAction: "Hold AI Readiness Review. Do not start review work until the Free Scan or approved business-context intake is connected to the workspace.",
+    };
+  }
+
   if (plan === "build-fix") {
     return {
       prerequisitePlan: "deep-review" as const,
@@ -220,6 +232,7 @@ function getMissingPrerequisite(plan: CendorqPlanKey, evidence: Set<CendorqJourn
       operatorNextAction: "Hold Signal Repair. Do not start implementation until Deep Review or supported diagnosis is approved and repair scope is confirmed.",
     };
   }
+
   return {
     prerequisitePlan: "deep-review" as const,
     missing: ["baseline review, supported diagnosis, or prior repair history", "approved monthly control baseline"],
