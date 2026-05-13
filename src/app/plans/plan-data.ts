@@ -22,18 +22,9 @@ export const FREE_SCAN_PLAN: PlanPageData & { href: string; label: string } = {
     { label: "Commitment", value: "Free guided first step." },
   ],
   features: [
-    {
-      title: "Find the signal",
-      copy: "See where the business may be unclear, under-trusted, or harder to choose.",
-    },
-    {
-      title: "Start safely",
-      copy: "Use the first signal before paying for deeper review or repair work.",
-    },
-    {
-      title: "Choose the next depth",
-      copy: "If deeper help makes sense, the scan makes the next step easier to understand.",
-    },
+    { title: "Find the signal", copy: "See where the business may be unclear, under-trusted, or harder to choose." },
+    { title: "Start safely", copy: "Use the first signal before paying for deeper review or repair work." },
+    { title: "Choose the next depth", copy: "If deeper help makes sense, the scan makes the next step easier to understand." },
   ],
   fit: {
     good: [
@@ -56,10 +47,10 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
   href: "/plans/deep-review",
   label: "AI Readiness Review",
   eyebrow: "Review",
-  title: "Prove what is weakening readiness",
+  title: "Find what is weakening readiness",
   gradient: "before bigger work begins.",
   intro:
-    "AI Readiness Review gives evidence on why AI engines and customers may not understand, trust, compare, or choose the business yet.",
+    "AI Readiness Review shows why customers and AI engines may not clearly understand, trust, compare, or choose the business yet.",
   ctaHref: "/checkout/start?plan=deep-review",
   ctaLabel: "Start AI Readiness Review",
   secondaryHref: "/free-check",
@@ -74,18 +65,9 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
     { label: "Comes after", value: "Free Scan or a strong internal first signal." },
   ],
   features: [
-    {
-      title: "Expose the cause",
-      copy: "See whether the issue is clarity, trust proof, page friction, visibility gaps, or comparison pressure.",
-    },
-    {
-      title: "Protect the budget",
-      copy: "Stop spending on work that does not solve why customers, search, or AI answers hesitate.",
-    },
-    {
-      title: "Create the path",
-      copy: "Leave with a cleaner decision on whether the next step should be repair, control, or something else.",
-    },
+    { title: "Expose the cause", copy: "See whether the issue is clarity, trust proof, page friction, visibility gaps, or comparison pressure." },
+    { title: "Protect the budget", copy: "Stop spending on work that does not solve why customers, search, or AI answers hesitate." },
+    { title: "Create the path", copy: "Leave with a cleaner decision on whether the next step should be repair, control, or something else." },
   ],
   fit: {
     good: [
@@ -108,14 +90,14 @@ export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
   href: "/plans/build-fix",
   label: "Signal Repair",
   eyebrow: "Repair",
-  title: "Repair the weak point",
+  title: "Strengthen the signal",
   gradient: "customers judge first.",
   intro:
-    "Signal Repair improves the page, message, proof, or action path that makes the business harder to understand, trust, or choose.",
+    "Signal Repair improves one approved page, message, proof point, or action path that may be making the business harder to understand, trust, or choose.",
   ctaHref: "/checkout/start?plan=build-fix",
   ctaLabel: "Start Signal Repair",
-  secondaryHref: "/plans/deep-review",
-  secondaryLabel: "See AI Readiness Review",
+  secondaryHref: "/plans",
+  secondaryLabel: "View Plans",
   painTitle: "The right repair matters more than more activity.",
   painCopy:
     "A business can keep changing things and still leave the true weak point untouched. Signal Repair focuses work where customers decide whether to believe, compare, call, book, or leave.",
@@ -126,18 +108,9 @@ export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
     { label: "Comes after", value: "AI Readiness Review or a clear internal priority." },
   ],
   features: [
-    {
-      title: "Strengthen trust",
-      copy: "Improve the parts that help people believe the business is credible, current, real, and safe to choose.",
-    },
-    {
-      title: "Sharpen the message",
-      copy: "Make the offer easier to understand and harder to confuse with every other option in the market.",
-    },
-    {
-      title: "Clean the action path",
-      copy: "Reduce friction so serious customers know what to do next and feel more confident doing it.",
-    },
+    { title: "Strengthen trust", copy: "Improve the parts that help people believe the business is credible, current, real, and safe to choose." },
+    { title: "Sharpen the message", copy: "Make the offer easier to understand and harder to confuse with every other option in the market." },
+    { title: "Clean the action path", copy: "Reduce friction so serious customers know what to do next and feel more confident doing it." },
   ],
   fit: {
     good: [
@@ -167,7 +140,7 @@ export const ONGOING_CONTROL_PLAN: PlanPageData & { href: string; label: string 
   ctaHref: "/checkout/start?plan=ongoing-control",
   ctaLabel: "Start Readiness Control",
   secondaryHref: "/plans",
-  secondaryLabel: "Review Plans",
+  secondaryLabel: "View Plans",
   painTitle: "A strong business signal can weaken when nobody is watching it.",
   painCopy:
     "Markets change. Competitors move. Search surfaces shift. AI answers evolve. Customer expectations move. Readiness Control keeps the business from treating trust and visibility like a one-time project.",
@@ -178,18 +151,9 @@ export const ONGOING_CONTROL_PLAN: PlanPageData & { href: string; label: string 
     { label: "Comes after", value: "Signal Repair or an already-strong internal base." },
   ],
   features: [
-    {
-      title: "Keep improving",
-      copy: "Give the business steady attention instead of waiting until the signal feels weak again.",
-    },
-    {
-      title: "Adapt faster",
-      copy: "Respond to changes in competitors, search behavior, AI answers, customer expectations, and business priorities.",
-    },
-    {
-      title: "Protect the base",
-      copy: "Keep the stronger system from drifting, getting stale, or losing the clarity that made it work.",
-    },
+    { title: "Keep improving", copy: "Give the business steady attention instead of waiting until the signal feels weak again." },
+    { title: "Adapt faster", copy: "Respond to changes in competitors, search behavior, AI answers, customer expectations, and business priorities." },
+    { title: "Protect the base", copy: "Keep the stronger system from drifting, getting stale, or losing the clarity that made it work." },
   ],
   fit: {
     good: [
