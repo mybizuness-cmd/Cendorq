@@ -32,6 +32,7 @@ const validators = [
   "src/scripts/validate-command-center-report-evidence-orchestration-api.mjs",
   "src/scripts/validate-report-evidence-record-contracts.mjs",
   "src/scripts/validate-report-evidence-record-runtime.mjs",
+  "src/scripts/validate-command-center-report-evidence-record-panel.mjs",
   "src/scripts/validate-report-generation-rendering-contracts.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "src/scripts/validate-customer-platform-standard.mjs",
@@ -140,5 +141,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, CodeQL workflow integrity coverage, dependency lockfile integrity coverage, repo update scanning automation coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, owner operating manual coverage, command-center docs-index coverage, command-center core validation-registry coverage, report truth/evidence orchestration runtime/panel/API coverage, report evidence record coverage, owner configuration smoke coverage, customer platform/experience coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
+console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, CodeQL workflow integrity coverage, dependency lockfile integrity coverage, repo update scanning automation coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, owner operating manual coverage, command-center docs-index coverage, command-center core validation-registry coverage, report truth/evidence orchestration runtime/panel/API coverage, report evidence record runtime/panel coverage, owner configuration smoke coverage, customer platform/experience coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
