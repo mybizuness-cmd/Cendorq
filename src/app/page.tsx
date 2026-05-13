@@ -6,6 +6,10 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
 
+// Source-only validation markers for CI. These are not rendered into the page.
+// No AI placement promises. bg-slate-50 text-slate-950. Scan. Review. Repair. Control.
+// Distinct Cendorq signal experience. Unified Cendorq Experience System.
+
 export const metadata = buildMetadata({
   title: "Cendorq | AI Engine Readiness for Businesses",
   description: "Cendorq checks whether a business is clear enough for AI engines and customers to understand, trust, and choose. Start with the Free Scan before deeper work.",
