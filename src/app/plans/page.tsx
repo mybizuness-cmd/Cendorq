@@ -92,8 +92,6 @@ export default function PlansPage() {
           </div>
         </div>
       </section>
-
-      <section className="sr-only" aria-label="AI readiness plans guardrails">Plans. Choose the right AI-readiness depth. Start with the level that matches what you already know. Removed confusing question helper blocks. Removed extra top CTA blocks. Plans routes to plan detail pages first. Detail pages go straight to checkout. Scan. Review. Repair. Control. Free Scan $0. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/mo. One path. Four depths. Open review page. Open repair page. Open control page. No black plan buttons. No guaranteed rankings, leads, revenue, or AI placement. Unified Cendorq Experience System. Homepage color atmosphere across plans. Distinct but unified plan colors. Removed long in-between explanation from purchase path.</section>
     </main>
   );
 }
