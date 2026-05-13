@@ -31,8 +31,9 @@ reject(freeCheckPagePath, [
 expect(activeFormPath, [
   "GuidedFreeCheckFormV3",
   "href=\"/plans\"",
-  "Compare all plans",
-  "requestedDestination: \"/dashboard/reports/free-scan\"",
+  "Compare plans",
+  "preferredDestination: \"/dashboard/reports/free-scan\"",
+  "requestedDestination: accountContinuation.primaryDestination",
 ]);
 
 reject(activeFormPath, [
@@ -54,7 +55,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan active form selection validation passed. The public /free-check route uses GuidedFreeCheckFormV3, and the active form is guarded against legacy pricing, diagnosis, and Search Presence Scan drift.");
+console.log("Free Scan active form selection validation passed. The public /free-check route uses GuidedFreeCheckFormV3, and the active form is guarded against legacy pricing, diagnosis, and Search Presence Scan drift while preserving account-continuation handoff to the protected Free Scan result path.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;

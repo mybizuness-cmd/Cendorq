@@ -78,11 +78,11 @@ expect("src/lib/reports/free-check-report.ts", [
 ]);
 
 expect("src/components/free-check/guided-free-check-form-v3.tsx", [
-  "if (routingHint === \"command-review\") return { title: \"Ongoing Control may fit later.\"",
+  "if (routingHint === \"command-review\") return { title: \"Readiness Control may fit later.\"",
   "href: \"/plans/ongoing-control\"",
-  "if (routingHint === \"infrastructure-review\") return { title: \"Build Fix may fit later.\"",
+  "if (routingHint === \"infrastructure-review\") return { title: \"Signal Repair may fit later.\"",
   "href: \"/plans/build-fix\"",
-  "if (routingHint === \"blueprint-candidate\") return { title: \"Deep Review may be the right next depth.\"",
+  "if (routingHint === \"blueprint-candidate\") return { title: \"AI Readiness Review may be the right next depth.\"",
   "href: \"/plans/deep-review\"",
 ]);
 
@@ -114,7 +114,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan routing hint wire contract validation passed. Stable internal routing hint keys remain backward compatible, while every customer-facing interpretation maps to current Free Scan, Deep Review, Build Fix, and Ongoing Control language.");
+console.log("Free Scan routing hint wire contract validation passed. Stable internal routing hint keys remain backward compatible, while customer-facing form interpretation maps to current Free Scan, AI Readiness Review, Signal Repair, and Readiness Control language.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
