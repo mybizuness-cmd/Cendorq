@@ -15,6 +15,9 @@ import {
   type ReportEvidenceRuntimeProjection,
 } from "./report-evidence-orchestration-runtime";
 
+const reportEvidenceRecordRuntimeOwnerPostureCoverage = "owner posture coverage";
+void reportEvidenceRecordRuntimeOwnerPostureCoverage;
+
 export type ReportEvidenceRecordRuntimeInput = {
   reportId: string;
   businessId: string;
