@@ -47,7 +47,6 @@ if (!failures.length) {
     "actions: write",
     "security-events: write",
     "continue-on-error: true",
-    "npm install",
     "pnpm install --no-frozen-lockfile",
     "--force",
     secretName("NEXT", "PUBLIC"),
@@ -56,6 +55,8 @@ if (!failures.length) {
     secretName("OPENAI", "API", "KEY"),
     secretName("DATABASE", "URL"),
   ]);
+
+  forbidRunCommands(workflowPath, workflowText, ["npm install"]);
 
   if (!chainText.includes("src/scripts/validate-release-control-workflow.mjs")) failures.push(`${chainPath} must include validate-release-control-workflow.mjs in validate:routes coverage.`);
   if (!packageText.includes('"validate:routes": "node ./src/scripts/validate-routes-chain.mjs"')) failures.push(`${packagePath} must keep validate:routes delegated to validate-routes-chain.mjs.`);
@@ -75,6 +76,16 @@ function requireAll(path, text, phrases) {
 
 function forbidAny(path, text, phrases) {
   for (const phrase of phrases) if (text.includes(phrase)) failures.push(`${path} contains forbidden release-control phrase: ${phrase}`);
+}
+
+function forbidRunCommands(path, text, commands) {
+  const runLines = text.split("\n").map((line) => line.trim()).filter((line) => line.startsWith("run:"));
+  for (const line of runLines) {
+    const command = line.replace(/^run:\s*/, "").trim();
+    for (const blockedCommand of commands) {
+      if (command === blockedCommand || command.startsWith(`${blockedCommand} `)) failures.push(`${path} contains forbidden release-control run command: ${blockedCommand}`);
+    }
+  }
 }
 
 function secretName(...parts) {
