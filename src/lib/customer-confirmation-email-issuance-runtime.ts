@@ -235,10 +235,7 @@ function buildEmailCopy(journeyKey: CustomerConfirmationEmailIssuanceInput["jour
 function pickSubject(journeyKey: CustomerConfirmationEmailIssuanceInput["journeyKey"], fallback: string) {
   if (journeyKey === "free-scan-submitted") return FREE_SCAN_CONFIRMATION_SUBJECT;
   if (journeyKey === "support-or-billing-entry") return ACCOUNT_ACCESS_CONFIRMATION_SUBJECT;
-  const byJourney = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.recommendedSubjects.find((subject) => {
-    if (journeyKey === "support-or-billing-entry") return subject.key === "dashboard-access";
-    return subject.key === "paid-plan-access";
-  });
+  const byJourney = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.recommendedSubjects.find((subject) => subject.key === "paid-plan-access");
   return byJourney?.subject || fallback;
 }
 
