@@ -6,35 +6,30 @@ import { CUSTOMER_AUTH_PROVIDERS, isCustomerAuthProviderConfigured, type Custome
 
 export const metadata = buildMetadata({
   title: "Sign in | Cendorq",
-  description: "Sign in to your Cendorq workspace with email or a supported identity provider while keeping Free Scan business context separate.",
+  description: "Sign in or create a Cendorq workspace with email or a connected identity provider while keeping Free Scan business context separate.",
   path: "/login",
   noIndex: true,
 });
 
-type LoginSearchParams = {
-  auth?: string;
-  provider?: string;
-  returnTo?: string;
-};
+type LoginSearchParams = { auth?: string; provider?: string; returnTo?: string };
 
-const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_10px_28px_rgba(14,165,233,0.12)] transition hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
-const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-cyan-200 hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_10px_28px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-slate-950 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 const CUSTOMER_ACCESS_POINTS = [
-  "Use the same email you used for the Free Scan, purchase, or support request.",
+  "Use the same email or provider you used for the Free Scan, purchase, or support request.",
+  "One provider button should sign in returning customers or create the workspace for first-time customers.",
   "Email access is passwordless. Cendorq should never ask you to remember a generated password.",
-  "Provider sign-in appears only after the full provider access path is configured.",
-  "If provider access is unavailable, use email or contact support@cendorq.com with your Cendorq email.",
+  "Provider sign-in appears only after account creation, session creation, and return-to-dashboard are fully connected.",
 ] as const;
 
-const ACTIVE_PROVIDER_BUTTON_CLASS = "border-cyan-100 bg-white text-slate-800 hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-950";
-const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { mark: string; label: string; className: string }> = {
-  google: { mark: "G", label: "Continue with Google", className: ACTIVE_PROVIDER_BUTTON_CLASS },
-  microsoft: { mark: "M", label: "Continue with Microsoft", className: ACTIVE_PROVIDER_BUTTON_CLASS },
-  apple: { mark: "APPLE", label: "Continue with Apple", className: ACTIVE_PROVIDER_BUTTON_CLASS },
-  linkedin: { mark: "in", label: "Continue with LinkedIn", className: ACTIVE_PROVIDER_BUTTON_CLASS },
-  facebook: { mark: "f", label: "Continue with Facebook", className: ACTIVE_PROVIDER_BUTTON_CLASS },
+const PROVIDER_BRAND: Record<CustomerAuthProviderKey, { mark: string; label: string; markClass: string; ringClass: string }> = {
+  google: { mark: "G", label: "Continue with Google", markClass: "text-red-500", ringClass: "border-red-100 bg-red-50" },
+  microsoft: { mark: "M", label: "Continue with Microsoft", markClass: "text-blue-600", ringClass: "border-blue-100 bg-blue-50" },
+  apple: { mark: "", label: "Continue with Apple", markClass: "text-slate-950", ringClass: "border-slate-200 bg-white" },
+  linkedin: { mark: "in", label: "Continue with LinkedIn", markClass: "text-blue-700", ringClass: "border-blue-100 bg-blue-50" },
+  facebook: { mark: "f", label: "Continue with Facebook", markClass: "text-blue-700", ringClass: "border-blue-100 bg-blue-50" },
 };
 
 export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
@@ -51,10 +46,10 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,4.8vw,5.1rem)] font-semibold leading-[0.95] tracking-[-0.074em] text-slate-950">Return to your Cendorq workspace.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email from your Free Scan, purchase, or support history. Email is the reliable access path while provider sign-in is connected and tested.</p>
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email or connected provider. First-time customers can create the workspace through the same access path, then start the Free Scan from the dashboard.</p>
             <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
               <Link href={`/api/auth/continue?returnTo=${encodeURIComponent(returnTo)}`} className={BUTTON_PRIMARY}>Continue if remembered</Link>
-              <Link href="/signup" className={BUTTON_SECONDARY}>Sign up</Link>
+              <Link href="/signup" className={BUTTON_SECONDARY}>Create workspace</Link>
             </div>
           </div>
 
@@ -62,8 +57,8 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
             <div className="rounded-[1.9rem] border border-slate-200 bg-white p-5 sm:p-7">
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Cendorq</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Sign in</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">No password to remember. Cendorq sends a secure link to your inbox.</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Sign in or create access.</h2>
+                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">No password to remember. Use one secure path to reach the workspace.</p>
               </div>
 
               {authNotice ? (
@@ -90,9 +85,9 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
               </form>
 
               <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/55 p-4 text-center">
-                <h3 className="text-sm font-semibold text-slate-950">New to Cendorq?</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-slate-600">Start with the Free Scan when you want Cendorq to understand the business. Sign up when you only need account identity and workspace access.</p>
-                <div className="mt-4 flex flex-col gap-3 sm:flex-row"><Link href="/free-check" className={BUTTON_PRIMARY}>Start Free Scan</Link><Link href="/signup" className={BUTTON_SECONDARY}>Sign up</Link></div>
+                <h3 className="text-sm font-semibold text-slate-950">Need Cendorq to understand the business?</h3>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-600">Run the Free Scan when you need business context. Account access alone should still open the dashboard.</p>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row"><Link href="/free-check" className={BUTTON_PRIMARY}>Start Free Scan</Link><Link href="/signup" className={BUTTON_SECONDARY}>Create workspace</Link></div>
               </div>
 
               <p className="mt-5 text-center text-xs font-medium leading-5 text-slate-500">Cendorq never emails a password. Access uses a secure email link, a trusted session, or a connected provider.</p>
@@ -105,7 +100,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         <div className="rounded-[2.2rem] border border-white/80 bg-white/82 p-5 shadow-[0_12px_38px_rgba(15,23,42,0.045)] backdrop-blur sm:p-6">
           <h2 className="max-w-5xl text-3xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">Account access and business intake are separate.</h2>
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{CUSTOMER_ACCESS_POINTS.map((rule) => <p key={rule} className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-6 text-slate-600">{rule}</p>)}</div>
-          <p className="mt-5 text-sm leading-7 text-slate-600">Need Cendorq to understand your business? <Link className={SMALL_LINK} href="/free-check">Run the Free Scan</Link>. Already have a workspace? Use the same email above.</p>
+          <p className="mt-5 text-sm leading-7 text-slate-600">Need Cendorq to understand your business? <Link className={SMALL_LINK} href="/free-check">Run the Free Scan</Link>. Already have a workspace? Use the same email or provider above.</p>
         </div>
       </section>
     </main>
@@ -115,10 +110,10 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
 function ProviderButton({ providerKey, returnTo }: { providerKey: CustomerAuthProviderKey; returnTo: string }) {
   const brand = PROVIDER_BRAND[providerKey];
   return (
-    <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className={`inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full border px-4 py-3 text-sm font-semibold shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 ${brand.className}`} aria-label={brand.label}>
-      <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-cyan-50 px-2 text-xs font-black text-slate-950 shadow-sm">{brand.mark}</span>
+    <Link href={`/api/auth/provider/${providerKey}?returnTo=${encodeURIComponent(returnTo)}`} className="inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-950 shadow-[0_8px_24px_rgba(15,23,42,0.055)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2" aria-label={brand.label}>
+      <span className={`inline-flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-xs font-black shadow-sm ${brand.ringClass} ${brand.markClass}`} aria-hidden="true">{brand.mark}</span>
       <span>{brand.label}</span>
-      <span className="text-xs opacity-70">Connected</span>
+      <span className="text-xs font-semibold text-slate-500">Access</span>
     </Link>
   );
 }
