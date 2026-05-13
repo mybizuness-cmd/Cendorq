@@ -14,6 +14,24 @@ const validators = [
   "src/scripts/validate-closed-intelligence.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
+  "src/scripts/validate-command-center-migrations.mjs",
+  "src/scripts/validate-command-center-schema.mjs",
+  "src/scripts/validate-command-center-readiness.mjs",
+  "src/scripts/validate-command-center-security-posture.mjs",
+  "src/scripts/validate-command-center-panel-registry.mjs",
+  "src/scripts/validate-command-center-panel-safety.mjs",
+  "src/scripts/validate-controlled-continuous-evolution.mjs",
+  "src/scripts/validate-controlled-maintenance-contracts.mjs",
+  "src/scripts/validate-report-truth-engine.mjs",
+  "src/scripts/validate-report-evidence-orchestration.mjs",
+  "src/scripts/validate-report-evidence-record-contracts.mjs",
+  "src/scripts/validate-report-evidence-record-runtime.mjs",
+  "src/scripts/validate-report-generation-rendering-contracts.mjs",
+  "src/scripts/validate-customer-platform-standard.mjs",
+  "src/scripts/validate-customer-experience-standard.mjs",
+  "src/scripts/validate-conversion-moat-standard.mjs",
+  "src/scripts/validate-insights-conversation-standard.mjs",
+  "src/scripts/validate-command-center-validation-registry.mjs",
   "src/scripts/validate-free-scan-active-form-selection.mjs",
   "src/scripts/validate-free-scan-routing-hint-wire-contract.mjs",
 ];
@@ -49,7 +67,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-cendorq-agent-intelligence-playbooks.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
-  "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-front-to-back-conversion-standard.mjs",
   "src/scripts/validate-customer-platform-routes.mjs",
   "src/scripts/validate-signup-verification-excellence.mjs",
@@ -70,11 +87,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-routes-chain-integrity.mjs",
   "src/scripts/validate-codeql-workflow-integrity.mjs",
   "src/scripts/validate-repo-update-scanning-automation.mjs",
-  "src/scripts/validate-controlled-continuous-evolution.mjs",
-  "src/scripts/validate-command-center-validation-registry.mjs",
-  "src/scripts/validate-report-truth-engine.mjs",
-  "src/scripts/validate-report-evidence-record-runtime.mjs",
-  "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "src/scripts/validate-free-check-intake.mjs",
   "src/scripts/validate-free-check-command-route-elevation.mjs",
   "src/scripts/validate-customer-platform-handoff-contracts.mjs",
@@ -84,8 +96,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-report-vault-handoff-runtime-integration.mjs",
   "src/scripts/validate-billing-handoff-runtime-integration.mjs",
   "src/scripts/validate-plans-handoff-runtime-integration.mjs",
-  "src/scripts/validate-customer-platform-standard.mjs",
-  "src/scripts/validate-customer-experience-standard.mjs",
   "src/scripts/validate-customer-lifecycle-automation.mjs",
   "src/scripts/validate-customer-email-template-contracts.mjs",
   "src/scripts/validate-customer-notification-contracts.mjs",
@@ -125,5 +135,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, owner operating manual coverage, command-center docs-index coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
+console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, owner operating manual coverage, command-center docs-index coverage, command-center core validation-registry coverage, report truth/evidence coverage, customer platform/experience coverage, conversion/insights coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
