@@ -4,17 +4,17 @@ export const FREE_SCAN_PLAN: PlanPageData & { href: string; label: string } = {
   href: "/free-check",
   label: "Free Scan",
   eyebrow: "Scan",
-  title: "Find the first weak signal",
-  gradient: "before you spend deeper.",
+  title: "Start with the first signal",
+  gradient: "before paid depth.",
   intro:
-    "Free Scan is the first step for business owners who need to know whether customers and AI engines can understand, trust, and choose the business clearly.",
+    "Free Scan gives the business a clean first read on whether customers and AI engines can understand, trust, and choose it clearly.",
   ctaHref: "/free-check",
   ctaLabel: "Start Free Scan",
-  secondaryHref: "/plans/deep-review",
-  secondaryLabel: "See AI Readiness Review",
-  painTitle: "Most businesses do not need more noise first. They need to know what is unclear.",
+  secondaryHref: "/plans",
+  secondaryLabel: "View Plans",
+  painTitle: "The safest first move is to find what feels unclear before spending deeper.",
   painCopy:
-    "More ads, more content, or a redesign can waste money when the real weak signal is still unknown. Free Scan gives the business a safer first read.",
+    "More ads, more content, or a redesign can waste money when the real weak signal is still unknown. Free Scan gives the business a cleaner first read before paid work.",
   stats: [
     { label: "Best for", value: "Owners who want the safest first step." },
     { label: "Main result", value: "A clearer first signal before paid work." },
@@ -50,7 +50,7 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
   title: "Find what is weakening readiness",
   gradient: "before bigger work begins.",
   intro:
-    "AI Readiness Review shows why customers and AI engines may not clearly understand, trust, compare, or choose the business yet.",
+    "AI Readiness Review explains why customers and AI engines may not clearly understand, trust, compare, or choose the business yet.",
   ctaHref: "/checkout/start?plan=deep-review",
   ctaLabel: "Start AI Readiness Review",
   secondaryHref: "/free-check",
@@ -91,14 +91,14 @@ export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
   label: "Signal Repair",
   eyebrow: "Repair",
   title: "Strengthen the signal",
-  gradient: "customers judge first.",
+  gradient: "customers notice first.",
   intro:
     "Signal Repair improves one approved page, message, proof point, or action path that may be making the business harder to understand, trust, or choose.",
   ctaHref: "/checkout/start?plan=build-fix",
   ctaLabel: "Start Signal Repair",
   secondaryHref: "/plans",
   secondaryLabel: "View Plans",
-  painTitle: "The right repair matters more than more activity.",
+  painTitle: "Focused repair matters more than more activity.",
   painCopy:
     "A business can keep changing things and still leave the true weak point untouched. Signal Repair focuses work where customers decide whether to believe, compare, call, book, or leave.",
   stats: [
