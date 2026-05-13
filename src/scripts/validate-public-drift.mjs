@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const publicCommandDesignAnchors = ["AI Engine Readiness", "Free Scan", "AI Readiness Review", "Signal Repair", "Readiness Control", "Scan", "Review", "Repair", "Control"];
 
 const activeFiles = [
   "src/app/page.tsx",
@@ -129,7 +130,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public drift validation passed with Cendorq Experience System, cinematic homepage, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.");
+console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, Cendorq Experience System, cinematic homepage, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
 
 function expect(path, phrases) {
   const text = read(path);
