@@ -16,6 +16,7 @@ import { getCustomerEmailTemplateContracts } from "./customer-email-template-con
 import { buildCendorqEmailLayout, buildCendorqEmailText, sendCendorqEmail } from "./cendorq-email-sender";
 
 const FREE_SCAN_CONFIRMATION_SUBJECT = "Confirm your email to open your Cendorq results";
+const ACCOUNT_ACCESS_CONFIRMATION_SUBJECT = "Confirm your email to open your Cendorq workspace";
 const FREE_SCAN_INTAKE_STORAGE_FILES = [
   path.join(process.cwd(), ".cendorq-runtime", "free-check-intakes.v3.json"),
   path.join(process.cwd(), ".cendorq-runtime", "search-presence-scan-intakes.v3.json"),
@@ -78,9 +79,7 @@ export type CustomerConfirmationEmailPayload = {
   };
 };
 
-export async function issueCustomerConfirmationEmail(
-  input: CustomerConfirmationEmailIssuanceInput,
-): Promise<CustomerConfirmationEmailPayload> {
+export async function issueCustomerConfirmationEmail(input: CustomerConfirmationEmailIssuanceInput): Promise<CustomerConfirmationEmailPayload> {
   const token = await issueCustomerEmailVerificationToken(input);
   const subject = pickSubject(input.journeyKey, token.subject);
   const preheader = pickPreheader(input.journeyKey);
@@ -89,17 +88,16 @@ export async function issueCustomerConfirmationEmail(
   const sender = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.senderIdentity;
   const businessName = cleanText(input.businessName, 80) || "your business";
   const toHash = cleanHash(input.customerEmailHash);
+  const emailCopy = buildEmailCopy(input.journeyKey, businessName);
   const providerReadyPayload = {
     templateKey: "confirm-email" as const,
     senderDisplay: sender.display,
     subject,
     preheader,
     primaryCta: token.primaryCta,
-    bodyIntro: `Your Cendorq results for ${businessName} are protected behind one email confirmation step.`,
-    bodyGuidance:
-      "Use the confirmation button to verify your email and open your private Cendorq dashboard. If the email was filtered, move Cendorq to your main inbox or save support@cendorq.com as a trusted sender.",
-    bodyFooter:
-      "This confirmation link is single-use and expires. Cendorq will never ask for your password, card number, private key, or session token in this email.",
+    bodyIntro: emailCopy.intro,
+    bodyGuidance: emailCopy.guidance,
+    bodyFooter: emailCopy.footer,
     confirmationUrl,
   };
 
@@ -118,16 +116,7 @@ export async function issueCustomerConfirmationEmail(
   });
 
   const recipientEmail = await resolveCustomerConfirmationRecipientEmail(input);
-  const providerDelivery = await sendConfirmationProviderEmail({
-    recipientEmail,
-    subject,
-    preheader,
-    primaryCta: token.primaryCta,
-    confirmationUrl,
-    businessName,
-    destination: token.destination,
-    queueId: dispatchQueue.queueId,
-  });
+  const providerDelivery = await sendConfirmationProviderEmail({ recipientEmail, subject, preheader, primaryCta: token.primaryCta, confirmationUrl, copy: emailCopy, destination: token.destination, queueId: dispatchQueue.queueId });
 
   if (providerDelivery.sent) {
     await updateCustomerEmailDispatchQueueState({ queueId: dispatchQueue.queueId, toState: "sent", expectedState: "queued" });
@@ -149,7 +138,7 @@ export async function issueCustomerConfirmationEmail(
     confirmationPath: "/api/customer/email/confirm",
     expiresAt: token.expiresAt,
     destination: token.destination,
-    safePreviewText: `Check your inbox for ${sender.display}. Confirm once to open your Cendorq results for ${businessName}.`,
+    safePreviewText: emailCopy.preview,
     dispatchQueue,
     providerDelivery,
     providerReadyPayload,
@@ -190,66 +179,25 @@ export function projectCustomerConfirmationEmailSafeResponse(payload: CustomerCo
   } as const;
 }
 
-async function sendConfirmationProviderEmail(input: {
-  recipientEmail: string;
-  subject: string;
-  preheader: string;
-  primaryCta: string;
-  confirmationUrl: string;
-  businessName: string;
-  destination: string;
-  queueId: string;
-}) {
-  if (!input.recipientEmail) {
-    return { attempted: false, sent: false, skipped: true, provider: "resend" as const, providerMessageIdHash: "" };
-  }
+async function sendConfirmationProviderEmail(input: { recipientEmail: string; subject: string; preheader: string; primaryCta: string; confirmationUrl: string; copy: ReturnType<typeof buildEmailCopy>; destination: string; queueId: string }) {
+  if (!input.recipientEmail) return { attempted: false, sent: false, skipped: true, provider: "resend" as const, providerMessageIdHash: "" };
 
-  const html = buildCendorqEmailLayout({
-    title: input.subject,
-    intro: `Your Cendorq results for ${input.businessName} are protected behind one email confirmation step.`,
-    ctaLabel: input.primaryCta,
-    ctaUrl: input.confirmationUrl,
-    secondary:
-      "Use the confirmation button to verify your email and open your private Cendorq dashboard. This link is single-use and expires.",
-  });
-  const text = buildCendorqEmailText({
-    title: input.subject,
-    intro: `Your Cendorq results for ${input.businessName} are protected behind one email confirmation step.`,
-    ctaLabel: input.primaryCta,
-    ctaUrl: input.confirmationUrl,
-    secondary:
-      "Use the confirmation button to verify your email and open your private Cendorq dashboard. This link is single-use and expires.",
-  });
-  const result = await sendCendorqEmail({
-    to: input.recipientEmail,
-    subject: input.subject,
-    preheader: input.preheader,
-    html,
-    text,
-    tags: { template: "confirm-email", destination: input.destination, queue: input.queueId },
-  });
+  const html = buildCendorqEmailLayout({ title: input.subject, intro: input.copy.intro, ctaLabel: input.primaryCta, ctaUrl: input.confirmationUrl, secondary: input.copy.guidance });
+  const text = buildCendorqEmailText({ title: input.subject, intro: input.copy.intro, ctaLabel: input.primaryCta, ctaUrl: input.confirmationUrl, secondary: input.copy.guidance });
+  const result = await sendCendorqEmail({ to: input.recipientEmail, subject: input.subject, preheader: input.preheader, html, text, tags: { template: "confirm-email", destination: input.destination, queue: input.queueId } });
 
-  return {
-    attempted: true,
-    sent: result.ok && !result.skipped,
-    skipped: result.ok && result.skipped,
-    provider: "resend" as const,
-    providerMessageIdHash: result.ok && !result.skipped ? hashUrl(result.id) : "",
-  };
+  return { attempted: true, sent: result.ok && !result.skipped, skipped: result.ok && result.skipped, provider: "resend" as const, providerMessageIdHash: result.ok && !result.skipped ? hashUrl(result.id) : "" };
 }
 
 async function resolveCustomerConfirmationRecipientEmail(input: CustomerConfirmationEmailIssuanceInput) {
   const directEmail = cleanEmail(input.customerEmail);
   if (directEmail) return directEmail;
-
   const intakeId = cleanIdentifier(input.intakeId);
   if (!intakeId) return "";
-
   for (const storageFile of FREE_SCAN_INTAKE_STORAGE_FILES) {
     const resolved = await resolveEmailFromFreeScanIntakeFile(storageFile, intakeId, input.customerEmailHash);
     if (resolved) return resolved;
   }
-
   return "";
 }
 
@@ -264,13 +212,29 @@ async function resolveEmailFromFreeScanIntakeFile(storageFile: string, intakeId:
     if (!email) return "";
     const emailHash = hashEmail(email);
     return cleanHash(expectedEmailHash) === emailHash ? email : "";
-  } catch {
-    return "";
+  } catch { return ""; }
+}
+
+function buildEmailCopy(journeyKey: CustomerConfirmationEmailIssuanceInput["journeyKey"], businessName: string) {
+  if (journeyKey === "free-scan-submitted") {
+    return {
+      intro: `Confirm your email to open your private Cendorq result for ${businessName}.`,
+      guidance: "Use the button to verify the inbox and continue to your dashboard. The Free Scan result stays inside your workspace.",
+      footer: "This secure link is single-use and expires. Cendorq will never ask for your password, card number, private key, or session token in this email.",
+      preview: `Check your inbox for Cendorq Support. Confirm once to open the result for ${businessName}.`,
+    };
   }
+  return {
+    intro: "Confirm your email to open your Cendorq workspace.",
+    guidance: "Use the button to verify the inbox and continue to your dashboard. From there, you can start a Free Scan, view reports, check billing, or contact support.",
+    footer: "This secure link is single-use and expires. Cendorq will never ask for your password, card number, private key, or session token in this email.",
+    preview: "Check your inbox for Cendorq Support. Confirm once to open your workspace.",
+  };
 }
 
 function pickSubject(journeyKey: CustomerConfirmationEmailIssuanceInput["journeyKey"], fallback: string) {
   if (journeyKey === "free-scan-submitted") return FREE_SCAN_CONFIRMATION_SUBJECT;
+  if (journeyKey === "support-or-billing-entry") return ACCOUNT_ACCESS_CONFIRMATION_SUBJECT;
   const byJourney = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.recommendedSubjects.find((subject) => {
     if (journeyKey === "support-or-billing-entry") return subject.key === "dashboard-access";
     return subject.key === "paid-plan-access";
@@ -279,71 +243,22 @@ function pickSubject(journeyKey: CustomerConfirmationEmailIssuanceInput["journey
 }
 
 function pickPreheader(journeyKey: CustomerConfirmationEmailIssuanceInput["journeyKey"]) {
+  if (journeyKey === "support-or-billing-entry") return "Confirm once and continue to your Cendorq dashboard.";
   const byJourney = CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT.recommendedSubjects.find((subject) => {
     if (journeyKey === "free-scan-submitted") return subject.key === "free-scan-results";
-    if (journeyKey === "support-or-billing-entry") return subject.key === "dashboard-access";
     return subject.key === "paid-plan-access";
   });
   return byJourney?.preheader || "One secure step opens your private Cendorq dashboard.";
 }
 
-function buildConfirmationUrl(baseUrl: string, token: string, destination: string) {
-  const url = new URL("/api/customer/email/confirm", cleanBaseUrl(baseUrl));
-  url.searchParams.set("token", token);
-  url.searchParams.set("destination", destination);
-  return url.toString();
-}
-
-function normalizeDashboardPath(value: string): "/dashboard" | "/dashboard/reports" | "/dashboard/notifications" {
-  if (value === "/dashboard/reports" || value.startsWith("/dashboard/reports/")) return "/dashboard/reports";
-  if (value === "/dashboard/notifications" || value.startsWith("/dashboard/notifications/")) return "/dashboard/notifications";
-  return "/dashboard";
-}
-
-function cleanBaseUrl(value: string) {
-  try {
-    const url = new URL(value);
-    if (url.protocol !== "https:" && url.hostname !== "localhost") return "https://cendorq.com";
-    return url.origin;
-  } catch {
-    return "https://cendorq.com";
-  }
-}
-
-function cleanText(value: unknown, max = 120) {
-  if (typeof value !== "string") return "";
-  return value.replace(/\s+/g, " ").trim().slice(0, max);
-}
-
-function cleanEmail(value: unknown) {
-  if (typeof value !== "string") return "";
-  const cleaned = value.trim().toLowerCase();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : "";
-}
-
-function cleanHash(value: unknown) {
-  if (typeof value !== "string") return "";
-  const cleaned = value.trim().toLowerCase();
-  return /^[a-f0-9]{24,96}$/.test(cleaned) ? cleaned : "";
-}
-
-function cleanIdentifier(value: unknown) {
-  if (typeof value !== "string") return "";
-  return /^[a-zA-Z0-9:_-]{8,180}$/.test(value) ? value : "";
-}
-
-function hashEmail(email: string) {
-  return createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
-}
-
-function hashUrl(value: string) {
-  return createHash("sha256").update(value).digest("hex");
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-export function getConfirmationEmailTemplateContract() {
-  return getCustomerEmailTemplateContracts().templates.find((template) => template.key === "confirm-email");
-}
+function buildConfirmationUrl(baseUrl: string, token: string, destination: string) { const url = new URL("/api/customer/email/confirm", cleanBaseUrl(baseUrl)); url.searchParams.set("token", token); url.searchParams.set("destination", destination); return url.toString(); }
+function normalizeDashboardPath(value: string): "/dashboard" | "/dashboard/reports" | "/dashboard/notifications" { if (value === "/dashboard/reports" || value.startsWith("/dashboard/reports/")) return "/dashboard/reports"; if (value === "/dashboard/notifications" || value.startsWith("/dashboard/notifications/")) return "/dashboard/notifications"; return "/dashboard"; }
+function cleanBaseUrl(value: string) { try { const url = new URL(value); if (url.protocol !== "https:" && url.hostname !== "localhost") return "https://cendorq.com"; return url.origin; } catch { return "https://cendorq.com"; } }
+function cleanText(value: unknown, max = 120) { if (typeof value !== "string") return ""; return value.replace(/\s+/g, " ").trim().slice(0, max); }
+function cleanEmail(value: unknown) { if (typeof value !== "string") return ""; const cleaned = value.trim().toLowerCase(); return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : ""; }
+function cleanHash(value: unknown) { if (typeof value !== "string") return ""; const cleaned = value.trim().toLowerCase(); return /^[a-f0-9]{24,96}$/.test(cleaned) ? cleaned : ""; }
+function cleanIdentifier(value: unknown) { if (typeof value !== "string") return ""; return /^[a-zA-Z0-9:_-]{8,180}$/.test(value) ? value : ""; }
+function hashEmail(email: string) { return createHash("sha256").update(email.trim().toLowerCase()).digest("hex"); }
+function hashUrl(value: string) { return createHash("sha256").update(value).digest("hex"); }
+function isRecord(value: unknown): value is Record<string, unknown> { return typeof value === "object" && value !== null && !Array.isArray(value); }
+export function getConfirmationEmailTemplateContract() { return getCustomerEmailTemplateContracts().templates.find((template) => template.key === "confirm-email"); }
