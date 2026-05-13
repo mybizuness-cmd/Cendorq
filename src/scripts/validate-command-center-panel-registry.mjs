@@ -19,6 +19,13 @@ const expectedPanels = [
   ["LaunchEvidencePanel", "launch-evidence"],
   ["ProductionSmokeTargetPanel", "production-smoke-target"],
   ["AgentOperatingSystemPanel", "agent-operating-system"],
+  ["CendorqAgentIntelligencePlaybooksPanel", "cendorq-agent-intelligence-playbooks"],
+  ["AgentMissionOperatingEnginePanel", "agent-mission-operating-engine"],
+  ["AgentMissionRecordsRuntimePanel", "agent-mission-records-runtime"],
+  ["AgentMissionReviewGatesRuntimePanel", "agent-mission-review-gates-runtime"],
+  ["AgentMissionLiveExecutionRuntimePanel", "agent-mission-live-execution-runtime"],
+  ["AgentMissionFindingSubmissionRuntimePanel", "agent-mission-finding-submission-runtime"],
+  ["AgentMissionChiefReviewRuntimePanel", "agent-mission-chief-review-runtime"],
   ["OwnerConfigurationEvidencePanel", "owner-configuration-evidence"],
   ["OwnerConfigurationWorkflowPanel", "owner-configuration-workflow"],
   ["OperatorReadinessMatrix", "operator-readiness-matrix"],
@@ -28,6 +35,7 @@ const expectedPanels = [
   ["PlanControlPanel", "plan-control"],
   ["PlanDeliveryOrchestrationPanel", "plan-delivery-orchestration"],
   ["PlanRoutingRuntimePanel", "plan-routing-runtime"],
+  ["PaidReportDeliveryOpsPanel", "paid-report-delivery-ops"],
   ["OptimizationLibraryPanel", "optimization-library"],
   ["CustomerOutputApprovalPanel", "customer-output-approval"],
   ["BenchmarkIntelligencePanel", "benchmark-intelligence"],
@@ -59,6 +67,7 @@ if (!failures.length) {
   validatePrivateMetadataOnlyRegistry(registryText);
   validateOwnerWorkflowCoverage(registryText);
   validateAdminProjectionCoverage(routeText, registryText);
+  validateAgentMissionCoverage(routeText, registryText);
   validatePlanDeliveryCoverage(routeText, registryText);
   validateReportEvidencePanelCoverage(routeText, registryText);
 }
@@ -69,7 +78,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center panel registry validation passed. Every visible private cockpit panel is represented in the metadata-only registry, admin projections, plan delivery/routing, report evidence orchestration, report evidence records, owner workflow panels are covered, and registry order remains stable and increasing.");
+console.log("Command Center panel registry validation passed. Every visible private cockpit panel is represented in the metadata-only registry, agent intelligence and mission runtime panels are registered, admin projections, plan delivery/routing, paid report delivery ops, report evidence orchestration, report evidence records, owner workflow panels are covered, and registry order remains stable and increasing.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required Command Center file: ${path}`);
@@ -107,93 +116,70 @@ function validatePrivateMetadataOnlyRegistry(registryText) {
 }
 
 function validateOwnerWorkflowCoverage(registryText) {
-  for (const phrase of [
-    "owner-configuration-evidence",
-    "owner-configuration-workflow",
-    "safe-summary-only",
-    "never creates launch or security approval by itself",
-    "Release-captain review remains required",
-  ]) {
+  for (const phrase of ["owner-configuration-evidence", "owner-configuration-workflow", "safe-summary-only", "never creates launch or security approval by itself", "Release-captain review remains required"]) {
     if (!registryText.includes(phrase)) failures.push(`${registryPath} missing owner workflow registry phrase: ${phrase}`);
   }
 }
 
 function validateAdminProjectionCoverage(routeText, registryText) {
-  for (const phrase of [
-    "AdminCommandCenterControlPanel",
-    "./admin-command-center-control-panel",
-    "<OperatorControlInterfacePanel />",
-    "<AdminCommandCenterControlPanel />",
-    "<PlatformLaunchReadinessPanel />",
-  ]) {
+  for (const phrase of ["AdminCommandCenterControlPanel", "./admin-command-center-control-panel", "<OperatorControlInterfacePanel />", "<AdminCommandCenterControlPanel />", "<PlatformLaunchReadinessPanel />"]) {
     if (!routeText.includes(phrase)) failures.push(`${routePath} missing admin projection panel phrase: ${phrase}`);
   }
 
-  for (const phrase of [
-    "admin-command-center-control",
-    "Admin Command Center control",
-    "safe admin command-center projection routes",
-    "preview-gated",
-    "safe-summary-only",
-    "cannot mutate production or expose raw/private payloads",
-  ]) {
+  for (const phrase of ["admin-command-center-control", "Admin Command Center control", "safe admin command-center projection routes", "preview-gated", "safe-summary-only", "cannot mutate production or expose raw/private payloads"]) {
     if (!registryText.includes(phrase)) failures.push(`${registryPath} missing admin projection registry phrase: ${phrase}`);
   }
 }
 
-function validatePlanDeliveryCoverage(routeText, registryText) {
+function validateAgentMissionCoverage(routeText, registryText) {
   for (const phrase of [
-    "PlanDeliveryOrchestrationPanel",
-    "PlanRoutingRuntimePanel",
-    "./plan-delivery-orchestration-panel",
-    "./plan-routing-runtime-panel",
-    "<PlanControlPanel plans={planControls} />",
-    "<PlanDeliveryOrchestrationPanel />",
-    "<PlanRoutingRuntimePanel />",
+    "CendorqAgentIntelligencePlaybooksPanel",
+    "AgentMissionOperatingEnginePanel",
+    "AgentMissionRecordsRuntimePanel",
+    "AgentMissionReviewGatesRuntimePanel",
+    "AgentMissionLiveExecutionRuntimePanel",
+    "AgentMissionFindingSubmissionRuntimePanel",
+    "AgentMissionChiefReviewRuntimePanel",
+    "PaidReportDeliveryOpsPanel",
   ]) {
-    if (!routeText.includes(phrase)) failures.push(`${routePath} missing plan delivery/routing panel phrase: ${phrase}`);
+    if (!routeText.includes(phrase)) failures.push(`${routePath} missing agent mission or paid delivery panel phrase: ${phrase}`);
   }
 
   for (const phrase of [
-    "plan-delivery-orchestration",
-    "Plan delivery orchestration",
-    "plan-routing-runtime",
-    "Plan routing runtime",
-    "cannot send customer output or approve paid recommendations by itself",
-    "cannot create entitlement, billing, or customer-facing approval drift",
+    "cendorq-agent-intelligence-playbooks",
+    "agent-mission-operating-engine",
+    "agent-mission-records-runtime",
+    "agent-mission-review-gates-runtime",
+    "agent-mission-live-execution-runtime",
+    "agent-mission-finding-submission-runtime",
+    "agent-mission-chief-review-runtime",
+    "paid-report-delivery-ops",
+    "cannot approve customer-facing output",
+    "cannot expose raw customer payloads",
+    "cannot mutate production",
+    "cannot bypass release-captain approval",
+    "cannot expose raw evidence",
   ]) {
+    if (!registryText.includes(phrase)) failures.push(`${registryPath} missing agent mission or paid delivery registry phrase: ${phrase}`);
+  }
+}
+
+function validatePlanDeliveryCoverage(routeText, registryText) {
+  for (const phrase of ["PlanDeliveryOrchestrationPanel", "PlanRoutingRuntimePanel", "./plan-delivery-orchestration-panel", "./plan-routing-runtime-panel", "<PlanControlPanel plans={planControls} />", "<PlanDeliveryOrchestrationPanel />", "<PlanRoutingRuntimePanel />"]) {
+    if (!routeText.includes(phrase)) failures.push(`${routePath} missing plan delivery/routing panel phrase: ${phrase}`);
+  }
+
+  for (const phrase of ["plan-delivery-orchestration", "Plan delivery orchestration", "plan-routing-runtime", "Plan routing runtime", "cannot send customer output or approve paid recommendations by itself", "cannot create entitlement, billing, or customer-facing approval drift"]) {
     if (!registryText.includes(phrase)) failures.push(`${registryPath} missing plan delivery/routing registry phrase: ${phrase}`);
   }
 }
 
 function validateReportEvidencePanelCoverage(routeText, registryText) {
-  for (const phrase of [
-    "ReportEvidenceOrchestrationPanel",
-    "ReportEvidenceRecordPanel",
-    "./report-evidence-orchestration-panel",
-    "./report-evidence-record-panel",
-    "<ReportTruthMethodologyPanel />",
-    "<ReportEvidenceOrchestrationPanel />",
-    "<ReportEvidenceRecordPanel />",
-    "<AiManagerVersionRegistryPanel />",
-  ]) {
+  for (const phrase of ["ReportEvidenceOrchestrationPanel", "ReportEvidenceRecordPanel", "./report-evidence-orchestration-panel", "./report-evidence-record-panel", "<ReportTruthMethodologyPanel />", "<ReportEvidenceOrchestrationPanel />", "<ReportEvidenceRecordPanel />", "<AiManagerVersionRegistryPanel />"]) {
     if (!routeText.includes(phrase)) failures.push(`${routePath} missing report evidence panel phrase: ${phrase}`);
   }
 
-  for (const phrase of [
-    "report-evidence-orchestration",
-    "Report evidence orchestration",
-    "evidence source tiers",
-    "confidence posture",
-    "runtime review state",
-    "raw private evidence and customer-facing claims remain blocked until review gates pass",
-    "report-evidence-records",
-    "Report evidence records",
-    "append-only persistence posture",
-    "records API posture",
-    "safe hashes",
-    "cannot expose raw/private payloads or approve customer-facing output, public report release, paid recommendations, launch, or security readiness",
-  ]) {
+  for (const phrase of ["report-evidence-orchestration", "Report evidence orchestration", "evidence source tiers", "confidence posture", "runtime review state", "raw private evidence and customer-facing claims remain blocked until review gates pass", "report-evidence-records", "Report evidence records", "append-only persistence posture", "records API posture", "safe hashes", "cannot expose raw/private payloads or approve customer-facing output, public report release, paid recommendations, launch, or security readiness"]) {
     if (!registryText.includes(phrase)) failures.push(`${registryPath} missing report evidence registry phrase: ${phrase}`);
   }
 }
