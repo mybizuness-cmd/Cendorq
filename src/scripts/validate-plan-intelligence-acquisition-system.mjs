@@ -31,6 +31,9 @@ expect(acquisitionPath, [
   "Ongoing Control fails when it becomes generic monthly noise, unlimited Build Fix, repeated full diagnosis, or unsupported performance attribution.",
   "Build Fix must not start production work until the fix target, approved business details, scope boundary, and approval contact are clear.",
   "Ongoing Control must compare current evidence against history and choose a monthly priority instead of creating generic status noise.",
+  "guaranteed revenue",
+  "ranking guarantees",
+  "AI placement guarantees",
 ]);
 
 expect(orchestrationPath, [
@@ -56,10 +59,10 @@ expect(routesChainPath, [validatorPath]);
 forbidden(acquisitionPath, [
   "collect everything",
   "ask for passwords",
-  "guaranteed revenue",
-  "unlimited implementation",
-  "ranking guarantees",
-  "AI placement guarantees",
+  "promise guaranteed revenue",
+  "promise unlimited implementation",
+  "promise ranking guarantees",
+  "promise AI placement guarantees",
 ]);
 
 boundedLength(acquisitionPath, 18000);
