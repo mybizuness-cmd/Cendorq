@@ -60,7 +60,8 @@ expect(revenueRuntimePath, [
   "plan_intelligence_missing_minimum_inputs",
   "plan_intelligence_next_workflow_action",
   "plan_intelligence_intake_record_created",
-  "dashboardNotification: `${plan.name} unlocked. ${planIntelligenceIntake.nextWorkflowAction}`",
+  "agent_mission_queue_state_attached",
+  "dashboardNotification: `${plan.name} unlocked. ${planIntelligenceIntake.nextWorkflowAction} Agent mission queue: ${agentMissionExecution.queueState}.`",
 ]);
 
 expect(routesChainPath, [validatorPath]);
