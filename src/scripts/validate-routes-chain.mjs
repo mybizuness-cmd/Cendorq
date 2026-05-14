@@ -40,6 +40,7 @@ const validators = [
   "src/scripts/validate-cendorq-agent-intelligence-playbooks.mjs",
   "src/scripts/validate-agent-mission-operating-engine.mjs",
   "src/scripts/validate-agent-mission-records-runtime.mjs",
+  "src/scripts/validate-agent-mission-review-gates-runtime.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "src/scripts/validate-customer-platform-standard.mjs",
   "src/scripts/validate-customer-experience-standard.mjs",
@@ -72,7 +73,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-command-center-paid-report-delivery-ops.mjs",
   "src/scripts/validate-plan-intelligence-acquisition-system.mjs",
   "src/scripts/validate-plan-intelligence-intake-records.mjs",
-  "src/scripts/validate-agent-mission-review-gates-runtime.mjs",
   "src/scripts/validate-agent-mission-live-execution-runtime.mjs",
   "src/scripts/validate-agent-mission-plan-trigger-wiring.mjs",
   "src/scripts/validate-agent-mission-finding-submission-runtime.mjs",
@@ -146,5 +146,5 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, CodeQL workflow integrity coverage, dependency lockfile integrity coverage, repo update scanning automation coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, owner operating manual coverage, command-center docs-index coverage, command-center core validation-registry coverage, report truth/evidence orchestration runtime/panel/API coverage, report evidence record runtime/persistence/panel/API coverage, report generation/rendering and protected Free Scan results rendering coverage, Cendorq agent intelligence playbook coverage, agent mission operating engine and records runtime coverage, owner configuration smoke coverage, customer platform/experience coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access/checkout flow.`);
+console.log(`\nvalidate:routes chain passed baseline route existence, release-control workflow coverage, CodeQL workflow integrity coverage, dependency lockfile integrity coverage, repo update scanning automation coverage, command design standard coverage, public drift coverage, maximum-protection coverage, owner maximum-protection posture coverage, closed-intelligence coverage, owner operating manual coverage, command-center docs-index coverage, command-center core validation-registry coverage, report truth/evidence orchestration runtime/panel/API coverage, report evidence record runtime/persistence/panel/API coverage, report generation/rendering and protected Free Scan results rendering coverage, Cendorq agent intelligence playbook coverage, agent mission operating engine, records runtime, and review gates runtime coverage, owner configuration smoke coverage, customer platform/experience coverage, active Free Scan form selection coverage, and Free Scan routing hint wire contract coverage for the customer revenue/access flow.`);
 console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
