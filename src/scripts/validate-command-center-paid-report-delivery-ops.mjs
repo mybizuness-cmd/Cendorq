@@ -33,7 +33,7 @@ expect(panelPath, [
   "Paid report delivery ops",
   "Dashboard copy, PDF attachment, approval, resend, and audit must agree.",
   "Metadata-only operator view",
-  "Report production status",
+  "Paid report production status",
   "Attachment generation status",
   "Release approval gate",
   "Email delivery status",
@@ -49,7 +49,7 @@ expect(registryPath, [
   "Paid report delivery ops",
   "Show paid report production status, attachment generation, release approval, email delivery, resend controls, and delivery audit posture.",
   "Paid report delivery ops stay metadata-only",
-  "order: 177",
+  "order: 187",
 ]);
 
 expect(pagePath, [
