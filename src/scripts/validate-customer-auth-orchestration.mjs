@@ -50,15 +50,15 @@ expect("src/lib/customer-platform-route-map.ts", [
   "login uses magic link first with passkey-ready path and password fallback",
 ]);
 
-expect("src/app/login/page.tsx", ["Customer login", "Magic link first", "Send magic link", "Use passkey when available"]);
-expect("src/app/signup/page.tsx", ["Create your Cendorq account", "Create account and confirm email", "Send a magic link"]);
-expect("src/app/verify-email/page.tsx", ["Confirm your email", "Open dashboard after confirmation", "Send a magic link"]);
-expect("src/app/dashboard/page.tsx", ["Private revenue workspace", "Next best action", "Continue Free Scan"]);
-expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Unlock Deep Review", "Unlock Build Fix", "Start Ongoing Control"]);
-expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "After payment:"]);
-expect("src/app/dashboard/billing/page.tsx", ["getPaidCendorqPlanPrice", "Unlock Deep Review", "After payment:"]);
-expect("src/app/checkout/start/page.tsx", ["Start checkout", "Secure checkout", "Stripe link coming next"]);
-expect("src/app/checkout/success/page.tsx", ["Checkout complete", "Payment complete", "Post-payment dashboard activation"]);
+expect("src/app/login/page.tsx", ["Return to your Cendorq workspace.", "Sign in or create access.", "Send secure access link", "Cendorq never emails a password"]);
+expect("src/app/signup/page.tsx", ["Create your Cendorq workspace.", "Create or access your workspace.", "Send secure access link", "After you send the link"]);
+expect("src/app/verify-email/page.tsx", ["Check your email to continue.", "Request a new link", "Open dashboard", "Confirm once and continue to your dashboard."]);
+expect("src/app/dashboard/page.tsx", ["Your Cendorq workspace is ready.", "one clear next action", "Start, Continue, or Open Result", "Open Free Scan path"]);
+expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
+expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "What this helps you decide", "Review all plans"]);
+expect("src/app/dashboard/billing/page.tsx", ["getPaidCendorqPlanPrice", "Open Review page", "Payment should unlock the right readiness layer", "Checkout success parity"]);
+expect("src/app/checkout/start/page.tsx", ["Start checkout", "secure Stripe payment", "client_reference_id", "cendorq_plan"]);
+expect("src/app/checkout/success/page.tsx", ["Payment complete", "Payment confirmed", "One next step", "Open your inbox"]);
 expect("src/scripts/validate-routes-chain.mjs", ["validate-customer-auth-orchestration.mjs"]);
 
 forbidden(requiredFiles, [
