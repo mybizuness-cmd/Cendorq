@@ -28,6 +28,9 @@ expect(enginePath, [
   "assumptions",
   "evidenceGaps",
   "blockedCustomerClaims",
+  "guaranteed revenue",
+  "guaranteed ranking",
+  "guaranteed AI placement",
   "projectPlanTriggeredAgentMission",
   "getAgentMissionOperatingEngine",
   "Every plan-triggered mission must start from a plan intelligence intake record, not a vague request.",
@@ -63,9 +66,6 @@ forbidden(enginePath, [
   "agents approve reports",
   "agents can launch",
   "skip release captain",
-  "guaranteed revenue",
-  "guaranteed ranking",
-  "guaranteed AI placement",
 ]);
 
 forbidden(panelPath, [
