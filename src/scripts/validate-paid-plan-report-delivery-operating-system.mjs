@@ -43,6 +43,10 @@ expect(emailPath, [
   "approved PDF attachment",
 ]);
 
+requirePaidEmailAttachment(emailPath, "deep-review-delivered", "cendorq-deep-review-{business}-{reportVersion}.pdf");
+requirePaidEmailAttachment(emailPath, "build-fix-delivered", "cendorq-build-fix-summary-{business}-{reportVersion}.pdf");
+requirePaidEmailAttachment(emailPath, "ongoing-control-monthly", "cendorq-ongoing-control-{business}-{month}.pdf");
+
 expect(runtimePath, [
   "requirePaidPlanReportDeliveryContract",
   "paidReportDelivery",
@@ -75,12 +79,6 @@ forbidden(deliveryPath, [
   "no attachment required",
 ]);
 
-forbidden(emailPath, [
-  "attachment: NO_ATTACHMENT,\n  },\n  {\n    key: \"deep-review-delivered\"",
-  "attachment: NO_ATTACHMENT,\n  },\n  {\n    key: \"build-fix-delivered\"",
-  "attachment: NO_ATTACHMENT,\n  },\n  {\n    key: \"ongoing-control-monthly\"",
-]);
-
 boundedLength(deliveryPath, 14500);
 boundedLength(reportVaultPath, 18500);
 boundedLength(runtimePath, 11500);
@@ -101,6 +99,26 @@ function expect(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+  }
+}
+
+function requirePaidEmailAttachment(path, key, fileNamePattern) {
+  if (!existsSync(join(root, path))) {
+    failures.push(`Missing dependency: ${path}`);
+    return;
+  }
+
+  const text = read(path);
+  const keyIndex = text.indexOf(`key: \"${key}\"`);
+  if (keyIndex < 0) {
+    failures.push(`${path} missing paid email key: ${key}`);
+    return;
+  }
+
+  const nextTemplateIndex = text.indexOf("\n  {", keyIndex + 1);
+  const block = text.slice(keyIndex, nextTemplateIndex > keyIndex ? nextTemplateIndex : undefined);
+  for (const phrase of ["attachment: { required: true", fileNamePattern, "contentType: \"application/pdf\"", "source: \"approved-paid-report\"", "releaseGate:"]) {
+    if (!block.includes(phrase)) failures.push(`${path} paid email ${key} missing attachment phrase: ${phrase}`);
   }
 }
 
