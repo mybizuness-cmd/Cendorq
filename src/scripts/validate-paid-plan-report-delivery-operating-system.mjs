@@ -34,11 +34,18 @@ expect(emailPath, [
   "do not send if attachment generation fails",
   "customer-safe PDF generated",
   "attachment delivery audit",
+  "deep-review-delivered",
+  "build-fix-delivered",
+  "ongoing-control-monthly",
   "cendorq-deep-review-{business}-{reportVersion}.pdf",
   "cendorq-build-fix-summary-{business}-{reportVersion}.pdf",
   "cendorq-ongoing-control-{business}-{month}.pdf",
   "approved PDF attachment",
 ]);
+
+requirePaidEmailAttachment(emailPath, "deep-review-delivered", "cendorq-deep-review-{business}-{reportVersion}.pdf");
+requirePaidEmailAttachment(emailPath, "build-fix-delivered", "cendorq-build-fix-summary-{business}-{reportVersion}.pdf");
+requirePaidEmailAttachment(emailPath, "ongoing-control-monthly", "cendorq-ongoing-control-{business}-{month}.pdf");
 
 expect(runtimePath, [
   "requirePaidPlanReportDeliveryContract",
@@ -54,13 +61,13 @@ expect(runtimePath, [
 
 expect(reportVaultPath, [
   "Paid plan report delivery operating system",
-  "See every approved report in the dashboard, then recover paid reports from email.",
-  "Dashboard + attachment.",
-  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF attachment.",
-  "Deep Review report dashboard plus email attachment",
-  "Build Fix summary dashboard plus email attachment",
-  "Ongoing Control monthly summary dashboard plus email attachment",
-  "Free Scan result dashboard-only protected result",
+  "Paid proof",
+  "Dashboard + email attachment",
+  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF.",
+  "Readiness signal result dashboard-only protected result",
+  "AI Readiness Review report dashboard plus email attachment",
+  "Signal Repair summary dashboard plus email attachment",
+  "Readiness Control monthly summary dashboard plus email attachment",
 ]);
 
 expect(routesChainPath, [validatorPath]);
@@ -72,16 +79,9 @@ forbidden(deliveryPath, [
   "no attachment required",
 ]);
 
-forbidden(emailPath, [
-  "deep-review-delivered",
-  "attachment: NO_ATTACHMENT,\n  },\n  {\n    key: \"build-fix-delivered\"",
-  "build-fix-delivered",
-  "attachment: NO_ATTACHMENT,\n  },\n  {\n    key: \"ongoing-control-monthly\"",
-]);
-
 boundedLength(deliveryPath, 14500);
-boundedLength(reportVaultPath, 17000);
-boundedLength(runtimePath, 10000);
+boundedLength(reportVaultPath, 18500);
+boundedLength(runtimePath, 11500);
 
 if (failures.length) {
   console.error("Paid plan report delivery operating system validation failed:");
@@ -99,6 +99,26 @@ function expect(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+  }
+}
+
+function requirePaidEmailAttachment(path, key, fileNamePattern) {
+  if (!existsSync(join(root, path))) {
+    failures.push(`Missing dependency: ${path}`);
+    return;
+  }
+
+  const text = read(path);
+  const keyIndex = text.indexOf(`key: \"${key}\"`);
+  if (keyIndex < 0) {
+    failures.push(`${path} missing paid email key: ${key}`);
+    return;
+  }
+
+  const nextTemplateIndex = text.indexOf("\n  {", keyIndex + 1);
+  const block = text.slice(keyIndex, nextTemplateIndex > keyIndex ? nextTemplateIndex : undefined);
+  for (const phrase of ["attachment: { required: true", fileNamePattern, "contentType: \"application/pdf\"", "source: \"approved-paid-report\"", "releaseGate:"]) {
+    if (!block.includes(phrase)) failures.push(`${path} paid email ${key} missing attachment phrase: ${phrase}`);
   }
 }
 
