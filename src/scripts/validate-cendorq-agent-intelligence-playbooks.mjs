@@ -24,7 +24,7 @@ expect(playbookPath, [
   "forecast risk",
   "Customer-facing promises must focus on helping the business become easier to find, understand, trust, compare, and choose; the 5-to-10-year adaptation goal belongs to Cendorq's internal system, not as a customer guarantee.",
   "guaranteed AI placement",
-  "conversion-luxury-ui-scout",
+  "clear-choice-experience-scout",
   "cheap-looking blocks",
   "bulky pricing paths",
   "forms too low or too noisy",
