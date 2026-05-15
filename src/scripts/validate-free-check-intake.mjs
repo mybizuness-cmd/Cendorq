@@ -3,6 +3,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-free-check-intake.mjs";
 
 const files = [
   "src/app/api/free-check/route.ts",
@@ -170,6 +173,13 @@ expect("src/lib/reports/free-check-report.ts", [
   "Build Fix pressure is visible",
   "Ongoing Control may become the right path",
 ]);
+
+expect(packagePath, [
+  "validate:routes",
+  "validate-free-check-intake.mjs",
+]);
+
+expect(routesChainPath, [validatorPath]);
 
 const apiRouteText = read("src/app/api/free-check/route.ts");
 for (const phrase of [
