@@ -19,9 +19,9 @@ for (const path of [pricingContractPath, plansPath, planTemplatePath, billingPat
 expect(pricingContractPath, [
   "CENDORQ_PLAN_PRICES",
   "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
@@ -30,49 +30,56 @@ expect(pricingContractPath, [
 ]);
 
 expect(plansPath, [
-  "Choose the depth that can move revenue next.",
-  "Every paid plan has a fixed price",
-  "Unlock Deep Review",
-  "Unlock Build Fix",
-  "Start Ongoing Control",
-  "Final fixed plan prices",
+  "Choose the right AI-readiness depth.",
+  "Start with the level that matches what you already know.",
+  "Open Review page",
+  "Open Repair page",
+  "Open Control page",
+  "One path. Four depths.",
 ]);
 
 expect(planTemplatePath, [
-  "Unlock ${plan.name} ${plan.price}",
-  "After payment:",
-  "Use Deep Review at $497",
-  "Use Build Fix at $1,497",
-  "Use Ongoing Control at $597/month",
+  "`${data.ctaLabel} — ${plan.price}`",
+  "Review all plans",
+  "What this helps you decide",
+  "Use this when evidence should guide the next investment.",
+  "Use this when the weak point is clear enough to improve.",
+  "Use this when the business needs ongoing attention and readiness control.",
 ]);
 
 expect(billingPath, [
-  "Turn the first read into the right paid next step.",
-  "Best revenue move",
-  "Unlock Deep Review",
-  "Fix what is costing choices",
-  "Keep monthly control",
-  "After payment:",
+  "Know what is active, what unlocked, and what depth comes next.",
+  "Payment should unlock the right readiness layer.",
+  "Open Review page",
+  "Open plan page",
+  "Checkout success parity",
+  "Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
 ]);
 
 expect(dashboardPath, [
-  "Private revenue workspace",
-  "Find the next move that can turn hesitation into revenue.",
-  "Next best action",
-  "Get the full reason",
-  "Fix what costs choices",
+  "Your Cendorq workspace is ready.",
+  "one clear next action",
+  "One next step.",
+  "Cendorq keeps the next step separate.",
+  "Scan. Review. Repair. Control.",
+  "Open Review page",
+  "Open Repair page",
 ]);
 
 expect(checkoutStartPath, [
-  "Secure checkout",
-  "Unlock {plan.name} for {plan.price}",
-  "Stripe link coming next",
+  "Start checkout | Cendorq",
+  "secure Stripe payment",
+  "redirect(buildCheckoutDestination(plan.paymentLink, planKey, searchParams))",
+  "client_reference_id",
+  "cendorq_plan",
 ]);
 
 expect(checkoutSuccessPath, [
   "Payment complete",
-  "Post-payment dashboard activation",
-  "Backend work queue",
+  "Payment confirmed",
+  "CheckoutDashboardRedirect",
+  "One next step",
+  "Open your inbox",
 ]);
 
 forbidden([pricingContractPath, plansPath, planTemplatePath, billingPath, dashboardPath, checkoutStartPath, checkoutSuccessPath], [
@@ -81,8 +88,7 @@ forbidden([pricingContractPath, plansPath, planTemplatePath, billingPath, dashbo
   "starting at",
   "generic page",
   "template page",
-  "guaranteed ROI",
-  "guaranteed revenue",
+  "outcome warranty",
   "localStorage.setItem",
   "sessionStorage.setItem",
 ]);
@@ -108,7 +114,7 @@ function forbidden(paths, phrases) {
     if (!existsSync(join(root, path))) continue;
     const text = read(path).toLowerCase();
     for (const phrase of phrases) {
-      if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+      if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains blocked phrase: ${phrase}`);
     }
   }
 }
