@@ -7,30 +7,40 @@ const pagePath = "src/app/dashboard/notifications/page.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-notification-center-first-use.mjs";
 
 expect(pagePath, [
-  "FIRST_USE_SNAPSHOT",
-  "Notification center first use snapshot",
-  "Alert meaning",
-  "Actionable, not noisy",
-  "Priority posture",
-  "Calm urgency",
-  "Privacy posture",
-  "Safe projection only",
-  "Recovery posture",
-  "Route to the right place",
-  "FIRST_USE_ACTIONS",
-  "Notification center first use guidance",
-  "Act on what moves the account forward.",
-  "what is ready, what is blocked, and what next action protects or grows the business",
-  "Start with priority",
-  "Track support",
-  "Open billing",
-  "FIRST_USE_RULES",
-  "First-use rules",
-  "Notifications show safe customer-facing summaries, not raw operational records.",
-  "Support alerts should route to status, resubmission, support center, or new request paths without duplicate anxiety.",
-  "SupportLifecycleNotificationList",
+  "Readiness signal feed",
+  "Act only on signals that protect readiness progress.",
+  "This feed should stay quiet until something matters",
+  "Open readiness proof",
+  "Track status",
+  "Open the proof record.",
+  "Ready alerts should lead to proof before checkout.",
+  "Priority readiness feed",
+  "Scan. Review. Repair. Control. One safe next action each.",
+  "No generic clutter. Every signal should point to proof, access, status, or safe recovery.",
+  "Signal routing types",
+  "Featured customer signals",
+  "Quiet feed standard",
+  "Signals should create confidence, not noise.",
+  "PRIORITY_FEED",
+  "ALERT_TYPES",
+  "QUIET_FEED_RULES",
+  "FEATURED_NOTIFICATIONS",
+  "CUSTOMER_NOTIFICATION_CONTRACTS",
+  "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS",
+  "Notification paid actions route to plan detail pages before payment.",
+  "Notifications show safe customer summaries, not raw evidence, secrets, prompts, private internals, or raw billing IDs.",
+  "Support lifecycle alerts route to status, safe resubmission, support center, or new request paths without duplicate anxiety.",
+  "Readiness alerts must name the value, the boundary, and the next action before sending customers to checkout.",
+  "Proof signal",
+  "Access signal",
+  "Support signal",
+  "Security signal",
+  "focus:outline-none",
+  "focus:ring-2",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -51,6 +61,8 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
+expect(routesChainPath, [validatorPath]);
+
 forbidden(pagePath, [
   "guaranteed ROI",
   "guaranteed refund",
@@ -69,7 +81,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Notification center first use validation passed with owner posture coverage and revenue-alert first-use flow.");
+console.log("Notification center first use validation passed with current readiness signal feed, quiet-alert rules, safe routing, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
