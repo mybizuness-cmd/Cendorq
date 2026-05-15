@@ -10,43 +10,52 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-checkout-billing-plan-activation.mjs";
 
 expect(checkoutSuccessPath, [
-  "Plan-aware checkout success",
-  "Query plan selection",
-  "normalizePaidPlanKey",
+  "Payment complete | Cendorq",
+  "CheckoutDashboardRedirect",
+  "resolveCustomerAccountContinuation",
+  "resolveCendorqCustomerJourney",
+  "resolvePaidPlanContinuationAction",
   "CENDORQ_PAID_PLAN_KEYS",
-  "PLAN_ACTIVATION_COPY",
+  "getPaidCendorqPlanPrice",
+  "PLAN_COPY",
   "deep-review",
   "build-fix",
   "ongoing-control",
-  "Diagnosis activation",
-  "Implementation activation",
-  "Monthly control activation",
-  "activation.unlockedState",
-  "activation.boundaryReminder",
-  "What Cendorq needs next",
-  "Plan value delivery architecture",
-  "PLAN_VALUE_SEPARATION_RULES",
-  "getCendorqRevenueStage",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "One next step",
+  "Payment confirmed",
+  "Delivery starts only when the required ownership, intake, evidence, diagnosis, and approval state fit the selected stage.",
+  "Open your inbox",
+  "Request a fresh access link",
+  "journey.deliveryCanStart",
+  "journey.backendWorkState",
+  "continuation.href",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(billingPath, [
-  "Billing plan activation matrix",
-  "Checkout should unlock the right workflow, not just a receipt.",
-  "BILLING_PLAN_ACTIVATION",
-  "ENTITLEMENT_STANDARDS",
-  "Diagnosis entitlement",
-  "Scoped implementation entitlement",
-  "Recurring control entitlement",
+  "Readiness plan depth",
+  "Know what is active, what unlocked, and what depth comes next.",
+  "BILLING_STATUS",
+  "PAID_PLAN_COMMANDS",
+  "BILLING_ACTIONS",
+  "BILLING_SAFETY_RULES",
   "Current access",
-  "Invoice path",
-  "Activation path",
-  "Upgrade path",
-  "Billing activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
+  "Next depth",
+  "Safety",
+  "Payment should unlock the right readiness layer.",
+  "Review",
+  "Repair",
+  "Control",
+  "Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
   "getCendorqRevenueStage",
   "getPlanValueDelivery",
   "PLAN_VALUE_SEPARATION_RULES",
+  "projectCustomerPlatformHandoff",
+  "CENDORQ_POST_PAYMENT_EMAILS",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -77,7 +86,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Checkout and billing plan activation validation passed with plan-aware success and billing entitlement coverage.");
+console.log("Checkout and billing plan activation validation passed with current checkout success continuation and billing readiness-depth coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
