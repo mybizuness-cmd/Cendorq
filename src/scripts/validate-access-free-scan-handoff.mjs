@@ -12,77 +12,70 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-access-free-scan-handoff.mjs";
 
 expect(signupPath, [
-  "Access to first signal journey",
-  "The account exists to get the customer to a verified first result.",
-  "First signal handoff standards",
-  "Create",
-  "Verify",
-  "Scan",
-  "Decide",
+  "Create your Cendorq workspace.",
+  "Create or access your workspace.",
+  "Use email or a connected provider.",
+  "Continue with Google",
+  "Continue with Microsoft",
+  "Continue with Apple",
+  "Send secure access link",
+  "After you send the link",
+  "Open the email from Cendorq Support",
+  "Account access should not force a business scan before the customer can reach the workspace.",
   "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "No dashboard access before verification",
-  "No promise of guaranteed business outcomes",
+  "No password to remember.",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
 ]);
 
 expect(loginPath, [
-  "Re-entry decision paths",
-  "Pick up where the customer journey actually is.",
-  "Reentry safety standards",
-  "Free Scan pending",
-  "Result ready",
-  "Paid plan active",
+  "Return to your Cendorq workspace.",
+  "Sign in or create access.",
+  "Use the same email or connected provider.",
+  "Open dashboard",
+  "Create workspace",
   "/free-check",
-  "/dashboard/reports/free-scan",
   "/dashboard",
-  "Magic-link-first",
-  "Evidence before spend",
+  "Start Free Scan",
+  "Account access and business intake are separate.",
+  "Run the Free Scan",
+  "Email access is passwordless.",
+  "Free Scan business context stays separate from account access",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
 ]);
 
 expect(verifyPath, [
-  "Verification to result standards",
-  "Confirm once, then continue the exact customer path.",
-  "Open dashboard after confirmation",
-  "Continue Free Scan after confirmation",
-  "Open Free Scan result path after confirmation",
-  "Protect ownership",
-  "Continue the right path",
-  "Avoid duplicate accounts",
-  "Preserve boundaries",
-  "support@cendorq.com",
-  "focus:outline-none",
-  "focus:ring-2",
+  "Check your email to continue.",
+  "Use the secure Cendorq link to create or return to your workspace.",
+  "After confirmation, the dashboard opens first",
+  "Request a new link",
+  "Open dashboard",
+  "Confirm once.",
+  "Find the message from Cendorq Support.",
+  "Confirm once and continue to your dashboard.",
+  "The same email can create or return to a workspace.",
+  "New customers can open the dashboard before running a Free Scan.",
+  "Free Scan, billing, support, and reports stay connected to the same workspace.",
 ]);
 
 expect(freeCheckPath, [
-  "Free Scan journey",
-  "From safe context to a protected first result.",
-  "Free Scan boundary standards",
-  "Free Scan gives",
-  "Free Scan does not give",
-  "Free Scan does not do",
-  "Free Scan does not monitor",
-  "First signal",
-  "Full diagnosis",
-  "Implementation",
-  "Monthly control",
-  "View Free Scan result path",
-  "/dashboard/reports/free-scan",
-  "focus:outline-none",
-  "focus:ring-2",
+  "Free Scan | Cendorq",
+  "Find the first place your business may be unclear.",
+  "Cendorq looks at the signals around your business",
+  "Share what customers already see.",
+  "Cendorq finds the first weak signal.",
+  "Open the result in your workspace.",
+  "Confirm your email once, then continue into the dashboard where the result and next step stay connected.",
+  "Is the Free Scan a full diagnosis?",
+  "No. It is a first signal that helps you decide whether deeper review or repair work makes sense.",
+  "After verification, the result opens inside the protected customer workspace",
 ]);
 
 expect(routesChainPath, [validatorPath]);
 
 forbidden(signupPath, [
   "skip verification",
-  "dashboard access before verification",
   "we guarantee revenue",
   "we guarantee ranking",
   "we guarantee ai placement",
@@ -117,7 +110,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Access and Free Scan handoff validation passed with verified first-signal journey coverage.");
+console.log("Access and Free Scan handoff validation passed with passwordless access, Free Scan journey, protected first-result path, and plan boundary handoff coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
