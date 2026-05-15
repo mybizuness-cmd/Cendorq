@@ -6,34 +6,41 @@ const pagePath = "src/app/dashboard/billing/page.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-billing-center-first-use.mjs";
 const failures = [];
 
 expect(pagePath, [
-  "BILLING_FIRST_USE_SNAPSHOT",
-  "Billing center first use snapshot",
-  "Plan state",
-  "Entitlement clarity",
-  "Invoice posture",
-  "Recoverable records",
-  "Action posture",
-  "Safe billing path",
-  "Upgrade posture",
-  "Proof-led next step",
-  "REVENUE_ACTIONS",
-  "Turn the first read into the right paid next step.",
-  "Best revenue move",
-  "Deep Review",
-  "Unlock Deep Review",
-  "Fix what is costing choices",
-  "Keep monthly control",
-  "BILLING_RECOVERY_ACTIONS",
-  "Compare plans",
-  "Open notifications",
-  "Request support",
+  "Readiness plan depth",
+  "Know what is active, what unlocked, and what depth comes next.",
+  "This is the readiness-depth control point: access, boundaries, recovery, and the next business move.",
+  "Open Review page",
+  "Compare readiness path",
+  "Current access",
+  "Next depth",
+  "Safety",
+  "No private payment details",
+  "BILLING_STATUS",
+  "PAID_PLAN_COMMANDS",
+  "BILLING_ACTIONS",
   "BILLING_SAFETY_RULES",
-  "Billing safety rules",
-  "Show billing and entitlement state as a safe projection, not raw provider payloads or internal IDs.",
-  "Plan upgrade guidance must separate current access, pending actions, and future entitlements.",
+  "BILLING_HANDOFFS",
+  "Payment should unlock the right readiness layer.",
+  "Review",
+  "Repair",
+  "Control",
+  "Open plan page",
+  "Compare readiness depth",
+  "Open signal feed",
+  "Ask access help",
+  "Money moments should feel calm, exact, and recoverable.",
+  "Account access should show a safe customer projection, not raw provider payloads or internal IDs.",
+  "Plan guidance must separate current access, pending actions, and future readiness depth.",
+  "Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
+  "Billing actions route to plan detail pages before payment.",
+  "AI Readiness Review $497",
+  "Signal Repair $1,497",
+  "Readiness Control $597/month",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -56,6 +63,8 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
+expect(routesChainPath, [validatorPath]);
+
 forbidden(pagePath, [
   "guaranteed ROI",
   "guaranteed refund",
@@ -75,7 +84,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Billing center first use validation passed with owner posture coverage and revenue-path billing flow.");
+console.log("Billing center first use validation passed with current readiness-depth billing flow, safe projection rules, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
