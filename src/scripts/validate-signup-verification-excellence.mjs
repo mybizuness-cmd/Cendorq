@@ -9,55 +9,56 @@ const loginPath = "src/app/login/page.tsx";
 const packagePath = "package.json";
 
 expect(signupPath, [
-  "ONBOARDING_OPERATING_SNAPSHOT",
-  "Signup onboarding operating snapshot",
-  "Verified-email gate",
-  "No account-existence leakage",
-  "Magic-link-first re-entry",
-  "Private dashboard path",
-  "ACCOUNT_PROTECTION_RULES",
-  "Account protection before access",
-  "Cendorq support will not ask you to paste passwords, card numbers, private keys, or session tokens into a form.",
-  "Confirmation responses stay bounded and do not expose another customer’s account state.",
-  "SIGNUP_TRUST_RULES",
-  "No fake urgency",
-  "No hidden checkout pressure",
-  "No dashboard access before verification",
-  "No promise of guaranteed business outcomes",
+  "Create your Cendorq workspace.",
+  "Create or access your workspace.",
+  "Use email or a connected provider.",
+  "Continue with Google",
+  "Continue with Microsoft",
+  "Continue with Apple",
+  "Email",
   "autoComplete=\"email\"",
-  "autoComplete=\"new-password\"",
-  "Send a magic link",
+  "Send secure access link",
+  "After you send the link",
+  "Open the email from Cendorq Support",
+  "No password to remember.",
+  "Account access should not force a business scan before the customer can reach the workspace.",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
 ]);
 
 expect(verifyPath, [
-  "VERIFICATION_SAFETY_NOTES",
-  "AFTER_CONFIRMATION_PATH",
-  "After confirmation path",
-  "Verification safety notes",
-  "For privacy, Cendorq keeps confirmation guidance bounded and never exposes another customer's status.",
-  "Dashboard, Free Scan history, report status, billing, notifications, and support status stay gated until the email is verified.",
-  "Cendorq will not ask for passwords, card numbers, private keys, or session tokens through email confirmation support.",
-  "If the message is missing, use the retry path calmly rather than creating duplicate accounts or sharing private evidence.",
-  "Confirm once. Land inside the dashboard.",
-  "Open dashboard after confirmation",
-  "Send a magic link",
-  "verification click redirects to dashboard",
-  "Verified access",
-  "Continue Free Scan",
-  "Paid path",
-  "focus:outline-none",
-  "focus:ring-2",
+  "Confirm your email | Cendorq",
+  "Check your email to continue.",
+  "Use the secure Cendorq link to create or return to your workspace.",
+  "After confirmation, the dashboard opens first",
+  "Request a new link",
+  "Open dashboard",
+  "Confirm once.",
+  "Find the message from Cendorq Support.",
+  "Confirm once and continue to your dashboard.",
+  "The same email can create or return to a workspace.",
+  "New customers can open the dashboard before running a Free Scan.",
+  "Free Scan, billing, support, and reports stay connected to the same workspace.",
 ]);
 
 expect(loginPath, [
-  "Customer login | Cendorq",
-  "Magic link first",
-  "Send magic link",
-  "Use passkey when available",
-  "Create account instead",
-  "Customer re-entry guardrails",
+  "Sign in | Cendorq",
+  "Return to your Cendorq workspace.",
+  "Sign in or create access.",
+  "Continue with Google",
+  "Continue with Microsoft",
+  "Continue with Apple",
+  "Email",
+  "autoComplete=\"email\"",
+  "Send secure access link",
+  "Cendorq never emails a password",
+  "Open dashboard",
+  "Create workspace",
+  "Account access and business intake are separate.",
+  "Email access is passwordless.",
+  "Free Scan business context stays separate from account access",
+  "focus:outline-none",
+  "focus-visible:ring-2",
 ]);
 
 expect(packagePath, ["validate:routes"]);
@@ -72,7 +73,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Signup verification excellence validation passed with account creation, verification-to-dashboard activation, and magic-link re-entry synchronized.");
+console.log("Signup verification excellence validation passed with passwordless account creation, verification-to-dashboard activation, and secure re-entry synchronized.");
 
 function blockedPatterns() {
   return [
@@ -97,6 +98,8 @@ function blockedPatterns() {
     "sessionStorage",
     "account exists",
     "user exists",
+    "password in email",
+    "autoComplete=\"new-password\"",
   ];
 }
 
