@@ -10,23 +10,21 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-customer-revenue-command-center.mjs";
 
 expect(dashboardPath, [
-  "Private revenue command center",
-  "Customer revenue command path",
-  "Customer command summary",
-  "Most valuable next action",
-  "Unlocked now",
-  "Blocked until the right depth",
-  "Four stages. Four different jobs. One clear next action.",
-  "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "What Cendorq needs next",
-  "Unlocked here",
-  "Not unlocked here",
-  "finish the first signal",
-  "choose the right paid depth",
-  "PLAN_VALUE_SEPARATION_RULES",
+  "Your Cendorq workspace is ready.",
+  "One next step.",
+  "Cendorq keeps the next step separate.",
+  "A workspace can exist before a scan.",
+  "A scan can exist before a paid review.",
+  "A purchase can exist before delivery starts.",
+  "Scan. Review. Repair. Control.",
+  "Open Free Scan path",
+  "Open Review page",
+  "Open Repair page",
+  "Open Control page",
+  "Reports",
+  "Billing",
+  "Notifications",
+  "Support",
   "getPlanValueDelivery",
   "getCendorqPlanPrice",
   "focus:outline-none",
@@ -35,16 +33,19 @@ expect(dashboardPath, [
 
 expect(reportVaultPath, [
   "Separated report library",
-  "Each report type has a different job.",
-  "Free Scan result",
-  "Deep Review diagnostic report",
-  "Build Fix delivery summary",
-  "Ongoing Control monthly summary",
-  "Ready reports only",
-  "Not a full diagnosis",
-  "Not implementation",
-  "Not monthly monitoring",
-  "Not unlimited Build Fix",
+  "Different proof for every readiness depth.",
+  "Each one has a different job.",
+  "Readiness signal result",
+  "AI Readiness Review report",
+  "Signal Repair summary",
+  "Readiness Control monthly summary",
+  "Nothing final until it is approved.",
+  "Paid proof",
+  "Dashboard + email attachment",
+  "Not full diagnosis, implementation, monthly monitoring",
+  "Not done-for-you implementation",
+  "Not a full diagnostic report",
+  "Not unlimited Signal Repair",
   "REPORT_LIBRARY",
   "REPORT_VAULT_RULES",
   "PLAN_VALUE_SEPARATION_RULES",
@@ -58,9 +59,9 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
   "unlimited implementation",
-  "guaranteed ranking",
-  "guaranteed ai placement",
-  "guaranteed revenue",
+  "we guarantee ranking",
+  "we guarantee ai placement",
+  "we guarantee revenue",
   "full diagnosis included in free scan",
 ]);
 
@@ -69,9 +70,9 @@ forbidden(reportVaultPath, [
   "deep review implementation",
   "build fix monthly monitoring",
   "ongoing control unlimited fixes",
-  "guaranteed ranking",
-  "guaranteed ai placement",
-  "guaranteed revenue",
+  "we guarantee ranking",
+  "we guarantee ai placement",
+  "we guarantee revenue",
 ]);
 
 if (failures.length) {
@@ -80,7 +81,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer revenue command center validation passed with dashboard and report-vault plan separation coverage.");
+console.log("Customer revenue command center validation passed with current dashboard and report-vault plan separation coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
