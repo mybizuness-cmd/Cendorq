@@ -11,26 +11,29 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-dashboard-first-session-onboarding.mjs";
 
 expect(dashboardPath, [
-  "FIRST_SESSION_SNAPSHOT",
-  "First session dashboard snapshot",
-  "Verified entry",
-  "Private workspace",
-  "State posture",
-  "Safe pending states",
-  "Recovery path",
-  "Clear fallback",
-  "Trust posture",
-  "Proof before pressure",
-  "FIRST_SESSION_ACTIONS",
-  "First session recovery guidance",
-  "Open report vault",
-  "Manage billing and plans",
-  "Open support",
-  "SAFE_STATE_RULES",
-  "Safe state rules",
-  "Show pending states as pending, not as live truth.",
-  "Give the customer one obvious next action before offering deeper plan decisions.",
-  "Keep support, report, billing, and notification links visible when a customer needs recovery.",
+  "Your Cendorq workspace is ready.",
+  "Cendorq checks this device for scan progress and shows one clear next action",
+  "One next step.",
+  "The dashboard should not force a purchase or assume a scan exists.",
+  "Workspace state",
+  "Access ready",
+  "Recommended first move",
+  "One clear action",
+  "Unlocked now",
+  "Account access",
+  "Not forced",
+  "Paid depth",
+  "Cendorq keeps the next step separate.",
+  "A workspace can exist before a scan.",
+  "A scan can exist before a paid review.",
+  "A purchase can exist before delivery starts.",
+  "Reports",
+  "Billing",
+  "Notifications",
+  "Support",
+  "Open protected scan and review outputs when they are ready.",
+  "See plan access, invoices, and checkout recovery paths.",
+  "Resolve blockers without sending private details.",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -63,7 +66,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard first session onboarding validation passed with route-chain and owner posture coverage.");
+console.log("Dashboard first session onboarding validation passed with current one-action dashboard, recovery links, route-chain, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
