@@ -16,9 +16,6 @@ expect(dashboardPath, [
   "/dashboard/support",
   "Resolve blockers without sending private details.",
   "dashboard-to-support",
-  "Support protected",
-  "support-status-visible",
-  "Track request status through customer-safe fields without exposing internal notes, raw evidence, billing data, or security details.",
 ]);
 
 expect(statusPagePath, [
@@ -60,6 +57,9 @@ expect(routeMapPath, [
   "dashboardSupportStatus",
   "/dashboard/support/status",
   "Support status",
+  "Support protected",
+  "support-status-visible",
+  "Track request status through customer-safe fields without exposing internal notes, raw evidence, billing data, or security details.",
   "support status access requires authenticated customer ownership, session authorization, and customer-safe projection",
   "support status must not render raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk-scoring internals, attacker details, prompts, secrets, session tokens, CSRF tokens, admin keys, or support context keys",
 ]);
