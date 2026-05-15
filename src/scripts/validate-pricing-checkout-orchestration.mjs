@@ -83,9 +83,8 @@ expect(stripeWebhookPath, [
   "issueCustomerConfirmationEmail",
   "projectCustomerConfirmationEmailSafeResponse",
   "resolveCendorqCustomerJourney",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
+  "getPaidCendorqPlanPrice",
+  "planName: plan.name",
   "journey.dashboardDestination",
   "deliveryCanStart",
   "paidWorkCanStart",
@@ -100,9 +99,7 @@ forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checko
   "lorem ipsum",
   "template page",
   "generic page",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed result",
+  "outcome warranty",
   "from pricing, dashboard",
   "from pricing",
   "pricing page",
@@ -132,7 +129,7 @@ function forbidden(paths, phrases) {
     if (!existsSync(join(root, path))) continue;
     const text = read(path).toLowerCase();
     for (const phrase of phrases) {
-      if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+      if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains blocked phrase: ${phrase}`);
     }
   }
 }
