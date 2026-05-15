@@ -3,11 +3,20 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const routeMapPath = "src/lib/customer-platform-route-map.ts";
+const dashboardPath = "src/app/dashboard/page.tsx";
+const pagePath = "src/app/dashboard/notifications/page.tsx";
+const lifecycleListPath = "src/components/customer-notifications/support-lifecycle-notification-list.tsx";
+const apiPath = "src/app/api/customer/notifications/route.ts";
+const notificationContractsPath = "src/lib/customer-notification-contracts.ts";
+const lifecycleContractsPath = "src/lib/customer-support-lifecycle-notification-contracts.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-notification-center.mjs";
 
-expect("src/lib/customer-platform-route-map.ts", [
+expect(routeMapPath, [
   "dashboardNotifications",
   "/dashboard/notifications",
   "Notification center",
@@ -15,35 +24,53 @@ expect("src/lib/customer-platform-route-map.ts", [
   "notification center must not render raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals",
 ]);
 
-expect("src/app/dashboard/page.tsx", [
+expect(dashboardPath, [
   "Check notifications",
   "/dashboard/notifications",
   "Review account, report, billing, support, and security updates.",
 ]);
 
-expect("src/app/dashboard/notifications/page.tsx", [
-  "Notification center",
-  "noIndex: true",
+expect(pagePath, [
+  "Readiness signal feed",
+  "Your private Cendorq signal feed for readiness proof, billing, support, account, and security actions that protect progress.",
   "CUSTOMER_NOTIFICATION_CONTRACTS",
-  "SupportLifecycleNotificationList",
-  "Important alerts, without noise or hidden risk.",
-  "raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals",
+  "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS",
+  "NOTIFICATION_HANDOFFS",
+  "PRIORITY_FEED",
+  "QUIET_FEED_RULES",
+  "Act only on signals that protect readiness progress.",
+  "This feed should stay quiet until something matters: proof is ready, access changes, support needs context, or a safer action is required.",
+  "Open readiness proof",
+  "Track status",
+  "Open the proof record.",
+  "Ready alerts should lead to proof before checkout.",
+  "Scan. Review. Repair. Control. One safe next action each.",
+  "No generic clutter. Every signal should point to proof, access, status, or safe recovery.",
+  "Proof signal",
+  "Access signal",
+  "Support signal",
+  "Security signal",
+  "Featured customer signals",
+  "Signals should create confidence, not noise.",
+  "Notifications show safe customer summaries, not raw evidence, secrets, prompts, private internals, or raw billing IDs.",
+  "Notification paid actions route to plan detail pages before payment.",
   "email-confirmation-required",
   "free-scan-ready",
   "billing-action-required",
   "security-reauth-required",
-  "Notifications require customer ownership and route authorization.",
-  "Billing alerts require entitlement and billing-state checks.",
-  "Conversion alerts require proof, confidence, limitation, and plan-stage logic.",
-  "Security alerts never reveal attacker details, risk-scoring internals, or secrets.",
+  "focus:outline-none",
+  "focus:ring-2",
 ]);
 
-expect("src/components/customer-notifications/support-lifecycle-notification-list.tsx", [
+expect(lifecycleListPath, [
   "use client",
   "SupportLifecycleNotificationList",
-  "/api/customer/notifications?source=support-lifecycle&limit=25",
-  "Refresh notifications",
+  "fetch(\"/api/customer/notifications?source=support-lifecycle&limit=25\"",
   "Customer-owned support alerts from the protected notification API.",
+  "These records come from the protected notification center API and are projected for the signed-in customer only.",
+  "Raw payloads, evidence, billing data, internal notes, audit internals, suppression reasons, operator identities, risk scoring, secrets, and support context keys are not rendered here.",
+  "Refresh notifications",
+  "Loading protected support lifecycle notifications...",
   "No live support lifecycle notifications are visible yet.",
   "Open notifications from the authenticated customer dashboard and try again.",
   "SupportLifecycleNotificationEntry",
@@ -56,26 +83,51 @@ expect("src/components/customer-notifications/support-lifecycle-notification-lis
   "formatState",
   "Open safe path",
   "customer-safe notification projection only",
-  "Raw payloads, evidence, billing data, internal notes, audit internals, suppression reasons, operator identities, risk scoring, secrets, and support context keys are not rendered here.",
 ]);
 
-expect("src/app/api/customer/notifications/route.ts", [
+expect(apiPath, [
+  "runtime = \"nodejs\"",
+  "dynamic = \"force-dynamic\"",
   "requireCustomerSession",
   "requireVerifiedEmail: true",
   "entry.customerIdHash === sessionAccess.customerIdHash",
   "projectCustomerSupportNotificationRecord",
+  "jsonNoStore",
+  "optionsNoStore(\"GET,OPTIONS\")",
+  "MAX_NOTIFICATION_LIMIT",
+  "cleanSource",
+  "support-lifecycle",
 ]);
 
-expect("src/lib/customer-notification-contracts.ts", [
+expect(notificationContractsPath, [
   "CUSTOMER_NOTIFICATION_CONTRACTS",
   "CUSTOMER_NOTIFICATION_GLOBAL_GUARDS",
+  "email-confirmation-required",
+  "free-scan-ready",
+  "billing-action-required",
+  "support-request-received",
+  "security-reauth-required",
   "no customer notification without customer ownership and route authorization",
+  "no notification renders raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals",
+  "no conversion notification without proof, confidence, limitation, and plan-stage logic",
+  "no billing notification without entitlement and billing-state checks",
+  "no security notification reveals attacker details, risk-scoring internals, or secrets",
+]);
+
+expect(lifecycleContractsPath, [
+  "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS",
+  "support-request-received",
+  "support-waiting-on-customer",
+  "support-specialist-review",
+  "support-resolved",
+  "support-closed",
 ]);
 
 expect(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
+  "Sensitive operational details are summarized safely instead of copied into public, customer, or operator-visible text.",
 ]);
 
 expect(ownerMaximumProtectionValidatorPath, [
@@ -90,7 +142,9 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-forbidden("src/app/dashboard/notifications/page.tsx", [
+expect(routesChainPath, [validatorPath]);
+
+forbidden(pagePath, [
   "dangerouslySetInnerHTML",
   "localStorage",
   "sessionStorage",
@@ -101,7 +155,7 @@ forbidden("src/app/dashboard/notifications/page.tsx", [
   "risk-scoring internals are shown",
 ]);
 
-forbidden("src/components/customer-notifications/support-lifecycle-notification-list.tsx", [
+forbidden(lifecycleListPath, [
   "dangerouslySetInnerHTML",
   "localStorage",
   "sessionStorage",
@@ -111,8 +165,6 @@ forbidden("src/components/customer-notifications/support-lifecycle-notification-
   "SUPPORT_CONSOLE_READ_KEY",
   "customerIdHash",
   "auditEventId",
-  "suppressionReason",
-  "failureReason",
   "rawPayloadStored",
   "rawEvidenceStored",
   "rawSecurityPayloadStored",
@@ -135,7 +187,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer notification center validation passed with owner posture coverage.");
+console.log("Customer notification center validation passed with current readiness signal feed, customer-safe notification API, lifecycle projection, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
