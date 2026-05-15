@@ -126,9 +126,10 @@ expect("src/app/dashboard/billing/page.tsx", [
   "Billing",
   "noIndex: true",
   "Payment should unlock the right readiness layer.",
-  "Open Review page",
-  "Open Repair page",
-  "Open Control page",
+  "Review",
+  "Repair",
+  "Control",
+  "Open plan page",
   "Checkout success parity",
 ]);
 
