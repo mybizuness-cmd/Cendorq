@@ -90,9 +90,10 @@ forbidden(pagePath, [
   "localStorage",
   "sessionStorage",
   "refund guaranteed",
-  "full AI Readiness Review unless unlocked",
-  "unlimited implementation",
-  "guaranteed ranking/AI placement",
+  "full AI Readiness Review included",
+  "unlimited implementation included",
+  "guaranteed ranking included",
+  "guaranteed AI placement included",
 ]);
 
 if (failures.length) {
