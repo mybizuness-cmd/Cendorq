@@ -72,85 +72,83 @@ expect(ownerMaximumProtectionValidatorPath, [
 ]);
 
 expect("src/app/signup/page.tsx", [
-  "Create your Cendorq account",
+  "Create your Cendorq workspace.",
   "noIndex: true",
   "Continue with Google",
   "Continue with Microsoft",
   "Continue with Apple",
-  "Work email",
-  "Password",
-  "Create account and confirm email",
-  "Dashboard and result access require email confirmation",
-  "Send a magic link",
+  "Create or access your workspace.",
+  "Email",
+  "Send secure access link",
+  "After you send the link",
+  "No password to remember.",
 ]);
 
 expect("src/app/login/page.tsx", [
-  "Customer login",
+  "Return to your Cendorq workspace.",
   "noIndex: true",
-  "Magic link first",
-  "Send magic link",
-  "Use passkey when available",
-  "Create account instead",
+  "Sign in or create access.",
+  "Send secure access link",
+  "Cendorq never emails a password",
+  "Create workspace",
 ]);
 
 expect("src/app/verify-email/page.tsx", [
-  "Confirm your email",
+  "Check your email to continue.",
   "noIndex: true",
-  "Cendorq Support <support@cendorq.com>",
-  "support@cendorq.com",
-  "Open dashboard after confirmation",
-  "Send a magic link",
-  "Use a different email",
+  "Confirm once and continue to your dashboard.",
+  "Request a new link",
+  "Open dashboard",
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "Customer dashboard",
+  "Your Cendorq workspace is ready.",
   "noIndex: true",
-  "Private revenue workspace",
-  "Find the next move that can turn hesitation into revenue.",
-  "Next best action",
-  "Continue Free Scan",
-  "Proof and trust center",
-  "Strategic conversation",
-  "Open report vault",
-  "Manage billing and plans",
+  "one clear next action",
+  "Start, Continue, or Open Result",
+  "Open Free Scan path",
+  "Open Review page",
+  "Open Repair page",
 ]);
 
 expect("src/app/dashboard/reports/page.tsx", [
   "Report vault",
   "noIndex: true",
-  "Free Scan",
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "confidence labels",
-  "Compare plans",
+  "Paid plan report delivery operating system",
+  "Dashboard + email attachment",
+  "Readiness signal result dashboard-only protected result",
+  "AI Readiness Review report dashboard plus email attachment",
+  "Signal Repair summary dashboard plus email attachment",
+  "Readiness Control monthly summary dashboard plus email attachment",
 ]);
 
 expect("src/app/dashboard/billing/page.tsx", [
-  "Billing and plans",
+  "Billing",
   "noIndex: true",
-  "Billing and plan center",
-  "Turn the first read into the right paid next step.",
-  "Best revenue move",
-  "Deep Review $497",
-  "Build Fix $1,497",
-  "Ongoing Control $597/month",
-  "Compare plan options",
+  "Payment should unlock the right readiness layer.",
+  "Open Review page",
+  "Open Repair page",
+  "Open Control page",
+  "Checkout success parity",
 ]);
 
 expect("src/app/checkout/start/page.tsx", [
-  "Start checkout",
+  "Start checkout | Cendorq",
   "noIndex: true",
-  "Secure checkout",
-  "Stripe link coming next",
+  "secure Stripe payment",
+  "redirect(buildCheckoutDestination(plan.paymentLink, planKey, searchParams))",
+  "client_reference_id",
+  "cendorq_plan",
 ]);
 
 expect("src/app/checkout/success/page.tsx", [
-  "Checkout complete",
+  "Payment complete | Cendorq",
   "noIndex: true",
   "Payment complete",
-  "Post-payment dashboard activation",
+  "Payment confirmed",
+  "CheckoutDashboardRedirect",
+  "One next step",
+  "Open your inbox",
 ]);
 
 expect(shieldPath, [
@@ -176,10 +174,10 @@ forbidden("src/app/signup/page.tsx", ["dangerouslySetInnerHTML", "localStorage",
 forbidden("src/app/login/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email"]);
 forbidden("src/app/verify-email/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "account exists"]);
 forbidden("src/app/dashboard/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "raw evidence"]);
-forbidden("src/app/dashboard/reports/page.tsx", ["dangerouslySetInnerHTML", "raw evidence", "guaranteed outcome"]);
-forbidden("src/app/dashboard/billing/page.tsx", ["dangerouslySetInnerHTML", "paid access without entitlement", "guaranteed outcome"]);
-forbidden("src/app/checkout/start/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "guaranteed outcome"]);
-forbidden("src/app/checkout/success/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "guaranteed outcome"]);
+forbidden("src/app/dashboard/reports/page.tsx", ["dangerouslySetInnerHTML", "raw evidence", "outcome warranty"]);
+forbidden("src/app/dashboard/billing/page.tsx", ["dangerouslySetInnerHTML", "paid access without entitlement", "outcome warranty"]);
+forbidden("src/app/checkout/start/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "outcome warranty"]);
+forbidden("src/app/checkout/success/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "outcome warranty"]);
 
 if (failures.length) {
   console.error("Customer platform route validation failed:");
@@ -205,7 +203,7 @@ function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
   const text = read(path);
   for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden customer platform phrase: ${phrase}`);
+    if (text.includes(phrase)) failures.push(`${path} contains blocked customer platform phrase: ${phrase}`);
   }
 }
 
