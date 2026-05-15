@@ -25,9 +25,10 @@ expect(routeMapPath, [
 ]);
 
 expect(dashboardPath, [
-  "Check notifications",
+  "Notifications",
   "/dashboard/notifications",
-  "Review account, report, billing, support, and security updates.",
+  "See what needs attention next.",
+  "dashboard-to-notifications",
 ]);
 
 expect(pagePath, [
@@ -116,11 +117,14 @@ expect(notificationContractsPath, [
 
 expect(lifecycleContractsPath, [
   "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS",
-  "support-request-received",
-  "support-waiting-on-customer",
-  "support-specialist-review",
-  "support-resolved",
-  "support-closed",
+  "support-request-received-status-ready",
+  "support-request-reviewing",
+  "support-request-waiting-on-customer",
+  "support-request-specialist-review",
+  "support-request-resolved",
+  "support-request-closed",
+  "no support lifecycle notification without customer ownership and session authorization",
+  "every support lifecycle notification must point to support status, safe resubmission, support center, or new request path",
 ]);
 
 expect(ownerMaximumProtectionPath, [
