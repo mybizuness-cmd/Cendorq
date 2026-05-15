@@ -10,20 +10,23 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-notification-support-routing.mjs";
 
 expect(notificationPath, [
-  "Plan notification decision routes",
-  "Every alert needs a value, a boundary, and a safe next action.",
-  "NOTIFICATION_DECISION_ROUTES",
-  "ALERT_ROUTING_STANDARDS",
-  "Report alert",
-  "Billing alert",
-  "Support alert",
-  "Security alert",
-  "customerValue",
-  "boundary",
-  "nextAction",
-  "Free Scan result ready",
-  "Diagnosis is the right next depth",
-  "Fix target is clear",
+  "Readiness signal feed",
+  "Act only on signals that protect readiness progress.",
+  "Priority readiness feed",
+  "Signal routing types",
+  "Featured customer signals",
+  "Quiet feed standard",
+  "Every alert must explain why it matters and where the customer can act safely.",
+  "Notifications show safe customer summaries",
+  "Readiness alerts must name the value, the boundary, and the next action before sending customers to checkout.",
+  "Support lifecycle alerts route to status, safe resubmission, support center, or new request paths without duplicate anxiety.",
+  "Proof signal",
+  "Access signal",
+  "Support signal",
+  "Security signal",
+  "Readiness signal ready",
+  "Cause needs proof",
+  "Repair target is clear",
   "Monthly watch is needed",
   "PLAN_VALUE_SEPARATION_RULES",
   "getPlanValueDelivery",
@@ -33,23 +36,27 @@ expect(notificationPath, [
 ]);
 
 expect(supportPath, [
-  "Support routing map",
+  "Readiness support routing",
+  "Route the blocker without weakening the readiness path.",
   "Pick the narrowest path that matches the blocker.",
-  "Plan support boundaries",
-  "Support explains the plan. It does not quietly expand it.",
-  "SUPPORT_ROUTING_MAP",
-  "PLAN_SUPPORT_BOUNDARIES",
-  "Billing issue",
-  "Report question",
-  "Build Fix scope question",
-  "Ongoing Control monthly priority",
+  "Help should restore momentum without expanding scope silently.",
+  "SUPPORT_ROUTES",
+  "PLAN_SUPPORT",
+  "SUPPORT_RULES",
+  "Access issue",
+  "Proof question",
+  "Repair scope",
+  "Control priority",
   "Account access",
   "Correction or dispute",
-  "customerValue",
-  "safeBoundary",
-  "nextAction",
-  "supportRole",
-  "supportMustNot",
+  "Restore access or payment flow first.",
+  "Understand the signal before acting.",
+  "Confirm what can be improved.",
+  "Choose what should be watched.",
+  "Restore safe workspace entry.",
+  "Request bounded review.",
+  "Pick the narrowest support path before submitting a request.",
+  "Support can explain process, status, and next steps; approved outcomes require the right review gate.",
   "PLAN_VALUE_SEPARATION_RULES",
   "getPlanValueDelivery",
   "getCendorqPlanPrice",
@@ -85,7 +92,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Notification and support routing validation passed with value, boundary, and safe next-action coverage.");
+console.log("Notification and support routing validation passed with current readiness signal feed, support routing, boundary, and safe next-action coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
