@@ -60,9 +60,11 @@ expect("src/app/api/free-check/route.ts", [
   "signupEmailHash: buildEmailHash(storedEntry.email)",
   "customerEmailHash: buildEmailHash(storedEntry.email)",
   "journeyKey: \"free-scan-submitted\"",
-  "requestedDestination: \"/dashboard/reports\"",
+  "FREE_SCAN_RESULTS_DESTINATION = \"/dashboard/reports/free-scan\"",
+  "requestedDestination: FREE_SCAN_RESULTS_DESTINATION",
+  "resultDestination: FREE_SCAN_RESULTS_DESTINATION",
   "confirmationEmail: safeConfirmationEmail",
-  "Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your results.",
+  "Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results.",
   "function buildCustomerIdHash(entry: StoredFreeCheckSubmission)",
   "function buildEmailHash(email: string)",
   "The requested Free Scan entry was not found.",
@@ -107,7 +109,7 @@ expect("src/app/api/free-scan/intake-complete/route.ts", [
 expect("src/app/free-check/page.tsx", [
   "title: \"Free Scan | Cendorq\"",
   "Cendorq Free Scan",
-  "serviceType: \"Free Scan\"",
+  "serviceType: \"AI-readiness free scan\"",
   "{ name: \"Free Scan\", path: \"/free-check\" }",
 ]);
 
