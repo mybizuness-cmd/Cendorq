@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-support-request-api.mjs";
 
 expect("src/app/api/customer/support/request/route.ts", [
   "export async function OPTIONS",
@@ -40,7 +42,7 @@ expect("src/app/api/customer/support/request/route.ts", [
   "unsafe-promise-demand",
   "security-sensitive-content",
   "Do not send payment details here. Use the billing center or support path instead.",
-  "The support request was captured with a safe summary and routed through the protected support path.",
+  "The support request was captured with a safe summary and routed through the protected Cendorq work-start gate.",
   "projectEntryForConsole",
   "customerIdHash: _customerIdHash",
 ]);
@@ -71,6 +73,8 @@ expect("package.json", [
   "validate:routes",
   "validate-customer-support-request-api.mjs",
 ]);
+
+expect(routesChainPath, [validatorPath]);
 
 forbidden("src/app/api/customer/support/request/route.ts", [
   "verifyCustomerSupportContext",
@@ -103,7 +107,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support request API validation passed.");
+console.log("Customer support request API validation passed with current authenticated support intake API, safe storage projection, origin checks, admin read boundary, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
