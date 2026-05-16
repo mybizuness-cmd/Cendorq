@@ -81,9 +81,7 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-expect(routesChainPath, [
-  validatorPath,
-]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(contractPath, [
   "store session token in localStorage",
@@ -113,7 +111,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production auth provider contracts validation passed with owner posture coverage.");
+console.log("Production auth provider contracts validation passed with owner posture and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
