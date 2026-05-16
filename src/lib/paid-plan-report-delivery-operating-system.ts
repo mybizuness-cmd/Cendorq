@@ -6,11 +6,16 @@ export type PaidPlanReportDeliveryKey =
   | "build-fix-summary-delivery"
   | "ongoing-control-monthly-delivery";
 
+export type PaidPlanReportDashboardPath =
+  | "/dashboard/reports/deep-review"
+  | "/dashboard/reports/build-fix"
+  | "/dashboard/reports/ongoing-control";
+
 export type PaidPlanReportDeliveryContract = {
   key: PaidPlanReportDeliveryKey;
   planKey: CendorqPaidPlanKey;
   customerReportName: string;
-  dashboardPath: "/dashboard/reports";
+  dashboardPath: PaidPlanReportDashboardPath;
   emailTemplateKey: "deep-review-delivered" | "build-fix-delivered" | "ongoing-control-monthly";
   customerEmailSubject: string;
   attachmentRequired: true;
@@ -35,14 +40,14 @@ export const PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM = [
     key: "deep-review-report-delivery",
     planKey: "deep-review",
     customerReportName: "Deep Review report",
-    dashboardPath: "/dashboard/reports",
+    dashboardPath: "/dashboard/reports/deep-review",
     emailTemplateKey: "deep-review-delivered",
     customerEmailSubject: "Your Cendorq Deep Review is ready",
     attachmentRequired: true,
     attachmentFileNamePattern: "cendorq-deep-review-{business}-{reportVersion}.pdf",
     attachmentContentType: "application/pdf",
     dashboardCopyRequired: true,
-    customerValue: "The customer receives cause-level diagnosis in the dashboard and as an approved attached report file.",
+    customerValue: "The customer receives cause-level diagnosis in the plan-specific dashboard report route and as an approved attached report file.",
     aiVisibilityValue: "Deep Review must explain how visible evidence, customer trust, proof, business structure, and AI/search readability affect whether the market understands and chooses the business.",
     reportStructure: PAID_REPORT_COMMAND_STRUCTURE,
     releaseGate: "deep-review-report-release",
@@ -69,7 +74,7 @@ export const PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM = [
     ],
     emailAttachmentRules: [
       "Email must attach the approved customer-safe PDF report.",
-      "Email must also link to the dashboard copy at /dashboard/reports.",
+      "Email must also link to the dashboard copy at /dashboard/reports/deep-review.",
       "Attachment name must identify Cendorq, plan, business slug, and report version.",
       "Email body must summarize signal, proof, risk, limit, and next command without exposing raw evidence.",
       "Email body must not imply guaranteed ranking, guaranteed AI placement, guaranteed leads, or guaranteed revenue.",
@@ -85,14 +90,14 @@ export const PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM = [
     key: "build-fix-summary-delivery",
     planKey: "build-fix",
     customerReportName: "Build Fix delivery summary",
-    dashboardPath: "/dashboard/reports",
+    dashboardPath: "/dashboard/reports/build-fix",
     emailTemplateKey: "build-fix-delivered",
     customerEmailSubject: "Your Cendorq Build Fix summary is ready",
     attachmentRequired: true,
     attachmentFileNamePattern: "cendorq-build-fix-summary-{business}-{reportVersion}.pdf",
     attachmentContentType: "application/pdf",
     dashboardCopyRequired: true,
-    customerValue: "The customer receives a scoped implementation summary in the dashboard and as an approved attached report file.",
+    customerValue: "The customer receives a scoped implementation summary in the plan-specific dashboard report route and as an approved attached report file.",
     aiVisibilityValue: "Build Fix must show how the approved improvement strengthens customer understanding, proof, trust, action, or AI/search readability without claiming guaranteed placement.",
     reportStructure: PAID_REPORT_COMMAND_STRUCTURE,
     releaseGate: "build-fix-customer-output-approval",
@@ -119,7 +124,7 @@ export const PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM = [
     ],
     emailAttachmentRules: [
       "Email must attach the approved customer-safe PDF delivery summary.",
-      "Email must also link to the dashboard copy at /dashboard/reports.",
+      "Email must also link to the dashboard copy at /dashboard/reports/build-fix.",
       "Attachment must explain completed work, remaining risks, AI/search visibility effect, and what stayed out of scope.",
       "Email body must not imply unlimited implementation, guaranteed performance, guaranteed ranking, or guaranteed AI placement.",
     ],
@@ -134,14 +139,14 @@ export const PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM = [
     key: "ongoing-control-monthly-delivery",
     planKey: "ongoing-control",
     customerReportName: "Ongoing Control monthly summary",
-    dashboardPath: "/dashboard/reports",
+    dashboardPath: "/dashboard/reports/ongoing-control",
     emailTemplateKey: "ongoing-control-monthly",
     customerEmailSubject: "Your Cendorq monthly control update is ready",
     attachmentRequired: true,
     attachmentFileNamePattern: "cendorq-ongoing-control-{business}-{month}.pdf",
     attachmentContentType: "application/pdf",
     dashboardCopyRequired: true,
-    customerValue: "The customer receives the monthly decision-support summary in the dashboard and as an approved attached report file.",
+    customerValue: "The customer receives the monthly decision-support summary in the plan-specific dashboard report route and as an approved attached report file.",
     aiVisibilityValue: "Ongoing Control must explain what changed in visibility, trust, proof, AI/search posture, competitor pressure, and next monthly priority without pretending to control algorithms.",
     reportStructure: PAID_REPORT_COMMAND_STRUCTURE,
     releaseGate: "ongoing-control-monthly-review-gate",
@@ -168,7 +173,7 @@ export const PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM = [
     ],
     emailAttachmentRules: [
       "Email must attach the approved customer-safe PDF monthly summary.",
-      "Email must also link to the dashboard copy at /dashboard/reports.",
+      "Email must also link to the dashboard copy at /dashboard/reports/ongoing-control.",
       "Attachment must show monthly priority, AI/search posture, risks, changes, limits, and next decision support.",
       "Email body must not imply unlimited Build Fix, guaranteed ranking, guaranteed AI placement, ad management, or algorithm control.",
     ],
@@ -182,7 +187,7 @@ export const PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM = [
 ] as const satisfies readonly PaidPlanReportDeliveryContract[];
 
 export const PAID_PLAN_REPORT_DELIVERY_GUARDS = [
-  "Every paid plan report must have a dashboard copy at /dashboard/reports.",
+  "Every paid plan report must have a plan-specific dashboard copy under /dashboard/reports.",
   "Every paid plan report delivery email must include the approved customer-safe report PDF as an attachment.",
   "Every paid report must use the customer-safe structure: Signal, Proof, Risk, Limit, Next command.",
   `Every paid report must follow the AI visibility boundary: ${AI_VISIBILITY_MARKET_COMMAND_STANDARD.customerTruth}`,
@@ -191,7 +196,7 @@ export const PAID_PLAN_REPORT_DELIVERY_GUARDS = [
   "Free Scan is excluded from paid-report attachment requirements and remains a dashboard-only first signal unless a separate export is approved later.",
   "Paid report attachments must not contain raw evidence, credentials, private keys, payment data, prompts, internal notes, or cross-customer data.",
   "Paid reports must not claim guaranteed ranking, guaranteed AI placement, guaranteed leads, guaranteed revenue, or algorithm control.",
-  "The email must include both the attachment and a dashboard link so customers can recover the report from the platform.",
+  "The email must include both the attachment and the plan-specific dashboard link so customers can recover the report from the platform.",
 ] as const;
 
 export function getPaidPlanReportDeliveryContract(planKey: CendorqPaidPlanKey) {
