@@ -1,12 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const INTERNAL_CONSOLE_PREFIX = "/intake-console";
+const CUSTOMER_DASHBOARD_PREFIX = "/dashboard";
 const CONSOLE_COOKIE_NAME = "da_console_session";
+const CUSTOMER_SESSION_COOKIE_NAME = "cendorq_customer_session";
 const CONSOLE_COOKIE_TTL_SECONDS = 60 * 60 * 8;
+const CUSTOMER_SESSION_SECRET_ENV = "CENDORQ_CUSTOMER_SESSION_SECRET";
+const CUSTOMER_SESSION_VERSION = "v1";
+const CUSTOMER_DASHBOARD_DEFAULT_PATH = "/dashboard";
+const CUSTOMER_DASHBOARD_ALLOWED_PATHS = [
+    "/dashboard",
+    "/dashboard/reports",
+    "/dashboard/reports/free-scan",
+    "/dashboard/billing",
+    "/dashboard/support",
+    "/dashboard/notifications",
+] as const;
 
 type BasicCredentials = {
     username: string;
     password: string;
+};
+
+type CustomerDashboardSessionProjection = {
+    ok: boolean;
+    reason: "valid" | "missing" | "not-configured" | "malformed" | "expired" | "signature-mismatch";
+    safeReturnTo: string;
 };
 
 export async function middleware(request: NextRequest) {
@@ -14,17 +33,69 @@ export async function middleware(request: NextRequest) {
     const isProtectedConsoleRoute =
         pathname === INTERNAL_CONSOLE_PREFIX ||
         pathname.startsWith(`${INTERNAL_CONSOLE_PREFIX}/`);
+    const isProtectedCustomerDashboardRoute =
+        pathname === CUSTOMER_DASHBOARD_PREFIX ||
+        pathname.startsWith(`${CUSTOMER_DASHBOARD_PREFIX}/`);
 
     let response: NextResponse;
 
     if (isProtectedConsoleRoute) {
         response = await protectConsoleRoute(request);
+    } else if (isProtectedCustomerDashboardRoute) {
+        response = await protectCustomerDashboardRoute(request);
     } else {
         response = NextResponse.next();
     }
 
-    applySecurityHeaders(response, request, { internal: isProtectedConsoleRoute });
+    applySecurityHeaders(response, request, {
+        internal: isProtectedConsoleRoute,
+        customer: isProtectedCustomerDashboardRoute,
+    });
     return response;
+}
+
+async function protectCustomerDashboardRoute(request: NextRequest) {
+    const session = await readCustomerDashboardSession(request);
+    if (session.ok) {
+        return NextResponse.next();
+    }
+
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("returnTo", session.safeReturnTo);
+    loginUrl.searchParams.set("auth", session.reason === "not-configured" ? "session-unavailable" : "session-required");
+    return NextResponse.redirect(loginUrl, { status: 303 });
+}
+
+async function readCustomerDashboardSession(request: NextRequest): Promise<CustomerDashboardSessionProjection> {
+    const safeReturnTo = safeCustomerDashboardPath(request.nextUrl.pathname) || CUSTOMER_DASHBOARD_DEFAULT_PATH;
+    const secret = cleanEnv(process.env[CUSTOMER_SESSION_SECRET_ENV]);
+    if (secret.length < 32) return { ok: false, reason: "not-configured", safeReturnTo };
+
+    const value = request.cookies.get(CUSTOMER_SESSION_COOKIE_NAME)?.value || "";
+    if (!value) return { ok: false, reason: "missing", safeReturnTo };
+
+    const parts = value.split(".");
+    if (parts.length !== 7) return { ok: false, reason: "malformed", safeReturnTo };
+
+    const [version, customerIdHash, signupEmailHash, issuedAt, expiresAt, nonce, signature] = parts;
+    const payload = [version, customerIdHash, signupEmailHash, issuedAt, expiresAt, nonce].join(".");
+    if (
+        version !== CUSTOMER_SESSION_VERSION ||
+        !isSafeHash(customerIdHash) ||
+        !isSafeHash(signupEmailHash) ||
+        !isSafeIntegerString(issuedAt) ||
+        !isSafeIntegerString(expiresAt) ||
+        !isSafeNonce(nonce) ||
+        !isSafeSignature(signature)
+    ) {
+        return { ok: false, reason: "malformed", safeReturnTo };
+    }
+
+    if (Number(expiresAt) <= Math.floor(Date.now() / 1000)) return { ok: false, reason: "expired", safeReturnTo };
+    const expectedSignature = await signCustomerSessionPayload(payload, secret);
+    if (!safeEqual(signature, expectedSignature)) return { ok: false, reason: "signature-mismatch", safeReturnTo };
+
+    return { ok: true, reason: "valid", safeReturnTo };
 }
 
 async function protectConsoleRoute(request: NextRequest) {
@@ -88,7 +159,7 @@ async function protectConsoleRoute(request: NextRequest) {
 function applySecurityHeaders(
     response: NextResponse,
     request: NextRequest,
-    options: { internal: boolean },
+    options: { internal: boolean; customer: boolean },
 ) {
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     response.headers.set("X-Content-Type-Options", "nosniff");
@@ -108,7 +179,7 @@ function applySecurityHeaders(
         );
     }
 
-    if (options.internal) {
+    if (options.internal || options.customer) {
         response.headers.set(
             "X-Robots-Tag",
             "noindex, nofollow, noarchive, nosnippet",
@@ -259,11 +330,25 @@ function shouldAllowLocalBypass(
     return localHost && nonProduction;
 }
 
+async function signCustomerSessionPayload(payload: string, secret: string) {
+    const key = await crypto.subtle.importKey(
+        "raw",
+        new TextEncoder().encode(secret),
+        { name: "HMAC", hash: "SHA-256" },
+        false,
+        ["sign"],
+    );
+    const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload));
+    return base64UrlFromBytes(new Uint8Array(signature));
+}
+
 async function sha256Base64Url(value: string) {
     const encoded = new TextEncoder().encode(value);
     const digest = await crypto.subtle.digest("SHA-256", encoded);
-    const bytes = Array.from(new Uint8Array(digest));
+    return base64UrlFromBytes(new Uint8Array(digest));
+}
 
+function base64UrlFromBytes(bytes: Uint8Array) {
     let binary = "";
     for (const byte of bytes) {
         binary += String.fromCharCode(byte);
@@ -273,6 +358,36 @@ async function sha256Base64Url(value: string) {
         .replace(/\+/g, "-")
         .replace(/\//g, "_")
         .replace(/=+$/g, "");
+}
+
+function safeCustomerDashboardPath(value: string | null | undefined) {
+    if (!value) return null;
+    return CUSTOMER_DASHBOARD_ALLOWED_PATHS.find((path) => value === path || value.startsWith(`${path}/`)) || null;
+}
+
+function isSafeHash(value: string) {
+    return /^[a-f0-9]{24,96}$/.test(value.trim().toLowerCase());
+}
+
+function isSafeIntegerString(value: string) {
+    return /^\d{10,12}$/.test(value);
+}
+
+function isSafeNonce(value: string) {
+    return /^[A-Za-z0-9_-]{16,64}$/.test(value);
+}
+
+function isSafeSignature(value: string) {
+    return /^[A-Za-z0-9_-]{32,96}$/.test(value);
+}
+
+function safeEqual(left: string, right: string) {
+    if (left.length !== right.length) return false;
+    let difference = 0;
+    for (let index = 0; index < left.length; index += 1) {
+        difference |= left.charCodeAt(index) ^ right.charCodeAt(index);
+    }
+    return difference === 0;
 }
 
 function cleanEnv(value: string | undefined) {
