@@ -11,12 +11,12 @@ const failures = [];
 expect(pagePath, [
   "projectCustomerPlatformHandoff",
   "DASHBOARD_HANDOFFS",
-  "Connected dashboard handoffs",
-  "Show pending states as pending, not as live truth.",
-  "Do not expose private payloads, private files, private workflow details, or risk internals.",
-  "Give the customer one obvious next action before offering deeper plan decisions.",
-  "Keep support, report, billing, and notification links visible when a customer needs recovery.",
-  "Start with the clearest available signal. Do not treat pending work as final.",
+  "Your Cendorq workspace is ready.",
+  "Cendorq checks this device for scan progress and shows one clear next action: start the Free Scan, continue it, or open the protected result.",
+  "The dashboard should not force a purchase or assume a scan exists.",
+  "A workspace can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts.",
+  "Open protected scan and review outputs when they are ready.",
+  "Resolve blockers without sending private details.",
 ]);
 
 expect(pagePath, [
@@ -36,8 +36,9 @@ expect(pagePath, [
   "/dashboard/notifications",
   "/dashboard/support",
   "/plans",
-  "Continue Free Scan",
-  "Safe state rules",
+  "Open Free Scan path",
+  "One clear action",
+  "One next step.",
 ]);
 
 expect(packagePath, [
@@ -77,7 +78,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard handoff runtime integration validation passed. validate:routes delegates through the orchestrator and the dashboard handoff integration validator remains wired into the route chain.");
+console.log("Dashboard handoff runtime integration validation passed with current dashboard projection, handoff surfaces, safe customer next-step copy, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
