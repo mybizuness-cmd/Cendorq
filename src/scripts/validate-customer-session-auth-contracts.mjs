@@ -6,10 +6,13 @@ const failures = [];
 const authPath = "src/lib/customer-session-auth-contracts.ts";
 const gatewayPath = "src/lib/customer-access-gateway-contracts.ts";
 const runtimePath = "src/lib/customer-access-gateway-runtime.ts";
+const sessionRuntimePath = "src/lib/customer-session-auth-runtime.ts";
 const formPath = "src/components/customer-support/support-request-form.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-session-auth-contracts.mjs";
 
 expect(authPath, [
   "CUSTOMER_SESSION_AUTH_RULES",
@@ -50,6 +53,25 @@ expect(authPath, [
   "no account recovery, email change, password reset, provider link, or session revocation without audit events and safe failure behavior",
 ]);
 
+expect(sessionRuntimePath, [
+  "CUSTOMER_SESSION_AUTH_RUNTIME_GUARDS",
+  "CUSTOMER_SESSION_COOKIE_NAME = \"__Host-cendorq_session\"",
+  "CUSTOMER_CSRF_COOKIE_NAME = \"__Host-cendorq_csrf\"",
+  "CUSTOMER_CSRF_HEADER_NAME = \"x-cendorq-csrf\"",
+  "CUSTOMER_REAUTH_HEADER_NAME = \"x-cendorq-reauth\"",
+  "requireCustomerSession",
+  "verifyCsrfForMutation",
+  "verifyFreshReauth",
+  "checkRequestOrigin",
+  "buildCustomerSessionCookieAttributes",
+  "httpOnly: true",
+  "secure: true",
+  "sameSite: \"lax\"",
+  "safeGatewayEqual",
+  "hashGatewaySecret",
+  "session runtime is closed by default when no server-managed session is present",
+]);
+
 expect(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
@@ -85,6 +107,8 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
+expect(routesChainPath, [validatorPath]);
+
 forbidden(authPath, [
   "session token in localStorage allowed",
   "session token in sessionStorage allowed",
@@ -103,7 +127,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer session auth contracts validation passed with owner posture coverage.");
+console.log("Customer session auth contracts validation passed with owner posture, runtime, gateway, support form, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
