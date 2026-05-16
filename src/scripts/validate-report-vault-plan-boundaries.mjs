@@ -37,6 +37,8 @@ expect(pagePath, [
   "decision.releaseApprovalRequired",
   "decision.approvedPdfRequired",
   "decision.emailAttachmentRequired",
+  "guaranteed ranking",
+  "guaranteed AI placement",
 ]);
 
 expect(routesChainPath, [validatorPath]);
@@ -53,8 +55,6 @@ forbidden(runtimePath, [
 ]);
 
 forbidden(pagePath, [
-  "guaranteed ranking",
-  "guaranteed AI placement",
   "rawReportPayloadReturned: true",
   "rawPrivatePayloadReturned: true",
   "dangerouslySetInnerHTML",
@@ -68,7 +68,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report vault plan-boundary validation passed with separated report access decisions, paid release/PDF requirements, safe routes, and route-chain coverage.");
+console.log("Report vault plan-boundary validation passed with separated report access decisions, paid release/PDF requirements, safe no-guarantee language, safe routes, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
