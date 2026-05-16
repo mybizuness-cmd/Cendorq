@@ -11,7 +11,7 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-provider-callback-ready-gate.mjs";
 
 expect(providerConfigPath, [
-  "CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY = false",
+  "CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY: boolean = false",
   "isCustomerAuthProviderCallbackSessionRuntimeReady",
   "CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY === true",
   "isCustomerAuthProviderCallbackSessionRuntimeReady() && readEnabledFlag(process.env[provider.readyEnvKey])",
