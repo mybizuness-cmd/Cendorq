@@ -9,6 +9,8 @@ const supportApiPath = "src/app/api/customer/support/request/route.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-access-gateway-contracts.mjs";
 
 expect(gatewayPath, [
   "CUSTOMER_ACCESS_GATEWAY_RULES",
@@ -52,6 +54,11 @@ expect(gatewayRuntimePath, [
   "CUSTOMER_CONTEXT_HEADER",
   "CUSTOMER_SUPPORT_CONTEXT_KEY",
   "Verified customer context is required before submitting support requests.",
+  "CUSTOMER_ACCESS_GATEWAY_RUNTIME_GUARDS",
+  "safeGatewayEqual",
+  "timingSafeEqual",
+  "verifyAdminReadAccess",
+  "projectGatewaySafeRecord",
 ]);
 
 expect(supportApiPath, [
@@ -79,6 +86,8 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
+expect(routesChainPath, [validatorPath]);
+
 forbidden(gatewayPath, [
   "clientAllowed: true",
   "serverOnly: false",
@@ -97,7 +106,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer access gateway contracts validation passed with owner posture coverage.");
+console.log("Customer access gateway contracts validation passed with owner posture, runtime, support API, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
