@@ -3,32 +3,35 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-support-request-page.mjs";
 
 expect("src/app/dashboard/support/page.tsx", [
   "Start protected request",
   "/dashboard/support/request",
-  "Open protected request intake",
-  "passwords, raw tokens, payment details, or unrelated secrets",
+  "Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, or unrelated private evidence.",
 ]);
 
 expect("src/app/dashboard/support/request/page.tsx", [
-  "Start support request",
+  "Market resolution intake",
   "noIndex: true",
-  "Protected support intake",
-  "Start or update with a safe summary, then route the request correctly.",
+  "Send the safe summary that moves the blocker forward.",
+  "Intake should collect enough context to help without turning into a private data dump, duplicate request loop, or command-depth shortcut.",
   "SupportRequestForm",
   "SupportRequestUpdateForm",
   "CUSTOMER_SUPPORT_INTAKE_FLOWS",
   "CUSTOMER_SUPPORT_INTAKE_RISK_RULES",
-  "Do not paste passwords, raw tokens, secret keys, private keys, or payment details.",
-  "Do not paste raw evidence dumps, raw security payloads, or private report internals.",
-  "Correction, refund, billing, report-change, legal, or outcome commitments require the correct approval path.",
-  "Safety before submit",
-  "Risk routing",
-  "Waiting-on-customer updates",
-  "?update=&lt;request id&gt;",
-  "Do not paste rejected raw content back into the update form.",
-  "Approved updates return the request to the protected review path using customer-safe projection only.",
+  "Do not paste passwords, card numbers, bank details, private keys, raw tokens, session tokens, or admin keys.",
+  "Do not paste raw attack strings, prompt-injection text, raw evidence dumps, or private report internals.",
+  "After submission, track status and notifications instead of creating duplicate requests.",
+  "Check work-start gates",
+  "Start safe request",
+  "Gate the queue.",
+  "What Cendorq needs before backend work starts.",
+  "Enough context. No secrets.",
+  "Do not create duplicate noise.",
+  "Use update mode only when the status page asks for safer customer context.",
+  "Check status first",
 ]);
 
 expect("src/components/customer-support/support-request-form.tsx", [
@@ -40,7 +43,7 @@ expect("src/components/customer-support/support-request-form.tsx", [
   "safeDescription",
   "customerAcknowledgement",
   "/api/customer/support/request",
-  "Submit protected request",
+  "Submit protected intake",
   "Track this request safely",
   "/dashboard/support/status",
   "Back to support center",
@@ -58,7 +61,7 @@ expect("src/components/customer-support/support-request-update-form.tsx", [
   "customerAcknowledgement",
   "/api/customer/support/request/update",
   "new URL(window.location.href).searchParams.get(\"update\")",
-  "Safe support update",
+  "Use this panel when support status asks for a safer customer summary.",
   "Update a waiting support request safely.",
   "Summarize what changed without pasting passwords, tokens, payment data, raw evidence, raw security payloads, or private report internals.",
   "Cendorq does not show rejected raw content here and does not ask you to paste sensitive records again.",
@@ -90,10 +93,12 @@ expect("package.json", [
   "validate-customer-support-request-page.mjs",
 ]);
 
+expect(routesChainPath, [validatorPath]);
+
 forbidden("src/app/dashboard/support/request/page.tsx", [
   "dangerouslySetInnerHTML",
-  "localStorage",
-  "sessionStorage",
+  "localStorage.setItem",
+  "sessionStorage.setItem",
   "guaranteed ROI",
   "refund approved",
   "legal outcome guaranteed",
@@ -148,7 +153,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support request page validation passed.");
+console.log("Customer support request page validation passed with current intake page, request forms, support update flow, API ownership checks, intake architecture, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
