@@ -57,9 +57,12 @@ expect(recordsPath, [
 ]);
 
 expect(supportCenterPath, [
-  "Support and corrections",
-  "Correction requests must stay review-gated before any report change is shown to the customer.",
-  "Billing, refund, legal, or report outcome promises require approval before being stated as commitments.",
+  "Readiness support routing",
+  "Route the blocker without weakening the readiness path.",
+  "Help should restore momentum, protect the proof trail, and return the customer to the right report, account, readiness depth, or status path.",
+  "Pick the narrowest path that matches the blocker.",
+  "Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, or unrelated private evidence.",
+  "Support can explain process, status, and next steps; approved outcomes require the right review gate.",
 ]);
 
 expect(ownerMaximumProtectionPath, [
