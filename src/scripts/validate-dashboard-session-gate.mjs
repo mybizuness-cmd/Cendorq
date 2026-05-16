@@ -1,0 +1,126 @@
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+
+const root = process.cwd();
+const failures = [];
+const middlewarePath = "src/middleware.ts";
+const rememberedSessionPath = "src/lib/customer-remembered-session-runtime.ts";
+const emailConfirmPath = "src/app/api/customer/email/confirm/route.ts";
+const continuePath = "src/app/api/auth/continue/route.ts";
+const loginPath = "src/app/login/page.tsx";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-dashboard-session-gate.mjs";
+
+expect(middlewarePath, [
+  "CUSTOMER_DASHBOARD_PREFIX = \"/dashboard\"",
+  "CUSTOMER_SESSION_COOKIE_NAME = \"cendorq_customer_session\"",
+  "CUSTOMER_SESSION_SECRET_ENV = \"CENDORQ_CUSTOMER_SESSION_SECRET\"",
+  "CUSTOMER_SESSION_VERSION = \"v1\"",
+  "CUSTOMER_DASHBOARD_ALLOWED_PATHS",
+  "isProtectedCustomerDashboardRoute",
+  "protectCustomerDashboardRoute",
+  "readCustomerDashboardSession",
+  "safeCustomerDashboardPath",
+  "signCustomerSessionPayload",
+  "safeEqual(signature, expectedSignature)",
+  "session.reason === \"not-configured\" ? \"session-unavailable\" : \"session-required\"",
+  "NextResponse.redirect(loginUrl, { status: 303 })",
+  "options: { internal: boolean; customer: boolean }",
+  "options.internal || options.customer",
+  "no-store, no-cache, must-revalidate, proxy-revalidate",
+  "appendVaryHeader(response.headers.get(\"Vary\"), [\"Authorization\", \"Cookie\"])",
+]);
+
+expect(middlewarePath, [
+  "/dashboard/reports",
+  "/dashboard/reports/free-scan",
+  "/dashboard/billing",
+  "/dashboard/support",
+  "/dashboard/notifications",
+]);
+
+expect(rememberedSessionPath, [
+  "CENDORQ_CUSTOMER_SESSION_COOKIE = \"cendorq_customer_session\"",
+  "SESSION_SECRET_ENV = \"CENDORQ_CUSTOMER_SESSION_SECRET\"",
+  "SESSION_VERSION = \"v1\"",
+  "setCustomerRememberedSessionCookie",
+  "readCustomerRememberedSession",
+  "httpOnly: true",
+  "secure: true",
+  "sameSite: \"lax\"",
+]);
+
+expect(emailConfirmPath, [
+  "setCustomerRememberedSessionCookie",
+  "verifyCustomerEmailConfirmationToken",
+  "status: 303",
+  "getCustomerEmailVerificationNoStoreHeaders()",
+  "email-link-used",
+  "email-link-expired",
+  "email-link-invalid",
+]);
+
+expect(continuePath, [
+  "readCustomerRememberedSession",
+  "session-unavailable",
+  "session-required",
+]);
+
+expect(loginPath, [
+  "session-unavailable",
+  "session-required",
+  "This browser is not remembered yet.",
+  "This browser does not have an active Cendorq session yet.",
+]);
+
+expect(routesChainPath, [validatorPath]);
+
+forbidden(middlewarePath, [
+  "localStorage",
+  "sessionStorage",
+  "x-cendorq-customer-context",
+  "CUSTOMER_SUPPORT_CONTEXT_KEY",
+  "NEXT_PUBLIC_CUSTOMER_SUPPORT_CONTEXT_KEY",
+  "CUSTOMER_CONTEXT_HEADER",
+  "dangerouslySetInnerHTML",
+  "account exists",
+  "user exists",
+  "riskScoringInternals",
+  "rawPayload",
+  "rawEvidence",
+  "rawSecurityPayload",
+  "rawBillingData",
+  "internalNotes",
+  "attackerDetails",
+]);
+
+if (failures.length) {
+  console.error("Dashboard session gate validation failed:");
+  for (const failure of failures) console.error(`- ${failure}`);
+  process.exit(1);
+}
+
+console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, safe login redirects, no-store headers, and route-chain coverage.");
+
+function expect(path, phrases) {
+  if (!existsSync(join(root, path))) {
+    failures.push(`Missing dependency: ${path}`);
+    return;
+  }
+  const text = read(path);
+  for (const phrase of phrases) {
+    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+  }
+}
+
+function forbidden(path, phrases) {
+  if (!existsSync(join(root, path))) return;
+  const text = read(path);
+  for (const phrase of phrases) {
+    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+  }
+}
+
+function read(path) {
+  return readFileSync(join(root, path), "utf8");
+}
