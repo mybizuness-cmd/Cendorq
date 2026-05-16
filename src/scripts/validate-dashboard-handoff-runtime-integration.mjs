@@ -77,7 +77,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard handoff runtime integration validation passed. validate:routes delegates through the orchestrator and the dashboard handoff integration validator remains wired into the route chain.");
+console.log("Dashboard handoff runtime integration validation passed with current dashboard projection, handoff surfaces, safe state rules, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
