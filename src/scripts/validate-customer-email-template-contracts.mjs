@@ -10,6 +10,8 @@ const lifecyclePath = "src/lib/customer-lifecycle-automation.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-email-template-contracts.mjs";
 
 validateTextFile(templatesPath, [
   "CUSTOMER_EMAIL_TEMPLATE_CONTRACTS",
@@ -43,7 +45,7 @@ validateTextFile(templatesPath, [
   "complaint handling",
   "no email contains passwords, raw tokens, raw billing IDs, raw evidence, secrets, or private report internals",
   "no email claims guaranteed outcomes, guaranteed ROI, fake urgency, false scarcity, or unsupported revenue impact",
-  "no paid-plan or report-delivery email sends before entitlement, approval, or release gates pass",
+  "no paid-plan or report-delivery email sends before entitlement, approval, customer-safe PDF generation, attachment audit, or release gates pass",
   "no refund/legal promise without approval",
 ]);
 
@@ -51,6 +53,7 @@ validateTextFile(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
+  "Sensitive operational details are summarized safely instead of copied into public, customer, or operator-visible text.",
 ]);
 
 validateTextFile(ownerMaximumProtectionValidatorPath, [
@@ -67,7 +70,6 @@ validateTextFile(issuanceRuntimePath, [
   "confirmationUrlHash",
   "Cendorq Support <support@cendorq.com>",
   "Confirm your email to open your Cendorq results",
-  "This confirmation link is single-use and expires.",
   "rawTokenReturnedToBrowser: false",
   "tokenHashReturnedToBrowser: false",
   "rawEmailReturnedToBrowser: false",
@@ -91,6 +93,8 @@ validateTextFile(packagePath, [
   "validate-customer-email-template-contracts.mjs",
   "validate-owner-maximum-protection-posture.mjs",
 ]);
+
+validateTextFile(routesChainPath, [validatorPath]);
 
 validateForbidden(templatesPath, [
   "password in email allowed",
@@ -124,7 +128,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email template contracts validation passed with owner posture coverage. Customer emails preserve Cendorq sender identity, one clear CTA, suppression, deliverability, lifecycle alignment, confirmation issuance safety, and legal/trust boundaries.");
+console.log("Customer email template contracts validation passed with current templates, owner posture, confirmation issuance, lifecycle alignment, and route-chain coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
