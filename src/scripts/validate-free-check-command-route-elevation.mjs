@@ -64,7 +64,11 @@ expect(formPath, [
 expect(progressGuardPath, [
   "FreeCheckProgressGuard",
   "cendorq.free-check.progress.v1",
-  "cendorq.free-check.submitted.v1",
+  "cendorq:free-check:submitted",
+  "free_scan_progress_restored",
+  "free_scan_progress_cleared",
+  "window.localStorage.removeItem(STORAGE_KEY)",
+  "window.localStorage.setItem(STORAGE_KEY",
 ]);
 
 expect(analyticsPath, [
