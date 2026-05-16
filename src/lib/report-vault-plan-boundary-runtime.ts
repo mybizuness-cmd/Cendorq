@@ -8,12 +8,21 @@ export type ReportVaultReportKey =
 
 export type ReportVaultAccessState = "available" | "requires-plan" | "requires-release-approval";
 
+export type ReportVaultCustomerRoute =
+  | "/dashboard/reports/free-scan"
+  | "/dashboard/reports/deep-review"
+  | "/dashboard/reports/build-fix"
+  | "/dashboard/reports/ongoing-control"
+  | "/plans/deep-review"
+  | "/plans/build-fix"
+  | "/plans/ongoing-control";
+
 export type ReportVaultAccessDecision = {
   reportKey: ReportVaultReportKey;
   planKey: PlanValueKey;
   reportName: string;
-  customerRoute: string;
-  fallbackRoute: string;
+  customerRoute: ReportVaultCustomerRoute;
+  fallbackRoute: ReportVaultCustomerRoute;
   accessState: ReportVaultAccessState;
   verifiedSessionRequired: true;
   customerOwnershipRequired: true;
@@ -37,29 +46,34 @@ export const REPORT_VAULT_PLAN_BOUNDARY_RULES = [
   "Free Scan result may be available inside the verified dashboard without paid plan depth.",
   "Paid report types require active entitlement, release approval, and approved PDF readiness before final visibility.",
   "Paid report vault entries fall back to plan pages or held status when entitlement or approval is missing.",
+  "Released paid report copies use plan-specific protected vault routes.",
   "Report vault access decisions return safe route projections only.",
 ] as const;
 
-const REPORT_DEFINITIONS: Record<PlanValueKey, { reportKey: ReportVaultReportKey; reportName: string; fallbackRoute: string }> = {
+const REPORT_DEFINITIONS: Record<PlanValueKey, { reportKey: ReportVaultReportKey; reportName: string; fallbackRoute: ReportVaultCustomerRoute; finalRoute: ReportVaultCustomerRoute }> = {
   "free-scan": {
     reportKey: "free-scan-result",
     reportName: "Readiness signal result",
     fallbackRoute: "/dashboard/reports/free-scan",
+    finalRoute: "/dashboard/reports/free-scan",
   },
   "deep-review": {
     reportKey: "ai-readiness-review-report",
     reportName: "AI Readiness Review report",
     fallbackRoute: "/plans/deep-review",
+    finalRoute: "/dashboard/reports/deep-review",
   },
   "build-fix": {
     reportKey: "signal-repair-summary",
     reportName: "Signal Repair summary",
     fallbackRoute: "/plans/build-fix",
+    finalRoute: "/dashboard/reports/build-fix",
   },
   "ongoing-control": {
     reportKey: "readiness-control-monthly-summary",
     reportName: "Readiness Control monthly summary",
     fallbackRoute: "/plans/ongoing-control",
+    finalRoute: "/dashboard/reports/ongoing-control",
   },
 };
 
@@ -82,7 +96,7 @@ export function resolveReportVaultAccessDecision(input: ReportVaultAccessInput):
     reportKey: definition.reportKey,
     planKey: input.planKey,
     reportName: definition.reportName,
-    customerRoute: finalReportVisible ? routeForFinalReport(input.planKey) : definition.fallbackRoute,
+    customerRoute: finalReportVisible ? definition.finalRoute : definition.fallbackRoute,
     fallbackRoute: definition.fallbackRoute,
     accessState,
     verifiedSessionRequired: true,
@@ -95,9 +109,4 @@ export function resolveReportVaultAccessDecision(input: ReportVaultAccessInput):
     rawReportPayloadReturned: false,
     rawPrivatePayloadReturned: false,
   };
-}
-
-function routeForFinalReport(planKey: PlanValueKey) {
-  if (planKey === "free-scan") return "/dashboard/reports/free-scan";
-  return "/dashboard/reports";
 }

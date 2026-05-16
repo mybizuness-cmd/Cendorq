@@ -13,13 +13,19 @@ const validatorPath = "src/scripts/validate-paid-plan-report-delivery-operating-
 
 expect(deliveryPath, [
   "PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM",
-  "Every paid plan report must have a dashboard copy at /dashboard/reports.",
+  "Every paid plan report must have a plan-specific dashboard copy under /dashboard/reports.",
   "Every paid plan report delivery email must include the approved customer-safe report PDF as an attachment.",
   "Dashboard copy and email attachment must be generated from the same approved report version.",
   "Free Scan is excluded from paid-report attachment requirements",
   "deep-review-report-delivery",
   "build-fix-summary-delivery",
   "ongoing-control-monthly-delivery",
+  "dashboardPath: \"/dashboard/reports/deep-review\"",
+  "dashboardPath: \"/dashboard/reports/build-fix\"",
+  "dashboardPath: \"/dashboard/reports/ongoing-control\"",
+  "Email must also link to the dashboard copy at /dashboard/reports/deep-review.",
+  "Email must also link to the dashboard copy at /dashboard/reports/build-fix.",
+  "Email must also link to the dashboard copy at /dashboard/reports/ongoing-control.",
   "cendorq-deep-review-{business}-{reportVersion}.pdf",
   "cendorq-build-fix-summary-{business}-{reportVersion}.pdf",
   "cendorq-ongoing-control-{business}-{month}.pdf",
@@ -77,9 +83,10 @@ forbidden(deliveryPath, [
   "dashboard optional",
   "attachment optional",
   "no attachment required",
+  "Every paid plan report must have a dashboard copy at /dashboard/reports.",
 ]);
 
-boundedLength(deliveryPath, 14500);
+boundedLength(deliveryPath, 15000);
 boundedLength(reportVaultPath, 18500);
 boundedLength(runtimePath, 11500);
 
@@ -89,7 +96,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Paid plan report delivery operating system validation passed with dashboard report copies, approved PDF email attachments, backend gates, and audit events.");
+console.log("Paid plan report delivery operating system validation passed with plan-specific dashboard report copies, approved PDF email attachments, backend gates, and audit events.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
