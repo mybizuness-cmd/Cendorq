@@ -7,6 +7,8 @@ const notificationsPath = "src/lib/customer-notification-contracts.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-notification-contracts.mjs";
 
 expect(notificationsPath, [
   "CUSTOMER_NOTIFICATION_CONTRACTS",
@@ -38,9 +40,11 @@ expect(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
+  "Sensitive operational details are summarized safely instead of copied into public, customer, or operator-visible text.",
 ]);
 expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
 expect(packagePath, ["validate:routes", "validate-customer-notification-contracts.mjs", "validate-owner-maximum-protection-posture.mjs"]);
+expect(routesChainPath, [validatorPath]);
 expect("src/lib/customer-lifecycle-automation.ts", ["CUSTOMER_LIFECYCLE_AUTOMATION_RULES"]);
 expect("src/lib/customer-email-template-contracts.ts", ["CUSTOMER_EMAIL_TEMPLATE_CONTRACTS"]);
 expect("src/lib/cendorq-shield-standard.ts", ["CENDORQ_SHIELD_RULES"]);
@@ -62,7 +66,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer notification contracts validation passed with owner posture and package wiring coverage.");
+console.log("Customer notification contracts validation passed with current notification contracts, owner posture, lifecycle/email/shield dependencies, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
