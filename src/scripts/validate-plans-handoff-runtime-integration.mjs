@@ -9,41 +9,43 @@ const validatorPath = "src/scripts/validate-plans-handoff-runtime-integration.mj
 const failures = [];
 
 expect(pagePath, [
-  "projectCustomerPlatformHandoff",
-  "PLANS_HANDOFFS",
-  "Plans handoff runtime integration",
-  "Connected plan handoffs",
-  "Plan movement stays stage-aware, evidence-led, and connected to the customer platform.",
-  "Free Scan, dashboard, billing, report vault, and support context",
-  "without fake urgency",
-  "dark patterns",
-  "unsupported ROI claims",
-  "unsupported outcome promises",
-  "raw/internal data exposure",
-  "disconnected plan decisions",
-  "handoff.currentState",
-  "handoff.safeNextAction",
-  "handoff.recoveryPath",
-  "handoff.connectedDestination",
-  "handoff.decision",
+  "Choose the right AI-readiness depth.",
+  "Start with the level that matches what you already know.",
+  "Scan finds the first signal, Review explains the cause, Repair improves a clear weak point, and Control keeps readiness from drifting.",
+  "PLAN_CARDS",
+  "CENDORQ_PLAN_PRICES",
+  "CTA_LABEL_BY_PLAN",
+  "STAGE_BY_PLAN",
+  "PURPOSE_BY_PLAN",
+  "PLAN_ROUTE_BY_KEY",
+  "One path. Four depths.",
+  "Free Scan finds the first signal.",
+  "Review explains the likely cause.",
+  "Repair improves the selected weak point.",
+  "Control keeps the business watched.",
+  "Cendorq does not guarantee rankings, leads, revenue, or AI placement.",
 ]);
 
 expect(pagePath, [
-  "plans-to-free-scan-or-dashboard",
-  "dashboard-to-plans",
-  "billing-to-plans",
-  "report-vault-to-plans",
-  "customerOwned: true",
-  "verifiedAccess: true",
-  "safeProjectionReady: true",
-]);
-
-expect(pagePath, [
-  "Customers should start with diagnosis when readiness is unclear",
-  "return to dashboard when private customer context exists",
+  "free-scan",
+  "deep-review",
+  "build-fix",
+  "ongoing-control",
   "/free-check",
-  "/dashboard",
-  "/plans",
+  "/plans/deep-review",
+  "/plans/build-fix",
+  "/plans/ongoing-control",
+  "Start Free Scan",
+  "Open Review page",
+  "Open Repair page",
+  "Open Control page",
+]);
+
+expect(pagePath, [
+  "Find the first place the business may be unclear, under-trusted, or harder to choose.",
+  "Understand what is weakening clarity, trust, proof, or choice before bigger work begins.",
+  "Improve the page, message, proof, or action path that matters most.",
+  "Keep readiness from drifting as search, AI answers, competitors, and customers change.",
 ]);
 
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
@@ -67,7 +69,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plans handoff runtime integration validation passed. validate:routes delegates through the orchestrator and the plans handoff integration validator remains wired into the route chain.");
+console.log("Plans handoff runtime integration validation passed with current plan depth, route, stage, CTA, value-separation, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
