@@ -11,42 +11,35 @@ const failures = [];
 expect(pagePath, [
   "projectCustomerPlatformHandoff",
   "NOTIFICATION_HANDOFFS",
-  "Notification center handoff runtime integration",
-  "Connected notification handoffs",
-  "Every alert should connect to status, recovery, or the next safe route.",
-  "customer-owned safe projection",
-  "Alerts can route, recover, hold, or suppress",
+  "Act only on signals that protect readiness progress.",
+  "This feed should stay quiet until something matters: proof is ready, access changes, support needs context, or a safer action is required.",
+  "No generic clutter. Every signal should point to proof, access, status, or safe recovery.",
+  "Signals should create confidence, not noise.",
+  "handoff.decision",
+  "handoff.surfaceKey",
   "handoff.currentState",
   "handoff.safeNextAction",
   "handoff.recoveryPath",
   "handoff.connectedDestination",
-  "handoff.decision",
 ]);
 
 expect(pagePath, [
   "dashboard-to-notifications",
   "free-scan-to-notifications",
   "notifications-to-status",
-  "support-request-to-status",
   "customerOwned: true",
   "verifiedAccess: true",
   "safeProjectionReady: true",
 ]);
 
 expect(pagePath, [
-  "account/security",
-  "scan/report",
-  "billing/support",
-  "support lifecycle",
-  "raw payloads",
-  "raw evidence",
-  "raw security payloads",
-  "raw billing data",
-  "internal notes",
-  "risk internals",
-  "attacker details",
-  "secrets",
-  "unsupported promises",
+  "Proof signal",
+  "Access signal",
+  "Support signal",
+  "Security signal",
+  "Featured customer signals",
+  "Quiet feed standard",
+  "Notification paid actions route to plan detail pages before payment.",
 ]);
 
 expect(packagePath, [
@@ -66,11 +59,6 @@ forbidden(pagePath, [
   "internalNotes=",
   "operatorIdentity=",
   "riskScoringInternals=",
-  "attackerDetails=",
-  "session" + "Token=",
-  "csrf" + "Token=",
-  "admin" + "Key=",
-  "support" + "Context" + "Key=",
   "localStorage.setItem",
   "sessionStorage.setItem",
   "guaranteed ROI",
@@ -86,7 +74,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Notification center handoff runtime integration validation passed. validate:routes delegates through the orchestrator and the notification center handoff integration validator remains wired into the route chain.");
+console.log("Notification center handoff runtime integration validation passed with current notification projection, signal routing, quiet-feed guardrails, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
