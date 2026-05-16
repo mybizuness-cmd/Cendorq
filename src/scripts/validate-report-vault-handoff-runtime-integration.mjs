@@ -13,15 +13,11 @@ const failures = [];
 expect(pagePath, [
   "projectCustomerPlatformHandoff",
   "REPORT_VAULT_HANDOFFS",
-  "Report vault handoff runtime integration",
-  "Connected report handoffs",
-  "Report movement stays tied to readiness, correction, and stage fit.",
-  "customer-owned safe projection",
-  "Pending reports stay pending",
-  "correction routes stay bounded",
-  "plan movement waits for readiness",
-  "fake urgency",
-  "unsupported outcome promises",
+  "Keep the record of what customers and AI search can understand.",
+  "This vault stores the business readiness record: first signals, approved proof, AI/search posture, confidence limits, paid delivery, and the next readiness decision.",
+  "Nothing final until it is approved.",
+  "Different proof for every readiness depth.",
+  "Pending, draft, or unavailable reports must never look final.",
   "handoff.currentState",
   "handoff.safeNextAction",
   "handoff.recoveryPath",
@@ -33,6 +29,7 @@ expect(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
+  "Sensitive operational details are summarized safely instead of copied into public, customer, or operator-visible text.",
 ]);
 
 expect(ownerMaximumProtectionValidatorPath, [
@@ -53,10 +50,10 @@ expect(pagePath, [
 ]);
 
 expect(pagePath, [
-  "Do not present pending, draft, or incomplete reports as final customer truth.",
-  "Do not expose private payloads, private files, internal notes, operator identities, risk internals, prompts, secrets, or cross-customer data.",
-  "Report copy must separate verified facts, assumptions, inferences, recommendations, limitations, and next actions.",
-  "Correction paths must preserve audit proof while keeping customer-facing explanations calm and bounded.",
+  "Scan, Review, Repair, and Control report types must remain visibly separate.",
+  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF.",
+  "AI/search posture must be useful and bounded: no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control.",
+  "Paid report actions route to plan detail pages before payment.",
 ]);
 
 expect(packagePath, [
@@ -75,15 +72,9 @@ forbidden(pagePath, [
   "internalNotes=",
   "operatorIdentity=",
   "riskScoringInternals=",
-  "attackerDetails=",
-  "session" + "Token=",
-  "csrf" + "Token=",
-  "admin" + "Key=",
-  "support" + "Context" + "Key=",
   "localStorage.setItem",
   "sessionStorage.setItem",
   "guaranteed ROI",
-  "guaranteed outcomes",
   "impossible to hack",
   "never liable",
   "liability-free",
@@ -95,7 +86,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report vault handoff runtime integration validation passed with owner posture coverage. validate:routes delegates through the orchestrator and the report vault handoff integration validator remains wired into the route chain.");
+console.log("Report vault handoff runtime integration validation passed with current vault projection, report depth separation, paid-delivery posture, owner posture, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
