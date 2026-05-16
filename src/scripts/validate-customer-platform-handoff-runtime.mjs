@@ -34,6 +34,7 @@ expect(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
+  "Sensitive operational details are summarized safely instead of copied into public, customer, or operator-visible text.",
 ]);
 
 expect(ownerMaximumProtectionValidatorPath, [
@@ -115,7 +116,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform handoff runtime validation passed with owner posture coverage. validate:routes delegates through the orchestrator and the handoff runtime validator remains wired into the route chain.");
+console.log("Customer platform handoff runtime validation passed with current runtime, owner posture, safe projection, blocked-pattern sanitization, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
