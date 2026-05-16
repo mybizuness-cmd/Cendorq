@@ -27,9 +27,9 @@ expect(finalRoutesValidatorPath, [
   "src/app/dashboard/reports/deep-review/page.tsx",
   "src/app/dashboard/reports/build-fix/page.tsx",
   "src/app/dashboard/reports/ongoing-control/page.tsx",
-  "path: \"/dashboard/reports/deep-review\"",
-  "path: \"/dashboard/reports/build-fix\"",
-  "path: \"/dashboard/reports/ongoing-control\"",
+  "path: \\\"/dashboard/reports/deep-review\\\"",
+  "path: \\\"/dashboard/reports/build-fix\\\"",
+  "path: \\\"/dashboard/reports/ongoing-control\\\"",
 ]);
 
 expect(routesChainPath, [validatorPath]);
