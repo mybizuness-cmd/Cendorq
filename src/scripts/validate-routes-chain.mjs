@@ -48,6 +48,7 @@ const validators = [
   "src/scripts/validate-plan-intelligence-acquisition-system.mjs",
   "src/scripts/validate-plan-intelligence-intake-records.mjs",
   "src/scripts/validate-paid-plan-report-delivery-operating-system.mjs",
+  "src/scripts/validate-paid-report-final-routes.mjs",
   "src/scripts/validate-command-center-paid-report-delivery-ops.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
