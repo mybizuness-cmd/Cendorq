@@ -5,7 +5,11 @@ const root = process.cwd();
 const failures = [];
 const recordsPath = "src/lib/customer-support-record-contracts.ts";
 const supportCenterPath = "src/app/dashboard/support/page.tsx";
+const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
+const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-support-record-contracts.mjs";
 
 expect(recordsPath, [
   "CUSTOMER_SUPPORT_RECORD_CONTRACTS",
@@ -58,10 +62,26 @@ expect(supportCenterPath, [
   "Billing, refund, legal, or report outcome promises require approval before being stated as commitments.",
 ]);
 
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+  "Sensitive operational details are summarized safely instead of copied into public, customer, or operator-visible text.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
+]);
+
 expect(packagePath, [
   "validate:routes",
   "validate-customer-support-record-contracts.mjs",
+  "validate-owner-maximum-protection-posture.mjs",
 ]);
+
+expect(routesChainPath, [validatorPath]);
 
 forbidden(recordsPath, [
   "rawPayloadStored: true",
@@ -81,7 +101,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support record contracts validation passed.");
+console.log("Customer support record contracts validation passed with current record contracts, support center anchors, owner posture, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
