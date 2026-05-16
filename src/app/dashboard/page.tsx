@@ -136,6 +136,7 @@ const COMMAND_LINKS = [
   { title: "Billing", copy: "See plan access, invoices, and checkout recovery paths.", href: "/dashboard/billing" },
   { title: "Notifications", copy: "See what needs attention next.", href: "/dashboard/notifications" },
   { title: "Support", copy: "Resolve blockers without sending private details.", href: "/dashboard/support" },
+  { title: "Sign out", copy: "End this browser session and return to secure access.", href: "/api/customer/session/logout?returnTo=/dashboard" },
 ] as const;
 
 const DASHBOARD_HANDOFFS = [
@@ -268,7 +269,7 @@ export default function CustomerDashboardPage() {
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Dashboard command links">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {COMMAND_LINKS.map((item) => (
             <Link key={item.href} href={item.href} className="rounded-[2rem] border border-white/80 bg-white/82 p-6 text-sm font-medium leading-6 text-slate-600 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
               <span className="block text-2xl font-semibold tracking-[-0.04em] text-slate-950">{item.title}</span>
