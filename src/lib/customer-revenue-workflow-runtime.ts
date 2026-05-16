@@ -9,7 +9,7 @@ import {
   getPaidCendorqPlanPrice,
   type CendorqPaidPlanKey,
 } from "@/lib/pricing-checkout-orchestration";
-import { requirePaidPlanReportDeliveryContract } from "@/lib/paid-plan-report-delivery-operating-system";
+import { requirePaidPlanReportDeliveryContract, type PaidPlanReportDashboardPath } from "@/lib/paid-plan-report-delivery-operating-system";
 
 export type CustomerRevenueActivationInput = {
   planKey: CendorqPaidPlanKey;
@@ -67,7 +67,7 @@ export type CustomerRevenueActivationProjection = {
     blockedReasonCodes: readonly string[];
   };
   paidReportDelivery: {
-    dashboardPath: "/dashboard/reports";
+    dashboardPath: PaidPlanReportDashboardPath;
     customerReportName: string;
     emailTemplateKey: string;
     attachmentRequired: true;
