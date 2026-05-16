@@ -1,7 +1,7 @@
 export type CustomerAuthProviderKey = "google" | "microsoft" | "apple" | "linkedin" | "facebook";
 
 const FULL_PROVIDER_SESSION_READY_ENV_KEY = "CENDORQ_AUTH_PROVIDER_SESSION_READY";
-export const CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY = false;
+export const CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY: boolean = false;
 
 export type CustomerAuthProvider = {
   key: CustomerAuthProviderKey;
