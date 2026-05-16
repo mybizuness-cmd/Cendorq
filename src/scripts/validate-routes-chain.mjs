@@ -89,6 +89,7 @@ const validators = [
   "src/scripts/validate-customer-access-gateway-contracts.mjs",
   "src/scripts/validate-customer-session-auth-contracts.mjs",
   "src/scripts/validate-production-auth-provider-contracts.mjs",
+  "src/scripts/validate-verified-welcome-email-contracts.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "src/scripts/validate-customer-platform-standard.mjs",
   "src/scripts/validate-customer-experience-standard.mjs",
@@ -117,7 +118,6 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-command-notifications-support-flow.mjs",
   "src/scripts/validate-command-auth-verification-surfaces.mjs",
   "src/scripts/validate-ai-visibility-market-command-standard.mjs",
-  "src/scripts/validate-verified-welcome-email-contracts.mjs",
 ];
 
 const missing = validators.filter((validatorPath) => !existsSync(join(root, validatorPath)));
