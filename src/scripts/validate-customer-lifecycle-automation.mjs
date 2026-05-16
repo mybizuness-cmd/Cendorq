@@ -9,6 +9,8 @@ const recordsPath = "src/lib/customer-platform-record-contracts.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
+const routesChainPath = "src/scripts/validate-routes-chain.mjs";
+const validatorPath = "src/scripts/validate-customer-lifecycle-automation.mjs";
 
 validateTextFile(automationPath, [
   "CUSTOMER_LIFECYCLE_AUTOMATION_RULES",
@@ -59,6 +61,7 @@ validateTextFile(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
   "Operator surfaces remain private, metadata-first, and review-gated.",
+  "Sensitive operational details are summarized safely instead of copied into public, customer, or operator-visible text.",
 ]);
 
 validateTextFile(ownerMaximumProtectionValidatorPath, [
@@ -86,6 +89,8 @@ validateTextFile(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
+validateTextFile(routesChainPath, [validatorPath]);
+
 validateForbidden(automationPath, [
   "fake urgency allowed",
   "duplicate welcome allowed",
@@ -102,7 +107,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer lifecycle automation validation passed with owner posture coverage. Customer stages, triggers, dashboard states, email behavior, CTAs, suppression rules, plan conversion, billing, support, correction, and privacy boundaries remain synchronized.");
+console.log("Customer lifecycle automation validation passed with current lifecycle rules, owner posture, conversion, record contracts, and route-chain coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
