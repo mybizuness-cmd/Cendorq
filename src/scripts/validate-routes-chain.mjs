@@ -63,6 +63,7 @@ const validators = [
   "src/scripts/validate-checkout-billing-plan-activation.mjs",
   "src/scripts/validate-checkout-success-truth-state.mjs",
   "src/scripts/validate-stripe-webhook-signature-boundary.mjs",
+  "src/scripts/validate-stripe-entitlement-idempotency.mjs",
   "src/scripts/validate-notification-center-first-use.mjs",
   "src/scripts/validate-billing-center-first-use.mjs",
   "src/scripts/validate-report-vault-first-use.mjs",

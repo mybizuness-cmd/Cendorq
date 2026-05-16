@@ -7,6 +7,7 @@ import {
   projectCustomerConfirmationEmailSafeResponse,
 } from "@/lib/customer-confirmation-email-issuance-runtime";
 import { resolveCendorqCustomerJourney, type CendorqJourneyEvidenceKey } from "@/lib/customer-journey-orchestrator";
+import { resolveStripeEntitlementActivationDecision } from "@/lib/stripe-entitlement-idempotency-runtime";
 import { getPaidCendorqPlanPrice, type CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
 import type { CustomerEmailConfirmationJourneyKey } from "@/lib/customer-email-confirmation-handoff-runtime";
 
@@ -60,7 +61,8 @@ export async function POST(request: NextRequest) {
   const session = event.data?.object || {};
   const paymentStatus = stringValue(session.payment_status);
   const mode = stringValue(session.mode);
-  if (paymentStatus && paymentStatus !== "paid" && mode !== "subscription") {
+  const paidStateVerified = paymentStatus === "paid" || mode === "subscription";
+  if (!paidStateVerified) {
     return json({ ok: true, ignored: true, reason: "checkout session not paid", entitlementActivated: false }, 200);
   }
 
@@ -74,6 +76,15 @@ export async function POST(request: NextRequest) {
   const metadata = isRecord(session.metadata) ? session.metadata : {};
   const sessionId = stringValue(session.id) || event.id || "checkout-session";
   const stripeCustomerId = stringValue(session.customer) || stringValue(metadata.customer_id);
+  const customerStableId = stripeCustomerId || email;
+  const entitlementDecision = resolveStripeEntitlementActivationDecision({
+    eventId: event.id || "",
+    checkoutSessionId: sessionId,
+    customerStableId,
+    planKey,
+    paidStateVerified,
+    durableStoreReady: false,
+  });
   const journey = resolveCendorqCustomerJourney({
     purchasedPlan: planKey,
     customerEmail: email,
@@ -86,7 +97,7 @@ export async function POST(request: NextRequest) {
   });
 
   const confirmationEmail = await issueCustomerConfirmationEmail({
-    customerIdHash: hashStableCustomerId(stripeCustomerId || email, planKey),
+    customerIdHash: hashStableCustomerId(customerStableId, planKey),
     signupEmailHash: hashEmail(email),
     customerEmailHash: hashEmail(email),
     journeyKey: journeyKeyForPlan(planKey),
@@ -112,7 +123,8 @@ export async function POST(request: NextRequest) {
     missingRequirements: journey.missingRequirements,
     auditTags: journey.auditTags,
     confirmationEmail: safeConfirmationEmail,
-    entitlementActivated: journey.paidWorkCanStart,
+    entitlementActivated: entitlementDecision.activationAllowed,
+    entitlementActivation: entitlementDecision,
     accountAccess: {
       createdOrReturnedByPaymentEmail: true,
       rawEmailReturned: false,
