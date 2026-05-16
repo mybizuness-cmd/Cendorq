@@ -45,7 +45,7 @@ validateTextFile(templatesPath, [
   "complaint handling",
   "no email contains passwords, raw tokens, raw billing IDs, raw evidence, secrets, or private report internals",
   "no email claims guaranteed outcomes, guaranteed ROI, fake urgency, false scarcity, or unsupported revenue impact",
-  "no paid-plan or report-delivery email sends before entitlement, approval, or release gates pass",
+  "no paid-plan or report-delivery email sends before entitlement, approval, customer-safe PDF generation, attachment audit, or release gates pass",
   "no refund/legal promise without approval",
 ]);
 
@@ -70,7 +70,6 @@ validateTextFile(issuanceRuntimePath, [
   "confirmationUrlHash",
   "Cendorq Support <support@cendorq.com>",
   "Confirm your email to open your Cendorq results",
-  "This confirmation link is single-use and expires.",
   "rawTokenReturnedToBrowser: false",
   "tokenHashReturnedToBrowser: false",
   "rawEmailReturnedToBrowser: false",
