@@ -3,6 +3,7 @@ import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { projectCustomerPlatformHandoff } from "@/lib/customer-platform-handoff-runtime";
 import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
+import { resolveReportVaultAccessDecision } from "@/lib/report-vault-plan-boundary-runtime";
 import {
   getPlanValueDelivery,
   PLAN_VALUE_SEPARATION_RULES,
@@ -33,13 +34,20 @@ const ONGOING_CONTROL_PRICE = getCendorqPlanPrice("ongoing-control");
 
 const PAID_REPORT_BY_PLAN = Object.fromEntries(PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => [contract.planKey, contract]));
 
+const REPORT_ACCESS_BY_PLAN = {
+  "free-scan": resolveReportVaultAccessDecision({ planKey: "free-scan" }),
+  "deep-review": resolveReportVaultAccessDecision({ planKey: "deep-review", entitlementActive: false, releaseApproved: false, approvedPdfReady: false }),
+  "build-fix": resolveReportVaultAccessDecision({ planKey: "build-fix", entitlementActive: false, releaseApproved: false, approvedPdfReady: false }),
+  "ongoing-control": resolveReportVaultAccessDecision({ planKey: "ongoing-control", entitlementActive: false, releaseApproved: false, approvedPdfReady: false }),
+} as const;
+
 const REPORT_LIBRARY = [
   {
     planKey: "free-scan",
     command: "Scan",
-    reportType: "Readiness signal result",
+    reportType: REPORT_ACCESS_BY_PLAN["free-scan"].reportName,
     stage: "First signal",
-    href: "/dashboard/reports/free-scan",
+    href: REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute,
     cta: "Open result",
     deliveryMeaning: "Shows the first visible break in findability, AI/search readability, clarity, trust, choice, or action with confidence limits and the safest next move.",
     aiPosture: "First AI/search signal only. It can show where the business may be unclear to customers and answer systems, but it is not a complete visibility audit.",
@@ -51,9 +59,9 @@ const REPORT_LIBRARY = [
   {
     planKey: "deep-review",
     command: "Review",
-    reportType: "AI Readiness Review report",
+    reportType: REPORT_ACCESS_BY_PLAN["deep-review"].reportName,
     stage: "Cause-level proof",
-    href: "/plans/deep-review",
+    href: REPORT_ACCESS_BY_PLAN["deep-review"].customerRoute,
     cta: `Open Review page — ${DEEP_REVIEW_PRICE.price}`,
     deliveryMeaning: "Explains why the business may not be found, trusted, understood, or chosen before money is spent on the wrong repair.",
     aiPosture: paidAiPosture("deep-review"),
@@ -65,9 +73,9 @@ const REPORT_LIBRARY = [
   {
     planKey: "build-fix",
     command: "Repair",
-    reportType: "Signal Repair summary",
+    reportType: REPORT_ACCESS_BY_PLAN["build-fix"].reportName,
     stage: "Scoped improvement",
-    href: "/plans/build-fix",
+    href: REPORT_ACCESS_BY_PLAN["build-fix"].customerRoute,
     cta: `Open Repair page — ${BUILD_FIX_PRICE.price}`,
     deliveryMeaning: "Shows what changed, why it mattered, and what still remains outside the approved repair.",
     aiPosture: paidAiPosture("build-fix"),
@@ -79,9 +87,9 @@ const REPORT_LIBRARY = [
   {
     planKey: "ongoing-control",
     command: "Control",
-    reportType: "Readiness Control monthly summary",
+    reportType: REPORT_ACCESS_BY_PLAN["ongoing-control"].reportName,
     stage: "Monthly readiness control",
-    href: "/plans/ongoing-control",
+    href: REPORT_ACCESS_BY_PLAN["ongoing-control"].customerRoute,
     cta: `Open Control page — ${ONGOING_CONTROL_PRICE.price}`,
     deliveryMeaning: "Keeps priorities, alerts, AI/search posture, trend awareness, and next decisions under control as search, customers, and competitors move.",
     aiPosture: paidAiPosture("ongoing-control"),
@@ -112,7 +120,7 @@ const REPORT_STATE = [
 ] as const;
 
 const REPORT_ACTIONS = [
-  { title: "Open readiness signal", href: "/dashboard/reports/free-scan", value: "Read the first proof" },
+  { title: "Open readiness signal", href: REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute, value: "Read the first proof" },
   { title: "Ask report support", href: "/dashboard/support", value: "Question or correction" },
   { title: "Compare readiness depth", href: "/plans", value: "Choose the next stage" },
 ] as const;
@@ -138,7 +146,7 @@ export default function ReportsVaultPage() {
             This vault stores the business readiness record: first signals, approved proof, AI/search posture, confidence limits, paid delivery, and the next readiness decision.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/dashboard/reports/free-scan" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
+            <Link href={REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute} className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
               Open readiness signal
             </Link>
             <Link href="/dashboard" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
@@ -230,7 +238,7 @@ export default function ReportsVaultPage() {
       </section>
 
       <section className="sr-only" aria-label="Report vault guardrails">
-        Readiness proof vault. Light report vault. No black report vault blocks. No dark blue report vault blocks. Paid plan report delivery operating system. Keep the record of what customers and AI search can understand. Nothing final until approved. Scan. Review. Repair. Control. Different proof for every readiness depth. AI/Search posture. Readiness signal result dashboard-only protected result. AI Readiness Review report dashboard plus email attachment. Signal Repair summary dashboard plus email attachment. Readiness Control monthly summary dashboard plus email attachment. Useful only when report depth, AI/search posture, and delivery are impossible to confuse. Paid report actions route to plan detail pages before payment. {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Readiness proof vault. Paid plan report delivery operating system. Nothing final until approved. Scan. Review. Repair. Control. AI/Search posture. Readiness signal result dashboard-only protected result. AI Readiness Review report dashboard plus email attachment. Signal Repair summary dashboard plus email attachment. Readiness Control monthly summary dashboard plus email attachment. Paid report actions route to plan detail pages before payment. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
