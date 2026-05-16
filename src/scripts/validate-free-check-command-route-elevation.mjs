@@ -3,41 +3,72 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const pagePath = "src/app/free-check/page.tsx";
+const formPath = "src/components/free-check/guided-free-check-form-v3.tsx";
+const progressGuardPath = "src/components/free-check/free-check-progress-guard.tsx";
+const analyticsPath = "src/components/free-check/free-check-analytics.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-free-check-command-route-elevation.mjs";
 const failures = [];
 
 expect(pagePath, [
-  "Command Free Scan room",
-  "Find the decision break before you buy the wrong fix.",
-  "enter safe context",
-  "hand off into dashboard, notifications, and report vault",
-  "SCAN_ROOM_TRUST_RAIL",
-  "Dedicated page, not a cramped popup",
-  "Safe business context only",
-  "Pending means pending, not final truth",
-  "Dashboard, notifications, and report vault handoff",
-  "It turns customer hesitation into a safer first direction.",
-  "without treating pending or incomplete input as final analysis",
-]);
-
-expect(pagePath, [
-  "Submit only business context needed for the first read, not passwords, private keys, card data, tokens, or unrelated raw evidence.",
-  "Treat incomplete, interrupted, or pending scan state as pending instead of final analysis.",
-  "After submission, use dashboard, notifications, and report vault before creating duplicate support requests.",
-  "Plan guidance should come from scan evidence, stage fit, and customer readiness, not fake urgency or guaranteed outcomes.",
-]);
-
-expect(pagePath, [
-  "GuidedFreeCheckForm",
+  "Free Scan | Cendorq",
+  "Start the Cendorq Free Scan to see the first place your business may be unclear, under-trusted, or harder for AI engines and customers to choose.",
+  "Cendorq Free Scan",
+  "AI-readiness free scan",
   "FreeCheckProgressGuard",
   "FreeCheckAnalytics",
-  "/dashboard",
-  "/dashboard/notifications",
-  "/dashboard/reports",
-  "No browser-exposed protected secrets",
-  "Routeable page that can be resumed or linked from dashboard",
+  "GuidedFreeCheckFormV3",
+  "Find the first place your business may be unclear.",
+  "Cendorq looks at the signals around your business and shows where customers or AI engines may hesitate first.",
+  "How the Free Scan moves from intake to protected results",
+  "Start with what customers can already see.",
+  "Cendorq checks the public-facing signals around the business and points to the first weak spot: unclear information, missing proof, weak trust signals, or a harder path to choose you.",
+  "Share what customers already see.",
+  "Cendorq finds the first weak signal.",
+  "Open the result in your workspace.",
+  "Confirm your email once, then continue into the dashboard where the result and next step stay connected.",
+  "After verification, the result opens inside the protected customer workspace so private business context stays controlled.",
+  "{ name: \"Free Scan\", path: \"/free-check\" }",
+]);
+
+expect(formPath, [
+  "use client",
+  "GuidedFreeCheckFormV3",
+  "requestFreeScanVerifyToViewHandoff",
+  "resolveCustomerAccountContinuation",
+  "source: \"free-check\"",
+  "preferredDestination: \"/dashboard/reports/free-scan\"",
+  "requestedDestination: accountContinuation.primaryDestination",
+  "FREE_SCAN_PROGRESS_KEY",
+  "FREE_SCAN_SUBMITTED_KEY",
+  "Scan strength",
+  "Use business context only. Do not enter private credentials.",
+  "Submit Free Scan",
+  "Confirm your email to open the result.",
+  "Cendorq Support <support@cendorq.com>",
+  "Your protected result opens in the customer workspace.",
+  "The scan email becomes the workspace email.",
+  "dashboard Free Scan result path",
+  "account continuation standard",
+  "safe-data warnings",
+  "recordFreeScanProgress",
+  "recordFreeScanSubmitted",
+  "window.localStorage.removeItem(FREE_SCAN_PROGRESS_KEY)",
+  "window.localStorage.setItem(FREE_SCAN_PROGRESS_KEY",
+  "window.localStorage.setItem(FREE_SCAN_SUBMITTED_KEY",
+  "window.dispatchEvent(new Event(\"cendorq:free-check:progress\"))",
+  "window.dispatchEvent(new Event(\"cendorq:free-check:submitted\"))",
+]);
+
+expect(progressGuardPath, [
+  "FreeCheckProgressGuard",
+  "cendorq.free-check.progress.v1",
+  "cendorq.free-check.submitted.v1",
+]);
+
+expect(analyticsPath, [
+  "FreeCheckAnalytics",
 ]);
 
 expect(packagePath, [
@@ -70,8 +101,25 @@ forbidden(pagePath, [
   "csrf" + "Token=",
   "admin" + "Key=",
   "support" + "Context" + "Key=",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
+]);
+
+forbidden(formPath, [
+  "dangerouslySetInnerHTML",
+  "rawPayload=",
+  "rawEvidence=",
+  "rawSecurityPayload=",
+  "rawBillingData=",
+  "internalNotes=",
+  "operatorIdentity=",
+  "riskScoringInternals=",
+  "attackerDetails=",
+  "session" + "Token=",
+  "csrf" + "Token=",
+  "admin" + "Key=",
+  "support" + "Context" + "Key=",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "guaranteed business results",
 ]);
 
 if (failures.length) {
@@ -80,7 +128,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Check command route validation passed. validate:routes delegates through the orchestrator and the Free Check route remains wired into the route chain with command-grade public language.");
+console.log("Free Check command route validation passed with current Free Scan page, protected verify-to-view handoff, account continuation, resumable progress, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
