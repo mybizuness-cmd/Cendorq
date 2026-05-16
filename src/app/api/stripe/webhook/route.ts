@@ -12,6 +12,7 @@ import type { CustomerEmailConfirmationJourneyKey } from "@/lib/customer-email-c
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type StripeWebhookEnvelope = {
   id?: string;
@@ -22,44 +23,51 @@ type StripeWebhookEnvelope = {
 };
 
 const STRIPE_TOLERANCE_SECONDS = 300;
+const STRIPE_WEBHOOK_SECRET_ENV = "STRIPE_WEBHOOK_SECRET";
+const STRIPE_SIGNATURE_HEADER = "stripe-signature";
 const NO_STORE_HEADERS = {
   "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
   Pragma: "no-cache",
   Expires: "0",
   "X-Content-Type-Options": "nosniff",
+  "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
 } as const;
 
 export async function POST(request: NextRequest) {
   const rawBody = await request.text();
-  const signature = request.headers.get("stripe-signature") || "";
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
+  const signature = request.headers.get(STRIPE_SIGNATURE_HEADER) || "";
+  const webhookSecret = cleanSecret(process.env[STRIPE_WEBHOOK_SECRET_ENV]);
 
-  if (webhookSecret && !verifyStripeSignature(rawBody, signature, webhookSecret)) {
-    return json({ ok: false, error: "Invalid Stripe signature." }, 400);
+  if (!webhookSecret) {
+    return json({ ok: false, error: "Stripe webhook is not configured.", accepted: false, entitlementActivated: false }, 503);
+  }
+
+  if (!verifyStripeSignature(rawBody, signature, webhookSecret)) {
+    return json({ ok: false, error: "Invalid Stripe signature.", accepted: false, entitlementActivated: false }, 400);
   }
 
   let event: StripeWebhookEnvelope;
   try {
     event = JSON.parse(rawBody) as StripeWebhookEnvelope;
   } catch {
-    return json({ ok: false, error: "Invalid Stripe webhook JSON." }, 400);
+    return json({ ok: false, error: "Invalid Stripe webhook JSON.", accepted: false, entitlementActivated: false }, 400);
   }
 
   if (event.type !== "checkout.session.completed") {
-    return json({ ok: true, ignored: true, eventType: event.type || "unknown" }, 200);
+    return json({ ok: true, ignored: true, eventType: event.type || "unknown", entitlementActivated: false }, 200);
   }
 
   const session = event.data?.object || {};
   const paymentStatus = stringValue(session.payment_status);
   const mode = stringValue(session.mode);
   if (paymentStatus && paymentStatus !== "paid" && mode !== "subscription") {
-    return json({ ok: true, ignored: true, reason: "checkout session not paid" }, 200);
+    return json({ ok: true, ignored: true, reason: "checkout session not paid", entitlementActivated: false }, 200);
   }
 
   const planKey = inferPaidPlanKey(session);
   const email = inferCustomerEmail(session);
   if (!planKey || !email) {
-    return json({ ok: true, held: true, reason: "missing safe plan key or customer email" }, 200);
+    return json({ ok: true, held: true, reason: "missing safe plan key or customer email", entitlementActivated: false }, 200);
   }
 
   const plan = getPaidCendorqPlanPrice(planKey);
@@ -104,6 +112,7 @@ export async function POST(request: NextRequest) {
     missingRequirements: journey.missingRequirements,
     auditTags: journey.auditTags,
     confirmationEmail: safeConfirmationEmail,
+    entitlementActivated: journey.paidWorkCanStart,
     accountAccess: {
       createdOrReturnedByPaymentEmail: true,
       rawEmailReturned: false,
@@ -114,7 +123,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  return json({ ok: true, route: "stripe-webhook", method: "POST" }, 200);
+  return json({ ok: false, route: "stripe-webhook", method: "POST", entitlementActivated: false }, 405);
 }
 
 function verifyStripeSignature(rawBody: string, signatureHeader: string, secret: string) {
@@ -218,6 +227,10 @@ function hashEmail(email: string) {
 function cleanOptionalIdentifier(value: string) {
   const cleaned = value.trim().replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 180);
   return cleaned.length >= 8 ? cleaned : null;
+}
+
+function cleanSecret(value: string | undefined) {
+  return (value || "").trim();
 }
 
 function safeEqualHex(left: string, right: string) {
