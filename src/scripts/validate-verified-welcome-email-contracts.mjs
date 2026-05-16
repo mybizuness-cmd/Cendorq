@@ -141,9 +141,7 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-expect(routesChainPath, [
-  validatorPath,
-]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(contractPath, [
   "send before verification",
@@ -174,7 +172,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Verified welcome email contracts validation passed with owner posture and one-time inbox confirmation coverage.");
+console.log("Verified welcome email contracts validation passed with owner posture, one-time inbox confirmation, safe-copy, audit, suppression, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
