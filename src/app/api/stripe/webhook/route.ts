@@ -23,6 +23,22 @@ type StripeWebhookEnvelope = {
   };
 };
 
+type HeldConfirmationEmailProjection = {
+  ok: true;
+  held: true;
+  reason: "durable-entitlement-activation-required";
+  providerDelivery: {
+    attempted: false;
+    sent: false;
+    skipped: true;
+  };
+  safety: {
+    rawTokenReturnedToBrowser: false;
+    rawEmailReturnedToBrowser: false;
+    providerPayloadReturnedToBrowser: false;
+  };
+};
+
 const STRIPE_TOLERANCE_SECONDS = 300;
 const STRIPE_WEBHOOK_SECRET_ENV = "STRIPE_WEBHOOK_SECRET";
 const STRIPE_SIGNATURE_HEADER = "stripe-signature";
@@ -96,17 +112,18 @@ export async function POST(request: NextRequest) {
     completedIntake: inferCompletedIntake(metadata),
   });
 
-  const confirmationEmail = await issueCustomerConfirmationEmail({
-    customerIdHash: hashStableCustomerId(customerStableId, planKey),
-    signupEmailHash: hashEmail(email),
-    customerEmailHash: hashEmail(email),
-    journeyKey: journeyKeyForPlan(planKey),
-    requestedDestination: journey.dashboardDestination,
-    intakeId: cleanOptionalIdentifier(sessionId),
-    baseUrl: cleanBaseUrl(process.env.NEXT_PUBLIC_APP_URL || request.nextUrl.origin || "https://cendorq.com"),
-    customerEmail: email,
-  });
-  const safeConfirmationEmail = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
+  const safeConfirmationEmail = entitlementDecision.activationAllowed
+    ? projectCustomerConfirmationEmailSafeResponse(await issueCustomerConfirmationEmail({
+        customerIdHash: hashStableCustomerId(customerStableId, planKey),
+        signupEmailHash: hashEmail(email),
+        customerEmailHash: hashEmail(email),
+        journeyKey: journeyKeyForPlan(planKey),
+        requestedDestination: journey.dashboardDestination,
+        intakeId: cleanOptionalIdentifier(sessionId),
+        baseUrl: cleanBaseUrl(process.env.NEXT_PUBLIC_APP_URL || request.nextUrl.origin || "https://cendorq.com"),
+        customerEmail: email,
+      }))
+    : buildHeldConfirmationEmailProjection();
 
   return json({
     ok: true,
@@ -126,7 +143,7 @@ export async function POST(request: NextRequest) {
     entitlementActivated: entitlementDecision.activationAllowed,
     entitlementActivation: entitlementDecision,
     accountAccess: {
-      createdOrReturnedByPaymentEmail: true,
+      createdOrReturnedByPaymentEmail: entitlementDecision.activationAllowed,
       rawEmailReturned: false,
       rawTokenReturned: false,
       destination: journey.dashboardDestination,
@@ -136,6 +153,24 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   return json({ ok: false, route: "stripe-webhook", method: "POST", entitlementActivated: false }, 405);
+}
+
+function buildHeldConfirmationEmailProjection(): HeldConfirmationEmailProjection {
+  return {
+    ok: true,
+    held: true,
+    reason: "durable-entitlement-activation-required",
+    providerDelivery: {
+      attempted: false,
+      sent: false,
+      skipped: true,
+    },
+    safety: {
+      rawTokenReturnedToBrowser: false,
+      rawEmailReturnedToBrowser: false,
+      providerPayloadReturnedToBrowser: false,
+    },
+  };
 }
 
 function verifyStripeSignature(rawBody: string, signatureHeader: string, secret: string) {
