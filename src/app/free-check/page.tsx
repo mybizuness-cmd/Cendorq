@@ -26,6 +26,9 @@ export const metadata = buildMetadata({
   image: { alt: "Cendorq Free Scan." },
 });
 
+type FreeCheckSearchParams = { access?: string; method?: string; provider?: string; returnTo?: string };
+type FreeCheckPageProps = { searchParams?: Promise<FreeCheckSearchParams> | FreeCheckSearchParams };
+
 const SCAN_SYSTEM_STEPS = [
   {
     step: "01",
@@ -55,7 +58,9 @@ const FAQS = [
   },
 ] as const;
 
-export default function FreeCheckPage() {
+export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps) {
+  const resolvedSearchParams = await Promise.resolve(searchParams || {});
+  const accessNotice = buildAccessNotice(resolvedSearchParams);
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq Free Scan",
     description: "A guided first scan for businesses that need to be clearer, more trusted, and easier to choose.",
@@ -92,6 +97,11 @@ export default function FreeCheckPage() {
         <div className="absolute right-[-16rem] top-32 h-[38rem] w-[38rem] rounded-full bg-indigo-200/35 blur-3xl" aria-hidden="true" />
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-8 lg:min-h-[min(44rem,calc(100vh-4.25rem))] lg:grid-cols-[0.82fr_1.18fr] lg:items-center xl:min-h-[calc(100vh-4.25rem)]">
           <div>
+            {accessNotice ? (
+              <div role="status" aria-live="polite" className="mb-6 max-w-3xl rounded-[1.35rem] border border-cyan-200 bg-white/86 p-4 text-sm font-semibold leading-7 text-slate-700 shadow-[0_14px_45px_rgba(15,23,42,0.06)] backdrop-blur">
+                <span className="text-cyan-700">Customer access needs a real business record.</span> {accessNotice}
+              </div>
+            ) : null}
             <h1 className="max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
               Find the first place your business may be unclear.
             </h1>
@@ -147,4 +157,15 @@ export default function FreeCheckPage() {
       </section>
     </main>
   );
+}
+
+function buildAccessNotice(searchParams: FreeCheckSearchParams) {
+  if (searchParams.access !== "free-scan-required") return "";
+  if (searchParams.method === "provider" && searchParams.provider) return `We could not find a Cendorq scan or plan for that ${titleCase(searchParams.provider)} identity. Start the Free Scan to create the customer record.`;
+  if (searchParams.method === "email") return "We could not find a Cendorq scan or plan for that email. Start the Free Scan to create the customer record.";
+  return "Start the Free Scan first. That creates the customer record before the dashboard opens.";
+}
+
+function titleCase(value: string) {
+  return value.replace(/-/g, " ").replace(/\b\w/g, (character) => character.toUpperCase());
 }
