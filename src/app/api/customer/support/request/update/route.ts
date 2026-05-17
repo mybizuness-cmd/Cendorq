@@ -4,6 +4,7 @@ import path from "node:path";
 
 import { cleanGatewayString, jsonNoStore, optionsNoStore } from "@/lib/customer-access-gateway-runtime";
 import { requireCustomerSession } from "@/lib/customer-session-auth-runtime";
+import { CENDORQ_WORK_START_GATES, type CendorqWorkStartGate, type CendorqWorkStartGateKey } from "@/lib/cendorq-work-start-intake-gates";
 import { loadFileBackedEnvelope, saveFileBackedEnvelope, type FileBackedEnvelope } from "@/lib/storage/file-backed-envelope";
 
 export const runtime = "nodejs";
@@ -17,6 +18,11 @@ type StoredSupportRequest = {
   customerIdHash: string;
   businessContext: string;
   requestType: CustomerSupportUpdateRequestType;
+  workStartGate: CendorqWorkStartGateKey;
+  workStartPlanKey: string;
+  workStartRequiredBeforeQueue: string[];
+  workStartBackendStartRule: string;
+  workStartBlockedPattern: string;
   safeDescription: string;
   safeSummary: string;
   decision: SupportRiskDecision;
@@ -157,12 +163,20 @@ function normalizeStoredEntryFromUnknown(value: unknown) {
   if (!isRecord(value)) return null;
   const requestType = normalizeRequestType(value.requestType);
   if (!requestType) return null;
+  const workStartGateKey = normalizeWorkStartGate(value.workStartGate) || "review-intake";
+  const workStartGate = getWorkStartGate(workStartGateKey);
+  const requiredBeforeQueue = normalizeStringArray(value.workStartRequiredBeforeQueue, 120);
   const now = new Date().toISOString();
   return {
     id: cleanString(value.id, 120) || randomUUID(),
     customerIdHash: cleanString(value.customerIdHash, 120),
     businessContext: cleanString(value.businessContext, 160),
     requestType,
+    workStartGate: workStartGate.key,
+    workStartPlanKey: cleanString(value.workStartPlanKey, 80) || workStartGate.planKey,
+    workStartRequiredBeforeQueue: requiredBeforeQueue.length ? requiredBeforeQueue : [...workStartGate.requiredBeforeQueue],
+    workStartBackendStartRule: cleanString(value.workStartBackendStartRule, 300) || workStartGate.backendStartRule,
+    workStartBlockedPattern: cleanString(value.workStartBlockedPattern, 220) || workStartGate.blockedPattern,
     safeDescription: cleanString(value.safeDescription, 1400),
     safeSummary: cleanString(value.safeSummary, 600),
     decision: normalizeDecision(value.decision) || "allow",
@@ -184,6 +198,14 @@ function sortStoredEntriesByUpdatedAt(entries: StoredSupportRequest[]) {
 
 function normalizeRequestType(value: unknown): CustomerSupportUpdateRequestType | null {
   return typeof value === "string" && SUPPORT_REQUEST_TYPES.includes(value as CustomerSupportUpdateRequestType) ? (value as CustomerSupportUpdateRequestType) : null;
+}
+
+function normalizeWorkStartGate(value: unknown): CendorqWorkStartGateKey | null {
+  return typeof value === "string" && CENDORQ_WORK_START_GATES.some((gate) => gate.key === value) ? (value as CendorqWorkStartGateKey) : null;
+}
+
+function getWorkStartGate(key: CendorqWorkStartGateKey): CendorqWorkStartGate {
+  return CENDORQ_WORK_START_GATES.find((gate) => gate.key === key) ?? CENDORQ_WORK_START_GATES[0];
 }
 
 function normalizeDecision(value: unknown): SupportRiskDecision | null {
