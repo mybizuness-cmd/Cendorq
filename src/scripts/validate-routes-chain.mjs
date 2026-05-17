@@ -70,6 +70,7 @@ const validators = [
   "src/scripts/validate-dashboard-session-logout-entry.mjs",
   "src/scripts/validate-paid-report-session-gate.mjs",
   "src/scripts/validate-held-report-support-presets.mjs",
+  "src/scripts/validate-held-report-support-status-visibility.mjs",
   "src/scripts/validate-notification-center-first-use.mjs",
   "src/scripts/validate-billing-center-first-use.mjs",
   "src/scripts/validate-report-vault-first-use.mjs",
