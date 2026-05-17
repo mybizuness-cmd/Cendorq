@@ -1,4 +1,4 @@
-export type CustomerAuthProviderKey = "google" | "microsoft" | "apple" | "linkedin" | "facebook";
+export type CustomerAuthProviderKey = "google" | "microsoft" | "apple" | "yahoo";
 
 const FULL_PROVIDER_SESSION_READY_ENV_KEY = "CENDORQ_AUTH_PROVIDER_SESSION_READY";
 export const CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY: boolean = false;
@@ -7,6 +7,7 @@ export type CustomerAuthProvider = {
   key: CustomerAuthProviderKey;
   label: string;
   cta: string;
+  helper: string;
   envKey: string;
   readyEnvKey: string;
   clientIdEnvKey: string;
@@ -21,61 +22,53 @@ export const CUSTOMER_AUTH_PROVIDERS: readonly CustomerAuthProvider[] = [
     key: "google",
     label: "Google",
     cta: "Continue with Google",
+    helper: "Gmail or Google Workspace",
     envKey: "CENDORQ_AUTH_GOOGLE_URL",
     readyEnvKey: "CENDORQ_AUTH_GOOGLE_READY",
     clientIdEnvKey: "GOOGLE_CLIENT_ID",
     redirectUriEnvKey: "GOOGLE_REDIRECT_URI",
     authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
     defaultScopes: ["openid", "email", "profile"],
-    trustRole: "Fast account access for customers who use Google Workspace or Gmail.",
+    trustRole: "Fast account access for customers who used Gmail or Google Workspace for a Free Scan or plan.",
   },
   {
     key: "microsoft",
     label: "Microsoft",
     cta: "Continue with Microsoft",
+    helper: "Outlook or Microsoft 365",
     envKey: "CENDORQ_AUTH_MICROSOFT_URL",
     readyEnvKey: "CENDORQ_AUTH_MICROSOFT_READY",
     clientIdEnvKey: "MICROSOFT_CLIENT_ID",
     redirectUriEnvKey: "MICROSOFT_REDIRECT_URI",
     authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
     defaultScopes: ["openid", "email", "profile"],
-    trustRole: "Fast account access for customers who use Microsoft 365 or Outlook.",
+    trustRole: "Fast account access for customers who used Outlook or Microsoft 365 for a Free Scan or plan.",
   },
   {
     key: "apple",
     label: "Apple",
     cta: "Continue with Apple",
+    helper: "Apple ID or iCloud Mail",
     envKey: "CENDORQ_AUTH_APPLE_URL",
     readyEnvKey: "CENDORQ_AUTH_APPLE_READY",
     clientIdEnvKey: "APPLE_CLIENT_ID",
     redirectUriEnvKey: "APPLE_REDIRECT_URI",
     authorizationEndpoint: "https://appleid.apple.com/auth/authorize",
     defaultScopes: ["name", "email"],
-    trustRole: "Privacy-forward account access for Apple users.",
+    trustRole: "Privacy-forward account access for customers who used Apple ID or iCloud Mail for a Free Scan or plan.",
   },
   {
-    key: "linkedin",
-    label: "LinkedIn",
-    cta: "Continue with LinkedIn",
-    envKey: "CENDORQ_AUTH_LINKEDIN_URL",
-    readyEnvKey: "CENDORQ_AUTH_LINKEDIN_READY",
-    clientIdEnvKey: "LINKEDIN_CLIENT_ID",
-    redirectUriEnvKey: "LINKEDIN_REDIRECT_URI",
-    authorizationEndpoint: "https://www.linkedin.com/oauth/v2/authorization",
-    defaultScopes: ["openid", "profile", "email"],
-    trustRole: "Convenient professional identity access, not business ownership verification.",
-  },
-  {
-    key: "facebook",
-    label: "Facebook / Meta",
-    cta: "Continue with Facebook",
-    envKey: "CENDORQ_AUTH_FACEBOOK_URL",
-    readyEnvKey: "CENDORQ_AUTH_FACEBOOK_READY",
-    clientIdEnvKey: "FACEBOOK_CLIENT_ID",
-    redirectUriEnvKey: "FACEBOOK_REDIRECT_URI",
-    authorizationEndpoint: "https://www.facebook.com/v19.0/dialog/oauth",
-    defaultScopes: ["email", "public_profile"],
-    trustRole: "Optional consumer identity access for customers who prefer Meta login.",
+    key: "yahoo",
+    label: "Yahoo",
+    cta: "Continue with Yahoo",
+    helper: "Yahoo Mail",
+    envKey: "CENDORQ_AUTH_YAHOO_URL",
+    readyEnvKey: "CENDORQ_AUTH_YAHOO_READY",
+    clientIdEnvKey: "YAHOO_CLIENT_ID",
+    redirectUriEnvKey: "YAHOO_REDIRECT_URI",
+    authorizationEndpoint: "https://api.login.yahoo.com/oauth2/request_auth",
+    defaultScopes: ["openid", "email", "profile"],
+    trustRole: "Email-based account access for customers who used Yahoo Mail for a Free Scan or plan.",
   },
 ] as const;
 
@@ -176,9 +169,10 @@ function readEnabledFlag(value: unknown) {
 
 export const CUSTOMER_AUTH_SESSION_STANDARD = [
   "Returning customers should continue automatically when a trusted session is present.",
-  "Changed device, expired session, cleared browser, or risk signal should return to sign in.",
-  "Provider sign-in confirms account identity; Free Scan remains the business-context intake.",
-  "A first-time provider sign-in may create an account workspace, but Free Scan results require business readiness intake.",
+  "Changed device, expired session, cleared browser, or risk signal should return to customer access.",
+  "Provider sign-in confirms email identity; Cendorq must still verify that the email belongs to a Free Scan or paid customer before dashboard access.",
+  "Unknown provider identities must be routed to Free Scan instead of creating an empty workspace.",
+  "Free Scan remains the first-time account creation path for new businesses.",
   "Provider routes must fail safely when provider client IDs or redirect URLs are not configured.",
-  `Provider buttons stay hidden until ${FULL_PROVIDER_SESSION_READY_ENV_KEY}, provider callback session runtime, token exchange, profile fetch, workspace creation or restoration, and Cendorq session creation are production-ready.`,
+  `Provider buttons stay hidden until ${FULL_PROVIDER_SESSION_READY_ENV_KEY}, provider callback session runtime, token exchange, profile fetch, existing customer lookup, and Cendorq session creation are production-ready.`,
 ] as const;
