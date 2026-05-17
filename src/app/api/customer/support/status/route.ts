@@ -6,6 +6,12 @@ import { CENDORQ_WORK_START_GATES, type CendorqWorkStartGate, type CendorqWorkSt
 import { jsonNoStore, optionsNoStore, cleanGatewayString } from "@/lib/customer-access-gateway-runtime";
 import { requireCustomerSession } from "@/lib/customer-session-auth-runtime";
 import { buildSupportLifecycleCommunicationPlan, projectSupportLifecycleCommunicationPlan } from "@/lib/customer-support-lifecycle-communication-runtime";
+import {
+  buildCustomerSupportNotificationRecords,
+  loadCustomerSupportNotificationRecordEnvelope,
+  mergeCustomerSupportNotificationRecords,
+  saveCustomerSupportNotificationRecordEnvelope,
+} from "@/lib/customer-support-notification-record-runtime";
 import { CUSTOMER_SUPPORT_STATUS_CONTRACTS, type CustomerSupportCustomerVisibleStatus } from "@/lib/customer-support-status-contracts";
 import { loadFileBackedEnvelope, type FileBackedEnvelope } from "@/lib/storage/file-backed-envelope";
 
@@ -96,7 +102,9 @@ export async function GET(request: NextRequest) {
         return jsonNoStore({ ok: false, error: "No authorized support status was found.", details: ["Check the request ID from your dashboard and try again."] }, 404);
       }
 
-      return jsonNoStore({ ok: true, entry: projectSupportStatus(match) }, 200);
+      const entry = projectSupportStatus(match);
+      await persistSupportStatusNotificationRecords(sessionAccess.customerIdHash, [entry]);
+      return jsonNoStore({ ok: true, entry }, 200);
     }
 
     const entries = ownedEntries
@@ -105,6 +113,7 @@ export async function GET(request: NextRequest) {
       .slice(0, limit)
       .map(projectSupportStatus);
 
+    await persistSupportStatusNotificationRecords(sessionAccess.customerIdHash, entries);
     return jsonNoStore({ ok: true, returned: entries.length, entries }, 200);
   } catch {
     return jsonNoStore({ ok: false, error: "Unable to load support status safely.", details: ["The support status storage layer could not be read cleanly."] }, 500);
@@ -119,6 +128,21 @@ async function loadEnvelope(): Promise<SupportStatusEnvelope> {
     sortEntries: sortStoredEntriesByUpdatedAt,
     createTempId: randomUUID,
   });
+}
+
+async function persistSupportStatusNotificationRecords(customerIdHash: string, entries: CustomerSupportStatusView[]) {
+  if (!entries.length) return;
+  const envelope = await loadCustomerSupportNotificationRecordEnvelope();
+  const incoming = entries.flatMap((entry) => {
+    const result = buildCustomerSupportNotificationRecords({
+      customerIdHash,
+      communicationPlan: entry.communicationPlan,
+    });
+    return result.ok ? result.records : [];
+  });
+  if (!incoming.length) return;
+  envelope.entries = mergeCustomerSupportNotificationRecords(envelope.entries, incoming);
+  await saveCustomerSupportNotificationRecordEnvelope(envelope);
 }
 
 function normalizeStoredEntryFromUnknown(value: unknown) {

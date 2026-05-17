@@ -72,6 +72,7 @@ const validators = [
   "src/scripts/validate-held-report-support-presets.mjs",
   "src/scripts/validate-held-report-support-status-visibility.mjs",
   "src/scripts/validate-support-update-work-start-gate-preservation.mjs",
+  "src/scripts/validate-support-status-notification-record-wiring.mjs",
   "src/scripts/validate-notification-center-first-use.mjs",
   "src/scripts/validate-billing-center-first-use.mjs",
   "src/scripts/validate-report-vault-first-use.mjs",
