@@ -59,8 +59,8 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(readRoutePath, [
   "export async function GET",
-  "customerIdHash:",
-  "auditEventId:",
+  "return jsonNoStore({ ok: true, customerIdHash",
+  "return jsonNoStore({ ok: true, auditEventId",
   "suppressionReason:",
   "failureReason:",
   "rawPayloadStored: true",
