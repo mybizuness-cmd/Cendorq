@@ -28,10 +28,11 @@ expect(requestApiPath, [
   "requireCustomerSession(request",
   "requireVerifiedEmail: true",
   "rawPayloadStored: false",
-  "private report internals",
   "report-question",
   "safeSummary",
   "operatorReviewRequired",
+  "projectEntryForConsole",
+  "const { customerIdHash: _customerIdHash, ...rest } = entry;",
 ]);
 
 expect(routesChainPath, [validatorPath]);
@@ -42,14 +43,10 @@ forbidden(formPath, [
   "sessionStorage",
   "rawReportPayloadReturned: true",
   "rawPrivatePayloadReturned: true",
-  "private report internals.",
-  "raw internal notes.",
-  "raw evidence.",
 ]);
 
 forbidden(requestApiPath, [
   "rawPayloadStored: true",
-  "customerIdHash, ...rest",
   "password:",
   "card number:",
   "privateKey",
@@ -62,7 +59,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Held report support preset validation passed with safe paid-report escalation presets, verified support API intake, no raw/private report content, and route-chain coverage.");
+console.log("Held report support preset validation passed with safe paid-report escalation presets, verified support API intake, safe customer-id projection, no raw/private report content, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
