@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
   if (!sessionAccess.ok || !sessionAccess.customerIdHash) {
     return jsonNoStore({ ok: false, error: sessionAccess.safeMessage, details: ["Open notifications from the authenticated customer dashboard and try again."] }, 401);
   }
+  const customerIdHash = sessionAccess.customerIdHash;
 
   const contentLength = Number(request.headers.get("content-length") || "0");
   if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
     let updated = 0;
 
     envelope.entries = envelope.entries.map((entry) => {
-      if (!isOwnedReadCandidate(entry, sessionAccess.customerIdHash, { notificationId, supportRequestId, markAllSupportLifecycle })) return entry;
+      if (!isOwnedReadCandidate(entry, customerIdHash, { notificationId, supportRequestId, markAllSupportLifecycle })) return entry;
       matched += 1;
       if (!READABLE_STATES.has(entry.state as "queued" | "displayed" | "sent")) return entry;
       updated += 1;
