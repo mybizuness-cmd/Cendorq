@@ -18,7 +18,7 @@ expect(formPath, [
   "requestType: \"report-question\"",
   "customerAcknowledgement: true",
   "workStartGate: \"review-intake\"",
-  "workStartGate: \"repair-prerequisites\"",
+  "workStartGate: \"repair-prerequisite\"",
   "workStartGate: \"control-baseline\"",
   "Presets never include private report content, raw evidence, or internal notes.",
   "No private report content. No raw evidence. No internal notes.",
