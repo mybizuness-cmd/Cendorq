@@ -26,6 +26,7 @@ type SupportLifecycleNotificationEntry = {
 type CustomerNotificationApiSuccess = {
   ok: true;
   returned: number;
+  scope: NotificationFeedScope;
   entries: SupportLifecycleNotificationEntry[];
 };
 
@@ -52,25 +53,27 @@ type CustomerNotificationReadError = {
   details?: string[];
 };
 
+type NotificationFeedScope = "unread" | "all";
 type CustomerNotificationApiResponse = CustomerNotificationApiSuccess | CustomerNotificationApiError;
 type CustomerNotificationReadResponse = CustomerNotificationReadSuccess | CustomerNotificationReadError;
 
 type LoadState =
   | { kind: "loading" }
-  | { kind: "ready"; entries: SupportLifecycleNotificationEntry[]; message?: string }
-  | { kind: "empty" }
+  | { kind: "ready"; entries: SupportLifecycleNotificationEntry[]; message?: string; scope: NotificationFeedScope }
+  | { kind: "empty"; scope: NotificationFeedScope }
   | { kind: "error"; message: string; details: string[] };
 
 type ReadState = { kind: "idle" } | { kind: "submitting"; scope: string } | { kind: "error"; message: string };
 
 export function SupportLifecycleNotificationList() {
   const [state, setState] = useState<LoadState>({ kind: "loading" });
+  const [feedScope, setFeedScope] = useState<NotificationFeedScope>("unread");
   const [readState, setReadState] = useState<ReadState>({ kind: "idle" });
 
-  async function loadNotifications(message?: string) {
+  async function loadNotifications(message?: string, scope: NotificationFeedScope = feedScope) {
     setState({ kind: "loading" });
     try {
-      const response = await fetch("/api/customer/notifications?source=support-lifecycle&limit=25", {
+      const response = await fetch(`/api/customer/notifications?source=support-lifecycle&scope=${scope}&limit=25`, {
         method: "GET",
         headers: { Accept: "application/json" },
       });
@@ -87,14 +90,19 @@ export function SupportLifecycleNotificationList() {
       }
 
       if (!data.entries.length) {
-        setState({ kind: "empty" });
+        setState({ kind: "empty", scope: data.scope });
         return;
       }
 
-      setState({ kind: "ready", entries: data.entries, message });
+      setState({ kind: "ready", entries: data.entries, message, scope: data.scope });
     } catch {
       setState({ kind: "error", message: "The notification service could not be reached right now.", details: ["Open notifications from the authenticated customer dashboard and try again."] });
     }
+  }
+
+  function switchScope(scope: NotificationFeedScope) {
+    setFeedScope(scope);
+    void loadNotifications(undefined, scope);
   }
 
   async function markNotificationRead(payload: { notificationId?: string; supportRequestId?: string; markAllSupportLifecycle?: boolean }, scope: string) {
@@ -111,14 +119,14 @@ export function SupportLifecycleNotificationList() {
         return;
       }
       setReadState({ kind: "idle" });
-      await loadNotifications(data.acknowledged > 0 ? "Notification marked read." : "Notification was already read.");
+      await loadNotifications(data.acknowledged > 0 ? "Notification marked read." : "Notification was already read.", feedScope);
     } catch {
       setReadState({ kind: "error", message: "The notification acknowledgement service could not be reached right now." });
     }
   }
 
   useEffect(() => {
-    void loadNotifications();
+    void loadNotifications(undefined, "unread");
   }, []);
 
   return (
@@ -128,12 +136,15 @@ export function SupportLifecycleNotificationList() {
           <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-700">Live support notifications</div>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950">Customer-owned support alerts from the protected notification API.</h2>
           <p className="mt-3 max-w-3xl text-sm font-medium leading-7 text-slate-600">
-            These records come from the protected notification center API and are projected for the signed-in customer only. Raw payloads, evidence, billing data, internal notes, audit internals, suppression reasons, operator identities, risk scoring, secrets, and support context keys are not rendered here.
+            The feed opens on unread support lifecycle signals so read acknowledgements actually quiet the dashboard. History stays one click away without rendering raw payloads, evidence, billing data, internal notes, audit internals, suppression reasons, operator identities, risk scoring, secrets, or support context keys.
           </p>
         </div>
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <button type="button" onClick={() => void loadNotifications()} className="rounded-2xl border border-cyan-200 bg-white px-5 py-3 text-sm font-bold text-slate-950 shadow-sm transition hover:border-cyan-300 hover:bg-cyan-50">
+        <div className="flex flex-col gap-2 sm:flex-row lg:flex-col xl:flex-row">
+          <button type="button" onClick={() => void loadNotifications(undefined, feedScope)} className="rounded-2xl border border-cyan-200 bg-white px-5 py-3 text-sm font-bold text-slate-950 shadow-sm transition hover:border-cyan-300 hover:bg-cyan-50">
             Refresh notifications
+          </button>
+          <button type="button" onClick={() => switchScope(feedScope === "unread" ? "all" : "unread")} className="rounded-2xl border border-cyan-200 bg-white px-5 py-3 text-sm font-bold text-slate-950 shadow-sm transition hover:border-cyan-300 hover:bg-cyan-50">
+            {feedScope === "unread" ? "Show history" : "Show unread"}
           </button>
           <button type="button" onClick={() => void markNotificationRead({ markAllSupportLifecycle: true }, "all")} disabled={readState.kind === "submitting"} className="rounded-2xl border border-cyan-200 bg-cyan-50 px-5 py-3 text-sm font-bold text-cyan-900 shadow-sm transition hover:border-cyan-300 hover:bg-white disabled:cursor-not-allowed disabled:opacity-60">
             {readState.kind === "submitting" && readState.scope === "all" ? "Marking read..." : "Mark all read"}
@@ -149,8 +160,8 @@ export function SupportLifecycleNotificationList() {
 
       {state.kind === "empty" ? (
         <div className="mt-6 rounded-[1.5rem] border border-cyan-100 bg-cyan-50/55 p-5">
-          <div className="text-sm font-semibold text-slate-950">No live support lifecycle notifications are visible yet.</div>
-          <p className="mt-2 text-sm font-medium leading-7 text-slate-600">When a customer-owned support request changes status, safe notification records can appear here without exposing internal support data.</p>
+          <div className="text-sm font-semibold text-slate-950">{state.scope === "unread" ? "No unread support lifecycle notifications are visible." : "No support lifecycle notifications are visible yet."}</div>
+          <p className="mt-2 text-sm font-medium leading-7 text-slate-600">{state.scope === "unread" ? "Read acknowledgements have quieted the live feed. History stays available without exposing internal support data." : "When a customer-owned support request changes status, safe notification records can appear here without exposing internal support data."}</p>
           <Link href="/dashboard/support" className="mt-4 inline-flex rounded-2xl border border-cyan-200 bg-white px-5 py-3 text-sm font-bold text-slate-950 shadow-sm transition hover:border-cyan-300 hover:bg-cyan-50">
             Open support center
           </Link>
@@ -174,6 +185,7 @@ export function SupportLifecycleNotificationList() {
 
       {state.kind === "ready" ? (
         <div className="mt-6 grid gap-4">
+          <div className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold text-cyan-900">Showing {state.scope === "unread" ? "unread" : "all"} support lifecycle notifications.</div>
           {state.message ? <div className="rounded-[1.25rem] border border-emerald-200 bg-emerald-50 p-4 text-sm font-semibold text-emerald-900">{state.message}</div> : null}
           {state.entries.map((entry) => (
             <article key={entry.notificationId} className="rounded-[1.5rem] border border-cyan-100 bg-white p-5 shadow-sm">

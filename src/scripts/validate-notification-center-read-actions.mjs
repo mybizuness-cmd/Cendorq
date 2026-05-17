@@ -20,7 +20,7 @@ expect(pagePath, [
 expect(listPath, [
   "use client",
   "SupportLifecycleNotificationList",
-  "fetch(\"/api/customer/notifications?source=support-lifecycle&limit=25\"",
+  "source=support-lifecycle&scope=${scope}&limit=25",
   "fetch(\"/api/customer/notifications/read\"",
   "CustomerNotificationReadSuccess",
   "CustomerNotificationReadResponse",
@@ -79,7 +79,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Notification center read action validation passed with live support lifecycle rendering, safe read acknowledgement calls, customer-owned API projection, no raw/internal fields, and route-chain coverage.");
+console.log("Notification center read action validation passed with live support lifecycle rendering, scoped safe read acknowledgement calls, customer-owned API projection, no raw/internal fields, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

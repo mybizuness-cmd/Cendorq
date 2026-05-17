@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import { jsonNoStore, optionsNoStore } from "@/lib/customer-access-gateway-runtime";
 import { requireCustomerSession } from "@/lib/customer-session-auth-runtime";
 import { loadCustomerSupportNotificationRecordEnvelope, projectCustomerSupportNotificationRecord } from "@/lib/customer-support-notification-record-runtime";
+import type { CustomerSupportNotificationRecordState } from "@/lib/customer-support-notification-record-contracts";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -11,7 +12,10 @@ type CustomerNotificationApiEntry = ReturnType<typeof projectCustomerSupportNoti
   source: "support-lifecycle";
 };
 
+type CustomerNotificationScope = "all" | "unread";
+
 const MAX_NOTIFICATION_LIMIT = 100;
+const UNREAD_NOTIFICATION_STATES = new Set<CustomerSupportNotificationRecordState>(["queued", "displayed", "sent"]);
 
 export async function OPTIONS() {
   return optionsNoStore("GET,OPTIONS");
@@ -31,28 +35,34 @@ export async function GET(request: NextRequest) {
     const limit = clampInteger(request.nextUrl.searchParams.get("limit"), 1, MAX_NOTIFICATION_LIMIT, 50);
     const state = cleanState(request.nextUrl.searchParams.get("state"));
     const source = cleanSource(request.nextUrl.searchParams.get("source"));
+    const scope = cleanScope(request.nextUrl.searchParams.get("scope"));
 
     const supportLifecycleEntries = envelope.entries
       .filter((entry) => entry.customerIdHash === sessionAccess.customerIdHash)
       .filter((entry) => (state ? entry.state === state : true))
+      .filter((entry) => (scope === "unread" && !state ? UNREAD_NOTIFICATION_STATES.has(entry.state) : true))
       .map((entry): CustomerNotificationApiEntry => ({ source: "support-lifecycle", ...projectCustomerSupportNotificationRecord(entry) }));
 
     const entries = (source === "support-lifecycle" || !source ? supportLifecycleEntries : [])
       .sort((left, right) => right.createdAt.localeCompare(left.createdAt))
       .slice(0, limit);
 
-    return jsonNoStore({ ok: true, returned: entries.length, entries }, 200);
+    return jsonNoStore({ ok: true, returned: entries.length, scope, entries }, 200);
   } catch {
     return jsonNoStore({ ok: false, error: "Unable to load notifications safely.", details: ["The customer notification storage layer could not be read cleanly."] }, 500);
   }
 }
 
-function cleanState(value: unknown) {
+function cleanState(value: unknown): CustomerSupportNotificationRecordState | "" {
   return value === "queued" || value === "displayed" || value === "sent" || value === "read" || value === "suppressed" || value === "failed" ? value : "";
 }
 
 function cleanSource(value: unknown) {
   return value === "support-lifecycle" ? value : "";
+}
+
+function cleanScope(value: unknown): CustomerNotificationScope {
+  return value === "all" ? "all" : "unread";
 }
 
 function clampInteger(value: unknown, min: number, max: number, fallback: number) {
