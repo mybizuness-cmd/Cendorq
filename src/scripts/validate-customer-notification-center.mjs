@@ -36,11 +36,12 @@ expect(pagePath, [
   "Your private Cendorq signal feed for readiness proof, billing, support, account, and security actions that protect progress.",
   "CUSTOMER_NOTIFICATION_CONTRACTS",
   "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS",
+  "SupportLifecycleNotificationList",
   "NOTIFICATION_HANDOFFS",
   "PRIORITY_FEED",
   "QUIET_FEED_RULES",
   "Act only on signals that protect readiness progress.",
-  "This feed should stay quiet until something matters: proof is ready, access changes, support needs context, or a safer action is required.",
+  "Live support lifecycle notification feed",
   "Open readiness proof",
   "Track status",
   "Open the proof record.",
@@ -66,13 +67,17 @@ expect(pagePath, [
 expect(lifecycleListPath, [
   "use client",
   "SupportLifecycleNotificationList",
-  "fetch(\"/api/customer/notifications?source=support-lifecycle&limit=25\"",
+  "source=support-lifecycle&scope=${scope}&limit=25",
+  "NotificationFeedScope = \"unread\" | \"all\"",
+  "Show history",
+  "Show unread",
   "Customer-owned support alerts from the protected notification API.",
-  "These records come from the protected notification center API and are projected for the signed-in customer only.",
-  "Raw payloads, evidence, billing data, internal notes, audit internals, suppression reasons, operator identities, risk scoring, secrets, and support context keys are not rendered here.",
+  "The feed opens on unread support lifecycle signals so read acknowledgements actually quiet the dashboard.",
+  "History stays one click away without rendering raw payloads, evidence, billing data, internal notes, audit internals, suppression reasons, operator identities, risk scoring, secrets, or support context keys.",
   "Refresh notifications",
   "Loading protected support lifecycle notifications...",
-  "No live support lifecycle notifications are visible yet.",
+  "No unread support lifecycle notifications are visible.",
+  "Read acknowledgements have quieted the live feed.",
   "Open notifications from the authenticated customer dashboard and try again.",
   "SupportLifecycleNotificationEntry",
   "customerVisibleTitle",
@@ -97,6 +102,8 @@ expect(apiPath, [
   "optionsNoStore(\"GET,OPTIONS\")",
   "MAX_NOTIFICATION_LIMIT",
   "cleanSource",
+  "cleanScope",
+  "UNREAD_NOTIFICATION_STATES",
   "support-lifecycle",
 ]);
 
@@ -191,7 +198,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer notification center validation passed with current readiness signal feed, customer-safe notification API, lifecycle projection, and owner posture coverage.");
+console.log("Customer notification center validation passed with current readiness signal feed, customer-safe scoped notification API, lifecycle projection, unread/history support feed, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
