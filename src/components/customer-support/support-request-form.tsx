@@ -10,9 +10,15 @@ type SupportRequestApiSuccess = { ok: true; supportRequestId: string; requestTyp
 type SupportRequestApiError = { ok: false; error?: string; details?: string[]; fieldErrors?: Partial<Record<keyof SupportRequestFormValues, string>> };
 type SupportRequestApiResponse = SupportRequestApiSuccess | SupportRequestApiError;
 type SubmitState = { kind: "idle" } | { kind: "submitting" } | { kind: "success"; response: SupportRequestApiSuccess } | { kind: "error"; message: string; details: string[]; fieldErrors: Partial<Record<keyof SupportRequestFormValues, string>> };
+type HeldReportPreset = { label: string; context: string; description: string; workStartGate: CendorqWorkStartGateKey };
 
 const INITIAL_VALUES: SupportRequestFormValues = { requestType: "report-question", workStartGate: "review-intake", businessContext: "", safeDescription: "", customerAcknowledgement: false };
 const SECRET_WARNING = "Do not include passwords, raw tokens, payment data, secrets, private keys, raw evidence dumps, raw security payloads, or private report internals.";
+const HELD_REPORT_PRESETS = [
+  { label: "Deep Review held report", context: "Deep Review report status", description: "I need help understanding why my Deep Review report is still held. Please check entitlement, release approval, and approved PDF readiness without using private report internals.", workStartGate: "review-intake" },
+  { label: "Build Fix held summary", context: "Build Fix delivery summary status", description: "I need help understanding why my Build Fix delivery summary is still held. Please check approved scope, release approval, and approved PDF readiness without using raw internal notes.", workStartGate: "repair-prerequisites" },
+  { label: "Ongoing Control held summary", context: "Ongoing Control monthly summary status", description: "I need help understanding why my Ongoing Control monthly summary is still held. Please check subscription, monthly scope, release approval, and approved PDF readiness without using raw evidence.", workStartGate: "control-baseline" },
+] as const satisfies readonly HeldReportPreset[];
 const INPUT_CLASS = "rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/70";
 const BUTTON_PRIMARY = "rounded-2xl border border-cyan-200 bg-white px-5 py-3 text-sm font-bold text-slate-950 shadow-sm transition hover:border-cyan-300 hover:bg-cyan-50 disabled:cursor-not-allowed disabled:opacity-60";
 const BUTTON_SECONDARY = "rounded-2xl border border-cyan-100 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:bg-cyan-50 hover:text-slate-950";
@@ -30,6 +36,11 @@ export function SupportRequestForm() {
     const name = target.name as keyof SupportRequestFormValues;
     const nextValue = target instanceof HTMLInputElement && target.type === "checkbox" ? target.checked : target.value;
     setValues((current) => ({ ...current, [name]: nextValue }));
+    if (state.kind !== "idle" && state.kind !== "submitting") setState({ kind: "idle" });
+  }
+
+  function applyHeldReportPreset(preset: HeldReportPreset) {
+    setValues({ requestType: "report-question", workStartGate: preset.workStartGate, businessContext: preset.context, safeDescription: preset.description, customerAcknowledgement: true });
     if (state.kind !== "idle" && state.kind !== "submitting") setState({ kind: "idle" });
   }
 
@@ -57,6 +68,13 @@ export function SupportRequestForm() {
     <form onSubmit={handleSubmit} noValidate className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.055)]">
       <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Submit the context Cendorq needs before work starts.</h2>
       <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{SECRET_WARNING}</p>
+      <div className="mt-6 rounded-[1.25rem] border border-cyan-100 bg-cyan-50/55 p-4">
+        <div className="text-sm font-semibold text-slate-950">Held paid report question</div>
+        <p className="mt-2 text-xs font-medium leading-6 text-slate-600">Use a safe preset when a paid report route says the final output is still held. Presets never include private report content, raw evidence, or internal notes.</p>
+        <div className="mt-3 grid gap-2 sm:grid-cols-3">
+          {HELD_REPORT_PRESETS.map((preset) => <button key={preset.label} type="button" onClick={() => applyHeldReportPreset(preset)} className={BUTTON_SECONDARY}>{preset.label}</button>)}
+        </div>
+      </div>
       <div className="mt-6 grid gap-5">
         <label className="grid gap-2"><span className="text-sm font-semibold text-slate-800">Cendorq work-start gate</span><select name="workStartGate" value={values.workStartGate} onChange={handleChange} className={INPUT_CLASS}>{CENDORQ_WORK_START_GATES.map((gate) => <option key={gate.key} value={gate.key}>{gate.customerTitle}</option>)}</select><FieldError message={getFieldError(state, localFieldErrors, "workStartGate")} /></label>
         <div className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/55 p-4"><div className="text-sm font-semibold text-slate-950">{selectedGate.customerSafeAction}</div><p className="mt-2 text-xs font-medium leading-6 text-slate-600">{selectedGate.customerPromise}</p><p className="mt-3 text-xs font-semibold leading-6 text-amber-700">{selectedGate.blockedPattern}</p></div>
@@ -70,7 +88,7 @@ export function SupportRequestForm() {
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"><button type="submit" disabled={!canSubmit} className={BUTTON_PRIMARY}>{state.kind === "submitting" ? "Submitting protected intake..." : "Submit protected intake"}</button><button type="button" onClick={() => { setValues(INITIAL_VALUES); setState({ kind: "idle" }); }} className={BUTTON_SECONDARY}>Clear form</button></div>
       {state.kind === "success" ? <div className="mt-6 rounded-[1.5rem] border border-emerald-200 bg-emerald-50 p-5"><div className="text-sm font-semibold text-emerald-950">{state.response.message}</div><div className="mt-3 grid gap-2 text-xs font-medium leading-6 text-emerald-900 sm:grid-cols-2"><div>Request ID: {state.response.supportRequestId}</div><div>Gate: {state.response.workStartGate}</div><div>Plan: {state.response.workStartPlanKey}</div><div>Decision: {state.response.decision}</div><div>Operator review: {state.response.operatorReviewRequired ? "required" : "not required"}</div><div>Processing: {state.response.downstreamProcessingAllowed ? "allowed" : "held"}</div></div><div className="mt-5 flex flex-col gap-3 sm:flex-row"><Link href="/dashboard/support/status" className={BUTTON_PRIMARY}>Track this request safely</Link><Link href="/dashboard/support" className={BUTTON_SECONDARY}>Back to support center</Link></div><p className="mt-4 text-xs font-medium leading-6 text-emerald-900">Status tracking uses customer-safe projection only and never reveals internal notes, operator identities, risk-scoring details, raw evidence, billing data, session tokens, or support secrets.</p></div> : null}
       {state.kind === "error" ? <div className="mt-6 rounded-[1.5rem] border border-rose-200 bg-rose-50 p-5"><div className="text-sm font-semibold text-rose-900">{state.message}</div>{state.details.length > 0 ? <div className="mt-3 grid gap-2">{state.details.map((detail) => <div key={detail} className="rounded-2xl border border-rose-200 bg-white p-3 text-xs font-medium leading-6 text-rose-800">{detail}</div>)}</div> : null}</div> : null}
-      <div className="sr-only">Light support request form. No black support form blocks. No dark blue support form blocks.</div>
+      <div className="sr-only">Light support request form. No black support form blocks. No dark blue support form blocks. Held paid report question. Deep Review held report. Build Fix held summary. Ongoing Control held summary. No private report content. No raw evidence. No internal notes.</div>
     </form>
   );
 }
