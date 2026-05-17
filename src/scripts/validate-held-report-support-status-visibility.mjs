@@ -25,9 +25,8 @@ expect(statusApiPath, [
   "const ownedEntries = envelope.entries.filter((entry) => entry.customerIdHash === sessionAccess.customerIdHash);",
   "normalizeRequestType(request.nextUrl.searchParams.get(\"requestType\"))",
   "normalizeWorkStartGate(request.nextUrl.searchParams.get(\"workStartGate\"))",
+  "CENDORQ_WORK_START_GATES.some((gate) => gate.key === value)",
   "report-question",
-  "repair-prerequisite",
-  "control-baseline",
   "safeSummary",
   "rawPayloadStored: false",
   "customerOwnershipRequired: true",
@@ -77,7 +76,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Held report support status visibility validation passed with customer-owned status filtering, held-report request type/gate visibility, safe projections, and route-chain coverage.");
+console.log("Held report support status visibility validation passed with customer-owned status filtering, shared gate-registry support, held-report request visibility, safe projections, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
