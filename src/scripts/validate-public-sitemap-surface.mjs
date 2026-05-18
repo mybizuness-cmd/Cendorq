@@ -50,7 +50,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public sitemap surface validation passed with FAQ and Connect included, public routes only, and protected customer routes excluded.");
+console.log("Public sitemap surface validation passed with FAQ and Contact Us on /connect included, public routes only, and protected customer routes excluded.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
