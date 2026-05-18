@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -32,6 +33,8 @@ Before merging privacy-sensitive changes, confirm:
 - Third-party scripts do not weaken performance, trust, or buyer clarity.
 - Public health checks remain safe to expose.
 - Security contact and reporting surfaces stay current.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- Any future public Contact Us message box must collect the sender email, send to `support@cendorq.com`, avoid fake success states, and preserve privacy boundaries.
 - No private customer data is used in examples, docs, screenshots, or tests.
 
 ## Public form checks
@@ -44,6 +47,7 @@ For form changes, confirm:
 - The submit action is clear.
 - Success and error states are understandable.
 - The form does not make unsupported privacy or outcome guarantees.
+- If the form is a Contact Us form, it captures the reply email and sends to `support@cendorq.com` through a real tested pipeline.
 
 ## Environment checks
 
@@ -54,6 +58,7 @@ For environment changes, confirm:
 - Variable names do not reveal private systems unnecessarily.
 - Production-only values are not assumed in local checks.
 - CI and smoke checks can run without private secrets unless intentionally required.
+- Public support email behavior remains clear and does not depend on private secrets.
 
 ## Logging checks
 
@@ -87,7 +92,7 @@ pnpm build
 For production-impacting privacy or data handling changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -96,6 +101,7 @@ Do not use privacy work as a reason to add:
 
 - unnecessary form fields
 - hidden tracking
+- untested public message boxes
 - homepage clutter
 - competing CTAs
 - unsupported guarantees
