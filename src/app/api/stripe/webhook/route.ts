@@ -217,7 +217,7 @@ function inferJourneyEvidence(session: Record<string, unknown>): CendorqJourneyE
   if (stringValue(metadata.business_profile_exists) === "true") evidence.push("businessProfileExists");
   if (stringValue(metadata.free_scan_complete) === "true") evidence.push("freeScanComplete");
   if (stringValue(metadata.deep_review_complete) === "true") evidence.push("deepReviewComplete");
-  if (stringValue(metadata.supported_diagnosis_approved) === "true") evidence.push("supportedDiagnosisApproved");
+  if (stringValue(metadata.supported_review_approved) === "true") evidence.push("supportedReviewApproved");
   if (stringValue(metadata.repair_scope_approved) === "true") evidence.push("repairScopeApproved");
   if (stringValue(metadata.control_baseline_approved) === "true") evidence.push("controlBaselineApproved");
   return Array.from(new Set(evidence));
@@ -232,7 +232,7 @@ function parseEvidenceList(value: string): CendorqJourneyEvidenceKey[] {
     "deepReviewPurchased",
     "deepReviewIntakeComplete",
     "deepReviewComplete",
-    "supportedDiagnosisApproved",
+    "supportedReviewApproved",
     "repairPurchased",
     "repairScopeApproved",
     "repairComplete",
