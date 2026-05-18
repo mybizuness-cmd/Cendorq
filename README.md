@@ -12,7 +12,7 @@ The public buyer path is intentionally simple:
 4. **Build Fix** — improve the page, message, proof, or action path that matters most
 5. **Ongoing Control** — keep visibility and readiness from drifting as search, AI answers, competitors, and customers change
 6. **FAQ** — answer quick buyer questions without slowing the path
-7. **Connect** — use a direct conversation when fit, scope, or timing needs clarification
+7. **Contact Us** — use direct support when fit, scope, timing, or account help needs clarification
 
 The homepage has one job: get the right visitor to start the **Free Scan**.
 
@@ -74,6 +74,8 @@ Required production variables for the current customer journey:
 - `CENDORQ_CUSTOMER_SESSION_SECRET`
 
 The session secret must be a random value with at least 32 characters. Without it, remembered-session access fails safely and sends the visitor back to Access.
+
+Contact Us uses direct email to `support@cendorq.com` on the public route `/connect`. Customers should email from the address where they want the reply.
 
 Optional provider auth start URLs:
 
@@ -227,7 +229,7 @@ These routes must stay healthy:
 - `/plans/build-fix`
 - `/plans/ongoing-control`
 - `/faq`
-- `/connect`
+- `/connect` (Contact Us)
 
 Customer access routes must stay protected and noindex when used:
 
@@ -261,7 +263,7 @@ Protected redirects include:
 - `/optimization` -> `/plans/build-fix`
 - `/monthly-partner` -> `/plans/ongoing-control`
 
-FAQ is not a legacy redirect. It is an active public route for quick buyer answers.
+FAQ is not a legacy redirect. It is an active public route for quick buyer answers. Contact Us is served by `/connect`; old `/contact` should redirect into it.
 
 ## Production assets
 
@@ -285,7 +287,7 @@ Use plain customer language:
 - Build Fix
 - Ongoing Control
 - FAQ
-- Connect
+- Contact Us
 - Access
 - Account
 - Dashboard
@@ -299,4 +301,4 @@ Use plain customer language:
 - stop guessing before spending more
 - protect decisions as search and AI discovery change
 
-Avoid reviving old public labels such as Business Command Intelligence, Market Command Intelligence, Search Presence OS, Visibility Blueprint, Presence Infrastructure, Presence Command, View Pricing, or Start Search Presence Scan in active public surfaces.
+Avoid reviving old public labels such as Business Command Intelligence, Market Command Intelligence, Search Presence OS, Visibility Blueprint, Presence Infrastructure, Presence Command, View Pricing, Start Search Presence Scan, or customer-facing Connect labels in active public surfaces.
