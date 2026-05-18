@@ -72,47 +72,46 @@ expect(ownerMaximumProtectionValidatorPath, [
 ]);
 
 expect("src/app/signup/page.tsx", [
-  "Create your Cendorq workspace.",
+  "Start with the Free Scan.",
   "noIndex: true",
-  "Continue with Google",
-  "Continue with Microsoft",
-  "Continue with Apple",
-  "Create or access your workspace.",
-  "Email",
-  "Send secure access link",
-  "After you send the link",
-  "No password to remember.",
+  "Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.",
+  "Already have an account?",
+  "Use customer access",
+  "Start Free Scan",
 ]);
 
 expect("src/app/login/page.tsx", [
-  "Return to your Cendorq workspace.",
+  "Access your Cendorq account.",
   "noIndex: true",
-  "Sign in or create access.",
+  "Use the same email you used for your Free Scan, form, or plan.",
   "Send secure access link",
-  "Cendorq never emails a password",
-  "Create workspace",
+  "No password needed.",
+  "First time here?",
+  "Provider sign-in is hidden until it is fully ready.",
 ]);
 
 expect("src/app/verify-email/page.tsx", [
   "Check your email to continue.",
   "noIndex: true",
-  "Confirm once and continue to your dashboard.",
   "Request a new link",
-  "Open dashboard",
+  "Start Free Scan",
+  "Confirm once.",
+  "Find the message from Cendorq Support.",
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "Your Cendorq workspace is ready.",
+  "Visibility command center",
   "noIndex: true",
-  "one clear next action",
-  "Start, Continue, or Open Result",
-  "Open Free Scan path",
+  "Know what the market can see, trust, and act on next.",
+  "This is not an account page.",
+  "One next step.",
+  "Scan. Diagnose. Fix. Control.",
   "Open Review page",
   "Open Repair page",
 ]);
 
 expect("src/app/dashboard/reports/page.tsx", [
-  "Report vault",
+  "Readiness proof vault",
   "noIndex: true",
   "Paid plan report delivery operating system",
   "Dashboard + email attachment",
@@ -171,10 +170,10 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-forbidden("src/app/signup/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email"]);
-forbidden("src/app/login/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email"]);
+forbidden("src/app/signup/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email", "Create workspace", "Continue with Google"]);
+forbidden("src/app/login/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email", "Create workspace", "Continue to dashboard", "Continue with Google"]);
 forbidden("src/app/verify-email/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "account exists"]);
-forbidden("src/app/dashboard/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "raw evidence"]);
+forbidden("src/app/dashboard/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "raw evidence", "A workspace can exist before a scan"]);
 forbidden("src/app/dashboard/reports/page.tsx", ["dangerouslySetInnerHTML", "raw evidence", "outcome warranty"]);
 forbidden("src/app/dashboard/billing/page.tsx", ["dangerouslySetInnerHTML", "paid access without entitlement", "outcome warranty"]);
 forbidden("src/app/checkout/start/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "outcome warranty"]);
@@ -186,7 +185,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform route validation passed with owner posture, customer re-entry, final pricing, checkout activation, signup, email verification, dashboard, report vault, billing center, route map, and Cendorq Shield synchronized.");
+console.log("Customer platform route validation passed with owner posture, Free Scan-first access, email verification, visibility dashboard, report vault, billing center, checkout activation, route map, and Cendorq Shield synchronized.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing customer platform route dependency: ${path}`);
