@@ -123,7 +123,7 @@ export function projectFreeScanIntakeRecordFromPayload(payload: Record<string, u
 export function detectUnsafeIntakeFields(payload: Record<string, unknown>) {
   const text = Object.values(payload).filter((value): value is string => typeof value === "string").join(" ").toLowerCase();
   const blocked: string[] = [];
-  if (matchesUnsafe(text, ["pass", "word", "passcode", "login", "credential"])) blocked.push("account secrets");
+  if (matchesUnsafeRegex(text, [/\bpass\s*word\b/, /\bpasscode\b/, /\blogin\b/, /\bcredential\b/])) blocked.push("account secrets");
   if (matchesUnsafe(text, ["card number", "credit card", "cvv", "routing number", "bank account"])) blocked.push("payment data");
   if (matchesUnsafe(text, ["private key", "secret key", "api key", "token", "session"])) blocked.push("access keys");
   if (matchesUnsafe(text, ["customer list", "patient list", "client list", "raw export"])) blocked.push("raw customer PII");
@@ -132,6 +132,10 @@ export function detectUnsafeIntakeFields(payload: Record<string, unknown>) {
 
 function matchesUnsafe(text: string, phrases: readonly string[]) {
   return phrases.some((phrase) => text.includes(phrase));
+}
+
+function matchesUnsafeRegex(text: string, patterns: readonly RegExp[]) {
+  return patterns.some((pattern) => pattern.test(text));
 }
 
 function projectField(contract: PlanIntelligenceAcquisitionContract, label: string, captured: ReadonlySet<string>, blocked: ReadonlySet<string>, importance: "minimum" | "best"): PlanIntelligenceIntakeFieldRecord {
