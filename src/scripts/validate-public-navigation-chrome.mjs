@@ -6,37 +6,43 @@ const failures = [];
 
 const headerPath = "src/layout/site-header-conversion.tsx";
 const footerPath = "src/layout/site-footer.tsx";
+const faqPath = "src/app/faq/page.tsx";
 const connectPath = "src/app/connect/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-navigation-chrome.mjs";
 
 expect(headerPath, [
-  "Customer journey",
-  "Free Scan: first signal",
-  "Deep Review: diagnosis",
-  "Build Fix: scoped implementation",
-  "Ongoing Control: monthly control",
-  "Start with a first signal",
-  "choose Deep Review, Build Fix, or Ongoing Control only when the stage fits",
-  "max-h-[calc(100dvh-4.25rem)]",
-  "overflow-y-auto",
+  "AI Readiness",
+  "Plans",
+  "FAQ",
+  "Sign in",
+  "Start Free Scan",
+  "href: \"/faq\"",
+  "href=\"/faq\"",
+  "Mobile navigation keeps Plans, FAQ, Sign in, and Scan visible",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
 ]);
 
 expect(footerPath, [
-  "FOOTER_JOURNEY",
-  "Footer customer journey",
-  "Start with a first signal. Move deeper only when the stage fits.",
-  "Free Scan is a first signal, not full diagnosis, implementation, or monthly control.",
-  "Free Scan",
-  "Pricing",
-  "Dashboard",
-  "Contact",
+  "AI engine readiness for businesses that need to be understood, trusted, and chosen.",
+  "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.",
+  "FAQ",
   "Privacy",
   "Terms",
+  "Disclaimer",
+  "href=\"/faq\"",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
+]);
+
+expect(faqPath, [
+  "Cendorq FAQ",
+  "Get clear answers before the next move.",
+  "Start with the Free Scan",
+  "Already have an account? Use the same email you used for your Free Scan, form, or plan.",
+  "FAQPage",
+  "Does Cendorq guarantee rankings, leads, revenue, or AI placement?",
 ]);
 
 expect(connectPath, [
@@ -72,6 +78,15 @@ forbidden(footerPath, [
   "guaranteed revenue",
 ]);
 
+forbidden(faqPath, [
+  "guaranteed rankings, leads, revenue, or AI placement. Yes",
+  "workspace theory",
+  "orchestration",
+  "raw evidence",
+  "send passwords",
+  "send card numbers",
+]);
+
 forbidden(connectPath, [
   "unlimited consulting",
   "send passwords",
@@ -87,7 +102,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with mobile journey, footer routing, and contact-stage coverage.");
+console.log("Public navigation chrome validation passed with Free Scan CTA, FAQ routing, footer trust copy, and contact-stage coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
