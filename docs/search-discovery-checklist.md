@@ -16,7 +16,7 @@ Protect the core path:
 4. Build Fix
 5. Ongoing Control
 6. FAQ
-7. Connect
+7. Contact Us
 
 ## Required checks
 
@@ -24,6 +24,8 @@ Before merging discovery-related changes, confirm:
 
 - Canonical buyer routes remain the source of truth.
 - FAQ stays public, current, plain-language, and aligned with Free Scan, access, plans, privacy, and no-guarantee boundaries.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Legacy routes redirect into the current buyer path.
 - Legacy routes are not listed as active sitemap entries.
 - Legacy routes are not promoted in robots allowlists.
@@ -51,7 +53,7 @@ These routes must stay healthy and discoverable:
 - `/plans/build-fix`
 - `/plans/ongoing-control`
 - `/faq`
-- `/connect`
+- `/connect` for Contact Us
 
 Policy and trust routes may remain discoverable when their content is current:
 
@@ -97,6 +99,7 @@ Public discovery copy should be:
 - buyer-focused
 - free of old labels
 - free of unsupported guarantees
+- clear that Contact Us uses `support@cendorq.com` unless a real tested send pipeline exists
 
 ## Validation expectation
 
@@ -112,7 +115,7 @@ pnpm build
 For production-impacting discovery changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -125,4 +128,5 @@ Do not use discovery work as a reason to add:
 - route-console behavior
 - keyword stuffing
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity
