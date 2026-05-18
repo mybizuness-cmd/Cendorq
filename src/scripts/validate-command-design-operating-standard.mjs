@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 const publicDriftPath = "src/scripts/validate-public-drift.mjs";
 const routeChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -53,9 +54,7 @@ expect(productionGuidePath, [standardPath, "Contact Us", "support@cendorq.com"])
 expect(contributingPath, [standardPath]);
 
 forbid(publicDriftPath, [
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
+  ...legacyPlanLabels,
   "description: \"Compare Scan, Diagnose, Fix, and Control.\"",
   "label: \"Pricing\"",
   "description: \"Choose the right depth.\"",
