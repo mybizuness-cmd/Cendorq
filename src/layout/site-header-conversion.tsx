@@ -5,6 +5,7 @@ const BRAND_NAME = "Cendorq";
 const NAV_LINKS = [
   { label: "AI Readiness", href: "/#ai-readiness", mobile: false },
   { label: "Plans", href: "/plans", mobile: true },
+  { label: "FAQ", href: "/faq", mobile: true },
   { label: "Sign in", href: "/login", mobile: true },
 ] as const;
 
@@ -17,7 +18,7 @@ const NAV_LINK_CLASS =
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full overflow-hidden border-b border-cyan-100 bg-white/95 text-slate-950 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1.5 px-3 sm:h-auto sm:min-h-[4.25rem] sm:gap-3 sm:px-8 sm:py-2.5">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-3 sm:h-auto sm:min-h-[4.25rem] sm:gap-3 sm:px-8 sm:py-2.5">
         <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex min-w-0 shrink-0 items-center gap-2 rounded-full py-1.5 transition hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-1.5">
           <BrandMark />
           <span className="hidden truncate text-sm font-semibold tracking-[0.16em] text-slate-950 sm:inline sm:text-base">{BRAND_NAME}</span>
@@ -36,7 +37,7 @@ export function SiteHeader() {
           <span className="hidden sm:inline">Start Free Scan</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the Cendorq homepage. Mobile navigation keeps Plans, Sign in, and Scan visible without clipping AI Readiness. Header CTA uses a visible white button with black text. href="/login"</span>
+      <span className="sr-only">Logo links to the Cendorq homepage. Mobile navigation keeps Plans, FAQ, Sign in, and Scan visible without clipping AI Readiness. Header CTA uses a visible white button with black text. href="/login" href="/faq"</span>
     </header>
   );
 }
