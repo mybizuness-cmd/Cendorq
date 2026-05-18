@@ -28,6 +28,8 @@ expect(headerPath, [
   "overflow-visible",
   "relative z-50",
   "absolute right-0 z-50",
+  "bg-cyan-50 text-slate-950",
+  "Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out.",
   "Account menu uses overflow-visible so the menu is not clipped.",
   "href: \"/plans\"",
   "href: \"/faq\"",
@@ -132,7 +134,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, unclipped Account menu, dashboard logo return, Free Scan CTA, FAQ routing, and footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, unclipped Account menu, dashboard logo return, Free Scan CTA, FAQ routing, and footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
