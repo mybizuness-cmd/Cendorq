@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -30,6 +31,9 @@ Before merging dependency or tooling changes, confirm:
 - Checkout credentials are not persisted unless clearly required.
 - Dependabot grouping remains understandable.
 - CI still runs route validation, lint, typecheck, and production build.
+- Production smoke still uses `https://www.cendorq.com` unless the canonical host intentionally changes.
+- Contact Us remains a lightweight direct email path to `support@cendorq.com` unless a real tested send pipeline exists.
+- No dependency change adds an untested public message box, fake success state, or unnecessary support-form package.
 - No dependency change adds unnecessary client-side weight.
 - No dependency change adds avoidable tracking, analytics, or third-party risk.
 - No dependency change weakens production headers, redirects, health, crawler files, or buyer-path protections.
@@ -54,6 +58,7 @@ For workflow changes, confirm:
 - pnpm install remains frozen in CI.
 - Production smoke checks remain manual and scheduled.
 - Workflow changes are protected by route validation when production-sensitive.
+- `/connect` remains checked as Contact Us when public-route smoke coverage changes.
 
 ## Package checks
 
@@ -64,6 +69,7 @@ For package changes, confirm:
 - The package does not add avoidable browser weight.
 - The package is maintained and reasonable for production use.
 - The package does not introduce avoidable security, privacy, or performance risk.
+- The package is not added only to support a public message box before the sending pipeline is designed and tested.
 
 ## Validation expectation
 
@@ -79,7 +85,7 @@ pnpm build
 For production-impacting dependency or workflow changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -92,4 +98,5 @@ Do not use dependency work as a reason to add:
 - homepage clutter
 - competing CTAs
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity
