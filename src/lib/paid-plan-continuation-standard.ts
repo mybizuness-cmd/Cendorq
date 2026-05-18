@@ -27,16 +27,16 @@ export function resolvePaidPlanContinuationAction(input: {
     return {
       label: "Complete prerequisite first",
       title: "A required step comes first.",
-      customerCopy: input.customerNextAction || "Cendorq is holding this plan until the required earlier diagnosis, baseline, or approved scope is connected.",
+      customerCopy: input.customerNextAction || "Cendorq is holding this plan until the required earlier review, baseline, or approved scope is connected.",
       href: input.planKey === "build-fix" || input.planKey === "ongoing-control" ? "/plans/deep-review" : normalizeDashboardDestination(input.dashboardDestination),
     };
   }
 
   if (input.fulfillmentState === "held-ownership-required") {
     return {
-      label: "Confirm workspace access",
-      title: "Confirm the right workspace.",
-      customerCopy: input.customerNextAction || "Cendorq needs to connect this purchase to the right verified business workspace before work begins.",
+      label: "Confirm account access",
+      title: "Confirm the right account.",
+      customerCopy: input.customerNextAction || "Cendorq needs to connect this purchase to the right verified business account before work begins.",
       href: "/dashboard",
     };
   }
