@@ -25,7 +25,12 @@ expect(webhookPath, [
   "checkout.session.completed",
   "rawEmailReturned: false",
   "rawTokenReturned: false",
+  "X-Content-Type-Options",
+  "nosniff",
   "X-Robots-Tag",
+  "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy",
+  "same-origin",
   "no-store",
 ]);
 
@@ -49,7 +54,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Stripe webhook signature boundary validation passed with required configured secret, signature verification, no-store response headers, safe projections, and route-chain coverage.");
+console.log("Stripe webhook signature boundary validation passed with required configured secret, signature verification, no-store/noindex/nosniff/referrer-policy response headers, safe projections, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
