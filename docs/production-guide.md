@@ -7,7 +7,8 @@ Cendorq is built around one protected buyer path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Connect
 
 The homepage should stay focused on getting the right customer into the Free Scan. Do not turn the homepage back into a dashboard, route console, pricing comparison, or multi-offer page.
 
@@ -144,6 +145,7 @@ These routes must stay healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
+- `/faq`
 - `/connect`
 
 Fallback surfaces must also stay present and command-path aligned:
@@ -170,13 +172,12 @@ Legacy routes should redirect only into the current buyer path:
 - `/how-it-works` -> `/plans`
 - `/diagnosis` -> `/plans/deep-review`
 - `/profile` -> `/plans`
-- `/faq` -> `/plans`
 - `/freecheck` -> `/free-check`
 - `/full-diagnosis` -> `/plans/deep-review`
 - `/optimization` -> `/plans/build-fix`
 - `/monthly-partner` -> `/plans/ongoing-control`
 
-Do not list redirected legacy routes in sitemap entries, robots allowlists, navigation, footer links, metadata, manifest shortcuts, or active CTA destinations.
+Do not list redirected legacy routes in sitemap entries, robots allowlists, navigation, footer links, metadata, manifest shortcuts, or active CTA destinations. FAQ is not a legacy redirect; it is an active public route for quick buyer answers.
 
 Production smoke must verify each legacy URL returns a real redirect status and a `Location` header before following it into the current buyer path. Do not weaken this into final-destination-only validation.
 
@@ -272,6 +273,7 @@ Use plain buyer language:
 - Deep Review
 - Build Fix
 - Ongoing Control
+- FAQ
 - Connect
 - make the business easier to understand
 - make the business easier to trust
