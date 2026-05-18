@@ -7,6 +7,7 @@ const middlewarePath = "src/middleware.ts";
 const rememberedSessionPath = "src/lib/customer-remembered-session-runtime.ts";
 const emailConfirmPath = "src/app/api/customer/email/confirm/route.ts";
 const continuePath = "src/app/api/auth/continue/route.ts";
+const headerPath = "src/layout/site-header-conversion.tsx";
 const loginPath = "src/app/login/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-dashboard-session-gate.mjs";
@@ -43,11 +44,23 @@ expect(rememberedSessionPath, [
   "CENDORQ_CUSTOMER_SESSION_COOKIE = \"cendorq_customer_session\"",
   "SESSION_SECRET_ENV = \"CENDORQ_CUSTOMER_SESSION_SECRET\"",
   "SESSION_VERSION = \"v1\"",
+  "SESSION_TTL_SECONDS = 60 * 60 * 24 * 30",
   "setCustomerRememberedSessionCookie",
   "readCustomerRememberedSession",
+  "readCustomerRememberedSessionCookieValue",
   "httpOnly: true",
   "secure: true",
   "sameSite: \"lax\"",
+]);
+
+expect(headerPath, [
+  "cookies",
+  "CENDORQ_CUSTOMER_SESSION_COOKIE",
+  "readCustomerRememberedSessionCookieValue",
+  "isRememberedCustomer",
+  "AccountMenu",
+  "Dashboard",
+  "Sign out",
 ]);
 
 expect(emailConfirmPath, [
@@ -95,13 +108,21 @@ forbidden(middlewarePath, [
   "attackerDetails",
 ]);
 
+forbidden(headerPath, [
+  "localStorage",
+  "sessionStorage",
+  "Sign in",
+  "AI Readiness",
+  "/#ai-readiness",
+]);
+
 if (failures.length) {
   console.error("Dashboard session gate validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, simple access copy, safe login redirects, no-store headers, and route-chain coverage.");
+console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, remembered header state, simple access copy, safe login redirects, no-store headers, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
