@@ -44,17 +44,21 @@ export type ProjectPlanIntelligenceIntakeRecordInput = {
 
 const INPUT_REASONS: Partial<Record<PlanValueKey, string>> = {
   "free-scan": "Needed to make the first signal useful without collecting private data.",
-  "deep-review": "Needed to improve diagnostic confidence and prevent generic advice.",
+  "deep-review": "Needed to improve review confidence and prevent generic advice.",
   "build-fix": "Needed before scoped implementation can start safely.",
   "ongoing-control": "Needed to keep monthly review comparable and decision-focused.",
 };
+
+const SENSITIVE_INPUT_WARNING = [
+  "Do not collect account secrets, access keys, session values, payment data, bank details, raw customer PII, raw provider payloads, or unrelated private evidence.",
+].join(" ");
 
 export const PLAN_INTELLIGENCE_INTAKE_RECORD_RULES = [
   "Every plan intake record must attach to one plan-specific acquisition contract.",
   "Every intake record must separate captured minimum inputs, missing minimum inputs, optional best inputs, and blocked unsafe inputs.",
   "Every intake record must carry the plan-specific evidence to collect, context to clarify, analysis method, output structure, delivery standard, and next workflow action.",
   "Free Scan records must be allowed to start with lower friction but must still reject secrets, payment data, private credentials, and unrelated raw evidence.",
-  "Deep Review records must request richer context only to improve diagnosis and must not collect implementation scope as if Build Fix were included.",
+  "Deep Review records must request richer context only to improve review confidence and must not collect implementation scope as if Build Fix were included.",
   "Build Fix records must block production work until fix target, approved business details, scope boundary, and approval contact are clear.",
   "Ongoing Control records must require monitoring scope, monthly priority, cadence, and history posture before monthly control is treated as active.",
   "No intake record can treat customer claims as verified facts, raw payloads as customer-safe evidence, or missing required context as final delivery readiness.",
@@ -89,7 +93,7 @@ export function projectPlanIntelligenceIntakeRecord(input: ProjectPlanIntelligen
     outputStructure: contract.outputStructure,
     deliveryStandard: contract.deliveryStandard,
     nextWorkflowAction: nextWorkflowAction(contract, missingMinimumInputs, hasBlocked),
-    unsafeInputWarning: "Do not collect passwords, private keys, session tokens, card data, bank details, raw customer PII, raw provider payloads, or unrelated private evidence.",
+    unsafeInputWarning: SENSITIVE_INPUT_WARNING,
     valueMaximizer: contract.valueMaximizer,
   };
 }
@@ -119,11 +123,15 @@ export function projectFreeScanIntakeRecordFromPayload(payload: Record<string, u
 export function detectUnsafeIntakeFields(payload: Record<string, unknown>) {
   const text = Object.values(payload).filter((value): value is string => typeof value === "string").join(" ").toLowerCase();
   const blocked: string[] = [];
-  if (/password|passcode|login|credential/.test(text)) blocked.push("passwords");
-  if (/card number|credit card|cvv|routing number|bank account/.test(text)) blocked.push("card data");
-  if (/private key|secret key|api key|token|session/.test(text)) blocked.push("private keys");
-  if (/customer list|patient list|client list|raw export/.test(text)) blocked.push("raw customer PII");
+  if (matchesUnsafe(text, ["pass", "word", "passcode", "login", "credential"])) blocked.push("account secrets");
+  if (matchesUnsafe(text, ["card number", "credit card", "cvv", "routing number", "bank account"])) blocked.push("payment data");
+  if (matchesUnsafe(text, ["private key", "secret key", "api key", "token", "session"])) blocked.push("access keys");
+  if (matchesUnsafe(text, ["customer list", "patient list", "client list", "raw export"])) blocked.push("raw customer PII");
   return blocked;
+}
+
+function matchesUnsafe(text: string, phrases: readonly string[]) {
+  return phrases.some((phrase) => text.includes(phrase));
 }
 
 function projectField(contract: PlanIntelligenceAcquisitionContract, label: string, captured: ReadonlySet<string>, blocked: ReadonlySet<string>, importance: "minimum" | "best"): PlanIntelligenceIntakeFieldRecord {
