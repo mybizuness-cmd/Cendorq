@@ -9,9 +9,8 @@ import {
 import Link from "next/link";
 
 const BRAND_NAME = "Cendorq";
-
-const contactEmail = normalizeEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL);
-const directEmailHref = contactEmail ? `mailto:${contactEmail}` : "";
+const SUPPORT_EMAIL = "support@cendorq.com";
+const directEmailHref = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("Cendorq Contact Us")}`;
 
 export const metadata = buildMetadata({
   title: "Contact Us | Cendorq",
@@ -38,6 +37,7 @@ const CONTACT_BOUNDARIES = [
   "Contact Us is not a replacement for the Free Scan when the cause is unclear.",
   "Contact Us is not an unlimited consulting lane.",
   "Contact Us should not be used to send sensitive account, payment, or security details.",
+  "Contact Us uses direct email to support@cendorq.com so the reply address comes from the customer's inbox.",
   "Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate.",
 ] as const;
 
@@ -56,6 +56,11 @@ const FAQS = [
     question: "When does Contact Us make sense?",
     answer:
       "Contact Us makes sense when the business already has a clear question about fit, scope, timing, or ongoing visibility and readiness control.",
+  },
+  {
+    question: "How will Cendorq reply?",
+    answer:
+      "Email support@cendorq.com from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one.",
   },
 ] as const;
 
@@ -116,12 +121,17 @@ export default function ConnectPage() {
           ))}
         </div>
 
-        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          {contactEmail ? (
-            <a href={directEmailHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Email Cendorq
-            </a>
-          ) : null}
+        <div className="mt-7 rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
+          <h2 className="text-base font-semibold text-cyan-100">Email us directly</h2>
+          <p className="mt-2 text-sm leading-7 text-slate-200">
+            Send your message to <a href={directEmailHref} className="font-bold text-white underline decoration-cyan-200 underline-offset-4">{SUPPORT_EMAIL}</a> from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one.
+          </p>
+        </div>
+
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+          <a href={directEmailHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+            Email Support
+          </a>
           <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             Compare plans
           </Link>
@@ -143,7 +153,7 @@ export default function ConnectPage() {
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
       </section>
-      <p className="sr-only">Contact Us with Cendorq. Contact Us stage routing. If you are unsure, start Free Scan. If the question is clear, contact us. View plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
+      <p className="sr-only">Contact Us with Cendorq. Contact Us stage routing. If you are unsure, start Free Scan. If the question is clear, contact us. Email support@cendorq.com from the address where you want the reply. View plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
     </main>
   );
 }
@@ -166,9 +176,4 @@ function ConnectAtmosphere() {
       <div className="system-grid-wide absolute inset-0 opacity-[0.026]" />
     </div>
   );
-}
-
-function normalizeEmail(value: string | undefined) {
-  const cleaned = (value || "").trim();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : "";
 }
