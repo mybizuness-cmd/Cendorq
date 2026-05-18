@@ -7,7 +7,7 @@ export const metadata = buildMetadata({
   description:
     "Simple answers about the Cendorq Free Scan, account access, plans, results, timing, privacy, billing, and support.",
   path: "/faq",
-  keywords: ["Cendorq FAQ", "Free Scan questions", "AI search visibility", "Cendorq account access", "Cendorq plans"],
+  keywords: ["Cendorq FAQ", "Free Scan questions", "AI visibility", "AI readiness", "AI search visibility", "Cendorq account access", "Cendorq plans"],
 });
 
 type FaqItem = { question: string; answer: string };
@@ -21,7 +21,7 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "What is Cendorq?",
         answer:
-          "Cendorq helps you see if AI, search, and customers can understand your business clearly enough to trust it and choose it.",
+          "Cendorq helps you see where your business is visible, where it may be missing, and whether AI, search, and customers can understand, trust, and choose it clearly.",
       },
       {
         question: "Where should I start?",
@@ -36,7 +36,7 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "Who is Cendorq for?",
         answer:
-          "Cendorq is for businesses that may be found but not chosen, visited but not contacted, or misunderstood by search, AI answers, or customers.",
+          "Cendorq is for businesses that may be found but not chosen, visited but not contacted, missing from the right places, or misunderstood by search, AI answers, or customers.",
       },
     ],
   },
@@ -47,7 +47,7 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "What is the Free Scan?",
         answer:
-          "The Free Scan is the first signal. It looks for the first place your business may be unclear, under-trusted, or harder for AI and customers to choose.",
+          "The Free Scan is the first signal. It looks for the first place your business may be missing, unclear, under-trusted, or harder for AI and customers to choose.",
       },
       {
         question: "Is the Free Scan really free?",
@@ -106,14 +106,14 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
     intro: "Choose the right depth without overbuying or guessing.",
     items: [
       {
-        question: "What is the difference between Free Scan, AI Readiness Review, Signal Repair, and Readiness Control?",
+        question: "What is the difference between Free Scan, Deep Review, Build Fix, and Ongoing Control?",
         answer:
-          "Free Scan finds the first signal. AI Readiness Review explains the cause. Signal Repair improves the weak point. Readiness Control keeps watch over time.",
+          "Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Ongoing Control keeps watch over time.",
       },
       {
         question: "Which plan should I choose?",
         answer:
-          "Start with the Free Scan if you are unsure. Move to AI Readiness Review when you need the cause. Move to Signal Repair when the weak point is clear. Use Readiness Control when you need ongoing watch.",
+          "Start with the Free Scan if you are unsure. Move to Deep Review when you need the cause. Move to Build Fix when the weak point is clear. Use Ongoing Control when you need ongoing watch.",
       },
       {
         question: "Can I skip straight to a paid plan?",
@@ -139,7 +139,7 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "What does Cendorq improve?",
         answer:
-          "Cendorq is built to improve clarity, trust, proof, visibility readiness, and the path that helps a customer understand and choose the business.",
+          "Cendorq is built to improve visibility, clarity, trust, proof, readiness, and the path that helps a customer understand and choose the business.",
       },
       {
         question: "Will this bring results right away?",
@@ -185,7 +185,7 @@ const QUICK_LINKS = [
   { label: "Start Free Scan", href: "/free-check" },
   { label: "Customer access", href: "/login" },
   { label: "Compare plans", href: "/plans" },
-  { label: "Contact", href: "/contact" },
+  { label: "Connect", href: "/connect" },
 ] as const;
 
 export default function FaqPage() {
