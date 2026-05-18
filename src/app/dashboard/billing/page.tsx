@@ -35,7 +35,7 @@ const PLAN_DETAIL_PATH: Record<CendorqPaidPlanKey, string> = {
 
 const BILLING_STATUS = [
   { label: "Current access", value: "Free Scan + protected workspace", detail: "Paid readiness depth appears here after checkout, activation, or subscription state changes." },
-  { label: "Next depth", value: "Review", detail: "Use AI Readiness Review before bigger repairs when the cause is still uncertain." },
+  { label: "Next depth", value: "Review", detail: "Use Deep Review before bigger fixes when the cause is still uncertain." },
   { label: "Safety", value: "No private payment details", detail: "Support can help without card numbers, private keys, bank details, passwords, or tokens." },
 ] as const;
 
@@ -43,7 +43,7 @@ const PAID_PLAN_COMMANDS = [
   {
     planKey: "deep-review",
     command: "Review",
-    title: "AI Readiness Review",
+    title: "Deep Review",
     moment: "You need the real reason before spending more money.",
     plan: DEEP_REVIEW,
     value: getPlanValueDelivery("deep-review"),
@@ -54,24 +54,24 @@ const PAID_PLAN_COMMANDS = [
   {
     planKey: "build-fix",
     command: "Repair",
-    title: "Signal Repair",
+    title: "Build Fix",
     moment: "You know the weak point and need scoped improvement.",
     plan: BUILD_FIX,
     value: getPlanValueDelivery("build-fix"),
     revenueStage: getCendorqRevenueStage(BUILD_FIX.name),
-    activation: "Unlocks scoped repair intake, repair-target confirmation, approved details, and delivery progress.",
+    activation: "Unlocks scoped fix intake, fix-target confirmation, approved details, and delivery progress.",
     exclusion: "Does not unlock full review, unlimited site rebuild, monthly monitoring, or unapproved production changes.",
   },
   {
     planKey: "ongoing-control",
     command: "Control",
-    title: "Readiness Control",
+    title: "Ongoing Control",
     moment: "You need recurring review and monthly decision support.",
     plan: ONGOING_CONTROL,
     value: getPlanValueDelivery("ongoing-control"),
     revenueStage: getCendorqRevenueStage(ONGOING_CONTROL.name),
     activation: "Unlocks recurring review, monthly priority selection, alerts, trend awareness, and decision support.",
-    exclusion: "Does not unlock unlimited Signal Repair work, a full AI Readiness Review every month, ad management, ranking guarantees, or guaranteed AI placement.",
+    exclusion: "Does not unlock unlimited Build Fix work, a full Deep Review every month, ad management, ranking guarantees, or guaranteed AI placement.",
   },
 ] as const satisfies readonly {
   planKey: CendorqPaidPlanKey;
@@ -124,7 +124,7 @@ export default function BillingPage() {
         <div className="relative overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/74 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
           <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Review</h2>
-          <p className="mt-5 text-base font-medium leading-8 text-slate-600">Use AI Readiness Review when the first signal matters enough that guessing is too expensive.</p>
+          <p className="mt-5 text-base font-medium leading-8 text-slate-600">Use Deep Review when the first signal matters enough that guessing is too expensive.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {BILLING_STATUS.slice(0, 2).map((item) => (
               <article key={item.label} className="rounded-[1.6rem] border border-cyan-100 bg-cyan-50/50 p-5 shadow-sm">
@@ -201,7 +201,7 @@ export default function BillingPage() {
       </section>
 
       <section className="sr-only" aria-label="Account access readiness standard">
-        Readiness plan depth. Light billing page. No black billing blocks. No dark blue billing blocks. Account access control center. Know what is active, what unlocked, and what depth comes next. Readiness-depth control point for access, boundaries, recovery, and the next business move. Current access. Next depth. Safety. Paid readiness depth. Review. Repair. Control. Payment should unlock the right readiness layer. Billing actions route to plan detail pages before payment. AI Readiness Review $497. Signal Repair $1,497. Readiness Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Readiness plan depth. Light billing page. No black billing blocks. No dark blue billing blocks. Account access control center. Know what is active, what unlocked, and what depth comes next. Readiness-depth control point for access, boundaries, recovery, and the next business move. Current access. Next depth. Safety. Paid readiness depth. Review. Repair. Control. Payment should unlock the right readiness layer. Billing actions route to plan detail pages before payment. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
