@@ -47,4 +47,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Canonical route validation passed for ${canonicalRoutes.length} route and orchestration dependencies, including public fallback, FAQ, Connect, sitemap, and robots surfaces.`);
+console.log(`Canonical route validation passed for ${canonicalRoutes.length} route and orchestration dependencies, including public fallback, FAQ, Contact Us on /connect, sitemap, and robots surfaces.`);
