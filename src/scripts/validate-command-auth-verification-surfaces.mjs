@@ -11,64 +11,54 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-auth-verification-surfaces.mjs";
 
 expect(signupPath, [
-  "Verified workspace trust surface",
-  "Create the verified workspace before private results appear.",
-  "Verify once. Continue safely.",
-  "Signup trust path",
-  "Signup safety standard",
-  "Trust starts before the dashboard opens.",
-  "No dashboard or result access before email confirmation.",
-  "No account-existence leakage",
-  "No private data dump",
-  "No fake urgency",
-  "No hidden checkout pressure",
-  "Provider signup, email magic link, and password fallback remain available.",
-  "shadow-[0_28px_110px_rgba(2,8,23,0.42)]",
+  "Start with the Free Scan.",
+  "Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.",
+  "Already have an account?",
+  "Use customer access",
+  "Use the same email you used for your Free Scan, form, or plan.",
+  "Your account starts with the scan.",
+  "Signup points first-time visitors to Free Scan.",
   "hover:-translate-y-0.5",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
 ]);
 
 expect(loginPath, [
-  "Customer re-entry",
-  "Return to the exact customer moment that needs action.",
-  "Magic link first",
-  "Customer re-entry paths",
-  "Login safety standard",
-  "Re-entry should restore context without leaking state.",
-  "Magic-link-first return path",
-  "Passkey-ready access",
-  "Password fallback",
-  "Protected results stay under dashboard routes",
-  "No account-existence leakage",
-  "No paid-plan pressure before evidence",
-  "shadow-[0_28px_110px_rgba(2,8,23,0.42)]",
+  "Customer access | Cendorq",
+  "Access your Cendorq account.",
+  "Use the same email you used for your Free Scan, form, or plan.",
+  "Return with your email.",
+  "No password needed.",
+  "Send secure access link",
+  "First time here?",
+  "Provider sign-in is hidden until it is fully ready.",
+  "Free Scan starts the account. Access brings customers back.",
   "hover:-translate-y-0.5",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
 ]);
 
 expect(verifyPath, [
-  "Email verification gate",
-  "Confirm the inbox before private work opens.",
-  "Verified destinations",
-  "Verification safety standard",
-  "Protect access without creating friction or leakage.",
-  "Cendorq Support at support@cendorq.com",
-  "Verification proves inbox ownership",
-  "No account-existence leakage",
-  "Free Scan result access remains dashboard-only at /dashboard/reports/free-scan.",
-  "verification click redirects to dashboard",
-  "Your welcome email is sent one time after verified profile creation.",
-  "shadow-[0_28px_110px_rgba(2,8,23,0.42)]",
+  "Confirm your email | Cendorq",
+  "Check your email to continue.",
+  "Use the secure Cendorq link to verify the inbox.",
+  "Request a new link",
+  "Start Free Scan",
+  "Confirm once.",
+  "Find the message from Cendorq Support.",
+  "One inbox. One customer record. One correct next step.",
+  "If Cendorq cannot find a customer record for the verified identity, the next step is the Free Scan.",
   "hover:-translate-y-0.5",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
 ]);
 
 expect(routesChainPath, [validatorPath]);
 
 forbidden(signupPath, [
+  "Verified workspace trust surface",
+  "Create the verified workspace before private results appear.",
+  "Provider signup, email magic link, and password fallback remain available.",
   "ACCESS_TO_FIRST_SIGNAL_JOURNEY",
   "FIRST_SIGNAL_HANDOFF_STANDARDS",
   "ONBOARDING_OPERATING_SNAPSHOT",
@@ -78,6 +68,10 @@ forbidden(signupPath, [
 ]);
 
 forbidden(loginPath, [
+  "Customer re-entry",
+  "Return to the exact customer moment that needs action.",
+  "Passkey-ready access",
+  "Password fallback",
   "REENTRY_REASONS",
   "REENTRY_DECISION_PATHS",
   "REENTRY_SAFETY_STANDARDS",
@@ -85,6 +79,8 @@ forbidden(loginPath, [
 ]);
 
 forbidden(verifyPath, [
+  "Email verification gate",
+  "Confirm the inbox before private work opens.",
   "VERIFICATION_TO_RESULT_STANDARDS",
   "VERIFICATION_SAFETY_NOTES",
   "AFTER_CONFIRMATION_PATH",
@@ -102,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Auth and verification surface validation passed with trust-gated signup, safe re-entry, and dashboard-only verified result access.");
+console.log("Auth and verification surface validation passed with Free Scan-first signup, simple email access, and safe verification path.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
