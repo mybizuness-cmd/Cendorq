@@ -34,7 +34,7 @@ const PLAN_DETAIL_PATH: Record<CendorqPaidPlanKey, string> = {
 };
 
 const BILLING_STATUS = [
-  { label: "Current access", value: "Free Scan + protected workspace", detail: "Paid readiness depth appears here after checkout, activation, or subscription state changes." },
+  { label: "Current access", value: "Free Scan + protected account", detail: "Paid readiness depth appears here after checkout, activation, or subscription state changes." },
   { label: "Next depth", value: "Review", detail: "Use Deep Review before bigger fixes when the cause is still uncertain." },
   { label: "Safety", value: "No private payment details", detail: "Support can help without card numbers, private keys, bank details, passwords, or tokens." },
 ] as const;
