@@ -36,7 +36,7 @@ const SUBJECT_BY_MOMENT: Record<PlanValueCommunicationMoment, string> = {
 };
 
 export const PLAN_VALUE_COMMUNICATION_PROHIBITED_CLAIMS = [
-  "Free Scan is a full diagnosis",
+  "Free Scan is a full review",
   "Deep Review includes implementation",
   "Build Fix includes unlimited implementation",
   "Build Fix includes monthly monitoring",
@@ -70,7 +70,7 @@ export function projectPlanValueCommunication(
 
 export const PLAN_VALUE_COMMUNICATION_RULES = [
   "Every email, notification, and dashboard next action must preserve the plan boundary.",
-  "Free Scan communications must educate from a first visible signal without presenting a full diagnosis.",
+  "Free Scan communications must educate from a first visible signal without presenting a full review.",
   "Deep Review communications must focus on evidence-backed review and cause-level clarity without promising implementation.",
   "Build Fix communications must focus on scoped implementation without implying unlimited fixes or monthly monitoring.",
   "Ongoing Control communications must focus on recurring monitoring and monthly decisions without implying unlimited Build Fix work.",
