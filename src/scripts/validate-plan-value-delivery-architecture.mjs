@@ -21,7 +21,7 @@ expect("src/lib/plan-value-delivery-architecture.ts", [
   "PLAN_VALUE_SEPARATION_RULES",
   "PLAN_VALUE_NO_OVERLAP_MATRIX",
   "Free Scan identifies a first visible signal",
-  "Deep Review diagnoses the full reason",
+  "Deep Review explains the reason",
   "Build Fix implements a scoped improvement",
   "Ongoing Control monitors and guides monthly decisions",
   "Never sell Free Scan as a full diagnosis",
@@ -64,9 +64,9 @@ expect("src/lib/pricing-checkout-orchestration.ts", [
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
-  "Get the full reason customers hesitate",
-  "Fix the weak page, message, proof, or action path",
-  "Keep visibility, trust, search, AI answers, and customer friction under monthly control",
+  "Understand what is weakening business visibility, clarity, trust, proof, or choice before buying repair work.",
+  "Improve the page, message, proof, or action path that makes the business harder to see, understand, trust, or choose.",
+  "Keep visibility, clarity, trust, public signals, AI readiness, and customer action paths under ongoing review.",
 ]);
 
 forbidden(files, [
@@ -79,6 +79,9 @@ forbidden(files, [
   "full diagnosis" + " included in Free Scan",
   "Deep Review implementation included",
   "Ongoing Control includes unlimited fixes",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 if (failures.length) {
@@ -87,7 +90,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan value delivery validation passed. Free Scan, Deep Review, Build Fix, and Ongoing Control remain distinct, high-value, non-overlapping offers.");
+console.log("Plan value delivery validation passed. Free Scan, Deep Review, Build Fix, and Ongoing Control remain distinct, high-value, non-overlapping offers with current customer-facing plan names.");
 
 function expect(file, phrases) {
   if (!existsSync(join(root, file))) return;
