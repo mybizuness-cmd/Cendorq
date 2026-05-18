@@ -139,8 +139,8 @@ export const CUSTOMER_PLATFORM_RULES = [
 
 export const CUSTOMER_DASHBOARD_ZONES = [
   { key: "executive-home", label: "Executive home", purpose: "Give immediate clarity on business, plan, email verification, scan/report status, scorecards, and next best action.", requiredElements: ["business logo/name", "plan badge", "verification badge", "scan/report status", "top scorecards", "next best action", "support shortcut"], conversionRole: "Make the correct next plan feel obvious and valuable without hiding current-plan limits." },
-  { key: "report-vault", label: "Report vault", purpose: "Store Free Scan, Full Diagnosis, Optimization, and Monthly Control outputs with version, date, confidence, and status metadata.", requiredElements: ["report cards", "plan stage", "version", "delivered date", "confidence labels", "download/view action", "correction history marker"], conversionRole: "Show what the customer already received and what deeper plans unlock next." },
-  { key: "growth-roadmap", label: "Growth roadmap", purpose: "Convert findings into a clear timeline of recommended actions, open questions, fixes, and monitoring steps.", requiredElements: ["issue priority", "recommended sequence", "impact explanation", "confidence", "plan needed", "completion status", "next milestone"], conversionRole: "Position Optimization and Monthly Control as logical continuation, not pressure selling." },
+  { key: "report-vault", label: "Report vault", purpose: "Store Free Scan, Deep Review, Build Fix, and Ongoing Control outputs with version, date, confidence, and status metadata.", requiredElements: ["report cards", "plan stage", "version", "delivered date", "confidence labels", "download/view action", "correction history marker"], conversionRole: "Show what the customer already received and what deeper plans unlock next." },
+  { key: "growth-roadmap", label: "Growth roadmap", purpose: "Convert findings into a clear timeline of recommended actions, open questions, fixes, and monitoring steps.", requiredElements: ["issue priority", "recommended sequence", "impact explanation", "confidence", "plan needed", "completion status", "next milestone"], conversionRole: "Position Build Fix and Ongoing Control as logical continuation, not pressure selling." },
   { key: "billing-and-plan-center", label: "Billing and plan center", purpose: "Let customers see plan, invoices, payment status, upgrades, subscription state, and billing portal actions.", requiredElements: ["current plan", "entitlements", "invoice links", "payment status", "upgrade CTA", "billing portal", "renewal or status message"], conversionRole: "Make upgrades simple, transparent, and tied to plan value." },
   { key: "trust-and-proof-center", label: "Trust and proof center", purpose: "Explain methodology, evidence classes, confidence labels, limitations, guarantees, and correction window in customer-safe language.", requiredElements: ["methodology summary", "evidence legend", "confidence explanation", "guarantee limits", "correction window", "support contact"], conversionRole: "Increase trust so conversion comes from proof and transparency." },
 ] as const satisfies readonly CustomerDashboardZone[];
@@ -166,14 +166,14 @@ export const CUSTOMER_EMAIL_SEQUENCE_RULES = [
     key: "free-scan-result-email",
     label: "Free Scan result email",
     trigger: "Free Scan result ready",
-    requirement: "Send a branded Free Scan result email with a concise copy of the scan summary, dashboard link, confidence/limitation language, and a truthful Full Diagnosis call to action.",
-    requiredControls: ["result-ready trigger", "summary copy", "dashboard link", "Full Diagnosis CTA", "confidence language", "preference compliance where required", "delivery event"],
-    blockedBehavior: ["full diagnosis claims", "unsupported urgency", "missing dashboard link", "no confidence language", "spammy CTA"],
+    requirement: "Send a branded Free Scan result email with a concise copy of the scan summary, dashboard link, confidence/limitation language, and a truthful Deep Review call to action.",
+    requiredControls: ["result-ready trigger", "summary copy", "dashboard link", "Deep Review CTA", "confidence language", "preference compliance where required", "delivery event"],
+    blockedBehavior: ["full review claims", "unsupported urgency", "missing dashboard link", "no confidence language", "spammy CTA"],
   },
   {
     key: "paid-plan-email-sequences",
     label: "Paid plan email sequences",
-    trigger: "Full Diagnosis, Optimization, or Monthly Control purchase/status event",
+    trigger: "Deep Review, Build Fix, or Ongoing Control purchase/status event",
     requirement: "Paid plan emails must be nuanced by plan stage: onboarding, status, delivery, next-step, billing, correction, and renewal/retention messages should match the customer's current plan and truthfully guide the next logical action.",
     requiredControls: ["plan-stage template", "billing state", "report status", "next-plan CTA", "support link", "correction path", "preference controls"],
     blockedBehavior: ["same sequence for every plan", "wrong plan CTA", "missing billing context", "missing correction notice", "hype without proof"],
