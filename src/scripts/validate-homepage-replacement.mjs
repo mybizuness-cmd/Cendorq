@@ -45,6 +45,7 @@ for (const phrase of [
   "View Plans",
   "Plans",
   "FAQ",
+  "Contact Us",
   "Access",
   "Account",
   "Dashboard",
@@ -62,6 +63,7 @@ for (const phrase of [
   "Unified Cendorq Experience System",
   "href=\"/free-check\"",
   "href=\"/plans\"",
+  "href=\"/connect\"",
   "href: \"/faq\"",
   "href: \"/plans/deep-review\"",
   "href: \"/plans/build-fix\"",
@@ -89,6 +91,7 @@ for (const phrase of [
   "Clarity\", \"Trust",
   "Be clear",
   "Connect with Cendorq",
+  "Connect utility",
   "Simple path",
   "Run the Free Scan before buying the bigger fix.",
   "Become easier to find, trust, and choose.",
@@ -140,4 +143,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is cinematic, uncluttered, customer-facing, search-compliant, and positioned around AI visibility, AI readiness, and a distinct Cendorq experience system.");
+console.log("Homepage replacement validation passed. Public shell is cinematic, uncluttered, customer-facing, search-compliant, positioned around AI visibility and AI readiness, and aligned with Contact Us on /connect.");
