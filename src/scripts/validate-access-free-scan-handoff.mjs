@@ -48,13 +48,14 @@ expect(verifyPath, [
 
 expect(freeCheckPath, [
   "Free Scan | Cendorq",
-  "Find the first place your business may be unclear.",
-  "Cendorq looks at the signals around your business",
-  "Share what customers already see.",
-  "Cendorq finds the first weak signal.",
-  "Open the result in your workspace.",
-  "Is the Free Scan a full diagnosis?",
-  "No. It is a first signal that helps you decide whether deeper review or repair work makes sense.",
+  "See where your business may be missing or unclear.",
+  "Cendorq checks the signals around your business",
+  "Share what customers can see now.",
+  "Cendorq checks the first visibility and readiness signal.",
+  "Open the result in your account.",
+  "Is the Free Scan a full review?",
+  "No. It is a first signal that shows where visibility or readiness may be weak, so you can decide whether deeper review or repair work makes sense.",
+  "We could not find a Free Scan or plan for that email. Start the Free Scan below.",
 ]);
 
 expect(freeCheckFormPath, [
@@ -94,7 +95,10 @@ forbidden(verifyPath, [
 ]);
 
 forbidden(freeCheckPath, [
-  "free full diagnosis",
+  "customer record",
+  "protected customer dashboard",
+  "Open the result in your workspace",
+  "full diagnosis",
   "free implementation",
   "free monthly monitoring",
   "we guarantee ranking",
