@@ -1,14 +1,16 @@
 # Cendorq
 
-Cendorq is AI Engine Readiness for businesses that need to become easier for customers, search, maps, reviews, and AI engines to understand, trust, compare, and choose before spending more in the wrong place.
+Cendorq is AI Engine Visibility and Readiness for businesses that need to see where they appear, where they are missing, why they are not being understood, and what to fix so customers, search, maps, reviews, and AI engines can understand, trust, compare, and choose them before they spend more in the wrong place.
+
+Cendorq should not stop at visibility. Visibility shows where the business is seen. Readiness explains why the business is or is not being understood. Execution fixes the weak points. Ongoing Control keeps visibility and readiness from drifting as search, AI answers, competitors, and customers change.
 
 The public buyer path is intentionally simple:
 
-1. **Free Scan** — start here when the first weak signal is unclear
+1. **Free Scan** — show the first visibility and readiness signals when the weak point is unclear
 2. **Plans** — choose the depth that fits the business problem
-3. **Deep Review** — understand what is weakening clarity, trust, proof, or choice
+3. **Deep Review** — understand what is weakening visibility, clarity, trust, proof, or choice
 4. **Build Fix** — improve the page, message, proof, or action path that matters most
-5. **Ongoing Control** — keep readiness from drifting as search, AI answers, competitors, and customers change
+5. **Ongoing Control** — keep visibility and readiness from drifting as search, AI answers, competitors, and customers change
 6. **FAQ** — answer quick buyer questions without slowing the path
 7. **Connect** — use a direct conversation when fit, scope, or timing needs clarification
 
@@ -276,7 +278,7 @@ These files are intentional and protected:
 
 Use plain customer language:
 
-- AI Engine Readiness
+- AI Engine Visibility and Readiness
 - Free Scan
 - Plans
 - Deep Review
@@ -287,6 +289,10 @@ Use plain customer language:
 - Access
 - Account
 - Dashboard
+- visibility shows where the business is seen
+- readiness explains why the business is or is not understood
+- execution fixes the weak points
+- control keeps visibility and readiness from drifting
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
