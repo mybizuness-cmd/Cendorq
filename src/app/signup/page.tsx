@@ -3,8 +3,8 @@ import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
 export const metadata = buildMetadata({
-  title: "Start access | Cendorq",
-  description: "Start Cendorq access through the Free Scan, or return with the email already connected to a scan, plan, report, billing, or support record.",
+  title: "Start Free Scan | Cendorq",
+  description: "Start with the Free Scan, or return with the email already connected to your Cendorq scan, form, or plan.",
   path: "/signup",
   noIndex: true,
 });
@@ -13,9 +13,9 @@ type SignupSearchParams = { returnTo?: string };
 type SignupPageProps = { searchParams?: Promise<SignupSearchParams> | SignupSearchParams };
 
 const ACCESS_POINTS = [
-  { title: "Free Scan first", copy: "New customer access starts with the Free Scan so Cendorq understands the business before a dashboard opens." },
-  { title: "One access page", copy: "Returning customers use the same customer access page with the email or provider from their scan, plan, report, billing, or support." },
-  { title: "No blank account", copy: "If we cannot find your workspace, we send you to the Free Scan instead of opening an empty dashboard." },
+  { title: "Start Free Scan", copy: "New visitors should begin here so Cendorq can understand the business." },
+  { title: "Use the same email", copy: "Returning customers should use the email from their scan, form, or plan." },
+  { title: "Open real results", copy: "The dashboard should open only when there is something useful to show." },
 ] as const;
 
 export default async function SignupPage({ searchParams }: SignupPageProps) {
@@ -29,8 +29,8 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.076em] text-slate-950">Start with the Free Scan.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">The Free Scan gives Cendorq the business context your workspace needs. If you already have an account, return with the same email you used for your Free Scan or plan.</p>
-            <p className="mt-3 max-w-2xl text-xs font-semibold leading-5 text-slate-500">Already have an account? <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className="text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Go to customer access</Link>. If you used a different email when you filled out the form or bought a plan, try that one.</p>
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.</p>
+            <p className="mt-3 max-w-2xl text-xs font-semibold leading-5 text-slate-500">Already have an account? <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className="text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Use customer access</Link>. Use the same email you used for your Free Scan, form, or plan.</p>
             <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
               <Link href="/free-check?access=free-scan-required&method=signup" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Start Free Scan</Link>
               <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Already have an account?</Link>
@@ -41,9 +41,8 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
             <div className="rounded-[1.9rem] border border-slate-200 bg-white p-5 sm:p-7">
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Cendorq access</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Your workspace starts with the scan.</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">If you already submitted a Free Scan or bought a plan, use customer access with the same email or provider. If not, start the scan first.</p>
-                <p className="mt-2 text-xs font-semibold leading-5 text-slate-500">Already have an account? <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className="text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Use customer access</Link>.</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Your account starts with the scan.</h2>
+                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">If you already submitted a Free Scan or bought a plan, use customer access with the same email. If not, start the scan first.</p>
               </div>
 
               <div className="mt-6 grid gap-3">
@@ -65,7 +64,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
       </section>
 
       <section className="sr-only" aria-label="Signup access guardrails">
-        Start access is a Free Scan handoff. No empty workspace accounts. Unknown visitors start Free Scan. Returning customers use customer access with the same email they used for a Free Scan or plan.
+        Signup points first-time visitors to Free Scan. Returning customers use customer access with the same email used for a Free Scan or plan.
       </section>
     </main>
   );
