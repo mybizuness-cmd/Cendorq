@@ -8,7 +8,7 @@ Cendorq is built around one protected buyer path:
 4. Build Fix
 5. Ongoing Control
 6. FAQ
-7. Connect
+7. Contact Us
 
 The homepage should stay focused on getting the right customer into the Free Scan. Do not turn the homepage back into a dashboard, route console, pricing comparison, or multi-offer page.
 
@@ -146,7 +146,7 @@ These routes must stay healthy:
 - `/plans/build-fix`
 - `/plans/ongoing-control`
 - `/faq`
-- `/connect`
+- `/connect` (Contact Us)
 
 Fallback surfaces must also stay present and command-path aligned:
 
@@ -177,9 +177,17 @@ Legacy routes should redirect only into the current buyer path:
 - `/optimization` -> `/plans/build-fix`
 - `/monthly-partner` -> `/plans/ongoing-control`
 
-Do not list redirected legacy routes in sitemap entries, robots allowlists, navigation, footer links, metadata, manifest shortcuts, or active CTA destinations. FAQ is not a legacy redirect; it is an active public route for quick buyer answers.
+Do not list redirected legacy routes in sitemap entries, robots allowlists, navigation, footer links, metadata, manifest shortcuts, or active CTA destinations. FAQ is not a legacy redirect; it is an active public route for quick buyer answers. Contact Us is served by `/connect`; old `/contact` should redirect into it.
 
 Production smoke must verify each legacy URL returns a real redirect status and a `Location` header before following it into the current buyer path. Do not weaken this into final-destination-only validation.
+
+## Contact Us rule
+
+Customer-facing language should say **Contact Us**, not Connect.
+
+The stable route remains `/connect` so legacy redirects and route checks stay predictable.
+
+Contact Us should use direct email to `support@cendorq.com`. Do not add a public message box unless there is a real, tested send pipeline that captures the customer's email address and sends the message to the support inbox. Until then, ask customers to email from the address where they want the reply.
 
 ## Discovery and trust files
 
@@ -274,7 +282,7 @@ Use plain buyer language:
 - Build Fix
 - Ongoing Control
 - FAQ
-- Connect
+- Contact Us
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
@@ -286,6 +294,7 @@ Avoid reviving old public labels:
 - Presence Infrastructure
 - Presence Command
 - Start Search Presence Scan
+- customer-facing Connect labels
 
 ## Homepage rule
 
