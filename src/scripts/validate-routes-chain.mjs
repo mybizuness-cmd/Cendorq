@@ -27,6 +27,7 @@ const validators = [
   "src/scripts/validate-command-center-panel-safety.mjs",
   "src/scripts/validate-controlled-continuous-evolution.mjs",
   "src/scripts/validate-controlled-maintenance-contracts.mjs",
+  "src/scripts/validate-production-smoke-finalization-contracts.mjs",
   "src/scripts/validate-report-truth-engine.mjs",
   "src/scripts/validate-report-evidence-orchestration.mjs",
   "src/scripts/validate-report-evidence-orchestration-runtime.mjs",
