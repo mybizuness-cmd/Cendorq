@@ -272,6 +272,8 @@ function safeHeaders() {
   return {
     "Cache-Control": "no-store, max-age=0",
     "Content-Type": "application/json; charset=utf-8",
+    "X-Content-Type-Options": "nosniff",
     "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+    "Referrer-Policy": "same-origin",
   } as const;
 }
