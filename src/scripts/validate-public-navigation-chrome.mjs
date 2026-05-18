@@ -68,6 +68,11 @@ expect(faqPath, [
   "Get clear answers before the next move.",
   "Start with the Free Scan",
   "Already have an account? Use the same email you used for your Free Scan, form, or plan.",
+  "What is the difference between Free Scan, Deep Review, Build Fix, and Ongoing Control?",
+  "Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Ongoing Control keeps watch over time.",
+  "Cendorq is built to improve visibility, clarity, trust, proof, readiness",
+  "Connect",
+  "href: \"/connect\"",
   "FAQPage",
   "Does Cendorq guarantee rankings, leads, revenue, or AI placement?",
 ]);
@@ -115,6 +120,11 @@ forbidden(footerPath, [
 ]);
 
 forbidden(faqPath, [
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "href: \"/contact\"",
+  "label: \"Contact\"",
   "guaranteed rankings, leads, revenue, or AI placement. Yes",
   "workspace theory",
   "orchestration",
@@ -138,7 +148,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, FAQ routing, and visibility plus readiness footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Connect routing, and visibility plus readiness footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
