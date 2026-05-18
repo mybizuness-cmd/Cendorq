@@ -11,12 +11,13 @@ const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-plans-excellence.mjs";
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 expect(pricingContractPath, [
   "CENDORQ_PLAN_PRICES",
-  "name: \"AI Readiness Review\"",
-  "name: \"Signal Repair\"",
-  "name: \"Readiness Control\"",
+  "name: \"Deep Review\"",
+  "name: \"Build Fix\"",
+  "name: \"Ongoing Control\"",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
@@ -31,47 +32,38 @@ expect(componentPath, [
   "What this helps you decide",
   "Best when",
   "Not the right first step when",
-  "Plan guardrails",
-  "Buy the right depth.",
-  "Use AI Readiness Review when the business needs evidence before repair.",
-  "Use Signal Repair when the weak point is clear enough to improve.",
-  "Use Readiness Control when the business needs ongoing attention.",
-  "No fake urgency.",
-  "No unsupported revenue promise.",
-  "No guaranteed ranking or AI placement.",
+  "Use this when evidence should guide the next investment.",
+  "Use this when the weak point is clear enough to improve.",
+  "Use this when the business needs ongoing attention and readiness control.",
 ]);
 
 expect(plansPath, [
-  "Choose the right AI-readiness depth.",
-  "Start with a first signal. Move deeper only when the evidence supports it.",
-  "Scan",
-  "Review",
-  "Repair",
-  "Control",
+  "Choose the right visibility and readiness depth.",
+  "Free Scan shows the first signal.",
+  "Deep Review explains the cause.",
+  "Build Fix improves the weak point.",
+  "Ongoing Control keeps visibility and readiness from drifting.",
   "Start Free Scan",
-  "Start AI Readiness Review",
-  "Start Signal Repair",
-  "Start Readiness Control",
+  "Open Deep Review",
+  "Open Build Fix",
+  "Open Ongoing Control",
   "One path. Four depths.",
-  "Free Scan $0",
-  "AI Readiness Review $497",
-  "Signal Repair $1,497",
-  "Readiness Control $597/mo",
 ]);
 
 expect(checkoutStartPath, [
   "Start checkout | Cendorq",
-  "Secure checkout",
-  "Stripe link coming next",
-  "Checkout metadata",
+  "secure Stripe payment",
+  "redirect(buildCheckoutDestination(plan.paymentLink, planKey, searchParams))",
+  "client_reference_id",
+  "cendorq_plan",
 ]);
 
 expect(checkoutSuccessPath, [
-  "Checkout complete | Cendorq",
+  "Payment complete | Cendorq",
   "Payment complete",
-  "getCendorqRevenueStage",
-  "What Cendorq needs next",
-  "Post-payment dashboard activation",
+  "CheckoutDashboardRedirect",
+  "One next step",
+  "Payment confirmed",
 ]);
 
 expect(packagePath, ["validate:routes"]);
@@ -80,8 +72,8 @@ expect(routesChainPath, [validatorPath]);
 boundedLength(componentPath, 15500);
 boundedLength(plansPath, 16000);
 
-forbidden(componentPath, blockedPlanPhrases());
-forbidden(plansPath, [...blockedPlanPhrases(), "$750+", "$300/mo", "starting at", "Unlock Build Fix", "Compare pricing", "Diagnose"]);
+forbidden(componentPath, [...blockedPlanPhrases(), ...legacyPlanLabels]);
+forbidden(plansPath, [...blockedPlanPhrases(), ...legacyPlanLabels, "$750+", "$300/mo", "starting at", "Unlock Build Fix", "Compare pricing", "Diagnose"]);
 
 if (failures.length) {
   console.error("Public plans command alignment validation failed:");
@@ -89,7 +81,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans command alignment validation passed with Scan, Review, Repair, Control positioning and AI-readiness plan names.");
+console.log("Public plans command alignment validation passed with Scan, Review, Fix, Control positioning and current public plan names.");
 
 function blockedPlanPhrases() {
   return [
