@@ -70,7 +70,8 @@ expect(loginPath, [
   "session-unavailable",
   "session-required",
   "This browser is not remembered yet.",
-  "This browser does not have an active Cendorq session yet.",
+  "Use customer access to continue.",
+  "Use the email from your Free Scan or plan.",
 ]);
 
 expect(routesChainPath, [validatorPath]);
@@ -100,7 +101,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, safe login redirects, no-store headers, and route-chain coverage.");
+console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, simple access copy, safe login redirects, no-store headers, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
