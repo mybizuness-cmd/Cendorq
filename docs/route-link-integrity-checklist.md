@@ -16,7 +16,7 @@ Protect the core path:
 4. Build Fix
 5. Ongoing Control
 6. FAQ
-7. Connect
+7. Contact Us
 
 ## Required checks
 
@@ -24,6 +24,9 @@ Before merging route or link changes, confirm:
 
 - Critical public routes still exist.
 - FAQ stays an active public route and must not redirect to Plans.
+- `/connect` remains the stable Contact Us route.
+- Customer-facing text says Contact Us, not Connect.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Primary navigation points to current canonical routes.
 - Footer links point to current canonical routes.
 - Buttons and CTAs match their destination.
@@ -49,7 +52,7 @@ Keep these routes healthy:
 - `/plans/build-fix`
 - `/plans/ongoing-control`
 - `/faq`
-- `/connect`
+- `/connect` for Contact Us
 
 Policy and trust routes may remain public when they are current:
 
@@ -83,6 +86,7 @@ For link or button text changes, confirm:
 - The label does not overpromise.
 - The label uses current buyer language.
 - The link does not create a competing path.
+- Contact Us labels point to `/connect`.
 
 ## Dead-end checks
 
@@ -91,7 +95,7 @@ For 404 or unavailable-route changes, confirm:
 - The buyer can recover quickly.
 - The Free Scan path is easy to reach.
 - FAQ is easy to reach when the buyer needs quick answers.
-- Connect is easy to reach when a conversation is needed.
+- Contact Us is easy to reach when a conversation is needed.
 - The page does not sound like an internal tool or route console.
 
 ## Validation expectation
@@ -108,7 +112,7 @@ pnpm build
 For production-impacting route or link changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -121,4 +125,5 @@ Do not use route or link work as a reason to add:
 - dead-end pages
 - dashboard behavior
 - route-console behavior
+- untested public message boxes
 - technical language that reduces buyer clarity
