@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -27,6 +28,9 @@ Before merging public UI or buyer-path changes, confirm:
 - Focus states are visible.
 - Buttons and links have clear accessible names.
 - Link text makes sense out of context.
+- Contact Us link text points to `/connect` and says Contact Us for customers.
+- Contact Us email link clearly exposes `support@cendorq.com` and is keyboard reachable.
+- No untested message-box UI appears as a working support form.
 - Headings follow a logical structure.
 - Form fields have labels or accessible names.
 - Error states are clear and not color-only.
@@ -44,7 +48,9 @@ For the homepage and main public path, confirm:
 - The Free Scan path is clear without relying on color alone.
 - Plans are understandable without dense comparison clutter.
 - Deep Review, Build Fix, and Ongoing Control are distinguishable by meaning, not only by layout.
-- Connect remains easy to reach.
+- FAQ is easy to reach for quick buyer answers.
+- Contact Us remains easy to reach for fit, scope, timing, or account help.
+- Contact Us does not visually replace Free Scan when the buyer is unsure.
 
 ## Copy checks
 
@@ -67,6 +73,7 @@ On small screens, confirm:
 - Content order still makes sense.
 - No horizontal scrolling is introduced.
 - Important cards, sections, and forms remain readable.
+- Contact Us email text is readable, tappable, and not clipped.
 
 ## Validation expectation
 
@@ -82,7 +89,7 @@ pnpm build
 For production-impacting UI changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -94,4 +101,5 @@ Do not use accessibility work as a reason to add:
 - dashboard behavior
 - route-console behavior
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity
