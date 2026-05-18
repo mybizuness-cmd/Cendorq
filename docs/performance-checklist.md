@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -31,6 +32,8 @@ Before merging public UI or buyer-path changes, confirm:
 - Third-party scripts are avoided unless clearly necessary.
 - Fonts, assets, and metadata do not create avoidable weight.
 - New components do not introduce layout shift.
+- Contact Us uses a lightweight direct email link to `support@cendorq.com` unless a real tested send pipeline exists.
+- No untested public message box adds unnecessary JavaScript, network behavior, or fake success states.
 - The homepage remains focused and not visually overloaded.
 
 ## Buyer-path checks
@@ -40,7 +43,9 @@ For the homepage and main public path, confirm:
 - The Free Scan action remains fast to find and fast to use.
 - Plans remain easy to scan without dense comparison clutter.
 - Deep Review, Build Fix, and Ongoing Control sections stay clear and lightweight.
-- Connect remains easy to reach.
+- FAQ remains easy to reach without slowing the path.
+- Contact Us remains easy to reach for fit, scope, timing, or account help.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
 - No slow-loading decorative element competes with the primary action.
 
 ## Mobile checks
@@ -51,6 +56,7 @@ On small screens, confirm:
 - Important content appears in a sensible order.
 - CTAs remain visible and tappable.
 - Cards and sections do not feel crowded.
+- Contact Us email text is readable, tappable, and not clipped.
 - The page can be understood without waiting for animation.
 
 ## Asset checks
@@ -77,7 +83,7 @@ pnpm build
 For production-impacting UI changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -89,4 +95,5 @@ Do not use performance work as a reason to add:
 - dashboard behavior
 - route-console behavior
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity
