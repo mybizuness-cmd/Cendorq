@@ -15,9 +15,12 @@ Focus only on whether a real buyer can understand and move through the public pa
 - Homepage points clearly to the Free Scan.
 - Plans are easy to compare.
 - Deep Review, Build Fix, and Ongoing Control are distinct.
-- Connect is easy to reach when a buyer needs conversation first.
+- FAQ is easy to reach for quick buyer questions.
+- Contact Us is easy to reach when a buyer needs fit, scope, timing, or account help.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - CTAs are clear, honest, and destination-matched.
-- No page adds clutter, competing paths, or internal-tool language.
+- No page adds clutter, competing paths, untested message boxes, or internal-tool language.
 
 ### Analysis 2: Production safety and operations review
 
@@ -25,6 +28,7 @@ Focus only on whether the system is safe to ship and operate:
 
 - Canonical routes remain protected.
 - Legacy routes redirect into the current buyer path.
+- `/contact` redirects to `/connect`.
 - Health and smoke checks still make sense.
 - Security, policy, privacy, and configuration surfaces stay aligned.
 - Release notes and checklist gates are current.
@@ -47,23 +51,23 @@ Run these after the three analyses.
 
 ### Hardening pass 1: Route and discovery hardening
 
-Check canonical routes, redirects, sitemap, robots, manifest, `llms.txt`, security contact, and public navigation.
+Check canonical routes, redirects, sitemap, robots, manifest, `llms.txt`, security contact, public navigation, `/connect` as Contact Us, and `/contact` redirect behavior.
 
 ### Hardening pass 2: Language and trust hardening
 
-Check buyer language, offer clarity, public claims, guarantees, policy language, stale labels, and credibility cues.
+Check buyer language, offer clarity, public claims, guarantees, policy language, stale labels, Contact Us wording, support email, and credibility cues.
 
 ### Hardening pass 3: Privacy and configuration hardening
 
-Check forms, analytics, logs, environment examples, public/private config boundaries, and safe placeholder values.
+Check forms, analytics, logs, environment examples, public/private config boundaries, safe placeholder values, Contact Us direct email, and no fake send behavior.
 
 ### Hardening pass 4: Integration and backend-readiness hardening
 
-Check third-party services, API handoffs, backend ZIP intake, error states, health checks, smoke checks, and rollback expectations.
+Check third-party services, API handoffs, backend ZIP intake, error states, health checks, smoke checks, support email behavior, and rollback expectations.
 
 ### Hardening pass 5: Manual QA and release hardening
 
-Check browser review, mobile review, buyer-path walkthrough, acceptance criteria, changelog entries, CI, and post-deploy smoke expectations.
+Check browser review, mobile review, buyer-path walkthrough, Contact Us email link behavior, acceptance criteria, changelog entries, CI, and post-deploy smoke expectations.
 
 ## Required evidence before merge
 
@@ -91,7 +95,7 @@ pnpm build
 For production-impacting readiness work, also run after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -102,5 +106,6 @@ Do not use final hardening work as a reason to add:
 - unreviewed backend behavior
 - unclear follow-up promises
 - public claims that are not supportable
+- untested public message boxes
 - homepage clutter
 - technical language that reduces buyer clarity
