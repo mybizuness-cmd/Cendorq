@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -24,6 +25,9 @@ Before merging analytics or tracking changes, confirm:
 - The tracking has a clear business reason.
 - Events use plain, stable names.
 - Events map to the buyer path without creating clutter.
+- Contact Us is measured as `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- Any future Contact Us form tracking avoids message body, private data, and fake success events.
 - No sensitive form content is collected.
 - No private customer data is logged or sent to third parties unnecessarily.
 - Tracking does not expose secrets, tokens, private keys, or credentials.
@@ -42,6 +46,7 @@ For event changes, confirm:
 - Event names avoid private data.
 - Similar events use consistent naming.
 - Deprecated events are not revived without a clear reason.
+- Contact Us event names should use clear labels such as `contact_us_email_click`, not vague Connect wording.
 
 ## Script and pixel checks
 
@@ -63,6 +68,7 @@ For tracking changes, confirm:
 - Query parameters are safe.
 - Debug logs are not enabled in production by default.
 - Data-use statements remain accurate.
+- Email click tracking does not expose the customer's message or private inbox details.
 
 ## Buyer-path measurement checks
 
@@ -71,7 +77,8 @@ Measurement should help answer:
 - Are buyers starting the Free Scan?
 - Are buyers comparing Plans?
 - Are buyers choosing Deep Review, Build Fix, or Ongoing Control?
-- Are buyers reaching Connect when they need conversation first?
+- Are buyers using FAQ when they need quick answers?
+- Are buyers reaching Contact Us when they need fit, scope, timing, or account help?
 - Are there broken steps or high-friction paths?
 
 ## Validation expectation
@@ -88,7 +95,7 @@ pnpm build
 For production-impacting analytics changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -100,5 +107,6 @@ Do not use analytics work as a reason to add:
 - unnecessary third-party scripts
 - blocking scripts
 - policy drift
+- untested public message boxes
 - homepage clutter
 - technical language that reduces buyer clarity
