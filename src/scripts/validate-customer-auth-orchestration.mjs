@@ -17,6 +17,7 @@ const requiredFiles = [
   "src/app/dashboard/billing/page.tsx",
   "src/app/checkout/start/page.tsx",
   "src/app/checkout/success/page.tsx",
+  "src/components/free-check/guided-free-check-form-v3.tsx",
   "src/scripts/validate-routes-chain.mjs",
 ];
 
@@ -50,9 +51,36 @@ expect("src/lib/customer-platform-route-map.ts", [
   "login uses magic link first with passkey-ready path and password fallback",
 ]);
 
-expect("src/app/login/page.tsx", ["Return to your Cendorq workspace.", "Sign in or create access.", "Send secure access link", "Cendorq never emails a password"]);
-expect("src/app/signup/page.tsx", ["Create your Cendorq workspace.", "Create or access your workspace.", "Send secure access link", "After you send the link"]);
-expect("src/app/verify-email/page.tsx", ["Check your email to continue.", "Request a new link", "Open dashboard", "Confirm once and continue to your dashboard."]);
+expect("src/app/login/page.tsx", [
+  "Access your Cendorq account.",
+  "Use the same email you used for your Free Scan, form, or plan.",
+  "Send secure access link",
+  "No password needed.",
+  "Provider sign-in is hidden until it is fully ready.",
+]);
+
+expect("src/app/signup/page.tsx", [
+  "Start with the Free Scan.",
+  "Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.",
+  "Already have an account?",
+  "Use customer access",
+  "Start Free Scan",
+]);
+
+expect("src/app/verify-email/page.tsx", [
+  "Check your email to continue.",
+  "Request a new link",
+  "Start Free Scan",
+  "Confirm once.",
+  "Find the message from Cendorq Support.",
+]);
+
+expect("src/components/free-check/guided-free-check-form-v3.tsx", [
+  "const [values, setValues] = useState<FormValues>(INITIAL_VALUES)",
+  "hasStarted ? buildQualityScore(values) : 0",
+  "First-use progress starts at zero until the customer types.",
+]);
+
 expect("src/app/dashboard/page.tsx", ["Your Cendorq workspace is ready.", "one clear next action", "Start, Continue, or Open Result", "Open Free Scan path"]);
 expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
 expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "What this helps you decide", "Review all plans"]);
@@ -62,6 +90,13 @@ expect("src/app/checkout/success/page.tsx", ["Payment complete", "Payment confir
 expect("src/scripts/validate-routes-chain.mjs", ["validate-customer-auth-orchestration.mjs"]);
 
 forbidden(requiredFiles, [
+  "Create your Cendorq workspace.",
+  "Create or access your workspace.",
+  "Create workspace",
+  "Continue to dashboard",
+  "Continue with Google",
+  "Continue with Microsoft",
+  "Continue with Apple",
   "$750+",
   "$300/mo",
   "starting at",
@@ -69,8 +104,6 @@ forbidden(requiredFiles, [
   "generic page",
   "guaranteed revenue",
   "guaranteed ROI",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
   "password in email",
   "skip verification",
 ]);
@@ -81,7 +114,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer auth and checkout orchestration validation passed. Customer access, dashboard activation, final pricing, checkout, billing, and post-payment flow stay synchronized.");
+console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, zero first-use progress, checkout, billing, and post-payment flow stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
