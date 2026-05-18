@@ -52,7 +52,7 @@ expect(sessionPath, [
 ]);
 
 expect(footerPath, [
-  "AI engine readiness for businesses that need to be understood, trusted, and chosen.",
+  "AI visibility and readiness for businesses that need to be seen, understood, trusted, and chosen.",
   "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.",
   "FAQ",
   "Privacy",
@@ -107,6 +107,7 @@ forbidden(headerPath, [
 ]);
 
 forbidden(footerPath, [
+  "AI engine readiness for businesses that need to be understood, trusted, and chosen.",
   "Find the break before you buy the fix.",
   "guaranteed ranking",
   "guaranteed ai placement",
@@ -137,7 +138,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, FAQ routing, and footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, FAQ routing, and visibility plus readiness footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
