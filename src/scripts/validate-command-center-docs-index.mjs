@@ -39,6 +39,12 @@ for (const file of requiredFiles) validateFileExists(file);
 validateTextFile("docs/command-center-docs-index.md", [
   "# Command Center Docs Index",
   "private documentation index",
+  "Public buyer-path guard",
+  "Contact Us",
+  "`/connect` as the stable Contact Us route",
+  "`/contact` redirecting into `/connect`",
+  "support@cendorq.com",
+  "no untested public message boxes or fake success states",
   "docs/command-design-operating-standard.md",
   "docs/command-design-release-checklist.md",
   ".github/PULL_REQUEST_TEMPLATE/command-design.md",
@@ -183,7 +189,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with command design, docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with command design, Contact Us support guard, docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required docs index dependency: ${path}`);
