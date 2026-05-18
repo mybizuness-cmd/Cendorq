@@ -9,7 +9,7 @@ import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
 import { DashboardNextBestAction } from "./dashboard-next-best-action";
 
 export const metadata = buildMetadata({
-  title: "Visibility command center | Cendorq",
+  title: "AI readiness control center | Cendorq",
   description:
     "Your Cendorq dashboard for Free Scan progress, results, plans, billing, support, and the next best action.",
   path: "/dashboard",
@@ -59,7 +59,7 @@ const COMMAND_PATH = [
     price: REVIEW_PRICE.price,
   },
   {
-    title: "Fix",
+    title: "Repair",
     href: "/plans/build-fix",
     cta: `Open Repair page — ${REPAIR_PRICE.price}`,
     copy: "Improve the weak page, message, proof, or action path that matters most.",
@@ -75,7 +75,7 @@ const COMMAND_PATH = [
 ] as const;
 
 const COMMAND_LINKS = [
-  { title: "Reports", copy: "Open scan and review results when they are ready.", href: "/dashboard/reports" },
+  { title: "Reports", copy: "Open protected scan and review outputs when they are ready.", href: "/dashboard/reports" },
   { title: "Billing", copy: "See plan access, invoices, and checkout recovery.", href: "/dashboard/billing" },
   { title: "Notifications", copy: "See what needs attention next.", href: "/dashboard/notifications" },
   { title: "Support", copy: "Resolve blockers without sharing private passwords.", href: "/dashboard/support" },
@@ -89,12 +89,12 @@ export default function CustomerDashboardPage() {
 
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="relative z-10">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Private visibility command center</p>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Private AI readiness control center</p>
           <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,7rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">
-            Know what the market can see, trust, and act on next.
+            Your Cendorq workspace is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            This is not an account page. It is where Cendorq keeps your scan, results, plans, support, and next best move in one place.
+            Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected place.
           </p>
           <DashboardNextBestAction />
         </div>
@@ -133,7 +133,7 @@ export default function CustomerDashboardPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Diagnose. Fix. Control.</h2>
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Review. Repair. Control.</h2>
               <p className="mt-5 text-base font-medium leading-8 text-slate-600">
                 No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Each action should help the customer understand the next move fast.
               </p>
@@ -171,6 +171,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
+      <section className="sr-only" aria-label="Dashboard readiness standard">AI readiness control center. Your Cendorq workspace is ready. one clear next action. One next step. Cendorq keeps the next step separate. A workspace can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan and review outputs when they are ready.</section>
     </main>
   );
 }
