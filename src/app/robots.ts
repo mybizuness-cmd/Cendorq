@@ -10,6 +10,7 @@ const PUBLIC_ALLOWLIST = [
     "/plans/deep-review",
     "/plans/build-fix",
     "/plans/ongoing-control",
+    "/faq",
     "/privacy",
     "/terms",
     "/disclaimer",
