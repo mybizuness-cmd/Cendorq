@@ -33,8 +33,8 @@ export const CENDORQ_PLAN_PRICES = [
     checkoutPath: "/free-check",
     successPath: "/dashboard",
     primaryCustomerPromise: "Find the first place the business may be unclear, under-trusted, or harder to choose.",
-    revenueRole: "Create the account, validate the email path, and move the customer into the workspace.",
-    afterPaymentNextStep: "Finish the scan and use the workspace to choose the right paid depth.",
+    revenueRole: "Create the account, validate the email path, and move the customer into the right account flow.",
+    afterPaymentNextStep: "Finish the scan and use the account path to choose the right paid depth.",
     backendStartSignal: "free_scan_started",
   },
   {
@@ -92,7 +92,7 @@ export const CENDORQ_PAID_PLAN_KEYS = ["deep-review", "build-fix", "ongoing-cont
 export const CENDORQ_CHECKOUT_ORCHESTRATION = [
   {
     step: "plan-click",
-    customerExperience: "The customer clicks one clear plan action from Plans, workspace, report vault, billing, or notifications.",
+    customerExperience: "The customer clicks one clear plan action from Plans, account, report vault, billing, or notifications.",
     systemAction: "Create a plan-specific checkout attempt and attach customer, business, scan, report, and source context when available.",
   },
   {
@@ -107,7 +107,7 @@ export const CENDORQ_CHECKOUT_ORCHESTRATION = [
   },
   {
     step: "dashboard-activation",
-    customerExperience: "The workspace shows the purchased plan, the next required action, and the report or work status.",
+    customerExperience: "The account shows the purchased plan, the next required action, and the report or work status.",
     systemAction: "Create dashboard notification, billing record, plan entitlement, backend work queue, and customer email sequence.",
   },
   {
