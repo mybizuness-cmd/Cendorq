@@ -38,6 +38,7 @@ import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
 import { OptimizationLibraryPanel } from "./optimization-library-panel";
 import { OwnerConfigurationEvidencePanel } from "./owner-configuration-evidence-panel";
 import { OwnerConfigurationWorkflowPanel } from "./owner-configuration-workflow-panel";
+import { OwnerReportTestModePanel } from "./owner-report-test-mode-panel";
 import { PaidReportDeliveryOpsPanel } from "./paid-report-delivery-ops-panel";
 import { PlanControlPanel } from "./plan-control-panel";
 import { PlanDeliveryOrchestrationPanel } from "./plan-delivery-orchestration-panel";
@@ -97,6 +98,7 @@ export default async function CommandCenterPage() {
         <SecurityPosturePanel />
         <OperatorControlInterfacePanel />
         <OperatorExecutionContractsPanel />
+        <OwnerReportTestModePanel />
         <AdminCommandCenterControlPanel />
         <PlatformLaunchReadinessPanel />
         <ProductionLaunchChecklistPanel />
