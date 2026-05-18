@@ -28,9 +28,11 @@ expect(headerPath, [
   "overflow-visible",
   "relative z-50",
   "absolute right-0 z-50",
+  "w-[min(14rem,calc(100vw-1.5rem))]",
   "bg-cyan-50 text-slate-950",
   "Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out.",
   "Account menu uses overflow-visible so the menu is not clipped.",
+  "Account menu width is bounded for mobile.",
   "href: \"/plans\"",
   "href: \"/faq\"",
   "href=\"/free-check\"",
@@ -98,6 +100,7 @@ forbidden(headerPath, [
   "sessionStorage",
   "overflow-hidden border-b",
   "overflow-hidden px-0",
+  "w-56 rounded-2xl",
   "guaranteed ranking",
   "guaranteed ai placement",
   "guaranteed revenue",
@@ -134,7 +137,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, unclipped Account menu, dashboard logo return, Free Scan CTA, FAQ routing, and footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, FAQ routing, and footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
