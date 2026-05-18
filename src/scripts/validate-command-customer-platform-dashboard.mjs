@@ -26,7 +26,7 @@ expect(dashboardPath, [
   "No clutter wall",
   "No internal conversion role labels",
   "hover:-translate-y-0.5",
-  "shadow-[0_30px_120px_rgba(2,8,23,0.48)]",
+  "shadow-[0_30px_120px_rgba(2,8,23,0.10)]",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -83,6 +83,10 @@ forbidden(dashboardPath, [
   "Dashboard operating snapshot",
   "Dashboard excellence pillars",
   "Roadmap command timeline",
+  "A workspace can exist before a scan.",
+  "safeProjectionReady",
+  "fulfillmentState",
+  "backendWorkState",
 ]);
 
 forbidden(actionInboxPath, [
@@ -109,7 +113,7 @@ forbidden(reentryPath, [
   "They can leave today and come back to the same business control room tomorrow.",
 ]);
 
-boundedLength(dashboardPath, 16500);
+boundedLength(dashboardPath, 12000);
 boundedLength(actionInboxPath, 10500);
 boundedLength(commandCenterPath, 10000);
 boundedLength(reentryPath, 8000);
@@ -120,7 +124,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform dashboard validation passed with command center language, customer-led modules, and no internal labels.");
+console.log("Customer platform dashboard validation passed with simple visibility command language, customer-led modules, and no internal labels.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
