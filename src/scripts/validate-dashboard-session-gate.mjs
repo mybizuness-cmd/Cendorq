@@ -12,6 +12,7 @@ const headerPath = "src/layout/site-header-conversion.tsx";
 const loginPath = "src/app/login/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-dashboard-session-gate.mjs";
+const middlewareSecurityValidatorPath = "src/scripts/validate-middleware-security-hardening.mjs";
 
 expect(middlewarePath, [
   "CUSTOMER_DASHBOARD_PREFIX = \"/dashboard\"",
@@ -25,6 +26,11 @@ expect(middlewarePath, [
   "safeCustomerDashboardPath",
   "signCustomerSessionPayload",
   "safeEqual(signature, expectedSignature)",
+  "safeEqual(currentSessionToken, expectedSessionToken)",
+  "safeEqual(accessParam, accessKey)",
+  "return safeEqual(token, accessKey);",
+  "safeEqual(username, credentials.username) && safeEqual(password, credentials.password)",
+  "if (!left || !right || left.length !== right.length) return false;",
   "session.reason === \"not-configured\" ? \"session-unavailable\" : \"session-required\"",
   "NextResponse.redirect(loginUrl, { status: 303 })",
   "options: { internal: boolean; customer: boolean }",
@@ -99,9 +105,21 @@ expect(loginPath, [
   "Use the email from your Free Scan or plan.",
 ]);
 
-expect(routesChainPath, [validatorPath]);
+expect(routesChainPath, [validatorPath, middlewareSecurityValidatorPath]);
+expect(middlewareSecurityValidatorPath, [
+  "Middleware security hardening validation passed",
+  "safeEqual(currentSessionToken, expectedSessionToken)",
+  "safeEqual(accessParam, accessKey)",
+  "return safeEqual(token, accessKey);",
+  "safeEqual(username, credentials.username) && safeEqual(password, credentials.password)",
+]);
 
 forbidden(middlewarePath, [
+  "currentSessionToken === expectedSessionToken",
+  "accessParam === accessKey",
+  "token === accessKey",
+  "username === credentials.username",
+  "password === credentials.password",
   "localStorage",
   "sessionStorage",
   "x-cendorq-customer-context",
@@ -141,7 +159,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, remembered header state, signed-out notice, safe home return, simple access copy, safe login redirects, no-store headers, and route-chain coverage.");
+console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, safe middleware secret comparisons, remembered header state, signed-out notice, safe home return, simple access copy, safe login redirects, no-store headers, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
