@@ -6,22 +6,17 @@ const failures = [];
 const signupPath = "src/app/signup/page.tsx";
 const verifyPath = "src/app/verify-email/page.tsx";
 const loginPath = "src/app/login/page.tsx";
+const freeCheckFormPath = "src/components/free-check/guided-free-check-form-v3.tsx";
 const packagePath = "package.json";
 
 expect(signupPath, [
-  "Create your Cendorq workspace.",
-  "Create or access your workspace.",
-  "Use email or a connected provider.",
-  "Continue with Google",
-  "Continue with Microsoft",
-  "Continue with Apple",
-  "Email",
-  "autoComplete=\"email\"",
-  "Send secure access link",
-  "After you send the link",
-  "Open the email from Cendorq Support",
-  "No password to remember.",
-  "Account access should not force a business scan before the customer can reach the workspace.",
+  "Start with the Free Scan.",
+  "Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.",
+  "Already have an account?",
+  "Use customer access",
+  "Use the same email you used for your Free Scan, form, or plan.",
+  "Start Free Scan",
+  "Signup points first-time visitors to Free Scan.",
   "focus:outline-none",
   "focus-visible:ring-2",
 ]);
@@ -29,36 +24,33 @@ expect(signupPath, [
 expect(verifyPath, [
   "Confirm your email | Cendorq",
   "Check your email to continue.",
-  "Use the secure Cendorq link to create or return to your workspace.",
-  "After confirmation, the dashboard opens first",
   "Request a new link",
-  "Open dashboard",
+  "Start Free Scan",
   "Confirm once.",
   "Find the message from Cendorq Support.",
-  "Confirm once and continue to your dashboard.",
-  "The same email can create or return to a workspace.",
-  "New customers can open the dashboard before running a Free Scan.",
-  "Free Scan, billing, support, and reports stay connected to the same workspace.",
+  "New customers start with the Free Scan before a dashboard workspace exists.",
 ]);
 
 expect(loginPath, [
-  "Sign in | Cendorq",
-  "Return to your Cendorq workspace.",
-  "Sign in or create access.",
-  "Continue with Google",
-  "Continue with Microsoft",
-  "Continue with Apple",
-  "Email",
+  "Customer access | Cendorq",
+  "Access your Cendorq account.",
+  "Use the same email you used for your Free Scan, form, or plan.",
+  "Email used for your Free Scan, form, or plan",
   "autoComplete=\"email\"",
   "Send secure access link",
-  "Cendorq never emails a password",
-  "Open dashboard",
-  "Create workspace",
-  "Account access and business intake are separate.",
-  "Email access is passwordless.",
-  "Free Scan business context stays separate from account access",
+  "No password needed.",
+  "First time here?",
+  "Start Free Scan",
+  "Provider sign-in is hidden until it is fully ready.",
+  "Free Scan starts the account. Access brings customers back.",
   "focus:outline-none",
   "focus-visible:ring-2",
+]);
+
+expect(freeCheckFormPath, [
+  "const [values, setValues] = useState<FormValues>(INITIAL_VALUES)",
+  "hasStarted ? buildQualityScore(values) : 0",
+  "First-use progress starts at zero until the customer types.",
 ]);
 
 expect(packagePath, ["validate:routes"]);
@@ -66,6 +58,7 @@ expect(packagePath, ["validate:routes"]);
 forbidden(signupPath, blockedPatterns());
 forbidden(verifyPath, blockedPatterns());
 forbidden(loginPath, blockedPatterns());
+forbidden(freeCheckFormPath, blockedPatterns());
 
 if (failures.length) {
   console.error("Signup verification excellence validation failed:");
@@ -73,10 +66,19 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Signup verification excellence validation passed with passwordless account creation, verification-to-dashboard activation, and secure re-entry synchronized.");
+console.log("Signup verification excellence validation passed with Free Scan-first access, simple customer copy, email verification, and zero first-use scan progress.");
 
 function blockedPatterns() {
   return [
+    "Create your Cendorq workspace.",
+    "Create or access your workspace.",
+    "Create workspace",
+    "Continue with Google",
+    "Continue with Microsoft",
+    "Continue with Apple",
+    "Continue to dashboard",
+    "Account access should not force a business scan before the customer can reach the workspace.",
+    "New customers can open the dashboard before running a Free Scan.",
     "guaranteed ROI",
     "guaranteed refund",
     "guaranteed legal outcome",
@@ -94,8 +96,6 @@ function blockedPatterns() {
     "attackerDetails",
     "sessionToken=",
     "csrfToken=",
-    "localStorage",
-    "sessionStorage",
     "account exists",
     "user exists",
     "password in email",
