@@ -25,6 +25,10 @@ expect(headerPath, [
   "isRememberedCustomer",
   "logoHref",
   "AccountMenu",
+  "overflow-visible",
+  "relative z-50",
+  "absolute right-0 z-50",
+  "Account menu uses overflow-visible so the menu is not clipped.",
   "href: \"/plans\"",
   "href: \"/faq\"",
   "href=\"/free-check\"",
@@ -90,6 +94,8 @@ forbidden(headerPath, [
   "Return to your work.",
   "localStorage",
   "sessionStorage",
+  "overflow-hidden border-b",
+  "overflow-hidden px-0",
   "guaranteed ranking",
   "guaranteed ai placement",
   "guaranteed revenue",
@@ -126,7 +132,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, dashboard logo return, Account menu, Free Scan CTA, FAQ routing, and footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, unclipped Account menu, dashboard logo return, Free Scan CTA, FAQ routing, and footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
