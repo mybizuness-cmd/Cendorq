@@ -24,8 +24,8 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     {
       key: "paid-plan-access",
       subject: "Confirm your email to continue your Cendorq plan",
-      preheader: "Your plan workspace, status, and next actions are waiting in your private dashboard.",
-      useWhen: "AI Readiness Review, Signal Repair, or Readiness Control purchase requires verification before protected plan access.",
+      preheader: "Your plan status and next actions are waiting in your private dashboard.",
+      useWhen: "Deep Review, Build Fix, or Ongoing Control purchase requires verification before protected plan access.",
     },
   ],
   purpose:
@@ -36,7 +36,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     "The primary confirmation CTA should combine the customer value and the security action: Confirm email and open your results.",
     "The confirmation click should verify the email server-side, consume the verification token once, mark inbox confirmation progress where appropriate, and route the customer to the correct protected dashboard destination.",
     "Free Scan customers should land on the dedicated Free Scan result page, not a generic report vault, when the result route is requested and safe.",
-    "Paid customers should land on the dashboard destination that matches the purchased plan: AI Readiness Review to report vault, Signal Repair to repair/support intake, and Readiness Control to billing/control status.",
+    "Paid customers should land on the dashboard destination that matches the purchased plan: Deep Review to report vault, Build Fix to repair/support intake, and Ongoing Control to billing/control status.",
     "The confirmation flow should improve future email engagement through real customer interaction, but must never promise provider-level inbox placement or provider-level deliverability control.",
     "Report email attachments may be sent after verification and release rules allow them, but the dashboard/report vault remains the canonical protected place to view current report state, next actions, and plan-fit guidance.",
   ],
@@ -62,37 +62,37 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     },
     {
       key: "deep-review-purchased-or-submitted",
-      customerMoment: "Customer buys or submits AI Readiness Review intake.",
+      customerMoment: "Customer buys or submits Deep Review intake.",
       preVerificationScreen:
         "Check your inbox for Cendorq Support <support@cendorq.com>. Confirm your email so Cendorq can protect your review, send status updates, and open your report dashboard.",
       emailSubjectKey: "paid-plan-access",
-      emailCta: "Confirm email and open your AI Readiness Review dashboard",
+      emailCta: "Confirm email and open your Deep Review dashboard",
       verifiedDestination: "/dashboard/reports",
       dashboardModule: "report vault plus review-scope guidance",
-      reportVisibilityRule: "Show pending review status until the AI Readiness Review is released. Do not present pending analysis as final truth.",
+      reportVisibilityRule: "Show pending review status until the Deep Review is released. Do not present pending analysis as final truth.",
     },
     {
       key: "build-fix-purchased-or-submitted",
-      customerMoment: "Customer buys or submits Signal Repair intake.",
+      customerMoment: "Customer buys or submits Build Fix intake.",
       preVerificationScreen:
         "Check your inbox for Cendorq Support <support@cendorq.com>. Confirm your email so repair scope, approvals, and delivery notes stay connected to your dashboard.",
       emailSubjectKey: "paid-plan-access",
-      emailCta: "Confirm email and open your Signal Repair intake",
+      emailCta: "Confirm email and open your Build Fix intake",
       verifiedDestination: "/dashboard/support/request",
       dashboardModule: "repair intake plus support handoff",
       reportVisibilityRule:
-        "Show repair scope, required approvals, and delivery status without exposing a standalone AI Readiness Review report unless Review entitlement exists.",
+        "Show repair scope, required approvals, and delivery status without exposing a standalone Deep Review report unless Review entitlement exists.",
     },
     {
       key: "ongoing-control-started",
-      customerMoment: "Customer starts Readiness Control.",
+      customerMoment: "Customer starts Ongoing Control.",
       preVerificationScreen:
         "Check your inbox for Cendorq Support <support@cendorq.com>. Confirm your email so monthly readiness summaries, change alerts, and approval requests can reach you safely.",
       emailSubjectKey: "paid-plan-access",
-      emailCta: "Confirm email and open your Readiness Control dashboard",
+      emailCta: "Confirm email and open your Ongoing Control dashboard",
       verifiedDestination: "/dashboard/billing",
       dashboardModule: "billing, control status, notification center, and monthly focus path",
-      reportVisibilityRule: "Show monthly status and approved-scope summaries without delivering unpaid Signal Repair or standalone AI Readiness Review artifacts.",
+      reportVisibilityRule: "Show monthly status and approved-scope summaries without delivering unpaid Build Fix or standalone Deep Review artifacts.",
     },
     {
       key: "support-or-billing-entry",
@@ -161,7 +161,7 @@ export const CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT = {
     "Every report display path must keep dashboard summary, report-vault detail, email delivery, and plan next step synchronized.",
     "Every confirmation email must route to the customer-owned dashboard destination after verification, not to a generic dead end.",
     "Free Scan verification must route to the dedicated dashboard Free Scan results page when the intake requests that destination.",
-    "Paid plan verification must route AI Readiness Review to /dashboard/reports, Signal Repair to /dashboard/support/request, and Readiness Control to /dashboard/billing unless a safer owned destination is requested.",
+    "Paid plan verification must route Deep Review to /dashboard/reports, Build Fix to /dashboard/support/request, and Ongoing Control to /dashboard/billing unless a safer owned destination is requested.",
     "Release-captain review must reject verification flows that reveal protected results before verification, omit support@cendorq.com from the check-your-inbox instruction, or replace lifecycle email orchestration with dashboard-only messaging.",
   ],
 } as const;
