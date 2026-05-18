@@ -1,6 +1,6 @@
 # Cendorq Lead Intake Checklist
 
-Use this checklist for Free Scan, Connect, form, field, validation, success state, error state, routing, and buyer handoff changes.
+Use this checklist for Free Scan, Contact Us, form, field, validation, success state, error state, routing, and buyer handoff changes.
 
 The goal is simple: make it easy for the right buyer to ask for help without confusion, friction, or data risk.
 
@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -31,7 +32,10 @@ Before merging intake or form changes, confirm:
 - Validation does not feel hostile or overly technical.
 - The form does not collect sensitive information unnecessarily.
 - The Free Scan remains the safest first step for unsure buyers.
-- Connect remains easy to reach for buyers who need conversation first.
+- Contact Us remains easy to reach for buyers who need fit, scope, timing, or account help.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- No untested public message box appears as a working support form.
 - No form behavior adds dashboard, route-console, or internal-tool feel.
 
 ## Field checks
@@ -43,6 +47,7 @@ For field changes, confirm:
 - Optional fields are clearly optional.
 - Required fields do not create unnecessary friction.
 - Field order matches how a buyer thinks.
+- If a future Contact Us form is added, it must collect a reply email and business name before submission.
 
 ## Validation checks
 
@@ -63,6 +68,7 @@ After submit, confirm:
 - Any follow-up timing is realistic and supportable.
 - The handoff path is understandable.
 - The buyer is not left on a dead end.
+- A future Contact Us form must not show success unless the message was sent to `support@cendorq.com`.
 
 ## Privacy checks
 
@@ -72,6 +78,7 @@ For intake changes, confirm:
 - Submitted information is not logged unnecessarily.
 - Error messages do not reveal internals.
 - Example data does not include private customer information.
+- Contact Us should ask customers to email from the address where they want the reply until a real form pipeline exists.
 
 ## Validation expectation
 
@@ -87,7 +94,7 @@ pnpm build
 For production-impacting intake changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -96,6 +103,7 @@ Do not use lead intake work as a reason to add:
 
 - unnecessary fields
 - hidden tracking
+- untested public message boxes
 - homepage clutter
 - competing CTAs
 - unsupported guarantees
