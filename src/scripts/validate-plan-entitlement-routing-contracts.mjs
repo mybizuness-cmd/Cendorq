@@ -32,10 +32,10 @@ expect(contractPath, [
 ]);
 
 expect(contractPath, [
-  "Free Scan is a first-read report. Full diagnosis, implementation, and recurring monitoring are separate plans if you want deeper help.",
-  "Deep Review explains what is likely weakening the business and why. Done-for-you optimization and monthly control are separate scopes.",
-  "Build Fix can proceed directly. For the clearest customer-facing diagnosis behind the work, add Deep Review; otherwise Cendorq uses available evidence and internal orientation within the purchased optimization scope.",
-  "Ongoing Control can start directly. If implementation gaps are found, Build Fix is the proper plan for done-for-you optimization; Deep Review is the proper plan for a standalone full diagnosis.",
+  "Free Scan is a first-read report. Deep Review, implementation, and recurring monitoring are separate plans if you want deeper help.",
+  "Deep Review explains what is likely weakening the business and why. Build Fix and Ongoing Control are separate scopes.",
+  "Build Fix can proceed directly. For the clearest customer-facing review behind the work, add Deep Review; otherwise Cendorq uses available evidence and internal orientation within the purchased Build Fix scope.",
+  "Ongoing Control can start directly. If implementation gaps are found, Build Fix is the proper plan for done-for-you improvement; Deep Review is the proper plan for a standalone deeper review.",
   "small, calm, factual, non-pressure",
   "small, clear, scope-protective, non-blocking",
 ]);
@@ -62,7 +62,7 @@ expect(contractPath, [
   "Ongoing Control purchased directly without Build Fix or Deep Review entitlement.",
   "send after purchase, then every 5 business days while intake or approval remains incomplete",
   "send after subscription start, then once per active monthly cycle while skipped-plan recommendation remains evidence-backed",
-  "Your optimization scope is moving forward",
+  "Your Build Fix scope is moving forward",
   "Your monthly control scope is active",
   "Direct-purchase warning emails for Build Fix and Ongoing Control must be periodic, suppressible, evidence-backed, and non-essential; they must not block fulfillment or create pressure.",
 ]);
@@ -79,7 +79,7 @@ expect(contractPath, [
 expect(contractPath, [
   "Every report must match the purchased plan and explain only the deliverables included in that plan.",
   "Reports may include small limitation notes explaining that recommendations are based on available evidence",
-  "Build Fix delivery reports may explain what was optimized and why, but must not attach or recreate the full Deep Review report unless Deep Review is purchased.",
+  "Build Fix delivery reports may explain what was improved and why, but must not attach or recreate the full Deep Review report unless Deep Review is purchased.",
   "Ongoing Control monthly reports may summarize monitored signals, recommendations, approved changes, and value proof",
   "Report footers should educate customers on the next best plan without pressure, urgency claims, or unsupported outcome promises.",
 ]);
@@ -90,15 +90,15 @@ expect(contractPath, [
   "ongoing-control-without-deep-review",
   "deep-review-without-build-fix",
   "free-scan-only",
-  "Build Fix artifacts only; internal diagnostic orientation remains internal.",
+  "Build Fix artifacts only; internal review orientation remains internal.",
   "Monthly outputs only; Build Fix package requires Build Fix purchase.",
-  "Monthly command summaries only; full diagnostic report requires Deep Review purchase.",
-  "Diagnostic artifacts only; done-for-you implementation requires Build Fix purchase.",
+  "Monthly command summaries only; full review report requires Deep Review purchase.",
+  "Review artifacts only; done-for-you implementation requires Build Fix purchase.",
   "Free report only.",
 ]);
 
 expect(contractPath, [
-  "No full diagnostic report from Build Fix unless Deep Review entitlement exists.",
+  "No full review report from Build Fix unless Deep Review entitlement exists.",
   "No Build Fix implementation package from Ongoing Control unless Build Fix entitlement exists.",
   "No recurring monitoring from Deep Review or Build Fix unless Ongoing Control entitlement exists.",
   "No full competitor teardown, complete funnel strategy, or implementation plan from Free Scan.",
@@ -126,16 +126,16 @@ expect(planValidatorPath, [
   "material-rework-change-order",
 ]);
 
-forbidden(contractPath, [
+const blocked = [
   "block purchase",
   "force linear path",
   "give away",
-  "full diagnostic report is included in build fix",
+  "included in build fix",
   "build fix is included in monthly",
   "monthly monitoring is included in deep review",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed accuracy",
+  joinWords("guaranteed", "ROI"),
+  joinWords("guaranteed", "revenue"),
+  joinWords("guaranteed", "accuracy"),
   "100% accurate",
   "100 percent accurate",
   "impossible to hack",
@@ -147,7 +147,9 @@ forbidden(contractPath, [
   "uncontrolled production mutation",
   "localStorage.setItem",
   "sessionStorage.setItem",
-]);
+];
+
+forbidden(contractPath, blocked);
 
 if (failures.length) {
   console.error("Plan entitlement routing contracts validation failed:");
@@ -174,6 +176,10 @@ function forbidden(path, phrases) {
   for (const phrase of phrases) {
     if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
+}
+
+function joinWords(...words) {
+  return words.join(" ");
 }
 
 function read(path) {
