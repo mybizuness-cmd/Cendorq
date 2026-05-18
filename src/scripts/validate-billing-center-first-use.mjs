@@ -9,6 +9,7 @@ const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-billing-center-first-use.mjs";
 const failures = [];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 expect(pagePath, [
   "Readiness plan depth",
@@ -38,9 +39,9 @@ expect(pagePath, [
   "Plan guidance must separate current access, pending actions, and future readiness depth.",
   "Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
   "Billing actions route to plan detail pages before payment.",
-  "AI Readiness Review $497",
-  "Signal Repair $1,497",
-  "Readiness Control $597/month",
+  "Deep Review $497",
+  "Build Fix $1,497",
+  "Ongoing Control $597/month",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -66,6 +67,7 @@ expect(packagePath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
+  ...legacyPlanLabels,
   "guaranteed ROI",
   "guaranteed refund",
   "guaranteed legal outcome",
