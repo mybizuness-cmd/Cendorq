@@ -6,7 +6,7 @@ import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 export const metadata = buildMetadata({ title: "Confirm your email | Cendorq", description: "Confirm your Cendorq email address and continue through the correct customer access path.", path: "/verify-email", noIndex: true });
 
 const CONFIRMATION_STEPS = ["Open the inbox for the email you used.", "Find the message from Cendorq Support.", "Confirm once and continue through the customer access path."] as const;
-const VERIFY_RULES = ["The same email can return to a Free Scan, plan, report, billing, or support record.", "New customers start with the Free Scan before a dashboard workspace exists.", "If Cendorq cannot find a customer record for the verified identity, the next step is the Free Scan.", "If the link expires or was already used, request a fresh secure access link."] as const;
+const VERIFY_RULES = ["The same email can return to a Free Scan, plan, report, billing, or support path.", "New customers start with the Free Scan before account access exists.", "If Cendorq cannot connect the verified email to an active path, the next step is the Free Scan.", "If the link expires or was already used, request a fresh secure access link."] as const;
 
 export default function VerifyEmailPage() {
   return (
@@ -16,7 +16,7 @@ export default function VerifyEmailPage() {
         <div className="relative mx-auto grid min-h-[calc(100vh-4.25rem)] max-w-7xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
           <div>
             <h1 className={`max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.pageHeadline}`}>Check your email to continue.</h1>
-            <p className={`mt-6 max-w-3xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>Use the secure Cendorq link to verify the inbox. Known customers continue to their workspace; new visitors start with the Free Scan so the dashboard has real business context.</p>
+            <p className={`mt-6 max-w-3xl ${CENDORQ_EXPERIENCE_SYSTEM.body}`}>Use the secure Cendorq link to verify the inbox. Known customers continue to the right account path; new visitors start with the Free Scan so Cendorq has real business context.</p>
             <div className={`mt-8 ${CENDORQ_EXPERIENCE_SYSTEM.mobileActionRow}`}>
               <Link href="/login" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Request a new link</Link>
               <Link href="/free-check?access=free-scan-required&method=verify-email" className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Start Free Scan</Link>
@@ -43,7 +43,7 @@ export default function VerifyEmailPage() {
 
       <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Verification safety">
         <div className="rounded-[2.25rem] border border-white/80 bg-white/82 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.06)] sm:p-8">
-          <h2 className={`max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.sectionHeadline}`}>One inbox. One customer record. One correct next step.</h2>
+          <h2 className={`max-w-5xl ${CENDORQ_EXPERIENCE_SYSTEM.sectionHeadline}`}>One inbox. One verified email. One correct next step.</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {VERIFY_RULES.map((rule) => <p key={rule} className="rounded-[1.35rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-7 text-slate-600">{rule}</p>)}
           </div>
