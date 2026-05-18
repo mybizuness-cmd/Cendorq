@@ -104,15 +104,14 @@ const PLAN_RULES: Record<CendorqPlanKey, PlanRule> = {
     emailTemplateKey: "deep-review-kickoff",
     requiredIntake: ["business URL or main page", "review focus", "top customer type", "main concern", "competitors or alternatives"],
     requiredEvidenceBeforeWork: ["customerOwnershipVerified"],
-    prerequisitePlan: "free-scan",
-    blockedIfMissingPrerequisite: true,
+    blockedIfMissingPrerequisite: false,
     readyBackendWorkState: "ready-for-review-queue",
   },
   "build-fix": {
     revenueStageKey: "paid-repair",
     dashboardDestination: "/dashboard/support/request",
     emailTemplateKey: "build-fix-kickoff",
-    requiredIntake: ["repair target", "approved business description", "primary CTA", "brand constraints", "available assets", "approval contact"],
+    requiredIntake: ["fix target", "approved business description", "primary CTA", "brand constraints", "available assets", "approval contact"],
     requiredEvidenceBeforeWork: ["customerOwnershipVerified", "repairScopeApproved"],
     prerequisitePlan: "deep-review",
     blockedIfMissingPrerequisite: true,
@@ -131,7 +130,7 @@ const PLAN_RULES: Record<CendorqPlanKey, PlanRule> = {
 };
 
 const PREREQUISITE_EVIDENCE: Record<CendorqPaidPlanKey, readonly CendorqJourneyEvidenceKey[]> = {
-  "deep-review": ["freeScanComplete"],
+  "deep-review": [],
   "build-fix": ["deepReviewComplete", "supportedDiagnosisApproved"],
   "ongoing-control": ["deepReviewComplete", "supportedDiagnosisApproved", "repairComplete"],
 };
@@ -170,7 +169,7 @@ export function resolveCendorqCustomerJourney(input: CendorqCustomerJourneyInput
     backendWorkState = "collect-intake";
     missingRequirements.push(...missingIntake);
     customerNextAction = `Complete the ${revenueStage.customerName} intake so Cendorq knows exactly what to work on.`;
-    operatorNextAction = `Do not start delivery. Request missing intake: ${missingIntake.join(", ")}.`;
+    operatorNextAction = `Start safe public research if enough public context exists, but keep final customer output blocked until missing intake is resolved: ${missingIntake.join(", ")}.`;
   } else if (missingEvidence.length) {
     fulfillmentState = "held-evidence-required";
     backendWorkState = "verify-evidence";
@@ -211,33 +210,24 @@ export function resolveCendorqCustomerJourney(input: CendorqCustomerJourneyInput
 }
 
 function getMissingPrerequisite(plan: CendorqPlanKey, evidence: Set<CendorqJourneyEvidenceKey>) {
-  if (plan === "free-scan") return null;
+  if (plan === "free-scan" || plan === "deep-review") return null;
   const accepted = PREREQUISITE_EVIDENCE[plan as CendorqPaidPlanKey];
   if (accepted.some((item) => evidence.has(item))) return null;
-
-  if (plan === "deep-review") {
-    return {
-      prerequisitePlan: "free-scan" as const,
-      missing: ["completed Free Scan or approved business-context intake"],
-      customerNextAction: "Your AI Readiness Review is confirmed, but Cendorq needs the Free Scan or equivalent business-context intake before review work starts. Complete the scan first so the review has the right business context.",
-      operatorNextAction: "Hold AI Readiness Review. Do not start review work until the Free Scan or approved business-context intake is connected to the workspace.",
-    };
-  }
 
   if (plan === "build-fix") {
     return {
       prerequisitePlan: "deep-review" as const,
-      missing: ["completed AI Readiness Review or approved supported diagnosis", "approved repair target"],
-      customerNextAction: "Your Signal Repair is confirmed, but repair cannot begin until Cendorq has a completed AI Readiness Review or approved supported diagnosis. Confirm an existing diagnosis or start the review path first.",
-      operatorNextAction: "Hold Signal Repair. Do not start implementation until Deep Review or supported diagnosis is approved and repair scope is confirmed.",
+      missing: ["completed Deep Review or approved supported diagnosis", "approved fix target"],
+      customerNextAction: "Your Build Fix is confirmed, but fixing should not begin until Cendorq has a completed Deep Review or approved supported diagnosis. Confirm an existing diagnosis or start the review path first.",
+      operatorNextAction: "Hold Build Fix. Do not start implementation until Deep Review or supported diagnosis is approved and fix scope is confirmed.",
     };
   }
 
   return {
     prerequisitePlan: "deep-review" as const,
-    missing: ["baseline review, supported diagnosis, or prior repair history", "approved monthly control baseline"],
-    customerNextAction: "Your Readiness Control is confirmed, but monthly control needs a baseline first. Confirm an existing review/diagnosis or complete the baseline review before monitoring starts.",
-    operatorNextAction: "Hold Readiness Control setup. Do not start monitoring until baseline evidence and monthly priority are approved.",
+    missing: ["baseline review, supported diagnosis, or prior fix history", "approved monthly control baseline"],
+    customerNextAction: "Your Ongoing Control is confirmed, but monthly control needs a baseline first. Confirm an existing review/diagnosis or complete the baseline review before monitoring starts.",
+    operatorNextAction: "Hold Ongoing Control setup. Do not start monitoring until baseline evidence and monthly priority are approved.",
   };
 }
 
