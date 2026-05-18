@@ -105,9 +105,9 @@ For Stripe changes, confirm:
   - `STRIPE_PRICE_BUILD_FIX` -> Build Fix
   - `STRIPE_PRICE_ONGOING_CONTROL` -> Ongoing Control
 - Public fallback payment links point to the intended Stripe products:
-  - `NEXT_PUBLIC_STRIPE_AI_READINESS_PAYMENT_LINK` -> Deep Review fallback if still used by legacy configuration
-  - `NEXT_PUBLIC_STRIPE_SIGNAL_REPAIR_PAYMENT_LINK` -> Build Fix fallback if still used by legacy configuration
-  - `NEXT_PUBLIC_STRIPE_READINESS_CONTROL_PAYMENT_LINK` -> Ongoing Control fallback if still used by legacy configuration
+  - `NEXT_PUBLIC_STRIPE_DEEP_REVIEW_PAYMENT_LINK` -> Deep Review fallback if direct checkout-session creation is not configured
+  - `NEXT_PUBLIC_STRIPE_BUILD_FIX_PAYMENT_LINK` -> Build Fix fallback if direct checkout-session creation is not configured
+  - `NEXT_PUBLIC_STRIPE_ONGOING_CONTROL_PAYMENT_LINK` -> Ongoing Control fallback if direct checkout-session creation is not configured
 - Stripe metadata includes enough plan context for routing and post-payment email logic.
 - Webhook events are verified with the Stripe signing secret.
 - Checkout success pages do not expose private Stripe secrets.
