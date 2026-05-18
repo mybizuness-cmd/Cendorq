@@ -16,7 +16,7 @@ export function SiteFooter() {
               <span className="text-sm font-semibold tracking-[0.08em]">{BRAND_NAME}</span>
             </Link>
             <p className="mt-2 leading-5">
-              AI engine readiness for businesses that need to be understood, trusted, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.
+              AI visibility and readiness for businesses that need to be seen, understood, trusted, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.
             </p>
             <p className="mt-2 text-slate-400">© {year} {BRAND_NAME}. All rights reserved.</p>
           </div>
