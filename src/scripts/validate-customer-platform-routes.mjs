@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 const routeMapPath = "src/lib/customer-platform-route-map.ts";
 const shieldPath = "src/lib/cendorq-shield-standard.ts";
@@ -100,12 +101,12 @@ expect("src/app/verify-email/page.tsx", [
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "Visibility command center",
+  "AI readiness control center",
   "noIndex: true",
-  "Know what the market can see, trust, and act on next.",
-  "This is not an account page.",
+  "Your Cendorq workspace is ready.",
+  "one clear next action",
   "One next step.",
-  "Scan. Diagnose. Fix. Control.",
+  "Scan. Review. Repair. Control.",
   "Open Review page",
   "Open Repair page",
 ]);
@@ -116,13 +117,13 @@ expect("src/app/dashboard/reports/page.tsx", [
   "Paid plan report delivery operating system",
   "Dashboard + email attachment",
   "Readiness signal result dashboard-only protected result",
-  "AI Readiness Review report dashboard plus email attachment",
-  "Signal Repair summary dashboard plus email attachment",
-  "Readiness Control monthly summary dashboard plus email attachment",
+  "Deep Review report dashboard plus email attachment",
+  "Build Fix summary dashboard plus email attachment",
+  "Ongoing Control monthly summary dashboard plus email attachment",
 ]);
 
 expect("src/app/dashboard/billing/page.tsx", [
-  "Billing",
+  "Readiness plan depth",
   "noIndex: true",
   "Payment should unlock the right readiness layer.",
   "Review",
@@ -170,14 +171,14 @@ expect(packagePath, [
   "validate-owner-maximum-protection-posture.mjs",
 ]);
 
-forbidden("src/app/signup/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email", "Create workspace", "Continue with Google"]);
-forbidden("src/app/login/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email", "Create workspace", "Continue to dashboard", "Continue with Google"]);
-forbidden("src/app/verify-email/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "account exists"]);
-forbidden("src/app/dashboard/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "raw evidence", "A workspace can exist before a scan"]);
-forbidden("src/app/dashboard/reports/page.tsx", ["dangerouslySetInnerHTML", "raw evidence", "outcome warranty"]);
-forbidden("src/app/dashboard/billing/page.tsx", ["dangerouslySetInnerHTML", "paid access without entitlement", "outcome warranty"]);
-forbidden("src/app/checkout/start/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "outcome warranty"]);
-forbidden("src/app/checkout/success/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "outcome warranty"]);
+forbidden("src/app/signup/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email", "Create workspace", "Continue with Google", ...legacyPlanLabels]);
+forbidden("src/app/login/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "password in email", "Create workspace", "Continue to dashboard", "Continue with Google", ...legacyPlanLabels]);
+forbidden("src/app/verify-email/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "account exists", ...legacyPlanLabels]);
+forbidden("src/app/dashboard/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "raw evidence", ...legacyPlanLabels]);
+forbidden("src/app/dashboard/reports/page.tsx", ["dangerouslySetInnerHTML", "raw evidence", "outcome warranty", ...legacyPlanLabels]);
+forbidden("src/app/dashboard/billing/page.tsx", ["dangerouslySetInnerHTML", "paid access without entitlement", "outcome warranty", ...legacyPlanLabels]);
+forbidden("src/app/checkout/start/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "outcome warranty", ...legacyPlanLabels]);
+forbidden("src/app/checkout/success/page.tsx", ["dangerouslySetInnerHTML", "localStorage", "sessionStorage", "outcome warranty", ...legacyPlanLabels]);
 
 if (failures.length) {
   console.error("Customer platform route validation failed:");
@@ -185,7 +186,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform route validation passed with owner posture, Free Scan-first access, email verification, visibility dashboard, report vault, billing center, checkout activation, route map, and Cendorq Shield synchronized.");
+console.log("Customer platform route validation passed with owner posture, Free Scan-first access, email verification, readiness dashboard, report vault, billing center, checkout activation, route map, and Cendorq Shield synchronized.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing customer platform route dependency: ${path}`);
