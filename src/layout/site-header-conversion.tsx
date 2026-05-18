@@ -25,14 +25,14 @@ export async function SiteHeader() {
   const logoHref = isRememberedCustomer ? session.safeReturnTo : "/";
 
   return (
-    <header className="sticky top-0 z-50 w-full overflow-hidden border-b border-cyan-100 bg-white/95 text-slate-950 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full overflow-visible border-b border-cyan-100 bg-white/95 text-slate-950 backdrop-blur-xl">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1.5 px-3 sm:h-auto sm:min-h-[4.25rem] sm:gap-3 sm:px-8 sm:py-2.5">
         <Link href={logoHref} aria-label={isRememberedCustomer ? `${BRAND_NAME} dashboard` : `${BRAND_NAME} homepage`} className="inline-flex min-w-0 shrink-0 items-center gap-2 rounded-full py-1.5 transition hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-1.5">
           <BrandMark />
           <span className="hidden truncate text-sm font-semibold tracking-[0.16em] text-slate-950 sm:inline sm:text-base">{BRAND_NAME}</span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="flex min-w-0 shrink items-center justify-center gap-0.5 overflow-hidden px-0 sm:flex-1 sm:gap-2 sm:px-1">
+        <nav aria-label="Primary navigation" className="flex min-w-0 shrink items-center justify-center gap-0.5 overflow-visible px-0 sm:flex-1 sm:gap-2 sm:px-1">
           {PUBLIC_NAV_LINKS.map((item) => (
             <Link key={item.href} href={item.href} className={NAV_LINK_CLASS}>
               {item.label}
@@ -46,19 +46,19 @@ export async function SiteHeader() {
           <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Free Scan"}</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
+      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. Account menu uses overflow-visible so the menu is not clipped. href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
     </header>
   );
 }
 
 function AccountMenu({ dashboardHref }: { dashboardHref: string }) {
   return (
-    <details className="group relative">
+    <details className="group relative z-50">
       <summary className={`${NAV_LINK_CLASS} cursor-pointer list-none`} aria-label="Customer account menu">
         <span className="sm:hidden" aria-hidden="true">⌂</span>
         <span className="hidden sm:inline">Account</span>
       </summary>
-      <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-cyan-100 bg-white p-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)]">
+      <div className="absolute right-0 z-50 mt-2 w-56 rounded-2xl border border-cyan-100 bg-white p-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)]">
         <Link href={dashboardHref} className={ACCOUNT_LINK_CLASS}>Dashboard</Link>
         <Link href="/dashboard/reports" className={ACCOUNT_LINK_CLASS}>Reports</Link>
         <Link href="/dashboard/billing" className={ACCOUNT_LINK_CLASS}>Billing</Link>
