@@ -50,7 +50,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public robots surface validation passed with FAQ and Connect allowed, sitemap linked, production safety gates, and protected customer routes disallowed.");
+console.log("Public robots surface validation passed with FAQ and Contact Us on /connect allowed, sitemap linked, production safety gates, and protected customer routes disallowed.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
