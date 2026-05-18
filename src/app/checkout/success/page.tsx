@@ -16,9 +16,9 @@ type PageProps = { searchParams?: Promise<SearchParams> | SearchParams };
 type CheckoutSuccessTruthState = "stripe-session-present" | "session-verification-needed";
 
 const PLAN_COPY: Record<CendorqPaidPlanKey, { stage: string; title: string }> = {
-  "deep-review": { stage: "AI Readiness Review", title: "Your AI Readiness Review is confirmed." },
-  "build-fix": { stage: "Signal Repair", title: "Your Signal Repair payment is confirmed." },
-  "ongoing-control": { stage: "Readiness Control", title: "Your Readiness Control subscription is confirmed." },
+  "deep-review": { stage: "Deep Review", title: "Your Deep Review is confirmed." },
+  "build-fix": { stage: "Build Fix", title: "Your Build Fix payment is confirmed." },
+  "ongoing-control": { stage: "Ongoing Control", title: "Your Ongoing Control subscription is confirmed." },
 };
 
 const CHECKOUT_SUCCESS_COPY: Record<CheckoutSuccessTruthState, { badge: string; eyebrow: string; fallbackTitle: string; deliveryNote: string }> = {
