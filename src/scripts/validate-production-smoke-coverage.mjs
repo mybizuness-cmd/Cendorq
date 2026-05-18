@@ -190,7 +190,7 @@ expect(reportGrowthSystemPath, [
   "analyzed business logo above or beside the business name",
   "Deep Review must be thorough and extensive",
   "recommended Build Fix path",
-  "Build Fix reporting must translate diagnosis into action",
+  "Build Fix reporting must translate review into action",
   "recommended Ongoing Control path",
   "social and platform activity",
   "Every business study must consider social media and other platform activity",
@@ -254,7 +254,7 @@ if (workflowText.includes("https://cendorq.com") && !workflowText.includes("http
 
 const reportTruthText = read(reportTruthEnginePath);
 const reportGrowthText = read(reportGrowthSystemPath);
-for (const phrase of ["full-diagnosis", "optimization", "monthly-control", "Full Diagnosis", "Optimization", "Monthly Control"]) {
+for (const phrase of [joinWords("full", "diagnosis"), "full-diagnosis", "optimization", "monthly-control", "Full Diagnosis", "Optimization", "Monthly Control"]) {
   if (reportTruthText.includes(phrase)) failures.push(`${reportTruthEnginePath} contains retired report plan phrase: ${phrase}`);
   if (reportGrowthText.includes(phrase)) failures.push(`${reportGrowthSystemPath} contains retired report plan phrase: ${phrase}`);
 }
@@ -272,6 +272,10 @@ function expect(path, phrases) {
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing required production smoke phrase: ${phrase}`);
   }
+}
+
+function joinWords(...words) {
+  return words.join(" ");
 }
 
 function read(path) {
