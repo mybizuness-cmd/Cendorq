@@ -3,10 +3,13 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const publicCommandDesignAnchors = ["AI Engine Readiness", "Free Scan", "AI Readiness Review", "Signal Repair", "Readiness Control", "Scan", "Review", "Repair", "Control"];
+const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Scan", "Review", "Fix", "Control"];
 
 const activeFiles = [
   "src/app/page.tsx",
+  "src/app/free-check/page.tsx",
+  "src/app/plans/page.tsx",
+  "src/app/plans/plan-data.ts",
   "src/app/dashboard/page.tsx",
   "src/lib/cendorq-experience-system.ts",
   "src/app/api/customer/email/confirm/route.ts",
@@ -32,15 +35,44 @@ expect("src/lib/cendorq-experience-system.ts", [
 ]);
 
 expect("src/app/page.tsx", [
-  "cinematic-ai-readiness-experience",
+  "cinematic-ai-visibility-readiness-experience",
   "CENDORQ_EXPERIENCE_SYSTEM",
-  "If AI engines cannot understand your business",
+  "If AI engines cannot see or understand your business",
+  "AI Visibility and Readiness",
+  "Visibility shows the gap. Readiness explains the cause.",
+  "where the business is missing",
+  "visibility and readiness",
   "AI is becoming the place customers meet you first.",
   "Scan. Review. Repair. Control.",
   "Distinct Cendorq signal experience",
   "Unified Cendorq Experience System",
   "Start Free Scan",
   "View Plans",
+]);
+
+expect("src/app/free-check/page.tsx", [
+  "AI visibility scan",
+  "See where your business may be missing or unclear.",
+  "first visibility and readiness signal",
+  "missing, unclear, under-trusted, or harder to choose",
+  "Start Free Scan",
+]);
+
+expect("src/app/plans/page.tsx", [
+  "Choose the right visibility and readiness depth.",
+  "Free Scan shows the first signal.",
+  "Deep Review explains the cause.",
+  "Build Fix improves the weak point.",
+  "Ongoing Control keeps visibility and readiness from drifting.",
+]);
+
+expect("src/app/plans/plan-data.ts", [
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "visibility and readiness",
+  "where it may be missing",
+  "see, understand, trust, compare, or choose",
 ]);
 
 expect("src/app/dashboard/page.tsx", [
@@ -51,6 +83,18 @@ expect("src/app/dashboard/page.tsx", [
   "Open protected scan and review outputs when they are ready.",
   "getPlanValueDelivery",
   "DashboardNextBestAction",
+]);
+
+forbidden("src/app/page.tsx", [
+  "AI Engine Readiness for Businesses",
+  "If AI engines cannot understand your business, customers may never get the chance to.",
+  "Cendorq turns AI-readiness into a clear path",
+]);
+
+forbidden("src/app/plans/plan-data.ts", [
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 forbidden("src/app/dashboard/page.tsx", [
@@ -133,7 +177,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, Cendorq Experience System, cinematic homepage, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
+console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, visibility plus readiness homepage, aligned Free Scan and plan language, Cendorq Experience System, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
 
 function expect(path, phrases) {
   const text = read(path);
