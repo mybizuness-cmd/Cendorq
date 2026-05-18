@@ -11,12 +11,12 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
   cta: string;
 })[] = [
   {
-    title: "Confirm the inbox that owns this workspace",
+    title: "Confirm the inbox that owns this account",
     eyebrow: "Access",
     customerSummary:
       "Keep report-ready notices, billing updates, support replies, and plan status connected to the right email.",
     customerValue:
-      "This protects the workspace and makes it easier to return when Cendorq has something ready.",
+      "This protects account access and makes it easier to return when Cendorq has something ready.",
     href: "/dashboard/notifications",
     cta: "Confirm inbox",
     customerIdHashPresent: true,
@@ -35,7 +35,7 @@ const ACTION_INBOX_CASES: readonly (PlanRoutingInput & {
     customerSummary:
       "Build Fix improves the approved target. Deep Review is separate when you need the full reason behind the work.",
     customerValue:
-      "This prevents scope confusion and keeps implementation from pretending to be full diagnosis.",
+      "This prevents scope confusion and keeps implementation from pretending to be a full review.",
     href: "/dashboard/billing",
     cta: "Review scope",
     customerIdHashPresent: true,
