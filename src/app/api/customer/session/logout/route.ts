@@ -12,6 +12,7 @@ const NO_STORE_HEADERS = {
   Expires: "0",
   "X-Content-Type-Options": "nosniff",
   "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy": "same-origin",
 } as const;
 
 export async function POST(request: NextRequest) {
