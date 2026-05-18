@@ -10,6 +10,9 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Added
 
+- Public FAQ page for buyer questions about Free Scan, account access, plans, privacy, support, and no-guarantee boundaries.
+- Remembered customer header state so verified returning customers see Account and Dashboard instead of repeated Access prompts when the signed session is still valid.
+- Public sitemap and robots validation for FAQ discovery, protected customer-route exclusion, crawler safety gates, and route-chain coverage.
 - Release history baseline.
 - AI-agent handoff guide for ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, and project continuity.
 - Final hardening sweep guide for three independent deep analyses and five independent hardening passes before major readiness, launch-adjacent, backend-prep, or production milestone changes.
@@ -57,10 +60,13 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Changed
 
+- Simplified public header navigation to Plans, FAQ, Access, and Start Free Scan, with Dashboard and Account shown for remembered customers.
+- Updated sitemap, robots, route/link, search-discovery, and release checklists so FAQ is an active public route instead of a legacy redirect.
+- Hardened account dropdown behavior so it remains unclipped, mobile-bounded, and highlights Dashboard while keeping Reports, Billing, Support, and Sign out available.
 - Hardened Free Scan API intake boundaries with JSON content-type checks, optional production origin allowlisting, stronger no-store response headers, simple bot-pattern rejection, and minimum form-completion timing while preserving current Free Scan language and route strategy.
 - Documented the optional `INTAKE_ALLOWED_ORIGINS` server-only allowlist placeholder for production Free Scan intake submissions.
-- Hardened legacy public-route governance so `/diagnosis`, `/profile`, `/faq`, `/how-it-works`, old pricing paths, and old shorthand routes redirect into the current buyer path instead of remaining discoverable as active routes.
-- Kept sitemap and robots discovery surfaces focused on current buyer-path routes and current policy/trust pages rather than redirected legacy routes.
+- Hardened legacy public-route governance so `/diagnosis`, `/profile`, `/how-it-works`, old pricing paths, and old shorthand routes redirect into the current buyer path instead of remaining discoverable as active routes.
+- Kept sitemap and robots discovery surfaces focused on current buyer-path routes, FAQ, and current policy/trust pages rather than redirected legacy routes.
 - Expanded route validation to protect legacy public-route governance, redirect smoke checks, sitemap exclusions, robots allowlist exclusions, active public-label drift, SEO defaults, the header shim, public discovery surfaces, Free Scan intake validation, and Free Scan API smoke coverage.
 - Updated README, production guide, release checklist, route/link checklist, and search discovery checklist with the current legacy public-route policy.
 - Added a compact PR template checklist-gate section so the full readiness system is easier to scan and maintain.
@@ -81,6 +87,10 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Fixed
 
+- Fixed FAQ being treated as a legacy redirect by making it a real public route in navigation, footer, sitemap, robots, discovery docs, route docs, and release docs.
+- Fixed returning customer friction by replacing repeated Access prompts with Account and Dashboard when a safe remembered session exists.
+- Fixed remembered customer account-menu clipping and mobile overflow risk.
+- Fixed signed-out return handling so sign out can clear the remembered cookie and safely return to homepage or login.
 - Fixed stale public-route exposure by moving additional legacy URLs into explicit redirects and by preventing legacy routes from being promoted by discovery surfaces.
 - Corrected plan routing so Ongoing Control points toward the current Connect path instead of legacy contact language.
 - Fixed active header drift that still promoted legacy support routes and older scan naming.
@@ -96,6 +106,8 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Security
 
+- Added signed, expiring, httpOnly, sameSite remembered-session handling for customer header state, without using browser storage for customer session state.
+- Kept protected customer routes excluded from sitemap and disallowed by robots while allowing the public FAQ route.
 - Hardened Free Scan intake boundary handling without adding new secrets, credentials, or private buyer-data exposure.
 - No secret, credential, private runtime value, or private buyer-data behavior changes.
 - Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, resilience/continuity, maximum protection, foundation hardening, system synchronization, internal command center boundaries, score-threshold discipline, Free Scan intake consistency, Free Scan API no-store behavior, protected console reads, and public-surface drift prevention.
@@ -158,6 +170,7 @@ Use plain buyer language:
 - Deep Review
 - Build Fix
 - Ongoing Control
+- FAQ
 - Connect
 
 Do not revive old public labels in release notes unless documenting historical context clearly.
