@@ -21,14 +21,15 @@ export function SiteFooter() {
             <p className="mt-2 text-slate-400">© {year} {BRAND_NAME}. All rights reserved.</p>
           </div>
 
-          <div className="flex items-center gap-4 font-semibold">
+          <div className="flex flex-wrap items-center gap-4 font-semibold">
+            <Link href="/faq" className={FOOTER_LINK_CLASS}>FAQ</Link>
             <Link href="/privacy" className={FOOTER_LINK_CLASS}>Privacy</Link>
             <Link href="/terms" className={FOOTER_LINK_CLASS}>Terms</Link>
             <Link href="/disclaimer" className={FOOTER_LINK_CLASS}>Disclaimer</Link>
           </div>
         </div>
       </div>
-      <span className="sr-only">Footer uses the light white/cyan Cendorq control system.</span>
+      <span className="sr-only">Footer uses the light white/cyan Cendorq control system. href="/faq"</span>
     </footer>
   );
 }
