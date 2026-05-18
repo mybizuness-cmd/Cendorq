@@ -2,7 +2,7 @@
 
 Use this checklist before and after production releases.
 
-The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, legacy route behavior, production safety gates, closed intelligence, data quality, pure signal authority, adaptive learning, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center boundaries, score threshold discipline, delivery readiness, or Contact Us support routing.
+The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, legacy route behavior, production safety gates, closed intelligence, data quality, pure signal authority, adaptive learning, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center boundaries, score threshold discipline, report design quality, plan report delivery, progressive customer intake, payment timing, delivery readiness, or Contact Us support routing.
 
 For production failures, smoke-check failures, or buyer-path regressions, use [`docs/incident-response.md`](incident-response.md).
 
@@ -31,6 +31,10 @@ For internal control panel, command center, automation command deck, scan automa
 For score bands, routing thresholds, 65-69 watch-grade, 70-79 operational-grade, 80-89 strong operational-grade, 90-100 authority-grade candidate, alerts, automation levels, or no-clutter public score display changes, use [`docs/score-threshold-operating-standard.md`](score-threshold-operating-standard.md).
 
 For report delivery, email follow-up, CRM sync, webhook channels, support handoff, Contact Us send-pipeline safety, or automation handoff before live sends are enabled, use [`docs/command-center-delivery-readiness.md`](command-center-delivery-readiness.md).
+
+For plan-specific reports, report visuals, letterhead, research depth, competitor analysis, forecast notes, dashboard report storage, agent chain of command, or next-plan recommendations, use [`docs/plan-report-agent-delivery-standard.md`](plan-report-agent-delivery-standard.md).
+
+For Free Scan intake, paid-plan checkout timing, post-payment questions, dashboard blockers, missing customer details, or agent work-start behavior, use [`docs/customer-intake-payment-standard.md`](customer-intake-payment-standard.md).
 
 For public copy, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language changes, use [`docs/copy-quality-checklist.md`](copy-quality-checklist.md).
 
@@ -82,6 +86,10 @@ Every release must preserve:
 - system synchronization QA
 - internal command center boundaries
 - score threshold discipline
+- report design quality
+- plan report delivery
+- progressive customer intake
+- payment timing
 - delivery readiness
 - Contact Us support routing
 
@@ -103,6 +111,8 @@ Before merging a production change:
 - Confirm Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Confirm no untested Contact Us message box, fake success state, or fake support record was added.
 - Confirm future delivery or support-send behavior follows `docs/command-center-delivery-readiness.md`.
+- Confirm plan reports, visuals, letterhead, plain wording, competitor rules, forecast rules, dashboard report storage, and agent release approval follow `docs/plan-report-agent-delivery-standard.md`.
+- Confirm Free Scan intake, paid-plan checkout timing, post-payment questions, visible dashboard blockers, and agent work-start behavior follow `docs/customer-intake-payment-standard.md`.
 - Confirm no old public labels were revived in active public surfaces.
 - Confirm closed intelligence was checked for private scoring, private reports, AI-agent prompts, client evidence, direct database exposure, public report indexes, or public evidence indexes.
 - Confirm data quality was checked for source labels, confidence, freshness, evidence, self-reported data, externally observed data, AI-generated data, and human-reviewed data.
@@ -154,6 +164,8 @@ Before merging the PR:
 - Confirm public copy remains plain, direct, buyer-friendly, conversion-focused, and ad-safe.
 - Confirm Contact Us remains direct-email based unless a real tested send pipeline exists.
 - Confirm delivery readiness was considered for report delivery, support handoff, email follow-up, CRM sync, webhook channels, or automation handoff changes.
+- Confirm plan report delivery was considered for report structure, letterhead, visuals, competitor analysis, forecast language, dashboard storage, and next-plan recommendation changes.
+- Confirm customer intake timing was considered for Free Scan question flow, checkout timing, post-payment onboarding, dashboard blockers, and agent work-start behavior changes.
 - Confirm closed intelligence gates were answered for private scoring, data access, reports, evidence, AI-agent prompts, and public/private boundary.
 - Confirm data quality and learning gates were answered when data, reports, scores, signals, memory, or AI-agent outputs changed.
 - Confirm pure signal and adaptive evolution gates were answered when signal definitions, source weighting, confidence, freshness, promotion, demotion, or authority memory changed.
@@ -267,6 +279,8 @@ For meaningful releases, note in `CHANGELOG.md`:
 - internal-command-center impact when dashboard, console, automation command deck, scan automation, paid diagnosis, Build Fix, Ongoing Control, report center, data-quality board, or insight layer changed
 - score-threshold impact when score bands, routing thresholds, alerts, automation levels, report labels, public score labels, or authority-grade candidates changed
 - delivery-readiness impact when report delivery, email follow-up, CRM sync, webhook channels, support handoff, Contact Us send-pipeline safety, or automation handoff changed
+- plan-report impact when report structure, visuals, letterhead, customer wording, research depth, competitor analysis, forecast language, dashboard report storage, agent review, or next-plan recommendations changed
+- customer-intake impact when Free Scan questions, checkout timing, post-payment onboarding, missing-information blockers, dashboard status, or agent work-start behavior changed
 - route/link impact when navigation, canonical routes, redirects, legacy routes, sitemap links, crawler-facing routes, or buyer-path connections changed
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
 - privacy/data impact when forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed
