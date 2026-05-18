@@ -81,7 +81,13 @@ expect("src/components/free-check/guided-free-check-form-v3.tsx", [
   "First-use progress starts at zero until the customer types.",
 ]);
 
-expect("src/app/dashboard/page.tsx", ["Your Cendorq workspace is ready.", "one clear next action", "Start, Continue, or Open Result", "Open Free Scan path"]);
+expect("src/app/dashboard/page.tsx", [
+  "Visibility command center",
+  "Know what the market can see, trust, and act on next.",
+  "This is not an account page.",
+  "One next step.",
+  "Scan. Diagnose. Fix. Control.",
+]);
 expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
 expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "What this helps you decide", "Review all plans"]);
 expect("src/app/dashboard/billing/page.tsx", ["getPaidCendorqPlanPrice", "Open Review page", "Payment should unlock the right readiness layer", "Checkout success parity"]);
@@ -97,6 +103,8 @@ forbidden(requiredFiles, [
   "Continue with Google",
   "Continue with Microsoft",
   "Continue with Apple",
+  "Your Cendorq workspace is ready.",
+  "A workspace can exist before a scan.",
   "$750+",
   "$300/mo",
   "starting at",
