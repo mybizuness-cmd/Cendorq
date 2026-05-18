@@ -26,9 +26,9 @@ const KNOWLEDGE_AREAS = [
   "Business trust signals",
   "Answer engine visibility",
   "Free Scan",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
 ] as const;
 
 const LAYER_CATALOG = [
@@ -40,17 +40,17 @@ const LAYER_CATALOG = [
   {
     name: "Review",
     path: "/plans/deep-review",
-    description: "Cause-level AI readiness review of the signals weakening business clarity, proof, visibility, and customer choice.",
+    description: "Cause-level Deep Review of the signals weakening business clarity, proof, visibility, and customer choice.",
   },
   {
     name: "Repair",
     path: "/plans/build-fix",
-    description: "Focused signal repair for the clearest weak point after evidence shows what matters most.",
+    description: "Focused Build Fix for the clearest weak point after evidence shows what matters most.",
   },
   {
     name: "Control",
     path: "/plans/ongoing-control",
-    description: "Recurring readiness control that keeps AI readiness, trust signals, proof, and action paths from drifting.",
+    description: "Recurring Ongoing Control that keeps AI readiness, trust signals, proof, and action paths from drifting.",
   },
 ] as const;
 
@@ -73,9 +73,9 @@ export const metadata: Metadata = {
     "business trust signals",
     "free business scan",
     "free scan",
-    "AI readiness review",
-    "signal repair",
-    "readiness control",
+    "Deep Review",
+    "Build Fix",
+    "Ongoing Control",
   ],
   authors: [{ name: siteConfig.legalName || siteConfig.name }],
   creator: siteConfig.name,
