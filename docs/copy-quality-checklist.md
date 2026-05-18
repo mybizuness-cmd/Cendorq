@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -29,6 +30,9 @@ Before merging public copy changes, confirm:
 - Claims are supportable and not exaggerated.
 - Trust language is calm, direct, and credible.
 - Plan descriptions are distinct and easy to compare.
+- Customer-facing language says Contact Us, not Connect.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- No untested public message box appears as a working support form.
 - Old public labels were not revived in active surfaces.
 - Copy does not add clutter or competing intent.
 - Metadata stays aligned with current buyer language.
@@ -38,12 +42,21 @@ Before merging public copy changes, confirm:
 
 Use plain buyer language:
 
+- AI visibility and readiness
 - Free Scan
 - Plans
 - Deep Review
 - Build Fix
 - Ongoing Control
-- Connect
+- FAQ
+- Contact Us
+- Access
+- Account
+- Dashboard
+- visibility shows where the business is seen
+- readiness explains why the business is or is not understood
+- execution fixes the weak points
+- control keeps visibility and readiness from drifting
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
@@ -57,6 +70,7 @@ Avoid reviving old public labels:
 - Presence Infrastructure
 - Presence Command
 - Start Search Presence Scan
+- customer-facing Connect labels
 
 Avoid vague or bloated phrases:
 
@@ -76,6 +90,7 @@ Before changing CTAs, confirm:
 - Link text is clear without surrounding context.
 - CTAs match the destination page.
 - Button labels do not overpromise.
+- Contact Us labels point to `/connect`.
 
 ## Trust checks
 
@@ -103,7 +118,7 @@ pnpm build
 For production-impacting copy changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -115,4 +130,5 @@ Do not use copy work as a reason to add:
 - dashboard behavior
 - route-console behavior
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity
