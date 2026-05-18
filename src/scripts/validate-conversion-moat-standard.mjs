@@ -19,9 +19,9 @@ for (const path of [pricingContractPath, plansPath, planTemplatePath, billingPat
 expect(pricingContractPath, [
   "CENDORQ_PLAN_PRICES",
   "Free Scan",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
@@ -91,6 +91,9 @@ forbidden([pricingContractPath, plansPath, planTemplatePath, billingPath, dashbo
   "outcome warranty",
   "localStorage.setItem",
   "sessionStorage.setItem",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 if (failures.length) {
@@ -99,7 +102,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Conversion moat standard validation passed with fixed pricing, customer-facing checkout, dashboard revenue path, and post-payment activation coverage.");
+console.log("Conversion moat standard validation passed with current plan names, fixed pricing, customer-facing checkout, dashboard revenue path, and post-payment activation coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
