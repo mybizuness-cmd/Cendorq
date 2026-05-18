@@ -126,6 +126,7 @@ const documentedValidatorCoverage = [
   "src/scripts/validate-public-entry-plan-journey.mjs",
   "src/scripts/validate-homepage-public-frame-elevation.mjs",
   "src/scripts/validate-public-navigation-chrome.mjs",
+  "src/scripts/validate-public-sitemap-surface.mjs",
   "src/scripts/validate-trust-legal-plan-boundaries.mjs",
   "src/scripts/validate-mobile-visual-audit-stage-one.mjs",
   "src/scripts/validate-command-plan-blocks-free-scan-flow.mjs",
