@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
 const billingPath = "src/app/dashboard/billing/page.tsx";
@@ -21,9 +22,9 @@ expect(checkoutSuccessPath, [
   "deep-review",
   "build-fix",
   "ongoing-control",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "One next step",
   "Payment confirmed",
   "Delivery starts only when the required ownership, intake, evidence, diagnosis, and approval state fit the selected stage.",
@@ -63,6 +64,7 @@ expect(billingPath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(checkoutSuccessPath, [
+  ...legacyPlanLabels,
   "const PLAN = getPaidCendorqPlanPrice(\"deep-review\")",
   "const PLAN_VALUE = getPlanValueDelivery(\"deep-review\")",
   "we guarantee ranking",
@@ -72,6 +74,7 @@ forbidden(checkoutSuccessPath, [
 ]);
 
 forbidden(billingPath, [
+  ...legacyPlanLabels,
   "submit card number",
   "paste your password",
   "we guarantee ranking",
