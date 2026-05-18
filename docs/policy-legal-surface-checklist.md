@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -26,6 +27,9 @@ Before merging policy-sensitive changes, confirm:
 - Disclaimers are clear without sounding evasive.
 - Data-use statements are accurate and not overbroad.
 - Security contact surfaces are easy to find and current.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- Any future public Contact Us message box must capture the sender email, send to `support@cendorq.com`, avoid fake success states, and preserve privacy boundaries.
 - No unsupported legal, compliance, privacy, or security claim was added.
 - No policy language conflicts with public forms, analytics, third-party scripts, or data handling.
 - No customer data, private examples, secrets, tokens, or credentials are exposed.
@@ -41,6 +45,7 @@ For privacy or data-use changes, confirm:
 - Public variables do not imply private data handling.
 - Analytics or third-party references are accurate if mentioned.
 - Form intake language matches what the buyer submits.
+- Contact Us direct-email language tells customers to email from the address where they want the reply until a tested form pipeline exists.
 
 ## Terms and disclaimer checks
 
@@ -61,6 +66,7 @@ For security contact changes, confirm:
 - Public security language does not overpromise.
 - Security guidance does not expose internals.
 - Security policy references stay aligned.
+- Public support and security contact language do not conflict.
 
 ## Validation expectation
 
@@ -76,7 +82,7 @@ pnpm build
 For production-impacting policy changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -88,5 +94,6 @@ Do not use policy work as a reason to add:
 - absolute security claims
 - hidden data-use changes
 - confusing disclaimers
+- untested public message boxes
 - homepage clutter
 - technical language that reduces buyer clarity
