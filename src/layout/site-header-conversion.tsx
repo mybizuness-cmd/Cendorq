@@ -46,7 +46,7 @@ export async function SiteHeader() {
           <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Free Scan"}</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. Account menu uses overflow-visible so the menu is not clipped. href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
+      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. Account menu uses overflow-visible so the menu is not clipped. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
     </header>
   );
 }
@@ -59,7 +59,7 @@ function AccountMenu({ dashboardHref }: { dashboardHref: string }) {
         <span className="hidden sm:inline">Account</span>
       </summary>
       <div className="absolute right-0 z-50 mt-2 w-56 rounded-2xl border border-cyan-100 bg-white p-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)]">
-        <Link href={dashboardHref} className={ACCOUNT_LINK_CLASS}>Dashboard</Link>
+        <Link href={dashboardHref} className={`${ACCOUNT_LINK_CLASS} bg-cyan-50 text-slate-950`}>Dashboard</Link>
         <Link href="/dashboard/reports" className={ACCOUNT_LINK_CLASS}>Reports</Link>
         <Link href="/dashboard/billing" className={ACCOUNT_LINK_CLASS}>Billing</Link>
         <Link href="/dashboard/support" className={ACCOUNT_LINK_CLASS}>Support</Link>
