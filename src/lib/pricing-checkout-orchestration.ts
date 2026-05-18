@@ -49,7 +49,7 @@ export const CENDORQ_PLAN_PRICES = [
     checkoutPath: "/checkout/start?plan=deep-review",
     successPath: "/checkout/success?plan=deep-review&session_id={CHECKOUT_SESSION_ID}",
     primaryCustomerPromise: "Understand what is weakening business visibility, clarity, trust, proof, or choice before buying repair work.",
-    revenueRole: "Convert Free Scan uncertainty into an evidence-backed paid diagnosis.",
+    revenueRole: "Convert Free Scan uncertainty into an evidence-backed paid review.",
     afterPaymentNextStep: "Cendorq opens the Deep Review path and asks for the business context needed to begin.",
     backendStartSignal: "deep_review_paid",
   },
@@ -113,7 +113,7 @@ export const CENDORQ_CHECKOUT_ORCHESTRATION = [
   {
     step: "work-started",
     customerExperience: "The customer sees what Cendorq needs from them and where to track progress.",
-    systemAction: "Route Deep Review to diagnosis, Build Fix to scoped fix intake, and Ongoing Control to monthly control setup.",
+    systemAction: "Route Deep Review to evidence-backed review, Build Fix to scoped fix intake, and Ongoing Control to monthly control setup.",
   },
 ] as const;
 
