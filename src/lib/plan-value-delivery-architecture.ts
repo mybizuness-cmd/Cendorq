@@ -19,7 +19,7 @@ export const PLAN_VALUE_DELIVERY_ARCHITECTURE = [
     key: "free-scan",
     customerName: "Free Scan",
     price: "$0",
-    primaryValue: "Reveal the first visible customer-decision signal without pretending to be a full diagnosis.",
+    primaryValue: "Reveal the first visible customer-decision signal without pretending to be a full review.",
     customerOutcome: "The customer understands what may be costing choices first and why deeper review may or may not be needed.",
     includes: [
       "Protected dashboard Free Scan result",
@@ -35,7 +35,7 @@ export const PLAN_VALUE_DELIVERY_ARCHITECTURE = [
       "Private-data investigation",
       "Guaranteed revenue outcome",
     ],
-    reportBoundary: "Directional first signal only. It can identify visible risk but must not present itself as a final diagnosis.",
+    reportBoundary: "Directional first signal only. It can identify visible risk but must not present itself as a final review.",
     upgradeLogic: "Upgrade to Deep Review when the first signal matters enough that guessing would be more expensive than evidence-backed review.",
     bestWhen: "The customer needs a safe first read before spending money.",
     avoidWhen: "The customer already knows the exact fix and needs implementation only.",
@@ -119,7 +119,7 @@ export const PLAN_VALUE_DELIVERY_ARCHITECTURE = [
 
 export const PLAN_VALUE_SEPARATION_RULES = [
   "Free Scan identifies a first visible signal; Deep Review explains the reason; Build Fix implements a scoped improvement; Ongoing Control monitors and guides monthly decisions.",
-  "Never sell Free Scan as a full diagnosis.",
+  "Never sell Free Scan as a full review.",
   "Never sell Deep Review as done-for-you implementation.",
   "Never sell Build Fix as unlimited implementation or recurring monitoring.",
   "Never sell Ongoing Control as unlimited Build Fix work or guaranteed ranking, AI placement, or revenue.",
