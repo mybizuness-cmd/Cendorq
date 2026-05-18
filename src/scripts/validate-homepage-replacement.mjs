@@ -14,6 +14,7 @@ const experienceSystem = readFileSync(join(root, "src/lib/cendorq-experience-sys
 const combined = `${homepage}\n${footer}\n${header}\n${loading}\n${layout}\n${robots}\n${sitemap}\n${seo}\n${experienceSystem}`;
 const visiblePublicShell = `${homepage}\n${footer}\n${header}\n${loading}`;
 const failures = [];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 for (const phrase of [
   "export const dynamic = \"force-dynamic\";",
@@ -79,6 +80,7 @@ for (const phrase of [
 }
 
 for (const phrase of [
+  ...legacyPlanLabels,
   "Cendorq Search Presence OS",
   "Search Presence Scan",
   "Start Search Presence Scan",
@@ -99,9 +101,6 @@ for (const phrase of [
   "If AI engines cannot understand your business, customers may never get the chance to.",
   "Cendorq turns AI-readiness into a clear path",
   "Cendorq | AI Engine Readiness for Businesses",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
   "Dashboard\", href: \"/dashboard\"",
   "Support\", href: \"/dashboard/support\"",
   "aria-controls=\"site-menu\"",
