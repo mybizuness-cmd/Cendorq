@@ -78,17 +78,19 @@ expect(faqPath, [
 ]);
 
 expect(connectPath, [
-  "Contact routing",
-  "CONTACT_STAGE_ROUTES",
-  "CONTACT_BOUNDARIES",
-  "Start Free Scan if the problem is unclear.",
-  "Use pricing if you know the depth you need.",
-  "Contact only when fit, scope, or timing is already clear.",
+  "Connect | Cendorq",
+  "Connect with Cendorq",
+  "Connect when the next question is already clear.",
+  "Start Free Scan if the first visibility or readiness signal is unclear.",
+  "Use Plans if you know the depth you need.",
+  "Connect only when fit, scope, or timing is already clear.",
   "Need a first signal",
-  "Need to compare depth",
+  "Need to choose a plan",
   "Already a customer",
-  "Contact is not a replacement for the Free Scan when the cause is unclear.",
-  "Contact is not an unlimited consulting lane.",
+  "Deep Review, Build Fix, and Ongoing Control",
+  "Connect is not a replacement for the Free Scan when the cause is unclear.",
+  "Connect is not an unlimited consulting lane.",
+  "AI visibility and readiness routing",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -134,6 +136,13 @@ forbidden(faqPath, [
 ]);
 
 forbidden(connectPath, [
+  "Contact routing",
+  "Contact Cendorq",
+  "Contact only when",
+  "Use pricing if you know the depth you need.",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "unlimited consulting",
   "send passwords",
   "send card numbers",
@@ -148,7 +157,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Connect routing, and visibility plus readiness footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, current Connect routing, and visibility plus readiness footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
