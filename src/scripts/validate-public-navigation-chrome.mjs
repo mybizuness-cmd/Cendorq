@@ -71,26 +71,32 @@ expect(faqPath, [
   "What is the difference between Free Scan, Deep Review, Build Fix, and Ongoing Control?",
   "Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Ongoing Control keeps watch over time.",
   "Cendorq is built to improve visibility, clarity, trust, proof, readiness",
-  "Connect",
+  "Contact Us",
   "href: \"/connect\"",
   "FAQPage",
   "Does Cendorq guarantee rankings, leads, revenue, or AI placement?",
 ]);
 
 expect(connectPath, [
-  "Connect | Cendorq",
-  "Connect with Cendorq",
-  "Connect when the next question is already clear.",
+  "Contact Us | Cendorq",
+  "Contact Us",
+  "Contact us when the next question is already clear.",
+  "SUPPORT_EMAIL = \"support@cendorq.com\"",
+  "Email us directly",
+  "Email Support",
+  "support@cendorq.com",
+  "from the email address where you want the reply",
+  "Include your business name, website, and the email used for your Free Scan or plan if you already have one.",
   "Start Free Scan if the first visibility or readiness signal is unclear.",
   "Use Plans if you know the depth you need.",
-  "Connect only when fit, scope, or timing is already clear.",
+  "Contact us only when fit, scope, or timing is already clear.",
   "Need a first signal",
   "Need to choose a plan",
   "Already a customer",
   "Deep Review, Build Fix, and Ongoing Control",
-  "Connect is not a replacement for the Free Scan when the cause is unclear.",
-  "Connect is not an unlimited consulting lane.",
-  "AI visibility and readiness routing",
+  "Contact Us is not a replacement for the Free Scan when the cause is unclear.",
+  "Contact Us is not an unlimited consulting lane.",
+  "AI visibility and readiness contact routing",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -127,6 +133,7 @@ forbidden(faqPath, [
   "Readiness Control",
   "href: \"/contact\"",
   "label: \"Contact\"",
+  "label: \"Connect\"",
   "guaranteed rankings, leads, revenue, or AI placement. Yes",
   "workspace theory",
   "orchestration",
@@ -136,9 +143,16 @@ forbidden(faqPath, [
 ]);
 
 forbidden(connectPath, [
+  "Connect | Cendorq",
+  "Connect with Cendorq",
+  "Connect when the next question is already clear.",
+  "Connect only when",
   "Contact routing",
   "Contact Cendorq",
   "Contact only when",
+  "support@opstandoc.com",
+  "message box",
+  "textarea",
   "Use pricing if you know the depth you need.",
   "AI Readiness Review",
   "Signal Repair",
@@ -157,7 +171,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, current Connect routing, and visibility plus readiness footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Contact Us routing, support@cendorq.com direct email, and visibility plus readiness footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
