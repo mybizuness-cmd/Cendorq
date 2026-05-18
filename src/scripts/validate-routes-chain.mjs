@@ -19,6 +19,7 @@ const validators = [
   "src/scripts/validate-closed-intelligence.mjs",
   "src/scripts/validate-owner-operating-manual.mjs",
   "src/scripts/validate-command-center-docs-index.mjs",
+  "src/scripts/validate-plan-report-and-intake-standards.mjs",
   "src/scripts/validate-command-center-migrations.mjs",
   "src/scripts/validate-command-center-schema.mjs",
   "src/scripts/validate-command-center-readiness.mjs",
