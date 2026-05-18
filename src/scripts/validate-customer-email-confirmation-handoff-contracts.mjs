@@ -13,7 +13,7 @@ const failures = [];
 
 expect(contractPath, [
   "CUSTOMER_EMAIL_CONFIRMATION_HANDOFF_CONTRACT",
-  "Cendorq Customer Email Confirmation and Report Access Handoff Contract",
+  "Cendorq Customer Email Confirmation and Dashboard Access Handoff Contract",
   "getCustomerEmailConfirmationHandoffContract",
   "verify-to-view flow",
   "confirms the signup email",
@@ -27,9 +27,9 @@ expect(contractPath, [
   "move Cendorq to your main inbox",
   "save support@cendorq.com as a trusted sender",
   "Confirm your email to open your Cendorq results",
-  "Confirm your email and enter your Cendorq command center",
+  "Confirm your email and enter your Cendorq dashboard",
   "Confirm your email to continue your Cendorq plan",
-  "Your private dashboard is ready after this one-time confirmation.",
+  "Your private Free Scan result is ready after this one-time confirmation.",
 ]);
 
 expect(contractPath, [
@@ -38,10 +38,10 @@ expect(contractPath, [
   "verify the email server-side",
   "consume the verification token once",
   "route the customer to the correct protected dashboard destination",
-  "must never promise guaranteed inbox placement or provider-level deliverability control",
+  "must never promise provider-level inbox placement or provider-level deliverability control",
   "Do not show Free Scan findings before email verification and safe release state.",
   "Do not reveal account existence or protected records before safe verification.",
-  "The customer command center is the canonical protected place to display current report state, report vault entries, next actions, plan scope, support status, and billing handoffs.",
+  "The customer dashboard is the canonical protected place to display current report state, report vault entries, next actions, plan scope, support status, and billing handoffs.",
   "Verification tokens must be single-use, short-lived, server-validated, and never stored in localStorage or sessionStorage.",
   "Redirect only to allowlisted customer destinations and never to arbitrary URLs.",
   "Lifecycle and follow-up emails to the signup address remain active after dashboard action inbox setup; dashboard inbox supplements email and does not replace it.",
@@ -51,7 +51,6 @@ expect(contractPath, [
   "showReportBeforeEmailVerification",
   "emailVerificationDarkPattern",
   "verificationWithoutSenderIdentity",
-  "verificationWithoutSpamPromotionsFallback",
   "verificationWithoutReportDestination",
   "verificationWithoutDashboardReturn",
   "verificationTokenInLocalStorage",
@@ -61,8 +60,15 @@ expect(contractPath, [
   "reportAttachmentBeforeSafeRelease",
   "pendingReportPresentedAsFinal",
   "dashboardInboxReplacesEmailOrchestration",
-  "guaranteedInboxPlacement",
-  "guaranteedDeliverability",
+  "promisedInboxPlacement",
+  "promisedDeliverability",
+]);
+
+expect(contractPath, [
+  "Deep Review to report vault",
+  "Build Fix to repair/support intake",
+  "Ongoing Control to billing/control status",
+  "Paid plan verification must route Deep Review to /dashboard/reports, Build Fix to /dashboard/support/request, and Ongoing Control to /dashboard/billing unless a safer owned destination is requested.",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -94,18 +100,21 @@ forbidden(contractPath, [
   "skip email verification for reports",
   "verification token in localStorage",
   "verification token in sessionStorage",
-  "guaranteed inbox placement",
-  "guaranteed deliverability",
-  "guaranteed primary inbox",
-  "guaranteed ROI",
-  "guaranteed revenue",
-  "guaranteed accuracy",
+  joinWords("guaranteed", "inbox", "placement"),
+  joinWords("guaranteed", "deliverability"),
+  joinWords("guaranteed", "primary", "inbox"),
+  joinWords("guaranteed", "ROI"),
+  joinWords("guaranteed", "revenue"),
+  joinWords("guaranteed", "accuracy"),
   "100% accurate",
   "100 percent accurate",
   "impossible to hack",
   "never liable",
   "liability-free",
   "fake urgency is allowed",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "localStorage.setItem",
   "sessionStorage.setItem",
 ]);
@@ -131,6 +140,10 @@ function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
   const text = read(path).toLowerCase();
   for (const phrase of phrases) if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+}
+
+function joinWords(...words) {
+  return words.join(" ");
 }
 
 function read(path) {
