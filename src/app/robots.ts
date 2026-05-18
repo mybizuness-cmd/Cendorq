@@ -11,6 +11,7 @@ const PUBLIC_ALLOWLIST = [
     "/plans/build-fix",
     "/plans/ongoing-control",
     "/faq",
+    "/connect",
     "/privacy",
     "/terms",
     "/disclaimer",
