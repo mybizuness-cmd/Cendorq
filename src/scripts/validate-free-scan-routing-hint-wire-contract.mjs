@@ -18,7 +18,6 @@ for (const file of files) {
   if (!existsSync(join(root, file))) failures.push(`Missing Free Scan routing hint contract file: ${file}`);
 }
 
-// These are stable internal wire/storage keys. They are intentionally not buyer-facing labels.
 expect("src/lib/validation/free-check.ts", [
   "export type RoutingHint =",
   "| \"scan-only\"",
@@ -45,7 +44,6 @@ expect("db/migrations/0001_command_center_foundation.sql", [
   "'command-review'",
 ]);
 
-// Every customer-facing interpretation must use current plan language.
 expect("src/lib/signals/free-check-signal.ts", [
   "if (value === \"scan-only\") return \"Free Scan only\";",
   "if (value === \"blueprint-candidate\") return \"Deep Review candidate\";",
@@ -78,12 +76,10 @@ expect("src/lib/reports/free-check-report.ts", [
 ]);
 
 expect("src/components/free-check/guided-free-check-form-v3.tsx", [
-  "if (routingHint === \"command-review\") return { title: \"Readiness Control may fit later.\"",
-  "href: \"/plans/ongoing-control\"",
-  "if (routingHint === \"infrastructure-review\") return { title: \"Signal Repair may fit later.\"",
-  "href: \"/plans/build-fix\"",
-  "if (routingHint === \"blueprint-candidate\") return { title: \"AI Readiness Review may be the right next depth.\"",
-  "href: \"/plans/deep-review\"",
+  "if (routingHint === \"command-review\") return { href: \"/plans/ongoing-control\", cta: \"See Readiness Control\" };",
+  "if (routingHint === \"infrastructure-review\") return { href: \"/plans/build-fix\", cta: \"See Signal Repair\" };",
+  "if (routingHint === \"blueprint-candidate\") return { href: \"/plans/deep-review\", cta: \"See AI Readiness Review\" };",
+  "return { href: \"/plans\", cta: \"Compare plans\" };",
 ]);
 
 const customerFacingFiles = [
