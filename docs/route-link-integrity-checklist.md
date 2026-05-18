@@ -15,13 +15,15 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Connect
 
 ## Required checks
 
 Before merging route or link changes, confirm:
 
 - Critical public routes still exist.
+- FAQ stays an active public route and must not redirect to Plans.
 - Primary navigation points to current canonical routes.
 - Footer links point to current canonical routes.
 - Buttons and CTAs match their destination.
@@ -46,6 +48,7 @@ Keep these routes healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
+- `/faq`
 - `/connect`
 
 Policy and trust routes may remain public when they are current:
@@ -66,7 +69,6 @@ Legacy routes should continue to redirect clearly:
 - `/how-it-works` to `/plans`
 - `/diagnosis` to `/plans/deep-review`
 - `/profile` to `/plans`
-- `/faq` to `/plans`
 - `/freecheck` to `/free-check`
 - `/full-diagnosis` to `/plans/deep-review`
 - `/optimization` to `/plans/build-fix`
@@ -88,6 +90,7 @@ For 404 or unavailable-route changes, confirm:
 
 - The buyer can recover quickly.
 - The Free Scan path is easy to reach.
+- FAQ is easy to reach when the buyer needs quick answers.
 - Connect is easy to reach when a conversation is needed.
 - The page does not sound like an internal tool or route console.
 
