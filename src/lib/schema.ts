@@ -27,17 +27,17 @@ export function serviceSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Market Command Intelligence",
+    name: "AI Engine Visibility and Readiness",
     provider: {
       "@type": "Organization",
       name: siteConfig.legalName,
       url: siteConfig.siteUrl,
     },
-    serviceType: "Market command intelligence, free scan signal review, deep review diagnosis, build fix guidance, and ongoing control",
+    serviceType: "AI visibility and readiness, Free Scan signal review, Deep Review, Build Fix, and Ongoing Control",
     areaServed: "Worldwide",
     url: absoluteUrl("/plans/deep-review"),
     description:
-      "Structured market command intelligence focused on helping a business become easier to find, understand, trust, and choose before spending deeper.",
+      "Structured AI visibility and readiness support focused on helping a business become easier to find, understand, trust, and choose before spending deeper.",
   };
 }
 
@@ -45,7 +45,7 @@ export function contactPageSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: `Connect with ${siteConfig.name}`,
+    name: `${siteConfig.name} Contact Us`,
     url: absoluteUrl("/connect"),
     about: {
       "@type": "Organization",
