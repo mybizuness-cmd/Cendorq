@@ -89,8 +89,8 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
 export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
   href: "/plans/build-fix",
   label: "Build Fix",
-  eyebrow: "Fix",
-  title: "Fix the signal",
+  eyebrow: "Repair",
+  title: "Repair the signal",
   gradient: "customers notice first.",
   intro:
     "Build Fix improves one approved page, message, proof point, or action path that may be making the business harder to see, understand, trust, or choose.",
