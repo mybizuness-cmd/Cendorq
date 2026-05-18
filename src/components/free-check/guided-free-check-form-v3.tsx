@@ -82,7 +82,8 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
     try {
       const submittedEmail = values.email.trim();
       const submittedBusinessName = values.businessName.trim();
-      const response = await fetch("/api/free-check", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...values, email: submittedEmail, websiteUrl: normalizeWebsite(values.websiteUrl), country: "", stateRegion: "", city: "", competitors: "", notes: "", source: "free-check" }) });
+      const locationParts = splitLocation(values.location);
+      const response = await fetch("/api/free-check", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...values, email: submittedEmail, websiteUrl: normalizeWebsite(values.websiteUrl), country: locationParts.country, stateRegion: locationParts.stateRegion, city: locationParts.city, competitors: "", notes: "", source: "free-check" }) });
       const data = (await response.json().catch(() => null)) as ApiResponse | null;
       if (!response.ok || !data || data.ok === false) {
         const failure = data && data.ok === false ? data : null;
@@ -114,7 +115,7 @@ export function GuidedFreeCheckFormV3({ className }: { className?: string }) {
           <div className="mt-6 flex flex-col gap-4 border-t border-slate-200 pt-5 sm:flex-row sm:items-center sm:justify-between"><div className="flex flex-wrap gap-3">{step > 0 ? <button type="button" onClick={() => setStep(0)} className={SECONDARY_CTA_CLASS}>Back</button> : null}{step < STEPS.length - 1 ? <button type="button" onClick={nextStep} className={PRIMARY_CTA_CLASS}>Continue</button> : <button type="submit" disabled={isSubmitting} className={PRIMARY_CTA_CLASS}>{isSubmitting ? "Submitting scan..." : "Submit Free Scan"}</button>}</div><div className="text-sm leading-6 text-slate-500">Use business context only. Do not enter private credentials.</div></div>
           {submitState.kind === "success" ? <SuccessState state={submitState} /> : null}{submitState.kind === "error" ? <ErrorState state={submitState} /> : null}
         </form>
-        <div className="sr-only">Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, account continuation standard, inbox guidance, clean public CTAs, recovery guidance, safe-data warnings, light cyan progress bar, two-step intake, device progress events, submitted marker, and no black form buttons. First-use progress starts at zero until the customer types.</div>
+        <div className="sr-only">Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, account continuation standard, inbox guidance, clean public CTAs, recovery guidance, safe-data warnings, light cyan progress bar, two-step intake, combined-location parsing, device progress events, submitted marker, and no black form buttons. First-use progress starts at zero until the customer types.</div>
       </div>
     </section>
   );
@@ -148,5 +149,6 @@ function isSafeEmailDomain(value: string) { if (!value || value.length > 253 || 
 function hasUnsafeEmailCharacter(value: string) { for (const character of value) { const code = character.charCodeAt(0); if (code <= 32 || code === 127) return true; if (character === "<" || character === ">" || character === "," || character === ";" || character === ":" || character === "\"") return true; } return false; }
 function looksLikeWebsite(value: string) { try { const url = new URL(normalizeWebsite(value)); return Boolean(url.hostname.includes(".") && ["http:", "https:"].includes(url.protocol)); } catch { return false; } }
 function looksLikeFullLocation(value: string) { return value.split(",").map((part) => part.trim()).filter(Boolean).length >= 3; }
+function splitLocation(value: string) { const parts = value.split(",").map((part) => part.trim()).filter(Boolean); return { city: parts[0] || "", stateRegion: parts[1] || "", country: parts.slice(2).join(", ") || "" }; }
 function includesAny(value: string, terms: string[]) { return terms.some((term) => value.includes(term)); }
 function autocompleteFor(field: keyof FormValues) { if (field === "fullName") return "name"; if (field === "email") return "email"; if (field === "businessName") return "organization"; if (field === "websiteUrl") return "url"; if (field === "location") return "off"; return "off"; }
