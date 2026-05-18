@@ -9,6 +9,7 @@ const canonicalRoutes = [
   "src/app/free-check/page.tsx",
   "src/app/plans/page.tsx",
   "src/app/faq/page.tsx",
+  "src/app/connect/page.tsx",
   "src/app/sitemap.ts",
   "src/app/robots.ts",
   "src/app/signup/page.tsx",
@@ -46,4 +47,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Canonical route validation passed for ${canonicalRoutes.length} route and orchestration dependencies, including public fallback, FAQ, sitemap, and robots surfaces.`);
+console.log(`Canonical route validation passed for ${canonicalRoutes.length} route and orchestration dependencies, including public fallback, FAQ, Connect, sitemap, and robots surfaces.`);
