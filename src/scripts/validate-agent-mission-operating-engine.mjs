@@ -88,11 +88,17 @@ expect(enginePath, [
 
 expect(panelPath, [
   "Agent mission operating engine",
-  "Plan-triggered missions, structured findings, chief review, captain approval.",
+  "Plan-triggered missions, report visuals, chief review, captain approval.",
+  "prepare plan-specific report output and visuals",
   "Agents increase depth and speed. They do not approve reports, customer-facing claims, code, launch, paid recommendations, production changes, or delivery emails.",
+  "Education goal:",
+  "Next plan motion:",
+  "Report output",
+  "Required visuals",
   "Finding record standard",
   "Operating rules",
   "verified facts, source references, assumptions, evidence gaps, confidence, risks, recommendation, and blocked customer claims",
+  "Required report output and required report visuals are visible for every plan mission.",
 ]);
 
 expect(registryPath, [
@@ -129,7 +135,7 @@ forbidden(panelPath, [
 ]);
 
 boundedLength(enginePath, 23000);
-boundedLength(panelPath, 12000);
+boundedLength(panelPath, 16000);
 
 if (failures.length) {
   console.error("Agent mission operating engine validation failed:");
