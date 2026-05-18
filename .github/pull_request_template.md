@@ -14,7 +14,8 @@ Does this change touch the public buyer path?
 - [ ] Deep Review
 - [ ] Build Fix
 - [ ] Ongoing Control
-- [ ] Connect
+- [ ] FAQ
+- [ ] Contact Us (`/connect`)
 - [ ] No public buyer-path impact
 
 ## Checklist gates
@@ -33,7 +34,7 @@ Use every checklist that applies.
 - [ ] `docs/system-synchronization-qa-standard.md` was used when standards, validation, README, SECURITY, release checklist, PR template, CHANGELOG, public routes, backend architecture, reports, or AI-agent workflows changed.
 - [ ] `docs/internal-command-center-standard.md` was used for internal dashboard, intake console, command center, automation command deck, scan automation, Deep Review automation, Build Fix control, Ongoing Control cycles, report center, data-quality board, or smart insight layer changes.
 - [ ] `docs/score-threshold-operating-standard.md` was used for score bands, 65-69 watch-grade, 70-79 operational-grade, 80-89 strong operational-grade, 90-100 authority-grade candidate, routing thresholds, alerts, automation levels, public score labels, or report score display changes.
-- [ ] `docs/production-verification-status.md` was used for strict legacy redirect smoke behavior, Free Scan API `OPTIONS`, protected Free Scan API read behavior, no-fake-submission smoke discipline, production smoke workflow expectations, or production verification status changes.
+- [ ] `docs/production-verification-status.md` was used for strict legacy redirect smoke behavior, Free Scan API `OPTIONS`, protected Free Scan API read behavior, no-fake-submission smoke discipline, production smoke workflow expectations, Contact Us support routing, or production verification status changes.
 - [ ] `docs/ai-agent-handoff.md` was used for ChatGPT-to-ChatGPT handoff, AI-agent continuation, master handoff instructions, backend handoff summary, next-session prompt, or future-session continuity.
 - [ ] `docs/final-hardening-sweep.md` was used for major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone changes.
 - [ ] `docs/backend-handoff-checklist.md` was used for backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations.
@@ -46,7 +47,7 @@ Use every checklist that applies.
 - [ ] `docs/trust-credibility-checklist.md` was used for public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, or confidence-building content.
 - [ ] `docs/route-link-integrity-checklist.md` was used for navigation, internal links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connection changes.
 - [ ] `docs/offer-integrity-checklist.md` was used for Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, or offer-positioning changes.
-- [ ] `docs/lead-intake-checklist.md` was used for Free Scan, Connect, form, field, validation, success state, error state, routing, or buyer handoff changes.
+- [ ] `docs/lead-intake-checklist.md` was used for Free Scan, Contact Us, form, field, validation, success state, error state, routing, or buyer handoff changes.
 - [ ] `docs/conversion-quality-checklist.md` was used for homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer-positioning changes.
 - [ ] `docs/visual-quality-checklist.md` was used for public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium-feel changes.
 - [ ] `docs/copy-quality-checklist.md` was used for public copy, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language changes.
@@ -57,7 +58,15 @@ Use every checklist that applies.
 - [ ] `docs/dependency-checklist.md` was used for package updates, lockfile changes, GitHub Actions updates, runtime pins, dependency automation, or tooling changes.
 - [ ] `docs/deployment-environment-checklist.md` was used for hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration changes.
 - [ ] `docs/observability-diagnostics-checklist.md` was used for health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility changes.
-- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, AI-agent handoff, closed intelligence, data access, reports, evidence, public/private boundary, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, production verification status, or public trust surfaces.
+- [ ] No checklist is needed because this change is internal-only, cosmetic-only, or otherwise does not affect the buyer path, production safety, governance, release history, integrations, configuration, backend handoff, AI-agent handoff, closed intelligence, data access, reports, evidence, public/private boundary, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, production verification status, Contact Us support routing, or public trust surfaces.
+
+## Contact Us support check
+
+- [ ] Customer-facing language says Contact Us, not Connect.
+- [ ] Contact Us is served by `/connect`.
+- [ ] Legacy `/contact` redirects to `/connect`.
+- [ ] Public Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- [ ] No untested public message box, fake success state, or private-message tracking was added.
 
 ## Closed intelligence check
 
@@ -120,7 +129,7 @@ Use every checklist that applies.
 
 ## Release history check
 
-- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, closed intelligence, data-access, report, evidence, AI-agent, data quality, learning memory, pure signal, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score threshold, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, production verification status, or validation changes.
+- [ ] `CHANGELOG.md` was updated for meaningful production, buyer-path, closed intelligence, data-access, report, evidence, AI-agent, data quality, learning memory, pure signal, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score threshold, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, trust-file, workflow, release, incident, copy quality, privacy, accessibility, performance, search discovery, dependency, deployment environment, observability, production verification status, Contact Us support routing, or validation changes.
 - [ ] No changelog update is needed because this change is internal-only, cosmetic-only, or otherwise not meaningful for release history.
 
 ## Required validation
@@ -137,7 +146,7 @@ pnpm build
 For deployment verification, run after deploy:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Notes
