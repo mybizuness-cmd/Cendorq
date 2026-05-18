@@ -19,10 +19,16 @@ expect(routePath, [
   "containsBlockedEvidenceShape",
   "safe-summary-only",
   "safe_summary_required",
-  "X-Robots-Tag",
-  "noindex, nofollow, noarchive, nosnippet",
   "Cache-Control",
   "no-store, max-age=0",
+  "Content-Type",
+  "application/json; charset=utf-8",
+  "X-Content-Type-Options",
+  "nosniff",
+  "X-Robots-Tag",
+  "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy",
+  "same-origin",
 ]);
 
 expect(routePath, [
@@ -91,7 +97,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command center owner configuration evidence API validation passed.");
+console.log("Command center owner configuration evidence API validation passed with no-store/noindex/nosniff and same-origin referrer boundaries.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
