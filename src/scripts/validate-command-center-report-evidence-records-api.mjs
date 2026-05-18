@@ -23,8 +23,14 @@ expect(routePath, [
   "safeHeaders",
   "Cache-Control",
   "no-store, max-age=0",
+  "Content-Type",
+  "application/json; charset=utf-8",
+  "X-Content-Type-Options",
+  "nosniff",
   "X-Robots-Tag",
   "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy",
+  "same-origin",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -142,7 +148,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center report evidence records API validation passed with owner posture coverage. Route stays command-center gated, safe-summary-only, no-store/noindex, persistence-runtime backed, raw/private rejecting, and blocked from customer-facing output or launch approval drift.");
+console.log("Command Center report evidence records API validation passed with owner posture coverage. Route stays command-center gated, safe-summary-only, no-store/noindex/nosniff, same-origin referrer bounded, persistence-runtime backed, raw/private rejecting, and blocked from customer-facing output or launch approval drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
