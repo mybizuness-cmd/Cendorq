@@ -11,7 +11,10 @@ Protect the buyer path first:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
+
+Contact Us is served by `/connect`, legacy `/contact` redirects to `/connect`, and public support uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 
 If a change makes the site harder to understand, harder to trust, or harder to choose, treat it as production-sensitive.
 
@@ -23,7 +26,10 @@ Use this level when:
 
 - `/` is unavailable or misleading.
 - `/free-check` is unavailable.
-- `/connect` is unavailable.
+- `/connect` is unavailable as Contact Us.
+- `/contact` stops redirecting to `/connect`.
+- public Contact Us points to the wrong support email.
+- an untested public message box or fake support success state appears.
 - `/api/health` fails.
 - production deploy is broken.
 - public pages expose secrets, private data, or unsafe content.
@@ -76,7 +82,7 @@ pnpm build
 Run production smoke verification:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 or run the **Production Smoke Check** workflow manually from GitHub Actions.
@@ -91,7 +97,10 @@ Check these first:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
-- `/connect`
+- `/faq`
+- `/connect` for Contact Us
+- `/contact` redirecting to `/connect`
+- `support@cendorq.com` as the public support email
 - `/api/health`
 - `/api/free-check` `OPTIONS`
 - `/api/free-check` protected read behavior
@@ -111,6 +120,7 @@ Confirm:
 
 - the legacy source still exists in `next.config.ts`
 - the destination is one of the current buyer-path routes
+- `/contact` still redirects to `/connect`
 - no legacy route file has been recreated under `src/app`
 - the first response returns a real redirect status
 - the first response includes a `Location` header
@@ -148,6 +158,20 @@ Confirm:
 
 Do not weaken the read boundary to make smoke pass. Restore the closed-by-default behavior, then rerun CI and production smoke.
 
+### Contact Us support routing fails
+
+If Contact Us support routing fails, confirm:
+
+- `/connect` is reachable and labeled Contact Us for customers.
+- `/contact` redirects to `/connect`.
+- public Contact Us uses `support@cendorq.com`.
+- any direct email link opens the customer's email app.
+- the page tells customers to email from the address where they want the reply.
+- no untested public message box, fake success state, or private-message tracking was added.
+- Contact Us does not replace Free Scan when the first signal is unclear.
+
+Patch the smallest route, copy, redirect, or support-email surface, then run route validation and production smoke.
+
 ### Health smoke fails
 
 If `/api/health` fails, first determine whether the issue is route code, hosting, deployment, DNS, network, or workflow-related.
@@ -172,7 +196,7 @@ Confirm:
 - canonical buyer routes are discoverable where appropriate
 - redirected legacy routes are not promoted as active pages
 - private reports, private evidence, internal command center routes, private scoring, prompts, and protected APIs are not exposed
-- `security.txt` points to the current Connect path
+- `security.txt` points to the current Contact Us path
 - `llms.txt` uses current buyer language and does not revive retired public labels
 - cache and content-type headers still match the production guide
 
@@ -187,10 +211,11 @@ Use the smallest safe fix:
 3. Keep the homepage focused on Free Scan.
 4. Keep canonical routes intact.
 5. Keep old public labels out of active public surfaces.
-6. Keep strict redirect verification, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and no-fake-submission smoke discipline intact.
-7. Re-run CI.
-8. Redeploy.
-9. Run the production smoke check.
+6. Keep Contact Us on `/connect` with direct email to `support@cendorq.com`.
+7. Keep strict redirect verification, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and no-fake-submission smoke discipline intact.
+8. Re-run CI.
+9. Redeploy.
+10. Run the production smoke check.
 
 ## Communication notes
 
@@ -210,6 +235,10 @@ After the incident is resolved:
 
 - Confirm production smoke passes.
 - Confirm the buyer path is intact.
+- Confirm Contact Us works through `/connect`.
+- Confirm `/contact` redirects to `/connect`.
+- Confirm `support@cendorq.com` is the public support inbox.
+- Confirm no untested public message box or fake success state was added.
 - Confirm strict legacy redirects still return redirect status and `Location` before following.
 - Confirm Free Scan API `OPTIONS` returns `204` with `Allow: GET,POST,OPTIONS`.
 - Confirm protected Free Scan API read behavior remains closed by default.
@@ -232,3 +261,5 @@ Do not use incidents as a reason to add:
 - fake Free Scan submissions during smoke checks
 - open production intake reads
 - final-destination-only redirect validation
+- untested public message boxes
+- fake support success states
