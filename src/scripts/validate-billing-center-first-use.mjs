@@ -18,6 +18,7 @@ expect(pagePath, [
   "Open Review page",
   "Compare readiness path",
   "Current access",
+  "Free Scan + protected account",
   "Next depth",
   "Safety",
   "No private payment details",
@@ -68,6 +69,10 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
   ...legacyPlanLabels,
+  "protected workspace",
+  "dashboard workspace",
+  "workspace exists",
+  "customer record",
   "guaranteed ROI",
   "guaranteed refund",
   "guaranteed legal outcome",
