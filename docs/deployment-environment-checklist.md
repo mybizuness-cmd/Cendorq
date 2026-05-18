@@ -12,10 +12,12 @@ Protect the core path:
 
 1. Free Scan
 2. Plans
-3. AI Readiness Review
-4. Signal Repair
-5. Readiness Control
-6. Login, signup, email confirmation, and checkout success
+3. Deep Review
+4. Build Fix
+5. Ongoing Control
+6. FAQ
+7. Contact Us
+8. Login, signup, email confirmation, and checkout success
 
 ## Required checks
 
@@ -35,6 +37,8 @@ Before merging deployment environment changes, confirm:
 - Production smoke checks still target the intended deployed URL.
 - Production smoke checks still verify Free Scan API `OPTIONS` without creating fake submissions.
 - Production smoke checks still verify unauthenticated Free Scan API reads stay protected.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Email access reports `email-sent`, `email-queued`, or `email-unavailable` truthfully.
 - Remembered-session access fails safely when the signed session secret is absent or invalid.
 - Provider auth buttons fail safely when provider URLs are absent.
@@ -97,13 +101,13 @@ For Stripe changes, confirm:
 - `STRIPE_SECRET_KEY` is set only server-side.
 - `STRIPE_WEBHOOK_SECRET` is set only server-side.
 - Price IDs match the intended plans:
-  - `STRIPE_PRICE_DEEP_REVIEW` → AI Readiness Review
-  - `STRIPE_PRICE_BUILD_FIX` → Signal Repair
-  - `STRIPE_PRICE_ONGOING_CONTROL` → Readiness Control
+  - `STRIPE_PRICE_DEEP_REVIEW` -> Deep Review
+  - `STRIPE_PRICE_BUILD_FIX` -> Build Fix
+  - `STRIPE_PRICE_ONGOING_CONTROL` -> Ongoing Control
 - Public fallback payment links point to the intended Stripe products:
-  - `NEXT_PUBLIC_STRIPE_AI_READINESS_PAYMENT_LINK`
-  - `NEXT_PUBLIC_STRIPE_SIGNAL_REPAIR_PAYMENT_LINK`
-  - `NEXT_PUBLIC_STRIPE_READINESS_CONTROL_PAYMENT_LINK`
+  - `NEXT_PUBLIC_STRIPE_AI_READINESS_PAYMENT_LINK` -> Deep Review fallback if still used by legacy configuration
+  - `NEXT_PUBLIC_STRIPE_SIGNAL_REPAIR_PAYMENT_LINK` -> Build Fix fallback if still used by legacy configuration
+  - `NEXT_PUBLIC_STRIPE_READINESS_CONTROL_PAYMENT_LINK` -> Ongoing Control fallback if still used by legacy configuration
 - Stripe metadata includes enough plan context for routing and post-payment email logic.
 - Webhook events are verified with the Stripe signing secret.
 - Checkout success pages do not expose private Stripe secrets.
@@ -115,6 +119,7 @@ For email changes, confirm:
 - `RESEND_API_KEY` is set only server-side.
 - `EMAIL_FROM` uses `Cendorq Support <support@cendorq.com>` or an approved support sender.
 - `EMAIL_REPLY_TO` and `SUPPORT_EMAIL` use monitored inboxes.
+- Public Contact Us direct email uses `support@cendorq.com` unless a real tested send pipeline exists.
 - If provider delivery is skipped or unavailable, the login page reports `email-unavailable` instead of claiming an email was sent.
 - Email confirmation links do not expose raw tokens after use.
 - Confirmation POST responses return a safe projection only.
@@ -153,6 +158,7 @@ For header or redirect changes, confirm:
 - Security headers stay present.
 - Redirects are intentional and minimal.
 - Redirects return real redirect status codes and expected `Location` headers.
+- `/contact` redirects to `/connect`.
 - Discovery files still use appropriate content types.
 - Cache behavior does not hide production issues during verification.
 - The buyer path remains canonical and simple.
@@ -194,4 +200,5 @@ Do not use deployment environment work as a reason to add:
 - homepage clutter
 - competing CTAs
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity
