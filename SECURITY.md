@@ -1,16 +1,18 @@
 # Security Policy
 
-Cendorq takes production safety, closed intelligence, data quality, maximum protection, internal command center boundaries, score threshold discipline, and responsible disclosure seriously.
+Cendorq takes production safety, closed intelligence, data quality, maximum protection, internal command center boundaries, score threshold discipline, Contact Us support routing, and responsible disclosure seriously.
 
 ## Reporting a vulnerability
 
-Report security concerns through the public Connect path:
+Report security concerns through the public Contact Us path:
 
-- https://cendorq.com/connect
+- https://www.cendorq.com/connect
+
+Public Contact Us uses direct email to support@cendorq.com unless a real tested send pipeline exists.
 
 For automated scanners and security tooling, the public security contact file is available at:
 
-- https://cendorq.com/.well-known/security.txt
+- https://www.cendorq.com/.well-known/security.txt
 
 Please include:
 
@@ -31,6 +33,7 @@ In scope:
 - public discovery files
 - production headers and caching behavior
 - public API health behavior
+- Contact Us support routing and public support email behavior
 - repository CI and production validation workflows
 - dependency and GitHub Actions maintenance risks
 - closed intelligence boundaries
@@ -64,7 +67,7 @@ pnpm build
 After deployment, run:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Protected surfaces
@@ -72,6 +75,10 @@ CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
 The repository protects:
 
 - canonical buyer routes
+- Contact Us on `/connect`
+- `/contact` redirecting to `/connect`
+- `support@cendorq.com` as the public Contact Us support email
+- no untested public message boxes or fake support success states
 - production security headers
 - API no-store and noindex behavior
 - health endpoint response shape
@@ -126,4 +133,4 @@ Pure signal standards, adaptive signal evolution, learning memory, maximum prote
 
 ## Public language safety
 
-Security or production changes should not weaken the public buyer path, revive old public labels, or add homepage clutter. Keep the Free Scan path clear and protected.
+Security or production changes should not weaken the public buyer path, revive old public labels, add fake support behavior, or add homepage clutter. Keep the Free Scan path clear and protected, and keep Contact Us direct and supportable.
