@@ -2,7 +2,7 @@
 
 Tailwind major upgrades are design-system migrations, not routine dependency bumps.
 
-Do not merge a Tailwind major upgrade just because install, lint, or typecheck passes. The public Cendorq experience depends on layout, spacing, hierarchy, responsive behavior, conversion clarity, and trust polish staying intact.
+Do not merge a Tailwind major upgrade just because install, lint, or typecheck passes. The public Cendorq experience depends on layout, spacing, hierarchy, responsive behavior, conversion clarity, Contact Us clarity, and trust polish staying intact.
 
 ## Current status
 
@@ -41,6 +41,7 @@ A Tailwind major migration must include, at minimum:
 - generated utility behavior review
 - public page visual regression review
 - mobile and desktop buyer-path review
+- Contact Us route and direct-email display review
 - production build verification
 - post-deploy smoke verification
 
@@ -58,7 +59,7 @@ pnpm build
 After deployment, run:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Visual review scope
@@ -71,7 +72,8 @@ Manually review these routes after a successful build:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
-- `/connect`
+- `/faq`
+- `/connect` for Contact Us
 
 Check:
 
@@ -83,6 +85,7 @@ Check:
 - form usability
 - trust blocks
 - footer layout
+- Contact Us email readability and tappability
 - dark surface contrast
 - responsive breakpoints
 
@@ -98,6 +101,8 @@ Do not accept a successful install as proof of a successful migration.
 
 Do not merge without a successful production build.
 
+Do not ship a public message box or fake success state as part of a styling migration.
+
 ## Release note expectation
 
 Tailwind major migration release notes must include:
@@ -107,4 +112,5 @@ Tailwind major migration release notes must include:
 - build result
 - smoke result when deployed
 - buyer-path impact
+- Contact Us visual impact when relevant
 - rollback plan
