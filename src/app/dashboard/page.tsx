@@ -91,10 +91,10 @@ export default function CustomerDashboardPage() {
         <div className="relative z-10">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Private AI readiness control center</p>
           <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,7rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">
-            Your Cendorq workspace is ready.
+            Your Cendorq account is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected place.
+            Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.
           </p>
           <DashboardNextBestAction />
         </div>
@@ -171,7 +171,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard readiness standard">AI readiness control center. Your Cendorq workspace is ready. one clear next action. One next step. Cendorq keeps the next step separate. A workspace can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan and review outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard readiness standard">AI readiness control center. Your Cendorq account is ready. one clear next action. One next step. Cendorq keeps the next step separate. An account can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan and review outputs when they are ready.</section>
     </main>
   );
 }
