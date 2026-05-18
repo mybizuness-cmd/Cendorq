@@ -23,12 +23,9 @@ expect(pagePath, [
   "Cendorq looks at the signals around your business and shows where customers or AI engines may hesitate first.",
   "How the Free Scan moves from intake to protected results",
   "Start with what customers can already see.",
-  "Cendorq checks the public-facing signals around the business and points to the first weak spot: unclear information, missing proof, weak trust signals, or a harder path to choose you.",
   "Share what customers already see.",
   "Cendorq finds the first weak signal.",
   "Open the result in your workspace.",
-  "Confirm your email once, then continue into the dashboard where the result and next step stay connected.",
-  "After verification, the result opens inside the protected customer workspace so private business context stays controlled.",
   "{ name: \"Free Scan\", path: \"/free-check\" }",
 ]);
 
@@ -40,24 +37,18 @@ expect(formPath, [
   "source: \"free-check\"",
   "preferredDestination: \"/dashboard/reports/free-scan\"",
   "requestedDestination: accountContinuation.primaryDestination",
-  "FREE_SCAN_PROGRESS_KEY",
   "FREE_SCAN_SUBMITTED_KEY",
   "Scan strength",
+  "hasStarted ? buildQualityScore(values) : 0",
+  "First-use progress starts at zero until the customer types.",
   "Use business context only. Do not enter private credentials.",
   "Submit Free Scan",
   "Confirm your email to open the result.",
-  "Cendorq Support <support@cendorq.com>",
-  "Your protected result opens in the customer workspace.",
-  "The scan email becomes the workspace email.",
   "dashboard Free Scan result path",
   "account continuation standard",
   "safe-data warnings",
-  "recordFreeScanProgress",
   "recordFreeScanSubmitted",
-  "window.localStorage.removeItem(FREE_SCAN_PROGRESS_KEY)",
-  "window.localStorage.setItem(FREE_SCAN_PROGRESS_KEY",
   "window.localStorage.setItem(FREE_SCAN_SUBMITTED_KEY",
-  "window.dispatchEvent(new Event(\"cendorq:free-check:progress\"))",
   "window.dispatchEvent(new Event(\"cendorq:free-check:submitted\"))",
 ]);
 
@@ -109,6 +100,9 @@ forbidden(pagePath, [
 
 forbidden(formPath, [
   "dangerouslySetInnerHTML",
+  "FREE_SCAN_PROGRESS_KEY",
+  "recordFreeScanProgress",
+  "readSavedFreeScanProgress",
   "rawPayload=",
   "rawEvidence=",
   "rawSecurityPayload=",
@@ -132,7 +126,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Check command route validation passed with current Free Scan page, protected verify-to-view handoff, account continuation, resumable progress, and route-chain coverage.");
+console.log("Free Check command route validation passed with current Free Scan page, protected verify-to-view handoff, account continuation, zero first-use progress, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
