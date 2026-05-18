@@ -185,7 +185,7 @@ const QUICK_LINKS = [
   { label: "Start Free Scan", href: "/free-check" },
   { label: "Customer access", href: "/login" },
   { label: "Compare plans", href: "/plans" },
-  { label: "Connect", href: "/connect" },
+  { label: "Contact Us", href: "/connect" },
 ] as const;
 
 export default function FaqPage() {
