@@ -43,19 +43,19 @@ const SCAN_SYSTEM_STEPS = [
   },
   {
     step: "03",
-    title: "Open the result in your dashboard.",
-    copy: "Confirm your email once, then continue into the dashboard where the result, next step, and plan path stay connected.",
+    title: "Open the result in your account.",
+    copy: "Confirm your email once, then continue into your account where the result, next step, and plan path stay connected.",
   },
 ] as const;
 
 const FAQS = [
   {
-    question: "Is the Free Scan a full diagnosis?",
+    question: "Is the Free Scan a full review?",
     answer: "No. It is a first signal that shows where visibility or readiness may be weak, so you can decide whether deeper review or repair work makes sense.",
   },
   {
     question: "Where does the result open?",
-    answer: "After verification, the result opens inside the protected customer dashboard so private business context stays controlled.",
+    answer: "After verification, the result opens inside your Cendorq account so your business details and next step stay connected.",
   },
 ] as const;
 
@@ -100,7 +100,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
           <div>
             {accessNotice ? (
               <div role="status" aria-live="polite" className="mb-6 max-w-3xl rounded-[1.35rem] border border-cyan-200 bg-white/86 p-4 text-sm font-semibold leading-7 text-slate-700 shadow-[0_14px_45px_rgba(15,23,42,0.06)] backdrop-blur">
-                <span className="text-cyan-700">Customer access needs a real business record.</span> {accessNotice}
+                <span className="text-cyan-700">Customer access needs a real Free Scan or plan.</span> {accessNotice}
               </div>
             ) : null}
             <h1 className="max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
@@ -162,9 +162,9 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
 
 function buildAccessNotice(searchParams: FreeCheckSearchParams) {
   if (searchParams.access !== "free-scan-required") return "";
-  if (searchParams.method === "provider" && searchParams.provider) return `We could not find a Cendorq scan or plan for that ${titleCase(searchParams.provider)} identity. Start the Free Scan to create the customer record.`;
-  if (searchParams.method === "email") return "We could not find a Cendorq scan or plan for that email. Start the Free Scan to create the customer record.";
-  return "Start the Free Scan first. That creates the customer record before the dashboard opens.";
+  if (searchParams.method === "provider" && searchParams.provider) return `We could not find a Free Scan or plan for that ${titleCase(searchParams.provider)} identity. Start the Free Scan below.`;
+  if (searchParams.method === "email") return "We could not find a Free Scan or plan for that email. Start the Free Scan below.";
+  return "Already have an account? Use the same email you used for your Free Scan, form, or plan. If this is your first time here, start the Free Scan below.";
 }
 
 function titleCase(value: string) {
