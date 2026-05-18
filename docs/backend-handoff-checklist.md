@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required pre-handoff checks
 
@@ -28,6 +29,8 @@ Before unpacking or merging backend ZIP work, confirm:
 - Public and private configuration boundaries are clear.
 - API routes fail safely and do not expose implementation details.
 - Form submissions avoid logging sensitive buyer content by default.
+- Contact Us remains direct-email based to `support@cendorq.com` unless a real tested send pipeline exists.
+- Any future Contact Us form must collect a reply email, send to `support@cendorq.com`, and avoid fake success states.
 - Third-party services are documented and necessary.
 - Database or storage assumptions are documented.
 - Error states are buyer-friendly and recoverable.
@@ -51,7 +54,8 @@ The current `main` frontend and buyer path remain the source of truth:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Current ZIP contents to avoid importing wholesale
 
@@ -100,10 +104,11 @@ The ZIP uses older public labels and route posture in several places, including:
 - `/pricing/optimization`
 - `/pricing/monthly-partner`
 - `/contact`
+- customer-facing Connect labels instead of Contact Us
 
 Those should not be revived as active buyer-facing language or active route strategy.
 
-The ZIP `next.config.ts` redirects current `/plans` style paths back toward older `/pricing` paths. That is the opposite of current `main`, where legacy pricing paths redirect into the current buyer path.
+The ZIP `next.config.ts` redirects current `/plans` style paths back toward older `/pricing` paths. That is the opposite of current `main`, where legacy pricing paths redirect into the current buyer path and `/contact` redirects to `/connect` for Contact Us.
 
 The ZIP package baseline is also behind current `main` governance. The ZIP package uses an older Node expectation and lacks the current `validate:routes` and production smoke governance.
 
@@ -123,6 +128,7 @@ The first backend integration PR should be narrow and safe:
 - Extract only proven safe improvements.
 - Preserve current buyer language.
 - Preserve current `next.config.ts` route strategy.
+- Preserve Contact Us as `/connect` with direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Preserve Node 24 and pnpm governance.
 - Keep `.env.example` limited to safe placeholders.
 - Keep storage behavior documented before production use.
@@ -156,6 +162,7 @@ Before running backend code, confirm:
 - Server-only values are not exposed client-side.
 - Logs redact sensitive data.
 - Production error responses stay safe and plain.
+- Contact Us direct-email behavior is not replaced by an untested public form.
 
 ## Data handling checks
 
@@ -167,6 +174,7 @@ For data handling, confirm:
 - Customer-sensitive information is not included in examples.
 - Submitted form content is not sent to third parties unnecessarily.
 - Analytics events do not include private form content.
+- Any future Contact Us form captures a reply email and sends to `support@cendorq.com` through a real tested pipeline.
 
 ## AI-agent handoff checks
 
@@ -206,7 +214,7 @@ pnpm build
 For production-impacting backend changes, also run after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -219,5 +227,6 @@ Do not use backend work as a reason to add:
 - private data exposure
 - unclear failure states
 - unsupported automation claims
+- untested public message boxes
 - frontend clutter
 - technical language that reduces buyer clarity
