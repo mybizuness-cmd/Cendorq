@@ -89,9 +89,9 @@ Provider URLs must be HTTPS. Leave them blank until a provider is actually confi
 
 Public Stripe payment-link fallbacks are also documented in `.env.example`:
 
-- `NEXT_PUBLIC_STRIPE_AI_READINESS_PAYMENT_LINK`
-- `NEXT_PUBLIC_STRIPE_SIGNAL_REPAIR_PAYMENT_LINK`
-- `NEXT_PUBLIC_STRIPE_READINESS_CONTROL_PAYMENT_LINK`
+- `NEXT_PUBLIC_STRIPE_DEEP_REVIEW_PAYMENT_LINK`
+- `NEXT_PUBLIC_STRIPE_BUILD_FIX_PAYMENT_LINK`
+- `NEXT_PUBLIC_STRIPE_ONGOING_CONTROL_PAYMENT_LINK`
 
 ## Operating doctrine
 
