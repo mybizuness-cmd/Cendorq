@@ -93,8 +93,10 @@ Before merging a production change:
   - Build Fix
   - Ongoing Control
   - FAQ
-  - Connect
+  - Contact Us
 - Confirm public copy is plain, command-grade, clear, credible, powerful, and easy to choose.
+- Confirm customer-facing language says Contact Us, not Connect, while `/connect` remains the stable route.
+- Confirm Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Confirm no old public labels were revived in active public surfaces.
 - Confirm closed intelligence was checked for private scoring, private reports, AI-agent prompts, client evidence, direct database exposure, public report indexes, or public evidence indexes.
 - Confirm data quality was checked for source labels, confidence, freshness, evidence, self-reported data, externally observed data, AI-generated data, and human-reviewed data.
@@ -116,6 +118,7 @@ Before merging a production change:
 - Confirm the homepage does not gain clutter, public dashboard behavior, route-console behavior, or competing CTAs.
 - Confirm canonical routes are still the source of truth.
 - Confirm FAQ stays an active public route and does not redirect to Plans.
+- Confirm `/connect` remains the active Contact Us route.
 - Confirm legacy public URLs still redirect into the current buyer path.
 - Confirm legacy routes are not promoted by sitemap entries or robots allowlists.
 - Confirm crawler and trust files still make sense.
@@ -143,6 +146,7 @@ Before merging the PR:
 - Confirm CODEOWNERS review routing is intact.
 - Confirm no secrets, private customer data, private keys, tokens, service-role credentials, report secrets, or private prompts were committed.
 - Confirm public copy remains plain, direct, buyer-friendly, conversion-focused, and ad-safe.
+- Confirm Contact Us remains direct-email based unless a real tested send pipeline exists.
 - Confirm closed intelligence gates were answered for private scoring, data access, reports, evidence, AI-agent prompts, and public/private boundary.
 - Confirm data quality and learning gates were answered when data, reports, scores, signals, memory, or AI-agent outputs changed.
 - Confirm pure signal and adaptive evolution gates were answered when signal definitions, source weighting, confidence, freshness, promotion, demotion, or authority memory changed.
@@ -165,7 +169,7 @@ Before merging the PR:
 After production deploy:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 or run the **Production Smoke Check** workflow manually from GitHub Actions.
@@ -179,7 +183,7 @@ Confirm these production surfaces are healthy:
 - `/plans/build-fix`
 - `/plans/ongoing-control`
 - `/faq`
-- `/connect`
+- `/connect` (Contact Us)
 - `/api/health`
 - `/robots.txt`
 - `/sitemap.xml`
@@ -212,6 +216,8 @@ If production weakens, breaks, or becomes unclear:
 - Run the production smoke check.
 - Confirm the Free Scan path and canonical routes are restored.
 - Confirm FAQ remains active, reachable, and not redirected away.
+- Confirm `/connect` still serves Contact Us.
+- Confirm Contact Us still uses `support@cendorq.com` unless a real tested send pipeline exists.
 - Confirm legacy route redirects are restored.
 - Confirm closed intelligence was not weakened or exposed.
 - Confirm private data, reports, evidence, score inputs, and memory were not exposed.
@@ -222,7 +228,7 @@ If production weakens, breaks, or becomes unclear:
 
 ## Scheduled checks
 
-The production smoke workflow runs automatically every day against `https://cendorq.com`.
+The production smoke workflow runs automatically every day against `https://www.cendorq.com`.
 
 If a scheduled smoke check fails:
 
