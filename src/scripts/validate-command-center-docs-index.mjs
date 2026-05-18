@@ -16,6 +16,7 @@ const requiredFiles = [
   "docs/owner-operating-manual.md",
   "docs/repo-update-scanning-automation.md",
   "docs/controlled-continuous-evolution.md",
+  "docs/command-center-delivery-readiness.md",
   "package.json",
   "src/scripts/validate-routes-chain.mjs",
   "src/scripts/validate-routes-chain-integrity.mjs",
@@ -47,6 +48,9 @@ validateTextFile("docs/command-center-docs-index.md", [
   "no untested public message boxes or fake success states",
   "docs/command-design-operating-standard.md",
   "docs/command-design-release-checklist.md",
+  "docs/command-center-delivery-readiness.md",
+  "delivery readiness standard",
+  "Contact Us send-pipeline safety",
   ".github/PULL_REQUEST_TEMPLATE/command-design.md",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-public-drift.mjs",
@@ -69,6 +73,19 @@ validateTextFile("docs/command-center-docs-index.md", [
   "CodeQL workflow integrity standard",
   "Repo update scanning automation standard",
   "Controlled continuous evolution standard",
+  "delivery readiness behavior",
+]);
+
+validateTextFile("docs/command-center-delivery-readiness.md", [
+  "# Command Center Delivery Readiness",
+  "support handoff",
+  "Contact Us remains direct-email based to `support@cendorq.com`",
+  "sender reply-email capture for future Contact Us forms",
+  "`/connect` remains the Contact Us route",
+  "`/contact` redirects to `/connect`",
+  "public Contact Us still uses `support@cendorq.com`",
+  "any future Contact Us form collects a reply email, sends to `support@cendorq.com`, and avoids fake success states",
+  "No untested public message boxes.",
 ]);
 
 validateTextFile("docs/command-design-operating-standard.md", [
@@ -189,7 +206,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with command design, Contact Us support guard, docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with command design, Contact Us support guard, delivery readiness, docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required docs index dependency: ${path}`);
