@@ -8,21 +8,39 @@ const headerPath = "src/layout/site-header-conversion.tsx";
 const footerPath = "src/layout/site-footer.tsx";
 const faqPath = "src/app/faq/page.tsx";
 const connectPath = "src/app/connect/page.tsx";
+const sessionPath = "src/lib/customer-remembered-session-runtime.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-navigation-chrome.mjs";
 
 expect(headerPath, [
+  "cookies",
+  "CENDORQ_CUSTOMER_SESSION_COOKIE",
+  "readCustomerRememberedSessionCookieValue",
   "Plans",
   "FAQ",
   "Access",
+  "Account",
+  "Dashboard",
   "Start Free Scan",
+  "isRememberedCustomer",
+  "logoHref",
+  "AccountMenu",
   "href: \"/plans\"",
   "href: \"/faq\"",
-  "href: \"/login\"",
   "href=\"/free-check\"",
-  "Header keeps Plans, FAQ, Access, and Start Free Scan visible.",
+  "href=\"/dashboard\"",
+  "Logo links to the dashboard for remembered customers and homepage for new visitors.",
   "focus:outline-none",
   "focus-visible:ring-2",
+]);
+
+expect(sessionPath, [
+  "readCustomerRememberedSessionCookieValue",
+  "CENDORQ_CUSTOMER_SESSION_COOKIE",
+  "SESSION_TTL_SECONDS = 60 * 60 * 24 * 30",
+  "httpOnly: true",
+  "sameSite: \"lax\"",
+  "safeDashboardPath",
 ]);
 
 expect(footerPath, [
@@ -70,6 +88,8 @@ forbidden(headerPath, [
   "/#ai-readiness",
   "Find the first break.",
   "Return to your work.",
+  "localStorage",
+  "sessionStorage",
   "guaranteed ranking",
   "guaranteed ai placement",
   "guaranteed revenue",
@@ -106,7 +126,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with simplified header nav, Access label, Free Scan CTA, FAQ routing, footer trust copy, and contact-stage coverage.");
+console.log("Public navigation chrome validation passed with remembered customer header state, dashboard logo return, Account menu, Free Scan CTA, FAQ routing, and footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
