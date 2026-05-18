@@ -4,10 +4,13 @@ Cendorq is AI Engine Readiness for businesses that need to become easier for cus
 
 The public buyer path is intentionally simple:
 
-1. **Scan** — start with the Free Scan when the first weak signal is unclear
-2. **Review** — use AI Readiness Review to understand what is weakening clarity, trust, proof, or choice
-3. **Repair** — use Signal Repair to improve the page, message, proof, or action path that matters most
-4. **Control** — use Readiness Control to keep readiness from drifting as search, AI answers, competitors, and customers change
+1. **Free Scan** — start here when the first weak signal is unclear
+2. **Plans** — choose the depth that fits the business problem
+3. **Deep Review** — understand what is weakening clarity, trust, proof, or choice
+4. **Build Fix** — improve the page, message, proof, or action path that matters most
+5. **Ongoing Control** — keep readiness from drifting as search, AI answers, competitors, and customers change
+6. **FAQ** — answer quick buyer questions without slowing the path
+7. **Connect** — use a direct conversation when fit, scope, or timing needs clarification
 
 The homepage has one job: get the right visitor to start the **Free Scan**.
 
@@ -68,7 +71,7 @@ Required production variables for the current customer journey:
 - `SUPPORT_EMAIL`
 - `CENDORQ_CUSTOMER_SESSION_SECRET`
 
-The session secret must be a random value with at least 32 characters. Without it, remembered-session access fails safely and sends the visitor back to sign in.
+The session secret must be a random value with at least 32 characters. Without it, remembered-session access fails safely and sends the visitor back to Access.
 
 Optional provider auth start URLs:
 
@@ -163,21 +166,21 @@ pnpm typecheck
 pnpm build
 ```
 
-`pnpm validate:routes` includes command design standard validation, public drift validation, strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and the no-fake-submission smoke rule.
+`pnpm validate:routes` includes command design standard validation, public drift validation, public sitemap and robots validation, strict legacy redirects, remembered customer header guards, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and the no-fake-submission smoke rule.
 
 After deployment, run:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 or:
 
 ```bash
-pnpm smoke:production https://cendorq.com
+pnpm smoke:production https://www.cendorq.com
 ```
 
-The production smoke workflow can also be run manually from GitHub Actions and runs automatically every day against `https://cendorq.com`.
+The production smoke workflow can also be run manually from GitHub Actions and runs automatically every day against `https://www.cendorq.com`.
 
 ## Production guide
 
@@ -221,6 +224,11 @@ These routes must stay healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
+- `/faq`
+- `/connect`
+
+Customer access routes must stay protected and noindex when used:
+
 - `/login`
 - `/signup`
 - `/verify-email`
@@ -242,15 +250,16 @@ Protected redirects include:
 - `/pricing/full-diagnosis` -> `/plans/deep-review`
 - `/pricing/optimization` -> `/plans/build-fix`
 - `/pricing/monthly-partner` -> `/plans/ongoing-control`
-- `/contact` -> `/plans`
+- `/contact` -> `/connect`
 - `/how-it-works` -> `/plans`
 - `/diagnosis` -> `/plans/deep-review`
 - `/profile` -> `/plans`
-- `/faq` -> `/plans`
 - `/freecheck` -> `/free-check`
 - `/full-diagnosis` -> `/plans/deep-review`
 - `/optimization` -> `/plans/build-fix`
 - `/monthly-partner` -> `/plans/ongoing-control`
+
+FAQ is not a legacy redirect. It is an active public route for quick buyer answers.
 
 ## Production assets
 
@@ -269,17 +278,19 @@ Use plain customer language:
 
 - AI Engine Readiness
 - Free Scan
-- AI Readiness Review
-- Signal Repair
-- Readiness Control
-- Scan
-- Review
-- Repair
-- Control
+- Plans
+- Deep Review
+- Build Fix
+- Ongoing Control
+- FAQ
+- Connect
+- Access
+- Account
+- Dashboard
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
 - stop guessing before spending more
 - protect decisions as search and AI discovery change
 
-Avoid reviving old public labels such as Business Command Intelligence, Market Command Intelligence, Search Presence OS, Visibility Blueprint, Presence Infrastructure, Presence Command, View Pricing, Deep Review, Build Fix, Ongoing Control, or Start Search Presence Scan in active public surfaces.
+Avoid reviving old public labels such as Business Command Intelligence, Market Command Intelligence, Search Presence OS, Visibility Blueprint, Presence Infrastructure, Presence Command, View Pricing, or Start Search Presence Scan in active public surfaces.
