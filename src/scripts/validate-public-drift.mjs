@@ -3,13 +3,14 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Scan", "Review", "Fix", "Control"];
+const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Contact Us", "Scan", "Review", "Fix", "Control"];
 
 const activeFiles = [
   "src/app/page.tsx",
   "src/app/free-check/page.tsx",
   "src/app/plans/page.tsx",
   "src/app/plans/plan-data.ts",
+  "src/app/connect/page.tsx",
   "src/app/dashboard/page.tsx",
   "src/lib/cendorq-experience-system.ts",
   "src/app/api/customer/email/confirm/route.ts",
@@ -75,6 +76,17 @@ expect("src/app/plans/plan-data.ts", [
   "see, understand, trust, compare, or choose",
 ]);
 
+expect("src/app/connect/page.tsx", [
+  "Contact Us",
+  "support@cendorq.com",
+  "Email Support",
+  "Email us directly",
+  "Start Free Scan",
+  "Compare plans",
+  "direct email",
+  "from the email address where you want the reply",
+]);
+
 expect("src/app/dashboard/page.tsx", [
   "AI readiness control center",
   "Your Cendorq workspace is ready.",
@@ -95,6 +107,14 @@ forbidden("src/app/plans/plan-data.ts", [
   "AI Readiness Review",
   "Signal Repair",
   "Readiness Control",
+]);
+
+forbidden("src/app/connect/page.tsx", [
+  "support@opstandoc.com",
+  "Connect utility",
+  "Connect is",
+  "<textarea",
+  "message box",
 ]);
 
 forbidden("src/app/dashboard/page.tsx", [
@@ -177,7 +197,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, visibility plus readiness homepage, aligned Free Scan and plan language, Cendorq Experience System, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
+console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, visibility plus readiness homepage, aligned Free Scan and plan language, Contact Us direct-email support routing, Cendorq Experience System, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
 
 function expect(path, phrases) {
   const text = read(path);
