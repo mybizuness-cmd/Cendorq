@@ -20,14 +20,15 @@ for (const path of [standardPath, releaseChecklistPath, focusedPrTemplatePath, p
 }
 
 expect(publicDriftPath, [
+  "AI Visibility",
   "AI Engine Readiness",
   "Free Scan",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "Scan",
   "Review",
-  "Repair",
+  "Fix",
   "Control",
 ]);
 
@@ -47,7 +48,14 @@ expect(readmePath, [standardPath]);
 expect(productionGuidePath, [standardPath]);
 expect(contributingPath, [standardPath]);
 
-forbid(publicDriftPath, ["description: \"Compare Scan, Diagnose, Fix, and Control.\"", "label: \"Pricing\"", "description: \"Choose the right depth.\""]);
+forbid(publicDriftPath, [
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
+  "description: \"Compare Scan, Diagnose, Fix, and Control.\"",
+  "label: \"Pricing\"",
+  "description: \"Choose the right depth.\"",
+]);
 
 if (failures.length) {
   console.error("Command design operating standard validation failed:");
@@ -55,7 +63,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command design operating standard validation passed for the AI-readiness public path.");
+console.log("Command design operating standard validation passed for the visibility plus readiness public path.");
 
 function expectFile(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required file: ${path}`);
