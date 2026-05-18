@@ -14,13 +14,13 @@ const validatorPath = "src/scripts/validate-public-navigation-chrome.mjs";
 expect(headerPath, [
   "Plans",
   "FAQ",
-  "Sign in",
+  "Access",
   "Start Free Scan",
   "href: \"/plans\"",
   "href: \"/faq\"",
   "href: \"/login\"",
   "href=\"/free-check\"",
-  "Header keeps Plans, FAQ, Sign in, and Start Free Scan visible.",
+  "Header keeps Plans, FAQ, Access, and Start Free Scan visible.",
   "focus:outline-none",
   "focus-visible:ring-2",
 ]);
@@ -66,6 +66,7 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(headerPath, [
   "AI Readiness",
+  "Sign in",
   "/#ai-readiness",
   "Find the first break.",
   "Return to your work.",
@@ -105,7 +106,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with simplified header nav, Free Scan CTA, FAQ routing, footer trust copy, and contact-stage coverage.");
+console.log("Public navigation chrome validation passed with simplified header nav, Access label, Free Scan CTA, FAQ routing, footer trust copy, and contact-stage coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
