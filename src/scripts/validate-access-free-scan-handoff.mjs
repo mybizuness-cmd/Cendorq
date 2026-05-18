@@ -43,7 +43,8 @@ expect(verifyPath, [
   "Start Free Scan",
   "Confirm once.",
   "Find the message from Cendorq Support.",
-  "New customers start with the Free Scan before a dashboard workspace exists.",
+  "New customers start with the Free Scan before account access exists.",
+  "One inbox. One verified email. One correct next step.",
 ]);
 
 expect(freeCheckPath, [
@@ -88,6 +89,9 @@ forbidden(loginPath, [
 ]);
 
 forbidden(verifyPath, [
+  "dashboard workspace",
+  "workspace exists",
+  "customer record",
   "exposes another customer's status",
   "paste your password",
   "submit card number",
