@@ -14,9 +14,9 @@ expect(pagePath, [
   "@/components/free-check/guided-free-check-form-v3",
   "FreeCheckAnalytics",
   "FreeCheckProgressGuard",
-  "Result opens in dashboard",
-  "Free Scan form visible within the first quarter of the page",
-  "Dedicated dashboard Free Scan result path after verification",
+  "Find the first place your business may be unclear.",
+  "Cendorq looks at the signals around your business",
+  "Open the result in your workspace.",
 ]);
 
 reject(pagePath, [
@@ -30,27 +30,27 @@ expect(formPath, [
   "signalQuality",
   "quality: data.signalQuality",
   "requestFreeScanVerifyToViewHandoff",
-  "requestedDestination: \"/dashboard/reports/free-scan\"",
+  "preferredDestination: \"/dashboard/reports/free-scan\"",
+  "requestedDestination: accountContinuation.primaryDestination",
   "verificationTokenIssued: true",
   "safeReleaseReady: false",
-  "handoff.senderDisplay",
-  "handoff.checkInboxCopy",
-  "handoff.subject",
-  "handoff.preheader",
   "handoff.safeCustomerMessage",
   "handoff.reportVisibilityRule",
-  "Compare all plans",
+  "Compare plans",
   "SUCCESS_NEXT_STEPS",
   "RECOVERY_TILES",
   "validateFields",
   "buildQualityScore",
   "buildNextMove",
-  "No passwords, cards, keys, or tokens",
-  "Current step only. No noisy four-step badge row.",
-  "Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, inbox guidance, plan-fit CTA, compare plans CTA, recovery guidance, and safe-data warnings. It removes the visible four-step badge row.",
+  "Use business context only. Do not enter private credentials.",
+  "const [values, setValues] = useState<FormValues>(INITIAL_VALUES)",
+  "hasStarted ? buildQualityScore(values) : 0",
+  "First-use progress starts at zero until the customer types.",
 ]);
 
 reject(formPath, [
+  "readSavedFreeScanProgress",
+  "recordFreeScanProgress(values)",
   "Step 01",
   "Step 02",
   "Step 03",
@@ -70,7 +70,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Elevated Free Scan form v3 validation passed with old setup preserved, stronger questions, dashboard result handoff, recovery guidance, and no noisy four-step badge row.");
+console.log("Elevated Free Scan form v3 validation passed with customer-safe Free Scan, zero first-use progress, dashboard result handoff, recovery guidance, and no stale saved-progress restore.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
