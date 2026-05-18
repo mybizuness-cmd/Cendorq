@@ -17,10 +17,12 @@ expect(sitemapPath, [
   "path: \"/plans/build-fix\"",
   "path: \"/plans/ongoing-control\"",
   "path: \"/faq\"",
+  "path: \"/connect\"",
   "path: \"/privacy\"",
   "path: \"/terms\"",
   "path: \"/disclaimer\"",
   "priority: 0.8",
+  "priority: 0.68",
   "changeFrequency: \"monthly\"",
   "includeInProduction: true",
   "shouldExposeSitemap",
@@ -48,7 +50,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public sitemap surface validation passed with FAQ included, public routes only, and protected customer routes excluded.");
+console.log("Public sitemap surface validation passed with FAQ and Connect included, public routes only, and protected customer routes excluded.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
