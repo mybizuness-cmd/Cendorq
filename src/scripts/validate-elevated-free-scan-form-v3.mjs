@@ -26,6 +26,13 @@ reject(pagePath, [
 
 expect(formPath, [
   "GuidedFreeCheckFormV3",
+  "type StepNumber = 0 | 1;",
+  "Start the Free Scan.",
+  "Make the first signal useful.",
+  "Main location",
+  "Use city, state or region, and country so the scan has enough context.",
+  "What feels weak right now?",
+  "without making the Free Scan feel like work",
   "ApiResponse",
   "signalQuality",
   "quality: data.signalQuality",
@@ -37,31 +44,44 @@ expect(formPath, [
   "handoff.safeCustomerMessage",
   "handoff.reportVisibilityRule",
   "Compare plans",
+  "See Deep Review",
+  "See Build Fix",
+  "See Ongoing Control",
   "SUCCESS_NEXT_STEPS",
   "RECOVERY_TILES",
   "validateFields",
   "buildQualityScore",
   "buildNextMove",
+  "looksLikeFullLocation",
   "Use business context only. Do not enter private credentials.",
   "const [values, setValues] = useState<FormValues>(INITIAL_VALUES)",
   "hasStarted ? buildQualityScore(values) : 0",
+  "two-step intake",
   "First-use progress starts at zero until the customer types.",
 ]);
 
 reject(formPath, [
-  "readSavedFreeScanProgress",
-  "recordFreeScanProgress(values)",
+  "COUNTRIES",
+  "US_STATES",
   "Step 01",
   "Step 02",
   "Step 03",
   "Step 04",
+  "type StepNumber = 0 | 1 | 2 | 3;",
+  "competitors: string",
+  "notes: string",
+  "Who do customers compare you with?",
+  "Anything else we should know?",
+  "See AI Readiness Review",
+  "See Signal Repair",
+  "See Readiness Control",
   "sm:grid-cols-4",
   "Premium free scan",
 ]);
 
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(formPath, 26000);
+boundedLength(formPath, 24000);
 boundedLength(pagePath, 12500);
 
 if (failures.length) {
@@ -70,7 +90,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Elevated Free Scan form v3 validation passed with customer-safe Free Scan, zero first-use progress, dashboard result handoff, recovery guidance, and no stale saved-progress restore.");
+console.log("Elevated Free Scan form v3 validation passed with simplified two-step Free Scan intake, customer-safe language, dashboard result handoff, recovery guidance, and no stale saved-progress restore.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
