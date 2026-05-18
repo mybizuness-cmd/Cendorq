@@ -39,13 +39,17 @@ expect(standardPath, [
   "Google-level simplicity",
   "ChatGPT-level immediate action",
   "Free Scan",
+  "Contact Us",
+  "`/connect` as the stable Contact Us route",
+  "support@cendorq.com",
+  "No fake support forms, untested message boxes, or fake success states.",
 ]);
 
 expect(releaseChecklistPath, ["Apple-level trust and authority", "Google-level simplicity", "ChatGPT-level immediate action"]);
 expect(focusedPrTemplatePath, ["Command design impact", "Apple-level trust and authority", "Google-level simplicity", "ChatGPT-level immediate action"]);
-expect(docsIndexPath, [standardPath, commandDesignValidatorPath, publicDriftPath]);
-expect(readmePath, [standardPath]);
-expect(productionGuidePath, [standardPath]);
+expect(docsIndexPath, [standardPath, commandDesignValidatorPath, publicDriftPath, "Public buyer-path guard", "support@cendorq.com"]);
+expect(readmePath, [standardPath, "Contact Us", "support@cendorq.com"]);
+expect(productionGuidePath, [standardPath, "Contact Us", "support@cendorq.com"]);
 expect(contributingPath, [standardPath]);
 
 forbid(publicDriftPath, [
@@ -57,13 +61,21 @@ forbid(publicDriftPath, [
   "description: \"Choose the right depth.\"",
 ]);
 
+forbid(standardPath, [
+  "Use current route language: Free Scan, Plans, Dashboard, Connect.",
+  "Connect only when fit, scope, or timing is already clear.",
+  "7. Connect",
+  "customer-facing Connect labels",
+  "Scan, Diagnose, Fix, Control",
+]);
+
 if (failures.length) {
   console.error("Command design operating standard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command design operating standard validation passed for the visibility plus readiness public path.");
+console.log("Command design operating standard validation passed for visibility, readiness, Contact Us, support email, and current public path language.");
 
 function expectFile(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required file: ${path}`);
