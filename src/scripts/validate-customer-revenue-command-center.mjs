@@ -36,16 +36,16 @@ expect(reportVaultPath, [
   "Different proof for every readiness depth.",
   "Each one has a different job.",
   "Readiness signal result",
-  "AI Readiness Review report",
-  "Signal Repair summary",
-  "Readiness Control monthly summary",
+  "Deep Review report",
+  "Build Fix summary",
+  "Ongoing Control monthly summary",
   "Nothing final until it is approved.",
   "Paid proof",
   "Dashboard + email attachment",
   "Not full diagnosis, implementation, monthly monitoring",
   "Not done-for-you implementation",
   "Not a full diagnostic report",
-  "Not unlimited Signal Repair",
+  "Not unlimited Build Fix",
   "REPORT_LIBRARY",
   "REPORT_VAULT_RULES",
   "PLAN_VALUE_SEPARATION_RULES",
@@ -63,6 +63,9 @@ forbidden(dashboardPath, [
   "we guarantee ai placement",
   "we guarantee revenue",
   "full diagnosis included in free scan",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 forbidden(reportVaultPath, [
@@ -73,6 +76,9 @@ forbidden(reportVaultPath, [
   "we guarantee ranking",
   "we guarantee ai placement",
   "we guarantee revenue",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 if (failures.length) {
