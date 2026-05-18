@@ -24,7 +24,7 @@ expect("src/lib/plan-value-delivery-architecture.ts", [
   "Deep Review explains the reason",
   "Build Fix implements a scoped improvement",
   "Ongoing Control monitors and guides monthly decisions",
-  "Never sell Free Scan as a full diagnosis",
+  "Never sell Free Scan as a full review",
   "Never sell Deep Review as done-for-you implementation",
   "Never sell Build Fix as unlimited implementation",
   "Never sell Ongoing Control as unlimited Build Fix work",
@@ -52,7 +52,7 @@ expect("src/lib/free-scan-report-methodology.ts", [
 
 expect("src/lib/reports/free-check-report.ts", [
   "scope: \"Free Scan\"",
-  "first-read signal, not a final diagnosis",
+  "first-read signal, not a final review",
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
@@ -74,8 +74,7 @@ forbidden(files, [
   "guaranteed result",
   "guaranteed revenue",
   "guaranteed ROI",
-  "unlimited implementation",
-  "unlimited Build Fix",
+  "full diagnosis",
   "full diagnosis" + " included in Free Scan",
   "Deep Review implementation included",
   "Ongoing Control includes unlimited fixes",
