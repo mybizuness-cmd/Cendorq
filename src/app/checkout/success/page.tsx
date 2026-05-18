@@ -26,7 +26,7 @@ const CHECKOUT_SUCCESS_COPY: Record<CheckoutSuccessTruthState, { badge: string; 
     badge: "Payment confirmed",
     eyebrow: "Payment confirmed",
     fallbackTitle: "Your Cendorq plan is confirmed.",
-    deliveryNote: "Delivery starts only when the required ownership, intake, evidence, diagnosis, and approval state fit the selected stage.",
+    deliveryNote: "Delivery starts only when the required ownership, intake, evidence, review, and approval state fit the selected stage.",
   },
   "session-verification-needed": {
     badge: "Verification needed",
