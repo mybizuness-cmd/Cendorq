@@ -6,15 +6,19 @@ const failures = [];
 
 const homepagePath = "src/app/page.tsx";
 const plansPath = "src/app/plans/page.tsx";
+const headerPath = "src/layout/site-header-conversion.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-entry-plan-journey.mjs";
 
 expect(homepagePath, [
-  "If AI engines cannot understand your business",
-  "AI-readiness starts with business clarity",
-  "Start with the Free Scan.",
+  "If AI engines cannot understand your business, customers may never get the chance to.",
+  "Cendorq turns AI-readiness into a clear path",
+  "Start Free Scan",
+  "View Plans",
+  "AI is becoming the place customers meet you first.",
+  "Start with the first signal. Move deeper only when it makes sense.",
   "Free Scan",
-  "AI Readiness Review",
+  "AI Readiness",
   "Signal Repair",
   "Readiness Control",
   "Scan",
@@ -22,7 +26,14 @@ expect(homepagePath, [
   "Repair",
   "Control",
   "focus:outline-none",
-  "focus:ring-2",
+]);
+
+expect(headerPath, [
+  "Plans",
+  "FAQ",
+  "Sign in",
+  "Start Free Scan",
+  "Header keeps Plans, FAQ, Sign in, and Start Free Scan visible.",
 ]);
 
 expect(plansPath, [
@@ -56,6 +67,12 @@ forbidden(homepagePath, [
   "Monthly watch",
 ]);
 
+forbidden(headerPath, [
+  "AI Readiness\", href: \"/#ai-readiness",
+  "/#ai-readiness",
+  "Customer journey",
+]);
+
 forbidden(plansPath, [
   "$750+",
   "$300/mo",
@@ -70,6 +87,7 @@ forbidden(plansPath, [
 ]);
 
 boundedLength(homepagePath, 18000);
+boundedLength(headerPath, 6500);
 boundedLength(plansPath, 18500);
 
 if (failures.length) {
@@ -78,7 +96,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public entry plan journey validation passed with clean AI-readiness path and current plan prices.");
+console.log("Public entry plan journey validation passed with clean homepage, simplified header nav, Free Scan CTA, and current plan prices.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
