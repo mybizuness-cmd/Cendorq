@@ -19,30 +19,35 @@ for (const phrase of [
   "export const dynamic = \"force-dynamic\";",
   "export const revalidate = 0;",
   "export const fetchCache = \"force-no-store\";",
-  "data-cendorq-homepage=\"cinematic-ai-readiness-experience\"",
+  "data-cendorq-homepage=\"cinematic-ai-visibility-readiness-experience\"",
   "CENDORQ_EXPERIENCE_SYSTEM",
   "CENDORQ_EXPERIENCE_GUARDRAILS",
   "CENDORQ_SIGNAL_WORDS",
-  "Cendorq | AI Engine Readiness for Businesses",
-  "If AI engines cannot understand your business, customers may never get the chance to.",
-  "Cendorq turns AI-readiness into a clear path",
-  "Start with the Free Scan.",
-  "See the first place your business may be unclear, under-trusted, or harder to choose.",
+  "Cendorq | AI Visibility and Readiness for Businesses",
+  "If AI engines cannot see or understand your business, customers may never get the chance to.",
+  "Cendorq turns AI visibility and readiness into a clear path",
+  "where the business is missing",
+  "Visibility shows the gap. Readiness explains the cause.",
+  "To be found, recommended, or trusted",
+  "See where your business may be missing, unclear, under-trusted, or harder to choose.",
   "AI is becoming the place customers meet you first.",
   "id=\"ai-readiness\"",
-  "AI Readiness",
-  "Sign in",
-  "AI engine readiness",
-  "AI readiness for business",
+  "AI Visibility and Readiness",
+  "AI visibility and readiness",
+  "AI visibility",
   "business trust signals",
   "without promising rankings, leads, revenue, or AI placement.",
   "Free Scan",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "Start Free Scan",
-  "Review Plans",
+  "View Plans",
   "Plans",
+  "FAQ",
+  "Access",
+  "Account",
+  "Dashboard",
   "Privacy",
   "Terms",
   "No AI placement promises",
@@ -57,8 +62,7 @@ for (const phrase of [
   "Unified Cendorq Experience System",
   "href=\"/free-check\"",
   "href=\"/plans\"",
-  "href=\"/login\"",
-  "href: \"/#ai-readiness\"",
+  "href: \"/faq\"",
   "href: \"/plans/deep-review\"",
   "href: \"/plans/build-fix\"",
   "href: \"/plans/ongoing-control\"",
@@ -69,7 +73,7 @@ for (const phrase of [
   "\"/sitemap.xml\"",
   "termsOfService",
 ]) {
-  if (!combined.includes(phrase)) failures.push(`Cinematic AI readiness shell missing required phrase: ${phrase}`);
+  if (!combined.includes(phrase)) failures.push(`Cinematic AI visibility and readiness shell missing required phrase: ${phrase}`);
 }
 
 for (const phrase of [
@@ -89,6 +93,12 @@ for (const phrase of [
   "Run the Free Scan before buying the bigger fix.",
   "Become easier to find, trust, and choose.",
   "If AI cannot understand your business, customers may never get the chance to.",
+  "If AI engines cannot understand your business, customers may never get the chance to.",
+  "Cendorq turns AI-readiness into a clear path",
+  "Cendorq | AI Engine Readiness for Businesses",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
   "Dashboard\", href: \"/dashboard\"",
   "Support\", href: \"/dashboard/support\"",
   "aria-controls=\"site-menu\"",
@@ -121,7 +131,7 @@ for (const phrase of [
   "system-button-primary",
   "Cendorq / Loading",
 ]) {
-  if (visiblePublicShell.includes(phrase)) failures.push(`Cinematic AI readiness shell contains forbidden phrase: ${phrase}`);
+  if (visiblePublicShell.includes(phrase)) failures.push(`Cinematic AI visibility and readiness shell contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
@@ -130,4 +140,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is cinematic, uncluttered, customer-facing, search-compliant, and positioned around AI engines and AI readiness with a distinct Cendorq experience system.");
+console.log("Homepage replacement validation passed. Public shell is cinematic, uncluttered, customer-facing, search-compliant, and positioned around AI visibility, AI readiness, and a distinct Cendorq experience system.");
