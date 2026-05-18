@@ -63,6 +63,7 @@ const validators = [
   "src/scripts/validate-signup-verification-excellence.mjs",
   "src/scripts/validate-access-free-scan-handoff.mjs",
   "src/scripts/validate-dashboard-first-session-onboarding.mjs",
+  "src/scripts/validate-customer-dashboard-command-state.mjs",
   "src/scripts/validate-customer-revenue-command-center.mjs",
   "src/scripts/validate-notification-support-routing.mjs",
   "src/scripts/validate-checkout-billing-plan-activation.mjs",
