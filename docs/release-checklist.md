@@ -92,6 +92,7 @@ Before merging a production change:
   - Deep Review
   - Build Fix
   - Ongoing Control
+  - FAQ
   - Connect
 - Confirm public copy is plain, command-grade, clear, credible, powerful, and easy to choose.
 - Confirm no old public labels were revived in active public surfaces.
@@ -114,6 +115,7 @@ Before merging a production change:
 - Confirm no secrets, private customer data, private keys, tokens, private prompts, service-role credentials, or report secrets were committed.
 - Confirm the homepage does not gain clutter, public dashboard behavior, route-console behavior, or competing CTAs.
 - Confirm canonical routes are still the source of truth.
+- Confirm FAQ stays an active public route and does not redirect to Plans.
 - Confirm legacy public URLs still redirect into the current buyer path.
 - Confirm legacy routes are not promoted by sitemap entries or robots allowlists.
 - Confirm crawler and trust files still make sense.
@@ -176,6 +178,7 @@ Confirm these production surfaces are healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
+- `/faq`
 - `/connect`
 - `/api/health`
 - `/robots.txt`
@@ -193,7 +196,6 @@ Confirm these legacy public routes resolve into the current buyer path:
 - `/how-it-works`
 - `/diagnosis`
 - `/profile`
-- `/faq`
 - `/freecheck`
 - `/full-diagnosis`
 - `/optimization`
@@ -209,6 +211,7 @@ If production weakens, breaks, or becomes unclear:
 - Redeploy.
 - Run the production smoke check.
 - Confirm the Free Scan path and canonical routes are restored.
+- Confirm FAQ remains active, reachable, and not redirected away.
 - Confirm legacy route redirects are restored.
 - Confirm closed intelligence was not weakened or exposed.
 - Confirm private data, reports, evidence, score inputs, and memory were not exposed.
