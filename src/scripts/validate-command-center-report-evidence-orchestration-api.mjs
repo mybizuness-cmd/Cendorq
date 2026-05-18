@@ -17,8 +17,14 @@ expect(routePath, [
   "safeHeaders",
   "Cache-Control",
   "no-store, max-age=0",
+  "Content-Type",
+  "application/json; charset=utf-8",
+  "X-Content-Type-Options",
+  "nosniff",
   "X-Robots-Tag",
   "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy",
+  "same-origin",
 ]);
 
 expect(routePath, [
@@ -143,7 +149,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center report evidence orchestration API validation passed. The API remains command-center gated, no-store, safe-summary-only, raw/private rejecting, runtime-backed, and unable to approve customer-facing report output.");
+console.log("Command Center report evidence orchestration API validation passed. The API remains command-center gated, no-store/noindex/nosniff, same-origin referrer bounded, safe-summary-only, raw/private rejecting, runtime-backed, and unable to approve customer-facing report output.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
