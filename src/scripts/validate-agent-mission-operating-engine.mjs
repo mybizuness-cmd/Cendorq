@@ -104,8 +104,9 @@ expect(panelPath, [
 expect(registryPath, [
   "agent-mission-operating-engine",
   "Agent mission operating engine",
-  "Show plan-triggered agent missions, structured findings, chief-agent review, release-captain approval gates, and blocked customer claims.",
-  "Agent missions remain metadata-only",
+  "Show plan-triggered agent missions, required report output, required report visuals, structured findings, chief-agent review, release-captain approval gates, next-plan motion, and blocked customer claims.",
+  "report visual standards",
+  "customer wording review",
   "order: 105",
 ]);
 
