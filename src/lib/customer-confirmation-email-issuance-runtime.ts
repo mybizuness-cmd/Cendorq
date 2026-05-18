@@ -16,7 +16,7 @@ import { getCustomerEmailTemplateContracts } from "./customer-email-template-con
 import { buildCendorqEmailLayout, buildCendorqEmailText, sendCendorqEmail } from "./cendorq-email-sender";
 
 const FREE_SCAN_CONFIRMATION_SUBJECT = "Confirm your email to open your Cendorq results";
-const ACCOUNT_ACCESS_CONFIRMATION_SUBJECT = "Confirm your email to open your Cendorq workspace";
+const ACCOUNT_ACCESS_CONFIRMATION_SUBJECT = "Confirm your email to open your Cendorq account";
 const FREE_SCAN_INTAKE_STORAGE_FILES = [
   path.join(process.cwd(), ".cendorq-runtime", "free-check-intakes.v3.json"),
   path.join(process.cwd(), ".cendorq-runtime", "search-presence-scan-intakes.v3.json"),
@@ -219,16 +219,16 @@ function buildEmailCopy(journeyKey: CustomerConfirmationEmailIssuanceInput["jour
   if (journeyKey === "free-scan-submitted") {
     return {
       intro: `Confirm your email to open your private Cendorq result for ${businessName}.`,
-      guidance: "Use the button to verify the inbox and continue to your dashboard. The Free Scan result stays inside your workspace.",
+      guidance: "Use the button to verify the inbox and continue to your dashboard. The Free Scan result stays inside your account.",
       footer: "This secure link is single-use and expires. Cendorq will never ask for your password, card number, private key, or session token in this email.",
       preview: `Check your inbox for Cendorq Support. Confirm once to open the result for ${businessName}.`,
     };
   }
   return {
-    intro: "Confirm your email to open your Cendorq workspace.",
+    intro: "Confirm your email to open your Cendorq account.",
     guidance: "Use the button to verify the inbox and continue to your dashboard. From there, you can start a Free Scan, view reports, check billing, or contact support.",
     footer: "This secure link is single-use and expires. Cendorq will never ask for your password, card number, private key, or session token in this email.",
-    preview: "Check your inbox for Cendorq Support. Confirm once to open your workspace.",
+    preview: "Check your inbox for Cendorq Support. Confirm once to open your account.",
   };
 }
 
@@ -258,4 +258,3 @@ function cleanIdentifier(value: unknown) { if (typeof value !== "string") return
 function hashEmail(email: string) { return createHash("sha256").update(email.trim().toLowerCase()).digest("hex"); }
 function hashUrl(value: string) { return createHash("sha256").update(value).digest("hex"); }
 function isRecord(value: unknown): value is Record<string, unknown> { return typeof value === "object" && value !== null && !Array.isArray(value); }
-export function getConfirmationEmailTemplateContract() { return getCustomerEmailTemplateContracts().templates.find((template) => template.key === "confirm-email"); }
