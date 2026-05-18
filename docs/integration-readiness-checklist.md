@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -28,6 +29,8 @@ Before merging integration-sensitive changes, confirm:
 - Secrets, tokens, API keys, webhook secrets, and credentials are not committed.
 - Environment variable expectations are documented safely.
 - Public copy does not promise integration behavior that is not implemented.
+- Contact Us remains direct-email based to `support@cendorq.com` unless a real tested send pipeline exists.
+- Any future Contact Us form must collect a reply email, send to `support@cendorq.com`, and avoid fake success states.
 - Integration errors do not expose internals.
 - Logs avoid private buyer data, submitted form content, tokens, and service payloads.
 - The integration does not slow or block the public buyer path unnecessarily.
@@ -43,6 +46,7 @@ For API or service handoff changes, confirm:
 - Error messages stay plain and useful.
 - Service-specific errors are not exposed directly to buyers.
 - The buyer is not left unsure what happened.
+- Contact Us support behavior remains available if a service handoff fails.
 
 ## Payment and checkout checks
 
@@ -53,7 +57,8 @@ For payment or checkout-related changes, confirm:
 - Success and cancellation paths are recoverable.
 - Webhook expectations are documented safely.
 - Payment secrets are never exposed client-side.
-- The buyer can reach Connect if payment or checkout needs human help.
+- The buyer can reach Contact Us if payment or checkout needs human help.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
 
 ## AI service checks
 
@@ -74,6 +79,7 @@ For email, CRM, or notification changes, confirm:
 - Internal notifications do not expose unnecessary private data.
 - Example payloads use fake data only.
 - Notification failures do not break the public site.
+- `support@cendorq.com` remains the public support inbox unless an approved replacement is intentionally documented.
 
 ## Validation expectation
 
@@ -89,7 +95,7 @@ pnpm build
 For production-impacting integration changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -102,5 +108,6 @@ Do not use integration work as a reason to add:
 - hardcoded credentials
 - blocking scripts
 - unsupported guarantees
+- untested public message boxes
 - homepage clutter
 - technical language that reduces buyer clarity
