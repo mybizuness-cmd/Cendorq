@@ -56,6 +56,12 @@ const ROUTES: readonly RouteDefinition[] = [
         includeInProduction: true,
     },
     {
+        path: "/connect",
+        priority: 0.68,
+        changeFrequency: "monthly",
+        includeInProduction: true,
+    },
+    {
         path: "/privacy",
         priority: 0.3,
         changeFrequency: "yearly",
