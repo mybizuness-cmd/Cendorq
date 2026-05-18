@@ -82,11 +82,11 @@ expect("src/components/free-check/guided-free-check-form-v3.tsx", [
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "Visibility command center",
-  "Know what the market can see, trust, and act on next.",
-  "This is not an account page.",
+  "Private AI readiness control center",
+  "Your Cendorq account is ready.",
+  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
   "One next step.",
-  "Scan. Diagnose. Fix. Control.",
+  "Scan. Review. Repair. Control.",
 ]);
 expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
 expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "What this helps you decide", "Review all plans"]);
@@ -105,6 +105,7 @@ forbidden(requiredFiles, [
   "Continue with Apple",
   "Your Cendorq workspace is ready.",
   "A workspace can exist before a scan.",
+  "Scan. Diagnose. Fix. Control.",
   "$750+",
   "$300/mo",
   "starting at",
@@ -122,7 +123,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, zero first-use progress, checkout, billing, and post-payment flow stay synchronized.");
+console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, zero first-use progress, account/dashboard language, checkout, billing, and post-payment flow stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
