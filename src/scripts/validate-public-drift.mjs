@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Contact Us", "Scan", "Review", "Fix", "Control"];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 const activeFiles = [
   "src/app/page.tsx",
@@ -103,11 +104,7 @@ forbidden("src/app/page.tsx", [
   "Cendorq turns AI-readiness into a clear path",
 ]);
 
-forbidden("src/app/plans/plan-data.ts", [
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
-]);
+forbidden("src/app/plans/plan-data.ts", legacyPlanLabels);
 
 forbidden("src/app/connect/page.tsx", [
   "support@opstandoc.com",
