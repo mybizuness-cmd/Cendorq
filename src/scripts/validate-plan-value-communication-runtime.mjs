@@ -18,8 +18,11 @@ expect("src/lib/plan-value-communication-runtime.ts", [
   "PLAN_VALUE_COMMUNICATION_RULES",
   "PLAN_VALUE_COMMUNICATION_PROHIBITED_CLAIMS",
   "projectPlanValueCommunication",
+  "Your Deep Review is confirmed",
+  "Your Build Fix is confirmed",
+  "Your Ongoing Control is active",
   "Free Scan communications must educate from a first visible signal without presenting a full diagnosis",
-  "Deep Review communications must focus on diagnosis and cause-level clarity without promising implementation",
+  "Deep Review communications must focus on evidence-backed review and cause-level clarity without promising implementation",
   "Build Fix communications must focus on scoped implementation without implying unlimited fixes or monthly monitoring",
   "Ongoing Control communications must focus on recurring monitoring and monthly decisions without implying unlimited Build Fix work",
   "Upgrade language must explain a different job",
@@ -55,6 +58,9 @@ forbidden(files, [
   "Deep Review includes implementation",
   "Build Fix includes unlimited implementation",
   "Ongoing Control includes unlimited fixes",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 if (failures.length) {
@@ -63,7 +69,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Plan value communication runtime validation passed. Emails and notifications preserve plan boundaries, included value, exclusions, and safe upgrade logic.");
+console.log("Plan value communication runtime validation passed. Emails and notifications preserve current plan names, plan boundaries, included value, exclusions, and safe upgrade logic.");
 
 function expect(file, phrases) {
   if (!existsSync(join(root, file))) return;
