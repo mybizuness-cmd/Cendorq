@@ -94,6 +94,7 @@ function safeReturnTo(value: string | undefined) {
 }
 
 function buildAuthNotice(auth: string | undefined, provider: string | undefined): { tone: "success" | "warning"; message: string; href?: string; cta?: string } | null {
+  if (auth === "signed-out") return { tone: "success", message: "You are signed out on this browser." };
   if (auth === "provider-not-ready") return { tone: "warning", message: `${provider ? `${titleCase(provider)} access` : "That access option"} is not ready yet. Use the secure email link for now.` };
   if (auth === "provider-callback-pending") return { tone: "warning", message: `Provider access is not live yet. Use the secure email link for now.` };
   if (auth === "provider-callback-missing-code") return { tone: "warning", message: "That provider sign-in could not finish. Use the secure email link." };
