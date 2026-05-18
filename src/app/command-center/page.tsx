@@ -33,6 +33,7 @@ import { CommandCenterPanelIndex } from "./panel-index";
 import { LaunchEvidencePanel } from "./launch-evidence-panel";
 import { ModuleRoadmapPanel } from "./module-roadmap-panel";
 import { OperatorControlInterfacePanel } from "./operator-control-interface-panel";
+import { OperatorExecutionContractsPanel } from "./operator-execution-contracts-panel";
 import { OperatorReadinessMatrix } from "./operator-readiness-matrix";
 import { OptimizationLibraryPanel } from "./optimization-library-panel";
 import { OwnerConfigurationEvidencePanel } from "./owner-configuration-evidence-panel";
@@ -95,6 +96,7 @@ export default async function CommandCenterPage() {
         <CommandCenterOperatingMap />
         <SecurityPosturePanel />
         <OperatorControlInterfacePanel />
+        <OperatorExecutionContractsPanel />
         <AdminCommandCenterControlPanel />
         <PlatformLaunchReadinessPanel />
         <ProductionLaunchChecklistPanel />
