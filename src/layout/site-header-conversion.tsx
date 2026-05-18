@@ -5,7 +5,7 @@ const BRAND_NAME = "Cendorq";
 const NAV_LINKS = [
   { label: "Plans", href: "/plans" },
   { label: "FAQ", href: "/faq" },
-  { label: "Sign in", href: "/login" },
+  { label: "Access", href: "/login" },
 ] as const;
 
 const CTA_CLASS =
@@ -36,7 +36,7 @@ export function SiteHeader() {
           <span className="hidden sm:inline">Start Free Scan</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the Cendorq homepage. Header keeps Plans, FAQ, Sign in, and Start Free Scan visible. href="/plans" href="/faq" href="/login" href="/free-check"</span>
+      <span className="sr-only">Logo links to the Cendorq homepage. Header keeps Plans, FAQ, Access, and Start Free Scan visible. href="/plans" href="/faq" href="/login" href="/free-check"</span>
     </header>
   );
 }
