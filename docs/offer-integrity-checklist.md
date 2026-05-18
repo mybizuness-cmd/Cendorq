@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -24,6 +25,10 @@ Before merging offer-sensitive changes, confirm:
 - Plans remain easy to compare.
 - Deep Review, Build Fix, and Ongoing Control stay distinct.
 - The Free Scan remains the safest first step for unsure buyers.
+- FAQ remains available for quick buyer questions.
+- Contact Us remains available for fit, scope, timing, or account help.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Scope language is clear and supportable.
 - Pricing language does not create confusion.
 - Guarantees are not added unless they are accurate, supportable, and approved.
@@ -43,6 +48,7 @@ For plan changes, confirm:
 - Plan names use current buyer language.
 - Plan descriptions are short enough to compare.
 - The next action is clear for each plan.
+- Contact Us is not used as a replacement for Free Scan when the first weak signal is unclear.
 
 ## Scope checks
 
@@ -53,6 +59,7 @@ For scope changes, confirm:
 - Timelines are realistic if mentioned.
 - Deliverables are understandable to a buyer.
 - Scope language does not overpromise implementation or ranking outcomes.
+- Contact Us does not imply unlimited consulting.
 
 ## Guarantee and claim checks
 
@@ -62,6 +69,7 @@ Avoid unsupported claims such as:
 - instant domination
 - guaranteed revenue
 - guaranteed traffic
+- guaranteed AI placement
 - best-in-class without proof
 - permanent results without maintenance
 
@@ -91,7 +99,7 @@ pnpm build
 For production-impacting offer changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -103,4 +111,5 @@ Do not use offer work as a reason to add:
 - homepage clutter
 - competing CTAs
 - fear-based messaging
+- untested public message boxes
 - technical language that reduces buyer clarity
