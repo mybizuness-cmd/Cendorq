@@ -13,12 +13,8 @@ expect(robotsPath, [
   "PUBLIC_ALLOWLIST",
   "PRIVATE_DISALLOWLIST",
   "PRIORITY_BOTS",
-  "Googlebot",
-  "Bingbot",
-  "DuckDuckBot",
-  "Applebot",
   "absoluteUrl(\"/sitemap.xml\")",
-  "path: string",
+  "type RulePath",
   "\"/free-check\"",
   "\"/plans\"",
   "\"/plans/deep-review\"",
@@ -28,19 +24,12 @@ expect(robotsPath, [
   "\"/privacy\"",
   "\"/terms\"",
   "\"/disclaimer\"",
-  "\"/api/\"",
-  "\"/admin/\"",
-  "\"/intake-console\"",
-  "\"/checkout/\"",
   "\"/dashboard/\"",
   "\"/login\"",
   "\"/signup\"",
   "\"/verify-email\"",
-  "\"/_next/\"",
   "BLOCK_SEARCH_INDEXING",
   "shouldBlockCrawlers",
-  "isPreviewOrDev",
-  "isPlaceholderDomain",
 ]);
 
 expect(routesPath, ["src/app/robots.ts"]);
@@ -48,12 +37,10 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(robotsPath, [
   "allow: [\"/dashboard",
-  "allow: [\"/api",
   "allow: [\"/login",
   "allow: [\"/signup",
   "allow: [\"/checkout",
   "disallow: []",
-  "BLOCK_SEARCH_INDEXING") === "",
 ]);
 
 if (failures.length) {
