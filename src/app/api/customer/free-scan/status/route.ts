@@ -27,7 +27,7 @@ const NO_STORE_HEADERS = {
   Pragma: "no-cache",
   Expires: "0",
   "X-Content-Type-Options": "nosniff",
-  "X-Robots-Tag": "noindex, nofollow",
+  "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
   "Referrer-Policy": "same-origin",
 } as const;
 
