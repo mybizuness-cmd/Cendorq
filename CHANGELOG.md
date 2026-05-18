@@ -60,6 +60,9 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Changed
 
+- Repositioned homepage, Free Scan, Plans, plan detail pages, FAQ, Connect, footer, README, and public validation around AI visibility plus readiness, not readiness-only language.
+- Simplified public plan names across customer-facing pages and metadata to Free Scan, Deep Review, Build Fix, and Ongoing Control.
+- Updated public drift, homepage replacement, command-design, navigation, footer, FAQ, and Connect validators so current customer language is protected by CI.
 - Simplified public header navigation to Plans, FAQ, Access, and Start Free Scan, with Dashboard and Account shown for remembered customers.
 - Updated sitemap, robots, route/link, search-discovery, and release checklists so FAQ is an active public route instead of a legacy redirect.
 - Hardened account dropdown behavior so it remains unclipped, mobile-bounded, and highlights Dashboard while keeping Reports, Billing, Support, and Sign out available.
@@ -87,6 +90,9 @@ Use this section for changes that have merged but are not yet included in a name
 
 ### Fixed
 
+- Fixed readiness-only positioning so public pages now show visibility, readiness, fixing, and ongoing control as one clear customer path.
+- Fixed old plan labels still appearing in FAQ, Connect, metadata, plan data, and validation guards.
+- Fixed Connect copy that still sounded like legacy Contact routing instead of a clear customer path for fit, scope, and timing questions.
 - Fixed FAQ being treated as a legacy redirect by making it a real public route in navigation, footer, sitemap, robots, discovery docs, route docs, and release docs.
 - Fixed returning customer friction by replacing repeated Access prompts with Account and Dashboard when a safe remembered session exists.
 - Fixed remembered customer account-menu clipping and mobile overflow risk.
@@ -165,6 +171,7 @@ For future release notes, include:
 
 Use plain buyer language:
 
+- AI visibility and readiness
 - Free Scan
 - Plans
 - Deep Review
@@ -172,5 +179,9 @@ Use plain buyer language:
 - Ongoing Control
 - FAQ
 - Connect
+- visibility shows where the business is seen
+- readiness explains why the business is or is not understood
+- execution fixes the weak points
+- control keeps visibility and readiness from drifting
 
 Do not revive old public labels in release notes unless documenting historical context clearly.
