@@ -8,7 +8,7 @@ The homepage has one job:
 
 > Get the right customer to start the Free Scan.
 
-Every public change should improve clarity, trust, desire, action, speed, mobile experience, copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment safety, observability, or production reliability. If a change adds confusion, clutter, delay, data risk, dependency risk, deployment risk, diagnostic noise, discoverability risk, weak copy, or mixed intent, do not ship it.
+Every public change should improve clarity, trust, desire, action, speed, mobile experience, copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment safety, observability, support routing, or production reliability. If a change adds confusion, clutter, delay, data risk, dependency risk, deployment risk, diagnostic noise, discoverability risk, weak copy, fake support behavior, or mixed intent, do not ship it.
 
 ## Command design standard
 
@@ -18,7 +18,7 @@ Every production-facing change should follow the command design standard:
 - Google-level simplicity
 - ChatGPT-level immediate action
 
-Before changing public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, or validation guardrails, use [`docs/command-design-operating-standard.md`](docs/command-design-operating-standard.md).
+Before changing public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, Contact Us support behavior, or validation guardrails, use [`docs/command-design-operating-standard.md`](docs/command-design-operating-standard.md).
 
 Every important surface should answer one question quickly:
 
@@ -33,7 +33,10 @@ Keep the public path simple:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
+
+Contact Us is served by `/connect`. Legacy `/contact` should redirect into `/connect`. Public Contact Us should use direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 
 Use plain buyer language. Avoid bringing back old public labels or making the site sound technical when the buyer needs clarity.
 
@@ -60,7 +63,7 @@ pnpm build
 For changes that affect production behavior after deploy, also plan to run:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## PR expectations
@@ -68,7 +71,7 @@ CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
 Use the pull request template and answer the quality gates:
 
 - buyer-path impact
-- command design impact when public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, or validation guardrails change
+- command design impact when public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, Contact Us support behavior, or validation guardrails change
 - conversion check
 - copy quality check when public language, CTAs, headings, metadata, trust messaging, or plan descriptions change
 - privacy and data handling check when public forms, analytics, third-party scripts, environment values, logs, or customer-sensitive information change
@@ -79,6 +82,7 @@ Use the pull request template and answer the quality gates:
 - deployment environment check when hosting, domain, DNS, environment variables, redirects, headers, health, smoke checks, or deployment configuration change
 - observability and diagnostics check when health checks, smoke checks, logs, diagnostics, error states, incident signals, monitoring, or operational visibility change
 - production safety check
+- Contact Us support check when `/connect`, `/contact`, support email, or support handoff changes
 - release history check
 - required validation
 - post-deploy smoke check when relevant
@@ -135,7 +139,7 @@ Diagnostic changes should stay useful, privacy-safe, actionable, and easy to rec
 
 ## Release history
 
-Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, copy quality expectations, privacy expectations, accessibility expectations, performance expectations, search discovery expectations, dependency expectations, deployment environment expectations, observability expectations, or production validation.
+Update `CHANGELOG.md` for meaningful production changes, especially when a change affects the buyer path, release checklist, incident response, trust files, workflow behavior, Contact Us support routing, copy quality expectations, privacy expectations, accessibility expectations, performance expectations, search discovery expectations, dependency expectations, deployment environment expectations, observability expectations, or production validation.
 
 Keep changelog notes short, buyer-focused, and production-aware.
 
@@ -149,9 +153,16 @@ Do not remove or weaken the critical routes:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
-- `/connect`
+- `/faq`
+- `/connect` for Contact Us
 
-Legacy public URLs should redirect into the current buyer path. The canonical route list should stay clean.
+Legacy public URLs should redirect into the current buyer path. The canonical route list should stay clean. `/contact` should redirect into `/connect`.
+
+## Contact Us support rules
+
+Do not replace direct Contact Us email with an untested public message box.
+
+If a Contact Us form is added later, it must collect the reply email, send to `support@cendorq.com`, avoid fake success states, and preserve privacy boundaries.
 
 ## Production files to protect
 
@@ -206,6 +217,8 @@ Avoid:
 - route-console behavior
 - dashboard-like public surfaces
 - unsupported guarantees
+- untested public message boxes
+- fake support behavior
 - technical language that reduces buyer clarity
 - fallback states that route users into legacy paths
 
@@ -215,4 +228,4 @@ Follow `SECURITY.md` for security-sensitive work. Dependency and GitHub Actions 
 
 ## Merge standard
 
-A change is ready when it protects the buyer path, follows the command design standard, passes CI, keeps public language aligned, accounts for copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment environment, and observability when relevant, updates release history when meaningful, and does not weaken production checks.
+A change is ready when it protects the buyer path, follows the command design standard, passes CI, keeps public language aligned, preserves Contact Us support routing, accounts for copy quality, privacy, accessibility, performance, search discovery, dependency safety, deployment environment, and observability when relevant, updates release history when meaningful, and does not weaken production checks.
