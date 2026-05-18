@@ -7,6 +7,7 @@ const middlewarePath = "src/middleware.ts";
 const rememberedSessionPath = "src/lib/customer-remembered-session-runtime.ts";
 const emailConfirmPath = "src/app/api/customer/email/confirm/route.ts";
 const continuePath = "src/app/api/auth/continue/route.ts";
+const logoutPath = "src/app/api/customer/session/logout/route.ts";
 const headerPath = "src/layout/site-header-conversion.tsx";
 const loginPath = "src/app/login/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -61,6 +62,15 @@ expect(headerPath, [
   "AccountMenu",
   "Dashboard",
   "Sign out",
+  "Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out.",
+]);
+
+expect(logoutPath, [
+  "clearCustomerRememberedSessionCookie",
+  "rawReturnTo === \"/\" ? \"/\" : null",
+  "returnTo === \"/\" ? \"/\" : \"/login\"",
+  "auth", "signed-out",
+  "no-store, no-cache, must-revalidate, max-age=0",
 ]);
 
 expect(emailConfirmPath, [
@@ -80,6 +90,8 @@ expect(continuePath, [
 ]);
 
 expect(loginPath, [
+  "signed-out",
+  "You are signed out on this browser.",
   "session-unavailable",
   "session-required",
   "This browser is not remembered yet.",
@@ -116,13 +128,20 @@ forbidden(headerPath, [
   "/#ai-readiness",
 ]);
 
+forbidden(logoutPath, [
+  "localStorage",
+  "sessionStorage",
+  "unsafeReturnTo",
+  "redirectUrl = new URL(rawReturnTo",
+]);
+
 if (failures.length) {
   console.error("Dashboard session gate validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, remembered header state, simple access copy, safe login redirects, no-store headers, and route-chain coverage.");
+console.log("Dashboard session gate validation passed with customer dashboard route protection, signed verified-session cookie validation, remembered header state, signed-out notice, safe home return, simple access copy, safe login redirects, no-store headers, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
