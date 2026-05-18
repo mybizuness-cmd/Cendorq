@@ -15,13 +15,15 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Connect
 
 ## Required checks
 
 Before merging discovery-related changes, confirm:
 
 - Canonical buyer routes remain the source of truth.
+- FAQ stays public, current, plain-language, and aligned with Free Scan, access, plans, privacy, and no-guarantee boundaries.
 - Legacy routes redirect into the current buyer path.
 - Legacy routes are not listed as active sitemap entries.
 - Legacy routes are not promoted in robots allowlists.
@@ -48,6 +50,7 @@ These routes must stay healthy and discoverable:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
+- `/faq`
 - `/connect`
 
 Policy and trust routes may remain discoverable when their content is current:
@@ -68,7 +71,6 @@ Legacy routes should redirect only into the current buyer path:
 - `/how-it-works` -> `/plans`
 - `/diagnosis` -> `/plans/deep-review`
 - `/profile` -> `/plans`
-- `/faq` -> `/plans`
 - `/freecheck` -> `/free-check`
 - `/full-diagnosis` -> `/plans/deep-review`
 - `/optimization` -> `/plans/build-fix`
