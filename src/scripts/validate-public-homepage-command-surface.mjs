@@ -6,6 +6,7 @@ const pagePath = "src/app/page.tsx";
 const headerPath = "src/layout/site-header-conversion.tsx";
 const footerPath = "src/layout/site-footer.tsx";
 const scanPath = "src/app/free-check/page.tsx";
+const faqPath = "src/app/faq/page.tsx";
 const connectPath = "src/app/connect/page.tsx";
 const packagePath = "package.json";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -13,46 +14,46 @@ const validatorPath = "src/scripts/validate-public-homepage-command-surface.mjs"
 const failures = [];
 
 expect(pagePath, [
-  "Cendorq | AI Search Visibility and Business Trust",
-  "Own the way the market understands you.",
-  "AI search visibility",
-  "business trust",
-  "customer choice",
-  "Start free scan",
-  "See the command path",
-  "Market test",
-  "Four questions decide whether the business gets chosen.",
-  "Ranking is not enough. The business has to be understood.",
-  "Command path",
-  "Scan. Diagnose. Fix. Control.",
-  "Compare all plans",
-  "No tricks. No fake guarantees. No guesswork dressed up as strategy.",
+  "Cendorq | AI Engine Readiness for Businesses",
+  "If AI engines cannot understand your business, customers may never get the chance to.",
+  "Cendorq turns AI-readiness into a clear path",
+  "Start Free Scan",
+  "View Plans",
+  "AI is becoming the place customers meet you first.",
+  "without promising rankings, leads, revenue, or AI placement",
+  "Start with the first signal. Move deeper only when it makes sense.",
 ]);
 
 expect(headerPath, [
-  "Free Scan",
-  "Pricing",
-  "Dashboard",
-  "max-h-[calc(100dvh-4.25rem)]",
-  "overflow-y-auto",
-  "Start free scan",
+  "AI Readiness",
+  "Plans",
+  "FAQ",
+  "Sign in",
+  "Start Free Scan",
+  "href: \"/faq\"",
 ]);
 
 expect(footerPath, [
-  "Start with the right read before buying the wrong fix.",
-  "Free Scan gives a first signal. Paid plans only add depth when the stage fits.",
-  "Compare plans",
-  "Contact",
+  "AI engine readiness for businesses that need to be understood, trusted, and chosen.",
+  "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.",
+  "FAQ",
   "Privacy",
   "Terms",
 ]);
 
 expect(scanPath, [
-  "Free Visibility Scan",
-  "Find the first break before you buy the fix.",
-  "Cendorq checks whether your business is clear enough to be found, understood, trusted, and acted on before deeper work begins.",
-  "Safe business context only.",
-  "Result opens in dashboard",
+  "Free Scan | Cendorq",
+  "Find the first place your business may be unclear.",
+  "Cendorq looks at the signals around your business and shows where customers or AI engines may hesitate first.",
+  "Share what customers already see.",
+  "Open the result in your workspace.",
+]);
+
+expect(faqPath, [
+  "Cendorq FAQ",
+  "Get clear answers before the next move.",
+  "Already have an account? Use the same email you used for your Free Scan, form, or plan.",
+  "Does Cendorq guarantee rankings, leads, revenue, or AI placement?",
 ]);
 
 expect(connectPath, [
@@ -70,11 +71,13 @@ boundedLength(scanPath, 16000);
 boundedLength(connectPath, 15000);
 boundedLength(headerPath, 15000);
 boundedLength(footerPath, 6500);
+boundedLength(faqPath, 24000);
 
 forbidden(pagePath, [...blockedPublicPhrases(), ...badgeHeavyPhrases()]);
 forbidden(headerPath, [...blockedPublicPhrases(), "Privacy", "Terms", "Talk through fit or scope", "Pricing from $0", "Command path"]);
 forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
 forbidden(scanPath, blockedPublicPhrases());
+forbidden(faqPath, blockedPublicPhrases());
 forbidden(connectPath, blockedPublicPhrases());
 
 if (failures.length) {
@@ -83,7 +86,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with simplified customer-facing language, scrollable mobile menu, compact footer, fewer badges, no repeated final CTA block, and Contact kept as a footer utility.");
+console.log("Public command surface validation passed with current homepage, FAQ routing, Free Scan CTA, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
 
 function badgeHeavyPhrases() {
   return [
