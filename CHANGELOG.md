@@ -13,6 +13,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Public FAQ page for buyer questions about Free Scan, account access, plans, privacy, support, and no-guarantee boundaries.
 - Remembered customer header state so verified returning customers see Account and Dashboard instead of repeated Access prompts when the signed session is still valid.
 - Public sitemap and robots validation for FAQ discovery, protected customer-route exclusion, crawler safety gates, and route-chain coverage.
+- Contact Us support-routing guardrails for `/connect`, legacy `/contact` redirects, `support@cendorq.com`, no untested message boxes, and no fake success states.
 - Release history baseline.
 - AI-agent handoff guide for ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, and project continuity.
 - Final hardening sweep guide for three independent deep analyses and five independent hardening passes before major readiness, launch-adjacent, backend-prep, or production milestone changes.
@@ -26,7 +27,7 @@ Use this section for changes that have merged but are not yet included in a name
 - Trust and credibility checklist for public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, and confidence-building content.
 - Route and link integrity checklist for navigation, internal links, buttons, anchors, redirects, canonical routes, 404 behavior, sitemap links, crawler-facing routes, and buyer-path connection changes.
 - Offer integrity checklist for Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, and offer-positioning changes.
-- Lead intake checklist for Free Scan, Connect, form, field, validation, success state, error state, routing, and buyer handoff changes.
+- Lead intake checklist for Free Scan, Contact Us, form, field, validation, success state, error state, routing, and buyer handoff changes.
 - Conversion quality checklist for homepage, public buyer-path, CTA, plan, trust cue, layout hierarchy, friction reduction, and offer-positioning changes.
 - Visual quality checklist for public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, and premium-feel changes.
 - Copy quality checklist for public page copy, CTAs, headings, metadata, trust messaging, plan descriptions, and buyer-path language changes.
@@ -53,30 +54,32 @@ Use this section for changes that have merged but are not yet included in a name
 - Public drift validation for active SEO defaults, share images, report recommendations, signal summaries, intelligence summaries, active header, footer, mobile dock, manifest, and AI-readable public context.
 - Free Scan intake validation for form source, page metadata, validation defaults, routing labels, intelligence labels, next-move wording, API route language, storage naming, and report recommendations.
 - Free Scan API OPTIONS smoke coverage so production smoke checks the intake API surface without creating fake submissions.
-- Production verification status guidance for strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and no-fake-submission smoke discipline.
-- Incident-response smoke failure playbooks for strict redirects, Free Scan API `OPTIONS`, protected read behavior, health checks, and discovery/trust files.
+- Production verification status guidance for strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, Contact Us support routing, and no-fake-submission smoke discipline.
+- Incident-response smoke failure playbooks for strict redirects, Free Scan API `OPTIONS`, protected read behavior, Contact Us regressions, health checks, and discovery/trust files.
 - Production smoke workflow target preflight so manual and scheduled checks fail clearly before running against an invalid URL.
 - Public site URL configuration documentation for `NEXT_PUBLIC_SITE_URL` and `CENDORQ_BASE_URL` so SEO, sitemap, robots, structured data, smoke checks, and deployment verification use clear, safe public URL assumptions.
 
 ### Changed
 
-- Repositioned homepage, Free Scan, Plans, plan detail pages, FAQ, Connect, footer, README, and public validation around AI visibility plus readiness, not readiness-only language.
+- Repositioned homepage, Free Scan, Plans, plan detail pages, FAQ, Contact Us, footer, README, and public validation around AI visibility plus readiness, not readiness-only language.
+- Changed customer-facing support language from Connect to Contact Us while keeping `/connect` as the stable route and `/contact` as the legacy redirect.
+- Set public Contact Us behavior to direct email at `support@cendorq.com` so customers email from the address where they want the reply.
 - Simplified public plan names across customer-facing pages and metadata to Free Scan, Deep Review, Build Fix, and Ongoing Control.
-- Updated public drift, homepage replacement, command-design, navigation, footer, FAQ, and Connect validators so current customer language is protected by CI.
+- Updated public drift, homepage replacement, command-design, navigation, footer, FAQ, Contact Us, and docs-index validators so current customer language is protected by CI.
 - Simplified public header navigation to Plans, FAQ, Access, and Start Free Scan, with Dashboard and Account shown for remembered customers.
 - Updated sitemap, robots, route/link, search-discovery, and release checklists so FAQ is an active public route instead of a legacy redirect.
 - Hardened account dropdown behavior so it remains unclipped, mobile-bounded, and highlights Dashboard while keeping Reports, Billing, Support, and Sign out available.
 - Hardened Free Scan API intake boundaries with JSON content-type checks, optional production origin allowlisting, stronger no-store response headers, simple bot-pattern rejection, and minimum form-completion timing while preserving current Free Scan language and route strategy.
 - Documented the optional `INTAKE_ALLOWED_ORIGINS` server-only allowlist placeholder for production Free Scan intake submissions.
 - Hardened legacy public-route governance so `/diagnosis`, `/profile`, `/how-it-works`, old pricing paths, and old shorthand routes redirect into the current buyer path instead of remaining discoverable as active routes.
-- Kept sitemap and robots discovery surfaces focused on current buyer-path routes, FAQ, and current policy/trust pages rather than redirected legacy routes.
-- Expanded route validation to protect legacy public-route governance, redirect smoke checks, sitemap exclusions, robots allowlist exclusions, active public-label drift, SEO defaults, the header shim, public discovery surfaces, Free Scan intake validation, and Free Scan API smoke coverage.
+- Kept sitemap and robots discovery surfaces focused on current buyer-path routes, FAQ, Contact Us, and current policy/trust pages rather than redirected legacy routes.
+- Expanded route validation to protect legacy public-route governance, redirect smoke checks, sitemap exclusions, robots allowlist exclusions, active public-label drift, SEO defaults, the header shim, public discovery surfaces, Free Scan intake validation, Contact Us direct-email support behavior, and Free Scan API smoke coverage.
 - Updated README, production guide, release checklist, route/link checklist, and search discovery checklist with the current legacy public-route policy.
 - Added a compact PR template checklist-gate section so the full readiness system is easier to scan and maintain.
 - Expanded `pnpm validate:routes` to also enforce public drift validation, Free Scan intake validation, closed intelligence, data quality, learning memory, pure signal authority, adaptive signal evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization QA, internal command center, score thresholds, and private operating intelligence standards.
 - Synced README, SECURITY, release checklist, and PR template with the full operating standards so future changes must account for closed intelligence, data quality, learning memory, pure signals, adaptive evolution, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center, score thresholds, reports, evidence, and closed database posture.
 - Sharpened homepage, Free Scan, plan positioning, plan sales-page flow, and SEO defaults around current Cendorq language: plain buyer language, clearer conversion path, protected public/private boundary, stronger organic discovery, and no fake guarantees.
-- Aligned active header navigation with the current buyer path: Free Scan, Plans, Deep Review, Build Fix, and Connect.
+- Aligned active header navigation with the current buyer path: Free Scan, Plans, FAQ, Contact Us, Deep Review, Build Fix, and Ongoing Control.
 - Replaced the stale legacy header implementation with a current-header shim so there is only one active header language system.
 - Removed retired package labels from `llms.txt` so public AI-readable context stays clean while validation enforces retired-label prevention privately.
 - Aligned homepage, layout structured metadata, and Free Scan page metadata with the current Free Scan language.
@@ -91,14 +94,14 @@ Use this section for changes that have merged but are not yet included in a name
 ### Fixed
 
 - Fixed readiness-only positioning so public pages now show visibility, readiness, fixing, and ongoing control as one clear customer path.
-- Fixed old plan labels still appearing in FAQ, Connect, metadata, plan data, and validation guards.
-- Fixed Connect copy that still sounded like legacy Contact routing instead of a clear customer path for fit, scope, and timing questions.
+- Fixed old plan labels still appearing in FAQ, Contact Us, metadata, plan data, and validation guards.
+- Fixed Contact Us copy that still sounded like legacy Contact routing instead of a clear customer path for fit, scope, timing, and account-help questions.
 - Fixed FAQ being treated as a legacy redirect by making it a real public route in navigation, footer, sitemap, robots, discovery docs, route docs, and release docs.
 - Fixed returning customer friction by replacing repeated Access prompts with Account and Dashboard when a safe remembered session exists.
 - Fixed remembered customer account-menu clipping and mobile overflow risk.
 - Fixed signed-out return handling so sign out can clear the remembered cookie and safely return to homepage or login.
 - Fixed stale public-route exposure by moving additional legacy URLs into explicit redirects and by preventing legacy routes from being promoted by discovery surfaces.
-- Corrected plan routing so Ongoing Control points toward the current Connect path instead of legacy contact language.
+- Corrected plan routing so Ongoing Control points toward the current Contact Us path instead of legacy contact language.
 - Fixed active header drift that still promoted legacy support routes and older scan naming.
 - Fixed route validation drift that depended on retired public labels being listed inside `llms.txt`.
 - Fixed homepage, layout, and Free Scan metadata drift from retired scan naming to current Free Scan naming.
@@ -109,14 +112,16 @@ Use this section for changes that have merged but are not yet included in a name
 - Fixed production smoke coverage so the Free Scan API surface is checked safely through `OPTIONS` without creating fake intake records.
 - Fixed Free Scan production intake read boundary by removing the open-read escape hatch while preserving local development reads and configured admin-key reads.
 - Fixed configuration documentation drift by documenting `NEXT_PUBLIC_SITE_URL` alongside `CENDORQ_BASE_URL` and protecting the public URL guidance through validation.
+- Fixed support-email drift by replacing the incorrect support inbox with `support@cendorq.com`.
 
 ### Security
 
 - Added signed, expiring, httpOnly, sameSite remembered-session handling for customer header state, without using browser storage for customer session state.
-- Kept protected customer routes excluded from sitemap and disallowed by robots while allowing the public FAQ route.
+- Kept protected customer routes excluded from sitemap and disallowed by robots while allowing the public FAQ and Contact Us routes.
+- Hardened Contact Us support behavior by avoiding untested public message boxes and relying on the customer's own email inbox for reply-address capture.
 - Hardened Free Scan intake boundary handling without adding new secrets, credentials, or private buyer-data exposure.
 - No secret, credential, private runtime value, or private buyer-data behavior changes.
-- Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, resilience/continuity, maximum protection, foundation hardening, system synchronization, internal command center boundaries, score-threshold discipline, Free Scan intake consistency, Free Scan API no-store behavior, protected console reads, and public-surface drift prevention.
+- Added governance and validation protections for closed intelligence, no direct database exposure, protected reports, evidence-gated AI agents, data-quality controls, pure-signal promotion, adaptive signal evolution, resilience/continuity, maximum protection, foundation hardening, system synchronization, internal command center boundaries, score-threshold discipline, Free Scan intake consistency, Free Scan API no-store behavior, protected console reads, Contact Us support routing, and public-surface drift prevention.
 - Removed the Free Scan production open-read escape hatch so unauthenticated intake reads remain closed by default in production.
 
 ## Release note format
@@ -141,6 +146,7 @@ For future release notes, include:
 - score-threshold impact when score bands, routing thresholds, alerts, automation levels, report labels, public score labels, or authority-grade candidates changed
 - public-drift impact when active header, footer, mobile dock, metadata, share images, reports, signals, intelligence summaries, manifest, sitemap, robots, or `llms.txt` changed
 - Free Scan intake impact when Free Scan form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, API route language, storage naming, or report recommendations changed
+- Contact Us impact when `/connect`, `/contact`, support email, support routing, support copy, or message-form behavior changed
 - AI-agent-handoff impact when ChatGPT-to-ChatGPT continuation, future AI-agent sessions, master handoff instructions, backend handoff summaries, next-session prompts, or project continuity changed
 - final-hardening impact when major readiness, launch-adjacent, broad hardening, backend-prep, or production milestone work changed
 - backend-handoff impact when backend ZIPs, API routes, databases, services, jobs, authentication, payments, AI services, email, CRM, storage, webhooks, or server-side integrations changed
@@ -153,7 +159,7 @@ For future release notes, include:
 - trust/credibility impact when public trust claims, proof points, testimonials, guarantees, security mentions, credibility language, authority statements, or confidence-building content changed
 - route/link impact when navigation, links, buttons, anchors, redirects, legacy routes, canonical routes, 404 behavior, sitemap links, crawler-facing routes, or buyer-path connections changed
 - offer-integrity impact when Plans, Deep Review, Build Fix, Ongoing Control, pricing, scope, guarantee, package, comparison, or offer-positioning changed
-- lead-intake impact when Free Scan, Connect, forms, fields, validation, success states, routing, or buyer handoff changed
+- lead-intake impact when Free Scan, Contact Us, forms, fields, validation, success states, routing, or buyer handoff changed
 - conversion-quality impact when homepage, buyer-path, CTA, plan, trust cue, hierarchy, friction, or offer-positioning changed
 - visual-quality impact when public layout, spacing, hierarchy, responsive behavior, card density, trust cues, visual polish, or premium feel changed
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
@@ -178,7 +184,8 @@ Use plain buyer language:
 - Build Fix
 - Ongoing Control
 - FAQ
-- Connect
+- Contact Us
+- support@cendorq.com
 - visibility shows where the business is seen
 - readiness explains why the business is or is not understood
 - execution fixes the weak points
