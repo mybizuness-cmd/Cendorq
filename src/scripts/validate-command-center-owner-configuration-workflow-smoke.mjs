@@ -12,16 +12,26 @@ const packagePath = "package.json";
 const smokeSuccessAnchor = "Command center owner configuration workflow smoke validation passed.";
 const failures = [];
 
+const protectedApiHeaderPhrases = [
+  "Cache-Control",
+  "no-store, max-age=0",
+  "Content-Type",
+  "application/json; charset=utf-8",
+  "X-Content-Type-Options",
+  "nosniff",
+  "X-Robots-Tag",
+  "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy",
+  "same-origin",
+] as const;
+
 expect(evidenceRoutePath, [
   "resolveCommandCenterAccessState",
   "commandCenterPreviewHeaderName",
   "containsBlockedEvidenceShape",
   "acceptedInput: \"safe-summary-only\"",
   "persistenceMode: \"audit-safe-record-projection\"",
-  "X-Robots-Tag",
-  "noindex, nofollow, noarchive, nosnippet",
-  "Cache-Control",
-  "no-store, max-age=0",
+  ...protectedApiHeaderPhrases,
 ]);
 
 expect(workflowRoutePath, [
@@ -31,10 +41,7 @@ expect(workflowRoutePath, [
   "projectOwnerConfigurationEvidenceApprovalWorkflow",
   "workflowMode: \"release-captain-final-review-required\"",
   "reviewedByRole: \"release-captain\"",
-  "X-Robots-Tag",
-  "noindex, nofollow, noarchive, nosnippet",
-  "Cache-Control",
-  "no-store, max-age=0",
+  ...protectedApiHeaderPhrases,
 ]);
 
 expect(workflowPanelPath, [
@@ -83,7 +90,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`${smokeSuccessAnchor} Owner posture coverage remains wired.`);
+console.log(`${smokeSuccessAnchor} Owner posture coverage remains wired with protected API no-store/noindex/nosniff and same-origin referrer headers.`);
 
 function unsafePhrases() {
   return [
