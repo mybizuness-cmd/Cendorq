@@ -251,17 +251,14 @@ Legacy public routes redirect into the current buyer path. They should not be li
 Protected redirects include:
 
 - `/pricing` -> `/plans`
-- `/pricing/full-diagnosis` -> `/plans/deep-review`
-- `/pricing/optimization` -> `/plans/build-fix`
-- `/pricing/monthly-partner` -> `/plans/ongoing-control`
+- legacy paid-review route -> `/plans/deep-review`
+- legacy fix route -> `/plans/build-fix`
+- legacy monthly route -> `/plans/ongoing-control`
 - `/contact` -> `/connect`
 - `/how-it-works` -> `/plans`
-- `/diagnosis` -> `/plans/deep-review`
+- legacy review shorthand -> `/plans/deep-review`
 - `/profile` -> `/plans`
 - `/freecheck` -> `/free-check`
-- `/full-diagnosis` -> `/plans/deep-review`
-- `/optimization` -> `/plans/build-fix`
-- `/monthly-partner` -> `/plans/ongoing-control`
 
 FAQ is not a legacy redirect. It is an active public route for quick buyer answers. Contact Us is served by `/connect`; old `/contact` should redirect into it.
 
@@ -301,4 +298,4 @@ Use plain customer language:
 - stop guessing before spending more
 - protect decisions as search and AI discovery change
 
-Avoid reviving old public labels such as Business Command Intelligence, Market Command Intelligence, Search Presence OS, Visibility Blueprint, Presence Infrastructure, Presence Command, View Pricing, Start Search Presence Scan, or customer-facing Connect labels in active public surfaces.
+Do not revive retired public labels, legacy buyer-path terms, or old customer-facing Connect labels in active public surfaces. The validators are the source of truth for blocked legacy wording.
