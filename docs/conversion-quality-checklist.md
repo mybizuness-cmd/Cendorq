@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -27,10 +28,14 @@ Before merging conversion-sensitive changes, confirm:
 - The buyer path remains simple and ordered.
 - Plans are easy to compare without clutter.
 - Deep Review, Build Fix, and Ongoing Control stay distinct.
+- FAQ answers quick buyer questions without slowing the path.
+- Contact Us remains clear for fit, scope, timing, or account help.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Trust cues support the decision without sounding exaggerated.
 - Page hierarchy makes the next step obvious.
 - Friction is reduced, not moved elsewhere.
-- No dashboard behavior, route-console behavior, or internal-tool feel was added.
+- No dashboard behavior, route-console behavior, internal-tool feel, or untested public message box was added.
 - No old public labels were revived in active surfaces.
 
 ## Homepage checks
@@ -52,6 +57,7 @@ For plan or offer changes, confirm:
 - Plan differences are meaningful and easy to understand.
 - Pricing or scope language does not create confusion.
 - The path from Plans to the next action is clear.
+- Contact Us does not replace the Free Scan when the first weak signal is unclear.
 
 ## Trust checks
 
@@ -73,6 +79,7 @@ Before merging, ask:
 - Did this change remove confusion?
 - Did this change add a new decision the buyer does not need?
 - Did this change make the page heavier, louder, or less direct?
+- Did this keep Contact Us helpful without turning it into an untested form or extra decision point?
 
 ## Validation expectation
 
@@ -88,7 +95,7 @@ pnpm build
 For production-impacting conversion changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -100,4 +107,5 @@ Do not use conversion work as a reason to add:
 - dashboard behavior
 - route-console behavior
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity
