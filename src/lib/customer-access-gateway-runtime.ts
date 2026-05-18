@@ -25,6 +25,9 @@ export const CUSTOMER_ACCESS_NO_STORE_HEADERS = {
   "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
   Pragma: "no-cache",
   Expires: "0",
+  "X-Content-Type-Options": "nosniff",
+  "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy": "same-origin",
 } as const;
 
 export const CUSTOMER_ACCESS_GATEWAY_RUNTIME_GUARDS = [
