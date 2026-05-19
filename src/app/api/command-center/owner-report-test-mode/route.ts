@@ -14,6 +14,7 @@ import { buildOwnerReportTestExecutionReceipt } from "@/lib/owner-report-test-ex
 import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-fixture-batch-runner";
 import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
 import { evaluateOwnerReportTestGetDiscovery } from "@/lib/owner-report-test-get-discovery-evaluator";
+import { buildOwnerReportTestOperatorSignoffSet } from "@/lib/owner-report-test-operator-signoff";
 import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
 import { buildOwnerReportTestReportExperienceScorecards } from "@/lib/owner-report-test-report-experience-scorecard";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
@@ -38,6 +39,7 @@ export async function GET() {
 
   const reportExperienceScorecards = buildOwnerReportTestReportExperienceScorecards();
   const visualQualityGate = buildOwnerReportTestVisualQualityGate();
+  const operatorSignoff = buildOwnerReportTestOperatorSignoffSet();
   const discoveryPayload = {
     ok: true,
     route,
@@ -51,6 +53,7 @@ export async function GET() {
     resultReviewContract: getOwnerReportTestResultReviewContract(),
     reportExperienceScorecards,
     visualQualityGate,
+    operatorSignoff,
     fixtureBatch: buildOwnerReportTestFixtureBatchRunner(),
     batchManifest: buildOwnerReportTestBatchManifest(),
     fixtureCommands: getOwnerReportTestFixtureCommands(),
@@ -108,6 +111,7 @@ export async function POST(request: Request) {
   });
   const reportExperienceScorecards = buildOwnerReportTestReportExperienceScorecards();
   const visualQualityGate = buildOwnerReportTestVisualQualityGate();
+  const operatorSignoff = buildOwnerReportTestOperatorSignoffSet();
 
   const persistence = recordOwnerReportTestRun(runner, projection, {
     commandCenterAllowed: true,
@@ -151,6 +155,7 @@ export async function POST(request: Request) {
     readinessScore,
     reportExperienceScorecards,
     visualQualityGate,
+    operatorSignoff,
     executionReceipt,
     resultReview,
     persistence,
