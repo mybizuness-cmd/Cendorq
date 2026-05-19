@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { buildOwnerReportTestBatchManifest } from "@/lib/owner-report-test-batch-manifest";
 import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-fixture-batch-runner";
 import { getOwnerReportTestControlSummary } from "@/lib/owner-report-test-control-summary";
 import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
@@ -12,6 +13,7 @@ const controlSummary = getOwnerReportTestControlSummary();
 const terminalCommand = buildOwnerReportTerminalTestCommand({ companyName: "Example Public Company", companyUrl: "https://example.com" });
 const fixtureCommands = getOwnerReportTestFixtureCommands();
 const fixtureBatch = buildOwnerReportTestFixtureBatchRunner();
+const batchManifest = buildOwnerReportTestBatchManifest();
 
 export function OwnerReportTestModePanel() {
   return (
@@ -57,7 +59,7 @@ export function OwnerReportTestModePanel() {
 
       <div className="mt-6 rounded-2xl border border-cyan-300/20 bg-cyan-950/15 p-4">
         <p className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">Seeded owner test fixtures</p>
-        <p className="mt-2 text-xs font-medium leading-6 text-cyan-50/70">Batch ID: {fixtureBatch.batchId}. Use these fixture commands for fast backend terminal/API smoke coverage across full-stack, free-scan, paid-depth, and ongoing-control test paths.</p>
+        <p className="mt-2 text-xs font-medium leading-6 text-cyan-50/70">Batch ID: {fixtureBatch.batchId}. Manifest ID: {batchManifest.manifestId}. Expected outputs per fixture: {batchManifest.items[0]?.expectedOutputs.length ?? 0}.</p>
         <div className="mt-4 grid gap-3 lg:grid-cols-2">
           {fixtureCommands.map((fixture) => (
             <article key={fixture.fixtureId} className="rounded-2xl border border-cyan-300/15 bg-slate-950 p-4">
