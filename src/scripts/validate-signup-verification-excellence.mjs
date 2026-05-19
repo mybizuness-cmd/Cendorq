@@ -34,14 +34,16 @@ expect(verifyPath, [
 expect(loginPath, [
   "Customer access | Cendorq",
   "Access your Cendorq account.",
-  "Use the same email you used for your Free Scan, form, or plan.",
-  "Email used for your Free Scan, form, or plan",
+  "Use the same email you used when you submitted your Free Scan or bought a plan.",
+  "Already have an account? If you used a different email then, try that one.",
+  "Email used for your Free Scan or plan",
   "autoComplete=\"email\"",
   "Send secure access link",
   "No password needed.",
+  "We will send a secure link if this email is tied to your Free Scan or plan.",
   "First time here?",
   "Start Free Scan",
-  "Provider sign-in is hidden until it is fully ready.",
+  "Other access options are hidden until they are fully ready.",
   "Free Scan starts the account. Access brings customers back.",
   "focus:outline-none",
   "focus-visible:ring-2",
@@ -66,7 +68,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Signup verification excellence validation passed with Free Scan-first access, simple customer copy, email verification, and zero first-use scan progress.");
+console.log("Signup verification excellence validation passed with Free Scan-first access, existing-customer eligibility copy, email verification, and zero first-use scan progress.");
 
 function blockedPatterns() {
   return [
