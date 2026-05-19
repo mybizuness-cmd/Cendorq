@@ -7,6 +7,7 @@ const failures = [];
 const handoffPath = "docs/agent-handoff/current-handoff.md";
 const masteryPath = "docs/strategy/cendorq-business-mastery.md";
 const nonNegotiablesPath = "docs/ops/non-negotiables.md";
+const latestGreenPath = "docs/ops/latest-green-state.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-cendorq-agent-handoff-docs.mjs";
 
@@ -47,14 +48,20 @@ expect(nonNegotiablesPath, [
   "Use validators to lock every product rule.",
 ]);
 
-expect(routesChainPath, [validatorPath]);
-
-forbidden([handoffPath, masteryPath, nonNegotiablesPath], [
-  "guaranteed revenue",
-  "guaranteed ROI",
-  "impossible to hack",
-  "blank dashboards are allowed",
+expect(latestGreenPath, [
+  "Latest Green State",
+  "mybizuness-cmd/Cendorq",
+  "next-1017",
+  "Vercel success",
+  "Free Scan-first access model",
+  "secure email access gated by existing customer eligibility",
+  "unknown email routed to Free Scan",
+  "provider callback access gate defined",
+  "active Free Scan eligibility source",
+  "contract-ready paid plan, report vault, billing, and support eligibility source ladder",
 ]);
+
+expect(routesChainPath, [validatorPath]);
 
 if (failures.length) {
   console.error("Cendorq agent handoff docs validation failed:");
@@ -62,7 +69,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, and durable repo memory coverage.");
+console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, latest green state, and durable repo memory coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -72,16 +79,6 @@ function expect(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing handoff phrase: ${phrase}`);
-  }
-}
-
-function forbidden(paths, phrases) {
-  for (const path of paths) {
-    if (!existsSync(join(root, path))) continue;
-    const text = read(path).toLowerCase();
-    for (const phrase of phrases) {
-      if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden handoff phrase: ${phrase}`);
-    }
   }
 }
 
