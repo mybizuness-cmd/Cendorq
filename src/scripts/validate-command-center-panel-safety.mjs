@@ -51,6 +51,7 @@ const requiredPanelFiles = [
   "readiness-checklist-panel.tsx",
   "report-evidence-orchestration-panel.tsx",
   "report-evidence-record-panel.tsx",
+  "report-quality-domination-panel.tsx",
   "report-truth-methodology-panel.tsx",
   "security-posture-panel.tsx",
   "test-record-classes-panel.tsx",
@@ -72,6 +73,7 @@ const requiredRouteImports = [
   ["ProductionLaunchFinalBlockerPanel", "./production-launch-final-blocker-panel"],
   ["ProductionSmokeTargetPanel", "./production-smoke-target-panel"],
   ["ReportEvidenceRecordPanel", "./report-evidence-record-panel"],
+  ["ReportQualityDominationPanel", "./report-quality-domination-panel"],
 ];
 
 const forbiddenPanelBehavior = [
@@ -134,7 +136,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center panel safety validation passed. Every current cockpit panel, including admin projections, launch readiness, owner workflow, owner report test mode, operator execution, plan delivery/routing, and report evidence records, remains server-rendered, metadata-only through the panel registry, standalone safety mapping, or panel copy, free of client-side storage and browser-only APIs, and protected from direct secret, raw payload, unsafe claim, and public-exposure regressions.");
+console.log("Command Center panel safety validation passed. Every current cockpit panel, including admin projections, launch readiness, owner workflow, owner report test mode, report quality domination, operator execution, plan delivery/routing, and report evidence records, remains server-rendered, metadata-only through the panel registry, standalone safety mapping, or panel copy, free of client-side storage and browser-only APIs, and protected from direct secret, raw payload, unsafe claim, and public-exposure regressions.");
 
 function validatePanelFile(relativePath, text) {
   for (const forbidden of forbiddenPanelBehavior) {
@@ -154,7 +156,7 @@ function validatePanelFile(relativePath, text) {
 }
 
 function panelStatesMetadataOnly(relativePath, text) {
-  if (text.includes("Metadata only") || text.includes("metadata-only") || text.includes("metadata only")) return true;
+  if (text.includes("Metadata only") || text.includes("metadata-only") || text.includes("Metadata-only") || text.includes("metadata only")) return true;
   if (text.includes("Owner-only report testing") || text.includes("No billing, customer delivery, entitlement mutation, or customer email.")) return true;
   if (text.includes("Metadata-only command contracts") || text.includes("customer-safe projection rules")) return true;
   const fileName = relativePath.replace(`${commandCenterDir}/`, "");
@@ -180,7 +182,7 @@ function validateRouteImports() {
   const routeText = read(routePath);
   for (const [componentName, importPath] of requiredRouteImports) {
     if (!routeText.includes(componentName)) failures.push(`${routePath} missing required panel component import/render: ${componentName}`);
-    if (!routeText.includes(importPath)) failures.push(`${routePath} missing required panel import path: ${importPath}`);
+    if (!routeText.includes(importPath)) failures.push(`${routePath} missing required panel import path: ${importName}`);
     if (!routeText.includes(`<${componentName}`)) failures.push(`${routePath} missing required private panel render: <${componentName}`);
   }
 }
