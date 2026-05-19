@@ -20,6 +20,7 @@ import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-t
 import { getOwnerReportTestResultReviewContract } from "@/lib/owner-report-test-result-review-contract";
 import { evaluateOwnerReportTestResultReview } from "@/lib/owner-report-test-result-review-evaluator";
 import { getOwnerReportTestTerminalRunbook } from "@/lib/owner-report-test-terminal-runbook";
+import { buildOwnerReportTestVisualQualityGate } from "@/lib/owner-report-test-visual-quality-gate";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
@@ -36,6 +37,7 @@ export async function GET() {
   if (!(await hasAccess())) return deniedResponse();
 
   const reportExperienceScorecards = buildOwnerReportTestReportExperienceScorecards();
+  const visualQualityGate = buildOwnerReportTestVisualQualityGate();
   const discoveryPayload = {
     ok: true,
     route,
@@ -48,6 +50,7 @@ export async function GET() {
     apiResponseContract: getOwnerReportTestApiResponseContract(),
     resultReviewContract: getOwnerReportTestResultReviewContract(),
     reportExperienceScorecards,
+    visualQualityGate,
     fixtureBatch: buildOwnerReportTestFixtureBatchRunner(),
     batchManifest: buildOwnerReportTestBatchManifest(),
     fixtureCommands: getOwnerReportTestFixtureCommands(),
@@ -104,6 +107,7 @@ export async function POST(request: Request) {
     exportProjection,
   });
   const reportExperienceScorecards = buildOwnerReportTestReportExperienceScorecards();
+  const visualQualityGate = buildOwnerReportTestVisualQualityGate();
 
   const persistence = recordOwnerReportTestRun(runner, projection, {
     commandCenterAllowed: true,
@@ -146,6 +150,7 @@ export async function POST(request: Request) {
     exportProjection,
     readinessScore,
     reportExperienceScorecards,
+    visualQualityGate,
     executionReceipt,
     resultReview,
     persistence,
