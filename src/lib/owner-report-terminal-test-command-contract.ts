@@ -31,6 +31,8 @@ export type OwnerReportTerminalTestCommandProjection = {
   };
 };
 
+const DEFAULT_PLANS: readonly OwnerReportTestPlanKey[] = ["free-scan", "deep-review", "build-fix", "ongoing-control"];
+
 export const OWNER_REPORT_TERMINAL_TEST_COMMAND_STANDARD = [
   "Owner can run tests through Command Center UI or backend terminal/API command.",
   "Terminal tests must use public company URL input only.",
@@ -43,7 +45,7 @@ export function buildOwnerReportTerminalTestCommand(input: {
   companyUrl: string;
   requestedPlans?: readonly OwnerReportTestPlanKey[];
 }): OwnerReportTerminalTestCommandProjection {
-  const requestedPlans = input.requestedPlans?.length ? input.requestedPlans : ["free-scan", "deep-review", "build-fix", "ongoing-control"];
+  const requestedPlans: readonly OwnerReportTestPlanKey[] = input.requestedPlans?.length ? input.requestedPlans : DEFAULT_PLANS;
   const command: OwnerReportTerminalTestCommand = {
     commandId: `owner-terminal-test-${hash(`${input.companyName}:${input.companyUrl}:${requestedPlans.join("|")}`)}`,
     route: "/api/command-center/owner-report-test-mode",
@@ -62,7 +64,7 @@ export function buildOwnerReportTerminalTestCommand(input: {
   return {
     ok: true,
     command,
-    curlPreview: `curl -X POST /api/command-center/owner-report-test-mode -H 'Content-Type: application/json' -d '${JSON.stringify({ companyName: command.companyName, companyUrl: command.companyUrl, requestedPlans: command.requestedPlans })}'`,
+    curlPreview: buildCurlPreview(command),
     uiRoute: "/command-center/owner-report-test",
     backendRoute: "/api/command-center/owner-report-test-mode",
     safety: {
@@ -74,6 +76,11 @@ export function buildOwnerReportTerminalTestCommand(input: {
       noEntitlementMutation: true,
     },
   };
+}
+
+function buildCurlPreview(command: OwnerReportTerminalTestCommand) {
+  const payload = JSON.stringify({ companyName: command.companyName, companyUrl: command.companyUrl, requestedPlans: command.requestedPlans });
+  return `curl -X POST /api/command-center/owner-report-test-mode -H 'Content-Type: application/json' -d '${payload}'`;
 }
 
 function safe(value: string) {
