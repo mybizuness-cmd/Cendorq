@@ -7,6 +7,7 @@ import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-sa
 import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
 import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
 import { buildOwnerReportTerminalTestCommand } from "@/lib/owner-report-terminal-test-command-contract";
+import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
@@ -48,6 +49,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
     return sample ? [sample] : [];
   });
   const previewPackages = buildOwnerReportPreviewPackages({ samples: sampleOutputs, findings: findings.findings });
+  const exportProjection = buildOwnerReportTestResultExportProjection({ previewPackages, companyName, companyUrl });
   const terminalCommand = buildOwnerReportTerminalTestCommand({ companyName, companyUrl, requestedPlans: runner.input.requestedPlans });
   const previews = projection.allowedPlans.map((planKey) => ({
     blueprint: getOwnerReportTestPreviewBlueprint(planKey),
@@ -103,11 +105,19 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-4">
+        <div className="mt-6 grid gap-4 lg:grid-cols-5">
           <StateCard label="Checkout" value={projection.checkoutRequired ? "required" : "not required"} />
           <StateCard label="Customer delivery" value={projection.safety.noCustomerDelivery ? "blocked" : "allowed"} />
           <StateCard label="Acquisition" value={acquisition.status} />
           <StateCard label="Preview packages" value={`${previewPackages.packages.length} ready`} />
+          <StateCard label="Owner export" value={exportProjection.status} />
+        </div>
+
+        <div className="mt-6 rounded-[2rem] border border-emerald-300/20 bg-emerald-950/15 p-5">
+          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-emerald-100">Owner-only export projection</p>
+          <p className="mt-2 text-xs font-medium leading-6 text-emerald-50/70">
+            Export ID: {exportProjection.exportRecord.exportId}. Format: {exportProjection.exportRecord.format}. Includes safety, acquisition, findings, preview packages, sample outputs, and quality gate posture. Not downloadable from customer dashboard and not emailed to customers.
+          </p>
         </div>
 
         <div className="mt-6 grid gap-5">
