@@ -6,7 +6,10 @@ import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-pa
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
 import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
+import { buildOwnerReportTestBatchManifest } from "@/lib/owner-report-test-batch-manifest";
 import { buildOwnerReportTestExecutionReceipt } from "@/lib/owner-report-test-execution-receipt";
+import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-fixture-batch-runner";
+import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
 import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
@@ -31,6 +34,9 @@ export async function GET() {
     checkoutRequired: false,
     customerDeliveryAllowed: false,
     allowedPlans: Array.from(allowedPlans),
+    fixtureBatch: buildOwnerReportTestFixtureBatchRunner(),
+    batchManifest: buildOwnerReportTestBatchManifest(),
+    fixtureCommands: getOwnerReportTestFixtureCommands(),
     blueprints: Array.from(allowedPlans).map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
     sampleOutputs: Array.from(allowedPlans).map((planKey) => getOwnerReportTestSampleOutput(planKey)),
   }, 200);
