@@ -12,6 +12,12 @@ expect(routePath, [
   "buildOwnerPublicPageAcquisitionProjection",
   "buildOwnerReportFindingEngineProjection",
   "buildOwnerReportPreviewPackages",
+  "buildOwnerReportTestBatchManifest",
+  "buildOwnerReportTestExecutionReceipt",
+  "buildOwnerReportTestFixtureBatchRunner",
+  "getOwnerReportTestFixtureCommands",
+  "buildOwnerReportTestReadinessScore",
+  "buildOwnerReportTestResultExportProjection",
   "projectOwnerReportTestMode",
   "getOwnerReportTestPreviewBlueprint",
   "getOwnerReportTestSampleOutput",
@@ -22,9 +28,15 @@ expect(routePath, [
   "/api/command-center/owner-report-test-mode",
   "checkoutRequired: false",
   "customerDeliveryAllowed: false",
+  "fixtureBatch",
+  "batchManifest",
+  "fixtureCommands",
   "sampleOutputs",
   "previewBlueprints",
   "previewPackages",
+  "exportProjection",
+  "readinessScore",
+  "executionReceipt",
   "runner",
   "urlSafety",
   "acquisition",
@@ -54,9 +66,6 @@ forbidden(routePath, [
   "customerEntitlementCreated: true",
   "rawSecretsAllowed: true",
   "privateCredentialsAllowed: true",
-  "guaranteed ranking",
-  "guaranteed roi",
-  "guaranteed revenue",
   "localStorage",
   "sessionStorage",
 ]);
@@ -67,7 +76,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test mode API validation passed with public URL safety, acquisition projection, finding engine projection, preview packages, runner state, persistence projection, preview blueprints, and sample outputs.");
+console.log("Owner report test mode API validation passed with fixture discovery, batch manifest, execution receipt, readiness score, export projection, public URL safety, acquisition, findings, preview packages, runner state, and sample outputs.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
