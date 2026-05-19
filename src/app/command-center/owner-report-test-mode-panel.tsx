@@ -9,6 +9,7 @@ import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixtu
 import { buildOwnerReportTestReportExperienceScorecards } from "@/lib/owner-report-test-report-experience-scorecard";
 import { getOwnerReportTestResultReviewContract } from "@/lib/owner-report-test-result-review-contract";
 import { getOwnerReportTestTerminalRunbook } from "@/lib/owner-report-test-terminal-runbook";
+import { buildOwnerReportTestVisualQualityGate } from "@/lib/owner-report-test-visual-quality-gate";
 import { buildOwnerReportTerminalTestCommand } from "@/lib/owner-report-terminal-test-command-contract";
 import { OWNER_REPORT_TEST_MODE_STANDARD } from "@/lib/owner-report-test-mode-standard";
 import { OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS, OWNER_REPORT_TEST_PREVIEW_STANDARD } from "@/lib/owner-report-test-preview-rendering";
@@ -21,6 +22,7 @@ const reportExperienceScorecards = buildOwnerReportTestReportExperienceScorecard
 const resultReview = getOwnerReportTestResultReviewContract();
 const terminalRunbook = getOwnerReportTestTerminalRunbook();
 const terminalCommand = buildOwnerReportTerminalTestCommand({ companyName: "Example Public Company", companyUrl: "https://example.com" });
+const visualQualityGate = buildOwnerReportTestVisualQualityGate();
 const fixtureCommands = getOwnerReportTestFixtureCommands();
 const fixtureBatch = buildOwnerReportTestFixtureBatchRunner();
 const batchManifest = buildOwnerReportTestBatchManifest();
@@ -46,7 +48,8 @@ export function OwnerReportTestModePanel() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-3 lg:grid-cols-5">
+      <div className="mt-6 grid gap-3 lg:grid-cols-6">
+        <Metric label="Visual gate" value={visualQualityGate.score} />
         <Metric label="Experience" value={reportExperienceScorecards.overallScore} />
         <Metric label="Handoff ready" value={commandCenterHandoff.terminalRunbookReady && commandCenterHandoff.apiResponseContractReady && commandCenterHandoff.resultReviewReady && commandCenterHandoff.batchManifestReady ? 1 : 0} />
         <Metric label="Response keys" value={apiResponseContract.requiredTopLevelKeys.length} />
@@ -57,7 +60,7 @@ export function OwnerReportTestModePanel() {
       <div className="mt-6 rounded-2xl border border-fuchsia-300/20 bg-black/15 p-4">
         <p className="text-[11px] font-black uppercase tracking-[0.2em] text-fuchsia-200">Backend terminal / API test command</p>
         <p className="mt-2 text-xs font-medium leading-6 text-fuchsia-50/70">
-          Handoff: {commandCenterHandoff.handoffId}. Runbook helper: {terminalRunbook.helperScript}. Route: {terminalRunbook.route}. Required response keys: {apiResponseContract.requiredTopLevelKeys.length}. Review threshold: {resultReview.passThreshold}%. Report experience: {reportExperienceScorecards.status}.
+          Handoff: {commandCenterHandoff.handoffId}. Runbook helper: {terminalRunbook.helperScript}. Route: {terminalRunbook.route}. Required response keys: {apiResponseContract.requiredTopLevelKeys.length}. Visual gate: {visualQualityGate.score}/10 {visualQualityGate.status}. Review threshold: {resultReview.passThreshold}%. Report experience: {reportExperienceScorecards.status}.
         </p>
         <div className="mt-4 rounded-2xl border border-fuchsia-300/15 bg-slate-950 p-4 text-xs font-semibold leading-6 text-fuchsia-50/80">
           <code className="whitespace-pre-wrap break-words">{terminalCommand.curlPreview}</code>
@@ -77,6 +80,19 @@ export function OwnerReportTestModePanel() {
             <article key={fixture.fixtureId} className="rounded-2xl border border-cyan-300/15 bg-slate-950 p-4">
               <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-100/70">{fixture.testPurpose}</p>
               <code className="mt-3 block whitespace-pre-wrap break-words text-[11px] font-semibold leading-6 text-cyan-50/80">{fixture.command.curlPreview}</code>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-950/15 p-4">
+        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-amber-100">10/10 visual quality gate</p>
+        <div className="mt-4 grid gap-3 lg:grid-cols-3">
+          {visualQualityGate.dimensions.map((dimension) => (
+            <article key={dimension.key} className="rounded-2xl border border-amber-300/15 bg-white/[0.035] p-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-amber-100/70">{dimension.key}</p>
+              <p className="mt-2 text-xs font-semibold leading-5 text-white">{dimension.label}</p>
+              <p className="mt-2 text-xs font-black uppercase tracking-[0.14em] text-amber-100">{dimension.score}/10</p>
             </article>
           ))}
         </div>
