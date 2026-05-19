@@ -49,6 +49,7 @@ const validators = [
   "src/scripts/validate-owner-report-test-runner-contract.mjs",
   "src/scripts/validate-owner-report-test-runner-page.mjs",
   "src/scripts/validate-owner-report-test-mode-panel.mjs",
+  "src/scripts/validate-owner-report-test-run-persistence-runtime.mjs",
   "src/scripts/validate-owner-report-test-mode-api.mjs",
   "src/scripts/validate-cendorq-agent-intelligence-playbooks.mjs",
   "src/scripts/validate-agent-mission-operating-engine.mjs",
