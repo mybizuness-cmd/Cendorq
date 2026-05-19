@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
+import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-page-acquisition-contract";
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
+import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
+import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
+import { buildOwnerReportTerminalTestCommand } from "@/lib/owner-report-terminal-test-command-contract";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
@@ -33,12 +37,22 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
   const rawCompanyUrl = normalizeValue(params?.companyUrl) || "https://example.com";
   const urlSafety = validateOwnerPublicCompanyUrl(rawCompanyUrl);
   const companyUrl = urlSafety.ok ? urlSafety.normalizedUrl : "https://example.com";
+  const safeUrlSafety = validateOwnerPublicCompanyUrl(companyUrl);
   const requestedPlans = normalizePlans(params?.plan);
   const runner = buildOwnerReportTestRunnerState({ companyName, companyUrl, requestedPlans });
   const projection = projectOwnerReportTestMode({ companyName, companyUrl, requestedPlans: runner.input.requestedPlans, ownerAccessVerified: true });
+  const acquisition = buildOwnerPublicPageAcquisitionProjection(safeUrlSafety);
+  const findings = buildOwnerReportFindingEngineProjection({ acquisition, companyName, companyUrl, planKeys: projection.allowedPlans });
+  const sampleOutputs = projection.allowedPlans.flatMap((planKey) => {
+    const sample = getOwnerReportTestSampleOutput(planKey);
+    return sample ? [sample] : [];
+  });
+  const previewPackages = buildOwnerReportPreviewPackages({ samples: sampleOutputs, findings: findings.findings });
+  const terminalCommand = buildOwnerReportTerminalTestCommand({ companyName, companyUrl, requestedPlans: runner.input.requestedPlans });
   const previews = projection.allowedPlans.map((planKey) => ({
     blueprint: getOwnerReportTestPreviewBlueprint(planKey),
     sample: getOwnerReportTestSampleOutput(planKey),
+    previewPackage: previewPackages.packages.find((pkg) => pkg.planKey === planKey),
   }));
 
   return (
@@ -79,15 +93,25 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
           </div>
         </form>
 
+        <div className="mt-6 rounded-[2rem] border border-cyan-300/20 bg-cyan-950/15 p-5">
+          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">Backend terminal / API command</p>
+          <p className="mt-2 text-xs font-medium leading-6 text-cyan-50/70">
+            Same owner-only test path as this page. Public URL only; no checkout, no customer delivery, no billing mutation, no entitlement mutation.
+          </p>
+          <div className="mt-4 rounded-2xl border border-cyan-300/15 bg-slate-950 p-4 text-xs font-semibold leading-6 text-cyan-50/80">
+            <code className="whitespace-pre-wrap break-words">{terminalCommand.curlPreview}</code>
+          </div>
+        </div>
+
         <div className="mt-6 grid gap-4 lg:grid-cols-4">
           <StateCard label="Checkout" value={projection.checkoutRequired ? "required" : "not required"} />
           <StateCard label="Customer delivery" value={projection.safety.noCustomerDelivery ? "blocked" : "allowed"} />
-          <StateCard label="Billing mutation" value={projection.safety.noBillingMutation ? "blocked" : "allowed"} />
-          <StateCard label="Public URL safety" value={urlSafety.ok ? "accepted" : "blocked"} />
+          <StateCard label="Acquisition" value={acquisition.status} />
+          <StateCard label="Preview packages" value={`${previewPackages.packages.length} ready`} />
         </div>
 
         <div className="mt-6 grid gap-5">
-          {previews.map(({ blueprint, sample }) => {
+          {previews.map(({ blueprint, sample, previewPackage }) => {
             if (!blueprint || !sample) return null;
             return (
               <article key={blueprint.planKey} className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/20">
@@ -95,9 +119,10 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="rounded-full border border-fuchsia-300/30 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-fuchsia-100">{blueprint.planKey}</span>
                     <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-amber-100">{sample.watermark}</span>
+                    <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">quality gate: {previewPackage?.qualityGate.status ?? "blocked"}</span>
                   </div>
                   <h2 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-white md:text-5xl">{blueprint.title}</h2>
-                  <p className="mt-3 max-w-4xl text-sm font-medium leading-7 text-fuchsia-50/70">{sample.reportSections[0]?.customerSafePreview}</p>
+                  <p className="mt-3 max-w-4xl text-sm font-medium leading-7 text-fuchsia-50/70">{previewPackage?.summary ?? sample.reportSections[0]?.customerSafePreview}</p>
                 </div>
 
                 <div className="grid gap-4 p-5 lg:grid-cols-[1.2fr_0.8fr]">
@@ -111,15 +136,23 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
                     ))}
                   </div>
 
-                  <div className="rounded-2xl border border-cyan-300/15 bg-cyan-950/20 p-4">
-                    <p className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-100/70">Agent / chief / captain trace</p>
-                    <div className="mt-4 grid gap-3">
-                      {sample.operatorTrace.map((trace) => (
-                        <div key={`${trace.role}-${trace.action}`} className="rounded-xl border border-cyan-300/10 bg-white/[0.035] p-3">
-                          <div className="text-xs font-black uppercase tracking-[0.16em] text-cyan-100">{trace.role}</div>
-                          <p className="mt-2 text-xs font-medium leading-6 text-cyan-50/65">{trace.action}</p>
-                        </div>
-                      ))}
+                  <div className="grid gap-4">
+                    <div className="rounded-2xl border border-cyan-300/15 bg-cyan-950/20 p-4">
+                      <p className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-100/70">Agent / chief / captain trace</p>
+                      <div className="mt-4 grid gap-3">
+                        {sample.operatorTrace.map((trace) => (
+                          <div key={`${trace.role}-${trace.action}`} className="rounded-xl border border-cyan-300/10 bg-white/[0.035] p-3">
+                            <div className="text-xs font-black uppercase tracking-[0.16em] text-cyan-100">{trace.role}</div>
+                            <p className="mt-2 text-xs font-medium leading-6 text-cyan-50/65">{trace.action}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-emerald-300/15 bg-emerald-950/20 p-4">
+                      <p className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-100/70">Preview package</p>
+                      <p className="mt-3 text-xs font-medium leading-6 text-emerald-50/70">Findings linked: {previewPackage?.findingCount ?? 0}</p>
+                      <p className="mt-3 text-xs font-medium leading-6 text-emerald-50/70">Next command: {previewPackage?.nextCommand ?? "Review owner-only preview output before release."}</p>
                     </div>
                   </div>
                 </div>
