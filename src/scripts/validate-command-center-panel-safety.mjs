@@ -182,7 +182,7 @@ function validateRouteImports() {
   const routeText = read(routePath);
   for (const [componentName, importPath] of requiredRouteImports) {
     if (!routeText.includes(componentName)) failures.push(`${routePath} missing required panel component import/render: ${componentName}`);
-    if (!routeText.includes(importPath)) failures.push(`${routePath} missing required panel import path: ${importName}`);
+    if (!routeText.includes(importPath)) failures.push(`${routePath} missing required panel import path: ${importPath}`);
     if (!routeText.includes(`<${componentName}`)) failures.push(`${routePath} missing required private panel render: <${componentName}`);
   }
 }
