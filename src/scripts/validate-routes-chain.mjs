@@ -11,6 +11,7 @@ const validators = [
   "src/scripts/validate-dependency-lockfile-integrity.mjs",
   "src/scripts/validate-repo-update-scanning-automation.mjs",
   "src/scripts/validate-category-domination-operating-standard.mjs",
+  "src/scripts/validate-cendorq-agent-handoff-docs.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-public-sitemap-surface.mjs",
