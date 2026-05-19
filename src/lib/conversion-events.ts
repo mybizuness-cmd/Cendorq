@@ -10,7 +10,8 @@ export type ConversionEventName =
   | "free_scan_submit_error"
   | "free_scan_validation_error"
   | "free_scan_progress_restored"
-  | "free_scan_progress_cleared";
+  | "free_scan_progress_cleared"
+  | "free_scan_progress_fresh_start";
 
 type ConversionPayload = Record<string, string | number | boolean | null | undefined>;
 
