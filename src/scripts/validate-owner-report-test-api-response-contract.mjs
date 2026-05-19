@@ -20,6 +20,7 @@ expect(contractPath, [
   "previewPackages",
   "exportProjection",
   "readinessScore",
+  "reportExperienceScorecards",
   "executionReceipt",
   "resultReview",
   "persistence",
@@ -43,6 +44,7 @@ expect(panelPath, [
   "apiResponseContract",
   "Response keys",
   "Required response keys:",
+  "reportExperienceScorecards",
 ]);
 
 expect(apiPath, [
@@ -52,6 +54,7 @@ expect(apiPath, [
   "previewPackages",
   "exportProjection",
   "readinessScore",
+  "reportExperienceScorecards",
   "executionReceipt",
   "resultReview",
   "persistence",
@@ -75,7 +78,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test API response contract validation passed.");
+console.log("Owner report test API response contract validation passed with report experience scorecards required.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
