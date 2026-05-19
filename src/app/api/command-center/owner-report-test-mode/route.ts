@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-page-acquisition-contract";
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
+import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
@@ -54,6 +55,13 @@ export async function POST(request: Request) {
 
   if (!projection.ok || !projection.companyUrl) return rejectedResponse();
 
+  const findings = buildOwnerReportFindingEngineProjection({
+    acquisition,
+    companyName,
+    companyUrl: urlSafety.normalizedUrl,
+    planKeys: projection.allowedPlans,
+  });
+
   const persistence = recordOwnerReportTestRun(runner, projection, {
     commandCenterAllowed: true,
     ownerAccessVerified: true,
@@ -69,6 +77,7 @@ export async function POST(request: Request) {
     runner,
     urlSafety,
     acquisition,
+    findings,
     persistence,
     previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
     sampleOutputs: projection.allowedPlans.map((planKey) => getOwnerReportTestSampleOutput(planKey)),
