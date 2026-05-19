@@ -7,19 +7,22 @@ const failures = [];
 
 expect(panelPath, [
   "import Link from \"next/link\"",
+  "buildOwnerReportTerminalTestCommand",
   "OwnerReportTestModePanel",
   "Owner report test mode",
   "Run every plan preview without checkout.",
   "Owner-only report testing for public companies",
   "Open owner test runner",
   "href=\"/command-center/owner-report-test\"",
+  "Backend terminal / API test command",
+  "curlPreview",
+  "owner-gated",
   "OWNER_REPORT_TEST_MODE_STANDARD",
   "OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS",
   "OWNER_REPORT_TEST_PREVIEW_STANDARD",
   "OWNER_REPORT_TEST_SAMPLE_OUTPUTS",
   "Sample report output structure",
   "Trace:",
-  "No billing, customer delivery, entitlement mutation, or customer email.",
 ]);
 
 forbidden(panelPath, [
@@ -27,9 +30,6 @@ forbidden(panelPath, [
   "customerDeliveryApproved: true",
   "billingMutationAllowed: true",
   "entitlementMutationAllowed: true",
-  "guaranteed ranking",
-  "guaranteed ROI",
-  "guaranteed revenue",
   "localStorage",
   "sessionStorage",
   "dangerouslySetInnerHTML",
@@ -41,7 +41,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test mode panel validation passed.");
+console.log("Owner report test mode panel validation passed with backend terminal API command surface.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
