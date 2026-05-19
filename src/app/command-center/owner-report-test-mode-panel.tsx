@@ -1,5 +1,6 @@
 import { OWNER_REPORT_TEST_MODE_STANDARD } from "@/lib/owner-report-test-mode-standard";
 import { OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS, OWNER_REPORT_TEST_PREVIEW_STANDARD } from "@/lib/owner-report-test-preview-rendering";
+import { OWNER_REPORT_TEST_SAMPLE_OUTPUTS } from "@/lib/owner-report-test-sample-output";
 
 export function OwnerReportTestModePanel() {
   return (
@@ -15,7 +16,7 @@ export function OwnerReportTestModePanel() {
         <div className="grid grid-cols-3 gap-3 text-center">
           <Metric label="Plans" value={OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS.length} />
           <Metric label="Rules" value={OWNER_REPORT_TEST_MODE_STANDARD.length} />
-          <Metric label="Preview rules" value={OWNER_REPORT_TEST_PREVIEW_STANDARD.length} />
+          <Metric label="Samples" value={OWNER_REPORT_TEST_SAMPLE_OUTPUTS.length} />
         </div>
       </div>
 
@@ -35,6 +36,29 @@ export function OwnerReportTestModePanel() {
             </p>
           </article>
         ))}
+      </div>
+
+      <div className="mt-6 rounded-2xl border border-fuchsia-300/20 bg-black/15 p-4">
+        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-fuchsia-200">Sample report output structure</p>
+        <div className="mt-4 grid gap-3 lg:grid-cols-4">
+          {OWNER_REPORT_TEST_SAMPLE_OUTPUTS.map((sample) => (
+            <article key={sample.planKey} className="rounded-2xl border border-white/10 bg-white/[0.035] p-4">
+              <div className="text-[10px] font-black uppercase tracking-[0.16em] text-fuchsia-100/65">{sample.planKey}</div>
+              <h3 className="mt-2 text-sm font-semibold leading-6 text-white">{sample.title}</h3>
+              <div className="mt-3 grid gap-2">
+                {sample.reportSections.map((section) => (
+                  <div key={section.heading} className="rounded-xl border border-fuchsia-300/10 bg-fuchsia-950/20 p-3">
+                    <p className="text-xs font-semibold text-white">{section.heading}</p>
+                    <p className="mt-1 text-[11px] font-medium leading-5 text-fuchsia-50/60">{section.visual}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-[11px] font-medium leading-5 text-fuchsia-50/55">
+                Trace: {sample.operatorTrace.map((trace) => `${trace.role}: ${trace.action}`).join(" • ")}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
 
       <div className="mt-6 grid gap-3 lg:grid-cols-2">
