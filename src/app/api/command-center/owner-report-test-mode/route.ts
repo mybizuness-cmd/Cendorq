@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
+import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-page-acquisition-contract";
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
@@ -39,6 +40,8 @@ export async function POST(request: Request) {
   const companyName = getString(body, "companyName");
   const urlSafety = validateOwnerPublicCompanyUrl(getString(body, "companyUrl"));
   if (!urlSafety.ok) return rejectedResponse(urlSafety.reason);
+  const acquisition = buildOwnerPublicPageAcquisitionProjection(urlSafety);
+  if (!acquisition.ok) return rejectedResponse(acquisition.reason);
 
   const requestedPlans = getPlans(body);
   const runner = buildOwnerReportTestRunnerState({ companyName, companyUrl: urlSafety.normalizedUrl, requestedPlans });
@@ -65,6 +68,7 @@ export async function POST(request: Request) {
     commandCenterOnly: true,
     runner,
     urlSafety,
+    acquisition,
     persistence,
     previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
     sampleOutputs: projection.allowedPlans.map((planKey) => getOwnerReportTestSampleOutput(planKey)),
