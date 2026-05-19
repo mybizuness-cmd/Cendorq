@@ -9,6 +9,7 @@ import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-pack
 import { getOwnerReportTestApiResponseContract } from "@/lib/owner-report-test-api-response-contract";
 import { evaluateOwnerReportTestApiResponse } from "@/lib/owner-report-test-api-response-evaluator";
 import { buildOwnerReportTestBatchManifest } from "@/lib/owner-report-test-batch-manifest";
+import { buildOwnerReportTestCommandCenterHandoff } from "@/lib/owner-report-test-command-center-handoff";
 import { buildOwnerReportTestExecutionReceipt } from "@/lib/owner-report-test-execution-receipt";
 import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-fixture-batch-runner";
 import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
@@ -40,6 +41,7 @@ export async function GET() {
     checkoutRequired: false,
     customerDeliveryAllowed: false,
     allowedPlans: Array.from(allowedPlans),
+    commandCenterHandoff: buildOwnerReportTestCommandCenterHandoff(),
     terminalRunbook: getOwnerReportTestTerminalRunbook(),
     apiResponseContract: getOwnerReportTestApiResponseContract(),
     resultReviewContract: getOwnerReportTestResultReviewContract(),
