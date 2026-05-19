@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { getOwnerReportTestApiResponseContract } from "@/lib/owner-report-test-api-response-contract";
 import { buildOwnerReportTestBatchManifest } from "@/lib/owner-report-test-batch-manifest";
+import { buildOwnerReportTestCommandCenterHandoff } from "@/lib/owner-report-test-command-center-handoff";
 import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-fixture-batch-runner";
 import { getOwnerReportTestControlSummary } from "@/lib/owner-report-test-control-summary";
 import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
@@ -13,6 +14,7 @@ import { OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS, OWNER_REPORT_TEST_PREVIEW_STANDAR
 import { OWNER_REPORT_TEST_SAMPLE_OUTPUTS } from "@/lib/owner-report-test-sample-output";
 
 const apiResponseContract = getOwnerReportTestApiResponseContract();
+const commandCenterHandoff = buildOwnerReportTestCommandCenterHandoff();
 const controlSummary = getOwnerReportTestControlSummary();
 const resultReview = getOwnerReportTestResultReviewContract();
 const terminalRunbook = getOwnerReportTestTerminalRunbook();
@@ -42,7 +44,8 @@ export function OwnerReportTestModePanel() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-3 lg:grid-cols-3">
+      <div className="mt-6 grid gap-3 lg:grid-cols-4">
+        <Metric label="Handoff ready" value={commandCenterHandoff.terminalRunbookReady && commandCenterHandoff.apiResponseContractReady && commandCenterHandoff.resultReviewReady && commandCenterHandoff.batchManifestReady ? 1 : 0} />
         <Metric label="Response keys" value={apiResponseContract.requiredTopLevelKeys.length} />
         <Metric label="Review checks" value={resultReview.checks.length} />
         <Metric label="Customer mutation" value={controlSummary.billingMutationAllowed || controlSummary.entitlementMutationAllowed ? 1 : 0} />
@@ -51,7 +54,7 @@ export function OwnerReportTestModePanel() {
       <div className="mt-6 rounded-2xl border border-fuchsia-300/20 bg-black/15 p-4">
         <p className="text-[11px] font-black uppercase tracking-[0.2em] text-fuchsia-200">Backend terminal / API test command</p>
         <p className="mt-2 text-xs font-medium leading-6 text-fuchsia-50/70">
-          Runbook helper: {terminalRunbook.helperScript}. Route: {terminalRunbook.route}. Required response keys: {apiResponseContract.requiredTopLevelKeys.length}. Review threshold: {resultReview.passThreshold}%.
+          Handoff: {commandCenterHandoff.handoffId}. Runbook helper: {terminalRunbook.helperScript}. Route: {terminalRunbook.route}. Required response keys: {apiResponseContract.requiredTopLevelKeys.length}. Review threshold: {resultReview.passThreshold}%.
         </p>
         <div className="mt-4 rounded-2xl border border-fuchsia-300/15 bg-slate-950 p-4 text-xs font-semibold leading-6 text-fuchsia-50/80">
           <code className="whitespace-pre-wrap break-words">{terminalCommand.curlPreview}</code>
