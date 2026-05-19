@@ -26,12 +26,14 @@ expect(signupPath, [
 expect(loginPath, [
   "Customer access | Cendorq",
   "Access your Cendorq account.",
-  "Use the same email you used for your Free Scan, form, or plan.",
+  "Use the same email you used when you submitted your Free Scan or bought a plan.",
+  "Already have an account? If you used a different email then, try that one.",
   "Return with your email.",
   "No password needed.",
+  "We will send a secure link if this email is tied to your Free Scan or plan.",
   "Send secure access link",
   "First time here?",
-  "Provider sign-in is hidden until it is fully ready.",
+  "Other access options are hidden until they are fully ready.",
   "Free Scan starts the account. Access brings customers back.",
   "hover:-translate-y-0.5",
   "focus:outline-none",
@@ -89,7 +91,7 @@ forbidden(verifyPath, [
 ]);
 
 boundedLength(signupPath, 12500);
-boundedLength(loginPath, 10500);
+boundedLength(loginPath, 11500);
 boundedLength(verifyPath, 10500);
 
 if (failures.length) {
@@ -98,7 +100,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Auth and verification surface validation passed with Free Scan-first signup, simple email access, and safe verification path.");
+console.log("Auth and verification surface validation passed with Free Scan-first signup, existing-customer email access, same-email recovery copy, and safe verification path.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
