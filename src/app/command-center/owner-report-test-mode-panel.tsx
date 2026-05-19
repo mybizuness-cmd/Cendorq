@@ -1,10 +1,12 @@
 import Link from "next/link";
 
+import { getOwnerReportTestControlSummary } from "@/lib/owner-report-test-control-summary";
 import { buildOwnerReportTerminalTestCommand } from "@/lib/owner-report-terminal-test-command-contract";
 import { OWNER_REPORT_TEST_MODE_STANDARD } from "@/lib/owner-report-test-mode-standard";
 import { OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS, OWNER_REPORT_TEST_PREVIEW_STANDARD } from "@/lib/owner-report-test-preview-rendering";
 import { OWNER_REPORT_TEST_SAMPLE_OUTPUTS } from "@/lib/owner-report-test-sample-output";
 
+const controlSummary = getOwnerReportTestControlSummary();
 const terminalCommand = buildOwnerReportTerminalTestCommand({ companyName: "Example Public Company", companyUrl: "https://example.com" });
 
 export function OwnerReportTestModePanel() {
@@ -26,6 +28,12 @@ export function OwnerReportTestModePanel() {
           <Metric label="Rules" value={OWNER_REPORT_TEST_MODE_STANDARD.length} />
           <Metric label="Samples" value={OWNER_REPORT_TEST_SAMPLE_OUTPUTS.length} />
         </div>
+      </div>
+
+      <div className="mt-6 grid gap-3 lg:grid-cols-3">
+        <Metric label="Control standards" value={controlSummary.standardsLoaded} />
+        <Metric label="Runnable surfaces" value={controlSummary.surfaces.length} />
+        <Metric label="Customer mutation" value={controlSummary.billingMutationAllowed || controlSummary.entitlementMutationAllowed ? 1 : 0} />
       </div>
 
       <div className="mt-6 rounded-2xl border border-fuchsia-300/20 bg-black/15 p-4">
