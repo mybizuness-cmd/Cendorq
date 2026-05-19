@@ -5,6 +5,7 @@ import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from 
 import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-page-acquisition-contract";
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
+import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
@@ -61,6 +62,11 @@ export async function POST(request: Request) {
     companyUrl: urlSafety.normalizedUrl,
     planKeys: projection.allowedPlans,
   });
+  const sampleOutputs = projection.allowedPlans.flatMap((planKey) => {
+    const sample = getOwnerReportTestSampleOutput(planKey);
+    return sample ? [sample] : [];
+  });
+  const previewPackages = buildOwnerReportPreviewPackages({ samples: sampleOutputs, findings: findings.findings });
 
   const persistence = recordOwnerReportTestRun(runner, projection, {
     commandCenterAllowed: true,
@@ -78,9 +84,10 @@ export async function POST(request: Request) {
     urlSafety,
     acquisition,
     findings,
+    previewPackages,
     persistence,
     previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
-    sampleOutputs: projection.allowedPlans.map((planKey) => getOwnerReportTestSampleOutput(planKey)),
+    sampleOutputs,
     acceptedInput: "public-company-url-only" as const,
     previewOnly: true,
     checkoutBypassedForOwnerTestOnly: true,
