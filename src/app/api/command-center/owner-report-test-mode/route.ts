@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
+import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
 import { projectOwnerReportTestMode, type OwnerReportTestPlanKey } from "@/lib/owner-report-test-mode-standard";
 
 export const dynamic = "force-dynamic";
@@ -22,6 +23,7 @@ export async function GET() {
     customerDeliveryAllowed: false,
     allowedPlans: Array.from(allowedPlans),
     blueprints: Array.from(allowedPlans).map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
+    sampleOutputs: Array.from(allowedPlans).map((planKey) => getOwnerReportTestSampleOutput(planKey)),
   }, 200);
 }
 
@@ -45,6 +47,7 @@ export async function POST(request: Request) {
     route,
     commandCenterOnly: true,
     previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
+    sampleOutputs: projection.allowedPlans.map((planKey) => getOwnerReportTestSampleOutput(planKey)),
     acceptedInput: "public-company-url-only" as const,
     previewOnly: true,
     checkoutBypassedForOwnerTestOnly: true,
