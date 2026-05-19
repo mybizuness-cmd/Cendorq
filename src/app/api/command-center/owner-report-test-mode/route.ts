@@ -12,6 +12,7 @@ import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-
 import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
 import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
+import { evaluateOwnerReportTestResultReview } from "@/lib/owner-report-test-result-review-evaluator";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
@@ -102,6 +103,21 @@ export async function POST(request: Request) {
     exportProjection,
     persistence,
   });
+  const resultReview = evaluateOwnerReportTestResultReview({
+    ...projection,
+    urlSafety,
+    acquisition,
+    findings,
+    previewPackages,
+    exportProjection,
+    readinessScore,
+    executionReceipt,
+    customerDeliveryApproved: false,
+    reportReleaseApproved: false,
+    checkoutRequired: false,
+    billingMutationAllowed: false,
+    entitlementMutationAllowed: false,
+  });
 
   return json({
     ...projection,
@@ -115,6 +131,7 @@ export async function POST(request: Request) {
     exportProjection,
     readinessScore,
     executionReceipt,
+    resultReview,
     persistence,
     previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
     sampleOutputs,
