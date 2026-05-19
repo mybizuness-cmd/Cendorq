@@ -7,6 +7,7 @@ import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-sa
 import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
 import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
 import { buildOwnerReportTerminalTestCommand } from "@/lib/owner-report-terminal-test-command-contract";
+import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
@@ -50,6 +51,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
   });
   const previewPackages = buildOwnerReportPreviewPackages({ samples: sampleOutputs, findings: findings.findings });
   const exportProjection = buildOwnerReportTestResultExportProjection({ previewPackages, companyName, companyUrl });
+  const readinessScore = buildOwnerReportTestReadinessScore({ acquisition, findings, previewPackages, exportProjection });
   const terminalCommand = buildOwnerReportTerminalTestCommand({ companyName, companyUrl, requestedPlans: runner.input.requestedPlans });
   const previews = projection.allowedPlans.map((planKey) => ({
     blueprint: getOwnerReportTestPreviewBlueprint(planKey),
@@ -106,7 +108,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
         </div>
 
         <div className="mt-6 grid gap-4 lg:grid-cols-5">
-          <StateCard label="Checkout" value={projection.checkoutRequired ? "required" : "not required"} />
+          <StateCard label="Readiness" value={`${readinessScore.score}% ${readinessScore.status}`} />
           <StateCard label="Customer delivery" value={projection.safety.noCustomerDelivery ? "blocked" : "allowed"} />
           <StateCard label="Acquisition" value={acquisition.status} />
           <StateCard label="Preview packages" value={`${previewPackages.packages.length} ready`} />
@@ -114,9 +116,21 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
         </div>
 
         <div className="mt-6 rounded-[2rem] border border-emerald-300/20 bg-emerald-950/15 p-5">
+          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-emerald-100">Owner test readiness checks</p>
+          <div className="mt-4 grid gap-3 md:grid-cols-5">
+            {readinessScore.checks.map((check) => (
+              <div key={check.key} className="rounded-2xl border border-emerald-300/15 bg-white/[0.035] p-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-emerald-100/70">{check.passed ? "passed" : "blocked"}</p>
+                <p className="mt-2 text-xs font-semibold leading-5 text-white">{check.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-[2rem] border border-emerald-300/20 bg-emerald-950/15 p-5">
           <p className="text-[11px] font-black uppercase tracking-[0.2em] text-emerald-100">Owner-only export projection</p>
           <p className="mt-2 text-xs font-medium leading-6 text-emerald-50/70">
-            Export ID: {exportProjection.exportRecord.exportId}. Format: {exportProjection.exportRecord.format}. Includes safety, acquisition, findings, preview packages, sample outputs, and quality gate posture. Not downloadable from customer dashboard and not emailed to customers.
+            Export ID: {exportProjection.exportRecord.exportId}. Format: {exportProjection.exportRecord.format}.
           </p>
         </div>
 
