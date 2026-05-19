@@ -15,6 +15,7 @@ import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-
 import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
 import { evaluateOwnerReportTestGetDiscovery } from "@/lib/owner-report-test-get-discovery-evaluator";
 import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
+import { buildOwnerReportTestReportExperienceScorecards } from "@/lib/owner-report-test-report-experience-scorecard";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
 import { getOwnerReportTestResultReviewContract } from "@/lib/owner-report-test-result-review-contract";
 import { evaluateOwnerReportTestResultReview } from "@/lib/owner-report-test-result-review-evaluator";
@@ -34,6 +35,7 @@ const allowedPlans = new Set<OwnerReportTestPlanKey>(["free-scan", "deep-review"
 export async function GET() {
   if (!(await hasAccess())) return deniedResponse();
 
+  const reportExperienceScorecards = buildOwnerReportTestReportExperienceScorecards();
   const discoveryPayload = {
     ok: true,
     route,
@@ -45,6 +47,7 @@ export async function GET() {
     terminalRunbook: getOwnerReportTestTerminalRunbook(),
     apiResponseContract: getOwnerReportTestApiResponseContract(),
     resultReviewContract: getOwnerReportTestResultReviewContract(),
+    reportExperienceScorecards,
     fixtureBatch: buildOwnerReportTestFixtureBatchRunner(),
     batchManifest: buildOwnerReportTestBatchManifest(),
     fixtureCommands: getOwnerReportTestFixtureCommands(),
@@ -100,6 +103,7 @@ export async function POST(request: Request) {
     previewPackages,
     exportProjection,
   });
+  const reportExperienceScorecards = buildOwnerReportTestReportExperienceScorecards();
 
   const persistence = recordOwnerReportTestRun(runner, projection, {
     commandCenterAllowed: true,
@@ -141,6 +145,7 @@ export async function POST(request: Request) {
     previewPackages,
     exportProjection,
     readinessScore,
+    reportExperienceScorecards,
     executionReceipt,
     resultReview,
     persistence,
