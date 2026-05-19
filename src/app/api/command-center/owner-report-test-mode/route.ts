@@ -12,6 +12,7 @@ import { buildOwnerReportTestBatchManifest } from "@/lib/owner-report-test-batch
 import { buildOwnerReportTestExecutionReceipt } from "@/lib/owner-report-test-execution-receipt";
 import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-fixture-batch-runner";
 import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
+import { evaluateOwnerReportTestGetDiscovery } from "@/lib/owner-report-test-get-discovery-evaluator";
 import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
 import { getOwnerReportTestResultReviewContract } from "@/lib/owner-report-test-result-review-contract";
@@ -32,7 +33,7 @@ const allowedPlans = new Set<OwnerReportTestPlanKey>(["free-scan", "deep-review"
 export async function GET() {
   if (!(await hasAccess())) return deniedResponse();
 
-  return json({
+  const discoveryPayload = {
     ok: true,
     route,
     commandCenterOnly: true,
@@ -47,7 +48,9 @@ export async function GET() {
     fixtureCommands: getOwnerReportTestFixtureCommands(),
     blueprints: Array.from(allowedPlans).map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
     sampleOutputs: Array.from(allowedPlans).map((planKey) => getOwnerReportTestSampleOutput(planKey)),
-  }, 200);
+  };
+
+  return json({ ...discoveryPayload, getDiscoveryEvaluation: evaluateOwnerReportTestGetDiscovery(discoveryPayload) }, 200);
 }
 
 export async function POST(request: Request) {
