@@ -62,12 +62,13 @@ export function buildOwnerReportFindingEngineProjection(input: {
   companyUrl: string;
   planKeys: readonly OwnerReportTestPlanKey[];
 }): OwnerReportFindingEngineProjection {
-  if (!input.acquisition.ok || !input.acquisition.target) {
+  const target = input.acquisition.target;
+  if (!input.acquisition.ok || !target) {
     return blocked(input.acquisition.reason || "acquisition-blocked");
   }
 
   const safeCompanyName = clean(input.companyName) || "Public company";
-  const findings = input.planKeys.flatMap((planKey) => buildFindingsForPlan(planKey, safeCompanyName, input.acquisition.target.normalizedUrl));
+  const findings = input.planKeys.flatMap((planKey) => buildFindingsForPlan(planKey, safeCompanyName, target.normalizedUrl));
 
   return {
     ok: findings.length > 0,
