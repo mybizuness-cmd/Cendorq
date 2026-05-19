@@ -14,6 +14,7 @@ const REQUIRED_GET_KEYS = [
   "terminalRunbook",
   "apiResponseContract",
   "resultReviewContract",
+  "reportExperienceScorecards",
   "fixtureBatch",
   "batchManifest",
   "fixtureCommands",
@@ -22,7 +23,7 @@ const REQUIRED_GET_KEYS = [
 ] as const;
 
 export const OWNER_REPORT_TEST_GET_DISCOVERY_STANDARD = [
-  "GET discovery must expose the owner terminal runbook, API response contract, result review contract, fixture batch, batch manifest, fixture commands, preview blueprints, and sample outputs.",
+  "GET discovery must expose the owner terminal runbook, API response contract, result review contract, report experience scorecards, fixture batch, batch manifest, fixture commands, preview blueprints, and sample outputs.",
   "GET discovery remains owner-only and must not require checkout or allow customer delivery.",
   "GET discovery is for backend terminal/API and Command Center review readiness.",
 ] as const;
