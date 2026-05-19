@@ -106,7 +106,7 @@ expect("src/app/verify-email/page.tsx", [
 expect("src/app/dashboard/page.tsx", [
   "AI readiness control center",
   "noIndex: true",
-  "Your Cendorq workspace is ready.",
+  "Your Cendorq account is ready.",
   "one clear next action",
   "One next step.",
   "Scan. Review. Repair. Control.",
@@ -189,7 +189,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform route validation passed with owner posture, Free Scan-first access, existing-customer email gate, readiness dashboard, report vault, billing center, checkout activation, route map, and Cendorq Shield synchronized.");
+console.log("Customer platform route validation passed with owner posture, Free Scan-first access, existing-customer email gate, account dashboard, report vault, billing center, checkout activation, route map, and Cendorq Shield synchronized.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing customer platform route dependency: ${path}`);
