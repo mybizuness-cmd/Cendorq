@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { OWNER_REPORT_TEST_MODE_STANDARD } from "@/lib/owner-report-test-mode-standard";
 import { OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS, OWNER_REPORT_TEST_PREVIEW_STANDARD } from "@/lib/owner-report-test-preview-rendering";
 import { OWNER_REPORT_TEST_SAMPLE_OUTPUTS } from "@/lib/owner-report-test-sample-output";
@@ -12,6 +14,9 @@ export function OwnerReportTestModePanel() {
           <p className="mt-3 max-w-3xl text-sm font-medium leading-7 text-fuchsia-50/75">
             Owner-only report testing for public companies, plan visuals, operator trace, chief review posture, and release-captain gate posture. No billing, customer delivery, entitlement mutation, or customer email.
           </p>
+          <Link href="/command-center/owner-report-test" className="mt-5 inline-flex rounded-2xl bg-fuchsia-200 px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-slate-950">
+            Open owner test runner
+          </Link>
         </div>
         <div className="grid grid-cols-3 gap-3 text-center">
           <Metric label="Plans" value={OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS.length} />
