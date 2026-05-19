@@ -5,6 +5,16 @@ import { loadFileBackedEnvelope, type FileBackedEnvelope } from "@/lib/storage/f
 
 export type CustomerAccessEligibilitySource = "free-scan" | "paid-plan" | "report-vault" | "billing" | "support";
 
+export type CustomerAccessEligibilitySourceStatus = "active" | "contract-ready";
+
+export type CustomerAccessEligibilitySourceDefinition = {
+  key: CustomerAccessEligibilitySource;
+  status: CustomerAccessEligibilitySourceStatus;
+  customerMeaning: string;
+  dashboardDestination: string;
+  releaseRequirement: string;
+};
+
 export type CustomerAccessEligibilityResult = {
   eligible: boolean;
   reason: "free-scan-email-match" | "paid-plan-email-match" | "report-vault-email-match" | "billing-email-match" | "support-email-match" | "no-cendorq-account-for-email" | "invalid-email";
@@ -47,9 +57,51 @@ const SAFE_DASHBOARD_PATHS = [
   "/dashboard/notifications",
 ] as const;
 
+export const CUSTOMER_ACCESS_ELIGIBILITY_SOURCE_ORDER: readonly CustomerAccessEligibilitySource[] = ["free-scan", "paid-plan", "report-vault", "billing", "support"] as const;
+
+export const CUSTOMER_ACCESS_ELIGIBILITY_SOURCES: readonly CustomerAccessEligibilitySourceDefinition[] = [
+  {
+    key: "free-scan",
+    status: "active",
+    customerMeaning: "The email submitted a Free Scan and can return to the protected Free Scan result path.",
+    dashboardDestination: "/dashboard/reports/free-scan",
+    releaseRequirement: "Free Scan intake storage must contain the same verified email before access is allowed.",
+  },
+  {
+    key: "paid-plan",
+    status: "contract-ready",
+    customerMeaning: "The email bought Review, Repair, or Control and can return to paid plan status.",
+    dashboardDestination: "/dashboard/billing",
+    releaseRequirement: "Paid plan eligibility must come from durable entitlement records, not browser state or checkout query strings.",
+  },
+  {
+    key: "report-vault",
+    status: "contract-ready",
+    customerMeaning: "The email owns a protected report vault item and can return to reports.",
+    dashboardDestination: "/dashboard/reports",
+    releaseRequirement: "Report vault eligibility must require release approval, ownership, and safe projection.",
+  },
+  {
+    key: "billing",
+    status: "contract-ready",
+    customerMeaning: "The email has billing history and can return to the billing center.",
+    dashboardDestination: "/dashboard/billing",
+    releaseRequirement: "Billing eligibility must use durable billing customer mapping and safe billing projection.",
+  },
+  {
+    key: "support",
+    status: "contract-ready",
+    customerMeaning: "The email has a support request and can return to support.",
+    dashboardDestination: "/dashboard/support",
+    releaseRequirement: "Support eligibility must use verified customer context and never expose support context keys.",
+  },
+] as const;
+
 export const CUSTOMER_ACCESS_ELIGIBILITY_STANDARD = [
   "Authentication only proves who the person is; Cendorq still checks whether the verified email belongs to a Free Scan or paid customer before dashboard access.",
   "Known Free Scan or paid customers can receive access and continue to the dashboard.",
+  "Free Scan is the active eligibility source until paid plan, report vault, billing, and support records have durable server-side ownership stores.",
+  "Paid plan, report vault, billing, and support are contract-ready eligibility sources, not browser-trusted access shortcuts.",
   "Unknown emails are routed to Free Scan instead of receiving a blank dashboard account.",
   "Customer-facing copy says account, scan, plan, and same email instead of customer record or internal eligibility.",
   "Wrong-email recovery tells the customer to use the email from the Free Scan, form, or plan, or start a new Free Scan.",
@@ -74,7 +126,7 @@ export async function resolveCustomerAccessEligibility(input: { email: string; r
       signupEmailHash: emailHash,
       customerEmailHash: emailHash,
       matchedSources: ["free-scan"],
-      primaryDestination,
+      primaryDestination: safeDashboardPath(input.requestedDestination) || getEligibilitySourceDestination("free-scan"),
       safeCustomerMessage: "We found your Cendorq account. Check your email for the secure access link.",
       safeHelpText: "Use the same email you used when you submitted your Free Scan or bought a plan.",
     };
@@ -106,6 +158,10 @@ function buildIneligibleResult(input: { reason: CustomerAccessEligibilityResult[
     safeCustomerMessage: "We couldn’t find a Cendorq account for that email. Start the Free Scan first.",
     safeHelpText: "Already have an account? Use the same email you used when you submitted your Free Scan or bought a plan. If you used a different email then, try that one.",
   };
+}
+
+function getEligibilitySourceDestination(source: CustomerAccessEligibilitySource) {
+  return CUSTOMER_ACCESS_ELIGIBILITY_SOURCES.find((entry) => entry.key === source)?.dashboardDestination || DEFAULT_DASHBOARD_DESTINATION;
 }
 
 async function findFreeScanByEmail(email: string) {
