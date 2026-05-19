@@ -17,10 +17,10 @@ const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-cente
 const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 const CUSTOMER_ACCESS_POINTS = [
-  "Use the same email you used for your Free Scan, form, or plan.",
-  "Known customers can open their dashboard after email confirmation.",
+  "Use the same email you used when you submitted your Free Scan or bought a plan.",
+  "If you used a different email then, try that one.",
   "New visitors should start the Free Scan first.",
-  "No empty accounts. The dashboard should show real results, plans, billing, or support.",
+  "No empty accounts. Your dashboard opens when there is a scan, plan, report, billing, or support item to show.",
 ] as const;
 
 export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
@@ -36,8 +36,8 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,4.8vw,5.1rem)] font-semibold leading-[0.95] tracking-[-0.074em] text-slate-950">Access your Cendorq account.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email you used for your Free Scan, form, or plan. If you have not started yet, run the Free Scan first.</p>
-            <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-500">Need Cendorq to check your business? <Link className={SMALL_LINK} href="/free-check?access=free-scan-required&method=login-hero">Start the Free Scan</Link>.</p>
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email you used when you submitted your Free Scan or bought a plan.</p>
+            <p className="mt-3 max-w-2xl text-xs font-semibold leading-5 text-slate-500">Already have an account? If you used a different email then, try that one. Need Cendorq to check your business? <Link className={SMALL_LINK} href="/free-check?access=free-scan-required&method=login-hero">Start the Free Scan</Link>.</p>
           </div>
 
           <div className="mx-auto w-full max-w-xl rounded-[2.35rem] border border-white/80 bg-white/76 p-3 shadow-[0_26px_90px_rgba(15,23,42,0.1)] backdrop-blur-2xl">
@@ -45,7 +45,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Customer access</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Return with your email.</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">We will send a secure link. No password needed.</p>
+                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">We will send a secure link if this email is tied to your Free Scan or plan. No password needed.</p>
               </div>
 
               {authNotice ? (
@@ -59,10 +59,11 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
               <form className="mt-5 grid gap-3" action="/api/auth/email" method="get">
                 <input type="hidden" name="returnTo" value={returnTo} />
                 <label className="grid gap-2 text-sm font-semibold text-slate-800">
-                  Email used for your Free Scan, form, or plan
+                  Email used for your Free Scan or plan
                   <input name="email" type="email" required autoComplete="email" placeholder="you@company.com" className="rounded-[1.15rem] border border-slate-200 bg-white px-4 py-4 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/70" />
                 </label>
                 <button type="submit" className={BUTTON_PRIMARY}>Send secure access link</button>
+                <p className="text-center text-xs font-medium leading-5 text-slate-500">Already have an account? Use the email you used when you submitted your Free Scan or bought a plan.</p>
               </form>
 
               <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/55 p-4 text-center">
@@ -71,7 +72,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
                 <div className="mt-4"><Link href="/free-check?access=free-scan-required&method=access-page" className={BUTTON_SECONDARY}>Start Free Scan</Link></div>
               </div>
 
-              <p className="mt-5 text-center text-xs font-medium leading-5 text-slate-500">Provider sign-in is hidden until it is fully ready. For now, use secure email access.</p>
+              <p className="mt-5 text-center text-xs font-medium leading-5 text-slate-500">Other access options are hidden until they are fully ready. For now, use secure email access.</p>
             </div>
           </div>
         </div>
@@ -81,7 +82,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         <div className="rounded-[2.2rem] border border-white/80 bg-white/82 p-5 shadow-[0_12px_38px_rgba(15,23,42,0.045)] backdrop-blur sm:p-6">
           <h2 className="max-w-5xl text-3xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">Free Scan starts the account. Access brings customers back.</h2>
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{CUSTOMER_ACCESS_POINTS.map((rule) => <p key={rule} className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-6 text-slate-600">{rule}</p>)}</div>
-          <p className="mt-5 text-sm leading-7 text-slate-600">Already submitted a scan or bought a plan? Use the same email above.</p>
+          <p className="mt-5 text-sm leading-7 text-slate-600">Having trouble accessing your account? Try the email from your Free Scan or plan. If Cendorq still cannot find it, start the Free Scan so your account can be set up from real business details.</p>
         </div>
       </section>
     </main>
@@ -99,11 +100,11 @@ function buildAuthNotice(auth: string | undefined, provider: string | undefined)
   if (auth === "provider-callback-pending") return { tone: "warning", message: `Provider access is not live yet. Use the secure email link for now.` };
   if (auth === "provider-callback-missing-code") return { tone: "warning", message: "That provider sign-in could not finish. Use the secure email link." };
   if (auth === "provider-cancelled") return { tone: "warning", message: "Provider sign-in was cancelled. Use the secure email link or start the Free Scan." };
-  if (auth === "free-scan-required") return { tone: "warning", message: "We could not find a Free Scan or plan for that email. Start the Free Scan first.", href: "/free-check?access=free-scan-required&method=login", cta: "Start Free Scan" };
+  if (auth === "free-scan-required") return { tone: "warning", message: "We couldn’t find a Cendorq account for that email. Use the email from your Free Scan or plan, or start the Free Scan first.", href: "/free-check?access=free-scan-required&method=login", cta: "Start Free Scan" };
   if (auth === "session-unavailable") return { tone: "warning", message: "This browser is not remembered yet. Use the email from your Free Scan or plan." };
   if (auth === "session-required") return { tone: "warning", message: "Use customer access to continue." };
   if (auth === "unknown-provider") return { tone: "warning", message: "That access option is not available. Use secure email access." };
-  if (auth === "email-required") return { tone: "warning", message: "Enter the email used for your Free Scan, form, or plan." };
+  if (auth === "email-required") return { tone: "warning", message: "Enter the email used for your Free Scan or plan." };
   if (auth === "email-sent") return { tone: "success", message: "Check your inbox for the secure Cendorq access link." };
   if (auth === "email-queued") return { tone: "warning", message: "Your request was received. If the email does not arrive, try again shortly." };
   if (auth === "email-unavailable") return { tone: "warning", message: "Cendorq could not send the access email yet. Try again shortly." };
