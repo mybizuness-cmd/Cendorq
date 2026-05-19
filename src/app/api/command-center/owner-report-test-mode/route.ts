@@ -6,6 +6,7 @@ import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-pa
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
 import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
+import { getOwnerReportTestApiResponseContract } from "@/lib/owner-report-test-api-response-contract";
 import { evaluateOwnerReportTestApiResponse } from "@/lib/owner-report-test-api-response-evaluator";
 import { buildOwnerReportTestBatchManifest } from "@/lib/owner-report-test-batch-manifest";
 import { buildOwnerReportTestExecutionReceipt } from "@/lib/owner-report-test-execution-receipt";
@@ -13,7 +14,9 @@ import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-
 import { getOwnerReportTestFixtureCommands } from "@/lib/owner-report-test-fixture-matrix";
 import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
+import { getOwnerReportTestResultReviewContract } from "@/lib/owner-report-test-result-review-contract";
 import { evaluateOwnerReportTestResultReview } from "@/lib/owner-report-test-result-review-evaluator";
+import { getOwnerReportTestTerminalRunbook } from "@/lib/owner-report-test-terminal-runbook";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
@@ -36,6 +39,9 @@ export async function GET() {
     checkoutRequired: false,
     customerDeliveryAllowed: false,
     allowedPlans: Array.from(allowedPlans),
+    terminalRunbook: getOwnerReportTestTerminalRunbook(),
+    apiResponseContract: getOwnerReportTestApiResponseContract(),
+    resultReviewContract: getOwnerReportTestResultReviewContract(),
     fixtureBatch: buildOwnerReportTestFixtureBatchRunner(),
     batchManifest: buildOwnerReportTestBatchManifest(),
     fixtureCommands: getOwnerReportTestFixtureCommands(),
