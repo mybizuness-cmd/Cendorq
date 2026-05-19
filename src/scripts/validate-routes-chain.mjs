@@ -42,6 +42,7 @@ const validators = [
   "src/scripts/validate-command-center-report-evidence-record-panel.mjs",
   "src/scripts/validate-command-center-report-evidence-records-api.mjs",
   "src/scripts/validate-report-generation-rendering-contracts.mjs",
+  "src/scripts/validate-report-quality-domination-standard.mjs",
   "src/scripts/validate-protected-free-scan-results-rendering.mjs",
   "src/scripts/validate-owner-public-company-url-safety.mjs",
   "src/scripts/validate-owner-report-test-mode-standard.mjs",
