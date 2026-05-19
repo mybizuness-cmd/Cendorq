@@ -40,10 +40,12 @@ expect(providerEligibilityGatePath, [
 
 expect(providerCallbackPath, [
   "provider-callback-pending",
-  "Token exchange, profile fetch",
-  "account creation/restoration",
-  "durable Cendorq session creation",
-  "implemented before the customer can honestly be marked signed in",
+  "server-side token exchange",
+  "profile fetch",
+  "verified email confirmation",
+  "evaluateProviderCallbackCustomerAccess before any durable Cendorq session",
+  "Unknown provider emails must route to Free Scan instead of opening",
+  "back to secure email access",
 ]);
 
 expect(signupPath, [
