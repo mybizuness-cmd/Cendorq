@@ -9,6 +9,7 @@ expect(pagePath, [
   "Owner report test mode | Cendorq",
   "resolveCommandCenterAccessState",
   "ClosedCommandCenterPanel",
+  "validateOwnerPublicCompanyUrl",
   "buildOwnerReportTestRunnerState",
   "projectOwnerReportTestMode",
   "getOwnerReportTestPreviewBlueprint",
@@ -16,11 +17,14 @@ expect(pagePath, [
   "Owner-only report test runner",
   "Preview every Cendorq report without checkout.",
   "Run public-company test inputs across Free Scan, Deep Review, Build Fix, and Ongoing Control.",
+  "Public URL safety blocked that input",
+  "Public URL safety",
   "Run preview",
   "Agent / chief / captain trace",
   "checkoutRequired",
   "noCustomerDelivery",
   "noBillingMutation",
+  "urlSafety.ok",
   "testWatermarkRequired",
   "noimageindex",
   "force-dynamic",
@@ -47,7 +51,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test runner page validation passed.");
+console.log("Owner report test runner page validation passed with public URL safety.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
