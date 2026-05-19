@@ -38,6 +38,20 @@ expect("src/lib/customer-auth-orchestration.ts", [
 
 expect("src/lib/customer-access-eligibility.ts", [
   "CUSTOMER_ACCESS_ELIGIBILITY_STANDARD",
+  "CUSTOMER_ACCESS_ELIGIBILITY_SOURCE_ORDER",
+  "CUSTOMER_ACCESS_ELIGIBILITY_SOURCES",
+  "free-scan",
+  "paid-plan",
+  "report-vault",
+  "billing",
+  "support",
+  "contract-ready",
+  "Paid plan eligibility must come from durable entitlement records, not browser state or checkout query strings.",
+  "Report vault eligibility must require release approval, ownership, and safe projection.",
+  "Billing eligibility must use durable billing customer mapping and safe billing projection.",
+  "Support eligibility must use verified customer context and never expose support context keys.",
+  "Free Scan is the active eligibility source until paid plan, report vault, billing, and support records have durable server-side ownership stores.",
+  "Paid plan, report vault, billing, and support are contract-ready eligibility sources, not browser-trusted access shortcuts.",
   "resolveCustomerAccessEligibility",
   "Authentication only proves who the person is; Cendorq still checks whether the verified email belongs to a Free Scan or paid customer before dashboard access.",
   "Known Free Scan or paid customers can receive access and continue to the dashboard.",
@@ -158,7 +172,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, existing-customer eligibility, zero first-use progress, account/dashboard language, checkout, billing, and post-payment flow stay synchronized.");
+console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, existing-customer eligibility source ladder, zero first-use progress, account/dashboard language, checkout, billing, and post-payment flow stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
