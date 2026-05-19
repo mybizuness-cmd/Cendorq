@@ -11,6 +11,8 @@ expect(routePath, [
   "projectOwnerReportTestMode",
   "getOwnerReportTestPreviewBlueprint",
   "getOwnerReportTestSampleOutput",
+  "buildOwnerReportTestRunnerState",
+  "recordOwnerReportTestRun",
   "export async function GET",
   "export async function POST",
   "/api/command-center/owner-report-test-mode",
@@ -18,6 +20,9 @@ expect(routePath, [
   "customerDeliveryAllowed: false",
   "sampleOutputs",
   "previewBlueprints",
+  "runner",
+  "persistence",
+  "safeRequestIdHash",
   "previewOnly: true",
   "checkoutBypassedForOwnerTestOnly: true",
   "customerDeliveryApproved: false",
@@ -44,6 +49,8 @@ forbidden(routePath, [
   "guaranteed ranking",
   "guaranteed roi",
   "guaranteed revenue",
+  "localStorage",
+  "sessionStorage",
 ]);
 
 if (failures.length) {
@@ -52,7 +59,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test mode API validation passed with preview blueprints and sample outputs.");
+console.log("Owner report test mode API validation passed with runner state, persistence projection, preview blueprints, and sample outputs.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
