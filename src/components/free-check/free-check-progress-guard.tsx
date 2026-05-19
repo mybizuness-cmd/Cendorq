@@ -5,6 +5,8 @@ import { useEffect } from "react";
 
 const STORAGE_KEY = "cendorq.free-check.progress.v1";
 const FIELD_SELECTOR = "input[name], textarea[name], select[name]";
+const FRESH_START_ACCESS_VALUE = "free-scan-required";
+const FRESH_START_RESTART_VALUE = "1";
 
 type StoredProgress = {
   savedAt: string;
@@ -16,16 +18,17 @@ export function FreeCheckProgressGuard() {
     const root = document.getElementById("free-check-intake");
     if (!root) return;
 
-    restoreProgress(root);
+    if (shouldStartFreshFreeScan()) {
+      clearProgress("free_scan_progress_fresh_start");
+    } else {
+      restoreProgress(root);
+    }
 
     const save = () => saveProgress(root);
     root.addEventListener("input", save);
     root.addEventListener("change", save);
 
-    const clear = () => {
-      window.localStorage.removeItem(STORAGE_KEY);
-      trackConversionEvent("free_scan_progress_cleared");
-    };
+    const clear = () => clearProgress("free_scan_progress_cleared");
     window.addEventListener("cendorq:free-check:submitted", clear);
 
     return () => {
@@ -84,4 +87,14 @@ function restoreProgress(root: HTMLElement) {
   } catch {
     window.localStorage.removeItem(STORAGE_KEY);
   }
+}
+
+function shouldStartFreshFreeScan() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("access") === FRESH_START_ACCESS_VALUE || params.get("restart") === FRESH_START_RESTART_VALUE;
+}
+
+function clearProgress(eventName: "free_scan_progress_cleared" | "free_scan_progress_fresh_start") {
+  window.localStorage.removeItem(STORAGE_KEY);
+  trackConversionEvent(eventName);
 }
