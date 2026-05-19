@@ -45,6 +45,8 @@ const validators = [
   "src/scripts/validate-protected-free-scan-results-rendering.mjs",
   "src/scripts/validate-owner-report-test-mode-standard.mjs",
   "src/scripts/validate-owner-report-test-preview-rendering.mjs",
+  "src/scripts/validate-owner-report-test-sample-output.mjs",
+  "src/scripts/validate-owner-report-test-mode-api.mjs",
   "src/scripts/validate-cendorq-agent-intelligence-playbooks.mjs",
   "src/scripts/validate-agent-mission-operating-engine.mjs",
   "src/scripts/validate-agent-mission-records-runtime.mjs",
