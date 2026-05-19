@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
+import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
@@ -29,7 +30,9 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
 
   const params = await searchParams;
   const companyName = normalizeValue(params?.companyName) || "Example Public Company";
-  const companyUrl = normalizeValue(params?.companyUrl) || "https://example.com";
+  const rawCompanyUrl = normalizeValue(params?.companyUrl) || "https://example.com";
+  const urlSafety = validateOwnerPublicCompanyUrl(rawCompanyUrl);
+  const companyUrl = urlSafety.ok ? urlSafety.normalizedUrl : "https://example.com";
   const requestedPlans = normalizePlans(params?.plan);
   const runner = buildOwnerReportTestRunnerState({ companyName, companyUrl, requestedPlans });
   const projection = projectOwnerReportTestMode({ companyName, companyUrl, requestedPlans: runner.input.requestedPlans, ownerAccessVerified: true });
@@ -49,6 +52,12 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
             Run public-company test inputs across Free Scan, Deep Review, Build Fix, and Ongoing Control. Outputs stay watermarked, owner-only, noindexed, not customer delivery, and unable to mutate billing, entitlements, customer email, or report release state.
           </p>
         </div>
+
+        {!urlSafety.ok ? (
+          <div className="mt-6 rounded-2xl border border-amber-300/25 bg-amber-300/10 p-4 text-sm font-semibold leading-6 text-amber-100">
+            Public URL safety blocked that input ({urlSafety.reason}). Showing the safe example preview instead.
+          </div>
+        ) : null}
 
         <form method="get" className="mt-6 grid gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 md:grid-cols-[1fr_1fr_auto] md:items-end">
           <label className="block">
@@ -74,7 +83,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
           <StateCard label="Checkout" value={projection.checkoutRequired ? "required" : "not required"} />
           <StateCard label="Customer delivery" value={projection.safety.noCustomerDelivery ? "blocked" : "allowed"} />
           <StateCard label="Billing mutation" value={projection.safety.noBillingMutation ? "blocked" : "allowed"} />
-          <StateCard label="Watermark" value={projection.safety.testWatermarkRequired ? "required" : "missing"} />
+          <StateCard label="Public URL safety" value={urlSafety.ok ? "accepted" : "blocked"} />
         </div>
 
         <div className="mt-6 grid gap-5">
