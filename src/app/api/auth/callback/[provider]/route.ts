@@ -42,9 +42,12 @@ async function handleProviderCallback(request: NextRequest, providerKey: string)
     return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect and callback plumbing are now present. Token exchange, profile fetch,
-  // account creation/restoration, and durable Cendorq session creation must be
-  // implemented before the customer can honestly be marked signed in.
+  // Redirect and callback plumbing are now present. The production path must run
+  // server-side token exchange, profile fetch, verified email confirmation, and
+  // evaluateProviderCallbackCustomerAccess before any durable Cendorq session is
+  // created. Unknown provider emails must route to Free Scan instead of opening
+  // a blank dashboard. Until that runtime is implemented, customers are sent
+  // back to secure email access.
   loginUrl.searchParams.set("auth", "provider-callback-pending");
   loginUrl.searchParams.set("provider", provider.key);
   return NextResponse.redirect(loginUrl);
