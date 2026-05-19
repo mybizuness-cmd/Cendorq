@@ -10,6 +10,9 @@ const TRACKED_HREF_PREFIXES = [
   "/plans/deep-review",
   "/plans/build-fix",
   "/plans/ongoing-control",
+  "/login",
+  "/signup",
+  "/faq",
   "/connect",
 ] as const;
 
@@ -42,7 +45,7 @@ export function ConversionClickTracker() {
 }
 
 function shouldTrackHref(href: string) {
-  return TRACKED_HREF_PREFIXES.some((prefix) => href === prefix || href.startsWith(`${prefix}#`) || href.startsWith(`${prefix}/`));
+  return TRACKED_HREF_PREFIXES.some((prefix) => href === prefix || href.startsWith(`${prefix}#`) || href.startsWith(`${prefix}/`) || href.startsWith(`${prefix}?`));
 }
 
 function normalizeHref(value: string) {
@@ -52,7 +55,7 @@ function normalizeHref(value: string) {
   try {
     const parsed = new URL(trimmed, window.location.origin);
     if (parsed.origin !== window.location.origin) return "";
-    return `${parsed.pathname}${parsed.hash}`;
+    return `${parsed.pathname}${parsed.search}${parsed.hash}`;
   } catch {
     return trimmed.startsWith("/") ? trimmed : "";
   }
