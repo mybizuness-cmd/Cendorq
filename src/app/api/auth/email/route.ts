@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { buildFreeScanRequiredUrl, resolveCustomerAccessEligibility } from "@/lib/customer-access-eligibility";
 import { issueCustomerConfirmationEmail, projectCustomerConfirmationEmailSafeResponse } from "@/lib/customer-confirmation-email-issuance-runtime";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -24,14 +24,20 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
+  const eligibility = await resolveCustomerAccessEligibility({ email, requestedDestination: returnTo });
+  if (!eligibility.eligible) {
+    const freeScanUrl = buildFreeScanRequiredUrl(request.url, { method: "email", returnTo });
+    freeScanUrl.searchParams.set("auth", "free-scan-required");
+    return NextResponse.redirect(freeScanUrl);
+  }
+
   try {
-    const emailHash = hashEmail(email);
     const confirmationEmail = await issueCustomerConfirmationEmail({
-      customerIdHash: hashEmail(`customer:${emailHash}`),
-      signupEmailHash: emailHash,
-      customerEmailHash: emailHash,
+      customerIdHash: eligibility.customerIdHash,
+      signupEmailHash: eligibility.signupEmailHash,
+      customerEmailHash: eligibility.customerEmailHash,
       journeyKey: "support-or-billing-entry",
-      requestedDestination: returnTo,
+      requestedDestination: eligibility.primaryDestination,
       issueReason: "account-recovery",
       baseUrl: request.nextUrl.origin,
       customerEmail: email,
@@ -68,8 +74,4 @@ function cleanEmail(value: unknown) {
   if (!local || local.length > 64 || local.startsWith(".") || local.endsWith(".") || local.includes("..")) return "";
   if (!domain || domain.length > 253 || !domain.includes(".") || domain.startsWith(".") || domain.endsWith(".") || domain.includes("..")) return "";
   return domain.split(".").every((label) => Boolean(label && label.length <= 63 && !label.startsWith("-") && !label.endsWith("-"))) ? cleaned : "";
-}
-
-function hashEmail(value: string) {
-  return createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
 }
