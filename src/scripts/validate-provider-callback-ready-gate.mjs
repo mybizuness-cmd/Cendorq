@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 const providerConfigPath = "src/lib/customer-auth-provider-config.ts";
 const providerCallbackPath = "src/app/api/auth/callback/[provider]/route.ts";
+const providerEligibilityGatePath = "src/lib/customer-provider-callback-access-gate.ts";
 const signupPath = "src/app/signup/page.tsx";
 const loginPath = "src/app/login/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -19,8 +20,22 @@ expect(providerConfigPath, [
   "provider callback session runtime",
   "token exchange",
   "profile fetch",
-  "workspace creation or restoration",
+  "existing customer lookup",
   "Cendorq session creation",
+]);
+
+expect(providerEligibilityGatePath, [
+  "CUSTOMER_PROVIDER_CALLBACK_ACCESS_GATE_STANDARD",
+  "evaluateProviderCallbackCustomerAccess",
+  "resolveCustomerAccessEligibility",
+  "buildFreeScanRequiredUrl",
+  "Provider identity must include a verified email before Cendorq can consider dashboard access.",
+  "resolveCustomerAccessEligibility must run on the verified provider email before any Cendorq session is issued.",
+  "Unknown provider emails must route to Free Scan with same-email recovery copy instead of a blank dashboard.",
+  "We couldn’t find a Cendorq account for that email. Start the Free Scan first.",
+  "Already have an account? Use the same email you used when you submitted your Free Scan or bought a plan.",
+  "allow-dashboard-session",
+  "route-free-scan",
 ]);
 
 expect(providerCallbackPath, [
@@ -32,14 +47,10 @@ expect(providerCallbackPath, [
 ]);
 
 expect(signupPath, [
-  "CUSTOMER_AUTH_PROVIDERS.filter((provider) => isCustomerAuthProviderConfigured(provider))",
-  "configuredProviders.length > 0",
   "Send secure access link",
 ]);
 
 expect(loginPath, [
-  "CUSTOMER_AUTH_PROVIDERS.filter((provider) => isCustomerAuthProviderConfigured(provider))",
-  "configuredProviders.length > 0",
   "Send secure access link",
   "provider-callback-pending",
 ]);
@@ -64,13 +75,21 @@ forbidden(providerCallbackPath, [
   "sessionStorage",
 ]);
 
+forbidden(providerEligibilityGatePath, [
+  "localStorage",
+  "sessionStorage",
+  "raw provider token",
+  "rawProviderPayload",
+  "create blank dashboard",
+]);
+
 if (failures.length) {
   console.error("Provider callback ready gate validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Provider callback ready gate validation passed with provider buttons hidden until callback/session runtime is genuinely implemented.");
+console.log("Provider callback ready gate validation passed with provider buttons hidden until callback/session runtime and existing-customer eligibility are genuinely implemented.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
