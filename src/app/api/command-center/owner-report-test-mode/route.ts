@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
+import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
+import { recordOwnerReportTestRun } from "@/lib/owner-report-test-run-persistence-runtime";
 import { projectOwnerReportTestMode, type OwnerReportTestPlanKey } from "@/lib/owner-report-test-mode-standard";
 
 export const dynamic = "force-dynamic";
@@ -33,19 +35,33 @@ export async function POST(request: Request) {
   const body = await readJson(request);
   if (!isRecord(body) || containsBlockedShape(body)) return rejectedResponse();
 
+  const companyName = getString(body, "companyName");
+  const companyUrl = getString(body, "companyUrl");
+  const requestedPlans = getPlans(body);
+  const runner = buildOwnerReportTestRunnerState({ companyName, companyUrl, requestedPlans });
   const projection = projectOwnerReportTestMode({
-    companyName: getString(body, "companyName"),
-    companyUrl: getString(body, "companyUrl"),
-    requestedPlans: getPlans(body),
+    companyName,
+    companyUrl,
+    requestedPlans: runner.input.requestedPlans,
     ownerAccessVerified: true,
   });
 
   if (!projection.ok || !projection.companyUrl) return rejectedResponse();
 
+  const persistence = recordOwnerReportTestRun(runner, projection, {
+    commandCenterAllowed: true,
+    ownerAccessVerified: true,
+    recordedByRole: "owner",
+    sourceRoute: route,
+    requestIdHash: safeRequestIdHash(request),
+  });
+
   return json({
     ...projection,
     route,
     commandCenterOnly: true,
+    runner,
+    persistence,
     previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
     sampleOutputs: projection.allowedPlans.map((planKey) => getOwnerReportTestSampleOutput(planKey)),
     acceptedInput: "public-company-url-only" as const,
@@ -80,6 +96,13 @@ function getPlans(body: Record<string, unknown>): OwnerReportTestPlanKey[] {
 function getString(body: Record<string, unknown>, key: string) {
   const value = body[key];
   return typeof value === "string" ? value : "";
+}
+
+function safeRequestIdHash(request: Request) {
+  const value = request.headers.get("x-request-id") ?? "owner-report-test-request";
+  let hash = 0;
+  for (let index = 0; index < value.length; index += 1) hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
+  return `owner-test-${hash.toString(16).padStart(8, "0")}`;
 }
 
 function containsBlockedShape(value: unknown): boolean {
