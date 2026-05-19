@@ -13,6 +13,7 @@ expect(evaluatorPath, [
   "terminalRunbook",
   "apiResponseContract",
   "resultReviewContract",
+  "reportExperienceScorecards",
   "fixtureBatch",
   "batchManifest",
   "fixtureCommands",
@@ -29,6 +30,7 @@ expect(apiPath, [
   "evaluateOwnerReportTestGetDiscovery",
   "discoveryPayload",
   "getDiscoveryEvaluation",
+  "reportExperienceScorecards",
 ]);
 
 forbidden(evaluatorPath, [
@@ -45,7 +47,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test GET discovery evaluator validation passed.");
+console.log("Owner report test GET discovery evaluator validation passed with report experience scorecards required.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
