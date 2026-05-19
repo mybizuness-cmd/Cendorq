@@ -1,8 +1,11 @@
 import Link from "next/link";
 
+import { buildOwnerReportTerminalTestCommand } from "@/lib/owner-report-terminal-test-command-contract";
 import { OWNER_REPORT_TEST_MODE_STANDARD } from "@/lib/owner-report-test-mode-standard";
 import { OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS, OWNER_REPORT_TEST_PREVIEW_STANDARD } from "@/lib/owner-report-test-preview-rendering";
 import { OWNER_REPORT_TEST_SAMPLE_OUTPUTS } from "@/lib/owner-report-test-sample-output";
+
+const terminalCommand = buildOwnerReportTerminalTestCommand({ companyName: "Example Public Company", companyUrl: "https://example.com" });
 
 export function OwnerReportTestModePanel() {
   return (
@@ -22,6 +25,21 @@ export function OwnerReportTestModePanel() {
           <Metric label="Plans" value={OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS.length} />
           <Metric label="Rules" value={OWNER_REPORT_TEST_MODE_STANDARD.length} />
           <Metric label="Samples" value={OWNER_REPORT_TEST_SAMPLE_OUTPUTS.length} />
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-2xl border border-fuchsia-300/20 bg-black/15 p-4">
+        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-fuchsia-200">Backend terminal / API test command</p>
+        <p className="mt-2 text-xs font-medium leading-6 text-fuchsia-50/70">
+          You can run owner tests through the Command Center UI or from the backend terminal/API route. This command stays public-URL-only, owner-gated, no checkout, no delivery, no billing mutation, and no entitlement mutation.
+        </p>
+        <div className="mt-4 rounded-2xl border border-fuchsia-300/15 bg-slate-950 p-4 text-xs font-semibold leading-6 text-fuchsia-50/80">
+          <code className="whitespace-pre-wrap break-words">{terminalCommand.curlPreview}</code>
+        </div>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          <Metric label="Owner only" value={terminalCommand.safety.ownerOnly ? 1 : 0} />
+          <Metric label="No checkout" value={terminalCommand.safety.noCheckout ? 1 : 0} />
+          <Metric label="No mutation" value={terminalCommand.safety.noBillingMutation && terminalCommand.safety.noEntitlementMutation ? 1 : 0} />
         </div>
       </div>
 
