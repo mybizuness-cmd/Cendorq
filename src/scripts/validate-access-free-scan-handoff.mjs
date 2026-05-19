@@ -26,11 +26,14 @@ expect(signupPath, [
 
 expect(loginPath, [
   "Access your Cendorq account.",
-  "Use the same email you used for your Free Scan, form, or plan.",
+  "Use the same email you used when you submitted your Free Scan or bought a plan.",
+  "Already have an account? If you used a different email then, try that one.",
+  "Email used for your Free Scan or plan",
+  "We will send a secure link if this email is tied to your Free Scan or plan.",
   "Send secure access link",
   "First time here?",
   "Start Free Scan",
-  "Provider sign-in is hidden until it is fully ready.",
+  "Other access options are hidden until they are fully ready.",
   "Free Scan starts the account. Access brings customers back.",
   "No password needed.",
   "focus:outline-none",
@@ -116,7 +119,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Access and Free Scan handoff validation passed with Free Scan-first conversion, simple customer copy, no blank dashboard promise, and zero first-use progress.");
+console.log("Access and Free Scan handoff validation passed with Free Scan-first conversion, existing-customer same-email recovery copy, no blank dashboard promise, and zero first-use progress.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
