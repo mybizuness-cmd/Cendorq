@@ -6,6 +6,7 @@ import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-pa
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
 import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
+import { buildOwnerReportTestExecutionReceipt } from "@/lib/owner-report-test-execution-receipt";
 import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
@@ -88,6 +89,13 @@ export async function POST(request: Request) {
     sourceRoute: route,
     requestIdHash: safeRequestIdHash(request),
   });
+  const executionReceipt = buildOwnerReportTestExecutionReceipt({
+    companyName,
+    companyUrl: urlSafety.normalizedUrl,
+    readinessScore,
+    exportProjection,
+    persistence,
+  });
 
   return json({
     ...projection,
@@ -100,6 +108,7 @@ export async function POST(request: Request) {
     previewPackages,
     exportProjection,
     readinessScore,
+    executionReceipt,
     persistence,
     previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
     sampleOutputs,
