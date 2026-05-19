@@ -84,11 +84,14 @@ expect("src/app/signup/page.tsx", [
 expect("src/app/login/page.tsx", [
   "Access your Cendorq account.",
   "noIndex: true",
-  "Use the same email you used for your Free Scan, form, or plan.",
+  "Use the same email you used when you submitted your Free Scan or bought a plan.",
+  "Already have an account? If you used a different email then, try that one.",
+  "Email used for your Free Scan or plan",
+  "We will send a secure link if this email is tied to your Free Scan or plan.",
   "Send secure access link",
   "No password needed.",
   "First time here?",
-  "Provider sign-in is hidden until it is fully ready.",
+  "Other access options are hidden until they are fully ready.",
 ]);
 
 expect("src/app/verify-email/page.tsx", [
@@ -186,7 +189,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform route validation passed with owner posture, Free Scan-first access, email verification, readiness dashboard, report vault, billing center, checkout activation, route map, and Cendorq Shield synchronized.");
+console.log("Customer platform route validation passed with owner posture, Free Scan-first access, existing-customer email gate, readiness dashboard, report vault, billing center, checkout activation, route map, and Cendorq Shield synchronized.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing customer platform route dependency: ${path}`);
