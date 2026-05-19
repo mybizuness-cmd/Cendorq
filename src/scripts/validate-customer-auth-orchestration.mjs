@@ -6,8 +6,10 @@ const failures = [];
 
 const requiredFiles = [
   "src/lib/customer-auth-orchestration.ts",
+  "src/lib/customer-access-eligibility.ts",
   "src/lib/pricing-checkout-orchestration.ts",
   "src/lib/customer-platform-route-map.ts",
+  "src/app/api/auth/email/route.ts",
   "src/app/login/page.tsx",
   "src/app/signup/page.tsx",
   "src/app/verify-email/page.tsx",
@@ -34,6 +36,31 @@ expect("src/lib/customer-auth-orchestration.ts", [
   "SPF, DKIM, and DMARC",
 ]);
 
+expect("src/lib/customer-access-eligibility.ts", [
+  "CUSTOMER_ACCESS_ELIGIBILITY_STANDARD",
+  "resolveCustomerAccessEligibility",
+  "Authentication only proves who the person is; Cendorq still checks whether the verified email belongs to a Free Scan or paid customer before dashboard access.",
+  "Known Free Scan or paid customers can receive access and continue to the dashboard.",
+  "Unknown emails are routed to Free Scan instead of receiving a blank dashboard account.",
+  "Customer-facing copy says account, scan, plan, and same email instead of customer record or internal eligibility.",
+  "Wrong-email recovery tells the customer to use the email from the Free Scan, form, or plan, or start a new Free Scan.",
+  "findFreeScanByEmail",
+  "free-check-intakes.v3.json",
+  "no-cendorq-account-for-email",
+  "We couldn’t find a Cendorq account for that email. Start the Free Scan first.",
+]);
+
+expect("src/app/api/auth/email/route.ts", [
+  "resolveCustomerAccessEligibility",
+  "buildFreeScanRequiredUrl",
+  "if (!eligibility.eligible)",
+  "method: \"email\"",
+  "customerIdHash: eligibility.customerIdHash",
+  "signupEmailHash: eligibility.signupEmailHash",
+  "customerEmailHash: eligibility.customerEmailHash",
+  "requestedDestination: eligibility.primaryDestination",
+]);
+
 expect("src/lib/pricing-checkout-orchestration.ts", [
   "CENDORQ_PLAN_PRICES",
   "amountCents: 49700",
@@ -53,10 +80,13 @@ expect("src/lib/customer-platform-route-map.ts", [
 
 expect("src/app/login/page.tsx", [
   "Access your Cendorq account.",
-  "Use the same email you used for your Free Scan, form, or plan.",
+  "Use the same email you used when you submitted your Free Scan or bought a plan.",
+  "Already have an account? If you used a different email then, try that one.",
   "Send secure access link",
   "No password needed.",
-  "Provider sign-in is hidden until it is fully ready.",
+  "We will send a secure link if this email is tied to your Free Scan or plan.",
+  "Other access options are hidden until they are fully ready.",
+  "We couldn’t find a Cendorq account for that email. Use the email from your Free Scan or plan, or start the Free Scan first.",
 ]);
 
 expect("src/app/signup/page.tsx", [
@@ -99,7 +129,6 @@ forbidden(requiredFiles, [
   "Create your Cendorq workspace.",
   "Create or access your workspace.",
   "Create workspace",
-  "Continue to dashboard",
   "Continue with Google",
   "Continue with Microsoft",
   "Continue with Apple",
@@ -117,13 +146,19 @@ forbidden(requiredFiles, [
   "skip verification",
 ]);
 
+forbidden(["src/app/api/auth/email/route.ts"], [
+  "customerIdHash: hashEmail(`customer:${emailHash}`)",
+  "signupEmailHash: emailHash",
+  "customerEmailHash: emailHash",
+]);
+
 if (failures.length) {
   console.error("Customer auth and checkout orchestration validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, zero first-use progress, account/dashboard language, checkout, billing, and post-payment flow stay synchronized.");
+console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, existing-customer eligibility, zero first-use progress, account/dashboard language, checkout, billing, and post-payment flow stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
