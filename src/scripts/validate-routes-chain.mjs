@@ -44,6 +44,7 @@ const validators = [
   "src/scripts/validate-report-generation-rendering-contracts.mjs",
   "src/scripts/validate-report-quality-domination-standard.mjs",
   "src/scripts/validate-report-quality-domination-panel.mjs",
+  "src/scripts/validate-report-quality-release-gate-runtime.mjs",
   "src/scripts/validate-protected-free-scan-results-rendering.mjs",
   "src/scripts/validate-owner-public-company-url-safety.mjs",
   "src/scripts/validate-owner-report-test-mode-standard.mjs",
