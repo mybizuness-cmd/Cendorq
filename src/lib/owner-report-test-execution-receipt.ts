@@ -1,6 +1,6 @@
 import type { OwnerReportTestReadinessScore } from "./owner-report-test-readiness-score";
 import type { OwnerReportTestResultExportProjection } from "./owner-report-test-result-export-contract";
-import type { OwnerReportTestRunPersistenceProjection } from "./owner-report-test-run-persistence-runtime";
+import type { OwnerReportTestRunPersistenceResponse } from "./owner-report-test-run-persistence-runtime";
 
 export type OwnerReportTestExecutionReceipt = {
   receiptId: string;
@@ -25,16 +25,16 @@ export function buildOwnerReportTestExecutionReceipt(input: {
   companyUrl: string;
   readinessScore: OwnerReportTestReadinessScore;
   exportProjection: OwnerReportTestResultExportProjection;
-  persistence: OwnerReportTestRunPersistenceProjection;
+  persistence: OwnerReportTestRunPersistenceResponse;
 }): OwnerReportTestExecutionReceipt {
-  const runRecordId = input.persistence.record.runId;
+  const runRecordId = input.persistence.records?.[0]?.runId ?? "owner-report-test-run-not-recorded";
   const exportId = input.exportProjection.exportRecord.exportId;
   const receiptId = `owner-test-receipt-${hash(`${runRecordId}:${exportId}:${input.readinessScore.score}`)}`;
 
   return {
     receiptId,
     mode: "owner-report-test",
-    status: input.readinessScore.status === "ready" && input.exportProjection.ok ? "completed" : "blocked",
+    status: input.readinessScore.status === "ready" && input.exportProjection.ok && input.persistence.ok ? "completed" : "blocked",
     readinessScore: input.readinessScore.score,
     exportId,
     runRecordId,
