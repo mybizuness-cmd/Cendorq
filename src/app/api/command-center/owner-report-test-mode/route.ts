@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from "@/lib/command-center/access";
+import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
 import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
@@ -36,12 +37,14 @@ export async function POST(request: Request) {
   if (!isRecord(body) || containsBlockedShape(body)) return rejectedResponse();
 
   const companyName = getString(body, "companyName");
-  const companyUrl = getString(body, "companyUrl");
+  const urlSafety = validateOwnerPublicCompanyUrl(getString(body, "companyUrl"));
+  if (!urlSafety.ok) return rejectedResponse(urlSafety.reason);
+
   const requestedPlans = getPlans(body);
-  const runner = buildOwnerReportTestRunnerState({ companyName, companyUrl, requestedPlans });
+  const runner = buildOwnerReportTestRunnerState({ companyName, companyUrl: urlSafety.normalizedUrl, requestedPlans });
   const projection = projectOwnerReportTestMode({
     companyName,
-    companyUrl,
+    companyUrl: urlSafety.normalizedUrl,
     requestedPlans: runner.input.requestedPlans,
     ownerAccessVerified: true,
   });
@@ -61,6 +64,7 @@ export async function POST(request: Request) {
     route,
     commandCenterOnly: true,
     runner,
+    urlSafety,
     persistence,
     previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
     sampleOutputs: projection.allowedPlans.map((planKey) => getOwnerReportTestSampleOutput(planKey)),
@@ -126,8 +130,8 @@ function deniedResponse() {
   return json({ ok: false, status: 404, cache: "no-store" as const, error: "not_available" as const }, 404);
 }
 
-function rejectedResponse() {
-  return json({ ok: false, status: 400, cache: "no-store" as const, error: "public_company_test_input_required" as const }, 400);
+function rejectedResponse(reason: string = "public_company_test_input_required") {
+  return json({ ok: false, status: 400, cache: "no-store" as const, error: "public_company_test_input_required" as const, reason }, 400);
 }
 
 function json(body: unknown, status: number) {
