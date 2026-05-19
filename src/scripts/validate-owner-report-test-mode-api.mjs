@@ -10,11 +10,14 @@ expect(routePath, [
   "resolveCommandCenterAccessState",
   "projectOwnerReportTestMode",
   "getOwnerReportTestPreviewBlueprint",
+  "getOwnerReportTestSampleOutput",
   "export async function GET",
   "export async function POST",
   "/api/command-center/owner-report-test-mode",
   "checkoutRequired: false",
   "customerDeliveryAllowed: false",
+  "sampleOutputs",
+  "previewBlueprints",
   "previewOnly: true",
   "checkoutBypassedForOwnerTestOnly: true",
   "customerDeliveryApproved: false",
@@ -49,7 +52,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test mode API validation passed.");
+console.log("Owner report test mode API validation passed with preview blueprints and sample outputs.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
