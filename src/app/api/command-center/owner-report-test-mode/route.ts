@@ -6,6 +6,7 @@ import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-pa
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
 import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
+import { evaluateOwnerReportTestApiResponse } from "@/lib/owner-report-test-api-response-evaluator";
 import { buildOwnerReportTestBatchManifest } from "@/lib/owner-report-test-batch-manifest";
 import { buildOwnerReportTestExecutionReceipt } from "@/lib/owner-report-test-execution-receipt";
 import { buildOwnerReportTestFixtureBatchRunner } from "@/lib/owner-report-test-fixture-batch-runner";
@@ -118,8 +119,7 @@ export async function POST(request: Request) {
     billingMutationAllowed: false,
     entitlementMutationAllowed: false,
   });
-
-  return json({
+  const responsePayload = {
     ...projection,
     route,
     commandCenterOnly: true,
@@ -142,7 +142,10 @@ export async function POST(request: Request) {
     reportReleaseApproved: false,
     billingMutationAllowed: false,
     entitlementMutationAllowed: false,
-  }, 202);
+  };
+  const apiResponseEvaluation = evaluateOwnerReportTestApiResponse(responsePayload);
+
+  return json({ ...responsePayload, apiResponseEvaluation }, 202);
 }
 
 async function hasAccess() {
