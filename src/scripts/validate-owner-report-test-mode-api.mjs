@@ -10,6 +10,7 @@ expect(routePath, [
   "resolveCommandCenterAccessState",
   "validateOwnerPublicCompanyUrl",
   "buildOwnerPublicPageAcquisitionProjection",
+  "buildOwnerReportFindingEngineProjection",
   "projectOwnerReportTestMode",
   "getOwnerReportTestPreviewBlueprint",
   "getOwnerReportTestSampleOutput",
@@ -25,6 +26,7 @@ expect(routePath, [
   "runner",
   "urlSafety",
   "acquisition",
+  "findings",
   "persistence",
   "safeRequestIdHash",
   "previewOnly: true",
@@ -63,7 +65,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test mode API validation passed with public URL safety, acquisition projection, runner state, persistence projection, preview blueprints, and sample outputs.");
+console.log("Owner report test mode API validation passed with public URL safety, acquisition projection, finding engine projection, runner state, persistence projection, preview blueprints, and sample outputs.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
