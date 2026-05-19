@@ -50,6 +50,7 @@ import { ProductionSmokeTargetPanel } from "./production-smoke-target-panel";
 import { ReadinessChecklistPanel } from "./readiness-checklist-panel";
 import { ReportEvidenceOrchestrationPanel } from "./report-evidence-orchestration-panel";
 import { ReportEvidenceRecordPanel } from "./report-evidence-record-panel";
+import { ReportQualityDominationPanel } from "./report-quality-domination-panel";
 import { ReportTruthMethodologyPanel } from "./report-truth-methodology-panel";
 import { SecurityPosturePanel } from "./security-posture-panel";
 import { TestRecordClassesPanel } from "./test-record-classes-panel";
@@ -99,6 +100,7 @@ export default async function CommandCenterPage() {
         <OperatorControlInterfacePanel />
         <OperatorExecutionContractsPanel />
         <OwnerReportTestModePanel />
+        <ReportQualityDominationPanel />
         <AdminCommandCenterControlPanel />
         <PlatformLaunchReadinessPanel />
         <ProductionLaunchChecklistPanel />
