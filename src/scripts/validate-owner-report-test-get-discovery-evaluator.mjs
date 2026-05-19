@@ -14,6 +14,7 @@ expect(evaluatorPath, [
   "apiResponseContract",
   "resultReviewContract",
   "reportExperienceScorecards",
+  "visualQualityGate",
   "fixtureBatch",
   "batchManifest",
   "fixtureCommands",
@@ -31,6 +32,7 @@ expect(apiPath, [
   "discoveryPayload",
   "getDiscoveryEvaluation",
   "reportExperienceScorecards",
+  "visualQualityGate",
 ]);
 
 forbidden(evaluatorPath, [
@@ -47,7 +49,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test GET discovery evaluator validation passed with report experience scorecards required.");
+console.log("Owner report test GET discovery evaluator validation passed with report experience scorecards and visual quality gate required.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
