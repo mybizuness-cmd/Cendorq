@@ -12,11 +12,11 @@ const failures = [];
 const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 expect(pagePath, [
-  "Readiness plan depth",
+  "AI Visibility plan depth",
   "Know what is active, what unlocked, and what depth comes next.",
-  "This is the readiness-depth control point: access, boundaries, recovery, and the next business move.",
+  "This is the AI Visibility depth control point: access, boundaries, recovery, and the next business move.",
   "Open Review page",
-  "Compare readiness path",
+  "Compare AI Visibility path",
   "Current access",
   "Free Scan + protected account",
   "Next depth",
@@ -27,17 +27,18 @@ expect(pagePath, [
   "BILLING_ACTIONS",
   "BILLING_SAFETY_RULES",
   "BILLING_HANDOFFS",
-  "Payment should unlock the right readiness layer.",
+  "Payment should unlock the right AI Visibility layer.",
+  "Review, Repair, and Control each unlock a different operating layer across AI Visibility, evidence, and customer action.",
   "Review",
   "Repair",
   "Control",
   "Open plan page",
-  "Compare readiness depth",
+  "Compare AI Visibility depth",
   "Open signal feed",
   "Ask access help",
   "Money moments should feel calm, exact, and recoverable.",
   "Account access should show a safe customer projection, not raw provider payloads or internal IDs.",
-  "Plan guidance must separate current access, pending actions, and future readiness depth.",
+  "Plan guidance must separate current access, pending actions, and future AI Visibility depth.",
   "Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
   "Billing actions route to plan detail pages before payment.",
   "Deep Review $497",
@@ -69,6 +70,12 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
   ...legacyPlanLabels,
+  "Readiness plan depth",
+  "readiness-depth control point",
+  "Compare readiness path",
+  "Payment should unlock the right readiness layer.",
+  "Compare readiness depth",
+  "future readiness depth",
   "protected workspace",
   "dashboard workspace",
   "workspace exists",
@@ -91,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Billing center first use validation passed with current readiness-depth billing flow, safe projection rules, and owner posture coverage.");
+console.log("Billing center first use validation passed with AI Visibility plan depth, safe projection rules, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
