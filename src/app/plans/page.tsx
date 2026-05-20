@@ -21,7 +21,7 @@ const CTA_LABEL_BY_PLAN: Record<CendorqPlanKey, string> = {
 const STAGE_BY_PLAN: Record<CendorqPlanKey, string> = {
   "free-scan": "Scan",
   "deep-review": "Review",
-  "build-fix": "Fix",
+  "build-fix": "Repair",
   "ongoing-control": "Control",
 };
 

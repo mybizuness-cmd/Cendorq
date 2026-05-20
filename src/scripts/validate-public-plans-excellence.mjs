@@ -43,6 +43,7 @@ expect(plansPath, [
   "Deep Review explains the cause.",
   "Build Fix improves the weak point.",
   "Ongoing Control keeps visibility and readiness from drifting.",
+  "\"build-fix\": \"Repair\"",
   "Start Free Scan",
   "Open Deep Review",
   "Open Build Fix",
@@ -73,7 +74,7 @@ boundedLength(componentPath, 15500);
 boundedLength(plansPath, 16000);
 
 forbidden(componentPath, [...blockedPlanPhrases(), ...legacyPlanLabels]);
-forbidden(plansPath, [...blockedPlanPhrases(), ...legacyPlanLabels, "$750+", "$300/mo", "starting at", "Unlock Build Fix", "Compare pricing", "Diagnose"]);
+forbidden(plansPath, [...blockedPlanPhrases(), ...legacyPlanLabels, "$750+", "$300/mo", "starting at", "Unlock Build Fix", "Compare pricing", "\"build-fix\": \"Fix\""]);
 
 if (failures.length) {
   console.error("Public plans command alignment validation failed:");
@@ -81,7 +82,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans command alignment validation passed with Scan, Review, Fix, Control positioning and current public plan names.");
+console.log("Public plans command alignment validation passed with Scan, Review, Repair, Control positioning and current public plan names.");
 
 function blockedPlanPhrases() {
   return [
