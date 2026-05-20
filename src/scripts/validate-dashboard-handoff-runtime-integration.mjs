@@ -14,15 +14,16 @@ expect(pagePath, [
   "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
   "One next command.",
   "The dashboard should not force a purchase or assume a result exists.",
-  "start the Free Scan, continue Diagnosis, open the result, or choose the next plan",
+  "start the Free Scan, continue Review, open the result, or choose the next plan",
   "DashboardNextBestAction",
   "DashboardActionInbox",
   "DashboardBusinessCommandCenter",
   "DashboardControlRoomReentry",
   "AI Visibility",
-  "Reports should connect visibility, diagnosis, evidence, limitations, and the next command path.",
-  "Scan. Diagnose. Review. Repair. Control.",
-  "Open protected scan, Diagnosis, Review, and evidence outputs when they are ready.",
+  "Diagnosis belongs inside Review and reports.",
+  "Reports should connect visibility, diagnosis evidence, limitations, and the next command path.",
+  "Scan. Review. Repair. Control.",
+  "Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.",
   "Resolve blockers without sharing private passwords.",
   "/dashboard/reports",
   "/dashboard/billing",
@@ -41,7 +42,9 @@ forbidden(pagePath, [
   "No internal conversion role labels",
   "Your Cendorq workspace is ready.",
   "A workspace can exist before a scan.",
+  "Scan. Diagnose. Review. Repair. Control.",
   "Scan. Diagnose. Fix. Control.",
+  "start the Free Scan, continue Diagnosis, open the result, or choose the next plan",
   "DASHBOARD_HANDOFFS",
   "projectCustomerPlatformHandoff",
 ]);
@@ -52,7 +55,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard handoff runtime integration validation passed with AI Visibility command language, Diagnosis, evidence outputs, handoff surfaces, and route-chain coverage.");
+console.log("Dashboard handoff runtime integration validation passed with public Scan Review Repair Control command path, Diagnosis inside Review/report evidence, handoff surfaces, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
