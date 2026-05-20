@@ -6,6 +6,7 @@ const pagePath = "src/app/page.tsx";
 const headerPath = "src/layout/site-header-conversion.tsx";
 const footerPath = "src/layout/site-footer.tsx";
 const scanPath = "src/app/free-check/page.tsx";
+const sampleReportPath = "src/app/sample-report/page.tsx";
 const faqPath = "src/app/faq/page.tsx";
 const connectPath = "src/app/connect/page.tsx";
 const packagePath = "package.json";
@@ -30,10 +31,19 @@ expect(pagePath, [
   "Scan. Review. Repair. Control.",
   "Run Free Scan",
   "Start Free Scan",
+  "See Sample Report",
+  "href=\"/sample-report\"",
   "View Plans",
   "Most businesses are online. Fewer are answer-ready.",
   "Visibility shows the gap. Readiness explains the cause.",
   "Start with the first signal. Move deeper only when it makes sense.",
+]);
+
+expect(sampleReportPath, [
+  "Sample Presence Report | Cendorq",
+  "SamplePresenceReport",
+  "The Presence Report is the core Cendorq object",
+  "This is an example, not a promise.",
 ]);
 
 expect(headerPath, ["AI Readiness", "Plans", "FAQ", "Sign in", "Start Free Scan", "href: \"/faq\""]);
@@ -77,8 +87,9 @@ expect(connectPath, [
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(pagePath, 18500);
+boundedLength(pagePath, 19000);
 boundedLength(scanPath, 18500);
+boundedLength(sampleReportPath, 8500);
 boundedLength(connectPath, 15000);
 boundedLength(headerPath, 15000);
 boundedLength(footerPath, 6500);
@@ -88,6 +99,7 @@ forbidden(pagePath, [...blockedPublicPhrases(), ...badgeHeavyPhrases(), ...oldHo
 forbidden(headerPath, [...blockedPublicPhrases(), "Privacy", "Terms", "Talk through fit or scope", "Pricing from $0", "Command path"]);
 forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
 forbidden(scanPath, [...blockedPublicPhrases(), ...oldFreeScanPhrases()]);
+forbidden(sampleReportPath, blockedPublicPhrases());
 forbidden(faqPath, blockedPublicPhrases());
 forbidden(connectPath, blockedPublicPhrases());
 
@@ -97,7 +109,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with Presence Report homepage, diagnostic Free Scan entry, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
+console.log("Public command surface validation passed with Presence Report homepage, diagnostic Free Scan entry, sample report route, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
 
 function badgeHeavyPhrases() {
   return [
