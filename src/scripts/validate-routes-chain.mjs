@@ -131,6 +131,7 @@ const validators = [
   "src/scripts/validate-customer-session-auth-contracts.mjs",
   "src/scripts/validate-customer-session-auth-runtime.mjs",
   "src/scripts/validate-customer-remembered-session-runtime.mjs",
+  "src/scripts/validate-customer-email-confirm-route.mjs",
   "src/scripts/validate-production-auth-provider-contracts.mjs",
   "src/scripts/validate-verified-welcome-email-contracts.mjs",
   "src/scripts/validate-dashboard-session-gate.mjs",
