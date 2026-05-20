@@ -33,6 +33,7 @@ expect(headerPath, [
   "Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out.",
   "Account menu uses overflow-visible so the menu is not clipped.",
   "Account menu width is bounded for mobile.",
+  "FAQ uses direct browser navigation to /faq.",
   "href: \"/plans\"",
   "href: \"/faq\"",
   "href=\"/free-check\"",
@@ -171,7 +172,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Contact Us routing, support@cendorq.com direct email, and visibility plus readiness footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, direct FAQ browser navigation, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Contact Us routing, support@cendorq.com direct email, and visibility plus readiness footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
