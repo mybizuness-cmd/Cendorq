@@ -124,6 +124,7 @@ const validators = [
   "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs",
   "src/scripts/validate-customer-email-dispatch-queue-runtime.mjs",
   "src/scripts/validate-customer-email-provider-dispatch-adapter.mjs",
+  "src/scripts/validate-customer-email-provider-configuration-contracts.mjs",
   "src/scripts/validate-customer-notification-contracts.mjs",
   "src/scripts/validate-customer-support-record-contracts.mjs",
   "src/scripts/validate-customer-support-status-contracts.mjs",
