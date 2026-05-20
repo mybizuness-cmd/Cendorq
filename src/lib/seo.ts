@@ -70,22 +70,26 @@ export const siteConfig: SiteConfig = {
     shortName: "Cendorq",
     siteUrl: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
     description:
-        "Cendorq checks whether AI engines and customers can understand, trust, and choose a business clearly.",
+        "Cendorq checks whether AI engines, search, and customers can understand, trust, and choose a business clearly.",
     locale: "en_US",
     twitterHandle: "",
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@cendorq.com",
     supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@cendorq.com",
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "",
     locationLabel: "United States",
-    defaultOgTitle: "Cendorq — AI Engine Readiness",
+    defaultOgTitle: "Cendorq — AI Visibility and Readiness",
     defaultOgDescription:
-        "If AI engines cannot understand your business, customers may never get the chance to. Start with the Free Scan.",
+        "If AI engines and search cannot understand your business, customers may never get the chance to. Start with the Free Scan.",
     defaultKeywords: [
         "Cendorq",
+        "AI visibility",
         "AI engine readiness",
         "AI readiness for business",
+        "AI search visibility",
+        "answer engine visibility",
         "business clarity scan",
         "business trust signals",
+        "Free Scan",
     ],
 } as const;
 
@@ -219,116 +223,66 @@ export function buildFaqJsonLd(items: readonly FaqJsonLdItem[]) {
 }
 
 export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJsonLdInput) {
-    const normalizedPath = normalizePath(path);
-
     return {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": buildSchemaId(normalizedPath, "webpage"),
-        name: cleanString(title) || siteConfig.defaultOgTitle,
-        description: cleanString(description) || siteConfig.defaultOgDescription,
-        url: absoluteUrl(normalizedPath),
-        inLanguage: normalizeLocale(siteConfig.locale),
+        name: cleanString(title),
+        description: cleanString(description),
+        url: absoluteUrl(path),
         isPartOf: { "@id": websiteSchemaId() },
-        about: { "@id": organizationSchemaId() },
         publisher: { "@id": organizationSchemaId() },
     };
 }
 
-export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI engine readiness" }: ServiceJsonLdInput) {
-    const normalizedPath = normalizePath(path);
-
+export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI readiness and business clarity" }: ServiceJsonLdInput) {
     return {
         "@context": "https://schema.org",
         "@type": "Service",
-        "@id": buildSchemaId(normalizedPath, "service"),
-        name: cleanString(title) || siteConfig.defaultOgTitle,
-        description: cleanString(description) || siteConfig.defaultOgDescription,
-        url: absoluteUrl(normalizedPath),
-        serviceType: cleanString(serviceType) || "AI engine readiness",
-        areaServed: "Worldwide",
+        name: cleanString(title),
+        description: cleanString(description),
+        serviceType: cleanString(serviceType),
+        url: absoluteUrl(path),
         provider: { "@id": organizationSchemaId() },
-        brand: { "@id": organizationSchemaId() },
-        isRelatedTo: { "@id": websiteSchemaId() },
     };
 }
 
 export function toJsonLd(value: unknown) {
-    return JSON.stringify(value)
-        .replace(/</g, "\\u003c")
-        .replace(/>/g, "\\u003e")
-        .replace(/&/g, "\\u0026")
-        .replace(/\u2028/g, "\\u2028")
-        .replace(/\u2029/g, "\\u2029");
-}
-
-function buildRobots(noIndex: boolean): Metadata["robots"] {
-    if (noIndex) {
-        return {
-            index: false,
-            follow: false,
-            nocache: true,
-            googleBot: {
-                index: false,
-                follow: false,
-                noimageindex: true,
-                "max-image-preview": "none",
-                "max-snippet": 0,
-                "max-video-preview": 0,
-            },
-        };
-    }
-
-    return {
-        index: true,
-        follow: true,
-        googleBot: {
-            index: true,
-            follow: true,
-            noimageindex: false,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-            "max-video-preview": 0,
-        },
-    };
+    return JSON.stringify(value).replace(/</g, "\\u003c");
 }
 
 function resolveSiteUrl(value: string | undefined) {
-    const cleaned = cleanString(value);
+    const cleaned = cleanString(value || "");
     if (!cleaned) return FALLBACK_SITE_URL;
-
-    const candidate = /^[a-z][a-z0-9+.-]*:\/\//i.test(cleaned) ? cleaned : `https://${cleaned}`;
     try {
-        const parsed = new URL(candidate);
-        return parsed.toString().replace(/\/+$/, "");
+        const url = new URL(cleaned.startsWith("http") ? cleaned : `https://${cleaned}`);
+        return url.origin;
     } catch {
         return FALLBACK_SITE_URL;
-    }
-}
-
-function resolveAssetUrl(pathOrUrl: string) {
-    const cleaned = cleanString(pathOrUrl);
-    if (!cleaned) return absoluteUrl(DEFAULT_OG_IMAGE_PATH);
-
-    try {
-        return new URL(cleaned).toString();
-    } catch {
-        return absoluteUrl(cleaned);
     }
 }
 
 function normalizePath(path: string) {
     const cleaned = cleanString(path);
     if (!cleaned || cleaned === "/") return "/";
+    return cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
+}
 
-    try {
-        const parsed = new URL(cleaned);
-        const pathname = parsed.pathname.replace(/\/+$/, "") || "/";
-        return `${pathname}${parsed.search || ""}${parsed.hash || ""}`;
-    } catch {
-        const withLeadingSlash = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
-        return withLeadingSlash.replace(/\/+$/, "") || "/";
-    }
+function resolveAssetUrl(path: string) {
+    return absoluteUrl(path || DEFAULT_OG_IMAGE_PATH);
+}
+
+function buildImageAlt({ title, imageTitle, imageSubtitle }: { title: string; imageTitle?: string; imageSubtitle?: string }) {
+    const parts = [imageTitle, imageSubtitle, title].map((part) => cleanString(part || "")).filter(Boolean);
+    return parts.join(" — ") || siteConfig.defaultOgTitle;
+}
+
+function buildRobots(noIndex: boolean) {
+    if (noIndex) return { index: false, follow: false, googleBot: { index: false, follow: false } };
+    return { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": 0 } };
+}
+
+function normalizeLocale(value: string) {
+    return cleanString(value).replace("_", "-") || "en-US";
 }
 
 function normalizeTwitterHandle(value: string) {
@@ -337,49 +291,15 @@ function normalizeTwitterHandle(value: string) {
     return cleaned.startsWith("@") ? cleaned : `@${cleaned}`;
 }
 
-function normalizeLocale(value: string) {
-    return cleanString(value).replace(/_/g, "-") || "en-US";
-}
-
-function organizationSchemaId() {
-    return `${siteConfig.siteUrl}${ORGANIZATION_HASH}`;
-}
-
-function websiteSchemaId() {
-    return `${siteConfig.siteUrl}${WEBSITE_HASH}`;
-}
-
-function buildSchemaId(path: string, suffix: string) {
-    const url = new URL(absoluteUrl(path));
-    url.hash = cleanString(suffix) || "entity";
-    return url.toString();
-}
-
-function buildImageAlt({ title, imageTitle, imageSubtitle }: { title: string; imageTitle?: string; imageSubtitle?: string }) {
-    const primary = cleanString(imageTitle) || cleanString(title) || siteConfig.defaultOgTitle;
-    const secondary = cleanString(imageSubtitle);
-    return secondary ? `${primary} — ${secondary}` : `${primary} | ${siteConfig.name}`;
-}
-
-function cleanString(value: string | undefined | null) {
-    return (value || "").trim();
+function clampNumber(value: number | undefined, min: number, max: number, fallback: number) {
+    if (typeof value !== "number" || Number.isNaN(value)) return fallback;
+    return Math.max(min, Math.min(max, value));
 }
 
 function dedupeStrings(values: readonly string[]) {
-    const seen = new Set<string>();
-    const result: string[] = [];
-    for (const value of values) {
-        const cleaned = cleanString(value);
-        if (!cleaned) continue;
-        const key = cleaned.toLowerCase();
-        if (seen.has(key)) continue;
-        seen.add(key);
-        result.push(cleaned);
-    }
-    return result;
+    return Array.from(new Set(values.map(cleanString).filter(Boolean)));
 }
 
-function clampNumber(value: number | undefined, min: number, max: number, fallback: number) {
-    if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
-    return Math.max(min, Math.min(max, Math.round(value)));
+function cleanString(value: string | undefined) {
+    return (value || "").replace(/\s+/g, " ").trim();
 }
