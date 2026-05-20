@@ -4,6 +4,12 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const LOGIN_PATH = "/login";
 const DASHBOARD_PATH = "/dashboard";
+const NO_STORE_HEADERS = [
+  ["Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"],
+  ["Pragma", "no-cache"],
+  ["Expires", "0"],
+  ["X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet"],
+] as const;
 
 type CallbackPayload = {
   state: string;
@@ -27,7 +33,7 @@ async function handleProviderCallback(request: NextRequest, providerKey: string,
 
   if (!provider) {
     loginUrl.searchParams.set("auth", "unknown-provider");
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 
   const callbackState = decodeCustomerAuthState(payload.state);
@@ -40,25 +46,25 @@ async function handleProviderCallback(request: NextRequest, providerKey: string,
   if (error) {
     loginUrl.searchParams.set("auth", "provider-cancelled");
     loginUrl.searchParams.set("provider", provider.key);
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 
   if (!code) {
     loginUrl.searchParams.set("auth", "provider-callback-missing-code");
     loginUrl.searchParams.set("provider", provider.key);
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 
   const readiness = projectCustomerAuthProviderRuntimeReadiness(provider);
   if (!readiness.canIssueCendorqSession) {
     loginUrl.searchParams.set("auth", "provider-callback-pending");
     loginUrl.searchParams.set("provider", provider.key);
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 
   loginUrl.searchParams.set("auth", "provider-callback-pending");
   loginUrl.searchParams.set("provider", provider.key);
-  return NextResponse.redirect(loginUrl);
+  return redirectNoStore(loginUrl);
 }
 
 function readQueryCallbackPayload(request: NextRequest): CallbackPayload {
@@ -96,6 +102,12 @@ function decodeCustomerAuthState(value: string | null) {
   } catch {
     return { returnTo: DASHBOARD_PATH };
   }
+}
+
+function redirectNoStore(url: URL) {
+  const response = NextResponse.redirect(url);
+  for (const [key, value] of NO_STORE_HEADERS) response.headers.set(key, value);
+  return response;
 }
 
 function safeDashboardPath(value: string | undefined) {
