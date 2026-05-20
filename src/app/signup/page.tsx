@@ -12,6 +12,15 @@ export const metadata = buildMetadata({
 type SignupSearchParams = { returnTo?: string };
 type SignupPageProps = { searchParams?: Promise<SignupSearchParams> | SignupSearchParams };
 
+const SAFE_DASHBOARD_PATHS = [
+  "/dashboard",
+  "/dashboard/reports",
+  "/dashboard/reports/free-scan",
+  "/dashboard/billing",
+  "/dashboard/support",
+  "/dashboard/notifications",
+] as const;
+
 const ACCESS_POINTS = [
   { title: "Start Free Scan", copy: "New visitors should begin here so Cendorq can understand the business." },
   { title: "Use the same email", copy: "Returning customers should use the email from their scan, form, or plan." },
@@ -64,7 +73,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
       </section>
 
       <section className="sr-only" aria-label="Signup access guardrails">
-        Signup points first-time visitors to Free Scan. Returning customers use customer access with the same email used for a Free Scan or plan.
+        Signup points first-time visitors to Free Scan. Returning customers use customer access with the same email used for a Free Scan or plan. Signup return paths use the same dashboard allowlist as customer access.
       </section>
     </main>
   );
@@ -72,5 +81,5 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
 
 function safeReturnTo(value: string | undefined) {
   if (!value) return "/dashboard";
-  return value.startsWith("/dashboard") ? value : "/dashboard";
+  return SAFE_DASHBOARD_PATHS.find((path) => value === path || value.startsWith(`${path}/`)) || "/dashboard";
 }
