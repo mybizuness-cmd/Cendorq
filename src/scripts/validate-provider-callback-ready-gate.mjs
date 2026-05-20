@@ -18,6 +18,9 @@ expect(providerConfigPath, [
   "Provider buttons stay hidden until",
   "existing customer lookup",
   "Cendorq session creation",
+  "SAFE_DASHBOARD_RETURN_PATHS",
+  "safeDashboardReturnPath",
+  "Provider return paths must stay inside approved dashboard routes.",
 ]);
 
 expect(providerEligibilityGatePath, [
@@ -53,7 +56,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Provider callback ready gate validation passed.");
+console.log("Provider callback ready gate validation passed with provider return path safety.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
