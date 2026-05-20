@@ -22,9 +22,9 @@ const SAFE_DASHBOARD_PATHS = [
 ] as const;
 
 const ACCESS_POINTS = [
-  { title: "Start Free Scan", copy: "New visitors should begin here so Cendorq can understand the business." },
+  { title: "Start Free Scan", copy: "New visitors should begin here so Cendorq can understand the business and its first AI Visibility signal." },
   { title: "Use the same email", copy: "Returning customers should use the email from their scan, form, or plan." },
-  { title: "Open real results", copy: "The dashboard should open only when there is something useful to show." },
+  { title: "Open real results", copy: "The dashboard should open only when there is something useful to show: scan, Diagnosis, report, plan, billing, or support context." },
 ] as const;
 
 export default async function SignupPage({ searchParams }: SignupPageProps) {
@@ -38,7 +38,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.076em] text-slate-950">Start with the Free Scan.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.</p>
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Cendorq checks the first AI Visibility signal: whether AI, search, and customers can understand, trust, and choose the business clearly.</p>
             <p className="mt-3 max-w-2xl text-xs font-semibold leading-5 text-slate-500">Already have an account? <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className="text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Use customer access</Link>. Use the same email you used for your Free Scan, form, or plan.</p>
             <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
               <Link href="/free-check?access=free-scan-required&method=signup" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Start Free Scan</Link>
@@ -73,7 +73,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
       </section>
 
       <section className="sr-only" aria-label="Signup access guardrails">
-        Signup points first-time visitors to Free Scan. Returning customers use customer access with the same email used for a Free Scan or plan. Signup return paths use the same dashboard allowlist as customer access.
+        Signup points first-time visitors to Free Scan. Returning customers use customer access with the same email used for a Free Scan or plan. Signup return paths use the same dashboard allowlist as customer access. Free Scan captures the first AI Visibility signal before Diagnosis, Review, Repair, Control, reports, billing, or support need dashboard access.
       </section>
     </main>
   );
