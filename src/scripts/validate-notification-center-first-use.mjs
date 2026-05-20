@@ -11,14 +11,14 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-notification-center-first-use.mjs";
 
 expect(pagePath, [
-  "Readiness signal feed",
-  "Act only on signals that protect readiness progress.",
+  "AI Visibility signal feed",
+  "Act only on signals that protect command progress.",
   "This feed should stay quiet until something matters",
-  "Open readiness proof",
+  "Open AI Visibility proof",
   "Track status",
   "Open the proof record.",
   "Ready alerts should lead to proof before checkout.",
-  "Priority readiness feed",
+  "Priority AI Visibility feed",
   "Scan. Review. Repair. Control. One safe next action each.",
   "No generic clutter. Every signal should point to proof, access, status, or safe recovery.",
   "Signal routing types",
@@ -34,7 +34,10 @@ expect(pagePath, [
   "Notification paid actions route to plan detail pages before payment.",
   "Notifications show safe customer summaries, not raw evidence, secrets, prompts, private internals, or raw billing IDs.",
   "Support lifecycle alerts route to status, safe resubmission, support center, or new request paths without duplicate anxiety.",
-  "Readiness alerts must name the value, the boundary, and the next action before sending customers to checkout.",
+  "AI Visibility alerts must name the value, the boundary, and the next action before sending customers to checkout.",
+  "AI Visibility signal ready",
+  "Diagnosis evidence",
+  "Keep AI Visibility, trust, friction, and monthly decisions under review.",
   "Proof signal",
   "Access signal",
   "Support signal",
@@ -64,6 +67,11 @@ expect(packagePath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
+  "Readiness signal feed",
+  "protect readiness progress",
+  "Open readiness proof",
+  "Priority readiness feed",
+  "Readiness alerts must name",
   "guaranteed ROI",
   "guaranteed refund",
   "guaranteed legal outcome",
@@ -81,7 +89,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Notification center first use validation passed with current readiness signal feed, quiet-alert rules, safe routing, and owner posture coverage.");
+console.log("Notification center first use validation passed with AI Visibility signal feed, quiet-alert rules, safe routing, command progress, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

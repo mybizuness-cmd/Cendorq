@@ -9,8 +9,8 @@ import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES, type PlanValueKey } 
 import { SupportLifecycleNotificationList } from "@/components/customer-notifications/support-lifecycle-notification-list";
 
 export const metadata = buildMetadata({
-  title: "Readiness signal feed | Cendorq",
-  description: "Your private Cendorq signal feed for readiness proof, billing, support, account, and security actions that protect progress.",
+  title: "AI Visibility signal feed | Cendorq",
+  description: "Your private Cendorq signal feed for AI Visibility proof, billing, support, account, and security actions that protect command progress.",
   path: "/dashboard/notifications",
   noIndex: true,
 });
@@ -32,7 +32,7 @@ const PRIORITY_FEED = [
   {
     planKey: "free-scan",
     command: "Scan",
-    moment: "Readiness signal ready",
+    moment: "AI Visibility signal ready",
     value: "Read the first signal before buying deeper work.",
     boundary: "Not full review, implementation, or monthly monitoring.",
     href: "/dashboard/reports/free-scan",
@@ -43,7 +43,7 @@ const PRIORITY_FEED = [
     planKey: "deep-review",
     command: "Review",
     moment: "Cause needs proof",
-    value: "Move from first signal into proof when guessing would be expensive.",
+    value: "Move from first signal into Diagnosis evidence when guessing would be expensive.",
     boundary: "Not implementation, unlimited revisions, or recurring control.",
     href: "/plans/deep-review",
     cta: `Open Review page — ${DEEP_REVIEW.price}`,
@@ -63,8 +63,8 @@ const PRIORITY_FEED = [
     planKey: "ongoing-control",
     command: "Control",
     moment: "Monthly watch is needed",
-    value: "Keep visibility, trust, friction, and monthly decisions under review.",
-    boundary: "Not unlimited Signal Repair, ad management, ranking guarantees, or AI placement guarantees.",
+    value: "Keep AI Visibility, trust, friction, and monthly decisions under review.",
+    boundary: "Not unlimited Build Fix, ad management, ranking guarantees, or AI placement guarantees.",
     href: "/plans/ongoing-control",
     cta: `Open Control page — ${ONGOING_CONTROL.price}`,
     plan: getPlanValueDelivery("ongoing-control"),
@@ -72,7 +72,7 @@ const PRIORITY_FEED = [
 ] as const satisfies readonly { planKey: PlanValueKey; command: string; moment: string; value: string; boundary: string; href: string; cta: string; plan: ReturnType<typeof getPlanValueDelivery> }[];
 
 const ALERT_TYPES = [
-  { title: "Proof signal", copy: "Open the exact readiness record before making a paid decision.", href: "/dashboard/reports" },
+  { title: "Proof signal", copy: "Open the exact AI Visibility record before making a paid decision.", href: "/dashboard/reports" },
   { title: "Access signal", copy: "Recover checkout or invoice access without sending card data to support.", href: "/dashboard/billing" },
   { title: "Support signal", copy: "Track status before creating duplicate support noise.", href: "/dashboard/support/status" },
   { title: "Security signal", copy: "Re-authenticate calmly without exposing attacker details or risk internals.", href: "/login" },
@@ -81,7 +81,7 @@ const ALERT_TYPES = [
 const QUIET_FEED_RULES = [
   "Every alert must explain why it matters and where the customer can act safely.",
   "Notifications show safe customer summaries, not raw evidence, secrets, prompts, private internals, or raw billing IDs.",
-  "Readiness alerts must name the value, the boundary, and the next action before sending customers to checkout.",
+  "AI Visibility alerts must name the value, the boundary, and the next action before sending customers to checkout.",
   "Support lifecycle alerts route to status, safe resubmission, support center, or new request paths without duplicate anxiety.",
 ] as const;
 
@@ -93,14 +93,14 @@ export default function NotificationCenterPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <h1 className="max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-slate-950">
-            Act only on signals that protect readiness progress.
+            Act only on signals that protect command progress.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
             This feed should stay quiet until something matters: proof is ready, access changes, support needs context, or a safer action is required.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/reports" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
-              Open readiness proof
+              Open AI Visibility proof
             </Link>
             <Link href="/dashboard/support/status" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
               Track status
@@ -127,7 +127,7 @@ export default function NotificationCenterPage() {
         <SupportLifecycleNotificationList />
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Priority readiness feed">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Priority AI Visibility feed">
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
@@ -191,8 +191,8 @@ export default function NotificationCenterPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Notification readiness feed guardrails">
-        Readiness signal feed. Light notification feed. No black notification blocks. No dark blue notification blocks. Act only on signals that protect readiness progress. Priority readiness feed. Live support lifecycle notification feed. Mark all read. Mark read. Scan. Review. Repair. Control. One safe next action each. Signal routing types. Featured customer signals. Quiet feed standard. Signals should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. Notification paid actions route to plan detail pages before payment. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.command} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
+      <section className="sr-only" aria-label="Notification AI Visibility feed guardrails">
+        AI Visibility signal feed. Light notification feed. No black notification blocks. No dark blue notification blocks. Act only on signals that protect command progress. Priority AI Visibility feed. Live support lifecycle notification feed. Mark all read. Mark read. Scan. Review. Repair. Control. One safe next action each. Signal routing types. Featured customer signals. Quiet feed standard. Signals should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. Notification paid actions route to plan detail pages before payment. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.command} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
       </section>
     </main>
   );
