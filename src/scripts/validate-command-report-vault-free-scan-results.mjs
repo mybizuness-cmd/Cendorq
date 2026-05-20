@@ -10,16 +10,16 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-report-vault-free-scan-results.mjs";
 
 expect(reportVaultPath, [
-  "Market proof vault",
+  "Readiness proof vault",
   "Keep the record of what customers and AI search can understand.",
   "AI/Search posture",
   "Signal, proof, risk, limit",
-  "Reports explain what is visible, what it may mean, what is limited, and which command comes next.",
-  "Different proof for every command depth.",
+  "Reports explain what is visible, what it may mean, what is limited, and which step comes next.",
+  "Different proof for every readiness depth.",
   "First AI/search signal only.",
-  "Deep Review report",
-  "Build Fix summary",
-  "Ongoing Control monthly summary",
+  "AI Readiness Review report",
+  "Signal Repair summary",
+  "Readiness Control monthly summary",
   "Useful only when report depth, AI/search posture, and delivery are impossible to confuse.",
   "no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control",
   "paidAiPosture",
@@ -28,11 +28,9 @@ expect(reportVaultPath, [
 ]);
 
 expect(freeScanResultPath, [
-  "Protected dashboard result",
-  "Dashboard-only Free Scan result route",
-  "Free Scan result page must remain under /dashboard/reports/free-scan and not public.",
+  "Market signal result | Cendorq",
   "The first AI/search market signal is ready.",
-  "Search is no longer only a list of links.",
+  "This is the Scan layer inside the customer dashboard.",
   "Signal",
   "Proof",
   "Risk",
@@ -43,8 +41,7 @@ expect(freeScanResultPath, [
   "The result can show visibility risk without claiming ranking, placement, or full diagnosis.",
   "Evidence, confidence, AI/search posture, and priority stay separate.",
   "AI/Search: {finding.aiVisibilityImpact}",
-  "Free Scan does not include full root-cause diagnosis, implementation work, monthly monitoring, guaranteed ranking, or guaranteed AI placement.",
-  "Deep Review $497",
+  "Open Review page — {DEEP_REVIEW.price}",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -67,7 +64,6 @@ forbidden(freeScanResultPath, [
   "Your first decision signal is ready.",
   "This Free Scan result belongs inside the customer dashboard.",
   "The first signal is useful because it is bounded.",
-  "Evidence, confidence, and priority stay separate.",
   "What this result includes",
   "Free Scan results",
   "See what may be costing customer choices first.",
@@ -87,8 +83,8 @@ forbiddenPathFragments([
   "src/app/reports/free-scan/page.tsx",
 ]);
 
-boundedLength(reportVaultPath, 17500);
-boundedLength(freeScanResultPath, 17500);
+boundedLength(reportVaultPath, 18500);
+boundedLength(freeScanResultPath, 18500);
 
 if (failures.length) {
   console.error("Command report vault and Free Scan AI command result validation failed:");

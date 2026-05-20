@@ -6,9 +6,9 @@ const TERMS_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
   title: `Terms | ${BRAND_NAME}`,
-  description: "Cendorq terms for Free Scan, AI Readiness Review, Signal Repair, Readiness Control, customer workspace access, billing, support, and service boundaries.",
+  description: "Cendorq terms for Free Scan, Deep Review, Build Fix, Ongoing Control, customer account access, billing, support, and service boundaries.",
   path: "/terms",
-  keywords: ["cendorq terms", "free scan terms", "ai readiness review terms", "signal repair terms", "readiness control terms"],
+  keywords: ["cendorq terms", "free scan terms", "deep review terms", "build fix terms", "ongoing control terms"],
   image: { alt: "Cendorq terms and service boundaries." },
 });
 
@@ -20,10 +20,10 @@ const TERMS_SUMMARY = [
 ] as const;
 
 const PLAN_BOUNDARIES = [
-  { title: "Free Scan", copy: "A first signal with evidence boundaries, confidence posture, limitations, and the safest next action. It is not full diagnosis, implementation, or monthly monitoring." },
-  { title: "AI Readiness Review", copy: "Evidence-backed review and decision clarity. It is not done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes." },
-  { title: "Signal Repair", copy: "Scoped improvement for an approved weak point. It is not a full diagnostic report, unlimited site work, recurring monitoring, or unapproved production work." },
-  { title: "Readiness Control", copy: "Recurring monitoring and monthly decision support. It is not unlimited repair work, repeated full review, ad management, or guaranteed ranking/AI placement." },
+  { title: "Free Scan", copy: "A first signal with evidence boundaries, confidence posture, limitations, and the safest next action. It is not a full review, implementation, competitor analysis, full forecasting, or monthly monitoring." },
+  { title: "Deep Review", copy: "Evidence-backed review and decision clarity. It may include competitor comparison and forecast-style risk outlook when evidence allows. It is not done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes." },
+  { title: "Build Fix", copy: "Scoped improvement for an approved weak point. It may include a delivery report, before/after summary, and realistic timing expectations. It is not a full review report, unlimited site work, recurring monitoring, or unapproved production work." },
+  { title: "Ongoing Control", copy: "Recurring monitoring and ongoing decision support. It is not unlimited repair work, repeated full review, ad management, or guaranteed ranking/AI placement." },
 ] as const;
 
 const ACCEPTABLE_USE = [
@@ -36,28 +36,28 @@ const ACCEPTABLE_USE = [
 const COMMERCIAL_RULES = [
   "Prices, deliverables, checkout paths, and plan names may be refined over time, but paid scope follows what was clearly offered at the time of purchase.",
   "Payment for one plan does not convert that plan into unlimited consulting, unlimited implementation, recurring monitoring, or another plan's deliverables.",
-  "Delivery may depend on customer cooperation, verified access, approved business details, complete context, and required pre-delivery checks.",
+  "Delivery may depend on customer cooperation, verified access, approved business details, complete context, required assets, and required pre-delivery checks.",
   "Billing, refund, report correction, legal, or security outcomes require the appropriate review gate before they become commitments.",
 ] as const;
 
 const CUSTOMER_ROUTES = [
   { title: "Start with Free Scan", href: "/free-check", copy: "Use this when the cause is unclear and a first signal is needed before paid depth." },
-  { title: "Compare service depth", href: "/plans", copy: "Use this when choosing between review, scoped repair, and monthly control." },
+  { title: "Compare plans", href: "/plans", copy: "Use this when choosing between review, scoped repair, and ongoing control." },
   { title: "Sign in for support", href: "/login", copy: "Use this when you are already a customer and need billing, proof, scope, access, or correction support." },
   { title: "Contact Cendorq", href: "/connect", copy: "Use this only when fit, scope, or timing is already clear outside the dashboard." },
 ] as const;
 
 const FAQS = [
-  { question: "Does Free Scan include AI Readiness Review?", answer: "No. Free Scan is the first signal. AI Readiness Review is a paid evidence-backed review with a deeper report boundary." },
-  { question: "Does Signal Repair include unlimited implementation?", answer: "No. Signal Repair is scoped work tied to an approved weak point and delivery boundary." },
-  { question: "Does Readiness Control include unlimited repair work?", answer: "No. Readiness Control provides recurring monitoring and monthly decision support. Scoped implementation remains separate." },
+  { question: "Does Free Scan include Deep Review?", answer: "No. Free Scan is the first signal. Deep Review is a paid evidence-backed review with a deeper report boundary." },
+  { question: "Does Build Fix include unlimited implementation?", answer: "No. Build Fix is scoped work tied to an approved weak point and delivery boundary." },
+  { question: "Does Ongoing Control include unlimited repair work?", answer: "No. Ongoing Control provides recurring monitoring and ongoing decision support. Scoped implementation remains separate." },
 ] as const;
 
 const BUTTON_PRIMARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition hover:border-slate-700 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
 const BUTTON_SECONDARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
 
 export default function TermsPage() {
-  const webPageJsonLd = buildWebPageJsonLd({ title: "Cendorq Terms", description: "Current terms and service boundaries for Cendorq AI-readiness services and platform use.", path: "/terms" });
+  const webPageJsonLd = buildWebPageJsonLd({ title: "Cendorq Terms", description: "Current terms and service boundaries for Cendorq visibility, readiness, report, and ongoing-control services.", path: "/terms" });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Terms", path: "/terms" }]);
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
@@ -93,7 +93,7 @@ export default function TermsPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Terms validation guardrails">Terms. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Sign in for support. Contact route /connect. No guaranteed revenue. No guaranteed ranking. No guaranteed AI placement. Service boundaries. Scope does not silently expand.</section>
+      <section className="sr-only" aria-label="Terms validation guardrails">Terms. Free Scan. Deep Review. Build Fix. Ongoing Control. Sign in for support. Contact route /connect. No guaranteed revenue. No guaranteed ranking. No guaranteed AI placement. Service boundaries. Scope does not silently expand.</section>
     </main>
   );
 }

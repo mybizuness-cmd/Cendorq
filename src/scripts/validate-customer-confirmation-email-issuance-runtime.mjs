@@ -16,7 +16,6 @@ const failures = [];
 expect(runtimePath, [
   "issueCustomerConfirmationEmail",
   "projectCustomerConfirmationEmailSafeResponse",
-  "getConfirmationEmailTemplateContract",
   "issueCustomerEmailVerificationToken",
   "enqueueCustomerEmailDispatch",
   "CustomerEmailDispatchQueueSafeProjection",
@@ -35,8 +34,11 @@ expect(runtimePath, [
   "Cendorq Support <support@cendorq.com>",
   "support@cendorq.com",
   "Confirm your email to open your Cendorq results",
-  "If the email was filtered, move Cendorq to your main inbox or save support@cendorq.com as a trusted sender.",
-  "This confirmation link is single-use and expires.",
+  "Confirm your email to open your Cendorq account",
+  "The Free Scan result stays inside your account.",
+  "Confirm your email to open your Cendorq account.",
+  "Confirm once to open your account.",
+  "This secure link is single-use and expires.",
   "Cendorq will never ask for your password, card number, private key, or session token in this email.",
   "rawTokenReturnedToBrowser: false",
   "tokenHashReturnedToBrowser: false",
@@ -94,10 +96,14 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer confirmation email issuance runtime validation passed. Dispatch queue, owner posture, and package wiring coverage remain aligned.");
+console.log("Customer confirmation email issuance runtime validation passed. Dispatch queue, account/dashboard terminology, owner posture, and package wiring coverage remain aligned.");
 
 function unsafePhrases() {
   return [
+    "Confirm your email to open your Cendorq workspace",
+    "open your workspace",
+    "private Cendorq workspace",
+    "workspace access",
     "rawTokenReturnedToBrowser: true",
     "tokenHashReturnedToBrowser: true",
     "rawEmailReturnedToBrowser: true",

@@ -2,9 +2,9 @@ import type { PlanValueKey } from "@/lib/plan-value-delivery-architecture";
 
 export type ReportVaultReportKey =
   | "free-scan-result"
-  | "ai-readiness-review-report"
-  | "signal-repair-summary"
-  | "readiness-control-monthly-summary";
+  | "deep-review-report"
+  | "build-fix-summary"
+  | "ongoing-control-monthly-summary";
 
 export type ReportVaultAccessState = "available" | "requires-plan" | "requires-release-approval";
 
@@ -58,20 +58,20 @@ const REPORT_DEFINITIONS: Record<PlanValueKey, { reportKey: ReportVaultReportKey
     finalRoute: "/dashboard/reports/free-scan",
   },
   "deep-review": {
-    reportKey: "ai-readiness-review-report",
-    reportName: "AI Readiness Review report",
+    reportKey: "deep-review-report",
+    reportName: "Deep Review report",
     fallbackRoute: "/plans/deep-review",
     finalRoute: "/dashboard/reports/deep-review",
   },
   "build-fix": {
-    reportKey: "signal-repair-summary",
-    reportName: "Signal Repair summary",
+    reportKey: "build-fix-summary",
+    reportName: "Build Fix summary",
     fallbackRoute: "/plans/build-fix",
     finalRoute: "/dashboard/reports/build-fix",
   },
   "ongoing-control": {
-    reportKey: "readiness-control-monthly-summary",
-    reportName: "Readiness Control monthly summary",
+    reportKey: "ongoing-control-monthly-summary",
+    reportName: "Ongoing Control monthly summary",
     fallbackRoute: "/plans/ongoing-control",
     finalRoute: "/dashboard/reports/ongoing-control",
   },

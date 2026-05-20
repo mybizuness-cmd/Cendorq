@@ -39,6 +39,12 @@ expect(runtimePath, [
   "verificationTokenMissing",
   "GENERIC_FAILURE_MESSAGE",
   "Only show customer-owned safe projections after email verification and safe release state.",
+  "X-Content-Type-Options",
+  "nosniff",
+  "X-Robots-Tag",
+  "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy",
+  "same-origin",
 ]);
 
 expect(routePath, [
@@ -49,8 +55,12 @@ expect(routePath, [
   "getCustomerEmailVerificationNoStoreHeaders",
   "NextResponse.redirect",
   "status: 303",
-  "recoveryPath: \"/free-check\"",
-  "dashboardPath: \"/dashboard\"",
+  "recoveryPath: \"/login\"",
+  "dashboardPath: result.ok ? result.redirectPath : \"/dashboard\"",
+  "customerIdHashReturned: false",
+  "signupEmailHashReturned: false",
+  "rawEmailReturned: false",
+  "rawTokenReturned: false",
   "readSafeJson",
 ]);
 
@@ -72,7 +82,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email verification token runtime validation passed with owner posture and package wiring coverage.");
+console.log("Customer email verification token runtime validation passed with owner posture, protected no-store/noindex/nosniff headers, safe login recovery, and package wiring coverage.");
 
 function unsafePhrases() {
   return [

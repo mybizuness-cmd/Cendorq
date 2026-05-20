@@ -70,6 +70,7 @@ Required database posture:
 
 - the buyer path
 - the Free Scan entry point
+- Contact Us direct-email support routing
 - plain explanation of the category
 - high-level doctrine
 - trust boundaries
@@ -95,6 +96,7 @@ Required database posture:
 - private implementation playbooks
 - proprietary benchmark logic
 - direct database endpoints
+- untested public message boxes or fake support success states
 
 ## AI-agent rule
 
@@ -227,6 +229,7 @@ Before major product, backend, frontend, AI-agent, report, or data changes, run 
 - under-powered product
 - old label regression
 - route/discovery regression
+- Contact Us support-routing regression
 
 After each pressure test, improve the plan before implementation.
 
@@ -263,6 +266,7 @@ Default rules:
 - never expose private data
 - never weaken route validation
 - never bypass validation intentionally
+- never replace Contact Us direct email with an untested public message box
 - update release history for meaningful changes
 - use validation gates before merge when pull-request flow is available
 - verify production-sensitive work after deployment
@@ -279,7 +283,7 @@ pnpm build
 Production-sensitive changes should also use:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Data architecture direction
@@ -314,5 +318,6 @@ Every step must ask:
 6. Does this make the business easier to discover, understand, trust, recommend, and choose?
 7. Does this strengthen Ongoing Control?
 8. Does this make Cendorq harder to copy?
+9. Does this keep Contact Us simple, direct, and safe?
 
 If the answer is no, the step must be improved, delayed, or removed.

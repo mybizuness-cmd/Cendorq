@@ -54,24 +54,24 @@ export const REPORT_GROWTH_SYSTEM_RULES = [
 export const PLAN_REPORT_DEPTH_RULES = [
   {
     planStage: "free-scan",
-    depthStandard: "Free Scan must be fast, useful, and honest: it should expose the strongest visible issues, explain uncertainty limits, and avoid pretending to be a complete diagnosis.",
+    depthStandard: "Free Scan must be fast, useful, and honest: it should expose the strongest visible issues, explain uncertainty limits, and avoid pretending to be a complete review.",
     conversionStandard: "It should promote Deep Review by showing what visible evidence suggests and what Free Scan cannot fully verify without deeper analysis.",
     requiredSections: ["business identity confidence", "highest-confidence visible gaps", "evidence and uncertainty summary", "recommended Deep Review next step"],
-    blockedBehavior: ["complete-diagnosis claims", "unsupported revenue claims", "fear-only selling", "hiding scan limitations"],
+    blockedBehavior: ["complete-review claims", "unsupported revenue claims", "fear-only selling", "hiding scan limitations"],
   },
   {
     planStage: "deep-review",
     depthStandard: "Deep Review must be thorough and extensive: it should verify root causes, explore the business model, website, profiles, reviews, social and platform activity, conversion paths, revenue paths, category context, competitive context, technical blockers, trust gaps, and priority severity.",
     conversionStandard: "It should promote Build Fix by proving which issues matter most, why they matter commercially, what fixes are required, and why implementation is the logical next step, without lying, exaggerating, or creating anything false.",
     requiredSections: ["resolved business identity", "business model and revenue context", "visibility and discovery", "trust and reputation", "website and conversion friction", "social media and platform activity", "competitive and category context", "priority severity index", "recommended Build Fix path"],
-    blockedBehavior: ["shallow diagnosis", "unsupported fix recommendation", "invented urgency", "ranking issues without evidence", "overlooking social or platform revenue"],
+    blockedBehavior: ["shallow review", "unsupported fix recommendation", "invented urgency", "ranking issues without evidence", "overlooking social or platform revenue"],
   },
   {
     planStage: "build-fix",
-    depthStandard: "Build Fix reporting must translate diagnosis into action: it should show approved fixes, implementation sequence, expected outcome type, confidence, evidence, constraints, and what remains unverified.",
+    depthStandard: "Build Fix reporting must translate review into action: it should show approved fixes, implementation sequence, expected outcome type, confidence, evidence, constraints, and what remains unverified.",
     conversionStandard: "It should promote Ongoing Control by showing why measurement, iteration, regression prevention, platform monitoring, and compounding improvements matter after implementation.",
     requiredSections: ["approved Build Fix scope", "issue-to-fix mapping", "implementation sequence", "expected outcome type without guarantee", "measurement baseline", "recommended Ongoing Control path"],
-    blockedBehavior: ["fixes not tied to diagnosis", "guaranteed ROI", "ignoring measurement", "claiming implementation alone creates permanent growth"],
+    blockedBehavior: ["fixes not tied to review", "guaranteed ROI", "ignoring measurement", "claiming implementation alone creates permanent growth"],
   },
   {
     planStage: "ongoing-control",

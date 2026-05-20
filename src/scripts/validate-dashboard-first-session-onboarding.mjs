@@ -11,29 +11,28 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-dashboard-first-session-onboarding.mjs";
 
 expect(dashboardPath, [
-  "Your Cendorq workspace is ready.",
-  "Cendorq checks this device for scan progress and shows one clear next action",
+  "Private AI readiness control center",
+  "Your Cendorq account is ready.",
+  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
   "One next step.",
-  "The dashboard should not force a purchase or assume a scan exists.",
-  "Workspace state",
-  "Access ready",
-  "Recommended first move",
-  "One clear action",
-  "Unlocked now",
-  "Account access",
-  "Not forced",
-  "Paid depth",
-  "Cendorq keeps the next step separate.",
-  "A workspace can exist before a scan.",
-  "A scan can exist before a paid review.",
-  "A purchase can exist before delivery starts.",
+  "start the scan, continue the scan, open the result, or choose the next plan",
+  "Dashboard decision summary",
+  "Next best move",
+  "Finish the first signal.",
+  "Open what is ready",
+  "Get unstuck fast",
+  "Command path",
+  "Scan. Review. Repair. Control.",
+  "No cheap dashboard blocks",
+  "No clutter wall",
+  "No internal conversion role labels",
   "Reports",
   "Billing",
   "Notifications",
   "Support",
+  "Sign out",
+  "Resolve blockers without sharing private passwords.",
   "Open protected scan and review outputs when they are ready.",
-  "See plan access, invoices, and checkout recovery paths.",
-  "Resolve blockers without sending private details.",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -54,6 +53,19 @@ expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-postu
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
+  "Visibility command center",
+  "Private visibility command center",
+  "Know what the market can see, trust, and act on next.",
+  "This is not an account page.",
+  "Scan. Diagnose. Fix. Control.",
+  "A workspace can exist before a scan.",
+  "Your Cendorq workspace is ready.",
+  "safeProjectionReady",
+  "projectCustomerPlatformHandoff",
+  "resolveCendorqCustomerJourney",
+  "fulfillmentState",
+  "backendWorkState",
+  "missingRequirements",
   "guaranteed outcome",
   "make unsupported promises",
   "use fake urgency",
@@ -66,7 +78,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard first session onboarding validation passed with current one-action dashboard, recovery links, route-chain, and owner posture coverage.");
+console.log("Dashboard first session onboarding validation passed with account-ready dashboard copy, one next action, recovery links, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

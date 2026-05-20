@@ -24,9 +24,9 @@ expect(contractPath, [
   "paymentLink: \"https://buy.stripe.com/9B64gAa28eGwdiIbdhcZa05\"",
   "paymentLink: \"https://buy.stripe.com/dRm5kE0ry2XObaA2GLcZa06\"",
   "paymentLink: \"https://buy.stripe.com/28EcN65LSaqgdiI1CHcZa07\"",
-  "name: \"AI Readiness Review\"",
-  "name: \"Signal Repair\"",
-  "name: \"Readiness Control\"",
+  "name: \"Deep Review\"",
+  "name: \"Build Fix\"",
+  "name: \"Ongoing Control\"",
   "amountCents: 49700",
   "amountCents: 149700",
   "amountCents: 59700",
@@ -106,6 +106,9 @@ forbidden([pricingPath, planTemplatePath, billingPath, checkoutStartPath, checko
   "Stripe link coming next",
   "localStorage.setItem",
   "sessionStorage.setItem",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 if (failures.length) {
@@ -114,7 +117,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Pricing checkout orchestration validation passed. Final prices, live Stripe payment links, checkout start/success, Resend email sender, Stripe webhook confirmation, plan pages, metadata, AI-readiness Plans wording, and post-payment emails stay synchronized.");
+console.log("Pricing checkout orchestration validation passed. Final prices, live Stripe payment links, checkout start/success, Resend email sender, Stripe webhook confirmation, plan pages, metadata, current Plans wording, and post-payment emails stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;

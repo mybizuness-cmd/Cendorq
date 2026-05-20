@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -28,7 +29,10 @@ Before merging visual changes, confirm:
 - Cards do not feel crowded or uneven.
 - Trust cues support the buyer decision without visual noise.
 - Visual emphasis matches buyer priority.
-- The page does not add dashboard behavior or route-console behavior.
+- FAQ and Contact Us do not visually compete with the Free Scan path.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- The page does not add dashboard behavior, route-console behavior, or an untested public message box.
 - The layout remains readable on mobile.
 - No horizontal scrolling is introduced.
 - No decorative element competes with the Free Scan path.
@@ -44,6 +48,7 @@ For layout changes, confirm:
 - Cards align cleanly.
 - Important actions are not buried.
 - The layout does not create unnecessary choices.
+- Contact Us is visually helpful without becoming the primary path for unsure buyers.
 
 ## Mobile checks
 
@@ -54,6 +59,7 @@ On small screens, confirm:
 - Cards stack in a useful order.
 - Spacing does not collapse into clutter.
 - No important context depends on side-by-side layout.
+- Contact Us email text remains readable, tappable, and not clipped.
 
 ## Visual polish checks
 
@@ -66,6 +72,7 @@ Before merging, look for:
 - visual noise near CTAs
 - cramped mobile sections
 - decorative elements that reduce clarity
+- untested form-looking elements that imply a message was sent
 
 ## Validation expectation
 
@@ -81,7 +88,7 @@ pnpm build
 For production-impacting visual changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -93,4 +100,5 @@ Do not use visual work as a reason to add:
 - dashboard behavior
 - route-console behavior
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity

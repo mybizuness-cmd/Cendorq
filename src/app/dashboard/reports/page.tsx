@@ -51,8 +51,8 @@ const REPORT_LIBRARY = [
     cta: "Open result",
     deliveryMeaning: "Shows the first visible break in findability, AI/search readability, clarity, trust, choice, or action with confidence limits and the safest next move.",
     aiPosture: "First AI/search signal only. It can show where the business may be unclear to customers and answer systems, but it is not a complete visibility audit.",
-    notThis: "Not full diagnosis, implementation, monthly monitoring, guaranteed ranking, guaranteed AI placement, or paid-report attachment delivery.",
-    nextDecision: "Unlock AI Readiness Review when the first signal matters enough that guessing would cost more than review.",
+    notThis: "Not full review, implementation, monthly monitoring, unsupported ranking promises, unsupported AI answer placement promises, or paid-report attachment delivery.",
+    nextDecision: "Unlock Deep Review when the first signal matters enough that guessing would cost more than review.",
     deliveryChannel: "Dashboard-only protected result unless a separate export is approved later.",
     value: getPlanValueDelivery("free-scan"),
   },
@@ -63,10 +63,10 @@ const REPORT_LIBRARY = [
     stage: "Cause-level proof",
     href: REPORT_ACCESS_BY_PLAN["deep-review"].customerRoute,
     cta: `Open Review page — ${DEEP_REVIEW_PRICE.price}`,
-    deliveryMeaning: "Explains why the business may not be found, trusted, understood, or chosen before money is spent on the wrong repair.",
+    deliveryMeaning: "Explains why the business may not be found, trusted, understood, or chosen before money is spent on the wrong fix.",
     aiPosture: paidAiPosture("deep-review"),
-    notThis: "Not done-for-you implementation, unlimited revisions, ad management, guaranteed ranking, guaranteed AI placement, or guaranteed outcomes.",
-    nextDecision: "Use Signal Repair only after the review identifies a scoped target ready for improvement.",
+    notThis: "Not done-for-you implementation, unlimited revisions, ad management, unsupported ranking promises, unsupported AI answer placement promises, or unsupported outcome promises.",
+    nextDecision: "Use Build Fix only after the review identifies a scoped target ready for improvement.",
     deliveryChannel: paidDelivery("deep-review"),
     value: getPlanValueDelivery("deep-review"),
   },
@@ -77,10 +77,10 @@ const REPORT_LIBRARY = [
     stage: "Scoped improvement",
     href: REPORT_ACCESS_BY_PLAN["build-fix"].customerRoute,
     cta: `Open Repair page — ${BUILD_FIX_PRICE.price}`,
-    deliveryMeaning: "Shows what changed, why it mattered, and what still remains outside the approved repair.",
+    deliveryMeaning: "Shows what changed, why it mattered, and what still remains outside the approved fix.",
     aiPosture: paidAiPosture("build-fix"),
-    notThis: "Not a full diagnostic report, unlimited site rebuild, recurring monitoring, guaranteed ranking, guaranteed AI placement, or unapproved production work.",
-    nextDecision: "Use Readiness Control when the business needs recurring watch after the scoped improvement.",
+    notThis: "Not a full review report, unlimited site rebuild, recurring monitoring, unsupported ranking promises, unsupported AI answer placement promises, or unapproved production work.",
+    nextDecision: "Use Ongoing Control when the business needs recurring watch after the scoped improvement.",
     deliveryChannel: paidDelivery("build-fix"),
     value: getPlanValueDelivery("build-fix"),
   },
@@ -93,8 +93,8 @@ const REPORT_LIBRARY = [
     cta: `Open Control page — ${ONGOING_CONTROL_PRICE.price}`,
     deliveryMeaning: "Keeps priorities, alerts, AI/search posture, trend awareness, and next decisions under control as search, customers, and competitors move.",
     aiPosture: paidAiPosture("ongoing-control"),
-    notThis: "Not unlimited Signal Repair, a full AI Readiness Review every month, ad management, ranking guarantees, algorithm control, or guaranteed AI placement.",
-    nextDecision: "Use Signal Repair separately when monthly control identifies a concrete scoped improvement.",
+    notThis: "Not unlimited Build Fix, a full Deep Review every month, ad management, ranking promises, algorithm control, or unsupported AI answer placement promises.",
+    nextDecision: "Use Build Fix separately when monthly control identifies a concrete scoped improvement.",
     deliveryChannel: paidDelivery("ongoing-control"),
     value: getPlanValueDelivery("ongoing-control"),
   },
@@ -116,7 +116,7 @@ const REPORT_LIBRARY = [
 const REPORT_STATE = [
   { label: "Ready", value: "Readiness signal result", detail: "The first readiness signal is the only immediately actionable report type in this demo state." },
   { label: "AI/Search posture", value: "Signal, proof, risk, limit", detail: "Reports explain what is visible, what it may mean, what is limited, and which step comes next." },
-  { label: "Paid proof", value: "Dashboard + email attachment", detail: "AI Readiness Review, Signal Repair, and Readiness Control reports must appear in the vault and arrive by email with an approved PDF." },
+  { label: "Paid proof", value: "Dashboard + email attachment", detail: "Deep Review, Build Fix, and Ongoing Control reports must appear in the vault and arrive by email with an approved PDF." },
 ] as const;
 
 const REPORT_ACTIONS = [
@@ -129,7 +129,7 @@ const REPORT_VAULT_RULES = [
   "Pending, draft, or unavailable reports must never look final.",
   "Scan, Review, Repair, and Control report types must remain visibly separate.",
   "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF.",
-  "AI/search posture must be useful and bounded: no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control.",
+  "AI/search posture must be useful and bounded: no ranking promises, AI placement promises, lead promises, or algorithm control claims.",
 ] as const;
 
 export default function ReportsVaultPage() {
@@ -238,7 +238,7 @@ export default function ReportsVaultPage() {
       </section>
 
       <section className="sr-only" aria-label="Report vault guardrails">
-        Readiness proof vault. Paid plan report delivery operating system. Nothing final until approved. Scan. Review. Repair. Control. AI/Search posture. Readiness signal result dashboard-only protected result. AI Readiness Review report dashboard plus email attachment. Signal Repair summary dashboard plus email attachment. Readiness Control monthly summary dashboard plus email attachment. Paid report actions route to plan detail pages before payment. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        Readiness proof vault. Paid plan report delivery operating system. Nothing final until approved. Scan. Review. Repair. Control. AI/Search posture. Readiness signal result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Paid report actions route to plan detail pages before payment. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
@@ -251,7 +251,7 @@ function paidDelivery(planKey: "deep-review" | "build-fix" | "ongoing-control") 
 
 function paidAiPosture(planKey: "deep-review" | "build-fix" | "ongoing-control") {
   const contract = PAID_REPORT_BY_PLAN[planKey];
-  return contract?.aiVisibilityValue || "AI/search posture is customer-safe, bounded, and never a ranking or placement guarantee.";
+  return contract?.aiVisibilityValue || "AI/search posture is customer-safe, bounded, and never a ranking or placement promise.";
 }
 
 function VaultAtmosphere() {

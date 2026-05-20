@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 const deliveryPath = "src/lib/paid-plan-report-delivery-operating-system.ts";
 const emailPath = "src/lib/customer-email-template-contracts.ts";
@@ -20,6 +21,9 @@ expect(deliveryPath, [
   "deep-review-report-delivery",
   "build-fix-summary-delivery",
   "ongoing-control-monthly-delivery",
+  "Deep Review report",
+  "Build Fix delivery summary",
+  "Ongoing Control monthly summary",
   "dashboardPath: \"/dashboard/reports/deep-review\"",
   "dashboardPath: \"/dashboard/reports/build-fix\"",
   "dashboardPath: \"/dashboard/reports/ongoing-control\"",
@@ -71,20 +75,23 @@ expect(reportVaultPath, [
   "Dashboard + email attachment",
   "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF.",
   "Readiness signal result dashboard-only protected result",
-  "AI Readiness Review report dashboard plus email attachment",
-  "Signal Repair summary dashboard plus email attachment",
-  "Readiness Control monthly summary dashboard plus email attachment",
+  "Deep Review report dashboard plus email attachment",
+  "Build Fix summary dashboard plus email attachment",
+  "Ongoing Control monthly summary dashboard plus email attachment",
 ]);
 
 expect(routesChainPath, [validatorPath]);
 
 forbidden(deliveryPath, [
+  ...legacyPlanLabels,
   "email only",
   "dashboard optional",
   "attachment optional",
   "no attachment required",
   "Every paid plan report must have a dashboard copy at /dashboard/reports.",
 ]);
+
+forbidden(reportVaultPath, legacyPlanLabels);
 
 boundedLength(deliveryPath, 15000);
 boundedLength(reportVaultPath, 18500);
@@ -96,7 +103,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Paid plan report delivery operating system validation passed with plan-specific dashboard report copies, approved PDF email attachments, backend gates, and audit events.");
+console.log("Paid plan report delivery operating system validation passed with current plan-specific dashboard report copies, approved PDF email attachments, backend gates, and audit events.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

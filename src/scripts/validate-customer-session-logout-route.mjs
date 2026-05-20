@@ -15,13 +15,20 @@ expect(routePath, [
   "export async function POST",
   "export async function GET",
   "clearCustomerRememberedSessionCookie(response)",
-  "safeDashboardPath(request.nextUrl.searchParams.get(\"returnTo\")) || \"/dashboard\"",
-  "loginUrl.searchParams.set(\"auth\", \"signed-out\")",
-  "loginUrl.searchParams.set(\"returnTo\", returnTo)",
-  "NextResponse.redirect(loginUrl, { status: 303 })",
+  "const publicReturnTo = rawReturnTo === \"/\" ? \"/\" : null;",
+  "const returnTo = publicReturnTo || safeDashboardPath(rawReturnTo) || \"/login\";",
+  "const redirectUrl = new URL(returnTo === \"/\" ? \"/\" : \"/login\", request.url);",
+  "redirectUrl.searchParams.set(\"auth\", \"signed-out\")",
+  "redirectUrl.searchParams.set(\"returnTo\", safeDashboardPath(returnTo) || \"/dashboard\")",
+  "NextResponse.redirect(redirectUrl, { status: 303 })",
   "Cache-Control",
   "no-store, no-cache, must-revalidate, max-age=0",
+  "X-Content-Type-Options",
+  "nosniff",
   "X-Robots-Tag",
+  "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy",
+  "same-origin",
 ]);
 
 expect(sessionRuntimePath, [
@@ -46,6 +53,7 @@ forbidden(routePath, [
   "signupEmailHash",
   "session token",
   "account exists",
+  "redirectUrl = new URL(rawReturnTo",
 ]);
 
 if (failures.length) {
@@ -54,7 +62,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer session logout route validation passed with signed-cookie clearing, safe returnTo redirect, no-store headers, and route-chain coverage.");
+console.log("Customer session logout route validation passed with signed-cookie clearing, safe returnTo redirect, no-store/noindex/nosniff/referrer-policy headers, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

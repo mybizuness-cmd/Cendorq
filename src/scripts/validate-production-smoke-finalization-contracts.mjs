@@ -19,6 +19,7 @@ expect(contractPath, [
   "protected-api-boundaries",
   "finalization-contracts",
   "owner configuration evidence/workflow",
+  "Contact Us support routing",
   "without requiring live secrets in default smoke runs",
 ]);
 
@@ -29,8 +30,22 @@ expect(contractPath, [
   "owner configuration evidence API validation",
   "owner configuration workflow API validation",
   "owner configuration workflow protections cannot drift silently",
+  "Contact Us support routing protections cannot drift silently",
   "command-center preview keys",
   "owner evidence payloads",
+]);
+
+expect(contractPath, [
+  "\"/faq\"",
+  "\"/connect\"",
+  "FAQ clarity",
+  "Contact Us direct-email support paths",
+  "support@cendorq.com",
+  "fakeSupportSuccessSmoke",
+  "untestedContactMessageSmoke",
+  "fake Contact Us behavior",
+  "untested message boxes",
+  "Contact Us must remain `/connect` with direct email to support@cendorq.com unless a real tested send pipeline exists.",
 ]);
 
 expect(contractPath, [
@@ -41,6 +56,7 @@ expect(contractPath, [
   "controlled-maintenance-contracts",
   "Default production smoke must not require live customer session tokens, CSRF tokens, provider secrets, webhook secrets, admin keys, support context keys, payment provider keys, command-center preview keys, owner evidence payloads, or real payment links.",
   "Default production smoke must treat protected-route denial as success when the expected safe denial status and copy are returned.",
+  "Default production smoke must not create fake Free Scan submissions or fake Contact Us support messages.",
 ]);
 
 expect(contractPath, [
@@ -52,6 +68,7 @@ expect(contractPath, [
   "customer platform handoff contracts validation",
   "customer platform handoff runtime validation",
   "production smoke coverage validation",
+  "Contact Us support routing validation",
 ]);
 
 expect(contractPath, [
@@ -80,9 +97,9 @@ expect(contractPath, [
 
 expect(contractPath, [
   "No release is final unless production smoke coverage and all finalization contract validators are wired into validate:routes.",
-  "No smoke check may require production mutation, real payment, real customer session, owner evidence payload, command-center preview key, or uncontrolled AI action.",
+  "No smoke check may require production mutation, real payment, real customer session, owner evidence payload, command-center preview key, support message submission, or uncontrolled AI action.",
   "No protected route may pass smoke by exposing internal data; safe denial is acceptable and expected where authorization is absent.",
-  "No public conversion route may pass smoke if it relies on fake urgency, guaranteed outcomes, or unsafe data collection.",
+  "No public conversion route may pass smoke if it relies on fake urgency, guaranteed outcomes, fake Contact Us behavior, untested message boxes, or unsafe data collection.",
   "No owner configuration evidence or workflow route may pass smoke by exposing raw provider payloads, protected config values, private credentials, private customer data, or private audit payloads.",
 ]);
 
@@ -181,7 +198,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke finalization contracts validation passed. Platform launch readiness contract, owner evidence/workflow protected smoke coverage, and validator wiring are included in the wired smoke finalization route gate.");
+console.log("Production smoke finalization contracts validation passed. Platform launch readiness contract, Contact Us support routing, owner evidence/workflow protected smoke coverage, and validator wiring are included in the wired smoke finalization route gate.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

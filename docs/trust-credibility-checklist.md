@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -28,7 +29,10 @@ Before merging trust-sensitive changes, confirm:
 - Proof points are clear without sounding exaggerated.
 - Testimonials or customer examples are real, permitted, and not misleading.
 - No private customer data is exposed in examples, screenshots, or copy.
-- No claim implies guaranteed rankings, guaranteed revenue, instant results, or permanent results without maintenance.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- Contact Us does not imply unlimited consulting, guaranteed outcomes, or a fake support pipeline.
+- No claim implies guaranteed rankings, guaranteed revenue, guaranteed AI placement, instant results, or permanent results without maintenance.
 - Trust cues support the buyer decision without adding clutter.
 - The page remains easy to understand and easy to choose.
 
@@ -41,6 +45,7 @@ For claim changes, confirm:
 - The claim avoids hype.
 - The claim does not create unsupported expectations.
 - The claim does not sound like a fear tactic.
+- Contact Us language stays direct, helpful, and supportable.
 
 ## Proof checks
 
@@ -61,6 +66,7 @@ For security or privacy mentions, confirm:
 - Security contact surfaces remain current.
 - Privacy language stays aligned with data handling expectations.
 - Public trust files remain accurate.
+- Public support language points to `support@cendorq.com` unless an approved alternative is intentionally documented.
 
 ## Red flags
 
@@ -68,6 +74,7 @@ Avoid unsupported phrases such as:
 
 - guaranteed rankings
 - guaranteed revenue
+- guaranteed AI placement
 - instant domination
 - best in the world
 - fully secure
@@ -88,7 +95,7 @@ pnpm build
 For production-impacting trust changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -98,6 +105,7 @@ Do not use trust work as a reason to add:
 - unsupported guarantees
 - fear-based messaging
 - fake urgency
+- fake support or message-box behavior
 - customer data exposure
 - homepage clutter
 - competing CTAs

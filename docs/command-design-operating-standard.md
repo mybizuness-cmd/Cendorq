@@ -8,7 +8,7 @@ The full product direction is:
 - Google-level simplicity
 - ChatGPT-level immediate action
 
-This standard applies to public pages, protected customer surfaces, internal operator routes, report shells, copy, navigation, validation scripts, SEO/share surfaces, and future product expansion.
+This standard applies to public pages, protected customer surfaces, internal operator routes, report shells, copy, navigation, validation scripts, SEO/share surfaces, Contact Us support routing, and future product expansion.
 
 ## Core rule
 
@@ -22,7 +22,7 @@ The answer should usually be one of these:
 2. Compare Plans.
 3. Open Dashboard.
 4. Open Intake Console.
-5. Connect only when fit, scope, or timing is already clear.
+5. Contact Us only when fit, scope, timing, or account help is already clear.
 
 ## Apple-level trust and authority
 
@@ -35,7 +35,8 @@ Required behavior:
 - Keep visual language premium, serious, and intentional.
 - Make the offer feel protected, not desperate.
 - Avoid fake certainty, fake guarantees, and overpromising.
-- State boundaries clearly: first signal, deeper diagnosis, scoped fix, monthly control.
+- State boundaries clearly: first signal, deeper review, scoped fix, ongoing control.
+- Keep Contact Us direct, useful, and supportable.
 
 Forbidden behavior:
 
@@ -44,6 +45,7 @@ Forbidden behavior:
 - No ranking promises.
 - No cluttered choice sets.
 - No old public labels.
+- No fake support forms, untested message boxes, or fake success states.
 - No public exposure of private scoring, evidence, report, or operator logic.
 
 ## Google-level simplicity
@@ -53,11 +55,13 @@ Cendorq should be easy to operate before it is impressive.
 Required behavior:
 
 - Keep primary navigation short.
-- Use current route language: Free Scan, Plans, Dashboard, Connect.
+- Use current route language: Free Scan, Plans, FAQ, Contact Us, Dashboard.
+- Keep `/connect` as the stable Contact Us route.
+- Use `support@cendorq.com` for public Contact Us direct email unless a real tested send pipeline exists.
 - Use one dominant action per surface.
 - Let secondary actions support the main path, not compete with it.
 - Prefer direct route labels over clever labels.
-- Keep the buyer path visible: Scan, Diagnose, Fix, Control.
+- Keep the buyer path visible: Scan, Review, Fix, Control.
 
 Forbidden behavior:
 
@@ -65,6 +69,7 @@ Forbidden behavior:
 - Do not split attention with redundant CTAs.
 - Do not bury Free Scan behind explanation.
 - Do not use labels that require internal context to understand.
+- Do not use customer-facing Connect labels when Contact Us is clearer.
 
 ## ChatGPT-level immediate action
 
@@ -77,12 +82,13 @@ Required behavior:
 - Dashboard routes should make the next safe action obvious.
 - Protected surfaces should explain state without exposing private logic.
 - Internal operator surfaces should prioritize signal, risk, routing, and integrity.
+- Contact Us should be easy to reach without becoming the first move when the issue is unclear.
 
 Forbidden behavior:
 
 - Do not make users read the whole site before action.
 - Do not make the report shell pretend to be a full engine before it is ready.
-- Do not make contact the first move when the problem is unclear.
+- Do not make Contact Us the first move when the problem is unclear.
 
 ## Public path
 
@@ -94,7 +100,10 @@ The public buyer path is:
 4. Deep Review
 5. Build Fix
 6. Ongoing Control
-7. Connect
+7. FAQ
+8. Contact Us
+
+Contact Us is served by `/connect`; legacy `/contact` should redirect into `/connect`.
 
 The public path sells the outcome and routes the user. It must not expose protected scoring internals, private report evidence, private prompts, operator logic, customer-owned data, or command-center internals.
 
@@ -123,11 +132,17 @@ Use this language:
 - Deep Review
 - Build Fix
 - Ongoing Control
+- FAQ
+- Contact Us
+- Access
+- Account
+- Dashboard
 - Command Path
-- Scan, Diagnose, Fix, Control
+- Scan, Review, Fix, Control
 - easier to find, understand, trust, and choose
 - first signal
 - safest next action
+- support@cendorq.com
 
 Avoid this language on active public surfaces:
 
@@ -137,6 +152,7 @@ Avoid this language on active public surfaces:
 - Presence Infrastructure
 - Presence Command
 - Start Search Presence Scan
+- customer-facing Connect labels
 - vague audit theater
 - ranking guarantees
 
@@ -151,6 +167,7 @@ Every major page should pass this test:
 3. Is the page easy to scan?
 4. Does the copy respect public/private boundaries?
 5. Does it make Cendorq feel more trusted, not louder?
+6. Does Contact Us stay helpful without becoming a fake or distracting support form?
 
 ## Engineering standard
 
@@ -160,6 +177,7 @@ Examples:
 
 - Public label changes should be guarded by validation.
 - Route changes should be guarded by route validation.
+- Contact Us support behavior should be guarded by validation.
 - Private/report shells should use `noIndex` unless intentionally public.
 - Legacy language should be forbidden in active public surfaces.
 - New command surfaces should document the safest next action and recovery path.

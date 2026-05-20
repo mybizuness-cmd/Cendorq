@@ -15,7 +15,10 @@ The public buyer path is:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
+
+Contact Us is served by the stable `/connect` route and uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 
 The public site should stay plain, command-grade, trustworthy, buyer-focused, and easy to choose.
 
@@ -62,7 +65,7 @@ pnpm build
 For deployed production checks, use:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 Do not call work complete until CI passes or the failure is understood, patched, and rechecked.
@@ -88,6 +91,10 @@ Follow these rules:
 
 - Keep the buyer path simple and current.
 - Do not revive old public labels as active buyer language.
+- Customer-facing language should say Contact Us, not Connect.
+- Keep `/connect` as the stable Contact Us route.
+- Keep Contact Us direct-email based to `support@cendorq.com` unless a real tested send pipeline exists.
+- Do not add an untested public message box or fake success state.
 - Do not add homepage clutter.
 - Do not describe future work as already complete.
 - Do not add unsupported claims, guarantees, or proof.
@@ -107,9 +114,10 @@ When backend ZIP files are provided:
 4. Keep private runtime values out of the repo.
 5. Update `.env.example` only with safe placeholders.
 6. Preserve buyer-friendly failure states.
-7. Update health and smoke checks when runtime behavior changes.
-8. Run the standard validation commands.
-9. Open a PR, check CI, patch failures, and merge only when green.
+7. Preserve Contact Us as `/connect` with direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+8. Update health and smoke checks when runtime behavior changes.
+9. Run the standard validation commands.
+10. Open a PR, check CI, patch failures, and merge only when green.
 
 ## Recommended next-session prompt
 
@@ -119,18 +127,21 @@ Copy this into the next ChatGPT chat or AI-agent session:
 You are continuing work on the Cendorq repository: mybizuness-cmd/Cendorq.
 
 Current state:
-- The public buyer path is Free Scan, Plans, Deep Review, Build Fix, Ongoing Control, and Connect.
+- The public buyer path is Free Scan, Plans, Deep Review, Build Fix, Ongoing Control, FAQ, and Contact Us.
+- Contact Us is served by /connect and uses direct email to support@cendorq.com unless a real tested send pipeline exists.
+- Customer-facing language should say Contact Us, not Connect.
 - The repo has production-readiness governance for final hardening, backend handoff, manual QA, content freshness, configuration safety, integration readiness, analytics/tracking, policy/legal, trust/credibility, route/link integrity, offer integrity, lead intake, conversion quality, visual quality, copy quality, privacy/data, accessibility, performance, search discovery, dependency, deployment environment, observability, incident response, and release history.
 - `pnpm validate:routes` protects the critical docs, routes, discovery files, runtime pins, PR gates, changelog, and production guardrails.
 - Standard validation is `pnpm validate:routes`, `pnpm lint`, `pnpm typecheck`, and `pnpm build`.
-- Production smoke validation is `CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production`.
+- Production smoke validation is `CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production`.
 
 Working rules:
 - Do not revive old public labels as active buyer language.
 - Keep the homepage focused on getting the right customer to start the Free Scan.
 - Keep Plans, Deep Review, Build Fix, and Ongoing Control distinct.
-- Keep Connect available for buyers who need conversation first.
+- Keep Contact Us available for buyers who need fit, scope, timing, or account help.
 - Do not add unsupported claims, hidden dependencies, private runtime values, or public clutter.
+- Do not add a Contact Us message box unless a real tested send pipeline captures a reply email and sends to support@cendorq.com.
 - Inspect backend ZIP contents before running or merging anything.
 - Update `.env.example` only with safe placeholders.
 - Update `CHANGELOG.md` for meaningful production or governance changes.
@@ -171,4 +182,5 @@ Do not use a handoff as a reason to add:
 - future work presented as complete
 - private data or private runtime values
 - old public labels as active language
+- untested public message boxes
 - technical language that reduces buyer clarity

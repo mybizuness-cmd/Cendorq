@@ -8,7 +8,7 @@ import { resolvePaidPlanContinuationAction } from "@/lib/paid-plan-continuation-
 import { CENDORQ_PAID_PLAN_KEYS, getPaidCendorqPlanPrice, type CendorqPaidPlanKey } from "@/lib/pricing-checkout-orchestration";
 import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Payment complete | Cendorq", description: "Your Cendorq plan is confirmed. Check your email for workspace access.", path: "/checkout/success", noIndex: true });
+export const metadata = buildMetadata({ title: "Payment complete | Cendorq", description: "Your Cendorq plan is confirmed. Check your email for account access.", path: "/checkout/success", noIndex: true });
 
 type SearchParams = { plan?: string | string[]; session_id?: string | string[]; email?: string | string[] };
 type PageProps = { searchParams?: Promise<SearchParams> | SearchParams };
@@ -16,9 +16,9 @@ type PageProps = { searchParams?: Promise<SearchParams> | SearchParams };
 type CheckoutSuccessTruthState = "stripe-session-present" | "session-verification-needed";
 
 const PLAN_COPY: Record<CendorqPaidPlanKey, { stage: string; title: string }> = {
-  "deep-review": { stage: "AI Readiness Review", title: "Your AI Readiness Review is confirmed." },
-  "build-fix": { stage: "Signal Repair", title: "Your Signal Repair payment is confirmed." },
-  "ongoing-control": { stage: "Readiness Control", title: "Your Readiness Control subscription is confirmed." },
+  "deep-review": { stage: "Deep Review", title: "Your Deep Review is confirmed." },
+  "build-fix": { stage: "Build Fix", title: "Your Build Fix payment is confirmed." },
+  "ongoing-control": { stage: "Ongoing Control", title: "Your Ongoing Control subscription is confirmed." },
 };
 
 const CHECKOUT_SUCCESS_COPY: Record<CheckoutSuccessTruthState, { badge: string; eyebrow: string; fallbackTitle: string; deliveryNote: string }> = {
@@ -26,13 +26,13 @@ const CHECKOUT_SUCCESS_COPY: Record<CheckoutSuccessTruthState, { badge: string; 
     badge: "Payment confirmed",
     eyebrow: "Payment confirmed",
     fallbackTitle: "Your Cendorq plan is confirmed.",
-    deliveryNote: "Delivery starts only when the required ownership, intake, evidence, diagnosis, and approval state fit the selected stage.",
+    deliveryNote: "Delivery starts only when the required ownership, intake, evidence, review, and approval state fit the selected stage.",
   },
   "session-verification-needed": {
     badge: "Verification needed",
     eyebrow: "Payment status check",
     fallbackTitle: "Cendorq needs the checkout session to confirm this plan.",
-    deliveryNote: "If payment completed, use the secure workspace link or billing support path so Cendorq can connect the purchase to the right verified workspace before work starts.",
+    deliveryNote: "If payment completed, use the secure account link or billing support path so Cendorq can connect the purchase to the right verified account before work starts.",
   },
 };
 
@@ -80,11 +80,11 @@ export default async function CheckoutSuccessPage({ searchParams }: PageProps) {
               </div>
               <div className="grid gap-3 bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-6">
                 <Step number="1" label="Plan" value={planCopy.stage} copy={`${plan.price} ${plan.cadence}`} />
-                <Step number="2" label="Workspace" value="Create or return access" copy={accountContinuation.operatorMessage} />
+                <Step number="2" label="Account" value="Create or return access" copy={accountContinuation.operatorMessage} />
                 <Step number="3" label="Next" value={status} copy={continuation.customerCopy} />
                 <article className="rounded-[1.6rem] border border-cyan-200 bg-cyan-50 p-5 shadow-[0_14px_45px_rgba(14,165,233,0.08)]">
                   <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">Open your inbox</div>
-                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">Find the message from Cendorq Support and confirm once to open your workspace.</p>
+                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">Find the message from Cendorq Support and confirm once to open your dashboard.</p>
                   <MailProviderLinks className="mt-4" />
                   <Link href="/login?returnTo=/dashboard" className="mt-4 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">Request a fresh access link</Link>
                 </article>

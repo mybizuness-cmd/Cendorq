@@ -27,7 +27,7 @@ const NO_STORE_HEADERS = {
   Pragma: "no-cache",
   Expires: "0",
   "X-Content-Type-Options": "nosniff",
-  "X-Robots-Tag": "noindex, nofollow",
+  "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
   "Referrer-Policy": "same-origin",
 } as const;
 
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
 
   const entry = await findFreeScanEntry(intakeId);
   if (!entry) {
-    return json({ ok: true, status: "not-found", nextAction: "start-free-scan", message: "Cendorq could not find that scan status safely. Start or continue the Free Scan from the dashboard." }, 200);
+    return json({ ok: true, status: "not-found", nextAction: "start-free-scan", message: "Cendorq could not find that scan status safely. Start or continue the Free Scan from your account." }, 200);
   }
 
   const hasCalculatedSignal = readNumber(entry.signalQuality) > 0 || readNumber(entry.score) > 0;
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
     score: clamp(readNumber(entry.score), 0, 100),
     confidenceLevel: safeLabel(entry.confidenceLevel, 40),
     decision: safeLabel(entry.decision, 40),
-    message: hasCalculatedSignal ? "Your Free Scan status is ready to open from the protected dashboard." : "Your Free Scan was submitted and is connected to this workspace.",
+    message: hasCalculatedSignal ? "Your Free Scan status is ready to open from your account." : "Your Free Scan was submitted and is connected to your account.",
     privacy: { rawEmailReturned: false, rawBusinessTextReturned: false, rawReportReturned: false, adminFieldsReturned: false },
   }, 200);
 }

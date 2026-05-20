@@ -1,13 +1,18 @@
 # Cendorq
 
-Cendorq is AI Engine Readiness for businesses that need to become easier for customers, search, maps, reviews, and AI engines to understand, trust, compare, and choose before spending more in the wrong place.
+Cendorq is AI Engine Visibility and Readiness for businesses that need to see where they appear, where they are missing, why they are not being understood, and what to fix so customers, search, maps, reviews, and AI engines can understand, trust, compare, and choose them before they spend more in the wrong place.
+
+Cendorq should not stop at visibility. Visibility shows where the business is seen. Readiness explains why the business is or is not being understood. Execution fixes the weak points. Ongoing Control keeps visibility and readiness from drifting as search, AI answers, competitors, and customers change.
 
 The public buyer path is intentionally simple:
 
-1. **Scan** — start with the Free Scan when the first weak signal is unclear
-2. **Review** — use AI Readiness Review to understand what is weakening clarity, trust, proof, or choice
-3. **Repair** — use Signal Repair to improve the page, message, proof, or action path that matters most
-4. **Control** — use Readiness Control to keep readiness from drifting as search, AI answers, competitors, and customers change
+1. **Free Scan** — show the first visibility and readiness signals when the weak point is unclear
+2. **Plans** — choose the depth that fits the business problem
+3. **Deep Review** — understand what is weakening visibility, clarity, trust, proof, or choice
+4. **Build Fix** — improve the page, message, proof, or action path that matters most
+5. **Ongoing Control** — keep visibility and readiness from drifting as search, AI answers, competitors, and customers change
+6. **FAQ** — answer quick buyer questions without slowing the path
+7. **Contact Us** — use direct support when fit, scope, timing, or account help needs clarification
 
 The homepage has one job: get the right visitor to start the **Free Scan**.
 
@@ -68,7 +73,9 @@ Required production variables for the current customer journey:
 - `SUPPORT_EMAIL`
 - `CENDORQ_CUSTOMER_SESSION_SECRET`
 
-The session secret must be a random value with at least 32 characters. Without it, remembered-session access fails safely and sends the visitor back to sign in.
+The session secret must be a random value with at least 32 characters. Without it, remembered-session access fails safely and sends the visitor back to Access.
+
+Contact Us uses direct email to `support@cendorq.com` on the public route `/connect`. Customers should email from the address where they want the reply.
 
 Optional provider auth start URLs:
 
@@ -82,9 +89,9 @@ Provider URLs must be HTTPS. Leave them blank until a provider is actually confi
 
 Public Stripe payment-link fallbacks are also documented in `.env.example`:
 
-- `NEXT_PUBLIC_STRIPE_AI_READINESS_PAYMENT_LINK`
-- `NEXT_PUBLIC_STRIPE_SIGNAL_REPAIR_PAYMENT_LINK`
-- `NEXT_PUBLIC_STRIPE_READINESS_CONTROL_PAYMENT_LINK`
+- `NEXT_PUBLIC_STRIPE_DEEP_REVIEW_PAYMENT_LINK`
+- `NEXT_PUBLIC_STRIPE_BUILD_FIX_PAYMENT_LINK`
+- `NEXT_PUBLIC_STRIPE_ONGOING_CONTROL_PAYMENT_LINK`
 
 ## Operating doctrine
 
@@ -163,21 +170,21 @@ pnpm typecheck
 pnpm build
 ```
 
-`pnpm validate:routes` includes command design standard validation, public drift validation, strict legacy redirects, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and the no-fake-submission smoke rule.
+`pnpm validate:routes` includes command design standard validation, public drift validation, public sitemap and robots validation, strict legacy redirects, remembered customer header guards, Free Scan API `OPTIONS`, protected Free Scan API read behavior, and the no-fake-submission smoke rule.
 
 After deployment, run:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 or:
 
 ```bash
-pnpm smoke:production https://cendorq.com
+pnpm smoke:production https://www.cendorq.com
 ```
 
-The production smoke workflow can also be run manually from GitHub Actions and runs automatically every day against `https://cendorq.com`.
+The production smoke workflow can also be run manually from GitHub Actions and runs automatically every day against `https://www.cendorq.com`.
 
 ## Production guide
 
@@ -221,6 +228,11 @@ These routes must stay healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
+- `/faq`
+- `/connect` (Contact Us)
+
+Customer access routes must stay protected and noindex when used:
+
 - `/login`
 - `/signup`
 - `/verify-email`
@@ -239,18 +251,16 @@ Legacy public routes redirect into the current buyer path. They should not be li
 Protected redirects include:
 
 - `/pricing` -> `/plans`
-- `/pricing/full-diagnosis` -> `/plans/deep-review`
-- `/pricing/optimization` -> `/plans/build-fix`
-- `/pricing/monthly-partner` -> `/plans/ongoing-control`
-- `/contact` -> `/plans`
+- legacy paid-review route -> `/plans/deep-review`
+- legacy fix route -> `/plans/build-fix`
+- legacy monthly route -> `/plans/ongoing-control`
+- `/contact` -> `/connect`
 - `/how-it-works` -> `/plans`
-- `/diagnosis` -> `/plans/deep-review`
+- legacy review shorthand -> `/plans/deep-review`
 - `/profile` -> `/plans`
-- `/faq` -> `/plans`
 - `/freecheck` -> `/free-check`
-- `/full-diagnosis` -> `/plans/deep-review`
-- `/optimization` -> `/plans/build-fix`
-- `/monthly-partner` -> `/plans/ongoing-control`
+
+FAQ is not a legacy redirect. It is an active public route for quick buyer answers. Contact Us is served by `/connect`; old `/contact` should redirect into it.
 
 ## Production assets
 
@@ -267,19 +277,25 @@ These files are intentional and protected:
 
 Use plain customer language:
 
-- AI Engine Readiness
+- AI Engine Visibility and Readiness
 - Free Scan
-- AI Readiness Review
-- Signal Repair
-- Readiness Control
-- Scan
-- Review
-- Repair
-- Control
+- Plans
+- Deep Review
+- Build Fix
+- Ongoing Control
+- FAQ
+- Contact Us
+- Access
+- Account
+- Dashboard
+- visibility shows where the business is seen
+- readiness explains why the business is or is not understood
+- execution fixes the weak points
+- control keeps visibility and readiness from drifting
 - make the business easier to understand
 - make the business easier to trust
 - make the business easier to choose
 - stop guessing before spending more
 - protect decisions as search and AI discovery change
 
-Avoid reviving old public labels such as Business Command Intelligence, Market Command Intelligence, Search Presence OS, Visibility Blueprint, Presence Infrastructure, Presence Command, View Pricing, Deep Review, Build Fix, Ongoing Control, or Start Search Presence Scan in active public surfaces.
+Do not revive retired public labels, legacy buyer-path terms, or old customer-facing Connect labels in active public surfaces. The validators are the source of truth for blocked legacy wording.

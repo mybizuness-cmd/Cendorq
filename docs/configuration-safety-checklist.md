@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -30,6 +31,8 @@ Before merging configuration-sensitive changes, confirm:
 - Production values are not copied into docs, tests, screenshots, or examples.
 - Config names are plain and predictable.
 - Config changes do not break the buyer path when missing or invalid.
+- Contact Us direct-email behavior uses `support@cendorq.com` unless a real tested send pipeline exists.
+- Contact Us is served by `/connect` while customer-facing labels say Contact Us.
 - Error messages do not reveal secret values or internal service details.
 - Deployment, integration, privacy, and observability expectations remain aligned.
 
@@ -42,12 +45,13 @@ For environment variable changes, confirm:
 - The variable is documented in the right place.
 - The variable is not duplicated under multiple names.
 - The variable is not required in environments where it is unused.
+- `SUPPORT_EMAIL`, if used for operational email flows, points to a monitored inbox and does not conflict with the public Contact Us inbox.
 
 Current public URL variables must stay clear:
 
 - `NEXT_PUBLIC_SITE_URL` is the canonical public site URL used by SEO metadata, sitemap, robots, and structured data.
 - `CENDORQ_BASE_URL` is the public smoke/deployment verification target used by production smoke checks.
-- Both values may default to `https://cendorq.com` in safe examples.
+- Both values may default to `https://www.cendorq.com` in safe examples.
 - Do not put secrets, admin keys, customer data, or private endpoint URLs in either public URL variable.
 
 ## Public/private config checks
@@ -59,6 +63,7 @@ For config exposure changes, confirm:
 - Build-time values do not leak runtime secrets.
 - Logs never print secret values.
 - Error output redacts sensitive configuration details.
+- Public Contact Us email copy does not depend on private secrets.
 
 ## Drift checks
 
@@ -70,6 +75,7 @@ Before merging, check for drift between:
 - health endpoint expectations
 - README or production docs
 - integration setup notes
+- Contact Us support email expectations
 - `NEXT_PUBLIC_SITE_URL` usage in SEO, sitemap, robots, and structured metadata
 - `CENDORQ_BASE_URL` usage in smoke checks and deployment verification
 
@@ -81,6 +87,7 @@ When config is missing or invalid, confirm:
 - The buyer path does not expose internals.
 - Health or smoke checks can identify the issue.
 - Operational messages are useful without leaking secrets.
+- Contact Us does not show fake send behavior when a support pipeline is not configured.
 
 ## Validation expectation
 
@@ -96,7 +103,7 @@ pnpm build
 For production-impacting configuration changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -109,4 +116,5 @@ Do not use configuration work as a reason to add:
 - unclear feature flags
 - private config in public bundles
 - hidden tracking
+- untested public message boxes
 - technical language that reduces buyer clarity

@@ -97,13 +97,13 @@ const DASHBOARD_DESTINATION_BY_PLAN: Record<CendorqPaidPlanKey, string> = {
 };
 
 const QUEUE_BY_PLAN: Record<CendorqPaidPlanKey, string> = {
-  "deep-review": "deep-review-diagnosis-queue",
+  "deep-review": "deep-review-evidence-queue",
   "build-fix": "build-fix-implementation-queue",
   "ongoing-control": "ongoing-control-monthly-cycle-queue",
 };
 
 const WORKFLOW_BY_PLAN: Record<CendorqPaidPlanKey, string> = {
-  "deep-review": "paid-diagnosis-workflow",
+  "deep-review": "paid-review-workflow",
   "build-fix": "paid-implementation-workflow",
   "ongoing-control": "recurring-control-workflow",
 };

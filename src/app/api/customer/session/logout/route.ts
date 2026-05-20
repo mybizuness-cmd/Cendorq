@@ -12,6 +12,7 @@ const NO_STORE_HEADERS = {
   Expires: "0",
   "X-Content-Type-Options": "nosniff",
   "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy": "same-origin",
 } as const;
 
 export async function POST(request: NextRequest) {
@@ -23,12 +24,17 @@ export async function GET(request: NextRequest) {
 }
 
 function clearSessionAndRedirect(request: NextRequest) {
-  const returnTo = safeDashboardPath(request.nextUrl.searchParams.get("returnTo")) || "/dashboard";
-  const loginUrl = new URL("/login", request.url);
-  loginUrl.searchParams.set("auth", "signed-out");
-  loginUrl.searchParams.set("returnTo", returnTo);
+  const rawReturnTo = request.nextUrl.searchParams.get("returnTo");
+  const publicReturnTo = rawReturnTo === "/" ? "/" : null;
+  const returnTo = publicReturnTo || safeDashboardPath(rawReturnTo) || "/login";
+  const redirectUrl = new URL(returnTo === "/" ? "/" : "/login", request.url);
 
-  const response = NextResponse.redirect(loginUrl, { status: 303 });
+  if (returnTo !== "/") {
+    redirectUrl.searchParams.set("auth", "signed-out");
+    redirectUrl.searchParams.set("returnTo", safeDashboardPath(returnTo) || "/dashboard");
+  }
+
+  const response = NextResponse.redirect(redirectUrl, { status: 303 });
   clearCustomerRememberedSessionCookie(response);
   for (const [key, value] of Object.entries(NO_STORE_HEADERS)) response.headers.set(key, value);
   return response;

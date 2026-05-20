@@ -163,6 +163,9 @@ export function getCustomerEmailVerificationNoStoreHeaders() {
     Pragma: "no-cache",
     Expires: "0",
     "Surrogate-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+    "Referrer-Policy": "same-origin",
   } as const;
 }
 

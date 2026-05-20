@@ -51,6 +51,14 @@ expect("src/lib/customer-access-gateway-runtime.ts", [
   "CUSTOMER_ACCESS_NO_STORE_HEADERS",
   "verifyAdminReadAccess",
   "cleanGatewayString",
+  "Cache-Control",
+  "no-store, no-cache, must-revalidate, max-age=0",
+  "X-Content-Type-Options",
+  "nosniff",
+  "X-Robots-Tag",
+  "noindex, nofollow, noarchive, nosnippet",
+  "Referrer-Policy",
+  "same-origin",
 ]);
 
 expect("src/lib/customer-session-auth-runtime.ts", [
@@ -107,7 +115,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer support request API validation passed with current authenticated support intake API, safe storage projection, origin checks, admin read boundary, and route-chain coverage.");
+console.log("Customer support request API validation passed with current authenticated support intake API, safe storage projection, origin checks, admin read boundary, protected no-store/noindex/nosniff/referrer-policy gateway headers, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

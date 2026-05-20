@@ -9,74 +9,79 @@ import {
 import Link from "next/link";
 
 const BRAND_NAME = "Cendorq";
-
-const contactEmail = normalizeEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL);
-const directEmailHref = contactEmail ? `mailto:${contactEmail}` : "";
+const SUPPORT_EMAIL = "support@cendorq.com";
+const directEmailHref = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("Cendorq Contact Us")}`;
 
 export const metadata = buildMetadata({
-  title: "Contact | Cendorq",
+  title: "Contact Us | Cendorq",
   description:
-    "Contact Cendorq when fit, scope, or timing is already clear. Start the Free Scan first when the first readiness signal is still unclear.",
+    "Contact Cendorq when fit, scope, or timing is already clear. Start the Free Scan first when the first visibility or readiness signal is still unclear.",
   path: "/connect",
-  keywords: ["cendorq contact", "cendorq connect", "free scan", "AI Readiness Review", "Signal Repair", "Readiness Control"],
-  image: { alt: "Cendorq contact and readiness routing page." },
+  keywords: ["contact Cendorq", "Cendorq contact us", "free scan", "AI visibility", "AI readiness", "Deep Review", "Build Fix", "Ongoing Control"],
+  image: { alt: "Cendorq Contact Us routing page." },
 });
 
 const CONTACT_RULES = [
-  "Start Free Scan if the first readiness signal is unclear.",
-  "Use Plans if you know the readiness depth you need.",
-  "Contact only when fit, scope, or timing is already clear.",
+  "Start Free Scan if the first visibility or readiness signal is unclear.",
+  "Use Plans if you know the depth you need.",
+  "Contact us only when fit, scope, or timing is already clear.",
 ] as const;
 
 const CONTACT_STAGE_ROUTES = [
-  { label: "Need a first signal", href: "/free-check", cta: "Start Free Scan", detail: "Use this before contact when the business does not yet know what is weakening clarity, trust, proof, or choice." },
-  { label: "Need readiness depth", href: "/plans", cta: "Compare plans", detail: "Use this when choosing between AI Readiness Review, Signal Repair, and Readiness Control." },
+  { label: "Need a first signal", href: "/free-check", cta: "Start Free Scan", detail: "Use this before contacting us when the business does not yet know what is weakening visibility, clarity, trust, proof, or choice." },
+  { label: "Need to choose a plan", href: "/plans", cta: "Compare plans", detail: "Use this when choosing between Deep Review, Build Fix, and Ongoing Control." },
   { label: "Already a customer", href: "/dashboard/support", cta: "Open support", detail: "Use dashboard support for billing, proof, scope, access, or correction questions." },
 ] as const;
 
 const CONTACT_BOUNDARIES = [
-  "Contact is not a replacement for the Free Scan when the cause is unclear.",
-  "Contact is not an unlimited consulting lane.",
-  "Contact should not be used to send sensitive account, payment, or security details.",
-  "Plan questions should keep Free Scan, AI Readiness Review, Signal Repair, and Readiness Control visibly separate.",
+  "Contact Us is not a replacement for the Free Scan when the cause is unclear.",
+  "Contact Us is not an unlimited consulting lane.",
+  "Contact Us should not be used to send sensitive account, payment, or security details.",
+  "Contact Us uses direct email to support@cendorq.com so the reply address comes from the customer's inbox.",
+  "Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate.",
 ] as const;
 
 const FAQS = [
   {
-    question: "Should I contact first or start the Free Scan?",
+    question: "Should I contact you first or start the Free Scan?",
     answer:
-      "Start the Free Scan if the problem is still unclear. Use direct contact when you already know the stage and need to discuss fit, scope, or timing.",
+      "Start the Free Scan if the problem is still unclear. Contact us when you already know the stage and need to discuss fit, scope, or timing.",
   },
   {
     question: "What if I am not sure which plan fits?",
     answer:
-      "Start free. The scan is designed to reduce guessing before you pay for AI Readiness Review, Signal Repair, or Readiness Control.",
+      "Start free. The scan is designed to reduce guessing before you pay for Deep Review, Build Fix, or Ongoing Control.",
   },
   {
-    question: "When does direct contact make sense?",
+    question: "When does Contact Us make sense?",
     answer:
-      "Direct contact makes sense when the business already has a clear question about fit, scope, timing, or ongoing readiness control.",
+      "Contact Us makes sense when the business already has a clear question about fit, scope, timing, or ongoing visibility and readiness control.",
+  },
+  {
+    question: "How will Cendorq reply?",
+    answer:
+      "Email support@cendorq.com from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one.",
   },
 ] as const;
 
 export default function ConnectPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq Contact",
-    description: "A concise routing page for direct Cendorq contact when fit, scope, or timing is already clear.",
+    title: "Cendorq Contact Us",
+    description: "A concise routing page for contacting Cendorq when fit, scope, or timing is already clear.",
     path: "/connect",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: "Cendorq Contact",
+    title: "Cendorq Contact Us",
     description:
       "A simple routing page for choosing between the Free Scan, plans, dashboard support, and direct contact.",
     path: "/connect",
-    serviceType: "AI-readiness routing",
+    serviceType: "AI visibility and readiness contact routing",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "/" },
-    { name: "Contact", path: "/connect" },
+    { name: "Contact Us", path: "/connect" },
   ]);
 
   const faqJsonLd = buildFaqJsonLd(FAQS);
@@ -93,12 +98,12 @@ export default function ConnectPage() {
       <section className="relative z-10 system-panel-authority rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Contact Cendorq</p>
+            <p className="text-sm font-semibold text-cyan-100">Contact Us</p>
             <h1 className="system-hero-title mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Contact Cendorq when the readiness question is already clear.
+              Contact us when the next question is already clear.
             </h1>
             <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              {BRAND_NAME} works best when the next move is clear. Start with Free Scan when the problem needs a first readiness signal. Use direct contact for fit, scope, timing, or readiness-control questions that are already specific.
+              {BRAND_NAME} works best when the next move is clear. Start with Free Scan when you need the first visibility or readiness signal. Contact us for fit, scope, timing, or ongoing control questions that are already specific.
             </p>
           </div>
           <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
@@ -116,19 +121,24 @@ export default function ConnectPage() {
           ))}
         </div>
 
-        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          {contactEmail ? (
-            <a href={directEmailHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Email Cendorq
-            </a>
-          ) : null}
+        <div className="mt-7 rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
+          <h2 className="text-base font-semibold text-cyan-100">Email us directly</h2>
+          <p className="mt-2 text-sm leading-7 text-slate-200">
+            Send your message to <a href={directEmailHref} className="font-bold text-white underline decoration-cyan-200 underline-offset-4">{SUPPORT_EMAIL}</a> from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one.
+          </p>
+        </div>
+
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+          <a href={directEmailHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
+            Email Support
+          </a>
           <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             Compare plans
           </Link>
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3" aria-label="Contact stage routes">
+      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3" aria-label="Contact Us stage routes">
         {CONTACT_STAGE_ROUTES.map((route) => (
           <Link key={route.href} href={route.href} className="system-surface rounded-[1.35rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
             <div className="text-sm font-semibold text-cyan-100">{route.label}</div>
@@ -143,7 +153,7 @@ export default function ConnectPage() {
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
       </section>
-      <p className="sr-only">Contact Cendorq. Contact stage routing. If you are unsure, start Free Scan. If the question is clear, connect. View readiness plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
+      <p className="sr-only">Contact Us with Cendorq. Contact Us stage routing. If you are unsure, start Free Scan. If the question is clear, contact us. Email support@cendorq.com from the address where you want the reply. View plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
     </main>
   );
 }
@@ -166,9 +176,4 @@ function ConnectAtmosphere() {
       <div className="system-grid-wide absolute inset-0 opacity-[0.026]" />
     </div>
   );
-}
-
-function normalizeEmail(value: string | undefined) {
-  const cleaned = (value || "").trim();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : "";
 }

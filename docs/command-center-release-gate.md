@@ -1,10 +1,12 @@
 # Command Center Release Gate
 
-Use this gate before merging or deploying changes that touch the private Command Center, readiness endpoint, migration safety, private modules, or internal operating layer.
+Use this gate before merging or deploying changes that touch the private Command Center, readiness endpoint, migration safety, private modules, support routing, or internal operating layer.
 
 ## Principle
 
 The Command Center is private infrastructure. It should grow only through protected, validated, closed-by-default layers.
+
+Public Contact Us support routing remains outside the private Command Center: `/connect` serves Contact Us, `/contact` redirects to `/connect`, and public support uses `support@cendorq.com` unless a real tested send pipeline exists.
 
 ## Required checks before merge
 
@@ -22,6 +24,7 @@ Confirm:
 - Migration safety validation remains active.
 - Production smoke coverage still includes closed Command Center route checks.
 - Production smoke coverage still includes protected readiness route checks.
+- Public Contact Us support routing stays direct-email based unless a real tested send pipeline exists.
 - The Command Center incident playbook remains current.
 
 ## Required validation
@@ -40,7 +43,7 @@ pnpm build
 After deployment, run:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 Confirm:
@@ -49,6 +52,9 @@ Confirm:
 - `/command-center/intake` shows only the closed page without access.
 - `/api/command-center/readiness` returns the protected unauthorized response without access.
 - Public buyer routes still work.
+- `/connect` still serves Contact Us.
+- `/contact` still redirects to `/connect`.
+- `support@cendorq.com` remains the public support email.
 - Legacy redirects still return strict redirect status and Location headers.
 - Free Scan API protected read behavior remains closed by default.
 
@@ -61,6 +67,7 @@ Do not merge if:
 - a migration contains destructive data, table, or column operations without a recovery plan.
 - validation is weakened to make a failing change pass.
 - production smoke coverage loses private route or readiness checks.
+- public Contact Us support routing is replaced by an untested message box or fake success state.
 - retired public buyer language returns to active surfaces.
 
 ## Related docs
@@ -71,3 +78,4 @@ Do not merge if:
 - `docs/maximum-protection-standard.md`
 - `docs/closed-intelligence-operating-standard.md`
 - `docs/release-checklist.md`
+- `docs/command-center-delivery-readiness.md`

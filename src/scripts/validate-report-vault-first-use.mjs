@@ -26,13 +26,13 @@ expect(pagePath, [
   "Ask report support",
   "Compare readiness depth",
   "Readiness signal result",
-  "AI Readiness Review report",
-  "Signal Repair summary",
-  "Readiness Control monthly summary",
+  "Deep Review report",
+  "Build Fix summary",
+  "Ongoing Control monthly summary",
   "Dashboard-only protected result unless a separate export is approved later.",
   "Dashboard report plus approved email attachment.",
   "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF.",
-  "AI/search posture must be useful and bounded: no guaranteed ranking, guaranteed AI placement, guaranteed leads, or algorithm control.",
+  "AI/search posture must be useful and bounded: no ranking promises, AI placement promises, lead promises, or algorithm control claims.",
   "Paid report actions route to plan detail pages before payment.",
   "focus:outline-none",
   "focus:ring-2",
@@ -74,6 +74,9 @@ forbidden(pagePath, [
   "raw provider payload",
   "private credentials",
   "algorithm control guaranteed",
+  "AI Readiness Review",
+  "Signal Repair",
+  "Readiness Control",
 ]);
 
 if (failures.length) {

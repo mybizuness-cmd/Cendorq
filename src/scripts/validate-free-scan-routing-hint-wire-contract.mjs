@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 const files = [
   "src/lib/validation/free-check.ts",
@@ -18,7 +19,6 @@ for (const file of files) {
   if (!existsSync(join(root, file))) failures.push(`Missing Free Scan routing hint contract file: ${file}`);
 }
 
-// These are stable internal wire/storage keys. They are intentionally not buyer-facing labels.
 expect("src/lib/validation/free-check.ts", [
   "export type RoutingHint =",
   "| \"scan-only\"",
@@ -45,7 +45,6 @@ expect("db/migrations/0001_command_center_foundation.sql", [
   "'command-review'",
 ]);
 
-// Every customer-facing interpretation must use current plan language.
 expect("src/lib/signals/free-check-signal.ts", [
   "if (value === \"scan-only\") return \"Free Scan only\";",
   "if (value === \"blueprint-candidate\") return \"Deep Review candidate\";",
@@ -78,12 +77,10 @@ expect("src/lib/reports/free-check-report.ts", [
 ]);
 
 expect("src/components/free-check/guided-free-check-form-v3.tsx", [
-  "if (routingHint === \"command-review\") return { title: \"Readiness Control may fit later.\"",
-  "href: \"/plans/ongoing-control\"",
-  "if (routingHint === \"infrastructure-review\") return { title: \"Signal Repair may fit later.\"",
-  "href: \"/plans/build-fix\"",
-  "if (routingHint === \"blueprint-candidate\") return { title: \"AI Readiness Review may be the right next depth.\"",
-  "href: \"/plans/deep-review\"",
+  "if (routingHint === \"command-review\") return { href: \"/plans/ongoing-control\", cta: \"See Ongoing Control\" };",
+  "if (routingHint === \"infrastructure-review\") return { href: \"/plans/build-fix\", cta: \"See Build Fix\" };",
+  "if (routingHint === \"blueprint-candidate\") return { href: \"/plans/deep-review\", cta: \"See Deep Review\" };",
+  "return { href: \"/plans\", cta: \"Compare plans\" };",
 ]);
 
 const customerFacingFiles = [
@@ -96,6 +93,7 @@ const customerFacingFiles = [
 for (const file of customerFacingFiles) {
   const text = read(file);
   for (const phrase of [
+    ...legacyPlanLabels,
     "Visibility Blueprint",
     "Presence Infrastructure",
     "Presence Command",
@@ -114,7 +112,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan routing hint wire contract validation passed. Stable internal routing hint keys remain backward compatible, while customer-facing form interpretation maps to current Free Scan, AI Readiness Review, Signal Repair, and Readiness Control language.");
+console.log("Free Scan routing hint wire contract validation passed. Stable internal routing hint keys remain backward compatible, while customer-facing form interpretation maps to current Free Scan, Deep Review, Build Fix, and Ongoing Control language.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;

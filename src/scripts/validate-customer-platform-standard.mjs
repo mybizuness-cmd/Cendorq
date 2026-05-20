@@ -47,7 +47,19 @@ validateTextFile(standardPath, [
   "welcome sent flag",
   "verified email requirement",
   "dashboard link",
+  "Deep Review CTA",
+]);
+
+validateForbidden(standardPath, [
   "Full Diagnosis CTA",
+  "full diagnosis",
+  "diagnostic depth",
+  "workspace access",
+  "Create workspace",
+  "guaranteed ROI",
+  "guaranteed revenue",
+  "password in email",
+  "skip verification",
 ]);
 
 validateTextFile(ownerMaximumProtectionPath, [
@@ -64,7 +76,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform standard validation passed with owner posture and package wiring coverage.");
+console.log("Customer platform standard validation passed with owner posture, account/dashboard language, Deep Review CTA language, and package wiring coverage.");
 
 function validateTextFile(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -74,6 +86,14 @@ function validateTextFile(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing required customer platform phrase: ${phrase}`);
+  }
+}
+
+function validateForbidden(path, phrases) {
+  if (!existsSync(join(root, path))) return;
+  const text = read(path).toLowerCase();
+  for (const phrase of phrases) {
+    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden customer platform phrase: ${phrase}`);
   }
 }
 

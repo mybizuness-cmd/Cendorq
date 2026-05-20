@@ -10,13 +10,20 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-report-generation-rendering-contracts.mjs";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
+const planReportStandardPath = "docs/plan-report-agent-delivery-standard.md";
+const intakePaymentStandardPath = "docs/customer-intake-payment-standard.md";
+const planReportValidatorPath = "src/scripts/validate-plan-report-and-intake-standards.mjs";
 const failures = [];
 
 expect(contractPath, [
   "REPORT_GENERATION_RENDERING_CONTRACT",
   "REPORT_GENERATION_RENDERING_BLOCKED_PATTERNS",
   "Report Generation and Branded Rendering Contract",
-  "safe HTML/PDF outputs",
+  "premium customer reports",
+  "safe HTML/PDF/dashboard outputs",
+  "plan-specific structure",
+  "plain customer wording",
+  "helpful visuals",
   "free-scan-result",
   "deep-review-report",
   "build-fix-summary",
@@ -24,25 +31,48 @@ expect(contractPath, [
   "correction-review-addendum",
 ]);
 
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
+expect(contractPath, [
+  "planReportRules",
+  "Free Scan Signal Report",
+  "Deep Review Diagnostic Report",
+  "Build Fix Delivery Report",
+  "Ongoing Control Report",
+  "maximumCustomerFacingLength: \"two pages\"",
+  "simple signal meter or readiness bar",
+  "competitor comparison chart when evidence allows",
+  "expected timeline visual",
+  "trend line or month-over-month signal visual",
+  "nextPlanMotion",
 ]);
 
 expect(contractPath, [
+  "customerWordingRules",
+  "Reports must be educational while selling and informational while selling.",
+  "Use customer-understandable words such as visibility, readiness, trust, clarity, proof, weak point, strongest next step, what this means, what to fix first, and what may take time.",
+  "Every technical point must answer what we saw, why it matters, how confident we are, and what should happen next.",
+  "Report language must sound premium, clear, calm, direct, and useful instead of generic, robotic, overly technical, or filler-heavy.",
+]);
+
+expect(contractPath, [
+  "visualDesignRules",
+  "Every customer report must look pristine, structured, and premium across dashboard, HTML, and PDF outputs.",
+  "Visuals must teach; do not add decorative charts that do not make the customer decision clearer.",
+  "Use scorecards when scores help the customer understand priority",
+  "Charts and tables must be readable, accessible, high-contrast, and safe for a non-technical business owner.",
+]);
+
+expect(contractPath, [
+  "Cendorq letterhead",
+  "customer-safe business identity",
+  "report title and report type",
+  "report version and generated date",
   "executive summary",
   "verified facts",
   "assumptions",
   "inferences",
   "confidence labels",
   "limitations",
+  "visual explanation",
   "recommendations",
   "next actions",
   "support and correction path",
@@ -54,6 +84,7 @@ expect(contractPath, [
   "Pending, draft, incomplete, or unapproved reports must never be presented as final customer truth.",
   "Confidence labels must be visible",
   "avoid outcome guarantees covering ROI, revenue, security outcomes, legal outcomes, or business results",
+  "Competitor and forecast sections must describe the public evidence basis and avoid fake precision or private-data assumptions.",
 ]);
 
 expect(contractPath, [
@@ -64,8 +95,18 @@ expect(contractPath, [
 ]);
 
 expect(contractPath, [
+  "dashboardStorageRules",
+  "Every report or report-related output must create or update a customer dashboard report record when customer-safe storage is available.",
+  "missing customer inputs when blocked",
+  "Dashboard records must not expose draft, unapproved, raw, internal, cross-customer, or unsafe report data.",
+]);
+
+expect(contractPath, [
   "report generation source is customer-owned",
   "safe report projection exists",
+  "plan-specific required sections exist",
+  "customer wording review passes",
+  "visual explanation review passes",
   "truth separation checks pass",
   "blocked claim scan passes",
   "raw/internal leakage scan passes",
@@ -104,6 +145,13 @@ expect(contractPath, [
   "rawPayloadRendered",
   "rawEvidenceRendered",
   "internalNotesRendered",
+  "genericAiFillerReport",
+  "technicalClutterReport",
+  "decorativeChartWithoutDecisionValue",
+  "fullCompetitorAnalysisInFreeScan",
+  "fakePrecisionForecast",
+  "unsupportedCompetitorClaim",
+  "unsupportedOutcomePromise",
   "guaranteedRoiReportClaim",
   "guaranteedRevenueReportClaim",
   "liabilityFreeReportClaim",
@@ -125,10 +173,43 @@ expect(protectedFreeScanRenderingPath, [
   "unpaidDeliverableLeaked: false",
 ]);
 
+expect(planReportStandardPath, [
+  "# Cendorq Plan Report and Agent Delivery Standard",
+  "Reports must be educational while selling and informational while selling.",
+  "Cendorq letterhead",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+]);
+
+expect(intakePaymentStandardPath, [
+  "# Cendorq Customer Intake and Payment Timing Standard",
+  "Use progressive intake.",
+  "Payment should happen before the heavy paid plan questionnaire.",
+]);
+
+expect(planReportValidatorPath, [
+  "Plan report and intake standards validation passed",
+  "premium report rules",
+  "progressive intake",
+]);
+
 expect(protectedFreeScanRenderingValidatorPath, [
   "Protected Free Scan results rendering validation passed.",
   "src/lib/protected-free-scan-results-rendering.ts",
   "projectProtectedFreeScanResultsRendering",
+]);
+
+expect(ownerMaximumProtectionPath, [
+  "# Owner Maximum Protection Posture",
+  "Protected customer and report surfaces require the correct verified access path.",
+  "Operator surfaces remain private, metadata-first, and review-gated.",
+]);
+
+expect(ownerMaximumProtectionValidatorPath, [
+  "Owner maximum protection posture validation passed",
+  "docs/owner-maximum-protection-posture.md",
+  "validate:routes",
 ]);
 
 expect(packagePath, [
@@ -139,6 +220,7 @@ expect(packagePath, [
 expect(routesChainPath, [
   validatorPath,
   ownerMaximumProtectionValidatorPath,
+  planReportValidatorPath,
 ]);
 
 forbidden(contractPath, unsafePhrases());
@@ -150,7 +232,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report generation rendering contracts validation passed with protected Free Scan results rendering and owner posture coverage.");
+console.log("Report generation rendering contracts validation passed with elevated plan-specific report rules, protected Free Scan results rendering, intake/payment timing, premium visual design, dashboard storage, and owner posture coverage.");
 
 function unsafePhrases() {
   return [

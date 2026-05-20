@@ -14,10 +14,11 @@ import {
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
   description:
-    "Start the Cendorq Free Scan to see the first place your business may be unclear, under-trusted, or harder for AI engines and customers to choose.",
+    "Start the Cendorq Free Scan to see where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
   path: "/free-check",
   keywords: [
     "cendorq free scan",
+    "AI visibility scan",
     "AI readiness scan",
     "business clarity scan",
     "AI search visibility scan",
@@ -26,47 +27,52 @@ export const metadata = buildMetadata({
   image: { alt: "Cendorq Free Scan." },
 });
 
+type FreeCheckSearchParams = { access?: string; method?: string; provider?: string; returnTo?: string };
+type FreeCheckPageProps = { searchParams?: Promise<FreeCheckSearchParams> | FreeCheckSearchParams };
+
 const SCAN_SYSTEM_STEPS = [
   {
     step: "01",
-    title: "Share what customers already see.",
-    copy: "Tell Cendorq the business name, website, offer, audience, and where choosing you may feel unclear.",
+    title: "Share what customers can see now.",
+    copy: "Tell Cendorq the business name, website, offer, audience, and where being found or chosen may feel weak.",
   },
   {
     step: "02",
-    title: "Cendorq finds the first weak signal.",
-    copy: "The scan looks for the first place the business may be harder to understand, trust, or choose without pretending to be a full paid review.",
+    title: "Cendorq checks the first visibility and readiness signal.",
+    copy: "The scan looks for the first place the business may be missing, unclear, under-trusted, or harder to choose without pretending to be a full paid review.",
   },
   {
     step: "03",
-    title: "Open the result in your workspace.",
-    copy: "Confirm your email once, then continue into the dashboard where the result and next step stay connected.",
+    title: "Open the result in your account.",
+    copy: "Confirm your email once, then continue into your account where the result, next step, and plan path stay connected.",
   },
 ] as const;
 
 const FAQS = [
   {
-    question: "Is the Free Scan a full diagnosis?",
-    answer: "No. It is a first signal that helps you decide whether deeper review or repair work makes sense.",
+    question: "Is the Free Scan a full review?",
+    answer: "No. It is a first signal that shows where visibility or readiness may be weak, so you can decide whether deeper review or repair work makes sense.",
   },
   {
     question: "Where does the result open?",
-    answer: "After verification, the result opens inside the protected customer workspace so private business context stays controlled.",
+    answer: "After verification, the result opens inside your Cendorq account so your business details and next step stay connected.",
   },
 ] as const;
 
-export default function FreeCheckPage() {
+export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps) {
+  const resolvedSearchParams = await Promise.resolve(searchParams || {});
+  const accessNotice = buildAccessNotice(resolvedSearchParams);
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq Free Scan",
-    description: "A guided first scan for businesses that need to be clearer, more trusted, and easier to choose.",
+    description: "A guided first scan for businesses that need to see where they may be missing, unclear, under-trusted, or harder to choose.",
     path: "/free-check",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
     title: "Cendorq Free Scan",
-    description: "A guided intake that checks the first visible weakness in business clarity, trust, AI-readiness, or customer action.",
+    description: "A guided intake that checks the first visible weakness in business visibility, clarity, trust, AI readiness, or customer action.",
     path: "/free-check",
-    serviceType: "AI-readiness free scan",
+    serviceType: "AI visibility and readiness free scan",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -92,11 +98,16 @@ export default function FreeCheckPage() {
         <div className="absolute right-[-16rem] top-32 h-[38rem] w-[38rem] rounded-full bg-indigo-200/35 blur-3xl" aria-hidden="true" />
         <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-8 lg:min-h-[min(44rem,calc(100vh-4.25rem))] lg:grid-cols-[0.82fr_1.18fr] lg:items-center xl:min-h-[calc(100vh-4.25rem)]">
           <div>
+            {accessNotice ? (
+              <div role="status" aria-live="polite" className="mb-6 max-w-3xl rounded-[1.35rem] border border-cyan-200 bg-white/86 p-4 text-sm font-semibold leading-7 text-slate-700 shadow-[0_14px_45px_rgba(15,23,42,0.06)] backdrop-blur">
+                <span className="text-cyan-700">We could not find your Cendorq account yet.</span> {accessNotice}
+              </div>
+            ) : null}
             <h1 className="max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
-              Find the first place your business may be unclear.
+              See where your business may be missing or unclear.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Cendorq looks at the signals around your business and shows where customers or AI engines may hesitate first.
+              Cendorq checks the signals around your business and shows where AI engines or customers may hesitate first.
             </p>
           </div>
 
@@ -112,10 +123,10 @@ export default function FreeCheckPage() {
             <div className="relative overflow-hidden border-b border-cyan-100 bg-[radial-gradient(circle_at_22%_8%,rgba(125,211,252,0.2),transparent_34%),linear-gradient(180deg,#ffffff,#effcff)] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
               <div className="relative">
                 <h2 className="max-w-3xl text-[clamp(2.3rem,4.1vw,4.6rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">
-                  Start with what customers can already see.
+                  Start with what is already visible.
                 </h2>
                 <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-600">
-                  Cendorq checks the public-facing signals around the business and points to the first weak spot: unclear information, missing proof, weak trust signals, or a harder path to choose you.
+                  Cendorq checks the public-facing signals around the business and points to the first weak spot: missing visibility, unclear information, weak proof, weak trust, or a harder path to choose you.
                 </p>
               </div>
             </div>
@@ -147,4 +158,15 @@ export default function FreeCheckPage() {
       </section>
     </main>
   );
+}
+
+function buildAccessNotice(searchParams: FreeCheckSearchParams) {
+  if (searchParams.access !== "free-scan-required") return "";
+  if (searchParams.method === "provider" && searchParams.provider) return `Use the email from your Free Scan or plan, or start the Free Scan below with this ${titleCase(searchParams.provider)} email.`;
+  if (searchParams.method === "email") return "Use the email from your Free Scan or plan, or start the Free Scan below with this email.";
+  return "Already have an account? Use the same email you used for your Free Scan, form, or plan. If this is your first time here, start the Free Scan below.";
+}
+
+function titleCase(value: string) {
+  return value.replace(/-/g, " ").replace(/\b\w/g, (character) => character.toUpperCase());
 }

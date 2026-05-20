@@ -11,7 +11,7 @@ const files = [
   "src/app/api/free-check/route.ts",
   "src/app/api/free-scan/intake-complete/route.ts",
   "src/app/free-check/page.tsx",
-  "src/components/free-check/guided-free-check-form-v2.tsx",
+  "src/components/free-check/guided-free-check-form-v3.tsx",
   "src/components/free-check/free-scan-verify-to-view-client-handoff.ts",
   "src/lib/customer-confirmation-email-issuance-runtime.ts",
   "src/lib/validation/free-check.ts",
@@ -113,24 +113,22 @@ expect("src/app/free-check/page.tsx", [
   "{ name: \"Free Scan\", path: \"/free-check\" }",
 ]);
 
-expect("src/components/free-check/guided-free-check-form-v2.tsx", [
+expect("src/components/free-check/guided-free-check-form-v3.tsx", [
   "source: \"free-check\"",
-  "Submit free scan",
-  "Command free scan",
-  "Scan received · verify to view",
-  "Confirm your email to open your results.",
+  "Submit Free Scan",
+  "Scan received",
+  "Confirm your email to open the result.",
   "requestFreeScanVerifyToViewHandoff",
   "intakeId: data.intakeId",
-  "Cendorq Support <support@cendorq.com>",
-  "Your results stay protected until your email is confirmed.",
-  "The dashboard/report vault becomes your command center for the scan, next steps, and plan fit.",
-  "Compare all plans",
-  "Possible Ongoing Control fit",
-  "Possible Build Fix fit",
-  "Likely Deep Review fit",
-  "See Ongoing Control",
-  "See Build Fix",
-  "See Deep Review",
+  "preferredDestination: \"/dashboard/reports/free-scan\"",
+  "requestedDestination: accountContinuation.primaryDestination",
+  "Use business context only. Do not enter private credentials.",
+  "hasStarted ? buildQualityScore(values) : 0",
+  "First-use progress starts at zero until the customer types.",
+  "Compare plans",
+  "See Readiness Control",
+  "See Signal Repair",
+  "See AI Readiness Review",
 ]);
 
 expect("src/components/free-check/free-scan-verify-to-view-client-handoff.ts", [
@@ -202,13 +200,16 @@ for (const phrase of [
   if (apiRouteText.includes(phrase)) failures.push(`Free Scan API route contains forbidden storage/read/report/email escape hatch: ${phrase}`);
 }
 
-const formText = read("src/components/free-check/guided-free-check-form-v2.tsx");
+const formText = read("src/components/free-check/guided-free-check-form-v3.tsx");
 for (const phrase of [
+  "FREE_SCAN_PROGRESS_KEY",
+  "recordFreeScanProgress",
+  "readSavedFreeScanProgress",
   "reportPath?: string",
   "reportPath: data.reportPath",
   "View scan report",
 ]) {
-  if (formText.includes(phrase)) failures.push(`Free Scan form still exposes direct report-success path: ${phrase}`);
+  if (formText.includes(phrase)) failures.push(`Free Scan v3 form contains retired progress or direct report phrase: ${phrase}`);
 }
 
 const clientHandoffText = read("src/components/free-check/free-scan-verify-to-view-client-handoff.ts");
@@ -224,7 +225,7 @@ for (const phrase of [
 const publicIntakeText = [
   "src/app/api/free-check/route.ts",
   "src/app/free-check/page.tsx",
-  "src/components/free-check/guided-free-check-form-v2.tsx",
+  "src/components/free-check/guided-free-check-form-v3.tsx",
   "src/lib/reports/free-check-report.ts",
   "src/lib/signals/free-check-signal.ts",
   "src/lib/intelligence/free-check-intelligence.ts",
@@ -260,7 +261,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam usage, preserved guided form, 0 percent progress posture, verify-to-view handoff, confirmation email issuance, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam usage, v3 guided form, zero first-use progress posture, verify-to-view handoff, confirmation email issuance, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);

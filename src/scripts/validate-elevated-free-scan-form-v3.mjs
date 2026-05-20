@@ -14,9 +14,9 @@ expect(pagePath, [
   "@/components/free-check/guided-free-check-form-v3",
   "FreeCheckAnalytics",
   "FreeCheckProgressGuard",
-  "Result opens in dashboard",
-  "Free Scan form visible within the first quarter of the page",
-  "Dedicated dashboard Free Scan result path after verification",
+  "Find the first place your business may be unclear.",
+  "Cendorq looks at the signals around your business",
+  "Open the result in your workspace.",
 ]);
 
 reject(pagePath, [
@@ -26,42 +26,62 @@ reject(pagePath, [
 
 expect(formPath, [
   "GuidedFreeCheckFormV3",
+  "type StepNumber = 0 | 1;",
+  "Start the Free Scan.",
+  "Make the first signal useful.",
+  "Main location",
+  "Use city, state or region, and country so the scan has enough context.",
+  "What feels weak right now?",
+  "without making the Free Scan feel like work",
   "ApiResponse",
   "signalQuality",
   "quality: data.signalQuality",
   "requestFreeScanVerifyToViewHandoff",
-  "requestedDestination: \"/dashboard/reports/free-scan\"",
+  "preferredDestination: \"/dashboard/reports/free-scan\"",
+  "requestedDestination: accountContinuation.primaryDestination",
   "verificationTokenIssued: true",
   "safeReleaseReady: false",
-  "handoff.senderDisplay",
-  "handoff.checkInboxCopy",
-  "handoff.subject",
-  "handoff.preheader",
   "handoff.safeCustomerMessage",
   "handoff.reportVisibilityRule",
-  "Compare all plans",
+  "Compare plans",
+  "See Deep Review",
+  "See Build Fix",
+  "See Ongoing Control",
   "SUCCESS_NEXT_STEPS",
   "RECOVERY_TILES",
   "validateFields",
   "buildQualityScore",
   "buildNextMove",
-  "No passwords, cards, keys, or tokens",
-  "Current step only. No noisy four-step badge row.",
-  "Free Scan form v3 preserves API payload, validation, signal quality, routing hint, verify-to-view handoff, dashboard Free Scan result path, inbox guidance, plan-fit CTA, compare plans CTA, recovery guidance, and safe-data warnings. It removes the visible four-step badge row.",
+  "looksLikeFullLocation",
+  "Use business context only. Do not enter private credentials.",
+  "const [values, setValues] = useState<FormValues>(INITIAL_VALUES)",
+  "hasStarted ? buildQualityScore(values) : 0",
+  "two-step intake",
+  "First-use progress starts at zero until the customer types.",
 ]);
 
 reject(formPath, [
+  "COUNTRIES",
+  "US_STATES",
   "Step 01",
   "Step 02",
   "Step 03",
   "Step 04",
+  "type StepNumber = 0 | 1 | 2 | 3;",
+  "competitors: string",
+  "notes: string",
+  "Who do customers compare you with?",
+  "Anything else we should know?",
+  "See AI Readiness Review",
+  "See Signal Repair",
+  "See Readiness Control",
   "sm:grid-cols-4",
   "Premium free scan",
 ]);
 
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(formPath, 26000);
+boundedLength(formPath, 24000);
 boundedLength(pagePath, 12500);
 
 if (failures.length) {
@@ -70,7 +90,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Elevated Free Scan form v3 validation passed with old setup preserved, stronger questions, dashboard result handoff, recovery guidance, and no noisy four-step badge row.");
+console.log("Elevated Free Scan form v3 validation passed with simplified two-step Free Scan intake, customer-safe language, dashboard result handoff, recovery guidance, and no stale saved-progress restore.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

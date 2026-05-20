@@ -2,7 +2,7 @@ export const PRODUCTION_AUTH_PROVIDER_CONTRACT = {
   id: "production-auth-provider-contract",
   name: "Production Auth Provider Contract",
   purpose:
-    "Define the exact requirements for connecting a real auth provider without weakening Cendorq customer session, verification, CSRF, ownership, safe failure, or browser-secret safeguards.",
+    "Define the exact requirements for connecting a real auth provider without weakening Cendorq customer session, verification, CSRF, ownership, safe failure, Free Scan-first eligibility, or browser-secret safeguards.",
   allowedProviderPatterns: [
     "managed identity provider with server-side session boundary",
     "email/password provider with server-side password hashing and reset-token hashing",
@@ -20,6 +20,7 @@ export const PRODUCTION_AUTH_PROVIDER_CONTRACT = {
     "generic safe failures without account-existence leakage",
     "origin and redirect allowlist enforcement",
     "rate-limit and abuse controls",
+    "existing Cendorq customer eligibility lookup before dashboard session issuance",
   ],
   integrationStages: [
     {
@@ -29,15 +30,27 @@ export const PRODUCTION_AUTH_PROVIDER_CONTRACT = {
       releaseGate: "provider cannot be connected until secret storage, redirect allowlist, and safe failure behavior are documented",
     },
     {
+      key: "provider-token-exchange",
+      label: "Provider token exchange",
+      requiredProof: ["authorization code exchange runs server-side only", "provider token response is never projected to the browser", "provider profile fetch returns a verified email claim", "provider state and redirect URI are validated before trust"],
+      releaseGate: "provider callback cannot create a Cendorq session until token exchange, profile fetch, verified-email claim, and state validation all pass",
+    },
+    {
+      key: "cendorq-customer-eligibility",
+      label: "Cendorq customer eligibility",
+      requiredProof: ["resolveCustomerAccessEligibility runs on the verified provider email", "Free Scan email match can restore account access", "paid plan, report vault, billing, and support sources are eligible lookup targets", "unknown provider email redirects to Free Scan"],
+      releaseGate: "authentication proves identity only; Cendorq must verify the email belongs to a Free Scan or paid customer before dashboard access",
+    },
+    {
       key: "signup-and-verification",
       label: "Signup and email verification",
       requiredProof: ["generic signup response", "single-use verification token hash", "verified email state", "welcome sent flag"],
-      releaseGate: "dashboard value remains gated until verified email is true",
+      releaseGate: "dashboard value remains gated until verified email is true and Cendorq customer eligibility has passed",
     },
     {
       key: "session-issuance",
       label: "Session issuance",
-      requiredProof: ["httpOnly cookie", "secure cookie in production", "sameSite cookie", "server-side session validation", "rotation and revocation"],
+      requiredProof: ["httpOnly cookie", "secure cookie in production", "sameSite cookie", "server-side session validation", "rotation and revocation", "eligibility-derived customer id hash"],
       releaseGate: "no session authority may be stored in localStorage, sessionStorage, URLs, analytics, emails, HTML, or public JavaScript",
     },
     {
@@ -57,6 +70,7 @@ export const PRODUCTION_AUTH_PROVIDER_CONTRACT = {
     "Signup, login, verification, reset, support, and protected API failures must not disclose whether an account exists.",
     "Verification failures must ask for a new verification link without exposing token validity, token internals, account state, or lockout internals.",
     "Login failures must use generic denial or verification-required posture without exposing provider mismatch, exact risk reason, or account existence.",
+    "Unknown provider identities must be routed to Free Scan with customer-simple same-email recovery copy, not a blank dashboard account.",
     "Protected API failures must return no-store JSON with generic authorization failure and no object-existence, account-existence, billing, report, support, or security leakage.",
   ],
   browserSecretLocks: [
@@ -76,6 +90,8 @@ export const PRODUCTION_AUTH_PROVIDER_CONTRACT = {
     "Provider integration cannot ship until validate:routes covers provider readiness contracts.",
     "Provider integration cannot ship until signup, verification, login, logout, protected API, reset, reauth, and revocation failure states are generic and audited.",
     "Provider integration cannot ship until welcome email is one-time only, verified-email gated, and sent from Cendorq Support <support@cendorq.com>.",
+    "Provider integration cannot ship until provider callback uses resolveCustomerAccessEligibility before any dashboard session issuance.",
+    "Provider integration cannot ship until unknown provider emails use buildFreeScanRequiredUrl and route to Free Scan instead of creating empty accounts.",
     "Provider integration cannot ship until customer dashboard, support, billing, report vault, notifications, and Free Scan handoff use server-derived customer context instead of browser-carried authority.",
   ],
 } as const;
@@ -102,6 +118,8 @@ export const PRODUCTION_AUTH_PROVIDER_BLOCKED_PATTERNS = [
   "protectedApiWithoutOwnership",
   "welcomeEmailDuplicate",
   "welcomeEmailBeforeVerification",
+  "providerSessionBeforeEligibility",
+  "blankDashboardForUnknownProviderEmail",
 ] as const;
 
 export function getProductionAuthProviderContract() {

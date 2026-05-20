@@ -18,7 +18,9 @@ expect(checkoutSuccessPath, [
   "Payment status check",
   "Verification needed",
   "Session check needed",
-  "If payment completed, use the secure workspace link or billing support path",
+  "If payment completed, use the secure account link or billing support path",
+  "account access",
+  "Find the message from Cendorq Support and confirm once to open your dashboard.",
   "sessionTruthState === \"stripe-session-present\" ? <CheckoutDashboardRedirect destination={continuation.href} /> : null",
   "completedEvidence: sessionTruthState === \"stripe-session-present\" ? [\"customerOwnershipVerified\"] : []",
 ]);
@@ -33,6 +35,9 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(checkoutSuccessPath, [
   "pending-session",
+  "secure workspace link",
+  "workspace access",
+  "open your workspace",
   "raw stripe payload",
   "rawPaymentData",
   "sessionStorage",
@@ -47,7 +52,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Checkout success truth-state validation passed with conditional confirmation copy, safe checkout session state, no auto-redirect without a checkout session, and route-chain coverage.");
+console.log("Checkout success truth-state validation passed with account/dashboard confirmation copy, safe checkout session state, no auto-redirect without a checkout session, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

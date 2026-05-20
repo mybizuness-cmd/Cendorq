@@ -16,6 +16,10 @@ expect(enginePath, [
   "PLAN_TRIGGERED_AGENT_MISSION_TEMPLATES",
   "AgentFindingRecord",
   "PlanTriggeredAgentMission",
+  "requiredReportOutput",
+  "requiredReportVisuals",
+  "customerEducationGoal",
+  "nextPlanMotion",
   "free-scan-first-signal-mission",
   "deep-review-cause-diagnosis-mission",
   "build-fix-scoped-implementation-mission",
@@ -31,26 +35,78 @@ expect(enginePath, [
   "guaranteed revenue",
   "guaranteed ranking",
   "guaranteed AI placement",
+  "unsupported competitor claim",
+  "fake precision forecast",
   "projectPlanTriggeredAgentMission",
   "getAgentMissionOperatingEngine",
   "Every plan-triggered mission must start from a plan intelligence intake record, not a vague request.",
-  "release-captain approval remains required before customer-facing report, fix, monitoring alert, code, copy, or validator output.",
+  "release-captain approval remains required before customer-facing report, fix, monitoring alert, code, copy, validator output, PDF, HTML report, dashboard report card, email summary, or next-plan recommendation.",
+  "Agent missions must use progressive intake: start safe public research when enough information exists, but keep missing customer information visible as a dashboard blocker.",
+  "educational while selling and informational while selling customer output",
+]);
+
+expect(enginePath, [
+  "Free Scan Signal Report",
+  "Deep Review Diagnostic Report",
+  "Build Fix Delivery Report",
+  "Ongoing Control Report",
+  "simple signal meter or readiness bar",
+  "priority heat map",
+  "competitor comparison chart when evidence allows",
+  "forecast or risk outlook visual",
+  "expected timeline visual",
+  "trend line or month-over-month signal visual",
+  "keep full competitor analysis out of Free Scan",
+  "do not include full competitor analysis",
+  "do not include full forecast model",
+  "do not use fake precision forecast",
+  "do not claim private competitor data",
+  "do not promise exact result dates",
+  "Ongoing Control recommendation when fit",
+  "Build Fix escalation when fit",
+]);
+
+expect(enginePath, [
+  "Cendorq letterhead",
+  "customer-safe business name",
+  "short executive signal",
+  "3 to 5 key findings",
+  "visibility and readiness scorecard",
+  "website clarity review",
+  "AI/search readability review",
+  "trust and proof review",
+  "competitor comparison when evidence is available",
+  "approved scope",
+  "before-state baseline",
+  "what was fixed or prepared",
+  "expected timeline range",
+  "what improved",
+  "what weakened",
+  "what stayed stable",
+  "AI/search/platform change notes",
 ]);
 
 expect(panelPath, [
   "Agent mission operating engine",
-  "Plan-triggered missions, structured findings, chief review, captain approval.",
+  "Plan-triggered missions, report visuals, chief review, captain approval.",
+  "prepare plan-specific report output and visuals",
   "Agents increase depth and speed. They do not approve reports, customer-facing claims, code, launch, paid recommendations, production changes, or delivery emails.",
+  "Education goal:",
+  "Next plan motion:",
+  "Report output",
+  "Required visuals",
   "Finding record standard",
   "Operating rules",
   "verified facts, source references, assumptions, evidence gaps, confidence, risks, recommendation, and blocked customer claims",
+  "Required report output and required report visuals are visible for every plan mission.",
 ]);
 
 expect(registryPath, [
   "agent-mission-operating-engine",
   "Agent mission operating engine",
-  "Show plan-triggered agent missions, structured findings, chief-agent review, release-captain approval gates, and blocked customer claims.",
-  "Agent missions remain metadata-only",
+  "Show plan-triggered agent missions, required report output, required report visuals, structured findings, chief-agent review, release-captain approval gates, next-plan motion, and blocked customer claims.",
+  "report visual standards",
+  "customer wording review",
   "order: 105",
 ]);
 
@@ -66,6 +122,10 @@ forbidden(enginePath, [
   "agents approve reports",
   "agents can launch",
   "skip release captain",
+  "full competitor analysis inside Free Scan is allowed",
+  "guaranteed ranking is allowed",
+  "guaranteed AI placement is allowed",
+  "guaranteed revenue is allowed",
 ]);
 
 forbidden(panelPath, [
@@ -75,8 +135,8 @@ forbidden(panelPath, [
   "payment data value",
 ]);
 
-boundedLength(enginePath, 16000);
-boundedLength(panelPath, 12000);
+boundedLength(enginePath, 23000);
+boundedLength(panelPath, 16000);
 
 if (failures.length) {
   console.error("Agent mission operating engine validation failed:");
@@ -84,7 +144,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Agent mission operating engine validation passed with plan-triggered missions, structured findings, chief review, captain approval, and blocked customer claims.");
+console.log("Agent mission operating engine validation passed with elevated plan-triggered reports, required visuals, progressive intake, structured findings, chief review, captain approval, and blocked customer claims.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

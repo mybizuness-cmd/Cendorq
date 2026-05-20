@@ -2,12 +2,12 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
   id: "production-smoke-finalization-contract",
   name: "Production Smoke Finalization Coverage Contract",
   purpose:
-    "Keep final production smoke coverage aligned with Cendorq public entry, customer platform, command center, owner configuration evidence/workflow, auth, welcome email, report rendering, billing checkout, and maintenance safeguards without requiring live secrets in default smoke runs.",
+    "Keep final production smoke coverage aligned with Cendorq public entry, customer platform, Contact Us support routing, command center, owner configuration evidence/workflow, auth, welcome email, report rendering, billing checkout, and maintenance safeguards without requiring live secrets in default smoke runs.",
   coverageGroups: [
     {
       key: "public-conversion-routes",
-      routes: ["/", "/free-check", "/plans", "/plans/deep-review", "/plans/build-fix", "/plans/ongoing-control", "/connect"],
-      requiredPosture: "Public routes must render premium conversion copy, Free Scan entry, plan clarity, and safe contact paths without fake urgency or unsupported guarantees.",
+      routes: ["/", "/free-check", "/plans", "/plans/deep-review", "/plans/build-fix", "/plans/ongoing-control", "/faq", "/connect"],
+      requiredPosture: "Public routes must render premium conversion copy, Free Scan entry, plan clarity, FAQ clarity, and Contact Us direct-email support paths without fake urgency, untested message boxes, fake success states, or unsupported guarantees.",
     },
     {
       key: "customer-platform-routes",
@@ -35,14 +35,15 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
     {
       key: "finalization-contracts",
       routes: ["production-auth-provider-contracts", "verified-welcome-email-contracts", "report-generation-rendering-contracts", "billing-checkout-contracts", "controlled-maintenance-contracts"],
-      requiredPosture: "Finalization contracts must stay wired into validate:routes so auth, welcome email, reports, billing checkout, controlled maintenance, and owner configuration workflow protections cannot drift silently.",
+      requiredPosture: "Finalization contracts must stay wired into validate:routes so auth, welcome email, reports, billing checkout, controlled maintenance, owner configuration workflow, and Contact Us support routing protections cannot drift silently.",
     },
   ],
   defaultSmokeRules: [
     "Default production smoke must not require live customer session tokens, CSRF tokens, provider secrets, webhook secrets, admin keys, support context keys, payment provider keys, command-center preview keys, owner evidence payloads, or real payment links.",
-    "Default production smoke may verify public route rendering, redirects, health, OPTIONS, protected denial states, owner evidence/workflow protected denials, closed command-center posture, and contract wiring.",
+    "Default production smoke may verify public route rendering, redirects, health, OPTIONS, protected denial states, owner evidence/workflow protected denials, closed command-center posture, Contact Us routing, and contract wiring.",
     "Default production smoke must never log raw payloads, raw evidence, raw billing data, owner configuration evidence payloads, provider secrets, customer secrets, internal notes, operator identities, risk internals, attacker details, prompts, session tokens, CSRF tokens, admin keys, or support context keys.",
     "Default production smoke must treat protected-route denial as success when the expected safe denial status and copy are returned.",
+    "Default production smoke must not create fake Free Scan submissions or fake Contact Us support messages.",
   ],
   releaseGateCoverage: [
     "production auth provider contracts validation",
@@ -55,6 +56,7 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
     "owner configuration evidence API validation",
     "owner configuration workflow API validation",
     "production smoke coverage validation",
+    "Contact Us support routing validation",
   ],
   blockedSmokePatterns: [
     "liveSecretRequiredForDefaultSmoke",
@@ -80,13 +82,16 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
     "paidReportWithoutEntitlementSmoke",
     "fakeUrgencySmoke",
     "guaranteedOutcomeSmoke",
+    "fakeSupportSuccessSmoke",
+    "untestedContactMessageSmoke",
   ],
   releaseRules: [
     "No release is final unless production smoke coverage and all finalization contract validators are wired into validate:routes.",
-    "No smoke check may require production mutation, real payment, real customer session, owner evidence payload, command-center preview key, or uncontrolled AI action.",
+    "No smoke check may require production mutation, real payment, real customer session, owner evidence payload, command-center preview key, support message submission, or uncontrolled AI action.",
     "No protected route may pass smoke by exposing internal data; safe denial is acceptable and expected where authorization is absent.",
-    "No public conversion route may pass smoke if it relies on fake urgency, guaranteed outcomes, or unsafe data collection.",
+    "No public conversion route may pass smoke if it relies on fake urgency, guaranteed outcomes, fake Contact Us behavior, untested message boxes, or unsafe data collection.",
     "No owner configuration evidence or workflow route may pass smoke by exposing raw provider payloads, protected config values, private credentials, private customer data, or private audit payloads.",
+    "Contact Us must remain `/connect` with direct email to support@cendorq.com unless a real tested send pipeline exists.",
   ],
 } as const;
 

@@ -15,7 +15,8 @@ Protect the core path:
 3. Deep Review
 4. Build Fix
 5. Ongoing Control
-6. Connect
+6. FAQ
+7. Contact Us
 
 ## Required checks
 
@@ -26,13 +27,16 @@ Before merging observability or diagnostics changes, confirm:
 - Smoke checks verify strict legacy redirects, not only final followed destinations.
 - Smoke checks verify Free Scan API `OPTIONS` support without creating fake submissions.
 - Production smoke checks verify unauthenticated Free Scan API reads stay protected.
+- Production smoke checks verify `/connect` as the Contact Us route.
+- Production smoke checks use `https://www.cendorq.com` unless the canonical host intentionally changes.
+- Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
 - Logs help diagnose issues without exposing private data.
 - Error states are understandable and not overly technical.
 - Diagnostics do not reveal secrets, tokens, private customer data, or internals.
 - Incident signals distinguish production issues from workflow or network noise.
 - Failed checks point to a clear next action.
 - Verification commands remain documented.
-- Observability changes do not add homepage clutter or buyer confusion.
+- Observability changes do not add homepage clutter, buyer confusion, or untested public message boxes.
 - Production checks still run without private secrets unless intentionally required.
 
 ## Health check checks
@@ -52,7 +56,9 @@ For smoke-check changes, confirm:
 
 - Critical public routes are still checked.
 - Discovery and trust files are still checked.
+- `/connect` is checked as Contact Us.
 - Legacy redirects are checked with a real redirect status and `Location` header before following.
+- `/contact` redirects to `/connect`.
 - Free Scan API `OPTIONS` still returns `204` and `Allow: GET,POST,OPTIONS`.
 - Non-local production smoke confirms unauthenticated `GET /api/free-check` returns the protected `401` response.
 - Protected-read smoke checks do not run against localhost development.
@@ -77,6 +83,7 @@ For incident-related changes, confirm:
 - Severity can be judged from the available signal.
 - Recovery steps are clear.
 - After-action notes can identify what failed and what guard should improve.
+- Contact Us regressions include wrong support email, untested message boxes, broken `/connect`, or failed `/contact` redirects.
 
 ## Validation expectation
 
@@ -92,7 +99,7 @@ pnpm build
 For production-impacting observability changes, also run the production smoke check after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## Non-goals
@@ -105,4 +112,5 @@ Do not use observability work as a reason to add:
 - homepage clutter
 - competing CTAs
 - unsupported guarantees
+- untested public message boxes
 - technical language that reduces buyer clarity

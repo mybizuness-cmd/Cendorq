@@ -1,5 +1,5 @@
-Contact: https://cendorq.com/connect
+Contact: https://www.cendorq.com/connect
 Preferred-Languages: en
-Canonical: https://cendorq.com/.well-known/security.txt
-Policy: https://cendorq.com/terms
+Canonical: https://www.cendorq.com/.well-known/security.txt
+Policy: https://www.cendorq.com/terms
 Expires: 2027-04-25T00:00:00.000Z

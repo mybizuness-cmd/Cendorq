@@ -12,21 +12,22 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-customer-platform-dashboard.mjs";
 
 expect(dashboardPath, [
-  "Visibility command center",
-  "Private visibility command center",
-  "Know what the market can see, trust, and act on next.",
-  "This is not an account page.",
+  "Private AI readiness control center",
+  "Your Cendorq account is ready.",
+  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
   "Next best move",
   "Finish the first signal.",
   "Dashboard decision summary",
   "Command path",
-  "Scan. Diagnose. Fix. Control.",
+  "Scan. Review. Repair. Control.",
   "Dashboard command links",
+  "Free Scan creates the account.",
+  "Secure access brings customers back.",
   "No cheap dashboard blocks",
   "No clutter wall",
   "No internal conversion role labels",
   "hover:-translate-y-0.5",
-  "shadow-[0_30px_120px_rgba(2,8,23,0.48)]",
+  "shadow-[0_30px_120px_rgba(2,8,23,0.10)]",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -36,7 +37,7 @@ expect(actionInboxPath, [
   "Only the actions that protect progress stay here.",
   "No noise. No internal labels.",
   "Why it matters:",
-  "Confirm the inbox that owns this workspace",
+  "Confirm the inbox that owns this account",
   "Review what Build Fix can change",
   "Keep monthly control evidence-led",
   "No conversion role label",
@@ -59,12 +60,14 @@ expect(commandCenterPath, [
 
 expect(reentryPath, [
   "Dashboard reentry",
+  "Dashboard account re-entry",
   "Leave and come back without losing the thread.",
   "No stranded side flows",
   "No restart journey",
   "No token exposure",
   "Best experience:",
   "Cendorq picks up where I left off",
+  "The dashboard stays the customer account hub.",
   "hover:-translate-y-0.5",
   "focus:outline-none",
   "focus:ring-2",
@@ -83,9 +86,19 @@ forbidden(dashboardPath, [
   "Dashboard operating snapshot",
   "Dashboard excellence pillars",
   "Roadmap command timeline",
+  "A workspace can exist before a scan.",
+  "An account can exist before a scan.",
+  "Your Cendorq workspace is ready.",
+  "Scan. Diagnose. Fix. Control.",
+  "safeProjectionReady",
+  "fulfillmentState",
+  "backendWorkState",
 ]);
 
 forbidden(actionInboxPath, [
+  "Confirm the inbox that owns this workspace",
+  "full diagnosis",
+  "pretending to be full diagnosis",
   "Conversion role:",
   "conversionRole",
   "linear-stop",
@@ -103,13 +116,15 @@ forbidden(commandCenterPath, [
 ]);
 
 forbidden(reentryPath, [
+  "Workspace",
+  "business control room",
   "Use the dashboard link in any Cendorq email",
   "Resume after session expiry",
   "Recover from support or billing",
   "They can leave today and come back to the same business control room tomorrow.",
 ]);
 
-boundedLength(dashboardPath, 16500);
+boundedLength(dashboardPath, 12000);
 boundedLength(actionInboxPath, 10500);
 boundedLength(commandCenterPath, 10000);
 boundedLength(reentryPath, 8000);
@@ -120,7 +135,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform dashboard validation passed with command center language, customer-led modules, and no internal labels.");
+console.log("Customer platform dashboard validation passed with account/dashboard command language, Free Scan account creation language, customer-led modules, and no internal labels.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

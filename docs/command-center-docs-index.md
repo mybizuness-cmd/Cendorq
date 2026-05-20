@@ -4,7 +4,7 @@ This private documentation index keeps the Command Center operating standards ea
 
 ## Core standards
 
-- `docs/command-design-operating-standard.md` — product-wide command design standard for Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, safe next command clarity, fallback recovery posture, public/private boundaries, and validation guardrails.
+- `docs/command-design-operating-standard.md` — product-wide command design standard for Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, safe next command clarity, fallback recovery posture, public/private boundaries, Contact Us clarity, and validation guardrails.
 - `docs/maximum-protection-standard.md` — highest-protection security, data, AI, evidence, database, audit, emergency, and public-boundary standard.
 - `docs/owner-maximum-protection-posture.md` — owner-facing maximum-protection operating posture for public/private boundaries, verified access, operator review, AI/automation limits, validation gates, rollback posture, and release-captain review.
 - `docs/command-center-operator-runbook.md` — cockpit maintenance workflow for closed-by-default, metadata-only, server-rendered, registry-covered Command Center panels.
@@ -13,6 +13,25 @@ This private documentation index keeps the Command Center operating standards ea
 - `docs/repo-update-scanning-automation.md` — repo update scanning automation standard for Dependabot, CodeQL workflow, dependency integrity, most-pristine, route-chain coverage, and release-captain review posture.
 - `docs/controlled-continuous-evolution.md` — controlled continuous evolution standard for monitored, validated, reviewable, rollback-ready update proposals without uncontrolled production mutation or quality drift.
 - `docs/controlled-maintenance.md` — controlled maintenance standard for safe update queues, review streams, validation gates, rollback planning, and audit-ready maintenance posture.
+- `docs/command-center-delivery-readiness.md` — delivery readiness standard for future report delivery, email follow-up, CRM sync, webhook channels, support handoff, Contact Us send-pipeline safety, and automation handoff before live sends are enabled.
+- `docs/plan-report-agent-delivery-standard.md` — plan-specific report, visual design, customer wording, research depth, agent chain-of-command, dashboard storage, competitor, forecast, and next-plan recommendation standard.
+- `docs/customer-intake-payment-standard.md` — progressive intake, Free Scan question reduction, paid-plan payment timing, post-checkout questions, dashboard blockers, and agent work-start standard.
+
+## Public buyer-path guard
+
+Current customer-facing language should preserve:
+
+- Free Scan
+- Plans
+- Deep Review
+- Build Fix
+- Ongoing Control
+- FAQ
+- Contact Us
+- `/connect` as the stable Contact Us route
+- `/contact` redirecting into `/connect`
+- `support@cendorq.com` as the public direct support email unless a real tested send pipeline exists
+- no untested public message boxes or fake success states
 
 ## Required command design paths
 
@@ -22,7 +41,7 @@ This private documentation index keeps the Command Center operating standards ea
 - `src/scripts/validate-public-drift.mjs`
 - `.github/PULL_REQUEST_TEMPLATE/command-design.md`
 
-Command design applies to public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, and validation guardrails. It must preserve Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, and the safest-next-command rule without exposing private mechanics.
+Command design applies to public pages, fallback states, protected customer surfaces, internal operator routes, report shells, SEO/share surfaces, and validation guardrails. It must preserve Apple-level trust and authority, Google-level simplicity, ChatGPT-level immediate action, the safest-next-command rule, and Contact Us clarity without exposing private mechanics.
 
 ## Required source-of-truth areas
 
@@ -185,4 +204,4 @@ These validators must stay wired into `validate:routes`:
 
 ## Maintenance rule
 
-When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, command design standard, fallback recovery guard, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, or owner operating standard is added, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.
+When a new private cockpit panel, source-of-truth module, validator, report evidence standard, report evidence runtime, report evidence route, report evidence record API, report evidence record contract, report evidence record runtime, report evidence record persistence runtime, admin command-center projection, admin command-center route contract metadata, admin command-center route contract summary, admin command-center projection link count, admin command-center panel contract strip, admin command-center panel summary display, admin command-center access helper, admin command-center response or options helper, command design standard, fallback recovery guard, route-chain integrity rule, maximum protection rule, owner maximum-protection posture rule, repo update scanning automation rule, controlled continuous evolution rule, controlled maintenance rule, workflow integrity rule, owner operating standard, Contact Us support behavior, delivery readiness behavior, plan report standard, customer intake and payment timing, Free Scan question flow, paid-plan onboarding behavior, dashboard blocker behavior, or public buyer-path support routing is added or changed, update this index and its validation coverage in the same pull request. The index is metadata only and must never include secret values, live customer data, raw intelligence, raw evidence, billing records, report internals, prompts, scoring weights, audit-defense legal strategy beyond approved metadata anchors, private dashboard conversation text, or non-public quality-review details.

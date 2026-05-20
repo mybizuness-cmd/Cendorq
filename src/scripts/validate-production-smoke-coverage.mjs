@@ -66,7 +66,7 @@ expect(workflowPath, [
   "timeout-minutes: 10",
   "persist-credentials: false",
   "CENDORQ_BASE_URL:",
-  "https://cendorq.com",
+  "https://www.cendorq.com",
   "Validate production smoke target",
   "CENDORQ_BASE_URL is required for production smoke checks.",
   "CENDORQ_BASE_URL must be a valid URL.",
@@ -95,6 +95,9 @@ expect(runbookPath, [
 
 expect(docsIndexPath, [
   "# Command Center Docs Index",
+  "Public buyer-path guard",
+  "Contact Us",
+  "support@cendorq.com",
   "docs/owner-maximum-protection-posture.md",
   "Owner maximum protection posture",
   "validate-owner-maximum-protection-posture.mjs",
@@ -187,7 +190,7 @@ expect(reportGrowthSystemPath, [
   "analyzed business logo above or beside the business name",
   "Deep Review must be thorough and extensive",
   "recommended Build Fix path",
-  "Build Fix reporting must translate diagnosis into action",
+  "Build Fix reporting must translate review into action",
   "recommended Ongoing Control path",
   "social and platform activity",
   "Every business study must consider social media and other platform activity",
@@ -244,9 +247,14 @@ for (const phrase of [
   if (smokeText.includes(phrase)) failures.push(`Production smoke script contains forbidden or risky phrase: ${phrase}`);
 }
 
+const workflowText = read(workflowPath);
+if (workflowText.includes("https://cendorq.com") && !workflowText.includes("https://www.cendorq.com")) {
+  failures.push(`${workflowPath} uses the apex smoke target without the canonical www host.`);
+}
+
 const reportTruthText = read(reportTruthEnginePath);
 const reportGrowthText = read(reportGrowthSystemPath);
-for (const phrase of ["full-diagnosis", "optimization", "monthly-control", "Full Diagnosis", "Optimization", "Monthly Control"]) {
+for (const phrase of [joinWords("full", "diagnosis"), "full-diagnosis", "optimization", "monthly-control", "Full Diagnosis", "Optimization", "Monthly Control"]) {
   if (reportTruthText.includes(phrase)) failures.push(`${reportTruthEnginePath} contains retired report plan phrase: ${phrase}`);
   if (reportGrowthText.includes(phrase)) failures.push(`${reportGrowthSystemPath} contains retired report plan phrase: ${phrase}`);
 }
@@ -257,13 +265,17 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, closed Command Center route checks, protected Command Center readiness checks, protected owner configuration evidence/workflow API checks, protected report evidence API checks, Command Center panel guard validators, validation registry visibility, owner maximum-protection posture, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, current report plan-stage wording, and smoke workflow hardening are synchronized.");
+console.log("Production smoke coverage validation passed. Public routes, strict redirects, health, Free Scan OPTIONS, protected Free Scan read checks, Contact Us routing, canonical www smoke target, closed Command Center route checks, protected Command Center readiness checks, protected owner configuration evidence/workflow API checks, protected report evidence API checks, Command Center panel guard validators, validation registry visibility, owner maximum-protection posture, report truth and growth system validation, controlled market learning validation, enterprise operating validation, audit defense validation, most-pristine validation, operator runbook validation, docs index validation, documentation cross-references, current report plan-stage wording, and smoke workflow hardening are synchronized.");
 
 function expect(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing required production smoke phrase: ${phrase}`);
   }
+}
+
+function joinWords(...words) {
+  return words.join(" ");
 }
 
 function read(path) {

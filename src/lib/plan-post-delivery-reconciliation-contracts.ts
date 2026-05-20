@@ -35,7 +35,7 @@ export const PLAN_POST_DELIVERY_RECONCILIATION_CONTRACT = {
     {
       key: "material-rework-change-order",
       name: "Material rework / change order",
-      rule: "If the newly purchased plan reveals materially different direction requiring redoing delivered optimization, implementation, monthly scope, or production work, create a new approved scope, discounted alignment offer, or paid change order rather than free rework.",
+      rule: "If the newly purchased plan reveals materially different direction requiring redoing delivered Build Fix, implementation, monthly scope, or production work, create a new approved scope, discounted alignment offer, or paid change order rather than free rework.",
       included: false,
       customerMessage: "The new analysis changes the recommended direction enough that it becomes a new work scope. We can prepare a focused alignment scope instead of reopening the completed work for free.",
     },
@@ -64,7 +64,7 @@ export const PLAN_POST_DELIVERY_RECONCILIATION_CONTRACT = {
     },
     {
       key: "ongoing-control-then-deep-review",
-      customerPath: "Customer bought Ongoing Control, received monthly outputs, then buys Deep Review and asks to redo monthly command using the full diagnosis.",
+      customerPath: "Customer bought Ongoing Control, received monthly outputs, then buys Deep Review and asks to redo monthly command using the full review.",
       rule: "Deliver Deep Review and apply findings to future Ongoing Control cycles. Prior monthly summaries stand as based on the evidence available at the time unless there was a Cendorq error.",
       includedWithSecondPurchase: ["Deep Review report", "future-cycle application note", "active-scope alignment guidance"],
       notIncludedWithSecondPurchase: ["retroactive monthly redo", "free Build Fix work", "unpaid implementation package"],
@@ -72,9 +72,9 @@ export const PLAN_POST_DELIVERY_RECONCILIATION_CONTRACT = {
     {
       key: "deep-review-then-build-fix-after-delay",
       customerPath: "Customer bought Deep Review, received report, later buys Build Fix and wants implementation based on the report.",
-      rule: "Use the existing Deep Review as the foundation if still current. If the business has changed, perform a scoped freshness check before Build Fix; major new discovery becomes updated diagnostic scope or monthly control opportunity.",
+      rule: "Use the existing Deep Review as the foundation if still current. If the business has changed, perform a scoped freshness check before Build Fix; major new discovery becomes updated review scope or Ongoing Control opportunity.",
       includedWithSecondPurchase: ["Build Fix intake", "scope confirmation", "freshness check", "implementation-ready plan"],
-      notIncludedWithSecondPurchase: ["new full diagnostic report unless purchased", "unlimited updated research", "out-of-scope implementation"],
+      notIncludedWithSecondPurchase: ["new full review report unless purchased", "unlimited updated research", "out-of-scope implementation"],
     },
   ],
   customerExperienceRules: [

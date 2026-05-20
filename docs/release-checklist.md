@@ -2,7 +2,7 @@
 
 Use this checklist before and after production releases.
 
-The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, legacy route behavior, production safety gates, closed intelligence, data quality, pure signal authority, adaptive learning, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center boundaries, or score threshold discipline.
+The goal is simple: ship without weakening the buyer path, public language, trust assets, health checks, crawler files, legacy route behavior, production safety gates, closed intelligence, data quality, pure signal authority, adaptive learning, resilience, maximum protection, foundation hardening, foundation elevation, system synchronization, internal command center boundaries, score threshold discipline, report design quality, plan report delivery, progressive customer intake, payment timing, delivery readiness, or Contact Us support routing.
 
 For production failures, smoke-check failures, or buyer-path regressions, use [`docs/incident-response.md`](incident-response.md).
 
@@ -29,6 +29,12 @@ For keeping standards, validation, README, SECURITY, PR gates, release notes, pu
 For internal control panel, command center, automation command deck, scan automation, Deep Review automation, Build Fix control, Ongoing Control cycles, report center, data-quality board, and smart insight layer changes, use [`docs/internal-command-center-standard.md`](internal-command-center-standard.md).
 
 For score bands, routing thresholds, 65-69 watch-grade, 70-79 operational-grade, 80-89 strong operational-grade, 90-100 authority-grade candidate, alerts, automation levels, or no-clutter public score display changes, use [`docs/score-threshold-operating-standard.md`](score-threshold-operating-standard.md).
+
+For report delivery, email follow-up, CRM sync, webhook channels, support handoff, Contact Us send-pipeline safety, or automation handoff before live sends are enabled, use [`docs/command-center-delivery-readiness.md`](command-center-delivery-readiness.md).
+
+For plan-specific reports, report visuals, letterhead, research depth, competitor analysis, forecast notes, dashboard report storage, agent chain of command, or next-plan recommendations, use [`docs/plan-report-agent-delivery-standard.md`](plan-report-agent-delivery-standard.md).
+
+For Free Scan intake, paid-plan checkout timing, post-payment questions, dashboard blockers, missing customer details, or agent work-start behavior, use [`docs/customer-intake-payment-standard.md`](customer-intake-payment-standard.md).
 
 For public copy, CTAs, headings, metadata, trust messaging, plan descriptions, or buyer-path language changes, use [`docs/copy-quality-checklist.md`](copy-quality-checklist.md).
 
@@ -80,6 +86,12 @@ Every release must preserve:
 - system synchronization QA
 - internal command center boundaries
 - score threshold discipline
+- report design quality
+- plan report delivery
+- progressive customer intake
+- payment timing
+- delivery readiness
+- Contact Us support routing
 
 ## Pre-merge checklist
 
@@ -92,8 +104,15 @@ Before merging a production change:
   - Deep Review
   - Build Fix
   - Ongoing Control
-  - Connect
+  - FAQ
+  - Contact Us
 - Confirm public copy is plain, command-grade, clear, credible, powerful, and easy to choose.
+- Confirm customer-facing language says Contact Us, not Connect, while `/connect` remains the stable route.
+- Confirm Contact Us uses direct email to `support@cendorq.com` unless a real tested send pipeline exists.
+- Confirm no untested Contact Us message box, fake success state, or fake support record was added.
+- Confirm future delivery or support-send behavior follows `docs/command-center-delivery-readiness.md`.
+- Confirm plan reports, visuals, letterhead, plain wording, competitor rules, forecast rules, dashboard report storage, and agent release approval follow `docs/plan-report-agent-delivery-standard.md`.
+- Confirm Free Scan intake, paid-plan checkout timing, post-payment questions, visible dashboard blockers, and agent work-start behavior follow `docs/customer-intake-payment-standard.md`.
 - Confirm no old public labels were revived in active public surfaces.
 - Confirm closed intelligence was checked for private scoring, private reports, AI-agent prompts, client evidence, direct database exposure, public report indexes, or public evidence indexes.
 - Confirm data quality was checked for source labels, confidence, freshness, evidence, self-reported data, externally observed data, AI-generated data, and human-reviewed data.
@@ -114,6 +133,8 @@ Before merging a production change:
 - Confirm no secrets, private customer data, private keys, tokens, private prompts, service-role credentials, or report secrets were committed.
 - Confirm the homepage does not gain clutter, public dashboard behavior, route-console behavior, or competing CTAs.
 - Confirm canonical routes are still the source of truth.
+- Confirm FAQ stays an active public route and does not redirect to Plans.
+- Confirm `/connect` remains the active Contact Us route.
 - Confirm legacy public URLs still redirect into the current buyer path.
 - Confirm legacy routes are not promoted by sitemap entries or robots allowlists.
 - Confirm crawler and trust files still make sense.
@@ -141,6 +162,10 @@ Before merging the PR:
 - Confirm CODEOWNERS review routing is intact.
 - Confirm no secrets, private customer data, private keys, tokens, service-role credentials, report secrets, or private prompts were committed.
 - Confirm public copy remains plain, direct, buyer-friendly, conversion-focused, and ad-safe.
+- Confirm Contact Us remains direct-email based unless a real tested send pipeline exists.
+- Confirm delivery readiness was considered for report delivery, support handoff, email follow-up, CRM sync, webhook channels, or automation handoff changes.
+- Confirm plan report delivery was considered for report structure, letterhead, visuals, competitor analysis, forecast language, dashboard storage, and next-plan recommendation changes.
+- Confirm customer intake timing was considered for Free Scan question flow, checkout timing, post-payment onboarding, dashboard blockers, and agent work-start behavior changes.
 - Confirm closed intelligence gates were answered for private scoring, data access, reports, evidence, AI-agent prompts, and public/private boundary.
 - Confirm data quality and learning gates were answered when data, reports, scores, signals, memory, or AI-agent outputs changed.
 - Confirm pure signal and adaptive evolution gates were answered when signal definitions, source weighting, confidence, freshness, promotion, demotion, or authority memory changed.
@@ -163,7 +188,7 @@ Before merging the PR:
 After production deploy:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 or run the **Production Smoke Check** workflow manually from GitHub Actions.
@@ -176,7 +201,8 @@ Confirm these production surfaces are healthy:
 - `/plans/deep-review`
 - `/plans/build-fix`
 - `/plans/ongoing-control`
-- `/connect`
+- `/faq`
+- `/connect` (Contact Us)
 - `/api/health`
 - `/robots.txt`
 - `/sitemap.xml`
@@ -193,7 +219,6 @@ Confirm these legacy public routes resolve into the current buyer path:
 - `/how-it-works`
 - `/diagnosis`
 - `/profile`
-- `/faq`
 - `/freecheck`
 - `/full-diagnosis`
 - `/optimization`
@@ -209,6 +234,10 @@ If production weakens, breaks, or becomes unclear:
 - Redeploy.
 - Run the production smoke check.
 - Confirm the Free Scan path and canonical routes are restored.
+- Confirm FAQ remains active, reachable, and not redirected away.
+- Confirm `/connect` still serves Contact Us.
+- Confirm Contact Us still uses `support@cendorq.com` unless a real tested send pipeline exists.
+- Confirm no untested Contact Us message box, fake success state, or fake support record is live.
 - Confirm legacy route redirects are restored.
 - Confirm closed intelligence was not weakened or exposed.
 - Confirm private data, reports, evidence, score inputs, and memory were not exposed.
@@ -219,7 +248,7 @@ If production weakens, breaks, or becomes unclear:
 
 ## Scheduled checks
 
-The production smoke workflow runs automatically every day against `https://cendorq.com`.
+The production smoke workflow runs automatically every day against `https://www.cendorq.com`.
 
 If a scheduled smoke check fails:
 
@@ -249,6 +278,9 @@ For meaningful releases, note in `CHANGELOG.md`:
 - system-synchronization impact when standards, validation, README, SECURITY, release checklist, PR template, CHANGELOG, public routes, backend architecture, reports, or AI-agent workflows changed
 - internal-command-center impact when dashboard, console, automation command deck, scan automation, paid diagnosis, Build Fix, Ongoing Control, report center, data-quality board, or insight layer changed
 - score-threshold impact when score bands, routing thresholds, alerts, automation levels, report labels, public score labels, or authority-grade candidates changed
+- delivery-readiness impact when report delivery, email follow-up, CRM sync, webhook channels, support handoff, Contact Us send-pipeline safety, or automation handoff changed
+- plan-report impact when report structure, visuals, letterhead, customer wording, research depth, competitor analysis, forecast language, dashboard report storage, agent review, or next-plan recommendations changed
+- customer-intake impact when Free Scan questions, checkout timing, post-payment onboarding, missing-information blockers, dashboard status, or agent work-start behavior changed
 - route/link impact when navigation, canonical routes, redirects, legacy routes, sitemap links, crawler-facing routes, or buyer-path connections changed
 - copy-quality impact when public language, CTAs, headings, metadata, trust messaging, or plan descriptions changed
 - privacy/data impact when forms, analytics, third-party scripts, environment values, logs, customer-sensitive information, or integrations changed

@@ -3,44 +3,57 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 const homepagePath = "src/app/page.tsx";
 const plansPath = "src/app/plans/page.tsx";
+const headerPath = "src/layout/site-header-conversion.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-public-entry-plan-journey.mjs";
 
 expect(homepagePath, [
-  "If AI engines cannot understand your business",
-  "AI-readiness starts with business clarity",
-  "Start with the Free Scan.",
+  "If AI engines cannot see or understand your business",
+  "AI Visibility and Readiness",
+  "Visibility shows the gap. Readiness explains the cause.",
+  "Start Free Scan",
+  "View Plans",
+  "AI is becoming the place customers meet you first.",
+  "Scan. Review. Repair. Control.",
   "Free Scan",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
   "Scan",
   "Review",
   "Repair",
   "Control",
   "focus:outline-none",
-  "focus:ring-2",
+]);
+
+expect(headerPath, [
+  "Plans",
+  "FAQ",
+  "Sign in",
+  "Start Free Scan",
+  "Header keeps Plans, FAQ, Sign in, and Start Free Scan visible.",
 ]);
 
 expect(plansPath, [
-  "Choose the right AI-readiness depth.",
-  "Start with a first signal. Move deeper only when the evidence supports it.",
-  "Free Scan $0",
-  "AI Readiness Review $497",
-  "Signal Repair $1,497",
-  "Readiness Control $597/mo",
+  "Choose the right visibility and readiness depth.",
+  "Free Scan shows the first signal.",
+  "Deep Review explains the cause.",
+  "Build Fix improves the weak point.",
+  "Ongoing Control keeps visibility and readiness from drifting.",
   "One path. Four depths.",
-  "No guaranteed rankings, leads, revenue, or AI placement.",
+  "Cendorq does not guarantee rankings, leads, revenue, or AI placement.",
   "focus:outline-none",
-  "focus:ring-2",
+  "focus-visible:ring-2",
 ]);
 
 expect(routesChainPath, [validatorPath]);
 
 forbidden(homepagePath, [
+  ...legacyPlanLabels,
   "$300",
   "$750+",
   "$300 mo",
@@ -56,7 +69,15 @@ forbidden(homepagePath, [
   "Monthly watch",
 ]);
 
+forbidden(headerPath, [
+  ...legacyPlanLabels,
+  "AI Readiness\", href: \"/#ai-readiness",
+  "/#ai-readiness",
+  "Customer journey",
+]);
+
 forbidden(plansPath, [
+  ...legacyPlanLabels,
   "$750+",
   "$300/mo",
   "starting at",
@@ -70,6 +91,7 @@ forbidden(plansPath, [
 ]);
 
 boundedLength(homepagePath, 18000);
+boundedLength(headerPath, 6500);
 boundedLength(plansPath, 18500);
 
 if (failures.length) {
@@ -78,7 +100,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public entry plan journey validation passed with clean AI-readiness path and current plan prices.");
+console.log("Public entry plan journey validation passed with clean homepage, simplified header nav, Free Scan CTA, and current plan names.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

@@ -1,41 +1,52 @@
 # Cendorq
 
-Cendorq is Market Command Intelligence for businesses that need to be easier for customers, search, and AI-powered discovery surfaces to understand, trust, compare, and choose.
+Cendorq is AI Engine Visibility and Readiness for businesses that need to see where they appear, where they are missing, why they are not being understood, and what to fix so customers, search, maps, reviews, and AI engines can understand, trust, compare, and choose them before they spend more in the wrong place.
 
 ## Primary conversion path
 
-The strongest first action is the Free Scan when the market signal is unclear. The public path should stay focused: start free, compare command depth, then return to the protected dashboard when customer work exists. Connect is a fit-and-scope utility, not the primary buyer-path step.
+The strongest first action is the Free Scan when the first visibility or readiness signal is unclear. The public path should stay focused: start free, compare plan depth, then return to the protected dashboard when customer work exists. Contact Us is for fit, scope, timing, or account help when the question is already clear.
 
-- Scan: /free-check
-- Command path: /plans
+- Free Scan: /free-check
+- Plans: /plans
 - Dashboard: /dashboard
-- Diagnose: /plans/deep-review
-- Fix: /plans/build-fix
-- Control: /plans/ongoing-control
-- Connect utility: /connect
+- Deep Review: /plans/deep-review
+- Build Fix: /plans/build-fix
+- Ongoing Control: /plans/ongoing-control
+- FAQ: /faq
+- Contact Us: /connect
 
 ## Route intent
 
-- /: Focused homepage command path. The homepage should help the right customer understand what Cendorq is, why market understanding matters now, what it costs, and what to do next.
+- /: Focused homepage path. The homepage should help the right customer understand what Cendorq is, why visibility and readiness matter now, and what to do next.
 - /free-check: Guided Free Scan intake. This is the safest first signal before deeper spend.
-- /plans: Plain-language comparison of Scan, Diagnose, Fix, and Control.
-- /dashboard: Protected customer command center for reports, proof, notifications, status, and next actions.
-- /dashboard/reports: Protected market proof vault.
-- /plans/deep-review: Diagnose. Deeper review for businesses that need to understand what is weakening clarity, trust, visibility, and choice.
-- /plans/build-fix: Fix. Scoped improvement for businesses ready to strengthen pages, message, proof, trust, and action path.
-- /plans/ongoing-control: Control. Continued direction for businesses that need recurring review, search/AI-change awareness, and monthly decision support.
-- /connect: Fit-and-scope route for clear timing questions.
+- /plans: Plain-language comparison of Free Scan, Deep Review, Build Fix, and Ongoing Control.
+- /faq: Quick buyer answers for Free Scan, plans, access, privacy, support, and no-guarantee boundaries.
+- /connect: Contact Us route for clear fit, scope, timing, or account-help questions. Public Contact Us uses direct email to support@cendorq.com unless a real tested send pipeline exists.
+- /dashboard: Protected customer dashboard for reports, proof, notifications, billing, support, status, and next actions.
+- /dashboard/reports: Protected report vault.
+- /plans/deep-review: Deeper review for businesses that need to understand what is weakening visibility, clarity, trust, proof, or choice.
+- /plans/build-fix: Scoped improvement for businesses ready to strengthen pages, message, proof, trust, and action path.
+- /plans/ongoing-control: Continued direction for businesses that need recurring review, search/AI-change awareness, and monthly decision support.
 
 ## Positioning rules
 
 Cendorq should be described in plain business language. Prefer:
 
-- Market Command Intelligence
-- Scan, Diagnose, Fix, Control
+- AI visibility and readiness
 - Free Scan
-- command path
-- market proof vault
-- private market command center
+- Plans
+- Deep Review
+- Build Fix
+- Ongoing Control
+- FAQ
+- Contact Us
+- Access
+- Account
+- Dashboard
+- visibility shows where the business is seen
+- readiness explains why the business is or is not understood
+- execution fixes the weak points
+- control keeps visibility and readiness from drifting
 - make the business easier to find
 - make the business easier to understand
 - make the business easier to trust
@@ -43,8 +54,10 @@ Cendorq should be described in plain business language. Prefer:
 - stop guessing before spending more
 - protect decisions as search and AI discovery change
 
-Do not use old internal labels, retired package names, or generic premium positioning in active public surfaces.
+Do not use old internal labels, retired package names, customer-facing Connect labels, or generic premium positioning in active public surfaces.
 
 ## Trust boundaries
 
 Cendorq does not guarantee rankings, AI placement, revenue, leads, sales, or platform treatment. It improves market clarity, trust, decision quality, and the business path a customer sees before they choose.
+
+Do not add a public Contact Us message box unless a real tested send pipeline captures the reply email, sends to support@cendorq.com, avoids fake success states, and preserves privacy boundaries.

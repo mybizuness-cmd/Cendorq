@@ -4,6 +4,7 @@ export type CustomerAuthSurface =
   | "login"
   | "logout"
   | "session-refresh"
+  | "remembered-session"
   | "dashboard-route"
   | "protected-api"
   | "support-request"
@@ -83,6 +84,17 @@ export const CUSTOMER_SESSION_AUTH_RULES = [
     requiredAuditEvents: ["login-accepted", "login-denied", "session-issued", "risk-reauth-required"],
   },
   {
+    key: "remembered-customer-session",
+    label: "Remembered customer header session",
+    surface: "remembered-session",
+    requirements: ["verified-email", "http-only-session", "secure-cookie", "same-site-cookie", "customer-ownership", "safe-failure", "audit-event"],
+    allowedWhen: "A verified customer has a signed remembered-session cookie that can safely show Account and Dashboard options in the public header.",
+    deniedWhen: ["anonymous visitor", "missing remembered cookie", "expired remembered cookie", "malformed remembered cookie", "signature mismatch", "unsafe dashboard return path"],
+    requiredState: ["customer id hash", "email hash", "issued timestamp", "expiration timestamp", "signature", "safe dashboard destination"],
+    safeFailure: "Show public Access and Free Scan actions without exposing account existence or session internals.",
+    requiredAuditEvents: ["remembered-session-detected", "remembered-session-denied", "remembered-session-cleared"],
+  },
+  {
     key: "dashboard-route-auth",
     label: "Dashboard route authorization",
     surface: "dashboard-route",
@@ -159,6 +171,13 @@ export const CUSTOMER_SESSION_COOKIE_CONTRACTS = [
     blockedBehavior: ["session token in localStorage", "session token in sessionStorage", "session token in URL", "session token in analytics", "session token in email", "session token in public JavaScript"],
   },
   {
+    key: "remembered-customer-cookie",
+    label: "Remembered customer cookie",
+    requirement: "Remembered customer header state must come from a signed, expiring, httpOnly, sameSite cookie and never from browser storage.",
+    mustBe: ["signed", "expiring", "httpOnly", "secure in production", "sameSite=lax or stricter", "dashboard-path bounded", "safe when missing"],
+    blockedBehavior: ["remembered state in localStorage", "remembered state in sessionStorage", "dashboard route in unsafe URL", "account existence disclosure", "profile menu from client-owned secret"],
+  },
+  {
     key: "csrf-boundary",
     label: "CSRF boundary",
     requirement: "State-changing protected customer APIs must require CSRF or equivalent same-site, origin, and session-bound request protection.",
@@ -176,6 +195,7 @@ export const CUSTOMER_SESSION_COOKIE_CONTRACTS = [
 
 export const CUSTOMER_SESSION_AUTH_GUARDS = [
   "no protected dashboard route without server-validated customer session once auth is active",
+  "no remembered customer header state without a signed, expiring, httpOnly, sameSite cookie validated on the server",
   "no protected customer API without server-validated session, route authorization, ownership checks, and CSRF or equivalent protection where required",
   "no support request API should rely on a browser-exposed support context secret",
   "no customer session token, CSRF token, provider token, password, reset token, or admin secret in localStorage, sessionStorage, URL, analytics, HTML, emails, or public JavaScript",

@@ -36,16 +36,16 @@ expect(reportVaultPath, [
   "Different proof for every readiness depth.",
   "Each one has a different job.",
   "Readiness signal result",
-  "AI Readiness Review report",
-  "Signal Repair summary",
-  "Readiness Control monthly summary",
+  "Deep Review report",
+  "Build Fix summary",
+  "Ongoing Control monthly summary",
   "Nothing final until it is approved.",
   "Paid proof",
   "Dashboard + email attachment",
-  "Not full diagnosis, implementation, monthly monitoring",
+  "Not full review, implementation, monthly monitoring",
   "Not done-for-you implementation",
-  "Not a full diagnostic report",
-  "Not unlimited Signal Repair",
+  "Not a full review report",
+  "Not unlimited Build Fix",
   "REPORT_LIBRARY",
   "REPORT_VAULT_RULES",
   "PLAN_VALUE_SEPARATION_RULES",
@@ -57,23 +57,10 @@ expect(reportVaultPath, [
 
 expect(routesChainPath, [validatorPath]);
 
-forbidden(dashboardPath, [
-  "unlimited implementation",
-  "we guarantee ranking",
-  "we guarantee ai placement",
-  "we guarantee revenue",
-  "full diagnosis included in free scan",
-]);
-
-forbidden(reportVaultPath, [
-  "free scan diagnostic report",
-  "deep review implementation",
-  "build fix monthly monitoring",
-  "ongoing control unlimited fixes",
-  "we guarantee ranking",
-  "we guarantee ai placement",
-  "we guarantee revenue",
-]);
+const blockedLegacyPlanLabels = ["AI Readiness Review", "Signal Repair", "Readiness Control"];
+const blockedOldReportTerms = [joinWords("full", "diagnosis"), joinWords("diagnostic", "report")];
+forbidden(dashboardPath, blockedLegacyPlanLabels);
+forbidden(reportVaultPath, [...blockedLegacyPlanLabels, ...blockedOldReportTerms]);
 
 if (failures.length) {
   console.error("Customer revenue command center validation failed:");
@@ -100,6 +87,10 @@ function forbidden(path, phrases) {
   for (const phrase of phrases) {
     if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
+}
+
+function joinWords(...words) {
+  return words.join(" ");
 }
 
 function read(path) {

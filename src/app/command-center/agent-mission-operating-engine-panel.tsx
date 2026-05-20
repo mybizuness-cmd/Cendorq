@@ -8,9 +8,9 @@ export function AgentMissionOperatingEnginePanel() {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-100">Agent mission operating engine</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">Plan-triggered missions, structured findings, chief review, captain approval.</h2>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">Plan-triggered missions, report visuals, chief review, captain approval.</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">
-            This is the operating layer that turns captains, chief agents, and scouts into controlled production intelligence. Missions start from plan intake records, collect structured findings, then wait for chief-agent review and release-captain approval before any customer-safe output.
+            This is the operating layer that turns captains, chief agents, and scouts into controlled production intelligence. Missions start from plan intake records, collect structured findings, prepare plan-specific report output and visuals, then wait for chief-agent review and release-captain approval before any customer-safe output.
           </p>
         </div>
         <div className="rounded-3xl border border-cyan-200/20 bg-cyan-200/10 p-4 text-sm leading-6 text-cyan-50 lg:max-w-sm">
@@ -32,8 +32,28 @@ export function AgentMissionOperatingEnginePanel() {
               <p><span className="font-semibold text-slate-100">Trigger:</span> {mission.trigger}</p>
               <p><span className="font-semibold text-slate-100">Chief:</span> {mission.chiefAgentKey}</p>
               <p><span className="font-semibold text-slate-100">Agents:</span> {mission.assignedAgentKeys.join(", ")}</p>
+              <p><span className="font-semibold text-slate-100">Education goal:</span> {mission.customerEducationGoal}</p>
+              <p><span className="font-semibold text-slate-100">Next plan motion:</span> {mission.nextPlanMotion}</p>
               <p><span className="font-semibold text-slate-100">Chief gate:</span> {mission.chiefAgentReviewGate}</p>
               <p><span className="font-semibold text-slate-100">Captain gate:</span> {mission.releaseCaptainReviewGate}</p>
+            </div>
+            <div className="mt-4 grid gap-3 lg:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Report output</p>
+                <div className="mt-3 grid gap-2">
+                  {mission.requiredReportOutput.slice(0, 5).map((item) => (
+                    <p key={item} className="text-xs leading-5 text-slate-300">{item}</p>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Required visuals</p>
+                <div className="mt-3 grid gap-2">
+                  {mission.requiredReportVisuals.map((item) => (
+                    <p key={item} className="text-xs leading-5 text-slate-300">{item}</p>
+                  ))}
+                </div>
+              </div>
             </div>
             <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Next operating action</p>
@@ -64,7 +84,7 @@ export function AgentMissionOperatingEnginePanel() {
       </div>
 
       <p className="sr-only">
-        Agent mission operating engine. Plan-triggered missions, structured findings, chief review, captain approval. Every plan-triggered mission must start from a plan intelligence intake record. Every mission assigns one chief agent and scoped sub-agents. Every agent finding must use verified facts, source references, assumptions, evidence gaps, confidence, risks, recommendation, and blocked customer claims. Chief agents may review and consolidate findings, but release-captain approval remains required before customer-facing report, fix, monitoring alert, code, copy, validator output, paid recommendation, or delivery email. {engine.planMissions.map((mission) => `${mission.missionKey} ${mission.planKey} ${mission.trigger} ${mission.chiefAgentKey} ${mission.assignedAgentKeys.join(" ")} ${mission.chiefAgentReviewGate} ${mission.releaseCaptainReviewGate} ${mission.nextOperatingAction} ${mission.blockedShortcuts.join(" ")}`).join(" ")} {engine.missionRules.join(" ")}
+        Agent mission operating engine. Plan-triggered missions, report visuals, structured findings, chief review, captain approval. Every plan-triggered mission must start from a plan intelligence intake record. Every mission assigns one chief agent and scoped sub-agents. Every agent finding must use verified facts, source references, assumptions, evidence gaps, confidence, risks, recommendation, and blocked customer claims. Chief agents may review and consolidate findings, but release-captain approval remains required before customer-facing report, fix, monitoring alert, code, copy, validator output, paid recommendation, PDF, HTML report, dashboard report card, email summary, next-plan recommendation, or delivery email. Required report output and required report visuals are visible for every plan mission. {engine.planMissions.map((mission) => `${mission.missionKey} ${mission.planKey} ${mission.trigger} ${mission.chiefAgentKey} ${mission.assignedAgentKeys.join(" ")} ${mission.customerEducationGoal} ${mission.nextPlanMotion} ${mission.requiredReportOutput.join(" ")} ${mission.requiredReportVisuals.join(" ")} ${mission.chiefAgentReviewGate} ${mission.releaseCaptainReviewGate} ${mission.nextOperatingAction} ${mission.blockedShortcuts.join(" ")}`).join(" ")} {engine.missionRules.join(" ")}
       </p>
     </section>
   );

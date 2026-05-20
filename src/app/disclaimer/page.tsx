@@ -45,7 +45,7 @@ const CORE_BOUNDARIES = [
   },
   {
     title: "Readiness depth depends on evidence",
-    copy: "Free Scan, AI Readiness Review, Signal Repair, and Readiness Control outputs depend on visible evidence, customer context, confidence limits, plan scope, and external conditions.",
+    copy: "Free Scan, Deep Review, Build Fix, and Ongoing Control outputs depend on visible evidence, customer context, confidence limits, plan scope, and external conditions.",
   },
 ] as const;
 
@@ -64,7 +64,7 @@ const NOT_INCLUDED = [
 ] as const;
 
 const BEST_USE = [
-  "Use Scan as a first readiness signal, not a full diagnosis.",
+  "Use Scan as a first readiness signal, not a full review.",
   "Use Review when the cause matters enough to prove before repair.",
   "Use Repair when a scoped improvement is approved and ready to execute.",
   "Use Control when the business needs recurring monitoring, adjustment, and monthly decision support.",
@@ -166,7 +166,7 @@ export default function DisclaimerPage() {
       </section>
 
       <section className="sr-only" aria-label="Disclaimer validation guardrails">
-        Disclaimer. Search is changing. AI/search visibility. AI Engine Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. Use dashboard support. Scan. Review. Repair. Control. Free Scan. AI Readiness Review. Signal Repair. Readiness Control.
+        Disclaimer. Search is changing. AI/search visibility. AI Engine Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. Use dashboard support. Scan. Review. Repair. Control. Free Scan. Deep Review. Build Fix. Ongoing Control.
       </section>
     </main>
   );

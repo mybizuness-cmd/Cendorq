@@ -54,7 +54,7 @@ pnpm build
 For deployed or visual-impacting changes, run production smoke after deployment:
 
 ```bash
-CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
 ```
 
 ## No-shortcut rule

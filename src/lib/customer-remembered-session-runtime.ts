@@ -54,11 +54,15 @@ export function setCustomerRememberedSessionCookie(response: NextResponse, input
 }
 
 export function readCustomerRememberedSession(request: NextRequest, requestedReturnTo?: string | null): CustomerRememberedSessionProjection {
+  return readCustomerRememberedSessionCookieValue(request.cookies.get(CENDORQ_CUSTOMER_SESSION_COOKIE)?.value || "", requestedReturnTo);
+}
+
+export function readCustomerRememberedSessionCookieValue(cookieValue: string | undefined | null, requestedReturnTo?: string | null): CustomerRememberedSessionProjection {
   const safeReturnTo = safeDashboardPath(requestedReturnTo) || "/dashboard";
   const secret = getSessionSecret();
   if (!secret) return { ok: false, reason: "not-configured", safeReturnTo };
 
-  const value = request.cookies.get(CENDORQ_CUSTOMER_SESSION_COOKIE)?.value || "";
+  const value = typeof cookieValue === "string" ? cookieValue : "";
   if (!value) return { ok: false, reason: "missing", safeReturnTo };
 
   const parts = value.split(".");

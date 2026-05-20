@@ -16,6 +16,9 @@ const requiredFiles = [
   "docs/owner-operating-manual.md",
   "docs/repo-update-scanning-automation.md",
   "docs/controlled-continuous-evolution.md",
+  "docs/command-center-delivery-readiness.md",
+  "docs/plan-report-agent-delivery-standard.md",
+  "docs/customer-intake-payment-standard.md",
   "package.json",
   "src/scripts/validate-routes-chain.mjs",
   "src/scripts/validate-routes-chain-integrity.mjs",
@@ -39,8 +42,24 @@ for (const file of requiredFiles) validateFileExists(file);
 validateTextFile("docs/command-center-docs-index.md", [
   "# Command Center Docs Index",
   "private documentation index",
+  "Public buyer-path guard",
+  "Contact Us",
+  "`/connect` as the stable Contact Us route",
+  "`/contact` redirecting into `/connect`",
+  "support@cendorq.com",
+  "no untested public message boxes or fake success states",
   "docs/command-design-operating-standard.md",
   "docs/command-design-release-checklist.md",
+  "docs/command-center-delivery-readiness.md",
+  "docs/plan-report-agent-delivery-standard.md",
+  "plan-specific report",
+  "docs/customer-intake-payment-standard.md",
+  "progressive intake",
+  "Free Scan question reduction",
+  "paid-plan payment timing",
+  "dashboard blockers",
+  "delivery readiness standard",
+  "Contact Us send-pipeline safety",
   ".github/PULL_REQUEST_TEMPLATE/command-design.md",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-public-drift.mjs",
@@ -63,6 +82,54 @@ validateTextFile("docs/command-center-docs-index.md", [
   "CodeQL workflow integrity standard",
   "Repo update scanning automation standard",
   "Controlled continuous evolution standard",
+  "delivery readiness behavior",
+  "plan report standard",
+  "customer intake and payment timing",
+]);
+
+validateTextFile("docs/plan-report-agent-delivery-standard.md", [
+  "# Cendorq Plan Report and Agent Delivery Standard",
+  "educational while selling",
+  "informational while selling",
+  "Free Scan",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "Maximum customer-facing length: two pages.",
+  "Cendorq letterhead",
+  "helpful visuals",
+  "competitor comparison",
+  "forecast",
+  "Dashboard report records",
+  "Agent chain of command",
+  "Release Captain owns final validation",
+  "No sub-agent or chief agent can release a customer report without release captain approval.",
+]);
+
+validateTextFile("docs/customer-intake-payment-standard.md", [
+  "# Cendorq Customer Intake and Payment Timing Standard",
+  "Use progressive intake.",
+  "Payment should happen before the heavy paid plan questionnaire.",
+  "The Free Scan form should feel like one clean action or two light steps",
+  "Success page confirms purchase and asks the next most important question.",
+  "Dashboard shows a simple remaining-information checklist.",
+  "Agents start safe public research with what is available.",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "Every paid plan should create a dashboard work record immediately after payment.",
+]);
+
+validateTextFile("docs/command-center-delivery-readiness.md", [
+  "# Command Center Delivery Readiness",
+  "support handoff",
+  "Contact Us remains direct-email based to `support@cendorq.com`",
+  "sender reply-email capture for future Contact Us forms",
+  "`/connect` remains the Contact Us route",
+  "`/contact` redirects to `/connect`",
+  "public Contact Us still uses `support@cendorq.com`",
+  "any future Contact Us form collects a reply email, sends to `support@cendorq.com`, and avoids fake success states",
+  "No untested public message boxes.",
 ]);
 
 validateTextFile("docs/command-design-operating-standard.md", [
@@ -183,7 +250,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command Center docs index validation passed with command design, docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
+console.log("Command Center docs index validation passed with command design, Contact Us support guard, delivery readiness, intake timing, plan report delivery standard, docs index, owner posture, route-chain integrity, CodeQL workflow integrity, repo update scanning, controlled continuous evolution, owner manual, and report evidence runtime coverage.");
 
 function validateFileExists(path) {
   if (!existsSync(join(root, path))) failures.push(`Missing required docs index dependency: ${path}`);

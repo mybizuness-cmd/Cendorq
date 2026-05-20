@@ -7,6 +7,8 @@ const authPath = "src/lib/customer-session-auth-contracts.ts";
 const gatewayPath = "src/lib/customer-access-gateway-contracts.ts";
 const runtimePath = "src/lib/customer-access-gateway-runtime.ts";
 const sessionRuntimePath = "src/lib/customer-session-auth-runtime.ts";
+const rememberedSessionPath = "src/lib/customer-remembered-session-runtime.ts";
+const headerPath = "src/layout/site-header-conversion.tsx";
 const formPath = "src/components/customer-support/support-request-form.tsx";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
@@ -22,12 +24,14 @@ expect(authPath, [
   "signup-provider-and-password",
   "email-verification-required",
   "login-session-issued",
+  "remembered-customer-session",
   "dashboard-route-auth",
   "protected-api-session-auth",
   "support-request-auth",
   "billing-action-reauth",
   "report-access-release-auth",
   "security-reauth-session",
+  "remembered-session",
   "provider-signup",
   "email-password-signup",
   "email-confirmation",
@@ -41,6 +45,8 @@ expect(authPath, [
   "entitlement-check",
   "reauth-required",
   "safe-failure",
+  "Remembered customer header state must come from a signed, expiring, httpOnly, sameSite cookie and never from browser storage.",
+  "no remembered customer header state without a signed, expiring, httpOnly, sameSite cookie validated on the server",
   "Customer sessions must be server-managed and stored in secure, httpOnly, sameSite cookies or equivalent secure server-side session controls.",
   "State-changing protected customer APIs must require CSRF or equivalent same-site, origin, and session-bound request protection.",
   "Email/password auth and provider auth must never store plaintext passwords, raw provider tokens, or secrets in customer-facing records, analytics, emails, logs, or browser storage.",
@@ -70,6 +76,23 @@ expect(sessionRuntimePath, [
   "safeGatewayEqual",
   "hashGatewaySecret",
   "session runtime is closed by default when no server-managed session is present",
+]);
+
+expect(rememberedSessionPath, [
+  "CENDORQ_CUSTOMER_SESSION_COOKIE = \"cendorq_customer_session\"",
+  "SESSION_TTL_SECONDS = 60 * 60 * 24 * 30",
+  "readCustomerRememberedSessionCookieValue",
+  "httpOnly: true",
+  "secure: true",
+  "sameSite: \"lax\"",
+]);
+
+expect(headerPath, [
+  "readCustomerRememberedSessionCookieValue",
+  "isRememberedCustomer",
+  "AccountMenu",
+  "Dashboard",
+  "Sign out",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -112,6 +135,8 @@ expect(routesChainPath, [validatorPath]);
 forbidden(authPath, [
   "session token in localStorage allowed",
   "session token in sessionStorage allowed",
+  "remembered state in localStorage allowed",
+  "remembered state in sessionStorage allowed",
   "plaintext password allowed",
   "raw provider token in client allowed",
   "account existence disclosure allowed",
@@ -121,13 +146,21 @@ forbidden(authPath, [
   "reset token in logs allowed",
 ]);
 
+forbidden(headerPath, [
+  "localStorage",
+  "sessionStorage",
+  "Sign in",
+  "AI Readiness",
+  "/#ai-readiness",
+]);
+
 if (failures.length) {
   console.error("Customer session auth contracts validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Customer session auth contracts validation passed with owner posture, runtime, gateway, support form, and route-chain coverage.");
+console.log("Customer session auth contracts validation passed with owner posture, remembered customer header session, runtime, gateway, support form, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

@@ -56,7 +56,7 @@ export const INSIGHTS_CONVERSATION_RULES = [
     key: "plan-guidance-with-integrity",
     label: "Plan guidance with integrity",
     area: "plan-guidance",
-    requirement: "Conversation may recommend Full Diagnosis, Optimization, Monthly Control, or expansion only when the plan fit is supported by the customer's stage, evidence, open questions, severity, or implementation needs.",
+    requirement: "Conversation may recommend Deep Review, Build Fix, Ongoing Control, or expansion only when the plan fit is supported by the customer's stage, evidence, open questions, severity, or implementation needs.",
     requiredControls: ["plan-stage mapping", "evidence-backed reason", "current-plan limit", "next-plan unlock", "checkout or support path", "blocked-claim scan"],
     blockedBehavior: ["same plan push for every user", "unsupported upsell", "fake urgency", "outcome guarantee", "hidden limitations", "dark pattern"],
   },
@@ -114,9 +114,9 @@ export const INSIGHTS_CONVERSATION_MODES = [
   {
     key: "explain-my-scan",
     label: "Explain my scan",
-    purpose: "Help Free Scan customers understand visible findings, limitations, confidence, and why Full Diagnosis may be the next logical step.",
-    allowedOutputs: ["plain-language summary", "visible evidence explanation", "uncertainty explanation", "Full Diagnosis next-step reason", "dashboard link"],
-    blockedOutputs: ["complete diagnosis claim", "guaranteed outcome", "unsupported revenue claim", "raw evidence dump"],
+    purpose: "Help Free Scan customers understand visible findings, limitations, confidence, and why Deep Review may be the next logical step.",
+    allowedOutputs: ["plain-language summary", "visible evidence explanation", "uncertainty explanation", "Deep Review next-step reason", "dashboard link"],
+    blockedOutputs: ["complete review claim", "guaranteed outcome", "unsupported revenue claim", "raw evidence dump"],
   },
   {
     key: "what-should-i-do-next",

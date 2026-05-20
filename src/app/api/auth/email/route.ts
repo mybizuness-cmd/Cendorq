@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { buildFreeScanRequiredUrl, resolveCustomerAccessEligibility } from "@/lib/customer-access-eligibility";
 import { issueCustomerConfirmationEmail, projectCustomerConfirmationEmailSafeResponse } from "@/lib/customer-confirmation-email-issuance-runtime";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -12,6 +12,12 @@ const SAFE_DASHBOARD_PATHS = [
   "/dashboard/support",
   "/dashboard/notifications",
 ] as const;
+const NO_STORE_HEADERS = [
+  ["Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"],
+  ["Pragma", "no-cache"],
+  ["Expires", "0"],
+  ["X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet"],
+] as const;
 
 export async function GET(request: NextRequest) {
   const email = cleanEmail(request.nextUrl.searchParams.get("email"));
@@ -21,17 +27,23 @@ export async function GET(request: NextRequest) {
 
   if (!email) {
     loginUrl.searchParams.set("auth", "email-required");
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
+  }
+
+  const eligibility = await resolveCustomerAccessEligibility({ email, requestedDestination: returnTo });
+  if (!eligibility.eligible) {
+    const freeScanUrl = buildFreeScanRequiredUrl(request.url, { method: "email", returnTo });
+    freeScanUrl.searchParams.set("auth", "free-scan-required");
+    return redirectNoStore(freeScanUrl);
   }
 
   try {
-    const emailHash = hashEmail(email);
     const confirmationEmail = await issueCustomerConfirmationEmail({
-      customerIdHash: hashEmail(`customer:${emailHash}`),
-      signupEmailHash: emailHash,
-      customerEmailHash: emailHash,
+      customerIdHash: eligibility.customerIdHash,
+      signupEmailHash: eligibility.signupEmailHash,
+      customerEmailHash: eligibility.customerEmailHash,
       journeyKey: "support-or-billing-entry",
-      requestedDestination: returnTo,
+      requestedDestination: eligibility.primaryDestination,
       issueReason: "account-recovery",
       baseUrl: request.nextUrl.origin,
       customerEmail: email,
@@ -39,10 +51,10 @@ export async function GET(request: NextRequest) {
 
     const safePayload = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
     loginUrl.searchParams.set("auth", projectEmailAccessState(safePayload));
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   } catch {
     loginUrl.searchParams.set("auth", "email-queued");
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 }
 
@@ -50,6 +62,12 @@ function projectEmailAccessState(payload: ReturnType<typeof projectCustomerConfi
   if (payload.providerDelivery.sent) return "email-sent";
   if (payload.providerDelivery.skipped) return "email-unavailable";
   return "email-queued";
+}
+
+function redirectNoStore(url: URL) {
+  const response = NextResponse.redirect(url, { status: 303 });
+  for (const [key, value] of NO_STORE_HEADERS) response.headers.set(key, value);
+  return response;
 }
 
 function safeDashboardPath(value: string | null) {
@@ -68,8 +86,4 @@ function cleanEmail(value: unknown) {
   if (!local || local.length > 64 || local.startsWith(".") || local.endsWith(".") || local.includes("..")) return "";
   if (!domain || domain.length > 253 || !domain.includes(".") || domain.startsWith(".") || domain.endsWith(".") || domain.includes("..")) return "";
   return domain.split(".").every((label) => Boolean(label && label.length <= 63 && !label.startsWith("-") && !label.endsWith("-"))) ? cleaned : "";
-}
-
-function hashEmail(value: string) {
-  return createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
 }

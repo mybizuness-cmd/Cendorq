@@ -10,6 +10,8 @@
     "validate-routes-chain-integrity.mjs",
     "validate-routes.mjs",
     "validate-public-drift.mjs",
+    "validate-public-sitemap-surface.mjs",
+    "validate-public-robots-surface.mjs",
     "validate-maximum-protection-standard.mjs",
     "validate-owner-maximum-protection-posture.mjs",
     "validate-public-homepage-command-surface.mjs",

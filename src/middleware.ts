@@ -116,12 +116,12 @@ async function protectConsoleRoute(request: NextRequest) {
     const expectedSessionToken = accessKey ? await sha256Base64Url(accessKey) : null;
     const currentSessionToken = request.cookies.get(CONSOLE_COOKIE_NAME)?.value ?? "";
 
-    if (expectedSessionToken && currentSessionToken === expectedSessionToken) {
+    if (expectedSessionToken && safeEqual(currentSessionToken, expectedSessionToken)) {
         return NextResponse.next();
     }
 
     const accessParam = url.searchParams.get("access");
-    if (accessKey && accessParam && accessParam === accessKey) {
+    if (accessKey && accessParam && safeEqual(accessParam, accessKey)) {
         url.searchParams.delete("access");
 
         const response = NextResponse.redirect(url);
@@ -277,7 +277,7 @@ function hasValidBearerToken(request: NextRequest, accessKey: string) {
     }
 
     const token = authorization.slice("Bearer ".length).trim();
-    return token === accessKey;
+    return safeEqual(token, accessKey);
 }
 
 function hasValidBasicAuth(request: NextRequest, credentials: BasicCredentials) {
@@ -298,7 +298,7 @@ function hasValidBasicAuth(request: NextRequest, credentials: BasicCredentials) 
         const username = decoded.slice(0, separatorIndex);
         const password = decoded.slice(separatorIndex + 1);
 
-        return username === credentials.username && password === credentials.password;
+        return safeEqual(username, credentials.username) && safeEqual(password, credentials.password);
     } catch {
         return false;
     }
@@ -382,7 +382,7 @@ function isSafeSignature(value: string) {
 }
 
 function safeEqual(left: string, right: string) {
-    if (left.length !== right.length) return false;
+    if (!left || !right || left.length !== right.length) return false;
     let difference = 0;
     for (let index = 0; index < left.length; index += 1) {
         difference |= left.charCodeAt(index) ^ right.charCodeAt(index);

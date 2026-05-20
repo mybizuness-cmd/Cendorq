@@ -9,31 +9,32 @@ export const fetchCache = "force-no-store";
 // Source-only validation markers for CI. These are not rendered into the page.
 // No AI placement promises. bg-slate-50 text-slate-950. Scan. Review. Repair. Control.
 // Distinct Cendorq signal experience. Unified Cendorq Experience System.
+// Visibility shows where the business is seen. Readiness explains why.
 
 export const metadata = buildMetadata({
-  title: "Cendorq | AI Engine Readiness for Businesses",
-  description: "Cendorq checks whether a business is clear enough for AI engines and customers to understand, trust, and choose. Start with the Free Scan before deeper work.",
+  title: "Cendorq | AI Visibility and Readiness for Businesses",
+  description: "Cendorq checks where a business is visible, where it is missing, and why AI engines and customers may not understand, trust, or choose it. Start with the Free Scan.",
   path: "/",
-  keywords: ["cendorq", "AI engine readiness", "AI readiness for business", "AI search visibility", "business clarity scan", "business trust signals"],
-  image: { alt: "Cendorq AI Engine Readiness." },
+  keywords: ["cendorq", "AI visibility", "AI engine readiness", "AI readiness for business", "AI search visibility", "business clarity scan", "business trust signals"],
+  image: { alt: "Cendorq AI Visibility and Readiness." },
 });
 
 const READINESS_PATH = [
-  { label: "Scan", name: "Free Scan", href: "/free-check", copy: "Find the first weak signal." },
-  { label: "Review", name: "AI Readiness", href: "/plans/deep-review", copy: "Understand the cause." },
-  { label: "Repair", name: "Signal Repair", href: "/plans/build-fix", copy: "Improve what matters." },
-  { label: "Control", name: "Readiness Control", href: "/plans/ongoing-control", copy: "Keep readiness steady." },
+  { label: "Scan", name: "Free Scan", href: "/free-check", copy: "See the first visibility and readiness signal." },
+  { label: "Review", name: "Deep Review", href: "/plans/deep-review", copy: "Understand the cause." },
+  { label: "Repair", name: "Build Fix", href: "/plans/build-fix", copy: "Improve what matters." },
+  { label: "Control", name: "Ongoing Control", href: "/plans/ongoing-control", copy: "Keep visibility and readiness steady." },
 ] as const;
 
 const EXPERIENCE_CHAPTERS = [
-  { title: "AI answers do not wait for your sales pitch.", copy: "They work from what is visible, consistent, understandable, and trusted. Cendorq helps reveal where that first impression may break." },
-  { title: "The strongest move is usually the clearest one.", copy: "Before repair, redesign, ads, or bigger work, the business needs to know which weak signal deserves attention first." },
-  { title: "Start small. Go deeper only when the evidence supports it.", copy: "Free Scan gives the first signal. Review explains the cause. Repair improves the selected weak point. Control keeps readiness from drifting." },
+  { title: "AI answers do not wait for your sales pitch.", copy: "They work from what is visible, consistent, understandable, and trusted. Cendorq helps reveal where visibility or understanding may break." },
+  { title: "Visibility shows the gap. Readiness explains the cause.", copy: "Before repair, redesign, ads, or bigger work, the business needs to know where it is being seen, where it is missing, and what weak signal deserves attention first." },
+  { title: "Start small. Go deeper only when the evidence supports it.", copy: "Free Scan gives the first signal. Deep Review explains the cause. Build Fix improves the selected weak point. Ongoing Control keeps visibility and readiness from drifting." },
 ] as const;
 
 export default function HomePage() {
   return (
-    <main data-cendorq-homepage="cinematic-ai-readiness-experience" className="min-h-screen bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
+    <main data-cendorq-homepage="cinematic-ai-visibility-readiness-experience" className="min-h-screen bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
       <section className="relative overflow-hidden px-5 pb-10 pt-8 sm:px-8 lg:min-h-[min(43rem,calc(100vh-4.25rem))] lg:pb-12 lg:pt-10 xl:min-h-[min(46rem,calc(100vh-4.25rem))]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(251,207,232,0.24),transparent_28%),radial-gradient(circle_at_50%_0%,rgba(125,211,252,0.34),transparent_36%),radial-gradient(circle_at_82%_22%,rgba(99,102,241,0.14),transparent_32%),linear-gradient(180deg,#ffffff_0%,#eafaff_56%,#f7fbff_100%)]" aria-hidden="true" />
         <div className="absolute left-[-10rem] top-14 h-[24rem] w-[24rem] rounded-full bg-cyan-200/36 blur-3xl" aria-hidden="true" />
@@ -41,8 +42,8 @@ export default function HomePage() {
 
         <div className="relative mx-auto grid w-full max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(27rem,1.08fr)] lg:items-center xl:gap-10">
           <div className="max-w-[45rem] text-left">
-            <h1 className="text-[clamp(2.55rem,10vw,4.9rem)] font-semibold leading-[0.94] tracking-[-0.075em] text-slate-950 lg:text-[clamp(3.25rem,4.35vw,5.05rem)]">If AI engines cannot understand your business, customers may never get the chance to.</h1>
-            <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Cendorq turns AI-readiness into a clear path: see the first weak signal, understand what is causing it, improve what matters, and keep readiness from drifting.</p>
+            <h1 className="text-[clamp(2.55rem,10vw,4.9rem)] font-semibold leading-[0.94] tracking-[-0.075em] text-slate-950 lg:text-[clamp(3.25rem,4.35vw,5.05rem)]">If AI engines cannot see or understand your business, customers may never get the chance to.</h1>
+            <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Cendorq turns AI visibility and readiness into a clear path: see where the business is missing, understand what is causing it, improve what matters, and keep visibility from drifting.</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Start Free Scan</Link>
               <Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>View Plans</Link>
@@ -52,12 +53,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="ai-readiness" className="relative scroll-mt-24 px-5 py-7 sm:px-8 lg:py-10" aria-label="AI readiness story">
+      <section id="ai-readiness" className="relative scroll-mt-24 px-5 py-7 sm:px-8 lg:py-10" aria-label="AI visibility and readiness story">
         <div className={CENDORQ_EXPERIENCE_SYSTEM.maxWidth}>
           <div className="rounded-[2rem] border border-white/80 bg-[radial-gradient(circle_at_50%_0%,rgba(125,211,252,0.24),transparent_36%),linear-gradient(180deg,rgba(255,255,255,0.9),rgba(238,251,255,0.84)_58%,rgba(255,255,255,0.92))] p-5 shadow-[0_18px_60px_rgba(15,23,42,0.065)] backdrop-blur sm:rounded-[2.6rem] sm:p-7 lg:p-8">
             <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
               <h2 className="max-w-4xl text-[clamp(2.1rem,8.8vw,4.25rem)] font-semibold leading-[0.97] tracking-[-0.07em] text-slate-950 sm:text-[clamp(2.35rem,3.7vw,4.25rem)]">AI is becoming the place customers meet you first.</h2>
-              <p className="max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">To be recommended or trusted, a business needs clear facts, consistent signals, trusted proof, and a reason to choose. Cendorq helps reveal what should be strengthened first without promising rankings, leads, revenue, or AI placement.</p>
+              <p className="max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">To be found, recommended, or trusted, a business needs visibility, clear facts, consistent signals, trusted proof, and a reason to choose. Cendorq helps reveal what should be strengthened first without promising rankings, leads, revenue, or AI placement.</p>
             </div>
             <div className="mt-6 grid gap-3 lg:grid-cols-3">
               {EXPERIENCE_CHAPTERS.map((chapter) => (
@@ -75,7 +76,7 @@ export default function HomePage() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[18rem] bg-[radial-gradient(circle_at_50%_20%,rgba(125,211,252,0.2),transparent_46%)]" />
         <div className="relative mx-auto max-w-4xl rounded-[2rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(234,250,255,0.86))] p-5 shadow-[0_18px_60px_rgba(15,23,42,0.065)] backdrop-blur sm:rounded-[2.4rem] sm:p-7 lg:p-8">
           <h2 className="max-w-4xl text-[clamp(2rem,7.5vw,3.9rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">Start with the first signal. Move deeper only when it makes sense.</h2>
-          <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">See the first place your business may be unclear, under-trusted, or harder to choose. The deeper plan path stays on Plans, where it belongs.</p>
+          <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">See where your business may be missing, unclear, under-trusted, or harder to choose. The deeper plan path stays on Plans, where it belongs.</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Start Free Scan</Link><Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>View Plans</Link></div>
         </div>
       </section>
@@ -92,7 +93,7 @@ function SignalMap() {
         <div className="relative min-h-[30rem] overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[radial-gradient(circle_at_48%_30%,#ffffff_0%,#effcff_42%,#dff4ff_100%)] p-5 shadow-inner sm:min-h-[29rem] sm:rounded-[2.35rem] sm:p-7">
           <div className="absolute left-1/2 top-1/2 h-[19.5rem] w-[19.5rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/95 bg-cyan-100/12" />
           <div className="absolute left-1/2 top-1/2 h-[13.5rem] w-[13.5rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-300/80 bg-indigo-100/10" />
-          <div className="relative max-w-sm"><h2 className="text-[clamp(1.85rem,7.5vw,3.05rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950 sm:text-[clamp(2rem,3.1vw,3.05rem)]">What does the market understand?</h2><p className="mt-3 text-sm font-medium leading-6 text-slate-600">Cendorq connects the visible signals into one safer next action.</p></div>
+          <div className="relative max-w-sm"><h2 className="text-[clamp(1.85rem,7.5vw,3.05rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950 sm:text-[clamp(2rem,3.1vw,3.05rem)]">What does the market see and understand?</h2><p className="mt-3 text-sm font-medium leading-6 text-slate-600">Cendorq connects visible signals into one safer next action.</p></div>
           <div className="relative mx-auto mt-5 h-[19.5rem] w-full max-w-[22rem] sm:h-[16.5rem] sm:max-w-none">
             <div className="absolute left-1/2 top-1/2 z-20 flex h-[7.1rem] w-[7.1rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-slate-900 bg-slate-950 text-white shadow-[0_18px_56px_rgba(15,23,42,0.25)] sm:h-[7.4rem] sm:w-[7.4rem]"><span className="text-xl font-semibold tracking-[-0.04em] text-white sm:text-2xl">Cendorq</span></div>
             <div className="absolute left-[20%] top-[24%] h-[2px] w-[32%] rotate-[20deg] bg-cyan-500" /><div className="absolute right-[20%] top-[24%] h-[2px] w-[32%] -rotate-[20deg] bg-cyan-500" /><div className="absolute bottom-[24%] left-[20%] h-[2px] w-[32%] -rotate-[20deg] bg-cyan-500" /><div className="absolute bottom-[24%] right-[20%] h-[2px] w-[32%] rotate-[20deg] bg-cyan-500" />

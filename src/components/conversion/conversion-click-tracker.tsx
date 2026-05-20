@@ -10,6 +10,9 @@ const TRACKED_HREF_PREFIXES = [
   "/plans/deep-review",
   "/plans/build-fix",
   "/plans/ongoing-control",
+  "/login",
+  "/signup",
+  "/faq",
   "/connect",
 ] as const;
 
@@ -31,6 +34,7 @@ export function ConversionClickTracker() {
         href,
         text: normalizeText(anchor.textContent || ""),
         sourcePage: pathname,
+        intent: classifyClickIntent(href),
       });
     }
 
@@ -42,7 +46,19 @@ export function ConversionClickTracker() {
 }
 
 function shouldTrackHref(href: string) {
-  return TRACKED_HREF_PREFIXES.some((prefix) => href === prefix || href.startsWith(`${prefix}#`) || href.startsWith(`${prefix}/`));
+  return TRACKED_HREF_PREFIXES.some((prefix) => href === prefix || href.startsWith(`${prefix}#`) || href.startsWith(`${prefix}/`) || href.startsWith(`${prefix}?`));
+}
+
+function classifyClickIntent(href: string) {
+  if (href.startsWith("/free-check")) return "free_scan";
+  if (href.startsWith("/plans/deep-review")) return "deep_review";
+  if (href.startsWith("/plans/build-fix")) return "build_fix";
+  if (href.startsWith("/plans/ongoing-control")) return "ongoing_control";
+  if (href.startsWith("/plans")) return "plans";
+  if (href.startsWith("/login") || href.startsWith("/signup")) return "customer_access";
+  if (href.startsWith("/faq")) return "education";
+  if (href.startsWith("/connect")) return "contact";
+  return "other";
 }
 
 function normalizeHref(value: string) {
@@ -52,7 +68,7 @@ function normalizeHref(value: string) {
   try {
     const parsed = new URL(trimmed, window.location.origin);
     if (parsed.origin !== window.location.origin) return "";
-    return `${parsed.pathname}${parsed.hash}`;
+    return `${parsed.pathname}${parsed.search}${parsed.hash}`;
   } catch {
     return trimmed.startsWith("/") ? trimmed : "";
   }
