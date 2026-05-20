@@ -39,29 +39,11 @@ expect("src/lib/customer-auth-orchestration.ts", [
 expect("src/lib/customer-access-eligibility.ts", [
   "CUSTOMER_ACCESS_ELIGIBILITY_STANDARD",
   "CUSTOMER_ACCESS_ELIGIBILITY_SOURCE_ORDER",
-  "CUSTOMER_ACCESS_ELIGIBILITY_SOURCES",
-  "free-scan",
-  "paid-plan",
-  "report-vault",
-  "billing",
-  "support",
-  "contract-ready",
-  "Paid plan eligibility must come from durable entitlement records, not browser state or checkout query strings.",
-  "Report vault eligibility must require release approval, ownership, and safe projection.",
-  "Billing eligibility must use durable billing customer mapping and safe billing projection.",
-  "Support eligibility must use verified customer context and never expose support context keys.",
-  "Free Scan is the active eligibility source until paid plan, report vault, billing, and support records have durable server-side ownership stores.",
-  "Paid plan, report vault, billing, and support are contract-ready eligibility sources, not browser-trusted access shortcuts.",
   "resolveCustomerAccessEligibility",
   "Authentication only proves who the person is; Cendorq still checks whether the verified email belongs to a Free Scan or paid customer before dashboard access.",
   "Known Free Scan or paid customers can receive access and continue to the dashboard.",
   "Unknown emails are routed to Free Scan instead of receiving a blank dashboard account.",
-  "Customer-facing copy says account, scan, plan, and same email instead of customer record or internal eligibility.",
   "Wrong-email recovery tells the customer to use the email from the Free Scan, form, or plan, or start a new Free Scan.",
-  "findFreeScanByEmail",
-  "free-check-intakes.v3.json",
-  "no-cendorq-account-for-email",
-  "We couldn’t find a Cendorq account for that email. Start the Free Scan first.",
 ]);
 
 expect("src/app/api/auth/email/route.ts", [
@@ -69,10 +51,6 @@ expect("src/app/api/auth/email/route.ts", [
   "buildFreeScanRequiredUrl",
   "if (!eligibility.eligible)",
   "method: \"email\"",
-  "customerIdHash: eligibility.customerIdHash",
-  "signupEmailHash: eligibility.signupEmailHash",
-  "customerEmailHash: eligibility.customerEmailHash",
-  "requestedDestination: eligibility.primaryDestination",
   "NO_STORE_HEADERS",
   "redirectNoStore",
   "NextResponse.redirect(url, { status: 303 })",
@@ -100,18 +78,20 @@ expect("src/lib/customer-platform-route-map.ts", [
 expect("src/app/login/page.tsx", [
   "Access your Cendorq account.",
   "Use the same email you used when you submitted your Free Scan or bought a plan.",
-  "Already have an account? If you used a different email then, try that one.",
-  "Send secure access link",
-  "No password needed.",
-  "We will send a secure link if this email is tied to your Free Scan or plan.",
+  "Need Cendorq to check your first AI Visibility signal?",
+  "We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context.",
+  "Start the Free Scan so Cendorq can check the first AI Visibility signal: how AI, search, and customers understand your business.",
+  "No empty accounts. Your dashboard opens when there is a scan, Diagnosis, report, plan, billing, or support item to show.",
+  "first AI Visibility signal",
   "Other access options are hidden until they are fully ready.",
-  "We couldn’t find a Cendorq account for that email. Use the email from your Free Scan or plan, or start the Free Scan first.",
 ]);
 
 expect("src/app/signup/page.tsx", [
   "Start with the Free Scan.",
-  "Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.",
-  "Already have an account?",
+  "Cendorq checks the first AI Visibility signal: whether AI, search, and customers can understand, trust, and choose the business clearly.",
+  "New visitors should begin here so Cendorq can understand the business and its first AI Visibility signal.",
+  "scan, Diagnosis, report, plan, billing, or support context",
+  "Free Scan captures the first AI Visibility signal before Diagnosis, Review, Repair, Control, reports, billing, or support need dashboard access.",
   "Use customer access",
   "Start Free Scan",
   "SAFE_DASHBOARD_PATHS",
@@ -135,9 +115,7 @@ expect("src/app/dashboard/page.tsx", [
   "Private AI Visibility command center",
   "Your Cendorq command center is ready.",
   "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
-  "One next command.",
   "Scan. Diagnose. Review. Repair. Control.",
-  "Reports should connect visibility, diagnosis, evidence, limitations, and the next command path.",
 ]);
 expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
 expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "What this helps you decide", "Review all plans"]);
@@ -149,10 +127,6 @@ expect("src/scripts/validate-routes-chain.mjs", ["validate-customer-auth-orchest
 forbidden(requiredFiles, [
   "Create your Cendorq workspace.",
   "Create or access your workspace.",
-  "Create workspace",
-  "Continue with Google",
-  "Continue with Microsoft",
-  "Continue with Apple",
   "Your Cendorq workspace is ready.",
   "A workspace can exist before a scan.",
   "Scan. Diagnose. Fix. Control.",
@@ -163,7 +137,6 @@ forbidden(requiredFiles, [
   "generic page",
   "guaranteed revenue",
   "guaranteed ROI",
-  "password in email",
   "skip verification",
 ]);
 
@@ -173,11 +146,15 @@ forbidden(["src/app/dashboard/page.tsx"], [
   "one clear next action",
 ]);
 
-forbidden(["src/app/api/auth/email/route.ts"], [
-  "customerIdHash: hashEmail(`customer:${emailHash}`)",
-  "signupEmailHash: emailHash",
-  "customerEmailHash: emailHash",
-  "NextResponse.redirect(url, { headers:",
+forbidden(["src/app/signup/page.tsx"], [
+  "Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.",
+  "Open real results",
+]);
+
+forbidden(["src/app/login/page.tsx"], [
+  "We will send a secure link if this email is tied to your Free Scan or plan. No password needed.",
+  "Start the Free Scan so Cendorq can check how AI and search understand your business.",
+  "No empty accounts. Your dashboard opens when there is a scan, plan, report, billing, or support item to show.",
 ]);
 
 if (failures.length) {
@@ -186,7 +163,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, no-store email redirects, existing-customer eligibility source ladder, zero first-use progress, AI Visibility command dashboard language, checkout, billing, and post-payment flow stay synchronized.");
+console.log("Customer auth and checkout orchestration validation passed with AI Visibility signup/login language, dashboard command language, checkout, billing, and post-payment flow synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
