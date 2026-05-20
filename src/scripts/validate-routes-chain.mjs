@@ -132,6 +132,7 @@ const validators = [
   "src/scripts/validate-verified-welcome-email-contracts.mjs",
   "src/scripts/validate-dashboard-session-gate.mjs",
   "src/scripts/validate-provider-callback-ready-gate.mjs",
+  "src/scripts/validate-provider-entry-no-store.mjs",
   "src/scripts/validate-middleware-security-hardening.mjs",
   "src/scripts/validate-command-center-owner-configuration-workflow-smoke.mjs",
   "src/scripts/validate-customer-platform-standard.mjs",
