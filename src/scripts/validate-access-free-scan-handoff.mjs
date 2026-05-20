@@ -52,13 +52,19 @@ expect(verifyPath, [
 
 expect(freeCheckPath, [
   "Free Scan | Cendorq",
-  "See where your business may be missing or unclear.",
-  "Cendorq checks the signals around your business",
+  "Get the first signal before buying the deeper fix.",
+  "Cendorq checks the visible signals around your business",
+  "What the first signal looks for",
+  "Findability",
+  "Understanding",
+  "Trust",
+  "Choice",
+  "Action",
   "Share what customers can see now.",
-  "Cendorq checks the first visibility and readiness signal.",
+  "Cendorq checks the first Presence Report signal.",
   "Open the result in your account.",
   "Is the Free Scan a full review?",
-  "No. It is a first signal that shows where visibility or readiness may be weak, so you can decide whether deeper review or repair work makes sense.",
+  "No. It is a first Presence Report signal that shows where visibility or readiness may be weak, so you can decide whether deeper review or repair work makes sense.",
   "We could not find a Free Scan or plan for that email. Start the Free Scan below.",
 ]);
 
@@ -119,7 +125,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Access and Free Scan handoff validation passed with Free Scan-first conversion, existing-customer same-email recovery copy, no blank dashboard promise, and zero first-use progress.");
+console.log("Access and Free Scan handoff validation passed with diagnostic Free Scan-first conversion, existing-customer same-email recovery copy, no blank dashboard promise, and zero first-use progress.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
