@@ -29,12 +29,12 @@ const DECISION_SUMMARY = [
   {
     label: "AI Visibility",
     value: "Capture the first signal.",
-    detail: "The Free Scan gives Cendorq the business details needed before deeper Diagnosis, Review, Repair, or Control work makes sense.",
+    detail: "The Free Scan gives Cendorq the business details needed before deeper Review, Repair, or Control work makes sense. Diagnosis belongs inside Review and reports.",
   },
   {
     label: "Reports",
     value: "Open what is ready",
-    detail: "Reports should connect visibility, diagnosis, evidence, limitations, and the next command path.",
+    detail: "Reports should connect visibility, diagnosis evidence, limitations, and the next command path.",
   },
   {
     label: "Support",
@@ -75,7 +75,7 @@ const COMMAND_PATH = [
 ] as const;
 
 const COMMAND_LINKS = [
-  { title: "Reports", copy: "Open protected scan, Diagnosis, Review, and evidence outputs when they are ready.", href: "/dashboard/reports" },
+  { title: "Reports", copy: "Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.", href: "/dashboard/reports" },
   { title: "Billing", copy: "See plan access, invoices, and checkout recovery.", href: "/dashboard/billing" },
   { title: "Notifications", copy: "See what needs attention next across the command path.", href: "/dashboard/notifications" },
   { title: "Support", copy: "Resolve blockers without sharing private passwords.", href: "/dashboard/support" },
@@ -103,7 +103,7 @@ export default function CustomerDashboardPage() {
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
           <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">One next command.</h2>
           <p className="mt-5 text-base font-medium leading-8 text-slate-600">
-            The dashboard should not force a purchase or assume a result exists. It should show the safest next command: start the Free Scan, continue Diagnosis, open the result, or choose the next plan.
+            The dashboard should not force a purchase or assume a result exists. It should show the safest next command: start the Free Scan, continue Review, open the result, or choose the next plan.
           </p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {DECISION_SUMMARY.slice(0, 2).map((item) => (
@@ -133,7 +133,7 @@ export default function CustomerDashboardPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Diagnose. Review. Repair. Control.</h2>
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Review. Repair. Control.</h2>
               <p className="mt-5 text-base font-medium leading-8 text-slate-600">
                 No cheap dashboard blocks. No clutter wall. No shrinking the system. Each action should help the customer understand the AI Visibility command path fast.
               </p>
@@ -171,7 +171,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Diagnose. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan, Diagnosis, Review, and evidence outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
     </main>
   );
 }
