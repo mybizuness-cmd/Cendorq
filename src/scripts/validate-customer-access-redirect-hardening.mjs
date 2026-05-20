@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
+const validatorPath = "src/scripts/validate-customer-access-redirect-hardening.mjs";
 
 expect("src/app/signup/page.tsx", [
   "SAFE_DASHBOARD_PATHS",
@@ -15,6 +16,8 @@ expect("src/app/api/auth/email/route.ts", [
   "NextResponse.redirect(url, { status: 303 })",
   "X-Robots-Tag",
 ]);
+
+expect("src/scripts/validate-routes-chain.mjs", [validatorPath]);
 
 if (failures.length) {
   console.error("Customer access redirect hardening validation failed:");
