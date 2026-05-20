@@ -65,8 +65,9 @@ export default function HomePage() {
               <input id="homepage-website" name="website" type="url" placeholder="yourbusiness.com" className="min-h-12 w-full rounded-full border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/70" />
               <button type="submit" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} mt-3 w-full sm:mt-0 sm:w-auto`}>Run Free Scan</button>
             </form>
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Start Free Scan</Link>
+              <Link href="/sample-report" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>See Sample Report</Link>
               <Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>View Plans</Link>
             </div>
             <p className="mt-4 max-w-xl text-xs font-semibold leading-5 text-slate-500">Free Scan is a first signal. Deeper review, repair, and control stay scoped to the evidence.</p>
@@ -162,4 +163,4 @@ function PresenceReport() {
       </div>
     </div>
   );
-} 
+}
