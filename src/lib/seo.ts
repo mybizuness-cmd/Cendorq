@@ -276,6 +276,14 @@ function buildImageAlt({ title, imageTitle, imageSubtitle }: { title: string; im
     return parts.join(" — ") || siteConfig.defaultOgTitle;
 }
 
+function organizationSchemaId() {
+    return `${siteConfig.siteUrl}${ORGANIZATION_HASH}`;
+}
+
+function websiteSchemaId() {
+    return `${siteConfig.siteUrl}${WEBSITE_HASH}`;
+}
+
 function normalizeLocale(value: string) {
     return cleanString(value).replace("_", "-") || "en-US";
 }
