@@ -14,6 +14,7 @@ const validators = [
   "src/scripts/validate-cendorq-agent-handoff-docs.mjs",
   "src/scripts/validate-command-design-operating-standard.mjs",
   "src/scripts/validate-public-drift.mjs",
+  "src/scripts/validate-sample-presence-report-route.mjs",
   "src/scripts/validate-public-sitemap-surface.mjs",
   "src/scripts/validate-public-robots-surface.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
