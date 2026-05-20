@@ -56,7 +56,7 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "Do I have to buy something after the Free Scan?",
         answer:
-          "No. If deeper review or repair makes sense, Cendorq can show the next step. You are not forced to continue.",
+          "No. If deeper Review or Repair makes sense, Cendorq can show the next step. You are not forced to continue.",
       },
       {
         question: "What happens after I submit the Free Scan?",
@@ -108,22 +108,22 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "What is the difference between Free Scan, Deep Review, Build Fix, and Ongoing Control?",
         answer:
-          "Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Ongoing Control keeps watch over time.",
+          "Free Scan shows the first signal. Deep Review explains the cause. Build Fix repairs the weak point. Ongoing Control keeps watch over time.",
       },
       {
         question: "Which plan should I choose?",
         answer:
-          "Start with the Free Scan if you are unsure. Move to Deep Review when you need the cause. Move to Build Fix when the weak point is clear. Use Ongoing Control when you need ongoing watch.",
+          "Start with the Free Scan if you are unsure. Move to Deep Review when you need the cause. Move to Build Fix when the weak point is clear enough to repair. Use Ongoing Control when you need ongoing watch.",
       },
       {
         question: "Can I skip straight to a paid plan?",
         answer:
-          "Sometimes, but the safer path is to scan first. Fixing the wrong thing can waste time and money.",
+          "Sometimes, but the safer path is to scan first. Repairing the wrong thing can waste time and money.",
       },
       {
-        question: "Why pay for a review before a fix?",
+        question: "Why pay for a review before repair?",
         answer:
-          "Because the wrong fix can cost more than the review. The review helps prove what is really holding the business back.",
+          "Because the wrong repair can cost more than the review. The review helps prove what is really holding the business back.",
       },
     ],
   },

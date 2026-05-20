@@ -70,7 +70,10 @@ expect(faqPath, [
   "Start with the Free Scan",
   "Already have an account? Use the same email you used for your Free Scan, form, or plan.",
   "What is the difference between Free Scan, Deep Review, Build Fix, and Ongoing Control?",
-  "Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Ongoing Control keeps watch over time.",
+  "Free Scan shows the first signal. Deep Review explains the cause. Build Fix repairs the weak point. Ongoing Control keeps watch over time.",
+  "Move to Build Fix when the weak point is clear enough to repair.",
+  "Why pay for a review before repair?",
+  "Because the wrong repair can cost more than the review.",
   "Cendorq is built to improve visibility, clarity, trust, proof, readiness",
   "Contact Us",
   "href: \"/connect\"",
@@ -135,6 +138,10 @@ forbidden(faqPath, [
   "href: \"/contact\"",
   "label: \"Contact\"",
   "label: \"Connect\"",
+  "Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point.",
+  "Fixing the wrong thing can waste time and money.",
+  "Why pay for a review before a fix?",
+  "Because the wrong fix can cost more than the review.",
   "guaranteed rankings, leads, revenue, or AI placement. Yes",
   "workspace theory",
   "orchestration",
@@ -172,7 +179,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, direct FAQ browser navigation, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Contact Us routing, support@cendorq.com direct email, and visibility plus readiness footer trust copy.");
+console.log("Public navigation chrome validation passed with remembered customer header state, direct FAQ browser navigation, FAQ Repair language, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, Contact Us routing, support@cendorq.com direct email, and visibility plus readiness footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
