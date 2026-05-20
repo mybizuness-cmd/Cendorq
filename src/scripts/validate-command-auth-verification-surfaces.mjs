@@ -35,6 +35,7 @@ expect(loginPath, [
   "First time here?",
   "Other access options are hidden until they are fully ready.",
   "Free Scan starts the account. Access brings customers back.",
+  "SAFE_DASHBOARD_PATHS",
   "hover:-translate-y-0.5",
   "focus:outline-none",
   "focus-visible:ring-2",
@@ -48,8 +49,9 @@ expect(verifyPath, [
   "Start Free Scan",
   "Confirm once.",
   "Find the message from Cendorq Support.",
-  "One inbox. One customer record. One correct next step.",
-  "If Cendorq cannot find a customer record for the verified identity, the next step is the Free Scan.",
+  "One inbox. One verified email. One correct next step.",
+  "The same email can return to a Free Scan, plan, report, billing, or support path.",
+  "New customers start with the Free Scan before account access exists.",
   "hover:-translate-y-0.5",
   "focus:outline-none",
   "focus-visible:ring-2",
@@ -88,6 +90,7 @@ forbidden(verifyPath, [
   "AFTER_CONFIRMATION_PATH",
   "Confirm once, then continue the exact customer path.",
   "Open dashboard after confirmation",
+  "customer record",
 ]);
 
 boundedLength(signupPath, 12500);
