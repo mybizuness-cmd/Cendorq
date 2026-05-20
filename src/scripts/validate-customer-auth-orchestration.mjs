@@ -75,6 +75,7 @@ expect("src/app/api/auth/email/route.ts", [
   "requestedDestination: eligibility.primaryDestination",
   "NO_STORE_HEADERS",
   "redirectNoStore",
+  "NextResponse.redirect(url, { status: 303 })",
   "Cache-Control",
   "X-Robots-Tag",
 ]);
@@ -113,6 +114,7 @@ expect("src/app/signup/page.tsx", [
   "Already have an account?",
   "Use customer access",
   "Start Free Scan",
+  "SAFE_DASHBOARD_PATHS",
 ]);
 
 expect("src/app/verify-email/page.tsx", [
@@ -130,11 +132,12 @@ expect("src/components/free-check/guided-free-check-form-v3.tsx", [
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "Private AI readiness control center",
-  "Your Cendorq account is ready.",
-  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
-  "One next step.",
-  "Scan. Review. Repair. Control.",
+  "Private AI Visibility command center",
+  "Your Cendorq command center is ready.",
+  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
+  "One next command.",
+  "Scan. Diagnose. Review. Repair. Control.",
+  "Reports should connect visibility, diagnosis, evidence, limitations, and the next command path.",
 ]);
 expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
 expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "What this helps you decide", "Review all plans"]);
@@ -164,6 +167,12 @@ forbidden(requiredFiles, [
   "skip verification",
 ]);
 
+forbidden(["src/app/dashboard/page.tsx"], [
+  "Private AI readiness control center",
+  "Your Cendorq account is ready.",
+  "one clear next action",
+]);
+
 forbidden(["src/app/api/auth/email/route.ts"], [
   "customerIdHash: hashEmail(`customer:${emailHash}`)",
   "signupEmailHash: emailHash",
@@ -177,7 +186,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, no-store email redirects, existing-customer eligibility source ladder, zero first-use progress, account/dashboard language, checkout, billing, and post-payment flow stay synchronized.");
+console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, no-store email redirects, existing-customer eligibility source ladder, zero first-use progress, AI Visibility command dashboard language, checkout, billing, and post-payment flow stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
