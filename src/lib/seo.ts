@@ -70,20 +70,21 @@ export const siteConfig: SiteConfig = {
     shortName: "Cendorq",
     siteUrl: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
     description:
-        "Cendorq checks whether AI engines and customers can understand, trust, and choose a business clearly.",
+        "Cendorq repairs the public signals that help AI systems and customers find, understand, trust, compare, and choose a business.",
     locale: "en_US",
     twitterHandle: "",
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@cendorq.com",
     supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@cendorq.com",
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "",
     locationLabel: "United States",
-    defaultOgTitle: "Cendorq — AI Engine Readiness",
+    defaultOgTitle: "Cendorq — AI Search Presence Repair",
     defaultOgDescription:
-        "If AI engines cannot understand your business, customers may never get the chance to. Start with the Free Scan.",
+        "Cendorq checks whether customers and AI systems can find, understand, trust, compare, and choose a business, then shows what to repair first.",
     defaultKeywords: [
         "Cendorq",
-        "AI engine readiness",
-        "AI readiness for business",
+        "AI Search Presence Repair",
+        "Presence Report",
+        "Free Scan",
         "business clarity scan",
         "business trust signals",
     ],
@@ -235,7 +236,7 @@ export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJs
     };
 }
 
-export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI engine readiness" }: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI Search Presence Repair" }: ServiceJsonLdInput) {
     const normalizedPath = normalizePath(path);
 
     return {
@@ -245,7 +246,7 @@ export function buildServiceJsonLd({ title, description, path = "/", serviceType
         name: cleanString(title) || siteConfig.defaultOgTitle,
         description: cleanString(description) || siteConfig.defaultOgDescription,
         url: absoluteUrl(normalizedPath),
-        serviceType: cleanString(serviceType) || "AI engine readiness",
+        serviceType: cleanString(serviceType) || "AI Search Presence Repair",
         areaServed: "Worldwide",
         provider: { "@id": organizationSchemaId() },
         brand: { "@id": organizationSchemaId() },
