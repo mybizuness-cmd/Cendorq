@@ -73,6 +73,10 @@ expect("src/app/api/auth/email/route.ts", [
   "signupEmailHash: eligibility.signupEmailHash",
   "customerEmailHash: eligibility.customerEmailHash",
   "requestedDestination: eligibility.primaryDestination",
+  "NO_STORE_HEADERS",
+  "redirectNoStore",
+  "Cache-Control",
+  "X-Robots-Tag",
 ]);
 
 expect("src/lib/pricing-checkout-orchestration.ts", [
@@ -164,6 +168,7 @@ forbidden(["src/app/api/auth/email/route.ts"], [
   "customerIdHash: hashEmail(`customer:${emailHash}`)",
   "signupEmailHash: emailHash",
   "customerEmailHash: emailHash",
+  "NextResponse.redirect(url, { headers:",
 ]);
 
 if (failures.length) {
@@ -172,7 +177,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, existing-customer eligibility source ladder, zero first-use progress, account/dashboard language, checkout, billing, and post-payment flow stay synchronized.");
+console.log("Customer auth and checkout orchestration validation passed. Free Scan-first access, no-store email redirects, existing-customer eligibility source ladder, zero first-use progress, account/dashboard language, checkout, billing, and post-payment flow stay synchronized.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
