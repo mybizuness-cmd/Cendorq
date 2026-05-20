@@ -73,6 +73,7 @@ const validators = [
   "src/scripts/validate-paid-report-final-routes.mjs",
   "src/scripts/validate-command-center-paid-report-delivery-ops.mjs",
   "src/scripts/validate-customer-auth-orchestration.mjs",
+  "src/scripts/validate-login-return-allowlist.mjs",
   "src/scripts/validate-pricing-checkout-orchestration.mjs",
   "src/scripts/validate-conversion-moat-standard.mjs",
   "src/scripts/validate-insights-conversation-standard.mjs",
