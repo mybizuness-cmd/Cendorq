@@ -171,7 +171,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard readiness standard">AI readiness control center. Your Cendorq account is ready. one clear next action. One next step. Cendorq keeps the next step separate. An account can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan and review outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard readiness standard">AI readiness control center. Your Cendorq account is ready. one clear next action. One next step. Cendorq keeps the next step separate. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan and review outputs when they are ready.</section>
     </main>
   );
 }
