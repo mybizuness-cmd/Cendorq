@@ -98,6 +98,7 @@ function buildAuthNotice(auth: string | undefined, provider: string | undefined)
   if (auth === "signed-out") return { tone: "success", message: "You are signed out on this browser." };
   if (auth === "provider-not-ready") return { tone: "warning", message: `${provider ? `${titleCase(provider)} access` : "That access option"} is not ready yet. Use the secure email link for now.` };
   if (auth === "provider-callback-pending") return { tone: "warning", message: `Provider access is not live yet. Use the secure email link for now.` };
+  if (auth === "provider-callback-invalid-state") return { tone: "warning", message: "That access attempt could not be verified. Use the secure email link below." };
   if (auth === "provider-callback-missing-code") return { tone: "warning", message: "That provider sign-in could not finish. Use the secure email link." };
   if (auth === "provider-cancelled") return { tone: "warning", message: "Provider sign-in was cancelled. Use the secure email link or start the Free Scan." };
   if (auth === "free-scan-required") return { tone: "warning", message: "We couldn’t find a Cendorq account for that email. Use the email from your Free Scan or plan, or start the Free Scan first.", href: "/free-check?access=free-scan-required&method=login", cta: "Start Free Scan" };
