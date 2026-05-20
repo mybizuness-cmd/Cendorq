@@ -11,8 +11,9 @@ const billingPath = "src/app/dashboard/billing/page.tsx";
 const dashboardPath = "src/app/dashboard/page.tsx";
 const checkoutStartPath = "src/app/checkout/start/page.tsx";
 const checkoutSuccessPath = "src/app/checkout/success/page.tsx";
+const clickTrackerPath = "src/components/conversion/conversion-click-tracker.tsx";
 
-for (const path of [pricingContractPath, plansPath, planTemplatePath, billingPath, dashboardPath, checkoutStartPath, checkoutSuccessPath]) {
+for (const path of [pricingContractPath, plansPath, planTemplatePath, billingPath, dashboardPath, checkoutStartPath, checkoutSuccessPath, clickTrackerPath]) {
   if (!existsSync(join(root, path))) failures.push(`Missing conversion moat dependency: ${path}`);
 }
 
@@ -82,6 +83,19 @@ expect(checkoutSuccessPath, [
   "Open your inbox",
 ]);
 
+expect(clickTrackerPath, [
+  "ConversionClickTracker",
+  "classifyClickIntent",
+  "free_scan",
+  "deep_review",
+  "build_fix",
+  "ongoing_control",
+  "customer_access",
+  "education",
+  "contact",
+  "parsed.search",
+]);
+
 forbidden([pricingContractPath, plansPath, planTemplatePath, billingPath, dashboardPath, checkoutStartPath, checkoutSuccessPath], [
   "$750+",
   "$300/mo",
@@ -102,7 +116,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Conversion moat standard validation passed with current plan names, fixed pricing, customer-facing checkout, dashboard revenue path, and post-payment activation coverage.");
+console.log("Conversion moat standard validation passed with current plan names, fixed pricing, click intent tracking, checkout, dashboard revenue path, and post-payment activation coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) return;
