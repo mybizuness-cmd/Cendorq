@@ -14,14 +14,23 @@ expect(pagePath, [
   "@/components/free-check/guided-free-check-form-v3",
   "FreeCheckAnalytics",
   "FreeCheckProgressGuard",
-  "Find the first place your business may be unclear.",
-  "Cendorq looks at the signals around your business",
-  "Open the result in your workspace.",
+  "Free Presence Scan",
+  "Get the first signal before buying the deeper fix.",
+  "What the first signal looks for",
+  "Findability",
+  "Understanding",
+  "Trust",
+  "Choice",
+  "Action",
+  "Cendorq checks the visible signals around your business",
+  "Open the result in your account.",
 ]);
 
 reject(pagePath, [
   "GuidedFreeCheckFormFocused",
   "@/components/free-check/guided-free-check-form-focused",
+  "Find the first place your business may be unclear.",
+  "Open the result in your workspace.",
 ]);
 
 expect(formPath, [
@@ -82,7 +91,7 @@ reject(formPath, [
 expect(routesChainPath, [validatorPath]);
 
 boundedLength(formPath, 24000);
-boundedLength(pagePath, 12500);
+boundedLength(pagePath, 17000);
 
 if (failures.length) {
   console.error("Elevated Free Scan form v3 validation failed:");
@@ -90,7 +99,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Elevated Free Scan form v3 validation passed with simplified two-step Free Scan intake, customer-safe language, dashboard result handoff, recovery guidance, and no stale saved-progress restore.");
+console.log("Elevated Free Scan form v3 validation passed with diagnostic Free Scan page, preserved two-step intake, customer-safe language, dashboard result handoff, recovery guidance, and no stale saved-progress restore.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
