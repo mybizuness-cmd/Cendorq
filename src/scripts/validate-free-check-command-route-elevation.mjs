@@ -13,18 +13,25 @@ const failures = [];
 
 expect(pagePath, [
   "Free Scan | Cendorq",
-  "Start the Cendorq Free Scan to see where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
+  "first Presence Report signal",
   "Cendorq Free Scan",
-  "AI visibility and readiness free scan",
+  "AI Search Presence Repair free scan",
   "FreeCheckProgressGuard",
   "FreeCheckAnalytics",
   "GuidedFreeCheckFormV3",
-  "See where your business may be missing or unclear.",
-  "Cendorq checks the signals around your business and shows where AI engines or customers may hesitate first.",
+  "Free Presence Scan",
+  "Get the first signal before buying the deeper fix.",
+  "What the first signal looks for",
+  "Findability",
+  "Understanding",
+  "Trust",
+  "Choice",
+  "Action",
+  "Cendorq checks the visible signals around your business and shows where customers or AI systems may hesitate first.",
   "How the Free Scan moves from intake to protected results",
   "Start with what is already visible.",
   "Share what customers can see now.",
-  "Cendorq checks the first visibility and readiness signal.",
+  "Cendorq checks the first Presence Report signal.",
   "Open the result in your account.",
   "After verification, the result opens inside your Cendorq account so your business details and next step stay connected.",
   "{ name: \"Free Scan\", path: \"/free-check\" }",
@@ -63,18 +70,9 @@ expect(progressGuardPath, [
   "window.localStorage.setItem(STORAGE_KEY",
 ]);
 
-expect(analyticsPath, [
-  "FreeCheckAnalytics",
-]);
-
-expect(packagePath, [
-  "validate:routes",
-  "node ./src/scripts/validate-routes-chain.mjs",
-]);
-
-expect(routesChainPath, [
-  validatorPath,
-]);
+expect(analyticsPath, ["FreeCheckAnalytics"]);
+expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
   "Premium Free Scan room",
@@ -130,27 +128,21 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Check command route validation passed with current Free Scan page, protected verify-to-view handoff, account continuation, zero first-use progress, and route-chain coverage.");
+console.log("Free Check command route validation passed with diagnostic Presence Report preview, protected verify-to-view handoff, account continuation, zero first-use progress, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
     failures.push(`Missing dependency: ${path}`);
     return;
   }
-
   const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
 }
 
 function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
-
   const text = read(path).toLowerCase();
-  for (const phrase of phrases) {
-    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
 }
 
 function read(path) {
