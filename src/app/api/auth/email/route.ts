@@ -12,6 +12,12 @@ const SAFE_DASHBOARD_PATHS = [
   "/dashboard/support",
   "/dashboard/notifications",
 ] as const;
+const NO_STORE_HEADERS = [
+  ["Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"],
+  ["Pragma", "no-cache"],
+  ["Expires", "0"],
+  ["X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet"],
+] as const;
 
 export async function GET(request: NextRequest) {
   const email = cleanEmail(request.nextUrl.searchParams.get("email"));
@@ -21,14 +27,14 @@ export async function GET(request: NextRequest) {
 
   if (!email) {
     loginUrl.searchParams.set("auth", "email-required");
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 
   const eligibility = await resolveCustomerAccessEligibility({ email, requestedDestination: returnTo });
   if (!eligibility.eligible) {
     const freeScanUrl = buildFreeScanRequiredUrl(request.url, { method: "email", returnTo });
     freeScanUrl.searchParams.set("auth", "free-scan-required");
-    return NextResponse.redirect(freeScanUrl);
+    return redirectNoStore(freeScanUrl);
   }
 
   try {
@@ -45,10 +51,10 @@ export async function GET(request: NextRequest) {
 
     const safePayload = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
     loginUrl.searchParams.set("auth", projectEmailAccessState(safePayload));
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   } catch {
     loginUrl.searchParams.set("auth", "email-queued");
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 }
 
@@ -56,6 +62,12 @@ function projectEmailAccessState(payload: ReturnType<typeof projectCustomerConfi
   if (payload.providerDelivery.sent) return "email-sent";
   if (payload.providerDelivery.skipped) return "email-unavailable";
   return "email-queued";
+}
+
+function redirectNoStore(url: URL) {
+  const response = NextResponse.redirect(url);
+  for (const [key, value] of NO_STORE_HEADERS) response.headers.set(key, value);
+  return response;
 }
 
 function safeDashboardPath(value: string | null) {
