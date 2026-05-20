@@ -1,13 +1,14 @@
-import Link from "next/link";
-import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
+import { PresenceReportPreview } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { CENDORQ_PLAN_PRICES, type CendorqPlanKey } from "@/lib/pricing-checkout-orchestration";
+import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
+import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: "Plans | Cendorq",
   description: "Choose the right Cendorq depth: Free Scan, Deep Review, Build Fix, or Ongoing Control for AI visibility, readiness, repair, and control.",
   path: "/plans",
-  keywords: ["cendorq plans", "AI visibility plans", "AI readiness plans", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"],
+  keywords: ["cendorq plans", "AI visibility plans", "AI readiness plans", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Sample Report"],
   image: { alt: "Cendorq visibility and readiness plans." },
 });
 
@@ -21,7 +22,7 @@ const CTA_LABEL_BY_PLAN: Record<CendorqPlanKey, string> = {
 const STAGE_BY_PLAN: Record<CendorqPlanKey, string> = {
   "free-scan": "Scan",
   "deep-review": "Review",
-  "build-fix": "Fix",
+  "build-fix": "Repair",
   "ongoing-control": "Control",
 };
 
@@ -63,6 +64,10 @@ export default function PlansPage() {
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-slate-950">Choose the right visibility and readiness depth.</h1>
             <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Start with what you need now. Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Ongoing Control keeps visibility and readiness from drifting.</p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Start Free Scan</Link>
+              <Link href="/sample-report" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Open Sample Report</Link>
+            </div>
           </div>
 
           <div className="overflow-hidden rounded-[2.2rem] border border-white/80 bg-white/68 p-3 shadow-[0_24px_80px_rgba(15,23,42,0.085)] backdrop-blur-2xl sm:rounded-[2.5rem]">
@@ -82,6 +87,16 @@ export default function PlansPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-10 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center" aria-label="Sample Presence Report plan guidance">
+        <div className="rounded-[2.2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Report-led plan choice</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">The report shows which depth fits.</h2>
+          <p className="mt-4 text-sm font-medium leading-7 text-slate-600 sm:text-base">Cendorq should not push a business into the wrong layer. The Presence Report turns the first signal into a repair queue, then points to Free Scan, Deep Review, Build Fix, or Ongoing Control based on evidence.</p>
+          <Link href="/sample-report" className="mt-6 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">Open Sample Presence Report →</Link>
+        </div>
+        <PresenceReportPreview />
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="Plan separation standard">
