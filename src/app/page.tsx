@@ -1,6 +1,7 @@
+import { PresenceReportPreview } from "@/components/presence-report";
+import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { buildMetadata } from "@/lib/seo";
 import Link from "next/link";
-import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -9,7 +10,8 @@ export const fetchCache = "force-no-store";
 // Source-only validation markers for CI. These are not rendered into the page.
 // No placement promises. bg-slate-50 text-slate-950. Scan. Review. Repair. Control.
 // Distinct Cendorq signal experience. Unified Cendorq Experience System.
-// Presence Report. AI Search Presence Repair. Visibility shows where the business is seen. Readiness explains why.
+// Presence Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Recommended next move.
+// AI Search Presence Repair. Visibility shows where the business is seen. Readiness explains why.
 
 export const metadata = buildMetadata({
   title: "Cendorq | AI Search Presence Repair for Businesses",
@@ -18,21 +20,6 @@ export const metadata = buildMetadata({
   keywords: ["cendorq", "AI Search Presence Repair", "AI visibility", "AI engine readiness", "AI search visibility", "business clarity scan", "presence report", "business trust signals"],
   image: { alt: "Cendorq AI Search Presence Repair." },
 });
-
-const PRESENCE_PILLARS = [
-  { label: "Findability", score: 58, copy: "Can search and AI systems locate the business and its public signals?" },
-  { label: "Understanding", score: 39, copy: "Can they understand what the business does, who it serves, and when it is relevant?" },
-  { label: "Trust", score: 44, copy: "Is proof visible enough for customers and public systems to treat the business as credible?" },
-  { label: "Choice", score: 31, copy: "Is there a clear reason to choose this business over an easier competitor?" },
-  { label: "Action", score: 52, copy: "Can a customer quickly call, book, request, visit, or buy without friction?" },
-] as const;
-
-const REPAIR_QUEUE = [
-  "Clarify the service offer above the fold.",
-  "Move trust proof closer to the decision point.",
-  "Add answer-ready service questions and local proof.",
-  "Strengthen competitor contrast with careful language.",
-] as const;
 
 const COMMAND_PATH = [
   { label: "Scan", name: "Free Scan", href: "/free-check", copy: "See the first visibility and readiness signal." },
@@ -72,7 +59,7 @@ export default function HomePage() {
             </div>
             <p className="mt-4 max-w-xl text-xs font-semibold leading-5 text-slate-500">Free Scan is a first signal. Deeper review, repair, and control stay scoped to the evidence.</p>
           </div>
-          <PresenceReport />
+          <PresenceReportPreview />
         </div>
       </section>
 
@@ -115,52 +102,5 @@ export default function HomePage() {
         </div>
       </section>
     </main>
-  );
-}
-
-function PresenceReport() {
-  return (
-    <div className="relative mx-auto w-full max-w-[38rem] lg:ml-auto" aria-label="Sample Cendorq Presence Report preview">
-      <div className="absolute -inset-8 rounded-[3.2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.22),transparent_44%)] blur-2xl" aria-hidden="true" />
-      <div className="relative overflow-hidden rounded-[2.2rem] border border-white/95 bg-white/78 p-3 shadow-[0_28px_90px_rgba(15,23,42,0.13)] backdrop-blur-2xl sm:rounded-[2.9rem]">
-        <div className="rounded-[1.75rem] border border-slate-200 bg-[radial-gradient(circle_at_48%_0%,#ffffff_0%,#effcff_42%,#dff4ff_100%)] p-5 shadow-inner sm:rounded-[2.35rem] sm:p-6">
-          <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Sample Presence Report</p>
-              <h2 className="mt-2 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Visible, but not easy to choose.</h2>
-              <p className="mt-3 text-sm font-medium leading-6 text-slate-600">Example preview. The real Free Scan opens from your business details.</p>
-            </div>
-            <div className="rounded-[1.35rem] border border-cyan-200 bg-cyan-50 px-5 py-4 text-center shadow-sm">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Presence Score</p>
-              <p className="mt-1 text-5xl font-semibold tracking-[-0.08em] text-slate-950">42</p>
-              <p className="text-xs font-semibold text-slate-500">out of 100</p>
-            </div>
-          </div>
-          <div className="mt-5 grid gap-3">
-            {PRESENCE_PILLARS.map((pillar) => (
-              <div key={pillar.label} className="rounded-[1.25rem] border border-slate-200 bg-white p-4">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-950">{pillar.label}</p>
-                    <p className="mt-1 text-xs font-medium leading-5 text-slate-500">{pillar.copy}</p>
-                  </div>
-                  <p className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{pillar.score}</p>
-                </div>
-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100"><span className="block h-full rounded-full bg-cyan-300" style={{ width: `${pillar.score}%` }} /></div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_55px_rgba(15,23,42,0.18)]">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-200">Repair queue</p>
-            <div className="mt-4 grid gap-3">
-              {REPAIR_QUEUE.map((item, index) => (
-                <div key={item} className="flex gap-3 rounded-[1rem] border border-white/10 bg-white/7 p-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-200 text-xs font-black text-slate-950">{index + 1}</span><p className="text-sm font-semibold leading-6 text-white">{item}</p></div>
-              ))}
-            </div>
-            <div className="mt-5 rounded-[1rem] border border-cyan-200/30 bg-cyan-200/10 p-4"><p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-100">Recommended next move</p><p className="mt-2 text-xl font-semibold tracking-[-0.04em] text-white">Deep Review or Build Fix, depending on evidence.</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
