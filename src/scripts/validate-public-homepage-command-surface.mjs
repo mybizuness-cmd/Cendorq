@@ -14,13 +14,25 @@ const validatorPath = "src/scripts/validate-public-homepage-command-surface.mjs"
 const failures = [];
 
 expect(pagePath, [
-  "Cendorq | AI Engine Readiness for Businesses",
-  "If AI engines cannot understand your business, customers may never get the chance to.",
-  "Cendorq turns AI-readiness into a clear path",
+  "Cendorq | AI Search Presence Repair for Businesses",
+  "presence-report-ai-search-presence-repair-experience",
+  "AI Search Presence Repair",
+  "Can customers and AI systems understand why to choose your business?",
+  "Presence Report",
+  "Presence Score",
+  "Findability",
+  "Understanding",
+  "Trust",
+  "Choice",
+  "Action",
+  "Repair queue",
+  "Recommended next move",
+  "Scan. Review. Repair. Control.",
+  "Run Free Scan",
   "Start Free Scan",
   "View Plans",
-  "AI is becoming the place customers meet you first.",
-  "without promising rankings, leads, revenue, or AI placement",
+  "Most businesses are online. Fewer are answer-ready.",
+  "Visibility shows the gap. Readiness explains the cause.",
   "Start with the first signal. Move deeper only when it makes sense.",
 ]);
 
@@ -66,14 +78,14 @@ expect(connectPath, [
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(pagePath, 14500);
+boundedLength(pagePath, 18500);
 boundedLength(scanPath, 16000);
 boundedLength(connectPath, 15000);
 boundedLength(headerPath, 15000);
 boundedLength(footerPath, 6500);
 boundedLength(faqPath, 24000);
 
-forbidden(pagePath, [...blockedPublicPhrases(), ...badgeHeavyPhrases()]);
+forbidden(pagePath, [...blockedPublicPhrases(), ...badgeHeavyPhrases(), ...oldHomepagePhrases()]);
 forbidden(headerPath, [...blockedPublicPhrases(), "Privacy", "Terms", "Talk through fit or scope", "Pricing from $0", "Command path"]);
 forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
 forbidden(scanPath, blockedPublicPhrases());
@@ -86,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with current homepage, FAQ routing, Free Scan CTA, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
+console.log("Public command surface validation passed with Presence Report homepage, Free Scan entry, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
 
 function badgeHeavyPhrases() {
   return [
@@ -98,6 +110,14 @@ function badgeHeavyPhrases() {
     "Highest-converting path",
     "Conversion without pressure",
     "Final command path",
+  ];
+}
+
+function oldHomepagePhrases() {
+  return [
+    "If AI engines cannot understand your business, customers may never get the chance to.",
+    "Cendorq turns AI-readiness into a clear path",
+    "data-cendorq-homepage=\"cinematic-ai-visibility-readiness-experience\"",
   ];
 }
 
