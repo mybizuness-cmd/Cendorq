@@ -20,29 +20,36 @@ for (const phrase of [
   "export const dynamic = \"force-dynamic\";",
   "export const revalidate = 0;",
   "export const fetchCache = \"force-no-store\";",
-  "data-cendorq-homepage=\"cinematic-ai-visibility-readiness-experience\"",
+  "data-cendorq-homepage=\"presence-report-ai-search-presence-repair-experience\"",
   "CENDORQ_EXPERIENCE_SYSTEM",
   "CENDORQ_EXPERIENCE_GUARDRAILS",
   "CENDORQ_SIGNAL_WORDS",
-  "Cendorq | AI Visibility and Readiness for Businesses",
-  "If AI engines cannot see or understand your business, customers may never get the chance to.",
-  "Cendorq turns AI visibility and readiness into a clear path",
+  "Cendorq | AI Search Presence Repair for Businesses",
+  "Can customers and AI systems understand why to choose your business?",
+  "Cendorq turns AI visibility and readiness into a clear repair path",
+  "Presence Report",
+  "Presence Score",
+  "Findability",
+  "Understanding",
+  "Trust",
+  "Choice",
+  "Action",
+  "Repair queue",
+  "Recommended next move",
   "where the business is missing",
   "Visibility shows the gap. Readiness explains the cause.",
-  "To be found, recommended, or trusted",
-  "See where your business may be missing, unclear, under-trusted, or harder to choose.",
-  "AI is becoming the place customers meet you first.",
+  "Most businesses are online. Fewer are answer-ready.",
   "id=\"ai-readiness\"",
-  "AI Visibility and Readiness",
-  "AI visibility and readiness",
+  "AI Search Presence Repair",
   "AI visibility",
   "business trust signals",
-  "without promising rankings, leads, revenue, or AI placement.",
+  "Free Scan is a first signal",
   "Free Scan",
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
   "Start Free Scan",
+  "Run Free Scan",
   "View Plans",
   "Plans",
   "FAQ",
@@ -52,7 +59,7 @@ for (const phrase of [
   "Dashboard",
   "Privacy",
   "Terms",
-  "No AI placement promises",
+  "No placement promises",
   "bg-slate-50 text-slate-950",
   "max-w-7xl",
   "Scan",
@@ -64,11 +71,9 @@ for (const phrase of [
   "Unified Cendorq Experience System",
   "href=\"/free-check\"",
   "href=\"/plans\"",
-  "href=\"/connect\"",
-  "href: \"/faq\"",
-  "href: \"/plans/deep-review\"",
-  "href: \"/plans/build-fix\"",
-  "href: \"/plans/ongoing-control\"",
+  "href=\"/plans/deep-review\"",
+  "href=\"/plans/build-fix\"",
+  "href=\"/plans/ongoing-control\"",
   "\"/api/\"",
   "\"/admin/\"",
   "\"/dashboard/\"",
@@ -76,7 +81,7 @@ for (const phrase of [
   "\"/sitemap.xml\"",
   "termsOfService",
 ]) {
-  if (!combined.includes(phrase)) failures.push(`Cinematic AI visibility and readiness shell missing required phrase: ${phrase}`);
+  if (!combined.includes(phrase)) failures.push(`Presence Report homepage shell missing required phrase: ${phrase}`);
 }
 
 for (const phrase of [
@@ -89,7 +94,6 @@ for (const phrase of [
   "Presence Command",
   "Cendorq Market Command Intelligence</p>",
   "First command",
-  "Findability",
   "Clarity\", \"Trust",
   "Be clear",
   "Connect with Cendorq",
@@ -99,8 +103,10 @@ for (const phrase of [
   "Become easier to find, trust, and choose.",
   "If AI cannot understand your business, customers may never get the chance to.",
   "If AI engines cannot understand your business, customers may never get the chance to.",
+  "If AI engines cannot see or understand your business, customers may never get the chance to.",
   "Cendorq turns AI-readiness into a clear path",
   "Cendorq | AI Engine Readiness for Businesses",
+  "data-cendorq-homepage=\"cinematic-ai-visibility-readiness-experience\"",
   "Dashboard\", href: \"/dashboard\"",
   "Support\", href: \"/dashboard/support\"",
   "aria-controls=\"site-menu\"",
@@ -133,7 +139,7 @@ for (const phrase of [
   "system-button-primary",
   "Cendorq / Loading",
 ]) {
-  if (visiblePublicShell.includes(phrase)) failures.push(`Cinematic AI visibility and readiness shell contains forbidden phrase: ${phrase}`);
+  if (visiblePublicShell.includes(phrase)) failures.push(`Presence Report homepage shell contains forbidden phrase: ${phrase}`);
 }
 
 if (failures.length) {
@@ -142,4 +148,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is cinematic, uncluttered, customer-facing, search-compliant, positioned around AI visibility and AI readiness, and aligned with Contact Us on /connect.");
+console.log("Homepage replacement validation passed. Public shell is Presence Report-led, customer-facing, search-compliant, positioned around AI Search Presence Repair, and aligned with Contact Us on /connect.");
