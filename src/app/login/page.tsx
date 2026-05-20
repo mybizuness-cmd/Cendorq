@@ -28,8 +28,8 @@ const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underl
 const CUSTOMER_ACCESS_POINTS = [
   "Use the same email you used when you submitted your Free Scan or bought a plan.",
   "If you used a different email then, try that one.",
-  "New visitors should start the Free Scan first.",
-  "No empty accounts. Your dashboard opens when there is a scan, plan, report, billing, or support item to show.",
+  "New visitors should start the Free Scan first so Cendorq can capture the first AI Visibility signal.",
+  "No empty accounts. Your dashboard opens when there is a scan, Diagnosis, report, plan, billing, or support item to show.",
 ] as const;
 
 export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
@@ -46,7 +46,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,4.8vw,5.1rem)] font-semibold leading-[0.95] tracking-[-0.074em] text-slate-950">Access your Cendorq account.</h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email you used when you submitted your Free Scan or bought a plan.</p>
-            <p className="mt-3 max-w-2xl text-xs font-semibold leading-5 text-slate-500">Already have an account? If you used a different email then, try that one. Need Cendorq to check your business? <Link className={SMALL_LINK} href="/free-check?access=free-scan-required&method=login-hero">Start the Free Scan</Link>.</p>
+            <p className="mt-3 max-w-2xl text-xs font-semibold leading-5 text-slate-500">Already have an account? If you used a different email then, try that one. Need Cendorq to check your first AI Visibility signal? <Link className={SMALL_LINK} href="/free-check?access=free-scan-required&method=login-hero">Start the Free Scan</Link>.</p>
           </div>
 
           <div className="mx-auto w-full max-w-xl rounded-[2.35rem] border border-white/80 bg-white/76 p-3 shadow-[0_26px_90px_rgba(15,23,42,0.1)] backdrop-blur-2xl">
@@ -54,7 +54,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Customer access</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Return with your email.</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">We will send a secure link if this email is tied to your Free Scan or plan. No password needed.</p>
+                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context. No password needed.</p>
               </div>
 
               {authNotice ? (
@@ -77,7 +77,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
 
               <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/55 p-4 text-center">
                 <h3 className="text-sm font-semibold text-slate-950">First time here?</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-slate-600">Start the Free Scan so Cendorq can check how AI and search understand your business.</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-600">Start the Free Scan so Cendorq can check the first AI Visibility signal: how AI, search, and customers understand your business.</p>
                 <div className="mt-4"><Link href="/free-check?access=free-scan-required&method=access-page" className={BUTTON_SECONDARY}>Start Free Scan</Link></div>
               </div>
 
@@ -91,7 +91,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
         <div className="rounded-[2.2rem] border border-white/80 bg-white/82 p-5 shadow-[0_12px_38px_rgba(15,23,42,0.045)] backdrop-blur sm:p-6">
           <h2 className="max-w-5xl text-3xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">Free Scan starts the account. Access brings customers back.</h2>
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{CUSTOMER_ACCESS_POINTS.map((rule) => <p key={rule} className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-6 text-slate-600">{rule}</p>)}</div>
-          <p className="mt-5 text-sm leading-7 text-slate-600">Having trouble accessing your account? Try the email from your Free Scan or plan. If Cendorq still cannot find it, start the Free Scan so your account can be set up from real business details.</p>
+          <p className="mt-5 text-sm leading-7 text-slate-600">Having trouble accessing your account? Try the email from your Free Scan or plan. If Cendorq still cannot find it, start the Free Scan so your account can be set up from real business details and the first AI Visibility signal.</p>
         </div>
       </section>
     </main>
