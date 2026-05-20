@@ -5,10 +5,10 @@ import { CENDORQ_PLAN_PRICES, type CendorqPlanKey } from "@/lib/pricing-checkout
 
 export const metadata = buildMetadata({
   title: "Plans | Cendorq",
-  description: "Choose the right Cendorq depth: Free Scan, Deep Review, Build Fix, or Ongoing Control for AI visibility, readiness, repair, and control.",
+  description: "Choose the right Cendorq depth: Free Scan, Deep Review, Build Fix, or Ongoing Control for AI Visibility, readiness, repair, and control.",
   path: "/plans",
   keywords: ["cendorq plans", "AI visibility plans", "AI readiness plans", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"],
-  image: { alt: "Cendorq visibility and readiness plans." },
+  image: { alt: "Cendorq AI Visibility plans." },
 });
 
 const CTA_LABEL_BY_PLAN: Record<CendorqPlanKey, string> = {
@@ -27,9 +27,9 @@ const STAGE_BY_PLAN: Record<CendorqPlanKey, string> = {
 
 const PURPOSE_BY_PLAN: Record<CendorqPlanKey, string> = {
   "free-scan": "See the first place the business may be missing, unclear, under-trusted, or harder to choose.",
-  "deep-review": "Understand what is weakening visibility, clarity, trust, proof, or choice before bigger work begins.",
+  "deep-review": "Understand what is weakening AI Visibility, clarity, trust, proof, or choice before bigger work begins.",
   "build-fix": "Improve the page, message, proof, or action path that matters most.",
-  "ongoing-control": "Keep visibility and readiness from drifting as search, AI answers, competitors, and customers change.",
+  "ongoing-control": "Keep AI Visibility from drifting as search, AI answers, competitors, and customers change.",
 };
 
 const PLAN_ROUTE_BY_KEY: Record<CendorqPlanKey, string> = {
@@ -49,7 +49,7 @@ const PLAN_ACCENT_BY_KEY: Record<CendorqPlanKey, string> = {
 const PLAN_CARDS = CENDORQ_PLAN_PRICES.map((plan) => ({ ...plan, href: PLAN_ROUTE_BY_KEY[plan.key], cta: CTA_LABEL_BY_PLAN[plan.key], stage: STAGE_BY_PLAN[plan.key], purpose: PURPOSE_BY_PLAN[plan.key], accent: PLAN_ACCENT_BY_KEY[plan.key] }));
 
 export default function PlansPage() {
-  const webPageJsonLd = buildWebPageJsonLd({ title: "Cendorq Plans", description: "A clear path for AI visibility, readiness, proof, repair, and ongoing control.", path: "/plans" });
+  const webPageJsonLd = buildWebPageJsonLd({ title: "Cendorq Plans", description: "A clear path for AI Visibility, readiness, proof, repair, and ongoing control.", path: "/plans" });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Plans", path: "/plans" }]);
 
   return (
@@ -61,8 +61,8 @@ export default function PlansPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.22),transparent_28%),radial-gradient(circle_at_65%_0%,rgba(125,211,252,0.3),transparent_36%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.64fr_1.36fr] lg:items-center">
           <div>
-            <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-slate-950">Choose the right visibility and readiness depth.</h1>
-            <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Start with what you need now. Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Ongoing Control keeps visibility and readiness from drifting.</p>
+            <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-slate-950">Choose the right AI Visibility depth.</h1>
+            <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Start with what you need now. Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Ongoing Control keeps AI Visibility from drifting.</p>
           </div>
 
           <div className="overflow-hidden rounded-[2.2rem] border border-white/80 bg-white/68 p-3 shadow-[0_24px_80px_rgba(15,23,42,0.085)] backdrop-blur-2xl sm:rounded-[2.5rem]">
