@@ -14,7 +14,7 @@ import {
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
   description:
-    "Start the Cendorq Free Scan to see where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
+    "Start the Cendorq Free Scan to see the first AI Visibility signal: where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
   path: "/free-check",
   keywords: [
     "cendorq free scan",
@@ -38,24 +38,24 @@ const SCAN_SYSTEM_STEPS = [
   },
   {
     step: "02",
-    title: "Cendorq checks the first visibility and readiness signal.",
-    copy: "The scan looks for the first place the business may be missing, unclear, under-trusted, or harder to choose without pretending to be a full paid review.",
+    title: "Cendorq checks the first AI Visibility signal.",
+    copy: "The scan looks for the first place the business may be missing, unclear, under-trusted, or harder to choose without pretending to be a full paid Review.",
   },
   {
     step: "03",
     title: "Open the result in your account.",
-    copy: "Confirm your email once, then continue into your account where the result, next step, and plan path stay connected.",
+    copy: "Confirm your email once, then continue into your account where the result, next command, and plan path stay connected.",
   },
 ] as const;
 
 const FAQS = [
   {
     question: "Is the Free Scan a full review?",
-    answer: "No. It is a first signal that shows where visibility or readiness may be weak, so you can decide whether deeper review or repair work makes sense.",
+    answer: "No. It is the first AI Visibility signal that shows where visibility, clarity, trust, or choice may be weak, so you can decide whether deeper Review or Repair work makes sense.",
   },
   {
     question: "Where does the result open?",
-    answer: "After verification, the result opens inside your Cendorq account so your business details and next step stay connected.",
+    answer: "After verification, the result opens inside your Cendorq account so your business details and next command stay connected.",
   },
 ] as const;
 
@@ -64,15 +64,15 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
   const accessNotice = buildAccessNotice(resolvedSearchParams);
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq Free Scan",
-    description: "A guided first scan for businesses that need to see where they may be missing, unclear, under-trusted, or harder to choose.",
+    description: "A guided first AI Visibility scan for businesses that need to see where they may be missing, unclear, under-trusted, or harder to choose.",
     path: "/free-check",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
     title: "Cendorq Free Scan",
-    description: "A guided intake that checks the first visible weakness in business visibility, clarity, trust, AI readiness, or customer action.",
+    description: "A guided intake that checks the first visible weakness in business visibility, clarity, trust, AI understanding, or customer action.",
     path: "/free-check",
-    serviceType: "AI visibility and readiness free scan",
+    serviceType: "AI Visibility free scan",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -104,10 +104,10 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
               </div>
             ) : null}
             <h1 className="max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
-              See where your business may be missing or unclear.
+              See the first AI Visibility signal.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Cendorq checks the signals around your business and shows where AI engines or customers may hesitate first.
+              Cendorq checks the signals around your business and shows where AI engines, search, or customers may hesitate first.
             </p>
           </div>
 
