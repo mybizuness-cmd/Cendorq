@@ -9,9 +9,9 @@ import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
 import { DashboardNextBestAction } from "./dashboard-next-best-action";
 
 export const metadata = buildMetadata({
-  title: "AI readiness control center | Cendorq",
+  title: "AI Visibility command center | Cendorq",
   description:
-    "Your Cendorq dashboard for Free Scan progress, results, plans, billing, support, and the next best action.",
+    "Your Cendorq command center for AI Visibility, Diagnosis, reports, plans, billing, support, and the next best action.",
   path: "/dashboard",
   noIndex: true,
 });
@@ -24,22 +24,22 @@ const DECISION_SUMMARY = [
   {
     label: "Next best move",
     value: "Start or continue",
-    detail: "Cendorq should show one useful action, not a wall of buttons.",
+    detail: "Cendorq should show one useful command, not a wall of buttons.",
   },
   {
-    label: "Free Scan",
-    value: "Finish the first signal.",
-    detail: "The scan gives Cendorq the business details needed before any deeper work makes sense.",
+    label: "AI Visibility",
+    value: "Capture the first signal.",
+    detail: "The Free Scan gives Cendorq the business details needed before deeper Diagnosis, Review, Repair, or Control work makes sense.",
   },
   {
-    label: "Results",
+    label: "Reports",
     value: "Open what is ready",
-    detail: "Reports should be clear about what is known, what is limited, and what comes next.",
+    detail: "Reports should connect visibility, diagnosis, evidence, limitations, and the next command path.",
   },
   {
     label: "Support",
     value: "Get unstuck fast",
-    detail: "Billing, reports, and support should stay connected to the same customer email.",
+    detail: "Billing, reports, support, and customer access should stay connected to the same customer email.",
   },
 ] as const;
 
@@ -55,29 +55,29 @@ const COMMAND_PATH = [
     title: "Review",
     href: "/plans/deep-review",
     cta: `Open Review page — ${REVIEW_PRICE.price}`,
-    copy: "Understand why the business may not look clear, trusted, or easy to choose.",
+    copy: "Run deeper Diagnosis on why the business may not look visible, clear, trusted, or easy to choose.",
     price: REVIEW_PRICE.price,
   },
   {
     title: "Repair",
     href: "/plans/build-fix",
     cta: `Open Repair page — ${REPAIR_PRICE.price}`,
-    copy: "Improve the weak page, message, proof, or action path that matters most.",
+    copy: "Improve the weak page, message, proof, visibility signal, or action path that matters most.",
     price: REPAIR_PRICE.price,
   },
   {
     title: "Control",
     href: "/plans/ongoing-control",
     cta: `Open Control page — ${CONTROL_PRICE.price}`,
-    copy: "Keep the business watched as AI search, customers, and competitors change.",
+    copy: "Keep AI Visibility, market signals, reports, and customer-facing proof watched as the market changes.",
     price: CONTROL_PRICE.price,
   },
 ] as const;
 
 const COMMAND_LINKS = [
-  { title: "Reports", copy: "Open protected scan and review outputs when they are ready.", href: "/dashboard/reports" },
+  { title: "Reports", copy: "Open protected scan, Diagnosis, Review, and evidence outputs when they are ready.", href: "/dashboard/reports" },
   { title: "Billing", copy: "See plan access, invoices, and checkout recovery.", href: "/dashboard/billing" },
-  { title: "Notifications", copy: "See what needs attention next.", href: "/dashboard/notifications" },
+  { title: "Notifications", copy: "See what needs attention next across the command path.", href: "/dashboard/notifications" },
   { title: "Support", copy: "Resolve blockers without sharing private passwords.", href: "/dashboard/support" },
   { title: "Sign out", copy: "End this browser session and return to secure access.", href: "/api/customer/session/logout?returnTo=/dashboard" },
 ] as const;
@@ -89,21 +89,21 @@ export default function CustomerDashboardPage() {
 
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="relative z-10">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Private AI readiness control center</p>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Private AI Visibility command center</p>
           <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,7rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">
-            Your Cendorq account is ready.
+            Your Cendorq command center is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.
+            Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.
           </p>
           <DashboardNextBestAction />
         </div>
 
         <div className="relative overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/74 p-5 shadow-[0_30px_120px_rgba(2,8,23,0.10)] backdrop-blur-2xl sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">One next step.</h2>
+          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">One next command.</h2>
           <p className="mt-5 text-base font-medium leading-8 text-slate-600">
-            The dashboard should not force a purchase or assume a result exists. It should show the safest next action: start the scan, continue the scan, open the result, or choose the next plan.
+            The dashboard should not force a purchase or assume a result exists. It should show the safest next command: start the Free Scan, continue Diagnosis, open the result, or choose the next plan.
           </p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {DECISION_SUMMARY.slice(0, 2).map((item) => (
@@ -133,9 +133,9 @@ export default function CustomerDashboardPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Review. Repair. Control.</h2>
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Diagnose. Review. Repair. Control.</h2>
               <p className="mt-5 text-base font-medium leading-8 text-slate-600">
-                No cheap dashboard blocks. No clutter wall. No internal conversion role labels. Each action should help the customer understand the next move fast.
+                No cheap dashboard blocks. No clutter wall. No shrinking the system. Each action should help the customer understand the AI Visibility command path fast.
               </p>
               <Link href="/plans" className="mt-7 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
                 Compare all plans →
@@ -171,7 +171,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard readiness standard">AI readiness control center. Your Cendorq account is ready. one clear next action. One next step. Cendorq keeps the next step separate. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan and review outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Diagnose. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan, Diagnosis, Review, and evidence outputs when they are ready.</section>
     </main>
   );
 }
