@@ -6,16 +6,20 @@ const failures = [];
 
 const routePath = "src/app/sample-report/page.tsx";
 const componentPath = "src/components/presence-report/sample-presence-report.tsx";
+const indexPath = "src/components/presence-report/index.ts";
 const contractPath = "src/lib/presence-report-contract.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-sample-presence-report-route.mjs";
 
 expect(routePath, [
   "Sample Presence Report | Cendorq",
+  "@/components/presence-report",
   "SamplePresenceReport",
   "The Presence Report is the core Cendorq object",
   "This is an example, not a promise.",
 ]);
+
+expect(indexPath, ["SamplePresenceReport", "PresenceReportPreview"]);
 
 expect(componentPath, [
   "SAMPLE_PRESENCE_REPORT",
@@ -43,6 +47,7 @@ expect(routesChainPath, [validatorPath]);
 
 boundedLength(routePath, 8500);
 boundedLength(componentPath, 15500);
+boundedLength(indexPath, 500);
 boundedLength(contractPath, 8500);
 
 if (failures.length) {
@@ -51,7 +56,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Sample Presence Report route validation passed with shared public report contract and reusable component.");
+console.log("Sample Presence Report route validation passed with shared public report contract, component index, and reusable component.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
