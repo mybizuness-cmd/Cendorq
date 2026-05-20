@@ -9,18 +9,20 @@ const validatorPath = "src/scripts/validate-dashboard-handoff-runtime-integratio
 const failures = [];
 
 expect(pagePath, [
-  "Private AI readiness control center",
-  "Your Cendorq account is ready.",
-  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
-  "One next step.",
+  "Private AI Visibility command center",
+  "Your Cendorq command center is ready.",
+  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
+  "One next command.",
   "The dashboard should not force a purchase or assume a result exists.",
-  "start the scan, continue the scan, open the result, or choose the next plan",
+  "start the Free Scan, continue Diagnosis, open the result, or choose the next plan",
   "DashboardNextBestAction",
   "DashboardActionInbox",
   "DashboardBusinessCommandCenter",
   "DashboardControlRoomReentry",
-  "Scan. Review. Repair. Control.",
-  "Open protected scan and review outputs when they are ready.",
+  "AI Visibility",
+  "Reports should connect visibility, diagnosis, evidence, limitations, and the next command path.",
+  "Scan. Diagnose. Review. Repair. Control.",
+  "Open protected scan, Diagnosis, Review, and evidence outputs when they are ready.",
   "Resolve blockers without sharing private passwords.",
   "/dashboard/reports",
   "/dashboard/billing",
@@ -33,8 +35,10 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chai
 expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
-  "Visibility command center",
-  "Private visibility command center",
+  "Private AI readiness control center",
+  "Your Cendorq account is ready.",
+  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
+  "No internal conversion role labels",
   "Your Cendorq workspace is ready.",
   "A workspace can exist before a scan.",
   "Scan. Diagnose. Fix. Control.",
@@ -48,7 +52,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard handoff runtime integration validation passed with current account-ready dashboard copy, handoff surfaces, and route-chain coverage.");
+console.log("Dashboard handoff runtime integration validation passed with AI Visibility command language, Diagnosis, evidence outputs, handoff surfaces, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
