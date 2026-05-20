@@ -121,6 +121,7 @@ const validators = [
   "src/scripts/validate-plans-handoff-runtime-integration.mjs",
   "src/scripts/validate-customer-lifecycle-automation.mjs",
   "src/scripts/validate-customer-email-template-contracts.mjs",
+  "src/scripts/validate-customer-confirmation-email-issuance-runtime.mjs",
   "src/scripts/validate-customer-notification-contracts.mjs",
   "src/scripts/validate-customer-support-record-contracts.mjs",
   "src/scripts/validate-customer-support-status-contracts.mjs",
