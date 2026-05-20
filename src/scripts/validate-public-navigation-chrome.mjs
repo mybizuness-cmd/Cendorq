@@ -16,6 +16,7 @@ expect(headerPath, [
   "cookies",
   "CENDORQ_CUSTOMER_SESSION_COOKIE",
   "readCustomerRememberedSessionCookieValue",
+  "Sample Report",
   "Plans",
   "FAQ",
   "Access",
@@ -33,8 +34,10 @@ expect(headerPath, [
   "Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out.",
   "Account menu uses overflow-visible so the menu is not clipped.",
   "Account menu width is bounded for mobile.",
+  "href: \"/sample-report\"",
   "href: \"/plans\"",
   "href: \"/faq\"",
+  "href=\"/sample-report\"",
   "href=\"/free-check\"",
   "href=\"/dashboard\"",
   "Logo links to the dashboard for remembered customers and homepage for new visitors.",
@@ -171,7 +174,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Contact Us routing, support@cendorq.com direct email, and visibility plus readiness footer trust copy.");
+console.log("Public navigation chrome validation passed with Sample Report, remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Contact Us routing, support@cendorq.com direct email, and visibility plus readiness footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
