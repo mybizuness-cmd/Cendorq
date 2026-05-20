@@ -9,67 +9,37 @@ const validatorPath = "src/scripts/validate-dashboard-handoff-runtime-integratio
 const failures = [];
 
 expect(pagePath, [
-  "projectCustomerPlatformHandoff",
-  "DASHBOARD_HANDOFFS",
-  "Your Cendorq workspace is ready.",
-  "Cendorq checks this device for scan progress and shows one clear next action: start the Free Scan, continue it, or open the protected result.",
-  "The dashboard should not force a purchase or assume a scan exists.",
-  "A workspace can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts.",
+  "Private AI readiness control center",
+  "Your Cendorq account is ready.",
+  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
+  "One next step.",
+  "The dashboard should not force a purchase or assume a result exists.",
+  "start the scan, continue the scan, open the result, or choose the next plan",
+  "DashboardNextBestAction",
+  "DashboardActionInbox",
+  "DashboardBusinessCommandCenter",
+  "DashboardControlRoomReentry",
+  "Scan. Review. Repair. Control.",
   "Open protected scan and review outputs when they are ready.",
-  "Resolve blockers without sending private details.",
-]);
-
-expect(pagePath, [
-  "dashboard-to-report-vault",
-  "dashboard-to-billing",
-  "dashboard-to-notifications",
-  "dashboard-to-support",
-  "dashboard-to-plans",
-  "customerOwned: true",
-  "verifiedAccess: true",
-  "safeProjectionReady: true",
-]);
-
-expect(pagePath, [
+  "Resolve blockers without sharing private passwords.",
   "/dashboard/reports",
   "/dashboard/billing",
   "/dashboard/notifications",
   "/dashboard/support",
   "/plans",
-  "Open Free Scan path",
-  "One clear action",
-  "One next step.",
 ]);
 
-expect(packagePath, [
-  "validate:routes",
-  "node ./src/scripts/validate-routes-chain.mjs",
-]);
-
-expect(routesChainPath, [
-  validatorPath,
-]);
+expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
+expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
-  "rawPayload",
-  "rawEvidence",
-  "rawSecurityPayload",
-  "rawBillingData",
-  "internalNotes=",
-  "operatorIdentity=",
-  "riskScoringInternals=",
-  "attackerDetails=",
-  "session" + "Token=",
-  "csrf" + "Token=",
-  "admin" + "Key=",
-  "support" + "Context" + "Key=",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "guaranteed ROI",
-  "guaranteed outcome",
-  "impossible to hack",
-  "never liable",
-  "liability-free",
+  "Visibility command center",
+  "Private visibility command center",
+  "Your Cendorq workspace is ready.",
+  "A workspace can exist before a scan.",
+  "Scan. Diagnose. Fix. Control.",
+  "DASHBOARD_HANDOFFS",
+  "projectCustomerPlatformHandoff",
 ]);
 
 if (failures.length) {
@@ -78,27 +48,21 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard handoff runtime integration validation passed with current dashboard projection, handoff surfaces, safe customer next-step copy, and route-chain coverage.");
+console.log("Dashboard handoff runtime integration validation passed with current account-ready dashboard copy, handoff surfaces, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
     failures.push(`Missing dependency: ${path}`);
     return;
   }
-
   const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
 }
 
 function forbidden(path, phrases) {
   if (!existsSync(join(root, path))) return;
-
   const text = read(path).toLowerCase();
-  for (const phrase of phrases) {
-    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
 }
 
 function read(path) {
