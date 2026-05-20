@@ -16,7 +16,8 @@ expect(signupPath, [
   "Use customer access",
   "Use the same email you used for your Free Scan, form, or plan.",
   "Start Free Scan",
-  "Signup points first-time visitors to Free Scan.",
+  "SAFE_DASHBOARD_PATHS",
+  "Signup return paths use the same dashboard allowlist as customer access.",
   "focus:outline-none",
   "focus-visible:ring-2",
 ]);
@@ -28,7 +29,7 @@ expect(verifyPath, [
   "Start Free Scan",
   "Confirm once.",
   "Find the message from Cendorq Support.",
-  "New customers start with the Free Scan before a dashboard workspace exists.",
+  "New customers start with the Free Scan before account access exists.",
 ]);
 
 expect(loginPath, [
@@ -68,7 +69,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Signup verification excellence validation passed with Free Scan-first access, existing-customer eligibility copy, email verification, and zero first-use scan progress.");
+console.log("Signup verification excellence validation passed with Free Scan-first access, signup return allowlist, existing-customer eligibility copy, email verification, and zero first-use scan progress.");
 
 function blockedPatterns() {
   return [
@@ -81,6 +82,7 @@ function blockedPatterns() {
     "Continue to dashboard",
     "Account access should not force a business scan before the customer can reach the workspace.",
     "New customers can open the dashboard before running a Free Scan.",
+    "New customers start with the Free Scan before a dashboard workspace exists.",
     "guaranteed ROI",
     "guaranteed refund",
     "guaranteed legal outcome",
