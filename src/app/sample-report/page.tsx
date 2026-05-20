@@ -1,4 +1,4 @@
-import { SamplePresenceReport } from "@/components/presence-report/sample-presence-report";
+import { SamplePresenceReport } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 import Link from "next/link";
