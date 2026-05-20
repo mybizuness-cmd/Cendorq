@@ -21,6 +21,8 @@ expect(dashboardPath, [
   "Command path",
   "Scan. Review. Repair. Control.",
   "Dashboard command links",
+  "Free Scan creates the account.",
+  "Secure access brings customers back.",
   "No cheap dashboard blocks",
   "No clutter wall",
   "No internal conversion role labels",
@@ -85,6 +87,7 @@ forbidden(dashboardPath, [
   "Dashboard excellence pillars",
   "Roadmap command timeline",
   "A workspace can exist before a scan.",
+  "An account can exist before a scan.",
   "Your Cendorq workspace is ready.",
   "Scan. Diagnose. Fix. Control.",
   "safeProjectionReady",
@@ -132,7 +135,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform dashboard validation passed with account/dashboard command language, customer-led modules, and no internal labels.");
+console.log("Customer platform dashboard validation passed with account/dashboard command language, Free Scan account creation language, customer-led modules, and no internal labels.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
