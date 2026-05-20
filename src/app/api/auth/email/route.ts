@@ -65,7 +65,7 @@ function projectEmailAccessState(payload: ReturnType<typeof projectCustomerConfi
 }
 
 function redirectNoStore(url: URL) {
-  const response = NextResponse.redirect(url);
+  const response = NextResponse.redirect(url, { status: 303 });
   for (const [key, value] of NO_STORE_HEADERS) response.headers.set(key, value);
   return response;
 }
