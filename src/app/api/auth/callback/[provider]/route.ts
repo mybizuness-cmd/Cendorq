@@ -1,4 +1,5 @@
 import { getCustomerAuthProvider } from "@/lib/customer-auth-provider-config";
+import { projectCustomerAuthProviderRuntimeReadiness } from "@/lib/customer-auth-provider-runtime-boundary";
 import { NextResponse, type NextRequest } from "next/server";
 
 const LOGIN_PATH = "/login";
@@ -48,12 +49,13 @@ async function handleProviderCallback(request: NextRequest, providerKey: string,
     return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect and callback plumbing are now present. The production path must run
-  // server-side exchange, profile read, verified email confirmation, and
-  // evaluateProviderCallbackCustomerAccess before any durable Cendorq session is
-  // created. Unknown provider emails must route to Free Scan instead of opening
-  // a blank dashboard. Until that runtime is implemented, customers are sent
-  // back to secure email access.
+  const readiness = projectCustomerAuthProviderRuntimeReadiness(provider);
+  if (!readiness.canIssueCendorqSession) {
+    loginUrl.searchParams.set("auth", "provider-callback-pending");
+    loginUrl.searchParams.set("provider", provider.key);
+    return NextResponse.redirect(loginUrl);
+  }
+
   loginUrl.searchParams.set("auth", "provider-callback-pending");
   loginUrl.searchParams.set("provider", provider.key);
   return NextResponse.redirect(loginUrl);
