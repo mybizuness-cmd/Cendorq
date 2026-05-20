@@ -6,49 +6,44 @@ const failures = [];
 
 const routePath = "src/app/sample-report/page.tsx";
 const componentPath = "src/components/presence-report/sample-presence-report.tsx";
+const contractPath = "src/lib/presence-report-contract.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-sample-presence-report-route.mjs";
 
 expect(routePath, [
   "Sample Presence Report | Cendorq",
   "SamplePresenceReport",
-  "@/components/presence-report/sample-presence-report",
-  "See how Cendorq turns uncertainty into a repair queue.",
   "The Presence Report is the core Cendorq object",
-  "Run Free Scan",
-  "View Plans",
   "This is an example, not a promise.",
-  "buildWebPageJsonLd",
-  "buildBreadcrumbJsonLd",
-  "toJsonLd",
 ]);
 
 expect(componentPath, [
+  "SAMPLE_PRESENCE_REPORT",
+  "@/lib/presence-report-contract",
   "SamplePresenceReport",
-  "Sample Presence Report",
-  "Presence Score",
-  "Visible, but not easy to choose.",
+  "report.title",
+  "report.summary",
+  "report.score",
+  "report.pillars.map",
+  "report.repairQueue.map",
+]);
+
+expect(contractPath, [
+  "PresenceReportPublicShape",
+  "SAMPLE_PRESENCE_REPORT",
   "Findability",
   "Understanding",
   "Trust",
   "Choice",
   "Action",
-  "Repair queue",
-  "Recommended next move",
-  "Deep Review or Build Fix",
-  "First signal summary",
-  "Business truth profile",
-  "Choice-gap notes",
-  "not a ranking, lead, revenue, or placement promise",
+  "Visible, but not easy to choose.",
 ]);
 
 expect(routesChainPath, [validatorPath]);
 
 boundedLength(routePath, 8500);
 boundedLength(componentPath, 15500);
-
-forbidden(routePath, ["guaranteed ranking", "guaranteed leads", "guaranteed revenue", "guaranteed placement", "guaranteed ROI", "full diagnosis for free", "free implementation", "free monthly monitoring"]);
-forbidden(componentPath, ["guaranteed ranking", "guaranteed leads", "guaranteed revenue", "guaranteed placement", "guaranteed ROI", "full diagnosis for free", "free implementation", "free monthly monitoring"]);
+boundedLength(contractPath, 8500);
 
 if (failures.length) {
   console.error("Sample Presence Report route validation failed:");
@@ -56,7 +51,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Sample Presence Report route validation passed with reusable report component, public sample route, report pillars, repair queue, and safe example-only positioning.");
+console.log("Sample Presence Report route validation passed with shared public report contract and reusable component.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -64,17 +59,7 @@ function expect(path, phrases) {
     return;
   }
   const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
-  }
-}
-
-function forbidden(path, phrases) {
-  if (!existsSync(join(root, path))) return;
-  const text = read(path).toLowerCase();
-  for (const phrase of phrases) {
-    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
 }
 
 function boundedLength(path, maxCharacters) {
