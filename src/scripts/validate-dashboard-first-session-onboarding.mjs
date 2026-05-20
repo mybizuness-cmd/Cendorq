@@ -15,15 +15,16 @@ expect(dashboardPath, [
   "Your Cendorq command center is ready.",
   "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
   "One next command.",
-  "start the Free Scan, continue Diagnosis, open the result, or choose the next plan",
+  "start the Free Scan, continue Review, open the result, or choose the next plan",
   "Dashboard decision summary",
   "Next best move",
   "AI Visibility",
   "Capture the first signal.",
-  "Reports should connect visibility, diagnosis, evidence, limitations, and the next command path.",
+  "Diagnosis belongs inside Review and reports.",
+  "Reports should connect visibility, diagnosis evidence, limitations, and the next command path.",
   "Get unstuck fast",
   "Command path",
-  "Scan. Diagnose. Review. Repair. Control.",
+  "Scan. Review. Repair. Control.",
   "No cheap dashboard blocks",
   "No clutter wall",
   "No shrinking the system",
@@ -34,7 +35,7 @@ expect(dashboardPath, [
   "Support",
   "Sign out",
   "Resolve blockers without sharing private passwords.",
-  "Open protected scan, Diagnosis, Review, and evidence outputs when they are ready.",
+  "Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -59,7 +60,9 @@ forbidden(dashboardPath, [
   "Your Cendorq account is ready.",
   "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
   "No internal conversion role labels",
+  "Scan. Diagnose. Review. Repair. Control.",
   "Scan. Diagnose. Fix. Control.",
+  "start the Free Scan, continue Diagnosis, open the result, or choose the next plan",
   "A workspace can exist before a scan.",
   "Your Cendorq workspace is ready.",
   "safeProjectionReady",
@@ -80,7 +83,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard first session onboarding validation passed with AI Visibility command center language, Diagnosis, report evidence, command path, and owner posture coverage.");
+console.log("Dashboard first session onboarding validation passed with AI Visibility command center language, public Scan Review Repair Control path, Diagnosis inside Review/report evidence, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
