@@ -5,9 +5,9 @@ import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 export const metadata = buildMetadata({
   title: "FAQ | Cendorq",
   description:
-    "Simple answers about the Cendorq Free Scan, account access, plans, results, timing, privacy, billing, and support.",
+    "Simple answers about the Cendorq Free Scan, Sample Presence Report, account access, plans, results, timing, privacy, billing, and support.",
   path: "/faq",
-  keywords: ["Cendorq FAQ", "Free Scan questions", "AI visibility", "AI readiness", "AI search visibility", "Cendorq account access", "Cendorq plans"],
+  keywords: ["Cendorq FAQ", "Free Scan questions", "Sample Presence Report", "AI Search Presence Repair", "AI visibility", "AI readiness", "AI search visibility", "Cendorq account access", "Cendorq plans"],
 });
 
 type FaqItem = { question: string; answer: string };
@@ -21,12 +21,17 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "What is Cendorq?",
         answer:
-          "Cendorq helps you see where your business is visible, where it may be missing, and whether AI, search, and customers can understand, trust, and choose it clearly.",
+          "Cendorq helps you see where your business is visible, where it may be missing, and whether AI, search, and customers can find, understand, trust, compare, and choose it clearly.",
       },
       {
         question: "Where should I start?",
         answer:
           "Start with the Free Scan. It gives Cendorq the business details needed to find the first weak spot before you pay for deeper work.",
+      },
+      {
+        question: "Can I see what a result looks like first?",
+        answer:
+          "Yes. Open the Sample Presence Report to see how Cendorq turns findability, understanding, trust, choice, action, and a repair queue into a clearer next move.",
       },
       {
         question: "Is Cendorq only SEO?",
@@ -183,6 +188,7 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
 
 const QUICK_LINKS = [
   { label: "Start Free Scan", href: "/free-check" },
+  { label: "Sample Report", href: "/sample-report" },
   { label: "Customer access", href: "/login" },
   { label: "Compare plans", href: "/plans" },
   { label: "Contact Us", href: "/connect" },
@@ -191,7 +197,7 @@ const QUICK_LINKS = [
 export default function FaqPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq FAQ",
-    description: "Answers about Free Scan, account access, plans, results, privacy, billing, and support.",
+    description: "Answers about Free Scan, Sample Presence Report, account access, plans, results, privacy, billing, and support.",
     path: "/faq",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "FAQ", path: "/faq" }]);
@@ -219,8 +225,8 @@ export default function FaqPage() {
           <div>
             <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Cendorq FAQ</p>
             <h1 className="mt-4 max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-slate-950">Get clear answers before the next move.</h1>
-            <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Start with the Free Scan, return with the same email, and choose the next step only when it makes sense.</p>
-            <div className="mt-6 grid gap-3 sm:max-w-2xl sm:grid-cols-2 lg:grid-cols-4">
+            <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose the next step only when it makes sense.</p>
+            <div className="mt-6 grid gap-3 sm:max-w-3xl sm:grid-cols-2 lg:grid-cols-5">
               {QUICK_LINKS.map((item) => (
                 <Link key={item.href} href={item.href} className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>
                   {item.label}
@@ -231,7 +237,7 @@ export default function FaqPage() {
 
           <div className="rounded-[2.2rem] border border-white/80 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.085)] backdrop-blur-2xl sm:p-7">
             <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Fast rule.</h2>
-            <p className="mt-4 text-base font-medium leading-8 text-slate-600">If you are new, start the Free Scan. If you already submitted a scan, form, or plan, use the same email to return.</p>
+            <p className="mt-4 text-base font-medium leading-8 text-slate-600">If you are new, start the Free Scan. If you want to see the product object first, open the Sample Report. If you already submitted a scan, form, or plan, use the same email to return.</p>
             <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/60 p-4 text-sm font-semibold leading-7 text-slate-700">Already have an account? Use the same email you used for your Free Scan, form, or plan.</div>
           </div>
         </div>
