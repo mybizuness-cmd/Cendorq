@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const contractPath = "src/lib/production-auth-provider-contracts.ts";
+const runtimeBoundaryPath = "src/lib/customer-auth-provider-runtime-boundary.ts";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const packagePath = "package.json";
@@ -74,6 +75,19 @@ expect(contractPath, [
   "blankDashboardForUnknownProviderEmail",
 ]);
 
+expect(runtimeBoundaryPath, [
+  "CUSTOMER_AUTH_PROVIDER_RUNTIME_BOUNDARIES",
+  "CUSTOMER_AUTH_PROVIDER_RUNTIME_BOUNDARY_STANDARD",
+  "Provider runtime must exchange the provider code on the server only.",
+  "Provider runtime must fetch or verify a provider email claim on the server only.",
+  "Provider runtime must require a verified email before Cendorq eligibility.",
+  "Provider runtime must run Cendorq eligibility before issuing a Cendorq session.",
+  "Provider runtime must fall back to secure email access until the full chain is live.",
+  "codeExchangeReady: false",
+  "profileFetchReady: false",
+  "safeFallback: \"secure-email-access\"",
+]);
+
 expect(ownerMaximumProtectionPath, [
   "# Owner Maximum Protection Posture",
   "Protected customer and report surfaces require the correct verified access path.",
@@ -122,7 +136,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Production auth provider contracts validation passed with owner posture, verified provider email, existing-customer eligibility, Free Scan fallback, and route-chain coverage.");
+console.log("Production auth provider contracts validation passed with owner posture, verified provider email, existing-customer eligibility, Free Scan fallback, provider runtime boundary scaffold, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
