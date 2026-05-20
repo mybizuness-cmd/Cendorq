@@ -12,12 +12,6 @@ const SAFE_DASHBOARD_PATHS = [
   "/dashboard/support",
   "/dashboard/notifications",
 ] as const;
-const NO_STORE_HEADERS = {
-  "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-  Pragma: "no-cache",
-  Expires: "0",
-  "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
-} as const;
 
 export async function GET(request: NextRequest) {
   const email = cleanEmail(request.nextUrl.searchParams.get("email"));
@@ -27,14 +21,14 @@ export async function GET(request: NextRequest) {
 
   if (!email) {
     loginUrl.searchParams.set("auth", "email-required");
-    return redirectNoStore(loginUrl);
+    return NextResponse.redirect(loginUrl);
   }
 
   const eligibility = await resolveCustomerAccessEligibility({ email, requestedDestination: returnTo });
   if (!eligibility.eligible) {
     const freeScanUrl = buildFreeScanRequiredUrl(request.url, { method: "email", returnTo });
     freeScanUrl.searchParams.set("auth", "free-scan-required");
-    return redirectNoStore(freeScanUrl);
+    return NextResponse.redirect(freeScanUrl);
   }
 
   try {
@@ -51,10 +45,10 @@ export async function GET(request: NextRequest) {
 
     const safePayload = projectCustomerConfirmationEmailSafeResponse(confirmationEmail);
     loginUrl.searchParams.set("auth", projectEmailAccessState(safePayload));
-    return redirectNoStore(loginUrl);
+    return NextResponse.redirect(loginUrl);
   } catch {
     loginUrl.searchParams.set("auth", "email-queued");
-    return redirectNoStore(loginUrl);
+    return NextResponse.redirect(loginUrl);
   }
 }
 
@@ -62,10 +56,6 @@ function projectEmailAccessState(payload: ReturnType<typeof projectCustomerConfi
   if (payload.providerDelivery.sent) return "email-sent";
   if (payload.providerDelivery.skipped) return "email-unavailable";
   return "email-queued";
-}
-
-function redirectNoStore(url: URL) {
-  return NextResponse.redirect(url, { headers: NO_STORE_HEADERS });
 }
 
 function safeDashboardPath(value: string | null) {
