@@ -6,6 +6,7 @@ const failures = [];
 const providerConfigPath = "src/lib/customer-auth-provider-config.ts";
 const providerCallbackPath = "src/app/api/auth/callback/[provider]/route.ts";
 const providerEligibilityGatePath = "src/lib/customer-provider-callback-access-gate.ts";
+const providerRuntimeBoundaryPath = "src/lib/customer-auth-provider-runtime-boundary.ts";
 const signupPath = "src/app/signup/page.tsx";
 const loginPath = "src/app/login/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -23,6 +24,13 @@ expect(providerConfigPath, [
   "Provider return paths must stay inside approved dashboard routes.",
 ]);
 
+expect(providerRuntimeBoundaryPath, [
+  "projectCustomerAuthProviderRuntimeReadiness",
+  "canShowCustomerButton: false",
+  "canIssueCendorqSession: false",
+  "safeFallback: \"secure-email-access\"",
+]);
+
 expect(providerEligibilityGatePath, [
   "CUSTOMER_PROVIDER_CALLBACK_ACCESS_GATE_STANDARD",
   "evaluateProviderCallbackCustomerAccess",
@@ -35,13 +43,12 @@ expect(providerEligibilityGatePath, [
 ]);
 
 expect(providerCallbackPath, [
+  "projectCustomerAuthProviderRuntimeReadiness",
+  "readiness.canIssueCendorqSession",
   "provider-callback-pending",
-  "server-side exchange",
-  "profile read",
-  "verified email confirmation",
-  "evaluateProviderCallbackCustomerAccess before any durable Cendorq session",
-  "Unknown provider emails must route to Free Scan instead of opening",
-  "back to secure email access",
+  "redirectNoStore",
+  "NO_STORE_HEADERS",
+  "X-Robots-Tag",
   "readPostedCallbackPayload",
   "request.formData()",
 ]);
@@ -56,7 +63,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Provider callback ready gate validation passed with provider return path safety.");
+console.log("Provider callback ready gate validation passed with runtime fallback and no-store redirect safety.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
