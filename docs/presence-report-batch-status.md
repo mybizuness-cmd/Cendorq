@@ -20,3 +20,10 @@ Current follow-up:
 - Replace the homepage inline report preview with the compact shared preview component using a smaller local patch if connector payload limits continue.
 - Optionally add Sample Report to footer after local review.
 - Keep Free Scan, Deep Review, Build Fix, and Ongoing Control separate.
+
+Next elevation:
+
+- Make the Presence Report the visible product object across homepage, Free Scan, plans, dashboard, and report vault.
+- Make the Repair Queue the decision object that turns scan evidence into the safest next move.
+- Make the Business Truth Profile the verified source for safe repair language.
+- Make the Control Snapshot the recurring retention object.
