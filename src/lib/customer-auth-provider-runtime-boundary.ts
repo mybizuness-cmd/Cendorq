@@ -16,6 +16,7 @@ export type CustomerAuthProviderRuntimeReadinessProjection = {
   missing: readonly string[];
   safeFallback: "secure-email-access";
   canShowCustomerButton: false;
+  canExchangeProviderCode: false;
   canIssueCendorqSession: false;
 };
 
@@ -33,6 +34,7 @@ export const CUSTOMER_AUTH_PROVIDER_RUNTIME_BOUNDARY_STANDARD = [
   "Provider runtime must run Cendorq eligibility before issuing a Cendorq session.",
   "Provider runtime must fall back to secure email access until the full chain is live.",
   "Provider runtime readiness projection must keep customer buttons hidden until code exchange, verified profile fetch, eligibility lookup, and session issue are all live.",
+  "Provider exchange readiness must stay false until the server-side provider flow is complete.",
 ] as const;
 
 export function getCustomerAuthProviderRuntimeBoundary(provider: CustomerAuthProvider) {
@@ -55,6 +57,7 @@ export function projectCustomerAuthProviderRuntimeReadiness(provider: CustomerAu
     missing,
     safeFallback: "secure-email-access",
     canShowCustomerButton: false,
+    canExchangeProviderCode: false,
     canIssueCendorqSession: false,
   };
 }
