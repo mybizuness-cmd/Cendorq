@@ -9,6 +9,7 @@ const masteryPath = "docs/strategy/cendorq-business-mastery.md";
 const nonNegotiablesPath = "docs/ops/non-negotiables.md";
 const latestGreenPath = "docs/ops/latest-green-state.md";
 const accessSourcesPath = "docs/ops/customer-access-sources.md";
+const accessTriagePath = "docs/ops/access-triage-checklist.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-cendorq-agent-handoff-docs.mjs";
 
@@ -73,6 +74,15 @@ expect(accessSourcesPath, [
   "Do not use checkout links, browser state, or blank accounts as access sources.",
 ]);
 
+expect(accessTriagePath, [
+  "Customer Access Triage Checklist",
+  "New visitor goes to Free Scan.",
+  "Returning customer uses the same email from the scan or plan.",
+  "Unknown email goes back to Free Scan, not an empty dashboard.",
+  "Provider entry stays hidden until runtime can verify email and open the right customer path.",
+  "Verify Vercel green before the next batch.",
+]);
+
 expect(routesChainPath, [validatorPath]);
 
 if (failures.length) {
@@ -81,7 +91,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, latest green state, customer access source docs, and durable repo memory coverage.");
+console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, latest green state, customer access source docs, access triage checklist, and durable repo memory coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
