@@ -142,7 +142,7 @@ export function buildMetadata({
         referrer: "origin-when-cross-origin",
         keywords: mergedKeywords,
         alternates: { canonical: normalizedPath },
-        robots: buildRobots(noIndex),
+        robots: noIndex ? { index: false, follow: false } : { index: true, follow: true },
         openGraph: {
             type: "website",
             url: canonicalUrl,
@@ -274,11 +274,6 @@ function resolveAssetUrl(path: string) {
 function buildImageAlt({ title, imageTitle, imageSubtitle }: { title: string; imageTitle?: string; imageSubtitle?: string }) {
     const parts = [imageTitle, imageSubtitle, title].map((part) => cleanString(part || "")).filter(Boolean);
     return parts.join(" — ") || siteConfig.defaultOgTitle;
-}
-
-function buildRobots(noIndex: boolean): Metadata["robots"] {
-    if (noIndex) return { index: false, follow: false, googleBot: { index: false, follow: false } };
-    return { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": 0 } };
 }
 
 function normalizeLocale(value: string) {
