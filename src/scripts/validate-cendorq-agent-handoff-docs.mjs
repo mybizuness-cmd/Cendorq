@@ -8,6 +8,7 @@ const handoffPath = "docs/agent-handoff/current-handoff.md";
 const masteryPath = "docs/strategy/cendorq-business-mastery.md";
 const nonNegotiablesPath = "docs/ops/non-negotiables.md";
 const latestGreenPath = "docs/ops/latest-green-state.md";
+const accessSourcesPath = "docs/ops/customer-access-sources.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-cendorq-agent-handoff-docs.mjs";
 
@@ -59,6 +60,17 @@ expect(latestGreenPath, [
   "provider callback access gate defined",
   "active Free Scan eligibility source",
   "contract-ready paid plan, report vault, billing, and support eligibility source ladder",
+  "Customer access source documentation is present.",
+]);
+
+expect(accessSourcesPath, [
+  "Customer Access Sources",
+  "Free Scan is active now.",
+  "Paid plan: opens billing after confirmed plan ownership.",
+  "Report vault: opens reports after released report ownership.",
+  "Billing: opens billing from server-side billing history.",
+  "Support: opens support from verified customer context.",
+  "Do not use checkout links, browser state, or blank accounts as access sources.",
 ]);
 
 expect(routesChainPath, [validatorPath]);
@@ -69,7 +81,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, latest green state, and durable repo memory coverage.");
+console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, latest green state, customer access source docs, and durable repo memory coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
