@@ -276,7 +276,7 @@ function buildImageAlt({ title, imageTitle, imageSubtitle }: { title: string; im
     return parts.join(" — ") || siteConfig.defaultOgTitle;
 }
 
-function buildRobots(noIndex: boolean) {
+function buildRobots(noIndex: boolean): Metadata["robots"] {
     if (noIndex) return { index: false, follow: false, googleBot: { index: false, follow: false } };
     return { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": 0 } };
 }
