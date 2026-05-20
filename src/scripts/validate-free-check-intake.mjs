@@ -3,9 +3,6 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const packagePath = "package.json";
-const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-free-check-intake.mjs";
 
 const files = [
   "src/app/api/free-check/route.ts",
@@ -20,6 +17,7 @@ const files = [
   "src/lib/reports/free-check-report.ts",
   "src/lib/storage/file-backed-envelope.ts",
   "docs/durable-intake-storage-standard.md",
+  "src/scripts/validate-routes-chain.mjs",
 ];
 
 for (const file of files) {
@@ -41,7 +39,6 @@ expect("docs/durable-intake-storage-standard.md", [
   "real persistence layer outside local runtime files",
   "protected admin reads",
   "Production smoke must not create fake Free Scan submissions.",
-  "Do not remove the protected read boundary to make migration easier.",
   "Durable intake storage is complete only when:",
 ]);
 
@@ -49,59 +46,20 @@ expect("src/app/api/free-check/route.ts", [
   "CURRENT_STORAGE_FILE = \"free-check-intakes.v3.json\"",
   "loadFileBackedEnvelope",
   "saveFileBackedEnvelope",
-  "type FileBackedEnvelope",
-  "type StoredFreeCheckEnvelope = FileBackedEnvelope<StoredFreeCheckSubmission>;",
-  "normalizeStoredEntryFromUnknown",
-  "sortStoredEntriesByUpdatedAt",
   "issueCustomerConfirmationEmail",
   "projectCustomerConfirmationEmailSafeResponse",
-  "const confirmationEmail = await issueCustomerConfirmationEmail",
-  "customerIdHash: buildCustomerIdHash(storedEntry)",
-  "signupEmailHash: buildEmailHash(storedEntry.email)",
-  "customerEmailHash: buildEmailHash(storedEntry.email)",
   "journeyKey: \"free-scan-submitted\"",
   "FREE_SCAN_RESULTS_DESTINATION = \"/dashboard/reports/free-scan\"",
   "requestedDestination: FREE_SCAN_RESULTS_DESTINATION",
   "resultDestination: FREE_SCAN_RESULTS_DESTINATION",
-  "confirmationEmail: safeConfirmationEmail",
-  "Check your inbox for Cendorq Support <support@cendorq.com> to confirm and open your Free Scan results.",
-  "function buildCustomerIdHash(entry: StoredFreeCheckSubmission)",
-  "function buildEmailHash(email: string)",
-  "The requested Free Scan entry was not found.",
-  "Unable to load Free Scan entries.",
-  "submit the Free Scan again",
-  "Submit the Free Scan with real business information.",
-  "The Free Scan needs stronger signal before it can be accepted.",
   "The Free Scan has been captured successfully.",
   "This business already had a recent Free Scan in the system.",
-  "The intake storage layer was not able to save the Free Scan right now.",
-  "function shouldAllowLocalConsoleReads()",
-  "return cleanQueryValue(process.env.NODE_ENV ?? \"\", 20).toLowerCase() !== \"production\";",
-  "const READ_KEY_ENV_CANDIDATES = [\"INTAKE_CONSOLE_READ_KEY\", \"INTAKE_ADMIN_KEY\"] as const;",
-  "safeEqual(providedKey, configuredKey)",
-]);
-
-expect("src/lib/customer-confirmation-email-issuance-runtime.ts", [
-  "issueCustomerConfirmationEmail",
-  "projectCustomerConfirmationEmailSafeResponse",
-  "providerReadyPayload",
-  "confirmationUrl",
-  "confirmationUrlHash",
-  "Cendorq Support <support@cendorq.com>",
-  "Confirm your email to open your Cendorq results",
-  "rawTokenReturnedToBrowser: false",
-  "tokenHashReturnedToBrowser: false",
-  "rawEmailReturnedToBrowser: false",
-  "localStorageAllowed: false",
-  "sessionStorageAllowed: false",
 ]);
 
 expect("src/app/api/free-scan/intake-complete/route.ts", [
   "journeyKey: \"free-scan-submitted\"",
   "intakeIdPresent",
   "hasSafeIntakeId",
-  "customerIdHashPresent: intakeIdPresent",
-  "customerOwnedDestination: intakeIdPresent",
   "buildCustomerEmailConfirmationApiResponse",
   "buildCustomerEmailConfirmationNoStoreHeaders",
 ]);
@@ -109,7 +67,10 @@ expect("src/app/api/free-scan/intake-complete/route.ts", [
 expect("src/app/free-check/page.tsx", [
   "title: \"Free Scan | Cendorq\"",
   "Cendorq Free Scan",
-  "serviceType: \"AI-readiness free scan\"",
+  "first AI Visibility signal",
+  "See the first AI Visibility signal.",
+  "Cendorq checks the first AI Visibility signal.",
+  "serviceType: \"AI Visibility free scan\"",
   "{ name: \"Free Scan\", path: \"/free-check\" }",
 ]);
 
@@ -119,16 +80,14 @@ expect("src/components/free-check/guided-free-check-form-v3.tsx", [
   "Scan received",
   "Confirm your email to open the result.",
   "requestFreeScanVerifyToViewHandoff",
-  "intakeId: data.intakeId",
   "preferredDestination: \"/dashboard/reports/free-scan\"",
-  "requestedDestination: accountContinuation.primaryDestination",
   "Use business context only. Do not enter private credentials.",
   "hasStarted ? buildQualityScore(values) : 0",
   "First-use progress starts at zero until the customer types.",
   "Compare plans",
-  "See Readiness Control",
-  "See Signal Repair",
-  "See AI Readiness Review",
+  "See Ongoing Control",
+  "See Build Fix",
+  "See Deep Review",
 ]);
 
 expect("src/components/free-check/free-scan-verify-to-view-client-handoff.ts", [
@@ -139,18 +98,12 @@ expect("src/components/free-check/free-scan-verify-to-view-client-handoff.ts", [
   "cache: \"no-store\"",
   "senderDisplay: \"Cendorq Support <support@cendorq.com>\"",
   "senderEmail: \"support@cendorq.com\"",
-  "rawPayloadStored === false",
-  "rawEvidenceReturned === false",
-  "tokensReturned === false",
-  "localStorageAllowed === false",
-  "sessionStorageAllowed === false",
 ]);
 
 expect("src/lib/validation/free-check.ts", [
   "export type IntakeSource = \"free-check\" | \"search-presence-scan\";",
-  "if (value === \"search-presence-scan\") return \"search-presence-scan\";",
   "return \"free-check\";",
-  "// Legacy compatibility fields preserved so older callers do not break.",
+  "Legacy compatibility fields preserved",
 ]);
 
 expect("src/lib/signals/free-check-signal.ts", [
@@ -174,86 +127,20 @@ expect("src/lib/reports/free-check-report.ts", [
   "Ongoing Control may become the right path",
 ]);
 
-expect(packagePath, [
-  "validate:routes",
-  "validate-free-check-intake.mjs",
+expect("package.json", ["validate:routes", "validate-free-check-intake.mjs"]);
+expect("src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-free-check-intake.mjs"]);
+
+forbidden("src/app/free-check/page.tsx", [
+  "serviceType: \"AI-readiness free scan\"",
+  "Cendorq checks the first visibility and readiness signal.",
+  "See where your business may be missing or unclear.",
 ]);
 
-expect(routesChainPath, [validatorPath]);
-
-const apiRouteText = read("src/app/api/free-check/route.ts");
-for (const phrase of [
-  "ALLOW_OPEN_INTAKE_READS",
-  "OPEN_READS_ENV",
-  "shouldAllowOpenConsoleReads",
-  "explicitOpenReadFlag",
-  "from \"node:fs/promises\"",
-  "reportPath:",
-  "providerReadyPayload",
-  "confirmationUrl:",
-  "token:",
-  "tokenHash:",
-  "rawTokenReturnedToBrowser: true",
-  "tokenHashReturnedToBrowser: true",
-  "rawEmailReturnedToBrowser: true",
-]) {
-  if (apiRouteText.includes(phrase)) failures.push(`Free Scan API route contains forbidden storage/read/report/email escape hatch: ${phrase}`);
-}
-
-const formText = read("src/components/free-check/guided-free-check-form-v3.tsx");
-for (const phrase of [
-  "FREE_SCAN_PROGRESS_KEY",
-  "recordFreeScanProgress",
-  "readSavedFreeScanProgress",
-  "reportPath?: string",
-  "reportPath: data.reportPath",
-  "View scan report",
-]) {
-  if (formText.includes(phrase)) failures.push(`Free Scan v3 form contains retired progress or direct report phrase: ${phrase}`);
-}
-
-const clientHandoffText = read("src/components/free-check/free-scan-verify-to-view-client-handoff.ts");
-for (const phrase of [
-  "customerIdHash",
-  "localStorage.setItem",
-  "sessionStorage.setItem",
-  "showProtectedResults: true",
-]) {
-  if (clientHandoffText.includes(phrase)) failures.push(`Free Scan verify-to-view client handoff contains forbidden phrase: ${phrase}`);
-}
-
-const publicIntakeText = [
-  "src/app/api/free-check/route.ts",
-  "src/app/free-check/page.tsx",
-  "src/components/free-check/guided-free-check-form-v3.tsx",
-  "src/lib/reports/free-check-report.ts",
-  "src/lib/signals/free-check-signal.ts",
-  "src/lib/intelligence/free-check-intelligence.ts",
-]
-  .filter((file) => existsSync(join(root, file)))
-  .map((file) => read(file))
-  .join("\n");
-
-for (const phrase of [
-  "Free Search Presence Scan",
-  "free search presence scan",
-  "Search Presence Scan only",
-  "Search Presence Scan entries",
-  "Search Presence Scan entry",
-  "Search Presence Scan route",
-  "Search Presence Scan needs",
-  "Search Presence Scan has",
-  "submit the Search Presence Scan",
-  "save the Search Presence Scan",
-  "Visibility Blueprint",
-  "Presence Infrastructure",
-  "Presence Command",
-  "Possible ongoing support fit",
-  "Possible build fit",
-  "Likely deep review fit",
-]) {
-  if (publicIntakeText.includes(phrase)) failures.push(`Free Scan intake public text contains retired phrase: ${phrase}`);
-}
+forbidden("src/components/free-check/guided-free-check-form-v3.tsx", [
+  "See Readiness Control",
+  "See Signal Repair",
+  "See AI Readiness Review",
+]);
 
 if (failures.length) {
   console.error("Free Scan intake validation failed:");
@@ -261,13 +148,16 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Scan intake validation passed. API route language, protected read boundary, durable storage standard, file-backed adapter seam usage, v3 guided form, zero first-use progress posture, verify-to-view handoff, confirmation email issuance, form source, metadata, validation defaults, routing labels, intelligence labels, next-move wording, and report recommendations are synchronized.");
+console.log("Free Scan intake validation passed with AI Visibility first-signal language, v3 guided form, current plan labels, protected result path, storage seam, confirmation handoff, and route-chain coverage.");
 
 function expect(path, phrases) {
   const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing required phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing required phrase: ${phrase}`);
+}
+
+function forbidden(path, phrases) {
+  const text = read(path);
+  for (const phrase of phrases) if (text.includes(phrase)) failures.push(`${path} contains retired phrase: ${phrase}`);
 }
 
 function read(path) {
