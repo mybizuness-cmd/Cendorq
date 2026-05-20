@@ -16,6 +16,7 @@ const validators = [
   "src/scripts/validate-public-drift.mjs",
   "src/scripts/validate-public-sitemap-surface.mjs",
   "src/scripts/validate-public-robots-surface.mjs",
+  "src/scripts/validate-seo-metadata-contracts.mjs",
   "src/scripts/validate-maximum-protection-standard.mjs",
   "src/scripts/validate-owner-maximum-protection-posture.mjs",
   "src/scripts/validate-closed-intelligence.mjs",
