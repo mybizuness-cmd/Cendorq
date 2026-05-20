@@ -12,6 +12,15 @@ export const metadata = buildMetadata({
 
 type LoginSearchParams = { auth?: string; provider?: string; returnTo?: string };
 
+const SAFE_DASHBOARD_PATHS = [
+  "/dashboard",
+  "/dashboard/reports",
+  "/dashboard/reports/free-scan",
+  "/dashboard/billing",
+  "/dashboard/support",
+  "/dashboard/notifications",
+] as const;
+
 const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_10px_28px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-slate-950 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
@@ -91,7 +100,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
 
 function safeReturnTo(value: string | undefined) {
   if (!value) return "/dashboard";
-  return value.startsWith("/dashboard") ? value : "/dashboard";
+  return SAFE_DASHBOARD_PATHS.find((path) => value === path || value.startsWith(`${path}/`)) || "/dashboard";
 }
 
 function buildAuthNotice(auth: string | undefined, provider: string | undefined): { tone: "success" | "warning"; message: string; href?: string; cta?: string } | null {
