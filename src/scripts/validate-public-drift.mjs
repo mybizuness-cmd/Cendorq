@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Contact Us", "Scan", "Review", "Fix", "Control"];
+const publicCommandDesignAnchors = ["AI Search Presence Repair", "AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Contact Us", "Scan", "Review", "Repair", "Control"];
 const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
 
 const activeFiles = [
@@ -37,18 +37,30 @@ expect("src/lib/cendorq-experience-system.ts", [
 ]);
 
 expect("src/app/page.tsx", [
-  "cinematic-ai-visibility-readiness-experience",
+  "presence-report-ai-search-presence-repair-experience",
   "CENDORQ_EXPERIENCE_SYSTEM",
-  "If AI engines cannot see or understand your business",
-  "AI Visibility and Readiness",
+  "AI Search Presence Repair",
+  "Can customers and AI systems understand why to choose your business?",
+  "Cendorq turns AI visibility and readiness into a clear repair path",
+  "Cendorq | AI Search Presence Repair for Businesses",
+  "Presence Report",
+  "Presence Score",
+  "Findability",
+  "Understanding",
+  "Trust",
+  "Choice",
+  "Action",
+  "Repair queue",
+  "Recommended next move",
   "Visibility shows the gap. Readiness explains the cause.",
   "where the business is missing",
   "visibility and readiness",
-  "AI is becoming the place customers meet you first.",
+  "Most businesses are online. Fewer are answer-ready.",
   "Scan. Review. Repair. Control.",
   "Distinct Cendorq signal experience",
   "Unified Cendorq Experience System",
   "Start Free Scan",
+  "Run Free Scan",
   "View Plans",
 ]);
 
@@ -101,7 +113,9 @@ expect("src/app/dashboard/page.tsx", [
 forbidden("src/app/page.tsx", [
   "AI Engine Readiness for Businesses",
   "If AI engines cannot understand your business, customers may never get the chance to.",
+  "If AI engines cannot see or understand your business, customers may never get the chance to.",
   "Cendorq turns AI-readiness into a clear path",
+  "cinematic-ai-visibility-readiness-experience",
 ]);
 
 forbidden("src/app/plans/plan-data.ts", legacyPlanLabels);
@@ -194,7 +208,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, visibility plus readiness homepage, aligned Free Scan and plan language, Contact Us direct-email support routing, Cendorq Experience System, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
+console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, Presence Report homepage, aligned Free Scan and plan language, Contact Us direct-email support routing, Cendorq Experience System, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
 
 function expect(path, phrases) {
   const text = read(path);
