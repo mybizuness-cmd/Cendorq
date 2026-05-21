@@ -75,7 +75,7 @@ expect(ownerMaximumProtectionValidatorPath, [
 expect("src/app/signup/page.tsx", [
   "Start with the Free Scan.",
   "noIndex: true",
-  "Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.",
+  "Cendorq checks the first AI Visibility signal: whether AI, search, and customers can understand, trust, and choose the business clearly.",
   "Already have an account?",
   "Use customer access",
   "Start Free Scan",
@@ -87,7 +87,7 @@ expect("src/app/login/page.tsx", [
   "Use the same email you used when you submitted your Free Scan or bought a plan.",
   "Already have an account? If you used a different email then, try that one.",
   "Email used for your Free Scan or plan",
-  "We will send a secure link if this email is tied to your Free Scan or plan.",
+  "We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context.",
   "Send secure access link",
   "No password needed.",
   "First time here?",
@@ -104,29 +104,29 @@ expect("src/app/verify-email/page.tsx", [
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "AI readiness control center",
+  "Private AI Visibility command center",
   "noIndex: true",
-  "Your Cendorq account is ready.",
-  "one clear next action",
-  "One next step.",
+  "Your Cendorq command center is ready.",
+  "one clear next command",
+  "One next command.",
   "Scan. Review. Repair. Control.",
   "Open Review page",
   "Open Repair page",
 ]);
 
 expect("src/app/dashboard/reports/page.tsx", [
-  "Readiness proof vault",
+  "AI Visibility proof vault",
   "noIndex: true",
   "Paid plan report delivery operating system",
   "Dashboard + email attachment",
-  "Readiness signal result dashboard-only protected result",
+  "AI Visibility signal result dashboard-only protected result",
   "Deep Review report dashboard plus email attachment",
   "Build Fix summary dashboard plus email attachment",
   "Ongoing Control monthly summary dashboard plus email attachment",
 ]);
 
 expect("src/app/dashboard/billing/page.tsx", [
-  "Readiness plan depth",
+  "AI Visibility plan depth",
   "noIndex: true",
   "Payment should unlock the right readiness layer.",
   "Review",
