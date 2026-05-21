@@ -7,6 +7,7 @@ import { DashboardActionInbox } from "./dashboard-action-inbox";
 import { DashboardBusinessCommandCenter } from "./dashboard-business-command-center";
 import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
 import { DashboardNextBestAction } from "./dashboard-next-best-action";
+import { DashboardPresenceCommandSnapshot } from "./dashboard-presence-command-snapshot";
 
 export const metadata = buildMetadata({
   title: "AI readiness control center | Cendorq",
@@ -117,6 +118,10 @@ export default function CustomerDashboardPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6">
+        <DashboardPresenceCommandSnapshot />
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Dashboard decision summary">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {DECISION_SUMMARY.map((item, index) => (
@@ -171,7 +176,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard readiness standard">AI readiness control center. Your Cendorq account is ready. one clear next action. One next step. Cendorq keeps the next step separate. An account can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan and review outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard readiness standard">AI readiness control center. Your Cendorq account is ready. one clear next action. One next step. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Cendorq keeps the next step separate. An account can exist before a scan. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan and review outputs when they are ready.</section>
     </main>
   );
 }
