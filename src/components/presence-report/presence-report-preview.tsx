@@ -1,7 +1,9 @@
+import { SAMPLE_CHOICE_GAP } from "@/lib/choice-gap-contract";
 import { SAMPLE_PRESENCE_REPORT } from "@/lib/presence-report-contract";
 
 export function PresenceReportPreview() {
   const report = SAMPLE_PRESENCE_REPORT;
+  const choiceGap = SAMPLE_CHOICE_GAP;
 
   return (
     <div className="relative mx-auto w-full max-w-[38rem] lg:ml-auto" aria-label="Sample Cendorq Presence Report preview">
@@ -34,6 +36,10 @@ export function PresenceReportPreview() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Choice Gap</p>
+            <p className="mt-3 text-sm font-medium leading-6 text-slate-600">{choiceGap.summary}</p>
           </div>
           <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_55px_rgba(15,23,42,0.18)]">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-200">Repair queue</p>
