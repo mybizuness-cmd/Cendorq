@@ -4,7 +4,7 @@ Run before merge:
 
 ```bash
 pnpm validate:routes
-node ./src/scripts/validate-presence-report-system.mjs
+pnpm validate:presence-report
 pnpm lint
 pnpm typecheck
 pnpm build
