@@ -1,12 +1,13 @@
 import { SamplePresenceReport } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
+import { VERTICAL_SAMPLE_PRESENCE_REPORTS } from "@/lib/vertical-sample-presence-reports";
 import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: "Sample Presence Report | Cendorq",
   description:
-    "See an example Cendorq Presence Report showing findability, understanding, trust, choice, action, repair priorities, and the recommended next move.",
+    "See an example Cendorq Presence Report showing findability, understanding, trust, choice, action, repair priorities, vertical trust standards, and the recommended next move.",
   path: "/sample-report",
   keywords: [
     "Cendorq Presence Report",
@@ -14,6 +15,7 @@ export const metadata = buildMetadata({
     "AI Search Presence Repair",
     "business clarity report",
     "business trust signals",
+    "vertical sample reports",
   ],
   image: { alt: "Sample Cendorq Presence Report." },
 });
@@ -44,7 +46,7 @@ export default function SampleReportPage() {
               See how Cendorq turns uncertainty into a repair queue.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              The Presence Report is the core Cendorq object: a clear view of findability, understanding, trust, choice, action, and the next safest move.
+              The Presence Report is the core Cendorq object: a clear view of findability, understanding, trust, choice, action, vertical trust standards, and the next safest move.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Run Free Scan</Link>
@@ -57,6 +59,32 @@ export default function SampleReportPage() {
       <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Sample report object">
         <div className="mx-auto max-w-7xl">
           <SamplePresenceReport />
+        </div>
+      </section>
+
+      <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Vertical sample report standards">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:rounded-[2.5rem] sm:p-8">
+          <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Vertical sample reports</p>
+              <h2 className="mt-3 text-[clamp(2rem,6vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">Different businesses need different trust proof.</h2>
+            </div>
+            <p className="text-base font-medium leading-8 text-slate-600">Cendorq should score the same five pillars while adapting proof standards, claim boundaries, and repair priorities to the category.</p>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {VERTICAL_SAMPLE_PRESENCE_REPORTS.map((sample) => (
+              <article key={sample.key} className="rounded-[1.55rem] border border-cyan-100 bg-cyan-50/45 p-5 shadow-sm">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{sample.category}</p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.045em] text-slate-950">{sample.label}</h3>
+                <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{sample.trustStandard}</p>
+                <div className="mt-4 grid gap-2">
+                  {sample.priorityRepairs.slice(0, 2).map((repair) => (
+                    <p key={repair} className="rounded-[1rem] border border-cyan-100 bg-white p-3 text-xs font-semibold leading-5 text-slate-700">{repair}</p>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
