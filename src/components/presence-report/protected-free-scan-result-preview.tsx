@@ -1,9 +1,62 @@
-import { SAMPLE_CHOICE_GAP } from "@/lib/choice-gap-contract";
-import { SAMPLE_PRESENCE_REPORT } from "@/lib/presence-report-contract";
+import { mapLiveScanSnapshotToPresenceReport } from "@/lib/live-scan-presence-report-mapping";
+import { buildFreeCheckReportSnapshot } from "@/lib/reports/free-check-report";
+
+const PROTECTED_FREE_SCAN_SNAPSHOT = buildFreeCheckReportSnapshot({
+  id: "sandwork-protected-preview",
+  businessName: "Sandwork",
+  businessType: "Local service contractor",
+  websiteUrl: "https://example.com",
+  websiteHostname: "example.com",
+  city: "Sample City",
+  stateRegion: "Sample State",
+  country: "US",
+  primaryOffer: "Clear local service help with a simple request path.",
+  audience: "Local customers comparing trusted providers before requesting service.",
+  biggestIssue: "Visible, but proof and choice clarity are harder to understand than competitors.",
+  competitors: "Competitor A, Competitor B",
+  notes: "Protected preview fixture for the first Free Scan Presence Report result.",
+  signalQuality: 68,
+  clarityScore: 54,
+  intentStrength: 72,
+  routingHint: "blueprint-candidate",
+  score: 49,
+  scoreTier: "mid",
+  decision: "review",
+  strongestPressure: "trust",
+  riskFlags: ["proof buried", "choice gap visible"],
+  confidenceLevel: "medium",
+  dataDepthScore: 66,
+  timeSensitivity: "watch",
+  decisionMoment: "first protected scan result",
+  explanationTrace: [
+    "Free Scan remains first signal only.",
+    "Trust and choice pressure justify Review before implementation.",
+    "Repair Queue must stay evidence-led.",
+  ],
+  scoreModules: {
+    discoverability: 58,
+    recommendationVisibility: 46,
+    trustAuthority: 41,
+    conversionReadiness: 55,
+    competitiveExposure: 68,
+  },
+  createdAt: "2026-05-21T00:00:00.000Z",
+  updatedAt: "2026-05-21T00:00:00.000Z",
+});
+
+const PROTECTED_FREE_SCAN_PACKAGE = mapLiveScanSnapshotToPresenceReport(PROTECTED_FREE_SCAN_SNAPSHOT, {
+  businessName: "Sandwork",
+  website: "https://example.com",
+  category: "Local service contractor",
+  location: "Sample City, Sample State",
+  primaryOffer: "Clear local service help with a simple request path.",
+  audience: "Local customers comparing trusted providers before requesting service.",
+  preferredCta: "Request service",
+});
 
 export function ProtectedFreeScanResultPreview() {
-  const report = SAMPLE_PRESENCE_REPORT;
-  const choiceGap = SAMPLE_CHOICE_GAP;
+  const report = PROTECTED_FREE_SCAN_PACKAGE.report;
+  const choiceGap = PROTECTED_FREE_SCAN_PACKAGE.choiceGap;
 
   return (
     <section className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur" aria-label="Protected Free Scan Presence Report preview">
