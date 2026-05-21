@@ -1,8 +1,8 @@
-import { buildPresenceReportPackage, type GeneratedPresenceReportPackage } from "@/lib/presence-report-generation-adapter";
+import { buildPresenceReportPackage, type GeneratedPresenceReportPackage, type PresenceReportGenerationInput } from "@/lib/presence-report-generation-adapter";
 import type { FreeCheckReportSnapshot } from "@/lib/reports/free-check-report";
 
-export function mapLiveScanSnapshotToPresenceReport(snapshot: FreeCheckReportSnapshot): GeneratedPresenceReportPackage {
-  const packageBase = buildPresenceReportPackage();
+export function mapLiveScanSnapshotToPresenceReport(snapshot: FreeCheckReportSnapshot, input: PresenceReportGenerationInput = {}): GeneratedPresenceReportPackage {
+  const packageBase = buildPresenceReportPackage(input);
   const score = averageScore(snapshot.moduleReadouts.map((item) => item.value));
 
   return {
@@ -17,6 +17,10 @@ export function mapLiveScanSnapshotToPresenceReport(snapshot: FreeCheckReportSna
       })),
       nextMove: routeTitleToNextMove(snapshot.routeRecommendation.title),
     },
+    choiceGap: {
+      ...packageBase.choiceGap,
+      summary: weakestReadoutSummary(snapshot) || packageBase.choiceGap.summary,
+    },
     controlSnapshot: {
       ...packageBase.controlSnapshot,
       presenceScore: score,
@@ -29,6 +33,12 @@ function averageScore(values: readonly number[]) {
   if (!values.length) return 0;
   const total = values.reduce((sum, value) => sum + value, 0);
   return Math.max(0, Math.min(100, Math.round(total / values.length)));
+}
+
+function weakestReadoutSummary(snapshot: FreeCheckReportSnapshot) {
+  const weakest = [...snapshot.moduleReadouts].sort((a, b) => a.value - b.value)[0];
+  if (!weakest) return "";
+  return `Lowest visible readout: ${weakest.label}. ${weakest.interpretation}`;
 }
 
 function routeTitleToNextMove(title: string) {
