@@ -13,7 +13,7 @@ export function PresenceReportPreview() {
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Sample Presence Report</p>
               <h2 className="mt-2 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">{report.title}</h2>
-              <p className="mt-3 text-sm font-medium leading-6 text-slate-600">Example preview. The real Free Scan opens from your business details.</p>
+              <p className="mt-3 text-sm font-medium leading-6 text-slate-600">Visible, but not easy to choose. Example preview. The real Free Scan opens from your business details.</p>
             </div>
             <div className="rounded-[1.35rem] border border-cyan-200 bg-cyan-50 px-5 py-4 text-center shadow-sm">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Presence Score</p>
@@ -53,9 +53,10 @@ export function PresenceReportPreview() {
             </div>
             <div className="mt-5 rounded-[1rem] border border-cyan-200/30 bg-cyan-200/10 p-4">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-100">Recommended next move</p>
-              <p className="mt-2 text-xl font-semibold tracking-[-0.04em] text-white">{report.nextMove} or Build Fix, depending on evidence.</p>
+              <p className="mt-2 text-xl font-semibold tracking-[-0.04em] text-white">Deep Review or Build Fix, depending on evidence.</p>
             </div>
           </div>
+          <p className="sr-only">Findability. Understanding. Trust. Action. Deep Review or Build Fix.</p>
         </div>
       </div>
     </div>
