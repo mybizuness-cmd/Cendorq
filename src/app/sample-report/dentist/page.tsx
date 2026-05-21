@@ -2,7 +2,7 @@ import { VerticalSamplePresenceReport } from "@/components/presence-report";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 import { VERTICAL_SAMPLE_PRESENCE_REPORTS } from "@/lib/vertical-sample-presence-reports";
 
-const sample = VERTICAL_SAMPLE_PRESENCE_REPORTS.find((item) => item.key === "dentist") || VERTICAL_SAMPLE_PRESENCE_REPORTS[0];
+const sample = VERTICAL_SAMPLE_PRESENCE_REPORTS.find((item) => item.key === "dentist") ?? VERTICAL_SAMPLE_PRESENCE_REPORTS[0]!;
 
 export const metadata = buildMetadata({
   title: "Sample Dentist Presence Report | Cendorq",
