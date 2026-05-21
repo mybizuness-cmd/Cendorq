@@ -55,6 +55,7 @@ expect("src/app/page.tsx", [
   "Cendorq turns AI visibility and readiness into a clear repair path",
   "Cendorq | AI Search Presence Repair for Businesses",
   "Presence Report",
+  "Sample Report",
   "Presence Score",
   "Findability",
   "Understanding",
@@ -79,7 +80,7 @@ expect("src/app/page.tsx", [
 
 expect("src/app/free-check/page.tsx", [
   "AI visibility scan",
-  "first Presence Report signal",
+  "first Presence Report and AI Visibility signal",
   "missing, unclear, under-trusted, or harder to choose",
   "Get the first signal before buying the deeper fix.",
   "Start Free Scan",
@@ -94,11 +95,11 @@ expect("src/app/sample-report/page.tsx", [
 ]);
 
 expect("src/app/plans/page.tsx", [
-  "Choose the right visibility and readiness depth.",
+  "Choose the right AI Visibility and Readiness depth.",
   "Free Scan shows the first signal.",
   "Deep Review explains the cause.",
-  "Build Fix improves the weak point.",
-  "Ongoing Control keeps visibility and readiness from drifting.",
+  "Build Fix repairs the weak point.",
+  "Ongoing Control keeps AI Visibility and Readiness from drifting.",
   "The report shows which depth fits.",
   "Open Sample Presence Report",
   "PresenceReportPreview",
@@ -140,13 +141,19 @@ expect("src/app/connect/page.tsx", [
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "AI readiness control center",
-  "Your Cendorq account is ready.",
-  "one clear next action",
+  "AI Visibility command center",
+  "Your Cendorq command center is ready.",
+  "one clear next command",
+  "Presence command snapshot",
+  "Presence Score",
+  "Choice Gap",
+  "Repair Queue",
+  "Control Snapshot",
   "Scan. Review. Repair. Control.",
-  "Open protected scan and review outputs when they are ready.",
-  "getPlanValueDelivery",
+  "Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.",
+  "getCendorqPlanPrice",
   "DashboardNextBestAction",
+  "DashboardPresenceCommandSnapshot",
 ]);
 
 forbidden("src/app/page.tsx", [
@@ -258,7 +265,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, Presence Report homepage, Sample Report proof path, aligned Free Scan and plan language, Contact Us direct-email support routing, Cendorq Experience System, aligned dashboard readiness language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
+console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, Presence Report homepage, Sample Report proof path, aligned Free Scan and plan language, Contact Us direct-email support routing, Cendorq Experience System, aligned dashboard AI Visibility command language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
 
 function expect(path, phrases) {
   const text = read(path);
