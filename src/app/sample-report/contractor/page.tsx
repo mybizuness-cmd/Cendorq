@@ -2,7 +2,7 @@ import { VerticalSamplePresenceReport } from "@/components/presence-report";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 import { VERTICAL_SAMPLE_PRESENCE_REPORTS } from "@/lib/vertical-sample-presence-reports";
 
-const sample = VERTICAL_SAMPLE_PRESENCE_REPORTS.find((item) => item.key === "contractor") ?? VERTICAL_SAMPLE_PRESENCE_REPORTS[0];
+const sample = selectSample("contractor");
 
 export const metadata = buildMetadata({
   title: "Sample Contractor Presence Report | Cendorq",
@@ -23,4 +23,11 @@ export default function ContractorSampleReportPage() {
       <VerticalSamplePresenceReport sample={sample} />
     </>
   );
+}
+
+function selectSample(key: "contractor") {
+  const matched = VERTICAL_SAMPLE_PRESENCE_REPORTS.find((item) => item.key === key);
+  const fallback = VERTICAL_SAMPLE_PRESENCE_REPORTS[0];
+  if (!matched && !fallback) throw new Error("Missing vertical Sample Presence Report data.");
+  return matched ?? fallback;
 }
