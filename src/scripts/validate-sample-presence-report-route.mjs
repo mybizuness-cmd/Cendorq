@@ -7,6 +7,7 @@ const failures = [];
 const routePath = "src/app/sample-report/page.tsx";
 const componentPath = "src/components/presence-report/sample-presence-report.tsx";
 const evidencePanelPath = "src/components/presence-report/presence-report-evidence-boundary-panel.tsx";
+const nextMovePolicyPanelPath = "src/components/presence-report/presence-report-next-move-policy-panel.tsx";
 const verticalComponentPath = "src/components/presence-report/vertical-sample-presence-report.tsx";
 const indexPath = "src/components/presence-report/index.ts";
 const contractPath = "src/lib/presence-report-contract.ts";
@@ -14,6 +15,7 @@ const truthProfilePath = "src/lib/business-truth-profile-contract.ts";
 const choiceGapPath = "src/lib/choice-gap-contract.ts";
 const controlSnapshotPath = "src/lib/control-snapshot-contract.ts";
 const evidenceBoundaryPath = "src/lib/presence-report-evidence-boundary.ts";
+const nextMovePolicyPath = "src/lib/presence-report-next-move-policy.ts";
 const verticalSamplesPath = "src/lib/vertical-sample-presence-reports.ts";
 const generationAdapterPath = "src/lib/presence-report-generation-adapter.ts";
 const liveMappingPath = "src/lib/live-scan-presence-report-mapping.ts";
@@ -32,10 +34,13 @@ const verticalRoutePaths = [
 expect(routePath, [
   "Sample Presence Report | Cendorq",
   "PresenceReportEvidenceBoundaryPanel",
+  "PresenceReportNextMovePolicyPanel",
   "SamplePresenceReport",
   "VERTICAL_SAMPLE_PRESENCE_REPORTS",
   "Sample report evidence boundaries",
+  "Sample report next move policy",
   "evidence boundaries",
+  "next move policy",
   "Vertical sample reports",
   "Different businesses need different trust proof.",
   "sample.priorityRepairs",
@@ -43,7 +48,7 @@ expect(routePath, [
   "This is an example, not a promise.",
 ]);
 
-expect(indexPath, ["SamplePresenceReport", "PresenceReportPreview", "VerticalSamplePresenceReport", "PresenceReportEvidenceBoundaryPanel"]);
+expect(indexPath, ["SamplePresenceReport", "PresenceReportPreview", "VerticalSamplePresenceReport", "PresenceReportEvidenceBoundaryPanel", "PresenceReportNextMovePolicyPanel"]);
 
 expect(evidencePanelPath, [
   "PresenceReportEvidenceBoundaryPanel",
@@ -51,6 +56,15 @@ expect(evidencePanelPath, [
   "Evidence boundaries",
   "Useful signal without overclaiming.",
   "publicSafeUse",
+  "boundary",
+]);
+
+expect(nextMovePolicyPanelPath, [
+  "PresenceReportNextMovePolicyPanel",
+  "PRESENCE_REPORT_NEXT_MOVE_POLICIES",
+  "Next move policy",
+  "Do not sell the wrong layer too early.",
+  "nextMove",
   "boundary",
 ]);
 
@@ -106,23 +120,26 @@ expect(truthProfilePath, ["BusinessTruthProfilePublicShape", "SAMPLE_BUSINESS_TR
 expect(choiceGapPath, ["ChoiceGapPublicShape", "SAMPLE_CHOICE_GAP", "repairDirection"]);
 expect(controlSnapshotPath, ["ControlSnapshotPublicShape", "SAMPLE_CONTROL_SNAPSHOT", "Proof freshness", "Competitor clarity"]);
 expect(evidenceBoundaryPath, ["PresenceReportEvidenceBoundary", "SAMPLE_PRESENCE_REPORT_EVIDENCE_BOUNDARIES", "Homepage clarity", "Trust proof visibility", "Competitor contrast"]);
+expect(nextMovePolicyPath, ["PresenceReportNextMovePolicy", "PRESENCE_REPORT_NEXT_MOVE_POLICIES", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"]);
 expect(releaseGatePath, ["PresenceReportReleaseGateStatus", "SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS", "Approved business facts", "Restricted claims", "Evidence boundary", "Next move clarity"]);
 expect(verticalSamplesPath, ["VerticalSamplePresenceReport", "VERTICAL_SAMPLE_PRESENCE_REPORTS", "dentist", "med-spa", "law-firm", "contractor", "trustStandard", "priorityRepairs", "Do not use outcome promises."]);
 expect(generationAdapterPath, ["buildPresenceReportPackage", "GeneratedPresenceReportPackage", "SAMPLE_PRESENCE_REPORT", "businessTruthProfile", "choiceGap", "controlSnapshot"]);
-expect(liveMappingPath, ["mapLiveScanSnapshotToPresenceReport", "FreeCheckReportSnapshot", "GeneratedPresenceReportPackage", "routeTitleToNextMove"]);
+expect(liveMappingPath, ["mapLiveScanSnapshotToPresenceReport", "FreeCheckReportSnapshot", "GeneratedPresenceReportPackage", "normalizePresenceReportNextMove"]);
 expect(launchReadinessPath, ["PRESENCE_REPORT_LAUNCH_READINESS", "Public promise boundary", "Free Scan boundary", "Presence Report object", "Business Truth Profile", "Choice Gap", "Control Snapshot", "Vertical standards"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(routePath, 18000);
+boundedLength(routePath, 20000);
 boundedLength(componentPath, 28000);
 boundedLength(evidencePanelPath, 8000);
+boundedLength(nextMovePolicyPanelPath, 8000);
 boundedLength(verticalComponentPath, 18000);
-boundedLength(indexPath, 900);
+boundedLength(indexPath, 1100);
 boundedLength(contractPath, 8500);
 boundedLength(truthProfilePath, 7000);
 boundedLength(choiceGapPath, 5000);
 boundedLength(controlSnapshotPath, 5000);
 boundedLength(evidenceBoundaryPath, 5000);
+boundedLength(nextMovePolicyPath, 5000);
 boundedLength(releaseGatePath, 6000);
 boundedLength(verticalSamplesPath, 18000);
 boundedLength(generationAdapterPath, 9000);
@@ -135,7 +152,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Sample Presence Report route validation passed with report object, evidence boundaries, release gate, control snapshot, and vertical sample standards.");
+console.log("Sample Presence Report route validation passed with report object, evidence boundaries, next move policy, release gate, control snapshot, and vertical sample standards.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
