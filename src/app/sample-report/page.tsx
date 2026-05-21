@@ -1,4 +1,4 @@
-import { PresenceReportEvidenceBoundaryPanel, SamplePresenceReport } from "@/components/presence-report";
+import { PresenceReportEvidenceBoundaryPanel, PresenceReportNextMovePolicyPanel, SamplePresenceReport } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 import { VERTICAL_SAMPLE_PRESENCE_REPORTS } from "@/lib/vertical-sample-presence-reports";
@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata = buildMetadata({
   title: "Sample Presence Report | Cendorq",
   description:
-    "See an example Cendorq Presence Report showing findability, understanding, trust, choice, action, repair priorities, vertical trust standards, evidence boundaries, and the recommended next move.",
+    "See an example Cendorq Presence Report showing findability, understanding, trust, choice, action, repair priorities, vertical trust standards, evidence boundaries, next move policy, and the recommended next move.",
   path: "/sample-report",
   keywords: [
     "Cendorq Presence Report",
@@ -46,7 +46,7 @@ export default function SampleReportPage() {
               See how Cendorq turns uncertainty into a repair queue.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              The Presence Report is the core Cendorq object: a clear view of findability, understanding, trust, choice, action, vertical trust standards, evidence boundaries, and the next safest move.
+              The Presence Report is the core Cendorq object: a clear view of findability, understanding, trust, choice, action, vertical trust standards, evidence boundaries, next move policy, and the next safest move.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Run Free Scan</Link>
@@ -65,6 +65,12 @@ export default function SampleReportPage() {
       <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Sample report evidence boundaries">
         <div className="mx-auto max-w-7xl">
           <PresenceReportEvidenceBoundaryPanel />
+        </div>
+      </section>
+
+      <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Sample report next move policy">
+        <div className="mx-auto max-w-7xl">
+          <PresenceReportNextMovePolicyPanel />
         </div>
       </section>
 
