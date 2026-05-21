@@ -8,6 +8,9 @@ const routePath = "src/app/sample-report/page.tsx";
 const componentPath = "src/components/presence-report/sample-presence-report.tsx";
 const indexPath = "src/components/presence-report/index.ts";
 const contractPath = "src/lib/presence-report-contract.ts";
+const truthProfilePath = "src/lib/business-truth-profile-contract.ts";
+const choiceGapPath = "src/lib/choice-gap-contract.ts";
+const controlSnapshotPath = "src/lib/control-snapshot-contract.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-sample-presence-report-route.mjs";
 
@@ -23,7 +26,17 @@ expect(indexPath, ["SamplePresenceReport", "PresenceReportPreview"]);
 
 expect(componentPath, [
   "SAMPLE_PRESENCE_REPORT",
+  "SAMPLE_BUSINESS_TRUTH_PROFILE",
+  "SAMPLE_CHOICE_GAP",
+  "SAMPLE_CONTROL_SNAPSHOT",
+  "Business Truth Profile",
+  "Choice Gap",
+  "Repair Queue",
+  "Control Snapshot",
   "@/lib/presence-report-contract",
+  "@/lib/business-truth-profile-contract",
+  "@/lib/choice-gap-contract",
+  "@/lib/control-snapshot-contract",
   "SamplePresenceReport",
   "report.title",
   "report.summary",
@@ -43,12 +56,35 @@ expect(contractPath, [
   "Visible, but not easy to choose.",
 ]);
 
+expect(truthProfilePath, [
+  "BusinessTruthProfilePublicShape",
+  "SAMPLE_BUSINESS_TRUTH_PROFILE",
+  "approvedClaims",
+  "restrictedClaims",
+]);
+
+expect(choiceGapPath, [
+  "ChoiceGapPublicShape",
+  "SAMPLE_CHOICE_GAP",
+  "repairDirection",
+]);
+
+expect(controlSnapshotPath, [
+  "ControlSnapshotPublicShape",
+  "SAMPLE_CONTROL_SNAPSHOT",
+  "Proof freshness",
+  "Competitor clarity",
+]);
+
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(routePath, 8500);
-boundedLength(componentPath, 15500);
+boundedLength(routePath, 9000);
+boundedLength(componentPath, 24000);
 boundedLength(indexPath, 500);
 boundedLength(contractPath, 8500);
+boundedLength(truthProfilePath, 7000);
+boundedLength(choiceGapPath, 5000);
+boundedLength(controlSnapshotPath, 5000);
 
 if (failures.length) {
   console.error("Sample Presence Report route validation failed:");
@@ -56,7 +92,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Sample Presence Report route validation passed with shared public report contract, component index, and reusable component.");
+console.log("Sample Presence Report route validation passed with shared public report contract, Business Truth Profile, Choice Gap, Repair Queue, and Control Snapshot proof objects.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
