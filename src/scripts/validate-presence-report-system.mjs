@@ -7,6 +7,7 @@ const root = process.cwd();
 const validators = [
   "src/scripts/validate-presence-report-public-contract.mjs",
   "src/scripts/validate-presence-report-next-move-typing.mjs",
+  "src/scripts/validate-presence-report-next-move-helper.mjs",
   "src/scripts/validate-presence-report-preview-component.mjs",
   "src/scripts/validate-presence-report-preview-system.mjs",
   "src/scripts/validate-business-truth-profile-contract.mjs",
