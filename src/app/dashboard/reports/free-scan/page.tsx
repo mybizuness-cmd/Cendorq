@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProtectedFreeScanResultPreview } from "@/components/presence-report";
 import { buildMetadata } from "@/lib/seo";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import {
@@ -13,8 +14,8 @@ import { getPlanValueDelivery } from "@/lib/plan-value-delivery-architecture";
 import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 
 export const metadata = buildMetadata({
-  title: "Market signal result | Cendorq",
-  description: "Your protected Cendorq market signal result, AI/search posture, confidence limits, and next command action.",
+  title: "Free Scan Presence Report | Cendorq",
+  description: "Your protected Cendorq Free Scan Presence Report, first weak signal, confidence limits, and next command action.",
   path: "/dashboard/reports/free-scan",
   noIndex: true,
 });
@@ -25,9 +26,9 @@ const DEEP_REVIEW = getCendorqPlanPrice("deep-review");
 const SAMPLE_FINDINGS = getFreeScanFindingSummary();
 
 const RESULT_STATE = [
-  { label: "Command", value: "Scan", detail: "The first market signal before paid diagnosis or implementation." },
+  { label: "Command", value: "Scan", detail: "The first Presence Report signal before paid diagnosis or implementation." },
   { label: "AI/Search posture", value: "First signal only", detail: "The result can show visibility risk without claiming ranking, placement, or full diagnosis." },
-  { label: "Next command", value: "Diagnose", detail: "Use Deep Review only when the signal matters enough to prove the cause." },
+  { label: "Next command", value: "Review", detail: "Use Deep Review only when the signal matters enough to prove the cause." },
 ] as const;
 
 const RESULT_DECISION = [
@@ -35,7 +36,7 @@ const RESULT_DECISION = [
   { title: "Proof", copy: "What visible evidence supports the first read without using private internals or fake certainty." },
   { title: "Risk", copy: "How weak clarity, proof, trust, visibility, or action can cost choices before the customer reaches the website or takes the next step." },
   { title: "Limit", copy: "What the Scan cannot prove without deeper review, comparison, business context, or approved paid work." },
-  { title: "Next command", copy: "The cleanest next move when the first signal matters enough to prove, fix, or control over time." },
+  { title: "Next command", copy: "The cleanest next move when the first signal matters enough to prove, repair, or control over time." },
 ] as const;
 
 const METHODOLOGY_SUMMARY = [
@@ -52,7 +53,7 @@ export default function FreeScanResultsPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <h1 className="max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-slate-950">
-            The first AI/search market signal is ready.
+            The first Free Scan Presence Report is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
             This is the Scan layer inside the customer dashboard. It shows what may be visible, unclear, weak, or blocked before Cendorq claims a full diagnosis.
@@ -65,7 +66,7 @@ export default function FreeScanResultsPage() {
 
         <div className="relative overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/74 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Diagnose</h2>
+          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Review</h2>
           <p className="mt-5 text-base font-medium leading-8 text-slate-600">{DEEP_REVIEW_VALUE.primaryValue}</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {RESULT_STATE.slice(0, 2).map((item) => (
@@ -77,6 +78,10 @@ export default function FreeScanResultsPage() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6">
+        <ProtectedFreeScanResultPreview />
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Market signal state">
@@ -159,6 +164,7 @@ export default function FreeScanResultsPage() {
           </div>
         </div>
       </section>
+      <section className="sr-only" aria-label="Protected Free Scan Presence Report standard">Protected Free Scan result. Protected Free Scan Presence Report preview. Presence Score. First weak point. Top repair priorities. Choice Gap. Repair Queue. first signal only. no full diagnosis. no ranking placement or lead guarantees.</section>
     </main>
   );
 }
