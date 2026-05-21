@@ -1,4 +1,4 @@
-import { SamplePresenceReport } from "@/components/presence-report";
+import { PresenceReportEvidenceBoundaryPanel, SamplePresenceReport } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 import { VERTICAL_SAMPLE_PRESENCE_REPORTS } from "@/lib/vertical-sample-presence-reports";
@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata = buildMetadata({
   title: "Sample Presence Report | Cendorq",
   description:
-    "See an example Cendorq Presence Report showing findability, understanding, trust, choice, action, repair priorities, vertical trust standards, and the recommended next move.",
+    "See an example Cendorq Presence Report showing findability, understanding, trust, choice, action, repair priorities, vertical trust standards, evidence boundaries, and the recommended next move.",
   path: "/sample-report",
   keywords: [
     "Cendorq Presence Report",
@@ -46,7 +46,7 @@ export default function SampleReportPage() {
               See how Cendorq turns uncertainty into a repair queue.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              The Presence Report is the core Cendorq object: a clear view of findability, understanding, trust, choice, action, vertical trust standards, and the next safest move.
+              The Presence Report is the core Cendorq object: a clear view of findability, understanding, trust, choice, action, vertical trust standards, evidence boundaries, and the next safest move.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Run Free Scan</Link>
@@ -62,6 +62,12 @@ export default function SampleReportPage() {
         </div>
       </section>
 
+      <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Sample report evidence boundaries">
+        <div className="mx-auto max-w-7xl">
+          <PresenceReportEvidenceBoundaryPanel />
+        </div>
+      </section>
+
       <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Vertical sample report standards">
         <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:rounded-[2.5rem] sm:p-8">
           <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
@@ -73,7 +79,7 @@ export default function SampleReportPage() {
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {VERTICAL_SAMPLE_PRESENCE_REPORTS.map((sample) => (
-              <article key={sample.key} className="rounded-[1.55rem] border border-cyan-100 bg-cyan-50/45 p-5 shadow-sm">
+              <Link key={sample.key} href={`/sample-report/${sample.key}`} className="group rounded-[1.55rem] border border-cyan-100 bg-cyan-50/45 p-5 shadow-sm transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-white hover:shadow-[0_18px_55px_rgba(14,165,233,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
                 <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{sample.category}</p>
                 <h3 className="mt-3 text-2xl font-semibold tracking-[-0.045em] text-slate-950">{sample.label}</h3>
                 <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{sample.trustStandard}</p>
@@ -82,7 +88,8 @@ export default function SampleReportPage() {
                     <p key={repair} className="rounded-[1rem] border border-cyan-100 bg-white p-3 text-xs font-semibold leading-5 text-slate-700">{repair}</p>
                   ))}
                 </div>
-              </article>
+                <span className="mt-4 inline-flex text-sm font-bold text-cyan-700 transition group-hover:text-slate-950">Open vertical sample →</span>
+              </Link>
             ))}
           </div>
         </div>
