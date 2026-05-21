@@ -6,14 +6,25 @@ const failures = [];
 
 const routePath = "src/app/sample-report/page.tsx";
 const componentPath = "src/components/presence-report/sample-presence-report.tsx";
+const verticalComponentPath = "src/components/presence-report/vertical-sample-presence-report.tsx";
 const indexPath = "src/components/presence-report/index.ts";
 const contractPath = "src/lib/presence-report-contract.ts";
 const truthProfilePath = "src/lib/business-truth-profile-contract.ts";
 const choiceGapPath = "src/lib/choice-gap-contract.ts";
 const controlSnapshotPath = "src/lib/control-snapshot-contract.ts";
 const verticalSamplesPath = "src/lib/vertical-sample-presence-reports.ts";
+const generationAdapterPath = "src/lib/presence-report-generation-adapter.ts";
+const liveMappingPath = "src/lib/live-scan-presence-report-mapping.ts";
+const launchReadinessPath = "src/lib/presence-report-launch-readiness.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-sample-presence-report-route.mjs";
+
+const verticalRoutePaths = [
+  "src/app/sample-report/dentist/page.tsx",
+  "src/app/sample-report/med-spa/page.tsx",
+  "src/app/sample-report/law-firm/page.tsx",
+  "src/app/sample-report/contractor/page.tsx",
+] as const;
 
 expect(routePath, [
   "Sample Presence Report | Cendorq",
@@ -27,7 +38,7 @@ expect(routePath, [
   "This is an example, not a promise.",
 ]);
 
-expect(indexPath, ["SamplePresenceReport", "PresenceReportPreview"]);
+expect(indexPath, ["SamplePresenceReport", "PresenceReportPreview", "VerticalSamplePresenceReport"]);
 
 expect(componentPath, [
   "SAMPLE_PRESENCE_REPORT",
@@ -49,6 +60,27 @@ expect(componentPath, [
   "report.pillars.map",
   "report.repairQueue.map",
 ]);
+
+expect(verticalComponentPath, [
+  "VerticalSamplePresenceReport",
+  "Business Truth Profile",
+  "Choice Gap",
+  "Priority repairs",
+  "Run Free Scan",
+  "Back to Sample Report",
+]);
+
+for (const verticalRoutePath of verticalRoutePaths) {
+  expect(verticalRoutePath, [
+    "VerticalSamplePresenceReport",
+    "VERTICAL_SAMPLE_PRESENCE_REPORTS",
+    "Sample Presence Report",
+    "Choice Gap",
+    "Repair Queue",
+    "buildMetadata",
+    "buildWebPageJsonLd",
+  ]);
+}
 
 expect(contractPath, [
   "PresenceReportPublicShape",
@@ -93,16 +125,47 @@ expect(verticalSamplesPath, [
   "Do not use outcome promises.",
 ]);
 
+expect(generationAdapterPath, [
+  "buildPresenceReportPackage",
+  "GeneratedPresenceReportPackage",
+  "SAMPLE_PRESENCE_REPORT",
+  "businessTruthProfile",
+  "choiceGap",
+  "controlSnapshot",
+]);
+
+expect(liveMappingPath, [
+  "mapLiveScanSnapshotToPresenceReport",
+  "FreeCheckReportSnapshot",
+  "GeneratedPresenceReportPackage",
+  "routeTitleToNextMove",
+]);
+
+expect(launchReadinessPath, [
+  "PRESENCE_REPORT_LAUNCH_READINESS",
+  "Public promise boundary",
+  "Free Scan boundary",
+  "Presence Report object",
+  "Business Truth Profile",
+  "Choice Gap",
+  "Control Snapshot",
+  "Vertical standards",
+]);
+
 expect(routesChainPath, [validatorPath]);
 
 boundedLength(routePath, 16000);
 boundedLength(componentPath, 24000);
-boundedLength(indexPath, 500);
+boundedLength(verticalComponentPath, 18000);
+boundedLength(indexPath, 700);
 boundedLength(contractPath, 8500);
 boundedLength(truthProfilePath, 7000);
 boundedLength(choiceGapPath, 5000);
 boundedLength(controlSnapshotPath, 5000);
 boundedLength(verticalSamplesPath, 18000);
+boundedLength(generationAdapterPath, 9000);
+boundedLength(liveMappingPath, 7000);
+boundedLength(launchReadinessPath, 7000);
 
 if (failures.length) {
   console.error("Sample Presence Report route validation failed:");
@@ -110,7 +173,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Sample Presence Report route validation passed with shared public report contract, Business Truth Profile, Choice Gap, Repair Queue, Control Snapshot, and vertical sample report standards.");
+console.log("Sample Presence Report route validation passed with shared public report contract, Business Truth Profile, Choice Gap, Repair Queue, Control Snapshot, vertical routes, launch readiness, and live scan mapping.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
