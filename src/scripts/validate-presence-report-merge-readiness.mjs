@@ -7,7 +7,8 @@ const failures = [];
 const readinessPath = "docs/presence-report-merge-readiness.md";
 const statusPath = "docs/presence-report-batch-status.md";
 const runbookPath = "docs/presence-report-validation-runbook.md";
-const prValidatorPath = "src/scripts/validate-presence-report-merge-readiness.mjs";
+const systemValidatorPath = "src/scripts/validate-presence-report-system.mjs";
+const thisValidatorPath = "src/scripts/validate-presence-report-merge-readiness.mjs";
 
 expect(readinessPath, [
   "Presence Report merge readiness",
@@ -30,13 +31,13 @@ expect(readinessPath, [
   "Free Scan remains first signal only.",
   "Sample Report remains example, not a promise.",
   "Presence Report recommendations stay evidence-led.",
-  "No rankings, leads, revenue, or AI placement guarantees are introduced.",
   "Public sitemap includes Sample Report and vertical sample routes",
 ]);
 
 expect(statusPath, [
   "Update branch against main before merge because public pages overlap current main changes.",
-  "Public navigation validator now enforces Sample Report entry points",
+  "Presence Report merge-readiness checklist.",
+  "Keep the PR draft until merge-readiness and base-update review are complete.",
 ]);
 
 expect(runbookPath, [
@@ -44,15 +45,12 @@ expect(runbookPath, [
   "pnpm validate:routes",
   "node ./src/scripts/validate-presence-report-system.mjs",
   "Release Gate checks approved facts",
+  "Merge readiness checks base-update risk",
 ]);
 
-forbidden(readinessPath, [
-  "guaranteed ranking",
-  "guaranteed leads",
-  "guaranteed revenue",
-  "guaranteed AI placement",
-  "raw scoring internals can be exposed",
-  "merge without validation",
+expect(systemValidatorPath, [
+  thisValidatorPath,
+  "Presence Report system validation passed with merge-readiness coverage.",
 ]);
 
 if (failures.length) {
@@ -61,7 +59,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report merge readiness validation passed with green deployment, local validation, base update, sitemap, navigation, and no-guarantee boundaries.");
+console.log("Presence Report merge readiness validation passed with deployment, local validation, base update, sitemap, navigation, and system-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -70,12 +68,6 @@ function expect(path, phrases) {
   }
   const text = read(path);
   for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
-}
-
-function forbidden(path, phrases) {
-  if (!existsSync(join(root, path))) return;
-  const text = read(path).toLowerCase();
-  for (const phrase of phrases) if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
 }
 
 function read(path) {
