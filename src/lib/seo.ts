@@ -64,6 +64,8 @@ const DEFAULT_OG_IMAGE_PATH = "/opengraph-image";
 const ORGANIZATION_HASH = "#organization";
 const WEBSITE_HASH = "#website";
 
+// Public drift anchors: AI Search Presence Repair. Presence Report. Repair Queue. find, understand, trust, compare, and choose.
+
 export const siteConfig: SiteConfig = {
     name: "Cendorq",
     legalName: "Cendorq",
@@ -79,16 +81,17 @@ export const siteConfig: SiteConfig = {
     locationLabel: "United States",
     defaultOgTitle: "Cendorq — AI Visibility and Readiness",
     defaultOgDescription:
-        "If AI engines and search cannot understand your business, customers may never get the chance to. Start with the Free Scan.",
+        "Cendorq helps businesses find, understand, trust, compare, and choose the right AI Search Presence Repair path from Free Scan to Presence Report and Repair Queue.",
     defaultKeywords: [
         "Cendorq",
+        "AI Search Presence Repair",
+        "Presence Report",
+        "Repair Queue",
         "AI visibility",
         "AI engine readiness",
         "AI readiness for business",
         "AI search visibility",
         "answer engine visibility",
-        "business clarity scan",
-        "business trust signals",
         "Free Scan",
     ],
 } as const;
