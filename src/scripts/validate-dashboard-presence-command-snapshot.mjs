@@ -21,11 +21,15 @@ expect(componentPath, [
 
 expect(pagePath, [
   "DashboardPresenceCommandSnapshot",
+  "AI Visibility command center",
+  "Presence Reports",
+  "one clear next command",
   "Presence command snapshot",
   "Presence Score",
   "Choice Gap",
   "Repair Queue",
   "Control Snapshot",
+  "Scan. Review. Repair. Control.",
 ]);
 
 forbidden(componentPath, [
@@ -36,13 +40,19 @@ forbidden(componentPath, [
   "rawEvidence",
 ]);
 
+forbidden(pagePath, [
+  "guaranteed ranking",
+  "guaranteed revenue",
+  "guaranteed AI placement",
+]);
+
 if (failures.length) {
   console.error("Dashboard Presence Command Snapshot validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Dashboard Presence Command Snapshot validation passed.");
+console.log("Dashboard Presence Command Snapshot validation passed with current AI Visibility command center copy and Presence Report snapshot objects.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
