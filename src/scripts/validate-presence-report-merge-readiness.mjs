@@ -7,13 +7,14 @@ const failures = [];
 const readinessPath = "docs/presence-report-merge-readiness.md";
 const statusPath = "docs/presence-report-batch-status.md";
 const runbookPath = "docs/presence-report-validation-runbook.md";
+const packagePath = "package.json";
 const systemValidatorPath = "src/scripts/validate-presence-report-system.mjs";
 const thisValidatorPath = "src/scripts/validate-presence-report-merge-readiness.mjs";
 
 expect(readinessPath, [
   "Presence Report merge readiness",
   "pnpm validate:routes",
-  "node ./src/scripts/validate-presence-report-system.mjs",
+  "pnpm validate:presence-report",
   "pnpm lint",
   "pnpm typecheck",
   "pnpm build",
@@ -43,9 +44,14 @@ expect(statusPath, [
 expect(runbookPath, [
   "Presence Report validation runbook",
   "pnpm validate:routes",
-  "node ./src/scripts/validate-presence-report-system.mjs",
+  "pnpm validate:presence-report",
   "Release Gate checks approved facts",
   "Merge readiness checks base-update risk",
+]);
+
+expect(packagePath, [
+  "validate:presence-report",
+  "node ./src/scripts/validate-presence-report-system.mjs",
 ]);
 
 expect(systemValidatorPath, [
@@ -59,7 +65,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report merge readiness validation passed with deployment, local validation, base update, sitemap, navigation, and system-chain coverage.");
+console.log("Presence Report merge readiness validation passed with deployment, local validation, package shortcut, base update, sitemap, navigation, and system-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
