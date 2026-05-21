@@ -43,7 +43,7 @@ pnpm build
 After deployment, run:
 
 ```bash
-CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
 ```
 
 Confirm:

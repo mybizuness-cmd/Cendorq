@@ -16,12 +16,14 @@ export function SiteFooter() {
               <span className="text-sm font-semibold tracking-[0.08em]">{BRAND_NAME}</span>
             </Link>
             <p className="mt-2 leading-5">
-              AI visibility and readiness for businesses that need to be seen, understood, trusted, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.
+              AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.
             </p>
             <p className="mt-2 text-slate-400">© {year} {BRAND_NAME}. All rights reserved.</p>
           </div>
 
           <div className="flex flex-wrap items-center gap-4 font-semibold">
+            <Link href="/sample-report" className={FOOTER_LINK_CLASS}>Sample Report</Link>
+            <Link href="/plans" className={FOOTER_LINK_CLASS}>Plans</Link>
             <Link href="/faq" className={FOOTER_LINK_CLASS}>FAQ</Link>
             <Link href="/privacy" className={FOOTER_LINK_CLASS}>Privacy</Link>
             <Link href="/terms" className={FOOTER_LINK_CLASS}>Terms</Link>
@@ -29,7 +31,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <span className="sr-only">Footer uses the light white/cyan Cendorq control system. href="/faq"</span>
+      <span className="sr-only">Footer uses the light white/cyan Cendorq control system. Includes Sample Report, Plans, and FAQ.</span>
     </footer>
   );
 }

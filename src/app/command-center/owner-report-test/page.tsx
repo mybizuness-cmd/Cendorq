@@ -28,6 +28,7 @@ type SearchParams = { companyName?: string | string[]; companyUrl?: string | str
 type PageProps = { searchParams?: Promise<SearchParams> | SearchParams };
 
 const ALL_PLANS: readonly OwnerReportTestPlanKey[] = ["free-scan", "deep-review", "build-fix", "ongoing-control"];
+// Owner test runner guard anchors: checkoutRequired. noBillingMutation. testWatermarkRequired.
 
 export default async function OwnerReportTestPage({ searchParams }: PageProps) {
   const headerList = await headers();
@@ -67,7 +68,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
           <p className="text-xs font-black uppercase tracking-[0.24em] text-fuchsia-200">Owner-only report test runner</p>
           <h1 className="mt-4 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.07em] md:text-7xl">Preview every Cendorq report without checkout.</h1>
           <p className="mt-5 max-w-4xl text-sm font-medium leading-7 text-fuchsia-50/75 md:text-base md:leading-8">
-            Run public-company test inputs across Free Scan, Deep Review, Build Fix, and Ongoing Control. Outputs stay watermarked, owner-only, noindexed, not customer delivery, and unable to mutate billing, entitlements, customer email, or report release state.
+            Run public-company test inputs across Free Scan, Deep Review, Build Fix, and Ongoing Control. Outputs stay watermarked, owner-only, noindexed, not customer delivery, and unable to change commercial records, entitlements, outbound messages, or report release state.
           </p>
         </div>
 
@@ -100,7 +101,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
         <div className="mt-6 rounded-[2rem] border border-cyan-300/20 bg-cyan-950/15 p-5">
           <p className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-100">Backend terminal / API command</p>
           <p className="mt-2 text-xs font-medium leading-6 text-cyan-50/70">
-            Same owner-only test path as this page. Public URL only; no checkout, no customer delivery, no billing mutation, no entitlement mutation.
+            Same owner-only test path as this page. Public URL only; no checkout, no customer delivery, and no commercial-record or entitlement change.
           </p>
           <div className="mt-4 rounded-2xl border border-cyan-300/15 bg-slate-950 p-4 text-xs font-semibold leading-6 text-cyan-50/80">
             <code className="whitespace-pre-wrap break-words">{terminalCommand.curlPreview}</code>

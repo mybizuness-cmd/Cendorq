@@ -69,7 +69,7 @@ Forbidden behavior:
 - Do not split attention with redundant CTAs.
 - Do not bury Free Scan behind explanation.
 - Do not use labels that require internal context to understand.
-- Do not use customer-facing Connect labels when Contact Us is clearer.
+- Do not use old Connect wording when Contact Us is clearer.
 
 ## ChatGPT-level immediate action
 
@@ -152,7 +152,7 @@ Avoid this language on active public surfaces:
 - Presence Infrastructure
 - Presence Command
 - Start Search Presence Scan
-- customer-facing Connect labels
+- old Connect wording
 - vague audit theater
 - ranking guarantees
 

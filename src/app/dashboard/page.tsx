@@ -7,6 +7,7 @@ import { DashboardActionInbox } from "./dashboard-action-inbox";
 import { DashboardBusinessCommandCenter } from "./dashboard-business-command-center";
 import { DashboardControlRoomReentry } from "./dashboard-control-room-reentry";
 import { DashboardNextBestAction } from "./dashboard-next-best-action";
+import { DashboardPresenceCommandSnapshot } from "./dashboard-presence-command-snapshot";
 
 export const metadata = buildMetadata({
   title: "AI Visibility command center | Cendorq",
@@ -34,7 +35,7 @@ const DECISION_SUMMARY = [
   {
     label: "Reports",
     value: "Open what is ready",
-    detail: "Reports should connect visibility, diagnosis evidence, limitations, and the next command path.",
+    detail: "Presence Reports should connect visibility, diagnosis evidence, limitations, and the next command path.",
   },
   {
     label: "Support",
@@ -117,6 +118,10 @@ export default function CustomerDashboardPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6">
+        <DashboardPresenceCommandSnapshot />
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Dashboard decision summary">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {DECISION_SUMMARY.map((item, index) => (
@@ -171,7 +176,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Presence Reports. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Scan. Review. Repair. Control. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction DashboardPresenceCommandSnapshot Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
     </main>
   );
 }

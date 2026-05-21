@@ -35,7 +35,7 @@ export const PRODUCTION_SMOKE_FINALIZATION_CONTRACT = {
     {
       key: "finalization-contracts",
       routes: ["production-auth-provider-contracts", "verified-welcome-email-contracts", "report-generation-rendering-contracts", "billing-checkout-contracts", "controlled-maintenance-contracts"],
-      requiredPosture: "Finalization contracts must stay wired into validate:routes so auth, welcome email, reports, billing checkout, controlled maintenance, owner configuration workflow, and Contact Us support routing protections cannot drift silently.",
+      requiredPosture: "Finalization contracts must stay wired into validate:routes so auth, welcome email, reports, billing checkout, controlled maintenance, owner configuration workflow protections cannot drift silently, and Contact Us support routing protections cannot drift silently.",
     },
   ],
   defaultSmokeRules: [

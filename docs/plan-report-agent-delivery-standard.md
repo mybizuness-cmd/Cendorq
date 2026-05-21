@@ -322,4 +322,4 @@ Do not make the customer feel blamed. The system should feel precise, helpful, a
 
 ## Non-goals
 
-Do not use reports, agents, or plan delivery as a reason to add fake guarantees, fake urgency, generic AI content, technical language customers cannot understand, unapproved customer logo use, raw evidence exposure, private prompt exposure, cross-customer comparisons using private data, full competitor analysis inside Free Scan, untested public message boxes, fake support success states, or reports that are all text and no visual explanation when visuals would help.
+Do not use reports, agents, or plan delivery as a reason to add fake guarantees, fake urgency, generic AI content, technical language customers cannot understand, unapproved customer logo use, raw evidence exposure, private prompt exposure, cross-customer comparisons using private data, cause-level competitor research in the Free Scan, untested public message boxes, fake support success states, or reports that are all text and no visual explanation when visuals would help.

@@ -108,7 +108,7 @@ export const OPERATOR_EXECUTION_SAFETY_STANDARD = [
   "Every operator command must have a named command key, risk level, required preconditions, allowed state transitions, blocked inputs, audit events, and customer projection rule.",
   "Release-critical commands require release-captain approval before customer-facing publication.",
   "Operator execution cannot publish raw evidence, private credentials, raw sessions, raw billing payloads, internal notes, or cross-customer data.",
-  "Operator execution cannot claim guaranteed ranking, guaranteed revenue, guaranteed AI placement, guaranteed security, or liability-free outcomes.",
+  "Operator execution cannot claim guaranteed ranking, guaranteed revenue, guaranteed AI answer position, guaranteed security, or no-liability outcomes.",
   "Every customer-visible change must be traceable to an audit event and a customer-safe projection rule.",
 ] as const;
 

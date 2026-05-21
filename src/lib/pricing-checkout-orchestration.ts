@@ -81,7 +81,7 @@ export const CENDORQ_PLAN_PRICES = [
     checkoutPath: "/checkout/start?plan=ongoing-control",
     successPath: "/checkout/success?plan=ongoing-control&session_id={CHECKOUT_SESSION_ID}",
     primaryCustomerPromise: "Keep visibility, clarity, trust, public signals, AI readiness, and customer action paths under ongoing review.",
-    revenueRole: "Create recurring revenue from customers who need continued visibility and readiness control.",
+    revenueRole: "Create recurring revenue from customers who need continued visibility and customer-path control.",
     afterPaymentNextStep: "Cendorq opens the Ongoing Control path and confirms the priority focus for the first cycle.",
     backendStartSignal: "ongoing_control_subscribed",
   },
