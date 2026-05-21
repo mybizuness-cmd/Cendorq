@@ -12,6 +12,7 @@ const validators = [
   "src/scripts/validate-choice-gap-contract.mjs",
   "src/scripts/validate-control-snapshot-contract.mjs",
   "src/scripts/validate-presence-report-proof-map.mjs",
+  "src/scripts/validate-presence-report-evidence-boundary.mjs",
   "src/scripts/validate-presence-report-route-map.mjs",
   "src/scripts/validate-presence-report-object-index.mjs",
   "src/scripts/validate-presence-report-generation-adapter.mjs",
