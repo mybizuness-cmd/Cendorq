@@ -27,7 +27,7 @@ const SAMPLE_FINDINGS = getFreeScanFindingSummary();
 
 const RESULT_STATE = [
   { label: "Command", value: "Scan", detail: "The first Presence Report signal before paid diagnosis or implementation." },
-  { label: "AI/Search posture", value: "First signal only", detail: "The result can show visibility risk without claiming ranking, placement, or full diagnosis." },
+  { label: "AI/Search posture", value: "First signal only", detail: "The result can show visibility risk without claiming ranking, placement, or complete diagnosis." },
   { label: "Next command", value: "Review", detail: "Use Deep Review only when the signal matters enough to prove the cause." },
 ] as const;
 
@@ -56,7 +56,7 @@ export default function FreeScanResultsPage() {
             The first Free Scan Presence Report is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            This is the Scan layer inside the customer dashboard. It shows what may be visible, unclear, weak, or blocked before Cendorq claims a full diagnosis.
+            This is the Scan layer inside the customer dashboard. It shows what may be visible, unclear, weak, or blocked before Cendorq claims complete diagnosis.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/plans/deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Open Review page — {DEEP_REVIEW.price}</Link>
@@ -164,7 +164,7 @@ export default function FreeScanResultsPage() {
           </div>
         </div>
       </section>
-      <section className="sr-only" aria-label="Protected Free Scan Presence Report standard">Protected Free Scan result. Protected Free Scan Presence Report preview. Presence Score. First weak point. Top repair priorities. Choice Gap. Repair Queue. first signal only. no full diagnosis. no ranking placement or lead guarantees.</section>
+      <section className="sr-only" aria-label="Protected Free Scan Presence Report standard">Protected Free Scan result. Protected Free Scan Presence Report preview. Presence Score. First weak point. Top repair priorities. Choice Gap. Repair Queue. first signal only. no complete diagnosis claim. no ranking placement or lead guarantees.</section>
     </main>
   );
 }
