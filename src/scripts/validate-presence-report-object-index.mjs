@@ -16,6 +16,8 @@ expect(indexPath, [
   "PRESENCE_REPORT_PUBLIC_ROUTES",
   "PRESENCE_REPORT_PROTECTED_ROUTES",
   "PRESENCE_REPORT_LAUNCH_READINESS",
+  "SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS",
+  "releaseChecks",
   "nextBuildLayer",
   "Live scan data should feed the same public-safe report package.",
 ]);
@@ -26,7 +28,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report object index validation passed.");
+console.log("Presence Report object index validation passed with release checks.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
