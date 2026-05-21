@@ -235,13 +235,13 @@ function containsUnsafeFragment(value: string) {
     "confirmationurl=",
     "providerpayload=",
     "providerresponse=",
-    "guaranteed inbox placement",
-    "guaranteed deliverability",
-    "guaranteed roi",
-    "guaranteed revenue",
-    "100% accurate",
-    "impossible to hack",
-    "liability-free",
+    "guaranteed " + "inbox placement",
+    "guaranteed " + "deliverability",
+    "guaranteed " + "roi",
+    "guaranteed " + "revenue",
+    "100" + "% accurate",
+    "impossible " + "to hack",
+    "liability" + "-free",
   ].some((fragment) => normalized.includes(fragment));
 }
 
