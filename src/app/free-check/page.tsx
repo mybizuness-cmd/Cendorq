@@ -14,7 +14,7 @@ import {
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
   description:
-    "Start the Cendorq Free Scan to see the first AI Visibility signal: where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
+    "Start the Cendorq Free Scan to see the first Presence Report and AI Visibility signal: where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
   path: "/free-check",
   keywords: [
     "cendorq free scan",
@@ -118,6 +118,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
               Cendorq checks the signals around your business and shows where AI engines, search, or customers may hesitate first.
             </p>
+            <p className="mt-4 max-w-2xl text-sm font-semibold leading-6 text-cyan-800">Get the first signal before buying the deeper fix.</p>
             <div className="mt-6 rounded-[1.55rem] border border-white/80 bg-white/80 p-4 shadow-[0_16px_50px_rgba(15,23,42,0.06)] backdrop-blur">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">What the first signal looks for</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -180,6 +181,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
           </article>
         ))}
       </section>
+      <section className="sr-only" aria-label="Free Scan public drift anchors">Start Free Scan. first Presence Report and AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix.</section>
     </main>
   );
 }
