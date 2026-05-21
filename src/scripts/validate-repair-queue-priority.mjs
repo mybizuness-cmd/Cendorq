@@ -14,6 +14,9 @@ expect(filePath, [
   "choiceWeakness",
   "actionWeakness",
   "proofRisk",
+  "weightedRisk",
+  "clampRisk",
+  "Number.isFinite",
 ]);
 
 if (failures.length) {
@@ -22,7 +25,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Repair Queue priority validation passed.");
+console.log("Repair Queue priority validation passed with clamped risk inputs.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
