@@ -23,7 +23,12 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Live scan Presence Report mapping.
 - Presence Report route map and object index.
 - Presence Report proof map.
+- Presence Report evidence boundary map and public panel.
+- Presence Report next move helper, policy, and public panel.
+- Presence Report release gate.
 - Repair Queue priority helper.
+- Presence Report system validator chain.
+- Presence Report validation runbook.
 
 ## Current follow-up
 
@@ -32,6 +37,7 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Keep Free Scan, Deep Review, Build Fix, and Ongoing Control separate.
 - Keep sample reports framed as examples, not promises.
 - Keep private scoring internals out of public and protected customer surfaces.
+- Keep next move recommendations tied to evidence, not plan pressure.
 
 ## Next elevation
 
@@ -41,3 +47,4 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Make the Control Snapshot the recurring retention object.
 - Add category-specific proof standards into report scoring and repair language.
 - Add operator QA gates before any generated report is released to customers.
+- Add real scan evidence records once the pipeline is ready.
