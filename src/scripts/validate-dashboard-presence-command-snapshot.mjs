@@ -4,19 +4,25 @@ import { join } from "node:path";
 const root = process.cwd();
 const componentPath = "src/app/dashboard/dashboard-presence-command-snapshot.tsx";
 const pagePath = "src/app/dashboard/page.tsx";
+const fixturePath = "src/lib/sandwork-presence-report-fixture.ts";
 const failures = [];
 
 expect(componentPath, [
   "DashboardPresenceCommandSnapshot",
-  "SAMPLE_PRESENCE_REPORT",
-  "SAMPLE_CHOICE_GAP",
-  "SAMPLE_CONTROL_SNAPSHOT",
+  "SANDWORK_PRESENCE_REPORT_PACKAGE",
   "Presence command snapshot",
   "Presence Score",
   "Choice Gap",
   "Repair Queue",
   "Control Snapshot",
   "Open Free Scan result",
+]);
+
+expect(fixturePath, [
+  "SANDWORK_FREE_SCAN_INPUT",
+  "SANDWORK_FREE_SCAN_SNAPSHOT",
+  "SANDWORK_PRESENCE_REPORT_PACKAGE",
+  "mapLiveScanSnapshotToPresenceReport",
 ]);
 
 expect(pagePath, [
@@ -33,6 +39,9 @@ expect(pagePath, [
 ]);
 
 forbidden(componentPath, [
+  "SAMPLE_PRESENCE_REPORT",
+  "SAMPLE_CHOICE_GAP",
+  "SAMPLE_CONTROL_SNAPSHOT",
   "guaranteed ranking",
   "guaranteed revenue",
   "guaranteed AI placement",
@@ -52,7 +61,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard Presence Command Snapshot validation passed with current AI Visibility command center copy and Presence Report snapshot objects.");
+console.log("Dashboard Presence Command Snapshot validation passed with shared Sandwork Presence Report fixture and protected report object boundaries.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
