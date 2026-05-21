@@ -6,7 +6,7 @@ export function PresenceReportEvidenceBoundaryPanel() {
       <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Evidence boundaries</p>
-          <h2 className="mt-3 text-[clamp(2rem,6vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">Useful signal without fake certainty.</h2>
+          <h2 className="mt-3 text-[clamp(2rem,6vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">Useful signal without overclaiming.</h2>
         </div>
         <p className="text-base font-medium leading-8 text-slate-600">Every report should keep observed facts, inferred weakness, and review-needed comparisons separate before recommending deeper work.</p>
       </div>
