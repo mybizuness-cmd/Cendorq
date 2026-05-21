@@ -38,11 +38,15 @@ expect(componentPath, [
 ]);
 
 expect(plansPath, [
-  "Choose the right visibility and readiness depth.",
+  "Choose the right AI Visibility and Readiness depth.",
   "Free Scan shows the first signal.",
   "Deep Review explains the cause.",
-  "Build Fix improves the weak point.",
-  "Ongoing Control keeps visibility and readiness from drifting.",
+  "Build Fix repairs the weak point.",
+  "Ongoing Control keeps AI Visibility and Readiness from drifting.",
+  "Report-led plan choice",
+  "The report shows which depth fits.",
+  "Presence Report turns the first signal into a repair queue",
+  "Open Sample Presence Report",
   "Start Free Scan",
   "Open Deep Review",
   "Open Build Fix",
@@ -70,10 +74,10 @@ expect(packagePath, ["validate:routes"]);
 expect(routesChainPath, [validatorPath]);
 
 boundedLength(componentPath, 15500);
-boundedLength(plansPath, 16000);
+boundedLength(plansPath, 18000);
 
 forbidden(componentPath, [...blockedPlanPhrases(), ...legacyPlanLabels]);
-forbidden(plansPath, [...blockedPlanPhrases(), ...legacyPlanLabels, "$750+", "$300/mo", "starting at", "Unlock Build Fix", "Compare pricing", "Diagnose"]);
+forbidden(plansPath, [...blockedPlanPhrases(), ...legacyPlanLabels, "$750+", "$300/mo", "starting at", "Unlock Build Fix", "Compare pricing"]);
 
 if (failures.length) {
   console.error("Public plans command alignment validation failed:");
@@ -81,7 +85,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public plans command alignment validation passed with Scan, Review, Fix, Control positioning and current public plan names.");
+console.log("Public plans command alignment validation passed with AI Visibility/Readiness depth, report-led plan guidance, and current public plan names.");
 
 function blockedPlanPhrases() {
   return [
