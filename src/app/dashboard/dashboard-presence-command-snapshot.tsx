@@ -1,12 +1,10 @@
 import Link from "next/link";
-import { SAMPLE_CHOICE_GAP } from "@/lib/choice-gap-contract";
-import { SAMPLE_CONTROL_SNAPSHOT } from "@/lib/control-snapshot-contract";
-import { SAMPLE_PRESENCE_REPORT } from "@/lib/presence-report-contract";
+import { SANDWORK_PRESENCE_REPORT_PACKAGE } from "@/lib/sandwork-presence-report-fixture";
 
 export function DashboardPresenceCommandSnapshot() {
-  const report = SAMPLE_PRESENCE_REPORT;
-  const choiceGap = SAMPLE_CHOICE_GAP;
-  const control = SAMPLE_CONTROL_SNAPSHOT;
+  const report = SANDWORK_PRESENCE_REPORT_PACKAGE.report;
+  const choiceGap = SANDWORK_PRESENCE_REPORT_PACKAGE.choiceGap;
+  const control = SANDWORK_PRESENCE_REPORT_PACKAGE.controlSnapshot;
 
   return (
     <section className="relative z-10" aria-label="Presence command snapshot">
@@ -14,7 +12,7 @@ export function DashboardPresenceCommandSnapshot() {
         <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
           <div className="border-b border-cyan-100 bg-[radial-gradient(circle_at_18%_0%,rgba(125,211,252,0.2),transparent_34%),linear-gradient(180deg,#ffffff,#effcff)] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
             <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Presence command snapshot</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Visible, but not easy to choose.</h2>
+            <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">{report.title}</h2>
             <p className="mt-5 text-base font-medium leading-8 text-slate-600">The dashboard should make the current business state obvious: score, top weakness, Choice Gap, Repair Queue, and Control Snapshot.</p>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
               <div className="rounded-[1.45rem] border border-cyan-200 bg-cyan-50 p-5 text-center">
