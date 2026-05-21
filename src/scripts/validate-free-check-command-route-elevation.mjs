@@ -13,7 +13,7 @@ const failures = [];
 
 expect(pagePath, [
   "Free Scan | Cendorq",
-  "first Presence Report signal",
+  "first Presence Report and AI Visibility signal",
   "Cendorq Free Scan",
   "AI Search Presence Repair free scan",
   "FreeCheckProgressGuard",
@@ -27,13 +27,14 @@ expect(pagePath, [
   "Trust",
   "Choice",
   "Action",
-  "Cendorq checks the visible signals around your business and shows where customers or AI systems may hesitate first.",
+  "Cendorq checks the visible signals around your business and shows where AI engines, search, or customers may hesitate first.",
   "How the Free Scan moves from intake to protected results",
   "Start with what is already visible.",
   "Share what customers can see now.",
   "Cendorq checks the first Presence Report signal.",
   "Open the result in your account.",
-  "After verification, the result opens inside your Cendorq account so your business details and next step stay connected.",
+  "After verification, the result opens inside your Cendorq account so your business details and next command stay connected.",
+  "We could not find your Cendorq account yet.",
   "{ name: \"Free Scan\", path: \"/free-check\" }",
 ]);
 
@@ -128,7 +129,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Free Check command route validation passed with diagnostic Presence Report preview, protected verify-to-view handoff, account continuation, zero first-use progress, and route-chain coverage.");
+console.log("Free Check command route validation passed with diagnostic Presence Report preview, reconciled account access copy, protected verify-to-view handoff, account continuation, zero first-use progress, and route-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
