@@ -1,4 +1,5 @@
 export type PresenceReportPillarKey = "findability" | "understanding" | "trust" | "choice" | "action";
+export type PresenceReportNextMove = "Free Scan" | "Deep Review" | "Build Fix" | "Ongoing Control";
 
 export type PresenceReportPillar = Readonly<{
   key: PresenceReportPillarKey;
@@ -19,7 +20,7 @@ export type PresenceReportPublicShape = Readonly<{
   score: number;
   pillars: readonly PresenceReportPillar[];
   repairQueue: readonly PresenceReportRepairItem[];
-  nextMove: string;
+  nextMove: PresenceReportNextMove;
 }>;
 
 export const PRESENCE_REPORT_PUBLIC_PILLARS: readonly PresenceReportPillar[] = [
