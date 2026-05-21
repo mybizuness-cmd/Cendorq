@@ -7,7 +7,7 @@ export const FREE_SCAN_PLAN: PlanPageData & { href: string; label: string } = {
   title: "Start with the first AI Visibility and Readiness signal",
   gradient: "before paid depth.",
   intro:
-    "Free Scan gives the business a clean first read on where it may be missing, unclear, under-trusted, less ready, or harder for customers and AI engines to choose.",
+    "Free Scan gives the business a clean first read on visibility and readiness: where it may be missing, unclear, under-trusted, less ready, or harder for customers and AI engines to choose.",
   ctaHref: "/free-check",
   ctaLabel: "Start Free Scan",
   secondaryHref: "/plans",
@@ -93,7 +93,7 @@ export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
   title: "Repair the signal",
   gradient: "customers notice first.",
   intro:
-    "Build Fix improves one approved page, message, proof point, visibility gap, readiness gap, or action path that may be making the business harder to see, understand, trust, or choose.",
+    "Build Fix improves one approved page, message, proof point, visibility gap, readiness gap, or action path that may be making the business harder to see, understand, trust, compare, or choose.",
   ctaHref: "/checkout/start?plan=build-fix",
   ctaLabel: "Start Build Fix",
   secondaryHref: "/plans",
