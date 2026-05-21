@@ -29,6 +29,7 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Repair Queue priority helper.
 - Presence Report system validator chain.
 - Presence Report validation runbook.
+- Public navigation validator now enforces Sample Report entry points in header, footer, FAQ, and route chain.
 
 ## Current follow-up
 
@@ -38,6 +39,7 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Keep sample reports framed as examples, not promises.
 - Keep private scoring internals out of public and protected customer surfaces.
 - Keep next move recommendations tied to evidence, not plan pressure.
+- Update branch against main before merge because public pages overlap current main changes.
 
 ## Next elevation
 
