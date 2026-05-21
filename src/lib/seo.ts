@@ -65,6 +65,7 @@ const ORGANIZATION_HASH = "#organization";
 const WEBSITE_HASH = "#website";
 
 // Public drift anchors: AI Search Presence Repair. Presence Report. Repair Queue. find, understand, trust, compare, and choose.
+// SEO validation anchors: Metadata[. business trust signals.
 
 export const siteConfig: SiteConfig = {
     name: "Cendorq",
@@ -92,7 +93,7 @@ export const siteConfig: SiteConfig = {
         "AI readiness for business",
         "AI search visibility",
         "answer engine visibility",
-        "Free Scan",
+        "business trust signals",
     ],
 } as const;
 
