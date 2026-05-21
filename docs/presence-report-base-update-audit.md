@@ -4,7 +4,7 @@ This PR stays in draft until the base update or rebase review is complete.
 
 ## Checked state
 
-- Latest checked head: `752127ca12254ccf848dc9afd3e9aca84dba20ee`.
+- Latest checked head: `2dc6c237095d2d616c46d24096d0c8356f5aba68`.
 - Vercel status on that head: green.
 - GitHub Actions run on that head: not attached at the time of audit.
 - Blocking reviews or review threads: none found at the time of audit.
@@ -14,7 +14,7 @@ This PR stays in draft until the base update or rebase review is complete.
 Reverse compare showed:
 
 - `main` is ahead of this branch by 121 commits.
-- this branch is ahead of `main` by 164 commits.
+- this branch is ahead of `main` by 165 commits.
 
 ## Public overlap result
 
