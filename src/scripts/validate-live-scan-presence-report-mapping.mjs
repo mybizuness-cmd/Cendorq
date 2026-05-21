@@ -12,8 +12,19 @@ expect(mappingPath, [
   "PresenceReportGenerationInput",
   "FreeCheckReportSnapshot",
   "GeneratedPresenceReportPackage",
+  "PresenceReportPillarKey",
+  "derivePresencePillarScores",
+  "applyLivePillarScore",
+  "stateForScore",
+  "clampScore",
   "weakestReadoutSummary",
-  "averageScore",
+  "averageScore(Object.values(pillarScores))",
+  "findability: clampScore(discoverability)",
+  "understanding: clampScore(Math.round((recommendationVisibility * 0.7) + (discoverability * 0.3)))",
+  "trust: clampScore(trustAuthority)",
+  "choice: clampScore(Math.round(((100 - competitiveExposure) * 0.55) + (recommendationVisibility * 0.25) + (trustAuthority * 0.2)))",
+  "action: clampScore(conversionReadiness)",
+  "pillars: packageBase.report.pillars.map((pillar) => applyLivePillarScore(pillar, pillarScores[pillar.key]))",
 ]);
 
 if (failures.length) {
