@@ -17,18 +17,30 @@ expect(pagePath, [
 
 expect(componentPath, [
   "ProtectedFreeScanResultPreview",
-  "SAMPLE_PRESENCE_REPORT",
-  "SAMPLE_CHOICE_GAP",
+  "mapLiveScanSnapshotToPresenceReport",
+  "buildFreeCheckReportSnapshot",
+  "PROTECTED_FREE_SCAN_SNAPSHOT",
+  "PROTECTED_FREE_SCAN_PACKAGE",
+  "Sandwork",
   "Presence Score",
   "First weak point",
   "Top repair priorities",
   "Protected Free Scan result",
+  "scoreModules",
+  "competitiveExposure",
+  "Free Scan remains first signal only.",
 ]);
 
 expect(indexPath, ["ProtectedFreeScanResultPreview"]);
 
 forbidden(pagePath, [
   "full diagnosis.",
+  "guaranteed ranking",
+  "guaranteed revenue",
+  "guaranteed AI placement",
+]);
+
+forbidden(componentPath, [
   "guaranteed ranking",
   "guaranteed revenue",
   "guaranteed AI placement",
