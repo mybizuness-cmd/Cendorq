@@ -22,10 +22,10 @@ for (const path of Object.values(surfaces)) {
 }
 
 expect(surfaces.home, ["Start Free Scan", "View Plans", "Scan. Review. Repair. Control.", "Start with the first signal. Move deeper only when it makes sense."]);
-expect(surfaces.freeCheck, ["GuidedFreeCheckForm", "Free Scan", "AI-readiness", "business"]);
-expect(surfaces.plans, ["Choose the right AI-readiness depth.", "CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
+expect(surfaces.freeCheck, ["GuidedFreeCheckForm", "Free Scan", "AI Visibility", "business"]);
+expect(surfaces.plans, ["Choose the right AI Visibility and Readiness depth.", "CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
 expect(surfaces.planTemplate, ["getCendorqPlanPrice", "What this helps you decide", "Review all plans", "`${data.ctaLabel} — ${plan.price}`"]);
-expect(surfaces.dashboard, ["Your Cendorq workspace is ready.", "one clear next action", "Start, Continue, or Open Result", "Open Review page"]);
+expect(surfaces.dashboard, ["Your Cendorq command center is ready.", "one clear next command", "Open Review page", "Open Repair page"]);
 expect(surfaces.billing, ["Payment should unlock the right readiness layer.", "Open Review page", "Open plan page", "Checkout success parity"]);
 expect(surfaces.checkoutStart, ["Start checkout | Cendorq", "secure Stripe payment", "redirect(buildCheckoutDestination(plan.paymentLink, planKey, searchParams))", "client_reference_id", "cendorq_plan"]);
 expect(surfaces.checkoutSuccess, ["Payment complete", "Payment confirmed", "CheckoutDashboardRedirect", "One next step", "Open your inbox"]);
