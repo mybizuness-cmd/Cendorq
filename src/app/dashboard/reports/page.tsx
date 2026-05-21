@@ -15,8 +15,8 @@ import {
 } from "@/lib/paid-plan-report-delivery-operating-system";
 
 export const metadata = buildMetadata({
-  title: "Readiness proof vault | Cendorq",
-  description: "Your private Cendorq vault for readiness signals, AI/search posture, approved reports, paid-report delivery, confidence labels, and next-step guidance.",
+  title: "AI Visibility proof vault | Cendorq",
+  description: "Your private Cendorq vault for AI Visibility signals, Diagnosis evidence, approved reports, paid-report delivery, confidence labels, and next-step guidance.",
   path: "/dashboard/reports",
   noIndex: true,
 });
@@ -46,7 +46,7 @@ const REPORT_LIBRARY = [
     planKey: "free-scan",
     command: "Scan",
     reportType: REPORT_ACCESS_BY_PLAN["free-scan"].reportName,
-    stage: "First signal",
+    stage: "First AI Visibility signal",
     href: REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute,
     cta: "Open result",
     deliveryMeaning: "Shows the first visible break in findability, AI/search readability, clarity, trust, choice, or action with confidence limits and the safest next move.",
@@ -60,10 +60,10 @@ const REPORT_LIBRARY = [
     planKey: "deep-review",
     command: "Review",
     reportType: REPORT_ACCESS_BY_PLAN["deep-review"].reportName,
-    stage: "Cause-level proof",
+    stage: "Diagnosis evidence",
     href: REPORT_ACCESS_BY_PLAN["deep-review"].customerRoute,
     cta: `Open Review page — ${DEEP_REVIEW_PRICE.price}`,
-    deliveryMeaning: "Explains why the business may not be found, trusted, understood, or chosen before money is spent on the wrong fix.",
+    deliveryMeaning: "Explains why the business may not be found, trusted, understood, or chosen before money is spent on the wrong repair.",
     aiPosture: paidAiPosture("deep-review"),
     notThis: "Not done-for-you implementation, unlimited revisions, ad management, unsupported ranking promises, unsupported AI answer placement promises, or unsupported outcome promises.",
     nextDecision: "Use Build Fix only after the review identifies a scoped target ready for improvement.",
@@ -74,10 +74,10 @@ const REPORT_LIBRARY = [
     planKey: "build-fix",
     command: "Repair",
     reportType: REPORT_ACCESS_BY_PLAN["build-fix"].reportName,
-    stage: "Scoped improvement",
+    stage: "Scoped repair evidence",
     href: REPORT_ACCESS_BY_PLAN["build-fix"].customerRoute,
     cta: `Open Repair page — ${BUILD_FIX_PRICE.price}`,
-    deliveryMeaning: "Shows what changed, why it mattered, and what still remains outside the approved fix.",
+    deliveryMeaning: "Shows what changed, why it mattered, and what still remains outside the approved repair.",
     aiPosture: paidAiPosture("build-fix"),
     notThis: "Not a full review report, unlimited site rebuild, recurring monitoring, unsupported ranking promises, unsupported AI answer placement promises, or unapproved production work.",
     nextDecision: "Use Ongoing Control when the business needs recurring watch after the scoped improvement.",
@@ -88,7 +88,7 @@ const REPORT_LIBRARY = [
     planKey: "ongoing-control",
     command: "Control",
     reportType: REPORT_ACCESS_BY_PLAN["ongoing-control"].reportName,
-    stage: "Monthly readiness control",
+    stage: "Monthly AI Visibility control",
     href: REPORT_ACCESS_BY_PLAN["ongoing-control"].customerRoute,
     cta: `Open Control page — ${ONGOING_CONTROL_PRICE.price}`,
     deliveryMeaning: "Keeps priorities, alerts, AI/search posture, trend awareness, and next decisions under control as search, customers, and competitors move.",
@@ -114,15 +114,15 @@ const REPORT_LIBRARY = [
 }[];
 
 const REPORT_STATE = [
-  { label: "Ready", value: "Readiness signal result", detail: "The first readiness signal is the only immediately actionable report type in this demo state." },
-  { label: "AI/Search posture", value: "Signal, proof, risk, limit", detail: "Reports explain what is visible, what it may mean, what is limited, and which step comes next." },
+  { label: "Ready", value: "AI Visibility signal result", detail: "The first AI Visibility signal is the only immediately actionable report type in this demo state." },
+  { label: "AI/Search posture", value: "Signal, proof, risk, limit", detail: "Reports explain what is visible, what it may mean, what is limited, and which command comes next." },
   { label: "Paid proof", value: "Dashboard + email attachment", detail: "Deep Review, Build Fix, and Ongoing Control reports must appear in the vault and arrive by email with an approved PDF." },
 ] as const;
 
 const REPORT_ACTIONS = [
-  { title: "Open readiness signal", href: REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute, value: "Read the first proof" },
+  { title: "Open AI Visibility signal", href: REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute, value: "Read the first proof" },
   { title: "Ask report support", href: "/dashboard/support", value: "Question or correction" },
-  { title: "Compare readiness depth", href: "/plans", value: "Choose the next stage" },
+  { title: "Compare AI Visibility depth", href: "/plans", value: "Choose the next stage" },
 ] as const;
 
 const REPORT_VAULT_RULES = [
@@ -140,17 +140,17 @@ export default function ReportsVaultPage() {
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
           <h1 className="max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-slate-950">
-            Keep the record of what customers and AI search can understand.
+            Keep the evidence of what customers and AI search can understand.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            This vault stores the business readiness record: first signals, approved proof, AI/search posture, confidence limits, paid delivery, and the next readiness decision.
+            This vault stores the AI Visibility record: first signals, Diagnosis evidence, approved proof, AI/search posture, confidence limits, paid delivery, and the next command decision.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href={REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute} className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
-              Open readiness signal
+              Open AI Visibility signal
             </Link>
             <Link href="/dashboard" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
-              Back to control center
+              Back to command center
             </Link>
           </div>
         </div>
@@ -187,7 +187,7 @@ export default function ReportsVaultPage() {
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Different proof for every readiness depth.</h2>
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Different proof for every AI Visibility depth.</h2>
               <p className="mt-5 text-base font-medium leading-8 text-slate-600">Scan, Review, Repair, and Control cannot look like the same cheap report block. Each one has a different job.</p>
               <Link href="/dashboard" className="mt-7 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
                 Back to dashboard →
@@ -238,7 +238,7 @@ export default function ReportsVaultPage() {
       </section>
 
       <section className="sr-only" aria-label="Report vault guardrails">
-        Readiness proof vault. Paid plan report delivery operating system. Nothing final until approved. Scan. Review. Repair. Control. AI/Search posture. Readiness signal result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Paid report actions route to plan detail pages before payment. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        AI Visibility proof vault. Paid plan report delivery operating system. Nothing final until approved. Scan. Review. Repair. Control. AI/Search posture. AI Visibility signal result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Paid report actions route to plan detail pages before payment. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );

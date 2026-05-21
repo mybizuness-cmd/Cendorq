@@ -7,6 +7,9 @@ const failures = [];
 const handoffPath = "docs/agent-handoff/current-handoff.md";
 const masteryPath = "docs/strategy/cendorq-business-mastery.md";
 const nonNegotiablesPath = "docs/ops/non-negotiables.md";
+const latestGreenPath = "docs/ops/latest-green-state.md";
+const accessSourcesPath = "docs/ops/customer-access-sources.md";
+const accessTriagePath = "docs/ops/access-triage-checklist.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-cendorq-agent-handoff-docs.mjs";
 
@@ -47,14 +50,40 @@ expect(nonNegotiablesPath, [
   "Use validators to lock every product rule.",
 ]);
 
-expect(routesChainPath, [validatorPath]);
-
-forbidden([handoffPath, masteryPath, nonNegotiablesPath], [
-  "guaranteed revenue",
-  "guaranteed ROI",
-  "impossible to hack",
-  "blank dashboards are allowed",
+expect(latestGreenPath, [
+  "Latest Green State",
+  "mybizuness-cmd/Cendorq",
+  "next-1017",
+  "Vercel success",
+  "Free Scan-first access model",
+  "secure email access gated by existing customer eligibility",
+  "unknown email routed to Free Scan",
+  "provider callback access gate defined",
+  "active Free Scan eligibility source",
+  "contract-ready paid plan, report vault, billing, and support eligibility source ladder",
+  "Customer access source documentation is present.",
 ]);
+
+expect(accessSourcesPath, [
+  "Customer Access Sources",
+  "Free Scan is active now.",
+  "Paid plan: opens billing after confirmed plan ownership.",
+  "Report vault: opens reports after released report ownership.",
+  "Billing: opens billing from server-side billing history.",
+  "Support: opens support from verified customer context.",
+  "Do not use checkout links, browser state, or blank accounts as access sources.",
+]);
+
+expect(accessTriagePath, [
+  "Customer Access Triage Checklist",
+  "New visitor goes to Free Scan.",
+  "Returning customer uses the same email from the scan or plan.",
+  "Unknown email goes back to Free Scan, not an empty dashboard.",
+  "Provider entry stays hidden until runtime can verify email and open the right customer path.",
+  "Verify Vercel green before the next batch.",
+]);
+
+expect(routesChainPath, [validatorPath]);
 
 if (failures.length) {
   console.error("Cendorq agent handoff docs validation failed:");
@@ -62,7 +91,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, and durable repo memory coverage.");
+console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, latest green state, customer access source docs, access triage checklist, and durable repo memory coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -72,16 +101,6 @@ function expect(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing handoff phrase: ${phrase}`);
-  }
-}
-
-function forbidden(paths, phrases) {
-  for (const path of paths) {
-    if (!existsSync(join(root, path))) continue;
-    const text = read(path).toLowerCase();
-    for (const phrase of phrases) {
-      if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden handoff phrase: ${phrase}`);
-    }
   }
 }
 

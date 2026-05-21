@@ -11,28 +11,31 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-dashboard-first-session-onboarding.mjs";
 
 expect(dashboardPath, [
-  "Visibility command center",
-  "Private visibility command center",
-  "Know what the market can see, trust, and act on next.",
-  "This is not an account page.",
-  "One next step.",
-  "start the scan, continue the scan, open the result, or choose the next plan",
+  "Private AI Visibility command center",
+  "Your Cendorq command center is ready.",
+  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
+  "One next command.",
+  "start the Free Scan, continue Review, open the result, or choose the next plan",
   "Dashboard decision summary",
   "Next best move",
-  "Finish the first signal.",
-  "Open what is ready",
+  "AI Visibility",
+  "Capture the first signal.",
+  "Diagnosis belongs inside Review and reports.",
+  "Reports should connect visibility, diagnosis evidence, limitations, and the next command path.",
   "Get unstuck fast",
   "Command path",
-  "Scan. Diagnose. Fix. Control.",
+  "Scan. Review. Repair. Control.",
   "No cheap dashboard blocks",
   "No clutter wall",
-  "No internal conversion role labels",
+  "No shrinking the system",
+  "AI Visibility command path",
   "Reports",
   "Billing",
   "Notifications",
   "Support",
   "Sign out",
   "Resolve blockers without sharing private passwords.",
+  "Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -53,6 +56,13 @@ expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-postu
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
+  "Private AI readiness control center",
+  "Your Cendorq account is ready.",
+  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
+  "No internal conversion role labels",
+  "Scan. Diagnose. Review. Repair. Control.",
+  "Scan. Diagnose. Fix. Control.",
+  "start the Free Scan, continue Diagnosis, open the result, or choose the next plan",
   "A workspace can exist before a scan.",
   "Your Cendorq workspace is ready.",
   "safeProjectionReady",
@@ -73,7 +83,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard first session onboarding validation passed with customer-simple visibility command center, one next action, recovery links, and owner posture coverage.");
+console.log("Dashboard first session onboarding validation passed with AI Visibility command center language, public Scan Review Repair Control path, Diagnosis inside Review/report evidence, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

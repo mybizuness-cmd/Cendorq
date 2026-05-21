@@ -12,7 +12,7 @@ import { DashboardPresenceCommandSnapshot } from "./dashboard-presence-command-s
 export const metadata = buildMetadata({
   title: "AI Visibility command center | Cendorq",
   description:
-    "Your Cendorq command center for AI Visibility, Presence Report progress, Diagnosis, reports, plans, billing, support, and the next best action.",
+    "Your Cendorq command center for AI Visibility, Diagnosis, reports, plans, billing, support, and the next best action.",
   path: "/dashboard",
   noIndex: true,
 });
@@ -95,7 +95,7 @@ export default function CustomerDashboardPage() {
             Your Cendorq command center is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Cendorq keeps AI Visibility, Diagnosis, Presence Reports, plans, billing, support, and one clear next command in one protected dashboard.
+            Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.
           </p>
           <DashboardNextBestAction />
         </div>
@@ -176,7 +176,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Cendorq keeps AI Visibility, Diagnosis, Presence Reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Scan. Review. Repair. Control. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
     </main>
   );
 }

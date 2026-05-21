@@ -11,21 +11,25 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-report-vault-first-use.mjs";
 
 expect(pagePath, [
-  "Readiness proof vault",
-  "Your private Cendorq vault for readiness signals, AI/search posture, approved reports, paid-report delivery, confidence labels, and next-step guidance.",
+  "AI Visibility proof vault",
+  "Your private Cendorq vault for AI Visibility signals, Diagnosis evidence, approved reports, paid-report delivery, confidence labels, and next-step guidance.",
   "REPORT_VAULT_HANDOFFS",
   "REPORT_LIBRARY",
   "REPORT_STATE",
   "REPORT_ACTIONS",
   "REPORT_VAULT_RULES",
-  "Keep the record of what customers and AI search can understand.",
+  "Keep the evidence of what customers and AI search can understand.",
+  "This vault stores the AI Visibility record: first signals, Diagnosis evidence, approved proof, AI/search posture, confidence limits, paid delivery, and the next command decision.",
   "Nothing final until it is approved.",
-  "Different proof for every readiness depth.",
-  "Open readiness signal",
-  "Back to control center",
+  "Different proof for every AI Visibility depth.",
+  "Open AI Visibility signal",
+  "Back to command center",
   "Ask report support",
-  "Compare readiness depth",
-  "Readiness signal result",
+  "Compare AI Visibility depth",
+  "AI Visibility signal result",
+  "Diagnosis evidence",
+  "Scoped repair evidence",
+  "Monthly AI Visibility control",
   "Deep Review report",
   "Build Fix summary",
   "Ongoing Control monthly summary",
@@ -60,6 +64,15 @@ expect(packagePath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
+  "Readiness proof vault",
+  "readiness signals",
+  "business readiness record",
+  "Different proof for every readiness depth.",
+  "Open readiness signal",
+  "Back to control center",
+  "Compare readiness depth",
+  "Readiness signal result",
+  "Monthly readiness control",
   "guaranteed ROI",
   "guaranteed refund",
   "guaranteed legal outcome",
@@ -85,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Report vault first use validation passed with current readiness-proof vault, paid report separation, owner posture, and safe delivery boundaries.");
+console.log("Report vault first use validation passed with AI Visibility proof vault, Diagnosis evidence, paid report separation, owner posture, and safe delivery boundaries.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

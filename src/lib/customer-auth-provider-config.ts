@@ -2,6 +2,15 @@ export type CustomerAuthProviderKey = "google" | "microsoft" | "apple" | "yahoo"
 
 const FULL_PROVIDER_SESSION_READY_ENV_KEY = "CENDORQ_AUTH_PROVIDER_SESSION_READY";
 export const CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY: boolean = false;
+const DEFAULT_PROVIDER_RETURN_TO = "/dashboard";
+const SAFE_DASHBOARD_RETURN_PATHS = [
+  "/dashboard",
+  "/dashboard/reports",
+  "/dashboard/reports/free-scan",
+  "/dashboard/billing",
+  "/dashboard/support",
+  "/dashboard/notifications",
+] as const;
 
 export type CustomerAuthProvider = {
   key: CustomerAuthProviderKey;
@@ -117,19 +126,23 @@ function resolveCustomerAuthProviderUrl(provider: CustomerAuthProvider, options?
 }
 
 export function buildCustomerAuthState(providerKey: CustomerAuthProviderKey, returnTo?: string) {
-  const safeReturnTo = returnTo && returnTo.startsWith("/dashboard") ? returnTo : "/dashboard";
-  return Buffer.from(JSON.stringify({ provider: providerKey, returnTo: safeReturnTo, intent: "account-access" }), "utf8").toString("base64url");
+  return Buffer.from(JSON.stringify({ provider: providerKey, returnTo: safeDashboardReturnPath(returnTo), intent: "account-access" }), "utf8").toString("base64url");
 }
 
 function appendProviderState(value: string, options?: { state?: string; returnTo?: string; baseUrl?: string }) {
   try {
     const url = new URL(value);
     if (options?.state && !url.searchParams.has("state")) url.searchParams.set("state", options.state);
-    if (options?.returnTo && !url.searchParams.has("returnTo")) url.searchParams.set("returnTo", options.returnTo);
+    if (options?.returnTo && !url.searchParams.has("returnTo")) url.searchParams.set("returnTo", safeDashboardReturnPath(options.returnTo));
     return url.toString();
   } catch {
     return null;
   }
+}
+
+function safeDashboardReturnPath(value: string | undefined) {
+  if (!value) return DEFAULT_PROVIDER_RETURN_TO;
+  return SAFE_DASHBOARD_RETURN_PATHS.find((path) => value === path || value.startsWith(`${path}/`)) || DEFAULT_PROVIDER_RETURN_TO;
 }
 
 function buildDefaultRedirectUri(providerKey: CustomerAuthProviderKey, baseUrl?: string) {
@@ -174,5 +187,6 @@ export const CUSTOMER_AUTH_SESSION_STANDARD = [
   "Unknown provider identities must be routed to Free Scan instead of creating an empty workspace.",
   "Free Scan remains the first-time account creation path for new businesses.",
   "Provider routes must fail safely when provider client IDs or redirect URLs are not configured.",
+  "Provider return paths must stay inside approved dashboard routes.",
   `Provider buttons stay hidden until ${FULL_PROVIDER_SESSION_READY_ENV_KEY}, provider callback session runtime, token exchange, profile fetch, existing customer lookup, and Cendorq session creation are production-ready.`,
 ] as const;

@@ -4,6 +4,12 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const LOGIN_PATH = "/login";
 const DEFAULT_RETURN_TO = "/dashboard";
+const NO_STORE_HEADERS = [
+  ["Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"],
+  ["Pragma", "no-cache"],
+  ["Expires", "0"],
+  ["X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet"],
+] as const;
 
 export async function GET(request: NextRequest, context: { params: Promise<{ provider: string }> }) {
   const params = await context.params;
@@ -15,7 +21,7 @@ export async function GET(request: NextRequest, context: { params: Promise<{ pro
 
   if (!provider) {
     loginUrl.searchParams.set("auth", "unknown-provider");
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 
   const configuredUrl = getConfiguredCustomerAuthProviderUrl(provider, {
@@ -27,8 +33,14 @@ export async function GET(request: NextRequest, context: { params: Promise<{ pro
   if (!configuredUrl) {
     loginUrl.searchParams.set("auth", "provider-not-ready");
     loginUrl.searchParams.set("provider", provider.key);
-    return NextResponse.redirect(loginUrl);
+    return redirectNoStore(loginUrl);
   }
 
-  return NextResponse.redirect(configuredUrl);
+  return redirectNoStore(new URL(configuredUrl));
+}
+
+function redirectNoStore(url: URL) {
+  const response = NextResponse.redirect(url, { status: 303 });
+  for (const [key, value] of NO_STORE_HEADERS) response.headers.set(key, value);
+  return response;
 }

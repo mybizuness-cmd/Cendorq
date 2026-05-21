@@ -16,6 +16,15 @@ if (!existsSync(join(root, middlewarePath))) {
     "return safeEqual(token, accessKey);",
     "safeEqual(username, credentials.username) && safeEqual(password, credentials.password)",
     "if (!left || !right || left.length !== right.length) return false;",
+    "CUSTOMER_DASHBOARD_PREFIX",
+    "CUSTOMER_DASHBOARD_ALLOWED_PATHS",
+    "protectCustomerDashboardRoute",
+    "readCustomerDashboardSession",
+    "cendorq_customer_session",
+    "CENDORQ_CUSTOMER_SESSION_SECRET",
+    "signature-mismatch",
+    "safeCustomerDashboardPath",
+    "auth\", session.reason === \"not-configured\" ? \"session-unavailable\" : \"session-required\"",
     "X-Robots-Tag",
     "noindex, nofollow, noarchive, nosnippet",
     "Cache-Control",
@@ -51,4 +60,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Middleware security hardening validation passed with safe secret comparisons, protected noindex/no-store headers, and secure cookie posture.");
+console.log("Middleware security hardening validation passed with safe secret comparisons, protected noindex/no-store headers, customer dashboard session gate, and secure cookie posture.");

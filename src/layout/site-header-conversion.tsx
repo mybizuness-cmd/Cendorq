@@ -5,7 +5,6 @@ import { CENDORQ_CUSTOMER_SESSION_COOKIE, readCustomerRememberedSessionCookieVal
 const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
-  { label: "Sample Report", href: "/sample-report", direct: false },
   { label: "Plans", href: "/plans", direct: false },
   { label: "FAQ", href: "/faq", direct: true },
 ] as const;
@@ -53,7 +52,7 @@ export async function SiteHeader() {
           <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Free Scan"}</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Sample Report, Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. FAQ uses direct browser navigation to /faq. Account menu uses overflow-visible so the menu is not clipped. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu width is bounded for mobile. href="/sample-report" href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
+      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. FAQ uses direct browser navigation to /faq. Account menu uses overflow-visible so the menu is not clipped. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu width is bounded for mobile. href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
     </header>
   );
 }

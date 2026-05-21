@@ -11,8 +11,8 @@ import {
 import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES } from "@/lib/plan-value-delivery-architecture";
 
 export const metadata = buildMetadata({
-  title: "Readiness plan depth | Cendorq",
-  description: "Your private Cendorq billing control center for readiness access, invoices, plan depth, and safe recovery.",
+  title: "AI Visibility plan depth | Cendorq",
+  description: "Your private Cendorq billing command center for AI Visibility access, invoices, plan depth, and safe recovery.",
   path: "/dashboard/billing",
   noIndex: true,
 });
@@ -34,7 +34,7 @@ const PLAN_DETAIL_PATH: Record<CendorqPaidPlanKey, string> = {
 };
 
 const BILLING_STATUS = [
-  { label: "Current access", value: "Free Scan + protected account", detail: "Paid readiness depth appears here after checkout, activation, or subscription state changes." },
+  { label: "Current access", value: "Free Scan + protected account", detail: "Paid AI Visibility depth appears here after checkout, activation, or subscription state changes." },
   { label: "Next depth", value: "Review", detail: "Use Deep Review before bigger fixes when the cause is still uncertain." },
   { label: "Safety", value: "No private payment details", detail: "Support can help without card numbers, private keys, bank details, passwords, or tokens." },
 ] as const;
@@ -86,7 +86,7 @@ const PAID_PLAN_COMMANDS = [
 }[];
 
 const BILLING_ACTIONS = [
-  { title: "Compare readiness depth", href: "/plans", copy: "Choose Scan, Review, Repair, or Control only when the stage fits." },
+  { title: "Compare AI Visibility depth", href: "/plans", copy: "Choose Scan, Review, Repair, or Control only when the stage fits." },
   { title: "Open signal feed", href: "/dashboard/notifications", copy: "See what Cendorq needs next without searching through every page." },
   { title: "Ask access help", href: "/dashboard/support", copy: "Resolve access issues without sending private payment details." },
 ] as const;
@@ -94,7 +94,7 @@ const BILLING_ACTIONS = [
 const BILLING_SAFETY_RULES = [
   "Account access should show a safe customer projection, not raw provider payloads or internal IDs.",
   "Recovery should feel calm, clear, and recoverable with no fake urgency.",
-  "Plan guidance must separate current access, pending actions, and future readiness depth.",
+  "Plan guidance must separate current access, pending actions, and future AI Visibility depth.",
   "Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
 ] as const;
 
@@ -109,14 +109,14 @@ export default function BillingPage() {
             Know what is active, what unlocked, and what depth comes next.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            This is the readiness-depth control point: access, boundaries, recovery, and the next business move.
+            This is the AI Visibility depth control point: access, boundaries, recovery, and the next business move.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/plans/deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
               Open Review page — {DEEP_REVIEW.price}
             </Link>
             <Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
-              Compare readiness path
+              Compare AI Visibility path
             </Link>
           </div>
         </div>
@@ -149,12 +149,12 @@ export default function BillingPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Paid readiness depth system">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Paid AI Visibility depth system">
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Payment should unlock the right readiness layer.</h2>
-              <p className="mt-5 text-base font-medium leading-8 text-slate-600">Review, Repair, and Control each unlock a different operating layer. They should never collapse into the same cheap account card.</p>
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Payment should unlock the right AI Visibility layer.</h2>
+              <p className="mt-5 text-base font-medium leading-8 text-slate-600">Review, Repair, and Control each unlock a different operating layer across AI Visibility, evidence, and customer action. They should never collapse into the same cheap account card.</p>
               <Link href="/dashboard/support" className="mt-7 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
                 Access help →
               </Link>
@@ -200,8 +200,8 @@ export default function BillingPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Account access readiness standard">
-        Readiness plan depth. Light billing page. No black billing blocks. No dark blue billing blocks. Account access control center. Know what is active, what unlocked, and what depth comes next. Readiness-depth control point for access, boundaries, recovery, and the next business move. Current access. Next depth. Safety. Paid readiness depth. Review. Repair. Control. Payment should unlock the right readiness layer. Billing actions route to plan detail pages before payment. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+      <section className="sr-only" aria-label="Account access AI Visibility standard">
+        AI Visibility plan depth. Light billing page. No black billing blocks. No dark blue billing blocks. Account access control center. Know what is active, what unlocked, and what depth comes next. AI Visibility depth control point for access, boundaries, recovery, and the next business move. Current access. Next depth. Safety. Paid AI Visibility depth. Review. Repair. Control. Payment should unlock the right AI Visibility layer. Billing actions route to plan detail pages before payment. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );

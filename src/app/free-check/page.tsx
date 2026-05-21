@@ -14,7 +14,7 @@ import {
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
   description:
-    "Run the Cendorq Free Scan to see the first Presence Report and AI Visibility signal: where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
+    "Start the Cendorq Free Scan to see the first AI Visibility signal: where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
   path: "/free-check",
   keywords: [
     "cendorq free scan",
@@ -47,7 +47,7 @@ const SCAN_SYSTEM_STEPS = [
   },
   {
     step: "02",
-    title: "Cendorq checks the first Presence Report signal.",
+    title: "Cendorq checks the first AI Visibility signal.",
     copy: "The scan looks for the first place the business may be missing, unclear, under-trusted, or harder to choose without pretending to be a full paid Review.",
   },
   {
@@ -60,7 +60,7 @@ const SCAN_SYSTEM_STEPS = [
 const FAQS = [
   {
     question: "Is the Free Scan a full review?",
-    answer: "No. It is the first Presence Report and AI Visibility signal that shows where visibility, clarity, trust, or choice may be weak, so you can decide whether deeper Review or Repair work makes sense.",
+    answer: "No. It is the first AI Visibility signal that shows where visibility, clarity, trust, or choice may be weak, so you can decide whether deeper Review or Repair work makes sense.",
   },
   {
     question: "Where does the result open?",
@@ -73,15 +73,15 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
   const accessNotice = buildAccessNotice(resolvedSearchParams);
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq Free Scan",
-    description: "A guided first Presence Report and AI Visibility signal for businesses that need to see where they may be missing, unclear, under-trusted, or harder to choose.",
+    description: "A guided first AI Visibility scan for businesses that need to see where they may be missing, unclear, under-trusted, or harder to choose.",
     path: "/free-check",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
     title: "Cendorq Free Scan",
-    description: "A guided intake that checks the first visible weakness in business visibility, clarity, trust, AI readiness, or customer action.",
+    description: "A guided intake that checks the first visible weakness in business visibility, clarity, trust, AI understanding, or customer action.",
     path: "/free-check",
-    serviceType: "AI Search Presence Repair free scan",
+    serviceType: "AI Visibility free scan",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -112,12 +112,11 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
                 <span className="text-cyan-700">We could not find your Cendorq account yet.</span> {accessNotice}
               </div>
             ) : null}
-            <p className="inline-flex rounded-full border border-cyan-200 bg-white/84 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-cyan-700 shadow-[0_10px_28px_rgba(14,165,233,0.08)]">Free Presence Scan</p>
-            <h1 className="mt-5 max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
-              Get the first signal before buying the deeper fix.
+            <h1 className="max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
+              See the first AI Visibility signal.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Cendorq checks the visible signals around your business and shows where AI engines, search, or customers may hesitate first.
+              Cendorq checks the signals around your business and shows where AI engines, search, or customers may hesitate first.
             </p>
             <div className="mt-6 rounded-[1.55rem] border border-white/80 bg-white/80 p-4 shadow-[0_16px_50px_rgba(15,23,42,0.06)] backdrop-blur">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">What the first signal looks for</p>

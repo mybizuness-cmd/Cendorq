@@ -5,8 +5,8 @@ import { getCendorqPlanPrice } from "@/lib/pricing-checkout-orchestration";
 import { getPlanValueDelivery, PLAN_VALUE_SEPARATION_RULES, type PlanValueKey } from "@/lib/plan-value-delivery-architecture";
 
 export const metadata = buildMetadata({
-  title: "Readiness support routing | Cendorq",
-  description: "Your private Cendorq support routing center for proof questions, corrections, billing help, security review, and readiness-depth guidance.",
+  title: "AI Visibility support routing | Cendorq",
+  description: "Your private Cendorq support routing center for AI Visibility proof questions, Diagnosis evidence, corrections, billing help, and command-path guidance.",
   path: "/dashboard/support",
   noIndex: true,
 });
@@ -16,19 +16,19 @@ const BUILD_FIX = getCendorqPlanPrice("build-fix");
 const ONGOING_CONTROL = getCendorqPlanPrice("ongoing-control");
 
 const SUPPORT_ROUTES = [
-  { key: "billing-issue", label: "Access issue", title: "Restore access or payment flow first.", href: "/dashboard/billing", cta: "Open billing", value: "Recover payment, invoice, or readiness-depth access without sending card data through support.", boundary: "Support can route the issue, but payment changes require approved billing gates." },
-  { key: "report-question", label: "Proof question", title: "Understand the signal before acting.", href: "/dashboard/reports", cta: "Open readiness proof", value: "Clarify confidence, limits, evidence boundaries, and next-step logic.", boundary: "A Free Scan question does not become a full AI Readiness Review unless unlocked." },
-  { key: "scope-question", label: "Repair scope", title: "Confirm what can be improved.", href: "/plans/build-fix", cta: `Open Repair page — ${BUILD_FIX.price}`, value: "Decide whether a known weak page, message, proof point, or action path is ready for scoped work.", boundary: "No unlimited implementation, full rebuild, monthly monitoring, or unapproved production work." },
-  { key: "monthly-priority", label: "Control priority", title: "Choose what should be watched.", href: "/plans/ongoing-control", cta: `Open Control page — ${ONGOING_CONTROL.price}`, value: "Turn recurring visibility questions into a monthly focus, review cadence, alerts, and decision support.", boundary: "Not unlimited Signal Repair, repeated AI Readiness Review, ad management, or guaranteed ranking/AI placement." },
-  { key: "account-access", label: "Account access", title: "Restore safe workspace entry.", href: "/login", cta: "Send secure access link", value: "Recover access without exposing account internals, session tokens, or private security data.", boundary: "Support cannot expose raw security payloads, attacker details, or internal risk logic." },
+  { key: "billing-issue", label: "Access issue", title: "Restore access or payment flow first.", href: "/dashboard/billing", cta: "Open billing", value: "Recover payment, invoice, or AI Visibility plan-depth access without sending card data through support.", boundary: "Support can route the issue, but payment changes require approved billing gates." },
+  { key: "report-question", label: "Proof question", title: "Understand the signal before acting.", href: "/dashboard/reports", cta: "Open AI Visibility proof", value: "Clarify confidence, Diagnosis evidence, limits, evidence boundaries, and next-command logic.", boundary: "A Free Scan question does not become a full Deep Review unless unlocked." },
+  { key: "scope-question", label: "Repair scope", title: "Confirm what can be improved.", href: "/plans/build-fix", cta: `Open Repair page — ${BUILD_FIX.price}`, value: "Decide whether a known weak page, message, proof point, or action path is ready for scoped Repair work.", boundary: "No unlimited implementation, full rebuild, monthly monitoring, or unapproved production work." },
+  { key: "monthly-priority", label: "Control priority", title: "Choose what should be watched.", href: "/plans/ongoing-control", cta: `Open Control page — ${ONGOING_CONTROL.price}`, value: "Turn recurring AI Visibility questions into a monthly focus, review cadence, alerts, and decision support.", boundary: "Not unlimited Build Fix, repeated Deep Review, ad management, or guaranteed ranking/AI placement." },
+  { key: "account-access", label: "Account access", title: "Restore safe account entry.", href: "/login", cta: "Send secure access link", value: "Recover access without exposing account internals, session tokens, or private security data.", boundary: "Support cannot expose raw security payloads, attacker details, or internal risk logic." },
   { key: "correction-dispute", label: "Correction or dispute", title: "Request bounded review.", href: "/dashboard/support/request", cta: "Start request", value: "Ask Cendorq to review something incomplete, wrong, outdated, or misunderstood.", boundary: "Changes require review gates before anything becomes customer-facing." },
 ] as const;
 
 const PLAN_SUPPORT = [
-  { planKey: "free-scan", command: "Scan", href: "/dashboard/reports/free-scan", cta: "Open signal", role: "Explain the first signal, confidence posture, and why deeper review may be needed.", mustNot: "No full root-cause diagnosis, implementation direction, or monthly monitoring.", value: getPlanValueDelivery("free-scan") },
-  { planKey: "deep-review", command: "Review", href: "/plans/deep-review", cta: `Open Review page — ${DEEP_REVIEW.price}`, role: "Help the customer understand cause-level review, evidence, priority, and decision path.", mustNot: "No done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes.", value: getPlanValueDelivery("deep-review") },
+  { planKey: "free-scan", command: "Scan", href: "/dashboard/reports/free-scan", cta: "Open signal", role: "Explain the first AI Visibility signal, confidence posture, and why deeper Review may be needed.", mustNot: "No full root-cause Diagnosis, implementation direction, or monthly monitoring.", value: getPlanValueDelivery("free-scan") },
+  { planKey: "deep-review", command: "Review", href: "/plans/deep-review", cta: `Open Review page — ${DEEP_REVIEW.price}`, role: "Help the customer understand cause-level Diagnosis, evidence, priority, and decision path.", mustNot: "No done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes.", value: getPlanValueDelivery("deep-review") },
   { planKey: "build-fix", command: "Repair", href: "/plans/build-fix", cta: `Open Repair page — ${BUILD_FIX.price}`, role: "Clarify scope, approved business details, output approval, and delivery expectations.", mustNot: "No unlimited site work, monthly monitoring, or unapproved production changes.", value: getPlanValueDelivery("build-fix") },
-  { planKey: "ongoing-control", command: "Control", href: "/plans/ongoing-control", cta: `Open Control page — ${ONGOING_CONTROL.price}`, role: "Help select monthly priorities, review cadence, monitoring scope, and decision support needs.", mustNot: "No unlimited Signal Repair, ranking guarantees, AI answer placement guarantees, or ad management.", value: getPlanValueDelivery("ongoing-control") },
+  { planKey: "ongoing-control", command: "Control", href: "/plans/ongoing-control", cta: `Open Control page — ${ONGOING_CONTROL.price}`, role: "Help select monthly AI Visibility priorities, review cadence, monitoring scope, and decision support needs.", mustNot: "No unlimited Build Fix, ranking guarantees, AI answer placement guarantees, or ad management.", value: getPlanValueDelivery("ongoing-control") },
 ] as const satisfies readonly { planKey: PlanValueKey; command: string; href: string; cta: string; role: string; mustNot: string; value: ReturnType<typeof getPlanValueDelivery> }[];
 
 const SUPPORT_RULES = [
@@ -45,8 +45,8 @@ export default function SupportCenterPage() {
 
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div className="relative z-10">
-          <h1 className="max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-slate-950">Route the blocker without weakening the readiness path.</h1>
-          <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">Help should restore momentum, protect the proof trail, and return the customer to the right report, account, readiness depth, or status path.</p>
+          <h1 className="max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-slate-950">Route the blocker without weakening the command path.</h1>
+          <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">Help should restore momentum, protect the proof trail, and return the customer to the right report, account, AI Visibility depth, or status path.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard/support/status" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Track status</Link>
             <Link href="/dashboard/support/request" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Start protected request</Link>
@@ -92,7 +92,7 @@ export default function SupportCenterPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Readiness support boundaries">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="AI Visibility support boundaries">
         <div className="grid gap-4 lg:grid-cols-4">
           {PLAN_SUPPORT.map((plan) => (
             <Link key={plan.planKey} href={plan.href} className="rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
@@ -119,7 +119,7 @@ export default function SupportCenterPage() {
       </section>
 
       <section className="sr-only" aria-label="Support routing guardrails">
-        Readiness support routing. Light support center. No black support blocks. No dark blue support blocks. Route the blocker without weakening the readiness path. Resolution selector. Pick the narrowest path that matches the blocker. Help should restore momentum without expanding scope silently. Access issue. Proof question. Repair scope. Control priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. Scan. Review. Repair. Control. Support paid actions route to plan detail pages before payment. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
+        AI Visibility support routing. Light support center. No black support blocks. No dark blue support blocks. Route the blocker without weakening the command path. Resolution selector. Pick the narrowest path that matches the blocker. Help should restore momentum without expanding scope silently. Access issue. Proof question. Repair scope. Control priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. Scan. Review. Repair. Control. Support paid actions route to plan detail pages before payment. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
       </section>
     </main>
   );

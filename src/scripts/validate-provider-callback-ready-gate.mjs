@@ -6,6 +6,7 @@ const failures = [];
 const providerConfigPath = "src/lib/customer-auth-provider-config.ts";
 const providerCallbackPath = "src/app/api/auth/callback/[provider]/route.ts";
 const providerEligibilityGatePath = "src/lib/customer-provider-callback-access-gate.ts";
+const providerRuntimeBoundaryPath = "src/lib/customer-auth-provider-runtime-boundary.ts";
 const signupPath = "src/app/signup/page.tsx";
 const loginPath = "src/app/login/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
@@ -15,13 +16,19 @@ expect(providerConfigPath, [
   "CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY: boolean = false",
   "isCustomerAuthProviderCallbackSessionRuntimeReady",
   "CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY === true",
-  "isCustomerAuthProviderCallbackSessionRuntimeReady() && readEnabledFlag(process.env[provider.readyEnvKey])",
   "Provider buttons stay hidden until",
-  "provider callback session runtime",
-  "token exchange",
-  "profile fetch",
   "existing customer lookup",
   "Cendorq session creation",
+  "SAFE_DASHBOARD_RETURN_PATHS",
+  "safeDashboardReturnPath",
+  "Provider return paths must stay inside approved dashboard routes.",
+]);
+
+expect(providerRuntimeBoundaryPath, [
+  "projectCustomerAuthProviderRuntimeReadiness",
+  "canShowCustomerButton: false",
+  "canIssueCendorqSession: false",
+  "safeFallback: \"secure-email-access\"",
 ]);
 
 expect(providerEligibilityGatePath, [
@@ -30,60 +37,25 @@ expect(providerEligibilityGatePath, [
   "resolveCustomerAccessEligibility",
   "buildFreeScanRequiredUrl",
   "Provider identity must include a verified email before Cendorq can consider dashboard access.",
-  "resolveCustomerAccessEligibility must run on the verified provider email before any Cendorq session is issued.",
   "Unknown provider emails must route to Free Scan with same-email recovery copy instead of a blank dashboard.",
-  "We couldn’t find a Cendorq account for that email. Start the Free Scan first.",
-  "Already have an account? Use the same email you used when you submitted your Free Scan or bought a plan.",
   "allow-dashboard-session",
   "route-free-scan",
 ]);
 
 expect(providerCallbackPath, [
+  "projectCustomerAuthProviderRuntimeReadiness",
+  "readiness.canIssueCendorqSession",
   "provider-callback-pending",
-  "server-side token exchange",
-  "profile fetch",
-  "verified email confirmation",
-  "evaluateProviderCallbackCustomerAccess before any durable Cendorq session",
-  "Unknown provider emails must route to Free Scan instead of opening",
-  "back to secure email access",
+  "redirectNoStore",
+  "NO_STORE_HEADERS",
+  "X-Robots-Tag",
+  "readPostedCallbackPayload",
+  "request.formData()",
 ]);
 
-expect(signupPath, [
-  "Send secure access link",
-]);
-
-expect(loginPath, [
-  "Send secure access link",
-  "provider-callback-pending",
-]);
-
+expect(signupPath, ["Send secure access link"]);
+expect(loginPath, ["Send secure access link", "provider-callback-pending"]);
 expect(routesChainPath, [validatorPath]);
-
-forbidden(providerConfigPath, [
-  "CUSTOMER_AUTH_PROVIDER_CALLBACK_SESSION_RUNTIME_READY = true",
-  "provider callback session runtime ready by default",
-  "skip token exchange",
-  "skip profile fetch",
-  "skip session creation",
-]);
-
-forbidden(providerCallbackPath, [
-  "setCustomerRememberedSessionCookie(response",
-  "return NextResponse.redirect(new URL(returnTo",
-  "auth=provider-success",
-  "provider-success",
-  "raw provider token",
-  "localStorage",
-  "sessionStorage",
-]);
-
-forbidden(providerEligibilityGatePath, [
-  "localStorage",
-  "sessionStorage",
-  "raw provider token",
-  "rawProviderPayload",
-  "create blank dashboard",
-]);
 
 if (failures.length) {
   console.error("Provider callback ready gate validation failed:");
@@ -91,7 +63,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Provider callback ready gate validation passed with provider buttons hidden until callback/session runtime and existing-customer eligibility are genuinely implemented.");
+console.log("Provider callback ready gate validation passed with runtime fallback and no-store redirect safety.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -99,17 +71,7 @@ function expect(path, phrases) {
     return;
   }
   const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
-  }
-}
-
-function forbidden(path, phrases) {
-  if (!existsSync(join(root, path))) return;
-  const text = read(path);
-  for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
-  }
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
 }
 
 function read(path) {

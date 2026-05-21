@@ -8,7 +8,7 @@ export const metadata = buildMetadata({
   title: "Plans | Cendorq",
   description: "Choose the right Cendorq depth: Free Scan, Deep Review, Build Fix, or Ongoing Control for AI Visibility, Readiness, Repair, and Control.",
   path: "/plans",
-  keywords: ["cendorq plans", "AI visibility plans", "AI readiness plans", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Sample Report"],
+  keywords: ["cendorq plans", "AI visibility plans", "AI readiness plans", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control"],
   image: { alt: "Cendorq AI Visibility and Readiness plans." },
 });
 
@@ -64,10 +64,6 @@ export default function PlansPage() {
           <div>
             <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-slate-950">Choose the right AI Visibility and Readiness depth.</h1>
             <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Start with what you need now. Free Scan shows the first signal. Deep Review explains the cause. Build Fix repairs the weak point. Ongoing Control keeps AI Visibility and Readiness from drifting.</p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Start Free Scan</Link>
-              <Link href="/sample-report" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Open Sample Report</Link>
-            </div>
           </div>
 
           <div className="overflow-hidden rounded-[2.2rem] border border-white/80 bg-white/68 p-3 shadow-[0_24px_80px_rgba(15,23,42,0.085)] backdrop-blur-2xl sm:rounded-[2.5rem]">

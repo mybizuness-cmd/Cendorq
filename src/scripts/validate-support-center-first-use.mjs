@@ -11,13 +11,13 @@ const validatorPath = "src/scripts/validate-support-center-first-use.mjs";
 const failures = [];
 
 expect(pagePath, [
-  "Readiness support routing",
-  "Your private Cendorq support routing center for proof questions, corrections, billing help, security review, and readiness-depth guidance.",
+  "AI Visibility support routing",
+  "Your private Cendorq support routing center for AI Visibility proof questions, Diagnosis evidence, corrections, billing help, and command-path guidance.",
   "SUPPORT_ROUTES",
   "PLAN_SUPPORT",
   "SUPPORT_RULES",
-  "Route the blocker without weakening the readiness path.",
-  "Help should restore momentum, protect the proof trail, and return the customer to the right report, account, readiness depth, or status path.",
+  "Route the blocker without weakening the command path.",
+  "Help should restore momentum, protect the proof trail, and return the customer to the right report, account, AI Visibility depth, or status path.",
   "Track status",
   "Start protected request",
   "Track, then act.",
@@ -32,13 +32,16 @@ expect(pagePath, [
   "Account access",
   "Correction or dispute",
   "Open billing",
-  "Open readiness proof",
+  "Open AI Visibility proof",
   "Send secure access link",
   "Start request",
   "Scan",
   "Review",
   "Repair",
   "Control",
+  "first AI Visibility signal",
+  "cause-level Diagnosis",
+  "monthly AI Visibility priorities",
   "Pick the narrowest support path before submitting a request.",
   "Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, or unrelated private evidence.",
   "Support can explain process, status, and next steps; approved outcomes require the right review gate.",
@@ -70,6 +73,15 @@ expect(packagePath, [
 expect(routesChainPath, [validatorPath]);
 
 forbidden(pagePath, [
+  "Readiness support routing",
+  "readiness-depth guidance",
+  "Route the blocker without weakening the readiness path.",
+  "readiness depth, or status path",
+  "Open readiness proof",
+  "full AI Readiness Review included",
+  "unlimited implementation included",
+  "guaranteed ranking included",
+  "guaranteed AI placement included",
   "guaranteed ROI",
   "guaranteed refund",
   "guaranteed legal outcome",
@@ -90,10 +102,6 @@ forbidden(pagePath, [
   "localStorage",
   "sessionStorage",
   "refund guaranteed",
-  "full AI Readiness Review included",
-  "unlimited implementation included",
-  "guaranteed ranking included",
-  "guaranteed AI placement included",
 ]);
 
 if (failures.length) {
@@ -102,7 +110,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Support center first use validation passed with current readiness support routing, safe-summary boundaries, plan separation, and owner posture coverage.");
+console.log("Support center first use validation passed with AI Visibility support routing, Diagnosis evidence, safe-summary boundaries, plan separation, and owner posture coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
