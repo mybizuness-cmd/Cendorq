@@ -17,6 +17,8 @@ expect(indexPath, [
   "PRESENCE_REPORT_PROTECTED_ROUTES",
   "SAMPLE_PRESENCE_REPORT_EVIDENCE_BOUNDARIES",
   "evidenceBoundaries",
+  "PRESENCE_REPORT_NEXT_MOVE_POLICIES",
+  "nextMovePolicies",
   "PRESENCE_REPORT_LAUNCH_READINESS",
   "SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS",
   "releaseChecks",
@@ -30,7 +32,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report object index validation passed with evidence boundaries and release checks.");
+console.log("Presence Report object index validation passed with evidence boundaries, next move policies, and release checks.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
