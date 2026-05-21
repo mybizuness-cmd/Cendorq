@@ -1,29 +1,43 @@
 # Presence Report batch status
 
-This branch installs the first public Cendorq Presence Report system.
+This branch installs the first public Cendorq Presence Report system for AI Search Presence Repair.
 
-Installed surfaces:
+## Installed surfaces
 
 - Homepage positioned around AI Search Presence Repair.
 - Diagnostic-first Free Scan route.
 - Public Sample Presence Report route.
-- Sample Report sitemap entry.
-- Sample Report header navigation.
-- Reusable sample report component.
-- Compact preview component for future homepage reuse.
+- Dedicated vertical Sample Report routes for dentist, med spa, law firm, and contractor.
+- Sample Report sitemap entries.
+- Sample Report header, footer, FAQ, and Plans entries.
+- Reusable Sample Presence Report component.
+- Compact Presence Report preview with Presence Score, pillars, Choice Gap, Repair Queue, and next move.
+- Protected Free Scan Presence Report preview.
+- Dashboard Presence Command Snapshot.
 - Shared public Presence Report data contract.
-- Component index for report surfaces.
+- Business Truth Profile contract.
+- Choice Gap contract.
+- Control Snapshot contract.
+- Vertical sample report playbooks.
+- Presence Report generation adapter.
+- Live scan Presence Report mapping.
+- Presence Report route map and object index.
+- Presence Report proof map.
+- Repair Queue priority helper.
 
-Current follow-up:
+## Current follow-up
 
 - Run local validation before merge.
-- Replace the homepage inline report preview with the compact shared preview component using a smaller local patch if connector payload limits continue.
-- Optionally add Sample Report to footer after local review.
+- Verify TypeScript against the expanded route and component surfaces.
 - Keep Free Scan, Deep Review, Build Fix, and Ongoing Control separate.
+- Keep sample reports framed as examples, not promises.
+- Keep private scoring internals out of public and protected customer surfaces.
 
-Next elevation:
+## Next elevation
 
-- Make the Presence Report the visible product object across homepage, Free Scan, plans, dashboard, and report vault.
+- Feed real Free Scan snapshots into the public-safe Presence Report package.
 - Make the Repair Queue the decision object that turns scan evidence into the safest next move.
 - Make the Business Truth Profile the verified source for safe repair language.
 - Make the Control Snapshot the recurring retention object.
+- Add category-specific proof standards into report scoring and repair language.
+- Add operator QA gates before any generated report is released to customers.
