@@ -1,4 +1,5 @@
 import { buildPresenceReportPackage, type GeneratedPresenceReportPackage, type PresenceReportGenerationInput } from "@/lib/presence-report-generation-adapter";
+import type { PresenceReportNextMove } from "@/lib/presence-report-contract";
 import type { FreeCheckReportSnapshot } from "@/lib/reports/free-check-report";
 
 export function mapLiveScanSnapshotToPresenceReport(snapshot: FreeCheckReportSnapshot, input: PresenceReportGenerationInput = {}): GeneratedPresenceReportPackage {
@@ -41,7 +42,7 @@ function weakestReadoutSummary(snapshot: FreeCheckReportSnapshot) {
   return `Lowest visible readout: ${weakest.label}. ${weakest.interpretation}`;
 }
 
-function routeTitleToNextMove(title: string) {
+function routeTitleToNextMove(title: string): PresenceReportNextMove {
   if (title.includes("Ongoing Control")) return "Ongoing Control";
   if (title.includes("Build Fix")) return "Build Fix";
   if (title.includes("Deep Review")) return "Deep Review";
