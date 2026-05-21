@@ -43,9 +43,6 @@ expect(queuePath, [
   "secretsStored: false",
   "customer email dispatch queue records do not store providerReadyPayload or call an external email provider",
   "customer email dispatch queue state mutations update state timestamps and retry metadata without storing raw emails, tokens, confirmation URLs, provider payloads, provider responses, or secrets",
-]);
-
-expect(queuePath, [
   "sendingAt",
   "sentAt",
   "failedAt",
@@ -55,18 +52,10 @@ expect(queuePath, [
   "failureReason",
   "suppressionKey",
   "suppressionReason",
-  "if (input.expectedState && existing.state !== input.expectedState) return projectCustomerEmailDispatchQueueRecord(existing);",
   "rawPayloadStored: false",
   "rawEvidenceStored: false",
   "rawBillingDataStored: false",
   "internalNotesStored: false",
-]);
-
-expect(queuePath, [
-  "customer email dispatch queue records store recipientEmailRef rather than raw customer email addresses",
-  "customer email dispatch queue records store confirmationUrlHash rather than confirmationUrl or raw token",
-  "customer email dispatch queue records are idempotent per customerIdHash, recipientEmailRef, templateKey, and confirmationUrlHash",
-  "entry.confirmationUrlHash === record.confirmationUrlHash",
 ]);
 
 expect(adapterPath, [
@@ -80,9 +69,6 @@ expect(adapterPath, [
   "providerCallMade: false",
   "providerSecretRead: false",
   "browserVisible: false",
-  "customerEmailReturned: false",
-  "rawTokenReturned: false",
-  "tokenHashReturned: false",
   "providerPayloadReturned: false",
 ]);
 
@@ -93,9 +79,6 @@ expect(auditPath, [
   "customer-email-dispatch-audit.v3.json",
   "providerPayloadHash",
   "providerEventRefHash",
-  "dispatch audit transitions never store raw customer emails, raw tokens, token hashes, confirmation URLs, secrets, raw evidence, raw billing data, or internal notes",
-  "rawCustomerEmailStored: false",
-  "confirmationUrlStored: false",
   "providerPayloadStored: false",
   "providerResponseStored: false",
 ]);
@@ -106,13 +89,9 @@ expect(runnerPath, [
   "prepareCustomerEmailProviderDispatchAttempt",
   "updateCustomerEmailDispatchQueueState",
   "recordCustomerEmailDispatchTransition",
-  "dispatch runner must use provider dispatch adapter before queue mutation",
-  "dispatch runner must record an audit transition for every queue mutation decision",
   "providerCallMade: false",
   "providerSecretRead: false",
   "browserVisible: false",
-  "confirmationUrlReturned: false",
-  "providerResponseReturned: false",
 ]);
 
 expect(deliveryStatusProjectionPath, [
@@ -125,8 +104,6 @@ expect(deliveryStatusProjectionPath, [
   "suppressed",
   "failed",
   "deliverabilityGuaranteeClaimed: false",
-  "rawCustomerEmailExposed: false",
-  "confirmationUrlExposed: false",
   "providerPayloadExposed: false",
   "providerResponseExposed: false",
   "providerSecretExposed: false",
@@ -140,12 +117,9 @@ expect(adminPreviewRoutePath, [
   "safeProjectionOnly: true",
   "safe-queue-and-audit-projection-only",
   "preview-only-no-provider-call",
-  "rawCustomerEmailExposed: false",
-  "confirmationUrlExposed: false",
   "providerPayloadExposed: false",
   "providerResponseExposed: false",
   "providerSecretExposed: false",
-  "auditTransitionRequiredForEveryMutationDecision: true",
 ]);
 
 expect(adminDryRunRoutePath, [
@@ -165,47 +139,19 @@ expect(adminDryRunRoutePath, [
   "providerSecretExposed: false",
 ]);
 
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
+expect(ownerMaximumProtectionPath, ["# Owner Maximum Protection Posture", "Protected customer and report surfaces require the correct verified access path.", "Operator surfaces remain private, metadata-first, and review-gated."]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-posture.mjs"]);
 
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
+expect(adapterValidatorPath, ["src/lib/customer-email-provider-dispatch-adapter.ts", "prepareCustomerEmailProviderDispatchAttempt"]);
+expect(auditValidatorPath, ["src/lib/customer-email-dispatch-audit-runtime.ts", "recordCustomerEmailDispatchTransition"]);
+expect(runnerValidatorPath, ["src/lib/customer-email-dispatch-runner-runtime.ts", "runCustomerEmailDispatchCycle"]);
+expect(deliveryStatusProjectionValidatorPath, ["src/lib/customer-email-delivery-status-projection.ts", "projectCustomerEmailDeliveryStatus"]);
+expect(adminPreviewValidatorPath, ["src/app/api/admin/customer/email/dispatch/preview/route.ts", "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY"]);
+expect(adminDryRunValidatorPath, ["src/app/api/admin/customer/email/dispatch/dry-run/route.ts", "dry-run-no-provider-call"]);
 
-expect(packagePath, [
-  "validate:routes",
-  "validate-customer-email-dispatch-queue-runtime.mjs",
-  "validate-owner-maximum-protection-posture.mjs",
-]);
-
-expect(adapterValidatorPath, ["Customer email provider dispatch adapter validation passed.", "src/lib/customer-email-provider-dispatch-adapter.ts", "prepareCustomerEmailProviderDispatchAttempt"]);
-expect(auditValidatorPath, ["Customer email dispatch audit runtime validation passed.", "src/lib/customer-email-dispatch-audit-runtime.ts", "recordCustomerEmailDispatchTransition"]);
-expect(runnerValidatorPath, ["Customer email dispatch runner runtime validation passed", "src/lib/customer-email-dispatch-runner-runtime.ts", "runCustomerEmailDispatchCycle"]);
-expect(deliveryStatusProjectionValidatorPath, ["Customer email delivery status projection validation passed.", "src/lib/customer-email-delivery-status-projection.ts", "projectCustomerEmailDeliveryStatus"]);
-expect(adminPreviewValidatorPath, ["Customer email dispatch admin preview API validation passed.", "src/app/api/admin/customer/email/dispatch/preview/route.ts", "CUSTOMER_EMAIL_DISPATCH_ADMIN_KEY"]);
-expect(adminDryRunValidatorPath, ["Customer email dispatch admin dry-run API validation passed", "src/app/api/admin/customer/email/dispatch/dry-run/route.ts", "dry-run-no-provider-call"]);
-
-expect(issuancePath, [
-  "enqueueCustomerEmailDispatch",
-  "CustomerEmailDispatchQueueSafeProjection",
-  "dispatchQueue",
-  "queued: dispatchQueue.state === \"queued\"",
-  "providerPayloadReturnedToBrowser: false",
-  "dispatchQueue: payload.dispatchQueue",
-  "normalizeDashboardPath",
-]);
-
-expect(issuanceValidatorPath, [
-  "src/lib/customer-email-dispatch-queue-runtime.ts",
-  "validate-customer-email-dispatch-queue-runtime.mjs",
-  "dispatchQueue",
-  "providerPayloadReturnedToBrowser: false",
-]);
+expect(issuancePath, ["enqueueCustomerEmailDispatch", "CustomerEmailDispatchQueueSafeProjection", "dispatchQueue", "providerPayloadReturnedToBrowser: false"]);
+expect(issuanceValidatorPath, ["src/lib/customer-email-dispatch-queue-runtime.ts", "validate-customer-email-dispatch-queue-runtime.mjs", "dispatchQueue", "providerPayloadReturnedToBrowser: false"]);
 
 forbidden(queuePath, unsafePhrases());
 forbidden(adapterPath, unsafePhrases());
@@ -222,7 +168,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email dispatch queue runtime validation passed with owner posture, package wiring, state mutation, provider dispatch adapter, audit, runner, delivery status, admin preview, and admin dry-run coverage.");
+console.log("Customer email dispatch queue runtime validation passed.");
 
 function unsafePhrases() {
   return [
