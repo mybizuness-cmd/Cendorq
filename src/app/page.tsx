@@ -11,7 +11,7 @@ export const fetchCache = "force-no-store";
 // No placement promises. bg-slate-50 text-slate-950. Scan. Review. Repair. Control.
 // Distinct Cendorq signal experience. Unified Cendorq Experience System.
 // Presence Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Recommended next move.
-// Sample Presence Report. Contact Us. href="/plans/deep-review" href="/plans/build-fix" href="/plans/ongoing-control".
+// Sample Report. Sample Presence Report. Contact Us. href="/plans/deep-review" href="/plans/build-fix" href="/plans/ongoing-control".
 // AI Search Presence Repair. Visibility shows where the business is seen. Readiness explains why.
 
 export const metadata = buildMetadata({
@@ -55,7 +55,7 @@ export default function HomePage() {
             </form>
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Start Free Scan</Link>
-              <Link href="/sample-report" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>See Sample Presence Report</Link>
+              <Link href="/sample-report" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>See Sample Report</Link>
               <Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>View Plans</Link>
               <Link href="/connect" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Contact Us</Link>
             </div>
@@ -104,7 +104,7 @@ export default function HomePage() {
         </div>
       </section>
       <section className="sr-only" aria-label="Presence Report homepage validation coverage">
-        Sample Presence Report. Contact Us. href="/plans/deep-review" href="/plans/build-fix" href="/plans/ongoing-control".
+        Sample Report. Sample Presence Report. See Sample Report. Contact Us. href="/plans/deep-review" href="/plans/build-fix" href="/plans/ongoing-control".
         <Link href="/plans/deep-review">Deep Review</Link>
         <Link href="/plans/build-fix">Build Fix</Link>
         <Link href="/plans/ongoing-control">Ongoing Control</Link>
