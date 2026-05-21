@@ -115,7 +115,7 @@ expect("src/app/dashboard/page.tsx", [
   "Private AI Visibility command center",
   "Your Cendorq command center is ready.",
   "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
-  "Scan. Diagnose. Review. Repair. Control.",
+  "Scan. Review. Repair. Control.",
 ]);
 expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
 expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "What this helps you decide", "Review all plans"]);
@@ -144,6 +144,7 @@ forbidden(["src/app/dashboard/page.tsx"], [
   "Private AI readiness control center",
   "Your Cendorq account is ready.",
   "one clear next action",
+  "Scan. Diagnose. Review. Repair. Control.",
 ]);
 
 forbidden(["src/app/signup/page.tsx"], [
