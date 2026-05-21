@@ -2,6 +2,7 @@ import { SAMPLE_BUSINESS_TRUTH_PROFILE } from "@/lib/business-truth-profile-cont
 import { SAMPLE_CHOICE_GAP } from "@/lib/choice-gap-contract";
 import { SAMPLE_CONTROL_SNAPSHOT } from "@/lib/control-snapshot-contract";
 import { SAMPLE_PRESENCE_REPORT } from "@/lib/presence-report-contract";
+import { SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS } from "@/lib/presence-report-release-gate";
 
 const REPORT_SECTIONS = [
   "First signal summary",
@@ -9,6 +10,7 @@ const REPORT_SECTIONS = [
   "Pillar scores",
   "Choice Gap",
   "Repair Queue",
+  "Release Gate",
   "Control Snapshot",
   "Recommended next move",
 ] as const;
@@ -18,6 +20,7 @@ export function SamplePresenceReport() {
   const truthProfile = SAMPLE_BUSINESS_TRUTH_PROFILE;
   const choiceGap = SAMPLE_CHOICE_GAP;
   const controlSnapshot = SAMPLE_CONTROL_SNAPSHOT;
+  const releaseChecks = SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS;
 
   return (
     <section className="rounded-[2.4rem] border border-white/85 bg-white/82 p-3 shadow-[0_30px_100px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:rounded-[3rem]" aria-label="Sample Cendorq Presence Report">
@@ -25,9 +28,7 @@ export function SamplePresenceReport() {
         <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="border-b border-slate-200 bg-[radial-gradient(circle_at_18%_0%,rgba(125,211,252,0.26),transparent_36%),linear-gradient(180deg,#ffffff,#effcff)] p-6 sm:p-8 lg:border-b-0 lg:border-r">
             <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Sample Presence Report</p>
-            <h2 className="mt-4 text-[clamp(2.4rem,8vw,4.75rem)] font-semibold leading-[0.94] tracking-[-0.08em] text-slate-950">
-              {report.title}
-            </h2>
+            <h2 className="mt-4 text-[clamp(2.4rem,8vw,4.75rem)] font-semibold leading-[0.94] tracking-[-0.08em] text-slate-950">{report.title}</h2>
             <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-600">{report.summary}</p>
 
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
@@ -111,6 +112,22 @@ export function SamplePresenceReport() {
                       <p className="mt-2 text-sm font-medium leading-6 text-slate-300">{item.publicReason}</p>
                     </div>
                   </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-[1.65rem] border border-cyan-200 bg-cyan-50 p-5">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Release Gate</p>
+              <h3 className="mt-3 text-2xl font-semibold tracking-[-0.045em] text-slate-950">Approved facts before release.</h3>
+              <div className="mt-4 grid gap-2">
+                {releaseChecks.map((check) => (
+                  <div key={check.label} className="rounded-[1rem] border border-cyan-100 bg-white p-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="text-sm font-semibold text-slate-950">{check.label}</p>
+                      <span className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{check.status}</span>
+                    </div>
+                    <p className="mt-1 text-xs font-medium leading-5 text-slate-600">{check.customerSafeReason}</p>
+                  </div>
                 ))}
               </div>
             </div>
