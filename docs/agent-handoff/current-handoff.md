@@ -9,9 +9,9 @@ The operator should work in controlled batches, keep updates short, and verify g
 ## Current branch
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Branch: `next-1017`
-- Last known green deployment checkpoint: customer access eligibility source ladder and durable repo handoff memory
-- Green commit at handoff: `6af4370c5f8c61f6223ff931bb3e3faf6ae4c428`
+- Branch: `presence-report-homepage-batch`
+- Latest checked green deployment checkpoint: Presence Report homepage batch after base update conflict resolution
+- Latest checked green commit at handoff: `d4c8201af76cb03994883ce070575df6d789fe12`
 
 ## Business doctrine
 
@@ -25,6 +25,22 @@ The customer-facing flow is:
 4. Open protected result, plan, billing, support, and next action in the dashboard.
 5. Paid path moves through Review, Repair, and Control.
 
+## Presence Report doctrine
+
+Presence Report is the public-facing evidence object for AI Search Presence Repair.
+
+The Presence Report path is:
+
+1. Free Scan captures the first signal.
+2. Sample Presence Report demonstrates the customer-safe report shape.
+3. Business Truth Profile holds approved facts and restricted claims.
+4. Choice Gap explains where competitors are easier to understand, trust, and choose.
+5. Repair Queue ranks what to fix first.
+6. Release Gate keeps restricted promises out of report language.
+7. Control Snapshot keeps ongoing visibility and readiness from drifting.
+
+Do not promise rankings, leads, revenue, or AI placement. Do not expose raw evidence or private scoring internals publicly.
+
 ## Access doctrine
 
 Customer Access is one system, not separate signup/login/create-workspace paths.
@@ -32,6 +48,7 @@ Customer Access is one system, not separate signup/login/create-workspace paths.
 - Secure email access checks existing customer eligibility before sending access.
 - Free Scan is the active eligibility source today.
 - Paid plan, report vault, billing, and support are contract-ready eligibility sources until durable server-side ownership stores are wired.
+- `resolveCustomerAccessEligibility` is the customer access gate for secure email access and same-email recovery.
 - Provider access must stay hidden until the real callback and session runtime are ready.
 - Provider callback must confirm identity, read verified email, run `evaluateProviderCallbackCustomerAccess`, and only then create a durable Cendorq session.
 - Unknown provider emails must route to Free Scan with same-email recovery copy.
@@ -57,6 +74,7 @@ Customer Access is one system, not separate signup/login/create-workspace paths.
 - Do not say Create workspace on customer-facing access/signup pages.
 - Do not expose account-existence internals.
 - Keep protected access server-derived.
+- Keep Presence Report public language customer-safe and evidence-led.
 - Do not move to the next implementation batch until Vercel is green.
 
 ## Next implementation candidates
@@ -65,3 +83,4 @@ Customer Access is one system, not separate signup/login/create-workspace paths.
 2. Add runtime tests for email access eligibility and provider callback access decisions.
 3. Add official provider button surface only after callback runtime is implemented.
 4. Keep provider runtime gated until verified email, eligibility, and server session creation are real.
+5. After final validation, mark the Presence Report PR ready for review only when local validation, Vercel, Release Control, CI, and CodeQL are green.
