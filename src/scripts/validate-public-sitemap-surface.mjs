@@ -13,6 +13,10 @@ expect(sitemapPath, [
   "path: \"/\"",
   "path: \"/free-check\"",
   "path: \"/sample-report\"",
+  "path: \"/sample-report/dentist\"",
+  "path: \"/sample-report/med-spa\"",
+  "path: \"/sample-report/law-firm\"",
+  "path: \"/sample-report/contractor\"",
   "path: \"/plans\"",
   "path: \"/plans/deep-review\"",
   "path: \"/plans/build-fix\"",
@@ -23,6 +27,8 @@ expect(sitemapPath, [
   "path: \"/terms\"",
   "path: \"/disclaimer\"",
   "priority: 0.96",
+  "priority: 0.86",
+  "priority: 0.85",
   "priority: 0.8",
   "priority: 0.68",
   "changeFrequency: \"monthly\"",
@@ -52,7 +58,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public sitemap surface validation passed with sample report, FAQ and Contact Us on /connect included, public routes only, and protected customer routes excluded.");
+console.log("Public sitemap surface validation passed with sample report, vertical sample report routes, FAQ and Contact Us on /connect included, public routes only, and protected customer routes excluded.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
