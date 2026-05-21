@@ -20,6 +20,8 @@ for (const route of routes) {
     "Choice Gap",
     "Repair Queue",
     "Sample Presence Report",
+    "selectSample",
+    "Missing vertical Sample Presence Report data.",
   ]);
 }
 
@@ -40,7 +42,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Vertical Sample Report routes validation passed.");
+console.log("Vertical Sample Report routes validation passed with hardened sample selection.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
