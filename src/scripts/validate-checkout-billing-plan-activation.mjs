@@ -38,7 +38,7 @@ expect(checkoutSuccessPath, [
 ]);
 
 expect(billingPath, [
-  "Readiness plan depth",
+  "AI Visibility plan depth",
   "Know what is active, what unlocked, and what depth comes next.",
   "BILLING_STATUS",
   "PAID_PLAN_COMMANDS",
@@ -89,7 +89,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Checkout and billing plan activation validation passed with current checkout success continuation and billing readiness-depth coverage.");
+console.log("Checkout and billing plan activation validation passed with current checkout success continuation and billing AI Visibility depth coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
