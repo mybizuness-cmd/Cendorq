@@ -30,6 +30,7 @@ const validators = [
   "src/scripts/validate-vertical-sample-report-routes.mjs",
   "src/scripts/validate-sample-presence-report-route.mjs",
   "src/scripts/validate-public-sitemap-surface.mjs",
+  "src/scripts/validate-presence-report-merge-readiness.mjs",
 ];
 
 const missing = validators.filter((validatorPath) => !existsSync(join(root, validatorPath)));
@@ -58,4 +59,4 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log("Presence Report system validation passed.");
+console.log("Presence Report system validation passed with merge-readiness coverage.");
