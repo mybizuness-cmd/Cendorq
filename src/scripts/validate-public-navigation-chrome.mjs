@@ -31,6 +31,7 @@ expect(headerPath, [
   "absolute right-0 z-50",
   "w-[min(14rem,calc(100vw-1.5rem))]",
   "bg-cyan-50 text-slate-950",
+  "FAQ uses direct browser navigation to /faq.",
   "Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out.",
   "Account menu uses overflow-visible so the menu is not clipped.",
   "Account menu width is bounded for mobile.",
@@ -55,14 +56,16 @@ expect(sessionPath, [
 ]);
 
 expect(footerPath, [
-  "AI visibility and readiness for businesses that need to be seen, understood, trusted, and chosen.",
+  "AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen.",
   "Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.",
   "Sample Report",
+  "Plans",
   "FAQ",
   "Privacy",
   "Terms",
   "Disclaimer",
   "href=\"/sample-report\"",
+  "href=\"/plans\"",
   "href=\"/faq\"",
   "focus:outline-none",
   "focus-visible:ring-2",
@@ -181,7 +184,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with Sample Report, remembered customer header state, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Contact Us routing, support@cendorq.com direct email, and visibility plus readiness footer trust copy.");
+console.log("Public navigation chrome validation passed with Sample Report, remembered customer header state, direct FAQ navigation, highlighted Dashboard action, mobile-bounded Account menu, dashboard logo return, Free Scan CTA, current FAQ plan language, Contact Us routing, support@cendorq.com direct email, and AI Search Presence Repair footer trust copy.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

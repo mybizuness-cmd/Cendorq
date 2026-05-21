@@ -5,9 +5,9 @@ import { CENDORQ_CUSTOMER_SESSION_COOKIE, readCustomerRememberedSessionCookieVal
 const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
-  { label: "Sample Report", href: "/sample-report" },
-  { label: "Plans", href: "/plans" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Sample Report", href: "/sample-report", direct: false },
+  { label: "Plans", href: "/plans", direct: false },
+  { label: "FAQ", href: "/faq", direct: true },
 ] as const;
 
 const CTA_CLASS =
@@ -35,9 +35,15 @@ export async function SiteHeader() {
 
         <nav aria-label="Primary navigation" className="flex min-w-0 shrink items-center justify-center gap-0.5 overflow-visible px-0 sm:flex-1 sm:gap-2 sm:px-1">
           {PUBLIC_NAV_LINKS.map((item) => (
-            <Link key={item.href} href={item.href} className={NAV_LINK_CLASS}>
-              {item.label}
-            </Link>
+            item.direct ? (
+              <a key={item.href} href={item.href} className={NAV_LINK_CLASS}>
+                {item.label}
+              </a>
+            ) : (
+              <Link key={item.href} href={item.href} className={NAV_LINK_CLASS}>
+                {item.label}
+              </Link>
+            )
           ))}
           {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : <Link href="/login" className={NAV_LINK_CLASS}>Access</Link>}
         </nav>
@@ -47,7 +53,7 @@ export async function SiteHeader() {
           <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Free Scan"}</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Sample Report, Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. Account menu uses overflow-visible so the menu is not clipped. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu width is bounded for mobile. href="/sample-report" href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
+      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Sample Report, Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. FAQ uses direct browser navigation to /faq. Account menu uses overflow-visible so the menu is not clipped. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu width is bounded for mobile. href="/sample-report" href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
     </header>
   );
 }
