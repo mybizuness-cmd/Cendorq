@@ -21,7 +21,10 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Vertical sample report playbooks.
 - Presence Report generation adapter.
 - Live scan Presence Report mapping from Free Scan snapshots into the five public pillars.
+- Shared Sandwork Presence Report fixture for reusable demo Free Scan input, snapshot, and report package.
+- Protected Free Scan preview and dashboard Presence Command Snapshot use the shared Sandwork package through the live mapper.
 - Live scan mapping validator coverage for pillar derivation, Choice scoring, state derivation, and score clamping.
+- Protected-result and dashboard validators now guard against hardcoded sample-object regressions.
 - Presence Report route map and object index.
 - Presence Report proof map.
 - Presence Report evidence boundary map and public panel.
@@ -40,6 +43,7 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Keep sample reports framed as examples, not promises.
 - Keep private scoring internals out of public and protected customer surfaces.
 - Keep next move recommendations tied to evidence, not plan pressure.
+- Keep demo data centralized in the shared Sandwork fixture instead of presentation components.
 - Update branch against main before merge because public pages overlap current main changes.
 - Keep the PR draft until merge-readiness and base-update review are complete.
 - Keep the PR draft until final review confirms the latest green head.
