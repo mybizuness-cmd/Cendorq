@@ -1,5 +1,5 @@
 import { buildPresenceReportPackage, type GeneratedPresenceReportPackage, type PresenceReportGenerationInput } from "@/lib/presence-report-generation-adapter";
-import type { PresenceReportNextMove } from "@/lib/presence-report-contract";
+import { normalizePresenceReportNextMove } from "@/lib/presence-report-next-move";
 import type { FreeCheckReportSnapshot } from "@/lib/reports/free-check-report";
 
 export function mapLiveScanSnapshotToPresenceReport(snapshot: FreeCheckReportSnapshot, input: PresenceReportGenerationInput = {}): GeneratedPresenceReportPackage {
@@ -16,7 +16,7 @@ export function mapLiveScanSnapshotToPresenceReport(snapshot: FreeCheckReportSna
         title: action,
         publicReason: "Customer-safe first signal. Prove cause before deeper work.",
       })),
-      nextMove: routeTitleToNextMove(snapshot.routeRecommendation.title),
+      nextMove: normalizePresenceReportNextMove(snapshot.routeRecommendation.title),
     },
     choiceGap: {
       ...packageBase.choiceGap,
@@ -40,11 +40,4 @@ function weakestReadoutSummary(snapshot: FreeCheckReportSnapshot) {
   const weakest = [...snapshot.moduleReadouts].sort((a, b) => a.value - b.value)[0];
   if (!weakest) return "";
   return `Lowest visible readout: ${weakest.label}. ${weakest.interpretation}`;
-}
-
-function routeTitleToNextMove(title: string): PresenceReportNextMove {
-  if (title.includes("Ongoing Control")) return "Ongoing Control";
-  if (title.includes("Build Fix")) return "Build Fix";
-  if (title.includes("Deep Review")) return "Deep Review";
-  return "Free Scan";
 }

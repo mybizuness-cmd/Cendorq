@@ -7,10 +7,12 @@ const failures = [];
 
 expect(mappingPath, [
   "mapLiveScanSnapshotToPresenceReport",
-  "buildPresenceReportPackage",
+  "normalizePresenceReportNextMove",
+  "buildPresenceReportPackage(input)",
+  "PresenceReportGenerationInput",
   "FreeCheckReportSnapshot",
   "GeneratedPresenceReportPackage",
-  "routeTitleToNextMove",
+  "weakestReadoutSummary",
   "averageScore",
 ]);
 
