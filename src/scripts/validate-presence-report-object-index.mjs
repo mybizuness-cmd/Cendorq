@@ -16,6 +16,8 @@ expect(indexPath, [
   "PRESENCE_REPORT_PUBLIC_ROUTES",
   "PRESENCE_REPORT_PROTECTED_ROUTES",
   "PRESENCE_REPORT_LAUNCH_READINESS",
+  "nextBuildLayer",
+  "Live scan data should feed the same public-safe report package.",
 ]);
 
 if (failures.length) {
