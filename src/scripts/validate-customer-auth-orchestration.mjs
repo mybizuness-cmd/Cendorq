@@ -119,7 +119,7 @@ expect("src/app/dashboard/page.tsx", [
 ]);
 expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
 expect("src/components/plans/conversion-plan-page.tsx", ["getCendorqPlanPrice", "What this helps you decide", "Review all plans"]);
-expect("src/app/dashboard/billing/page.tsx", ["getPaidCendorqPlanPrice", "Open Review page", "Payment should unlock the right readiness layer", "Checkout success parity"]);
+expect("src/app/dashboard/billing/page.tsx", ["getPaidCendorqPlanPrice", "Open Review page", "Payment should unlock the right AI Visibility layer", "Checkout success parity"]);
 expect("src/app/checkout/start/page.tsx", ["Start checkout", "secure Stripe payment", "client_reference_id", "cendorq_plan"]);
 expect("src/app/checkout/success/page.tsx", ["Payment complete", "Payment confirmed", "One next step", "Open your inbox"]);
 expect("src/scripts/validate-routes-chain.mjs", ["validate-customer-auth-orchestration.mjs"]);
