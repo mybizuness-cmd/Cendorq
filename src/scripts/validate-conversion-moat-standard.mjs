@@ -51,7 +51,7 @@ expect(planTemplatePath, [
 
 expect(billingPath, [
   "Know what is active, what unlocked, and what depth comes next.",
-  "Payment should unlock the right readiness layer.",
+  "Payment should unlock the right AI Visibility layer.",
   "Open Review page",
   "Open plan page",
   "Checkout success parity",
@@ -119,6 +119,7 @@ forbidden([pricingContractPath, plansPath, planTemplatePath, billingPath, dashbo
   "AI Readiness Review",
   "Signal Repair",
   "Readiness Control",
+  "Payment should unlock the right readiness layer",
 ]);
 
 if (failures.length) {
