@@ -15,6 +15,7 @@ const controlSnapshotPath = "src/lib/control-snapshot-contract.ts";
 const verticalSamplesPath = "src/lib/vertical-sample-presence-reports.ts";
 const generationAdapterPath = "src/lib/presence-report-generation-adapter.ts";
 const liveMappingPath = "src/lib/live-scan-presence-report-mapping.ts";
+const releaseGatePath = "src/lib/presence-report-release-gate.ts";
 const launchReadinessPath = "src/lib/presence-report-launch-readiness.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-sample-presence-report-route.mjs";
@@ -45,20 +46,24 @@ expect(componentPath, [
   "SAMPLE_BUSINESS_TRUTH_PROFILE",
   "SAMPLE_CHOICE_GAP",
   "SAMPLE_CONTROL_SNAPSHOT",
+  "SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS",
   "Business Truth Profile",
   "Choice Gap",
   "Repair Queue",
+  "Release Gate",
   "Control Snapshot",
   "@/lib/presence-report-contract",
   "@/lib/business-truth-profile-contract",
   "@/lib/choice-gap-contract",
   "@/lib/control-snapshot-contract",
+  "@/lib/presence-report-release-gate",
   "SamplePresenceReport",
   "report.title",
   "report.summary",
   "report.score",
   "report.pillars.map",
   "report.repairQueue.map",
+  "releaseChecks.map",
 ]);
 
 expect(verticalComponentPath, [
@@ -79,6 +84,7 @@ for (const verticalRoutePath of verticalRoutePaths) {
     "Repair Queue",
     "buildMetadata",
     "buildWebPageJsonLd",
+    "selectSample",
   ]);
 }
 
@@ -111,6 +117,15 @@ expect(controlSnapshotPath, [
   "SAMPLE_CONTROL_SNAPSHOT",
   "Proof freshness",
   "Competitor clarity",
+]);
+
+expect(releaseGatePath, [
+  "PresenceReportReleaseGateStatus",
+  "SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS",
+  "Approved business facts",
+  "Restricted claims",
+  "Evidence boundary",
+  "Next move clarity",
 ]);
 
 expect(verticalSamplesPath, [
@@ -155,13 +170,14 @@ expect(launchReadinessPath, [
 expect(routesChainPath, [validatorPath]);
 
 boundedLength(routePath, 16000);
-boundedLength(componentPath, 24000);
+boundedLength(componentPath, 28000);
 boundedLength(verticalComponentPath, 18000);
 boundedLength(indexPath, 700);
 boundedLength(contractPath, 8500);
 boundedLength(truthProfilePath, 7000);
 boundedLength(choiceGapPath, 5000);
 boundedLength(controlSnapshotPath, 5000);
+boundedLength(releaseGatePath, 6000);
 boundedLength(verticalSamplesPath, 18000);
 boundedLength(generationAdapterPath, 9000);
 boundedLength(liveMappingPath, 7000);
@@ -173,7 +189,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Sample Presence Report route validation passed with shared public report contract, Business Truth Profile, Choice Gap, Repair Queue, Control Snapshot, vertical routes, launch readiness, and live scan mapping.");
+console.log("Sample Presence Report route validation passed with shared public report contract, Business Truth Profile, Choice Gap, Repair Queue, Release Gate, Control Snapshot, and vertical sample report standards.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
