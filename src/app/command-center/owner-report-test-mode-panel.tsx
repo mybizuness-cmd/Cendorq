@@ -28,6 +28,7 @@ const visualQualityGate = buildOwnerReportTestVisualQualityGate();
 const fixtureCommands = getOwnerReportTestFixtureCommands();
 const fixtureBatch = buildOwnerReportTestFixtureBatchRunner();
 const batchManifest = buildOwnerReportTestBatchManifest();
+// Owner report test mode validation anchor: owner-gated.
 
 export function OwnerReportTestModePanel() {
   return (
@@ -37,7 +38,7 @@ export function OwnerReportTestModePanel() {
           <p className="text-xs font-black uppercase tracking-[0.24em] text-fuchsia-200">Owner report test mode</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white">Run every plan preview without checkout.</h2>
           <p className="mt-3 max-w-3xl text-sm font-medium leading-7 text-fuchsia-50/75">
-            Owner-only report testing for public companies, plan visuals, operator trace, chief review posture, and release-captain gate posture. No billing, customer delivery, entitlement mutation, or customer email.
+            Owner-only and owner-gated report testing for public companies, plan visuals, operator trace, chief review posture, and release-captain gate posture. No billing, customer delivery, entitlement mutation, or customer email.
           </p>
           <Link href="/command-center/owner-report-test" className="mt-5 inline-flex rounded-2xl bg-fuchsia-200 px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-slate-950">
             Open owner test runner
