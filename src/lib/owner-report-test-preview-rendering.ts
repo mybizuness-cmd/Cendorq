@@ -57,7 +57,7 @@ export const OWNER_REPORT_TEST_PREVIEW_BLUEPRINTS = [
     requiredSections: SHARED_SECTIONS,
     operatorTrace: ["agent mission summary", "evidence classes", "inference boundaries", "review priority rationale"],
     chiefCaptainReview: ["truth separation", "customer-safe wording", "plan-fit logic", "release readiness"],
-    blockedFromPreview: ["customer delivery email", "dashboard release", "checkout requirement", "unsupported certainty"],
+    blockedFromPreview: ["customer report send", "dashboard release", "checkout requirement", "unsupported certainty"],
   },
   {
     planKey: "build-fix",
