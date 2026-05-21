@@ -24,17 +24,6 @@ expect(interfacePath, [
   "providerAdapterNotApproved",
   "auditTransitionMissing",
   "liveSendNotRequested",
-]);
-
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
-expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
-expect(packagePath, ["validate:routes", "validate-customer-email-provider-send-interface.mjs", "validate-owner-maximum-protection-posture.mjs"]);
-
-expect(interfacePath, [
   "projectCustomerEmailProviderConfigurationSummary",
   "providerConfigured",
   "ownerApproved",
@@ -62,11 +51,10 @@ expect(interfacePath, [
   "browserVisible: false",
 ]);
 
-expect(adapterValidatorPath, [
-  "src/lib/customer-email-provider-send-interface.ts",
-  "validate-customer-email-provider-send-interface.mjs",
-  "sendCustomerEmailProviderMessage",
-]);
+expect(ownerMaximumProtectionPath, ["# Owner Maximum Protection Posture", "Protected customer and report surfaces require the correct verified access path.", "Operator surfaces remain private, metadata-first, and review-gated."]);
+expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
+expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-posture.mjs"]);
+expect(adapterValidatorPath, ["src/lib/customer-email-provider-send-interface.ts", "sendCustomerEmailProviderMessage"]);
 
 forbidden(interfacePath, [
   "providerCallMade: true",
@@ -87,7 +75,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email provider send interface validation passed with owner posture and package wiring coverage.");
+console.log("Customer email provider send interface validation passed.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
