@@ -14,9 +14,9 @@ export const metadata = buildMetadata({
 
 const CTA_LABEL_BY_PLAN: Record<CendorqPlanKey, string> = {
   "free-scan": "Start Free Scan",
-  "deep-review": "Open Deep Review",
-  "build-fix": "Open Build Fix",
-  "ongoing-control": "Open Ongoing Control",
+  "deep-review": "Open Review page",
+  "build-fix": "Open Repair page",
+  "ongoing-control": "Open Control page",
 };
 
 const STAGE_BY_PLAN: Record<CendorqPlanKey, string> = {
