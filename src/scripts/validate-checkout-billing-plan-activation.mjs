@@ -27,7 +27,7 @@ expect(checkoutSuccessPath, [
   "Ongoing Control",
   "One next step",
   "Payment confirmed",
-  "Delivery starts only when the required ownership, intake, evidence, diagnosis, and approval state fit the selected stage.",
+  "Delivery starts only when the required ownership, intake, evidence, review, and approval state fit the selected stage.",
   "Open your inbox",
   "Request a fresh access link",
   "journey.deliveryCanStart",
