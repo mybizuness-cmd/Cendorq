@@ -27,7 +27,7 @@ const verticalRoutePaths = [
   "src/app/sample-report/med-spa/page.tsx",
   "src/app/sample-report/law-firm/page.tsx",
   "src/app/sample-report/contractor/page.tsx",
-] as const;
+];
 
 expect(routePath, [
   "Sample Presence Report | Cendorq",
@@ -49,7 +49,7 @@ expect(evidencePanelPath, [
   "PresenceReportEvidenceBoundaryPanel",
   "SAMPLE_PRESENCE_REPORT_EVIDENCE_BOUNDARIES",
   "Evidence boundaries",
-  "Useful signal without fake certainty.",
+  "Useful signal without overclaiming.",
   "publicSafeUse",
   "boundary",
 ]);

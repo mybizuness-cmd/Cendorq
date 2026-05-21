@@ -27,7 +27,7 @@ const validators = [
   "src/scripts/validate-vertical-sample-report-routes.mjs",
   "src/scripts/validate-sample-presence-report-route.mjs",
   "src/scripts/validate-public-sitemap-surface.mjs",
-] as const;
+];
 
 const missing = validators.filter((validatorPath) => !existsSync(join(root, validatorPath)));
 if (missing.length) {
