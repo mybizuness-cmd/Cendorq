@@ -84,7 +84,7 @@ pnpm build
 Then run production smoke:
 
 ```bash
-CENDORQ_BASE_URL=https://www.cendorq.com pnpm smoke:production
+CENDORQ_BASE_URL=https://cendorq.com pnpm smoke:production
 ```
 
 ## Recovery rule
