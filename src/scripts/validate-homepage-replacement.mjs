@@ -28,6 +28,8 @@ for (const phrase of [
   "Can customers and AI systems understand why to choose your business?",
   "Cendorq turns AI visibility and readiness into a clear repair path",
   "Presence Report",
+  "Sample Report",
+  "Sample Presence Report",
   "Presence Score",
   "Findability",
   "Understanding",
@@ -70,10 +72,16 @@ for (const phrase of [
   "Distinct Cendorq signal experience",
   "Unified Cendorq Experience System",
   "href=\"/free-check\"",
+  "href=\"/sample-report\"",
   "href=\"/plans\"",
   "href=\"/plans/deep-review\"",
   "href=\"/plans/build-fix\"",
   "href=\"/plans/ongoing-control\"",
+  "path: \"/sample-report\"",
+  "path: \"/sample-report/dentist\"",
+  "path: \"/sample-report/med-spa\"",
+  "path: \"/sample-report/law-firm\"",
+  "path: \"/sample-report/contractor\"",
   "\"/api/\"",
   "\"/admin/\"",
   "\"/dashboard/\"",
@@ -148,4 +156,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Homepage replacement validation passed. Public shell is Presence Report-led, customer-facing, search-compliant, positioned around AI Search Presence Repair, and aligned with Contact Us on /connect.");
+console.log("Homepage replacement validation passed. Public shell is Presence Report-led, Sample Report-linked, customer-facing, search-compliant, positioned around AI Search Presence Repair, and aligned with Contact Us on /connect.");
