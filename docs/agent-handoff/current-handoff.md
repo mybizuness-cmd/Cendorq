@@ -10,6 +10,7 @@ The operator should work in controlled batches, keep updates short, and verify g
 
 - Repository: `mybizuness-cmd/Cendorq`
 - Branch: `presence-report-homepage-batch`
+- Legacy validation marker: `next-1017`
 - Latest checked green deployment checkpoint: Presence Report homepage batch after base update conflict resolution
 - Latest checked green commit at handoff: `d4c8201af76cb03994883ce070575df6d789fe12`
 
