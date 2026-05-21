@@ -11,6 +11,7 @@ const contractPath = "src/lib/presence-report-contract.ts";
 const truthProfilePath = "src/lib/business-truth-profile-contract.ts";
 const choiceGapPath = "src/lib/choice-gap-contract.ts";
 const controlSnapshotPath = "src/lib/control-snapshot-contract.ts";
+const verticalSamplesPath = "src/lib/vertical-sample-presence-reports.ts";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-sample-presence-report-route.mjs";
 
@@ -18,6 +19,10 @@ expect(routePath, [
   "Sample Presence Report | Cendorq",
   "@/components/presence-report",
   "SamplePresenceReport",
+  "VERTICAL_SAMPLE_PRESENCE_REPORTS",
+  "Vertical sample reports",
+  "Different businesses need different trust proof.",
+  "sample.priorityRepairs",
   "The Presence Report is the core Cendorq object",
   "This is an example, not a promise.",
 ]);
@@ -76,15 +81,28 @@ expect(controlSnapshotPath, [
   "Competitor clarity",
 ]);
 
+expect(verticalSamplesPath, [
+  "VerticalSamplePresenceReport",
+  "VERTICAL_SAMPLE_PRESENCE_REPORTS",
+  "dentist",
+  "med-spa",
+  "law-firm",
+  "contractor",
+  "trustStandard",
+  "priorityRepairs",
+  "Do not use outcome promises.",
+]);
+
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(routePath, 9000);
+boundedLength(routePath, 16000);
 boundedLength(componentPath, 24000);
 boundedLength(indexPath, 500);
 boundedLength(contractPath, 8500);
 boundedLength(truthProfilePath, 7000);
 boundedLength(choiceGapPath, 5000);
 boundedLength(controlSnapshotPath, 5000);
+boundedLength(verticalSamplesPath, 18000);
 
 if (failures.length) {
   console.error("Sample Presence Report route validation failed:");
@@ -92,7 +110,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Sample Presence Report route validation passed with shared public report contract, Business Truth Profile, Choice Gap, Repair Queue, and Control Snapshot proof objects.");
+console.log("Sample Presence Report route validation passed with shared public report contract, Business Truth Profile, Choice Gap, Repair Queue, Control Snapshot, and vertical sample report standards.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
