@@ -17,6 +17,7 @@ const validators = [
   "src/scripts/validate-presence-report-generation-adapter.mjs",
   "src/scripts/validate-live-scan-presence-report-mapping.mjs",
   "src/scripts/validate-repair-queue-priority.mjs",
+  "src/scripts/validate-presence-report-release-gate.mjs",
   "src/scripts/validate-presence-report-launch-readiness.mjs",
   "src/scripts/validate-dashboard-presence-command-snapshot.mjs",
   "src/scripts/validate-protected-free-scan-presence-result.mjs",
