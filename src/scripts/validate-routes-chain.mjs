@@ -18,6 +18,7 @@ const validators = [
   "src/scripts/validate-choice-gap-contract.mjs",
   "src/scripts/validate-control-snapshot-contract.mjs",
   "src/scripts/validate-dashboard-presence-command-snapshot.mjs",
+  "src/scripts/validate-protected-free-scan-presence-result.mjs",
   "src/scripts/validate-sample-presence-report-route.mjs",
   "src/scripts/validate-public-sitemap-surface.mjs",
   "src/scripts/validate-public-robots-surface.mjs",
