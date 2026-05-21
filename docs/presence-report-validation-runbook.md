@@ -1,6 +1,6 @@
 # Presence Report validation runbook
 
-Run:
+Run before merge:
 
 ```bash
 pnpm validate:routes
@@ -10,4 +10,22 @@ pnpm typecheck
 pnpm build
 ```
 
-The Presence Report system should stay centered on Business Truth Profile, Presence Report, Repair Queue, Build Fix, and Control Snapshot.
+Deployment check:
+
+- Confirm the latest PR head has a green Vercel status.
+- Keep the PR in draft until validation is reviewed.
+
+Presence Report spine:
+
+- Business Truth Profile
+- Presence Report
+- Repair Queue
+- Build Fix
+- Control Snapshot
+
+Release boundaries:
+
+- Free Scan stays first-signal only.
+- Sample reports stay examples.
+- Report copy uses evidence boundaries.
+- Release Gate checks approved facts, restricted claims, evidence boundary, and next move clarity.
