@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const pagePath = "src/app/dashboard/reports/free-scan/page.tsx";
 const componentPath = "src/components/presence-report/protected-free-scan-result-preview.tsx";
+const fixturePath = "src/lib/sandwork-presence-report-fixture.ts";
 const indexPath = "src/components/presence-report/index.ts";
 const failures = [];
 
@@ -17,15 +18,20 @@ expect(pagePath, [
 
 expect(componentPath, [
   "ProtectedFreeScanResultPreview",
-  "mapLiveScanSnapshotToPresenceReport",
-  "buildFreeCheckReportSnapshot",
-  "PROTECTED_FREE_SCAN_SNAPSHOT",
-  "PROTECTED_FREE_SCAN_PACKAGE",
-  "Sandwork",
+  "SANDWORK_PRESENCE_REPORT_PACKAGE",
   "Presence Score",
   "First weak point",
   "Top repair priorities",
   "Protected Free Scan result",
+]);
+
+expect(fixturePath, [
+  "SANDWORK_FREE_SCAN_INPUT",
+  "SANDWORK_FREE_SCAN_SNAPSHOT",
+  "SANDWORK_PRESENCE_REPORT_PACKAGE",
+  "mapLiveScanSnapshotToPresenceReport",
+  "buildFreeCheckReportSnapshot",
+  "Sandwork",
   "scoreModules",
   "competitiveExposure",
   "Free Scan remains first signal only.",
@@ -41,6 +47,12 @@ forbidden(pagePath, [
 ]);
 
 forbidden(componentPath, [
+  "guaranteed ranking",
+  "guaranteed revenue",
+  "guaranteed AI placement",
+]);
+
+forbidden(fixturePath, [
   "guaranteed ranking",
   "guaranteed revenue",
   "guaranteed AI placement",
