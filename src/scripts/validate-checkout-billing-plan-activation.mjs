@@ -47,7 +47,7 @@ expect(billingPath, [
   "Current access",
   "Next depth",
   "Safety",
-  "Payment should unlock the right readiness layer.",
+  "Payment should unlock the right AI Visibility layer.",
   "Review",
   "Repair",
   "Control",
@@ -75,6 +75,7 @@ forbidden(checkoutSuccessPath, [
 
 forbidden(billingPath, [
   ...legacyPlanLabels,
+  "Payment should unlock the right readiness layer",
   "submit card number",
   "paste your password",
   "we guarantee ranking",
