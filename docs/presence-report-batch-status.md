@@ -40,6 +40,8 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Keep sample reports framed as examples, not promises.
 - Keep private scoring internals out of public and protected customer surfaces.
 - Keep next move recommendations tied to evidence, not plan pressure.
+- Update branch against main before merge because public pages overlap current main changes.
+- Keep the PR draft until merge-readiness and base-update review are complete.
 - Keep the PR draft until final review confirms the latest green head.
 
 ## Next elevation
