@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const helperPath = "src/lib/presence-report-package-source.ts";
 const contractPath = "src/lib/presence-report-customer-source-contracts.ts";
+const snapshotSourcePath = "src/lib/presence-report-free-scan-snapshot-source.ts";
 const objectIndexPath = "src/lib/presence-report-object-index.ts";
 const protectedPreviewPath = "src/components/presence-report/protected-free-scan-result-preview.tsx";
 const dashboardSnapshotPath = "src/app/dashboard/dashboard-presence-command-snapshot.tsx";
@@ -26,18 +27,40 @@ expect(contractPath, [
   "getPresenceReportCustomerSourceContract",
 ]);
 
+expect(snapshotSourcePath, [
+  "FreeScanSnapshotOwnershipProof",
+  "FreeScanSnapshotRecord",
+  "FreeScanSnapshotRetrievalResolution",
+  "resolveCustomerLatestFreeScanSnapshotPackage",
+  "verified customer email",
+  "server-side scan ownership",
+  "same-account access gate",
+  "customer-owned Free Scan snapshot",
+  "resolved-customer-snapshot",
+  "blocked-needs-ownership",
+  "blocked-missing-snapshot",
+  "mapLiveScanSnapshotToPresenceReport(record.snapshot, record.generationInput)",
+]);
+
 expect(helperPath, [
   "PresenceReportPackageSource",
+  "PresenceReportPackageSourceOptions",
   "PresenceReportPackageSourceResolution",
   "resolvePresenceReportPackageSource",
   "getPresenceReportPackage",
   "getPresenceReportCustomerSourceContract",
+  "resolveCustomerLatestFreeScanSnapshotPackage",
   "PRESENCE_REPORT_OBJECT_INDEX",
   "demoReportPackage",
   "resolvedSource: \"demo\"",
+  "resolvedSource: \"customer-latest-free-scan\"",
   "fallbackReason",
+  "retrievalReason",
+  "blockedGates",
   "server-side customer ownership and release storage are wired",
   "source: PresenceReportPackageSource = \"demo\"",
+  "latestFreeScanRecord",
+  "ownershipProof",
 ]);
 
 expect(objectIndexPath, [
@@ -67,7 +90,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report package source validation passed with customer source contracts, object-index-backed demo fallback, future customer latest Free Scan and released report source kinds, and no direct fixture imports in consuming surfaces.");
+console.log("Presence Report package source validation passed with customer source contracts, customer-owned Free Scan snapshot retrieval, object-index-backed demo fallback, released report fallback, and no direct fixture imports in consuming surfaces.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
