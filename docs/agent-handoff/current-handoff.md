@@ -2,14 +2,14 @@
 
 ## Operating posture
 
-Cendorq is a category-control company, not a generic agency site and not a normal SaaS signup funnel. The product must optimize for qualified business acquisition, evidence, paid next steps, protected customer continuity, visual command, and validated operating memory.
+Cendorq is a category-control company, not a generic agency site and not a normal SaaS signup funnel. The product must optimize for qualified business acquisition, evidence, paid next steps, protected customer continuity, visual command, validated operating memory, and the master blueprint direction installed after Yext Scout and Semrush competitor research.
 
 Work in controlled batches, keep user updates short, prefer bigger coherent batches when they can be validated together, and verify green deployment checks before moving to the next implementation batch.
 
 ## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Main head at handoff: `b0e03e2f95e0cef921110b0ed30f8252968ba880`
+- Main head at handoff: `d1cee971e52d02cc29e278a2b814d5645814fb58`
 - Legacy validation marker: `next-1017`
 - Recently merged PR #1035: `Install Presence Report homepage batch`
 - Recently merged PR #1036: `Install command workforce quality layer`
@@ -25,8 +25,12 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 - Recently merged PR #1046: `Record source-level device-width visual review`
 - Recently merged PR #1047: `Refresh handoff after source-level device review merge`
 - Recently merged PR #1048: `Update Free Scan report order`
-- Latest checked merge status at handoff: Vercel green on the PR #1048 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1048 was green before merge across CI, Release Control, CodeQL, and Vercel.
-- Current post-merge cleanup branch: `post-free-scan-report-order-handoff`
+- Recently merged PR #1049: `Refresh handoff after Free Scan report order merge`
+- Recently merged PR #1050: `Add visual device review targets`
+- Recently merged PR #1051: `Install Cendorq master blueprint`
+- Recently merged PR #1052: `Upgrade homepage product command proof layer`
+- Latest checked merge status at handoff: Vercel green on the PR #1052 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1052 was green before merge across CI, Release Control, CodeQL, and Vercel.
+- Current post-merge cleanup branch: `post-homepage-product-proof-handoff`
 
 ## Business doctrine
 
@@ -39,6 +43,30 @@ The customer-facing flow is:
 3. Create account from the scan or paid action.
 4. Open protected result, plan, billing, support, and next action in the dashboard.
 5. Paid path moves through Review, Repair, and Control.
+
+## Master blueprint doctrine
+
+Main now includes `docs/cendorq-master-blueprint.md` and `src/scripts/validate-cendorq-master-blueprint.mjs`.
+
+Master decision:
+
+- Cendorq should not become a smaller Semrush or a smaller Yext.
+- Cendorq owns AI Search Presence Repair.
+- Internal operating phrase: Make the business answer-ready.
+- Operating path: Scan, Review, Repair, Control.
+- Main product object: Presence Report.
+- Main public command: Run Free Scan.
+
+Core objects from the blueprint:
+
+- Presence Report
+- Business Truth Profile
+- Choice Gap
+- Repair Queue
+- Control Snapshot
+- Presence Gap Index
+
+The master blueprint is guarded through command-workforce validation. Do not drift from this doctrine without updating the blueprint, the validator, and the handoff.
 
 ## Access doctrine
 
@@ -74,6 +102,7 @@ Do not promise rankings, leads, revenue, or AI placement. Do not expose raw evid
 Main now includes:
 
 - Homepage AI Search Presence Repair positioning.
+- Homepage Product Proof Center with Presence Score, Choice Gap, Repair Queue, Control Snapshot, and Proof before paid pressure cards.
 - Sample Presence Report route and vertical sample routes for dentist, med spa, law firm, and contractor.
 - Shared `PresenceReportPreview` and `SamplePresenceReport` components.
 - Public Presence Report contract, Business Truth Profile, Choice Gap, Control Snapshot, Repair Queue, Release Gate, route map, proof map, evidence boundary, next-move policy, launch-readiness, and object index.
@@ -84,7 +113,7 @@ Main now includes:
 - Shared Sandwork Presence Report fixture at `src/lib/sandwork-presence-report-fixture.ts`.
 - Presence Report object index registration of the shared Sandwork demo report package.
 - Package-source helper at `src/lib/presence-report-package-source.ts` for object-index-backed report package access.
-- Validators for the public contract, live scan mapper, shared Sandwork fixture, package-source helper, protected result, dashboard snapshot, object index, launch-readiness, merge-readiness, routes, sitemap, and vertical sample routes.
+- Validators for the public contract, live scan mapper, shared Sandwork fixture, package-source helper, protected result, dashboard snapshot, object index, launch-readiness, merge-readiness, routes, sitemap, vertical sample routes, homepage command surface, and master blueprint.
 
 ## Sandwork fixture boundary
 
@@ -131,8 +160,12 @@ Main now includes:
 - `docs/command-workforce-merge-readiness.md`
 - `docs/command-workforce-handoff-addendum.md`
 - `docs/command-center-command-workforce-bridge.md`
+- `docs/cendorq-master-blueprint.md`
 - `src/lib/command-workforce-quality-contracts.ts`
+- `src/lib/visual-command-device-review-targets.ts`
 - `src/scripts/validate-command-workforce-quality-contracts.mjs`
+- `src/scripts/validate-cendorq-master-blueprint.mjs`
+- `src/scripts/validate-visual-command-device-review-targets.mjs`
 - package shortcut `pnpm validate:command-workforce`
 
 ## Visual command doctrine
@@ -152,7 +185,36 @@ Review visual work for:
 - dashboard command clarity
 - clean visual focus
 
-Use `docs/visual-command-review-template.md` before treating a major customer-facing surface as visually ready. Use `docs/visual-command-surface-review-register.md` to preserve the current review state for the homepage, Sample Report, protected Free Scan report, dashboard snapshot, Plans, FAQ, and mobile command hierarchy. Use `docs/visual-command-device-width-review-protocol.md` for device-width review at 390px, 430px, 768px, 1024px, and 1440px.
+Use `docs/visual-command-review-template.md` before treating a major customer-facing surface as visually ready. Use `docs/visual-command-surface-review-register.md` to preserve the current review state for the homepage, Sample Report, protected Free Scan report, dashboard snapshot, Plans, FAQ, and mobile command hierarchy. Use `docs/visual-command-device-width-review-protocol.md` and `src/lib/visual-command-device-review-targets.ts` for device-width review at 390px, 430px, 768px, 1024px, and 1440px.
+
+## Homepage product proof state
+
+Homepage now includes the Product Proof Center section.
+
+The public homepage Product Proof Center shows:
+
+- Presence Score: know the state before buying the fix.
+- Choice Gap: see why another business may be easier to choose.
+- Repair Queue: turn the gap into a ranked action path.
+- Control Snapshot: keep the business answer-ready over time.
+- Proof before paid pressure: Free Scan first signal, Sample Report before plan pressure, Deep Review only when evidence supports it.
+
+The public homepage validator now requires:
+
+- Product Proof Center
+- Proof before paid pressure
+- Not just a score. A repair system.
+- Presence Score
+- Choice Gap
+- Repair Queue
+- Control Snapshot
+- Evidence Boundary
+
+Public homepage guardrail:
+
+- Do not use the phrase `Presence Command` on the public homepage. It is blocked by the homepage validator.
+- Use Product Proof Center publicly.
+- Keep internal/dashboard language separate from public language.
 
 ## Visual surface review state
 
@@ -176,6 +238,8 @@ The device-width protocol covers:
 - Dashboard Presence Command Snapshot when dashboard layout changes
 - Required widths: 390px, 430px, 768px, 1024px, and 1440px
 
+The visual device review targets are typed in `src/lib/visual-command-device-review-targets.ts` for homepage, Plans, FAQ, Sample Report, protected Free Scan report, and dashboard presence snapshot.
+
 The source-level device-width review record is merged. It inspected homepage, Plans, FAQ, Sample Report, protected Free Scan report, protected report preview, and Sample Presence Report component by source-level mobile-first and breakpoint review. Live screenshots were not captured in that pass.
 
 The protected Free Scan report-order fix is merged. The protected Free Scan hero now points to Read Free Scan report first, the protected report preview appears before the Proof before paid pressure Review CTA section, and the paid Review CTA appears only after proof framing. Validators now enforce the rendered order with the `free-scan-presence-report` section anchor.
@@ -186,15 +250,18 @@ Strongest source-level pass:
 - Plans keeps Scan, Review, Repair, and Control separated and keeps no-guarantee copy in the plan separation section.
 - Sample Report keeps the report object before evidence boundaries, next-move policy, vertical samples, and example-not-promise copy.
 - Protected Free Scan report now resolves the known source-level paid-pressure risk by putting report reading before the paid Review CTA.
+- Homepage now exposes product proof earlier through Product Proof Center rather than relying only on the Presence Report preview.
 
 Do not regress:
 
 - Keep Run Free Scan as the clearest homepage first command.
+- Keep Product Proof Center on the homepage.
+- Keep public homepage Product Proof Center language instead of Presence Command language.
 - Keep sample report language educational, not promissory.
 - Keep protected Free Scan first signal only visible.
 - Keep protected Free Scan report reading before paid Review action.
 - Keep the protected report preview before the Proof before paid pressure section.
-- Keep Choice Gap, Repair Queue, and Control Snapshot distinct in the dashboard snapshot.
+- Keep Choice Gap, Repair Queue, and Control Snapshot distinct in the dashboard snapshot and homepage proof layer.
 - Keep Free Scan as the safest starting command on Plans when the buyer is unsure.
 - Keep Start Free Scan first in FAQ quick links.
 - Keep one dominant next action per mobile screen band.
@@ -220,6 +287,7 @@ Release Control now runs route guardrails, Presence Report validation, command w
 
 - Keep the public category as AI Search Presence Repair.
 - Keep Presence Report as the central product object.
+- Keep the master blueprint guarded by command-workforce validation.
 - Keep Free Scan first-signal only.
 - Keep Review, Repair, and Control separate from Free Scan.
 - Keep sample reports framed as examples, not promises.
@@ -235,8 +303,10 @@ Release Control now runs route guardrails, Presence Report validation, command w
 - Keep the visual command surface review register guarded by the command workforce validator.
 - Keep Plans, FAQ, and mobile command hierarchy review anchors guarded by the command workforce validator.
 - Keep the device-width visual command review protocol guarded by the command workforce validator.
+- Keep visual device review targets guarded by the command workforce validator.
 - Keep the source-level device-width review record guarded by the command workforce validator.
 - Keep protected Free Scan proof-before-paid-pressure order guarded by `validate-protected-free-scan-presence-result.mjs`.
+- Keep homepage Product Proof Center guarded by `validate-public-homepage-command-surface.mjs`.
 - Use bigger batches only when the work forms one coherent layer and can be validated together.
 - Use smaller batches for live access, payment configuration, provider runtime, protected customer data, or high-risk customer-facing truth.
 - Do not create blank dashboards for unknown visitors.
@@ -250,10 +320,11 @@ Release Control now runs route guardrails, Presence Report validation, command w
 
 ## Next implementation candidates
 
-1. Execute live screenshot/device-width review for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan` at 390px, 430px, 768px, 1024px, and 1440px; update `docs/visual-command-surface-review-register.md` with screenshot-based findings and confirm the protected Free Scan order fix renders correctly.
-2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
-3. Add real scan evidence records once the report pipeline is ready.
-4. Add category-specific proof standards into report scoring and repair language.
-5. Add operator QA gates before any generated report is released to customers.
-6. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
-7. Fold command workforce bridge anchors directly into the broader `docs/command-center-docs-index.md` only after the full-file rewrite risk is reduced.
+1. Execute live screenshot/device-width review for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan` at 390px, 430px, 768px, 1024px, and 1440px; update `docs/visual-command-surface-review-register.md` with screenshot-based findings and confirm the homepage Product Proof Center plus protected Free Scan order fix render correctly.
+2. Upgrade the customer dashboard into a stronger Presence Command Center-style protected product surface while keeping public homepage language separate.
+3. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
+4. Add real scan evidence records once the report pipeline is ready.
+5. Add category-specific proof standards into report scoring and repair language.
+6. Add operator QA gates before any generated report is released to customers.
+7. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
+8. Create the Presence Gap Index authority asset described in the master blueprint.
