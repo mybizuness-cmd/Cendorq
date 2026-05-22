@@ -36,6 +36,11 @@ export const PRESENCE_REPORT_LAUNCH_READINESS: readonly PresenceReportLaunchChec
     ownerVisibleReason: "Control should keep the business watchable without making outcome promises.",
   },
   {
+    label: "Shared demo report package",
+    requiredState: "Sandwork demo surfaces use the shared public-safe report package instead of hardcoded sample objects.",
+    ownerVisibleReason: "Reviewers and future report surfaces need one reusable demo source that follows the live scan mapper.",
+  },
+  {
     label: "Vertical standards",
     requiredState: "Category-specific proof standards exist for priority verticals.",
     ownerVisibleReason: "A dentist, med spa, law firm, and contractor do not earn trust the same way.",
