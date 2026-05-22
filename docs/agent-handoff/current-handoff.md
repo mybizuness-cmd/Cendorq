@@ -9,7 +9,7 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 ## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Main head at handoff: `c98287c4febad30bab8048fb14ee020106e6fefa`
+- Main head at handoff: `b8b78d32c1a44fc2d06934a4ffde3ce9e8262d8c`
 - Legacy validation marker: `next-1017`
 - Recently merged PR #1035: `Install Presence Report homepage batch`
 - Recently merged PR #1036: `Install command workforce quality layer`
@@ -19,8 +19,10 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 - Recently merged PR #1040: `Add visual command surface review register`
 - Recently merged PR #1041: `Refresh handoff after visual surface register merge`
 - Recently merged PR #1042: `Add Plans FAQ and mobile visual command reviews`
-- Latest checked merge status at handoff: Vercel green on the PR #1042 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1042 was green before merge across CI, Release Control, CodeQL, and Vercel.
-- Current post-merge cleanup branch: `post-plans-faq-mobile-review-handoff`
+- Recently merged PR #1043: `Refresh handoff after Plans FAQ mobile review merge`
+- Recently merged PR #1044: `Add visual command device-width review protocol`
+- Latest checked merge status at handoff: Vercel green on the PR #1044 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1044 was green before merge across CI, Release Control, CodeQL, and Vercel.
+- Current post-merge cleanup branch: `post-device-width-protocol-handoff`
 
 ## Business doctrine
 
@@ -119,6 +121,7 @@ Main now includes:
 - `docs/visual-command-quality-standard.md`
 - `docs/visual-command-review-template.md`
 - `docs/visual-command-surface-review-register.md`
+- `docs/visual-command-device-width-review-protocol.md`
 - `docs/command-workforce-release-runbook.md`
 - `docs/command-workforce-docs-index.md`
 - `docs/command-workforce-merge-readiness.md`
@@ -145,7 +148,7 @@ Review visual work for:
 - dashboard command clarity
 - clean visual focus
 
-Use `docs/visual-command-review-template.md` before treating a major customer-facing surface as visually ready. Use `docs/visual-command-surface-review-register.md` to preserve the current review state for the homepage, Sample Report, protected Free Scan report, dashboard snapshot, Plans, FAQ, and mobile command hierarchy.
+Use `docs/visual-command-review-template.md` before treating a major customer-facing surface as visually ready. Use `docs/visual-command-surface-review-register.md` to preserve the current review state for the homepage, Sample Report, protected Free Scan report, dashboard snapshot, Plans, FAQ, and mobile command hierarchy. Use `docs/visual-command-device-width-review-protocol.md` for device-width review at 390px, 430px, 768px, 1024px, and 1440px.
 
 ## Visual surface review state
 
@@ -159,6 +162,16 @@ The current visual surface register covers:
 - FAQ `/faq`
 - Mobile command hierarchy
 
+The device-width protocol now covers:
+
+- Homepage `/`
+- Plans `/plans`
+- FAQ `/faq`
+- Sample Presence Report `/sample-report`
+- Protected Free Scan Presence Report `/dashboard/reports/free-scan`
+- Dashboard Presence Command Snapshot when dashboard layout changes
+- Required widths: 390px, 430px, 768px, 1024px, and 1440px
+
 Do not regress:
 
 - Keep Run Free Scan as the clearest homepage first command.
@@ -168,6 +181,8 @@ Do not regress:
 - Keep Free Scan as the safest starting command on Plans when the buyer is unsure.
 - Keep Start Free Scan first in FAQ quick links.
 - Keep one dominant next action per mobile screen band.
+- Keep proof visible before high-commitment paid action pressure.
+- Keep mobile cards readable without becoming compressed desktop pages.
 
 ## Validation commands
 
@@ -202,6 +217,7 @@ Release Control now runs route guardrails, Presence Report validation, command w
 - Keep the Command Center command workforce bridge guarded by the command workforce validator.
 - Keep the visual command surface review register guarded by the command workforce validator.
 - Keep Plans, FAQ, and mobile command hierarchy review anchors guarded by the command workforce validator.
+- Keep the device-width visual command review protocol guarded by the command workforce validator.
 - Use bigger batches only when the work forms one coherent layer and can be validated together.
 - Use smaller batches for live access, payment configuration, provider runtime, protected customer data, or high-risk customer-facing truth.
 - Do not create blank dashboards for unknown visitors.
@@ -215,7 +231,7 @@ Release Control now runs route guardrails, Presence Report validation, command w
 
 ## Next implementation candidates
 
-1. Run device-width screenshot review for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan`, then update `docs/visual-command-surface-review-register.md`.
+1. Execute the device-width review protocol for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan`, then update `docs/visual-command-surface-review-register.md` with surfaces reviewed, widths inspected, strongest pass, highest-risk mobile issue, required fix or no-fix decision, and release-captain decision.
 2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
 3. Add real scan evidence records once the report pipeline is ready.
 4. Add category-specific proof standards into report scoring and repair language.
