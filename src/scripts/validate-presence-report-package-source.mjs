@@ -8,6 +8,7 @@ const snapshotSourcePath = "src/lib/presence-report-free-scan-snapshot-source.ts
 const objectIndexPath = "src/lib/presence-report-object-index.ts";
 const protectedPreviewPath = "src/components/presence-report/protected-free-scan-result-preview.tsx";
 const dashboardSnapshotPath = "src/app/dashboard/dashboard-presence-command-snapshot.tsx";
+const renderRuntimePath = "src/lib/presence-report-customer-safe-render-runtime.ts";
 const failures = [];
 
 expect(contractPath, [
@@ -68,10 +69,22 @@ expect(objectIndexPath, [
   "demoReportPackage",
 ]);
 
+expect(renderRuntimePath, [
+  "resolvePresenceReportCustomerSafeRender",
+  "render-ready",
+  "render-demo-fallback",
+  "render-blocked",
+  "customerSafeNotice",
+]);
+
 expect(protectedPreviewPath, [
-  "getPresenceReportPackage",
+  "resolvePresenceReportPackageSource",
   "@/lib/presence-report-package-source",
-  "const packageSource = getPresenceReportPackage()",
+  "resolvePresenceReportCustomerSafeRender",
+  "@/lib/presence-report-customer-safe-render-runtime",
+  "const packageResolution = resolvePresenceReportPackageSource()",
+  "const renderResolution = resolvePresenceReportCustomerSafeRender",
+  "const packageSource = renderResolution.package ?? packageResolution.package",
 ]);
 
 expect(dashboardSnapshotPath, [
@@ -80,6 +93,7 @@ expect(dashboardSnapshotPath, [
   "const packageSource = getPresenceReportPackage()",
 ]);
 
+order(protectedPreviewPath, "resolvePresenceReportPackageSource", "resolvePresenceReportCustomerSafeRender");
 forbidden(protectedPreviewPath, ["@/lib/sandwork-presence-report-fixture"]);
 forbidden(dashboardSnapshotPath, ["@/lib/sandwork-presence-report-fixture"]);
 forbidden(contractPath, ["raw intake payload exposed", "draft report exposed", "operator notes exposed"]);
@@ -90,7 +104,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report package source validation passed with customer source contracts, customer-owned Free Scan snapshot retrieval, object-index-backed demo fallback, released report fallback, and no direct fixture imports in consuming surfaces.");
+console.log("Presence Report package source validation passed with customer source contracts, customer-owned Free Scan snapshot retrieval, protected render-gated package resolution, object-index-backed demo fallback, released report fallback, and no direct fixture imports in consuming surfaces.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -99,6 +113,16 @@ function expect(path, phrases) {
   }
   const text = read(path);
   for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+}
+
+function order(path, before, after) {
+  if (!existsSync(join(root, path))) return;
+  const text = read(path);
+  const beforeIndex = text.indexOf(before);
+  const afterIndex = text.indexOf(after);
+  if (beforeIndex === -1) failures.push(`${path} missing order phrase: ${before}`);
+  if (afterIndex === -1) failures.push(`${path} missing order phrase: ${after}`);
+  if (beforeIndex !== -1 && afterIndex !== -1 && beforeIndex >= afterIndex) failures.push(`${path} order violation: ${before} must appear before ${after}`);
 }
 
 function forbidden(path, phrases) {
