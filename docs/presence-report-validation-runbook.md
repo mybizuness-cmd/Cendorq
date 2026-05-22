@@ -35,7 +35,9 @@ Release boundaries:
 Live demo fixture boundaries:
 
 - `src/lib/sandwork-presence-report-fixture.ts` is the shared demo source for Sandwork Free Scan input, generated snapshot, and public-safe Presence Report package.
-- Protected Free Scan preview and Dashboard Presence Command Snapshot must consume the shared Sandwork report package instead of hardcoding sample report objects.
 - The Presence Report object index registers the shared Sandwork package as the reusable demo report package for future report surfaces.
+- `src/lib/presence-report-package-source.ts` is the report-surface access helper for the object-index-backed demo package.
+- Protected Free Scan preview and Dashboard Presence Command Snapshot must consume the package-source helper instead of importing the Sandwork fixture directly or hardcoding sample report objects.
 - `src/scripts/validate-sandwork-presence-report-fixture.mjs` guards the fixture directly, including live mapper usage, score modules, first-signal language, and forbidden guarantee language.
-- `pnpm validate:presence-report` runs the Sandwork fixture validator through the Presence Report validation chain.
+- `src/scripts/validate-presence-report-package-source.mjs` guards object-index-backed package access and blocks direct fixture imports in report surfaces.
+- `pnpm validate:presence-report` runs the Sandwork fixture and package-source validators through the Presence Report validation chain.
