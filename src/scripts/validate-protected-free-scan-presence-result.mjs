@@ -5,6 +5,7 @@ const root = process.cwd();
 const pagePath = "src/app/dashboard/reports/free-scan/page.tsx";
 const componentPath = "src/components/presence-report/protected-free-scan-result-preview.tsx";
 const fixturePath = "src/lib/sandwork-presence-report-fixture.ts";
+const packageSourcePath = "src/lib/presence-report-package-source.ts";
 const indexPath = "src/components/presence-report/index.ts";
 const failures = [];
 
@@ -18,11 +19,19 @@ expect(pagePath, [
 
 expect(componentPath, [
   "ProtectedFreeScanResultPreview",
-  "SANDWORK_PRESENCE_REPORT_PACKAGE",
+  "getPresenceReportPackage",
+  "packageSource.report",
+  "packageSource.choiceGap",
   "Presence Score",
   "First weak point",
   "Top repair priorities",
   "Protected Free Scan result",
+]);
+
+expect(packageSourcePath, [
+  "getPresenceReportPackage",
+  "PRESENCE_REPORT_OBJECT_INDEX",
+  "demoReportPackage",
 ]);
 
 expect(fixturePath, [
@@ -47,6 +56,8 @@ forbidden(pagePath, [
 ]);
 
 forbidden(componentPath, [
+  "@/lib/sandwork-presence-report-fixture",
+  "SANDWORK_PRESENCE_REPORT_PACKAGE",
   "guaranteed ranking",
   "guaranteed revenue",
   "guaranteed AI placement",
@@ -64,7 +75,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Protected Free Scan Presence Result validation passed.");
+console.log("Protected Free Scan Presence Result validation passed with package-source helper, shared fixture boundary, and first-signal positioning.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
