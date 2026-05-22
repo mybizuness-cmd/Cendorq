@@ -9,13 +9,16 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 ## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Main head at handoff: `04aaad4dca0c04acf5c64ac1b2f4812146b4ef2f`
+- Main head at handoff: `3878e178695f51ed631bfabfeff0ebb35a5e4612`
 - Legacy validation marker: `next-1017`
 - Recently merged PR #1035: `Install Presence Report homepage batch`
 - Recently merged PR #1036: `Install command workforce quality layer`
-- Latest checked merge status at handoff: Vercel green on the PR #1036 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1036 was green before merge across CI, Release Control, CodeQL, and Vercel.
-- Current post-merge cleanup branch: `post-merge-command-workforce-handoff`
-- Current release-control promotion branch: `promote-command-workforce-release-control`
+- Recently merged PR #1037: `Refresh handoff after command workforce merge`
+- Recently merged PR #1038: `Promote command workforce validation into Release Control`
+- Recently merged PR #1039: `Bridge command workforce docs into Command Center`
+- Recently merged PR #1040: `Add visual command surface review register`
+- Latest checked merge status at handoff: Vercel green on the PR #1040 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1040 was green before merge across CI, Release Control, CodeQL, and Vercel.
+- Current post-merge cleanup branch: `post-visual-register-handoff`
 
 ## Business doctrine
 
@@ -113,10 +116,12 @@ Main now includes:
 - `docs/command-workforce-quality-scorecard.md`
 - `docs/visual-command-quality-standard.md`
 - `docs/visual-command-review-template.md`
+- `docs/visual-command-surface-review-register.md`
 - `docs/command-workforce-release-runbook.md`
 - `docs/command-workforce-docs-index.md`
 - `docs/command-workforce-merge-readiness.md`
 - `docs/command-workforce-handoff-addendum.md`
+- `docs/command-center-command-workforce-bridge.md`
 - `src/lib/command-workforce-quality-contracts.ts`
 - `src/scripts/validate-command-workforce-quality-contracts.mjs`
 - package shortcut `pnpm validate:command-workforce`
@@ -138,7 +143,25 @@ Review visual work for:
 - dashboard command clarity
 - clean visual focus
 
-Use `docs/visual-command-review-template.md` before treating a major customer-facing surface as visually ready.
+Use `docs/visual-command-review-template.md` before treating a major customer-facing surface as visually ready. Use `docs/visual-command-surface-review-register.md` to preserve the current review state for the homepage, Sample Report, protected Free Scan report, dashboard snapshot, Plans, FAQ, and mobile command hierarchy.
+
+## Visual surface review state
+
+The current visual surface register covers:
+
+- Homepage `/`
+- Sample Presence Report `/sample-report`
+- Protected Free Scan Presence Report `/dashboard/reports/free-scan`
+- Dashboard Presence Command Snapshot
+- Plans, FAQ, and mobile flows as next review targets
+
+Do not regress:
+
+- Keep Run Free Scan as the clearest homepage first command.
+- Keep sample report language educational, not promissory.
+- Keep protected Free Scan first signal only visible.
+- Keep Choice Gap, Repair Queue, and Control Snapshot distinct in the dashboard snapshot.
+- Keep Plans, FAQ, and mobile flows in the next visual-review queue.
 
 ## Validation commands
 
@@ -153,7 +176,7 @@ pnpm typecheck
 pnpm build
 ```
 
-Release Control runs route guardrails, Presence Report validation, command workforce validation, lint, typecheck, and build on the release-control promotion branch.
+Release Control now runs route guardrails, Presence Report validation, command workforce validation, lint, typecheck, and build.
 
 ## Do not regress
 
@@ -169,7 +192,9 @@ Release Control runs route guardrails, Presence Report validation, command workf
 - Keep owner command, release captain, chief lanes, scoped scouts, validators, and handoff memory separated.
 - Keep findings structured enough to become decisions, docs, validators, or scoped PRs.
 - Keep visual command as a real quality lane.
-- Keep `pnpm validate:command-workforce` in Release Control once the promotion branch merges.
+- Keep `pnpm validate:command-workforce` in Release Control.
+- Keep the Command Center command workforce bridge guarded by the command workforce validator.
+- Keep the visual command surface review register guarded by the command workforce validator.
 - Use bigger batches only when the work forms one coherent layer and can be validated together.
 - Use smaller batches for live access, payment configuration, provider runtime, protected customer data, or high-risk customer-facing truth.
 - Do not create blank dashboards for unknown visitors.
@@ -183,10 +208,10 @@ Release Control runs route guardrails, Presence Report validation, command workf
 
 ## Next implementation candidates
 
-1. Promote command workforce docs into the broader command-center docs index in a separate guarded batch.
+1. Run deeper visual-command reviews against Plans, FAQ, and mobile flows, then update `docs/visual-command-surface-review-register.md`.
 2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
 3. Add real scan evidence records once the report pipeline is ready.
 4. Add category-specific proof standards into report scoring and repair language.
 5. Add operator QA gates before any generated report is released to customers.
 6. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
-7. Run visual-command reviews against homepage, Sample Report, protected Free Scan preview, dashboard snapshot, Plans, FAQ, and mobile flows.
+7. Fold command workforce bridge anchors directly into the broader `docs/command-center-docs-index.md` only after the full-file rewrite risk is reduced.
