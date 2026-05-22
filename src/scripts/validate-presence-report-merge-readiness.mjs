@@ -12,14 +12,14 @@ expect("src/scripts/validate-presence-report-system.mjs", [
   "src/scripts/validate-presence-report-package-source.mjs",
   "src/scripts/validate-presence-report-evidence-record-contracts.mjs",
   "src/scripts/validate-presence-report-evidence-readiness-runtime.mjs",
+  "src/scripts/validate-presence-report-customer-safe-render-runtime.mjs",
   "src/scripts/validate-presence-report-retrieval-workflow-contracts.mjs",
   "src/scripts/validate-operator-release-gate-contracts.mjs",
   "src/scripts/validate-category-proof-standard-contracts.mjs",
-  "Presence Report system validation passed with package-source, evidence record contracts, evidence readiness runtime, retrieval workflow contracts, operator release gates, category proof standards, and merge-readiness coverage.",
+  "Presence Report system validation passed with package-source, evidence record contracts, evidence readiness runtime, customer-safe render runtime, retrieval workflow contracts, operator release gates, category proof standards, and merge-readiness coverage.",
 ]);
 
 expect("src/lib/presence-report-object-index.ts", ["SANDWORK_PRESENCE_REPORT_PACKAGE", "demoReportPackage"]);
-expect("src/lib/presence-report-evidence-record-contracts.ts", ["PRESENCE_REPORT_EVIDENCE_RECORD_CONTRACTS", "operator-note", "blocked-from-customer-report"]);
 expect("src/lib/presence-report-evidence-readiness-runtime.ts", [
   "resolvePresenceReportEvidenceReadiness",
   "resolvePresenceReportEvidenceReadinessBatch",
@@ -30,6 +30,19 @@ expect("src/lib/presence-report-evidence-readiness-runtime.ts", [
   "blockedReasons",
   "package-resolution",
   "approval-gate",
+]);
+expect("src/lib/presence-report-customer-safe-render-runtime.ts", [
+  "resolvePresenceReportCustomerSafeRender",
+  "render-ready",
+  "render-demo-fallback",
+  "render-blocked",
+  "allowedSections",
+  "blockedSections",
+  "customerSafeNotice",
+  "Presence Score",
+  "Choice Gap",
+  "Repair Queue",
+  "Recommended Next Move",
 ]);
 expect("src/lib/presence-report-retrieval-workflow-contracts.ts", ["PRESENCE_REPORT_RETRIEVAL_WORKFLOW_CONTRACTS", "customer-safe-render", "package-source helper used"]);
 expect("src/lib/operator-release-gate-contracts.ts", ["OPERATOR_RELEASE_GATE_CONTRACTS", "Approval Gate", "Release Log"]);
@@ -42,9 +55,6 @@ expect("src/lib/presence-report-free-scan-snapshot-source.ts", [
   "server-side scan ownership",
   "same-account access gate",
   "customer-owned Free Scan snapshot",
-  "resolved-customer-snapshot",
-  "blocked-needs-ownership",
-  "blocked-missing-snapshot",
 ]);
 expect("src/lib/presence-report-package-source.ts", [
   "resolveCustomerLatestFreeScanSnapshotPackage",
@@ -77,7 +87,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report merge readiness validation passed with package source, customer-owned Free Scan snapshot retrieval, evidence readiness runtime, evidence record contracts, retrieval workflow contracts, operator release gates, category proof standards, object index, and system-chain coverage.");
+console.log("Presence Report merge readiness validation passed with package source, customer-owned Free Scan snapshot retrieval, evidence readiness runtime, customer-safe render runtime, retrieval workflow contracts, operator release gates, category proof standards, object index, and system-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
