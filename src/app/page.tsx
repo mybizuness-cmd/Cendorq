@@ -13,7 +13,7 @@ export const fetchCache = "force-no-store";
 // Presence Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Recommended next move.
 // Sample Report. Sample Presence Report. Contact Us. href="/plans/deep-review" href="/plans/build-fix" href="/plans/ongoing-control".
 // AI Search Presence Repair. Visibility shows where the business is seen. Readiness explains why.
-// Choice Gap. Repair Queue. Control Snapshot. Evidence Boundary. Presence Command Center. Proof before paid pressure.
+// Choice Gap. Repair Queue. Control Snapshot. Evidence Boundary. Product Proof Center. Proof before paid pressure.
 
 export const metadata = buildMetadata({
   title: "Cendorq | AI Search Presence Repair for Businesses",
@@ -98,11 +98,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative px-5 py-7 sm:px-8 lg:py-10" aria-label="Homepage product command system">
+      <section className="relative px-5 py-7 sm:px-8 lg:py-10" aria-label="Homepage product proof system">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.3rem] border border-slate-900 bg-slate-950 shadow-[0_32px_110px_rgba(15,23,42,0.2)] sm:rounded-[3rem]">
           <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
             <div className="border-b border-white/10 bg-[radial-gradient(circle_at_30%_0%,rgba(34,211,238,0.22),transparent_35%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(15,23,42,0))] p-6 text-white sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-200">Presence Command Center</p>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-200">Product Proof Center</p>
               <h2 className="mt-4 text-[clamp(2.3rem,8.5vw,4.8rem)] font-semibold leading-[0.92] tracking-[-0.075em] text-white">Not just a score. A repair system.</h2>
               <p className="mt-5 text-base font-medium leading-8 text-slate-300">The homepage now exposes the real product logic: measure the presence state, explain the Choice Gap, rank the Repair Queue, and keep a Control Snapshot after the fix.</p>
               <div className="mt-7 rounded-[1.5rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
