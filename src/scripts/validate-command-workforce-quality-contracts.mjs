@@ -16,6 +16,20 @@ expect("docs/command-workforce-operating-model.md", [
   "Use bigger batches when changes form one coherent operating layer and can be validated together.",
 ]);
 
+expect("docs/command-center-command-workforce-bridge.md", [
+  "Command Center Command Workforce Bridge",
+  "Connected layer",
+  "Command Center relationship",
+  "Required posture",
+  "Promotion path",
+  "docs/command-workforce-operating-model.md",
+  "docs/command-workforce-quality-scorecard.md",
+  "docs/visual-command-quality-standard.md",
+  "src/scripts/validate-command-workforce-quality-contracts.mjs",
+  "pnpm validate:command-workforce",
+  "Command workforce validation remains in Release Control.",
+]);
+
 expect("docs/command-workforce-finding-template.md", [
   "Command Workforce Finding Template",
   "Finding identity",
@@ -143,7 +157,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
+console.log("Command workforce quality validation passed with Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
