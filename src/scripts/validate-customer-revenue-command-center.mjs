@@ -10,10 +10,9 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-customer-revenue-command-center.mjs";
 
 expect(dashboardPath, [
-  "Your Cendorq workspace is ready.",
-  "One next step.",
-  "Cendorq keeps the next step separate.",
-  "A workspace can exist before a scan.",
+  "Your Cendorq command center is ready.",
+  "One next command.",
+  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
   "A scan can exist before a paid review.",
   "A purchase can exist before delivery starts.",
   "Scan. Review. Repair. Control.",
@@ -25,32 +24,26 @@ expect(dashboardPath, [
   "Billing",
   "Notifications",
   "Support",
-  "getPlanValueDelivery",
   "getCendorqPlanPrice",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(reportVaultPath, [
+  "AI Visibility proof vault",
   "Separated report library",
-  "Different proof for every readiness depth.",
-  "Each one has a different job.",
-  "Readiness signal result",
+  "Different proof for every AI Visibility depth.",
+  "AI Visibility signal result",
   "Deep Review report",
   "Build Fix summary",
   "Ongoing Control monthly summary",
   "Nothing final until it is approved.",
   "Paid proof",
   "Dashboard + email attachment",
-  "Not full review, implementation, monthly monitoring",
-  "Not done-for-you implementation",
-  "Not a full review report",
-  "Not unlimited Build Fix",
   "REPORT_LIBRARY",
   "REPORT_VAULT_RULES",
-  "PLAN_VALUE_SEPARATION_RULES",
-  "getPlanValueDelivery",
-  "getCendorqPlanPrice",
+  "REPORT_ACCESS_BY_PLAN",
+  "resolveReportVaultAccessDecision",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -58,8 +51,9 @@ expect(reportVaultPath, [
 expect(routesChainPath, [validatorPath]);
 
 const blockedLegacyPlanLabels = ["AI Readiness Review", "Signal Repair", "Readiness Control"];
-const blockedOldReportTerms = [joinWords("full", "diagnosis"), joinWords("diagnostic", "report")];
-forbidden(dashboardPath, blockedLegacyPlanLabels);
+const blockedOldDashboardTerms = ["Your Cendorq workspace is ready.", "A workspace can exist before a scan.", "One next step."];
+const blockedOldReportTerms = ["Different proof for every readiness depth.", "Readiness signal result", joinWords("full", "diagnosis"), joinWords("diagnostic", "report")];
+forbidden(dashboardPath, [...blockedLegacyPlanLabels, ...blockedOldDashboardTerms]);
 forbidden(reportVaultPath, [...blockedLegacyPlanLabels, ...blockedOldReportTerms]);
 
 if (failures.length) {
@@ -68,7 +62,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer revenue command center validation passed with current dashboard and report-vault plan separation coverage.");
+console.log("Customer revenue command center validation passed with current AI Visibility dashboard and report-vault plan separation coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

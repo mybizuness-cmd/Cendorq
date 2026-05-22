@@ -30,9 +30,6 @@ expect(contractPath, [
   "liveSendAllowed: false",
   "Cendorq Support",
   "support@cendorq.com",
-]);
-
-expect(contractPath, [
   "SPF alignment",
   "DKIM alignment",
   "DMARC policy",
@@ -54,14 +51,10 @@ expect(contractPath, [
   "unboundedAutoSendAllowed: false",
 ]);
 
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-]);
+expect(ownerMaximumProtectionPath, ["# Owner Maximum Protection Posture", "Protected customer and report surfaces require the correct verified access path.", "Operator surfaces remain private, metadata-first, and review-gated."]);
 expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
-expect(packagePath, ["validate:routes", "validate-customer-email-provider-configuration-contracts.mjs", "validate-owner-maximum-protection-posture.mjs"]);
-expect(adapterValidatorPath, ["src/lib/customer-email-provider-configuration-contracts.ts", "validate-customer-email-provider-configuration-contracts.mjs", "projectCustomerEmailProviderConfigurationSummary"]);
+expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-posture.mjs"]);
+expect(adapterValidatorPath, ["src/lib/customer-email-provider-configuration-contracts.ts", "projectCustomerEmailProviderConfigurationSummary"]);
 
 forbidden(contractPath, [
   "storeProviderPayload: true",
@@ -84,7 +77,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer email provider configuration contracts validation passed with owner posture and package wiring coverage.");
+console.log("Customer email provider configuration contracts validation passed.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

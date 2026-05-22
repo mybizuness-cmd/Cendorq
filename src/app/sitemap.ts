@@ -13,72 +13,22 @@ type RouteDefinition = Readonly<{
 const FALLBACK_SITE_URL = "https://www.cendorq.com";
 
 const ROUTES: readonly RouteDefinition[] = [
-    {
-        path: "/",
-        priority: 1,
-        changeFrequency: "weekly",
-        includeInProduction: true,
-    },
-    {
-        path: "/free-check",
-        priority: 0.99,
-        changeFrequency: "weekly",
-        includeInProduction: true,
-    },
-    {
-        path: "/plans",
-        priority: 0.94,
-        changeFrequency: "weekly",
-        includeInProduction: true,
-    },
-    {
-        path: "/plans/deep-review",
-        priority: 0.9,
-        changeFrequency: "weekly",
-        includeInProduction: true,
-    },
-    {
-        path: "/plans/build-fix",
-        priority: 0.88,
-        changeFrequency: "weekly",
-        includeInProduction: true,
-    },
-    {
-        path: "/plans/ongoing-control",
-        priority: 0.87,
-        changeFrequency: "weekly",
-        includeInProduction: true,
-    },
-    {
-        path: "/faq",
-        priority: 0.8,
-        changeFrequency: "monthly",
-        includeInProduction: true,
-    },
-    {
-        path: "/connect",
-        priority: 0.68,
-        changeFrequency: "monthly",
-        includeInProduction: true,
-    },
-    {
-        path: "/privacy",
-        priority: 0.3,
-        changeFrequency: "yearly",
-        includeInProduction: true,
-    },
-    {
-        path: "/terms",
-        priority: 0.3,
-        changeFrequency: "yearly",
-        includeInProduction: true,
-    },
-    {
-        path: "/disclaimer",
-        priority: 0.28,
-        changeFrequency: "yearly",
-        includeInProduction: true,
-    },
+    { path: "/", priority: 1, changeFrequency: "weekly", includeInProduction: true },
+    { path: "/free-check", priority: 0.99, changeFrequency: "weekly", includeInProduction: true },
+    { path: "/sample-report", priority: 0.96, changeFrequency: "weekly", includeInProduction: true },
+    { path: "/sample-report/dentist", priority: 0.86, changeFrequency: "monthly", includeInProduction: true },
+    { path: "/sample-report/med-spa", priority: 0.86, changeFrequency: "monthly", includeInProduction: true },
+    { path: "/sample-report/law-firm", priority: 0.85, changeFrequency: "monthly", includeInProduction: true },
+    { path: "/sample-report/contractor", priority: 0.85, changeFrequency: "monthly", includeInProduction: true },
+    { path: "/plans", priority: 0.94, changeFrequency: "weekly", includeInProduction: true },
+    { path: "/plans/deep-review", priority: 0.9, changeFrequency: "weekly", includeInProduction: true },
+    { path: "/plans/build-fix", priority: 0.88, changeFrequency: "weekly", includeInProduction: true },
+    { path: "/plans/ongoing-control", priority: 0.87, changeFrequency: "weekly", includeInProduction: true },
+    { path: "/faq", priority: 0.8, changeFrequency: "monthly", includeInProduction: true },
+    { path: "/connect", priority: 0.68, changeFrequency: "monthly", includeInProduction: true },
+    { path: "/privacy", priority: 0.3, changeFrequency: "yearly", includeInProduction: true },
+    { path: "/terms", priority: 0.3, changeFrequency: "yearly", includeInProduction: true },
+    { path: "/disclaimer", priority: 0.28, changeFrequency: "yearly", includeInProduction: true },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -101,26 +51,14 @@ function shouldExposeSitemap() {
     const vercelEnv = cleanEnv(process.env.VERCEL_ENV);
     const nodeEnv = cleanEnv(process.env.NODE_ENV);
 
-    const isProductionLike =
-        nodeEnv === "production" && (vercelEnv === "production" || !vercelEnv);
-
-    const isPlaceholderHost =
-        siteUrl.hostname === "localhost" ||
-        siteUrl.hostname === "127.0.0.1" ||
-        siteUrl.hostname.endsWith(".local") ||
-        siteUrl.hostname.endsWith(".test") ||
-        siteUrl.hostname.endsWith(".example");
+    const isProductionLike = nodeEnv === "production" && (vercelEnv === "production" || !vercelEnv);
+    const isPlaceholderHost = siteUrl.hostname === "localhost" || siteUrl.hostname === "127.0.0.1" || siteUrl.hostname.endsWith(".local") || siteUrl.hostname.endsWith(".test") || siteUrl.hostname.endsWith(".example");
 
     return isProductionLike && !isPlaceholderHost;
 }
 
 function resolveLastModified() {
-    const candidates = [
-        process.env.NEXT_PUBLIC_BUILD_TIMESTAMP,
-        process.env.VERCEL_GIT_COMMIT_DATE,
-        process.env.BUILD_TIMESTAMP,
-        process.env.VERCEL_GIT_COMMIT_SHA,
-    ];
+    const candidates = [process.env.NEXT_PUBLIC_BUILD_TIMESTAMP, process.env.VERCEL_GIT_COMMIT_DATE, process.env.BUILD_TIMESTAMP, process.env.VERCEL_GIT_COMMIT_SHA];
 
     for (const candidate of candidates) {
         const parsed = parseBuildDate(candidate);
@@ -135,13 +73,8 @@ function parseBuildDate(value: string | undefined) {
     if (!cleaned) return null;
 
     const directDate = new Date(cleaned);
-    if (!Number.isNaN(directDate.getTime())) {
-        return directDate;
-    }
-
-    if (/^[a-f0-9]{7,40}$/i.test(cleaned)) {
-        return null;
-    }
+    if (!Number.isNaN(directDate.getTime())) return directDate;
+    if (/^[a-f0-9]{7,40}$/i.test(cleaned)) return null;
 
     return null;
 }

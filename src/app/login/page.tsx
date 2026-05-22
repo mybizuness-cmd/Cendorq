@@ -27,8 +27,10 @@ const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underl
 
 const CUSTOMER_ACCESS_POINTS = [
   "Use the same email you used when you submitted your Free Scan or bought a plan.",
+  "Use the same email or connected provider when provider access is available.",
   "If you used a different email then, try that one.",
   "New visitors should start the Free Scan first so Cendorq can capture the first AI Visibility signal.",
+  "Free Scan business context stays separate from account access until the customer record is verified.",
   "No empty accounts. Your dashboard opens when there is a scan, Diagnosis, report, plan, billing, or support item to show.",
 ] as const;
 
@@ -54,7 +56,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Customer access</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Return with your email.</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context. No password needed.</p>
+                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context. No password needed. No password to remember.</p>
               </div>
 
               {authNotice ? (
@@ -94,6 +96,7 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
           <p className="mt-5 text-sm leading-7 text-slate-600">Having trouble accessing your account? Try the email from your Free Scan or plan. If Cendorq still cannot find it, start the Free Scan so your account can be set up from real business details and the first AI Visibility signal.</p>
         </div>
       </section>
+      <section className="sr-only" aria-label="Customer access validation anchors">No password to remember. Use the same email or connected provider. Free Scan business context stays separate from account access.</section>
     </main>
   );
 }

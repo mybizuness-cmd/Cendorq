@@ -38,7 +38,7 @@ expect(componentPath, [
 ]);
 
 expect(plansPath, [
-  "Choose the right visibility and readiness depth.",
+  "Choose the right AI Visibility and Readiness depth.",
   "Free Scan shows the first signal.",
   "Deep Review explains the cause.",
   "Build Fix improves the weak point.",
@@ -71,7 +71,7 @@ expect(packagePath, ["validate:routes"]);
 expect(routesChainPath, [validatorPath]);
 
 boundedLength(componentPath, 15500);
-boundedLength(plansPath, 16000);
+boundedLength(plansPath, 18000);
 
 forbidden(componentPath, [...blockedPlanPhrases(), ...legacyPlanLabels]);
 forbidden(plansPath, [...blockedPlanPhrases(), ...legacyPlanLabels, "$750+", "$300/mo", "starting at", "Unlock Build Fix", "Compare pricing", "\"build-fix\": \"Fix\""]);

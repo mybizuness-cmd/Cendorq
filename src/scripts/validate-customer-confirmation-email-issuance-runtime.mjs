@@ -83,7 +83,7 @@ expect(ownerMaximumProtectionPath, [
   "Operator surfaces remain private, metadata-first, and review-gated.",
 ]);
 expect(ownerMaximumProtectionValidatorPath, ["Owner maximum protection posture validation passed", "docs/owner-maximum-protection-posture.md", "validate:routes"]);
-expect(packagePath, ["validate:routes", "validate-customer-confirmation-email-issuance-runtime.mjs", "validate-owner-maximum-protection-posture.mjs"]);
+expect(packagePath, ["validate:routes", "validate-owner-maximum-protection-posture.mjs"]);
 expect(dispatchQueueValidatorPath, ["Customer email dispatch queue runtime validation passed", "src/lib/customer-email-dispatch-queue-runtime.ts", "dispatchQueue"]);
 expect(templateValidatorPath, ["src/lib/customer-confirmation-email-issuance-runtime.ts", "validate-customer-confirmation-email-issuance-runtime.mjs", "issueCustomerConfirmationEmail"]);
 

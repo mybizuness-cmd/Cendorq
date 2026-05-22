@@ -41,6 +41,9 @@ jobs:
       - name: Validate routes and guardrails
         run: pnpm validate:routes
 
+      - name: Validate Presence Report system
+        run: pnpm validate:presence-report
+
       - name: Lint
         run: pnpm lint
 

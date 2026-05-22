@@ -33,9 +33,9 @@ export const CENDORQ_WORK_START_GATES: readonly CendorqWorkStartGate[] = [
     customerTitle: "Repair prerequisite gate",
     customerPromise: "Cendorq can begin Build Fix only after there is a completed Deep Review or an approved supported review plus a confirmed fix target.",
     requiredBeforeQueue: ["completed Deep Review or approved supported review", "approved fix target", "approved business description", "primary CTA", "brand constraints", "available assets", "approval contact"],
-    backendStartRule: "Hold fix as do-not-start until review and scope are approved; never turn Build Fix into unpaid review work.",
+    backendStartRule: "Hold fix as do-not-start until review and scope are approved; never turn Build Fix into unpaid review work. Hold repair as do-not-start until diagnosis and repair scope are approved; never turn repair into unpaid review work.",
     customerSafeAction: "Confirm an existing review or complete the review path before Build Fix starts.",
-    blockedPattern: "Do not let a direct Build Fix purchase bypass review.",
+    blockedPattern: "Do not let a direct Build Fix purchase bypass review. Do not let a direct Signal Repair purchase bypass diagnosis.",
     dashboardHref: "/dashboard/support/request",
   },
   {

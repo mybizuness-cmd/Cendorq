@@ -11,7 +11,7 @@ const packagePath = "package.json";
 
 expect(signupPath, [
   "Start with the Free Scan.",
-  "Cendorq checks if AI and search can understand your business clearly enough to trust and recommend it.",
+  "Cendorq checks the first AI Visibility signal: whether AI, search, and customers can understand, trust, and choose the business clearly.",
   "Already have an account?",
   "Use customer access",
   "Use the same email you used for your Free Scan, form, or plan.",
@@ -41,7 +41,7 @@ expect(loginPath, [
   "autoComplete=\"email\"",
   "Send secure access link",
   "No password needed.",
-  "We will send a secure link if this email is tied to your Free Scan or plan.",
+  "We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context.",
   "First time here?",
   "Start Free Scan",
   "Other access options are hidden until they are fully ready.",

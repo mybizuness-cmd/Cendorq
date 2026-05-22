@@ -32,8 +32,8 @@ expect(pricingContractPath, [
 ]);
 
 expect(plansPath, [
-  "Choose the right AI-readiness depth.",
-  "Start with the level that matches what you already know.",
+  "Choose the right AI Visibility and Readiness depth.",
+  "Start with what you need now.",
   "Open Review page",
   "Open Repair page",
   "Open Control page",
@@ -46,12 +46,12 @@ expect(planTemplatePath, [
   "What this helps you decide",
   "Use this when evidence should guide the next investment.",
   "Use this when the weak point is clear enough to improve.",
-  "Use this when the business needs ongoing attention and readiness control.",
+  "Use this when the business needs ongoing attention and visibility control.",
 ]);
 
 expect(billingPath, [
   "Know what is active, what unlocked, and what depth comes next.",
-  "Payment should unlock the right readiness layer.",
+  "Payment should unlock the right AI Visibility layer.",
   "Open Review page",
   "Open plan page",
   "Checkout success parity",
@@ -59,10 +59,10 @@ expect(billingPath, [
 ]);
 
 expect(dashboardPath, [
-  "Your Cendorq workspace is ready.",
-  "one clear next action",
-  "One next step.",
-  "Cendorq keeps the next step separate.",
+  "Your Cendorq command center is ready.",
+  "one clear next command",
+  "One next command.",
+  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command",
   "Scan. Review. Repair. Control.",
   "Open Review page",
   "Open Repair page",
@@ -119,6 +119,7 @@ forbidden([pricingContractPath, plansPath, planTemplatePath, billingPath, dashbo
   "AI Readiness Review",
   "Signal Repair",
   "Readiness Control",
+  "Payment should unlock the right readiness layer",
 ]);
 
 if (failures.length) {

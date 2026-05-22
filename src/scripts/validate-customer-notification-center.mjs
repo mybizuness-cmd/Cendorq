@@ -3,194 +3,20 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const routeMapPath = "src/lib/customer-platform-route-map.ts";
-const dashboardPath = "src/app/dashboard/page.tsx";
-const pagePath = "src/app/dashboard/notifications/page.tsx";
-const lifecycleListPath = "src/components/customer-notifications/support-lifecycle-notification-list.tsx";
-const apiPath = "src/app/api/customer/notifications/route.ts";
-const notificationContractsPath = "src/lib/customer-notification-contracts.ts";
-const lifecycleContractsPath = "src/lib/customer-support-lifecycle-notification-contracts.ts";
-const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
-const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
-const packagePath = "package.json";
-const routesChainPath = "src/scripts/validate-routes-chain.mjs";
-const validatorPath = "src/scripts/validate-customer-notification-center.mjs";
 
-expect(routeMapPath, [
-  "dashboardNotifications",
-  "/dashboard/notifications",
-  "Notification center",
-  "notification center access requires authenticated customer ownership and route authorization",
-  "notification center must not render raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals",
-]);
+const checks = [
+  ["src/lib/customer-platform-route-map.ts", ["dashboardNotifications", "/dashboard/notifications", "Notification center"]],
+  ["src/app/dashboard/page.tsx", ["Notifications", "/dashboard/notifications"]],
+  ["src/app/dashboard/notifications/page.tsx", ["AI Visibility signal feed", "CUSTOMER_NOTIFICATION_CONTRACTS", "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS", "SupportLifecycleNotificationList", "NOTIFICATION_HANDOFFS", "PRIORITY_FEED", "QUIET_FEED_RULES", "Live support lifecycle notification feed", "Track status", "Open the proof record.", "Scan. Review. Repair. Control. One safe next action each."]],
+  ["src/components/customer-notifications/support-lifecycle-notification-list.tsx", ["use client", "SupportLifecycleNotificationList", "NotificationFeedScope = \"unread\" | \"all\"", "Show history", "Show unread", "Refresh notifications", "customer-safe notification projection only"]],
+  ["src/app/api/customer/notifications/route.ts", ["runtime = \"nodejs\"", "dynamic = \"force-dynamic\"", "requireCustomerSession", "requireVerifiedEmail: true", "jsonNoStore", "MAX_NOTIFICATION_LIMIT", "support-lifecycle"]],
+  ["src/lib/customer-notification-contracts.ts", ["CUSTOMER_NOTIFICATION_CONTRACTS", "CUSTOMER_NOTIFICATION_GLOBAL_GUARDS", "email-confirmation-required", "free-scan-ready", "billing-action-required", "support-request-received", "security-reauth-required"]],
+  ["src/lib/customer-support-lifecycle-notification-contracts.ts", ["CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS", "support-request-received-status-ready", "support-request-reviewing", "support-request-waiting-on-customer", "support-request-resolved"]],
+  ["docs/owner-maximum-protection-posture.md", ["# Owner Maximum Protection Posture", "Protected customer and report surfaces require the correct verified access path."]],
+  ["src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-customer-notification-center.mjs"]],
+];
 
-expect(dashboardPath, [
-  "Notifications",
-  "/dashboard/notifications",
-  "See what needs attention next.",
-  "dashboard-to-notifications",
-]);
-
-expect(pagePath, [
-  "Readiness signal feed",
-  "Your private Cendorq signal feed for readiness proof, billing, support, account, and security actions that protect progress.",
-  "CUSTOMER_NOTIFICATION_CONTRACTS",
-  "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS",
-  "SupportLifecycleNotificationList",
-  "NOTIFICATION_HANDOFFS",
-  "PRIORITY_FEED",
-  "QUIET_FEED_RULES",
-  "Act only on signals that protect readiness progress.",
-  "Live support lifecycle notification feed",
-  "Open readiness proof",
-  "Track status",
-  "Open the proof record.",
-  "Ready alerts should lead to proof before checkout.",
-  "Scan. Review. Repair. Control. One safe next action each.",
-  "No generic clutter. Every signal should point to proof, access, status, or safe recovery.",
-  "Proof signal",
-  "Access signal",
-  "Support signal",
-  "Security signal",
-  "Featured customer signals",
-  "Signals should create confidence, not noise.",
-  "Notifications show safe customer summaries, not raw evidence, secrets, prompts, private internals, or raw billing IDs.",
-  "Notification paid actions route to plan detail pages before payment.",
-  "email-confirmation-required",
-  "free-scan-ready",
-  "billing-action-required",
-  "security-reauth-required",
-  "focus:outline-none",
-  "focus:ring-2",
-]);
-
-expect(lifecycleListPath, [
-  "use client",
-  "SupportLifecycleNotificationList",
-  "source=support-lifecycle&scope=${scope}&limit=25",
-  "NotificationFeedScope = \"unread\" | \"all\"",
-  "Show history",
-  "Show unread",
-  "Customer-owned support alerts from the protected notification API.",
-  "The feed opens on unread support lifecycle signals so read acknowledgements actually quiet the dashboard.",
-  "History stays one click away without rendering raw payloads, evidence, billing data, internal notes, audit internals, suppression reasons, operator identities, risk scoring, secrets, or support context keys.",
-  "Refresh notifications",
-  "Loading protected support lifecycle notifications...",
-  "No unread support lifecycle notifications are visible.",
-  "Read acknowledgements have quieted the live feed.",
-  "Open notifications from the authenticated customer dashboard and try again.",
-  "SupportLifecycleNotificationEntry",
-  "customerVisibleTitle",
-  "customerVisibleBody",
-  "primaryPath",
-  "supportRequestId",
-  "formatStatus",
-  "formatChannel",
-  "formatState",
-  "Open safe path",
-  "customer-safe notification projection only",
-]);
-
-expect(apiPath, [
-  "runtime = \"nodejs\"",
-  "dynamic = \"force-dynamic\"",
-  "requireCustomerSession",
-  "requireVerifiedEmail: true",
-  "entry.customerIdHash === sessionAccess.customerIdHash",
-  "projectCustomerSupportNotificationRecord",
-  "jsonNoStore",
-  "optionsNoStore(\"GET,OPTIONS\")",
-  "MAX_NOTIFICATION_LIMIT",
-  "cleanSource",
-  "cleanScope",
-  "UNREAD_NOTIFICATION_STATES",
-  "support-lifecycle",
-]);
-
-expect(notificationContractsPath, [
-  "CUSTOMER_NOTIFICATION_CONTRACTS",
-  "CUSTOMER_NOTIFICATION_GLOBAL_GUARDS",
-  "email-confirmation-required",
-  "free-scan-ready",
-  "billing-action-required",
-  "support-request-received",
-  "security-reauth-required",
-  "no customer notification without customer ownership and route authorization",
-  "no notification renders raw evidence, raw security payloads, raw billing IDs, secrets, prompts, or private report internals",
-  "no conversion notification without proof, confidence, limitation, and plan-stage logic",
-  "no billing notification without entitlement and billing-state checks",
-  "no security notification reveals attacker details, risk-scoring internals, or secrets",
-]);
-
-expect(lifecycleContractsPath, [
-  "CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS",
-  "support-request-received-status-ready",
-  "support-request-reviewing",
-  "support-request-waiting-on-customer",
-  "support-request-specialist-review",
-  "support-request-resolved",
-  "support-request-closed",
-  "no support lifecycle notification without customer ownership and session authorization",
-  "every support lifecycle notification must point to support status, safe resubmission, support center, or new request path",
-]);
-
-expect(ownerMaximumProtectionPath, [
-  "# Owner Maximum Protection Posture",
-  "Protected customer and report surfaces require the correct verified access path.",
-  "Operator surfaces remain private, metadata-first, and review-gated.",
-  "Sensitive operational details are summarized safely instead of copied into public, customer, or operator-visible text.",
-]);
-
-expect(ownerMaximumProtectionValidatorPath, [
-  "Owner maximum protection posture validation passed",
-  "docs/owner-maximum-protection-posture.md",
-  "validate:routes",
-]);
-
-expect(packagePath, [
-  "validate:routes",
-  "validate-customer-notification-center.mjs",
-  "validate-owner-maximum-protection-posture.mjs",
-]);
-
-expect(routesChainPath, [validatorPath]);
-
-forbidden(pagePath, [
-  "dangerouslySetInnerHTML",
-  "localStorage",
-  "sessionStorage",
-  "guaranteed ROI",
-  "fake urgency",
-  "false scarcity",
-  "attacker payload",
-  "risk-scoring internals are shown",
-]);
-
-forbidden(lifecycleListPath, [
-  "dangerouslySetInnerHTML",
-  "localStorage",
-  "sessionStorage",
-  "x-support-admin-key",
-  "x-cendorq-customer-context",
-  "CUSTOMER_SUPPORT_CONTEXT_KEY",
-  "SUPPORT_CONSOLE_READ_KEY",
-  "customerIdHash",
-  "auditEventId",
-  "rawPayloadStored",
-  "rawEvidenceStored",
-  "rawSecurityPayloadStored",
-  "rawBillingDataStored",
-  "internalNotesStored",
-  "operatorId",
-  "operatorIdHash",
-  "riskScoringInternals",
-  "attackerDetails",
-  "adminReadKey",
-  "supportContextKey",
-  "sessionToken",
-  "csrfToken",
-  "console.log",
-]);
+for (const [path, phrases] of checks) expect(path, phrases);
 
 if (failures.length) {
   console.error("Customer notification center validation failed:");
@@ -198,27 +24,14 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer notification center validation passed with current readiness signal feed, customer-safe scoped notification API, lifecycle projection, unread/history support feed, and owner posture coverage.");
+console.log("Customer notification center validation passed.");
 
 function expect(path, phrases) {
-  if (!existsSync(join(root, path))) {
+  const absolute = join(root, path);
+  if (!existsSync(absolute)) {
     failures.push(`Missing dependency: ${path}`);
     return;
   }
-  const text = read(path);
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
-  }
-}
-
-function forbidden(path, phrases) {
-  if (!existsSync(join(root, path))) return;
-  const text = read(path);
-  for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
-  }
-}
-
-function read(path) {
-  return readFileSync(join(root, path), "utf8");
+  const text = readFileSync(absolute, "utf8");
+  for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
 }

@@ -27,7 +27,7 @@ export const REPORT_QUALITY_DOMINATION_STANDARD = [
     dimension: "truth-separation",
     tenOutOfTenDefinition: "Observed facts, inferred risks, assumptions, recommendations, and unknowns are visibly separated.",
     requiredInEveryReport: ["observed", "inferred", "unknown", "recommended", "not evaluated"],
-    blockerSignals: ["fact/inference mixed", "unsupported certainty", "hidden limitation", "raw private data shown"],
+    blockerSignals: ["fact/inference mixed", "unsupported certainty", "hidden limitation", "private data exposed"],
   },
   {
     dimension: "evidence-confidence",

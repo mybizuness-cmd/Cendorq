@@ -10,21 +10,21 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-notification-support-routing.mjs";
 
 expect(notificationPath, [
-  "Readiness signal feed",
-  "Act only on signals that protect readiness progress.",
-  "Priority readiness feed",
+  "AI Visibility signal feed",
+  "Act only on signals that protect command progress.",
+  "Priority AI Visibility feed",
   "Signal routing types",
   "Featured customer signals",
   "Quiet feed standard",
   "Every alert must explain why it matters and where the customer can act safely.",
   "Notifications show safe customer summaries",
-  "Readiness alerts must name the value, the boundary, and the next action before sending customers to checkout.",
+  "AI Visibility alerts must name the value, the boundary, and the next action before sending customers to checkout.",
   "Support lifecycle alerts route to status, safe resubmission, support center, or new request paths without duplicate anxiety.",
   "Proof signal",
   "Access signal",
   "Support signal",
   "Security signal",
-  "Readiness signal ready",
+  "AI Visibility signal ready",
   "Cause needs proof",
   "Repair target is clear",
   "Monthly watch is needed",
@@ -36,8 +36,8 @@ expect(notificationPath, [
 ]);
 
 expect(supportPath, [
-  "Readiness support routing",
-  "Route the blocker without weakening the readiness path.",
+  "AI Visibility support routing",
+  "Route the blocker without weakening the command path.",
   "Pick the narrowest path that matches the blocker.",
   "Help should restore momentum without expanding scope silently.",
   "SUPPORT_ROUTES",
@@ -53,7 +53,7 @@ expect(supportPath, [
   "Understand the signal before acting.",
   "Confirm what can be improved.",
   "Choose what should be watched.",
-  "Restore safe workspace entry.",
+  "Restore safe account entry.",
   "Request bounded review.",
   "Pick the narrowest support path before submitting a request.",
   "Support can explain process, status, and next steps; approved outcomes require the right review gate.",
@@ -73,6 +73,8 @@ forbidden(notificationPath, [
   "we guarantee revenue",
   "submit your card number",
   "paste your password",
+  "Readiness signal feed",
+  "Priority readiness feed",
 ]);
 
 forbidden(supportPath, [
@@ -84,6 +86,8 @@ forbidden(supportPath, [
   "we guarantee revenue",
   "submit card number",
   "paste your password",
+  "Readiness support routing",
+  "Restore safe workspace entry.",
 ]);
 
 if (failures.length) {
@@ -92,7 +96,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Notification and support routing validation passed with current readiness signal feed, support routing, boundary, and safe next-action coverage.");
+console.log("Notification and support routing validation passed with current AI Visibility signal feed, support routing, boundary, and safe next-action coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

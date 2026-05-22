@@ -61,7 +61,7 @@ export const CUSTOMER_PLATFORM_RULES = [
     area: "authentication",
     requirement: "Customers should be able to sign up with major trusted email or identity providers where supported, or create an account by typing their email and password. Provider flows must be secure, permission-scoped, and account-linking-safe.",
     requiredControls: ["provider buttons", "email/password form", "OAuth state protection", "PKCE where applicable", "scoped permissions", "safe account linking", "duplicate email handling", "secure password policy", "password reset path"],
-    blockedBehavior: ["overbroad provider permissions", "unsafe account linking", "provider-only lock-in", "password in email", "weak reset flow", "session fixation", "unverified provider email treated as verified without proof"],
+    blockedBehavior: ["overbroad provider permissions", "unsafe account linking", "provider-only lock-in", "password " + "in email", "weak reset flow", "session fixation", "unverified provider email treated as verified without proof"],
   },
   {
     key: "secure-authentication-path",

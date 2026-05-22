@@ -24,7 +24,7 @@ const SAFE_DASHBOARD_PATHS = [
 const ACCESS_POINTS = [
   { title: "Start Free Scan", copy: "New visitors should begin here so Cendorq can understand the business and its first AI Visibility signal." },
   { title: "Use the same email", copy: "Returning customers should use the email from their scan, form, or plan." },
-  { title: "Open real results", copy: "The dashboard should open only when there is something useful to show: scan, Diagnosis, report, plan, billing, or support context." },
+  { title: "Open useful results", copy: "The dashboard should open only when there is something useful to show: scan, Diagnosis, report, plan, billing, or support context." },
 ] as const;
 
 export default async function SignupPage({ searchParams }: SignupPageProps) {

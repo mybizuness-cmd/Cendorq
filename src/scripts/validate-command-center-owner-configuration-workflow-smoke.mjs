@@ -23,7 +23,7 @@ const protectedApiHeaderPhrases = [
   "noindex, nofollow, noarchive, nosnippet",
   "Referrer-Policy",
   "same-origin",
-] as const;
+];
 
 expect(evidenceRoutePath, [
   "resolveCommandCenterAccessState",
