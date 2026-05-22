@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const fixturePath = "src/lib/sandwork-presence-report-fixture.ts";
+const packageSourcePath = "src/lib/presence-report-package-source.ts";
 const protectedPreviewPath = "src/components/presence-report/protected-free-scan-result-preview.tsx";
 const dashboardSnapshotPath = "src/app/dashboard/dashboard-presence-command-snapshot.tsx";
 const failures = [];
@@ -27,14 +28,20 @@ expect(fixturePath, [
   "preferredCta: \"Request service\"",
 ]);
 
+expect(packageSourcePath, [
+  "getPresenceReportPackage",
+  "PRESENCE_REPORT_OBJECT_INDEX",
+  "demoReportPackage",
+]);
+
 expect(protectedPreviewPath, [
-  "SANDWORK_PRESENCE_REPORT_PACKAGE",
-  "@/lib/sandwork-presence-report-fixture",
+  "getPresenceReportPackage",
+  "@/lib/presence-report-package-source",
 ]);
 
 expect(dashboardSnapshotPath, [
-  "SANDWORK_PRESENCE_REPORT_PACKAGE",
-  "@/lib/sandwork-presence-report-fixture",
+  "getPresenceReportPackage",
+  "@/lib/presence-report-package-source",
 ]);
 
 forbidden(fixturePath, [
@@ -45,13 +52,16 @@ forbidden(fixturePath, [
   "rawReport",
 ]);
 
+forbidden(protectedPreviewPath, ["@/lib/sandwork-presence-report-fixture"]);
+forbidden(dashboardSnapshotPath, ["@/lib/sandwork-presence-report-fixture"]);
+
 if (failures.length) {
   console.error("Sandwork Presence Report fixture validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Sandwork Presence Report fixture validation passed with shared live-mapper package and no hardcoded component fixture drift.");
+console.log("Sandwork Presence Report fixture validation passed with shared live-mapper package, package-source consumption, and no hardcoded component fixture drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
