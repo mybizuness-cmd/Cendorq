@@ -5,17 +5,27 @@ const root = process.cwd();
 const componentPath = "src/app/dashboard/dashboard-presence-command-snapshot.tsx";
 const pagePath = "src/app/dashboard/page.tsx";
 const fixturePath = "src/lib/sandwork-presence-report-fixture.ts";
+const packageSourcePath = "src/lib/presence-report-package-source.ts";
 const failures = [];
 
 expect(componentPath, [
   "DashboardPresenceCommandSnapshot",
-  "SANDWORK_PRESENCE_REPORT_PACKAGE",
+  "getPresenceReportPackage",
+  "packageSource.report",
+  "packageSource.choiceGap",
+  "packageSource.controlSnapshot",
   "Presence command snapshot",
   "Presence Score",
   "Choice Gap",
   "Repair Queue",
   "Control Snapshot",
   "Open Free Scan result",
+]);
+
+expect(packageSourcePath, [
+  "getPresenceReportPackage",
+  "PRESENCE_REPORT_OBJECT_INDEX",
+  "demoReportPackage",
 ]);
 
 expect(fixturePath, [
@@ -39,6 +49,8 @@ expect(pagePath, [
 ]);
 
 forbidden(componentPath, [
+  "@/lib/sandwork-presence-report-fixture",
+  "SANDWORK_PRESENCE_REPORT_PACKAGE",
   "SAMPLE_PRESENCE_REPORT",
   "SAMPLE_CHOICE_GAP",
   "SAMPLE_CONTROL_SNAPSHOT",
@@ -61,7 +73,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard Presence Command Snapshot validation passed with shared Sandwork Presence Report fixture and protected report object boundaries.");
+console.log("Dashboard Presence Command Snapshot validation passed with package-source helper, shared Sandwork fixture boundary, and protected report object boundaries.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
