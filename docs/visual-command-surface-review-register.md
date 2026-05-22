@@ -120,16 +120,79 @@ Next review:
 - Whether the next move card needs stronger priority than the score card.
 - Whether Repair Queue should expose a clearer link to the next paid command.
 
-## Plans, FAQ, and mobile flows
+## Plans `/plans`
 
-Status: needs next visual-command review.
+Source surface: `src/app/plans/page.tsx`
 
-Required review questions:
+Current visual command:
 
-- Does each plan show the safest next command without overloading the buyer?
-- Does FAQ reduce hesitation without hiding limits?
-- Does mobile preserve command hierarchy, readable cards, and spacing?
-- Does every CTA connect back to Free Scan, Review, Repair, Control, Contact Us, or dashboard continuation?
+- The page states the plan decision as AI Visibility and Readiness depth.
+- The four cards preserve the operating sequence: Free Scan, Deep Review, Build Fix, Ongoing Control.
+- Each plan has one direct CTA: Start Free Scan, Open Review page, Open Repair page, or Open Control page.
+- The page uses Presence Report preview to make plan choice report-led instead of pressure-led.
+- The plan separation standard states that Cendorq does not guarantee rankings, leads, revenue, or AI placement.
+
+Do not regress:
+
+- Keep Free Scan as the safest starting command when the buyer is unsure.
+- Keep Scan, Review, Repair, and Control visually separated.
+- Keep paid-plan CTAs direct without making all plans compete equally.
+- Keep the Sample Presence Report link visible as an evidence-led path.
+- Keep no-guarantee language in the plan separation section.
+
+Next review:
+
+- Whether the four plan cards feel equally loud on mobile.
+- Whether Free Scan needs stronger visual priority for unsure visitors.
+- Whether paid plan pages preserve the same Scan, Review, Repair, Control command sequence.
+
+## FAQ `/faq`
+
+Source surface: `src/app/faq/page.tsx`
+
+Current visual command:
+
+- The page gives a simple rule: new visitors start Free Scan, evaluators open Sample Report, returning customers use the same email.
+- Quick links route to Start Free Scan, Sample Report, Customer access, Compare plans, and Contact Us.
+- FAQ sections reduce hesitation without hiding limits around guarantees, privacy, account access, and plan fit.
+- The details pattern keeps the page scannable instead of dumping every answer at once.
+
+Do not regress:
+
+- Keep Start Free Scan first in quick links.
+- Keep Sample Report available before plan pressure.
+- Keep Customer access and same-email language clear.
+- Keep guarantee boundaries explicit.
+- Keep Contact Us visible for support paths.
+
+Next review:
+
+- Whether quick links wrap cleanly on small screens.
+- Whether details summaries have enough tap target spacing.
+- Whether high-risk answers about guarantees, privacy, and access remain easy to find.
+
+## Mobile command hierarchy
+
+Source surfaces: homepage, sample report, protected Free Scan report, dashboard snapshot, Plans, and FAQ.
+
+Current visual command:
+
+- Primary surfaces already use stacked mobile layouts, touch-sized buttons, rounded cards, and single-column progression where needed.
+- The key mobile risk is not missing content; it is competing calls to action, compressed card density, and proof sections appearing after conversion pressure.
+
+Do not regress:
+
+- Keep one dominant next action per screen band.
+- Keep cards readable without cramping.
+- Keep proof, limits, and next command visible before high-commitment paid actions.
+- Keep Contact Us and Customer Access reachable without competing with the main buyer path.
+- Keep mobile surfaces from becoming compressed desktop pages.
+
+Next review:
+
+- Run device-width screenshot review for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan`.
+- Check whether price CTAs overpower proof or limits on narrow screens.
+- Check whether dashboard and report cards remain readable at tablet widths.
 
 ## Release use
 
