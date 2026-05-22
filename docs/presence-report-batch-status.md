@@ -22,12 +22,14 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Presence Report generation adapter.
 - Live scan Presence Report mapping from Free Scan snapshots into the five public pillars.
 - Shared Sandwork Presence Report fixture for reusable demo Free Scan input, snapshot, and report package.
-- Protected Free Scan preview and dashboard Presence Command Snapshot use the shared Sandwork package through the live mapper.
 - Presence Report object index registers the shared Sandwork demo report package for future report-surface reuse.
+- Presence Report package-source helper exposes the object-index-backed demo report package to report surfaces.
+- Protected Free Scan preview and dashboard Presence Command Snapshot use the package-source helper instead of importing the Sandwork fixture directly.
 - Launch-readiness now requires Sandwork demo surfaces to use the shared public-safe report package instead of hardcoded sample objects.
 - Live scan mapping validator coverage for pillar derivation, Choice scoring, state derivation, and score clamping.
-- Sandwork fixture validator coverage for the reusable demo input, snapshot, report package, and consuming surfaces.
-- Protected-result, dashboard, object-index, launch-readiness, and merge-readiness validators now guard against hardcoded sample-object regressions.
+- Sandwork fixture validator coverage for the reusable demo input, snapshot, report package, and package-source consumption.
+- Package-source validator coverage for object-index-backed package access and no direct fixture imports in report surfaces.
+- Protected-result, dashboard, object-index, launch-readiness, merge-readiness, and package-source validators now guard against hardcoded sample-object regressions.
 - Presence Report route map and object index.
 - Presence Report proof map.
 - Presence Report evidence boundary map and public panel.
@@ -47,6 +49,7 @@ This branch installs the first public Cendorq Presence Report system for AI Sear
 - Keep private scoring internals out of public and protected customer surfaces.
 - Keep next move recommendations tied to evidence, not plan pressure.
 - Keep demo data centralized in the shared Sandwork fixture instead of presentation components.
+- Keep report surfaces pointed at the package-source helper instead of direct demo fixture imports.
 - Keep launch-readiness pointed at the shared public-safe demo report package boundary.
 - Keep the Presence Report object index pointed at the shared demo report package for reusable report surfaces.
 - Update branch against main before merge because public pages overlap current main changes.
