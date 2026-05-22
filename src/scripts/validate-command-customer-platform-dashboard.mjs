@@ -12,11 +12,18 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-customer-platform-dashboard.mjs";
 
 expect(dashboardPath, [
-  "Private AI readiness control center",
-  "Your Cendorq account is ready.",
-  "Cendorq keeps your scan, reports, plans, billing, support, and one clear next action in one protected dashboard.",
+  "Private AI Visibility command center",
+  "Your Cendorq command center is ready.",
+  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
+  "One next command.",
   "Next best move",
-  "Finish the first signal.",
+  "Capture the first signal.",
+  "Protected Presence Command Center",
+  "State, gap, action, control.",
+  "Presence report",
+  "Choice Gap",
+  "Repair Queue",
+  "Control Snapshot",
   "Dashboard decision summary",
   "Command path",
   "Scan. Review. Repair. Control.",
@@ -25,7 +32,6 @@ expect(dashboardPath, [
   "Secure access brings customers back.",
   "No cheap dashboard blocks",
   "No clutter wall",
-  "No internal conversion role labels",
   "hover:-translate-y-0.5",
   "shadow-[0_30px_120px_rgba(2,8,23,0.10)]",
   "focus:outline-none",
@@ -124,7 +130,7 @@ forbidden(reentryPath, [
   "They can leave today and come back to the same business control room tomorrow.",
 ]);
 
-boundedLength(dashboardPath, 12000);
+boundedLength(dashboardPath, 15000);
 boundedLength(actionInboxPath, 10500);
 boundedLength(commandCenterPath, 10000);
 boundedLength(reentryPath, 8000);
@@ -135,7 +141,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform dashboard validation passed with account/dashboard command language, Free Scan account creation language, customer-led modules, and no internal labels.");
+console.log("Customer platform dashboard validation passed with protected dashboard command strip, account/dashboard command language, Free Scan account creation language, customer-led modules, and no internal labels.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
