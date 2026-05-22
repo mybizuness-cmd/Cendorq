@@ -63,6 +63,17 @@ expect("docs/visual-command-surface-review-register.md", [
   "Plans `/plans`",
   "FAQ `/faq`",
   "Mobile command hierarchy",
+  "Device-width source review record",
+  "Live screenshots were not captured in this pass.",
+  "Widths inspected",
+  "390px mobile portrait by source-level mobile-first layout inspection",
+  "430px large mobile portrait by source-level mobile-first layout inspection",
+  "768px tablet portrait by `md` and `sm` breakpoint inspection",
+  "1024px tablet landscape by `lg` breakpoint inspection",
+  "1440px desktop by max-width and desktop grid inspection",
+  "Protected Free Scan report places the Deep Review price CTA in the hero before the protected report preview.",
+  "No source-code visual fix is required from this source-level pass.",
+  "Do not treat this as final screenshot approval.",
   "one obvious safest next command",
   "premium restraint",
   "strong hierarchy",
@@ -207,7 +218,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
+console.log("Command workforce quality validation passed with source-level device-width review record, device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
