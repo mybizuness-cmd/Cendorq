@@ -8,6 +8,11 @@ const dashboardPath = "src/app/dashboard/page.tsx";
 const actionInboxPath = "src/app/dashboard/dashboard-action-inbox.tsx";
 const commandCenterPath = "src/app/dashboard/dashboard-business-command-center.tsx";
 const reentryPath = "src/app/dashboard/dashboard-control-room-reentry.tsx";
+const protectedSuitePath = "src/lib/dashboard-protected-suite-contracts.ts";
+const reportsPath = "src/app/dashboard/reports/page.tsx";
+const billingPath = "src/app/dashboard/billing/page.tsx";
+const notificationsPath = "src/app/dashboard/notifications/page.tsx";
+const supportPath = "src/app/dashboard/support/page.tsx";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-customer-platform-dashboard.mjs";
 
@@ -82,6 +87,67 @@ expect(reentryPath, [
   "focus:ring-2",
 ]);
 
+expect(protectedSuitePath, [
+  "DASHBOARD_PROTECTED_SUITE_CONTRACTS",
+  "DashboardProtectedSuiteContract",
+  "reports",
+  "billing",
+  "notifications",
+  "support",
+  "/dashboard/reports",
+  "/dashboard/billing",
+  "/dashboard/notifications",
+  "/dashboard/support",
+  "primaryCustomerQuestion",
+  "safestNextAction",
+  "mustShow",
+  "mustNotShow",
+  "getDashboardProtectedSuiteContracts",
+]);
+
+expect(reportsPath, [
+  "AI Visibility proof vault",
+  "Nothing final until it is approved.",
+  "Scan",
+  "Review",
+  "Repair",
+  "Control",
+  "AI/Search posture",
+  "Report vault guardrails",
+]);
+
+expect(billingPath, [
+  "AI Visibility plan depth",
+  "Current access",
+  "Next depth",
+  "Safety",
+  "Review",
+  "Repair",
+  "Control",
+  "Account access AI Visibility standard",
+]);
+
+expect(notificationsPath, [
+  "AI Visibility signal feed",
+  "Priority AI Visibility feed",
+  "Quiet feed standard",
+  "Scan",
+  "Review",
+  "Repair",
+  "Control",
+  "Notification AI Visibility feed guardrails",
+]);
+
+expect(supportPath, [
+  "AI Visibility support routing",
+  "Track, then act.",
+  "Access issue",
+  "Proof question",
+  "Repair scope",
+  "Control priority",
+  "Support routing guardrails",
+]);
+
 expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
@@ -131,10 +197,16 @@ forbidden(reentryPath, [
   "They can leave today and come back to the same business control room tomorrow.",
 ]);
 
+forbidden(reportsPath, ["ranking guarantee", "AI placement guarantee", "pending report as final"]);
+forbidden(billingPath, ["card data", "raw provider payload", "fake urgency", "guaranteed outcomes"]);
+forbidden(notificationsPath, ["raw prompts", "private internals", "raw billing IDs", "duplicate anxiety"]);
+forbidden(supportPath, ["passwords", "card data", "private keys", "session tokens", "silent scope expansion"]);
+
 boundedLength(dashboardPath, 15000);
 boundedLength(actionInboxPath, 12500);
 boundedLength(commandCenterPath, 11000);
 boundedLength(reentryPath, 9000);
+boundedLength(protectedSuitePath, 6500);
 
 if (failures.length) {
   console.error("Customer platform dashboard validation failed:");
@@ -142,7 +214,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform dashboard validation passed with elevated customer action inbox, decision center, protected account re-entry, protected dashboard command strip, account/dashboard command language, Free Scan account creation language, and no internal labels.");
+console.log("Customer platform dashboard validation passed with protected dashboard suite contracts, elevated customer action inbox, decision center, protected account re-entry, protected dashboard command strip, protected reports, billing, notifications, support surfaces, account/dashboard command language, Free Scan account creation language, and no internal labels.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
