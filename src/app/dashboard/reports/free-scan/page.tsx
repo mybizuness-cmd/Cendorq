@@ -56,18 +56,18 @@ export default function FreeScanResultsPage() {
             The first Free Scan Presence Report is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            This is the Scan layer inside the customer dashboard. It shows what may be visible, unclear, weak, or blocked before Cendorq claims complete diagnosis.
+            This is the Scan layer inside the customer dashboard. Read the first signal, limits, proof, and weak point before choosing paid Review.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/plans/deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Open Review page — {DEEP_REVIEW.price}</Link>
+            <Link href="#free-scan-presence-report" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Read Free Scan report first</Link>
             <Link href="/dashboard/reports" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Back to report vault</Link>
           </div>
         </div>
 
         <div className="relative overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/74 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Review</h2>
-          <p className="mt-5 text-base font-medium leading-8 text-slate-600">{DEEP_REVIEW_VALUE.primaryValue}</p>
+          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Scan first</h2>
+          <p className="mt-5 text-base font-medium leading-8 text-slate-600">The result must stay proof-led: understand the visible signal and what the Scan cannot prove before moving into paid diagnosis.</p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {RESULT_STATE.slice(0, 2).map((item) => (
               <article key={item.label} className="rounded-[1.6rem] border border-cyan-100 bg-cyan-50/50 p-5 shadow-sm">
@@ -80,8 +80,27 @@ export default function FreeScanResultsPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6">
+      <section id="free-scan-presence-report" className="scroll-mt-24 relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Free Scan Presence Report before paid Review">
         <ProtectedFreeScanResultPreview />
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Review after first signal proof">
+        <div className="rounded-[2.3rem] border border-white/80 bg-white/82 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.06)] backdrop-blur sm:p-8 lg:p-10">
+          <div className="grid gap-5 lg:grid-cols-[0.68fr_1.32fr] lg:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Proof before paid pressure</p>
+              <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Open Review only after the first signal is clear.</h2>
+            </div>
+            <div>
+              <p className="text-base font-medium leading-8 text-slate-600">{DEEP_REVIEW_VALUE.primaryValue}</p>
+              <p className="mt-3 text-sm font-semibold leading-7 text-slate-500">Use Deep Review only when the Free Scan signal matters enough to prove the cause before repair or control.</p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Link href="/plans/deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Open Review page — {DEEP_REVIEW.price}</Link>
+                <Link href="/dashboard/reports" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Back to report vault</Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Market signal state">
