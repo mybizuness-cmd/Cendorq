@@ -3,6 +3,7 @@ import { PRESENCE_REPORT_LAUNCH_READINESS } from "@/lib/presence-report-launch-r
 import { PRESENCE_REPORT_NEXT_MOVE_POLICIES } from "@/lib/presence-report-next-move-policy";
 import { PRESENCE_REPORT_PROTECTED_ROUTES, PRESENCE_REPORT_PUBLIC_ROUTES, PRESENCE_REPORT_ROUTE_BOUNDARIES } from "@/lib/presence-report-route-map";
 import { SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS } from "@/lib/presence-report-release-gate";
+import { SANDWORK_PRESENCE_REPORT_PACKAGE } from "@/lib/sandwork-presence-report-fixture";
 
 export const PRESENCE_REPORT_OBJECT_INDEX = {
   category: "AI Search Presence Repair",
@@ -14,5 +15,6 @@ export const PRESENCE_REPORT_OBJECT_INDEX = {
   nextMovePolicies: PRESENCE_REPORT_NEXT_MOVE_POLICIES,
   launchReadiness: PRESENCE_REPORT_LAUNCH_READINESS,
   releaseChecks: SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS,
+  demoReportPackage: SANDWORK_PRESENCE_REPORT_PACKAGE,
   nextBuildLayer: "Live scan data should feed the same public-safe report package.",
 } as const;
