@@ -32,7 +32,7 @@ expect(pagePath, [
   "Repair Queue",
   "Control Snapshot",
   "Evidence Boundary",
-  "Presence Command Center",
+  "Product Proof Center",
   "Proof before paid pressure",
   "Not just a score. A repair system.",
   "Free Scan gives the first signal before paid diagnosis.",
@@ -119,7 +119,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with Presence Report homepage, product command proof layer, diagnostic Free Scan entry, sample report route, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
+console.log("Public command surface validation passed with Presence Report homepage, product proof layer, diagnostic Free Scan entry, sample report route, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
 
 function badgeHeavyPhrases() {
   return [
@@ -178,6 +178,7 @@ function blockedPublicPhrases() {
     "csrf" + "Token=",
     "admin" + "Key=",
     "support" + "Context" + "Key=",
+    "Presence Command",
     "localStorage.setItem",
     "sessionStorage.setItem",
   ];
