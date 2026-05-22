@@ -6,6 +6,7 @@ const pagePath = "src/app/dashboard/reports/free-scan/page.tsx";
 const componentPath = "src/components/presence-report/protected-free-scan-result-preview.tsx";
 const fixturePath = "src/lib/sandwork-presence-report-fixture.ts";
 const packageSourcePath = "src/lib/presence-report-package-source.ts";
+const renderRuntimePath = "src/lib/presence-report-customer-safe-render-runtime.ts";
 const indexPath = "src/components/presence-report/index.ts";
 const failures = [];
 
@@ -23,7 +24,16 @@ expect(pagePath, [
 
 expect(componentPath, [
   "ProtectedFreeScanResultPreview",
-  "getPresenceReportPackage",
+  "resolvePresenceReportPackageSource",
+  "resolvePresenceReportCustomerSafeRender",
+  "packageResolution",
+  "renderResolution",
+  "renderResolution.package ?? packageResolution.package",
+  "protected-free-scan",
+  "requestedAction: \"preview\"",
+  "Customer-safe render gate",
+  "renderResolution.state",
+  "renderResolution.customerSafeNotice",
   "packageSource.report",
   "packageSource.choiceGap",
   "Presence Score",
@@ -33,9 +43,20 @@ expect(componentPath, [
 ]);
 
 expect(packageSourcePath, [
+  "resolvePresenceReportPackageSource",
   "getPresenceReportPackage",
   "PRESENCE_REPORT_OBJECT_INDEX",
   "demoReportPackage",
+]);
+
+expect(renderRuntimePath, [
+  "resolvePresenceReportCustomerSafeRender",
+  "render-ready",
+  "render-demo-fallback",
+  "render-blocked",
+  "customerSafeNotice",
+  "allowedSections",
+  "blockedSections",
 ]);
 
 expect(fixturePath, [
@@ -55,6 +76,8 @@ expect(indexPath, ["ProtectedFreeScanResultPreview"]);
 order(pagePath, "Read Free Scan report first", "id=\"free-scan-presence-report\"");
 order(pagePath, "id=\"free-scan-presence-report\"", "Proof before paid pressure");
 order(pagePath, "Proof before paid pressure", "Open Review page");
+order(componentPath, "resolvePresenceReportPackageSource", "resolvePresenceReportCustomerSafeRender");
+order(componentPath, "Customer-safe render gate", "Protected Free Scan result");
 
 forbidden(pagePath, [
   "full diagnosis.",
@@ -83,7 +106,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Protected Free Scan Presence Result validation passed with package-source helper, shared fixture boundary, first-signal positioning, and proof-before-paid-pressure CTA order.");
+console.log("Protected Free Scan Presence Result validation passed with customer-safe render gate, package-source helper, shared fixture boundary, first-signal positioning, and proof-before-paid-pressure CTA order.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
