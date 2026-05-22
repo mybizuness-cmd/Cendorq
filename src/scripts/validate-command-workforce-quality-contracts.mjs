@@ -36,7 +36,9 @@ expect("docs/visual-command-surface-review-register.md", [
   "Sample Presence Report `/sample-report`",
   "Protected Free Scan Presence Report `/dashboard/reports/free-scan`",
   "Dashboard Presence Command Snapshot",
-  "Plans, FAQ, and mobile flows",
+  "Plans `/plans`",
+  "FAQ `/faq`",
+  "Mobile command hierarchy",
   "one obvious safest next command",
   "premium restraint",
   "strong hierarchy",
@@ -49,6 +51,9 @@ expect("docs/visual-command-surface-review-register.md", [
   "sample language educational, not promissory",
   "first signal only visible",
   "Choice Gap, Repair Queue, and Control Snapshot distinct",
+  "Keep Free Scan as the safest starting command when the buyer is unsure.",
+  "Keep Start Free Scan first in quick links.",
+  "Keep one dominant next action per screen band.",
 ]);
 
 expect("docs/command-workforce-finding-template.md", [
@@ -178,7 +183,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with visual surface review register, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
+console.log("Command workforce quality validation passed with visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
