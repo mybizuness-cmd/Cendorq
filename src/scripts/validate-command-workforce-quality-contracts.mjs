@@ -30,6 +30,27 @@ expect("docs/command-center-command-workforce-bridge.md", [
   "Command workforce validation remains in Release Control.",
 ]);
 
+expect("docs/visual-command-surface-review-register.md", [
+  "Visual Command Surface Review Register",
+  "Homepage `/`",
+  "Sample Presence Report `/sample-report`",
+  "Protected Free Scan Presence Report `/dashboard/reports/free-scan`",
+  "Dashboard Presence Command Snapshot",
+  "Plans, FAQ, and mobile flows",
+  "one obvious safest next command",
+  "premium restraint",
+  "strong hierarchy",
+  "immediate scannability",
+  "clear proof sequence",
+  "mobile clarity",
+  "report readability",
+  "dashboard command clarity",
+  "Run Free Scan as the clearest first command",
+  "sample language educational, not promissory",
+  "first signal only visible",
+  "Choice Gap, Repair Queue, and Control Snapshot distinct",
+]);
+
 expect("docs/command-workforce-finding-template.md", [
   "Command Workforce Finding Template",
   "Finding identity",
@@ -157,7 +178,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
+console.log("Command workforce quality validation passed with visual surface review register, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
