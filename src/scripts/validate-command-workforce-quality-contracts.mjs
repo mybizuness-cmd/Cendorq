@@ -4,6 +4,47 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 
+expect("docs/cendorq-master-blueprint.md", [
+  "Cendorq Master Blueprint",
+  "AI Search Presence Repair",
+  "Cendorq should not become a smaller Semrush or a smaller Yext.",
+  "Make the business answer-ready.",
+  "Presence Report",
+  "Run Free Scan",
+  "Semrush lessons",
+  "Yext Scout lessons",
+  "Presence Score",
+  "Choice Gap",
+  "Repair Queue",
+  "Evidence Boundary",
+  "Business Truth Profile",
+  "Control Snapshot",
+  "Presence Gap Index",
+  "Customer dashboard blueprint",
+  "Presence Command Center",
+  "Operator terminal blueprint",
+  "Command Queue",
+  "Evidence Console",
+  "Finding Builder",
+  "Repair Composer",
+  "Approval Gate",
+  "Audit Log",
+  "proof before paid pressure",
+  "one dominant command per screen band",
+]);
+
+expect("src/scripts/validate-cendorq-master-blueprint.mjs", [
+  "Cendorq master blueprint validation failed:",
+  "Cendorq master blueprint validation passed",
+  "docs/cendorq-master-blueprint.md",
+  "AI Search Presence Repair",
+  "Presence Report",
+  "Scan",
+  "Review",
+  "Repair",
+  "Control",
+]);
+
 expect("docs/command-workforce-operating-model.md", [
   "Cendorq Command Workforce Operating Model",
   "Owner command sets category direction and launch posture.",
@@ -244,7 +285,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with live device-width review targets, source-level device-width review record, device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
+console.log("Command workforce quality validation passed with Cendorq master blueprint, live device-width review targets, source-level device-width review record, device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
