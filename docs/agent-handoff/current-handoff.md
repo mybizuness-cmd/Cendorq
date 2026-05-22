@@ -15,14 +15,15 @@ Future chats must operate from repo sources, not chat memory.
 5. `docs/visual-command-device-width-review-protocol.md`
 6. `src/lib/visual-command-device-review-targets.ts`
 7. `src/lib/dashboard-protected-suite-contracts.ts`
-8. Latest open PR and latest merged `main` commit status.
+8. `src/lib/presence-report-customer-source-contracts.ts`
+9. Latest open PR and latest merged `main` commit status.
 
 Do not ask the owner to repeat the vision if these files are available.
 
 ## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Main head at handoff: `e6b2bec148173322bb691ed01750b0301e88f789`
+- Main head at handoff: `bab83d910f4c73d7b09466e3a674d4db07a27717`
 - Legacy validation marker: `next-1017`
 - Recently merged PR #1051: `Install Cendorq master blueprint`
 - Recently merged PR #1052: `Upgrade homepage product command proof layer`
@@ -30,8 +31,10 @@ Do not ask the owner to repeat the vision if these files are available.
 - Recently merged PR #1054: `Upgrade protected dashboard command strip`
 - Recently merged PR #1055: `Elevate customer dashboard modules`
 - Recently merged PR #1056: `Add protected dashboard suite contracts`
-- Latest checked merge status at handoff: Vercel green on PR #1056 merge commit. PR #1056 was green before merge across CI, Release Control, CodeQL, and Vercel.
-- Current post-merge cleanup branch: `refresh-handoff-after-source-package`
+- Recently merged PR #1057: `Refresh handoff after source package merge`
+- Recently merged PR #1058: `Add Presence Report customer source contracts`
+- Latest checked merge status at handoff: Vercel green on PR #1058 merge commit. PR #1058 was green before merge across CI, Release Control, CodeQL, and Vercel.
+- Current post-merge cleanup branch: `refresh-handoff-after-source-contracts`
 
 ## Source-memory package
 
@@ -109,9 +112,36 @@ The product loop:
 
 Do not promise rankings, leads, revenue, or AI placement. Do not expose raw evidence or private scoring internals publicly.
 
+## Presence Report customer source contracts
+
+Main now includes:
+
+- `src/lib/presence-report-customer-source-contracts.ts`
+- `src/lib/presence-report-package-source.ts` resolver boundary
+- `src/scripts/validate-presence-report-package-source.mjs` guard coverage
+
+The source contracts define:
+
+- `demo`: current Sandwork demo package.
+- `customer-latest-free-scan`: future customer-owned latest Free Scan package.
+- `customer-released-report`: future customer-owned released paid report package.
+
+Current behavior remains safe: protected report surfaces still resolve through `getPresenceReportPackage()` and fall back to the demo package until server-side customer ownership and release storage are wired.
+
+Required future customer source gates:
+
+- verified customer email
+- server-side scan ownership
+- same-account access gate
+- paid entitlement for released reports
+- released report ownership
+- operator approval gate
+
+Do not expose raw intake payloads, private scoring internals, account-existence internals, draft reports, unapproved findings, raw evidence, or operator notes.
+
 ## Installed Presence Report system
 
-Main includes homepage AI Search Presence Repair positioning, Product Proof Center, Sample Presence Report, shared report components, Presence Report contracts, live Free Scan snapshot mapping, protected Free Scan report preview, Dashboard Presence Command Snapshot, Sandwork demo fixture, object index, package-source helper, and validators for the report system.
+Main includes homepage AI Search Presence Repair positioning, Product Proof Center, Sample Presence Report, shared report components, Presence Report contracts, live Free Scan snapshot mapping, protected Free Scan report preview, Dashboard Presence Command Snapshot, Sandwork demo fixture, object index, package-source helper, customer source contracts, and validators for the report system.
 
 Sandwork remains the canonical demo boundary. Do not re-hardcode Sandwork or sample report objects inside presentation components. Report surfaces should use the package-source helper.
 
@@ -149,7 +179,7 @@ Operating loop:
 5. Validators turn non-negotiable standards into repeatable gates.
 6. Handoff memory records what changed, why it changed, what must not regress, and what to inspect next.
 
-Installed command workforce layer includes command workforce docs, visual command docs, `docs/cendorq-master-blueprint.md`, `docs/cendorq-competitive-intelligence-source-package.md`, `src/lib/command-workforce-quality-contracts.ts`, `src/lib/visual-command-device-review-targets.ts`, `src/lib/dashboard-protected-suite-contracts.ts`, and validation scripts.
+Installed command workforce layer includes command workforce docs, visual command docs, `docs/cendorq-master-blueprint.md`, `docs/cendorq-competitive-intelligence-source-package.md`, `src/lib/command-workforce-quality-contracts.ts`, `src/lib/visual-command-device-review-targets.ts`, `src/lib/dashboard-protected-suite-contracts.ts`, `src/lib/presence-report-customer-source-contracts.ts`, and validation scripts.
 
 ## Visual command doctrine
 
@@ -195,6 +225,7 @@ Release Control runs route guardrails, Presence Report validation, command workf
 - Keep public and protected surfaces free of private scoring internals.
 - Keep next moves tied to evidence, not plan pressure.
 - Keep report surfaces pointed at the package-source helper instead of direct demo fixture imports.
+- Keep the customer source contracts intact until real storage replaces demo fallback.
 - Keep visual command as a real quality lane.
 - Keep `pnpm validate:command-workforce` in Release Control.
 - Keep protected Free Scan proof-before-paid-pressure order guarded.
