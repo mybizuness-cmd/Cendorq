@@ -19,7 +19,7 @@ Work in controlled batches, keep user updates short, and verify green deployment
 
 ## Business doctrine
 
-Free Scan creates the customer. Customer Access brings the customer back. Known customers continue to dashboard. Unknown visitors go to Free Scan. No blank dashboards.
+Free Scan creates the customer. Customer Access brings the customer back. Provider buttons verify identity. Cendorq records decide access. Known customers continue to dashboard. Unknown people go to Free Scan. No blank accounts.
 
 The customer-facing flow is:
 
@@ -28,6 +28,19 @@ The customer-facing flow is:
 3. Create account from the scan or paid action.
 4. Open protected result, plan, billing, support, and next action in the dashboard.
 5. Paid path moves through Review, Repair, and Control.
+
+## Access doctrine
+
+Customer Access is one system, not separate signup/login/create-workspace paths.
+
+- Secure email access checks existing customer eligibility before sending access.
+- Free Scan is the active eligibility source today.
+- Paid plan, report vault, billing, and support are contract-ready eligibility sources until durable server-side ownership stores are wired.
+- `resolveCustomerAccessEligibility` is the customer access gate for secure email access and same-email recovery.
+- Provider access must stay hidden until the real callback and session runtime are ready.
+- Provider callback must confirm identity, read verified email, run `evaluateProviderCallbackCustomerAccess`, and only then create a durable Cendorq session.
+- Unknown provider emails must route to Free Scan with same-email recovery copy.
+- Customer-facing copy should say account, Free Scan, plan, same email, dashboard, and secure access. It should not expose internal terms.
 
 ## Presence Report doctrine
 
@@ -98,6 +111,13 @@ Release Control runs the same chain and currently includes `pnpm validate:presen
 - Keep public and protected surfaces free of private scoring internals.
 - Keep next moves tied to evidence, not plan pressure.
 - Keep the shared Sandwork fixture as the demo source.
+- Do not create blank dashboards for unknown visitors.
+- Do not restore old Free Scan localStorage drafts when entry is access-required or restart.
+- Do not show provider buttons until provider callback runtime is real.
+- Do not say Create workspace on customer-facing access/signup pages.
+- Do not expose account-existence internals.
+- Keep protected access server-derived.
+- Keep Presence Report public language customer-safe and evidence-led.
 - Keep the PR draft until final review confirms the latest green head.
 - Do not move to the next implementation batch until CI, Release Control, CodeQL, and Vercel are green on the latest head.
 
