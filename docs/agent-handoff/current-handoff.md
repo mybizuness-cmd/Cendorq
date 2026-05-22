@@ -4,19 +4,22 @@
 
 Cendorq is a category-control company, not a generic agency site and not a normal SaaS signup funnel. The product must optimize for qualified business acquisition, evidence, paid next steps, and protected customer continuity.
 
-The operator should work in controlled batches, keep updates short, and verify green deployment checks before moving to the next implementation batch.
+Work in controlled batches, keep user updates short, and verify green deployment checks before moving to the next implementation batch.
 
 ## Current branch
 
 - Repository: `mybizuness-cmd/Cendorq`
 - Branch: `presence-report-homepage-batch`
+- Pull request: #1035, `Install Presence Report homepage batch`
 - Legacy validation marker: `next-1017`
-- Latest checked green deployment checkpoint: Presence Report homepage batch after base update conflict resolution
-- Latest checked green commit at handoff: `d4c8201af76cb03994883ce070575df6d789fe12`
+- Latest checked head at handoff: `42d3680d467c710235440e0286f2f7288f0534dd`
+- Latest checked status at handoff: CI green, Release Control green, CodeQL green, and Vercel green.
+- Base alignment at handoff: `main` is not ahead of the branch; the branch is ahead of `main` by 265 commits.
+- PR state at handoff: open, draft, mergeable, and no blocking submitted reviews or review threads found.
 
 ## Business doctrine
 
-Free Scan creates the customer. Customer Access brings the customer back. Provider buttons verify identity. Cendorq records decide access. Known customers continue to dashboard. Unknown people go to Free Scan. No blank accounts.
+Free Scan creates the customer. Customer Access brings the customer back. Known customers continue to dashboard. Unknown visitors go to Free Scan. No blank dashboards.
 
 The customer-facing flow is:
 
@@ -30,58 +33,79 @@ The customer-facing flow is:
 
 Presence Report is the public-facing evidence object for AI Search Presence Repair.
 
-The Presence Report path is:
+The product loop is:
 
-1. Free Scan captures the first signal.
-2. Sample Presence Report demonstrates the customer-safe report shape.
-3. Business Truth Profile holds approved facts and restricted claims.
+1. Business Truth Profile holds approved facts and restricted claims.
+2. Free Scan captures the first signal.
+3. Presence Report shows Findability, Understanding, Trust, Choice, Action, Repair Queue, and Recommended Next Move.
 4. Choice Gap explains where competitors are easier to understand, trust, and choose.
 5. Repair Queue ranks what to fix first.
-6. Release Gate keeps restricted promises out of report language.
+6. Build Fix repairs public signals.
 7. Control Snapshot keeps ongoing visibility and readiness from drifting.
 
 Do not promise rankings, leads, revenue, or AI placement. Do not expose raw evidence or private scoring internals publicly.
 
-## Access doctrine
+## Installed Presence Report system
 
-Customer Access is one system, not separate signup/login/create-workspace paths.
+This branch now includes:
 
-- Secure email access checks existing customer eligibility before sending access.
-- Free Scan is the active eligibility source today.
-- Paid plan, report vault, billing, and support are contract-ready eligibility sources until durable server-side ownership stores are wired.
-- `resolveCustomerAccessEligibility` is the customer access gate for secure email access and same-email recovery.
-- Provider access must stay hidden until the real callback and session runtime are ready.
-- Provider callback must confirm identity, read verified email, run `evaluateProviderCallbackCustomerAccess`, and only then create a durable Cendorq session.
-- Unknown provider emails must route to Free Scan with same-email recovery copy.
-- Customer-facing copy should say account, Free Scan, plan, same email, dashboard, and secure access. It should not expose internal terms.
+- Homepage AI Search Presence Repair positioning.
+- Sample Presence Report route and vertical sample routes for dentist, med spa, law firm, and contractor.
+- Shared `PresenceReportPreview` and `SamplePresenceReport` components.
+- Public Presence Report contract, Business Truth Profile, Choice Gap, Control Snapshot, Repair Queue, Release Gate, route map, proof map, evidence boundary, next-move policy, launch-readiness, and object index.
+- Presence Report generation adapter.
+- Live Free Scan snapshot mapping into the five public Presence Report pillars.
+- Protected Free Scan Presence Report preview.
+- Dashboard Presence Command Snapshot.
+- Shared Sandwork Presence Report fixture at `src/lib/sandwork-presence-report-fixture.ts`.
+- Presence Report object index registration of the shared Sandwork demo report package.
+- Validators for the public contract, live scan mapper, shared Sandwork fixture, protected result, dashboard snapshot, object index, launch-readiness, merge-readiness, routes, sitemap, and vertical sample routes.
 
-## Current completed access hardening
+## Sandwork fixture boundary
 
-- `src/lib/customer-access-eligibility.ts` gates secure email access through existing Free Scan eligibility.
-- `src/lib/customer-access-eligibility.ts` documents the full eligibility source ladder: active Free Scan plus contract-ready paid plan, report vault, billing, and support.
-- `src/app/api/auth/email/route.ts` routes unknown emails to Free Scan instead of sending an access link.
-- `src/app/login/page.tsx` uses customer-facing same-email recovery copy.
-- `src/lib/customer-provider-callback-access-gate.ts` defines provider callback eligibility decisions.
-- `src/lib/production-auth-provider-contracts.ts` locks verified provider email and existing-customer eligibility before dashboard access.
-- `src/app/api/auth/callback/[provider]/route.ts` documents that provider callback remains pending until the real runtime exists.
-- `src/scripts/validate-provider-callback-ready-gate.mjs` validates provider buttons stay hidden and provider sessions cannot ship before eligibility.
-- `src/scripts/validate-customer-auth-orchestration.mjs` validates the eligibility source ladder.
+Sandwork is the canonical demo source for this batch.
+
+- `SANDWORK_FREE_SCAN_INPUT` is the reusable demo Free Scan input.
+- `SANDWORK_FREE_SCAN_SNAPSHOT` is generated from the Free Scan report builder.
+- `SANDWORK_PRESENCE_REPORT_PACKAGE` is generated through the live scan mapper.
+- Protected Free Scan preview and Dashboard Presence Command Snapshot consume the shared package.
+- Presence Report object index exposes the shared package as `demoReportPackage`.
+- Launch-readiness, merge-readiness, batch status, validation runbook, and base-update audit all document this boundary.
+
+Do not re-hardcode Sandwork or sample report objects inside presentation components.
+
+## Validation commands
+
+Run before marking the PR ready:
+
+```bash
+pnpm validate:routes
+pnpm validate:presence-report
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+Release Control runs the same chain and currently includes `pnpm validate:presence-report`.
 
 ## Do not regress
 
-- Do not create blank dashboards for unknown visitors.
-- Do not restore old Free Scan localStorage drafts when entry is access-required or restart.
-- Do not show provider buttons until provider callback runtime is real.
-- Do not say Create workspace on customer-facing access/signup pages.
-- Do not expose account-existence internals.
-- Keep protected access server-derived.
-- Keep Presence Report public language customer-safe and evidence-led.
-- Do not move to the next implementation batch until Vercel is green.
+- Keep the public category as AI Search Presence Repair.
+- Keep Presence Report as the central product object.
+- Keep Free Scan first-signal only.
+- Keep Review, Repair, and Control separate from Free Scan.
+- Keep sample reports framed as examples, not promises.
+- Keep public and protected surfaces free of private scoring internals.
+- Keep next moves tied to evidence, not plan pressure.
+- Keep the shared Sandwork fixture as the demo source.
+- Keep the PR draft until final review confirms the latest green head.
+- Do not move to the next implementation batch until CI, Release Control, CodeQL, and Vercel are green on the latest head.
 
 ## Next implementation candidates
 
-1. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
-2. Add runtime tests for email access eligibility and provider callback access decisions.
-3. Add official provider button surface only after callback runtime is implemented.
-4. Keep provider runtime gated until verified email, eligibility, and server session creation are real.
-5. After final validation, mark the Presence Report PR ready for review only when local validation, Vercel, Release Control, CI, and CodeQL are green.
+1. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
+2. Add real scan evidence records once the report pipeline is ready.
+3. Add category-specific proof standards into report scoring and repair language.
+4. Add operator QA gates before any generated report is released to customers.
+5. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
+6. Mark PR #1035 ready for review only after latest head, Vercel, CI, Release Control, CodeQL, base alignment, and docs are all green and current.
