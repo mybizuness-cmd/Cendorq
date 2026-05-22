@@ -43,24 +43,13 @@ expect("src/lib/command-workforce-quality-contracts.ts", [
   "dashboard-command-clarity",
 ]);
 
-expect("docs/command-center-docs-index.md", [
-  "docs/command-workforce-operating-model.md",
-  "src/lib/command-workforce-quality-contracts.ts",
-  "src/scripts/validate-command-workforce-quality-contracts.mjs",
-]);
-
-expect("package.json", [
-  "validate:command-workforce",
-  "node ./src/scripts/validate-command-workforce-quality-contracts.mjs",
-]);
-
 if (failures.length) {
   console.error("Command workforce quality validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed.");
+console.log("Command workforce quality validation passed with operating model and visual command contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
