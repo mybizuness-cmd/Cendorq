@@ -65,6 +65,20 @@ expect("docs/command-workforce-docs-index.md", [
   "src/scripts/validate-command-workforce-quality-contracts.mjs",
 ]);
 
+expect("docs/command-workforce-merge-readiness.md", [
+  "Command Workforce Merge Readiness",
+  "Required checks",
+  "node ./src/scripts/validate-command-workforce-quality-contracts.mjs",
+  "Readiness conditions",
+  "CI is green.",
+  "Release Control is green.",
+  "CodeQL is green.",
+  "Vercel is green.",
+  "Operating layer review",
+  "Visual quality review",
+  "Promotion path",
+]);
+
 expect("src/lib/command-workforce-quality-contracts.ts", [
   "COMMAND_WORKFORCE_OPERATING_MODEL",
   "VISUAL_COMMAND_QUALITY_STANDARD",
@@ -98,7 +112,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model, visual standard, release runbook, docs index, and typed contract coverage.");
+console.log("Command workforce quality validation passed with operating model, visual standard, release runbook, docs index, merge readiness, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
