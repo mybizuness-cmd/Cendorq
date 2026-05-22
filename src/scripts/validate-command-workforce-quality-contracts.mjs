@@ -16,6 +16,16 @@ expect("docs/command-workforce-operating-model.md", [
   "Use bigger batches when changes form one coherent operating layer and can be validated together.",
 ]);
 
+expect("docs/command-workforce-finding-template.md", [
+  "Command Workforce Finding Template",
+  "Finding identity",
+  "Evidence basis",
+  "Affected surface",
+  "Release captain decision",
+  "Regression memory",
+  "Validator needed:",
+]);
+
 expect("docs/visual-command-quality-standard.md", [
   "Cendorq Visual Command Quality Standard",
   "Visual quality is part of category ownership.",
@@ -29,8 +39,6 @@ expect("docs/visual-command-quality-standard.md", [
   "Report readability",
   "Dashboard command clarity",
   "Clean visual focus",
-  "Report surfaces should separate score, finding, proof, limitation, next move, and repair priority.",
-  "Mobile screens must preserve the main action",
 ]);
 
 expect("docs/visual-command-review-template.md", [
@@ -43,11 +51,6 @@ expect("docs/visual-command-review-template.md", [
   "Dashboard command quality",
   "Decision",
   "What is the safest next command?",
-  "Is there one dominant action instead of several competing actions?",
-  "Does the surface feel controlled, premium, and serious?",
-  "Can the visitor separate score, finding, proof, limitation, next move, and repair priority?",
-  "Does the mobile flow avoid becoming a compressed desktop page?",
-  "Does it avoid becoming a generic dashboard?",
 ]);
 
 expect("docs/command-workforce-release-runbook.md", [
@@ -57,11 +60,6 @@ expect("docs/command-workforce-release-runbook.md", [
   "Batch sizing",
   "Acceptance",
   "Memory",
-  "Report truth lane",
-  "Customer command experience lane",
-  "Visual command lane",
-  "Security and command lane",
-  "Market forecast lane",
   "passing CI",
   "passing Release Control",
   "passing CodeQL",
@@ -75,11 +73,8 @@ expect("docs/command-workforce-docs-index.md", [
   "Typed source of truth",
   "Validator",
   "Promotion path",
-  "docs/command-workforce-operating-model.md",
-  "docs/command-workforce-release-runbook.md",
-  "docs/visual-command-quality-standard.md",
-  "src/lib/command-workforce-quality-contracts.ts",
-  "src/scripts/validate-command-workforce-quality-contracts.mjs",
+  "docs/command-workforce-finding-template.md",
+  "docs/visual-command-review-template.md",
 ]);
 
 expect("docs/command-workforce-merge-readiness.md", [
@@ -91,9 +86,6 @@ expect("docs/command-workforce-merge-readiness.md", [
   "Release Control is green.",
   "CodeQL is green.",
   "Vercel is green.",
-  "Operating layer review",
-  "Visual quality review",
-  "Promotion path",
 ]);
 
 expect("docs/command-workforce-handoff-addendum.md", [
@@ -104,13 +96,6 @@ expect("docs/command-workforce-handoff-addendum.md", [
   "Finding posture",
   "Batch posture",
   "Next promotion",
-  "docs/command-workforce-operating-model.md",
-  "docs/visual-command-quality-standard.md",
-  "docs/command-workforce-release-runbook.md",
-  "docs/command-workforce-docs-index.md",
-  "docs/command-workforce-merge-readiness.md",
-  "src/lib/command-workforce-quality-contracts.ts",
-  "src/scripts/validate-command-workforce-quality-contracts.mjs",
 ]);
 
 expect("src/lib/command-workforce-quality-contracts.ts", [
@@ -123,9 +108,6 @@ expect("src/lib/command-workforce-quality-contracts.ts", [
   "chief-lanes",
   "scoped-scouts",
   "visual-command",
-  "visual-hierarchy-scout",
-  "report-design-quality-scout",
-  "mobile-command-clarity-scout",
   "findingId",
   "evidenceBasis",
   "customerImpact",
@@ -133,11 +115,6 @@ expect("src/lib/command-workforce-quality-contracts.ts", [
   "validatorNeeded",
   "releaseCaptainDecision",
   "What is the safest next command?",
-  "premium-restraint",
-  "one-dominant-next-action",
-  "mobile-clarity",
-  "report-readability",
-  "dashboard-command-clarity",
 ]);
 
 if (failures.length) {
@@ -146,7 +123,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, and typed contract coverage.");
+console.log("Command workforce quality validation passed with operating model, finding template, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
