@@ -22,6 +22,26 @@ expect("src/lib/presence-report-evidence-record-contracts.ts", ["PRESENCE_REPORT
 expect("src/lib/presence-report-retrieval-workflow-contracts.ts", ["PRESENCE_REPORT_RETRIEVAL_WORKFLOW_CONTRACTS", "customer-safe-render", "package-source helper used"]);
 expect("src/lib/operator-release-gate-contracts.ts", ["OPERATOR_RELEASE_GATE_CONTRACTS", "Approval Gate", "Release Log"]);
 expect("src/lib/category-proof-standard-contracts.ts", ["CATEGORY_PROOF_STANDARD_CONTRACTS", "Findability", "Understanding", "Trust", "Choice", "Action", "Control"]);
+expect("src/lib/presence-report-free-scan-snapshot-source.ts", [
+  "resolveCustomerLatestFreeScanSnapshotPackage",
+  "FreeScanSnapshotOwnershipProof",
+  "FreeScanSnapshotRecord",
+  "verified customer email",
+  "server-side scan ownership",
+  "same-account access gate",
+  "customer-owned Free Scan snapshot",
+  "resolved-customer-snapshot",
+  "blocked-needs-ownership",
+  "blocked-missing-snapshot",
+]);
+expect("src/lib/presence-report-package-source.ts", [
+  "resolveCustomerLatestFreeScanSnapshotPackage",
+  "PresenceReportPackageSourceOptions",
+  "latestFreeScanRecord",
+  "ownershipProof",
+  "resolvedSource: \"customer-latest-free-scan\"",
+  "blockedGates",
+]);
 
 expect("docs/presence-report-merge-readiness.md", [
   "Presence Report merge readiness",
@@ -45,7 +65,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report merge readiness validation passed with package source, evidence record contracts, retrieval workflow contracts, operator release gates, category proof standards, object index, and system-chain coverage.");
+console.log("Presence Report merge readiness validation passed with package source, customer-owned Free Scan snapshot retrieval, evidence record contracts, retrieval workflow contracts, operator release gates, category proof standards, object index, and system-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
