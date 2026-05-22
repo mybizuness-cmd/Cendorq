@@ -12,7 +12,7 @@ Work in controlled batches, keep user updates short, and verify green deployment
 - Branch: `presence-report-homepage-batch`
 - Pull request: #1035, `Install Presence Report homepage batch`
 - Legacy validation marker: `next-1017`
-- Latest checked head at handoff: `19a04ff4246dc2b5432d3380edc0abe1559fe207`
+- Latest checked head at handoff: `293bcd5c3ae684fee8ffa8855728195c5d009b34`
 - Latest checked status at handoff: CI green, Release Control green, CodeQL green, and Vercel green.
 - Base alignment at handoff: `main` is not ahead of the branch; the branch is ahead of `main` by 265 commits.
 - PR state at handoff: open, draft, mergeable, and no blocking submitted reviews or review threads found.
@@ -72,7 +72,8 @@ This branch now includes:
 - Dashboard Presence Command Snapshot.
 - Shared Sandwork Presence Report fixture at `src/lib/sandwork-presence-report-fixture.ts`.
 - Presence Report object index registration of the shared Sandwork demo report package.
-- Validators for the public contract, live scan mapper, shared Sandwork fixture, protected result, dashboard snapshot, object index, launch-readiness, merge-readiness, routes, sitemap, and vertical sample routes.
+- Package-source helper at `src/lib/presence-report-package-source.ts` for object-index-backed report package access.
+- Validators for the public contract, live scan mapper, shared Sandwork fixture, package-source helper, protected result, dashboard snapshot, object index, launch-readiness, merge-readiness, routes, sitemap, and vertical sample routes.
 
 ## Sandwork fixture boundary
 
@@ -81,11 +82,12 @@ Sandwork is the canonical demo source for this batch.
 - `SANDWORK_FREE_SCAN_INPUT` is the reusable demo Free Scan input.
 - `SANDWORK_FREE_SCAN_SNAPSHOT` is generated from the Free Scan report builder.
 - `SANDWORK_PRESENCE_REPORT_PACKAGE` is generated through the live scan mapper.
-- Protected Free Scan preview and Dashboard Presence Command Snapshot consume the shared package.
 - Presence Report object index exposes the shared package as `demoReportPackage`.
+- `getPresenceReportPackage()` is the report-surface helper for reading the object-index-backed demo package.
+- Protected Free Scan preview and Dashboard Presence Command Snapshot consume the package-source helper.
 - Launch-readiness, merge-readiness, batch status, validation runbook, and base-update audit all document this boundary.
 
-Do not re-hardcode Sandwork or sample report objects inside presentation components.
+Do not re-hardcode Sandwork or sample report objects inside presentation components. Do not import the Sandwork fixture directly in report surfaces; use the package-source helper.
 
 ## Validation commands
 
@@ -111,6 +113,7 @@ Release Control runs the same chain and currently includes `pnpm validate:presen
 - Keep public and protected surfaces free of private scoring internals.
 - Keep next moves tied to evidence, not plan pressure.
 - Keep the shared Sandwork fixture as the demo source.
+- Keep report surfaces pointed at the package-source helper instead of direct demo fixture imports.
 - Do not create blank dashboards for unknown visitors.
 - Do not restore old Free Scan localStorage drafts when entry is access-required or restart.
 - Do not show provider buttons until provider callback runtime is real.
