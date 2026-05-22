@@ -10,6 +10,7 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 
 - Repository: `mybizuness-cmd/Cendorq`
 - Main head at handoff: `04aaad4dca0c04acf5c64ac1b2f4812146b4ef2f`
+- Legacy validation marker: `next-1017`
 - Recently merged PR #1035: `Install Presence Report homepage batch`
 - Recently merged PR #1036: `Install command workforce quality layer`
 - Latest checked merge status at handoff: Vercel green on the PR #1036 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1036 was green before merge across CI, Release Control, CodeQL, and Vercel.
