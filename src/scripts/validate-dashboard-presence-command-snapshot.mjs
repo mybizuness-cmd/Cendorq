@@ -40,6 +40,13 @@ expect(pagePath, [
   "AI Visibility command center",
   "Presence Reports",
   "one clear next command",
+  "Protected Presence Command Center",
+  "State, gap, action, control.",
+  "Presence report",
+  "Start from the protected report object, not a generic dashboard tile.",
+  "Show where the business may be harder to understand, trust, compare, or choose.",
+  "Rank what should be fixed first before asking the customer to move deeper.",
+  "Keep the business answer-ready after Review or Repair changes land.",
   "Presence command snapshot",
   "Presence Score",
   "Choice Gap",
@@ -73,7 +80,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard Presence Command Snapshot validation passed with package-source helper, shared Sandwork fixture boundary, and protected report object boundaries.");
+console.log("Dashboard Presence Command Snapshot validation passed with protected command strip, package-source helper, shared Sandwork fixture boundary, and protected report object boundaries.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
