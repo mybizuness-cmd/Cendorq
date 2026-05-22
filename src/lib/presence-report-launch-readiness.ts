@@ -41,6 +41,11 @@ export const PRESENCE_REPORT_LAUNCH_READINESS: readonly PresenceReportLaunchChec
     ownerVisibleReason: "Reviewers and future report surfaces need one reusable demo source that follows the live scan mapper.",
   },
   {
+    label: "Package-source helper",
+    requiredState: "Report surfaces use the package-source helper for object-index-backed demo package access instead of direct fixture imports.",
+    ownerVisibleReason: "Future report surfaces should reuse the same package access path before live customer snapshots replace the demo source.",
+  },
+  {
     label: "Vertical standards",
     requiredState: "Category-specific proof standards exist for priority verticals.",
     ownerVisibleReason: "A dentist, med spa, law firm, and contractor do not earn trust the same way.",
