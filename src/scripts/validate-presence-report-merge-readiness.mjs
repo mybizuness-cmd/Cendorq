@@ -10,6 +10,8 @@ const runbookPath = "docs/presence-report-validation-runbook.md";
 const packagePath = "package.json";
 const systemValidatorPath = "src/scripts/validate-presence-report-system.mjs";
 const thisValidatorPath = "src/scripts/validate-presence-report-merge-readiness.mjs";
+const fixtureValidatorPath = "src/scripts/validate-sandwork-presence-report-fixture.mjs";
+const objectIndexPath = "src/lib/presence-report-object-index.ts";
 
 expect(readinessPath, [
   "Presence Report merge readiness",
@@ -33,6 +35,12 @@ expect(readinessPath, [
   "Sample Report remains example, not a promise.",
   "Presence Report recommendations stay evidence-led.",
   "Public sitemap includes Sample Report and vertical sample routes",
+  "Demo fixture readiness",
+  "src/lib/sandwork-presence-report-fixture.ts",
+  "Protected Free Scan preview and Dashboard Presence Command Snapshot consume the shared Sandwork report package",
+  "Presence Report object index exposes the shared demo report package",
+  "src/scripts/validate-sandwork-presence-report-fixture.mjs",
+  "Sandwork demo data stays centralized in the shared report package",
 ]);
 
 expect(statusPath, [
@@ -47,6 +55,8 @@ expect(runbookPath, [
   "pnpm validate:presence-report",
   "Release Gate checks approved facts",
   "Merge readiness checks base-update risk",
+  "src/lib/sandwork-presence-report-fixture.ts",
+  "src/scripts/validate-sandwork-presence-report-fixture.mjs",
 ]);
 
 expect(packagePath, [
@@ -56,7 +66,13 @@ expect(packagePath, [
 
 expect(systemValidatorPath, [
   thisValidatorPath,
+  fixtureValidatorPath,
   "Presence Report system validation passed with merge-readiness coverage.",
+]);
+
+expect(objectIndexPath, [
+  "SANDWORK_PRESENCE_REPORT_PACKAGE",
+  "demoReportPackage",
 ]);
 
 if (failures.length) {
@@ -65,7 +81,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report merge readiness validation passed with deployment, local validation, package shortcut, base update, sitemap, navigation, and system-chain coverage.");
+console.log("Presence Report merge readiness validation passed with deployment, local validation, package shortcut, base update, sitemap, navigation, Sandwork fixture, object index, and system-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
