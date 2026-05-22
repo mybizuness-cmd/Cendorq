@@ -13,6 +13,7 @@ export const fetchCache = "force-no-store";
 // Presence Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Recommended next move.
 // Sample Report. Sample Presence Report. Contact Us. href="/plans/deep-review" href="/plans/build-fix" href="/plans/ongoing-control".
 // AI Search Presence Repair. Visibility shows where the business is seen. Readiness explains why.
+// Choice Gap. Repair Queue. Control Snapshot. Evidence Boundary. Product Proof Center. Proof before paid pressure.
 
 export const metadata = buildMetadata({
   title: "Cendorq | AI Search Presence Repair for Businesses",
@@ -33,6 +34,19 @@ const EXPERIENCE_CHAPTERS = [
   { title: "Visibility shows the gap. Readiness explains the cause.", copy: "Before repair, redesign, ads, or bigger work, the business needs to know where it is being seen, where it is missing, and what weak signal deserves attention first." },
   { title: "The Presence Report turns uncertainty into a path.", copy: "Cendorq organizes findability, understanding, trust, choice, and action into one simple report preview so the next step is easier to choose." },
   { title: "Start small. Go deeper only when the evidence supports it.", copy: "Free Scan gives the first signal. Deep Review explains the cause. Build Fix improves the selected weak point. Ongoing Control keeps visibility and readiness from drifting." },
+] as const;
+
+const PRODUCT_COMMAND_CARDS = [
+  { eyebrow: "Presence Score", title: "Know the state before buying the fix.", copy: "A simple score gives the first read on findability, understanding, trust, choice, and action without pretending to be a ranking guarantee." },
+  { eyebrow: "Choice Gap", title: "See why another business may be easier to choose.", copy: "Cendorq separates visibility from readiness so the business can see where proof, clarity, trust, or action may be weaker than the market expects." },
+  { eyebrow: "Repair Queue", title: "Turn the gap into a ranked action path.", copy: "The report does not stop at a score. It organizes the safest repair priorities so the next move is evidence-led, not pressure-led." },
+  { eyebrow: "Control Snapshot", title: "Keep the business answer-ready over time.", copy: "Control keeps public signals from drifting after review or repair so readiness does not decay quietly." },
+] as const;
+
+const PROOF_BEFORE_PRESSURE = [
+  "Free Scan gives the first signal before paid diagnosis.",
+  "Sample Report shows the product object before plan pressure.",
+  "Deep Review explains cause only when the evidence supports it.",
 ] as const;
 
 export default function HomePage() {
@@ -77,6 +91,33 @@ export default function HomePage() {
                 <article key={chapter.title} className="rounded-[1.45rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(239,250,255,0.72))] p-5 shadow-[0_10px_34px_rgba(15,23,42,0.04)] backdrop-blur sm:rounded-[1.8rem]">
                   <h3 className="text-[clamp(1.6rem,5.8vw,2.45rem)] font-semibold leading-tight tracking-[-0.055em] text-slate-950 sm:text-3xl">{chapter.title}</h3>
                   <p className="mt-3 text-sm font-medium leading-6 text-slate-600">{chapter.copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative px-5 py-7 sm:px-8 lg:py-10" aria-label="Homepage product proof system">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.3rem] border border-slate-900 bg-slate-950 shadow-[0_32px_110px_rgba(15,23,42,0.2)] sm:rounded-[3rem]">
+          <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="border-b border-white/10 bg-[radial-gradient(circle_at_30%_0%,rgba(34,211,238,0.22),transparent_35%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(15,23,42,0))] p-6 text-white sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-200">Product Proof Center</p>
+              <h2 className="mt-4 text-[clamp(2.3rem,8.5vw,4.8rem)] font-semibold leading-[0.92] tracking-[-0.075em] text-white">Not just a score. A repair system.</h2>
+              <p className="mt-5 text-base font-medium leading-8 text-slate-300">The homepage now exposes the real product logic: measure the presence state, explain the Choice Gap, rank the Repair Queue, and keep a Control Snapshot after the fix.</p>
+              <div className="mt-7 rounded-[1.5rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-100">Proof before paid pressure</p>
+                <div className="mt-4 grid gap-3">
+                  {PROOF_BEFORE_PRESSURE.map((item) => <p key={item} className="rounded-[1rem] border border-white/10 bg-white/7 p-3 text-sm font-semibold leading-6 text-white">{item}</p>)}
+                </div>
+              </div>
+            </div>
+            <div className="grid gap-0 sm:grid-cols-2">
+              {PRODUCT_COMMAND_CARDS.map((card) => (
+                <article key={card.eyebrow} className="border-b border-white/10 p-6 text-white sm:border-r sm:p-7">
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-200">{card.eyebrow}</p>
+                  <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.055em] text-white">{card.title}</h3>
+                  <p className="mt-4 text-sm font-medium leading-7 text-slate-300">{card.copy}</p>
                 </article>
               ))}
             </div>
