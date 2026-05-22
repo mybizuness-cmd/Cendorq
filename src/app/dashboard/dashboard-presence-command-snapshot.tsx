@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { SANDWORK_PRESENCE_REPORT_PACKAGE } from "@/lib/sandwork-presence-report-fixture";
+import { getPresenceReportPackage } from "@/lib/presence-report-package-source";
 
 export function DashboardPresenceCommandSnapshot() {
-  const report = SANDWORK_PRESENCE_REPORT_PACKAGE.report;
-  const choiceGap = SANDWORK_PRESENCE_REPORT_PACKAGE.choiceGap;
-  const control = SANDWORK_PRESENCE_REPORT_PACKAGE.controlSnapshot;
+  const packageSource = getPresenceReportPackage();
+  const report = packageSource.report;
+  const choiceGap = packageSource.choiceGap;
+  const control = packageSource.controlSnapshot;
 
   return (
     <section className="relative z-10" aria-label="Presence command snapshot">
