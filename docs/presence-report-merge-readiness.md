@@ -49,9 +49,11 @@ Before merge, update or rebase the branch and re-check:
 ## Demo fixture readiness
 
 - `src/lib/sandwork-presence-report-fixture.ts` remains the shared Sandwork demo source for Free Scan input, generated snapshot, and public-safe Presence Report package.
-- Protected Free Scan preview and Dashboard Presence Command Snapshot consume the shared Sandwork report package instead of hardcoding sample objects.
+- `src/lib/presence-report-package-source.ts` remains the report-surface helper for object-index-backed report package access.
+- Protected Free Scan preview and Dashboard Presence Command Snapshot consume the package-source helper instead of importing the Sandwork fixture directly or hardcoding sample objects.
 - Presence Report object index exposes the shared demo report package for future report-surface reuse.
 - `src/scripts/validate-sandwork-presence-report-fixture.mjs` remains in the Presence Report validation chain.
+- `src/scripts/validate-presence-report-package-source.mjs` remains in the Presence Report validation chain.
 
 ## Ready-for-review condition
 
@@ -64,3 +66,4 @@ Mark ready only when:
 5. Public sitemap includes Sample Report and vertical sample routes, while protected customer routes remain excluded.
 6. Dashboard still shows the Presence command snapshot without becoming a generic dashboard.
 7. Sandwork demo data stays centralized in the shared report package and is not re-hardcoded into presentation components.
+8. Report surfaces use the package-source helper instead of direct demo fixture imports.
