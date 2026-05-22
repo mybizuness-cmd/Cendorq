@@ -51,6 +51,20 @@ expect("docs/command-workforce-release-runbook.md", [
   "green Vercel",
 ]);
 
+expect("docs/command-workforce-docs-index.md", [
+  "Command Workforce Docs Index",
+  "Operating layer",
+  "Visual quality layer",
+  "Typed source of truth",
+  "Validator",
+  "Promotion path",
+  "docs/command-workforce-operating-model.md",
+  "docs/command-workforce-release-runbook.md",
+  "docs/visual-command-quality-standard.md",
+  "src/lib/command-workforce-quality-contracts.ts",
+  "src/scripts/validate-command-workforce-quality-contracts.mjs",
+]);
+
 expect("src/lib/command-workforce-quality-contracts.ts", [
   "COMMAND_WORKFORCE_OPERATING_MODEL",
   "VISUAL_COMMAND_QUALITY_STANDARD",
@@ -84,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model, visual standard, release runbook, and typed contract coverage.");
+console.log("Command workforce quality validation passed with operating model, visual standard, release runbook, docs index, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
