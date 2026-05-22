@@ -33,6 +33,23 @@ expect("docs/visual-command-quality-standard.md", [
   "Mobile screens must preserve the main action",
 ]);
 
+expect("docs/visual-command-review-template.md", [
+  "Visual Command Review Template",
+  "Surface reviewed",
+  "One-command clarity",
+  "Trust and restraint",
+  "Proof sequence",
+  "Mobile command quality",
+  "Dashboard command quality",
+  "Decision",
+  "What is the safest next command?",
+  "Is there one dominant action instead of several competing actions?",
+  "Does the surface feel controlled, premium, and serious?",
+  "Can the visitor separate score, finding, proof, limitation, next move, and repair priority?",
+  "Does the mobile flow avoid becoming a compressed desktop page?",
+  "Does it avoid becoming a generic dashboard?",
+]);
+
 expect("docs/command-workforce-release-runbook.md", [
   "Command Workforce Release Runbook",
   "Finding intake",
@@ -129,7 +146,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model, visual standard, release runbook, docs index, merge readiness, handoff addendum, and typed contract coverage.");
+console.log("Command workforce quality validation passed with operating model, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
