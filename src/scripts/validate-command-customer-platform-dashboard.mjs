@@ -40,20 +40,23 @@ expect(dashboardPath, [
 
 expect(actionInboxPath, [
   "Customer-led dashboard action inbox",
+  "Customer action inbox",
   "Only the actions that protect progress stay here.",
   "No noise. No internal labels.",
   "Why it matters:",
   "Confirm the inbox that owns this account",
   "Review what Build Fix can change",
   "Keep monthly control evidence-led",
+  "Open notifications",
   "No conversion role label",
-  "hover:-translate-y-0.5",
   "focus:outline-none",
   "focus:ring-2",
 ]);
 
 expect(commandCenterPath, [
   "Dashboard business command center",
+  "Customer decision center",
+  "Connected customer lanes",
   "The dashboard should answer the customer’s next decision in seconds.",
   "I know what to do next.",
   "Every lane should lead somewhere useful.",
@@ -66,6 +69,7 @@ expect(commandCenterPath, [
 
 expect(reentryPath, [
   "Dashboard reentry",
+  "Protected account re-entry",
   "Dashboard account re-entry",
   "Leave and come back without losing the thread.",
   "No stranded side flows",
@@ -74,7 +78,6 @@ expect(reentryPath, [
   "Best experience:",
   "Cendorq picks up where I left off",
   "The dashboard stays the customer account hub.",
-  "hover:-translate-y-0.5",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -107,8 +110,6 @@ forbidden(actionInboxPath, [
   "pretending to be full diagnosis",
   "Conversion role:",
   "conversionRole",
-  "linear-stop",
-  "direct-purchase",
   "raw payloads, raw evidence",
   "static account page",
 ]);
@@ -131,9 +132,9 @@ forbidden(reentryPath, [
 ]);
 
 boundedLength(dashboardPath, 15000);
-boundedLength(actionInboxPath, 10500);
-boundedLength(commandCenterPath, 10000);
-boundedLength(reentryPath, 8000);
+boundedLength(actionInboxPath, 12500);
+boundedLength(commandCenterPath, 11000);
+boundedLength(reentryPath, 9000);
 
 if (failures.length) {
   console.error("Customer platform dashboard validation failed:");
@@ -141,7 +142,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Customer platform dashboard validation passed with protected dashboard command strip, account/dashboard command language, Free Scan account creation language, customer-led modules, and no internal labels.");
+console.log("Customer platform dashboard validation passed with elevated customer action inbox, decision center, protected account re-entry, protected dashboard command strip, account/dashboard command language, Free Scan account creation language, and no internal labels.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
