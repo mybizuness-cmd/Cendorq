@@ -1,5 +1,5 @@
-import { resolvePresenceReportCustomerSafeRender } from "@/lib/presence-report-customer-safe-render-runtime";
 import { resolvePresenceReportPackageSource } from "@/lib/presence-report-package-source";
+import { resolvePresenceReportCustomerSafeRender } from "@/lib/presence-report-customer-safe-render-runtime";
 
 export function ProtectedFreeScanResultPreview() {
   const packageResolution = resolvePresenceReportPackageSource();
