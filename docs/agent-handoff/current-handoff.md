@@ -2,20 +2,18 @@
 
 ## Operating posture
 
-Cendorq is a category-control company, not a generic agency site and not a normal SaaS signup funnel. The product must optimize for qualified business acquisition, evidence, paid next steps, and protected customer continuity.
+Cendorq is a category-control company, not a generic agency site and not a normal SaaS signup funnel. The product must optimize for qualified business acquisition, evidence, paid next steps, protected customer continuity, visual command, and validated operating memory.
 
-Work in controlled batches, keep user updates short, and verify green deployment checks before moving to the next implementation batch.
+Work in controlled batches, keep user updates short, prefer bigger coherent batches when they can be validated together, and verify green deployment checks before moving to the next implementation batch.
 
-## Current branch
+## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Branch: `presence-report-homepage-batch`
-- Pull request: #1035, `Install Presence Report homepage batch`
-- Legacy validation marker: `next-1017`
-- Latest checked head at handoff: `940fb3d6bbc38e63d227262718719cc8a9ee6019`
-- Latest checked status at handoff: CI green, Release Control green, CodeQL green, and Vercel green.
-- Base alignment at handoff: `main` is not ahead of the branch; the branch is ahead of `main` by 265 commits.
-- PR state at handoff: open, draft, mergeable, and no blocking submitted reviews or review threads found.
+- Main head at handoff: `04aaad4dca0c04acf5c64ac1b2f4812146b4ef2f`
+- Recently merged PR #1035: `Install Presence Report homepage batch`
+- Recently merged PR #1036: `Install command workforce quality layer`
+- Latest checked merge status at handoff: Vercel green on the PR #1036 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1036 was green before merge across CI, Release Control, CodeQL, and Vercel.
+- Current post-merge cleanup branch: `post-merge-command-workforce-handoff`
 
 ## Business doctrine
 
@@ -60,7 +58,7 @@ Do not promise rankings, leads, revenue, or AI placement. Do not expose raw evid
 
 ## Installed Presence Report system
 
-This branch now includes:
+Main now includes:
 
 - Homepage AI Search Presence Repair positioning.
 - Sample Presence Report route and vertical sample routes for dentist, med spa, law firm, and contractor.
@@ -77,7 +75,7 @@ This branch now includes:
 
 ## Sandwork fixture boundary
 
-Sandwork is the canonical demo source for this batch.
+Sandwork is the canonical demo source for the merged Presence Report layer.
 
 - `SANDWORK_FREE_SCAN_INPUT` is the reusable demo Free Scan input.
 - `SANDWORK_FREE_SCAN_SNAPSHOT` is generated from the Free Scan report builder.
@@ -89,19 +87,71 @@ Sandwork is the canonical demo source for this batch.
 
 Do not re-hardcode Sandwork or sample report objects inside presentation components. Do not import the Sandwork fixture directly in report surfaces; use the package-source helper.
 
+## Command workforce doctrine
+
+The command workforce layer exists to make future work stronger, clearer, more visually controlled, and easier to validate.
+
+Use this layer when planning future work, reviewing visual quality, shaping findings, or deciding whether a batch should be larger or smaller.
+
+The command workforce operating loop is:
+
+1. Owner command sets category direction and launch posture.
+2. Release captain controls branch execution, validation, merge readiness, and final acceptance.
+3. Chief lanes coordinate domain review.
+4. Scoped scouts research, pressure-test, draft, and document findings.
+5. Validators turn non-negotiable standards into repeatable gates.
+6. Handoff memory records what changed, why it changed, what must not regress, and what to inspect next.
+
+## Installed command workforce layer
+
+Main now includes:
+
+- `docs/command-workforce-operating-model.md`
+- `docs/command-workforce-finding-template.md`
+- `docs/command-workforce-quality-scorecard.md`
+- `docs/visual-command-quality-standard.md`
+- `docs/visual-command-review-template.md`
+- `docs/command-workforce-release-runbook.md`
+- `docs/command-workforce-docs-index.md`
+- `docs/command-workforce-merge-readiness.md`
+- `docs/command-workforce-handoff-addendum.md`
+- `src/lib/command-workforce-quality-contracts.ts`
+- `src/scripts/validate-command-workforce-quality-contracts.mjs`
+- package shortcut `pnpm validate:command-workforce`
+
+## Visual command doctrine
+
+Visual quality is part of category ownership. Every important public, protected, report, dashboard, or mobile surface should make the safest next command obvious.
+
+Review visual work for:
+
+- premium restraint
+- strong hierarchy
+- immediate scannability
+- clear proof sequence
+- one dominant next action
+- mobile clarity
+- serious business tone
+- report readability
+- dashboard command clarity
+- clean visual focus
+
+Use `docs/visual-command-review-template.md` before treating a major customer-facing surface as visually ready.
+
 ## Validation commands
 
-Run before marking the PR ready:
+Run before marking a future PR ready:
 
 ```bash
 pnpm validate:routes
 pnpm validate:presence-report
+pnpm validate:command-workforce
 pnpm lint
 pnpm typecheck
 pnpm build
 ```
 
-Release Control runs the same chain and currently includes `pnpm validate:presence-report`.
+Release Control currently runs the route guardrails, Presence Report validation, lint, typecheck, and build. The command workforce validator has a package shortcut and should be promoted into broader release guardrails in a future guarded batch.
 
 ## Do not regress
 
@@ -114,6 +164,11 @@ Release Control runs the same chain and currently includes `pnpm validate:presen
 - Keep next moves tied to evidence, not plan pressure.
 - Keep the shared Sandwork fixture as the demo source.
 - Keep report surfaces pointed at the package-source helper instead of direct demo fixture imports.
+- Keep owner command, release captain, chief lanes, scoped scouts, validators, and handoff memory separated.
+- Keep findings structured enough to become decisions, docs, validators, or scoped PRs.
+- Keep visual command as a real quality lane.
+- Use bigger batches only when the work forms one coherent layer and can be validated together.
+- Use smaller batches for live access, payment configuration, provider runtime, protected customer data, or high-risk customer-facing truth.
 - Do not create blank dashboards for unknown visitors.
 - Do not restore old Free Scan localStorage drafts when entry is access-required or restart.
 - Do not show provider buttons until provider callback runtime is real.
@@ -121,14 +176,14 @@ Release Control runs the same chain and currently includes `pnpm validate:presen
 - Do not expose account-existence internals.
 - Keep protected access server-derived.
 - Keep Presence Report public language customer-safe and evidence-led.
-- Keep the PR draft until final review confirms the latest green head.
 - Do not move to the next implementation batch until CI, Release Control, CodeQL, and Vercel are green on the latest head.
 
 ## Next implementation candidates
 
-1. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
-2. Add real scan evidence records once the report pipeline is ready.
-3. Add category-specific proof standards into report scoring and repair language.
-4. Add operator QA gates before any generated report is released to customers.
-5. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
-6. Mark PR #1035 ready for review only after latest head, Vercel, CI, Release Control, CodeQL, base alignment, and docs are all green and current.
+1. Promote `pnpm validate:command-workforce` into broader command-center docs index or route-chain release guardrails in a separate guarded batch.
+2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
+3. Add real scan evidence records once the report pipeline is ready.
+4. Add category-specific proof standards into report scoring and repair language.
+5. Add operator QA gates before any generated report is released to customers.
+6. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
+7. Run visual-command reviews against homepage, Sample Report, protected Free Scan preview, dashboard snapshot, Plans, FAQ, and mobile flows.
