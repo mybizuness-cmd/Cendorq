@@ -20,7 +20,8 @@ This index keeps the new operating and visual quality layer easy to find without
 ## Validator
 
 - `src/scripts/validate-command-workforce-quality-contracts.mjs` — validates the operating model, visual standard, review templates, release runbook, typed contracts, and this index.
+- `pnpm validate:command-workforce` — package shortcut for the command workforce validator.
 
 ## Promotion path
 
-After this layer stays green, promote it into the broader command-center docs index and package scripts in a separate guarded batch.
+After this layer stays green, promote it into the broader command-center docs index or route-chain release guard in a separate guarded batch.
