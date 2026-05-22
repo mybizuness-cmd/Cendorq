@@ -17,14 +17,17 @@ Future chats must operate from repo sources, not chat memory.
 7. `src/lib/dashboard-protected-suite-contracts.ts`
 8. `src/lib/presence-report-customer-source-contracts.ts`
 9. `src/lib/presence-report-evidence-record-contracts.ts`
-10. Latest open PR and latest merged `main` commit status.
+10. `src/lib/presence-report-retrieval-workflow-contracts.ts`
+11. `src/lib/operator-release-gate-contracts.ts`
+12. `src/lib/category-proof-standard-contracts.ts`
+13. Latest open PR and latest merged `main` commit status.
 
 Do not ask the owner to repeat the vision if these files are available.
 
 ## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Main head at handoff: `1c32f41b9033ef8dd02e504dfb7a4657f6185684`
+- Main head at handoff: `900ae86eb7b934f953046c071ad1fed8c753511e`
 - Legacy validation marker: `next-1017`
 - Recently merged PR #1051: `Install Cendorq master blueprint`
 - Recently merged PR #1052: `Upgrade homepage product command proof layer`
@@ -36,8 +39,9 @@ Do not ask the owner to repeat the vision if these files are available.
 - Recently merged PR #1058: `Add Presence Report customer source contracts`
 - Recently merged PR #1059: `Refresh handoff after customer source contracts merge`
 - Recently merged PR #1060: `Add Presence Report evidence record contracts`
-- Latest checked merge status at handoff: Vercel green on PR #1060 merge commit. PR #1060 was green before merge across CI, Release Control, CodeQL, and Vercel.
-- Current post-merge cleanup branch: `refresh-handoff-after-evidence-contracts`
+- Recently merged PR #1061: `Refresh handoff after evidence contracts merge`
+- Latest checked merge status at handoff: PR #1061 was green across CI, Release Control, CodeQL, and Vercel before merge.
+- Current implementation branch: `presence-report-retrieval-and-operator-gates`
 
 ## Source-memory package
 
@@ -174,6 +178,48 @@ Sensitivity levels:
 
 Do not expose raw intake payloads, raw scrape bodies, private scoring internals, unsupported competitor claims, unverified customer claims, private customer documents, draft reports, unapproved findings, or operator notes. Operator notes must be converted through finding builder, repair composer, approval gate, release gate, and customer-safe rewrite before any customer-facing use.
 
+## Retrieval, operator, and category-proof contracts
+
+The current implementation branch adds:
+
+- `src/lib/presence-report-retrieval-workflow-contracts.ts`
+- `src/lib/operator-release-gate-contracts.ts`
+- `src/lib/category-proof-standard-contracts.ts`
+- `src/scripts/validate-presence-report-retrieval-workflow-contracts.mjs`
+- `src/scripts/validate-operator-release-gate-contracts.mjs`
+- `src/scripts/validate-category-proof-standard-contracts.mjs`
+- Presence Report system validation chain coverage for those validators.
+
+Retrieval workflow stages:
+
+1. entry-context
+2. customer-identity
+3. ownership-resolution
+4. evidence-readiness
+5. package-resolution
+6. customer-safe-render
+
+Operator release gate stages:
+
+1. Command Queue
+2. Business Truth Profile
+3. Evidence Console
+4. Finding Builder
+5. Repair Composer
+6. Approval Gate
+7. Release Log
+
+Category proof standard stages:
+
+1. Findability
+2. Understanding
+3. Trust
+4. Choice
+5. Action
+6. Control
+
+This layer is intentionally contract-first. It does not yet turn on risky live customer storage, provider access, payment entitlement reads, or raw evidence rendering. It defines the rails for the next real implementation batch: server-side Free Scan snapshot ownership, customer report retrieval, evidence readiness checks, operator approval, and customer-safe report rendering.
+
 ## Installed Presence Report system
 
 Main includes homepage AI Search Presence Repair positioning, Product Proof Center, Sample Presence Report, shared report components, Presence Report contracts, live Free Scan snapshot mapping, protected Free Scan report preview, Dashboard Presence Command Snapshot, Sandwork demo fixture, object index, package-source helper, customer source contracts, evidence-record contracts, and validators for the report system.
@@ -214,7 +260,7 @@ Operating loop:
 5. Validators turn non-negotiable standards into repeatable gates.
 6. Handoff memory records what changed, why it changed, what must not regress, and what to inspect next.
 
-Installed command workforce layer includes command workforce docs, visual command docs, `docs/cendorq-master-blueprint.md`, `docs/cendorq-competitive-intelligence-source-package.md`, `src/lib/command-workforce-quality-contracts.ts`, `src/lib/visual-command-device-review-targets.ts`, `src/lib/dashboard-protected-suite-contracts.ts`, `src/lib/presence-report-customer-source-contracts.ts`, `src/lib/presence-report-evidence-record-contracts.ts`, and validation scripts.
+Installed command workforce layer includes command workforce docs, visual command docs, `docs/cendorq-master-blueprint.md`, `docs/cendorq-competitive-intelligence-source-package.md`, `src/lib/command-workforce-quality-contracts.ts`, `src/lib/visual-command-device-review-targets.ts`, `src/lib/dashboard-protected-suite-contracts.ts`, `src/lib/presence-report-customer-source-contracts.ts`, `src/lib/presence-report-evidence-record-contracts.ts`, `src/lib/presence-report-retrieval-workflow-contracts.ts`, `src/lib/operator-release-gate-contracts.ts`, `src/lib/category-proof-standard-contracts.ts`, and validation scripts.
 
 ## Visual command doctrine
 
@@ -262,6 +308,9 @@ Release Control runs route guardrails, Presence Report validation, command workf
 - Keep report surfaces pointed at the package-source helper instead of direct demo fixture imports.
 - Keep the customer source contracts intact until real storage replaces demo fallback.
 - Keep the evidence-record contracts intact until real evidence storage and operator approval workflows consume them.
+- Keep retrieval workflow stages intact until customer-owned report retrieval is fully live.
+- Keep operator release gates intact before generated or assembled reports are released to customers.
+- Keep category proof standards tied to Findability, Understanding, Trust, Choice, Action, and Control.
 - Keep visual command as a real quality lane.
 - Keep `pnpm validate:command-workforce` in Release Control.
 - Keep protected Free Scan proof-before-paid-pressure order guarded.
@@ -278,11 +327,12 @@ Release Control runs route guardrails, Presence Report validation, command workf
 
 ## Next implementation candidates
 
-1. Execute live screenshot/device-width review for homepage, `/plans`, `/faq`, `/sample-report`, `/dashboard/reports/free-scan`, and protected dashboard surfaces at 390px, 430px, 768px, 1024px, and 1440px; update `docs/visual-command-surface-review-register.md` with screenshot-based findings.
-2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
-3. Add real scan evidence records once the report pipeline is ready.
-4. Add category-specific proof standards into report scoring and repair language.
-5. Add operator QA gates before any generated report is released to customers.
-6. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
-7. Create the Presence Gap Index authority asset.
-8. Build operator terminal foundation: Command Queue, Business Truth Profile, Evidence Console, Finding Builder, Repair Composer, Approval Gate, and Audit Log.
+1. Complete the `presence-report-retrieval-and-operator-gates` PR and verify CI, Release Control, CodeQL, and Vercel on its exact head.
+2. Execute live screenshot/device-width review for homepage, `/plans`, `/faq`, `/sample-report`, `/dashboard/reports/free-scan`, and protected dashboard surfaces at 390px, 430px, 768px, 1024px, and 1440px; update `docs/visual-command-surface-review-register.md` with screenshot-based findings.
+3. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture using the retrieval workflow contracts.
+4. Add real scan evidence records once the report pipeline can preserve review state, sensitivity, and evidence boundaries.
+5. Add operator QA gates before any generated report is released to customers using the operator release gate contracts.
+6. Add category-specific proof standards into report scoring and repair language using the Findability, Understanding, Trust, Choice, Action, and Control contracts.
+7. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
+8. Create the Presence Gap Index authority asset.
+9. Build operator terminal foundation: Command Queue, Business Truth Profile, Evidence Console, Finding Builder, Repair Composer, Approval Gate, and Audit Log.

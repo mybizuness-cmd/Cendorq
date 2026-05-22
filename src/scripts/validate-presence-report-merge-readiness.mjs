@@ -11,11 +11,17 @@ expect("src/scripts/validate-presence-report-system.mjs", [
   "src/scripts/validate-sandwork-presence-report-fixture.mjs",
   "src/scripts/validate-presence-report-package-source.mjs",
   "src/scripts/validate-presence-report-evidence-record-contracts.mjs",
-  "Presence Report system validation passed with package-source, evidence record contracts, and merge-readiness coverage.",
+  "src/scripts/validate-presence-report-retrieval-workflow-contracts.mjs",
+  "src/scripts/validate-operator-release-gate-contracts.mjs",
+  "src/scripts/validate-category-proof-standard-contracts.mjs",
+  "Presence Report system validation passed with package-source, evidence record contracts, retrieval workflow contracts, operator release gates, category proof standards, and merge-readiness coverage.",
 ]);
 
 expect("src/lib/presence-report-object-index.ts", ["SANDWORK_PRESENCE_REPORT_PACKAGE", "demoReportPackage"]);
 expect("src/lib/presence-report-evidence-record-contracts.ts", ["PRESENCE_REPORT_EVIDENCE_RECORD_CONTRACTS", "operator-note", "blocked-from-customer-report"]);
+expect("src/lib/presence-report-retrieval-workflow-contracts.ts", ["PRESENCE_REPORT_RETRIEVAL_WORKFLOW_CONTRACTS", "customer-safe-render", "package-source helper used"]);
+expect("src/lib/operator-release-gate-contracts.ts", ["OPERATOR_RELEASE_GATE_CONTRACTS", "Approval Gate", "Release Log"]);
+expect("src/lib/category-proof-standard-contracts.ts", ["CATEGORY_PROOF_STANDARD_CONTRACTS", "Findability", "Understanding", "Trust", "Choice", "Action", "Control"]);
 
 expect("docs/presence-report-merge-readiness.md", [
   "Presence Report merge readiness",
@@ -39,7 +45,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report merge readiness validation passed with package source, evidence record contracts, object index, and system-chain coverage.");
+console.log("Presence Report merge readiness validation passed with package source, evidence record contracts, retrieval workflow contracts, operator release gates, category proof standards, object index, and system-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
