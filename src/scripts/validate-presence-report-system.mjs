@@ -19,6 +19,7 @@ const validators = [
   "src/scripts/validate-presence-report-evidence-boundary.mjs",
   "src/scripts/validate-presence-report-route-map.mjs",
   "src/scripts/validate-presence-report-object-index.mjs",
+  "src/scripts/validate-presence-report-package-source.mjs",
   "src/scripts/validate-presence-report-generation-adapter.mjs",
   "src/scripts/validate-live-scan-presence-report-mapping.mjs",
   "src/scripts/validate-sandwork-presence-report-fixture.mjs",
@@ -60,4 +61,4 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log("Presence Report system validation passed with merge-readiness coverage.");
+console.log("Presence Report system validation passed with package-source and merge-readiness coverage.");
