@@ -7,7 +7,7 @@ This checklist keeps the operating and visual quality layer ready for review wit
 Before marking this layer ready:
 
 ```bash
-node ./src/scripts/validate-command-workforce-quality-contracts.mjs
+pnpm validate:command-workforce
 pnpm lint
 pnpm typecheck
 pnpm build
@@ -36,4 +36,6 @@ pnpm build
 
 ## Promotion path
 
-After this PR is merged and stable, promote the command workforce validator into package scripts and the broader command-center docs index in a separate guarded batch.
+This PR installs the standalone `pnpm validate:command-workforce` package script.
+
+After this PR is merged and stable, promote the command workforce validator into the broader command-center docs index or route-chain release guard in a separate guarded batch.
