@@ -52,8 +52,8 @@ expect(fixturePath, [
 
 expect(indexPath, ["ProtectedFreeScanResultPreview"]);
 
-order(pagePath, "Read Free Scan report first", "ProtectedFreeScanResultPreview");
-order(pagePath, "ProtectedFreeScanResultPreview", "Proof before paid pressure");
+order(pagePath, "Read Free Scan report first", "id=\"free-scan-presence-report\"");
+order(pagePath, "id=\"free-scan-presence-report\"", "Proof before paid pressure");
 order(pagePath, "Proof before paid pressure", "Open Review page");
 
 forbidden(pagePath, [
