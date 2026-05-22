@@ -50,6 +50,7 @@ Before merge, update or rebase the branch and re-check:
 
 - `src/lib/sandwork-presence-report-fixture.ts` remains the shared Sandwork demo source for Free Scan input, generated snapshot, and public-safe Presence Report package.
 - `src/lib/presence-report-package-source.ts` remains the report-surface helper for object-index-backed report package access.
+- Protected Free Scan preview and Dashboard Presence Command Snapshot consume the shared Sandwork report package through the package-source helper.
 - Protected Free Scan preview and Dashboard Presence Command Snapshot consume the package-source helper instead of importing the Sandwork fixture directly or hardcoding sample objects.
 - Presence Report object index exposes the shared demo report package for future report-surface reuse.
 - `src/scripts/validate-sandwork-presence-report-fixture.mjs` remains in the Presence Report validation chain.
