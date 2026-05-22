@@ -14,8 +14,11 @@ expect(standardPath, [
   "Business Truth Profile",
   "Choice Gap",
   "Control Snapshot",
+  "Shared demo report package",
   "Vertical standards",
   "No rankings, revenue, leads, or AI placement guarantees.",
+  "Sandwork demo surfaces use the shared public-safe report package instead of hardcoded sample objects.",
+  "Reviewers and future report surfaces need one reusable demo source that follows the live scan mapper.",
 ]);
 
 if (failures.length) {
@@ -24,7 +27,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report launch readiness validation passed.");
+console.log("Presence Report launch readiness validation passed with public promise, Free Scan, object, truth, choice, control, shared demo package, and vertical standards.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
