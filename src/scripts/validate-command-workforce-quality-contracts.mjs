@@ -16,6 +16,23 @@ expect("docs/command-workforce-operating-model.md", [
   "Use bigger batches when changes form one coherent operating layer and can be validated together.",
 ]);
 
+expect("docs/visual-command-quality-standard.md", [
+  "Cendorq Visual Command Quality Standard",
+  "Visual quality is part of category ownership.",
+  "What is the safest next command?",
+  "Premium restraint",
+  "Strong hierarchy",
+  "Immediate scannability",
+  "Clear proof sequence",
+  "One dominant next action",
+  "Mobile clarity",
+  "Report readability",
+  "Dashboard command clarity",
+  "Clean visual focus",
+  "Report surfaces should separate score, finding, proof, limitation, next move, and repair priority.",
+  "Mobile screens must preserve the main action",
+]);
+
 expect("src/lib/command-workforce-quality-contracts.ts", [
   "COMMAND_WORKFORCE_OPERATING_MODEL",
   "VISUAL_COMMAND_QUALITY_STANDARD",
@@ -49,7 +66,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model and visual command contract coverage.");
+console.log("Command workforce quality validation passed with operating model, visual standard, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
