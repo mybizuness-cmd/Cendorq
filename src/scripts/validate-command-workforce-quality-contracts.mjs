@@ -89,12 +89,13 @@ expect("docs/command-workforce-docs-index.md", [
   "Promotion path",
   "docs/command-workforce-finding-template.md",
   "docs/visual-command-review-template.md",
+  "pnpm validate:command-workforce",
 ]);
 
 expect("docs/command-workforce-merge-readiness.md", [
   "Command Workforce Merge Readiness",
   "Required checks",
-  "node ./src/scripts/validate-command-workforce-quality-contracts.mjs",
+  "pnpm validate:command-workforce",
   "Readiness conditions",
   "CI is green.",
   "Release Control is green.",
@@ -110,6 +111,11 @@ expect("docs/command-workforce-handoff-addendum.md", [
   "Finding posture",
   "Batch posture",
   "Next promotion",
+]);
+
+expect("package.json", [
+  "validate:command-workforce",
+  "node ./src/scripts/validate-command-workforce-quality-contracts.mjs",
 ]);
 
 expect("src/lib/command-workforce-quality-contracts.ts", [
@@ -137,7 +143,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, and typed contract coverage.");
+console.log("Command workforce quality validation passed with operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
