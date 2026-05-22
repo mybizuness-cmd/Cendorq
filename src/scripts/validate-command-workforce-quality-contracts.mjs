@@ -71,8 +71,12 @@ expect("docs/visual-command-surface-review-register.md", [
   "768px tablet portrait by `md` and `sm` breakpoint inspection",
   "1024px tablet landscape by `lg` breakpoint inspection",
   "1440px desktop by max-width and desktop grid inspection",
-  "Protected Free Scan report places the Deep Review price CTA in the hero before the protected report preview.",
-  "No source-code visual fix is required from this source-level pass.",
+  "The hero now points to Read Free Scan report first instead of opening paid Review immediately.",
+  "The protected report preview appears before the Proof before paid pressure Review CTA section.",
+  "Keep the protected report preview before the paid Review CTA.",
+  "Protected Free Scan report placed the Deep Review price CTA in the hero before the protected report preview. This source-level risk has been addressed by moving the paid Review CTA after the protected report preview and adding proof-before-paid-pressure framing.",
+  "Source-code visual fix applied for the protected Free Scan paid-pressure risk.",
+  "The protected Free Scan CTA ordering fix is accepted at source level.",
   "Do not treat this as final screenshot approval.",
   "one obvious safest next command",
   "premium restraint",
@@ -218,7 +222,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with source-level device-width review record, device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
+console.log("Command workforce quality validation passed with protected Free Scan CTA pressure fix record, source-level device-width review record, device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
