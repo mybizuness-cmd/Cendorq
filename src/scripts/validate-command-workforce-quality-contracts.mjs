@@ -26,6 +26,20 @@ expect("docs/command-workforce-finding-template.md", [
   "Validator needed:",
 ]);
 
+expect("docs/command-workforce-quality-scorecard.md", [
+  "Command Workforce Quality Scorecard",
+  "Category command",
+  "Customer clarity",
+  "Visual command",
+  "Report truth",
+  "Operational safety",
+  "Batch decision",
+  "Required notes",
+  "Makes Cendorq harder to copy by improving proof, control, clarity, or customer trust.",
+  "Next action is obvious, safe, and tied to evidence.",
+  "Validator coverage, handoff memory, and release checks clearly protect the change.",
+]);
+
 expect("docs/visual-command-quality-standard.md", [
   "Cendorq Visual Command Quality Standard",
   "Visual quality is part of category ownership.",
@@ -123,7 +137,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model, finding template, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, and typed contract coverage.");
+console.log("Command workforce quality validation passed with operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
