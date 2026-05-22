@@ -44,6 +44,9 @@ jobs:
       - name: Validate Presence Report system
         run: pnpm validate:presence-report
 
+      - name: Validate command workforce layer
+        run: pnpm validate:command-workforce
+
       - name: Lint
         run: pnpm lint
 
