@@ -75,8 +75,8 @@ Source surface: `src/app/dashboard/reports/free-scan/page.tsx`
 Current visual command:
 
 - The page makes the result state clear: Scan, first signal only, next command Review.
-- The main action points to Deep Review with price.
-- The protected report preview stays inside dashboard context.
+- The hero now points to Read Free Scan report first instead of opening paid Review immediately.
+- The protected report preview appears before the Proof before paid pressure Review CTA section.
 - Evidence, confidence, priority, AI/search posture, and methodology remain separated.
 - The page says the Scan cannot claim complete diagnosis, ranking, placement, or lead guarantees.
 
@@ -84,13 +84,15 @@ Do not regress:
 
 - Keep first signal only visible.
 - Keep complete diagnosis out of the Free Scan layer.
+- Keep the protected report preview before the paid Review CTA.
 - Keep Review as the paid next command only when the signal matters enough.
 - Keep protected result language separate from public marketing language.
 - Keep proof, risk, limit, and next command separate.
 
 Next review:
 
-- Live screenshot confirmation that the Deep Review price CTA does not dominate too early before proof is understood.
+- Live screenshot confirmation that Read Free Scan report first remains the dominant mobile hero action.
+- Live screenshot confirmation that the Proof before paid pressure section does not overpower the protected report preview.
 - Whether methodology sections are scannable on mobile.
 - Whether report preview and finding cards have enough spacing.
 
@@ -177,7 +179,8 @@ Source surfaces: homepage, sample report, protected Free Scan report, dashboard 
 Current visual command:
 
 - Primary surfaces already use stacked mobile layouts, touch-sized buttons, rounded cards, and single-column progression where needed.
-- The key mobile risk is not missing content; it is competing calls to action, compressed card density, and proof sections appearing after conversion pressure.
+- The protected Free Scan report now resolves the known source-level paid-pressure risk by putting report reading before the Review CTA.
+- The key remaining mobile risk is rendered density: compressed cards, proof sections appearing too low, or CTAs becoming too loud after responsive wrapping.
 
 Do not regress:
 
@@ -223,17 +226,18 @@ Strongest pass:
 
 Highest-risk mobile issue:
 
-- Protected Free Scan report places the Deep Review price CTA in the hero before the protected report preview. Source order is logical for next-command clarity, but live screenshots must confirm the paid CTA does not overpower proof, first-signal limits, or report comprehension at 390px and 430px.
+- Protected Free Scan report placed the Deep Review price CTA in the hero before the protected report preview. This source-level risk has been addressed by moving the paid Review CTA after the protected report preview and adding proof-before-paid-pressure framing.
 
 Required fix or no-fix decision:
 
-- No source-code visual fix is required from this source-level pass.
+- Source-code visual fix applied for the protected Free Scan paid-pressure risk.
 - A future live screenshot pass is still required before calling the device-width protocol fully complete.
-- If live mobile screenshots show paid-action pressure before proof comprehension on `/dashboard/reports/free-scan`, demote or reposition the Deep Review CTA below the protected report preview or add stronger first-signal/proof framing above it.
+- If live mobile screenshots still show paid-action pressure before proof comprehension on `/dashboard/reports/free-scan`, further demote or reposition the Deep Review CTA.
 
 Release-captain decision:
 
 - Source-level device-width review is acceptable as a guarded review record.
+- The protected Free Scan CTA ordering fix is accepted at source level.
 - Do not treat this as final screenshot approval.
 - Next visual execution should capture or inspect real rendered output at 390px, 430px, 768px, 1024px, and 1440px and update this register with screenshot-based findings.
 
