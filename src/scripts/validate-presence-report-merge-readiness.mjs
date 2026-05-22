@@ -11,6 +11,7 @@ const packagePath = "package.json";
 const systemValidatorPath = "src/scripts/validate-presence-report-system.mjs";
 const thisValidatorPath = "src/scripts/validate-presence-report-merge-readiness.mjs";
 const fixtureValidatorPath = "src/scripts/validate-sandwork-presence-report-fixture.mjs";
+const packageSourceValidatorPath = "src/scripts/validate-presence-report-package-source.mjs";
 const objectIndexPath = "src/lib/presence-report-object-index.ts";
 
 expect(readinessPath, [
@@ -67,7 +68,8 @@ expect(packagePath, [
 expect(systemValidatorPath, [
   thisValidatorPath,
   fixtureValidatorPath,
-  "Presence Report system validation passed with merge-readiness coverage.",
+  packageSourceValidatorPath,
+  "Presence Report system validation passed with package-source and merge-readiness coverage.",
 ]);
 
 expect(objectIndexPath, [
@@ -81,7 +83,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report merge readiness validation passed with deployment, local validation, package shortcut, base update, sitemap, navigation, Sandwork fixture, object index, and system-chain coverage.");
+console.log("Presence Report merge readiness validation passed with deployment, local validation, package shortcut, base update, sitemap, navigation, Sandwork fixture, package source, object index, and system-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
