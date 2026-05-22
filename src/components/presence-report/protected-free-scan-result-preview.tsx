@@ -1,8 +1,9 @@
-import { SANDWORK_PRESENCE_REPORT_PACKAGE } from "@/lib/sandwork-presence-report-fixture";
+import { getPresenceReportPackage } from "@/lib/presence-report-package-source";
 
 export function ProtectedFreeScanResultPreview() {
-  const report = SANDWORK_PRESENCE_REPORT_PACKAGE.report;
-  const choiceGap = SANDWORK_PRESENCE_REPORT_PACKAGE.choiceGap;
+  const packageSource = getPresenceReportPackage();
+  const report = packageSource.report;
+  const choiceGap = packageSource.choiceGap;
 
   return (
     <section className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur" aria-label="Protected Free Scan Presence Report preview">
