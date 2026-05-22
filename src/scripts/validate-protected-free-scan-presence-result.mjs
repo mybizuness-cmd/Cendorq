@@ -14,7 +14,11 @@ expect(pagePath, [
   "The first Free Scan Presence Report is ready.",
   "Protected Free Scan Presence Report standard",
   "First signal only",
+  "Read Free Scan report first",
+  "free-scan-presence-report",
+  "Proof before paid pressure",
   "Open Review page",
+  "Use Deep Review only when the Free Scan signal matters enough to prove the cause before repair or control.",
 ]);
 
 expect(componentPath, [
@@ -48,6 +52,10 @@ expect(fixturePath, [
 
 expect(indexPath, ["ProtectedFreeScanResultPreview"]);
 
+order(pagePath, "Read Free Scan report first", "ProtectedFreeScanResultPreview");
+order(pagePath, "ProtectedFreeScanResultPreview", "Proof before paid pressure");
+order(pagePath, "Proof before paid pressure", "Open Review page");
+
 forbidden(pagePath, [
   "full diagnosis.",
   "guaranteed ranking",
@@ -75,7 +83,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Protected Free Scan Presence Result validation passed with package-source helper, shared fixture boundary, and first-signal positioning.");
+console.log("Protected Free Scan Presence Result validation passed with package-source helper, shared fixture boundary, first-signal positioning, and proof-before-paid-pressure CTA order.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -86,6 +94,16 @@ function expect(path, phrases) {
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
   }
+}
+
+function order(path, before, after) {
+  if (!existsSync(join(root, path))) return;
+  const text = read(path);
+  const beforeIndex = text.indexOf(before);
+  const afterIndex = text.indexOf(after);
+  if (beforeIndex === -1) failures.push(`${path} missing order phrase: ${before}`);
+  if (afterIndex === -1) failures.push(`${path} missing order phrase: ${after}`);
+  if (beforeIndex !== -1 && afterIndex !== -1 && beforeIndex >= afterIndex) failures.push(`${path} order violation: ${before} must appear before ${after}`);
 }
 
 function forbidden(path, phrases) {
