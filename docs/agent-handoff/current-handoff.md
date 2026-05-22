@@ -9,7 +9,7 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 ## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Main head at handoff: `3878e178695f51ed631bfabfeff0ebb35a5e4612`
+- Main head at handoff: `c98287c4febad30bab8048fb14ee020106e6fefa`
 - Legacy validation marker: `next-1017`
 - Recently merged PR #1035: `Install Presence Report homepage batch`
 - Recently merged PR #1036: `Install command workforce quality layer`
@@ -17,8 +17,10 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 - Recently merged PR #1038: `Promote command workforce validation into Release Control`
 - Recently merged PR #1039: `Bridge command workforce docs into Command Center`
 - Recently merged PR #1040: `Add visual command surface review register`
-- Latest checked merge status at handoff: Vercel green on the PR #1040 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1040 was green before merge across CI, Release Control, CodeQL, and Vercel.
-- Current post-merge cleanup branch: `post-visual-register-handoff`
+- Recently merged PR #1041: `Refresh handoff after visual surface register merge`
+- Recently merged PR #1042: `Add Plans FAQ and mobile visual command reviews`
+- Latest checked merge status at handoff: Vercel green on the PR #1042 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1042 was green before merge across CI, Release Control, CodeQL, and Vercel.
+- Current post-merge cleanup branch: `post-plans-faq-mobile-review-handoff`
 
 ## Business doctrine
 
@@ -153,7 +155,9 @@ The current visual surface register covers:
 - Sample Presence Report `/sample-report`
 - Protected Free Scan Presence Report `/dashboard/reports/free-scan`
 - Dashboard Presence Command Snapshot
-- Plans, FAQ, and mobile flows as next review targets
+- Plans `/plans`
+- FAQ `/faq`
+- Mobile command hierarchy
 
 Do not regress:
 
@@ -161,7 +165,9 @@ Do not regress:
 - Keep sample report language educational, not promissory.
 - Keep protected Free Scan first signal only visible.
 - Keep Choice Gap, Repair Queue, and Control Snapshot distinct in the dashboard snapshot.
-- Keep Plans, FAQ, and mobile flows in the next visual-review queue.
+- Keep Free Scan as the safest starting command on Plans when the buyer is unsure.
+- Keep Start Free Scan first in FAQ quick links.
+- Keep one dominant next action per mobile screen band.
 
 ## Validation commands
 
@@ -195,6 +201,7 @@ Release Control now runs route guardrails, Presence Report validation, command w
 - Keep `pnpm validate:command-workforce` in Release Control.
 - Keep the Command Center command workforce bridge guarded by the command workforce validator.
 - Keep the visual command surface review register guarded by the command workforce validator.
+- Keep Plans, FAQ, and mobile command hierarchy review anchors guarded by the command workforce validator.
 - Use bigger batches only when the work forms one coherent layer and can be validated together.
 - Use smaller batches for live access, payment configuration, provider runtime, protected customer data, or high-risk customer-facing truth.
 - Do not create blank dashboards for unknown visitors.
@@ -208,7 +215,7 @@ Release Control now runs route guardrails, Presence Report validation, command w
 
 ## Next implementation candidates
 
-1. Run deeper visual-command reviews against Plans, FAQ, and mobile flows, then update `docs/visual-command-surface-review-register.md`.
+1. Run device-width screenshot review for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan`, then update `docs/visual-command-surface-review-register.md`.
 2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
 3. Add real scan evidence records once the report pipeline is ready.
 4. Add category-specific proof standards into report scoring and repair language.
