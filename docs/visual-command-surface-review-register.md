@@ -41,8 +41,7 @@ Do not regress:
 
 Next review:
 
-- Mobile hero stacking.
-- Button hierarchy on small screens.
+- Live screenshot confirmation at 390px, 430px, 768px, 1024px, and 1440px.
 - Whether the Presence Report preview is immediately understandable without crowding.
 
 ## Sample Presence Report `/sample-report`
@@ -65,7 +64,7 @@ Do not regress:
 
 Next review:
 
-- Whether the report object is readable on mobile before the evidence panels.
+- Live screenshot confirmation that the report object is readable on mobile before the evidence panels.
 - Whether vertical sample cards feel helpful rather than noisy.
 - Whether the example-not-promise section is visible enough before conversion.
 
@@ -91,7 +90,7 @@ Do not regress:
 
 Next review:
 
-- Whether the Deep Review price CTA dominates too early before proof is understood.
+- Live screenshot confirmation that the Deep Review price CTA does not dominate too early before proof is understood.
 - Whether methodology sections are scannable on mobile.
 - Whether report preview and finding cards have enough spacing.
 
@@ -116,7 +115,7 @@ Do not regress:
 
 Next review:
 
-- Whether five pillar cards remain readable at tablet width.
+- Live screenshot confirmation that five pillar cards remain readable at tablet width.
 - Whether the next move card needs stronger priority than the score card.
 - Whether Repair Queue should expose a clearer link to the next paid command.
 
@@ -142,7 +141,7 @@ Do not regress:
 
 Next review:
 
-- Whether the four plan cards feel equally loud on mobile.
+- Live screenshot confirmation that the four plan cards do not feel equally loud on mobile.
 - Whether Free Scan needs stronger visual priority for unsure visitors.
 - Whether paid plan pages preserve the same Scan, Review, Repair, Control command sequence.
 
@@ -167,7 +166,7 @@ Do not regress:
 
 Next review:
 
-- Whether quick links wrap cleanly on small screens.
+- Live screenshot confirmation that quick links wrap cleanly on small screens.
 - Whether details summaries have enough tap target spacing.
 - Whether high-risk answers about guarantees, privacy, and access remain easy to find.
 
@@ -190,9 +189,53 @@ Do not regress:
 
 Next review:
 
-- Run device-width screenshot review for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan`.
+- Run live device-width screenshots for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan`.
 - Check whether price CTAs overpower proof or limits on narrow screens.
 - Check whether dashboard and report cards remain readable at tablet widths.
+
+## Device-width source review record
+
+Review type: source-level device-width protocol execution. Live screenshots were not captured in this pass.
+
+Surfaces reviewed:
+
+- Homepage `/`
+- Plans `/plans`
+- FAQ `/faq`
+- Sample Presence Report `/sample-report`
+- Protected Free Scan Presence Report `/dashboard/reports/free-scan`
+- Protected Free Scan report preview component
+- Sample Presence Report component
+
+Widths inspected:
+
+- 390px mobile portrait by source-level mobile-first layout inspection
+- 430px large mobile portrait by source-level mobile-first layout inspection
+- 768px tablet portrait by `md` and `sm` breakpoint inspection
+- 1024px tablet landscape by `lg` breakpoint inspection
+- 1440px desktop by max-width and desktop grid inspection
+
+Strongest pass:
+
+- Homepage, FAQ, Sample Report, and the protected report preview use mobile-first stacking, full-width or touch-sized actions, and larger-grid promotion only at tablet or desktop breakpoints.
+- Plans keeps Scan, Review, Repair, and Control separated and keeps no-guarantee copy in the plan separation section.
+- Sample Report keeps the report object before evidence boundaries, next-move policy, vertical samples, and example-not-promise copy.
+
+Highest-risk mobile issue:
+
+- Protected Free Scan report places the Deep Review price CTA in the hero before the protected report preview. Source order is logical for next-command clarity, but live screenshots must confirm the paid CTA does not overpower proof, first-signal limits, or report comprehension at 390px and 430px.
+
+Required fix or no-fix decision:
+
+- No source-code visual fix is required from this source-level pass.
+- A future live screenshot pass is still required before calling the device-width protocol fully complete.
+- If live mobile screenshots show paid-action pressure before proof comprehension on `/dashboard/reports/free-scan`, demote or reposition the Deep Review CTA below the protected report preview or add stronger first-signal/proof framing above it.
+
+Release-captain decision:
+
+- Source-level device-width review is acceptable as a guarded review record.
+- Do not treat this as final screenshot approval.
+- Next visual execution should capture or inspect real rendered output at 390px, 430px, 768px, 1024px, and 1440px and update this register with screenshot-based findings.
 
 ## Release use
 
