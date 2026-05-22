@@ -6,10 +6,12 @@ This index keeps the new operating and visual quality layer easy to find without
 
 - `docs/command-workforce-operating-model.md` — hierarchy, chief lanes, scout lanes, required finding shape, and big-batch rule.
 - `docs/command-workforce-release-runbook.md` — finding intake, review lanes, batch sizing, acceptance, and memory requirements.
+- `docs/command-workforce-finding-template.md` — structured finding capture for decisions, docs, validators, and scoped PRs.
 
 ## Visual quality layer
 
 - `docs/visual-command-quality-standard.md` — safest-next-command review, premium restraint, hierarchy, scannability, proof sequence, dominant action, mobile clarity, report readability, and dashboard command clarity.
+- `docs/visual-command-review-template.md` — review checklist for public pages, reports, dashboards, protected surfaces, and mobile flows.
 
 ## Typed source of truth
 
@@ -17,7 +19,7 @@ This index keeps the new operating and visual quality layer easy to find without
 
 ## Validator
 
-- `src/scripts/validate-command-workforce-quality-contracts.mjs` — validates the operating model, visual standard, release runbook, typed contracts, and this index.
+- `src/scripts/validate-command-workforce-quality-contracts.mjs` — validates the operating model, visual standard, review templates, release runbook, typed contracts, and this index.
 
 ## Promotion path
 
