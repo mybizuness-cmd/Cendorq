@@ -15,6 +15,7 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 - Recently merged PR #1036: `Install command workforce quality layer`
 - Latest checked merge status at handoff: Vercel green on the PR #1036 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1036 was green before merge across CI, Release Control, CodeQL, and Vercel.
 - Current post-merge cleanup branch: `post-merge-command-workforce-handoff`
+- Current release-control promotion branch: `promote-command-workforce-release-control`
 
 ## Business doctrine
 
@@ -152,7 +153,7 @@ pnpm typecheck
 pnpm build
 ```
 
-Release Control currently runs the route guardrails, Presence Report validation, lint, typecheck, and build. The command workforce validator has a package shortcut and should be promoted into broader release guardrails in a future guarded batch.
+Release Control runs route guardrails, Presence Report validation, command workforce validation, lint, typecheck, and build on the release-control promotion branch.
 
 ## Do not regress
 
@@ -168,6 +169,7 @@ Release Control currently runs the route guardrails, Presence Report validation,
 - Keep owner command, release captain, chief lanes, scoped scouts, validators, and handoff memory separated.
 - Keep findings structured enough to become decisions, docs, validators, or scoped PRs.
 - Keep visual command as a real quality lane.
+- Keep `pnpm validate:command-workforce` in Release Control once the promotion branch merges.
 - Use bigger batches only when the work forms one coherent layer and can be validated together.
 - Use smaller batches for live access, payment configuration, provider runtime, protected customer data, or high-risk customer-facing truth.
 - Do not create blank dashboards for unknown visitors.
@@ -181,7 +183,7 @@ Release Control currently runs the route guardrails, Presence Report validation,
 
 ## Next implementation candidates
 
-1. Promote `pnpm validate:command-workforce` into broader command-center docs index or route-chain release guardrails in a separate guarded batch.
+1. Promote command workforce docs into the broader command-center docs index in a separate guarded batch.
 2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
 3. Add real scan evidence records once the report pipeline is ready.
 4. Add category-specific proof standards into report scoring and repair language.
