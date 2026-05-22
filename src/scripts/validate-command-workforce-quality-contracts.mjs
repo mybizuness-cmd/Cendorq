@@ -33,6 +33,24 @@ expect("docs/visual-command-quality-standard.md", [
   "Mobile screens must preserve the main action",
 ]);
 
+expect("docs/command-workforce-release-runbook.md", [
+  "Command Workforce Release Runbook",
+  "Finding intake",
+  "Review lanes",
+  "Batch sizing",
+  "Acceptance",
+  "Memory",
+  "Report truth lane",
+  "Customer command experience lane",
+  "Visual command lane",
+  "Security and command lane",
+  "Market forecast lane",
+  "passing CI",
+  "passing Release Control",
+  "passing CodeQL",
+  "green Vercel",
+]);
+
 expect("src/lib/command-workforce-quality-contracts.ts", [
   "COMMAND_WORKFORCE_OPERATING_MODEL",
   "VISUAL_COMMAND_QUALITY_STANDARD",
@@ -66,7 +84,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with operating model, visual standard, and typed contract coverage.");
+console.log("Command workforce quality validation passed with operating model, visual standard, release runbook, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
