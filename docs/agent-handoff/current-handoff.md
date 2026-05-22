@@ -12,7 +12,7 @@ Work in controlled batches, keep user updates short, and verify green deployment
 - Branch: `presence-report-homepage-batch`
 - Pull request: #1035, `Install Presence Report homepage batch`
 - Legacy validation marker: `next-1017`
-- Latest checked head at handoff: `42d3680d467c710235440e0286f2f7288f0534dd`
+- Latest checked head at handoff: `19a04ff4246dc2b5432d3380edc0abe1559fe207`
 - Latest checked status at handoff: CI green, Release Control green, CodeQL green, and Vercel green.
 - Base alignment at handoff: `main` is not ahead of the branch; the branch is ahead of `main` by 265 commits.
 - PR state at handoff: open, draft, mergeable, and no blocking submitted reviews or review threads found.
