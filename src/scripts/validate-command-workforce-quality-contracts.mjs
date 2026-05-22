@@ -30,6 +30,30 @@ expect("docs/command-center-command-workforce-bridge.md", [
   "Command workforce validation remains in Release Control.",
 ]);
 
+expect("docs/visual-command-device-width-review-protocol.md", [
+  "Visual Command Device-Width Review Protocol",
+  "Required surfaces",
+  "Required widths",
+  "Required capture bands",
+  "Pass criteria",
+  "Fail criteria",
+  "Surface-specific checks",
+  "Required review record",
+  "Release rule",
+  "390px mobile portrait",
+  "430px large mobile portrait",
+  "768px tablet portrait",
+  "1024px tablet landscape",
+  "1440px desktop",
+  "proof appears before high-commitment paid action pressure",
+  "one dominant next command is visible per screen band",
+  "Homepage `/`",
+  "Plans `/plans`",
+  "FAQ `/faq`",
+  "Sample Presence Report `/sample-report`",
+  "Protected Free Scan Presence Report `/dashboard/reports/free-scan`",
+]);
+
 expect("docs/visual-command-surface-review-register.md", [
   "Visual Command Surface Review Register",
   "Homepage `/`",
@@ -183,7 +207,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
+console.log("Command workforce quality validation passed with device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
