@@ -9,7 +9,7 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 ## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Main head at handoff: `b8b78d32c1a44fc2d06934a4ffde3ce9e8262d8c`
+- Main head at handoff: `450041adc102f0c19faae64c348bb416357b92bd`
 - Legacy validation marker: `next-1017`
 - Recently merged PR #1035: `Install Presence Report homepage batch`
 - Recently merged PR #1036: `Install command workforce quality layer`
@@ -21,8 +21,10 @@ Work in controlled batches, keep user updates short, prefer bigger coherent batc
 - Recently merged PR #1042: `Add Plans FAQ and mobile visual command reviews`
 - Recently merged PR #1043: `Refresh handoff after Plans FAQ mobile review merge`
 - Recently merged PR #1044: `Add visual command device-width review protocol`
-- Latest checked merge status at handoff: Vercel green on the PR #1044 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1044 was green before merge across CI, Release Control, CodeQL, and Vercel.
-- Current post-merge cleanup branch: `post-device-width-protocol-handoff`
+- Recently merged PR #1045: `Refresh handoff after device-width protocol merge`
+- Recently merged PR #1046: `Record source-level device-width visual review`
+- Latest checked merge status at handoff: Vercel green on the PR #1046 merge commit. GitHub Actions were not attached to the merge commit at the time of this refresh; PR #1046 was green before merge across CI, Release Control, CodeQL, and Vercel.
+- Current post-merge cleanup branch: `post-source-device-review-handoff`
 
 ## Business doctrine
 
@@ -162,7 +164,7 @@ The current visual surface register covers:
 - FAQ `/faq`
 - Mobile command hierarchy
 
-The device-width protocol now covers:
+The device-width protocol covers:
 
 - Homepage `/`
 - Plans `/plans`
@@ -171,6 +173,18 @@ The device-width protocol now covers:
 - Protected Free Scan Presence Report `/dashboard/reports/free-scan`
 - Dashboard Presence Command Snapshot when dashboard layout changes
 - Required widths: 390px, 430px, 768px, 1024px, and 1440px
+
+The source-level device-width review record is now merged. It inspected homepage, Plans, FAQ, Sample Report, protected Free Scan report, protected report preview, and Sample Presence Report component by source-level mobile-first and breakpoint review. Live screenshots were not captured in that pass.
+
+Strongest source-level pass:
+
+- Homepage, FAQ, Sample Report, and protected report preview use mobile-first stacking, full-width or touch-sized actions, and larger-grid promotion only at tablet or desktop breakpoints.
+- Plans keeps Scan, Review, Repair, and Control separated and keeps no-guarantee copy in the plan separation section.
+- Sample Report keeps the report object before evidence boundaries, next-move policy, vertical samples, and example-not-promise copy.
+
+Highest-risk mobile issue:
+
+- Protected Free Scan report places the Deep Review price CTA in the hero before the protected report preview. Live screenshots must confirm the paid CTA does not overpower proof, first-signal limits, or report comprehension at 390px and 430px.
 
 Do not regress:
 
@@ -218,6 +232,7 @@ Release Control now runs route guardrails, Presence Report validation, command w
 - Keep the visual command surface review register guarded by the command workforce validator.
 - Keep Plans, FAQ, and mobile command hierarchy review anchors guarded by the command workforce validator.
 - Keep the device-width visual command review protocol guarded by the command workforce validator.
+- Keep the source-level device-width review record guarded by the command workforce validator.
 - Use bigger batches only when the work forms one coherent layer and can be validated together.
 - Use smaller batches for live access, payment configuration, provider runtime, protected customer data, or high-risk customer-facing truth.
 - Do not create blank dashboards for unknown visitors.
@@ -231,7 +246,7 @@ Release Control now runs route guardrails, Presence Report validation, command w
 
 ## Next implementation candidates
 
-1. Execute the device-width review protocol for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan`, then update `docs/visual-command-surface-review-register.md` with surfaces reviewed, widths inspected, strongest pass, highest-risk mobile issue, required fix or no-fix decision, and release-captain decision.
+1. Execute live screenshot/device-width review for homepage, `/plans`, `/faq`, `/sample-report`, and `/dashboard/reports/free-scan` at 390px, 430px, 768px, 1024px, and 1440px; update `docs/visual-command-surface-review-register.md` with screenshot-based findings and resolve or accept the protected Free Scan CTA risk.
 2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture.
 3. Add real scan evidence records once the report pipeline is ready.
 4. Add category-specific proof standards into report scoring and repair language.
