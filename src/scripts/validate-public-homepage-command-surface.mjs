@@ -28,6 +28,16 @@ expect(pagePath, [
   "Action",
   "Repair queue",
   "Recommended next move",
+  "Choice Gap",
+  "Repair Queue",
+  "Control Snapshot",
+  "Evidence Boundary",
+  "Presence Command Center",
+  "Proof before paid pressure",
+  "Not just a score. A repair system.",
+  "Free Scan gives the first signal before paid diagnosis.",
+  "Sample Report shows the product object before plan pressure.",
+  "Deep Review explains cause only when the evidence supports it.",
   "Scan. Review. Repair. Control.",
   "Run Free Scan",
   "Start Free Scan",
@@ -87,7 +97,7 @@ expect(connectPath, [
 expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 expect(routesChainPath, [validatorPath]);
 
-boundedLength(pagePath, 19000);
+boundedLength(pagePath, 26000);
 boundedLength(scanPath, 18500);
 boundedLength(sampleReportPath, 8500);
 boundedLength(connectPath, 15000);
@@ -109,7 +119,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with Presence Report homepage, diagnostic Free Scan entry, sample report route, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
+console.log("Public command surface validation passed with Presence Report homepage, product command proof layer, diagnostic Free Scan entry, sample report route, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
 
 function badgeHeavyPhrases() {
   return [
