@@ -36,6 +36,7 @@ if (!failures.length) {
     "node ./src/scripts/validate-release-control-workflow.mjs",
     "pnpm validate:routes",
     "pnpm validate:presence-report",
+    "pnpm validate:command-workforce",
     "pnpm lint",
     "pnpm typecheck",
     "pnpm build",
@@ -62,6 +63,7 @@ if (!failures.length) {
   if (!chainText.includes("src/scripts/validate-release-control-workflow.mjs")) failures.push(`${chainPath} must include validate-release-control-workflow.mjs in validate:routes coverage.`);
   if (!packageText.includes('"validate:routes": "node ./src/scripts/validate-routes-chain.mjs"')) failures.push(`${packagePath} must keep validate:routes delegated to validate-routes-chain.mjs.`);
   if (!packageText.includes('"validate:presence-report": "node ./src/scripts/validate-presence-report-system.mjs"')) failures.push(`${packagePath} must include validate:presence-report for Presence Report coverage.`);
+  if (!packageText.includes('"validate:command-workforce": "node ./src/scripts/validate-command-workforce-quality-contracts.mjs"')) failures.push(`${packagePath} must include validate:command-workforce for command workforce coverage.`);
 }
 
 if (failures.length) {
@@ -70,7 +72,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Release-control workflow validation passed with PR/main coverage, read-only permissions, Node 24, frozen pnpm install, validate:routes, validate:presence-report, lint, typecheck, build, and no broad write permissions or secret exposure.");
+console.log("Release-control workflow validation passed with PR/main coverage, read-only permissions, Node 24, frozen pnpm install, validate:routes, validate:presence-report, validate:command-workforce, lint, typecheck, build, and no broad write permissions or secret exposure.");
 
 function requireAll(path, text, phrases) {
   for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing required release-control phrase: ${phrase}`);
