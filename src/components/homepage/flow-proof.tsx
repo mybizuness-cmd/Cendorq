@@ -1,8 +1,8 @@
 const FLOW = [
-  ["Input", "Start with the business website."],
-  ["Report", "Show the customer-safe presence state."],
-  ["Gap", "Explain what makes the business harder to choose."],
-  ["Next", "Route to Scan, Review, Repair, or Control."],
+  ["Input", "Start with the business website so the visitor feels the product can begin immediately.", "Command begins"],
+  ["Report", "Show the customer-safe presence state before asking for a deeper plan.", "Proof appears"],
+  ["Gap", "Explain what makes the business harder to understand, trust, compare, or choose.", "Cause is visible"],
+  ["Next", "Route to Scan, Review, Repair, or Control without clutter or pressure.", "Action is clear"],
 ] as const;
 
 export function FlowProof() {
@@ -11,10 +11,12 @@ export function FlowProof() {
       <div className="mx-auto max-w-7xl rounded-[2.3rem] border border-cyan-100 bg-cyan-50/60 p-6 shadow-[0_22px_80px_rgba(15,23,42,0.06)] sm:rounded-[3rem] sm:p-8 lg:p-10">
         <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Customer journey</p>
         <h2 className="mt-4 text-[clamp(2.1rem,7.8vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.07em] text-slate-950">Make the first visit feel like the first product command.</h2>
+        <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600">The public journey should move like a command surface: input, visible report, explained gap, and one useful next action.</p>
         <div className="mt-7 grid gap-4 lg:grid-cols-4">
-          {FLOW.map(([label, copy], index) => (
+          {FLOW.map(([label, copy, state], index) => (
             <article key={label} className="rounded-[1.5rem] border border-white/80 bg-white/82 p-5">
               <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{index + 1}. {label}</p>
+              <h3 className="mt-3 text-xl font-semibold tracking-[-0.04em] text-slate-950">{state}</h3>
               <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{copy}</p>
             </article>
           ))}
