@@ -22,6 +22,7 @@ const validators = [
   "src/scripts/validate-dashboard-presence-command-snapshot.mjs",
   "src/scripts/validate-protected-free-scan-presence-result.mjs",
   "src/scripts/validate-sample-presence-report-route.mjs",
+  "src/scripts/validate-operator-terminal-foundation.mjs",
   "src/scripts/validate-public-sitemap-surface.mjs",
   "src/scripts/validate-public-robots-surface.mjs",
   "src/scripts/validate-seo-metadata-contracts.mjs",
@@ -212,5 +213,11 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log(`\nvalidate:routes chain passed active validators.`);
-console.log(`Documented adjacent validator coverage retained for ${documentedValidatorCoverage.length} standards.`);
+const missingDocumentedCoverage = documentedValidatorCoverage.filter((validatorPath) => !existsSync(join(root, validatorPath)));
+if (missingDocumentedCoverage.length) {
+  console.error("validate:routes chain documented coverage is missing validator files:");
+  for (const validatorPath of missingDocumentedCoverage) console.error(`- ${validatorPath}`);
+  process.exit(1);
+}
+
+console.log(`validate:routes chain passed with ${validators.length} active validators and ${documentedValidatorCoverage.length} documented coverage validators present.`);
