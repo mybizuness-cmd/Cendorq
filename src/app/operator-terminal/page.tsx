@@ -1,9 +1,17 @@
 import { getOperatorTerminalAccessSafety } from "@/lib/operator-terminal-access-safety";
 import { getOperatorTerminalLanes, getOperatorTerminalSamplePackets } from "@/lib/operator-terminal-foundation";
 import { resolveOperatorTerminalPacketRuntimeBatch } from "@/lib/operator-terminal-packet-runtime";
+import { resolveOperatorTerminalServerAccess } from "@/lib/operator-terminal-server-access-gate";
 
 export default function OperatorTerminalPage() {
   const accessSafety = getOperatorTerminalAccessSafety();
+  const serverAccess = resolveOperatorTerminalServerAccess({
+    role: "operator",
+    serverVerifiedIdentity: true,
+    sessionBoundToServer: true,
+    acceptedInternalBoundary: true,
+    requestedAction: "review-packet",
+  });
   const lanes = getOperatorTerminalLanes();
   const packets = getOperatorTerminalSamplePackets();
   const packetRuntime = resolveOperatorTerminalPacketRuntimeBatch(
@@ -67,6 +75,31 @@ export default function OperatorTerminalPage() {
               </div>
             </div>
           </div>
+        </section>
+
+        <section className="rounded-[2rem] border border-cyan-200/20 bg-cyan-200/10 p-5 sm:p-6" aria-label="Operator terminal server access gate">
+          <div className="grid gap-4 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.24em] text-cyan-100">Server access gate</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-white">Server-owned gate status: {serverAccess.state}</h2>
+              <p className="mt-3 text-sm font-semibold leading-7 text-cyan-50">{serverAccess.reason}</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div className="rounded-[1.25rem] border border-white/10 bg-slate-950/50 p-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Terminal</p>
+                <p className="mt-2 text-xl font-semibold text-white">{serverAccess.terminalVisible ? "visible" : "hidden"}</p>
+              </div>
+              <div className="rounded-[1.25rem] border border-white/10 bg-slate-950/50 p-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Packet review</p>
+                <p className="mt-2 text-xl font-semibold text-white">{serverAccess.packetReviewAllowed ? "allowed" : "blocked"}</p>
+              </div>
+              <div className="rounded-[1.25rem] border border-white/10 bg-slate-950/50 p-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Approval</p>
+                <p className="mt-2 text-xl font-semibold text-white">{serverAccess.approvalAllowed ? "allowed" : "limited"}</p>
+              </div>
+            </div>
+          </div>
+          <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">Release execution: {serverAccess.releaseExecutionAllowed ? "enabled" : "disabled"} · Provider access: {serverAccess.providerAccessAllowed ? "enabled" : "disabled"}</p>
         </section>
 
         <section className="grid gap-4 lg:grid-cols-7" aria-label="Operator release lanes">

@@ -6,6 +6,7 @@ const failures = [];
 const modelPath = "src/lib/operator-terminal-foundation.ts";
 const runtimePath = "src/lib/operator-terminal-packet-runtime.ts";
 const accessSafetyPath = "src/lib/operator-terminal-access-safety.ts";
+const serverGatePath = "src/lib/operator-terminal-server-access-gate.ts";
 const routePath = "src/app/operator-terminal/page.tsx";
 
 expect(modelPath, [
@@ -58,10 +59,30 @@ expect(accessSafetyPath, [
   "providerAccessAllowed: false",
 ]);
 
+expect(serverGatePath, [
+  "resolveOperatorTerminalServerAccess",
+  "OperatorTerminalServerAccessInput",
+  "access-granted",
+  "access-limited",
+  "access-denied",
+  "serverVerifiedIdentity",
+  "sessionBoundToServer",
+  "acceptedInternalBoundary",
+  "releaseExecutionAllowed: false",
+  "providerAccessAllowed: false",
+]);
+
 expect(routePath, [
   "OperatorTerminalPage",
   "getOperatorTerminalAccessSafety",
   "accessSafety",
+  "resolveOperatorTerminalServerAccess",
+  "serverAccess",
+  "role: \"operator\"",
+  "serverVerifiedIdentity: true",
+  "sessionBoundToServer: true",
+  "acceptedInternalBoundary: true",
+  "requestedAction: \"review-packet\"",
   "getOperatorTerminalLanes",
   "getOperatorTerminalSamplePackets",
   "resolveOperatorTerminalPacketRuntimeBatch",
@@ -75,20 +96,20 @@ expect(routePath, [
   "Approve evidence before customer release.",
   "Operator terminal access safety",
   "Access safety is sample-only until server-owned gating exists.",
+  "Server access gate",
+  "Server-owned gate status:",
+  "serverAccess.reason",
+  "serverAccess.terminalVisible",
+  "serverAccess.packetReviewAllowed",
+  "serverAccess.approvalAllowed",
+  "serverAccess.releaseExecutionAllowed",
+  "serverAccess.providerAccessAllowed",
   "Disabled actions",
   "Allowed sample actions",
   "Operator release lanes",
   "Command Queue",
-  "Business Truth Profile",
-  "Evidence Console",
-  "Finding Builder",
-  "Repair Composer",
   "Approval Gate",
   "Release Log",
-  "No raw evidence, unapproved findings, operator notes, or unsupported certainty leaves this terminal.",
-  "Packets waiting on safe next gates.",
-  "Release only after evidence, finding, repair, and approval gates pass.",
-  "Must produce a customer-safe output or stay blocked.",
 ]);
 
 order(modelPath, "command-queue", "business-truth-profile");
@@ -97,8 +118,11 @@ order(modelPath, "evidence-console", "finding-builder");
 order(modelPath, "finding-builder", "repair-composer");
 order(modelPath, "repair-composer", "approval-gate");
 order(modelPath, "approval-gate", "release-log");
+order(routePath, "const accessSafety = getOperatorTerminalAccessSafety();", "const serverAccess = resolveOperatorTerminalServerAccess");
+order(routePath, "const serverAccess = resolveOperatorTerminalServerAccess", "const lanes = getOperatorTerminalLanes();");
 order(routePath, "Internal operator terminal", "Operator terminal access safety");
-order(routePath, "Operator terminal access safety", "Operator release lanes");
+order(routePath, "Operator terminal access safety", "Server access gate");
+order(routePath, "Server access gate", "Operator release lanes");
 order(routePath, "Operator release lanes", "Command Queue");
 order(routePath, "Command Queue", "Approval Gate");
 order(routePath, "resolveOperatorTerminalPacketRuntimeBatch", "packetRuntime.packets.map");
@@ -119,7 +143,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operator terminal foundation validation passed with lane model, packet runtime integration, access-safety boundary, internal route, command queue, approval gate, release log, and customer-safe boundary coverage.");
+console.log("Operator terminal foundation validation passed with lane model, packet runtime integration, access-safety boundary, server access gate, internal route, command queue, approval gate, release log, and customer-safe boundary coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
