@@ -10,9 +10,9 @@ import { DashboardNextBestAction } from "./dashboard-next-best-action";
 import { DashboardPresenceCommandSnapshot } from "./dashboard-presence-command-snapshot";
 
 export const metadata = buildMetadata({
-  title: "AI Visibility command center | Cendorq",
+  title: "Presence Command Center | Cendorq",
   description:
-    "Your Cendorq command center for AI Visibility, Diagnosis, reports, plans, billing, support, and the next best action.",
+    "Your Cendorq command center for Presence Reports, Choice Gap, Repair Queue, Control Snapshot, plans, billing, support, and the next best action.",
   path: "/dashboard",
   noIndex: true,
 });
@@ -25,17 +25,17 @@ const DECISION_SUMMARY = [
   {
     label: "Next best move",
     value: "Start or continue",
-    detail: "Cendorq should show one useful command, not a wall of buttons.",
+    detail: "Cendorq should show one useful command from the current product state, not a wall of buttons.",
   },
   {
-    label: "AI Visibility",
+    label: "Free Scan",
     value: "Capture the first signal.",
     detail: "The Free Scan gives Cendorq the business details needed before deeper Review, Repair, or Control work makes sense. Diagnosis belongs inside Review and reports.",
   },
   {
     label: "Reports",
     value: "Open what is ready",
-    detail: "Presence Reports should connect visibility, diagnosis evidence, limitations, and the next command path.",
+    detail: "Presence Reports should connect visibility, diagnosis evidence, limitations, Choice Gap, Repair Queue, and the next command path.",
   },
   {
     label: "Support",
@@ -56,28 +56,28 @@ const COMMAND_PATH = [
     title: "Scan",
     href: "/free-check",
     cta: "Start Free Scan",
-    copy: "Find the first place AI, search, or customers may not understand the business.",
+    copy: "Find the first place search, AI systems, or customers may not understand the business.",
     price: "$0",
   },
   {
     title: "Review",
     href: "/plans/deep-review",
-    cta: `Open Review page — ${REVIEW_PRICE.price}`,
-    copy: "Run deeper Diagnosis on why the business may not look visible, clear, trusted, or easy to choose.",
+    cta: `Open Review page - ${REVIEW_PRICE.price}`,
+    copy: "Run deeper diagnosis on why the business may not look visible, clear, trusted, or easy to choose.",
     price: REVIEW_PRICE.price,
   },
   {
     title: "Repair",
     href: "/plans/build-fix",
-    cta: `Open Repair page — ${REPAIR_PRICE.price}`,
+    cta: `Open Repair page - ${REPAIR_PRICE.price}`,
     copy: "Improve the weak page, message, proof, visibility signal, or action path that matters most.",
     price: REPAIR_PRICE.price,
   },
   {
     title: "Control",
     href: "/plans/ongoing-control",
-    cta: `Open Control page — ${CONTROL_PRICE.price}`,
-    copy: "Keep AI Visibility, market signals, reports, and customer-facing proof watched as the market changes.",
+    cta: `Open Control page - ${CONTROL_PRICE.price}`,
+    copy: "Keep visibility, market signals, reports, and customer-facing proof watched as the market changes.",
     price: CONTROL_PRICE.price,
   },
 ] as const;
@@ -97,12 +97,12 @@ export default function CustomerDashboardPage() {
 
       <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="relative z-10">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Private AI Visibility command center</p>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Private Presence Command Center</p>
           <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,7rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">
-            Your Cendorq command center is ready.
+            Your Cendorq Presence Command Center is ready.
           </h1>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.
+            Cendorq keeps Presence Reports, Choice Gap, Repair Queue, Control Snapshot, plans, billing, support, and one clear next command in one protected dashboard.
           </p>
           <DashboardNextBestAction />
         </div>
@@ -111,7 +111,7 @@ export default function CustomerDashboardPage() {
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
           <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">One next command.</h2>
           <p className="mt-5 text-base font-medium leading-8 text-slate-600">
-            The dashboard should not force a purchase or assume a result exists. It should show the safest next command: start the Free Scan, continue Review, open the result, or choose the next plan.
+            The dashboard should not force a purchase or assume a result exists. It should show the safest next command: start the Free Scan, continue Review, open the report, work the queue, or choose the next plan.
           </p>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             {DECISION_SUMMARY.slice(0, 2).map((item) => (
@@ -168,7 +168,7 @@ export default function CustomerDashboardPage() {
             <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
               <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Scan. Review. Repair. Control.</h2>
               <p className="mt-5 text-base font-medium leading-8 text-slate-600">
-                No cheap dashboard blocks. No clutter wall. No shrinking the system. Each action should help the customer understand the AI Visibility command path fast.
+                No cheap dashboard blocks. No clutter wall. No shrinking the system. Each action should help the customer understand the Presence Command Center path fast.
               </p>
               <Link href="/plans" className="mt-7 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
                 Compare all plans →
@@ -204,7 +204,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Protected Presence Command Center. State, gap, action, control. Presence Reports. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Scan. Review. Repair. Control. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction DashboardPresenceCommandSnapshot Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard command standard">Presence Command Center. AI Visibility command center. Your Cendorq Presence Command Center is ready. one clear next command. One next command. Cendorq keeps Presence Reports, Choice Gap, Repair Queue, Control Snapshot, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Protected Presence Command Center. State, gap, action, control. Presence Reports. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Scan. Review. Repair. Control. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction DashboardPresenceCommandSnapshot Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
     </main>
   );
 }
