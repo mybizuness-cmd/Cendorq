@@ -23,6 +23,7 @@ const canonicalRoutes = [
   "src/app/dashboard/support/page.tsx",
   "src/app/dashboard/support/request/page.tsx",
   "src/app/dashboard/support/status/page.tsx",
+  "src/app/operator-terminal/page.tsx",
   "src/app/checkout/start/page.tsx",
   "src/app/checkout/success/page.tsx",
   "src/app/loading.tsx",
@@ -35,6 +36,7 @@ const canonicalRoutes = [
   "src/lib/customer-revenue-workflow-runtime.ts",
   "src/lib/free-scan-report-methodology.ts",
   "src/lib/free-scan-workflow-runtime.ts",
+  "src/lib/operator-terminal-foundation.ts",
 ];
 
 for (const path of canonicalRoutes) {
@@ -47,4 +49,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Canonical route validation passed for ${canonicalRoutes.length} route and orchestration dependencies, including public fallback, FAQ, Contact Us on /connect, sitemap, and robots surfaces.`);
+console.log(`Canonical route validation passed for ${canonicalRoutes.length} route and orchestration dependencies.`);
