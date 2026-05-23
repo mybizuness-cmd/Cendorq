@@ -10,6 +10,8 @@ const nonNegotiablesPath = "docs/ops/non-negotiables.md";
 const latestGreenPath = "docs/ops/latest-green-state.md";
 const accessSourcesPath = "docs/ops/customer-access-sources.md";
 const accessTriagePath = "docs/ops/access-triage-checklist.md";
+const videoSourceIndexPath = "docs/agent-handoff/video-source-index.md";
+const videoFourNotesPath = "docs/agent-handoff/video-04-semrush-ai-visibility-notes.md";
 const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-cendorq-agent-handoff-docs.mjs";
 
@@ -83,6 +85,25 @@ expect(accessTriagePath, [
   "Verify Vercel green before the next batch.",
 ]);
 
+expect(videoSourceIndexPath, [
+  "Video Source Index",
+  "The original MP4 uploads are conversation attachments",
+  "Video 01 - Cendorq mobile and Semrush mobile",
+  "Video 02 - Yext Scout mobile",
+  "Video 03 - Cendorq desktop and Semrush desktop",
+  "Video 04 - Semrush AI Visibility style recording",
+  "Cendorq should mimic the confidence rhythm of Semrush, not its broad SEO-suite scope",
+]);
+
+expect(videoFourNotesPath, [
+  "Video 04 Semrush AI Visibility Notes",
+  "simple AI visibility score",
+  "AI surface or engine mentions",
+  "prompt-tracking style rows",
+  "State, Gap, Queue, Control",
+  "AI Search Presence Repair",
+]);
+
 expect(routesChainPath, [validatorPath]);
 
 if (failures.length) {
@@ -91,7 +112,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, latest green state, customer access source docs, access triage checklist, and durable repo memory coverage.");
+console.log("Cendorq agent handoff docs validation passed with business doctrine, access law, non-negotiables, latest green state, customer access source docs, access triage checklist, video source index, and durable repo memory coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
