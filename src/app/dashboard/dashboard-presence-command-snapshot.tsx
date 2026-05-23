@@ -15,6 +15,18 @@ const AI_PROOF_SURFACE_ROWS = [
   ["Boundary", "Visibility evidence only; no placement promise"],
 ] as const;
 
+const PROMPT_MONITOR_ROWS = [
+  ["Discovery", "Could a customer or AI surface identify the business quickly?", "Watch entity clarity"],
+  ["Comparison", "Does the business explain why it is easier to choose?", "Watch Choice Gap"],
+  ["Action", "Is the next customer step obvious and low-friction?", "Watch conversion path"],
+] as const;
+
+const TREND_POSTURE = [
+  ["Daily signal", "Public surface drift can appear before the customer sees it."],
+  ["Monthly control", "Control Snapshot turns drift into the next priority."],
+  ["Repair memory", "Repeated weak signals become better page, proof, FAQ, and action patterns."],
+] as const;
+
 export function DashboardPresenceCommandSnapshot() {
   const packageSource = getPresenceReportPackage();
   const report = packageSource.report;
@@ -80,6 +92,21 @@ export function DashboardPresenceCommandSnapshot() {
               </div>
             </article>
 
+            <article className="rounded-[1.65rem] border border-slate-200 bg-white p-5 shadow-sm">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Prompt-style monitoring</p>
+              <div className="mt-4 grid gap-2">
+                {PROMPT_MONITOR_ROWS.map(([label, question, watch]) => (
+                  <div key={label} className="rounded-[1rem] border border-slate-200 bg-slate-50 p-3">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500">{label}</p>
+                      <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700">{watch}</p>
+                    </div>
+                    <p className="mt-2 text-sm font-semibold leading-6 text-slate-700">{question}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+
             <div className="grid gap-4 lg:grid-cols-2">
               <article className="rounded-[1.65rem] border border-slate-200 bg-white p-5 shadow-sm">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Choice Gap</p>
@@ -103,6 +130,18 @@ export function DashboardPresenceCommandSnapshot() {
                 </div>
               </article>
             </div>
+
+            <article className="rounded-[1.65rem] border border-cyan-200 bg-cyan-50 p-5 shadow-sm">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Trend posture</p>
+              <div className="mt-4 grid gap-2 lg:grid-cols-3">
+                {TREND_POSTURE.map(([label, copy]) => (
+                  <div key={label} className="rounded-[1rem] border border-cyan-100 bg-white/80 p-3">
+                    <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{label}</p>
+                    <p className="mt-2 text-xs font-semibold leading-5 text-slate-700">{copy}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
 
             <article className="rounded-[1.65rem] border border-cyan-200 bg-cyan-50 p-5 shadow-sm">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Control Snapshot</p>

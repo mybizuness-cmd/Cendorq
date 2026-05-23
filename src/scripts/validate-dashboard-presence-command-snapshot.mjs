@@ -19,6 +19,13 @@ expect(componentPath, [
   "AI proof surface",
   "Search, maps, reviews, and AI answers",
   "Visibility evidence only; no placement promise",
+  "Prompt-style monitoring",
+  "Could a customer or AI surface identify the business quickly?",
+  "Watch entity clarity",
+  "Trend posture",
+  "Daily signal",
+  "Monthly control",
+  "Repair memory",
   "Choice Gap",
   "Repair Queue",
   "Control Snapshot",
@@ -83,7 +90,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard Presence Command Snapshot validation passed with AI proof surface rows, protected command strip, package-source helper, shared Sandwork fixture boundary, and protected report object boundaries.");
+console.log("Dashboard Presence Command Snapshot validation passed with expanded AI proof surface, prompt-style monitoring, trend posture, protected command strip, package-source helper, shared Sandwork fixture boundary, and protected report object boundaries.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
