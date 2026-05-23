@@ -7,6 +7,7 @@ const modelPath = "src/lib/operator-terminal-foundation.ts";
 const runtimePath = "src/lib/operator-terminal-packet-runtime.ts";
 const accessSafetyPath = "src/lib/operator-terminal-access-safety.ts";
 const serverGatePath = "src/lib/operator-terminal-server-access-gate.ts";
+const accessMatrixPath = "src/lib/operator-terminal-access-matrix.ts";
 const routePath = "src/app/operator-terminal/page.tsx";
 
 expect(modelPath, [
@@ -72,8 +73,25 @@ expect(serverGatePath, [
   "providerAccessAllowed: false",
 ]);
 
+expect(accessMatrixPath, [
+  "resolveOperatorTerminalAccessMatrix",
+  "summarizeOperatorTerminalAccessMatrix",
+  "owner-review-packet-granted",
+  "operator-approve-release-granted",
+  "support-approve-release-limited",
+  "customer-view-terminal-denied",
+  "anonymous-view-terminal-denied",
+  "operator-release-execution-denied",
+  "owner-provider-access-denied",
+  "operator-missing-server-bound-session-limited",
+]);
+
 expect(routePath, [
   "OperatorTerminalPage",
+  "resolveOperatorTerminalAccessMatrix",
+  "summarizeOperatorTerminalAccessMatrix",
+  "accessMatrix",
+  "accessMatrixSummary",
   "getOperatorTerminalAccessSafety",
   "accessSafety",
   "resolveOperatorTerminalServerAccess",
@@ -98,6 +116,12 @@ expect(routePath, [
   "Access safety is sample-only until server-owned gating exists.",
   "Server access gate",
   "Server-owned gate status:",
+  "Access decision matrix",
+  "Role and action coverage is checked before live auth wiring.",
+  "accessMatrixSummary.passed",
+  "accessMatrixSummary.failed",
+  "accessMatrixSummary.total",
+  "result.resolution.state",
   "serverAccess.reason",
   "serverAccess.terminalVisible",
   "serverAccess.packetReviewAllowed",
@@ -119,10 +143,12 @@ order(modelPath, "finding-builder", "repair-composer");
 order(modelPath, "repair-composer", "approval-gate");
 order(modelPath, "approval-gate", "release-log");
 order(routePath, "const accessSafety = getOperatorTerminalAccessSafety();", "const serverAccess = resolveOperatorTerminalServerAccess");
-order(routePath, "const serverAccess = resolveOperatorTerminalServerAccess", "const lanes = getOperatorTerminalLanes();");
+order(routePath, "const serverAccess = resolveOperatorTerminalServerAccess", "const accessMatrix = resolveOperatorTerminalAccessMatrix();");
+order(routePath, "const accessMatrix = resolveOperatorTerminalAccessMatrix();", "const lanes = getOperatorTerminalLanes();");
 order(routePath, "Internal operator terminal", "Operator terminal access safety");
 order(routePath, "Operator terminal access safety", "Server access gate");
-order(routePath, "Server access gate", "Operator release lanes");
+order(routePath, "Server access gate", "Access decision matrix");
+order(routePath, "Access decision matrix", "Operator release lanes");
 order(routePath, "Operator release lanes", "Command Queue");
 order(routePath, "Command Queue", "Approval Gate");
 order(routePath, "resolveOperatorTerminalPacketRuntimeBatch", "packetRuntime.packets.map");
@@ -143,7 +169,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operator terminal foundation validation passed with lane model, packet runtime integration, access-safety boundary, server access gate, internal route, command queue, approval gate, release log, and customer-safe boundary coverage.");
+console.log("Operator terminal foundation validation passed with lane model, packet runtime integration, access-safety boundary, server access gate, access decision matrix, internal route, command queue, approval gate, release log, and customer-safe boundary coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
