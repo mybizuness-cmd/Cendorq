@@ -5,6 +5,7 @@ const root = process.cwd();
 const failures = [];
 const modelPath = "src/lib/operator-terminal-foundation.ts";
 const runtimePath = "src/lib/operator-terminal-packet-runtime.ts";
+const accessSafetyPath = "src/lib/operator-terminal-access-safety.ts";
 const routePath = "src/app/operator-terminal/page.tsx";
 
 expect(modelPath, [
@@ -46,8 +47,21 @@ expect(runtimePath, [
   "releaseBlocked",
 ]);
 
+expect(accessSafetyPath, [
+  "getOperatorTerminalAccessSafety",
+  "isOperatorTerminalReleaseExecutionAllowed",
+  "sample-only",
+  "operatorOnly: true",
+  "customerFacingAllowed: false",
+  "liveCustomerDataAllowed: false",
+  "releaseExecutionAllowed: false",
+  "providerAccessAllowed: false",
+]);
+
 expect(routePath, [
   "OperatorTerminalPage",
+  "getOperatorTerminalAccessSafety",
+  "accessSafety",
   "getOperatorTerminalLanes",
   "getOperatorTerminalSamplePackets",
   "resolveOperatorTerminalPacketRuntimeBatch",
@@ -59,6 +73,10 @@ expect(routePath, [
   "runtimePacket.safeNextAction",
   "Internal operator terminal",
   "Approve evidence before customer release.",
+  "Operator terminal access safety",
+  "Access safety is sample-only until server-owned gating exists.",
+  "Disabled actions",
+  "Allowed sample actions",
   "Operator release lanes",
   "Command Queue",
   "Business Truth Profile",
@@ -79,7 +97,8 @@ order(modelPath, "evidence-console", "finding-builder");
 order(modelPath, "finding-builder", "repair-composer");
 order(modelPath, "repair-composer", "approval-gate");
 order(modelPath, "approval-gate", "release-log");
-order(routePath, "Internal operator terminal", "Operator release lanes");
+order(routePath, "Internal operator terminal", "Operator terminal access safety");
+order(routePath, "Operator terminal access safety", "Operator release lanes");
 order(routePath, "Operator release lanes", "Command Queue");
 order(routePath, "Command Queue", "Approval Gate");
 order(routePath, "resolveOperatorTerminalPacketRuntimeBatch", "packetRuntime.packets.map");
@@ -90,6 +109,8 @@ forbidden(routePath, [
   "guaranteed AI placement",
   "customer-facing terminal",
   "public operator terminal",
+  "executeRelease(",
+  "providerAccessToken",
 ]);
 
 if (failures.length) {
@@ -98,7 +119,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operator terminal foundation validation passed with lane model, packet runtime integration, internal route, command queue, approval gate, release log, and customer-safe boundary coverage.");
+console.log("Operator terminal foundation validation passed with lane model, packet runtime integration, access-safety boundary, internal route, command queue, approval gate, release log, and customer-safe boundary coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {

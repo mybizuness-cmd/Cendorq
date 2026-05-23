@@ -24,6 +24,7 @@ const validators = [
   "src/scripts/validate-sample-presence-report-route.mjs",
   "src/scripts/validate-operator-terminal-foundation.mjs",
   "src/scripts/validate-operator-terminal-packet-runtime.mjs",
+  "src/scripts/validate-operator-terminal-access-safety.mjs",
   "src/scripts/validate-public-sitemap-surface.mjs",
   "src/scripts/validate-public-robots-surface.mjs",
   "src/scripts/validate-seo-metadata-contracts.mjs",
