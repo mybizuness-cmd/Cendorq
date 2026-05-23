@@ -30,7 +30,7 @@ expect(runtimePath, [
   "Keep packet blocked and remove unsafe evidence before retrying approval.",
 ]);
 
-order(runtimePath, "toOperatorApprovalPacket", "resolveOperatorApprovalFlow");
+order(runtimePath, "const approvalPacket = toOperatorApprovalPacket(input);", "const approvalResolution = resolveOperatorApprovalFlow(approvalPacket);");
 order(runtimePath, "releaseReady", "needsReview");
 order(runtimePath, "needsReview", "releaseBlocked");
 forbidden(runtimePath, ["liveCustomerData", "paymentState", "providerAccess", "executeRelease"]);
