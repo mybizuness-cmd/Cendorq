@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getPresenceReportPackage } from "@/lib/presence-report-package-source";
 
+const SNAPSHOT_STATES = ["State", "Gap", "Queue", "Control"] as const;
+
 export function DashboardPresenceCommandSnapshot() {
   const packageSource = getPresenceReportPackage();
   const report = packageSource.report;
@@ -15,6 +17,11 @@ export function DashboardPresenceCommandSnapshot() {
             <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Presence command snapshot</p>
             <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">{report.title}</h2>
             <p className="mt-5 text-base font-medium leading-8 text-slate-600">The dashboard should make the current business state obvious: score, top weakness, Choice Gap, Repair Queue, and Control Snapshot.</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {SNAPSHOT_STATES.map((state) => (
+                <span key={state} className="rounded-full border border-cyan-200 bg-white/80 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{state}</span>
+              ))}
+            </div>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
               <div className="rounded-[1.45rem] border border-cyan-200 bg-cyan-50 p-5 text-center">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Presence Score</p>
