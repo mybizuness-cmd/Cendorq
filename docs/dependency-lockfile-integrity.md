@@ -24,7 +24,7 @@ This document records the package and lockfile integrity posture for the Cendorq
 - React resolved version: `19.2.5`
 - React DOM resolved version: `19.2.5`
 - TypeScript resolved version: `6.0.3`
-- ESLint resolved version: `10.3.0`
+- ESLint resolved version: `10.4.0`
 - TypeScript ESLint parser resolved version: `8.59.3`
 
 ## Maintenance rule

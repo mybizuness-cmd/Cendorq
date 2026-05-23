@@ -41,7 +41,7 @@ if (!failures.length) {
     "specifier: ^6.0.3",
     "version: 6.0.3",
     "specifier: ^10.2.1",
-    "version: 10.3.0",
+    "version: 10.4.0",
   ]);
 
   requireText(chainIntegrityPath, chainIntegrity, [
@@ -60,7 +60,7 @@ if (!failures.length) {
     "Next resolved version: `16.2.4`",
     "React resolved version: `19.2.5`",
     "TypeScript resolved version: `6.0.3`",
-    "ESLint resolved version: `10.3.0`",
+    "ESLint resolved version: `10.4.0`",
     "TypeScript ESLint parser resolved version: `8.59.3`",
     "Do not let dependency PRs merge with unreviewed package and lockfile drift.",
   ]);
