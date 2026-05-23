@@ -3,6 +3,12 @@ import { getPresenceReportPackage } from "@/lib/presence-report-package-source";
 
 const SNAPSHOT_STATES = ["State", "Gap", "Queue", "Control"] as const;
 
+const SNAPSHOT_OPERATING_NOTES = [
+  ["Report source", "Customer-safe package"],
+  ["Evidence boundary", "No raw evidence shown"],
+  ["Next action", "Review before repair"],
+] as const;
+
 export function DashboardPresenceCommandSnapshot() {
   const packageSource = getPresenceReportPackage();
   const report = packageSource.report;
@@ -20,6 +26,14 @@ export function DashboardPresenceCommandSnapshot() {
             <div className="mt-5 flex flex-wrap gap-2">
               {SNAPSHOT_STATES.map((state) => (
                 <span key={state} className="rounded-full border border-cyan-200 bg-white/80 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{state}</span>
+              ))}
+            </div>
+            <div className="mt-4 grid gap-2 sm:grid-cols-3">
+              {SNAPSHOT_OPERATING_NOTES.map(([label, value]) => (
+                <div key={label} className="rounded-[1rem] border border-cyan-100 bg-white/75 p-3">
+                  <p className="text-[9px] font-black uppercase tracking-[0.16em] text-cyan-700">{label}</p>
+                  <p className="mt-1 text-xs font-semibold text-slate-600">{value}</p>
+                </div>
               ))}
             </div>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
