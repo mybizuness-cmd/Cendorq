@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const failures = [];
 const modelPath = "src/lib/operator-terminal-foundation.ts";
+const runtimePath = "src/lib/operator-terminal-packet-runtime.ts";
 const routePath = "src/app/operator-terminal/page.tsx";
 
 expect(modelPath, [
@@ -34,10 +35,28 @@ expect(modelPath, [
   "Write release record",
 ]);
 
+expect(runtimePath, [
+  "resolveOperatorTerminalPacketRuntimeBatch",
+  "toOperatorApprovalPacket",
+  "resolveOperatorApprovalFlow",
+  "operatorNotice",
+  "safeNextAction",
+  "releaseReady",
+  "needsReview",
+  "releaseBlocked",
+]);
+
 expect(routePath, [
   "OperatorTerminalPage",
   "getOperatorTerminalLanes",
   "getOperatorTerminalSamplePackets",
+  "resolveOperatorTerminalPacketRuntimeBatch",
+  "packetRuntime",
+  "runtimePacket.visibleState",
+  "runtimePacket.approvalResolution.nextGate",
+  "runtimePacket.approvalResolution.evidenceSummary.customerReady",
+  "runtimePacket.operatorNotice",
+  "runtimePacket.safeNextAction",
   "Internal operator terminal",
   "Approve evidence before customer release.",
   "Operator release lanes",
@@ -63,6 +82,7 @@ order(modelPath, "approval-gate", "release-log");
 order(routePath, "Internal operator terminal", "Operator release lanes");
 order(routePath, "Operator release lanes", "Command Queue");
 order(routePath, "Command Queue", "Approval Gate");
+order(routePath, "resolveOperatorTerminalPacketRuntimeBatch", "packetRuntime.packets.map");
 
 forbidden(routePath, [
   "guaranteed ranking",
@@ -78,7 +98,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Operator terminal foundation validation passed with lane model, internal route, command queue, approval gate, release log, and customer-safe boundary coverage.");
+console.log("Operator terminal foundation validation passed with lane model, packet runtime integration, internal route, command queue, approval gate, release log, and customer-safe boundary coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
