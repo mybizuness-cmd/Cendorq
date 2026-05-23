@@ -1,12 +1,28 @@
-import { getPresenceReportPackage } from "@/lib/presence-report-package-source";
+import { resolvePresenceReportPackageSource } from "@/lib/presence-report-package-source";
+import { resolvePresenceReportCustomerSafeRender } from "@/lib/presence-report-customer-safe-render-runtime";
 
 export function ProtectedFreeScanResultPreview() {
-  const packageSource = getPresenceReportPackage();
+  const packageResolution = resolvePresenceReportPackageSource();
+  const renderResolution = resolvePresenceReportCustomerSafeRender({
+    packageResolution,
+    evidenceReadiness: [],
+    surface: "protected-free-scan",
+    requestedAction: "preview",
+  });
+  const packageSource = renderResolution.package ?? packageResolution.package;
   const report = packageSource.report;
   const choiceGap = packageSource.choiceGap;
 
   return (
     <section className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur" aria-label="Protected Free Scan Presence Report preview">
+      <div className="border-b border-cyan-100 bg-cyan-50/60 px-5 py-4 sm:px-7">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Customer-safe render gate</p>
+          <p className="text-xs font-bold text-slate-500">State: {renderResolution.state}</p>
+        </div>
+        <p className="mt-2 text-sm font-medium leading-6 text-slate-600">{renderResolution.customerSafeNotice}</p>
+      </div>
+
       <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
         <div className="border-b border-cyan-100 bg-[radial-gradient(circle_at_18%_0%,rgba(125,211,252,0.2),transparent_34%),linear-gradient(180deg,#ffffff,#effcff)] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Protected Free Scan result</p>

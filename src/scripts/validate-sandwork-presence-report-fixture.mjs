@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const fixturePath = "src/lib/sandwork-presence-report-fixture.ts";
 const packageSourcePath = "src/lib/presence-report-package-source.ts";
+const renderRuntimePath = "src/lib/presence-report-customer-safe-render-runtime.ts";
 const protectedPreviewPath = "src/components/presence-report/protected-free-scan-result-preview.tsx";
 const dashboardSnapshotPath = "src/app/dashboard/dashboard-presence-command-snapshot.tsx";
 const failures = [];
@@ -30,19 +31,30 @@ expect(fixturePath, [
 
 expect(packageSourcePath, [
   "getPresenceReportPackage",
+  "resolvePresenceReportPackageSource",
   "PRESENCE_REPORT_OBJECT_INDEX",
   "demoReportPackage",
 ]);
 
+expect(renderRuntimePath, [
+  "resolvePresenceReportCustomerSafeRender",
+  "render-demo-fallback",
+  "customerSafeNotice",
+]);
+
 expect(protectedPreviewPath, [
-  "getPresenceReportPackage",
+  "resolvePresenceReportPackageSource",
+  "resolvePresenceReportCustomerSafeRender",
   "@/lib/presence-report-package-source",
+  "@/lib/presence-report-customer-safe-render-runtime",
 ]);
 
 expect(dashboardSnapshotPath, [
   "getPresenceReportPackage",
   "@/lib/presence-report-package-source",
 ]);
+
+order(protectedPreviewPath, "resolvePresenceReportPackageSource", "resolvePresenceReportCustomerSafeRender");
 
 forbidden(fixturePath, [
   "guaranteed ranking",
@@ -61,7 +73,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Sandwork Presence Report fixture validation passed with shared live-mapper package, package-source consumption, and no hardcoded component fixture drift.");
+console.log("Sandwork Presence Report fixture validation passed with shared live-mapper package, protected render-gated package resolution, package-source consumption, and no hardcoded component fixture drift.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -72,6 +84,16 @@ function expect(path, phrases) {
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
   }
+}
+
+function order(path, before, after) {
+  if (!existsSync(join(root, path))) return;
+  const text = read(path);
+  const beforeIndex = text.indexOf(before);
+  const afterIndex = text.indexOf(after);
+  if (beforeIndex === -1) failures.push(`${path} missing order phrase: ${before}`);
+  if (afterIndex === -1) failures.push(`${path} missing order phrase: ${after}`);
+  if (beforeIndex !== -1 && afterIndex !== -1 && beforeIndex >= afterIndex) failures.push(`${path} order violation: ${before} must appear before ${after}`);
 }
 
 function forbidden(path, phrases) {
