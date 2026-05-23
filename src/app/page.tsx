@@ -1,3 +1,4 @@
+import { ProductProof } from "@/components/homepage/product-proof";
 import { PresenceReportPreview } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { buildMetadata } from "@/lib/seo";
@@ -78,6 +79,8 @@ export default function HomePage() {
           <PresenceReportPreview />
         </div>
       </section>
+
+      <ProductProof />
 
       <section id="ai-readiness" className="relative scroll-mt-24 px-5 py-7 sm:px-8 lg:py-10" aria-label="AI visibility and readiness story">
         <div className={CENDORQ_EXPERIENCE_SYSTEM.maxWidth}>
