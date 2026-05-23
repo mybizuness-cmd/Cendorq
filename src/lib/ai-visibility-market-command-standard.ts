@@ -22,6 +22,7 @@ export type AiVisibilityStandard = {
   }[];
   reportStandard: readonly string[];
   pageStandard: readonly string[];
+  proofSurfaceStandard: readonly string[];
   forecastStandard: readonly string[];
   blockedClaims: readonly string[];
 };
@@ -84,6 +85,12 @@ export const AI_VISIBILITY_MARKET_COMMAND_STANDARD = {
     "Every page should answer: what is this, why does it matter now, what should I do next, and what does this not include?",
     "Public pages should avoid clutter and keep the most important market-command message above decorative detail.",
     "Dashboard pages should show status, proof, next action, and scope boundary without account-page filler.",
+  ],
+  proofSurfaceStandard: [
+    "Show a score-like state before deeper explanation, then immediately explain the limit of that state.",
+    "Engine, surface, mention, and prompt-style signals may be shown as customer-safe visibility evidence, not as placement promises.",
+    "Proof tables should feel operational: source, observed signal, risk, confidence, and next command.",
+    "Daily or monthly monitoring language must stay tied to watch posture and customer action, not guaranteed AI visibility growth.",
   ],
   forecastStandard: [
     "Forecasts must be useful but bounded: likely risk, confidence posture, and next review path.",
