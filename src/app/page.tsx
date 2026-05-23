@@ -1,4 +1,5 @@
 import { AuthorityProof } from "@/components/homepage/authority-proof";
+import { FlowProof } from "@/components/homepage/flow-proof";
 import { ProductProof } from "@/components/homepage/product-proof";
 import { PresenceReportPreview } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
@@ -81,6 +82,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      <FlowProof />
       <ProductProof />
 
       <section id="ai-readiness" className="relative scroll-mt-24 px-5 py-7 sm:px-8 lg:py-10" aria-label="AI visibility and readiness story">
