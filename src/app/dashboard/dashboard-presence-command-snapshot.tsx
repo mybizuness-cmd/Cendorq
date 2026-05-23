@@ -9,6 +9,12 @@ const SNAPSHOT_OPERATING_NOTES = [
   ["Next action", "Review before repair"],
 ] as const;
 
+const AI_PROOF_SURFACE_ROWS = [
+  ["Surface", "Search, maps, reviews, and AI answers"],
+  ["Observed signal", "Clear enough to find, understand, trust, and choose"],
+  ["Boundary", "Visibility evidence only; no placement promise"],
+] as const;
+
 export function DashboardPresenceCommandSnapshot() {
   const packageSource = getPresenceReportPackage();
   const report = packageSource.report;
@@ -61,6 +67,18 @@ export function DashboardPresenceCommandSnapshot() {
                 </article>
               ))}
             </div>
+
+            <article className="rounded-[1.65rem] border border-slate-200 bg-white p-5 shadow-sm">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">AI proof surface</p>
+              <div className="mt-4 grid gap-2">
+                {AI_PROOF_SURFACE_ROWS.map(([label, value]) => (
+                  <div key={label} className="grid gap-2 rounded-[1rem] border border-cyan-100 bg-cyan-50/50 p-3 sm:grid-cols-[9rem_1fr] sm:items-center">
+                    <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{label}</p>
+                    <p className="text-xs font-semibold leading-5 text-slate-700">{value}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
 
             <div className="grid gap-4 lg:grid-cols-2">
               <article className="rounded-[1.65rem] border border-slate-200 bg-white p-5 shadow-sm">
