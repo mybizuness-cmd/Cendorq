@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const pagePath = "src/app/page.tsx";
+const flowProofPath = "src/components/homepage/flow-proof.tsx";
+const productProofPath = "src/components/homepage/product-proof.tsx";
 const headerPath = "src/layout/site-header-conversion.tsx";
 const footerPath = "src/layout/site-footer.tsx";
 const scanPath = "src/app/free-check/page.tsx";
@@ -47,6 +49,31 @@ expect(pagePath, [
   "Most businesses are online. Fewer are answer-ready.",
   "Visibility shows the gap. Readiness explains the cause.",
   "Start with the first signal. Move deeper only when it makes sense.",
+]);
+
+expect(flowProofPath, [
+  "Make the first visit feel like the first product command.",
+  "Visible first",
+  "Bounded proof",
+  "One action",
+  "Website signal",
+  "Presence state",
+  "Choice risk",
+  "Best next move",
+  "The first screen should feel like a working scan path, not a brochure.",
+]);
+
+expect(productProofPath, [
+  "Show the product first.",
+  "AI proof surface",
+  "Prompt-style monitoring",
+  "Evidence boundary",
+  "Search, maps, reviews, directories, and AI answers stay framed as customer-safe visibility signals.",
+  "Discovery, comparison, and action questions become watch rows, not ranking promises.",
+  "Score, pillars, and current state",
+  "Understanding, trust, and comparison risk",
+  "Prioritized next fixes",
+  "Drift, posture, and follow-up",
 ]);
 
 expect(sampleReportPath, [
@@ -98,6 +125,8 @@ expect(packagePath, ["validate:routes", "node ./src/scripts/validate-routes-chai
 expect(routesChainPath, [validatorPath]);
 
 boundedLength(pagePath, 26000);
+boundedLength(flowProofPath, 6500);
+boundedLength(productProofPath, 6500);
 boundedLength(scanPath, 18500);
 boundedLength(sampleReportPath, 8500);
 boundedLength(connectPath, 15000);
@@ -106,6 +135,8 @@ boundedLength(footerPath, 6500);
 boundedLength(faqPath, 24000);
 
 forbidden(pagePath, [...blockedPublicPhrases(), ...badgeHeavyPhrases(), ...oldHomepagePhrases()]);
+forbidden(flowProofPath, blockedPublicPhrases());
+forbidden(productProofPath, blockedPublicPhrases());
 forbidden(headerPath, [...blockedPublicPhrases(), "Privacy", "Terms", "Talk through fit or scope", "Pricing from $0", "Command path"]);
 forbidden(footerPath, [...blockedPublicPhrases(), "Final command path", "Clear plan depth", "View pricing", "Clarity command", "Trust command", "AI-search aware", "Protected platform", "$300/mo"]);
 forbidden(scanPath, [...blockedPublicPhrases(), ...oldFreeScanPhrases()]);
@@ -119,7 +150,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with Presence Report homepage, product proof layer, diagnostic Free Scan entry, sample report route, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
+console.log("Public command surface validation passed with expanded homepage flow proof, product proof density, Presence Report homepage, diagnostic Free Scan entry, sample report route, Scan Review Repair Control path, compact footer, no fake guarantees, and Contact kept as a scoped utility.");
 
 function badgeHeavyPhrases() {
   return [
