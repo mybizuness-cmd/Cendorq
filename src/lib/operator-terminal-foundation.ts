@@ -124,6 +124,17 @@ export const OPERATOR_TERMINAL_SAMPLE_PACKETS: readonly OperatorTerminalPacket[]
     blocked: 1,
     safeNextAction: "Remove blocked evidence before release log.",
   },
+  {
+    id: "packet-release-log-ready",
+    business: "Customer-safe Release Log Candidate",
+    lane: "release-log",
+    state: "release-ready",
+    nextGate: "release-log",
+    evidenceReady: 6,
+    needsReview: 0,
+    blocked: 0,
+    safeNextAction: "Write release record before customer visibility changes.",
+  },
 ] as const;
 
 export function getOperatorTerminalLanes() {
