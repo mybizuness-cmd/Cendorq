@@ -25,6 +25,10 @@ expect(standardPath, [
   "action-path",
   "signal, proof, risk, limit, and next command",
   "Every page must speak to the customer, not describe generic software features.",
+  "proofSurfaceStandard",
+  "Engine, surface, mention, and prompt-style signals may be shown as customer-safe visibility evidence, not as placement promises.",
+  "Proof tables should feel operational: source, observed signal, risk, confidence, and next command.",
+  "Daily or monthly monitoring language must stay tied to watch posture and customer action, not guaranteed AI visibility growth.",
   "guaranteed AI answer placement",
   "luxury UI as the standard instead of customer command clarity",
 ]);
@@ -85,7 +89,7 @@ forbidden(agentPath, [
   "luxury UI, conversion ethics",
 ]);
 
-boundedLength(standardPath, 9000);
+boundedLength(standardPath, 10200);
 boundedLength(freeScanPath, 18000);
 boundedLength(paidReportsPath, 17500);
 
@@ -95,7 +99,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("AI visibility market command standard validation passed with bounded claims, customer-facing language, agent alignment, and report structure.");
+console.log("AI visibility market command standard validation passed with bounded claims, proof surface rules, customer-facing language, agent alignment, and report structure.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
