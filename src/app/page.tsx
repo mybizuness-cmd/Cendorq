@@ -1,3 +1,4 @@
+import { AuthorityProof } from "@/components/homepage/authority-proof";
 import { ProductProof } from "@/components/homepage/product-proof";
 import { PresenceReportPreview } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
@@ -127,6 +128,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <AuthorityProof />
 
       <section className="relative px-5 py-7 sm:px-8 lg:py-10" aria-label="Scan Review Repair Control path">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[18rem] bg-[radial-gradient(circle_at_50%_20%,rgba(125,211,252,0.2),transparent_46%)]" />
