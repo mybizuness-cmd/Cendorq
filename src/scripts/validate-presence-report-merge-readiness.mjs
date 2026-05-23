@@ -15,8 +15,9 @@ expect("src/scripts/validate-presence-report-system.mjs", [
   "src/scripts/validate-presence-report-customer-safe-render-runtime.mjs",
   "src/scripts/validate-presence-report-retrieval-workflow-contracts.mjs",
   "src/scripts/validate-operator-release-gate-contracts.mjs",
+  "src/scripts/validate-operator-approval-flow-runtime.mjs",
   "src/scripts/validate-category-proof-standard-contracts.mjs",
-  "Presence Report system validation passed with package-source, evidence record contracts, evidence readiness runtime, customer-safe render runtime, retrieval workflow contracts, operator release gates, category proof standards, and merge-readiness coverage.",
+  "Presence Report system validation passed with package-source, evidence record contracts, evidence readiness runtime, customer-safe render runtime, retrieval workflow contracts, operator release gates, operator approval flow runtime, category proof standards, and merge-readiness coverage.",
 ]);
 
 expect("src/lib/presence-report-object-index.ts", ["SANDWORK_PRESENCE_REPORT_PACKAGE", "demoReportPackage"]);
@@ -46,6 +47,17 @@ expect("src/lib/presence-report-customer-safe-render-runtime.ts", [
 ]);
 expect("src/lib/presence-report-retrieval-workflow-contracts.ts", ["PRESENCE_REPORT_RETRIEVAL_WORKFLOW_CONTRACTS", "customer-safe-render", "package-source helper used"]);
 expect("src/lib/operator-release-gate-contracts.ts", ["OPERATOR_RELEASE_GATE_CONTRACTS", "Approval Gate", "Release Log"]);
+expect("src/lib/operator-approval-flow-runtime.ts", [
+  "resolveOperatorApprovalFlow",
+  "OperatorApprovalPacket",
+  "release-ready",
+  "needs-review",
+  "release-blocked",
+  "approval-gate",
+  "release-log",
+  "customerSafeReleaseNote",
+  "releaseLogRequired",
+]);
 expect("src/lib/category-proof-standard-contracts.ts", ["CATEGORY_PROOF_STANDARD_CONTRACTS", "Findability", "Understanding", "Trust", "Choice", "Action", "Control"]);
 expect("src/lib/presence-report-free-scan-snapshot-source.ts", [
   "resolveCustomerLatestFreeScanSnapshotPackage",
@@ -87,7 +99,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report merge readiness validation passed with package source, customer-owned Free Scan snapshot retrieval, evidence readiness runtime, customer-safe render runtime, retrieval workflow contracts, operator release gates, category proof standards, object index, and system-chain coverage.");
+console.log("Presence Report merge readiness validation passed with package source, customer-owned Free Scan snapshot retrieval, evidence readiness runtime, customer-safe render runtime, operator approval flow runtime, retrieval workflow contracts, operator release gates, category proof standards, object index, and system-chain coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
