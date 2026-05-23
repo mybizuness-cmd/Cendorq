@@ -16,6 +16,9 @@ expect(componentPath, [
   "packageSource.controlSnapshot",
   "Presence command snapshot",
   "Presence Score",
+  "AI proof surface",
+  "Search, maps, reviews, and AI answers",
+  "Visibility evidence only; no placement promise",
   "Choice Gap",
   "Repair Queue",
   "Control Snapshot",
@@ -80,7 +83,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Dashboard Presence Command Snapshot validation passed with protected command strip, package-source helper, shared Sandwork fixture boundary, and protected report object boundaries.");
+console.log("Dashboard Presence Command Snapshot validation passed with AI proof surface rows, protected command strip, package-source helper, shared Sandwork fixture boundary, and protected report object boundaries.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
