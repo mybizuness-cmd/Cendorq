@@ -22,6 +22,7 @@ const validators = [
   "src/scripts/validate-presence-report-customer-safe-render-runtime.mjs",
   "src/scripts/validate-presence-report-retrieval-workflow-contracts.mjs",
   "src/scripts/validate-operator-release-gate-contracts.mjs",
+  "src/scripts/validate-operator-approval-flow-runtime.mjs",
   "src/scripts/validate-category-proof-standard-contracts.mjs",
   "src/scripts/validate-presence-report-route-map.mjs",
   "src/scripts/validate-presence-report-object-index.mjs",
@@ -67,4 +68,4 @@ for (const validatorPath of validators) {
   }
 }
 
-console.log("Presence Report system validation passed with package-source, evidence record contracts, evidence readiness runtime, customer-safe render runtime, retrieval workflow contracts, operator release gates, category proof standards, and merge-readiness coverage.");
+console.log("Presence Report system validation passed with package-source, evidence record contracts, evidence readiness runtime, customer-safe render runtime, retrieval workflow contracts, operator release gates, operator approval flow runtime, category proof standards, and merge-readiness coverage.");
