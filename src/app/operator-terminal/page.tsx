@@ -1,3 +1,4 @@
+import { resolveOperatorTerminalAccessMatrix, summarizeOperatorTerminalAccessMatrix } from "@/lib/operator-terminal-access-matrix";
 import { getOperatorTerminalAccessSafety } from "@/lib/operator-terminal-access-safety";
 import { getOperatorTerminalLanes, getOperatorTerminalSamplePackets } from "@/lib/operator-terminal-foundation";
 import { resolveOperatorTerminalPacketRuntimeBatch } from "@/lib/operator-terminal-packet-runtime";
@@ -12,6 +13,8 @@ export default function OperatorTerminalPage() {
     acceptedInternalBoundary: true,
     requestedAction: "review-packet",
   });
+  const accessMatrix = resolveOperatorTerminalAccessMatrix();
+  const accessMatrixSummary = summarizeOperatorTerminalAccessMatrix(accessMatrix);
   const lanes = getOperatorTerminalLanes();
   const packets = getOperatorTerminalSamplePackets();
   const packetRuntime = resolveOperatorTerminalPacketRuntimeBatch(
@@ -100,6 +103,41 @@ export default function OperatorTerminalPage() {
             </div>
           </div>
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">Release execution: {serverAccess.releaseExecutionAllowed ? "enabled" : "disabled"} · Provider access: {serverAccess.providerAccessAllowed ? "enabled" : "disabled"}</p>
+        </section>
+
+        <section className="rounded-[2rem] border border-violet-200/20 bg-violet-200/10 p-5 sm:p-6" aria-label="Operator terminal access matrix">
+          <div className="grid gap-5 lg:grid-cols-[0.75fr_1.25fr]">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.24em] text-violet-100">Access decision matrix</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-white">Role and action coverage is checked before live auth wiring.</h2>
+              <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                <div className="rounded-[1rem] bg-white/[0.06] p-3">
+                  <p className="text-2xl font-semibold text-white">{accessMatrixSummary.passed}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-violet-100">passed</p>
+                </div>
+                <div className="rounded-[1rem] bg-white/[0.06] p-3">
+                  <p className="text-2xl font-semibold text-white">{accessMatrixSummary.failed}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-violet-100">failed</p>
+                </div>
+                <div className="rounded-[1rem] bg-white/[0.06] p-3">
+                  <p className="text-2xl font-semibold text-white">{accessMatrixSummary.total}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-violet-100">total</p>
+                </div>
+              </div>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {accessMatrix.map((result) => (
+                <article key={result.scenario.id} className="rounded-[1.2rem] border border-white/10 bg-slate-950/50 p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="text-sm font-semibold leading-5 text-white">{result.scenario.label}</p>
+                    <span className="rounded-full border border-white/10 px-2 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-violet-100">{result.passed ? "pass" : "fail"}</span>
+                  </div>
+                  <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.14em] text-violet-100">{result.resolution.state}</p>
+                  <p className="mt-2 text-xs font-medium leading-6 text-slate-300">{result.resolution.reason}</p>
+                </article>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="grid gap-4 lg:grid-cols-7" aria-label="Operator release lanes">
