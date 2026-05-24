@@ -34,6 +34,12 @@ const CUSTOMER_ACCESS_POINTS = [
   "No empty accounts. Your dashboard opens when there is a scan, Diagnosis, report, plan, billing, or support item to show.",
 ] as const;
 
+const CUSTOMER_ACCESS_DECISION_PATH = [
+  ["Return", "Use the email from your Free Scan, form, plan, billing, or support record."],
+  ["Recover", "If the record is not found, try the other email you may have used before."],
+  ["Start", "If this is your first visit, start with the Free Scan so access has real context."],
+] as const;
+
 export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
   const resolvedSearchParams = await Promise.resolve(searchParams || {});
   const returnTo = safeReturnTo(resolvedSearchParams.returnTo);
@@ -85,6 +91,26 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
 
               <p className="mt-5 text-center text-xs font-medium leading-5 text-slate-500">Other access options are hidden until they are fully ready. For now, use secure email access.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label="Customer access decision path">
+        <div className="rounded-[2.2rem] border border-slate-900 bg-slate-950 p-5 text-white shadow-[0_24px_80px_rgba(15,23,42,0.16)] sm:p-7">
+          <div className="grid gap-5 lg:grid-cols-[0.45fr_0.55fr] lg:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Access path</p>
+              <h2 className="mt-3 text-[clamp(2rem,5vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-white">No blank account detour.</h2>
+            </div>
+            <p className="text-base font-medium leading-8 text-slate-300">Customer access should bring the right customer record back, not create an empty dashboard. Start with a real signal or return with the email already tied to work.</p>
+          </div>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            {CUSTOMER_ACCESS_DECISION_PATH.map(([title, copy]) => (
+              <article key={title} className="rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-4">
+                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-white">{title}</h3>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
