@@ -40,6 +40,13 @@ const CUSTOMER_ACCESS_DECISION_PATH = [
   ["Start", "If this is your first visit, start with the Free Scan so access has real context."],
 ] as const;
 
+const CUSTOMER_ACCESS_RECOVERY_CHECKS = [
+  "Try the email used for the Free Scan first.",
+  "Try the billing, form, or support email next.",
+  "Use the secure link from the newest message if you requested more than one.",
+  "Start Free Scan only when no existing customer record should be returned.",
+] as const;
+
 export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
   const resolvedSearchParams = await Promise.resolve(searchParams || {});
   const returnTo = safeReturnTo(resolvedSearchParams.returnTo);
@@ -111,6 +118,14 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
                 <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
               </article>
             ))}
+          </div>
+          <div className="mt-5 rounded-[1.45rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Access recovery checklist</p>
+            <div className="mt-4 grid gap-3 md:grid-cols-4">
+              {CUSTOMER_ACCESS_RECOVERY_CHECKS.map((check) => (
+                <p key={check} className="rounded-[1rem] border border-white/10 bg-slate-950/55 p-3 text-xs font-semibold leading-5 text-slate-300">{check}</p>
+              ))}
+            </div>
           </div>
         </div>
       </section>
