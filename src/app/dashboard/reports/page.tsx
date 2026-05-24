@@ -132,6 +132,13 @@ const REPORT_VAULT_RULES = [
   "AI/search posture must be useful and bounded: no ranking promises, AI placement promises, lead promises, or algorithm control claims.",
 ] as const;
 
+const REPORT_PROOF_CHECKS = [
+  "Open ready reports only when the result is approved for customer view.",
+  "Keep pending, draft, unavailable, and approved states visibly different.",
+  "Use report support for proof, confidence, evidence boundary, or correction questions.",
+  "Choose the next plan only after the report explains the next safest command.",
+] as const;
+
 export default function ReportsVaultPage() {
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
@@ -226,6 +233,17 @@ export default function ReportsVaultPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Proof vault consistency">
+        <div className="rounded-[2.2rem] border border-cyan-100 bg-cyan-50/55 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.055)] sm:p-6">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Proof vault consistency</p>
+          <div className="mt-4 grid gap-3 md:grid-cols-4">
+            {REPORT_PROOF_CHECKS.map((check) => (
+              <p key={check} className="rounded-[1.2rem] border border-white/80 bg-white p-4 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Vault safety standard">
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur sm:p-8 lg:p-10">
           <h2 className="max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-6xl">Useful only when report depth, AI/search posture, and delivery are impossible to confuse.</h2>
@@ -238,7 +256,7 @@ export default function ReportsVaultPage() {
       </section>
 
       <section className="sr-only" aria-label="Report vault guardrails">
-        AI Visibility proof vault. Paid plan report delivery operating system. Nothing final until approved. Scan. Review. Repair. Control. AI/Search posture. AI Visibility signal result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Paid report actions route to plan detail pages before payment. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        AI Visibility proof vault. Paid plan report delivery operating system. Nothing final until approved. Scan. Review. Repair. Control. AI/Search posture. AI Visibility signal result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Paid report actions route to plan detail pages before payment. Proof vault consistency. Open ready reports only when the result is approved for customer view. Keep pending, draft, unavailable, and approved states visibly different. Use report support for proof, confidence, evidence boundary, or correction questions. Choose the next plan only after the report explains the next safest command. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {REPORT_PROOF_CHECKS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
