@@ -90,6 +90,13 @@ const COMMAND_LINKS = [
   { title: "Sign out", copy: "End this browser session and return to secure access.", href: "/api/customer/session/logout?returnTo=/dashboard" },
 ] as const;
 
+const COMMAND_CENTER_CHECKS = [
+  "Start with one next command before sending the customer into deeper pages.",
+  "Keep Scan, Review, Repair, and Control visibly separate.",
+  "Route reports, billing, notifications, and support back to the same protected account thread.",
+  "Do not imply a result, purchase, delivery, or outcome exists before the right state is ready.",
+] as const;
+
 export default function CustomerDashboardPage() {
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
@@ -162,6 +169,17 @@ export default function CustomerDashboardPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Command center summary consistency">
+        <div className="rounded-[2.2rem] border border-cyan-100 bg-cyan-50/55 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.055)] sm:p-6">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Command center consistency</p>
+          <div className="mt-4 grid gap-3 md:grid-cols-4">
+            {COMMAND_CENTER_CHECKS.map((check) => (
+              <p key={check} className="rounded-[1.2rem] border border-white/80 bg-white p-4 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Command path">
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
@@ -204,7 +222,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Protected Presence Command Center. State, gap, action, control. Presence Reports. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Scan. Review. Repair. Control. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction DashboardPresenceCommandSnapshot Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
+      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Protected Presence Command Center. State, gap, action, control. Presence Reports. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Scan. Review. Repair. Control. Command center consistency. {COMMAND_CENTER_CHECKS.join(" ")} Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction DashboardPresenceCommandSnapshot Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.</section>
     </main>
   );
 }
