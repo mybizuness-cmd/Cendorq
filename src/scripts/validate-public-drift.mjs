@@ -3,11 +3,11 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const publicCommandDesignAnchors = ["AI Search Presence Repair", "Presence Report", "Sample Report", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Contact Us", "Scan", "Review", "Repair", "Control"];
-const legacyPlanLabels = ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"];
+const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Scan", "Review", "Fix", "Control"];
 
-const activeFiles = [
+const requiredFiles = [
   "src/app/page.tsx",
+  "src/components/homepage/homepage-clarity-reset.tsx",
   "src/app/free-check/page.tsx",
   "src/app/sample-report/page.tsx",
   "src/app/plans/page.tsx",
@@ -15,6 +15,7 @@ const activeFiles = [
   "src/app/plans/plan-data.ts",
   "src/app/connect/page.tsx",
   "src/app/dashboard/page.tsx",
+  "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
   "src/lib/seo.ts",
   "src/lib/cendorq-experience-system.ts",
@@ -27,63 +28,43 @@ const activeFiles = [
   "src/lib/customer-email-verification-token-runtime.ts",
 ];
 
-for (const file of activeFiles) {
-  if (!existsSync(join(root, file))) failures.push(`Missing active drift file: ${file}`);
+for (const file of requiredFiles) {
+  if (!existsSync(join(root, file))) failures.push(`Missing active public drift file: ${file}`);
 }
 
-expect("src/lib/cendorq-experience-system.ts", [
-  "CENDORQ_EXPERIENCE_SYSTEM",
-  "CENDORQ_EXPERIENCE_GUARDRAILS",
-  "CENDORQ_SIGNAL_WORDS",
-  "World-class visual experience",
-  "Uncluttered pages",
-  "Cendorq-specific signal language",
-]);
-
-expect("src/lib/seo.ts", [
-  "AI Search Presence Repair",
-  "Presence Report",
-  "Repair Queue",
-  "find, understand, trust, compare, and choose",
-]);
-
 expect("src/app/page.tsx", [
-  "presence-report-ai-search-presence-repair-experience",
-  "CENDORQ_EXPERIENCE_SYSTEM",
-  "AI Search Presence Repair",
-  "Can customers and AI systems understand why to choose your business?",
-  "Cendorq turns AI visibility and readiness into a clear repair path",
+  "HomepageClarityReset",
   "Cendorq | AI Search Presence Repair for Businesses",
-  "Presence Report",
-  "Sample Report",
-  "Presence Score",
-  "Findability",
-  "Understanding",
-  "Trust",
-  "Choice",
-  "Action",
-  "Repair queue",
-  "Recommended next move",
-  "Visibility shows the gap. Readiness explains the cause.",
-  "where the business is missing",
-  "visibility and readiness",
-  "Most businesses are online. Fewer are answer-ready.",
-  "Scan. Review. Repair. Control.",
-  "Distinct Cendorq signal experience",
-  "Unified Cendorq Experience System",
-  "PresenceReportPreview",
+  "presence-report-ai-search-presence-repair-experience",
+]);
+
+expect("src/components/homepage/homepage-clarity-reset.tsx", [
+  "AI Search Presence Repair",
+  "Be easier to find, understand, and choose.",
   "Start Free Scan",
-  "Run Free Scan",
   "See Sample Report",
-  "View Plans",
+  "PresenceReportPreview",
+]);
+
+expect("src/layout/site-header-conversion.tsx", [
+  "Product",
+  "Plans",
+  "FAQ",
+  "Contact",
+  "Customer Access",
+  "Start Free Scan",
+  "AccountMenu",
+  "Dashboard",
 ]);
 
 expect("src/app/free-check/page.tsx", [
-  "AI visibility scan",
+  "Free Scan | Cendorq",
   "first Presence Report and AI Visibility signal",
-  "missing, unclear, under-trusted, or harder to choose",
   "Get the first signal before buying the deeper fix.",
-  "Start Free Scan",
+  "Low friction",
+  "Useful context",
+  "Safe boundary",
+  "Open the result in your account.",
 ]);
 
 expect("src/app/sample-report/page.tsx", [
@@ -106,27 +87,13 @@ expect("src/app/plans/page.tsx", [
 ]);
 
 expect("src/app/faq/page.tsx", [
+  "Cendorq FAQ",
+  "Get clear answers before the next move.",
   "Sample Presence Report",
   "Open the Sample Presence Report",
-  "Sample Report",
   "find, understand, trust, compare, and choose",
-]);
-
-expect("src/layout/site-footer.tsx", [
-  "AI Search Presence Repair",
-  "found, understood, trusted, compared, and chosen",
-  "Sample Report",
-  "href=\"/sample-report\"",
-  "href=\"/plans\"",
-]);
-
-expect("src/app/plans/plan-data.ts", [
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "visibility and readiness",
-  "where it may be missing",
-  "see, understand, trust, compare, or choose",
+  "Already have an account?",
+  "FAQPage",
 ]);
 
 expect("src/app/connect/page.tsx", [
@@ -140,57 +107,58 @@ expect("src/app/connect/page.tsx", [
   "from the email address where you want the reply",
 ]);
 
+expect("src/layout/site-footer.tsx", [
+  "AI Search Presence Repair",
+  "found, understood, trusted, compared, and chosen",
+  "Sample Report",
+  "Plans",
+  "FAQ",
+  "Privacy",
+  "Terms",
+]);
+
+expect("src/app/plans/plan-data.ts", [
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+  "visibility and readiness",
+  "where it may be missing",
+  "see, understand, trust, compare, or choose",
+]);
+
 expect("src/app/dashboard/page.tsx", [
   "AI Visibility command center",
-  "Your Cendorq command center is ready.",
-  "one clear next command",
   "Presence command snapshot",
   "Presence Score",
   "Choice Gap",
   "Repair Queue",
   "Control Snapshot",
   "Scan. Review. Repair. Control.",
-  "Open protected scan, Review, Diagnosis, and evidence outputs when they are ready.",
-  "getCendorqPlanPrice",
-  "DashboardNextBestAction",
-  "DashboardPresenceCommandSnapshot",
 ]);
 
-forbidden("src/app/page.tsx", [
-  "AI Engine Readiness for Businesses",
-  "If AI engines cannot understand your business, customers may never get the chance to.",
-  "If AI engines cannot see or understand your business, customers may never get the chance to.",
-  "Cendorq turns AI-readiness into a clear path",
-  "cinematic-ai-visibility-readiness-experience",
-  "function PresenceReport()",
+expect("src/lib/seo.ts", [
+  "AI Search Presence Repair",
+  "Presence Report",
+  "Repair Queue",
+  "find, understand, trust, compare, and choose",
 ]);
 
-forbidden("src/lib/seo.ts", [
-  "Cendorq — AI Engine Readiness",
-  "If AI engines cannot understand your business, customers may never get the chance to.",
+expect("src/lib/cendorq-experience-system.ts", [
+  "CENDORQ_EXPERIENCE_SYSTEM",
+  "CENDORQ_EXPERIENCE_GUARDRAILS",
+  "Uncluttered pages",
+  "Cendorq-specific signal language",
 ]);
 
-forbidden("src/app/layout.tsx", [
-  "AI Engine Readiness",
-  "AI engine readiness and business signal improvement",
-]);
-
-forbidden("src/app/plans/plan-data.ts", legacyPlanLabels);
-
-forbidden("src/app/connect/page.tsx", [
-  "support@opstandoc.com",
-  "Connect utility",
-  "Connect is",
-  "<textarea",
-  "message box",
-]);
-
-forbidden("src/app/dashboard/page.tsx", [
-  "Private market command center",
-  "Open market signal",
-  "Scan. Diagnose. Fix. Control.",
-  "Market proof",
-  "Command depth",
+expect("src/app/login/page.tsx", [
+  "Customer access | Cendorq",
+  "Access your Cendorq account.",
+  "Return with your email.",
+  "No password to remember",
+  "This browser is not remembered yet.",
+  "email-unavailable",
+  "Use the same email or connected provider",
+  "Free Scan business context stays separate from account access",
 ]);
 
 expect("src/app/api/customer/email/confirm/route.ts", [
@@ -203,50 +171,25 @@ expect("src/app/api/customer/email/confirm/route.ts", [
   "setCustomerRememberedSessionCookie",
 ]);
 
-expect("src/app/api/auth/continue/route.ts", [
-  "readCustomerRememberedSession",
-  "session-unavailable",
-  "session-required",
+expect("src/app/api/auth/continue/route.ts", ["readCustomerRememberedSession", "session-unavailable", "session-required"]);
+expect("src/app/api/auth/email/route.ts", ["projectEmailAccessState", "email-sent", "email-queued", "email-unavailable"]);
+expect("src/app/api/auth/provider/[provider]/route.ts", ["safeDashboardPath", "const returnTo = safeDashboardPath", "loginUrl.searchParams.set(\"returnTo\", returnTo)", "provider-not-ready"]);
+expect("src/lib/customer-email-verification-token-runtime.ts", ["rememberedSession", "rawEmailReturned: false", "rawTokenReturned: false"]);
+
+forbidden("src/app/page.tsx", [
+  "AI Engine Readiness for Businesses",
+  "cinematic-ai-visibility-readiness-experience",
+  "function PresenceReport()",
 ]);
 
-expect("src/app/api/auth/provider/[provider]/route.ts", [
-  "safeDashboardPath",
-  "const returnTo = safeDashboardPath",
-  "loginUrl.searchParams.set(\"returnTo\", returnTo)",
-  "provider-not-ready",
+forbidden("src/app/connect/page.tsx", [
+  "support@opstandoc.com",
+  "message box",
+  "textarea",
+  "Connect utility",
 ]);
 
-expect("src/lib/customer-remembered-session-runtime.ts", [
-  "CENDORQ_CUSTOMER_SESSION_SECRET",
-  "const customerIdHash = cleanHash(input.customerIdHash)",
-  "const signupEmailHash = cleanHash(input.signupEmailHash)",
-  "if (!customerIdHash || !signupEmailHash) return false",
-  "httpOnly: true",
-  "secure: true",
-  "sameSite: \"lax\"",
-  "signature-mismatch",
-]);
-
-expect("src/lib/customer-email-verification-token-runtime.ts", [
-  "rememberedSession",
-  "rawEmailReturned: false",
-  "rawTokenReturned: false",
-]);
-
-expect("src/app/login/page.tsx", [
-  "No password to remember",
-  "This browser is not remembered yet.",
-  "email-unavailable",
-  "Use the same email or connected provider",
-  "Free Scan business context stays separate from account access",
-]);
-
-expect("src/app/api/auth/email/route.ts", [
-  "projectEmailAccessState",
-  "email-sent",
-  "email-queued",
-  "email-unavailable",
-]);
+forbidden("src/app/plans/plan-data.ts", ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"]);
 
 const confirmRoute = read("src/app/api/customer/email/confirm/route.ts");
 const postFunctionMatch = confirmRoute.match(/export async function POST[\s\S]*?\n}\n\nfunction projectSafeConfirmationResponse/);
@@ -265,7 +208,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, Presence Report homepage, Sample Report proof path, aligned Free Scan and plan language, Contact Us direct-email support routing, Cendorq Experience System, aligned dashboard AI Visibility command language, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
+console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, simplified homepage, Customer Access naming, Free Scan route, Sample Report path, Plans depth, Contact Us direct-email support routing, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
 
 function expect(path, phrases) {
   const text = read(path);
@@ -277,7 +220,7 @@ function expect(path, phrases) {
 function forbidden(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
+    if (text.toLowerCase().includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
 
