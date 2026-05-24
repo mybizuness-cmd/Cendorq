@@ -98,6 +98,13 @@ const BILLING_SAFETY_RULES = [
   "Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success.",
 ] as const;
 
+const BILLING_ACCESS_CHECKS = [
+  "Use billing for access, invoice, payment, plan-depth, or subscription-state blockers.",
+  "Use support when the account needs safe review without sharing private payment details.",
+  "Use plans when the customer is choosing the next AI Visibility depth before payment.",
+  "Keep card numbers, bank details, passwords, private keys, and session tokens out of messages.",
+] as const;
+
 export default function BillingPage() {
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
@@ -189,6 +196,17 @@ export default function BillingPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Billing access consistency">
+        <div className="rounded-[2.2rem] border border-cyan-100 bg-cyan-50/55 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.055)] sm:p-6">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Billing access consistency</p>
+          <div className="mt-4 grid gap-3 md:grid-cols-4">
+            {BILLING_ACCESS_CHECKS.map((check) => (
+              <p key={check} className="rounded-[1.2rem] border border-white/80 bg-white p-4 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Account access safety standard">
         <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur sm:p-8 lg:p-10">
           <h2 className="max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-6xl">Money moments should feel calm, exact, and recoverable.</h2>
@@ -201,7 +219,7 @@ export default function BillingPage() {
       </section>
 
       <section className="sr-only" aria-label="Account access AI Visibility standard">
-        AI Visibility plan depth. Light billing page. No black billing blocks. No dark blue billing blocks. Account access control center. Know what is active, what unlocked, and what depth comes next. AI Visibility depth control point for access, boundaries, recovery, and the next business move. Current access. Next depth. Safety. Paid AI Visibility depth. Review. Repair. Control. Payment should unlock the right AI Visibility layer. Billing actions route to plan detail pages before payment. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        AI Visibility plan depth. Light billing page. No black billing blocks. No dark blue billing blocks. Account access control center. Know what is active, what unlocked, and what depth comes next. AI Visibility depth control point for access, boundaries, recovery, and the next business move. Current access. Next depth. Safety. Paid AI Visibility depth. Review. Repair. Control. Payment should unlock the right AI Visibility layer. Billing actions route to plan detail pages before payment. Billing access consistency. Use billing for access, invoice, payment, plan-depth, or subscription-state blockers. Use support when the account needs safe review without sharing private payment details. Use plans when the customer is choosing the next AI Visibility depth before payment. Keep card numbers, bank details, passwords, private keys, and session tokens out of messages. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_ACCESS_CHECKS.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );
