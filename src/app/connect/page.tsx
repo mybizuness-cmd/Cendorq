@@ -153,7 +153,7 @@ export default function ConnectPage() {
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
       </section>
-      <p className="sr-only">Contact Us with Cendorq. Contact Us stage routing. If you are unsure, start Free Scan. If the question is clear, contact us. Email support@cendorq.com from the address where you want the reply. View plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
+      <p className="sr-only">Contact Cendorq when the question is already clear. Start Free Scan if the problem is unclear. Contact Us with Cendorq. Contact Us stage routing. If you are unsure, start Free Scan. If the question is clear, contact us. Email support@cendorq.com from the address where you want the reply. View plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
     </main>
   );
 }
