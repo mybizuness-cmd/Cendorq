@@ -186,6 +186,12 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
   },
 ];
 
+const FAQ_DECISION_PATH = [
+  ["01", "New here", "Start with the Free Scan so the account has real business context."],
+  ["02", "Need proof first", "Open the Sample Report to see the score, gap, boundary, queue, and next move."],
+  ["03", "Already submitted", "Return with the same email used for the scan, form, plan, billing, or support."],
+] as const;
+
 const QUICK_LINKS = [
   { label: "Start Free Scan", href: "/free-check" },
   { label: "Sample Report", href: "/sample-report" },
@@ -239,6 +245,27 @@ export default function FaqPage() {
             <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Fast rule.</h2>
             <p className="mt-4 text-base font-medium leading-8 text-slate-600">If you are new, start the Free Scan. If you want to see the product object first, open the Sample Report. If you already submitted a scan, form, or plan, use the same email to return.</p>
             <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/60 p-4 text-sm font-semibold leading-7 text-slate-700">Already have an account? Use the same email you used for your Free Scan, form, or plan.</div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 pb-10 sm:px-8" aria-label="FAQ decision path">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-slate-900 bg-slate-950 p-5 text-white shadow-[0_24px_80px_rgba(15,23,42,0.16)] sm:rounded-[2.5rem] sm:p-7">
+          <div className="grid gap-5 lg:grid-cols-[0.45fr_0.55fr] lg:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Decision path</p>
+              <h2 className="mt-3 text-[clamp(2rem,6vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-white">Use the right door the first time.</h2>
+            </div>
+            <p className="text-base font-medium leading-8 text-slate-300">The FAQ should reduce hesitation and route every visitor to the safest next action.</p>
+          </div>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            {FAQ_DECISION_PATH.map(([number, title, copy]) => (
+              <article key={title} className="rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-100">{number}</p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-white">{title}</h3>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
