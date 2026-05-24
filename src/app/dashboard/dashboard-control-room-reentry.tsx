@@ -21,6 +21,13 @@ const RETURN_CHECKS = [
   "Keep credentials, payment data, private keys, and session links out of messages.",
 ] as const;
 
+const ACCOUNT_PROFILE_CHECKS = [
+  "Treat the customer email as the stable account thread.",
+  "Use profile details only to route context, not to expose private account state.",
+  "Return account questions to the dashboard before billing, reports, or support split off.",
+  "Use support only when profile, proof, billing, or scope needs protected review.",
+] as const;
+
 export function DashboardControlRoomReentry() {
   return (
     <section className="relative z-10 mt-7" aria-label="Dashboard account re-entry">
@@ -60,7 +67,14 @@ export function DashboardControlRoomReentry() {
             </div>
           ))}
         </div>
-        <div className="sr-only">Dashboard reentry. Protected account re-entry. Leave and come back without losing the thread. No stranded side flows. No restart journey. No token exposure. No dark dashboard reentry blocks.</div>
+        <div className="grid gap-0 border-t border-cyan-100 bg-white/92 lg:grid-cols-4">
+          {ACCOUNT_PROFILE_CHECKS.map((check) => (
+            <div key={check} className="border-b border-cyan-100 p-4 text-xs font-semibold leading-6 text-slate-700 lg:border-r">
+              {check}
+            </div>
+          ))}
+        </div>
+        <div className="sr-only">Dashboard reentry. Protected account re-entry. Account profile consistency. Leave and come back without losing the thread. No stranded side flows. No restart journey. No token exposure. No dark dashboard reentry blocks. {ACCOUNT_PROFILE_CHECKS.join(" ")}</div>
       </div>
     </section>
   );
