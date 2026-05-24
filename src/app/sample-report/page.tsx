@@ -1,3 +1,4 @@
+import { SampleReportProductTour } from "@/components/presence-report/sample-report-product-tour";
 import { PresenceReportEvidenceBoundaryPanel, PresenceReportNextMovePolicyPanel, SamplePresenceReport } from "@/components/presence-report";
 import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
@@ -55,6 +56,8 @@ export default function SampleReportPage() {
           </div>
         </div>
       </section>
+
+      <SampleReportProductTour />
 
       <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Sample report object">
         <div className="mx-auto max-w-7xl">

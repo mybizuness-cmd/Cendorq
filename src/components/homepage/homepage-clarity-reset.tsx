@@ -1,3 +1,4 @@
+import { ProductProofSystem } from "@/components/homepage/product-proof-system";
 import { PresenceReportPreview } from "@/components/presence-report";
 import Link from "next/link";
 
@@ -20,6 +21,7 @@ export function HomepageClarityReset() {
           </div>
         </div>
       </section>
+      <ProductProofSystem />
       <section className="sr-only" aria-label="Homepage drift validation anchors">
         CENDORQ_EXPERIENCE_SYSTEM. Can customers and AI systems understand why to choose your business? Cendorq turns AI visibility and readiness into a clear repair path. Presence Report. Sample Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Recommended next move. Visibility shows the gap. Readiness explains the cause. where the business is missing. visibility and readiness. Most businesses are online. Fewer are answer-ready. Scan. Review. Repair. Control. Distinct Cendorq signal experience. Unified Cendorq Experience System. Run Free Scan. View Plans.
       </section>
