@@ -192,6 +192,13 @@ const FAQ_DECISION_PATH = [
   ["03", "Already submitted", "Return with the same email used for the scan, form, plan, billing, or support."],
 ] as const;
 
+const FAQ_HESITATION_REDUCERS = [
+  ["Unsure where to start", "Use the Free Scan before choosing paid depth."],
+  ["Need to see the product", "Open the Sample Report before comparing plans."],
+  ["Already submitted something", "Use Customer Access with the same email."],
+  ["Have a specific scope question", "Use Contact Us only when the question is clear."],
+] as const;
+
 const QUICK_LINKS = [
   { label: "Start Free Scan", href: "/free-check" },
   { label: "Sample Report", href: "/sample-report" },
@@ -266,6 +273,17 @@ export default function FaqPage() {
                 <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
               </article>
             ))}
+          </div>
+          <div className="mt-5 rounded-[1.45rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Common hesitation reducer</p>
+            <div className="mt-4 grid gap-3 md:grid-cols-4">
+              {FAQ_HESITATION_REDUCERS.map(([title, copy]) => (
+                <article key={title} className="rounded-[1.1rem] border border-white/10 bg-slate-950/55 p-4">
+                  <h3 className="text-sm font-black text-white">{title}</h3>
+                  <p className="mt-2 text-xs font-semibold leading-5 text-slate-300">{copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
