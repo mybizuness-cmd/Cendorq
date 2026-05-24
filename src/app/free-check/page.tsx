@@ -69,6 +69,13 @@ const FREE_SCAN_DECISION_PATH = [
   ["Handoff", "The result stays connected to the same email so the next command is not lost."],
 ] as const;
 
+const FREE_SCAN_EXPECTATION_CHECKS = [
+  "It is a first signal, not a full paid review.",
+  "It should show the first visible weak area before paid depth.",
+  "It does not promise rankings, leads, revenue, or AI placement.",
+  "It keeps the result tied to the same email for the next command.",
+] as const;
+
 const FAQS = [
   {
     question: "Is the Free Scan a full review?",
@@ -177,6 +184,14 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
                 <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
               </article>
             ))}
+          </div>
+          <div className="mt-5 rounded-[1.45rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Expectation checklist</p>
+            <div className="mt-4 grid gap-3 md:grid-cols-4">
+              {FREE_SCAN_EXPECTATION_CHECKS.map((check) => (
+                <p key={check} className="rounded-[1rem] border border-white/10 bg-slate-950/55 p-3 text-xs font-semibold leading-5 text-slate-300">{check}</p>
+              ))}
+            </div>
           </div>
         </div>
       </section>
