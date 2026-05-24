@@ -63,6 +63,12 @@ const SCAN_SYSTEM_STEPS = [
   },
 ] as const;
 
+const FREE_SCAN_DECISION_PATH = [
+  ["Context", "Business name, website, offer, audience, and concern create the first usable signal."],
+  ["Boundary", "The scan gives a first signal, not a full paid review or a promised outcome."],
+  ["Handoff", "The result stays connected to the same email so the next command is not lost."],
+] as const;
+
 const FAQS = [
   {
     question: "Is the Free Scan a full review?",
@@ -151,6 +157,26 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
               ))}
             </div>
             <GuidedFreeCheckFormV3 className="relative z-10" />
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 pb-10 sm:px-8" aria-label="Free Scan decision path">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-slate-900 bg-slate-950 p-5 text-white shadow-[0_24px_80px_rgba(15,23,42,0.16)] sm:rounded-[2.5rem] sm:p-7">
+          <div className="grid gap-5 lg:grid-cols-[0.45fr_0.55fr] lg:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Decision path</p>
+              <h2 className="mt-3 text-[clamp(2rem,6vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-white">Know what the scan can decide.</h2>
+            </div>
+            <p className="text-base font-medium leading-8 text-slate-300">The Free Scan should reduce uncertainty before paid depth. It collects enough context to create a first signal and keeps the next command connected.</p>
+          </div>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            {FREE_SCAN_DECISION_PATH.map(([title, copy]) => (
+              <article key={title} className="rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-4">
+                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-white">{title}</h3>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
