@@ -47,6 +47,13 @@ const PLAN_NEXT_STEP: Record<CendorqPlanKey, string> = {
   "ongoing-control": "Use this when the business needs ongoing attention and visibility control.",
 };
 
+const PLAN_DECISION_GUIDE = [
+  ["01", "First signal", "Use the scan when the weak area is still unclear."],
+  ["02", "Cause", "Use review when the business needs evidence before repair."],
+  ["03", "Repair", "Use build work when the weak point is ready to improve."],
+  ["04", "Control", "Use ongoing watch when drift needs attention."],
+] as const;
+
 export function ConversionPlanPage({ data }: { data: PlanPageData }) {
   const plan = getCendorqPlanPrice(PLAN_KEY_BY_TITLE[data.title] || "free-scan");
   const primaryHref = plan.stripeMode === "none" ? data.ctaHref : plan.checkoutPath;
@@ -142,11 +149,39 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
         </div>
       </section>
 
+      <PlanDecisionGuide />
+
       <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-16 sm:px-8 lg:grid-cols-2" aria-label="Plan fit">
         <FitPanel title="Best when" items={data.fit.good.slice(0, 3)} />
         <FitPanel title="Not the right first step when" items={data.fit.bad.slice(0, 3)} muted />
       </section>
     </main>
+  );
+}
+
+
+function PlanDecisionGuide() {
+  return (
+    <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label="Plan decision guide">
+      <div className="rounded-[2.25rem] border border-slate-900 bg-slate-950 p-5 text-white shadow-[0_24px_80px_rgba(15,23,42,0.16)] sm:p-7">
+        <div className="grid gap-5 lg:grid-cols-[0.42fr_0.58fr] lg:items-end">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Decision guide</p>
+            <h2 className="mt-3 text-[clamp(2rem,5vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-white">Choose the right depth for the job.</h2>
+          </div>
+          <p className="text-base font-medium leading-8 text-slate-300">Each step should make the next customer decision clearer: signal, cause, repair, or control.</p>
+        </div>
+        <div className="mt-6 grid gap-3 md:grid-cols-4">
+          {PLAN_DECISION_GUIDE.map(([number, title, copy]) => (
+            <article key={title} className="rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-100">{number}</p>
+              <h3 className="mt-3 text-xl font-semibold tracking-[-0.045em] text-white">{title}</h3>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
