@@ -33,6 +33,12 @@ const CONTACT_STAGE_ROUTES = [
   { label: "Already a customer", href: "/dashboard/support", cta: "Open support", detail: "Use dashboard support for billing, proof, scope, access, or correction questions." },
 ] as const;
 
+const CONNECT_DECISION_PATH = [
+  ["Scan", "Use Free Scan when the first weak signal is still unclear."],
+  ["Plan", "Use Plans when the depth is the decision."],
+  ["Support", "Use customer access or direct email when the question is already specific."],
+] as const;
+
 const CONTACT_BOUNDARIES = [
   "Contact Us is not a replacement for the Free Scan when the cause is unclear.",
   "Contact Us is not an unlimited consulting lane.",
@@ -146,6 +152,24 @@ export default function ConnectPage() {
             <p className="mt-3 text-sm leading-7 text-slate-300">{route.detail}</p>
           </Link>
         ))}
+      </section>
+
+      <section className="relative z-10 mt-8 rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-5" aria-label="Contact decision path">
+        <div className="grid gap-5 lg:grid-cols-[0.44fr_0.56fr] lg:items-end">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-100">Decision path</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Use the right route before emailing.</h2>
+          </div>
+          <p className="text-sm leading-7 text-slate-300">Contact should help when fit, scope, or timing is already clear. When the signal is unclear, the Free Scan or plans page is the safer first route.</p>
+        </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          {CONNECT_DECISION_PATH.map(([title, copy]) => (
+            <article key={title} className="rounded-[1.25rem] border border-white/10 bg-white/[0.05] p-4">
+              <h3 className="text-xl font-semibold tracking-tight text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">{copy}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2">
