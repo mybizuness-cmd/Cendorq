@@ -48,7 +48,7 @@ export async function SiteHeader() {
           <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Free Scan"}</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Product, Plans, FAQ, Contact, Customer Access or Account, and Start Free Scan or Dashboard visible without overcrowding mobile. Customer Access routes to /login for returning customers. Product routes to /sample-report. href="/sample-report" href="/plans" href="/faq" href="/connect" href="/login" href="/free-check" href="/dashboard"</span>
+      <span className="sr-only">Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. href: "/plans" href: "/faq". Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Product, Plans, FAQ, Contact, Customer Access or Account, and Start Free Scan or Dashboard visible without overcrowding mobile. Customer Access routes to /login for returning customers. Product routes to /sample-report. href="/sample-report" href="/plans" href="/faq" href="/connect" href="/login" href="/free-check" href="/dashboard"</span>
     </header>
   );
 }
