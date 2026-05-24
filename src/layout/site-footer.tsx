@@ -31,7 +31,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <span className="sr-only">Footer uses the light white/cyan Cendorq control system. Includes Sample Report, Plans, and FAQ.</span>
+      <span className="sr-only">Footer uses the light white/cyan Cendorq control system. Includes Sample Report, Plans, and FAQ. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control.</span>
     </footer>
   );
 }

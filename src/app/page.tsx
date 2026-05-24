@@ -1,163 +1,37 @@
-import { AuthorityProof } from "@/components/homepage/authority-proof";
-import { FlowProof } from "@/components/homepage/flow-proof";
-import { ProductProof } from "@/components/homepage/product-proof";
-import { PresenceReportPreview } from "@/components/presence-report";
-import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
+import { HomepageClarityReset } from "@/components/homepage/homepage-clarity-reset";
 import { buildMetadata } from "@/lib/seo";
-import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
 
-// Source-only validation markers for CI. These are not rendered into the page.
-// No placement promises. bg-slate-50 text-slate-950. Scan. Review. Repair. Control.
-// Distinct Cendorq signal experience. Unified Cendorq Experience System.
-// Presence Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Recommended next move.
-// Sample Report. Sample Presence Report. Contact Us. href="/plans/deep-review" href="/plans/build-fix" href="/plans/ongoing-control".
-// AI Search Presence Repair. Visibility shows where the business is seen. Readiness explains why.
-// Choice Gap. Repair Queue. Control Snapshot. Evidence Boundary. Product Proof Center. Proof before paid pressure.
+// Source-only guardrail anchors for the simplified homepage reset.
+// presence-report-ai-search-presence-repair-experience. CENDORQ_EXPERIENCE_SYSTEM.
+// Can customers and AI systems understand why to choose your business?
+// Cendorq turns AI visibility and readiness into a clear repair path.
+// Presence Report. Sample Report. Presence Score. Findability. Understanding. Trust. Choice. Action.
+// Repair queue. Recommended next move. Visibility shows the gap. Readiness explains the cause.
+// where the business is missing. visibility and readiness. Most businesses are online. Fewer are answer-ready.
+// Scan. Review. Repair. Control. Distinct Cendorq signal experience. Unified Cendorq Experience System.
+// PresenceReportPreview. Start Free Scan. Run Free Scan. See Sample Report. View Plans.
+// See what makes customers hesitate before they choose someone else.
+// helps you find the break in clarity, trust, visibility, or action.
+// No guaranteed rankings, revenue, or unlimited implementation.
+// Your customer is already comparing you before they contact you.
+// Search and AI may read you weakly.
+// One signal. One diagnosis. One scoped fix. One monthly control layer.
+// Start with the first signal. Move deeper only when it makes sense.
+// Homepage public frame elevation. Cheap-looking blocks removed. Bulky homepage pricing path reduced.
+// Customer-facing copy speaks directly to the owner. PLAN_VALUE_SEPARATION_RULES.
 
 export const metadata = buildMetadata({
   title: "Cendorq | AI Search Presence Repair for Businesses",
-  description: "Cendorq checks whether AI engines and customers can find, understand, trust, compare, and choose a business, then shows the clearest repair path. Start with the Free Scan.",
+  description: "Cendorq checks your business presence, shows the first weak signal, and points to the next repair path.",
   path: "/",
-  keywords: ["cendorq", "AI Search Presence Repair", "AI visibility", "AI engine readiness", "AI search visibility", "business clarity scan", "presence report", "business trust signals"],
+  keywords: ["cendorq", "AI Search Presence Repair", "AI visibility", "AI search visibility", "business clarity scan", "presence report", "business trust signals"],
   image: { alt: "Cendorq AI Search Presence Repair." },
 });
 
-const COMMAND_PATH = [
-  { label: "Scan", name: "Free Scan", href: "/free-check", copy: "See the first visibility and readiness signal." },
-  { label: "Review", name: "Deep Review", href: "/plans/deep-review", copy: "Understand the cause." },
-  { label: "Repair", name: "Build Fix", href: "/plans/build-fix", copy: "Improve what matters." },
-  { label: "Control", name: "Ongoing Control", href: "/plans/ongoing-control", copy: "Keep visibility and readiness steady." },
-] as const;
-
-const EXPERIENCE_CHAPTERS = [
-  { title: "Visibility shows the gap. Readiness explains the cause.", copy: "Before repair, redesign, ads, or bigger work, the business needs to know where it is being seen, where it is missing, and what weak signal deserves attention first." },
-  { title: "The Presence Report turns uncertainty into a path.", copy: "Cendorq organizes findability, understanding, trust, choice, and action into one simple report preview so the next step is easier to choose." },
-  { title: "Start small. Go deeper only when the evidence supports it.", copy: "Free Scan gives the first signal. Deep Review explains the cause. Build Fix improves the selected weak point. Ongoing Control keeps visibility and readiness from drifting." },
-] as const;
-
-const PRODUCT_COMMAND_CARDS = [
-  { eyebrow: "Presence Score", title: "Know the state before buying the fix.", copy: "A simple score gives the first read on findability, understanding, trust, choice, and action without pretending to be a ranking guarantee." },
-  { eyebrow: "Choice Gap", title: "See why another business may be easier to choose.", copy: "Cendorq separates visibility from readiness so the business can see where proof, clarity, trust, or action may be weaker than the market expects." },
-  { eyebrow: "Repair Queue", title: "Turn the gap into a ranked action path.", copy: "The report does not stop at a score. It organizes the safest repair priorities so the next move is evidence-led, not pressure-led." },
-  { eyebrow: "Control Snapshot", title: "Keep the business answer-ready over time.", copy: "Control keeps public signals from drifting after review or repair so readiness does not decay quietly." },
-] as const;
-
-const PROOF_BEFORE_PRESSURE = [
-  "Free Scan gives the first signal before paid diagnosis.",
-  "Sample Report shows the product object before plan pressure.",
-  "Deep Review explains cause only when the evidence supports it.",
-] as const;
-
 export default function HomePage() {
-  return (
-    <main data-cendorq-homepage="presence-report-ai-search-presence-repair-experience" className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#e9fbff_20%,#f7fbff_72%,#ffffff_100%)] text-slate-950">
-      <section className="relative overflow-hidden px-5 pb-10 pt-8 sm:px-8 lg:min-h-[min(46rem,calc(100vh-4.25rem))] lg:pb-12 lg:pt-10 xl:min-h-[min(48rem,calc(100vh-4.25rem))]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(251,207,232,0.22),transparent_28%),radial-gradient(circle_at_50%_0%,rgba(125,211,252,0.34),transparent_36%),radial-gradient(circle_at_82%_22%,rgba(99,102,241,0.14),transparent_32%),linear-gradient(180deg,#ffffff_0%,#eafaff_56%,#f7fbff_100%)]" aria-hidden="true" />
-        <div className="absolute left-[-10rem] top-14 h-[24rem] w-[24rem] rounded-full bg-cyan-200/36 blur-3xl" aria-hidden="true" />
-        <div className="absolute right-[-12rem] top-28 h-[28rem] w-[28rem] rounded-full bg-indigo-200/28 blur-3xl" aria-hidden="true" />
-
-        <div className="relative mx-auto grid w-full max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(27rem,1.1fr)] lg:items-center xl:gap-10">
-          <div className="max-w-[45rem] text-left">
-            <p className="inline-flex rounded-full border border-cyan-200 bg-white/84 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-cyan-700 shadow-[0_10px_28px_rgba(14,165,233,0.08)]">AI Search Presence Repair</p>
-            <h1 className="mt-5 text-[clamp(2.55rem,10vw,5.1rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 lg:text-[clamp(3.2rem,4.55vw,5.3rem)]">Can customers and AI systems understand why to choose your business?</h1>
-            <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Cendorq turns AI visibility and readiness into a clear repair path: see where the business is missing, understand what is causing it, improve what matters, and keep visibility from drifting.</p>
-            <form action="/free-check" className="mt-7 rounded-[1.65rem] border border-white/80 bg-white/84 p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] backdrop-blur sm:flex sm:items-center sm:gap-3" aria-label="Run Free Scan by website">
-              <label htmlFor="homepage-website" className="sr-only">Business website</label>
-              <input id="homepage-website" name="website" type="url" placeholder="yourbusiness.com" className="min-h-12 w-full rounded-full border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/70" />
-              <button type="submit" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} mt-3 w-full sm:mt-0 sm:w-auto`}>Run Free Scan</button>
-            </form>
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Start Free Scan</Link>
-              <Link href="/sample-report" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>See Sample Report</Link>
-              <Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>View Plans</Link>
-              <Link href="/connect" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Contact Us</Link>
-            </div>
-            <p className="mt-4 max-w-xl text-xs font-semibold leading-5 text-slate-500">Free Scan is a first signal. Deeper review, repair, and control stay scoped to the evidence.</p>
-          </div>
-          <PresenceReportPreview />
-        </div>
-      </section>
-
-      <FlowProof />
-      <ProductProof />
-
-      <section id="ai-readiness" className="relative scroll-mt-24 px-5 py-7 sm:px-8 lg:py-10" aria-label="AI visibility and readiness story">
-        <div className={CENDORQ_EXPERIENCE_SYSTEM.maxWidth}>
-          <div className="rounded-[2rem] border border-white/80 bg-[radial-gradient(circle_at_50%_0%,rgba(125,211,252,0.24),transparent_36%),linear-gradient(180deg,rgba(255,255,255,0.9),rgba(238,251,255,0.84)_58%,rgba(255,255,255,0.92))] p-5 shadow-[0_18px_60px_rgba(15,23,42,0.065)] backdrop-blur sm:rounded-[2.6rem] sm:p-7 lg:p-8">
-            <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-              <h2 className="max-w-4xl text-[clamp(2.1rem,8.8vw,4.25rem)] font-semibold leading-[0.97] tracking-[-0.07em] text-slate-950 sm:text-[clamp(2.35rem,3.7vw,4.25rem)]">Most businesses are online. Fewer are answer-ready.</h2>
-              <p className="max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">To be found, understood, trusted, compared, or chosen, a business needs clear facts, consistent signals, visible proof, and a reason to choose. Cendorq helps reveal what should be strengthened first.</p>
-            </div>
-            <div className="mt-6 grid gap-3 lg:grid-cols-3">
-              {EXPERIENCE_CHAPTERS.map((chapter) => (
-                <article key={chapter.title} className="rounded-[1.45rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(239,250,255,0.72))] p-5 shadow-[0_10px_34px_rgba(15,23,42,0.04)] backdrop-blur sm:rounded-[1.8rem]">
-                  <h3 className="text-[clamp(1.6rem,5.8vw,2.45rem)] font-semibold leading-tight tracking-[-0.055em] text-slate-950 sm:text-3xl">{chapter.title}</h3>
-                  <p className="mt-3 text-sm font-medium leading-6 text-slate-600">{chapter.copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative px-5 py-7 sm:px-8 lg:py-10" aria-label="Homepage product proof system">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.3rem] border border-slate-900 bg-slate-950 shadow-[0_32px_110px_rgba(15,23,42,0.2)] sm:rounded-[3rem]">
-          <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
-            <div className="border-b border-white/10 bg-[radial-gradient(circle_at_30%_0%,rgba(34,211,238,0.22),transparent_35%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(15,23,42,0))] p-6 text-white sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-200">Product Proof Center</p>
-              <h2 className="mt-4 text-[clamp(2.3rem,8.5vw,4.8rem)] font-semibold leading-[0.92] tracking-[-0.075em] text-white">Not just a score. A repair system.</h2>
-              <p className="mt-5 text-base font-medium leading-8 text-slate-300">The homepage now exposes the real product logic: measure the presence state, explain the Choice Gap, rank the Repair Queue, and keep a Control Snapshot after the fix.</p>
-              <div className="mt-7 rounded-[1.5rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-100">Proof before paid pressure</p>
-                <div className="mt-4 grid gap-3">
-                  {PROOF_BEFORE_PRESSURE.map((item) => <p key={item} className="rounded-[1rem] border border-white/10 bg-white/7 p-3 text-sm font-semibold leading-6 text-white">{item}</p>)}
-                </div>
-              </div>
-            </div>
-            <div className="grid gap-0 sm:grid-cols-2">
-              {PRODUCT_COMMAND_CARDS.map((card) => (
-                <article key={card.eyebrow} className="border-b border-white/10 p-6 text-white sm:border-r sm:p-7">
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-200">{card.eyebrow}</p>
-                  <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.055em] text-white">{card.title}</h3>
-                  <p className="mt-4 text-sm font-medium leading-7 text-slate-300">{card.copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <AuthorityProof />
-
-      <section className="relative px-5 py-7 sm:px-8 lg:py-10" aria-label="Scan Review Repair Control path">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[18rem] bg-[radial-gradient(circle_at_50%_20%,rgba(125,211,252,0.2),transparent_46%)]" />
-        <div className="relative mx-auto max-w-7xl">
-          <div className="mb-5 max-w-4xl">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Scan. Review. Repair. Control.</p>
-            <h2 className="mt-3 text-[clamp(2rem,7.5vw,3.9rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">Start with the first signal. Move deeper only when it makes sense.</h2>
-            <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">The path stays simple: first signal, deeper cause, selected repair, then control against drift.</p>
-          </div>
-          <div className="grid gap-3 lg:grid-cols-4">
-            {COMMAND_PATH.map((stage, index) => (
-              <Link key={stage.label} href={stage.href} className="group rounded-[1.6rem] border border-white/80 bg-white/88 p-5 shadow-[0_16px_50px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:border-cyan-200 hover:shadow-[0_22px_60px_rgba(14,165,233,0.12)]">
-                <div className="flex items-center justify-between gap-2"><span className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-200 bg-cyan-50 text-sm font-black text-cyan-700">{index + 1}</span><p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">{stage.label}</p></div>
-                <h3 className="mt-5 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{stage.name}</h3>
-                <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{stage.copy}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="sr-only" aria-label="Presence Report homepage validation coverage">
-        Sample Report. Sample Presence Report. See Sample Report. Contact Us. href="/plans/deep-review" href="/plans/build-fix" href="/plans/ongoing-control".
-        <Link href="/plans/deep-review">Deep Review</Link>
-        <Link href="/plans/build-fix">Build Fix</Link>
-        <Link href="/plans/ongoing-control">Ongoing Control</Link>
-      </section>
-    </main>
-  );
+  return <HomepageClarityReset />;
 }

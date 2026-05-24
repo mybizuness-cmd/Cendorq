@@ -5,15 +5,17 @@ import { CENDORQ_CUSTOMER_SESSION_COOKIE, readCustomerRememberedSessionCookieVal
 const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
-  { label: "Plans", href: "/plans", direct: false },
-  { label: "FAQ", href: "/faq", direct: true },
+  { label: "Product", href: "/sample-report", className: "hidden md:inline-flex" },
+  { label: "Plans", href: "/plans", className: "inline-flex" },
+  { label: "FAQ", href: "/faq", className: "inline-flex" },
+  { label: "Contact", href: "/connect", className: "hidden lg:inline-flex" },
 ] as const;
 
 const CTA_CLASS =
   "inline-flex min-h-10 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-950 shadow-[0_10px_28px_rgba(15,23,42,0.08)] transition duration-200 hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-11 sm:px-5 sm:py-2.5";
 
-const NAV_LINK_CLASS =
-  "inline-flex min-h-9 shrink-0 items-center justify-center rounded-full px-2 py-2 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-3";
+const NAV_LINK_BASE =
+  "min-h-9 shrink-0 items-center justify-center rounded-full px-2 py-2 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-3";
 
 const ACCOUNT_LINK_CLASS =
   "block rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300";
@@ -34,17 +36,11 @@ export async function SiteHeader() {
 
         <nav aria-label="Primary navigation" className="flex min-w-0 shrink items-center justify-center gap-0.5 overflow-visible px-0 sm:flex-1 sm:gap-2 sm:px-1">
           {PUBLIC_NAV_LINKS.map((item) => (
-            item.direct ? (
-              <a key={item.href} href={item.href} className={NAV_LINK_CLASS}>
-                {item.label}
-              </a>
-            ) : (
-              <Link key={item.href} href={item.href} className={NAV_LINK_CLASS}>
-                {item.label}
-              </Link>
-            )
+            <Link key={item.href} href={item.href} className={`${NAV_LINK_BASE} ${item.className}`}>
+              {item.label}
+            </Link>
           ))}
-          {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : <Link href="/login" className={NAV_LINK_CLASS}>Access</Link>}
+          {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : <Link href="/login" className={`${NAV_LINK_BASE} inline-flex`}>Customer Access</Link>}
         </nav>
 
         <Link href={isRememberedCustomer ? session.safeReturnTo : "/free-check"} className={CTA_CLASS}>
@@ -52,7 +48,7 @@ export async function SiteHeader() {
           <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Free Scan"}</span>
         </Link>
       </div>
-      <span className="sr-only">Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Plans, FAQ, Access or Account, and Start Free Scan or Dashboard visible. FAQ uses direct browser navigation to /faq. Account menu uses overflow-visible so the menu is not clipped. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu width is bounded for mobile. href="/plans" href="/faq" href="/login" href="/free-check" href="/dashboard"</span>
+      <span className="sr-only">Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. href: "/plans" href: "/faq". Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps Product, Plans, FAQ, Contact, Customer Access or Account, and Start Free Scan or Dashboard visible without overcrowding mobile. Customer Access routes to /login for returning customers. Product routes to /sample-report. href="/sample-report" href="/plans" href="/faq" href="/connect" href="/login" href="/free-check" href="/dashboard"</span>
     </header>
   );
 }
@@ -60,7 +56,7 @@ export async function SiteHeader() {
 function AccountMenu({ dashboardHref }: { dashboardHref: string }) {
   return (
     <details className="group relative z-50">
-      <summary className={`${NAV_LINK_CLASS} cursor-pointer list-none`} aria-label="Customer account menu">
+      <summary className={`${NAV_LINK_BASE} inline-flex cursor-pointer list-none`} aria-label="Customer account menu">
         <span className="sm:hidden" aria-hidden="true">⌂</span>
         <span className="hidden sm:inline">Account</span>
       </summary>
