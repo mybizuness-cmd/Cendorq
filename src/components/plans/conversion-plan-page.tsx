@@ -54,6 +54,20 @@ const PLAN_DECISION_GUIDE = [
   ["04", "Control", "Use ongoing watch when drift needs attention."],
 ] as const;
 
+const PLAN_DEPTH_CLARITY = [
+  ["Free Scan", "First signal", "Use this when the business needs to see whether a weak public signal exists before paying for depth."],
+  ["Deep Review", "Cause", "Use this when the weak signal is visible but the reason, evidence, or priority order is not clear yet."],
+  ["Build Fix", "Scoped repair", "Use this when the weak point is specific enough to improve without turning into unlimited implementation."],
+  ["Ongoing Control", "Watch", "Use this when the business needs drift, changes, and next commands kept visible over time."],
+] as const;
+
+const PLAN_BUYING_CHECKS = [
+  "Is the weak signal already visible?",
+  "Is the cause clear enough to repair?",
+  "Is the work scoped to one decision depth?",
+  "Is ongoing watch needed after repair?",
+] as const;
+
 export function ConversionPlanPage({ data }: { data: PlanPageData }) {
   const plan = getCendorqPlanPrice(PLAN_KEY_BY_TITLE[data.title] || "free-scan");
   const primaryHref = plan.stripeMode === "none" ? data.ctaHref : plan.checkoutPath;
@@ -159,7 +173,6 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
   );
 }
 
-
 function PlanDecisionGuide() {
   return (
     <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label="Plan decision guide">
@@ -179,6 +192,28 @@ function PlanDecisionGuide() {
               <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
             </article>
           ))}
+        </div>
+        <div className="mt-5 grid gap-3 lg:grid-cols-[1.35fr_0.65fr]">
+          <div className="rounded-[1.45rem] border border-white/10 bg-white/[0.045] p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Depth meaning</p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {PLAN_DEPTH_CLARITY.map(([name, label, copy]) => (
+                <article key={name} className="rounded-[1.15rem] border border-white/10 bg-slate-950/65 p-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100">{label}</p>
+                  <h3 className="mt-2 text-lg font-semibold tracking-[-0.04em] text-white">{name}</h3>
+                  <p className="mt-2 text-xs font-semibold leading-5 text-slate-300">{copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-[1.45rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Before choosing depth</p>
+            <div className="mt-4 grid gap-2">
+              {PLAN_BUYING_CHECKS.map((check) => (
+                <p key={check} className="rounded-[1rem] border border-cyan-100/15 bg-slate-950/45 p-3 text-xs font-semibold leading-5 text-slate-200">{check}</p>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
