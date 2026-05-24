@@ -61,12 +61,6 @@ export async function POST(request: NextRequest) {
   });
 }
 
-function mapConfirmationFailureToNotice(result: CustomerEmailVerificationResult) {
-  if (result.decision === "already-used") return "email-link-used";
-  if (result.tokenState.tokenExpired) return "email-link-expired";
-  return "email-link-invalid";
-}
-
 function projectSafeConfirmationResponse(result: CustomerEmailVerificationResult) {
   return {
     ok: result.ok,
@@ -87,6 +81,12 @@ function projectSafeConfirmationResponse(result: CustomerEmailVerificationResult
       rawTokenReturned: false,
     },
   } as const;
+}
+
+function mapConfirmationFailureToNotice(result: CustomerEmailVerificationResult) {
+  if (result.decision === "already-used") return "email-link-used";
+  if (result.tokenState.tokenExpired) return "email-link-expired";
+  return "email-link-invalid";
 }
 
 async function readSafeJson(request: NextRequest) {
