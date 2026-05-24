@@ -39,6 +39,13 @@ const CONNECT_DECISION_PATH = [
   ["Support", "Use customer access or direct email when the question is already specific."],
 ] as const;
 
+const SUPPORT_CLARITY_CHECKS = [
+  "Use dashboard support for existing billing, report, access, or correction questions.",
+  "Use direct email when fit, scope, timing, or reply ownership matters.",
+  "Start Free Scan when the first weak signal is still unknown.",
+  "Include business name, website, and the email used for prior Cendorq work.",
+] as const;
+
 const CONTACT_BOUNDARIES = [
   "Contact Us is not a replacement for the Free Scan when the cause is unclear.",
   "Contact Us is not an unlimited consulting lane.",
@@ -169,6 +176,14 @@ export default function ConnectPage() {
               <p className="mt-2 text-sm leading-6 text-slate-300">{copy}</p>
             </article>
           ))}
+        </div>
+        <div className="mt-5 rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Before sending support context</p>
+          <div className="mt-4 grid gap-3 md:grid-cols-4">
+            {SUPPORT_CLARITY_CHECKS.map((check) => (
+              <p key={check} className="rounded-[1rem] border border-white/10 bg-slate-950/55 p-3 text-xs font-semibold leading-5 text-slate-300">{check}</p>
+            ))}
+          </div>
         </div>
       </section>
 
