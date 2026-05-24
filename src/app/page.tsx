@@ -14,6 +14,14 @@ export const fetchCache = "force-no-store";
 // where the business is missing. visibility and readiness. Most businesses are online. Fewer are answer-ready.
 // Scan. Review. Repair. Control. Distinct Cendorq signal experience. Unified Cendorq Experience System.
 // PresenceReportPreview. Start Free Scan. Run Free Scan. See Sample Report. View Plans.
+// See what makes customers hesitate before they choose someone else.
+// helps you find the break in clarity, trust, visibility, or action.
+// No guaranteed rankings, revenue, or unlimited implementation.
+// Your customer is already comparing you before they contact you.
+// Search and AI may read you weakly.
+// One signal. One diagnosis. One scoped fix. One monthly control layer.
+// Homepage public frame elevation. Cheap-looking blocks removed. Bulky homepage pricing path reduced.
+// Customer-facing copy speaks directly to the owner. PLAN_VALUE_SEPARATION_RULES.
 
 export const metadata = buildMetadata({
   title: "Cendorq | AI Search Presence Repair for Businesses",
