@@ -39,6 +39,12 @@ const PREVIEW_SIGNALS = [
   { label: "Action", status: "Check", copy: "Is the next step obvious enough for a customer to call, book, request, or visit?" },
 ] as const;
 
+const FORM_PAGE_STANDARD = [
+  ["Low friction", "Two focused steps, no blank-account detour."],
+  ["Useful context", "Only the business facts needed for the first signal."],
+  ["Safe boundary", "No credentials, payment details, or private account access."],
+] as const;
+
 const SCAN_SYSTEM_STEPS = [
   {
     step: "01",
@@ -136,6 +142,14 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
           </div>
 
           <div className="rounded-[2.65rem] border border-white/80 bg-white/72 p-3 shadow-[0_34px_120px_rgba(15,23,42,0.12)] backdrop-blur-2xl">
+            <div className="grid gap-2 p-2 sm:grid-cols-3">
+              {FORM_PAGE_STANDARD.map(([label, copy]) => (
+                <div key={label} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/60 p-3">
+                  <p className="text-[9px] font-black uppercase tracking-[0.16em] text-cyan-700">{label}</p>
+                  <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
+                </div>
+              ))}
+            </div>
             <GuidedFreeCheckFormV3 className="relative z-10" />
           </div>
         </div>
@@ -181,7 +195,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
           </article>
         ))}
       </section>
-      <section className="sr-only" aria-label="Free Scan public drift anchors">Start Free Scan. first Presence Report and AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix.</section>
+      <section className="sr-only" aria-label="Free Scan public drift anchors">Start Free Scan. first Presence Report and AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. Low friction. Useful context. Safe boundary.</section>
     </main>
   );
 }
