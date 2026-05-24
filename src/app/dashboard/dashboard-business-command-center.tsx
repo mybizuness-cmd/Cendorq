@@ -30,6 +30,13 @@ const CONTROL_ROOM_LANES = [
   { lane: "Support", purpose: "Resolve blockers without sending sensitive secrets.", href: "/dashboard/support/status" },
 ] as const;
 
+const BUSINESS_COMMAND_CHECKS = [
+  "Answer the next customer decision before adding more dashboard surface.",
+  "Keep reports, plans, notifications, and support connected to the same account thread.",
+  "Use proof, scope, priority, and momentum language without fake urgency.",
+  "Send each lane to one useful destination instead of making the customer choose twice.",
+] as const;
+
 export function DashboardBusinessCommandCenter() {
   return (
     <section className="relative z-10 mt-7" aria-label="Business command center experience">
@@ -85,7 +92,14 @@ export function DashboardBusinessCommandCenter() {
             ))}
           </div>
         </div>
-        <div className="sr-only">Dashboard business command center. Customer decision center. Connected customer lanes. The dashboard should answer the customer’s next decision in seconds. I know what to do next. No internal documentation wall. Every lane should lead somewhere useful.</div>
+        <div className="grid gap-0 border-t border-cyan-100 bg-cyan-50/50 lg:grid-cols-4">
+          {BUSINESS_COMMAND_CHECKS.map((check) => (
+            <div key={check} className="border-b border-cyan-100 p-4 text-xs font-semibold leading-6 text-slate-700 lg:border-r">
+              {check}
+            </div>
+          ))}
+        </div>
+        <div className="sr-only">Dashboard business command center. Customer decision center. Connected customer lanes. Business command center consistency. The dashboard should answer the customer’s next decision in seconds. I know what to do next. No internal documentation wall. Every lane should lead somewhere useful. {BUSINESS_COMMAND_CHECKS.join(" ")}</div>
       </div>
     </section>
   );
