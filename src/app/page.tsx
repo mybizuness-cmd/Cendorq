@@ -20,6 +20,7 @@ export const fetchCache = "force-no-store";
 // Your customer is already comparing you before they contact you.
 // Search and AI may read you weakly.
 // One signal. One diagnosis. One scoped fix. One monthly control layer.
+// Start with the first signal. Move deeper only when it makes sense.
 // Homepage public frame elevation. Cheap-looking blocks removed. Bulky homepage pricing path reduced.
 // Customer-facing copy speaks directly to the owner. PLAN_VALUE_SEPARATION_RULES.
 
