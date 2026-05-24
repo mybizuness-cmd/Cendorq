@@ -41,6 +41,13 @@ const QUEUE = [
   ["03", "Action path", "Is the next step obvious enough to call, book, request, or visit?"],
 ] as const;
 
+const PUBLIC_PROOF_BOUNDARY_CHECKS = [
+  "First signals guide the next decision; they are not full paid reviews.",
+  "Sample scores and queues show structure, not live customer outcomes.",
+  "Plan depth stays separated: signal, cause, scoped repair, and ongoing watch.",
+  "Cendorq does not guarantee rankings, leads, revenue, or AI placement.",
+] as const;
+
 export function ProductProofSystem() {
   return (
     <section className="px-5 py-10 sm:px-8 lg:py-16" aria-label="Cendorq product proof system">
@@ -66,8 +73,13 @@ export function ProductProofSystem() {
             <div className="mt-8 rounded-[1.6rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
               <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-100">Evidence boundary</p>
               <p className="mt-3 text-sm font-semibold leading-7 text-slate-200">
-                Scores and queues are sampled, confidence-labeled signals. They help choose the next safest repair path without promising rankings, revenue, leads, or AI placement.
+                Scores and queues are sampled, confidence-labeled signals. They help choose the next safest repair path without promising rankings, leads, revenue, or AI placement.
               </p>
+              <div className="mt-4 grid gap-2">
+                {PUBLIC_PROOF_BOUNDARY_CHECKS.map((check) => (
+                  <p key={check} className="rounded-[1rem] border border-white/10 bg-slate-950/45 p-3 text-xs font-semibold leading-5 text-slate-300">{check}</p>
+                ))}
+              </div>
             </div>
           </div>
 
