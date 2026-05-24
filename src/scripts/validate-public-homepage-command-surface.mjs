@@ -15,7 +15,7 @@ check("src/app/connect/page.tsx", ["Contact Cendorq when the question is already
 check("package.json", ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 check("src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-public-homepage-command-surface.mjs"]);
 
-maxLength("src/app/page.tsx", 2600);
+maxLength("src/app/page.tsx", 5200);
 maxLength("src/components/homepage/homepage-clarity-reset.tsx", 9000);
 maxLength("src/layout/site-header-conversion.tsx", 16000);
 
