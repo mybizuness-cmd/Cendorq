@@ -75,6 +75,13 @@ const ACTION_INBOX_ITEMS = ACTION_INBOX_CASES.map((item) => ({
   projection: projectPlanRouting(item),
 }));
 
+const ACTION_INBOX_CHECKS = [
+  "Show only actions that protect progress, access, proof, scope, or control.",
+  "Explain why the action matters before sending the customer deeper.",
+  "Route each action to one safe destination instead of creating duplicate paths.",
+  "Keep internal labels, raw payloads, and pressure language out of the customer view.",
+] as const;
+
 export function DashboardActionInbox() {
   return (
     <section className="relative z-10 mt-7" aria-label="Dashboard action inbox">
@@ -108,8 +115,16 @@ export function DashboardActionInbox() {
           </div>
         </div>
 
+        <div className="grid gap-0 border-t border-white/10 bg-white/[0.045] lg:grid-cols-4">
+          {ACTION_INBOX_CHECKS.map((check) => (
+            <div key={check} className="border-b border-white/10 p-4 text-xs font-semibold leading-6 text-slate-300 lg:border-r">
+              {check}
+            </div>
+          ))}
+        </div>
+
         <div className="sr-only">
-          Customer-led dashboard action inbox. Customer action inbox. Only the actions that protect progress stay here. No internal labels. No conversion role label. No raw payloads. No dark action inbox blocks. Next best plan projection retained safely. {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
+          Customer-led dashboard action inbox. Customer action inbox. Only the actions that protect progress stay here. Action inbox consistency. No internal labels. No conversion role label. No raw payloads. No dark action inbox blocks. Next best plan projection retained safely. {ACTION_INBOX_CHECKS.join(" ")} {ACTION_INBOX_ITEMS.map((item) => `${item.title} ${item.customerSummary} ${item.customerValue} ${item.projection.nextBestPlan}`).join(" ")}
         </div>
       </div>
     </section>
