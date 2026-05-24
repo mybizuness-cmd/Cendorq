@@ -38,6 +38,13 @@ const SUPPORT_RULES = [
   "Support must separate billing, proof questions, Repair scope, Control priority, account access, and correction paths.",
 ] as const;
 
+const SUPPORT_TRIAGE_CHECKS = [
+  "Check status first before opening a new request.",
+  "Use billing for payment, invoice, or plan-access blockers.",
+  "Use reports for proof, confidence, evidence, boundary, or correction questions.",
+  "Use a protected request only when the issue needs new customer context or review.",
+] as const;
+
 export default function SupportCenterPage() {
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
@@ -92,6 +99,17 @@ export default function SupportCenterPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Support triage consistency">
+        <div className="rounded-[2.2rem] border border-cyan-100 bg-cyan-50/55 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.055)] sm:p-6">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Support triage</p>
+          <div className="mt-4 grid gap-3 md:grid-cols-4">
+            {SUPPORT_TRIAGE_CHECKS.map((check) => (
+              <p key={check} className="rounded-[1.2rem] border border-white/80 bg-white p-4 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="AI Visibility support boundaries">
         <div className="grid gap-4 lg:grid-cols-4">
           {PLAN_SUPPORT.map((plan) => (
@@ -119,7 +137,7 @@ export default function SupportCenterPage() {
       </section>
 
       <section className="sr-only" aria-label="Support routing guardrails">
-        AI Visibility support routing. Light support center. No black support blocks. No dark blue support blocks. Route the blocker without weakening the command path. Resolution selector. Pick the narrowest path that matches the blocker. Help should restore momentum without expanding scope silently. Access issue. Proof question. Repair scope. Control priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. Scan. Review. Repair. Control. Support paid actions route to plan detail pages before payment. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
+        AI Visibility support routing. Light support center. No black support blocks. No dark blue support blocks. Route the blocker without weakening the command path. Resolution selector. Pick the narrowest path that matches the blocker. Help should restore momentum without expanding scope silently. Access issue. Proof question. Repair scope. Control priority. Account access. Correction or dispute. No support dumping ground. No raw secrets. No duplicate request anxiety. Scan. Review. Repair. Control. Support paid actions route to plan detail pages before payment. Support triage. Check status first before opening a new request. Use billing for payment, invoice, or plan-access blockers. Use reports for proof, confidence, evidence, boundary, or correction questions. Use a protected request only when the issue needs new customer context or review. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
       </section>
     </main>
   );
