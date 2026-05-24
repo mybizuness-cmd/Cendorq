@@ -21,6 +21,13 @@ export const metadata = buildMetadata({
   image: { alt: "Sample Cendorq Presence Report." },
 });
 
+const SAMPLE_REPORT_BOUNDARY_CHECKS = [
+  "This sample shows report structure and decision logic, not live business data.",
+  "Scores and queues are examples, not rankings, leads, revenue, or AI placement guarantees.",
+  "Real findings depend on submitted business context, public proof, category, location, and plan depth.",
+  "Evidence boundaries explain what was checked, what was not checked, and what should not be assumed.",
+] as const;
+
 export default function SampleReportPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Sample Cendorq Presence Report",
@@ -113,6 +120,11 @@ export default function SampleReportPage() {
           <p className="mt-4 max-w-4xl text-base font-medium leading-8 text-slate-600">
             Cendorq uses the report format to make weak public signals easier to understand and prioritize. A real result depends on the business details, public pages, proof, category, location, and the selected plan depth.
           </p>
+          <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {SAMPLE_REPORT_BOUNDARY_CHECKS.map((check) => (
+              <p key={check} className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50/45 p-4 text-xs font-semibold leading-5 text-slate-700">{check}</p>
+            ))}
+          </div>
         </div>
       </section>
     </main>
