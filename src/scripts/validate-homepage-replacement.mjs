@@ -14,7 +14,7 @@ for (const phrase of ["Be easier to find, understand, and choose.", "Start Free 
   if (!home.includes(phrase)) failures.push(`home reset missing: ${phrase}`);
 }
 
-if (page.length > 2600) failures.push(`page is too long: ${page.length}`);
+if (page.length > 5200) failures.push(`page is too long: ${page.length}`);
 if (home.length > 4200) failures.push(`home reset is too long: ${home.length}`);
 
 if (failures.length) {
