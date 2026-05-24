@@ -14,6 +14,13 @@ const REENTRY_RULES = [
   "Re-entry copy must avoid account-existence leakage, token exposure, and pressure language.",
 ] as const;
 
+const RETURN_CHECKS = [
+  "Use the same customer email for reports, billing, support, and notifications.",
+  "Return to the dashboard when a public page cannot show private context.",
+  "Open support when the blocker is account, proof, billing, or scope specific.",
+  "Keep credentials, payment data, private keys, and session links out of messages.",
+] as const;
+
 export function DashboardControlRoomReentry() {
   return (
     <section className="relative z-10 mt-7" aria-label="Dashboard account re-entry">
@@ -43,6 +50,13 @@ export function DashboardControlRoomReentry() {
           {REENTRY_RULES.map((rule) => (
             <div key={rule} className="border-b border-cyan-100 p-4 text-xs font-medium leading-6 text-slate-600 lg:border-r">
               {rule}
+            </div>
+          ))}
+        </div>
+        <div className="grid gap-0 border-t border-cyan-100 bg-cyan-50/55 lg:grid-cols-4">
+          {RETURN_CHECKS.map((check) => (
+            <div key={check} className="border-b border-cyan-100 p-4 text-xs font-semibold leading-6 text-slate-700 lg:border-r">
+              {check}
             </div>
           ))}
         </div>
