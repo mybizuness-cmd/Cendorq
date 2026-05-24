@@ -38,6 +38,21 @@ const DEPTHS = [
   ["Ongoing Control", "Watch", "Tracks drift and keeps the next command visible."],
 ] as const;
 
+const PROOF_READING_KEY = [
+  ["Score", "A directional state, not a promise."],
+  ["Gap", "The customer-choice reason behind the weak signal."],
+  ["Boundary", "What the sample can and cannot conclude."],
+  ["Queue", "The first useful repair order."],
+  ["Move", "The safest next depth after the first signal."],
+] as const;
+
+const REPORT_READING_ORDER = [
+  ["Look", "Find the lowest-confidence area first."],
+  ["Ask", "Why would a customer choose a clearer option?"],
+  ["Limit", "Separate sample evidence from promises."],
+  ["Act", "Use the queue before buying unrelated work."],
+] as const;
+
 export function SampleReportProductTour() {
   return (
     <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Sample report product tour">
@@ -57,6 +72,14 @@ export function SampleReportProductTour() {
                 This sample demonstrates format and decision logic. A real result depends on business details, public pages, proof, category, location, and selected depth.
               </p>
             </div>
+            <div className="mt-4 grid gap-2">
+              {REPORT_READING_ORDER.map(([label, copy]) => (
+                <div key={label} className="rounded-[1rem] border border-white/10 bg-white/[0.045] p-3">
+                  <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100">{label}</p>
+                  <p className="mt-1 text-xs font-semibold leading-5 text-slate-300">{copy}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="p-4 sm:p-6 lg:p-8">
@@ -72,6 +95,18 @@ export function SampleReportProductTour() {
                   <p className="mt-3 rounded-[0.9rem] border border-white/10 bg-slate-950/55 p-3 text-[11px] font-semibold leading-5 text-slate-300">{item.detail}</p>
                 </article>
               ))}
+            </div>
+
+            <div className="mt-5 rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-5">
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Proof reading key</p>
+              <div className="mt-4 grid gap-3 md:grid-cols-5">
+                {PROOF_READING_KEY.map(([label, copy]) => (
+                  <div key={label} className="rounded-[1.05rem] border border-white/10 bg-slate-950/65 p-4">
+                    <p className="text-sm font-black text-white">{label}</p>
+                    <p className="mt-2 text-xs font-semibold leading-5 text-slate-300">{copy}</p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="mt-5 rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-5">
