@@ -47,6 +47,13 @@ const PLAN_ACCENT_BY_KEY: Record<CendorqPlanKey, string> = {
   "ongoing-control": "border-teal-200 bg-teal-50/78 shadow-[0_12px_36px_rgba(20,184,166,0.08)]",
 };
 
+const PLAN_BOUNDARY_CHECKS = [
+  "Free Scan gives a first signal, not a full paid review.",
+  "Deep Review explains cause before repair scope is chosen.",
+  "Build Fix is scoped repair, not unlimited implementation.",
+  "Ongoing Control watches drift, but does not guarantee rankings, leads, revenue, or AI placement.",
+] as const;
+
 const PLAN_CARDS = CENDORQ_PLAN_PRICES.map((plan) => ({ ...plan, href: PLAN_ROUTE_BY_KEY[plan.key], cta: CTA_LABEL_BY_PLAN[plan.key], stage: STAGE_BY_PLAN[plan.key], purpose: PURPOSE_BY_PLAN[plan.key], accent: PLAN_ACCENT_BY_KEY[plan.key] }));
 
 export default function PlansPage() {
@@ -100,6 +107,11 @@ export default function PlansPage() {
           <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
             <h2 className="text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">One path. Four depths.</h2>
             <p className="text-sm font-medium leading-7 text-slate-600 sm:text-base">Free Scan shows the first signal. Deep Review explains the cause. Build Fix repairs the selected weak point. Ongoing Control keeps the business watched. Cendorq does not guarantee rankings, leads, revenue, or AI placement.</p>
+          </div>
+          <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {PLAN_BOUNDARY_CHECKS.map((check) => (
+              <p key={check} className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50/45 p-4 text-xs font-semibold leading-5 text-slate-700">{check}</p>
+            ))}
           </div>
         </div>
       </section>
