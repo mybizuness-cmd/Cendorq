@@ -169,27 +169,27 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
       </section>
 
       <section className="px-5 pb-10 sm:px-8" aria-label="Free Scan decision path">
-        <div className="mx-auto max-w-7xl rounded-[2rem] border border-slate-900 bg-slate-950 p-5 text-white shadow-[0_24px_80px_rgba(15,23,42,0.16)] sm:rounded-[2.5rem] sm:p-7">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/85 bg-white/84 p-5 text-slate-950 shadow-[0_22px_70px_rgba(14,165,233,0.08)] backdrop-blur sm:rounded-[2.5rem] sm:p-7">
           <div className="grid gap-5 lg:grid-cols-[0.45fr_0.55fr] lg:items-end">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Decision path</p>
-              <h2 className="mt-3 text-[clamp(2rem,6vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-white">Know what the scan can decide.</h2>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Decision path</p>
+              <h2 className="mt-3 text-[clamp(2rem,6vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950">Know what the scan can decide.</h2>
             </div>
-            <p className="text-base font-medium leading-8 text-slate-300">The Free Scan should reduce uncertainty before paid depth. It collects enough context to create a first signal and keeps the next command connected.</p>
+            <p className="text-base font-medium leading-8 text-slate-600">The Free Scan should reduce uncertainty before paid depth. It collects enough context to create a first signal and keeps the next command connected.</p>
           </div>
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             {FREE_SCAN_DECISION_PATH.map(([title, copy]) => (
-              <article key={title} className="rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-4">
-                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-white">{title}</h3>
-                <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
+              <article key={title} className="rounded-[1.35rem] border border-cyan-100 bg-white/86 p-4">
+                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
               </article>
             ))}
           </div>
-          <div className="mt-5 rounded-[1.45rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Expectation checklist</p>
+          <div className="mt-5 rounded-[1.45rem] border border-cyan-100 bg-cyan-50/45 p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Expectation checklist</p>
             <div className="mt-4 grid gap-3 md:grid-cols-4">
               {FREE_SCAN_EXPECTATION_CHECKS.map((check) => (
-                <p key={check} className="rounded-[1rem] border border-white/10 bg-slate-950/55 p-3 text-xs font-semibold leading-5 text-slate-300">{check}</p>
+                <p key={check} className="rounded-[1rem] border border-white/80 bg-white/76 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
               ))}
             </div>
           </div>
