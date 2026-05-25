@@ -1,4 +1,4 @@
-import { ProductProofSystem } from "@/components/homepage/product-proof-system";
+import { CendorqProductMotionDemo } from "@/components/homepage/cendorq-product-motion-demo";
 import { PresenceReportPreview } from "@/components/presence-report";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ const PUBLIC_HANDOFF_PATH = [
 
 export function HomepageClarityReset() {
   return (
-    <main data-cendorq-homepage="presence-report-ai-search-presence-repair-experience" className="min-h-screen bg-white text-slate-950">
+    <main data-cendorq-homepage="presence-report-ai-search-presence-repair-experience" className="min-h-screen bg-[radial-gradient(circle_at_0%_0%,rgba(251,207,232,0.34),transparent_28%),radial-gradient(circle_at_100%_8%,rgba(125,211,252,0.42),transparent_34%),linear-gradient(180deg,#fffaff_0%,#e8fbff_26%,#ffffff_100%)] text-slate-950">
       <section className="px-5 py-12 sm:px-8 lg:py-16">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
           <div>
@@ -20,7 +20,7 @@ export function HomepageClarityReset() {
             <h1 className="mt-5 text-[clamp(3rem,8vw,6.2rem)] font-semibold leading-[0.88] tracking-[-0.085em] text-slate-950">Be easier to find, understand, and choose.</h1>
             <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">Cendorq checks your business presence, shows the first weak signal, and points to the next repair path.</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full bg-slate-950 px-8 py-4 text-base font-black text-white shadow-[0_18px_50px_rgba(15,23,42,0.18)]">Start Free Scan</Link>
+              <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-white px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-50">Start Free Scan</Link>
               <Link href="/sample-report" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-950 shadow-sm">See Sample Report</Link>
             </div>
           </div>
@@ -44,7 +44,7 @@ export function HomepageClarityReset() {
         </div>
       </section>
 
-      <ProductProofSystem />
+      <CendorqProductMotionDemo />
       <section className="sr-only" aria-label="Homepage drift validation anchors">
         CENDORQ_EXPERIENCE_SYSTEM. Can customers and AI systems understand why to choose your business? Cendorq turns AI visibility and readiness into a clear repair path. Presence Report. Sample Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Recommended next move. Visibility shows the gap. Readiness explains the cause. where the business is missing. visibility and readiness. Most businesses are online. Fewer are answer-ready. Scan. Review. Repair. Control. Distinct Cendorq signal experience. Unified Cendorq Experience System. Run Free Scan. View Plans.
       </section>
