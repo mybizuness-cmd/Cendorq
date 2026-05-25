@@ -14,7 +14,7 @@ import {
 export const metadata = buildMetadata({
   title: "Free Scan | Cendorq",
   description:
-    "Start the Cendorq Free Scan to see the first Presence Report and AI Visibility signal: where your business may be missing, unclear, under-trusted, or harder for AI engines and customers to choose.",
+    "Start the Cendorq Free Scan to see the first Presence Report and AI Visibility signal before choosing deeper Review, Repair, or Control work.",
   path: "/free-check",
   keywords: [
     "cendorq free scan",
@@ -32,46 +32,46 @@ type FreeCheckSearchParams = { access?: string; method?: string; provider?: stri
 type FreeCheckPageProps = { searchParams?: Promise<FreeCheckSearchParams> | FreeCheckSearchParams };
 
 const PREVIEW_SIGNALS = [
-  { label: "Findability", status: "Check", copy: "Can public systems locate the site, business facts, and local signals?" },
-  { label: "Understanding", status: "Check", copy: "Can a first-time customer quickly understand what the business does and who it serves?" },
-  { label: "Trust", status: "Check", copy: "Is proof visible enough to support confidence before the customer compares alternatives?" },
-  { label: "Choice", status: "Check", copy: "Does the business explain why it should be chosen over a clearer competitor?" },
-  { label: "Action", status: "Check", copy: "Is the next step obvious enough for a customer to call, book, request, or visit?" },
+  { label: "Findability", status: "Check", copy: "Can people and public systems locate the business, site, and core facts?" },
+  { label: "Understanding", status: "Check", copy: "Can a first-time visitor understand the offer without working too hard?" },
+  { label: "Trust", status: "Check", copy: "Is proof visible before the customer starts comparing alternatives?" },
+  { label: "Choice", status: "Check", copy: "Is the reason to choose this business clear enough to act on?" },
+  { label: "Action", status: "Check", copy: "Is the next step obvious enough to call, book, request, or visit?" },
 ] as const;
 
 const FORM_PAGE_STANDARD = [
-  ["Low friction", "Two focused steps, no blank-account detour."],
-  ["Useful context", "Only the business facts needed for the first signal."],
-  ["Safe boundary", "No credentials, payment details, or private account access."],
+  ["Fast start", "A short guided form, not a sales maze."],
+  ["Useful context", "Only the facts needed for a first signal."],
+  ["Safe boundary", "No card details, passwords, or private keys."],
 ] as const;
 
 const SCAN_SYSTEM_STEPS = [
   {
     step: "01",
-    title: "Share what customers can see now.",
-    copy: "Tell Cendorq the business name, website, offer, audience, and where being found or chosen may feel weak.",
+    title: "Share what customers can already see.",
+    copy: "Add the business name, website, offer, audience, and the place where being found or chosen feels weakest.",
   },
   {
     step: "02",
-    title: "Cendorq checks the first AI Visibility signal.",
-    copy: "The scan looks for the first place the business may be missing, unclear, under-trusted, or harder to choose without pretending to be a full paid Review.",
+    title: "Cendorq checks the first signal.",
+    copy: "The scan looks for the first visible weakness across findability, understanding, trust, choice, and action readiness.",
   },
   {
     step: "03",
-    title: "Open the result in your account.",
-    copy: "Confirm your email once, then continue into your account where the result, next command, and plan path stay connected.",
+    title: "Open the result with one email thread.",
+    copy: "Verify once, then keep the result, next command, and plan path connected to the same customer email.",
   },
 ] as const;
 
 const FREE_SCAN_DECISION_PATH = [
-  ["Context", "Business name, website, offer, audience, and concern create the first usable signal."],
-  ["Boundary", "The scan gives a first signal, not a full paid review or a promised outcome."],
-  ["Handoff", "The result stays connected to the same email so the next command is not lost."],
+  ["Input", "Business facts create the first usable signal."],
+  ["Signal", "The scan shows a visible weak area before paid depth."],
+  ["Next command", "The result points toward Review, Repair, Control, or no paid step yet."],
 ] as const;
 
 const FREE_SCAN_EXPECTATION_CHECKS = [
   "It is a first signal, not a full paid review.",
-  "It should show the first visible weak area before paid depth.",
+  "It helps decide whether deeper work is worth it.",
   "It does not promise rankings, leads, revenue, or AI placement.",
   "It keeps the result tied to the same email for the next command.",
 ] as const;
@@ -79,11 +79,19 @@ const FREE_SCAN_EXPECTATION_CHECKS = [
 const FAQS = [
   {
     question: "Is the Free Scan a full review?",
-    answer: "No. It is the first AI Visibility signal that shows where visibility, clarity, trust, or choice may be weak, so you can decide whether deeper Review or Repair work makes sense.",
+    answer: "No. It is the first AI Visibility signal. It shows where visibility, clarity, trust, choice, or action may be weak before you choose deeper Review or Repair work.",
   },
   {
-    question: "Where does the result open?",
-    answer: "After verification, the result opens inside your Cendorq account so your business details and next command stay connected.",
+    question: "What should I expect after submitting?",
+    answer: "Confirm your email, then open the result inside Cendorq so your business details, result, and next command stay connected.",
+  },
+  {
+    question: "Do I need payment information?",
+    answer: "No. The Free Scan should help you see the first signal before buying a deeper plan. Do not send card numbers, passwords, or private keys.",
+  },
+  {
+    question: "What if the scan shows the cause is still unclear?",
+    answer: "That is when Review makes sense. Repair should wait when the cause still needs proof.",
   },
 ] as const;
 
@@ -120,10 +128,8 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative overflow-hidden px-5 py-10 sm:px-8 lg:py-12 xl:py-14" aria-label="Free Scan diagnostic entry">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(251,207,232,0.22),transparent_28%),radial-gradient(circle_at_72%_8%,rgba(125,211,252,0.3),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
-        <div className="absolute left-[-14rem] top-20 h-[34rem] w-[34rem] rounded-full bg-cyan-200/35 blur-3xl" aria-hidden="true" />
-        <div className="absolute right-[-16rem] top-32 h-[38rem] w-[38rem] rounded-full bg-indigo-200/35 blur-3xl" aria-hidden="true" />
+      <section className="relative overflow-hidden px-5 py-10 sm:px-8 lg:py-14" aria-label="Free Scan diagnostic entry">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_8%_0%,rgba(251,207,232,0.28),transparent_28%),radial-gradient(circle_at_76%_8%,rgba(125,211,252,0.34),transparent_34%),linear-gradient(180deg,#fffaff,#f6fcff_58%,#eefbff)]" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.84fr_1.16fr] lg:items-center">
           <div>
             {accessNotice ? (
@@ -131,30 +137,31 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
                 <span className="text-cyan-700">We could not find your Cendorq account yet.</span> {accessNotice}
               </div>
             ) : null}
-            <h1 className="max-w-5xl text-[clamp(3rem,5.35vw,6rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950 xl:text-[clamp(3.35rem,5.8vw,6.35rem)]">
-              See the first AI Visibility signal.
+            <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>Free AI Visibility Scan</p>
+            <h1 className="mt-5 max-w-5xl text-[clamp(3rem,7vw,6.25rem)] font-semibold leading-[0.88] tracking-[-0.086em] text-slate-950">
+              See the first weak signal before buying the deeper fix.
             </h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Cendorq checks the signals around your business and shows where AI engines, search, or customers may hesitate first.
+            <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">
+              Cendorq checks how your business appears to customers and public systems, then shows the first place visibility, trust, choice, or action may be holding you back.
             </p>
-            <p className="mt-4 max-w-2xl text-sm font-semibold leading-6 text-cyan-800">Get the first signal before buying the deeper fix.</p>
-            <div className="mt-6 rounded-[1.55rem] border border-white/80 bg-white/80 p-4 shadow-[0_16px_50px_rgba(15,23,42,0.06)] backdrop-blur">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">What the first signal looks for</p>
+            <p className="mt-4 max-w-2xl text-sm font-black leading-6 text-cyan-800">Start free. See the first signal. Choose the next depth only when it makes sense.</p>
+            <div className="mt-6 rounded-[1.55rem] border border-white/80 bg-white/82 p-4 shadow-[0_16px_50px_rgba(14,165,233,0.08)] backdrop-blur">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">What the scan checks first</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {PREVIEW_SIGNALS.map((signal) => (
-                  <article key={signal.label} className="rounded-[1.15rem] border border-slate-200 bg-white p-4">
+                  <article key={signal.label} className="rounded-[1.15rem] border border-cyan-100 bg-white/86 p-4">
                     <div className="flex items-center justify-between gap-3">
                       <h2 className="text-base font-semibold tracking-[-0.035em] text-slate-950">{signal.label}</h2>
                       <span className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{signal.status}</span>
                     </div>
-                    <p className="mt-2 text-xs font-medium leading-5 text-slate-500">{signal.copy}</p>
+                    <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{signal.copy}</p>
                   </article>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="rounded-[2.65rem] border border-white/80 bg-white/72 p-3 shadow-[0_34px_120px_rgba(15,23,42,0.12)] backdrop-blur-2xl">
+          <div className="rounded-[2.65rem] border border-white/80 bg-white/74 p-3 shadow-[0_34px_120px_rgba(14,165,233,0.12)] backdrop-blur-2xl">
             <div className="grid gap-2 p-2 sm:grid-cols-3">
               {FORM_PAGE_STANDARD.map(([label, copy]) => (
                 <div key={label} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/60 p-3">
@@ -175,7 +182,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
               <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Decision path</p>
               <h2 className="mt-3 text-[clamp(2rem,6vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950">Know what the scan can decide.</h2>
             </div>
-            <p className="text-base font-medium leading-8 text-slate-600">The Free Scan should reduce uncertainty before paid depth. It collects enough context to create a first signal and keeps the next command connected.</p>
+            <p className="text-base font-semibold leading-8 text-slate-600">The Free Scan reduces uncertainty before paid depth. It collects enough context to create a first signal, then keeps the result and next command connected.</p>
           </div>
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             {FREE_SCAN_DECISION_PATH.map(([title, copy]) => (
@@ -201,12 +208,12 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
           <div className="grid gap-0 lg:grid-cols-[0.92fr_1.08fr]">
             <div className="relative overflow-hidden border-b border-cyan-100 bg-[radial-gradient(circle_at_22%_8%,rgba(125,211,252,0.2),transparent_34%),linear-gradient(180deg,#ffffff,#effcff)] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
               <div className="relative">
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Scan to account handoff</p>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Scan to result handoff</p>
                 <h2 className="mt-3 max-w-3xl text-[clamp(2.3rem,4.1vw,4.6rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">
                   Start with what is already visible.
                 </h2>
-                <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-600">
-                  Cendorq checks the public-facing signals around the business and points to the first weak spot: missing visibility, unclear information, weak proof, weak trust, or a harder path to choose you.
+                <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-slate-600">
+                  The scan points to the first weak spot without pretending the whole cause is proven. Review before Repair when the cause still needs proof.
                 </p>
               </div>
             </div>
@@ -214,7 +221,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
             <div className="bg-[linear-gradient(180deg,#ffffff,#f8fbff)] p-5 sm:p-7 lg:p-8">
               <div className="grid gap-3">
                 {SCAN_SYSTEM_STEPS.map((item) => (
-                  <article key={item.step} className="grid gap-4 rounded-[1.8rem] border border-slate-200 bg-white/88 p-5 shadow-[0_14px_45px_rgba(15,23,42,0.055)] sm:grid-cols-[4rem_1fr] sm:items-start">
+                  <article key={item.step} className="grid gap-4 rounded-[1.8rem] border border-cyan-100 bg-white/88 p-5 shadow-[0_14px_45px_rgba(15,23,42,0.055)] sm:grid-cols-[4rem_1fr] sm:items-start">
                     <div className="flex h-14 w-14 items-center justify-center rounded-full border border-cyan-100 bg-cyan-50 text-sm font-black text-slate-950 shadow-sm">{item.step}</div>
                     <div>
                       <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.title}</h3>
@@ -230,13 +237,13 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
 
       <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-16 sm:px-8 md:grid-cols-2" aria-label="Free Scan questions">
         {FAQS.map((item) => (
-          <article key={item.question} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.055)]">
+          <article key={item.question} className="rounded-[2rem] border border-cyan-100 bg-white/86 p-6 shadow-[0_16px_55px_rgba(15,23,42,0.055)]">
             <h2 className="text-2xl font-semibold tracking-[-0.04em] text-slate-950">{item.question}</h2>
             <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.answer}</p>
           </article>
         ))}
       </section>
-      <section className="sr-only" aria-label="Free Scan public drift anchors">Start Free Scan. first Presence Report and AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. Low friction. Useful context. Safe boundary.</section>
+      <section className="sr-only" aria-label="Free Scan public drift anchors">Start Free Scan. first Presence Report and AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. Low friction. Useful context. Safe boundary. Review before Repair when the cause still needs proof.</section>
     </main>
   );
 }
