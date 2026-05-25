@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const STEPS = [
-  { label: "Start", title: "Enter the business.", copy: "One clean input starts the scan. The page shows the product working instead of explaining too much.", metric: "1 input" },
-  { label: "Scan", title: "Read public signals.", copy: "Cendorq checks whether the business can be found, understood, trusted, compared, and chosen.", metric: "5 checks" },
-  { label: "Score", title: "Show the Presence Score.", copy: "A first signal appears with a clear boundary: useful direction, not a guaranteed outcome.", metric: "72 / 100" },
-  { label: "Gap", title: "Find the Choice Gap.", copy: "The demo turns visibility into a decision gap: clarity, proof, trust, comparison, or action friction.", metric: "Trust proof" },
-  { label: "Queue", title: "Rank the Repair Queue.", copy: "Weak signals become a short priority order instead of a wall of audit noise.", metric: "3 fixes" },
-  { label: "Control", title: "Create the Control Snapshot.", copy: "After review or repair, the system keeps the next safe command visible as signals drift.", metric: "Watch state" },
+  { label: "Start", title: "Add the business.", copy: "Enter the business once. Cendorq keeps the scan focused on public signals and the next safe decision.", metric: "1 input" },
+  { label: "Scan", title: "Read the public signal.", copy: "The scan checks whether the business can be found, understood, trusted, compared, and chosen.", metric: "5 checks" },
+  { label: "Score", title: "See the first score.", copy: "The Presence Score gives direction without pretending to be a ranking, lead, revenue, or placement promise.", metric: "72 / 100" },
+  { label: "Gap", title: "Find the Choice Gap.", copy: "Cendorq shows the decision friction: clarity, proof, trust, comparison, or action path weakness.", metric: "Trust proof" },
+  { label: "Queue", title: "Get the repair order.", copy: "Weak signals become a short Repair Queue so the next move is clear instead of buried in audit noise.", metric: "3 fixes" },
+  { label: "Control", title: "Keep the signal watched.", copy: "After review or repair, the Control Snapshot keeps drift and the next command visible.", metric: "Watch state" },
 ] as const;
 
 const SIGNALS = [
@@ -41,12 +41,12 @@ export function CendorqProductMotionDemo() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(251,207,232,0.38),transparent_30%),radial-gradient(circle_at_100%_12%,rgba(125,211,252,0.42),transparent_34%)]" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-7xl gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
         <div>
-          <p className="inline-flex rounded-full border border-cyan-100 bg-white/82 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-cyan-700 shadow-sm backdrop-blur">Product motion demo</p>
+          <p className="inline-flex rounded-full border border-cyan-100 bg-white/82 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-cyan-700 shadow-sm backdrop-blur">See the system work</p>
           <h2 className="mt-5 max-w-4xl text-[clamp(2.85rem,12vw,5.9rem)] font-semibold leading-[0.9] tracking-[-0.082em] text-slate-950">
             Watch one weak signal become <span className="block text-cyan-600">a repair path.</span>
           </h2>
           <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-            Cendorq should feel like a tool working in front of the customer: scan, score, gap, queue, and control.
+            The scan moves from public signals to a score, a choice gap, a repair queue, and a control snapshot so the next step is easier to choose.
           </p>
           <div className="mt-7 grid gap-3 sm:flex">
             <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-white px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Start Free Scan</Link>
@@ -109,7 +109,7 @@ export function CendorqProductMotionDemo() {
             </div>
 
             <p className="mt-4 rounded-[1rem] border border-cyan-100 bg-cyan-50/60 p-3 text-xs font-semibold leading-5 text-slate-600">
-              Sample data only. Cendorq gives direction for the next repair decision without promising placement or outcomes.
+              Sample data only. Cendorq gives direction for the next repair decision without promising rankings, leads, revenue, or AI placement.
             </p>
           </div>
         </div>
