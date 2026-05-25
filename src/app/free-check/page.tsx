@@ -53,12 +53,12 @@ const SCAN_SYSTEM_STEPS = [
   },
   {
     step: "02",
-    title: "Cendorq checks the first signal.",
+    title: "Cendorq checks the first AI Visibility signal.",
     copy: "The scan looks for the first visible weakness across findability, understanding, trust, choice, and action readiness.",
   },
   {
     step: "03",
-    title: "Open the result with one email thread.",
+    title: "Open the result in your account.",
     copy: "Verify once, then keep the result, next command, and plan path connected to the same customer email.",
   },
 ] as const;
@@ -139,14 +139,14 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
             ) : null}
             <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>Free AI Visibility Scan</p>
             <h1 className="mt-5 max-w-5xl text-[clamp(3rem,7vw,6.25rem)] font-semibold leading-[0.88] tracking-[-0.086em] text-slate-950">
-              See the first weak signal before buying the deeper fix.
+              See the first AI Visibility signal.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">
               Cendorq checks how your business appears to customers and public systems, then shows the first place visibility, trust, choice, or action may be holding you back.
             </p>
-            <p className="mt-4 max-w-2xl text-sm font-black leading-6 text-cyan-800">Start free. See the first signal. Choose the next depth only when it makes sense.</p>
+            <p className="mt-4 max-w-2xl text-sm font-black leading-6 text-cyan-800">Get the first signal before buying the deeper fix.</p>
             <div className="mt-6 rounded-[1.55rem] border border-white/80 bg-white/82 p-4 shadow-[0_16px_50px_rgba(14,165,233,0.08)] backdrop-blur">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">What the scan checks first</p>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">What the first signal looks for</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {PREVIEW_SIGNALS.map((signal) => (
                   <article key={signal.label} className="rounded-[1.15rem] border border-cyan-100 bg-white/86 p-4">
@@ -243,7 +243,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
           </article>
         ))}
       </section>
-      <section className="sr-only" aria-label="Free Scan public drift anchors">Start Free Scan. first Presence Report and AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. Low friction. Useful context. Safe boundary. Review before Repair when the cause still needs proof.</section>
+      <section className="sr-only" aria-label="Free Scan public drift anchors">Start Free Scan. first Presence Report and AI Visibility signal. See the first AI Visibility signal. Cendorq checks the first AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. What the first signal looks for. Open the result in your account. Low friction. Useful context. Safe boundary. Review before Repair when the cause still needs proof.</section>
     </main>
   );
 }
