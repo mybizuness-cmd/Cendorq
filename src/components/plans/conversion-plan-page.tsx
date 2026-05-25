@@ -176,41 +176,41 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
 function PlanDecisionGuide() {
   return (
     <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label="Plan decision guide">
-      <div className="rounded-[2.25rem] border border-slate-900 bg-slate-950 p-5 text-white shadow-[0_24px_80px_rgba(15,23,42,0.16)] sm:p-7">
+      <div className="rounded-[2.25rem] border border-white/85 bg-white/84 p-5 text-slate-950 shadow-[0_22px_70px_rgba(14,165,233,0.08)] backdrop-blur sm:p-7">
         <div className="grid gap-5 lg:grid-cols-[0.42fr_0.58fr] lg:items-end">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Decision guide</p>
-            <h2 className="mt-3 text-[clamp(2rem,5vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-white">Choose the right depth for the job.</h2>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Decision guide</p>
+            <h2 className="mt-3 text-[clamp(2rem,5vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950">Choose the right depth for the job.</h2>
           </div>
-          <p className="text-base font-medium leading-8 text-slate-300">Each step should make the next customer decision clearer: signal, cause, repair, or control.</p>
+          <p className="text-base font-medium leading-8 text-slate-600">Each step should make the next customer decision clearer: signal, cause, repair, or control.</p>
         </div>
         <div className="mt-6 grid gap-3 md:grid-cols-4">
           {PLAN_DECISION_GUIDE.map(([number, title, copy]) => (
-            <article key={title} className="rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-100">{number}</p>
-              <h3 className="mt-3 text-xl font-semibold tracking-[-0.045em] text-white">{title}</h3>
-              <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
+            <article key={title} className="rounded-[1.35rem] border border-cyan-100 bg-white/86 p-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{number}</p>
+              <h3 className="mt-3 text-xl font-semibold tracking-[-0.045em] text-slate-950">{title}</h3>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
             </article>
           ))}
         </div>
         <div className="mt-5 grid gap-3 lg:grid-cols-[1.35fr_0.65fr]">
-          <div className="rounded-[1.45rem] border border-white/10 bg-white/[0.045] p-5">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Depth meaning</p>
+          <div className="rounded-[1.45rem] border border-cyan-100 bg-cyan-50/45 p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Depth meaning</p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {PLAN_DEPTH_CLARITY.map(([name, label, copy]) => (
-                <article key={name} className="rounded-[1.15rem] border border-white/10 bg-slate-950/65 p-4">
-                  <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100">{label}</p>
-                  <h3 className="mt-2 text-lg font-semibold tracking-[-0.04em] text-white">{name}</h3>
-                  <p className="mt-2 text-xs font-semibold leading-5 text-slate-300">{copy}</p>
+                <article key={name} className="rounded-[1.15rem] border border-white/80 bg-white/76 p-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-700">{label}</p>
+                  <h3 className="mt-2 text-lg font-semibold tracking-[-0.04em] text-slate-950">{name}</h3>
+                  <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
                 </article>
               ))}
             </div>
           </div>
-          <div className="rounded-[1.45rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Before choosing depth</p>
+          <div className="rounded-[1.45rem] border border-cyan-100 bg-cyan-50/45 p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Before choosing depth</p>
             <div className="mt-4 grid gap-2">
               {PLAN_BUYING_CHECKS.map((check) => (
-                <p key={check} className="rounded-[1rem] border border-cyan-100/15 bg-slate-950/45 p-3 text-xs font-semibold leading-5 text-slate-200">{check}</p>
+                <p key={check} className="rounded-[1rem] border border-white/80 bg-white/76 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
               ))}
             </div>
           </div>

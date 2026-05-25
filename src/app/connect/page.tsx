@@ -6,6 +6,7 @@ import {
   buildWebPageJsonLd,
   toJsonLd,
 } from "@/lib/seo";
+import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import Link from "next/link";
 
 const BRAND_NAME = "Cendorq";
@@ -22,28 +23,43 @@ export const metadata = buildMetadata({
 });
 
 const CONTACT_RULES = [
-  "Start Free Scan if the first visibility or readiness signal is unclear.",
-  "Use Plans if you know the depth you need.",
-  "Contact us only when fit, scope, or timing is already clear.",
+  "Start Free Scan if the first weak signal is unclear.",
+  "Use Plans when the depth is the decision.",
+  "Contact us when the question is already specific.",
 ] as const;
 
 const CONTACT_STAGE_ROUTES = [
-  { label: "Need a first signal", href: "/free-check", cta: "Start Free Scan", detail: "Use this before contacting us when the business does not yet know what is weakening visibility, clarity, trust, proof, or choice." },
-  { label: "Need to choose a plan", href: "/plans", cta: "Compare plans", detail: "Use this when choosing between Deep Review, Build Fix, and Ongoing Control." },
-  { label: "Already a customer", href: "/dashboard/support", cta: "Open support", detail: "Use dashboard support for billing, proof, scope, access, or correction questions." },
+  {
+    label: "Need a first signal",
+    href: "/free-check",
+    cta: "Start Free Scan",
+    detail: "Use this when you are not sure what is weakening visibility, clarity, trust, proof, or choice.",
+  },
+  {
+    label: "Need to choose depth",
+    href: "/plans",
+    cta: "Compare plans",
+    detail: "Use this when you want to choose between Review, Repair, and ongoing Control without overbuying.",
+  },
+  {
+    label: "Already a customer",
+    href: "/dashboard/support",
+    cta: "Open support",
+    detail: "Use customer support for billing, report, access, correction, or active-scope questions.",
+  },
 ] as const;
 
 const CONNECT_DECISION_PATH = [
-  ["Scan", "Use Free Scan when the first weak signal is still unclear."],
+  ["Scan", "Use Free Scan when the weak signal is still unknown."],
   ["Plan", "Use Plans when the depth is the decision."],
-  ["Support", "Use customer access or direct email when the question is already specific."],
+  ["Support", "Use support or email when the question is already specific."],
 ] as const;
 
 const SUPPORT_CLARITY_CHECKS = [
-  "Use dashboard support for existing billing, report, access, or correction questions.",
-  "Use direct email when fit, scope, timing, or reply ownership matters.",
-  "Start Free Scan when the first weak signal is still unknown.",
-  "Include business name, website, and the email used for prior Cendorq work.",
+  "Include business name and website.",
+  "Use the same email from prior Cendorq work.",
+  "Do not send card numbers, passwords, or private keys.",
+  "Keep the question focused on fit, scope, timing, access, or support.",
 ] as const;
 
 const CONTACT_BOUNDARIES = [
@@ -58,7 +74,7 @@ const FAQS = [
   {
     question: "Should I contact you first or start the Free Scan?",
     answer:
-      "Start the Free Scan if the problem is still unclear. Contact us when you already know the stage and need to discuss fit, scope, or timing.",
+      "Start the Free Scan if the problem is still unclear. Contact us when you already know the stage and need to discuss fit, scope, timing, or support.",
   },
   {
     question: "What if I am not sure which plan fits?",
@@ -68,7 +84,7 @@ const FAQS = [
   {
     question: "When does Contact Us make sense?",
     answer:
-      "Contact Us makes sense when the business already has a clear question about fit, scope, timing, or ongoing visibility and readiness control.",
+      "Contact Us makes sense when the business already has a clear question about fit, scope, timing, access, or ongoing visibility and readiness control.",
   },
   {
     question: "How will Cendorq reply?",
@@ -100,119 +116,138 @@ export default function ConnectPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative mx-auto max-w-6xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
-      <ConnectAtmosphere />
-
+    <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative z-10 system-panel-authority rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
-        <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
+      <section className="relative overflow-hidden px-5 py-10 sm:px-8 lg:py-14" aria-label="Contact Us routing">
+        <div className={CENDORQ_EXPERIENCE_SYSTEM.heroAtmosphere} aria-hidden="true" />
+        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Contact Us</p>
-            <h1 className="system-hero-title mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Contact us when the next question is already clear.
+            <p className={CENDORQ_EXPERIENCE_SYSTEM.eyebrow}>Contact Us</p>
+            <h1 className={`${CENDORQ_EXPERIENCE_SYSTEM.pageHeadline} mt-5 max-w-5xl`}>
+              Use the right route before the next move.
+              <span className="block text-cyan-600">We keep the path clear.</span>
             </h1>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              {BRAND_NAME} works best when the next move is clear. Start with Free Scan when you need the first visibility or readiness signal. Contact us for fit, scope, timing, or ongoing control questions that are already specific.
+            <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+              {BRAND_NAME} works best when the first signal, plan depth, or support question is clear. Start with Free Scan when the weak signal is still unknown. Contact us when fit, scope, timing, or support is already specific.
+            </p>
+            <div className={`mt-7 ${CENDORQ_EXPERIENCE_SYSTEM.mobileActionRow}`}>
+              <Link href="/free-check" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>
+                Start Free Scan
+              </Link>
+              <a href={directEmailHref} className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>
+                Email Support
+              </a>
+            </div>
+          </div>
+
+          <div className={CENDORQ_EXPERIENCE_SYSTEM.glassPanel}>
+            <div className="rounded-[2rem] border border-cyan-100 bg-[linear-gradient(145deg,#ffffff,#f6fcff_55%,#fff7fb)] p-5 sm:p-7">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Best first action</p>
+              <h2 className="mt-3 text-4xl font-semibold leading-[0.95] tracking-[-0.065em] text-slate-950 sm:text-5xl">
+                Start free unless the question is already clear.
+              </h2>
+              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">
+                If you need the first weak signal, scan. If you need the right service depth, compare plans. If you already know the question, email support.
+              </p>
+              <div className="mt-5 grid gap-3">
+                {CONTACT_RULES.map((rule) => (
+                  <p key={rule} className={CENDORQ_EXPERIENCE_SYSTEM.softChecklistCard}>
+                    {rule}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 pb-10 sm:px-8" aria-label="Contact Us stage routes">
+        <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-3">
+          {CONTACT_STAGE_ROUTES.map((route) => (
+            <Link key={route.href} href={route.href} className={CENDORQ_EXPERIENCE_SYSTEM.card}>
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{route.label}</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{route.cta}</h2>
+              <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{route.detail}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-5 pb-10 sm:px-8" aria-label="Contact decision path">
+        <div className={`mx-auto max-w-7xl ${CENDORQ_EXPERIENCE_SYSTEM.softSection}`}>
+          <div className="grid gap-5 lg:grid-cols-[0.42fr_0.58fr] lg:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Decision path</p>
+              <h2 className={CENDORQ_EXPERIENCE_SYSTEM.sectionHeadline}>Choose the door that matches the question.</h2>
+            </div>
+            <p className="text-base font-semibold leading-8 text-slate-600">
+              Contact should make the next customer step easier, not add a new maze. Use the shortest safe route for where you are.
             </p>
           </div>
-          <div className="rounded-[1.25rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
-            <div className="text-sm font-semibold text-cyan-100">Best first action</div>
-            <p className="mt-2 text-sm leading-6 text-slate-200">Start free unless you already know the stage, scope, or timing question.</p>
-            <Link href="/free-check" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-              Start Free Scan
-            </Link>
-          </div>
-        </div>
 
-        <div className="mt-6 grid gap-2 sm:grid-cols-3">
-          {CONTACT_RULES.map((rule) => (
-            <div key={rule} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">{rule}</div>
-          ))}
-        </div>
-
-        <div className="mt-7 rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
-          <h2 className="text-base font-semibold text-cyan-100">Email us directly</h2>
-          <p className="mt-2 text-sm leading-7 text-slate-200">
-            Send your message to <a href={directEmailHref} className="font-bold text-white underline decoration-cyan-200 underline-offset-4">{SUPPORT_EMAIL}</a> from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one.
-          </p>
-        </div>
-
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-          <a href={directEmailHref} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Email Support
-          </a>
-          <Link href="/plans" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            Compare plans
-          </Link>
-        </div>
-      </section>
-
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3" aria-label="Contact Us stage routes">
-        {CONTACT_STAGE_ROUTES.map((route) => (
-          <Link key={route.href} href={route.href} className="system-surface rounded-[1.35rem] p-5 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
-            <div className="text-sm font-semibold text-cyan-100">{route.label}</div>
-            <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{route.cta}</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-300">{route.detail}</p>
-          </Link>
-        ))}
-      </section>
-
-      <section className="relative z-10 mt-8 rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-5" aria-label="Contact decision path">
-        <div className="grid gap-5 lg:grid-cols-[0.44fr_0.56fr] lg:items-end">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-100">Decision path</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Use the right route before emailing.</h2>
-          </div>
-          <p className="text-sm leading-7 text-slate-300">Contact should help when fit, scope, or timing is already clear. When the signal is unclear, the Free Scan or plans page is the safer first route.</p>
-        </div>
-        <div className="mt-5 grid gap-3 md:grid-cols-3">
-          {CONNECT_DECISION_PATH.map(([title, copy]) => (
-            <article key={title} className="rounded-[1.25rem] border border-white/10 bg-white/[0.05] p-4">
-              <h3 className="text-xl font-semibold tracking-tight text-white">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-300">{copy}</p>
-            </article>
-          ))}
-        </div>
-        <div className="mt-5 rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
-          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Before sending support context</p>
-          <div className="mt-4 grid gap-3 md:grid-cols-4">
-            {SUPPORT_CLARITY_CHECKS.map((check) => (
-              <p key={check} className="rounded-[1rem] border border-white/10 bg-slate-950/55 p-3 text-xs font-semibold leading-5 text-slate-300">{check}</p>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            {CONNECT_DECISION_PATH.map(([title, copy]) => (
+              <article key={title} className={CENDORQ_EXPERIENCE_SYSTEM.signalCard}>
+                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
+                <p className="mt-2 text-sm font-medium leading-7 text-slate-600">{copy}</p>
+              </article>
             ))}
           </div>
+
+          <div className="mt-6 rounded-[1.6rem] border border-cyan-100 bg-cyan-50/45 p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Before sending context</p>
+            <div className="mt-4 grid gap-3 md:grid-cols-4">
+              {SUPPORT_CLARITY_CHECKS.map((check) => (
+                <p key={check} className="rounded-[1rem] border border-white/80 bg-white/76 p-3 text-xs font-semibold leading-5 text-slate-700">
+                  {check}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2">
+      <section className="px-5 pb-10 sm:px-8" aria-label="Direct email support">
+        <div className={`mx-auto max-w-7xl ${CENDORQ_EXPERIENCE_SYSTEM.whitePanel}`}>
+          <div className="grid gap-5 lg:grid-cols-[0.6fr_0.4fr] lg:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Email us directly</p>
+              <h2 className="mt-3 text-4xl font-semibold leading-[0.96] tracking-[-0.065em] text-slate-950">
+                Send one clear message from the email where you want the reply.
+              </h2>
+              <p className="mt-4 text-base font-semibold leading-8 text-slate-600">
+                Include your business name, website, and the email used for your Free Scan or plan if you already have one.
+              </p>
+            </div>
+            <a href={directEmailHref} className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>
+              Email support@cendorq.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-16 sm:px-8 md:grid-cols-2">
         {FAQS.map((item) => (
           <FaqCard key={item.question} question={item.question} answer={item.answer} />
         ))}
       </section>
-      <p className="sr-only">Contact Cendorq when the question is already clear. Start Free Scan if the problem is unclear. Contact Us with Cendorq. Contact Us stage routing. If you are unsure, start Free Scan. If the question is clear, contact us. Email support@cendorq.com from the address where you want the reply. View plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}</p>
+
+      <p className="sr-only">
+        Contact Cendorq when the question is already clear. Start Free Scan if the problem is unclear. Contact Us with Cendorq. Contact Us stage routing. If you are unsure, start Free Scan. If the question is clear, contact us. Email support@cendorq.com from the address where you want the reply. View plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}
+      </p>
     </main>
   );
 }
 
 function FaqCard({ question, answer }: { question: string; answer: string }) {
   return (
-    <article className="system-surface rounded-[1.35rem] p-5">
-      <h3 className="text-xl font-semibold tracking-tight text-white">{question}</h3>
-      <p className="mt-3 text-sm leading-7 text-slate-300">{answer}</p>
+    <article className={CENDORQ_EXPERIENCE_SYSTEM.card}>
+      <h3 className="text-2xl font-semibold tracking-[-0.045em] text-slate-950">{question}</h3>
+      <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{answer}</p>
     </article>
-  );
-}
-
-function ConnectAtmosphere() {
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
-      <div className="absolute -right-8 top-24 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-      <div className="absolute left-1/2 top-1/4 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.03] blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.026]" />
-    </div>
   );
 }
