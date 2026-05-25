@@ -27,6 +27,13 @@ const TREND_POSTURE = [
   ["Repair memory", "Repeated weak signals become better page, proof, FAQ, and action patterns."],
 ] as const;
 
+const SNAPSHOT_CONSISTENCY_CHECKS = [
+  "Show score, top weakness, Choice Gap, Repair Queue, and Control Snapshot together.",
+  "Keep visibility evidence bounded: no placement, ranking, lead, or algorithm-control promises.",
+  "Use Review before Repair when the cause still needs proof.",
+  "Turn drift and repeated weak signals into the next priority, not alarm language.",
+] as const;
+
 export function DashboardPresenceCommandSnapshot() {
   const packageSource = getPresenceReportPackage();
   const report = packageSource.report;
@@ -147,8 +154,18 @@ export function DashboardPresenceCommandSnapshot() {
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Control Snapshot</p>
               <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{control.summary}</p>
             </article>
+
+            <article className="rounded-[1.65rem] border border-cyan-100 bg-white p-5 shadow-sm">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-700">Snapshot consistency</p>
+              <div className="mt-4 grid gap-2 lg:grid-cols-2">
+                {SNAPSHOT_CONSISTENCY_CHECKS.map((check) => (
+                  <p key={check} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/50 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
+                ))}
+              </div>
+            </article>
           </div>
         </div>
+        <div className="sr-only">Presence command snapshot consistency. Snapshot consistency. State, gap, queue, control. Score, top weakness, Choice Gap, Repair Queue, Control Snapshot. Review before repair. No placement promise. No ranking promise. No lead promise. No algorithm-control promise. {SNAPSHOT_CONSISTENCY_CHECKS.join(" ")}</div>
       </div>
     </section>
   );
