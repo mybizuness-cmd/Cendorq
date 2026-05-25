@@ -41,7 +41,7 @@ export async function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : <Link href="/login" className={`${NAV_LINK_BASE} inline-flex`}>Sign in<span className="sr-only"> Customer Access</span></Link>}
+          {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : <Link href="/login" className={`${NAV_LINK_BASE} inline-flex`}>Access<span className="sr-only"> Customer Access</span></Link>}
         </nav>
 
         <Link href={isRememberedCustomer ? session.safeReturnTo : "/free-check"} className={CTA_CLASS}>
