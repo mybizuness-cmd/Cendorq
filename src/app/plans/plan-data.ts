@@ -47,8 +47,8 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
   href: "/plans/deep-review",
   label: "Deep Review",
   eyebrow: "Review",
-  title: "Find what is weakening readiness",
-  gradient: "before bigger AI Visibility work begins.",
+  title: "Find what is weakening AI Visibility and Readiness",
+  gradient: "before bigger work begins.",
   intro:
     "Deep Review turns the first signal into evidence: why customers and AI engines may not see, understand, trust, compare, or choose the business yet.",
   ctaHref: "/checkout/start?plan=deep-review",
@@ -60,7 +60,7 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
     "A redesign, more ads, or random optimization can look productive while still missing the reason customers and AI answers hesitate. Deep Review keeps the business in Review until the likely cause is clear enough to choose Repair, Control, or no paid next step yet.",
   stats: [
     { label: "Best for", value: "Businesses that need cause proof before bigger action." },
-    { label: "Main result", value: "Choice Gap evidence, readiness gaps, priorities, and a clearer next command." },
+    { label: "Main result", value: "Diagnosis evidence, readiness gaps, priorities, and a clearer next command." },
     { label: "Risk reduced", value: "Repairing the wrong problem faster." },
     { label: "Comes after", value: "Free Scan or a strong internal first signal." },
   ],
