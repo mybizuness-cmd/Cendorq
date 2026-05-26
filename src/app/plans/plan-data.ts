@@ -134,42 +134,42 @@ export const ONGOING_CONTROL_PLAN: PlanPageData & { href: string; label: string 
   label: "Ongoing Control",
   eyebrow: "Control",
   title: "Keep AI Visibility and Readiness from drifting",
-  gradient: "as search and customers change.",
+  gradient: "with a monthly Control Snapshot.",
   intro:
-    "Ongoing Control keeps visibility, readiness, clarity, trusted proof, public signals, AI understanding, and customer action paths under ongoing review.",
+    "Ongoing Control gives the business a steady watch layer for visibility, readiness, trusted proof, AI understanding, public signal drift, and the next command that deserves attention.",
   ctaHref: "/checkout/start?plan=ongoing-control",
   ctaLabel: "Start Ongoing Control",
   secondaryHref: "/plans",
   secondaryLabel: "View Plans",
-  painTitle: "A strong business signal can weaken when nobody is watching it.",
+  painTitle: "A strong signal can decay when nobody owns the watch layer.",
   painCopy:
-    "Markets change. Competitors move. Search surfaces shift. AI answers evolve. Customer expectations move. Ongoing Control keeps the business from treating trust, visibility, and readiness like a one-time project.",
+    "Search surfaces shift, AI answers evolve, competitors move, pages age, and customer expectations change. Ongoing Control keeps the business from treating visibility, trust, proof, and readiness like a one-time project after Scan, Review, or Repair.",
   stats: [
-    { label: "Best for", value: "Businesses with a strong enough base to maintain and improve." },
-    { label: "Main result", value: "Continued direction, monitoring, and controlled adjustment." },
-    { label: "Risk reduced", value: "Letting the customer-facing signal decay after strong work." },
-    { label: "Comes after", value: "Build Fix or an already-strong internal base." },
+    { label: "Best for", value: "Businesses with a strong enough base to monitor, protect, and improve." },
+    { label: "Main result", value: "A recurring Control Snapshot, drift view, and clearer next command." },
+    { label: "Risk reduced", value: "Letting repaired pages, proof, and customer-facing signals decay quietly." },
+    { label: "Comes after", value: "Build Fix, Deep Review, or an already-strong customer-facing base." },
   ],
   features: [
-    { title: "Keep improving", copy: "Give the business steady attention instead of waiting until the signal feels weak again." },
-    { title: "Adapt faster", copy: "Respond to changes in competitors, search behavior, AI answers, customer expectations, and business priorities." },
-    { title: "Protect the base", copy: "Keep the stronger system from drifting, getting stale, or losing the clarity that made it work." },
+    { title: "Watch the signal", copy: "Track whether visibility, clarity, proof, readiness, public facts, and customer action paths are staying aligned or starting to drift." },
+    { title: "Keep the next command clear", copy: "Use a recurring Control Snapshot to decide what needs attention next without turning every signal into noise." },
+    { title: "Maintain the boundary", copy: "Control is monitoring and decision support, not a promise of rankings, leads, revenue, AI placement, or algorithm control." },
   ],
   fit: {
     good: [
-      "The business already has a strong enough base to maintain and improve.",
-      "You want continued direction instead of occasional emergency fixes.",
-      "The business needs a steady system, not a one-time push.",
+      "The business already has a strong enough base to protect, monitor, and keep improving.",
+      "You want continued direction, monthly signal clarity, and decision support instead of occasional emergency fixes.",
+      "The business needs drift, customer expectation changes, competitor movement, and public signal changes kept visible over time.",
     ],
     bad: [
-      "The business still needs a first Scan or evidence-backed Review.",
-      "The foundation is too unclear for ongoing Control to be useful yet.",
-      "You want monthly work to replace the earlier clarity and Repair stages.",
+      "The business still needs a first Scan, evidence-backed Review, or scoped Repair before monitoring can help.",
+      "The foundation is too unclear for ongoing Control to produce useful next commands yet.",
+      "You want monthly work to guarantee rankings, leads, revenue, AI placement, or replace earlier Review and Repair depth.",
     ],
   },
-  finalTitle: "Use Ongoing Control when the business is ready to keep compounding.",
+  finalTitle: "Use Ongoing Control when the business is ready to keep the signal watched.",
   finalCopy:
-    "This is the right depth when the base is strong enough and the next challenge is continued attention, adjustment, readiness, and control over time.",
+    "This is the right depth when the base is strong enough and the next challenge is recurring attention, drift visibility, readiness control, and a calm next command over time.",
 };
 
 export const PLANS = [FREE_SCAN_PLAN, DEEP_REVIEW_PLAN, BUILD_FIX_PLAN, ONGOING_CONTROL_PLAN] as const;
