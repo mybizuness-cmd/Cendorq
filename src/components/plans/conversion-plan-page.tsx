@@ -44,7 +44,7 @@ const PLAN_NEXT_STEP: Record<CendorqPlanKey, string> = {
   "free-scan": "Start with a first signal before choosing paid depth.",
   "deep-review": "Use this when evidence should guide the next investment.",
   "build-fix": "Use this when the weak point is clear enough to improve.",
-  "ongoing-control": "Use this when the business needs ongoing attention and readiness control.",
+  "ongoing-control": "Use this when the business needs ongoing attention and visibility control.",
 };
 
 const PLAN_DECISION_GUIDE = [
@@ -169,7 +169,6 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
         <FitPanel title="Best when" items={data.fit.good.slice(0, 3)} />
         <FitPanel title="Not the right first step when" items={data.fit.bad.slice(0, 3)} muted />
       </section>
-      <section className="sr-only" aria-label="Plan component validation anchors">Use this when the business needs ongoing attention and visibility control.</section>
     </main>
   );
 }
