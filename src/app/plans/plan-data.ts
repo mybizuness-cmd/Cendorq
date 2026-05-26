@@ -169,7 +169,7 @@ export const ONGOING_CONTROL_PLAN: PlanPageData & { href: string; label: string 
   },
   finalTitle: "Use Ongoing Control when the business is ready to keep the signal watched.",
   finalCopy:
-    "This is the right depth when the base is strong enough and the next challenge is recurring attention, drift visibility, readiness control, and a calm next command over time.",
+    "This is the right depth when the base is strong enough and the next challenge is recurring attention, drift visibility, visibility control, and a calm next command over time.",
 };
 
 export const PLANS = [FREE_SCAN_PLAN, DEEP_REVIEW_PLAN, BUILD_FIX_PLAN, ONGOING_CONTROL_PLAN] as const;
