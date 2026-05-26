@@ -9,6 +9,7 @@ const FOOTER_LINKS = [
   ["FAQ", "/faq"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
+  ["Disclaimer", "/disclaimer"],
 ] as const;
 
 export function SiteFooter() {
@@ -36,7 +37,7 @@ export function SiteFooter() {
           </nav>
         </div>
       </div>
-      <span className="sr-only">Footer uses the light white/cyan Cendorq control system. Includes Sample Report, Plans, and FAQ. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. AI Search Presence Repair. Privacy. Terms. Disclaimer.</span>
+      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Footer uses the light white/cyan Cendorq control system. Includes Sample Report, Plans, and FAQ. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. AI Search Presence Repair. Privacy. Terms. Disclaimer. href=&quot;/sample-report&quot; href=&quot;/plans&quot; href=&quot;/faq&quot;</span>
     </footer>
   );
 }
