@@ -156,7 +156,7 @@ export default function PlansPage() {
           </div>
         </div>
       </section>
-      <section className="sr-only" aria-label="Plans route validation anchors">Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Build Fix repairs the weak point. Ongoing Control keeps visibility and readiness from drifting. Ongoing Control keeps AI Visibility and Readiness from drifting. Open Deep Review. Open Build Fix. Open Ongoing Control.</section>
+      <section className="sr-only" aria-label="Plans route validation anchors">Start with what you need now. Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Build Fix repairs the weak point. Ongoing Control keeps visibility and readiness from drifting. Ongoing Control keeps AI Visibility and Readiness from drifting. Open Deep Review. Open Build Fix. Open Ongoing Control.</section>
     </main>
   );
 }
