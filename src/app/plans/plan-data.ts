@@ -146,7 +146,7 @@ export const ONGOING_CONTROL_PLAN: PlanPageData & { href: string; label: string 
     "Search surfaces shift, AI answers evolve, competitors move, pages age, and customer expectations change. Ongoing Control keeps the business from treating visibility, trust, proof, and readiness like a one-time project after Scan, Review, or Repair.",
   stats: [
     { label: "Best for", value: "Businesses with a strong enough base to monitor, protect, and improve." },
-    { label: "Main result", value: "A recurring Control Snapshot, drift view, and clearer next command." },
+    { label: "Main result", value: "Continued direction, monitoring, and controlled adjustment. Control Snapshot keeps drift and the next command visible." },
     { label: "Risk reduced", value: "Letting repaired pages, proof, and customer-facing signals decay quietly." },
     { label: "Comes after", value: "Build Fix, Deep Review, or an already-strong customer-facing base." },
   ],
