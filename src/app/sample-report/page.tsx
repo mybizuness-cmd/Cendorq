@@ -46,11 +46,10 @@ export default function SampleReportPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
 
       <section className="relative overflow-hidden px-5 pb-8 pt-10 sm:px-8 lg:pb-12 lg:pt-14" aria-label="Sample Presence Report introduction">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(251,207,232,0.22),transparent_28%),radial-gradient(circle_at_72%_8%,rgba(125,211,252,0.28),transparent_34%)]" aria-hidden="true" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(251,207,232,0.18),transparent_28%),radial-gradient(circle_at_72%_8%,rgba(125,211,252,0.24),transparent_34%)]" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl">
           <div className="max-w-4xl">
-            <p className="inline-flex rounded-full border border-cyan-200 bg-white/84 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-cyan-700 shadow-[0_10px_28px_rgba(14,165,233,0.08)]">Sample Presence Report</p>
-            <h1 className="mt-5 text-[clamp(2.8rem,10vw,5.4rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950">
+            <h1 className="text-[clamp(2.8rem,10vw,5.4rem)] font-semibold leading-[0.92] tracking-[-0.08em] text-slate-950">
               See how Cendorq turns uncertainty into a repair queue.
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
@@ -85,19 +84,16 @@ export default function SampleReportPage() {
       </section>
 
       <section className="px-5 pb-10 sm:px-8 lg:pb-16" aria-label="Vertical sample report standards">
-        <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:rounded-[2.5rem] sm:p-8">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_60px_rgba(15,23,42,0.05)] backdrop-blur sm:rounded-[2.5rem] sm:p-8">
           <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Vertical sample reports</p>
-              <h2 className="mt-3 text-[clamp(2rem,6vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">Different businesses need different trust proof.</h2>
-            </div>
+            <h2 className="text-[clamp(2rem,6vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">Different businesses need different trust proof.</h2>
             <p className="text-base font-medium leading-8 text-slate-600">Cendorq should score the same five pillars while adapting proof standards, claim boundaries, and repair priorities to the category.</p>
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {VERTICAL_SAMPLE_PRESENCE_REPORTS.map((sample) => (
-              <Link key={sample.key} href={`/sample-report/${sample.key}`} className="group rounded-[1.55rem] border border-cyan-100 bg-cyan-50/45 p-5 shadow-sm transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-white hover:shadow-[0_18px_55px_rgba(14,165,233,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{sample.category}</p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.045em] text-slate-950">{sample.label}</h3>
+              <Link key={sample.key} href={`/sample-report/${sample.key}`} className="group rounded-[1.55rem] border border-cyan-100 bg-cyan-50/42 p-5 shadow-sm transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-white hover:shadow-[0_18px_55px_rgba(14,165,233,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
+                <h3 className="text-2xl font-semibold tracking-[-0.045em] text-slate-950">{sample.label}</h3>
+                <p className="mt-2 text-xs font-black text-cyan-700">{sample.category}</p>
                 <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{sample.trustStandard}</p>
                 <div className="mt-4 grid gap-2">
                   {sample.priorityRepairs.slice(0, 2).map((repair) => (
@@ -112,9 +108,8 @@ export default function SampleReportPage() {
       </section>
 
       <section className="px-5 pb-16 sm:px-8 lg:pb-20" aria-label="Sample report guardrails">
-        <div className="mx-auto max-w-7xl rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.055)] sm:rounded-[2.5rem] sm:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">How to read this sample</p>
-          <h2 className="mt-3 text-[clamp(2rem,6vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_55px_rgba(15,23,42,0.052)] sm:rounded-[2.5rem] sm:p-8">
+          <h2 className="text-[clamp(2rem,6vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950">
             This is an example, not a promise.
           </h2>
           <p className="mt-4 max-w-4xl text-base font-medium leading-8 text-slate-600">
@@ -122,11 +117,13 @@ export default function SampleReportPage() {
           </p>
           <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {SAMPLE_REPORT_BOUNDARY_CHECKS.map((check) => (
-              <p key={check} className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50/45 p-4 text-xs font-semibold leading-5 text-slate-700">{check}</p>
+              <p key={check} className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50/42 p-4 text-xs font-semibold leading-5 text-slate-700">{check}</p>
             ))}
           </div>
         </div>
       </section>
+
+      <span className="sr-only">Sample Presence Report. Vertical sample reports. How to read this sample.</span>
     </main>
   );
 }
