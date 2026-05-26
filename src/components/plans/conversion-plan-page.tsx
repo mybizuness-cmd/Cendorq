@@ -44,7 +44,7 @@ const PLAN_NEXT_STEP: Record<CendorqPlanKey, string> = {
   "free-scan": "Start with a first signal before choosing paid depth.",
   "deep-review": "Use this when evidence should guide the next investment.",
   "build-fix": "Use this when the weak point is clear enough to improve.",
-  "ongoing-control": "Use this when the business needs ongoing attention and visibility control.",
+  "ongoing-control": "Use this when the business needs ongoing attention and readiness control.",
 };
 
 const PLAN_DECISION_GUIDE = [
