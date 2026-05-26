@@ -93,40 +93,40 @@ export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
   title: "Repair the signal",
   gradient: "customers notice first.",
   intro:
-    "Build Fix improves one approved page, message, proof point, visibility gap, readiness gap, or action path that may be making the business harder to see, understand, trust, compare, or choose.",
+    "Build Fix turns one approved weak point into scoped Repair: a page, message, proof point, visibility gap, readiness gap, or action path that needs to be clearer before customers act.",
   ctaHref: "/checkout/start?plan=build-fix",
   ctaLabel: "Start Build Fix",
   secondaryHref: "/plans",
   secondaryLabel: "View Plans",
   painTitle: "Focused Repair matters more than more activity.",
   painCopy:
-    "A business can keep changing things and still leave the true weak point untouched. Build Fix focuses work where customers decide whether to believe, compare, call, book, or leave.",
+    "More content, more design changes, or more tools can still leave the decision gap untouched. Build Fix keeps the work focused on the specific customer-facing signal that Review or clear internal evidence says should be repaired next.",
   stats: [
-    { label: "Best for", value: "Businesses ready to move from evidence into action." },
+    { label: "Best for", value: "Businesses ready to move from evidence into scoped action." },
     { label: "Main result", value: "A stronger customer-facing and AI-readable path." },
-    { label: "Risk reduced", value: "Cosmetic work that does not improve decisions." },
-    { label: "Comes after", value: "Deep Review or a clear internal priority." },
+    { label: "Risk reduced", value: "Broad rebuilds, cosmetic work, or fixes that do not improve decisions." },
+    { label: "Comes after", value: "Deep Review, Free Scan, or a clear approved repair priority." },
   ],
   features: [
-    { title: "Strengthen trust", copy: "Improve the parts that help people believe the business is credible, current, real, and safe to choose." },
-    { title: "Sharpen the message", copy: "Make the offer easier to understand and harder to confuse with every other option in the market." },
-    { title: "Clean the action path", copy: "Reduce friction so serious customers know what to do next and feel more confident doing it." },
+    { title: "Repair the approved weak point", copy: "Improve the page, message, proof, readiness gap, or action path that is most likely to affect customer understanding, trust, comparison, or action." },
+    { title: "Strengthen proof and clarity", copy: "Make the offer easier to understand, easier to believe, and harder to confuse with every similar option in the market." },
+    { title: "Keep the scope controlled", copy: "Focus on the selected repair path without implying unlimited implementation, full rebuilds, guaranteed rankings, leads, revenue, or AI placement." },
   ],
   fit: {
     good: [
-      "The business knows what needs work and is ready to improve it.",
-      "The website, message, proof, or page flow is making the business harder to find or choose.",
-      "You want focused Repair, not more vague advice.",
+      "The weak point is clear enough to improve without another full Review first.",
+      "The website, message, proof, or page flow is making the business harder to understand, trust, compare, or choose.",
+      "You want focused Repair with a clear customer decision purpose, not more vague activity.",
     ],
     bad: [
-      "The real problem is still unclear and needs Review first.",
-      "You want random activity instead of focused priorities.",
-      "You expect one Repair pass to replace future improvement forever.",
+      "The real problem is still unclear and needs Review before Repair.",
+      "You want a full rebuild, unlimited implementation, or open-ended revision cycles.",
+      "You expect one Repair pass to guarantee rankings, leads, revenue, AI placement, or permanent improvement forever.",
     ],
   },
-  finalTitle: "Use Build Fix when the business is ready for focused improvement.",
+  finalTitle: "Use Build Fix when the next weak point is clear enough to repair.",
   finalCopy:
-    "This is the right depth when the next value comes from strengthening the page, message, trust, proof, readiness, and action path customers actually use.",
+    "This is the right depth when evidence has already pointed to the repair path and the next value comes from strengthening the page, message, trust, proof, readiness, or action step customers actually use.",
 };
 
 export const ONGOING_CONTROL_PLAN: PlanPageData & { href: string; label: string } = {
