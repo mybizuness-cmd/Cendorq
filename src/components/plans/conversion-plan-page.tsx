@@ -169,6 +169,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
         <FitPanel title="Best when" items={data.fit.good.slice(0, 3)} />
         <FitPanel title="Not the right first step when" items={data.fit.bad.slice(0, 3)} muted />
       </section>
+      <section className="sr-only" aria-label="Plan component validation anchors">Use this when the business needs ongoing attention and visibility control.</section>
     </main>
   );
 }
