@@ -41,6 +41,20 @@ const QUEUE = [
   ["03", "Action path", "Is the next step obvious enough to call, book, request, or visit?"],
 ] as const;
 
+const AI_SIGNAL_ROWS = [
+  ["Answer surface", "Business facts show up clearly enough to be understood.", "Signal only"],
+  ["Prompt view", "Common customer questions reveal clarity, proof, and choice gaps.", "Sample row"],
+  ["Mention context", "Public pages are checked for trust and category language.", "Evidence"],
+  ["Daily watch", "Control keeps drift visible after review or repair.", "Monitor"],
+] as const;
+
+const MONITORING_RHYTHM = [
+  ["Score", "A simple starting read."],
+  ["Rows", "Visible signal evidence."],
+  ["Queue", "Prioritized repair order."],
+  ["Control", "Ongoing drift watch."],
+] as const;
+
 const PUBLIC_PROOF_BOUNDARY_CHECKS = [
   "First signals guide the next decision; they are not full paid reviews.",
   "Sample scores and queues show structure, not live customer outcomes.",
@@ -108,6 +122,34 @@ export function ProductProofSystem() {
                     <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{stage.evidence}</p>
                     <p className="mt-4 rounded-[1rem] border border-cyan-100 bg-cyan-50/45 p-3 text-xs font-semibold leading-5 text-slate-700">{stage.limit}</p>
                     <p className="mt-4 text-sm font-black text-cyan-700">{stage.action}</p>
+                  </article>
+                ))}
+              </div>
+
+              <div className="mt-5 rounded-[1.6rem] border border-cyan-100 bg-white/86 p-5 shadow-sm">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">AI signal proof preview</p>
+                    <h4 className="mt-2 text-2xl font-semibold tracking-[-0.055em] text-slate-950">Engine-style rows without placement promises.</h4>
+                  </div>
+                  <p className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-black text-cyan-800">Sample only</p>
+                </div>
+                <div className="mt-4 grid gap-2">
+                  {AI_SIGNAL_ROWS.map(([label, copy, status]) => (
+                    <div key={label} className="grid gap-3 rounded-[1.05rem] border border-cyan-100 bg-cyan-50/40 p-3 sm:grid-cols-[0.42fr_1fr_auto] sm:items-center">
+                      <p className="text-sm font-black text-slate-950">{label}</p>
+                      <p className="text-xs font-semibold leading-5 text-slate-600">{copy}</p>
+                      <p className="rounded-full border border-white/80 bg-white/80 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-cyan-700">{status}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 grid gap-3 md:grid-cols-4">
+                {MONITORING_RHYTHM.map(([label, copy]) => (
+                  <article key={label} className="rounded-[1.1rem] border border-cyan-100 bg-white/76 p-4">
+                    <p className="text-sm font-black text-slate-950">{label}</p>
+                    <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
                   </article>
                 ))}
               </div>
