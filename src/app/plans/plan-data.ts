@@ -47,32 +47,32 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
   href: "/plans/deep-review",
   label: "Deep Review",
   eyebrow: "Review",
-  title: "Find what is weakening AI Visibility and Readiness",
-  gradient: "before bigger work begins.",
+  title: "Find what is weakening readiness",
+  gradient: "before bigger AI Visibility work begins.",
   intro:
-    "Deep Review explains why customers and AI engines may not see, understand, trust, compare, or choose the business yet.",
+    "Deep Review turns the first signal into evidence: why customers and AI engines may not see, understand, trust, compare, or choose the business yet.",
   ctaHref: "/checkout/start?plan=deep-review",
   ctaLabel: "Start Deep Review",
   secondaryHref: "/free-check",
   secondaryLabel: "Start Free Scan",
-  painTitle: "Bigger changes without evidence can make the wrong problem more expensive.",
+  painTitle: "Bigger changes without proof can make the wrong problem more expensive.",
   painCopy:
-    "A redesign, more ads, or random optimization can look productive while still missing the reason customers and AI answers hesitate. Deep Review makes the likely cause visible before Repair work begins.",
+    "A redesign, more ads, or random optimization can look productive while still missing the reason customers and AI answers hesitate. Deep Review keeps the business in Review until the likely cause is clear enough to choose Repair, Control, or no paid next step yet.",
   stats: [
-    { label: "Best for", value: "Businesses that need proof before bigger action." },
-    { label: "Main result", value: "Diagnosis evidence, readiness gaps, priorities, and a clearer next command." },
+    { label: "Best for", value: "Businesses that need cause proof before bigger action." },
+    { label: "Main result", value: "Choice Gap evidence, readiness gaps, priorities, and a clearer next command." },
     { label: "Risk reduced", value: "Repairing the wrong problem faster." },
     { label: "Comes after", value: "Free Scan or a strong internal first signal." },
   ],
   features: [
-    { title: "Expose the cause", copy: "See whether the issue is visibility gaps, readiness gaps, clarity, trust proof, page friction, or comparison pressure." },
-    { title: "Protect the budget", copy: "Stop spending on work that does not solve why customers, search, or AI answers hesitate." },
-    { title: "Create the path", copy: "Leave with a cleaner decision on whether the next step should be Build Fix, Ongoing Control, or something else." },
+    { title: "Prove the gap", copy: "Separate visibility weakness from readiness weakness so the business can see whether the issue is findability, clarity, trust proof, comparison friction, or action path confusion." },
+    { title: "Protect the budget", copy: "Review before Repair when the cause still needs proof, so bigger work does not chase the wrong signal." },
+    { title: "Create the repair path", copy: "Leave with a cleaner decision on whether the next step should be Build Fix, Ongoing Control, or a smaller no-pressure action first." },
   ],
   fit: {
     good: [
       "You know something is off, but cannot explain the cause clearly.",
-      "You are considering bigger changes and want confidence before spending.",
+      "You are considering bigger changes and want evidence before spending.",
       "The business feels unseen, misunderstood, under-trusted, unready, or too easy to compare away.",
     ],
     bad: [
@@ -83,7 +83,7 @@ export const DEEP_REVIEW_PLAN: PlanPageData & { href: string; label: string } = 
   },
   finalTitle: "Use Deep Review when proof is the missing piece before bigger work.",
   finalCopy:
-    "This is the right depth when the business needs the real reason before it commits to Build Fix or Ongoing Control.",
+    "This is the right depth when the business needs the real reason before it commits to Build Fix, Ongoing Control, or another customer-facing repair path.",
 };
 
 export const BUILD_FIX_PLAN: PlanPageData & { href: string; label: string } = {
