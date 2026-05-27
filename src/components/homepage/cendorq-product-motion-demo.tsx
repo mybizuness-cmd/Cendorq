@@ -1,26 +1,22 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const STEPS = [
-  { label: "Start", title: "Enter the business.", copy: "One input starts the scan.", metric: "1 input" },
-  { label: "Scan", title: "Read the public signal.", copy: "Findability, clarity, trust, choice, and action are checked together.", metric: "5 checks" },
-  { label: "Score", title: "See the first score.", copy: "Presence Score gives direction without promising rankings or placement.", metric: "72 / 100" },
-  { label: "Gap", title: "Find the Choice Gap.", copy: "The weak point becomes visible: proof, message, comparison, or next step.", metric: "Trust proof" },
-  { label: "Queue", title: "Get the repair path.", copy: "The next move stays short, focused, and useful.", metric: "3 moves" },
-  { label: "Control", title: "Keep it watched.", copy: "Control Snapshot keeps drift and the next command visible.", metric: "Watch" },
+  { label: "Input", title: "Business entered", copy: "One public profile starts the read.", metric: "Ready" },
+  { label: "Scan", title: "Public signals checked", copy: "Findability, clarity, proof, choice, and action are read together.", metric: "5 layers" },
+  { label: "Gap", title: "Weak point found", copy: "The system shows why the business is visible but still harder to choose.", metric: "Choice gap" },
+  { label: "Queue", title: "Next repair ordered", copy: "The output becomes a short repair path instead of another generic audit.", metric: "3 moves" },
 ] as const;
 
 const SIGNALS = [
   ["Findability", 72],
-  ["Understanding", 68],
-  ["Trust", 54],
-  ["Choice", 61],
-  ["Action", 76],
+  ["Understanding", 63],
+  ["Trust proof", 48],
+  ["Choice clarity", 56],
 ] as const;
 
-const QUEUE = ["Lift proof higher", "Clarify the offer", "Tighten the next step"] as const;
+const REPAIRS = ["Move proof closer to the CTA", "Clarify the above-fold offer", "Make the next step unmistakable"] as const;
 
 export function CendorqProductMotionDemo() {
   const [active, setActive] = useState(0);
@@ -28,85 +24,70 @@ export function CendorqProductMotionDemo() {
   const progress = useMemo(() => `${((active + 1) / STEPS.length) * 100}%`, [active]);
 
   useEffect(() => {
-    const timer = window.setInterval(() => setActive((value) => (value + 1) % STEPS.length), 2400);
+    const timer = window.setInterval(() => setActive((value) => (value + 1) % STEPS.length), 2200);
     return () => window.clearInterval(timer);
   }, []);
 
   return (
-    <section className="relative overflow-hidden px-5 py-10 sm:px-8 lg:py-16" aria-label="Cendorq product motion demo">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(251,207,232,0.28),transparent_30%),radial-gradient(circle_at_100%_12%,rgba(125,211,252,0.34),transparent_34%)]" aria-hidden="true" />
-      <div className="relative mx-auto grid max-w-7xl gap-7 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
-        <div>
-          <h2 className="max-w-4xl text-[clamp(2.85rem,12vw,5.9rem)] font-semibold leading-[0.9] tracking-[-0.082em] text-slate-950">
-            Watch a weak signal become <span className="block text-cyan-600">one clear next move.</span>
-          </h2>
-          <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-            The loop shows how Cendorq moves from scan to score, gap, repair path, and ongoing watch.
-          </p>
-          <div className="mt-7 grid gap-3 sm:flex">
-            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-white px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Start Free Scan</Link>
-            <Link href="/sample-report" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/90 bg-white/72 px-8 py-4 text-base font-bold text-slate-800 shadow-[0_12px_36px_rgba(15,23,42,0.06)] backdrop-blur transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">See Sample Report</Link>
+    <figure className="relative overflow-hidden rounded-[2.35rem] border border-white/80 bg-white/80 p-2 shadow-[0_36px_120px_rgba(14,165,233,0.14)] backdrop-blur-2xl sm:rounded-[3rem] sm:p-3" aria-label="Animated Cendorq product loop">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_8%_0%,rgba(251,207,232,0.2),transparent_32%),radial-gradient(circle_at_100%_12%,rgba(125,211,252,0.28),transparent_36%)]" aria-hidden="true" />
+      <div className="relative overflow-hidden rounded-[2rem] border border-cyan-100 bg-[linear-gradient(145deg,#ffffff,#f5fdff_52%,#fff8fb)] sm:rounded-[2.55rem]">
+        <div className="flex items-center justify-between border-b border-cyan-100 bg-white/74 px-4 py-3 sm:px-5">
+          <div className="flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-cyan-400" />
+            <span className="h-2.5 w-2.5 rounded-full bg-fuchsia-300" />
+            <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
           </div>
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700">Live product loop</p>
         </div>
 
-        <div className="overflow-hidden rounded-[2.4rem] border border-white/80 bg-white/76 p-3 shadow-[0_32px_110px_rgba(15,23,42,0.12)] backdrop-blur-2xl">
-          <div className="rounded-[2rem] border border-cyan-100 bg-[linear-gradient(145deg,#ffffff,#f6fcff_55%,#fff7fb)] p-4 sm:p-5">
-            <div className="flex items-start justify-between gap-4 border-b border-cyan-100 pb-4">
+        <div className="grid gap-4 p-4 sm:p-5 xl:grid-cols-[0.92fr_1.08fr]">
+          <section className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6" aria-label="Cendorq scan state">
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-2xl font-semibold tracking-[-0.06em] text-slate-950">Sample business</h3>
-                <p className="mt-1 text-sm font-semibold text-slate-500">Public signal scan in progress</p>
-              </div>
-              <div className="text-right">
                 <p className="text-sm font-black text-cyan-700">{step.label}</p>
-                <p className="text-lg font-black text-slate-950">{step.metric}</p>
+                <h2 className="mt-2 text-[clamp(2rem,6vw,3.65rem)] font-semibold leading-[0.9] tracking-[-0.075em] text-slate-950">{step.title}</h2>
               </div>
+              <p className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-2 text-sm font-black text-slate-950">{step.metric}</p>
             </div>
-
-            <div className="mt-5 grid gap-4 xl:grid-cols-[0.78fr_1.22fr]">
-              <article className="rounded-[1.5rem] border border-cyan-100 bg-white p-4 shadow-sm">
-                <h4 className="text-4xl font-semibold leading-[0.9] tracking-[-0.07em] text-slate-950">{step.title}</h4>
-                <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">{step.copy}</p>
-                <div className="mt-5 h-2 overflow-hidden rounded-full bg-cyan-50">
-                  <div className="h-full rounded-full bg-cyan-400 transition-all duration-500" style={{ width: progress }} />
-                </div>
-              </article>
-
-              <article className="rounded-[1.5rem] border border-cyan-100 bg-white p-4 shadow-sm">
-                <div className="flex items-end justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-bold text-slate-500">Presence Score</p>
-                    <p className="mt-1 text-5xl font-black tracking-[-0.08em] text-slate-950">72</p>
+            <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">{step.copy}</p>
+            <div className="mt-6 h-2 overflow-hidden rounded-full bg-slate-100">
+              <div className="h-full rounded-full bg-cyan-400 transition-all duration-700" style={{ width: progress }} />
+            </div>
+            <div className="mt-5 grid gap-2">
+              {SIGNALS.map(([label, score], index) => (
+                <div key={label} className="rounded-[1rem] border border-slate-100 bg-slate-50/70 p-3">
+                  <div className="flex items-center justify-between text-xs font-black text-slate-700"><span>{label}</span><span className="text-cyan-700">{active > index - 1 ? score : 18}</span></div>
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white">
+                    <div className="h-full rounded-full bg-cyan-300 transition-all duration-700" style={{ width: active > index - 1 ? `${score}%` : "18%" }} />
                   </div>
-                  <p className="text-sm font-black text-cyan-700">First signal</p>
                 </div>
-                <div className="mt-4 grid gap-2">
-                  {SIGNALS.map(([label, score]) => (
-                    <div key={label} className="grid gap-1 rounded-[0.9rem] border border-slate-100 bg-slate-50/70 p-3">
-                      <div className="flex items-center justify-between text-xs font-black"><span>{label}</span><span className="text-cyan-700">{score}</span></div>
-                      <div className="h-2 overflow-hidden rounded-full bg-white">
-                        <div className="h-full rounded-full bg-cyan-400 transition-all duration-700" style={{ width: active === 0 ? "18%" : `${score}%` }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </article>
-            </div>
-
-            <div className="mt-4 grid gap-3 lg:grid-cols-3">
-              {QUEUE.map((title, index) => (
-                <article key={title} className={`rounded-[1.2rem] border border-cyan-100 bg-white/84 p-4 shadow-sm transition ${active >= 4 && index === 0 ? "-translate-y-1 ring-2 ring-cyan-200" : ""}`}>
-                  <p className="text-xs font-black text-cyan-700">0{index + 1}</p>
-                  <h5 className="mt-2 text-lg font-semibold tracking-[-0.045em] text-slate-950">{title}</h5>
-                </article>
               ))}
             </div>
+          </section>
 
-            <p className="mt-4 text-xs font-semibold leading-5 text-slate-500">
-              Sample data only. No ranking, lead, revenue, or AI-placement promise.
-            </p>
-          </div>
+          <section className="grid gap-4" aria-label="Cendorq output">
+            <div className="rounded-[1.55rem] border border-cyan-100 bg-cyan-50/44 p-5 shadow-sm sm:p-6">
+              <p className="text-sm font-black text-cyan-700">Presence Report</p>
+              <h3 className="mt-2 text-4xl font-semibold tracking-[-0.075em] text-slate-950 sm:text-6xl">56</h3>
+              <p className="mt-2 text-sm font-semibold leading-7 text-slate-600">Visible, but not easy enough to choose.</p>
+            </div>
+
+            <div className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6">
+              <h3 className="text-2xl font-semibold tracking-[-0.055em] text-slate-950">Repair queue</h3>
+              <div className="mt-4 grid gap-2">
+                {REPAIRS.map((repair, index) => (
+                  <p key={repair} className={`rounded-[1rem] border border-cyan-100 p-3 text-sm font-semibold leading-6 transition ${active >= 3 && index === 0 ? "bg-cyan-100 text-slate-950 shadow-sm" : "bg-white text-slate-600"}`}>{repair}</p>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm">
+              <p className="text-xs font-semibold leading-5 text-slate-500">Sample data only. No ranking, lead, revenue, or AI-placement promise.</p>
+            </div>
+          </section>
         </div>
       </div>
-    </section>
+    </figure>
   );
 }
