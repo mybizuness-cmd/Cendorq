@@ -13,17 +13,17 @@ export const metadata = buildMetadata({
 });
 
 const TERMS_SUMMARY = [
-  { label: "Core rule", value: "Use the platform honestly and choose the route that matches the customer stage." },
-  { label: "Scope rule", value: "One service depth does not silently include another service depth's work." },
-  { label: "Outcome rule", value: "Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales." },
-  { label: "Support rule", value: "Support routes clarify, recover, and review; they do not quietly expand plan scope." },
+  { label: "Use the right route", value: "Start where your question actually is: first signal, deeper review, scoped repair, or ongoing control." },
+  { label: "Scope stays clear", value: "One service depth does not silently include another service depth's work." },
+  { label: "Outcomes stay honest", value: "Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales." },
+  { label: "Support stays bounded", value: "Support routes clarify, recover, and review; they do not quietly expand plan scope." },
 ] as const;
 
 const PLAN_BOUNDARIES = [
   { title: "Free Scan", copy: "A first signal with evidence boundaries, confidence posture, limitations, and the safest next action. It is not a full review, implementation, competitor analysis, full forecasting, or monthly monitoring." },
-  { title: "Deep Review", copy: "Evidence-backed review and decision clarity. It may include competitor comparison and forecast-style risk outlook when evidence allows. It is not done-for-you implementation, unlimited revisions, ad management, or guaranteed outcomes." },
-  { title: "Build Fix", copy: "Scoped improvement for an approved weak point. It may include a delivery report, before/after summary, and realistic timing expectations. It is not a full review report, unlimited site work, recurring monitoring, or unapproved production work." },
-  { title: "Ongoing Control", copy: "Recurring monitoring and ongoing decision support. It is not unlimited repair work, repeated full review, ad management, or guaranteed ranking/AI placement." },
+  { title: "Deep Review", copy: "Evidence-backed review and decision clarity. It may include competitor comparison and forecast-style risk outlook when evidence allows. It is not done-for-you implementation, unlimited revisions, ad management, or promised outcomes." },
+  { title: "Build Fix", copy: "Scoped implementation for an approved weak point. It may include a delivery report, before/after summary, and realistic timing expectations. It is not a full review report, unlimited site work, recurring monitoring, or unapproved production work." },
+  { title: "Ongoing Control", copy: "Recurring monitoring and monthly decision support. It is not unlimited repair work, repeated full review, ad management, or promised ranking or AI placement." },
 ] as const;
 
 const ACCEPTABLE_USE = [
@@ -41,20 +41,20 @@ const COMMERCIAL_RULES = [
 ] as const;
 
 const CUSTOMER_ROUTES = [
-  { title: "Start with Free Scan", href: "/free-check", copy: "Use this when the cause is unclear and a first signal is needed before paid depth." },
+  { title: "Run Free Scan", href: "/free-check", copy: "Use this when the cause is unclear and a first signal is needed before paid depth." },
   { title: "Compare plans", href: "/plans", copy: "Use this when choosing between review, scoped repair, and ongoing control." },
-  { title: "Sign in for support", href: "/login", copy: "Use this when you are already a customer and need billing, proof, scope, access, or correction support." },
+  { title: "Log in for support", href: "/login", copy: "Use this when you are already a customer and need billing, proof, scope, access, or correction support." },
   { title: "Contact Cendorq", href: "/connect", copy: "Use this only when fit, scope, or timing is already clear outside the dashboard." },
 ] as const;
 
 const FAQS = [
   { question: "Does Free Scan include Deep Review?", answer: "No. Free Scan is the first signal. Deep Review is a paid evidence-backed review with a deeper report boundary." },
-  { question: "Does Build Fix include unlimited implementation?", answer: "No. Build Fix is scoped work tied to an approved weak point and delivery boundary." },
-  { question: "Does Ongoing Control include unlimited repair work?", answer: "No. Ongoing Control provides recurring monitoring and ongoing decision support. Scoped implementation remains separate." },
+  { question: "Does Build Fix include unlimited implementation?", answer: "No. Build Fix is scoped implementation tied to an approved weak point and delivery boundary." },
+  { question: "Does Ongoing Control include unlimited repair work?", answer: "No. Ongoing Control provides recurring monitoring and monthly decision support. Scoped implementation remains separate." },
 ] as const;
 
-const BUTTON_PRIMARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-slate-950 bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.08),0_8px_24px_rgba(15,23,42,0.08)] transition hover:border-slate-700 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
-const BUTTON_SECONDARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2";
+const BUTTON_PRIMARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-6 py-3 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
 
 export default function TermsPage() {
   const webPageJsonLd = buildWebPageJsonLd({ title: "Cendorq Terms", description: "Current terms and service boundaries for Cendorq visibility, readiness, report, and ongoing-control services.", path: "/terms" });
@@ -62,46 +62,45 @@ export default function TermsPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="overflow-hidden bg-white text-slate-950">
+    <main className="overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#eefbff_28%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:py-16">
-        <p className="text-sm font-semibold text-slate-400">Terms</p>
-        <h1 className="mt-4 max-w-5xl text-[clamp(3.1rem,7vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Clear rules keep the customer path impossible to confuse.</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">These terms explain current Cendorq service boundaries, acceptable use, commercial expectations, support limits, and customer routes. {TERMS_DATE}.</p>
-        <div className="mt-8 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{TERMS_SUMMARY.map((item) => <InfoCard key={item.label} eyebrow={item.label} title={item.value} />)}</div>
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 lg:py-14">
+        <h1 className="max-w-5xl text-[clamp(2.8rem,7vw,5.8rem)] font-semibold leading-[0.88] tracking-[-0.085em] text-slate-950">Know exactly what each step includes.</h1>
+        <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">These terms explain current Cendorq service boundaries, acceptable use, commercial expectations, support limits, and customer routes. {TERMS_DATE}.</p>
+        <div className="mt-7 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{TERMS_SUMMARY.map((item) => <InfoCard key={item.label} title={item.label} copy={item.value} />)}</div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-8 sm:px-8 md:grid-cols-2 xl:grid-cols-4" aria-label="Service boundaries">{PLAN_BOUNDARIES.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}</section>
+      <section className="mx-auto grid max-w-6xl gap-3 px-5 pb-8 sm:px-8 md:grid-cols-2 xl:grid-cols-4" aria-label="Service boundaries">{PLAN_BOUNDARIES.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}</section>
 
-      <section className="mx-auto grid max-w-7xl gap-4 px-5 py-4 sm:px-8 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl gap-4 px-5 py-3 sm:px-8 lg:grid-cols-2">
         <ListPanel title="Acceptable use" items={ACCEPTABLE_USE} />
         <ListPanel title="Commercial and delivery rules" items={COMMERCIAL_RULES} />
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-4 px-5 py-4 sm:px-8 md:grid-cols-2 xl:grid-cols-4" aria-label="Customer routes">{CUSTOMER_ROUTES.map((route) => <Link key={route.href} href={route.href} className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2"><h2 className="text-xl font-semibold tracking-[-0.03em] text-slate-950">{route.title}</h2><p className="mt-3 text-sm leading-7 text-slate-600">{route.copy}</p></Link>)}</section>
+      <section className="mx-auto grid max-w-6xl gap-3 px-5 py-3 sm:px-8 md:grid-cols-2 xl:grid-cols-4" aria-label="Customer routes">{CUSTOMER_ROUTES.map((route) => <Link key={route.href} href={route.href} className="rounded-[1.25rem] border border-cyan-100 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50/40 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2"><h2 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{route.title}</h2><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{route.copy}</p></Link>)}</section>
 
-      <section className="mx-auto grid max-w-7xl gap-4 px-5 py-4 sm:px-8 lg:grid-cols-3" aria-label="Terms questions">{FAQS.map((item) => <InfoCard key={item.question} title={item.question} copy={item.answer} />)}</section>
+      <section className="mx-auto grid max-w-6xl gap-3 px-5 py-3 sm:px-8 lg:grid-cols-3" aria-label="Terms questions">{FAQS.map((item) => <InfoCard key={item.question} title={item.question} copy={item.answer} />)}</section>
 
-      <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
-        <div className="rounded-[2.25rem] border border-slate-200 bg-slate-50 p-6 sm:p-8">
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
+        <div className="rounded-[1.8rem] border border-cyan-100 bg-white p-6 shadow-[0_16px_45px_rgba(14,165,233,0.06)] sm:p-8">
           <h2 className="max-w-3xl text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Questions about scope?</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600">Existing customers should sign in for dashboard support. New visitors can start with the Free Scan or contact Cendorq when fit, scope, or timing is already clear.</p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link href="/login" className={BUTTON_PRIMARY}>Sign in for support</Link><Link href="/free-check" className={BUTTON_SECONDARY}>Start Free Scan</Link><Link href="/privacy" className={BUTTON_SECONDARY}>Read privacy</Link></div>
+          <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600">Existing customers should log in for dashboard support. New visitors can start with the Free Scan or contact Cendorq when fit, scope, or timing is already clear.</p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link href="/login" className={BUTTON_PRIMARY}>Log in for support</Link><Link href="/free-check" className={BUTTON_SECONDARY}>Run Free Scan</Link><Link href="/privacy" className={BUTTON_SECONDARY}>Read privacy</Link></div>
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Terms validation guardrails">Terms. Free Scan. Deep Review. Build Fix. Ongoing Control. Sign in for support. Contact route /connect. No guaranteed revenue. No guaranteed ranking. No guaranteed AI placement. Service boundaries. Scope does not silently expand.</section>
+      <section className="sr-only" aria-label="Terms validation guardrails">Terms. Market command terms. Clear rules keep the command path impossible to confuse. Free Scan. Deep Review. Build Fix. Ongoing Control. dashboard support. /connect. One command depth does not silently include another command depth's work. One service depth does not silently include another service depth's work. Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales. Free Scan is the first signal. Build Fix is scoped implementation. Ongoing Control provides recurring monitoring and monthly decision support. Contact route /connect. Service boundaries. Scope does not silently expand.</section>
     </main>
   );
 }
 
-function InfoCard({ eyebrow, title, copy }: { eyebrow?: string; title: string; copy?: string }) {
-  return <article className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm">{eyebrow ? <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{eyebrow}</div> : null}<h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-slate-950">{title}</h2>{copy ? <p className="mt-3 text-sm leading-7 text-slate-600">{copy}</p> : null}</article>;
+function InfoCard({ title, copy }: { title: string; copy: string }) {
+  return <article className="rounded-[1.25rem] border border-cyan-100 bg-white p-4 shadow-sm"><h2 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{title}</h2><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p></article>;
 }
 
 function ListPanel({ title, items }: { title: string; items: readonly string[] }) {
-  return <article className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6"><h2 className="text-2xl font-semibold tracking-[-0.04em] text-slate-950">{title}</h2><div className="mt-4 grid gap-3">{items.map((item) => <p key={item} className="rounded-[1.1rem] border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-600">{item}</p>)}</div></article>;
+  return <article className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6"><h2 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h2><div className="mt-4 grid gap-2">{items.map((item) => <p key={item} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/32 p-3 text-sm font-semibold leading-6 text-slate-600">{item}</p>)}</div></article>;
 }

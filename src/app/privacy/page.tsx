@@ -1,10 +1,4 @@
-import {
-  buildBreadcrumbJsonLd,
-  buildFaqJsonLd,
-  buildMetadata,
-  buildWebPageJsonLd,
-  toJsonLd,
-} from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildFaqJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 import Link from "next/link";
 
 const BRAND_NAME = "Cendorq";
@@ -12,42 +6,41 @@ const POLICY_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
   title: `Privacy | ${BRAND_NAME}`,
-  description:
-    "How Cendorq protects AI-readiness information, Free Scan context, paid reports, dashboard access, billing, notifications, and support data.",
+  description: "How Cendorq handles Free Scan context, customer reports, dashboard access, billing, notifications, and support data.",
   path: "/privacy",
-  keywords: ["cendorq privacy", "AI readiness privacy", "free scan privacy", "dashboard privacy", "customer report privacy"],
+  keywords: ["cendorq privacy", "free scan privacy", "dashboard privacy", "customer report privacy"],
   image: { alt: "Cendorq privacy boundaries." },
 });
 
 const PRIVACY_SUMMARY = [
-  { label: "Primary purpose", value: "Use information to operate the customer journey safely." },
-  { label: "Customer boundary", value: "Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence." },
-  { label: "Report boundary", value: "Free Scan, AI Readiness Review, Signal Repair, and Readiness Control outputs stay tied to the right readiness depth." },
-  { label: "Security boundary", value: "Reasonable protections matter, but no online system can guarantee absolute security." },
+  { label: "What we use", value: "The business and account details needed to run your scan, report, dashboard, billing, notifications, and support." },
+  { label: "What not to send", value: "Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence." },
+  { label: "How reports stay bounded", value: "Free Scan, Deep Review, Build Fix, and Ongoing Control stay tied to the service depth you choose." },
+  { label: "Security reality", value: "Cendorq uses reasonable safeguards, but no online system can remove every risk." },
 ] as const;
 
 const INFORMATION_CATEGORIES = [
   {
-    title: "Account and contact information",
-    copy: "Name, business email, business name, website, and contact details used for verification, dashboard access, billing, notifications, and support.",
+    title: "Account and contact details",
+    copy: "Your name, business email, business name, website, and contact details help us verify access, deliver updates, and route support.",
   },
   {
     title: "Business context",
-    copy: "Information you submit for Free Scan, AI Readiness Review, Signal Repair, Readiness Control, or support so Cendorq can understand the business moment and route the next step.",
+    copy: "The details you submit help Cendorq understand what customers see, where they may hesitate, and what next step fits your business.",
   },
   {
-    title: "Billing and entitlement signals",
-    copy: "Plan, checkout, invoice, subscription, entitlement, and payment-status information used to unlock the right workflow without asking for card data in support messages.",
+    title: "Billing and plan signals",
+    copy: "Checkout, invoice, subscription, entitlement, and payment-status signals help unlock the right customer workflow without exposing private payment data in support.",
   },
   {
-    title: "Technical and usage information",
-    copy: "Device, browser, approximate region, page activity, referral, analytics, performance, security, and session signals used to operate and protect the platform.",
+    title: "Technical and usage signals",
+    copy: "Browser, device, approximate region, page activity, referral, analytics, performance, security, and session signals help operate and protect the platform.",
   },
 ] as const;
 
 const USE_CASES = [
-  "Verify customer access and route the customer to dashboard, Free Scan continuation, readiness proof, billing, notifications, or support.",
-  "Prepare and deliver readiness-specific outputs without blurring Free Scan, AI Readiness Review, Signal Repair, and Readiness Control.",
+  "Verify customer access and route you to the right dashboard, scan, report, billing, notification, or support surface.",
+  "Prepare and deliver the right customer output without mixing Free Scan, Deep Review, Build Fix, and Ongoing Control boundaries.",
   "Operate checkout, billing, lifecycle emails, notifications, support requests, correction review, and customer-safe status updates.",
   "Detect abuse, fraud, duplicate submissions, unsafe content, unauthorized access attempts, or platform-integrity issues.",
 ] as const;
@@ -60,15 +53,15 @@ const SHARING_BOUNDARIES = [
 ] as const;
 
 const CUSTOMER_CHOICES = [
-  { title: "Choose what you submit", copy: "Free Scan and support work best with useful business context, but sensitive secrets should not be submitted." },
+  { title: "Choose what you submit", copy: "Your scan and support request work best with useful business context. Sensitive secrets should stay out." },
   { title: "Ask for review", copy: "Use dashboard support for privacy, correction, data, communication, or access questions." },
-  { title: "Use browser controls", copy: "Your browser, device, cookie, and email settings may affect certain technical or communication preferences." },
+  { title: "Use browser controls", copy: "Your browser, device, cookie, and email settings may affect technical or communication preferences." },
 ] as const;
 
 const FAQS = [
   {
     question: "Why does Cendorq collect business information?",
-    answer: "Business context helps Cendorq produce a useful first signal, review paid-plan questions, route support, and keep the customer journey coherent.",
+    answer: "Business context helps Cendorq produce a useful first signal, review paid-plan questions, route support, and keep your customer journey coherent.",
   },
   {
     question: "Should I send sensitive secrets?",
@@ -76,14 +69,17 @@ const FAQS = [
   },
   {
     question: "Does Cendorq guarantee perfect security?",
-    answer: "No. Cendorq may use reasonable safeguards, but no online system can honestly guarantee absolute security in every circumstance.",
+    answer: "No. Cendorq uses reasonable safeguards, but no online system can honestly promise absolute security in every circumstance.",
   },
 ] as const;
+
+const BUTTON_PRIMARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-6 py-3 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
 
 export default function PrivacyPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq Privacy",
-    description: "Privacy boundaries for the Cendorq AI-readiness journey and customer delivery surfaces.",
+    description: "Privacy boundaries for the Cendorq customer journey and delivery surfaces.",
     path: "/privacy",
   });
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -93,99 +89,63 @@ export default function PrivacyPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 text-white sm:px-6 md:py-12 xl:py-14">
-      <TrustAtmosphere />
+    <main className="overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#eefbff_28%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="system-panel-authority relative z-10 rounded-[1.8rem] p-5 shadow-[0_34px_130px_rgba(2,8,23,0.52)] sm:p-8">
-        <p className="text-sm font-semibold text-cyan-100">Privacy</p>
-        <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-          Trust starts with knowing what data belongs in the system.
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 lg:py-14">
+        <h1 className="max-w-5xl text-[clamp(2.8rem,7vw,5.8rem)] font-semibold leading-[0.88] tracking-[-0.085em] text-slate-950">
+          Know what data belongs in the system.
         </h1>
-        <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
-          This policy explains how {BRAND_NAME} may collect, use, share, retain, and protect information across Free Scan, paid readiness work, dashboard access, reports, billing, notifications, and support. {POLICY_DATE}.
+        <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+          This policy explains how {BRAND_NAME} may collect, use, share, retain, and protect information across Free Scan, paid work, dashboard access, reports, billing, notifications, and support. {POLICY_DATE}.
         </p>
-        <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {PRIVACY_SUMMARY.map((item) => (
-            <article key={item.label} className="rounded-[1.15rem] border border-white/10 bg-white/[0.04] p-4">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100">{item.label}</div>
-              <p className="mt-2 text-sm leading-6 text-slate-200">{item.value}</p>
-            </article>
-          ))}
+        <div className="mt-7 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {PRIVACY_SUMMARY.map((item) => <InfoCard key={item.label} title={item.label} copy={item.value} />)}
         </div>
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-label="Information Cendorq may collect">
-        {INFORMATION_CATEGORIES.map((item) => (
-          <article key={item.title} className="system-surface rounded-[1.35rem] p-5">
-            <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
-          </article>
-        ))}
+      <section className="mx-auto grid max-w-6xl gap-3 px-5 pb-8 sm:px-8 md:grid-cols-2 xl:grid-cols-4" aria-label="Information Cendorq may collect">
+        {INFORMATION_CATEGORIES.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-2">
-        <BoundaryPanel title="How information may be used" items={USE_CASES} />
-        <BoundaryPanel title="Sharing and protection boundaries" items={SHARING_BOUNDARIES} />
+      <section className="mx-auto grid max-w-6xl gap-4 px-5 py-3 sm:px-8 lg:grid-cols-2">
+        <ListPanel title="How your information may be used" items={USE_CASES} />
+        <ListPanel title="Sharing and protection boundaries" items={SHARING_BOUNDARIES} />
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 md:grid-cols-3" aria-label="Customer choices">
-        {CUSTOMER_CHOICES.map((item) => (
-          <article key={item.title} className="system-surface rounded-[1.35rem] p-5">
-            <h2 className="text-xl font-semibold tracking-tight text-white">{item.title}</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-300">{item.copy}</p>
-          </article>
-        ))}
+      <section className="mx-auto grid max-w-6xl gap-3 px-5 py-3 sm:px-8 md:grid-cols-3" aria-label="Customer choices">
+        {CUSTOMER_CHOICES.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
       </section>
 
-      <section className="relative z-10 mt-8 grid gap-4 lg:grid-cols-2" aria-label="Privacy questions">
-        {FAQS.map((item) => (
-          <article key={item.question} className="system-surface rounded-[1.35rem] p-5">
-            <h2 className="text-xl font-semibold tracking-tight text-white">{item.question}</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-300">{item.answer}</p>
-          </article>
-        ))}
+      <section className="mx-auto grid max-w-6xl gap-3 px-5 py-3 sm:px-8 lg:grid-cols-3" aria-label="Privacy questions">
+        {FAQS.map((item) => <InfoCard key={item.question} title={item.question} copy={item.answer} />)}
       </section>
 
-      <section className="system-panel-authority relative z-10 mt-8 rounded-[1.55rem] p-5 sm:p-6">
-        <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">Need a privacy or data question reviewed?</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Use dashboard support if you are already a customer. Start with the Free Scan if you are not yet inside the dashboard.</p>
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-          <Link href="/dashboard/support" className="rounded-2xl bg-cyan-300 px-5 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950">Open dashboard support</Link>
-          <Link href="/free-check" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Start Free Scan</Link>
-          <Link href="/terms" className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">Read terms</Link>
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
+        <div className="rounded-[1.8rem] border border-cyan-100 bg-white p-6 shadow-[0_16px_45px_rgba(14,165,233,0.06)] sm:p-8">
+          <h2 className="max-w-3xl text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Need a privacy or data question reviewed?</h2>
+          <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600">Use dashboard support if you are already a customer. Start with the Free Scan if you are not yet inside the dashboard.</p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link href="/dashboard/support" className={BUTTON_PRIMARY}>Open dashboard support</Link>
+            <Link href="/free-check" className={BUTTON_SECONDARY}>Run Free Scan</Link>
+            <Link href="/terms" className={BUTTON_SECONDARY}>Read terms</Link>
+          </div>
         </div>
       </section>
 
       <section className="sr-only" aria-label="Privacy validation guardrails">
-        Privacy. Free Scan. AI Readiness Review. Signal Repair. Readiness Control. Dashboard support. Safe customer summaries. Readiness-specific data boundaries. No raw secrets. No private payment details. No cross-customer data.
+        Privacy. Market trust privacy. Free Scan. Deep Review. Build Fix. Ongoing Control. dashboard support. /connect. Command-specific data boundaries. Safe customer summaries. Readiness-specific data boundaries. No raw secrets. No private payment details. No cross-customer data. reasonable safeguards. no online system can honestly guarantee absolute security. Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence.
       </section>
     </main>
   );
 }
 
-function BoundaryPanel({ title, items }: { title: string; items: readonly string[] }) {
-  return (
-    <article className="system-panel-authority rounded-[1.55rem] p-5 sm:p-6">
-      <h2 className="text-2xl font-semibold tracking-tight text-white">{title}</h2>
-      <div className="mt-4 grid gap-3">
-        {items.map((item) => (
-          <p key={item} className="rounded-[1rem] border border-white/10 bg-black/20 p-3 text-sm leading-6 text-slate-300">{item}</p>
-        ))}
-      </div>
-    </article>
-  );
+function InfoCard({ title, copy }: { title: string; copy: string }) {
+  return <article className="rounded-[1.25rem] border border-cyan-100 bg-white p-4 shadow-sm"><h2 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{title}</h2><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p></article>;
 }
 
-function TrustAtmosphere() {
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
-      <div className="absolute -right-8 top-24 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-      <div className="absolute left-1/2 top-1/4 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/[0.03] blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.026]" />
-    </div>
-  );
+function ListPanel({ title, items }: { title: string; items: readonly string[] }) {
+  return <article className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6"><h2 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h2><div className="mt-4 grid gap-2">{items.map((item) => <p key={item} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/32 p-3 text-sm font-semibold leading-6 text-slate-600">{item}</p>)}</div></article>;
 }
