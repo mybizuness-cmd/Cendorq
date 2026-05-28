@@ -13,7 +13,7 @@ const PUBLIC_NAV_LINKS = [
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-4 py-2 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.18)] transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-12 sm:px-6";
+  "inline-flex min-h-11 min-w-[9.5rem] shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-5 py-2 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.18)] transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-12 sm:min-w-[10.25rem] sm:px-6";
 
 const NAV_LINK_BASE =
   "min-h-10 shrink-0 items-center justify-center rounded-full px-3 py-2 text-sm font-black tracking-[-0.01em] text-slate-700 transition hover:bg-white hover:text-slate-950 hover:shadow-sm focus:outline-none focus-visible:bg-white focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-4";
@@ -29,7 +29,7 @@ export async function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full overflow-visible border-b border-cyan-100/80 bg-white/90 text-slate-950 shadow-[0_16px_48px_rgba(14,165,233,0.075)] backdrop-blur-2xl">
-      <div className="mx-auto flex h-17 w-full max-w-7xl items-center justify-between gap-2 px-3 sm:min-h-[4.65rem] sm:gap-4 sm:px-8">
+      <div className="mx-auto flex min-h-[4.35rem] w-full max-w-7xl items-center justify-between gap-2 px-3 sm:min-h-[4.65rem] sm:gap-4 sm:px-8">
         <Link href={logoHref} aria-label={isRememberedCustomer ? `${BRAND_NAME} dashboard` : `${BRAND_NAME} homepage`} className="inline-flex min-w-0 shrink-0 items-center gap-2 rounded-full py-1 transition hover:text-cyan-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:gap-3 sm:px-1.5">
           <BrandMark />
           <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 sm:inline lg:text-lg">{BRAND_NAME}</span>
@@ -45,11 +45,10 @@ export async function SiteHeader() {
         </nav>
 
         <Link href={isRememberedCustomer ? session.safeReturnTo : "/free-check"} className={CTA_CLASS}>
-          <span className="sm:hidden">{isRememberedCustomer ? "Home" : "Scan"}</span>
-          <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Free Scan"}</span>
+          {isRememberedCustomer ? "Dashboard" : "Run Free Scan"}
         </Link>
       </div>
-      <span className="sr-only">Product. Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. FAQ uses direct browser navigation to /faq. href: &quot;/plans&quot; href: &quot;/faq&quot;. Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps AI Visibility, Product, Plans, FAQ, Contact, Customer Access or Account, and Start Free Scan or Dashboard available while keeping mobile focused. Customer Access routes to /login for returning customers. Product routes to /sample-report. href=&quot;/sample-report&quot; href=&quot;/plans&quot; href=&quot;/faq&quot; href=&quot;/connect&quot; href=&quot;/login&quot; href=&quot;/free-check&quot; href=&quot;/dashboard&quot;. Start Free Scan.</span>
+      <span className="sr-only">Product. Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. FAQ uses direct browser navigation to /faq. href: &quot;/plans&quot; href: &quot;/faq&quot;. Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps AI Visibility, Product, Plans, FAQ, Contact, Customer Access or Account, and Start Free Scan or Dashboard available while keeping mobile focused. Customer Access routes to /login for returning customers. Product routes to /sample-report. href=&quot;/sample-report&quot; href=&quot;/plans&quot; href=&quot;/faq&quot; href=&quot;/connect&quot; href=&quot;/login&quot; href=&quot;/free-check&quot; href=&quot;/dashboard&quot;. Start Free Scan. Run Free Scan.</span>
     </header>
   );
 }
