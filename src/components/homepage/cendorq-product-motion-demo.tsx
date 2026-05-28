@@ -1,90 +1,91 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const STEPS = [
-  { label: "Input", title: "Business entered", copy: "One public profile starts the read.", metric: "Ready" },
-  { label: "Scan", title: "Public signals checked", copy: "Findability, clarity, proof, choice, and action are read together.", metric: "5 layers" },
-  { label: "Gap", title: "Weak point found", copy: "The system shows why the business is visible but still harder to choose.", metric: "Choice gap" },
-  { label: "Queue", title: "Next repair ordered", copy: "The output becomes a short repair path instead of another generic audit.", metric: "3 moves" },
+  { title: "We read what customers see", copy: "Your site, offer, proof, location, and next step are checked together.", metric: "Read" },
+  { title: "We find where choice breaks", copy: "Cendorq shows where someone could hesitate, misunderstand, or choose another business.", metric: "Gap" },
+  { title: "You see the first fix", copy: "The result becomes a short path: what to clarify, move, prove, or repair first.", metric: "Fix" },
 ] as const;
 
 const SIGNALS = [
-  ["Findability", 72],
-  ["Understanding", 63],
-  ["Trust proof", 48],
-  ["Choice clarity", 56],
+  ["Find", "Can people and answer engines locate you?", 72],
+  ["Understand", "Is your offer clear fast enough?", 63],
+  ["Trust", "Is proof visible before the decision?", 48],
+  ["Choose", "Is your business easy to pick?", 56],
 ] as const;
 
-const REPAIRS = ["Move proof closer to the CTA", "Clarify the above-fold offer", "Make the next step unmistakable"] as const;
+const FIXES = ["Move proof closer to the first action", "Make the offer clear in one screen", "Show the safest next step"] as const;
 
 export function CendorqProductMotionDemo() {
   const [active, setActive] = useState(0);
   const step = STEPS[active];
-  const progress = useMemo(() => `${((active + 1) / STEPS.length) * 100}%`, [active]);
 
   useEffect(() => {
-    const timer = window.setInterval(() => setActive((value) => (value + 1) % STEPS.length), 2200);
+    const timer = window.setInterval(() => setActive((value) => (value + 1) % STEPS.length), 2400);
     return () => window.clearInterval(timer);
   }, []);
 
   return (
-    <figure className="relative overflow-hidden rounded-[2.35rem] border border-white/80 bg-white/80 p-2 shadow-[0_36px_120px_rgba(14,165,233,0.14)] backdrop-blur-2xl sm:rounded-[3rem] sm:p-3" aria-label="Animated Cendorq product loop">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_8%_0%,rgba(251,207,232,0.2),transparent_32%),radial-gradient(circle_at_100%_12%,rgba(125,211,252,0.28),transparent_36%)]" aria-hidden="true" />
-      <div className="relative overflow-hidden rounded-[2rem] border border-cyan-100 bg-[linear-gradient(145deg,#ffffff,#f5fdff_52%,#fff8fb)] sm:rounded-[2.55rem]">
-        <div className="flex items-center justify-between border-b border-cyan-100 bg-white/74 px-4 py-3 sm:px-5">
-          <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-cyan-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-fuchsia-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
-          </div>
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700">Live product loop</p>
-        </div>
+    <figure className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/82 p-2 shadow-[0_34px_110px_rgba(14,165,233,0.14)] backdrop-blur-2xl sm:rounded-[2.7rem] sm:p-3" aria-label="Animated Cendorq scan preview">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_10%,rgba(251,207,232,0.22),transparent_30%),radial-gradient(circle_at_92%_0%,rgba(125,211,252,0.32),transparent_38%)]" aria-hidden="true" />
+      <div className="relative overflow-hidden rounded-[1.7rem] border border-cyan-100 bg-[linear-gradient(135deg,#ffffff,#f3fdff_52%,#fff8fb)] sm:rounded-[2.2rem]">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-[linear-gradient(90deg,transparent,rgba(34,211,238,0.28),transparent)] transition duration-1000" style={{ transform: `translateX(${active * 110 - 70}%)` }} aria-hidden="true" />
 
-        <div className="grid gap-4 p-4 sm:p-5 xl:grid-cols-[0.92fr_1.08fr]">
-          <section className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6" aria-label="Cendorq scan state">
+        <div className="relative grid gap-4 p-4 sm:p-5 lg:grid-cols-[0.92fr_1.08fr] lg:p-6">
+          <section className="min-h-[24rem] rounded-[1.35rem] border border-cyan-100 bg-white/88 p-5 shadow-sm sm:p-6" aria-label="Cendorq scan state">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-black text-cyan-700">{step.label}</p>
-                <h2 className="mt-2 text-[clamp(2rem,6vw,3.65rem)] font-semibold leading-[0.9] tracking-[-0.075em] text-slate-950">{step.title}</h2>
+                <h2 className="text-[clamp(2rem,5vw,3.7rem)] font-semibold leading-[0.9] tracking-[-0.08em] text-slate-950">{step.title}</h2>
+                <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">{step.copy}</p>
               </div>
-              <p className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-2 text-sm font-black text-slate-950">{step.metric}</p>
+              <p className="shrink-0 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-2 text-xs font-black text-cyan-800">{step.metric}</p>
             </div>
-            <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">{step.copy}</p>
-            <div className="mt-6 h-2 overflow-hidden rounded-full bg-slate-100">
-              <div className="h-full rounded-full bg-cyan-400 transition-all duration-700" style={{ width: progress }} />
-            </div>
-            <div className="mt-5 grid gap-2">
-              {SIGNALS.map(([label, score], index) => (
-                <div key={label} className="rounded-[1rem] border border-slate-100 bg-slate-50/70 p-3">
-                  <div className="flex items-center justify-between text-xs font-black text-slate-700"><span>{label}</span><span className="text-cyan-700">{active > index - 1 ? score : 18}</span></div>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white">
-                    <div className="h-full rounded-full bg-cyan-300 transition-all duration-700" style={{ width: active > index - 1 ? `${score}%` : "18%" }} />
-                  </div>
-                </div>
-              ))}
+
+            <div className="mt-6 grid gap-2">
+              {SIGNALS.map(([label, copy, score], index) => {
+                const awake = active >= index % STEPS.length;
+                return (
+                  <article key={label} className={`rounded-[1rem] border p-3 transition duration-500 ${awake ? "border-cyan-100 bg-cyan-50/42 shadow-sm" : "border-slate-100 bg-white"}`}>
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <h3 className="text-sm font-black tracking-[-0.02em] text-slate-950">{label}</h3>
+                        <p className="mt-1 text-xs font-semibold leading-5 text-slate-500">{copy}</p>
+                      </div>
+                      <p className="text-2xl font-semibold tracking-[-0.06em] text-slate-950">{awake ? score : 21}</p>
+                    </div>
+                    <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white">
+                      <div className="h-full rounded-full bg-cyan-300 transition-all duration-700" style={{ width: awake ? `${score}%` : "21%" }} />
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </section>
 
-          <section className="grid gap-4" aria-label="Cendorq output">
-            <div className="rounded-[1.55rem] border border-cyan-100 bg-cyan-50/44 p-5 shadow-sm sm:p-6">
-              <p className="text-sm font-black text-cyan-700">Presence Report</p>
-              <h3 className="mt-2 text-4xl font-semibold tracking-[-0.075em] text-slate-950 sm:text-6xl">56</h3>
-              <p className="mt-2 text-sm font-semibold leading-7 text-slate-600">Visible, but not easy enough to choose.</p>
-            </div>
-
-            <div className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6">
-              <h3 className="text-2xl font-semibold tracking-[-0.055em] text-slate-950">Repair queue</h3>
-              <div className="mt-4 grid gap-2">
-                {REPAIRS.map((repair, index) => (
-                  <p key={repair} className={`rounded-[1rem] border border-cyan-100 p-3 text-sm font-semibold leading-6 transition ${active >= 3 && index === 0 ? "bg-cyan-100 text-slate-950 shadow-sm" : "bg-white text-slate-600"}`}>{repair}</p>
-                ))}
+          <section className="grid gap-4" aria-label="Cendorq output preview">
+            <div className="relative overflow-hidden rounded-[1.35rem] border border-cyan-100 bg-white p-5 shadow-[0_20px_70px_rgba(14,165,233,0.08)] sm:p-6">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(34,211,238,0.18),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(217,70,239,0.1),transparent_35%)]" aria-hidden="true" />
+              <div className="relative">
+                <h3 className="text-4xl font-semibold tracking-[-0.08em] text-slate-950 sm:text-6xl">56</h3>
+                <p className="mt-2 text-sm font-semibold leading-7 text-slate-600">Visible, but not easy enough to choose.</p>
+                <div className="mt-5 grid gap-2">
+                  {FIXES.map((fix, index) => (
+                    <p key={fix} className={`rounded-[1rem] border p-3 text-sm font-semibold leading-6 transition ${active === 2 && index === 0 ? "border-cyan-200 bg-cyan-100 text-slate-950" : "border-cyan-100 bg-white text-slate-600"}`}>{fix}</p>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm">
-              <p className="text-xs font-semibold leading-5 text-slate-500">Sample data only. No ranking, lead, revenue, or AI-placement promise.</p>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {STEPS.map((item, index) => (
+                <button key={item.metric} type="button" onClick={() => setActive(index)} className={`rounded-[1rem] border p-3 text-left text-xs font-black transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${active === index ? "border-cyan-200 bg-cyan-100 text-slate-950" : "border-cyan-100 bg-white text-slate-600"}`}>
+                  {item.metric}
+                </button>
+              ))}
             </div>
+
+            <p className="rounded-[1rem] border border-cyan-100 bg-white p-4 text-xs font-semibold leading-5 text-slate-500 shadow-sm">Sample preview. Your scan uses your business details.</p>
           </section>
         </div>
       </div>

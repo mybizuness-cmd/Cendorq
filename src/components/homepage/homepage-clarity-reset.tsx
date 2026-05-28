@@ -5,27 +5,27 @@ export function HomepageClarityReset() {
   return (
     <main
       data-cendorq-homepage="presence-report-ai-search-presence-repair-experience"
-      className="min-h-screen bg-[radial-gradient(circle_at_12%_0%,rgba(251,207,232,0.22),transparent_30%),radial-gradient(circle_at_92%_2%,rgba(125,211,252,0.3),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_44%,#ffffff_100%)] text-slate-950"
+      className="min-h-screen bg-[radial-gradient(circle_at_12%_0%,rgba(251,207,232,0.18),transparent_28%),radial-gradient(circle_at_92%_2%,rgba(125,211,252,0.24),transparent_32%),linear-gradient(180deg,#ffffff_0%,#eefbff_44%,#ffffff_100%)] text-slate-950"
     >
       <section className="px-5 py-8 sm:px-8 lg:py-12">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:min-h-[calc(100vh-5.7rem)] lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:min-h-[calc(100vh-5.7rem)] lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
           <div>
-            <h1 className="max-w-5xl text-[clamp(3.4rem,14vw,7.6rem)] font-semibold leading-[0.82] tracking-[-0.095em] text-slate-950 sm:text-[clamp(4.4rem,8vw,7.6rem)]">
+            <h1 className="max-w-5xl text-[clamp(3.2rem,12vw,7.1rem)] font-semibold leading-[0.84] tracking-[-0.09em] text-slate-950 sm:text-[clamp(4.1rem,7.5vw,7.1rem)]">
               Make your business easier to choose.
             </h1>
             <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Cendorq reads the public signals around your business, finds the choice gap, and turns it into one clear repair path.
+              See where customers may hesitate, what proof is missing, and which fix should happen first.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.16)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-                Start Free Scan
+                Run Free Scan
               </Link>
               <Link href="/sample-report" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/90 bg-white/78 px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-                Watch the sample
+                See how it works
               </Link>
             </div>
             <p className="mt-5 text-sm font-semibold leading-6 text-slate-500">
-              First signal only. No ranking, lead, revenue, or AI-placement promise.
+              Start with a first signal before buying deeper work.
             </p>
           </div>
 
@@ -40,7 +40,7 @@ export function HomepageClarityReset() {
               Scan. See the gap. Fix the next move.
             </h2>
             <p className="text-base font-semibold leading-8 text-slate-600">
-              The product should feel like a control room for public presence, not a pile of audit cards. Start with the scan, see the sample, then choose the smallest safe depth.
+              You should not have to guess why people find you but do not choose you. Cendorq turns public presence into a clear next action.
             </p>
           </div>
         </div>
