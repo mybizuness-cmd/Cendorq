@@ -11,6 +11,7 @@ export const metadata = buildMetadata({
 
 type FaqItem = { question: string; answer: string };
 type FaqSection = { title: string; intro: string; items: readonly FaqItem[] };
+type QuickLink = { label: string; href: string; primary: boolean };
 
 const FAQ_SECTIONS: readonly FaqSection[] = [
   {
@@ -185,13 +186,13 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
   },
 ];
 
-const QUICK_LINKS = [
+const QUICK_LINKS: readonly QuickLink[] = [
   { label: "Run Free Scan", href: "/free-check", primary: true },
-  { label: "See Sample Report", href: "/sample-report" },
-  { label: "Log in", href: "/login" },
-  { label: "View Plans", href: "/plans" },
-  { label: "Contact", href: "/connect" },
-] as const;
+  { label: "See Sample Report", href: "/sample-report", primary: false },
+  { label: "Log in", href: "/login", primary: false },
+  { label: "View Plans", href: "/plans", primary: false },
+  { label: "Contact", href: "/connect", primary: false },
+];
 
 const START_PATHS = [
   { title: "New here", copy: "Run the Free Scan first so your account starts with real business context." },
