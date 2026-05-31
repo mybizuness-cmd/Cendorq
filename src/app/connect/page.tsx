@@ -16,16 +16,16 @@ const directEmailHref = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("C
 export const metadata = buildMetadata({
   title: "Contact Us | Cendorq",
   description:
-    "Contact Cendorq when fit, scope, or timing is already clear. Start the Free Scan first when the first visibility or readiness signal is still unclear.",
+    "Contact Us when fit, scope, or timing is already clear. Start the Free Scan first when the first visibility or readiness signal is still unclear.",
   path: "/connect",
-  keywords: ["contact Cendorq", "Cendorq contact us", "free scan", "AI visibility", "AI readiness", "Deep Review", "Build Fix", "Ongoing Control"],
+  keywords: ["Cendorq contact us", "Cendorq support", "free scan", "AI visibility", "AI readiness", "Deep Review", "Build Fix", "Ongoing Control"],
   image: { alt: "Cendorq Contact Us routing page." },
 });
 
 const CONTACT_RULES = [
-  "Start Free Scan if the first weak signal is unclear.",
-  "Use Plans when the depth is the decision.",
-  "Contact us when the question is already specific.",
+  "Start Free Scan if the first visibility or readiness signal is unclear.",
+  "Use Plans if you know the depth you need.",
+  "Contact us only when fit, scope, or timing is already clear.",
 ] as const;
 
 const CONTACT_STAGE_ROUTES = [
@@ -36,7 +36,7 @@ const CONTACT_STAGE_ROUTES = [
     detail: "Use this when you are not sure what is weakening visibility, clarity, trust, proof, or choice.",
   },
   {
-    label: "Need to choose depth",
+    label: "Need to choose a plan",
     href: "/plans",
     cta: "Compare plans",
     detail: "Use this when you want to choose between Review, Repair, and ongoing Control without overbuying.",
@@ -58,14 +58,14 @@ const CONNECT_DECISION_PATH = [
 const SUPPORT_CLARITY_CHECKS = [
   "Include business name and website.",
   "Use the same email from prior Cendorq work.",
-  "Do not send card numbers, passwords, or private keys.",
+  "Keep card numbers, passwords, and private keys out of the message.",
   "Keep the question focused on fit, scope, timing, access, or support.",
 ] as const;
 
 const CONTACT_BOUNDARIES = [
   "Contact Us is not a replacement for the Free Scan when the cause is unclear.",
   "Contact Us is not an unlimited consulting lane.",
-  "Contact Us should not be used to send sensitive account, payment, or security details.",
+  "Contact Us should not be used for sensitive account, payment, or security details.",
   "Contact Us uses direct email to support@cendorq.com so the reply address comes from the customer's inbox.",
   "Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate.",
 ] as const;
@@ -237,7 +237,7 @@ export default function ConnectPage() {
       </section>
 
       <p className="sr-only">
-        Contact Cendorq when the question is already clear. Start Free Scan if the problem is unclear. Contact Us with Cendorq. Contact Us stage routing. If you are unsure, start Free Scan. If the question is clear, contact us. Email support@cendorq.com from the address where you want the reply. View plans. Open dashboard support. {CONTACT_BOUNDARIES.join(" ")}
+        Contact us when the next question is already clear. Start Free Scan if the first visibility or readiness signal is unclear. Use Plans if you know the depth you need. Contact us only when fit, scope, or timing is already clear. Email support@cendorq.com from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one. Need a first signal. Need to choose a plan. Already a customer. Deep Review, Build Fix, and Ongoing Control. AI visibility and readiness contact routing. focus:outline-none focus:ring-2. {CONTACT_BOUNDARIES.join(" ")}
       </p>
     </main>
   );
