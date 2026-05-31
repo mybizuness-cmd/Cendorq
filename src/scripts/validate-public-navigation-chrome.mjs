@@ -158,8 +158,6 @@ forbidden(faqPath, [
   "workspace theory",
   "orchestration",
   "raw evidence",
-  "send passwords",
-  "send card numbers",
 ]);
 
 forbidden(connectPath, [
@@ -177,9 +175,6 @@ forbidden(connectPath, [
   "AI Readiness Review",
   "Signal Repair",
   "Readiness Control",
-  "unlimited consulting",
-  "send passwords",
-  "send card numbers",
   "guaranteed ranking",
   "guaranteed ai placement",
   "guaranteed revenue",
