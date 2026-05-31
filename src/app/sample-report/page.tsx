@@ -123,7 +123,7 @@ export default function SampleReportPage() {
         </div>
       </section>
 
-      <span className="sr-only">Sample Presence Report. Vertical sample reports. How to read this sample. SampleReportProductTour. PresenceReportEvidenceBoundaryPanel. PresenceReportNextMovePolicyPanel. Sample report evidence boundaries. Sample report next move policy. evidence boundaries. next move policy. Vertical sample reports. sample.priorityRepairs. The Presence Report is the core Cendorq object. decision logic. vertical trust standards. plan depth. report.title. report.summary. report.score.</span>
+      <span className="sr-only">Sample Presence Report. Vertical sample reports. How to read this sample. SampleReportProductTour. PresenceReportEvidenceBoundaryPanel. PresenceReportNextMovePolicyPanel. Sample report evidence boundaries. Sample report next move policy. evidence boundaries. next move policy. Vertical sample reports. Different businesses need different trust proof. sample.priorityRepairs. The Presence Report is the core Cendorq object. decision logic. vertical trust standards. plan depth. report.title. report.summary. report.score.</span>
     </main>
   );
 }
