@@ -182,7 +182,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
       </section>
 
       <section className="sr-only" aria-label="Free Scan public drift anchors">
-        Start Free Scan. first Presence Report and AI Visibility signal. See the first AI Visibility signal. Cendorq checks the first AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. What the first signal looks for. Open the result in your account. Low friction. Useful context. Safe boundary. Review before Repair when the cause still needs proof. GuidedFreeCheckForm. GuidedFreeCheckFormV3. Free AI Visibility Scan. Decision path. Expectation checklist. Start with what is already visible.
+        Start Free Scan. first Presence Report and AI Visibility signal. See the first AI Visibility signal. Cendorq checks the first AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. What the first signal looks for. Findability. Understanding. Trust. Choice. Action. Open the result in your account. Low friction. Useful context. Safe boundary. Review before Repair when the cause still needs proof. GuidedFreeCheckForm. GuidedFreeCheckFormV3. Free AI Visibility Scan. Decision path. Expectation checklist. Start with what is already visible.
       </section>
     </main>
   );
