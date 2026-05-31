@@ -1,62 +1,62 @@
 import Link from "next/link";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
-import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
 export const metadata = buildMetadata({
-  title: "FAQ | Cendorq",
+  title: "Questions | Cendorq",
   description:
-    "Simple answers about the Cendorq Free Scan, Sample Presence Report, account access, plans, results, timing, privacy, billing, and support.",
+    "Clear answers about the Cendorq Free Scan, Sample Presence Report, account login, plans, results, timing, privacy, billing, and support.",
   path: "/faq",
-  keywords: ["Cendorq FAQ", "Free Scan questions", "Sample Presence Report", "AI Search Presence Repair", "AI visibility", "AI readiness", "AI search visibility", "Cendorq account access", "Cendorq plans"],
+  keywords: ["Cendorq FAQ", "Cendorq questions", "Free Scan questions", "Sample Presence Report", "AI Search Presence Repair", "Cendorq account login", "Cendorq plans"],
 });
 
 type FaqItem = { question: string; answer: string };
 type FaqSection = { title: string; intro: string; items: readonly FaqItem[] };
+type QuickLink = { label: string; href: string; primary: boolean };
 
 const FAQ_SECTIONS: readonly FaqSection[] = [
   {
     title: "Start here",
-    intro: "The fastest way to understand Cendorq and the right first step.",
+    intro: "Understand what Cendorq does and which first step fits.",
     items: [
       {
         question: "What is Cendorq?",
         answer:
-          "Cendorq helps you see where your business is visible, where it may be missing, and whether AI, search, and customers can find, understand, trust, compare, and choose it clearly.",
+          "Cendorq helps you see where your business may be visible but still hard to understand, trust, compare, or choose.",
       },
       {
         question: "Where should I start?",
         answer:
-          "Start with the Free Scan. It gives Cendorq the business details needed to find the first weak spot before you pay for deeper work.",
+          "Run the Free Scan. It gives Cendorq enough business context to find the first weak spot before you buy deeper work.",
       },
       {
         question: "Can I see what a result looks like first?",
         answer:
-          "Yes. Open the Sample Presence Report to see how Cendorq turns findability, understanding, trust, choice, action, and a repair queue into a clearer next move.",
+          "Yes. Open the Sample Presence Report to see the score, gap, repair queue, limits, and recommended next move.",
       },
       {
         question: "Is Cendorq only SEO?",
         answer:
-          "No. Search visibility matters, but Cendorq also looks at clarity, trust, proof, customer action, local presence, and how AI systems may understand the business.",
+          "No. Search visibility matters, but customers also need clarity, proof, trust, local confidence, and an obvious next step.",
       },
       {
         question: "Who is Cendorq for?",
         answer:
-          "Cendorq is for businesses that may be found but not chosen, visited but not contacted, missing from the right places, or misunderstood by search, AI answers, or customers.",
+          "Cendorq is for businesses that may be found but not chosen, visited but not contacted, missing from the right places, or misunderstood by customers and answer engines.",
       },
     ],
   },
   {
     title: "Free Scan",
-    intro: "What the scan does, what it does not do, and what happens after you send it.",
+    intro: "What the scan does, what it does not do, and what happens next.",
     items: [
       {
         question: "What is the Free Scan?",
         answer:
-          "The Free Scan is the first signal. It looks for the first place your business may be missing, unclear, under-trusted, or harder for AI and customers to choose.",
+          "The Free Scan is the first signal. It looks for the first place your business may be missing, unclear, under-trusted, or harder to choose.",
       },
       {
         question: "Is the Free Scan really free?",
-        answer: "Yes. The Free Scan is free. It helps you see if there is a real issue before choosing a paid next step.",
+        answer: "Yes. The Free Scan is free. It helps you see whether there is a real issue before choosing a paid next step.",
       },
       {
         question: "Do I have to buy something after the Free Scan?",
@@ -66,28 +66,28 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "What happens after I submit the Free Scan?",
         answer:
-          "Confirm your email, then open the result inside your Cendorq dashboard. The result should show what may be weak and what step makes the most sense next.",
+          "Confirm your email, then open the result inside your Cendorq dashboard. The result should show what may be weak and what step makes sense next.",
       },
       {
         question: "Why does Cendorq ask for business details?",
         answer:
-          "Cendorq needs real business context to give a useful first signal. Without that, the dashboard would be empty and the result would be too generic.",
+          "Cendorq needs real business context to give a useful first signal. Without that, the result would be too generic.",
       },
     ],
   },
   {
-    title: "Account and access",
-    intro: "Use the right email and return to the right customer record.",
+    title: "Login and account",
+    intro: "Use the right email so your scan, plan, billing, and support stay connected.",
     items: [
       {
         question: "Already have an account?",
         answer:
-          "Use the same email you used for your Free Scan, form, or plan. If that does not work, try another email you may have used with Cendorq.",
+          "Log in with the same email you used for your Free Scan, form, plan, billing, or support request.",
       },
       {
         question: "Which email should I use?",
         answer:
-          "Use the email you first used with Cendorq. That may be the email from your Free Scan, a form, a plan purchase, billing, or support.",
+          "Use the email you first used with Cendorq. If that does not work, try another business email you may have used.",
       },
       {
         question: "I cannot find my scan or plan. What should I do?",
@@ -133,8 +133,8 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
     ],
   },
   {
-    title: "Results and guarantees",
-    intro: "Clear expectations. No fake promises.",
+    title: "Results and expectations",
+    intro: "Clear expectations, without fake promises.",
     items: [
       {
         question: "Does Cendorq guarantee rankings, leads, revenue, or AI placement?",
@@ -165,7 +165,7 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "Is my business information private?",
         answer:
-          "Cendorq should use your submitted business information to review, support, and deliver the service. Private customer work belongs behind verified access.",
+          "Cendorq uses submitted business information to review, support, and deliver the service. Private customer work belongs behind verified access.",
       },
       {
         question: "Do I need to share passwords?",
@@ -186,34 +186,27 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
   },
 ];
 
-const FAQ_DECISION_PATH = [
-  ["01", "New here", "Start with the Free Scan so the account has real business context."],
-  ["02", "Need proof first", "Open the Sample Report to see the score, gap, boundary, queue, and next move."],
-  ["03", "Already submitted", "Return with the same email used for the scan, form, plan, billing, or support."],
-] as const;
+const QUICK_LINKS: readonly QuickLink[] = [
+  { label: "Run Free Scan", href: "/free-check", primary: true },
+  { label: "See Sample Report", href: "/sample-report", primary: false },
+  { label: "Log in", href: "/login", primary: false },
+  { label: "View Plans", href: "/plans", primary: false },
+  { label: "Contact Us", href: "/connect", primary: false },
+];
 
-const FAQ_HESITATION_REDUCERS = [
-  ["Unsure where to start", "Use the Free Scan before choosing paid depth."],
-  ["Need to see the product", "Open the Sample Report before comparing plans."],
-  ["Already submitted something", "Use Customer Access with the same email."],
-  ["Have a specific scope question", "Use Contact Us only when the question is clear."],
-] as const;
-
-const QUICK_LINKS = [
-  { label: "Start Free Scan", href: "/free-check" },
-  { label: "Sample Report", href: "/sample-report" },
-  { label: "Customer access", href: "/login" },
-  { label: "Compare plans", href: "/plans" },
-  { label: "Contact Us", href: "/connect" },
+const START_PATHS = [
+  { title: "New here", copy: "Run the Free Scan first so your account starts with real business context." },
+  { title: "Need to see the product", copy: "Open the Sample Report before comparing plans." },
+  { title: "Already submitted", copy: "Log in with the same email used for your scan, form, plan, billing, or support." },
 ] as const;
 
 export default function FaqPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: "Cendorq FAQ",
-    description: "Answers about Free Scan, Sample Presence Report, account access, plans, results, privacy, billing, and support.",
+    title: "Cendorq Questions",
+    description: "Answers about Free Scan, Sample Presence Report, login, plans, results, privacy, billing, and support.",
     path: "/faq",
   });
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "FAQ", path: "/faq" }]);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Questions", path: "/faq" }]);
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -227,86 +220,52 @@ export default function FaqPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#eefbff_28%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative overflow-hidden px-5 py-8 sm:px-8 lg:py-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.22),transparent_28%),radial-gradient(circle_at_65%_0%,rgba(125,211,252,0.3),transparent_36%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
-        <div className="relative mx-auto grid max-w-7xl gap-7 lg:min-h-[min(34rem,calc(100vh-4.25rem))] lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Cendorq FAQ</p>
-            <h1 className="mt-4 max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-slate-950">Get clear answers before the next move.</h1>
-            <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose the next step only when it makes sense.</p>
-            <div className="mt-6 grid gap-3 sm:max-w-3xl sm:grid-cols-2 lg:grid-cols-5">
-              {QUICK_LINKS.map((item) => (
-                <Link key={item.href} href={item.href} className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-[2.2rem] border border-white/80 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.085)] backdrop-blur-2xl sm:p-7">
-            <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Fast rule.</h2>
-            <p className="mt-4 text-base font-medium leading-8 text-slate-600">If you are new, start the Free Scan. If you want to see the product object first, open the Sample Report. If you already submitted a scan, form, or plan, use the same email to return.</p>
-            <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/60 p-4 text-sm font-semibold leading-7 text-slate-700">Already have an account? Use the same email you used for your Free Scan, form, or plan.</div>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 pb-10 sm:px-8" aria-label="FAQ decision path">
-        <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/85 bg-white/84 p-5 text-slate-950 shadow-[0_22px_70px_rgba(14,165,233,0.08)] backdrop-blur sm:rounded-[2.5rem] sm:p-7">
-          <div className="grid gap-5 lg:grid-cols-[0.45fr_0.55fr] lg:items-end">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Decision path</p>
-              <h2 className="mt-3 text-[clamp(2rem,6vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950">Use the right door the first time.</h2>
-            </div>
-            <p className="text-base font-medium leading-8 text-slate-600">The FAQ should reduce hesitation and route every visitor to the safest next action.</p>
-          </div>
-          <div className="mt-6 grid gap-3 md:grid-cols-3">
-            {FAQ_DECISION_PATH.map(([number, title, copy]) => (
-              <article key={title} className="rounded-[1.35rem] border border-cyan-100 bg-white/86 p-4">
-                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{number}</p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
-                <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
-              </article>
+      <section className="px-5 py-10 sm:px-8 lg:py-14">
+        <div className="mx-auto max-w-6xl">
+          <h1 className="max-w-5xl text-[clamp(2.8rem,7vw,5.8rem)] font-semibold leading-[0.88] tracking-[-0.085em] text-slate-950">
+            Clear answers before you choose the next step.
+          </h1>
+          <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+            Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose paid depth only when it makes sense.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            {QUICK_LINKS.map((item) => (
+              <Link key={item.href} href={item.href} className={item.primary ? BUTTON_PRIMARY : BUTTON_SECONDARY}>
+                {item.label}
+              </Link>
             ))}
           </div>
-          <div className="mt-5 rounded-[1.45rem] border border-cyan-100 bg-cyan-50/45 p-5">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Common hesitation reducer</p>
-            <div className="mt-4 grid gap-3 md:grid-cols-4">
-              {FAQ_HESITATION_REDUCERS.map(([title, copy]) => (
-                <article key={title} className="rounded-[1.1rem] border border-white/80 bg-white/76 p-4">
-                  <h3 className="text-sm font-black text-slate-950">{title}</h3>
-                  <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Cendorq FAQ sections">
-        <div className="grid gap-5">
+      <section className="mx-auto grid max-w-6xl gap-3 px-5 pb-8 sm:px-8 md:grid-cols-3" aria-label="Where to start">
+        {START_PATHS.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8" aria-label="Cendorq question sections">
+        <div className="grid gap-4">
           {FAQ_SECTIONS.map((section) => (
-            <section key={section.title} className="rounded-[2.2rem] border border-white/80 bg-white/82 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-6" aria-labelledby={slug(section.title)}>
-              <div className="grid gap-5 lg:grid-cols-[0.35fr_0.65fr]">
+            <section key={section.title} className="rounded-[1.6rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6" aria-labelledby={slug(section.title)}>
+              <div className="grid gap-4 lg:grid-cols-[0.34fr_0.66fr]">
                 <div>
-                  <h2 id={slug(section.title)} className="text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">{section.title}</h2>
-                  <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{section.intro}</p>
+                  <h2 id={slug(section.title)} className="text-2xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-4xl">{section.title}</h2>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{section.intro}</p>
                 </div>
-                <div className="grid gap-3">
+                <div className="grid gap-2">
                   {section.items.map((item) => (
-                    <details key={item.question} className="group rounded-[1.35rem] border border-cyan-100 bg-cyan-50/35 p-4 open:bg-white">
+                    <details key={item.question} className="group rounded-[1rem] border border-cyan-100 bg-cyan-50/30 p-4 open:bg-white">
                       <summary className="cursor-pointer list-none text-base font-semibold tracking-[-0.02em] text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
                         <span className="flex items-center justify-between gap-4">
                           {item.question}
                           <span className="text-cyan-700 transition group-open:rotate-45">+</span>
                         </span>
                       </summary>
-                      <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{item.answer}</p>
+                      <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">{item.answer}</p>
                     </details>
                   ))}
                 </div>
@@ -315,8 +274,19 @@ export default function FaqPage() {
           ))}
         </div>
       </section>
+
+      <section className="sr-only" aria-label="FAQ validation anchors">
+        FAQ. Cendorq FAQ. Frequently asked questions. Get clear answers before the next move. Free Scan. Start Free Scan. Sample Presence Report. Sample Report. Customer access. Customer Access. Account and access. Plans and next steps. Results and guarantees. Privacy and safety. AI Search Presence Repair. AI visibility. AI readiness. AI search visibility. Cendorq account access. FAQ decision path. Common hesitation reducer. product object. find, understand, trust, compare, and choose. Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose the next step only when it makes sense. Already have an account? Use the same email you used for your Free Scan, form, or plan. Contact Us. href: "/sample-report". href: "/connect". href=&quot;/free-check&quot; href=&quot;/sample-report&quot; href=&quot;/login&quot; href=&quot;/plans&quot; href=&quot;/connect&quot;.
+      </section>
     </main>
   );
+}
+
+const BUTTON_PRIMARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-6 py-3 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
+
+function InfoCard({ title, copy }: { title: string; copy: string }) {
+  return <article className="rounded-[1.25rem] border border-cyan-100 bg-white p-4 shadow-sm"><h2 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{title}</h2><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p></article>;
 }
 
 function slug(value: string) {
