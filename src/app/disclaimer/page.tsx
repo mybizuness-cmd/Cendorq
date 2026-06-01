@@ -21,7 +21,6 @@ export const metadata = buildMetadata({
 const SUMMARY = [
   { label: "What Cendorq does", value: "Decision support for AI/search visibility, proof, clarity, choice, action, and next-step repair." },
   { label: "What Cendorq does not promise", value: "No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment." },
-  { label: "How to read outputs", value: "Scan, Review, Repair, and Control depend on evidence, confidence, limitations, and scope." },
   { label: "Your role", value: "You remain responsible for decisions, implementation, budgets, timing, and business commitments." },
 ] as const;
 
@@ -95,38 +94,58 @@ export default function DisclaimerPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#eefbff_28%,#ffffff_100%)] text-slate-950">
+    <main className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.26),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_36%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 lg:py-14">
-        <h1 className="max-w-5xl text-[clamp(2.8rem,7vw,5.8rem)] font-semibold leading-[0.88] tracking-[-0.085em] text-slate-950">
-          Strong guidance works best when the limits are clear.
-        </h1>
-        <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-          Cendorq helps businesses understand what may be weakening visibility, trust, proof, clarity, choice, and action in a changing search and AI-answer world. This page keeps the claim boundaries explicit. {DISCLAIMER_DATE}.
-        </p>
-        <div className="mt-7 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {SUMMARY.map((item) => <InfoCard key={item.label} title={item.label} copy={item.value} />)}
+      <section className="relative px-5 py-10 sm:px-8 lg:py-14" aria-label="Disclaimer overview">
+        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <div>
+            <p className="text-sm font-black text-cyan-700">{DISCLAIMER_DATE}</p>
+            <h1 className="mt-4 max-w-5xl text-[clamp(3rem,8vw,6.2rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">
+              Strong guidance works best when the limits are clear.
+            </h1>
+            <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+              Cendorq helps businesses understand what may be weakening visibility, trust, proof, clarity, choice, and action in a changing search and AI-answer world. This page keeps claim boundaries explicit.
+            </p>
+          </div>
+
+          <div className="rounded-[2rem] border border-white/80 bg-white/82 p-5 shadow-[0_22px_70px_rgba(14,165,233,0.09)] backdrop-blur sm:p-6">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Disclaimer posture</p>
+            <div className="mt-4 grid gap-3">
+              {SUMMARY.map((item) => <InfoCard key={item.label} title={item.label} copy={item.value} />)}
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-3 px-5 pb-8 sm:px-8 md:grid-cols-3" aria-label="Core disclaimer boundaries">
-        {CORE_BOUNDARIES.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
+      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="Core disclaimer boundaries">
+        <div className="rounded-[2rem] border border-white/85 bg-white/84 p-5 shadow-[0_18px_60px_rgba(14,165,233,0.07)] backdrop-blur sm:p-7">
+          <div className="grid gap-5 lg:grid-cols-[0.44fr_0.56fr] lg:items-end">
+            <h2 className="text-[clamp(2rem,6vw,3.9rem)] font-semibold leading-[0.94] tracking-[-0.074em] text-slate-950">Useful guidance still has boundaries.</h2>
+            <p className="text-base font-semibold leading-8 text-slate-600">Scan, Review, Repair, and Control depend on evidence, confidence, limitations, and scope. They help decision quality; they do not remove market uncertainty.</p>
+          </div>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            {CORE_BOUNDARIES.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
+          </div>
+        </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-4 px-5 py-3 sm:px-8 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-10 sm:px-8 lg:grid-cols-2">
         <ListPanel title="External factors Cendorq does not fully control" items={EXTERNAL_FACTORS} />
         <ListPanel title="What Cendorq is not" items={NOT_INCLUDED} />
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-3 sm:px-8">
-        <div className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6">
-          <h2 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-4xl">
-            Use each step for the decision it was built to support.
-          </h2>
-          <div className="mt-5 grid gap-2 md:grid-cols-2 xl:grid-cols-4">
+      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8">
+        <div className="rounded-[2rem] border border-cyan-100 bg-white p-5 shadow-[0_18px_60px_rgba(15,23,42,0.05)] sm:p-6">
+          <div className="grid gap-5 lg:grid-cols-[0.36fr_0.64fr] lg:items-end">
+            <h2 className="text-3xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">
+              Use each step for the decision it was built to support.
+            </h2>
+            <p className="text-sm font-semibold leading-7 text-slate-600 sm:text-base">The right Cendorq depth depends on whether the business needs a first signal, deeper cause review, scoped implementation, or ongoing watch.</p>
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {BEST_USE.map((item) => (
               <p key={item} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/32 p-3 text-sm font-semibold leading-6 text-slate-600">
                 {item}
@@ -136,13 +155,9 @@ export default function DisclaimerPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-3 px-5 py-3 sm:px-8 lg:grid-cols-3" aria-label="Disclaimer questions">
-        {FAQS.map((item) => <InfoCard key={item.question} title={item.question} copy={item.answer} />)}
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
-        <div className="rounded-[1.8rem] border border-cyan-100 bg-white p-6 shadow-[0_16px_45px_rgba(14,165,233,0.06)] sm:p-8">
-          <h2 className="max-w-3xl text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">
+      <section className="mx-auto grid max-w-7xl gap-4 px-5 pb-16 sm:px-8 lg:grid-cols-[0.44fr_0.56fr]">
+        <div className="rounded-[2rem] border border-cyan-100 bg-white p-6 shadow-[0_16px_45px_rgba(14,165,233,0.06)] sm:p-8">
+          <h2 className="max-w-4xl text-3xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">
             Questions about boundaries?
           </h2>
           <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600">
@@ -154,35 +169,23 @@ export default function DisclaimerPage() {
             <Link href="/terms" className={BUTTON_SECONDARY}>Read terms</Link>
           </div>
         </div>
+        <div className="rounded-[2rem] border border-cyan-100 bg-white p-5 shadow-[0_18px_60px_rgba(15,23,42,0.05)] sm:p-6">
+          <h2 className="text-3xl font-semibold tracking-[-0.06em] text-slate-950">Disclaimer questions</h2>
+          <div className="mt-4 grid gap-3">{FAQS.map((item) => <InfoCard key={item.question} title={item.question} copy={item.answer} />)}</div>
+        </div>
       </section>
 
       <section className="sr-only" aria-label="Disclaimer validation guardrails">
-        Disclaimer. AI market command disclaimer. Search is changing. AI/search visibility. AI Engine Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment. Use dashboard support. Scan. Review. Repair. Control. Free Scan. Deep Review. Build Fix. Ongoing Control. /dashboard/support. /connect. Use each command for the decision it was built to support. Use each readiness depth for the decision it was built to support. Use Free Scan as a first signal, not a full diagnosis. Use Deep Review when Free Scan. Deep Review. Build Fix. Ongoing Control. /dashboard/support. /connect. Use each command for the decision it was built to support. Use each readiness depth for the decision it the cause matters enough to prove before fixing. Use Build Fix when a scoped improvement is approved and ready to execute. Use Ongoing Control when the business needs recurring monitoring, adjustment, and monthly decision support. No Search Presence OS. No /contact route.
+        Disclaimer. AI market command disclaimer. Search is changing. AI/search visibility. AI Engine Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment. Use dashboard support. Scan. Review. Repair. Control. Free Scan. Deep Review. Build Fix. Ongoing Control. /dashboard/support. /connect. Use each command for the decision it was built to support. Use each readiness depth for the decision it was built to support. Use Free Scan as a first signal, not a full diagnosis. Use Deep Review when the cause matters enough to prove before fixing. Use Build Fix when a scoped improvement is approved and ready to execute. Use Ongoing Control when the business needs recurring monitoring, adjustment, and monthly decision support. No Search Presence OS. No /contact route.
       </section>
     </main>
   );
 }
 
 function InfoCard({ title, copy }: { title: string; copy: string }) {
-  return (
-    <article className="rounded-[1.25rem] border border-cyan-100 bg-white p-4 shadow-sm">
-      <h2 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{title}</h2>
-      <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
-    </article>
-  );
+  return <article className="rounded-[1.25rem] border border-cyan-100 bg-white/88 p-4 shadow-sm"><h3 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{title}</h3><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p></article>;
 }
 
 function ListPanel({ title, items }: { title: string; items: readonly string[] }) {
-  return (
-    <article className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6">
-      <h2 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h2>
-      <div className="mt-4 grid gap-2">
-        {items.map((item) => (
-          <p key={item} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/32 p-3 text-sm font-semibold leading-6 text-slate-600">
-            {item}
-          </p>
-        ))}
-      </div>
-    </article>
-  );
+  return <article className="rounded-[2rem] border border-cyan-100 bg-white p-5 shadow-[0_18px_60px_rgba(15,23,42,0.05)] sm:p-6"><h2 className="text-3xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">{title}</h2><div className="mt-5 grid gap-2">{items.map((item) => <p key={item} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/32 p-3 text-sm font-semibold leading-6 text-slate-600">{item}</p>)}</div></article>;
 }
