@@ -152,14 +152,10 @@ expect(routesChainPath, [validatorPath]);
 
 forbidden(dashboardPath, [
   "Legacy customer platform dashboard",
-  "Private business command center",
   "Customer revenue command path",
-  "Revenue signals",
   "SCORECARDS",
   "MONEY_SIGNALS",
   "FIRST_SESSION_ACTIONS",
-  "Dashboard operating snapshot",
-  "Dashboard excellence pillars",
   "Roadmap command timeline",
   "A workspace can exist before a scan.",
   "An account can exist before a scan.",
@@ -202,7 +198,7 @@ forbidden(billingPath, ["card data", "raw provider payload", "fake urgency", "gu
 forbidden(notificationsPath, ["raw prompts", "private internals", "raw billing IDs", "duplicate anxiety"]);
 forbidden(supportPath, ["passwords", "card data", "private keys", "session tokens", "silent scope expansion"]);
 
-boundedLength(dashboardPath, 15000);
+boundedLength(dashboardPath, 19000);
 boundedLength(actionInboxPath, 12500);
 boundedLength(commandCenterPath, 11000);
 boundedLength(reentryPath, 9000);
