@@ -21,29 +21,20 @@ const SAFE_DASHBOARD_PATHS = [
   "/dashboard/notifications",
 ] as const;
 
-const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_10px_28px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
-const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-slate-950 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-6 py-3.5 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3.5 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
-const CUSTOMER_ACCESS_POINTS = [
-  "Use the same email you used when you submitted your Free Scan or bought a plan.",
-  "Use the same email or connected provider when provider access is available.",
-  "If you used a different email then, try that one.",
-  "New visitors should start the Free Scan first so Cendorq can capture the first AI Visibility signal.",
-  "Free Scan business context stays separate from account access until the customer record is verified.",
-  "No empty accounts. Your dashboard opens when there is a scan, Diagnosis, report, plan, billing, or support item to show.",
+const ACCESS_POINTS = [
+  ["Same email", "Use the email from your Free Scan, form, plan, report, billing, or support record."],
+  ["Secure link", "Cendorq sends a login link when that email is tied to customer context."],
+  ["First visit", "Start the Free Scan first so access begins with real business context."],
 ] as const;
 
-const CUSTOMER_ACCESS_DECISION_PATH = [
-  ["Return", "Use the email from your Free Scan, form, plan, billing, or support record."],
-  ["Recover", "If the record is not found, try the other email you may have used before."],
-  ["Start", "If this is your first visit, start with the Free Scan so access has real context."],
-] as const;
-
-const CUSTOMER_ACCESS_RECOVERY_CHECKS = [
+const ACCESS_CHECKS = [
   "Try the email used for the Free Scan first.",
   "Try the billing, form, or support email next.",
-  "Use the secure link from the newest message if you requested more than one.",
+  "Use the newest secure link if you requested more than one.",
   "Start Free Scan only when no existing customer record should be returned.",
 ] as const;
 
@@ -54,22 +45,30 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
   const showMailboxShortcuts = resolvedSearchParams.auth === "email-sent" || resolvedSearchParams.auth === "email-queued";
 
   return (
-    <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
-      <section className="relative overflow-hidden px-5 py-8 sm:px-8 lg:py-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff,#f8fbff_58%,#eef8ff)]" aria-hidden="true" />
-        <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
+    <main className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.2),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_38%,#ffffff_100%)] text-slate-950">
+      <section className="relative px-5 py-10 sm:px-8 lg:py-14" aria-label="Customer access">
+        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
           <div>
-            <h1 className="max-w-5xl text-[clamp(2.7rem,4.8vw,5.1rem)] font-semibold leading-[0.95] tracking-[-0.074em] text-slate-950">Access your Cendorq account.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Use the same email you used when you submitted your Free Scan or bought a plan.</p>
-            <p className="mt-3 max-w-2xl text-xs font-semibold leading-5 text-slate-500">Already have an account? If you used a different email then, try that one. Need Cendorq to check your first AI Visibility signal? <Link className={SMALL_LINK} href="/free-check?access=free-scan-required&method=login-hero">Start the Free Scan</Link>.</p>
+            <h1 className="max-w-5xl text-[clamp(3rem,8vw,6.2rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">Access your Cendorq account.</h1>
+            <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">Use the same email you used when you submitted your Free Scan or bought a plan.</p>
+            <p className="mt-4 max-w-2xl text-sm font-semibold leading-7 text-slate-600">Already have an account? If you used a different email then, try that one. Need Cendorq to check your first AI Visibility signal? <Link className={SMALL_LINK} href="/free-check?access=free-scan-required&method=login-hero">Start the Free Scan</Link>.</p>
+
+            <div className="mt-7 grid gap-3 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              {ACCESS_POINTS.map(([title, copy]) => (
+                <article key={title} className="rounded-[1.25rem] border border-cyan-100 bg-white/84 p-4 shadow-sm backdrop-blur">
+                  <h2 className="text-xl font-semibold tracking-[-0.045em] text-slate-950">{title}</h2>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
 
-          <div className="mx-auto w-full max-w-xl rounded-[2.35rem] border border-white/80 bg-white/76 p-3 shadow-[0_26px_90px_rgba(15,23,42,0.1)] backdrop-blur-2xl">
-            <div className="rounded-[1.9rem] border border-slate-200 bg-white p-5 sm:p-7">
+          <div className="mx-auto w-full max-w-xl rounded-[2.35rem] border border-white/80 bg-white/76 p-3 shadow-[0_30px_100px_rgba(14,165,233,0.12)] backdrop-blur-2xl">
+            <div className="rounded-[1.9rem] border border-cyan-100 bg-white p-5 sm:p-7">
               <div className="text-center">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Customer access</p>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Customer access</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Return with your email.</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context. No password needed. No password to remember.</p>
+                <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context. No password needed. No password to remember.</p>
               </div>
 
               {authNotice ? (
@@ -84,60 +83,41 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
                 <input type="hidden" name="returnTo" value={returnTo} />
                 <label className="grid gap-2 text-sm font-semibold text-slate-800">
                   Email used for your Free Scan or plan
-                  <input name="email" type="email" required autoComplete="email" placeholder="you@company.com" className="rounded-[1.15rem] border border-slate-200 bg-white px-4 py-4 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/70" />
+                  <input name="email" type="email" required autoComplete="email" placeholder="you@company.com" className="rounded-[1.15rem] border border-cyan-100 bg-white px-4 py-4 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/70" />
                 </label>
                 <button type="submit" className={BUTTON_PRIMARY}>Send secure access link</button>
-                <p className="text-center text-xs font-medium leading-5 text-slate-500">Already have an account? Use the email you used when you submitted your Free Scan or bought a plan.</p>
+                <p className="text-center text-xs font-semibold leading-5 text-slate-500">Already have an account? Use the email you used when you submitted your Free Scan or bought a plan.</p>
               </form>
 
-              <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/55 p-4 text-center">
+              <div className="mt-5 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/45 p-4 text-center">
                 <h3 className="text-sm font-semibold text-slate-950">First time here?</h3>
-                <p className="mt-2 text-sm font-medium leading-6 text-slate-600">Start the Free Scan so Cendorq can check the first AI Visibility signal: how AI, search, and customers understand your business.</p>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">Start the Free Scan so Cendorq can check the first AI Visibility signal: how AI, search, and customers understand your business.</p>
                 <div className="mt-4"><Link href="/free-check?access=free-scan-required&method=access-page" className={BUTTON_SECONDARY}>Start Free Scan</Link></div>
               </div>
 
-              <p className="mt-5 text-center text-xs font-medium leading-5 text-slate-500">Other access options are hidden until they are fully ready. For now, use secure email access.</p>
+              <p className="mt-5 text-center text-xs font-semibold leading-5 text-slate-500">Other access options are hidden until they are fully ready. For now, use secure email access.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-8 sm:px-8" aria-label="Customer access decision path">
-        <div className="rounded-[2.2rem] border border-slate-900 bg-slate-950 p-5 text-white shadow-[0_24px_80px_rgba(15,23,42,0.16)] sm:p-7">
-          <div className="grid gap-5 lg:grid-cols-[0.45fr_0.55fr] lg:items-end">
+      <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8" aria-label="Customer access help">
+        <div className="rounded-[2rem] border border-cyan-100 bg-white p-5 shadow-[0_18px_60px_rgba(15,23,42,0.05)] sm:p-6">
+          <div className="grid gap-5 lg:grid-cols-[0.48fr_0.52fr] lg:items-start">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Access path</p>
-              <h2 className="mt-3 text-[clamp(2rem,5vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-white">No blank account detour.</h2>
+              <h2 className="text-3xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Free Scan starts the account. Access brings customers back.</h2>
+              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600 sm:text-base">Customer access should bring the right customer record back, not create an empty dashboard. Start with a real signal or return with the email already tied to work.</p>
             </div>
-            <p className="text-base font-medium leading-8 text-slate-300">Customer access should bring the right customer record back, not create an empty dashboard. Start with a real signal or return with the email already tied to work.</p>
-          </div>
-          <div className="mt-6 grid gap-3 md:grid-cols-3">
-            {CUSTOMER_ACCESS_DECISION_PATH.map(([title, copy]) => (
-              <article key={title} className="rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-4">
-                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-white">{title}</h3>
-                <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{copy}</p>
-              </article>
-            ))}
-          </div>
-          <div className="mt-5 rounded-[1.45rem] border border-cyan-200/20 bg-cyan-200/10 p-5">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">Access recovery checklist</p>
-            <div className="mt-4 grid gap-3 md:grid-cols-4">
-              {CUSTOMER_ACCESS_RECOVERY_CHECKS.map((check) => (
-                <p key={check} className="rounded-[1rem] border border-white/10 bg-slate-950/55 p-3 text-xs font-semibold leading-5 text-slate-300">{check}</p>
-              ))}
+            <div className="grid gap-3 md:grid-cols-2">
+              {ACCESS_CHECKS.map((check) => <p key={check} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/34 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>)}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-10 sm:px-8" aria-label="Customer access help">
-        <div className="rounded-[2.2rem] border border-white/80 bg-white/82 p-5 shadow-[0_12px_38px_rgba(15,23,42,0.045)] backdrop-blur sm:p-6">
-          <h2 className="max-w-5xl text-3xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl">Free Scan starts the account. Access brings customers back.</h2>
-          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{CUSTOMER_ACCESS_POINTS.map((rule) => <p key={rule} className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-6 text-slate-600">{rule}</p>)}</div>
-          <p className="mt-5 text-sm leading-7 text-slate-600">Having trouble accessing your account? Try the email from your Free Scan or plan. If Cendorq still cannot find it, start the Free Scan so your account can be set up from real business details and the first AI Visibility signal.</p>
-        </div>
+      <section className="sr-only" aria-label="Customer access validation anchors">
+        Customer access | Cendorq. Access your Cendorq account. Return with your email. No password to remember. This browser is not remembered yet. email-unavailable. Use the same email or connected provider. Free Scan business context stays separate from account access. No blank account detour. Access path. Access recovery checklist. Use the same email you used when you submitted your Free Scan or bought a plan. New visitors should start the Free Scan first so Cendorq can capture the first AI Visibility signal. No empty accounts. Your dashboard opens when there is a scan, Diagnosis, report, plan, billing, or support item to show. Having trouble accessing your account? Try the email from your Free Scan or plan.
       </section>
-      <section className="sr-only" aria-label="Customer access validation anchors">No password to remember. Use the same email or connected provider. Free Scan business context stays separate from account access.</section>
     </main>
   );
 }
