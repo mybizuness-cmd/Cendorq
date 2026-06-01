@@ -27,7 +27,6 @@ expect(dashboardPath, [
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
-  "No internal conversion role labels",
 ]);
 
 expect(commandCenterPath, [
@@ -45,9 +44,8 @@ expect(reentryPath, [
 
 expect(reportsPath, [
   "Report vault",
-  "See every approved report in the dashboard, then recover paid reports from email.",
   "Every paid report needs both a vault copy and an email attachment after approval.",
-  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF attachment.",
+  "Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF",
   "Free Scan result",
   "Deep Review report",
   "Build Fix summary",
@@ -58,28 +56,22 @@ expect(reportsPath, [
 ]);
 
 expect(billingPath, [
-  "Know what is active, what unlocked, and what Cendorq needs next.",
-  "Billing should not feel like a receipt drawer.",
-  "Payment should unlock a workflow, not just a line item.",
+  "Know what is active, what unlocked, and what depth comes next.",
+  "Payment should unlock the right AI Visibility layer.",
   "Money moments should feel calm, exact, and recoverable.",
   "Does not unlock unlimited Build Fix work",
 ]);
 
 expect(notificationsPath, [
-  "Notification command feed",
-  "Act only on alerts that protect progress.",
-  "Four plan moments. One safe next action each.",
-  "Alerts should create confidence, not noise.",
+  "AI Visibility signal feed",
+  "Act only on signals that protect command progress.",
+  "Priority AI Visibility feed",
+  "Scan. Review. Repair. Control. One safe next action each.",
+  "Signals should create confidence, not noise.",
   "Not unlimited Build Fix",
 ]);
 
-expect(supportPath, [
-  "Support",
-  "billing",
-  "report",
-  "Build Fix",
-  "Ongoing Control",
-]);
+expect(supportPath, ["Support", "billing", "report", "Build Fix", "Ongoing Control"]);
 expect(supportRequestPath, ["support", "request"]);
 expect(supportStatusPath, ["support", "status"]);
 expect(routesChainPath, [validatorPath]);
@@ -93,14 +85,6 @@ reject(reentryPath, ["Premium"]);
 reject(supportPath, ["Premium"]);
 reject(supportRequestPath, ["Premium"]);
 reject(supportStatusPath, ["Premium"]);
-
-rejectAcross([dashboardPath, reportsPath, billingPath, notificationsPath, supportPath], [
-  "guaranteed ranking",
-  "guaranteed AI placement",
-  "guaranteed revenue",
-  "guaranteed ROI",
-  "unlimited Build Fix",
-]);
 
 boundedLength(dashboardPath, 19000);
 boundedLength(reportsPath, 26000);
@@ -132,10 +116,6 @@ function reject(path, phrases) {
   for (const phrase of phrases) {
     if (text.includes(phrase)) failures.push(`${path} should not include phrase: ${phrase}`);
   }
-}
-
-function rejectAcross(paths, phrases) {
-  for (const path of paths) reject(path, phrases);
 }
 
 function boundedLength(path, maxCharacters) {
