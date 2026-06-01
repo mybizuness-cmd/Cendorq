@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Scan", "Review", "Fix", "Control"];
+const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Scan", "Review", "Repair", "Control"];
 
 const requiredFiles = [
   "src/app/page.tsx",
@@ -128,8 +128,10 @@ expect("src/app/plans/plan-data.ts", [
 
 expect("src/app/dashboard/page.tsx", [
   "AI Visibility command center",
-  "Presence command snapshot",
-  "Presence Score",
+  "Private AI Visibility command center",
+  "Your Cendorq command center is ready.",
+  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
+  "Protected Presence Command Center",
   "Choice Gap",
   "Repair Queue",
   "Control Snapshot",
@@ -159,6 +161,7 @@ expect("src/app/login/page.tsx", [
   "email-unavailable",
   "Use the same email or connected provider",
   "Free Scan business context stays separate from account access",
+  "Access return paths",
 ]);
 
 expect("src/app/api/customer/email/confirm/route.ts", [
