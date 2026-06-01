@@ -156,7 +156,7 @@ export default function ConnectPage() {
           <div className="grid gap-5 lg:grid-cols-[0.48fr_0.52fr] lg:items-start">
             <div>
               <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Get clear answers before the next move.</h2>
-              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Contact should route the decision, not become a vague message box or a sensitive-data lane.</p>
+              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Contact should route the decision, not become a vague catch-all lane or a sensitive-data lane.</p>
             </div>
             <div className="grid gap-3 md:grid-cols-2">
               {CONTACT_RULES.map((rule) => <p key={rule} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/40 p-3 text-xs font-semibold leading-5 text-slate-700">{rule}</p>)}
