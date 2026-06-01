@@ -4,6 +4,7 @@ const BRAND_NAME = "Cendorq";
 const FOOTER_LINK_CLASS = "rounded-full px-3 py-2 text-sm font-bold text-slate-600 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 const FOOTER_LINKS = [
+  ["Run Free Scan", "/free-check"],
   ["How it works", "/sample-report"],
   ["Plans", "/plans"],
   ["Questions", "/faq"],
@@ -39,7 +40,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Sample Report, Plans, FAQ, Privacy, Terms, and Disclaimer. href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer"</span>
+      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Run Free Scan, Sample Report, Plans, FAQ, Privacy, Terms, and Disclaimer. href="/free-check" href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer"</span>
     </footer>
   );
 }
