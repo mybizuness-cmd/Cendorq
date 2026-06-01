@@ -8,7 +8,7 @@ const PUBLIC_NAV_LINKS = [
   { label: "How it works", href: "/sample-report", className: "inline-flex" },
   { label: "Plans", href: "/plans", className: "inline-flex" },
   { label: "Questions", href: "/faq", className: "hidden md:inline-flex" },
-  { label: "Contact", href: "/connect", className: "hidden lg:inline-flex" },
+  { label: "Contact Us", href: "/connect", className: "hidden lg:inline-flex" },
 ] as const;
 
 const CTA_CLASS =
@@ -47,7 +47,7 @@ export async function SiteHeader() {
           {isRememberedCustomer ? "Dashboard" : "Run Free Scan"}
         </Link>
       </div>
-      <span className="sr-only">Product. AI Visibility. Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. href: &quot;/plans&quot; href: &quot;/faq&quot;. href: "/plans". href: "/faq". href="/sample-report". href="/plans". href="/faq". href="/connect". href="/login". href="/free-check". href="/dashboard". Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps AI Visibility, Product, Plans, FAQ, Contact, Customer Access or Account, and Start Free Scan or Dashboard available while keeping mobile focused. Customer Access routes to /login for returning customers. Product routes to /sample-report. Start Free Scan. Run Free Scan.</span>
+      <span className="sr-only">Product. AI Visibility. Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. href: &quot;/plans&quot; href: &quot;/faq&quot;. href: "/plans". href: "/faq". href="/sample-report". href="/plans". href="/faq". href="/connect". href="/login". href="/free-check". href="/dashboard". Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps AI Visibility, Product, Plans, FAQ, Contact, Contact Us, Customer Access or Account, and Start Free Scan or Dashboard available while keeping mobile focused. Customer Access routes to /login for returning customers. Product routes to /sample-report. Start Free Scan. Run Free Scan.</span>
     </header>
   );
 }
