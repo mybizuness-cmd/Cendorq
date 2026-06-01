@@ -84,6 +84,7 @@ expect("src/app/login/page.tsx", [
   "No empty accounts. Your dashboard opens when there is a scan, Diagnosis, report, plan, billing, or support item to show.",
   "first AI Visibility signal",
   "Other access options are hidden until they are fully ready.",
+  "Access return paths",
 ]);
 
 expect("src/app/signup/page.tsx", [
@@ -112,9 +113,8 @@ expect("src/components/free-check/guided-free-check-form-v3.tsx", [
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "Private AI Visibility command center",
-  "Your Cendorq command center is ready.",
-  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
+  "Private business command center",
+  "Know what is ready, what is blocked, and what moves revenue next.",
   "Scan. Review. Repair. Control.",
 ]);
 expect("src/app/plans/page.tsx", ["CENDORQ_PLAN_PRICES", "Open Review page", "Open Repair page", "Open Control page"]);
@@ -155,7 +155,6 @@ forbidden(["src/app/signup/page.tsx"], [
 forbidden(["src/app/login/page.tsx"], [
   "We will send a secure link if this email is tied to your Free Scan or plan. No password needed.",
   "Start the Free Scan so Cendorq can check how AI and search understand your business.",
-  "No empty accounts. Your dashboard opens when there is a scan, plan, report, billing, or support item to show.",
 ]);
 
 if (failures.length) {
