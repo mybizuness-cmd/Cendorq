@@ -4,10 +4,11 @@ const BRAND_NAME = "Cendorq";
 const FOOTER_LINK_CLASS = "rounded-full px-3 py-2 text-sm font-bold text-slate-600 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 const FOOTER_LINKS = [
-  ["Run Free Scan", "/free-check"],
-  ["How it works", "/sample-report"],
+  ["Start Free Scan", "/free-check"],
+  ["Sample Report", "/sample-report"],
   ["Plans", "/plans"],
-  ["Questions", "/faq"],
+  ["FAQ", "/faq"],
+  ["Contact", "/connect"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
   ["Disclaimer", "/disclaimer"],
@@ -17,17 +18,19 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-cyan-100 bg-white text-slate-950" aria-label="Site footer">
-      <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8">
-        <div className="grid gap-5">
-          <div className="max-w-5xl">
-            <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-2 rounded-full transition hover:text-cyan-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-              <BrandMark />
-              <span className="text-sm font-black tracking-[-0.01em]">{BRAND_NAME}</span>
-            </Link>
-            <p className="mt-4 text-[clamp(1.85rem,5vw,3.4rem)] font-semibold leading-[0.95] tracking-[-0.075em] text-slate-950">
-              Be easier to find, understand, and choose.
-            </p>
+    <footer className="relative overflow-hidden border-t border-cyan-100 bg-white text-slate-950" aria-label="Site footer">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_0%,rgba(125,211,252,0.16),transparent_34%)]" />
+      <div className="relative mx-auto max-w-[92rem] px-4 py-9 sm:px-6">
+        <div className="grid gap-6">
+          <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div className="max-w-5xl">
+              <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-2 rounded-full transition hover:text-cyan-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
+                <BrandMark />
+                <span className="text-sm font-black tracking-[-0.01em]">{BRAND_NAME}</span>
+              </Link>
+              <p className="mt-4 text-[clamp(1.85rem,5vw,3.4rem)] font-semibold leading-[0.95] tracking-[-0.075em] text-slate-950">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen.</p>
+            </div>
+            <Link href="/free-check" className="inline-flex min-h-11 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-5 py-2 text-sm font-black text-slate-950 shadow-[0_14px_34px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Start Free Scan</Link>
           </div>
 
           <div className="grid gap-4 border-t border-cyan-100 pt-4 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -40,7 +43,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Run Free Scan, Sample Report, Plans, FAQ, Privacy, Terms, and Disclaimer. href="/free-check" href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer"</span>
+      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Be easier to find, understand, and choose. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Run Free Scan, Start Free Scan, Sample Report, Plans, FAQ, Privacy, Terms, and Disclaimer. href="/free-check" href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer"</span>
     </footer>
   );
 }
