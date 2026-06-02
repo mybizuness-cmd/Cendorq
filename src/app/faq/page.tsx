@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
+import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
 export const metadata = buildMetadata({
   title: "Questions | Cendorq",
@@ -188,8 +189,8 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
 
 const QUICK_LINKS: readonly QuickLink[] = [
   { label: "Run Free Scan", href: "/free-check", primary: true },
-  { label: "See Sample Report", href: "/sample-report", primary: false },
-  { label: "Log in", href: "/login", primary: false },
+  { label: "Open the Sample Presence Report", href: "/sample-report", primary: false },
+  { label: "Customer Access", href: "/login", primary: false },
   { label: "View Plans", href: "/plans", primary: false },
   { label: "Contact Us", href: "/connect", primary: false },
 ];
@@ -220,52 +221,53 @@ export default function FaqPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#eefbff_28%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.2),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_38%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
+      <FaqAtmosphere />
 
-      <section className="px-5 py-10 sm:px-8 lg:py-14">
-        <div className="mx-auto max-w-6xl">
-          <h1 className="max-w-5xl text-[clamp(2.8rem,7vw,5.8rem)] font-semibold leading-[0.88] tracking-[-0.085em] text-slate-950">
-            Clear answers before you choose the next step.
-          </h1>
-          <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-            Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose paid depth only when it makes sense.
-          </p>
+      <section className="relative mx-auto grid max-w-[92rem] gap-8 px-4 pb-10 pt-8 sm:px-6 md:pt-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center" aria-label="Cendorq FAQ entry">
+        <div className="relative z-10">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Cendorq FAQ</p>
+          <h1 className="max-w-5xl text-[clamp(3rem,7vw,6.6rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">Clear answers before you choose the next step.</h1>
+          <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose paid depth only when it makes sense.</p>
           <div className="mt-7 flex flex-wrap gap-3">
             {QUICK_LINKS.map((item) => (
-              <Link key={item.href} href={item.href} className={item.primary ? BUTTON_PRIMARY : BUTTON_SECONDARY}>
-                {item.label}
-              </Link>
+              <Link key={item.href} href={item.href} className={item.primary ? CENDORQ_EXPERIENCE_SYSTEM.primaryButton : CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>{item.label}</Link>
             ))}
+          </div>
+        </div>
+
+        <div className="relative overflow-hidden rounded-[2.35rem] border border-white/80 bg-white/78 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.09)] backdrop-blur-2xl sm:p-7">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">FAQ decision path</p>
+          <div className="mt-5 grid gap-3">
+            {START_PATHS.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-3 px-5 pb-8 sm:px-8 md:grid-cols-3" aria-label="Where to start">
-        {START_PATHS.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8" aria-label="Cendorq question sections">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Cendorq question sections">
         <div className="grid gap-4">
           {FAQ_SECTIONS.map((section) => (
-            <section key={section.title} className="rounded-[1.6rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6" aria-labelledby={slug(section.title)}>
-              <div className="grid gap-4 lg:grid-cols-[0.34fr_0.66fr]">
-                <div>
-                  <h2 id={slug(section.title)} className="text-2xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-4xl">{section.title}</h2>
-                  <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{section.intro}</p>
+            <section key={section.title} className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/84 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur" aria-labelledby={slug(section.title)}>
+              <div className="grid gap-0 lg:grid-cols-[0.34fr_0.66fr]">
+                <div className="border-b border-cyan-100 p-5 sm:p-7 lg:border-b-0 lg:border-r">
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Frequently asked questions</p>
+                  <h2 id={slug(section.title)} className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">{section.title}</h2>
+                  <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">{section.intro}</p>
                 </div>
-                <div className="grid gap-2">
+                <div className="grid gap-0">
                   {section.items.map((item) => (
-                    <details key={item.question} className="group rounded-[1rem] border border-cyan-100 bg-cyan-50/30 p-4 open:bg-white">
+                    <details key={item.question} className="group border-b border-cyan-100 bg-white/54 p-5 transition open:bg-cyan-50/35 last:border-b-0">
                       <summary className="cursor-pointer list-none text-base font-semibold tracking-[-0.02em] text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
                         <span className="flex items-center justify-between gap-4">
                           {item.question}
-                          <span className="text-cyan-700 transition group-open:rotate-45">+</span>
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-cyan-100 bg-white text-cyan-700 transition group-open:rotate-45">+</span>
                         </span>
                       </summary>
-                      <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">{item.answer}</p>
+                      <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-slate-600">{item.answer}</p>
                     </details>
                   ))}
                 </div>
@@ -276,17 +278,24 @@ export default function FaqPage() {
       </section>
 
       <section className="sr-only" aria-label="FAQ validation anchors">
-        FAQ. Cendorq FAQ. Frequently asked questions. Get clear answers before the next move. Free Scan. Start Free Scan. Sample Presence Report. Sample Report. Customer access. Customer Access. Account and access. Plans and next steps. Results and guarantees. Privacy and safety. AI Search Presence Repair. AI visibility. AI readiness. AI search visibility. Cendorq account access. FAQ decision path. Common hesitation reducer. product object. find, understand, trust, compare, and choose. Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose the next step only when it makes sense. Already have an account? Use the same email you used for your Free Scan, form, or plan. Contact Us. href: "/sample-report". href: "/connect". href=&quot;/free-check&quot; href=&quot;/sample-report&quot; href=&quot;/login&quot; href=&quot;/plans&quot; href=&quot;/connect&quot;.
+        FAQ. Cendorq FAQ. Frequently asked questions. Get clear answers before the next move. Free Scan. Start Free Scan. Sample Presence Report. Sample Report. Customer access. Customer Access. Account and access. Plans and next steps. Results and guarantees. Privacy and safety. AI Search Presence Repair. AI visibility. AI readiness. AI search visibility. Cendorq account access. FAQ decision path. Common hesitation reducer. product object. find, understand, trust, compare, and choose. Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose the next step only when it makes sense. Already have an account? Use the same email you used for your Free Scan, form, or plan. Contact Us. href: "/sample-report". href: "/connect". Open the Sample Presence Report. FAQPage.
       </section>
     </main>
   );
 }
 
-const BUTTON_PRIMARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-6 py-3 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
-const BUTTON_SECONDARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
-
 function InfoCard({ title, copy }: { title: string; copy: string }) {
-  return <article className="rounded-[1.25rem] border border-cyan-100 bg-white p-4 shadow-sm"><h2 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{title}</h2><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p></article>;
+  return <article className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm"><h2 className="text-2xl font-semibold tracking-[-0.045em] text-slate-950">{title}</h2><p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p></article>;
+}
+
+function FaqAtmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.17),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(239,249,255,0.74)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-200/24 blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
+    </div>
+  );
 }
 
 function slug(value: string) {
