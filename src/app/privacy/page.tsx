@@ -18,6 +18,12 @@ const PRIVACY_SUMMARY = [
   { label: "Safe summaries", value: "Customer-facing views should show useful summaries, not raw provider payloads, secrets, or cross-customer data." },
 ] as const;
 
+const PRIVACY_READ_ORDER = [
+  ["Submit carefully", "Use Free Scan and support for useful business context, not passwords, card data, private keys, tokens, or unrelated private evidence."],
+  ["Use verified access", "Reports, billing, notifications, and support should stay behind customer access and safe customer summaries."],
+  ["Ask for review", "Use dashboard support for privacy, correction, data, communication, or access questions tied to your customer record."],
+] as const;
+
 const INFORMATION_CATEGORIES = [
   {
     title: "Account and contact details",
@@ -116,6 +122,17 @@ export default function PrivacyPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Privacy read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {PRIVACY_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Information Cendorq may collect">
         <div className="rounded-[2.15rem] border border-white/85 bg-white/84 p-5 shadow-[0_18px_60px_rgba(14,165,233,0.07)] backdrop-blur sm:p-7">
           <div className="grid gap-5 lg:grid-cols-[0.44fr_0.56fr] lg:items-end">
@@ -161,7 +178,7 @@ export default function PrivacyPage() {
       </section>
 
       <section className="sr-only" aria-label="Privacy validation guardrails">
-        Privacy. Market trust privacy. Free Scan. Deep Review. Build Fix. Ongoing Control. dashboard support. /connect. Command-specific data boundaries. Safe customer summaries. Readiness-specific data boundaries. No raw secrets. No private payment details. No cross-customer data. reasonable safeguards. no online system can honestly guarantee absolute security. Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence. Run Free Scan.
+        Privacy. Market trust privacy. Privacy read order. Submit carefully. Use verified access. Ask for review. Free Scan. Deep Review. Build Fix. Ongoing Control. dashboard support. /connect. Command-specific data boundaries. Safe customer summaries. Readiness-specific data boundaries. No raw secrets. No private payment details. No cross-customer data. reasonable safeguards. no online system can honestly guarantee absolute security. Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence. Run Free Scan.
       </section>
     </main>
   );
