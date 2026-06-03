@@ -33,6 +33,13 @@ const SAMPLE_REPORT_BOUNDARY_CHECKS = [
   "Cendorq keeps the next move scoped to what the signal supports.",
 ] as const;
 
+const HOW_TO_READ_SAMPLE = [
+  ["Score", "Use it as the first signal, not the whole diagnosis."],
+  ["Choice Gap", "Find the hesitation point before buying repair work."],
+  ["Repair Queue", "Read the first useful move before comparing plan depth."],
+  ["Boundaries", "Check what the sample does not claim before acting."],
+] as const;
+
 export default function SampleReportPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Sample Cendorq Presence Report",
@@ -80,6 +87,17 @@ export default function SampleReportPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="How to read the sample report">
+        <div className="grid gap-3 md:grid-cols-4">
+          {HOW_TO_READ_SAMPLE.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.25rem] border border-white/80 bg-white/88 p-4 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <p className="text-sm font-semibold text-cyan-700">{label}</p>
+              <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[96rem] px-3 pb-8 sm:px-6" aria-label="Sample report preview">
         <div className="overflow-hidden rounded-[2.35rem] border border-white/80 bg-white/86 p-2 shadow-[0_24px_80px_rgba(15,23,42,0.075)] backdrop-blur sm:p-4">
           <SamplePresenceReport />
@@ -120,7 +138,7 @@ export default function SampleReportPage() {
         </div>
       </section>
 
-      <span className="sr-only">Sample Presence Report. Vertical sample reports. How to read this sample. SampleReportProductTour. PresenceReportEvidenceBoundaryPanel. PresenceReportNextMovePolicyPanel. Sample report evidence boundaries. Sample report next move policy. evidence boundaries. next move policy. Vertical sample reports. Different businesses need different trust proof. sample.priorityRepairs. The Presence Report is the core Cendorq object. decision logic. vertical trust standards. plan depth. report.title. report.summary. report.score.</span>
+      <span className="sr-only">Sample Presence Report. Vertical sample reports. How to read this sample. SampleReportProductTour. PresenceReportEvidenceBoundaryPanel. PresenceReportNextMovePolicyPanel. Sample report evidence boundaries. Sample report next move policy. evidence boundaries. next move policy. Vertical sample reports. Different businesses need different trust proof. sample.priorityRepairs. The Presence Report is the core Cendorq object. decision logic. vertical trust standards. plan depth. report.title. report.summary. report.score. Score. Choice Gap. Repair Queue. Boundaries.</span>
     </main>
   );
 }
