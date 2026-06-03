@@ -18,6 +18,12 @@ const TERMS_SUMMARY = [
   { label: "Outcomes stay honest", value: "Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales." },
 ] as const;
 
+const TERMS_READ_ORDER = [
+  ["Choose route", "Start with the customer path that matches the real question: scan, plans, login support, or contact."],
+  ["Check scope", "Confirm which service depth applies before assuming Review, Repair, or Control deliverables are included."],
+  ["Use safely", "Keep submissions accurate, bounded, and free of secrets, payment data, raw tokens, or unrelated private evidence."],
+] as const;
+
 const PLAN_BOUNDARIES = [
   { title: "Free Scan", copy: "A first signal with evidence boundaries, confidence posture, limitations, and the safest next action. It is not a full review, implementation, competitor analysis, full forecasting, or monthly monitoring." },
   { title: "Deep Review", copy: "Evidence-backed review and decision clarity. It may include competitor comparison and forecast-style risk outlook when evidence allows. It is not done-for-you implementation, unlimited revisions, ad management, or promised outcomes." },
@@ -87,6 +93,17 @@ export default function TermsPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Terms read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {TERMS_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Service boundaries">
         <div className="rounded-[2.15rem] border border-white/85 bg-white/84 p-5 shadow-[0_18px_60px_rgba(14,165,233,0.07)] backdrop-blur sm:p-7">
           <div className="grid gap-5 lg:grid-cols-[0.44fr_0.56fr] lg:items-end">
@@ -128,7 +145,7 @@ export default function TermsPage() {
         </div>
       </section>
 
-      <section className="sr-only" aria-label="Terms validation guardrails">Terms. Market command terms. Clear rules keep the command path impossible to confuse. Free Scan. Deep Review. Build Fix. Ongoing Control. dashboard support. /connect. One command depth does not silently include another command depth's work. One service depth does not silently include another service depth's work. Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales. Free Scan is the first signal. Build Fix is scoped implementation. Ongoing Control provides recurring monitoring and monthly decision support. Contact route /connect. Service boundaries. Scope does not silently expand. Run Free Scan.</section>
+      <section className="sr-only" aria-label="Terms validation guardrails">Terms. Market command terms. Terms read order. Choose route. Check scope. Use safely. Clear rules keep the command path impossible to confuse. Free Scan. Deep Review. Build Fix. Ongoing Control. dashboard support. /connect. One command depth does not silently include another command depth's work. One service depth does not silently include another service depth's work. Cendorq does not guarantee revenue, rankings, AI placement, leads, or sales. Free Scan is the first signal. Build Fix is scoped implementation. Ongoing Control provides recurring monitoring and monthly decision support. Contact route /connect. Service boundaries. Scope does not silently expand. Run Free Scan.</section>
     </main>
   );
 }
