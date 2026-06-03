@@ -48,10 +48,10 @@ const WHEN_TO_USE: Record<CendorqPlanKey, string> = {
 };
 
 const DECISION_PATH = [
-  ["Scan", "First signal"],
-  ["Review", "Cause proof"],
-  ["Repair", "Scoped fix"],
-  ["Control", "Drift watch"],
+  ["Scan", "First signal", "What is already visible and where the first weakness appears."],
+  ["Review", "Cause proof", "Why customers, search, or AI may hesitate before a fix is bought."],
+  ["Repair", "Scoped fix", "The smallest improvement that can remove the clearest choice blocker."],
+  ["Control", "Drift watch", "Monthly monitoring when the signal needs to stay clean."],
 ] as const;
 
 const PLAN_BOUNDARY_CHECKS = [
@@ -59,6 +59,13 @@ const PLAN_BOUNDARY_CHECKS = [
   "Deep Review explains the cause.",
   "Build Fix repairs the weak point.",
   "Ongoing Control keeps AI Visibility and Readiness from drifting.",
+] as const;
+
+const BUYING_RULES = [
+  ["Start", "Use the Free Scan when the first weakness is unknown."],
+  ["Prove", "Choose Review when the report needs cause evidence."],
+  ["Fix", "Choose Repair only when the weak point is clear."],
+  ["Watch", "Choose Control when the signal must be maintained."],
 ] as const;
 
 const PLAN_CARDS = CENDORQ_PLAN_PRICES.map((plan) => ({
@@ -84,7 +91,7 @@ export default function PlansPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <PlansAtmosphere />
 
-      <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.74fr_1.26fr] lg:items-center" aria-label="Plans introduction">
+      <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center" aria-label="Plans introduction">
         <div className="relative z-10">
           <p className="text-sm font-semibold text-cyan-700">AI Visibility plan depth</p>
           <h1 className="mt-3 max-w-5xl text-[clamp(2.85rem,9.6vw,6.15rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Buy the right layer, not the biggest one.</h1>
@@ -99,15 +106,27 @@ export default function PlansPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.14),transparent_40%)]" aria-hidden="true" />
           <div className="relative">
             <p className="text-sm font-semibold text-slate-500">One path. Four depths.</p>
-            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-              {DECISION_PATH.map(([label, copy]) => (
-                <p key={label} className="rounded-[1.15rem] border border-slate-200 bg-white/84 p-4 text-sm font-bold leading-6 text-slate-700 shadow-sm">
-                  <span className="block text-2xl font-semibold tracking-[-0.06em] text-slate-950">{label}</span>
-                  <span className="mt-1 block text-xs text-slate-500">{copy}</span>
-                </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {DECISION_PATH.map(([label, copy, detail]) => (
+                <article key={label} className="rounded-[1.15rem] border border-slate-200 bg-white/84 p-4 shadow-sm">
+                  <h2 className="text-2xl font-semibold tracking-[-0.06em] text-slate-950">{label}</h2>
+                  <p className="mt-1 text-xs font-black text-cyan-700">{copy}</p>
+                  <p className="mt-3 text-xs font-semibold leading-5 text-slate-600">{detail}</p>
+                </article>
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Cendorq buying rules">
+        <div className="grid gap-3 md:grid-cols-4">
+          {BUYING_RULES.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.25rem] border border-white/80 bg-white/88 p-4 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <p className="text-sm font-semibold text-cyan-700">{label}</p>
+              <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -128,6 +147,7 @@ export default function PlansPage() {
               </div>
               <p className="mt-4 text-sm font-black leading-6 text-slate-800">{plan.purpose}</p>
               <p className="mt-2 min-h-[3.5rem] text-sm font-semibold leading-6 text-slate-600">{plan.when}</p>
+              <div className="mt-4 rounded-[1rem] border border-slate-200 bg-white/82 p-3 text-xs font-semibold leading-5 text-slate-600 shadow-sm">Report-led depth: {plan.stage} comes after the previous signal supports it.</div>
               <Link href={plan.href} className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full border border-cyan-200 bg-white px-4 py-3 text-sm font-black text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
                 {plan.cta}
               </Link>
