@@ -6,6 +6,11 @@ type RulePath = `/${string}` | "/";
 const PUBLIC_ALLOWLIST = [
     "/",
     "/free-check",
+    "/sample-report",
+    "/sample-report/dentist",
+    "/sample-report/med-spa",
+    "/sample-report/law-firm",
+    "/sample-report/contractor",
     "/plans",
     "/plans/deep-review",
     "/plans/build-fix",
@@ -117,7 +122,7 @@ function normalizePath(path: string): RulePath {
     if (!trimmed) return "/";
 
     const withLeadingSlash = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
-    const normalized = withLeadingSlash.replace(/\/+$/, "");
+    const normalized = withLeadingSlash === "/" ? "/" : withLeadingSlash.replace(/\/+$/, "");
 
     return (normalized || "/") as RulePath;
 }
