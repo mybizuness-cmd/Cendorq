@@ -43,6 +43,13 @@ const ROUTES = [
   },
 ] as const;
 
+const PATH_MATRIX = [
+  ["Unclear cause", "Free Scan", "Get the first visibility or readiness signal before a paid depth."],
+  ["Need proof", "Deep Review", "Use cause evidence before repair is purchased."],
+  ["Known weak point", "Build Fix", "Repair only the scoped blocker that is clear enough to improve."],
+  ["Ongoing drift", "Ongoing Control", "Keep the signal monitored after the baseline is known."],
+] as const;
+
 const EMAIL_CHECKS = [
   "Include business name and website.",
   "Use the same email from prior Cendorq work.",
@@ -129,6 +136,27 @@ export default function ConnectPage() {
                   <h2 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{route.title}</h2>
                   <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{route.copy}</p>
                 </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Contact Us decision matrix">
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
+          <div className="grid gap-5 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
+            <div>
+              <p className="text-sm font-semibold text-cyan-700">Route by signal</p>
+              <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Use contact after the stage is known.</h2>
+              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">When the stage is not known, the Free Scan is the safer first step.</p>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              {PATH_MATRIX.map(([condition, route, copy]) => (
+                <article key={condition} className="rounded-[1rem] border border-slate-200 bg-white/88 p-4 shadow-sm">
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700">{condition}</p>
+                  <h3 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{route}</h3>
+                  <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
+                </article>
               ))}
             </div>
           </div>
