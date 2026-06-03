@@ -51,6 +51,29 @@ const PLAN_NEXT_STEP: Record<CendorqPlanKey, string> = {
   "ongoing-control": "Use this when the business needs ongoing attention and visibility control.",
 };
 
+const PLAN_STAGE_PROOF: Record<CendorqPlanKey, readonly [string, string][]> = {
+  "free-scan": [
+    ["What it reads", "A first public signal around visibility, understanding, trust, choice, and action."],
+    ["What it avoids", "A heavy diagnosis before real business context exists."],
+    ["Next safe move", "Open the result and decide whether deeper proof is worth it."],
+  ],
+  "deep-review": [
+    ["What it proves", "The cause behind the weak signal before repair is purchased."],
+    ["What it avoids", "Fixing the wrong layer because the surface symptom looked obvious."],
+    ["Next safe move", "Choose repair only when the evidence supports it."],
+  ],
+  "build-fix": [
+    ["What it repairs", "The scoped weak point that is clear enough to improve."],
+    ["What it avoids", "Broad implementation that hides the actual choice blocker."],
+    ["Next safe move", "Improve the blocker and check whether the public signal strengthens."],
+  ],
+  "ongoing-control": [
+    ["What it watches", "Visibility, readiness, trust, and choice signals that can drift over time."],
+    ["What it avoids", "Treating a one-time improvement like it will stay clean forever."],
+    ["Next safe move", "Keep the signal monitored once the baseline is known."],
+  ],
+};
+
 const PLAN_DECISION_GUIDE = [
   ["First signal", "Use the scan when the weak area is still unclear."],
   ["Cause", "Use review when the business needs evidence before repair."],
@@ -63,6 +86,7 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
   const primaryHref = plan.stripeMode === "none" ? data.ctaHref : plan.checkoutPath;
   const primaryLabel = plan.stripeMode === "none" ? data.ctaLabel : `${data.ctaLabel} — ${plan.price}`;
   const visibleFeatures = data.features.slice(0, 3);
+  const stageProof = PLAN_STAGE_PROOF[plan.key];
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f6fbff_38%,#ffffff_100%)] text-slate-950">
@@ -106,6 +130,17 @@ export function ConversionPlanPage({ data }: { data: PlanPageData }) {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Plan stage proof">
+        <div className="grid gap-3 md:grid-cols-3">
+          {stageProof.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.25rem] border border-white/80 bg-white/88 p-4 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <p className="text-sm font-semibold text-cyan-700">{label}</p>
+              <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -164,7 +199,7 @@ function PlanDecisionGuide() {
           ))}
         </div>
       </div>
-      <span className="sr-only">Decision guide. Depth meaning. Before choosing depth.</span>
+      <span className="sr-only">Decision guide. Depth meaning. Before choosing depth. Plan stage proof. What it reads. What it proves. What it repairs. What it watches.</span>
     </section>
   );
 }
