@@ -45,6 +45,12 @@ const METHODOLOGY_SUMMARY = [
   { title: "Priority", items: FREE_SCAN_PRIORITY_MODEL.map((item) => `${item.level}: ${item.customerMeaning}`).slice(0, 3) },
 ] as const;
 
+const SIGNAL_READ_ORDER = [
+  ["Read signal", "Start with the visible weak point and the customer/AI search meaning."],
+  ["Check limit", "Separate first-signal confidence from anything that needs paid Review."],
+  ["Choose command", "Move to Review only when proving the cause is safer than guessing."],
+] as const;
+
 export default function FreeScanResultsPage() {
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
@@ -77,6 +83,17 @@ export default function FreeScanResultsPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Free Scan reading order">
+        <div className="grid gap-4 md:grid-cols-3">
+          {SIGNAL_READ_ORDER.map(([title, copy]) => (
+            <article key={title} className="rounded-[1.55rem] border border-white/80 bg-white/82 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{title}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -183,7 +200,7 @@ export default function FreeScanResultsPage() {
           </div>
         </div>
       </section>
-      <section className="sr-only" aria-label="Protected Free Scan Presence Report standard">Protected Free Scan result. Protected Free Scan Presence Report preview. Presence Score. First weak point. Top repair priorities. Choice Gap. Repair Queue. first signal only. no complete diagnosis claim. no ranking placement or lead guarantees.</section>
+      <section className="sr-only" aria-label="Protected Free Scan Presence Report standard">Protected Free Scan result. Protected Free Scan Presence Report preview. Presence Score. First weak point. Top repair priorities. Choice Gap. Repair Queue. first signal only. no complete diagnosis claim. no ranking placement or lead guarantees. Free Scan reading order. Read signal. Check limit. Choose command.</section>
     </main>
   );
 }
