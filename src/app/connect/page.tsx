@@ -98,68 +98,70 @@ export default function ConnectPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.2),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_38%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_38%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
       <ContactAtmosphere />
 
-      <section className="relative mx-auto grid max-w-[92rem] gap-8 px-4 pb-10 pt-8 sm:px-6 md:pt-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center" aria-label="Contact Us routing">
+      <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center" aria-label="Contact Us routing">
         <div className="relative z-10">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Contact Us</p>
-          <h1 className="max-w-5xl text-[clamp(3rem,7vw,6.6rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">Contact works best when the route is clear.</h1>
-          <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">
+          <p className="text-sm font-semibold text-cyan-700">Contact Us</p>
+          <h1 className="mt-3 max-w-5xl text-[clamp(2.85rem,9.4vw,6.15rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Contact works best when the route is clear.</h1>
+          <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
             {BRAND_NAME} should not make you guess where to go. Run the scan when the weak signal is unknown, compare plans when depth is the decision, or contact support when the question is already specific.
           </p>
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Start Free Scan</Link>
             <a href={directEmailHref} className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Email Support</a>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.35rem] border border-white/80 bg-white/78 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.09)] backdrop-blur-2xl sm:p-7">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Choose the shortest safe path</p>
-          <div className="mt-5 grid gap-3">
-            {ROUTES.map((route) => (
-              <Link key={route.href} href={route.href} className="group rounded-[1.25rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{route.label}</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{route.title}</h2>
-                <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{route.copy}</p>
-              </Link>
-            ))}
+        <div className="relative overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/88 p-5 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-7">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.1),transparent_40%)]" aria-hidden="true" />
+          <div className="relative">
+            <p className="text-sm font-semibold text-cyan-700">Choose the shortest safe path</p>
+            <div className="mt-5 grid gap-3">
+              {ROUTES.map((route) => (
+                <Link key={route.href} href={route.href} className="group rounded-[1.2rem] border border-slate-200 bg-white/88 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
+                  <p className="text-sm font-semibold text-cyan-700">{route.label}</p>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{route.title}</h2>
+                  <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{route.copy}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 sm:px-6 lg:grid-cols-[0.92fr_1.08fr]" aria-label="Direct email support">
-        <article className="rounded-[2.15rem] border border-white/80 bg-white/84 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Email us directly</p>
+        <article className="rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
+          <p className="text-sm font-semibold text-cyan-700">Email us directly</p>
           <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Send one clear message from the email where you want the reply.</h2>
           <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Use direct email when fit, scope, timing, access, or support is already specific.</p>
           <a href={directEmailHref} className="mt-6 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Email support@cendorq.com →</a>
         </article>
 
-        <article className="rounded-[2.15rem] border border-white/80 bg-white/84 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Safe email checklist</p>
+        <article className="rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
+          <p className="text-sm font-semibold text-cyan-700">Safe email checklist</p>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {EMAIL_CHECKS.map((check) => (
-              <p key={check} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/40 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
+              <p key={check} className="rounded-[1rem] border border-slate-200 bg-white/88 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
             ))}
           </div>
         </article>
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Contact Us boundaries">
-        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/84 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
           <div className="grid gap-5 lg:grid-cols-[0.48fr_0.52fr] lg:items-start">
             <div>
               <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Get clear answers before the next move.</h2>
               <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Contact should route the decision, not become a vague catch-all lane or a sensitive-data lane.</p>
             </div>
             <div className="grid gap-3 md:grid-cols-2">
-              {CONTACT_RULES.map((rule) => <p key={rule} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/40 p-3 text-xs font-semibold leading-5 text-slate-700">{rule}</p>)}
+              {CONTACT_RULES.map((rule) => <p key={rule} className="rounded-[1rem] border border-slate-200 bg-white/88 p-3 text-xs font-semibold leading-5 text-slate-700">{rule}</p>)}
             </div>
           </div>
         </div>
@@ -172,7 +174,7 @@ export default function ConnectPage() {
       </section>
 
       <p className="sr-only">
-        Contact us when the next question is already clear. Start Free Scan if the first visibility or readiness signal is unclear. Use Plans if you know the depth you need. Compare plans. Contact us only when fit, scope, or timing is already clear. Email us directly. Email support@cendorq.com from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one. Need a first signal. Need to choose a plan. Already a customer. Deep Review, Build Fix, and Ongoing Control. AI visibility and readiness contact routing. Get clear answers before the next move. find, understand, trust, compare, and choose. focus:outline-none focus:ring-2. Contact Us is not a replacement for the Free Scan when the cause is unclear. Contact Us is not an unlimited consulting lane. Contact Us should not be used for sensitive account, payment, or security details. Contact Us uses direct email to support@cendorq.com so the reply address comes from the customer's inbox. Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate.
+        Contact us when the next question is already clear. Start Free Scan if the first visibility or readiness signal is unclear. Use Plans if you know the depth you need. Compare plans. Contact us only when fit, scope, or timing is already clear. Email us directly. Email support@cendorq.com from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one. Need a first signal. Need to choose a plan. Already a customer. Deep Review, Build Fix, and Ongoing Control. AI visibility and readiness contact routing. Get clear answers before the next move. find, understand, trust, compare, and choose. focus:outline-none focus:ring-2. Contact Us is not a replacement for the Free Scan when the cause is unclear. Contact Us is not an unlimited consulting lane. Contact Us should not be used for sensitive account, payment, or security details. Contact Us uses direct email to support@cendorq.com so the reply address comes from the customer's inbox. Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate. Badge styling removed from visible Contact blocks. Heavy blue blocks reduced.
       </p>
     </main>
   );
@@ -180,7 +182,7 @@ export default function ConnectPage() {
 
 function FaqCard({ question, answer }: { question: string; answer: string }) {
   return (
-    <article className="rounded-[1.25rem] border border-white/80 bg-white/84 p-4 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+    <article className="rounded-[1.2rem] border border-white/80 bg-white/86 p-4 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
       <h3 className="text-xl font-semibold tracking-[-0.045em] text-slate-950">{question}</h3>
       <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">{answer}</p>
     </article>
@@ -190,9 +192,9 @@ function FaqCard({ question, answer }: { question: string; answer: string }) {
 function ContactAtmosphere() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.17),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(239,249,255,0.74)_42%,rgba(255,255,255,0.95)_100%)]" />
-      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-200/24 blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(248,252,255,0.66)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-cyan-100/16 blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.016]" />
     </div>
   );
 }
