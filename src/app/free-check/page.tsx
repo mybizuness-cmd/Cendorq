@@ -101,7 +101,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.24),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_38%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.16),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f5fbff_38%,#ffffff_100%)] text-slate-950">
       <FreeCheckProgressGuard />
       <FreeCheckAnalytics />
       <FreeScanAtmosphere />
@@ -114,12 +114,12 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
       <section className="relative mx-auto grid max-w-[96rem] gap-5 px-3 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.55fr_1.45fr] lg:items-start" aria-label="Free Scan entry">
         <div className="relative z-10 lg:sticky lg:top-24">
           {accessNotice ? (
-            <div role="status" aria-live="polite" className="mb-5 max-w-3xl rounded-[1.2rem] border border-cyan-200 bg-white/86 p-4 text-sm font-semibold leading-7 text-slate-700 shadow-[0_14px_45px_rgba(15,23,42,0.06)] backdrop-blur">
+            <div role="status" aria-live="polite" className="mb-5 max-w-3xl rounded-[1.2rem] border border-slate-200 bg-white/88 p-4 text-sm font-semibold leading-7 text-slate-700 shadow-[0_14px_45px_rgba(15,23,42,0.055)] backdrop-blur">
               <span className="text-cyan-700">We could not find your Cendorq account yet.</span> {accessNotice}
             </div>
           ) : null}
 
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Free AI Visibility Scan</p>
+          <p className="text-sm font-semibold text-cyan-700">Free AI Visibility Scan</p>
           <h1 className="mt-3 max-w-5xl text-[clamp(2.75rem,9.4vw,5.6rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">See the first weak signal before buying the fix.</h1>
           <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-600 sm:text-lg sm:leading-8">
             Cendorq checks how your business appears, then points to the first place visibility, trust, choice, or action may be holding you back.
@@ -133,37 +133,40 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
 
           <div className="mt-5 grid grid-cols-3 gap-2 lg:grid-cols-1 xl:grid-cols-3">
             {ENTRY_PROMISES.map(([label, copy]) => (
-              <p key={label} className="rounded-[0.95rem] border border-cyan-100 bg-white/82 p-3 text-xs font-semibold leading-5 text-slate-600 shadow-sm backdrop-blur">
-                <span className="block text-[10px] font-black uppercase tracking-[0.14em] text-cyan-700">{label}</span>
+              <p key={label} className="rounded-[0.95rem] border border-slate-200 bg-white/86 p-3 text-xs font-semibold leading-5 text-slate-600 shadow-sm backdrop-blur">
+                <span className="block text-sm font-semibold text-cyan-700">{label}</span>
                 <span className="mt-1 hidden sm:block lg:hidden xl:block">{copy}</span>
               </p>
             ))}
           </div>
 
-          <div className="mt-5 rounded-[1.2rem] border border-cyan-100 bg-cyan-50/50 p-4 shadow-sm backdrop-blur">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">What the first signal looks for</p>
+          <div className="mt-5 rounded-[1.2rem] border border-slate-200 bg-white/86 p-4 shadow-sm backdrop-blur">
+            <p className="text-sm font-semibold text-cyan-700">What the first signal looks for</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              {SIGNALS.map((signal) => <span key={signal} className="rounded-full border border-cyan-100 bg-white px-3 py-1.5 text-xs font-black text-slate-700">{signal}</span>)}
+              {SIGNALS.map((signal) => <span key={signal} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-black text-slate-700">{signal}</span>)}
             </div>
           </div>
         </div>
 
-        <div id="free-scan-form" className="scroll-mt-24 rounded-[1.7rem] border border-white/80 bg-white/78 p-1.5 shadow-[0_26px_90px_rgba(14,165,233,0.1)] backdrop-blur-2xl sm:rounded-[2.1rem] sm:p-2.5">
+        <div id="free-scan-form" className="scroll-mt-24 rounded-[1.7rem] border border-white/80 bg-white/82 p-1.5 shadow-[0_26px_90px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:rounded-[2.1rem] sm:p-2.5">
           <GuidedFreeCheckFormV3 className="relative z-10" />
         </div>
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Free Scan next path">
-        <div className="overflow-hidden rounded-[2.15rem] border border-white/85 bg-white/84 shadow-[0_22px_70px_rgba(14,165,233,0.08)] backdrop-blur">
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/85 bg-white/86 shadow-[0_22px_70px_rgba(15,23,42,0.06)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.42fr_0.58fr] lg:items-stretch">
-            <div className="bg-slate-950 p-5 text-white sm:p-7">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Decision path</p>
-              <h2 className="mt-3 text-4xl font-semibold leading-[0.95] tracking-[-0.06em] text-white sm:text-5xl">Submit once. Keep the next move clear.</h2>
-              <p className="mt-4 text-sm font-semibold leading-7 text-cyan-50/78 sm:text-base">The Free Scan reduces uncertainty before paid depth.</p>
+            <div className="relative overflow-hidden bg-white p-5 sm:p-7">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(251,207,232,0.14),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.12),transparent_40%)]" aria-hidden="true" />
+              <div className="relative">
+                <p className="text-sm font-semibold text-cyan-700">Decision path</p>
+                <h2 className="mt-3 text-4xl font-semibold leading-[0.95] tracking-[-0.06em] text-slate-950 sm:text-5xl">Submit once. Keep the next move clear.</h2>
+                <p className="mt-4 text-sm font-semibold leading-7 text-slate-600 sm:text-base">The Free Scan reduces uncertainty before paid depth.</p>
+              </div>
             </div>
             <div className="grid gap-3 p-5 md:grid-cols-3 sm:p-7">
               {NEXT_STEPS.map(([title, copy]) => (
-                <article key={title} className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm">
+                <article key={title} className="rounded-[1.25rem] border border-slate-200 bg-white/88 p-4 shadow-sm">
                   <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
                   <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
                 </article>
@@ -174,7 +177,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Free Scan expectations">
-        <div className="rounded-[2.15rem] border border-white/80 bg-white/84 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
+        <div className="rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
           <div className="grid gap-5 lg:grid-cols-[0.38fr_0.62fr] lg:items-start">
             <div>
               <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">A first signal, not a promise.</h2>
@@ -182,7 +185,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
             </div>
             <div className="grid gap-3 md:grid-cols-2">
               {EXPECTATIONS.map((check) => (
-                <p key={check} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/40 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
+                <p key={check} className="rounded-[1rem] border border-slate-200 bg-white/86 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
               ))}
             </div>
           </div>
@@ -199,8 +202,8 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
 function FreeScanAtmosphere() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.15),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(239,249,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
-      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-cyan-200/20 blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.1),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(246,252,255,0.66)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-cyan-100/18 blur-3xl" />
       <div className="system-grid-wide absolute inset-0 opacity-[0.016]" />
     </div>
   );
