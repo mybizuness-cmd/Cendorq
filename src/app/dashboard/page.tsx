@@ -50,6 +50,12 @@ const PROTECTED_COMMAND_STRIP = [
   { label: "Control", value: "Control Snapshot", copy: "Keep the business answer-ready after Review or Repair changes land." },
 ] as const;
 
+const DASHBOARD_READ_ORDER = [
+  ["Check state", "See whether a scan, report, plan, billing item, or support issue is ready, pending, held, or missing."],
+  ["Open proof", "Start from the protected report or command snapshot before choosing another depth."],
+  ["Move once", "Take one next command instead of jumping between reports, billing, support, and plans."],
+] as const;
+
 const COMMAND_PATH = [
   {
     title: "Scan",
@@ -128,6 +134,17 @@ export default function CustomerDashboardPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Dashboard read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {DASHBOARD_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -221,7 +238,7 @@ export default function CustomerDashboardPage() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6"><DashboardActionInbox /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6"><DashboardBusinessCommandCenter /></section>
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6"><DashboardControlRoomReentry /></section>
-      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard. start the Free Scan, continue Review, open the result, or choose the next plan. AI Visibility command path. Private business command center. Know what is ready, what is blocked, and what moves revenue next. This dashboard is not an account page. Open Free Scan result. /dashboard/reports/free-scan. Four levels. Four different jobs. One dashboard decision. Free Scan. Deep Review. Build Fix. Ongoing Control. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Protected Presence Command Center. State, gap, action, control. Presence Reports. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Dashboard decision summary. Command center consistency. Command path. Dashboard command links. Scan. Review. Repair. Control. Next best move. Capture the first signal. Presence report. No cheap dashboard blocks. No clutter wall. No shrinking the system. hover:-translate-y-0.5. shadow-[0_30px_120px_rgba(2,8,23,0.10)]. focus:outline-none. focus:ring-2. Start with one next command before sending the customer into deeper pages. Keep Scan, Review, Repair, and Control visibly separate. Route reports, billing, notifications, and support back to the same protected account thread. Do not imply a result, purchase, delivery, or outcome exists before the right state is ready. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction DashboardPresenceCommandSnapshot Open protected scan, Review, Diagnosis, and evidence outputs when they are ready. OPERATING_SNAPSHOT. Dashboard operating snapshot. Current stage. Primary focus. Decision quality. Protection mode. Proof before pressure. Customer-safe. EXPERIENCE_PILLARS. Dashboard excellence pillars. Business owner clarity. Proof-led conversion. Connected operations. Protected trust. CHANNEL_COVERAGE. Revenue channel awareness. Social and creator channels. Marketplace/platform revenue. Digital product or recurring revenue. Private workspace. See what is pending, what is ready, and what to do next. Start with the clearest available signal. Do not treat pending work as final. Dashboard validation guardrails.</section>
+      <section className="sr-only" aria-label="Dashboard command standard">AI Visibility command center. Your Cendorq command center is ready. one clear next command. One next command. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and the next command path together. Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard. start the Free Scan, continue Review, open the result, or choose the next plan. Dashboard read order. Check state. Open proof. Move once. AI Visibility command path. Private business command center. Know what is ready, what is blocked, and what moves revenue next. This dashboard is not an account page. Open Free Scan result. /dashboard/reports/free-scan. Four levels. Four different jobs. One dashboard decision. Free Scan. Deep Review. Build Fix. Ongoing Control. Free Scan creates the account. Secure access brings customers back. A scan can exist before a paid review. A purchase can exist before delivery starts. Protected Presence Command Center. State, gap, action, control. Presence Reports. Presence command snapshot. Presence Score. Choice Gap. Repair Queue. Control Snapshot. Dashboard decision summary. Command center consistency. Command path. Dashboard command links. Scan. Review. Repair. Control. Next best move. Capture the first signal. Presence report. No cheap dashboard blocks. No clutter wall. No shrinking the system. hover:-translate-y-0.5. shadow-[0_30px_120px_rgba(2,8,23,0.10)]. focus:outline-none. focus:ring-2. Start with one next command before sending the customer into deeper pages. Keep Scan, Review, Repair, and Control visibly separate. Route reports, billing, notifications, and support back to the same protected account thread. Do not imply a result, purchase, delivery, or outcome exists before the right state is ready. Diagnosis belongs inside Review and report evidence. Open Free Scan path. Open Review page. Open Repair page. Open Control page. Reports Billing Notifications Support getPlanValueDelivery getCendorqPlanPrice DashboardNextBestAction DashboardPresenceCommandSnapshot Open protected scan, Review, Diagnosis, and evidence outputs when they are ready. OPERATING_SNAPSHOT. Dashboard operating snapshot. Current stage. Primary focus. Decision quality. Protection mode. Proof before pressure. Customer-safe. EXPERIENCE_PILLARS. Dashboard excellence pillars. Business owner clarity. Proof-led conversion. Connected operations. Protected trust. CHANNEL_COVERAGE. Revenue channel awareness. Social and creator channels. Marketplace/platform revenue. Digital product or recurring revenue. Private workspace. See what is pending, what is ready, and what to do next. Start with the clearest available signal. Do not treat pending work as final. Dashboard validation guardrails.</section>
     </main>
   );
 }
