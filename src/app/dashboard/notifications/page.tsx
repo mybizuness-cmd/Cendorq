@@ -78,6 +78,12 @@ const ALERT_TYPES = [
   { title: "Security signal", copy: "Re-authenticate calmly without exposing attacker details or risk internals.", href: "/login" },
 ] as const;
 
+const SIGNAL_READ_ORDER = [
+  ["Name signal", "Identify whether the alert is proof, access, support, or security before acting."],
+  ["Open source", "Go to the exact report, billing, status, or sign-in surface instead of guessing."],
+  ["Act once", "Take the next safe action without creating duplicate support noise or checkout pressure."],
+] as const;
+
 const QUIET_FEED_RULES = [
   "Every alert must explain why it matters and where the customer can act safely.",
   "Notifications show safe customer summaries, not raw evidence, secrets, prompts, private internals, or raw billing IDs.",
@@ -124,6 +130,17 @@ export default function NotificationCenterPage() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Signal feed read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {SIGNAL_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -210,7 +227,7 @@ export default function NotificationCenterPage() {
       </section>
 
       <section className="sr-only" aria-label="Notification AI Visibility feed guardrails">
-        AI Visibility signal feed. Light notification feed. No black notification blocks. No dark blue notification blocks. Act only on signals that protect command progress. Priority AI Visibility feed. Live support lifecycle notification feed. Mark all read. Mark read. Scan. Review. Repair. Control. One safe next action each. Signal routing types. Featured customer signals. Quiet feed standard. Signals should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. Notification paid actions route to plan detail pages before payment. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.command} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {SIGNAL_FEED_CHECKS.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
+        AI Visibility signal feed. Light notification feed. No black notification blocks. No dark blue notification blocks. Act only on signals that protect command progress. Signal feed read order. Name signal. Open source. Act once. Priority AI Visibility feed. Live support lifecycle notification feed. Mark all read. Mark read. Scan. Review. Repair. Control. One safe next action each. Signal routing types. Featured customer signals. Quiet feed standard. Signals should create confidence, not noise. No generic notification clutter. No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety. Notification paid actions route to plan detail pages before payment. {PRIORITY_FEED.map((alert) => `${alert.planKey} ${alert.command} ${alert.moment} ${alert.value} ${alert.boundary} ${alert.plan.primaryValue}`).join(" ")} {ALERT_TYPES.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {SIGNAL_READ_ORDER.map(([label, copy]) => `${label} ${copy}`).join(" ")} {QUIET_FEED_RULES.join(" ")} {SIGNAL_FEED_CHECKS.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {NOTIFICATION_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")} {CUSTOMER_SUPPORT_LIFECYCLE_NOTIFICATION_CONTRACTS.map((notification) => `${notification.key} ${notification.title} ${notification.body} ${notification.primaryPath}`).join(" ")}
       </section>
     </main>
   );
