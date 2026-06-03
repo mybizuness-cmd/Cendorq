@@ -163,7 +163,7 @@ export default function PlansPage() {
       </section>
 
       <section className="sr-only" aria-label="Plans route validation anchors">
-        Choose the right visibility and readiness depth. Choose the right AI Visibility and Readiness depth. Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Build Fix repairs the weak point. Ongoing Control keeps visibility and readiness from drifting. Ongoing Control keeps AI Visibility and Readiness from drifting. Start with what you need now. The report shows which depth fits. Open Sample Presence Report. Open Deep Review. Open Build Fix. Open Ongoing Control. Open Review page. Open Repair page. Open Control page. "build-fix": "Repair". One path. Four depths. CENDORQ_PLAN_PRICES. PresenceReportPreview. Run Free Scan. Mobile pricing hierarchy compression.
+        Choose the right visibility and readiness depth. Choose the right AI Visibility and Readiness depth. Free Scan shows the first signal. Deep Review explains the cause. Build Fix improves the weak point. Build Fix repairs the weak point. Ongoing Control keeps visibility and readiness from drifting. Ongoing Control keeps AI Visibility and Readiness from drifting. Start with what you need now. The report shows which depth fits. Open Sample Presence Report. Open Deep Review. Open Build Fix. Open Ongoing Control. Open Review page. Open Repair page. Open Control page. "build-fix": "Repair". One path. Four depths. CENDORQ_PLAN_PRICES. PresenceReportPreview. Run Free Scan. Cendorq does not guarantee rankings, leads, revenue, or AI placement. Mobile pricing hierarchy compression.
       </section>
     </main>
   );
