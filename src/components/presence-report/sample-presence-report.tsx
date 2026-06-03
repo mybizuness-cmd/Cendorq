@@ -4,6 +4,18 @@ import { SAMPLE_CONTROL_SNAPSHOT } from "@/lib/control-snapshot-contract";
 import { SAMPLE_PRESENCE_REPORT } from "@/lib/presence-report-contract";
 import { SAMPLE_PRESENCE_REPORT_RELEASE_CHECKS } from "@/lib/presence-report-release-gate";
 
+const AI_ANSWER_SNAPSHOT = [
+  ["Likely answer read", "Visible but not decisive"],
+  ["Missing confidence", "Proof appears after the choice moment"],
+  ["Safer next command", "Review before broad repair"],
+] as const;
+
+const DECISION_FLAGS = [
+  "Useful first signal, not a ranking promise.",
+  "Repair waits when the cause still needs proof.",
+  "Customer-safe summary only; no raw evidence shown.",
+] as const;
+
 export function SamplePresenceReport() {
   const report = SAMPLE_PRESENCE_REPORT;
   const truthProfile = SAMPLE_BUSINESS_TRUTH_PROFILE;
@@ -17,8 +29,9 @@ export function SamplePresenceReport() {
       <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-[linear-gradient(145deg,#ffffff,#fbfdff_55%,#fff9fc)] sm:rounded-[2.1rem]">
         <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
           <div className="border-b border-slate-200/80 bg-white/72 p-5 sm:p-6 lg:border-b-0 lg:border-r">
-            <h2 className="text-[clamp(2.05rem,5vw,3.55rem)] font-semibold leading-[0.94] tracking-[-0.075em] text-slate-950">{report.title}</h2>
-            <p className="mt-3 max-w-2xl text-sm font-medium leading-7 text-slate-600">{report.summary}</p>
+            <p className="text-sm font-semibold text-cyan-700">Presence Report preview</p>
+            <h2 className="mt-3 text-[clamp(2.05rem,5vw,3.55rem)] font-semibold leading-[0.94] tracking-[-0.075em] text-slate-950">{report.title}</h2>
+            <p className="mt-3 max-w-2xl text-sm font-semibold leading-7 text-slate-600">{report.summary}</p>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               <div className="relative overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white p-4 text-center shadow-[0_14px_38px_rgba(15,23,42,0.055)]">
@@ -36,10 +49,23 @@ export function SamplePresenceReport() {
             </div>
 
             <div className="mt-4 rounded-[1.25rem] border border-slate-200 bg-white/92 p-4 shadow-sm">
+              <h3 className="text-xl font-semibold tracking-[-0.04em] text-slate-950">AI Answer Snapshot</h3>
+              <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">The sample shows how Cendorq separates being found from being clearly trusted and chosen.</p>
+              <div className="mt-3 grid gap-2">
+                {AI_ANSWER_SNAPSHOT.map(([label, value]) => (
+                  <p key={label} className="grid grid-cols-[0.82fr_1.18fr] gap-3 rounded-[0.9rem] border border-slate-200 bg-white p-3 text-xs font-semibold leading-5 shadow-sm">
+                    <span className="text-slate-500">{label}</span>
+                    <span className="text-slate-950">{value}</span>
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-[1.25rem] border border-slate-200 bg-white/92 p-4 shadow-sm">
               <h3 className="text-xl font-semibold tracking-[-0.04em] text-slate-950">Business Truth Profile</h3>
-              <p className="mt-2 text-sm font-medium leading-6 text-slate-600">{truthProfile.businessName}</p>
-              <p className="mt-1 text-sm font-medium leading-6 text-slate-600">{truthProfile.category} · {truthProfile.primaryLocation}</p>
-              <p className="mt-1 text-sm font-semibold leading-6 text-slate-700">Preferred CTA: {truthProfile.preferredCta}</p>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{truthProfile.businessName}</p>
+              <p className="mt-1 text-sm font-semibold leading-6 text-slate-600">{truthProfile.category} · {truthProfile.primaryLocation}</p>
+              <p className="mt-1 text-sm font-bold leading-6 text-slate-700">Preferred CTA: {truthProfile.preferredCta}</p>
             </div>
           </div>
 
@@ -54,7 +80,7 @@ export function SamplePresenceReport() {
                     </div>
                     <p className="text-2xl font-semibold tracking-[-0.055em] text-slate-950">{pillar.score}</p>
                   </div>
-                  <p className="mt-2 text-xs font-medium leading-5 text-slate-600">{pillar.publicMeaning}</p>
+                  <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{pillar.publicMeaning}</p>
                   <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100">
                     <span className="block h-full rounded-full bg-[linear-gradient(90deg,#bae6fd,#f5d0fe)]" style={{ width: `${pillar.score}%` }} />
                   </div>
@@ -65,12 +91,12 @@ export function SamplePresenceReport() {
             <div className="mt-4 grid gap-3 xl:grid-cols-2">
               <section className="rounded-[1.25rem] border border-slate-200/80 bg-white/92 p-4 shadow-sm">
                 <h3 className="text-xl font-semibold tracking-[-0.04em] text-slate-950">Choice Gap</h3>
-                <p className="mt-2 text-xs font-medium leading-5 text-slate-600">{choiceGap.summary}</p>
+                <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{choiceGap.summary}</p>
                 <div className="mt-3 grid gap-2">
                   {choiceGap.signals.slice(0, 2).map((signal) => (
                     <article key={signal.title} className="rounded-[0.95rem] border border-slate-200 bg-white p-3 shadow-sm">
                       <h4 className="text-xs font-semibold leading-5 text-slate-950">{signal.title}</h4>
-                      <p className="mt-1 text-xs font-medium leading-5 text-slate-600">{signal.repairDirection}</p>
+                      <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">{signal.repairDirection}</p>
                     </article>
                   ))}
                 </div>
@@ -84,7 +110,7 @@ export function SamplePresenceReport() {
                       <span className="text-xs font-black text-cyan-800">0{index + 1}</span>
                       <span>
                         <h4 className="text-sm font-semibold leading-5 text-slate-950">{item.title}</h4>
-                        <p className="mt-1 text-xs font-medium leading-5 text-slate-600">{item.publicReason}</p>
+                        <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">{item.publicReason}</p>
                       </span>
                     </article>
                   ))}
@@ -99,7 +125,7 @@ export function SamplePresenceReport() {
                   {releaseChecks.slice(0, 2).map((check) => (
                     <div key={check.label} className="rounded-[0.95rem] border border-slate-200 bg-white p-3 shadow-sm">
                       <p className="text-xs font-semibold text-slate-950">{check.label}</p>
-                      <p className="mt-1 text-xs font-medium leading-5 text-slate-600">{check.customerSafeReason}</p>
+                      <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">{check.customerSafeReason}</p>
                     </div>
                   ))}
                 </div>
@@ -108,13 +134,19 @@ export function SamplePresenceReport() {
               <section className="rounded-[1.25rem] border border-slate-200/80 bg-white/92 p-4 shadow-sm">
                 <h3 className="text-xl font-semibold tracking-[-0.04em] text-slate-950">Control Snapshot</h3>
                 <p className="mt-2 text-base font-semibold tracking-[-0.03em] text-slate-950">{controlSnapshot.monthLabel}: {controlSnapshot.presenceScore} / 100</p>
-                <p className="mt-2 text-xs font-medium leading-5 text-slate-600">{controlSnapshot.summary}</p>
+                <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{controlSnapshot.summary}</p>
               </section>
+            </div>
+
+            <div className="mt-4 grid gap-2 rounded-[1.25rem] border border-slate-200/80 bg-white/92 p-4 shadow-sm sm:grid-cols-3">
+              {DECISION_FLAGS.map((flag) => (
+                <p key={flag} className="rounded-[0.9rem] border border-slate-200 bg-white p-3 text-xs font-bold leading-5 text-slate-600 shadow-sm">{flag}</p>
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <span className="sr-only">First signal summary. Pillar scores. Business Truth Profile. Choice Gap. Repair Queue. Release Gate. Control Snapshot. Recommended next move. report.pillars.map. report.repairQueue.map. releaseChecks.map.</span>
+      <span className="sr-only">First signal summary. Pillar scores. Business Truth Profile. AI Answer Snapshot. Choice Gap. Repair Queue. Release Gate. Control Snapshot. Recommended next move. report.title. report.summary. report.score. report.pillars.map. report.repairQueue.map. releaseChecks.map. Customer-safe summary only.</span>
     </section>
   );
 }
