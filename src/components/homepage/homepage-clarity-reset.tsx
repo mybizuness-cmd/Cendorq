@@ -7,6 +7,12 @@ const PROOF_POINTS = [
   "One next command: scan, review, repair, or control",
 ] as const;
 
+const HOMEPAGE_READ_ORDER = [
+  ["Read signal", "Start with what AI, search, and customers can already understand."],
+  ["See gap", "Find the Choice Gap before buying review, repair, or control."],
+  ["Move once", "Take the next safest command instead of guessing across pages."],
+] as const;
+
 const COMMAND_PATH = [
   ["Scan", "First signal", "Read what buyers and AI can already see."],
   ["Review", "Cause proof", "Prove the reason before buying a fix."],
@@ -19,6 +25,9 @@ const REPORT_CARDS = [
   ["Choice gap", "High", "Proof appears too late"],
   ["Next command", "Review", "Confirm cause before repair"],
 ] as const;
+
+const PRIMARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.16)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const SECONDARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-white/90 bg-white/78 px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export function HomepageClarityReset() {
   return (
@@ -37,12 +46,8 @@ export function HomepageClarityReset() {
             Cendorq turns public visibility into a repair decision: what AI, search, and customers can understand, where choice gets weak, and what to do first.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.16)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-              Start Free Scan
-            </Link>
-            <Link href="/sample-report" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/90 bg-white/78 px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-              See Sample Report
-            </Link>
+            <Link href="/free-check" className={PRIMARY_CTA_CLASS}>Start Free Scan</Link>
+            <Link href="/sample-report" className={SECONDARY_CTA_CLASS}>See Sample Report</Link>
           </div>
           <div className="mt-5 hidden gap-2 sm:grid">
             {PROOF_POINTS.map((point, index) => (
@@ -55,6 +60,17 @@ export function HomepageClarityReset() {
         </div>
 
         <CendorqProductMotionDemo />
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Homepage read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {HOMEPAGE_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Cendorq proof summary">
@@ -80,6 +96,10 @@ export function HomepageClarityReset() {
                 <p className="mt-4 text-sm font-semibold leading-7 text-slate-600 sm:text-base">
                   The product should feel like a diagnostic machine: one public signal, one gap, one safest next command.
                 </p>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <Link href="/plans" className={SECONDARY_CTA_CLASS}>View Plans</Link>
+                  <Link href="/faq" className={SECONDARY_CTA_CLASS}>Read FAQ</Link>
+                </div>
               </div>
             </div>
             <div className="grid gap-3 p-5 sm:grid-cols-2 sm:p-7 lg:p-8">
@@ -96,7 +116,7 @@ export function HomepageClarityReset() {
       </section>
 
       <section className="sr-only" aria-label="Homepage drift validation anchors">
-        CENDORQ_EXPERIENCE_SYSTEM. PresenceReportPreview. Presence Report. Sample Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Scan. Review. Repair. Control. Run Free Scan. View Plans. AI Search Presence Repair. Be easier to find, understand, and choose. Start Free Scan. See Sample Report. Mobile product-flow compression. Product proof before long explanation. One dominant next command per screen band. AI answer snapshot. Local proof. Review sentiment. Choice Gap. Repair Queue.
+        CENDORQ_EXPERIENCE_SYSTEM. PresenceReportPreview. Presence Report. Sample Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Scan. Review. Repair. Control. Run Free Scan. View Plans. AI Search Presence Repair. Be easier to find, understand, and choose. Start Free Scan. See Sample Report. Mobile product-flow compression. Product proof before long explanation. One dominant next command per screen band. AI answer snapshot. Local proof. Review sentiment. Choice Gap. Repair Queue. Homepage read order. Read signal. See gap. Move once. Scan, See the gap, Fix the next move.
       </section>
     </main>
   );
