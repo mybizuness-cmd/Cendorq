@@ -8,11 +8,17 @@ const FOOTER_LINKS = [
   ["Sample Report", "/sample-report"],
   ["Plans", "/plans"],
   ["FAQ", "/faq"],
-  ["Contact", "/connect"],
+  ["Contact Us", "/connect"],
   ["Customer Access", "/login"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
   ["Disclaimer", "/disclaimer"],
+] as const;
+
+const FOOTER_PATH = [
+  ["Scan", "first signal"],
+  ["Report", "choice gap"],
+  ["Plan", "right depth"],
 ] as const;
 
 export function SiteFooter() {
@@ -30,8 +36,18 @@ export function SiteFooter() {
                 <span className="text-sm font-black tracking-[-0.01em]">{BRAND_NAME}</span>
               </Link>
               <p className="mt-4 max-w-4xl text-[clamp(1.65rem,4.7vw,3.2rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen.</p>
+              <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600">Start with the right read before buying the wrong fix. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement.</p>
             </div>
             <Link href="/free-check" className="inline-flex min-h-11 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-5 py-2 text-sm font-black text-slate-950 shadow-[0_14px_34px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Start Free Scan</Link>
+          </div>
+
+          <div className="grid gap-3 rounded-[1.35rem] border border-cyan-100 bg-white/78 p-3 shadow-sm sm:grid-cols-3">
+            {FOOTER_PATH.map(([label, copy]) => (
+              <div key={label} className="rounded-[1rem] border border-slate-200 bg-white px-4 py-3">
+                <p className="text-sm font-black text-slate-950">{label}</p>
+                <p className="mt-1 text-xs font-semibold leading-5 text-slate-500">{copy}</p>
+              </div>
+            ))}
           </div>
 
           <div className="grid gap-4 border-t border-cyan-100 pt-4 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -44,7 +60,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Be easier to find, understand, and choose. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Run Free Scan, Start Free Scan, Sample Report, Plans, FAQ, Privacy, Terms, Disclaimer, and Customer Access. Customer Access routes to /login. href="/free-check" href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer" href="/login"</span>
+      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Be easier to find, understand, and choose. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Run Free Scan, Start Free Scan, Sample Report, Plans, FAQ, Privacy, Terms, Disclaimer, and Customer Access. Customer Access routes to /login. href="/free-check" href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer" href="/login". Scan, Report, Plan footer path reinforces first signal, choice gap, and right depth.</span>
     </footer>
   );
 }
