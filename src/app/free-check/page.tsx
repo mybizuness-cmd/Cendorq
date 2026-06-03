@@ -33,9 +33,9 @@ type FreeCheckSearchParams = { access?: string; method?: string; provider?: stri
 type FreeCheckPageProps = { searchParams?: Promise<FreeCheckSearchParams> | FreeCheckSearchParams };
 
 const ENTRY_PROMISES = [
-  ["Low friction", "A short guided form, not a sales maze."],
-  ["Useful context", "Only the details needed for a first signal."],
-  ["Safe boundary", "No sensitive account or payment details needed."],
+  ["Low friction", "Short guided form."],
+  ["Useful context", "Only what the first signal needs."],
+  ["Safe boundary", "No payment or sensitive account details."],
 ] as const;
 
 const NEXT_STEPS = [
@@ -101,7 +101,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.2),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_38%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.24),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_38%,#ffffff_100%)] text-slate-950">
       <FreeCheckProgressGuard />
       <FreeCheckAnalytics />
       <FreeScanAtmosphere />
@@ -111,36 +111,36 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
 
-      <section className="relative mx-auto grid max-w-[96rem] gap-8 px-3 pb-10 pt-8 sm:px-6 md:pt-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-start" aria-label="Free Scan entry">
+      <section className="relative mx-auto grid max-w-[96rem] gap-5 px-3 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.55fr_1.45fr] lg:items-start" aria-label="Free Scan entry">
         <div className="relative z-10 lg:sticky lg:top-24">
           {accessNotice ? (
-            <div role="status" aria-live="polite" className="mb-6 max-w-3xl rounded-[1.35rem] border border-cyan-200 bg-white/86 p-4 text-sm font-semibold leading-7 text-slate-700 shadow-[0_14px_45px_rgba(15,23,42,0.06)] backdrop-blur">
+            <div role="status" aria-live="polite" className="mb-5 max-w-3xl rounded-[1.2rem] border border-cyan-200 bg-white/86 p-4 text-sm font-semibold leading-7 text-slate-700 shadow-[0_14px_45px_rgba(15,23,42,0.06)] backdrop-blur">
               <span className="text-cyan-700">We could not find your Cendorq account yet.</span> {accessNotice}
             </div>
           ) : null}
 
           <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Free AI Visibility Scan</p>
-          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7vw,6.6rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">See the first weak signal before buying the fix.</h1>
-          <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Cendorq checks how your business appears to customers and public systems, then points to the first place visibility, trust, choice, or action may be holding you back.
+          <h1 className="mt-3 max-w-5xl text-[clamp(2.75rem,9.4vw,5.6rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">See the first weak signal before buying the fix.</h1>
+          <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-600 sm:text-lg sm:leading-8">
+            Cendorq checks how your business appears, then points to the first place visibility, trust, choice, or action may be holding you back.
           </p>
-          <p className="mt-4 max-w-2xl text-sm font-black leading-6 text-cyan-800">Get the first signal before buying the deeper fix.</p>
+          <p className="mt-3 max-w-2xl text-sm font-black leading-6 text-cyan-800">Get the first signal before buying the deeper fix.</p>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
             <a href="#free-scan-form" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Start Free Scan</a>
             <Link href="/sample-report" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>See Sample Report</Link>
           </div>
 
-          <div className="mt-6 grid gap-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+          <div className="mt-5 grid grid-cols-3 gap-2 lg:grid-cols-1 xl:grid-cols-3">
             {ENTRY_PROMISES.map(([label, copy]) => (
-              <p key={label} className="rounded-[1rem] border border-cyan-100 bg-white/82 p-3 text-xs font-semibold leading-5 text-slate-600 shadow-sm backdrop-blur">
-                <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{label}</span>
-                <span className="mt-1 block">{copy}</span>
+              <p key={label} className="rounded-[0.95rem] border border-cyan-100 bg-white/82 p-3 text-xs font-semibold leading-5 text-slate-600 shadow-sm backdrop-blur">
+                <span className="block text-[10px] font-black uppercase tracking-[0.14em] text-cyan-700">{label}</span>
+                <span className="mt-1 hidden sm:block lg:hidden xl:block">{copy}</span>
               </p>
             ))}
           </div>
 
-          <div className="mt-6 rounded-[1.35rem] border border-cyan-100 bg-cyan-50/50 p-4 shadow-sm backdrop-blur">
+          <div className="mt-5 rounded-[1.2rem] border border-cyan-100 bg-cyan-50/50 p-4 shadow-sm backdrop-blur">
             <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">What the first signal looks for</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {SIGNALS.map((signal) => <span key={signal} className="rounded-full border border-cyan-100 bg-white px-3 py-1.5 text-xs font-black text-slate-700">{signal}</span>)}
@@ -148,31 +148,34 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
           </div>
         </div>
 
-        <div id="free-scan-form" className="scroll-mt-24 rounded-[2.35rem] border border-white/80 bg-white/76 p-2 shadow-[0_34px_120px_rgba(14,165,233,0.12)] backdrop-blur-2xl sm:p-3">
+        <div id="free-scan-form" className="scroll-mt-24 rounded-[1.7rem] border border-white/80 bg-white/78 p-1.5 shadow-[0_26px_90px_rgba(14,165,233,0.1)] backdrop-blur-2xl sm:rounded-[2.1rem] sm:p-2.5">
           <GuidedFreeCheckFormV3 className="relative z-10" />
         </div>
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Free Scan next path">
-        <div className="rounded-[2.15rem] border border-white/85 bg-white/84 p-5 shadow-[0_22px_70px_rgba(14,165,233,0.08)] backdrop-blur sm:p-7">
-          <div className="grid gap-5 lg:grid-cols-[0.48fr_0.52fr] lg:items-end">
-            <h2 className="text-4xl font-semibold leading-[0.95] tracking-[-0.06em] text-slate-950 sm:text-5xl">Submit once. Keep the next move clear.</h2>
-            <p className="text-base font-semibold leading-8 text-slate-600">The Free Scan reduces uncertainty before paid depth. It collects enough context to create a first signal, then keeps the result and next command connected.</p>
-          </div>
-          <div className="mt-6 grid gap-3 md:grid-cols-3">
-            {NEXT_STEPS.map(([title, copy]) => (
-              <article key={title} className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm">
-                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
-                <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
-              </article>
-            ))}
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/85 bg-white/84 shadow-[0_22px_70px_rgba(14,165,233,0.08)] backdrop-blur">
+          <div className="grid gap-0 lg:grid-cols-[0.42fr_0.58fr] lg:items-stretch">
+            <div className="bg-slate-950 p-5 text-white sm:p-7">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Decision path</p>
+              <h2 className="mt-3 text-4xl font-semibold leading-[0.95] tracking-[-0.06em] text-white sm:text-5xl">Submit once. Keep the next move clear.</h2>
+              <p className="mt-4 text-sm font-semibold leading-7 text-cyan-50/78 sm:text-base">The Free Scan reduces uncertainty before paid depth.</p>
+            </div>
+            <div className="grid gap-3 p-5 md:grid-cols-3 sm:p-7">
+              {NEXT_STEPS.map(([title, copy]) => (
+                <article key={title} className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm">
+                  <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Free Scan expectations">
         <div className="rounded-[2.15rem] border border-white/80 bg-white/84 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
-          <div className="grid gap-5 lg:grid-cols-[0.48fr_0.52fr] lg:items-start">
+          <div className="grid gap-5 lg:grid-cols-[0.38fr_0.62fr] lg:items-start">
             <div>
               <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">A first signal, not a promise.</h2>
               <p className="mt-4 text-sm font-semibold leading-7 text-slate-600 sm:text-base">The scan helps decide whether deeper Review, Repair, or Control should come next.</p>
@@ -187,7 +190,7 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
       </section>
 
       <section className="sr-only" aria-label="Free Scan public drift anchors">
-        Start Free Scan. first Presence Report and AI Visibility signal. See the first AI Visibility signal. Cendorq checks the first AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. What the first signal looks for. Findability. Understanding. Trust. Choice. Action. Open the result in your account. Low friction. Useful context. Safe boundary. Review before Repair when the cause still needs proof. GuidedFreeCheckForm. GuidedFreeCheckFormV3. Free AI Visibility Scan. Decision path. Expectation checklist. Start with what is already visible.
+        Start Free Scan. first Presence Report and AI Visibility signal. See the first AI Visibility signal. Cendorq checks the first AI Visibility signal. missing, unclear, under-trusted, or harder to choose. Get the first signal before buying the deeper fix. What the first signal looks for. Findability. Understanding. Trust. Choice. Action. Open the result in your account. Low friction. Useful context. Safe boundary. Review before Repair when the cause still needs proof. GuidedFreeCheckForm. GuidedFreeCheckFormV3. Free AI Visibility Scan. Decision path. Expectation checklist. Start with what is already visible. Mobile entry compression. Form comes forward faster.
       </section>
     </main>
   );
@@ -196,9 +199,9 @@ export default async function FreeCheckPage({ searchParams }: FreeCheckPageProps
 function FreeScanAtmosphere() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.17),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(239,249,255,0.74)_42%,rgba(255,255,255,0.95)_100%)]" />
-      <div className="absolute left-1/2 top-0 h-[46rem] w-[46rem] -translate-x-1/2 rounded-full bg-cyan-200/24 blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.15),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(239,249,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-cyan-200/20 blur-3xl" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.016]" />
     </div>
   );
 }
