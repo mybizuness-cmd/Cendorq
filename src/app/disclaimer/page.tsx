@@ -24,6 +24,12 @@ const SUMMARY = [
   { label: "Your role", value: "You remain responsible for decisions, implementation, budgets, timing, and business commitments." },
 ] as const;
 
+const DISCLAIMER_READ_ORDER = [
+  ["Read evidence", "Treat every output through its evidence, confidence, limitation, and current context before acting."],
+  ["Check boundary", "Separate guidance from guarantees: Cendorq does not control rankings, AI placement, leads, revenue, or third-party treatment."],
+  ["Choose depth", "Use Scan, Review, Repair, or Control only for the decision that depth was built to support."],
+] as const;
+
 const CORE_BOUNDARIES = [
   {
     title: "Guidance, not certainty",
@@ -120,6 +126,17 @@ export default function DisclaimerPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Disclaimer read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {DISCLAIMER_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Core disclaimer boundaries">
         <div className="rounded-[2.15rem] border border-white/85 bg-white/84 p-5 shadow-[0_18px_60px_rgba(14,165,233,0.07)] backdrop-blur sm:p-7">
           <div className="grid gap-5 lg:grid-cols-[0.44fr_0.56fr] lg:items-end">
@@ -176,7 +193,7 @@ export default function DisclaimerPage() {
       </section>
 
       <section className="sr-only" aria-label="Disclaimer validation guardrails">
-        Disclaimer. AI market command disclaimer. Search is changing. AI/search visibility. AI Engine Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment. Use dashboard support. Scan. Review. Repair. Control. Free Scan. Deep Review. Build Fix. Ongoing Control. /dashboard/support. /connect. Use each command for the decision it was built to support. Use each readiness depth for the decision it was built to support. Use Free Scan as a first signal, not a full diagnosis. Use Deep Review when the cause matters enough to prove before fixing. Use Build Fix when a scoped improvement is approved and ready to execute. Use Ongoing Control when the business needs recurring monitoring, adjustment, and monthly decision support. No Search Presence OS. No /contact route. Run Free Scan.
+        Disclaimer. AI market command disclaimer. Disclaimer read order. Read evidence. Check boundary. Choose depth. Search is changing. AI/search visibility. AI Engine Readiness boundaries. No guaranteed ranking. No guaranteed AI placement. No guaranteed leads. No guaranteed revenue. No algorithm control. No guaranteed rankings, AI placement, leads, revenue, sales, or platform treatment. Use dashboard support. Scan. Review. Repair. Control. Free Scan. Deep Review. Build Fix. Ongoing Control. /dashboard/support. /connect. Use each command for the decision it was built to support. Use each readiness depth for the decision it was built to support. Use Free Scan as a first signal, not a full diagnosis. Use Deep Review when the cause matters enough to prove before fixing. Use Build Fix when a scoped improvement is approved and ready to execute. Use Ongoing Control when the business needs recurring monitoring, adjustment, and monthly decision support. No Search Presence OS. No /contact route. Run Free Scan.
       </section>
     </main>
   );
