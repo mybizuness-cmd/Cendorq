@@ -24,12 +24,12 @@ export function HomepageClarityReset() {
   return (
     <main
       data-cendorq-homepage="presence-report-ai-search-presence-repair-experience"
-      className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_92%_2%,rgba(125,211,252,0.24),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_42%,#ffffff_100%)] text-slate-950"
+      className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_92%_2%,rgba(125,211,252,0.16),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f5fbff_42%,#ffffff_100%)] text-slate-950"
     >
       <HomepageAtmosphere />
       <section className="relative mx-auto grid max-w-[92rem] gap-6 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:min-h-[calc(100vh-5.7rem)] lg:grid-cols-[0.7fr_1.3fr] lg:items-center lg:gap-8 lg:pb-12" aria-label="Cendorq homepage hero">
         <div className="relative z-10">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">AI Search Presence Repair</p>
+          <p className="text-sm font-semibold text-cyan-700">AI Search Presence Repair</p>
           <h1 className="mt-3 max-w-5xl text-[clamp(2.95rem,11vw,7rem)] font-semibold leading-[0.84] tracking-[-0.09em] text-slate-950 sm:mt-4 sm:text-[clamp(4rem,7.2vw,7rem)]">
             Be easier to find, understand, and choose.
           </h1>
@@ -45,10 +45,10 @@ export function HomepageClarityReset() {
             </Link>
           </div>
           <div className="mt-5 hidden gap-2 sm:grid">
-            {PROOF_POINTS.map((point) => (
-              <p key={point} className="flex items-start gap-3 text-sm font-semibold leading-6 text-slate-600">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
-                {point}
+            {PROOF_POINTS.map((point, index) => (
+              <p key={point} className="grid grid-cols-[auto_1fr] items-start gap-3 text-sm font-semibold leading-6 text-slate-600">
+                <span className="text-xs font-black text-cyan-800">0{index + 1}</span>
+                <span>{point}</span>
               </p>
             ))}
           </div>
@@ -60,8 +60,8 @@ export function HomepageClarityReset() {
       <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Cendorq proof summary">
         <div className="grid gap-3 md:grid-cols-3">
           {REPORT_CARDS.map(([label, value, copy]) => (
-            <article key={label} className="rounded-[1.4rem] border border-white/80 bg-white/86 p-4 shadow-[0_16px_42px_rgba(14,165,233,0.06)] backdrop-blur">
-              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{label}</p>
+            <article key={label} className="rounded-[1.4rem] border border-white/80 bg-white/88 p-4 shadow-[0_16px_42px_rgba(15,23,42,0.052)] backdrop-blur">
+              <p className="text-sm font-semibold text-cyan-700">{label}</p>
               <p className="mt-2 text-3xl font-semibold tracking-[-0.07em] text-slate-950">{value}</p>
               <p className="mt-1 text-xs font-bold leading-5 text-slate-500">{copy}</p>
             </article>
@@ -70,19 +70,22 @@ export function HomepageClarityReset() {
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Cendorq homepage promise">
-        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/84 shadow-[0_18px_55px_rgba(14,165,233,0.07)] backdrop-blur">
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur">
           <div className="grid gap-0 lg:grid-cols-[0.48fr_0.52fr] lg:items-stretch">
-            <div className="bg-slate-950 p-5 text-white sm:p-7 lg:p-8">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-200">The decision path</p>
-              <h2 className="mt-3 text-[clamp(2.1rem,6vw,4.35rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-white">Scan. See the gap. Fix the next move.</h2>
-              <p className="mt-4 text-sm font-semibold leading-7 text-cyan-50/78 sm:text-base">
-                The site should feel like a diagnostic machine: one public signal, one gap, one safest next command.
-              </p>
+            <div className="relative overflow-hidden bg-white p-5 sm:p-7 lg:p-8">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(251,207,232,0.14),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.12),transparent_40%)]" aria-hidden="true" />
+              <div className="relative">
+                <p className="text-sm font-semibold text-cyan-700">The decision path</p>
+                <h2 className="mt-3 text-[clamp(2.1rem,6vw,4.35rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-slate-950">Scan. See the gap. Fix the next move.</h2>
+                <p className="mt-4 text-sm font-semibold leading-7 text-slate-600 sm:text-base">
+                  The site should feel like a diagnostic machine: one public signal, one gap, one safest next command.
+                </p>
+              </div>
             </div>
             <div className="grid gap-3 p-5 sm:grid-cols-2 sm:p-7 lg:p-8">
               {COMMAND_PATH.map(([title, label, copy]) => (
-                <article key={title} className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm">
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{label}</p>
+                <article key={title} className="rounded-[1.25rem] border border-slate-200 bg-white/88 p-4 shadow-sm">
+                  <p className="text-sm font-semibold text-cyan-700">{label}</p>
                   <h3 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
                   <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
                 </article>
@@ -103,7 +106,7 @@ function HomepageAtmosphere() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-44 bg-[linear-gradient(180deg,rgba(255,255,255,0.85),transparent)]" aria-hidden="true" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.16),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.18),rgba(239,249,255,0.42)_42%,rgba(255,255,255,0.72)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.1),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.18),rgba(246,252,255,0.42)_42%,rgba(255,255,255,0.72)_100%)]" />
       <div className="system-grid-wide absolute inset-0 opacity-[0.018]" />
     </div>
   );
