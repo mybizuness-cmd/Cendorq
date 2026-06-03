@@ -21,6 +21,7 @@ const KNOWLEDGE_AREAS = [
   "AI Search Presence Repair",
   "Presence Report",
   "Repair Queue",
+  "Choice Gap",
   "Business Truth Profile",
   "AI search visibility",
   "AI answer visibility",
@@ -31,6 +32,16 @@ const KNOWLEDGE_AREAS = [
   "Deep Review",
   "Build Fix",
   "Ongoing Control",
+] as const;
+
+const CUSTOMER_SAFE_SURFACES = [
+  "Free Scan intake",
+  "Sample Presence Report",
+  "Plans decision path",
+  "Customer access",
+  "Dashboard report vault",
+  "Billing depth control",
+  "Support routing",
 ] as const;
 
 const LAYER_CATALOG = [
@@ -69,6 +80,7 @@ export const metadata: Metadata = {
     "AI Search Presence Repair",
     "Presence Report",
     "Repair Queue",
+    "Choice Gap",
     "Business Truth Profile",
     "AI search visibility",
     "AI answer visibility",
@@ -135,7 +147,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <div className="relative min-h-screen overflow-x-clip bg-white" data-brand="cendorq">
           <div className="relative z-10 flex min-h-screen flex-col">
             <SiteHeader />
-            <main id="main-content" className="relative z-10 flex-1">{children}</main>
+            <div id="main-content" className="relative z-10 flex-1">{children}</div>
             <SiteFooter />
           </div>
         </div>
@@ -158,7 +170,17 @@ function buildStructuredData() {
     knowsAbout: [...KNOWLEDGE_AREAS],
     ...(contactEmail ? { email: contactEmail, contactPoint: [{ "@type": "ContactPoint", contactType: "sales", email: contactEmail, areaServed: "Worldwide", availableLanguage: ["en"] }] } : {}),
   };
-  const website = { "@context": "https://schema.org", "@type": "WebSite", "@id": WEBSITE_ID, name: BRAND_NAME, url: siteConfig.siteUrl, description: siteConfig.description, inLanguage: "en-US", publisher: { "@id": ORGANIZATION_ID } };
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    name: BRAND_NAME,
+    url: siteConfig.siteUrl,
+    description: siteConfig.description,
+    inLanguage: "en-US",
+    publisher: { "@id": ORGANIZATION_ID },
+    potentialAction: { "@type": "ReadAction", target: [absoluteUrl("/sample-report"), absoluteUrl("/plans"), absoluteUrl("/free-check")] },
+  };
   const service = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -171,6 +193,7 @@ function buildStructuredData() {
     brand: { "@id": ORGANIZATION_ID },
     serviceType: "AI Search Presence Repair and business signal improvement",
     termsOfService: absoluteUrl("/terms"),
+    knowsAbout: [...CUSTOMER_SAFE_SURFACES],
     hasOfferCatalog: { "@type": "OfferCatalog", "@id": OFFER_CATALOG_ID, name: "Cendorq Scan Review Repair Control Path", itemListElement: LAYER_CATALOG.map((item) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: item.name, description: item.description, url: absoluteUrl(item.path) } })) },
   };
   return [organization, website, service] as const;
