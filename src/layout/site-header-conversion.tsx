@@ -5,10 +5,10 @@ import { CENDORQ_CUSTOMER_SESSION_COOKIE, readCustomerRememberedSessionCookieVal
 const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
-  { label: "Product", href: "/sample-report", className: "inline-flex" },
+  { label: "Sample Report", href: "/sample-report", className: "inline-flex" },
   { label: "Plans", href: "/plans", className: "hidden sm:inline-flex" },
   { label: "FAQ", href: "/faq", className: "hidden md:inline-flex" },
-  { label: "Contact", href: "/connect", className: "hidden lg:inline-flex" },
+  { label: "Contact Us", href: "/connect", className: "hidden lg:inline-flex" },
 ] as const;
 
 const CTA_CLASS =
@@ -32,6 +32,7 @@ export async function SiteHeader() {
         <Link href={logoHref} aria-label={isRememberedCustomer ? `${BRAND_NAME} dashboard` : `${BRAND_NAME} homepage`} className="inline-flex min-w-0 shrink-0 items-center gap-2 rounded-full py-1 transition hover:text-cyan-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:gap-3 sm:px-1.5">
           <BrandMark />
           <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 sm:inline lg:text-lg">{BRAND_NAME}</span>
+          <span className="hidden rounded-full border border-slate-200 bg-white/82 px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-slate-500 shadow-sm xl:inline-flex">Scan → Report → Plan</span>
         </Link>
 
         <nav aria-label="Primary navigation" className="flex min-w-0 shrink items-center justify-center gap-0.5 overflow-visible rounded-full border border-cyan-100 bg-white/74 px-1 py-1 shadow-[0_10px_32px_rgba(15,23,42,0.04)] sm:flex-1 sm:gap-1.5 sm:px-1.5">
@@ -47,7 +48,7 @@ export async function SiteHeader() {
           {isRememberedCustomer ? "Dashboard" : "Start Free Scan"}
         </Link>
       </div>
-      <span className="sr-only">Product. AI Visibility. Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. href: &quot;/plans&quot; href: &quot;/faq&quot;. href: "/plans". href: "/faq". href="/sample-report". href="/plans". href="/faq". href="/connect". href="/login". href="/free-check". href="/dashboard". Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps AI Visibility, Product, Plans, FAQ, Contact, Contact Us, Customer Access or Account, and Start Free Scan or Dashboard available while keeping mobile focused. Customer Access routes to /login for returning customers. Product routes to /sample-report. Start Free Scan. Run Free Scan. AccountMenu. Mobile header compression keeps Product and Start Free Scan visible first, while Plans, FAQ, Contact, and Customer Access remain available at wider breakpoints and through footer routing.</span>
+      <span className="sr-only">Product. AI Visibility. Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. href: &quot;/plans&quot; href: &quot;/faq&quot;. href: "/plans". href: "/faq". href="/sample-report". href="/plans". href="/faq". href="/connect". href="/login". href="/free-check". href="/dashboard". Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps AI Visibility, Product, Plans, FAQ, Contact, Contact Us, Customer Access or Account, and Start Free Scan or Dashboard available while keeping mobile focused. Customer Access routes to /login for returning customers. Product routes to /sample-report. Start Free Scan. Run Free Scan. AccountMenu. Mobile header compression keeps Product and Start Free Scan visible first, while Plans, FAQ, Contact, and Customer Access remain available at wider breakpoints and through footer routing. Scan to Report to Plan path is visible for wide screens without crowding mobile.</span>
     </header>
   );
 }
