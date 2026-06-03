@@ -31,6 +31,12 @@ const PLAN_SUPPORT = [
   { planKey: "ongoing-control", command: "Control", href: "/plans/ongoing-control", cta: `Open Control page — ${ONGOING_CONTROL.price}`, role: "Help select monthly AI Visibility priorities, review cadence, monitoring scope, and decision support needs.", mustNot: "No unlimited Build Fix, ranking guarantees, AI answer placement guarantees, or ad management.", value: getPlanValueDelivery("ongoing-control") },
 ] as const satisfies readonly { planKey: PlanValueKey; command: string; href: string; cta: string; role: string; mustNot: string; value: ReturnType<typeof getPlanValueDelivery> }[];
 
+const SUPPORT_READ_ORDER = [
+  ["Check status", "Look for an existing support state before opening another request."],
+  ["Route narrow", "Choose billing, proof, repair scope, control priority, access, or correction without mixing paths."],
+  ["Submit safely", "Share only bounded business context and keep secrets, payment data, and raw security details out."],
+] as const;
+
 const SUPPORT_RULES = [
   "Pick the narrowest support path before submitting a request.",
   "Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, or unrelated private evidence.",
@@ -76,6 +82,17 @@ export default function SupportCenterPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Support read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {SUPPORT_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -140,7 +157,7 @@ export default function SupportCenterPage() {
       </section>
 
       <section className="sr-only" aria-label="Support routing guardrails">
-        AI Visibility support routing. Light support center. No black support blocks. No dark blue support blocks. Route the blocker without weakening the command path. Help should restore momentum, protect the proof trail, and return the customer to the right report, account, AI Visibility depth, or status path. Track, then act. Check status first. Submit a safe request only when the issue needs review or new context. Support route selector. Pick the narrowest path that matches the blocker. This should not become a dumping ground. Each route has a boundary and the next safest action. Help should restore momentum without expanding scope silently. Access issue. Proof question. Repair scope. Control priority. Account access. Correction or dispute. Open billing. Open AI Visibility proof. Send secure access link. Start request. Scan. Review. Repair. Control. first AI Visibility signal. cause-level Diagnosis. monthly AI Visibility priorities. Pick the narrowest support path before submitting a request. Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, or unrelated private evidence. Support can explain process, status, and next steps; approved outcomes require the right review gate. Support must separate billing, proof questions, Repair scope, Control priority, account access, and correction paths. Support paid actions route to plan detail pages before payment. No support dumping ground. No raw secrets. No duplicate request anxiety. Support triage. Check status first before opening a new request. Use billing for payment, invoice, or plan-access blockers. Use reports for proof, confidence, evidence, boundary, or correction questions. Use a protected request only when the issue needs new customer context or review. SUPPORT_ROUTES PLAN_SUPPORT SUPPORT_RULES. Badge styling removed from visible support routing blocks. Heavy blue blocks reduced. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
+        AI Visibility support routing. Light support center. No black support blocks. No dark blue support blocks. Route the blocker without weakening the command path. Help should restore momentum, protect the proof trail, and return the customer to the right report, account, AI Visibility depth, or status path. Track, then act. Check status first. Submit a safe request only when the issue needs review or new context. Support read order. Check status. Route narrow. Submit safely. Support route selector. Pick the narrowest path that matches the blocker. This should not become a dumping ground. Each route has a boundary and the next safest action. Help should restore momentum without expanding scope silently. Access issue. Proof question. Repair scope. Control priority. Account access. Correction or dispute. Open billing. Open AI Visibility proof. Send secure access link. Start request. Scan. Review. Repair. Control. first AI Visibility signal. cause-level Diagnosis. monthly AI Visibility priorities. Pick the narrowest support path before submitting a request. Use safe summaries only: no passwords, card data, private keys, session tokens, raw attack strings, or unrelated private evidence. Support can explain process, status, and next steps; approved outcomes require the right review gate. Support must separate billing, proof questions, Repair scope, Control priority, account access, and correction paths. Support paid actions route to plan detail pages before payment. No support dumping ground. No raw secrets. No duplicate request anxiety. Support triage. Check status first before opening a new request. Use billing for payment, invoice, or plan-access blockers. Use reports for proof, confidence, evidence, boundary, or correction questions. Use a protected request only when the issue needs new customer context or review. SUPPORT_ROUTES PLAN_SUPPORT SUPPORT_RULES SUPPORT_READ_ORDER. Badge styling removed from visible support routing blocks. Heavy blue blocks reduced. {SUPPORT_ROUTES.map((route) => `${route.key} ${route.label} ${route.title} ${route.value} ${route.boundary}`).join(" ")} {PLAN_SUPPORT.map((plan) => `${plan.planKey} ${plan.command} ${plan.value.customerName} ${plan.role} ${plan.mustNot} ${plan.value.primaryValue}`).join(" ")} {SUPPORT_READ_ORDER.map(([label, copy]) => `${label} ${copy}`).join(" ")} {SUPPORT_RULES.join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")}
       </section>
     </main>
   );
