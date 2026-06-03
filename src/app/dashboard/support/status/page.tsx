@@ -17,6 +17,12 @@ const STATUS_ACTIONS = [
   { title: "Return to command depth", href: "/dashboard/billing", copy: "Continue the plan or invoice path once the blocker is clear." },
 ] as const;
 
+const STATUS_READ_ORDER = [
+  ["Read status", "Confirm whether the item is new, in review, waiting on customer, resolved, closed, or blocked."],
+  ["Follow ask", "Send context only when the status clearly asks for a safe clarification or correction."],
+  ["Return lane", "Move back to reports, billing, support, or plan depth once the blocker is clear."],
+] as const;
+
 const STATUS_RULES = [
   "Status should reduce anxiety without exposing internal notes, operator details, or risk mechanics.",
   "Waiting-on-customer states should ask for safe clarification without echoing rejected unsafe content.",
@@ -58,6 +64,17 @@ export default function SupportStatusPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Support status read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {STATUS_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Support status actions">
         <div className="grid gap-3 md:grid-cols-3">
           {STATUS_ACTIONS.map((item) => (
@@ -85,7 +102,7 @@ export default function SupportStatusPage() {
       </section>
 
       <section className="sr-only" aria-label="Support status guardrails">
-        Market resolution status. Premium support status. Light support status page. No black support status blocks. No dark blue support status blocks. Track support without exposing internal risk. Know where the blocker stands and what to do next. SupportStatusList. CUSTOMER_SUPPORT_STATUS_CONTRACTS. Review status. Send safe update. support-status-list. Continue the paid path. Show progress without exposing internals. Return to the right command. No generic ticket tracker. No internal notes. No raw evidence. No duplicate support loop. Status safety standard. Badge styling removed from visible support status blocks. Heavy blue blocks reduced. {STATUS_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {STATUS_RULES.join(" ")} {CUSTOMER_SUPPORT_STATUS_CONTRACTS.map((status) => `${status.key} ${status.label} ${status.customerMeaning}`).join(" ")}
+        Market resolution status. Premium support status. Light support status page. No black support status blocks. No dark blue support status blocks. Track support without exposing internal risk. Know where the blocker stands and what to do next. SupportStatusList. CUSTOMER_SUPPORT_STATUS_CONTRACTS. Review status. Send safe update. support-status-list. Continue the paid path. Show progress without exposing internals. Support status read order. Read status. Follow ask. Return lane. Return to the right command. No generic ticket tracker. No internal notes. No raw evidence. No duplicate support loop. Status safety standard. Badge styling removed from visible support status blocks. Heavy blue blocks reduced. {STATUS_ACTIONS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {STATUS_READ_ORDER.map(([label, copy]) => `${label} ${copy}`).join(" ")} {STATUS_RULES.join(" ")} {CUSTOMER_SUPPORT_STATUS_CONTRACTS.map((status) => `${status.key} ${status.label} ${status.customerMeaning}`).join(" ")}
       </section>
     </main>
   );
