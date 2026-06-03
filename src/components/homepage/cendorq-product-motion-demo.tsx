@@ -9,6 +9,7 @@ const SCENES = [
     copy: "Website, offer, local profile, proof, reviews, and next step are checked as one decision path.",
     pulse: "Reading public signals",
     signal: "Inputs active",
+    operator: "Collect the visible facts before naming the problem.",
   },
   {
     phase: "AI",
@@ -16,6 +17,7 @@ const SCENES = [
     copy: "The preview separates being visible from being clear enough to be trusted and chosen.",
     pulse: "Answer snapshot sampled",
     signal: "Understanding checked",
+    operator: "Separate visibility from answer-ready clarity.",
   },
   {
     phase: "Gap",
@@ -23,6 +25,7 @@ const SCENES = [
     copy: "Cendorq shows whether missing proof, unclear positioning, weak local trust, or a vague action is creating hesitation.",
     pulse: "Choice gap found",
     signal: "Risk prioritized",
+    operator: "Name the point where comparison starts to fail.",
   },
   {
     phase: "Repair",
@@ -30,6 +33,7 @@ const SCENES = [
     copy: "The report turns the signal into the safest next command instead of another dashboard to decode.",
     pulse: "Next move ready",
     signal: "Repair queue built",
+    operator: "Move once: scan, review, repair, or control.",
   },
 ] as const;
 
@@ -42,16 +46,29 @@ const SCORE_ROWS = [
   ["Action", "58"],
 ] as const;
 const OUTPUT_LINES = ["Clarify the first-screen offer", "Move proof closer to the action", "Make the safest next step obvious"] as const;
+const CADENCE_MS = 2400;
 
 export function CendorqProductMotionDemo() {
   const [active, setActive] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const scene = SCENES[active];
   const progress = useMemo(() => ((active + 1) / SCENES.length) * 100, [active]);
+  const autoPlay = !isPaused && !prefersReducedMotion;
 
   useEffect(() => {
-    const timer = window.setInterval(() => setActive((value) => (value + 1) % SCENES.length), 2400);
-    return () => window.clearInterval(timer);
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => setPrefersReducedMotion(mediaQuery.matches);
+    syncPreference();
+    mediaQuery.addEventListener("change", syncPreference);
+    return () => mediaQuery.removeEventListener("change", syncPreference);
   }, []);
+
+  useEffect(() => {
+    if (!autoPlay) return;
+    const timer = window.setInterval(() => setActive((value) => (value + 1) % SCENES.length), CADENCE_MS);
+    return () => window.clearInterval(timer);
+  }, [autoPlay]);
 
   return (
     <figure className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-2 shadow-[0_34px_110px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:rounded-[2.8rem] sm:p-3" aria-label="Animated Cendorq product preview">
@@ -59,7 +76,7 @@ export function CendorqProductMotionDemo() {
 
       <div className="relative overflow-hidden rounded-[1.7rem] border border-slate-200/80 bg-[linear-gradient(145deg,#ffffff,#fbfdff_54%,#fff8fc)] sm:rounded-[2.25rem]">
         <div className="absolute inset-0 opacity-75" aria-hidden="true">
-          <div className="absolute left-[-20%] top-0 h-full w-[44%] bg-[linear-gradient(90deg,transparent,rgba(186,230,253,0.34),transparent)] transition-transform duration-1000" style={{ transform: `translateX(${active * 86 + 36}%)` }} />
+          <div className="absolute left-[-20%] top-0 h-full w-[44%] bg-[linear-gradient(90deg,transparent,rgba(186,230,253,0.34),transparent)] transition-transform duration-1000 motion-reduce:transition-none" style={{ transform: `translateX(${active * 86 + 36}%)` }} />
           <div className="absolute right-8 top-8 h-28 w-28 rounded-full bg-cyan-100/30 blur-3xl" />
           <div className="absolute bottom-6 left-12 h-32 w-32 rounded-full bg-fuchsia-100/35 blur-3xl" />
         </div>
@@ -68,10 +85,15 @@ export function CendorqProductMotionDemo() {
           <div className="flex items-start justify-between gap-3 border-b border-slate-200/80 pb-4">
             <div>
               <p className="text-sm font-semibold text-slate-500">Presence scan</p>
-              <p className="mt-1 text-2xl font-semibold tracking-[-0.06em] text-slate-950">{scene.phase}</p>
+              <p className="mt-1 text-2xl font-semibold tracking-[-0.06em] text-slate-950" aria-live="polite">{scene.phase}</p>
             </div>
-            <div className="h-12 w-12 rounded-[1rem] border border-slate-200 bg-white shadow-sm" aria-hidden="true">
-              <div className="m-3 h-6 rounded-full bg-[linear-gradient(135deg,#bae6fd,#f5d0fe)]" />
+            <div className="flex items-center gap-2">
+              <button type="button" onClick={() => setIsPaused((value) => !value)} className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300" aria-pressed={isPaused || prefersReducedMotion}>
+                {isPaused || prefersReducedMotion ? "Play" : "Pause"}
+              </button>
+              <div className="h-12 w-12 rounded-[1rem] border border-slate-200 bg-white shadow-sm" aria-hidden="true">
+                <div className="m-3 h-6 rounded-full bg-[linear-gradient(135deg,#bae6fd,#f5d0fe)]" />
+              </div>
             </div>
           </div>
 
@@ -80,9 +102,7 @@ export function CendorqProductMotionDemo() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(125,211,252,0.12),transparent_34%),radial-gradient(circle_at_92%_88%,rgba(251,207,232,0.12),transparent_36%)]" aria-hidden="true" />
               <div className="relative">
                 <p className="text-sm font-semibold text-cyan-100/78">{scene.pulse}</p>
-                <h2 className="mt-3 max-w-lg text-[clamp(2.05rem,4.7vw,3.85rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-white">
-                  {scene.title}
-                </h2>
+                <h2 className="mt-3 max-w-lg text-[clamp(2.05rem,4.7vw,3.85rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-white">{scene.title}</h2>
                 <p className="mt-4 max-w-md text-sm font-semibold leading-7 text-cyan-50/74">{scene.copy}</p>
               </div>
 
@@ -90,13 +110,13 @@ export function CendorqProductMotionDemo() {
                 {SOURCE_TILES.map((tile, index) => {
                   const awake = index <= active + 2;
                   return (
-                    <div key={tile} className={`rounded-[1rem] border p-3 transition duration-700 ${awake ? "border-white/20 bg-white/[0.085] text-white" : "border-white/10 bg-white/[0.035] text-cyan-50/55"}`}>
+                    <div key={tile} className={`rounded-[1rem] border p-3 transition duration-700 motion-reduce:transition-none ${awake ? "border-white/20 bg-white/[0.085] text-white" : "border-white/10 bg-white/[0.035] text-cyan-50/55"}`}>
                       <div className="flex items-center justify-between gap-3">
                         <span className="text-xs font-black uppercase tracking-[0.14em]">{tile}</span>
                         <span className={`h-2 w-2 rounded-full ${awake ? "bg-fuchsia-200" : "bg-white/20"}`} />
                       </div>
                       <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/10">
-                        <div className="h-full rounded-full bg-[linear-gradient(90deg,#bae6fd,#f5d0fe)] transition-all duration-700" style={{ width: awake ? `${56 + index * 6}%` : "18%" }} />
+                        <div className="h-full rounded-full bg-[linear-gradient(90deg,#bae6fd,#f5d0fe)] transition-all duration-700 motion-reduce:transition-none" style={{ width: awake ? `${56 + index * 6}%` : "18%" }} />
                       </div>
                     </div>
                   );
@@ -121,7 +141,7 @@ export function CendorqProductMotionDemo() {
 
               <div className="absolute bottom-5 left-5 right-5" aria-hidden="true">
                 <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full rounded-full bg-[linear-gradient(90deg,#bae6fd,#f5d0fe)] transition-all duration-700" style={{ width: `${progress}%` }} />
+                  <div className="h-full rounded-full bg-[linear-gradient(90deg,#bae6fd,#f5d0fe)] transition-all duration-700 motion-reduce:transition-none" style={{ width: `${progress}%` }} />
                 </div>
               </div>
             </section>
@@ -131,16 +151,17 @@ export function CendorqProductMotionDemo() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(186,230,253,0.18),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(251,207,232,0.14),transparent_36%)]" aria-hidden="true" />
                 <div className="relative">
                   <p className="text-sm font-semibold text-slate-500">Presence report preview</p>
-                  <h3 className="mt-3 text-[clamp(2.25rem,5.7vw,5.2rem)] font-semibold leading-[0.86] tracking-[-0.085em] text-slate-950">
-                    Visible is not the same as chosen.
-                  </h3>
-                  <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">
-                    The report does not bury the owner in charts. It shows the gap, the reason, and the first move.
-                  </p>
+                  <h3 className="mt-3 text-[clamp(2.25rem,5.7vw,5.2rem)] font-semibold leading-[0.86] tracking-[-0.085em] text-slate-950">Visible is not the same as chosen.</h3>
+                  <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">The report does not bury the owner in charts. It shows the gap, the reason, and the first move.</p>
 
-                  <div className="mt-6 grid gap-2">
+                  <div className="mt-5 rounded-[1.1rem] border border-cyan-100 bg-cyan-50/50 p-4 shadow-sm">
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700">Operator read</p>
+                    <p className="mt-2 text-sm font-bold leading-6 text-slate-700">{scene.operator}</p>
+                  </div>
+
+                  <div className="mt-5 grid gap-2">
                     {OUTPUT_LINES.map((line, index) => (
-                      <div key={line} className={`grid grid-cols-[auto_1fr] items-center gap-3 rounded-[1rem] border p-3 transition duration-500 ${active === 3 && index === 0 ? "border-slate-300 bg-slate-50 text-slate-950" : "border-slate-200 bg-white/82 text-slate-650"}`}>
+                      <div key={line} className={`grid grid-cols-[auto_1fr] items-center gap-3 rounded-[1rem] border p-3 transition duration-500 motion-reduce:transition-none ${active === 3 && index === 0 ? "border-slate-300 bg-slate-50 text-slate-950" : "border-slate-200 bg-white/82 text-slate-650"}`}>
                         <span className="text-xs font-black text-cyan-800">0{index + 1}</span>
                         <span className="text-sm font-bold leading-6">{line}</span>
                       </div>
@@ -149,9 +170,9 @@ export function CendorqProductMotionDemo() {
                 </div>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-4">
+              <div className="grid gap-3 sm:grid-cols-4" role="tablist" aria-label="Product motion scenes">
                 {SCENES.map((item, index) => (
-                  <button key={item.phase} type="button" onClick={() => setActive(index)} className={`rounded-[1rem] border p-3 text-left text-xs font-black transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${active === index ? "border-slate-300 bg-white text-slate-950 shadow-sm" : "border-slate-200 bg-white/80 text-slate-600"}`}>
+                  <button key={item.phase} type="button" onClick={() => { setActive(index); setIsPaused(true); }} className={`rounded-[1rem] border p-3 text-left text-xs font-black transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 motion-reduce:transition-none ${active === index ? "border-slate-300 bg-white text-slate-950 shadow-sm" : "border-slate-200 bg-white/80 text-slate-600"}`} aria-pressed={active === index} role="tab" aria-selected={active === index}>
                     {item.phase}
                   </button>
                 ))}
