@@ -2,35 +2,41 @@ import { CendorqProductMotionDemo } from "@/components/homepage/cendorq-product-
 import Link from "next/link";
 
 const PROOF_POINTS = [
-  "Reads what customers and answer engines can understand",
-  "Shows where the choice path gets weak",
-  "Turns the first signal into the next repair move",
+  "Presence Report preview before long explanation",
+  "Choice Gap and Repair Queue shown as product objects",
+  "One next command: start with the first signal",
 ] as const;
 
-const START_PATH = [
-  ["Scan", "Start with the first signal."],
-  ["Review", "Move deeper when the cause needs proof."],
-  ["Repair", "Fix the weak point when the path is clear."],
-  ["Control", "Keep the signal from drifting over time."],
+const COMMAND_PATH = [
+  ["Scan", "First signal", "Check what is already public."],
+  ["Review", "Cause proof", "Go deeper only when the cause matters."],
+  ["Repair", "Scoped fix", "Fix the weak point that blocks choice."],
+  ["Control", "Drift watch", "Keep the signal from sliding back."],
+] as const;
+
+const REPORT_CARDS = [
+  ["Presence Score", "67", "First signal only"],
+  ["Weakest pillar", "Choice", "Why buyers may hesitate"],
+  ["Next move", "Review", "Prove cause before repair"],
 ] as const;
 
 export function HomepageClarityReset() {
   return (
     <main
       data-cendorq-homepage="presence-report-ai-search-presence-repair-experience"
-      className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.2),transparent_30%),radial-gradient(circle_at_92%_2%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_42%,#ffffff_100%)] text-slate-950"
+      className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_92%_2%,rgba(125,211,252,0.24),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_42%,#ffffff_100%)] text-slate-950"
     >
       <HomepageAtmosphere />
-      <section className="relative mx-auto grid max-w-[92rem] gap-8 px-4 pb-10 pt-8 sm:px-6 md:pt-12 lg:min-h-[calc(100vh-5.7rem)] lg:grid-cols-[0.74fr_1.26fr] lg:items-center lg:pb-14" aria-label="Cendorq homepage hero">
+      <section className="relative mx-auto grid max-w-[92rem] gap-6 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:min-h-[calc(100vh-5.7rem)] lg:grid-cols-[0.7fr_1.3fr] lg:items-center lg:gap-8 lg:pb-12" aria-label="Cendorq homepage hero">
         <div className="relative z-10">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">AI Search Presence Repair</p>
-          <h1 className="max-w-5xl text-[clamp(3.35rem,12vw,7.45rem)] font-semibold leading-[0.83] tracking-[-0.095em] text-slate-950 sm:text-[clamp(4.2rem,7.6vw,7.45rem)]">
+          <h1 className="mt-3 max-w-5xl text-[clamp(2.95rem,11vw,7rem)] font-semibold leading-[0.84] tracking-[-0.09em] text-slate-950 sm:mt-4 sm:text-[clamp(4rem,7.2vw,7rem)]">
             Be easier to find, understand, and choose.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">
-            Cendorq scans the public path around your business, shows where customers may hesitate, and points to the first repair move.
+          <p className="mt-5 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
+            Cendorq checks the public path around your business, shows where choice gets weak, and points to the first repair move.
           </p>
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.16)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
               Start Free Scan
             </Link>
@@ -38,7 +44,7 @@ export function HomepageClarityReset() {
               See Sample Report
             </Link>
           </div>
-          <div className="mt-6 grid gap-2">
+          <div className="mt-5 hidden gap-2 sm:grid">
             {PROOF_POINTS.map((point) => (
               <p key={point} className="flex items-start gap-3 text-sm font-semibold leading-6 text-slate-600">
                 <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
@@ -51,20 +57,33 @@ export function HomepageClarityReset() {
         <CendorqProductMotionDemo />
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Cendorq proof summary">
+        <div className="grid gap-3 md:grid-cols-3">
+          {REPORT_CARDS.map(([label, value, copy]) => (
+            <article key={label} className="rounded-[1.4rem] border border-white/80 bg-white/86 p-4 shadow-[0_16px_42px_rgba(14,165,233,0.06)] backdrop-blur">
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{label}</p>
+              <p className="mt-2 text-3xl font-semibold tracking-[-0.07em] text-slate-950">{value}</p>
+              <p className="mt-1 text-xs font-bold leading-5 text-slate-500">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Cendorq homepage promise">
-        <div className="rounded-[2.15rem] border border-white/80 bg-white/84 p-5 shadow-[0_18px_55px_rgba(14,165,233,0.07)] backdrop-blur sm:p-7 lg:p-8">
-          <div className="grid gap-6 lg:grid-cols-[0.54fr_0.46fr] lg:items-start">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">The decision path</p>
-              <h2 className="mt-3 text-[clamp(2.1rem,6vw,4.5rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-slate-950">Scan. See the gap. Fix the next move.</h2>
-              <p className="mt-4 text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-                The public site should make one thing obvious: start with the first signal, understand the choice gap, then move deeper only when the repair path is clear.
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/84 shadow-[0_18px_55px_rgba(14,165,233,0.07)] backdrop-blur">
+          <div className="grid gap-0 lg:grid-cols-[0.48fr_0.52fr] lg:items-stretch">
+            <div className="bg-slate-950 p-5 text-white sm:p-7 lg:p-8">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-200">The decision path</p>
+              <h2 className="mt-3 text-[clamp(2.1rem,6vw,4.35rem)] font-semibold leading-[0.94] tracking-[-0.078em] text-white">Scan. See the gap. Fix the next move.</h2>
+              <p className="mt-4 text-sm font-semibold leading-7 text-cyan-50/78 sm:text-base">
+                The site should feel like a diagnostic machine: one public signal, one gap, one safest next command.
               </p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {START_PATH.map(([title, copy]) => (
+            <div className="grid gap-3 p-5 sm:grid-cols-2 sm:p-7 lg:p-8">
+              {COMMAND_PATH.map(([title, label, copy]) => (
                 <article key={title} className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm">
-                  <h3 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-700">{label}</p>
+                  <h3 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h3>
                   <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p>
                 </article>
               ))}
@@ -74,7 +93,7 @@ export function HomepageClarityReset() {
       </section>
 
       <section className="sr-only" aria-label="Homepage drift validation anchors">
-        CENDORQ_EXPERIENCE_SYSTEM. PresenceReportPreview. Presence Report. Sample Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Scan. Review. Repair. Control. Run Free Scan. View Plans. AI Search Presence Repair. Be easier to find, understand, and choose. Start Free Scan. See Sample Report.
+        CENDORQ_EXPERIENCE_SYSTEM. PresenceReportPreview. Presence Report. Sample Report. Presence Score. Findability. Understanding. Trust. Choice. Action. Repair queue. Scan. Review. Repair. Control. Run Free Scan. View Plans. AI Search Presence Repair. Be easier to find, understand, and choose. Start Free Scan. See Sample Report. Mobile product-flow compression. Product proof before long explanation. One dominant next command per screen band.
       </section>
     </main>
   );

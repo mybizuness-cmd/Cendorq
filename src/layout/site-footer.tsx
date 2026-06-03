@@ -9,6 +9,7 @@ const FOOTER_LINKS = [
   ["Plans", "/plans"],
   ["FAQ", "/faq"],
   ["Contact", "/connect"],
+  ["Customer Access", "/login"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
   ["Disclaimer", "/disclaimer"],
@@ -28,7 +29,7 @@ export function SiteFooter() {
                 <BrandMark />
                 <span className="text-sm font-black tracking-[-0.01em]">{BRAND_NAME}</span>
               </Link>
-              <p className="mt-4 text-[clamp(1.85rem,5vw,3.4rem)] font-semibold leading-[0.95] tracking-[-0.075em] text-slate-950">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen.</p>
+              <p className="mt-4 max-w-4xl text-[clamp(1.65rem,4.7vw,3.2rem)] font-semibold leading-[0.96] tracking-[-0.07em] text-slate-950">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen.</p>
             </div>
             <Link href="/free-check" className="inline-flex min-h-11 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-5 py-2 text-sm font-black text-slate-950 shadow-[0_14px_34px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Start Free Scan</Link>
           </div>
@@ -43,7 +44,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Be easier to find, understand, and choose. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Run Free Scan, Start Free Scan, Sample Report, Plans, FAQ, Privacy, Terms, and Disclaimer. href="/free-check" href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer"</span>
+      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Be easier to find, understand, and choose. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Run Free Scan, Start Free Scan, Sample Report, Plans, FAQ, Privacy, Terms, Disclaimer, and Customer Access. Customer Access routes to /login. href="/free-check" href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer" href="/login"</span>
     </footer>
   );
 }
