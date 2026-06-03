@@ -19,6 +19,12 @@ const REQUEST_PATHS = [
   { title: "Already submitted", href: "/dashboard/support/status", copy: "Track status before creating duplicate requests." },
 ] as const;
 
+const REQUEST_READ_ORDER = [
+  ["Check gates", "Confirm whether Review, Repair, or Control has the right intake, diagnosis, scope, or baseline before work starts."],
+  ["Choose mode", "Start a new request only for a new blocker; update only when status asks for safer context."],
+  ["Write safe", "Summarize the issue without passwords, card data, private keys, raw tokens, or raw evidence dumps."],
+] as const;
+
 const SAFE_SUMMARY_RULES = [
   "Say what happened, which area it affects, and what help you need.",
   "Do not paste passwords, card numbers, bank details, private keys, raw tokens, session tokens, or admin keys.",
@@ -59,6 +65,17 @@ export default function SupportRequestPage() {
         </div>
       </section>
 
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Support request read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {REQUEST_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section id="work-start-gates" className="relative mx-auto max-w-[92rem] scroll-mt-8 px-4 pb-8 sm:px-6" aria-label="Cendorq work start gates">
         <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur">
           <div className="border-b border-slate-200 p-5 sm:p-7">
@@ -93,7 +110,7 @@ export default function SupportRequestPage() {
 
       <section id="support-request-update" className="relative mx-auto grid max-w-[92rem] scroll-mt-8 gap-5 px-4 pb-16 sm:px-6 lg:grid-cols-[1.08fr_0.92fr]"><div className="rounded-[2.15rem] border border-white/80 bg-white/86 p-4 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-5"><SupportRequestUpdateForm /></div><aside className="rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur sm:p-6"><h2 className="text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Do not create duplicate noise.</h2><p className="mt-5 text-xs font-semibold leading-6 text-slate-600">Use update mode only when the status page asks for safer customer context. Approved updates return the request to protected review.</p><Link href="/dashboard/support/status" className="mt-6 inline-flex text-sm font-bold text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">Check status first →</Link></aside></section>
 
-      <section className="sr-only" aria-label="Support request guardrails">Market resolution intake. Premium protected support intake. Light support request page. No black support request blocks. No dark blue support request blocks. Send the safe summary that moves the blocker forward. Work-start gates. What Cendorq needs before backend work starts. Review intake gate. Repair prerequisite gate. Control baseline gate. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No plan-expansion shortcut. No command-depth shortcut. Track status first. Check work-start gates. Start safe request. Gate the queue. New blocker. Asked for context. Already submitted. SupportRequestForm. SupportRequestUpdateForm. CUSTOMER_SUPPORT_INTAKE_FLOWS. CUSTOMER_SUPPORT_INTAKE_RISK_RULES. Badge styling removed from visible support request blocks. Heavy blue blocks reduced. {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CENDORQ_WORK_START_GATE_PROJECTIONS.map((gate) => `${gate.key} ${gate.planKey} ${gate.customerTitle} ${gate.customerPromise} ${gate.backendStartRule} ${gate.customerSafeAction} ${gate.blockedPattern} ${gate.requiredBeforeQueue.join(" ")} ${gate.decision.fulfillmentState} ${gate.decision.backendWorkState}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}</section>
+      <section className="sr-only" aria-label="Support request guardrails">Market resolution intake. Premium protected support intake. Light support request page. No black support request blocks. No dark blue support request blocks. Send the safe summary that moves the blocker forward. Support request read order. Check gates. Choose mode. Write safe. Work-start gates. What Cendorq needs before backend work starts. Review intake gate. Repair prerequisite gate. Control baseline gate. Safe summary only. Update only when asked. No duplicate requests. No private data dump. No plan-expansion shortcut. No command-depth shortcut. Track status first. Check work-start gates. Start safe request. Gate the queue. New blocker. Asked for context. Already submitted. SupportRequestForm. SupportRequestUpdateForm. CUSTOMER_SUPPORT_INTAKE_FLOWS. CUSTOMER_SUPPORT_INTAKE_RISK_RULES. Badge styling removed from visible support request blocks. Heavy blue blocks reduced. {REQUEST_READ_ORDER.map(([label, copy]) => `${label} ${copy}`).join(" ")} {SAFE_SUMMARY_RULES.join(" ")} {REQUEST_PATHS.map((item) => `${item.title} ${item.copy} ${item.href}`).join(" ")} {CENDORQ_WORK_START_GATE_PROJECTIONS.map((gate) => `${gate.key} ${gate.planKey} ${gate.customerTitle} ${gate.customerPromise} ${gate.backendStartRule} ${gate.customerSafeAction} ${gate.blockedPattern} ${gate.requiredBeforeQueue.join(" ")} ${gate.decision.fulfillmentState} ${gate.decision.backendWorkState}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_FLOWS.map((flow) => `${flow.key} ${flow.label} ${flow.primaryOutcome} ${flow.purpose} ${flow.requiredGuards.join(" ")}`).join(" ")} {CUSTOMER_SUPPORT_INTAKE_RISK_RULES.map((rule) => `${rule.key} ${rule.decision} ${rule.customerMessage}`).join(" ")}</section>
     </main>
   );
 }
