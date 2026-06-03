@@ -83,7 +83,7 @@ const FAQ_SECTIONS: readonly FaqSection[] = [
       {
         question: "Already have an account?",
         answer:
-          "Log in with the same email you used for your Free Scan, form, plan, billing, or support request.",
+          "Use the same email you used for your Free Scan, form, or plan. That keeps the result, billing, reports, and support attached to the right customer record.",
       },
       {
         question: "Which email should I use?",
@@ -201,6 +201,12 @@ const START_PATHS = [
   { title: "Already submitted", copy: "Log in with the same email used for your scan, form, plan, billing, or support." },
 ] as const;
 
+const TRUST_MARKERS = [
+  ["Scan", "First signal only"],
+  ["Report", "Gap and next move"],
+  ["Plan", "Only when depth fits"],
+] as const;
+
 export default function FaqPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq Questions",
@@ -230,7 +236,7 @@ export default function FaqPage() {
       <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center" aria-label="Cendorq FAQ entry">
         <div className="relative z-10">
           <p className="text-sm font-semibold text-cyan-700">Cendorq FAQ</p>
-          <h1 className="mt-3 max-w-5xl text-[clamp(2.85rem,9.4vw,6.15rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Clear answers before you choose the next step.</h1>
+          <h1 className="mt-3 max-w-5xl text-[clamp(2.85rem,9.4vw,6.15rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Get clear answers before the next move.</h1>
           <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose paid depth only when it makes sense.</p>
           <div className="mt-6 flex flex-wrap gap-3">
             {QUICK_LINKS.map((item) => (
@@ -245,6 +251,9 @@ export default function FaqPage() {
             <p className="text-sm font-semibold text-cyan-700">FAQ decision path</p>
             <div className="mt-5 grid gap-3">
               {START_PATHS.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
+            </div>
+            <div className="mt-4 grid gap-2 sm:grid-cols-3">
+              {TRUST_MARKERS.map(([label, copy]) => <TrustMarker key={label} label={label} copy={copy} />)}
             </div>
           </div>
         </div>
@@ -288,6 +297,10 @@ export default function FaqPage() {
 
 function InfoCard({ title, copy }: { title: string; copy: string }) {
   return <article className="rounded-[1.2rem] border border-slate-200 bg-white/88 p-4 shadow-sm"><h2 className="text-2xl font-semibold tracking-[-0.045em] text-slate-950">{title}</h2><p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p></article>;
+}
+
+function TrustMarker({ label, copy }: { label: string; copy: string }) {
+  return <article className="rounded-[1rem] border border-slate-200 bg-white/86 p-3 shadow-sm"><p className="text-sm font-black text-slate-950">{label}</p><p className="mt-1 text-xs font-semibold leading-5 text-slate-500">{copy}</p></article>;
 }
 
 function FaqAtmosphere() {
