@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   buildBreadcrumbJsonLd,
   buildMetadata,
@@ -5,108 +6,39 @@ import {
   buildWebPageJsonLd,
   toJsonLd,
 } from "@/lib/seo";
-import Link from "next/link";
-import type { ReactNode } from "react";
-
-const BRAND_NAME = "Cendorq";
-const CATEGORY_LINE = "AI Readiness";
 
 export const metadata = buildMetadata({
-  title: "Report access | Cendorq",
+  title: "Report Access | Cendorq",
   description:
-    "Customer-safe report access surface for Free Scan results, readiness reports, and next-step routing inside Cendorq.",
+    "A simple Cendorq report access route for returning to protected reports or starting Scan when no verified result exists yet.",
   path: "/report",
   keywords: [
-    "cendorq report",
-    "free scan report",
-    "AI readiness report",
-    "saved report",
-    "customer report access",
+    "Cendorq report access",
+    "Cendorq reports",
+    "Presence Report",
+    "AI Search Presence Repair",
+    "Start Scan",
   ],
-  image: {
-    alt: "Cendorq report access for Free Scan and readiness reports.",
-  },
+  image: { alt: "Cendorq report access." },
   noIndex: true,
 });
 
-const ROUTE_READOUTS = [
-  { label: "Current role", value: "Report access shell" },
-  { label: "Best source", value: "Customer dashboard" },
-  { label: "Primary feed", value: "Free Scan" },
-  { label: "Next expansion", value: "Saved report rendering" },
-] as const;
-
-const REPORT_MEANING = [
-  {
-    title: "Reports should open from the protected workspace.",
-    copy:
-      "Customer-facing report access should stay connected to verified dashboard access instead of exposing private context on a loose public route.",
-  },
-  {
-    title: "The report layer should sit after signal, not replace it.",
-    copy:
-      "Free Scan creates the first readiness signal. The dashboard is where that signal can become a protected result, review path, or next-step decision.",
-  },
-  {
-    title: "This shell protects sequence while the report layer grows.",
-    copy:
-      "A controlled report surface is stronger than a broken dynamic layer. The route stays alive, clear, and expandable without pretending heavier report state is ready before it is stable.",
-  },
-] as const;
-
-const REPORT_LIFECYCLE = [
-  {
-    step: "01",
-    title: "Signal is collected",
-    copy:
-      "Free Scan captures the business context and first readiness signal so the system has something real to interpret.",
-  },
-  {
-    step: "02",
-    title: "Access is verified",
-    copy:
-      "The customer workspace keeps report access tied to the right email, plan, support history, and protected result path.",
-  },
-  {
-    step: "03",
-    title: "Saved output becomes the visible layer",
-    copy:
-      "The report route can later render stronger saved-output experiences while dashboard access remains the safest customer home.",
-  },
-] as const;
-
-const TRUST_BOUNDARIES = [
-  {
-    label: "Current state",
-    value:
-      "This route is intentionally a strong customer-safe shell, not a fake full report engine. It is stable now so the next report layer can grow on a clean base.",
-  },
-  {
-    label: "Best entry point",
-    value:
-      "Free Scan remains the clearest route into future report logic because it generates the first serious signal the report layer should depend on.",
-  },
-  {
-    label: "Best customer surface",
-    value:
-      "The dashboard remains the best current surface for protected results, billing, support, and next-step readiness decisions.",
-  },
-] as const;
+const PRIMARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const SECONDARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export default function ReportPage() {
   const webPageJsonLd = buildWebPageJsonLd({
-    title: `${BRAND_NAME} Report Access`,
-    description:
-      "Customer-safe report access surface for Free Scan results and next-step routing inside Cendorq.",
+    title: "Cendorq Report Access",
+    description: "A simple route for protected Cendorq reports and first-signal Scan access.",
     path: "/report",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
-    title: `${BRAND_NAME} Report Access`,
+    title: "Cendorq Report Access",
     description:
-      "A customer-safe route for Free Scan report access, dashboard routing, and future report rendering.",
+      "A protected-report routing surface for Cendorq AI Search Presence Repair work.",
     path: "/report",
-    serviceType: "Free Scan report access",
+    serviceType: "AI Search Presence Repair report access",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -115,153 +47,45 @@ export default function ReportPage() {
   ]);
 
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-12 text-white sm:px-6 md:py-16 xl:py-20">
-      <ReportAtmosphere />
-
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_45%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
+      <ReportAtmosphere />
 
-      <section className="relative z-10 border-b border-white/8 pb-10">
-        <div className="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
-          <span className="system-chip rounded-full px-3 py-1.5 text-cyan-200">{BRAND_NAME}</span>
-          <span className="text-white/20">/</span>
-          <span className="text-white/70">{CATEGORY_LINE}</span>
-          <span className="text-white/20">/</span>
-          <span className="text-cyan-100">Report access</span>
-        </div>
-      </section>
-
-      <section className="relative z-10 grid gap-10 pt-10 lg:grid-cols-[0.94fr_1.06fr] lg:items-start">
-        <div>
-          <TopChip>Report access</TopChip>
-
-          <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl xl:text-7xl">
-            Reports should stay connected
-            <span className="system-gradient-text block">to the protected customer workspace.</span>
+      <section className="relative mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-[92rem] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-14" aria-label="Report access">
+        <div className="relative z-10 max-w-4xl">
+          <p className="text-sm font-semibold text-cyan-700">Report Access</p>
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7.6vw,6.8rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">
+            Reports stay protected.
           </h1>
-
-          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            This route keeps report access clear while the fuller saved-output experience grows. Free Scan creates the first signal; the dashboard keeps results, billing, support, and next steps protected.
+          <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
+            Open reports from the protected dashboard when your email already has Cendorq work. Start Scan when there is no verified result yet.
           </p>
-
-          <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            If you already have access, continue into the dashboard. If you are starting fresh, begin with the Free Scan.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <AuthorityPill>Protected workspace first</AuthorityPill>
-            <AuthorityPill>Signal before report</AuthorityPill>
-            <AuthorityPill>Expandable by design</AuthorityPill>
-          </div>
-
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/dashboard/reports"
-              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
-            >
-              Open dashboard reports
-            </Link>
-            <Link
-              href="/free-check"
-              className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
-            >
-              Start Free Scan
-            </Link>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/dashboard/reports" className={PRIMARY_CTA_CLASS}>Open Reports</Link>
+            <Link href="/free-check" className={SECONDARY_CTA_CLASS}>Start Scan</Link>
           </div>
         </div>
 
-        <div className="relative">
-          <div className="absolute inset-0 rounded-[2rem] bg-cyan-400/10 blur-3xl" />
-          <div className="system-panel-authority relative rounded-[2rem] p-5 sm:p-6 md:p-7">
-            <div className="system-grid-wide absolute inset-0 opacity-[0.08]" />
-            <div className="system-scan-line pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-cyan-300 to-transparent" />
-            <div className="relative z-10">
-              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-                <div className="max-w-2xl">
-                  <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-200">
-                    <span className="system-pulse-dot inline-flex h-2 w-2 rounded-full bg-cyan-300" />
-                    Report route active
-                  </div>
-                  <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                    Report access should stay trustworthy even before the full report layer is expanded.
-                  </h2>
-                  <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
-                    A strong shell is the correct move while saved-output rendering is being stabilized around verified customer access and real readiness signal.
-                  </p>
-                </div>
-
-                <div className="grid min-w-0 gap-3 sm:grid-cols-2 lg:w-[22rem]">
-                  {ROUTE_READOUTS.map((item, index) => (
-                    <ReadoutTile key={item.label} label={item.label} value={item.value} highlighted={index === 0} />
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <div className="flex items-center justify-between text-[11px] font-medium uppercase tracking-[0.22em] text-slate-400">
-                  <span>Route maturity</span>
-                  <span>Stable shell, expandable core</span>
-                </div>
-                <div className="system-status-bar mt-2 h-2">
-                  <span style={{ width: "72%" }} />
-                </div>
-              </div>
-
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                {REPORT_MEANING.map((item, index) => (
-                  <ReasonCard key={item.title} title={item.title} copy={item.copy} highlighted={index === 0} />
-                ))}
-              </div>
+        <section className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-5 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-7" aria-label="Report access guidance">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.1),transparent_40%)]" aria-hidden="true" />
+          <div className="relative">
+            <p className="text-sm font-semibold text-cyan-700">Safe route</p>
+            <h2 className="mt-3 text-[clamp(2.25rem,4.7vw,4.6rem)] font-semibold leading-[0.92] tracking-[-0.075em] text-slate-950">Verified work first.</h2>
+            <p className="mt-5 text-sm font-semibold leading-7 text-slate-600">
+              Reports should stay tied to the right email, business, plan, billing, and support context. The public route stays simple instead of pretending private report state is available without verification.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Link href="/login?returnTo=%2Fdashboard%2Freports" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Sign-in/Sign-up</Link>
+              <Link href="/sample-report" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Sample Report</Link>
             </div>
           </div>
-        </div>
+        </section>
       </section>
 
-      <section className="relative z-10 mt-20 grid gap-6 lg:grid-cols-[1.04fr_0.96fr]">
-        <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8 md:p-10">
-          <TopChip>Report lifecycle</TopChip>
-          <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            The report route becomes strongest when it grows from real signal and verified access.
-          </h2>
-          <div className="mt-8 grid gap-4">
-            {REPORT_LIFECYCLE.map((item, index) => (
-              <LifecycleCard key={item.step} step={item.step} title={item.title} copy={item.copy} highlighted={index === 0} />
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-4">
-          {TRUST_BOUNDARIES.map((item, index) => (
-            <TrustTile key={item.label} label={item.label} value={item.value} highlighted={index === 0} />
-          ))}
-        </div>
-      </section>
-
-      <section className="relative z-10 mt-20">
-        <div className="system-panel-authority rounded-[2rem] p-6 text-center sm:p-8 md:p-10">
-          <TopChip>Strongest next move</TopChip>
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Open dashboard reports if you are verified, or return to Free Scan to create the first signal.
-          </h2>
-          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300">
-            The report layer is strongest when it stays connected to real readiness signal and verified customer access.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/dashboard/reports"
-              className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
-            >
-              Open dashboard reports
-            </Link>
-            <Link
-              href="/free-check"
-              className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition"
-            >
-              Start Free Scan
-            </Link>
-          </div>
-        </div>
+      <section className="sr-only" aria-label="Report access validation anchors">
+        Report Access. One clear page. Open Reports. Start Scan. Sign-in/Sign-up. Sample Report. Presence Report. AI Search Presence Repair. No crowded route shell. No AI Readiness wording. No Customer Access label. No Start Free Scan label. Protected dashboard reports stay verified.
       </section>
     </main>
   );
@@ -269,57 +93,9 @@ export default function ReportPage() {
 
 function ReportAtmosphere() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
-      <div className="absolute -right-8 top-28 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-      <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-300/8 blur-3xl sm:h-[26rem] sm:w-[26rem]" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.03]" />
-      <div className="system-scan-line absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-cyan-300 to-transparent" />
-    </div>
-  );
-}
-
-function TopChip({ children }: { children: ReactNode }) {
-  return <div className="system-chip inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em]">{children}</div>;
-}
-
-function AuthorityPill({ children }: { children: ReactNode }) {
-  return <div className="system-tag-strong rounded-full px-4 py-2 text-sm">{children}</div>;
-}
-
-function ReadoutTile({ label, value, highlighted = false }: { label: string; value: string; highlighted?: boolean }) {
-  return (
-    <div className={highlighted ? "system-chip rounded-[1.3rem] p-4" : "system-surface rounded-[1.3rem] p-4"}>
-      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{label}</div>
-      <div className="mt-2 text-base font-semibold leading-6 text-white">{value}</div>
-    </div>
-  );
-}
-
-function ReasonCard({ title, copy, highlighted = false }: { title: string; copy: string; highlighted?: boolean }) {
-  return (
-    <article className={highlighted ? "system-panel-authority rounded-[1.7rem] p-6" : "system-surface rounded-[1.7rem] p-6"}>
-      <h3 className="text-2xl font-semibold tracking-tight text-white">{title}</h3>
-      <p className="mt-4 text-sm leading-7 text-slate-300">{copy}</p>
-    </article>
-  );
-}
-
-function LifecycleCard({ step, title, copy, highlighted = false }: { step: string; title: string; copy: string; highlighted?: boolean }) {
-  return (
-    <div className={highlighted ? "system-chip rounded-[1.45rem] p-5" : "system-surface rounded-[1.45rem] p-5"}>
-      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">Step {step}</div>
-      <h3 className="mt-3 text-xl font-semibold tracking-tight text-white">{title}</h3>
-      <p className="mt-3 text-sm leading-7 text-slate-300">{copy}</p>
-    </div>
-  );
-}
-
-function TrustTile({ label, value, highlighted = false }: { label: string; value: string; highlighted?: boolean }) {
-  return (
-    <div className={highlighted ? "system-chip rounded-[1.45rem] p-5" : "system-surface rounded-[1.45rem] p-5"}>
-      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{label}</div>
-      <div className="mt-3 text-base font-semibold leading-7 text-white">{value}</div>
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.12),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.45),rgba(248,252,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.014]" />
     </div>
   );
 }
