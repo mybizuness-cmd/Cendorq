@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 export const alt =
-    "Cendorq — Market Command Intelligence for businesses that need to be easier for customers, search, and AI discovery to understand, trust, and choose.";
+    "Cendorq — AI Search Presence Repair for businesses that need to be easier for AI, search, and customers to find, understand, trust, compare, and choose.";
 
 export const size = {
     width: 1200,
@@ -13,28 +13,24 @@ export const size = {
 export const contentType = "image/png";
 
 const readouts = [
-    {
-        label: "Primary role",
-        value: "Market Command Intelligence",
-    },
-    {
-        label: "First move",
-        value: "Scan",
-    },
-    {
-        label: "Proof depth",
-        value: "Diagnose",
-    },
-    {
-        label: "Monthly layer",
-        value: "Control",
-    },
+    { label: "Product object", value: "Presence Report" },
+    { label: "Choice signal", value: "Choice Gap" },
+    { label: "Next command", value: "Repair Queue" },
+    { label: "Path", value: "Scan → Review → Repair → Control" },
 ] as const;
 
 const operatingPillars = [
-    "Be found",
-    "Build trust",
-    "Make choice clear",
+    "Find",
+    "Understand",
+    "Trust",
+    "Choose",
+] as const;
+
+const commandPath = [
+    ["Scan", "first signal"],
+    ["Review", "cause proof"],
+    ["Repair", "scoped move"],
+    ["Control", "drift watch"],
 ] as const;
 
 export default function OpenGraphImage() {
@@ -48,91 +44,84 @@ export default function OpenGraphImage() {
                     height: "100%",
                     overflow: "hidden",
                     background:
-                        "radial-gradient(circle at top left, rgba(34,211,238,0.16), transparent 24%), radial-gradient(circle at top right, rgba(56,189,248,0.14), transparent 22%), radial-gradient(circle at bottom center, rgba(34,211,238,0.08), transparent 32%), linear-gradient(180deg, #020617 0%, #020817 42%, #030712 100%)",
-                    color: "#f8fafc",
+                        "radial-gradient(circle at top left, rgba(251,207,232,0.28), transparent 25%), radial-gradient(circle at top right, rgba(125,211,252,0.28), transparent 26%), radial-gradient(circle at bottom center, rgba(186,230,253,0.22), transparent 34%), linear-gradient(180deg, #ffffff 0%, #f4fbff 46%, #ffffff 100%)",
+                    color: "#0f172a",
                     fontFamily:
                         'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
                 }}
             >
-                <div style={{ position: "absolute", inset: 0, display: "flex", backgroundImage: "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)", backgroundSize: "38px 38px", opacity: 0.24 }} />
-                <div style={{ position: "absolute", left: 30, top: 46, width: 260, height: 260, borderRadius: 999, background: "rgba(34,211,238,0.1)" }} />
-                <div style={{ position: "absolute", right: 44, top: 70, width: 220, height: 220, borderRadius: 999, background: "rgba(56,189,248,0.1)" }} />
-                <div style={{ position: "absolute", left: "50%", bottom: -56, width: 340, height: 340, borderRadius: 999, transform: "translateX(-50%)", background: "rgba(34,211,238,0.08)" }} />
+                <div style={{ position: "absolute", inset: 0, display: "flex", backgroundImage: "linear-gradient(rgba(15,23,42,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.035) 1px, transparent 1px)", backgroundSize: "38px 38px", opacity: 0.32 }} />
+                <div style={{ position: "absolute", left: -70, top: -70, width: 360, height: 360, borderRadius: 999, background: "rgba(251,207,232,0.34)" }} />
+                <div style={{ position: "absolute", right: -42, top: 48, width: 310, height: 310, borderRadius: 999, background: "rgba(125,211,252,0.26)" }} />
+                <div style={{ position: "absolute", left: "48%", bottom: -94, width: 430, height: 430, borderRadius: 999, transform: "translateX(-50%)", background: "rgba(186,230,253,0.22)" }} />
 
                 <div style={{ position: "relative", display: "flex", width: "100%", height: "100%", padding: "42px 42px 40px", gap: 26 }}>
                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", flex: 1, minWidth: 0 }}>
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                            <div style={{ display: "flex", alignItems: "center", alignSelf: "flex-start", gap: 14, padding: "10px 16px 10px 10px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.1)", background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))" }}>
-                                <div style={{ position: "relative", display: "flex", width: 52, height: 52, alignItems: "center", justifyContent: "center", borderRadius: 999, border: "1px solid rgba(103,232,249,0.22)", background: "radial-gradient(circle at 30% 30%, rgba(103,232,249,0.24), transparent 55%), #08111f" }}>
+                            <div style={{ display: "flex", alignItems: "center", alignSelf: "flex-start", gap: 14, padding: "10px 16px 10px 10px", borderRadius: 999, border: "1px solid rgba(14,165,233,0.18)", background: "rgba(255,255,255,0.72)" }}>
+                                <div style={{ position: "relative", display: "flex", width: 52, height: 52, alignItems: "center", justifyContent: "center", borderRadius: 999, border: "1px solid rgba(14,165,233,0.18)", background: "radial-gradient(circle at 30% 30%, rgba(251,207,232,0.45), transparent 55%), #ffffff" }}>
                                     <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                                        <div style={{ width: 6, height: 18, borderRadius: 999, background: "#a5f3fc" }} />
-                                        <div style={{ width: 6, height: 24, borderRadius: 999, background: "#ffffff" }} />
-                                        <div style={{ width: 6, height: 14, borderRadius: 999, background: "#bfdbfe" }} />
+                                        <div style={{ width: 6, height: 18, borderRadius: 999, background: "#06b6d4" }} />
+                                        <div style={{ width: 6, height: 24, borderRadius: 999, background: "#334155" }} />
+                                        <div style={{ width: 6, height: 14, borderRadius: 999, background: "#f0abfc" }} />
                                     </div>
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "column" }}>
-                                    <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#ffffff" }}>Cendorq</div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#94a3b8" }}>Market Command Intelligence</div>
+                                    <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", color: "#0f172a" }}>Cendorq</div>
+                                    <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", color: "#0891b2" }}>AI Search Presence Repair</div>
                                 </div>
                             </div>
 
-                            <div style={{ marginTop: 28, display: "flex", alignItems: "center", alignSelf: "flex-start", gap: 10, padding: "9px 14px", borderRadius: 999, border: "1px solid rgba(103,232,249,0.18)", background: "linear-gradient(180deg, rgba(103,232,249,0.11), rgba(56,189,248,0.06))", color: "#cffafe", fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase" }}>
-                                <div style={{ width: 9, height: 9, borderRadius: 999, background: "#67e8f9", boxShadow: "0 0 0 8px rgba(103,232,249,0.12)" }} />
-                                Free scan first
+                            <div style={{ marginTop: 28, display: "flex", alignItems: "center", alignSelf: "flex-start", gap: 10, padding: "9px 14px", borderRadius: 999, border: "1px solid rgba(14,165,233,0.18)", background: "rgba(236,254,255,0.75)", color: "#0e7490", fontSize: 12, fontWeight: 800, letterSpacing: "0.22em", textTransform: "uppercase" }}>
+                                <div style={{ width: 9, height: 9, borderRadius: 999, background: "#06b6d4", boxShadow: "0 0 0 8px rgba(6,182,212,0.12)" }} />
+                                Start with the first signal
                             </div>
 
-                            <div style={{ marginTop: 26, display: "flex", flexDirection: "column", maxWidth: 720 }}>
-                                <div style={{ fontSize: 72, lineHeight: 0.93, fontWeight: 700, letterSpacing: "-0.055em", color: "#f8fafc" }}>
+                            <div style={{ marginTop: 25, display: "flex", flexDirection: "column", maxWidth: 720 }}>
+                                <div style={{ fontSize: 72, lineHeight: 0.9, fontWeight: 800, letterSpacing: "-0.066em", color: "#0f172a" }}>
                                     Be easier to find,
                                 </div>
-                                <div style={{ marginTop: 10, fontSize: 68, lineHeight: 0.93, fontWeight: 700, letterSpacing: "-0.055em", color: "#67e8f9" }}>
-                                    trust, and choose.
+                                <div style={{ marginTop: 10, fontSize: 68, lineHeight: 0.9, fontWeight: 800, letterSpacing: "-0.066em", color: "#06b6d4" }}>
+                                    understand, and choose.
                                 </div>
                             </div>
 
-                            <div style={{ marginTop: 24, maxWidth: 735, fontSize: 23, lineHeight: 1.52, color: "#cbd5e1" }}>
-                                Cendorq helps businesses find what customers, search, and AI discovery may be missing before spending deeper on the wrong fix.
+                            <div style={{ marginTop: 24, maxWidth: 750, fontSize: 23, lineHeight: 1.48, color: "#475569", fontWeight: 650 }}>
+                                Cendorq turns public presence into a clear decision: what AI, search, and customers can understand, where choice gets weak, and what to do first.
                             </div>
                         </div>
 
                         <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
                             {operatingPillars.map((item) => (
-                                <div key={item} style={{ display: "flex", alignItems: "center", padding: "10px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.09)", background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))", color: "#dbeafe", fontSize: 16, fontWeight: 600 }}>
+                                <div key={item} style={{ display: "flex", alignItems: "center", padding: "10px 16px", borderRadius: 999, border: "1px solid rgba(14,165,233,0.14)", background: "rgba(255,255,255,0.75)", color: "#334155", fontSize: 16, fontWeight: 750 }}>
                                     {item}
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    <div style={{ width: 338, display: "flex", flexDirection: "column", gap: 16 }}>
-                        <div style={{ display: "flex", flexDirection: "column", borderRadius: 34, border: "1px solid rgba(255,255,255,0.09)", background: "linear-gradient(180deg, rgba(9,18,34,0.92), rgba(6,13,26,0.86))", padding: "22px 22px 20px", boxShadow: "0 1px 0 rgba(255,255,255,0.04) inset, 0 28px 80px rgba(0,0,0,0.36)" }}>
-                            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#a5f3fc" }}>
+                    <div style={{ width: 350, display: "flex", flexDirection: "column", gap: 16 }}>
+                        <div style={{ display: "flex", flexDirection: "column", borderRadius: 34, border: "1px solid rgba(14,165,233,0.16)", background: "rgba(255,255,255,0.86)", padding: "22px 22px 20px", boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 28px 80px rgba(15,23,42,0.10)" }}>
+                            <div style={{ fontSize: 11, fontWeight: 850, letterSpacing: "0.22em", textTransform: "uppercase", color: "#0891b2" }}>
                                 Command path
                             </div>
-                            <div style={{ marginTop: 18, fontSize: 30, lineHeight: 1.14, fontWeight: 700, letterSpacing: "-0.04em", color: "#ffffff" }}>
-                                Scan before buying the bigger fix.
-                            </div>
-                            <div style={{ marginTop: 16, fontSize: 16, lineHeight: 1.58, color: "#cbd5e1" }}>
-                                Start free. Diagnose deeper when needed. Fix what matters. Control when the base is strong enough.
-                            </div>
-                            <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 10 }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color: "#94a3b8" }}>
-                                    <span>Market clarity</span>
-                                    <span>88%</span>
-                                </div>
-                                <div style={{ width: "100%", height: 9, borderRadius: 999, overflow: "hidden", background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))" }}>
-                                    <div style={{ width: "88%", height: "100%", borderRadius: 999, background: "linear-gradient(90deg, rgba(103,232,249,0.98), rgba(56,189,248,0.95))", boxShadow: "0 0 24px rgba(56,189,248,0.34)" }} />
-                                </div>
+                            <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
+                                {commandPath.map(([label, copy]) => (
+                                    <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, padding: "12px 13px", borderRadius: 18, border: "1px solid rgba(226,232,240,0.95)", background: "rgba(248,250,252,0.86)" }}>
+                                        <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: "-0.045em", color: "#0f172a" }}>{label}</div>
+                                        <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "#64748b" }}>{copy}</div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                             {readouts.map((item, index) => (
-                                <div key={item.label} style={{ display: "flex", flexDirection: "column", borderRadius: 22, padding: "16px 16px 18px", border: index === 0 ? "1px solid rgba(103,232,249,0.18)" : "1px solid rgba(255,255,255,0.08)", background: index === 0 ? "linear-gradient(180deg, rgba(103,232,249,0.11), rgba(56,189,248,0.06)), rgba(255,255,255,0.025)" : "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025)), rgba(255,255,255,0.02)" }}>
-                                    <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#94a3b8" }}>
+                                <div key={item.label} style={{ display: "flex", flexDirection: "column", borderRadius: 22, padding: "16px 16px 18px", border: index === 0 ? "1px solid rgba(14,165,233,0.22)" : "1px solid rgba(226,232,240,0.95)", background: index === 0 ? "linear-gradient(180deg, rgba(236,254,255,0.9), rgba(255,255,255,0.82))" : "rgba(255,255,255,0.8)" }}>
+                                    <div style={{ fontSize: 10, fontWeight: 850, letterSpacing: "0.2em", textTransform: "uppercase", color: "#64748b" }}>
                                         {item.label}
                                     </div>
-                                    <div style={{ marginTop: 10, fontSize: 19, lineHeight: 1.35, fontWeight: 700, color: "#ffffff" }}>
+                                    <div style={{ marginTop: 10, fontSize: 18, lineHeight: 1.3, fontWeight: 800, color: "#0f172a" }}>
                                         {item.value}
                                     </div>
                                 </div>

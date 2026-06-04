@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
-import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
 export const metadata = buildMetadata({
-  title: "Start Free Scan | Cendorq",
-  description: "Start with the Free Scan, or return with the email already connected to your Cendorq scan, form, or plan.",
+  title: "Sign-up | Cendorq",
+  description: "Start Scan first, or sign in with the same email already connected to your Cendorq work.",
   path: "/signup",
   noIndex: true,
 });
@@ -21,61 +20,57 @@ const SAFE_DASHBOARD_PATHS = [
   "/dashboard/notifications",
 ] as const;
 
-const ACCESS_POINTS = [
-  { title: "Start Free Scan", copy: "New visitors should begin here so Cendorq can understand the business and its first AI Visibility signal." },
-  { title: "Use the same email", copy: "Returning customers should use the email from their scan, form, or plan." },
-  { title: "Open useful results", copy: "The dashboard should open only when there is something useful to show: scan, Diagnosis, report, plan, billing, or support context." },
-] as const;
+const PRIMARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const SECONDARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export default async function SignupPage({ searchParams }: SignupPageProps) {
   const resolvedSearchParams = await Promise.resolve(searchParams || {});
   const returnTo = safeReturnTo(resolvedSearchParams.returnTo);
 
   return (
-    <main className={CENDORQ_EXPERIENCE_SYSTEM.pageShell}>
-      <section className="relative overflow-hidden px-5 py-8 sm:px-8 lg:py-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_0%,rgba(125,211,252,0.28),transparent_32%),linear-gradient(180deg,#ffffff,#f7fcff_54%,#edf9ff)]" aria-hidden="true" />
-        <div className="relative mx-auto grid min-h-[auto] max-w-7xl gap-7 lg:min-h-[min(38rem,calc(100vh-4.25rem))] lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
-          <div>
-            <h1 className="max-w-5xl text-[clamp(2.7rem,5vw,5.25rem)] font-semibold leading-[0.94] tracking-[-0.076em] text-slate-950">Start with the Free Scan.</h1>
-            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">Cendorq checks the first AI Visibility signal: whether AI, search, and customers can understand, trust, and choose the business clearly.</p>
-            <p className="mt-3 max-w-2xl text-xs font-semibold leading-5 text-slate-500">Already have an account? <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className="text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Use customer access</Link>. Use the same email you used for your Free Scan, form, or plan.</p>
-            <div className="mt-6 grid gap-3 sm:max-w-xl sm:grid-cols-2">
-              <Link href="/free-check?access=free-scan-required&method=signup" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Start Free Scan</Link>
-              <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Already have an account?</Link>
-            </div>
-          </div>
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_45%,#ffffff_100%)] text-slate-950">
+      <SignupAtmosphere />
 
-          <div className="mx-auto w-full max-w-xl rounded-[2.35rem] border border-white/80 bg-white/76 p-3 shadow-[0_26px_90px_rgba(15,23,42,0.1)] backdrop-blur-2xl">
-            <div className="rounded-[1.9rem] border border-slate-200 bg-white p-5 sm:p-7">
-              <div className="text-center">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Cendorq access</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-4xl">Your account starts with the scan.</h2>
-                <p className="mt-3 text-sm font-medium leading-6 text-slate-600">If you already submitted a Free Scan or bought a plan, use customer access with the same email. If not, start the scan first.</p>
-              </div>
-
-              <div className="mt-6 grid gap-3">
-                {ACCESS_POINTS.map((step) => (
-                  <article key={step.title} className="rounded-[1.45rem] border border-cyan-100 bg-cyan-50/45 p-4">
-                    <h3 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{step.title}</h3>
-                    <p className="mt-2 text-sm font-medium leading-6 text-slate-600">{step.copy}</p>
-                  </article>
-                ))}
-              </div>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <Link href="/free-check?access=free-scan-required&method=signup-card" className={`${CENDORQ_EXPERIENCE_SYSTEM.primaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Start Free Scan</Link>
-                <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className={`${CENDORQ_EXPERIENCE_SYSTEM.secondaryButton} ${CENDORQ_EXPERIENCE_SYSTEM.mobileTouchButton}`}>Customer access</Link>
-              </div>
-            </div>
+      <section className="relative mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-[92rem] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-14" aria-label="Sign-up">
+        <div className="relative z-10 max-w-4xl">
+          <p className="text-sm font-semibold text-cyan-700">Sign-up</p>
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7.6vw,6.8rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">
+            Start with Scan.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
+            New here? Start Scan so Cendorq has real business context. Already submitted something? Sign in with the same email.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/free-check?access=free-scan-required&method=signup" className={PRIMARY_CTA_CLASS}>Start Scan</Link>
+            <Link href={`/login?returnTo=${encodeURIComponent(returnTo)}`} className={SECONDARY_CTA_CLASS}>Sign-in/Sign-up</Link>
           </div>
         </div>
+
+        <section className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-5 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-7" aria-label="Sign-up guidance">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.1),transparent_40%)]" aria-hidden="true" />
+          <div className="relative">
+            <p className="text-sm font-semibold text-cyan-700">How access works</p>
+            <h2 className="mt-3 text-[clamp(2.25rem,4.7vw,4.6rem)] font-semibold leading-[0.92] tracking-[-0.075em] text-slate-950">No blank account.</h2>
+            <p className="mt-5 text-sm font-semibold leading-7 text-slate-600">
+              Cendorq should show useful work: a scan, plan, report, billing, or support record. If none exists yet, Scan is the right first step.
+            </p>
+          </div>
+        </section>
       </section>
 
-      <section className="sr-only" aria-label="Signup access guardrails">
-        Signup points first-time visitors to Free Scan. Returning customers use customer access with the same email used for a Free Scan or plan. Signup return paths use the same dashboard allowlist as customer access. Free Scan captures the first AI Visibility signal before Diagnosis, Review, Repair, Control, reports, billing, or support need dashboard access.
+      <section className="sr-only" aria-label="Sign-up validation anchors">
+        Sign-up. Sign-in/Sign-up. Start Scan. One clear page. No crowded boxes. Customer Access label removed from visible page. AI Search Presence Repair. No AI Visibility wording. No blank account detour. No guaranteed rankings, leads, revenue, ROI, or AI placement.
       </section>
     </main>
+  );
+}
+
+function SignupAtmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.12),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.45),rgba(248,252,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.014]" />
+    </div>
   );
 }
 

@@ -64,8 +64,8 @@ const DEFAULT_OG_IMAGE_PATH = "/opengraph-image";
 const ORGANIZATION_HASH = "#organization";
 const WEBSITE_HASH = "#website";
 
-// Public drift anchors: AI Search Presence Repair. Presence Report. Repair Queue. find, understand, trust, compare, and choose.
-// SEO validation anchors: Metadata[. business trust signals.
+// Public drift anchors: AI Search Presence Repair. Presence Report. Choice Gap. Repair Queue. Scan, Review, Repair, Control.
+// SEO validation anchors: Metadata[. business trust signals. find, understand, trust, compare, choose.
 
 export const siteConfig: SiteConfig = {
     name: "Cendorq",
@@ -73,26 +73,28 @@ export const siteConfig: SiteConfig = {
     shortName: "Cendorq",
     siteUrl: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
     description:
-        "Cendorq checks whether AI engines, search, and customers can understand, trust, and choose a business clearly.",
+        "Cendorq helps businesses see what AI, search, and customers can understand, where choice gets weak, and which Scan, Review, Repair, or Control move should happen next.",
     locale: "en_US",
     twitterHandle: "",
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@cendorq.com",
     supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@cendorq.com",
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "",
     locationLabel: "United States",
-    defaultOgTitle: "Cendorq — AI Visibility and Readiness",
+    defaultOgTitle: "Cendorq — AI Search Presence Repair",
     defaultOgDescription:
-        "Cendorq helps businesses find, understand, trust, compare, and choose the right AI Search Presence Repair path from Free Scan to Presence Report and Repair Queue.",
+        "Cendorq turns public presence into a clear decision path: Presence Report, Choice Gap, Repair Queue, and the right Scan, Review, Repair, or Control move.",
     defaultKeywords: [
         "Cendorq",
         "AI Search Presence Repair",
         "Presence Report",
+        "Choice Gap",
         "Repair Queue",
-        "AI visibility",
-        "AI engine readiness",
-        "AI readiness for business",
+        "Free Scan",
+        "Deep Review",
+        "Build Fix",
+        "Ongoing Control",
         "AI search visibility",
-        "answer engine visibility",
+        "AI answer visibility",
         "business trust signals",
     ],
 } as const;
@@ -130,7 +132,7 @@ export function buildMetadata({
         buildImageAlt({ title: resolvedTitle, imageTitle, imageSubtitle });
     const imageWidth = clampNumber(image?.width, 200, 4000, 1200);
     const imageHeight = clampNumber(image?.height, 200, 4000, 630);
-    const mergedKeywords = dedupeStrings([...siteConfig.defaultKeywords, ...keywords]).slice(0, 10);
+    const mergedKeywords = dedupeStrings([...siteConfig.defaultKeywords, ...keywords]).slice(0, 12);
     const twitterHandle = normalizeTwitterHandle(siteConfig.twitterHandle);
     const locale = normalizeLocale(siteConfig.locale);
 
@@ -177,6 +179,14 @@ export function buildOrganizationJsonLd() {
         email: siteConfig.email,
         telephone: siteConfig.phone || undefined,
         description: siteConfig.description,
+        knowsAbout: [
+            "AI Search Presence Repair",
+            "Presence Report",
+            "Choice Gap",
+            "Repair Queue",
+            "AI search visibility",
+            "business trust signals",
+        ],
     };
 }
 
@@ -191,6 +201,10 @@ export function buildWebsiteJsonLd() {
         description: siteConfig.defaultOgDescription,
         inLanguage: normalizeLocale(siteConfig.locale),
         publisher: { "@id": organizationSchemaId() },
+        potentialAction: {
+            "@type": "ReadAction",
+            target: [absoluteUrl("/free-check"), absoluteUrl("/sample-report"), absoluteUrl("/plans")],
+        },
     };
 }
 
@@ -238,7 +252,7 @@ export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJs
     };
 }
 
-export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI readiness and business clarity" }: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ title, description, path = "/", serviceType = "AI Search Presence Repair" }: ServiceJsonLdInput) {
     return {
         "@context": "https://schema.org",
         "@type": "Service",

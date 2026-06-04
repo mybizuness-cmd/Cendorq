@@ -1,80 +1,49 @@
-import { buildBreadcrumbJsonLd, buildFaqJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 import Link from "next/link";
+import { buildBreadcrumbJsonLd, buildFaqJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
 
 const BRAND_NAME = "Cendorq";
 const POLICY_DATE = "Effective date: April 2026";
 
 export const metadata = buildMetadata({
   title: `Privacy | ${BRAND_NAME}`,
-  description: "How Cendorq handles Free Scan context, customer reports, dashboard access, billing, notifications, and support data.",
+  description: "How Cendorq handles scan context, reports, dashboard access, billing, notifications, and support data.",
   path: "/privacy",
-  keywords: ["cendorq privacy", "free scan privacy", "dashboard privacy", "customer report privacy"],
+  keywords: ["cendorq privacy", "scan privacy", "dashboard privacy", "customer report privacy"],
   image: { alt: "Cendorq privacy boundaries." },
 });
 
-const PRIVACY_SUMMARY = [
-  { label: "What we use", value: "The business and account details needed to run your scan, report, dashboard, billing, notifications, and support." },
-  { label: "What not to send", value: "Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence." },
-  { label: "How reports stay bounded", value: "Free Scan, Deep Review, Build Fix, and Ongoing Control stay tied to the service depth you choose." },
-  { label: "Security reality", value: "Cendorq uses reasonable safeguards, but no online system can remove every risk." },
-] as const;
-
-const INFORMATION_CATEGORIES = [
+const PRIVACY_POINTS = [
   {
-    title: "Account and contact details",
-    copy: "Your name, business email, business name, website, and contact details help us verify access, deliver updates, and route support.",
+    title: "What we use",
+    copy: "Business name, website, email, submitted context, plan, billing, support, device, usage, security, and communication signals needed to operate Cendorq.",
   },
   {
-    title: "Business context",
-    copy: "The details you submit help Cendorq understand what customers see, where they may hesitate, and what next step fits your business.",
+    title: "Why we use it",
+    copy: "To run scans, prepare customer-safe outputs, verify access, route support, operate billing, improve reliability, and protect the platform from abuse.",
   },
   {
-    title: "Billing and plan signals",
-    copy: "Checkout, invoice, subscription, entitlement, and payment-status signals help unlock the right customer workflow without exposing private payment data in support.",
+    title: "What not to send",
+    copy: "Do not submit passwords, card numbers, private keys, session tokens, unrelated private evidence, or sensitive credentials.",
   },
   {
-    title: "Technical and usage signals",
-    copy: "Browser, device, approximate region, page activity, referral, analytics, performance, security, and session signals help operate and protect the platform.",
+    title: "How sharing works",
+    copy: "Trusted providers may support hosting, analytics, communications, security, checkout, billing, and support. Cendorq is not built around selling customer personal information.",
   },
-] as const;
-
-const USE_CASES = [
-  "Verify customer access and route you to the right dashboard, scan, report, billing, notification, or support surface.",
-  "Prepare and deliver the right customer output without mixing Free Scan, Deep Review, Build Fix, and Ongoing Control boundaries.",
-  "Operate checkout, billing, lifecycle emails, notifications, support requests, correction review, and customer-safe status updates.",
-  "Detect abuse, fraud, duplicate submissions, unsafe content, unauthorized access attempts, or platform-integrity issues.",
-] as const;
-
-const SHARING_BOUNDARIES = [
-  "Cendorq may use trusted service providers for hosting, analytics, communications, security, checkout, billing, and support operations.",
-  "Cendorq may disclose information when needed for law, valid legal process, rights protection, security, abuse prevention, or business transfer events.",
-  "Cendorq is not built around selling customer personal information as the core operating model described here.",
-  "Customer-facing surfaces should show safe summaries, not raw provider payloads, secrets, private internals, or cross-customer data.",
-] as const;
-
-const CUSTOMER_CHOICES = [
-  { title: "Choose what you submit", copy: "Your scan and support request work best with useful business context. Sensitive secrets should stay out." },
-  { title: "Ask for review", copy: "Use dashboard support for privacy, correction, data, communication, or access questions." },
-  { title: "Use browser controls", copy: "Your browser, device, cookie, and email settings may affect technical or communication preferences." },
 ] as const;
 
 const FAQS = [
   {
-    question: "Why does Cendorq collect business information?",
-    answer: "Business context helps Cendorq produce a useful first signal, review paid-plan questions, route support, and keep your customer journey coherent.",
-  },
-  {
     question: "Should I send sensitive secrets?",
-    answer: "No. Do not submit passwords, card numbers, private keys, session tokens, or unrelated private evidence through Free Scan or support.",
+    answer: "No. Do not submit passwords, card numbers, private keys, session tokens, or unrelated private evidence.",
   },
   {
     question: "Does Cendorq guarantee perfect security?",
-    answer: "No. Cendorq uses reasonable safeguards, but no online system can honestly promise absolute security in every circumstance.",
+    answer: "No online system can honestly promise absolute security. Cendorq uses reasonable safeguards and keeps customer surfaces tied to verified access.",
   },
 ] as const;
 
-const BUTTON_PRIMARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-6 py-3 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
-const BUTTON_SECONDARY = "inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-100 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2";
+const PRIMARY_LINK_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const SECONDARY_LINK_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export default function PrivacyPage() {
   const webPageJsonLd = buildWebPageJsonLd({
@@ -89,63 +58,58 @@ export default function PrivacyPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#eefbff_28%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_45%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
+      <PrivacyAtmosphere />
 
-      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 lg:py-14">
-        <h1 className="max-w-5xl text-[clamp(2.8rem,7vw,5.8rem)] font-semibold leading-[0.88] tracking-[-0.085em] text-slate-950">
-          Know what data belongs in the system.
-        </h1>
-        <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-          This policy explains how {BRAND_NAME} may collect, use, share, retain, and protect information across Free Scan, paid work, dashboard access, reports, billing, notifications, and support. {POLICY_DATE}.
-        </p>
-        <div className="mt-7 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {PRIVACY_SUMMARY.map((item) => <InfoCard key={item.label} title={item.label} copy={item.value} />)}
-        </div>
-      </section>
-
-      <section className="mx-auto grid max-w-6xl gap-3 px-5 pb-8 sm:px-8 md:grid-cols-2 xl:grid-cols-4" aria-label="Information Cendorq may collect">
-        {INFORMATION_CATEGORIES.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
-      </section>
-
-      <section className="mx-auto grid max-w-6xl gap-4 px-5 py-3 sm:px-8 lg:grid-cols-2">
-        <ListPanel title="How your information may be used" items={USE_CASES} />
-        <ListPanel title="Sharing and protection boundaries" items={SHARING_BOUNDARIES} />
-      </section>
-
-      <section className="mx-auto grid max-w-6xl gap-3 px-5 py-3 sm:px-8 md:grid-cols-3" aria-label="Customer choices">
-        {CUSTOMER_CHOICES.map((item) => <InfoCard key={item.title} title={item.title} copy={item.copy} />)}
-      </section>
-
-      <section className="mx-auto grid max-w-6xl gap-3 px-5 py-3 sm:px-8 lg:grid-cols-3" aria-label="Privacy questions">
-        {FAQS.map((item) => <InfoCard key={item.question} title={item.question} copy={item.answer} />)}
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
-        <div className="rounded-[1.8rem] border border-cyan-100 bg-white p-6 shadow-[0_16px_45px_rgba(14,165,233,0.06)] sm:p-8">
-          <h2 className="max-w-3xl text-3xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Need a privacy or data question reviewed?</h2>
-          <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600">Use dashboard support if you are already a customer. Start with the Free Scan if you are not yet inside the dashboard.</p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/dashboard/support" className={BUTTON_PRIMARY}>Open dashboard support</Link>
-            <Link href="/free-check" className={BUTTON_SECONDARY}>Run Free Scan</Link>
-            <Link href="/terms" className={BUTTON_SECONDARY}>Read terms</Link>
+      <section className="relative mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-[92rem] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:py-14" aria-label="Privacy policy">
+        <div className="relative z-10 max-w-4xl">
+          <p className="text-sm font-semibold text-cyan-700">Privacy · {POLICY_DATE}</p>
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7.6vw,6.8rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">
+            Privacy should be clear.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
+            Cendorq uses business and account context to run scans, protect access, deliver reports, route support, and operate billing.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/dashboard/support" className={PRIMARY_LINK_CLASS}>Open Support</Link>
+            <Link href="/terms" className={SECONDARY_LINK_CLASS}>Read Terms</Link>
           </div>
         </div>
+
+        <section className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-5 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-7" aria-label="Privacy summary">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.1),transparent_40%)]" aria-hidden="true" />
+          <div className="relative">
+            <p className="text-sm font-semibold text-cyan-700">Core boundaries</p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {PRIVACY_POINTS.map((item) => (
+                <article key={item.title} className="rounded-[1.15rem] border border-slate-200 bg-white/88 p-4 shadow-sm">
+                  <h2 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.title}</h2>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{item.copy}</p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-5 rounded-[1.15rem] border border-cyan-100 bg-cyan-50/60 p-4 text-sm font-semibold leading-7 text-slate-700">
+              Customer-facing surfaces should show useful summaries, not raw provider payloads, secrets, private internals, or cross-customer data.
+            </div>
+          </div>
+        </section>
       </section>
 
-      <section className="sr-only" aria-label="Privacy validation guardrails">
-        Privacy. Market trust privacy. Free Scan. Deep Review. Build Fix. Ongoing Control. dashboard support. /connect. Command-specific data boundaries. Safe customer summaries. Readiness-specific data boundaries. No raw secrets. No private payment details. No cross-customer data. reasonable safeguards. no online system can honestly guarantee absolute security. Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence.
+      <section className="sr-only" aria-label="Privacy validation anchors">
+        Privacy. One clear page. Open Support. Read Terms. No crowded privacy read order. No information wall. No customer choices grid. No Start Free Scan label. Do not submit passwords, card numbers, private keys, tokens, or unrelated private evidence. Reasonable safeguards, not absolute security guarantees.
       </section>
     </main>
   );
 }
 
-function InfoCard({ title, copy }: { title: string; copy: string }) {
-  return <article className="rounded-[1.25rem] border border-cyan-100 bg-white p-4 shadow-sm"><h2 className="text-lg font-semibold tracking-[-0.035em] text-slate-950">{title}</h2><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{copy}</p></article>;
-}
-
-function ListPanel({ title, items }: { title: string; items: readonly string[] }) {
-  return <article className="rounded-[1.55rem] border border-cyan-100 bg-white p-5 shadow-sm sm:p-6"><h2 className="text-2xl font-semibold tracking-[-0.05em] text-slate-950">{title}</h2><div className="mt-4 grid gap-2">{items.map((item) => <p key={item} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/32 p-3 text-sm font-semibold leading-6 text-slate-600">{item}</p>)}</div></article>;
+function PrivacyAtmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.12),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.45),rgba(248,252,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.014]" />
+    </div>
+  );
 }

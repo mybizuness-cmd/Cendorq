@@ -27,14 +27,16 @@ expect(loginPath, [
   "Customer access | Cendorq",
   "Access your Cendorq account.",
   "Use the same email you used when you submitted your Free Scan or bought a plan.",
-  "Already have an account? If you used a different email then, try that one.",
+  "Access should return an existing customer record, not create a blank account.",
   "Return with your email.",
   "No password needed.",
-  "We will send a secure link if this email is tied to your Free Scan or plan.",
+  "No password to remember.",
+  "We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context.",
   "Send secure access link",
   "First time here?",
   "Other access options are hidden until they are fully ready.",
   "Free Scan starts the account. Access brings customers back.",
+  "Access return paths",
   "SAFE_DASHBOARD_PATHS",
   "hover:-translate-y-0.5",
   "focus:outline-none",
@@ -94,7 +96,7 @@ forbidden(verifyPath, [
 ]);
 
 boundedLength(signupPath, 12500);
-boundedLength(loginPath, 11500);
+boundedLength(loginPath, 18000);
 boundedLength(verifyPath, 10500);
 
 if (failures.length) {

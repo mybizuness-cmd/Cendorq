@@ -21,10 +21,10 @@ export default function Icon() {
                     alignItems: "center",
                     justifyContent: "center",
                     overflow: "hidden",
-                    backgroundColor: "#020817",
+                    backgroundColor: "#ffffff",
                     backgroundImage:
-                        "radial-gradient(circle at 24% 22%, rgba(34,211,238,0.18), transparent 28%), radial-gradient(circle at 78% 18%, rgba(56,189,248,0.14), transparent 26%), linear-gradient(180deg, #020617 0%, #020817 46%, #030712 100%)",
-                    color: "#f8fafc",
+                        "radial-gradient(circle at 20% 18%, rgba(251,207,232,0.42), transparent 30%), radial-gradient(circle at 82% 16%, rgba(125,211,252,0.34), transparent 30%), radial-gradient(circle at 50% 94%, rgba(186,230,253,0.24), transparent 34%), linear-gradient(180deg, #ffffff 0%, #f4fbff 48%, #ffffff 100%)",
+                    color: "#0f172a",
                     fontFamily:
                         'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
                 }}
@@ -32,51 +32,52 @@ export default function Icon() {
                 <div
                     style={{
                         position: "absolute",
-                        inset: 28,
-                        borderRadius: 120,
-                        border: "1px solid rgba(103,232,249,0.14)",
-                        boxShadow: "0 0 120px rgba(34,211,238,0.12)",
+                        inset: 30,
+                        borderRadius: 124,
+                        border: "1px solid rgba(14,165,233,0.18)",
+                        boxShadow: "0 34px 110px rgba(15,23,42,0.10)",
+                        backgroundColor: "rgba(255,255,255,0.38)",
                     }}
                 />
 
                 <div
                     style={{
                         position: "absolute",
-                        width: 336,
-                        height: 336,
-                        borderRadius: 98,
-                        border: "1px solid rgba(255,255,255,0.06)",
-                        backgroundColor: "rgba(255,255,255,0.03)",
+                        width: 344,
+                        height: 344,
+                        borderRadius: 104,
+                        border: "1px solid rgba(14,165,233,0.16)",
+                        backgroundColor: "rgba(255,255,255,0.62)",
                     }}
                 />
 
                 <div
                     style={{
                         position: "absolute",
-                        width: 258,
-                        height: 258,
-                        borderRadius: 82,
-                        border: "1px solid rgba(103,232,249,0.2)",
-                        backgroundColor: "rgba(8,18,34,0.94)",
+                        width: 268,
+                        height: 268,
+                        borderRadius: 88,
+                        border: "1px solid rgba(14,165,233,0.22)",
+                        backgroundColor: "rgba(255,255,255,0.82)",
                         backgroundImage:
-                            "radial-gradient(circle at 30% 30%, rgba(103,232,249,0.18), transparent 44%)",
+                            "radial-gradient(circle at 30% 30%, rgba(251,207,232,0.34), transparent 44%), radial-gradient(circle at 82% 72%, rgba(186,230,253,0.28), transparent 42%)",
                     }}
                 />
 
                 <div
                     style={{
                         position: "absolute",
-                        top: 82,
+                        top: 72,
                         display: "flex",
                         alignItems: "center",
                         gap: 8,
                         padding: "8px 14px",
                         borderRadius: 999,
-                        border: "1px solid rgba(103,232,249,0.16)",
-                        backgroundColor: "rgba(8,18,34,0.7)",
-                        color: "#cffafe",
-                        fontSize: 17,
-                        fontWeight: 700,
+                        border: "1px solid rgba(14,165,233,0.18)",
+                        backgroundColor: "rgba(236,254,255,0.82)",
+                        color: "#0e7490",
+                        fontSize: 15,
+                        fontWeight: 800,
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
                     }}
@@ -86,7 +87,7 @@ export default function Icon() {
                             width: 9,
                             height: 9,
                             borderRadius: 999,
-                            backgroundColor: "#67e8f9",
+                            backgroundColor: "#06b6d4",
                         }}
                     />
                     CQ
@@ -96,13 +97,14 @@ export default function Icon() {
                     style={{
                         position: "relative",
                         display: "flex",
-                        width: 238,
-                        height: 238,
+                        width: 224,
+                        height: 224,
                         alignItems: "center",
                         justifyContent: "center",
-                        borderRadius: 74,
-                        border: "1px solid rgba(255,255,255,0.06)",
-                        backgroundColor: "rgba(255,255,255,0.02)",
+                        borderRadius: 76,
+                        border: "1px solid rgba(226,232,240,0.92)",
+                        backgroundColor: "rgba(255,255,255,0.74)",
+                        boxShadow: "0 24px 80px rgba(15,23,42,0.08)",
                     }}
                 >
                     <div
@@ -119,7 +121,7 @@ export default function Icon() {
                                 width: 22,
                                 height: 78,
                                 borderRadius: 999,
-                                backgroundColor: "#a5f3fc",
+                                backgroundColor: "#06b6d4",
                             }}
                         />
                         <div
@@ -127,7 +129,7 @@ export default function Icon() {
                                 width: 22,
                                 height: 118,
                                 borderRadius: 999,
-                                backgroundColor: "#ffffff",
+                                backgroundColor: "#0f172a",
                             }}
                         />
                         <div
@@ -135,7 +137,7 @@ export default function Icon() {
                                 width: 22,
                                 height: 60,
                                 borderRadius: 999,
-                                backgroundColor: "#7dd3fc",
+                                backgroundColor: "#f0abfc",
                             }}
                         />
                     </div>
@@ -144,18 +146,18 @@ export default function Icon() {
                 <div
                     style={{
                         position: "absolute",
-                        bottom: 74,
+                        bottom: 68,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         padding: "8px 16px",
                         borderRadius: 999,
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        backgroundColor: "rgba(255,255,255,0.04)",
-                        color: "#dbeafe",
-                        fontSize: 16,
-                        fontWeight: 600,
-                        letterSpacing: "0.14em",
+                        border: "1px solid rgba(14,165,233,0.16)",
+                        backgroundColor: "rgba(255,255,255,0.84)",
+                        color: "#0f172a",
+                        fontSize: 15,
+                        fontWeight: 800,
+                        letterSpacing: "0.16em",
                         textTransform: "uppercase",
                     }}
                 >

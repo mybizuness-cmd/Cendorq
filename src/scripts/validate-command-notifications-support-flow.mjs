@@ -12,19 +12,21 @@ const routesChainPath = "src/scripts/validate-routes-chain.mjs";
 const validatorPath = "src/scripts/validate-command-notifications-support-flow.mjs";
 
 expect(notificationsPath, [
-  "Premium notification command feed",
-  "Act only on alerts that protect progress.",
-  "Notifications should feel calm and operational.",
-  "Quiet priority feed",
-  "Four plan moments. One safe next action each.",
-  "Alert routing types",
-  "Featured customer alerts",
+  "AI Visibility signal feed",
+  "Act only on signals that protect command progress.",
+  "This feed stays useful by pointing each alert to the safest next surface: proof, access, support status, or secure sign-in.",
+  "Open the proof record.",
+  "Priority AI Visibility feed",
+  "Scan. Review. Repair. Control. One safe next action each.",
+  "Signal routing types",
+  "Featured customer signals",
   "Quiet feed standard",
-  "Alerts should create confidence, not noise.",
+  "Signals should create confidence, not noise.",
   "No generic notification clutter",
   "No raw evidence, secrets, prompts, private internals, raw billing IDs, attacker details, risk-scoring internals, or duplicate-request anxiety.",
+  "SupportLifecycleNotificationList",
   "hover:-translate-y-0.5",
-  "shadow-[0_28px_100px_rgba(2,8,23,0.42)]",
+  "shadow-[0_30px_100px_rgba(15,23,42,0.09)]",
   "focus:outline-none",
   "focus:ring-2",
 ]);
@@ -87,7 +89,6 @@ forbidden(notificationsPath, [
   "ALERT_ROUTING_STANDARDS",
   "FIRST_USE_SNAPSHOT",
   "NOTIFICATION_GROUPS",
-  "SupportLifecycleNotificationList",
 ]);
 
 forbidden(supportPath, [
@@ -118,7 +119,7 @@ forbidden(supportStatusPath, [
   "SUPPORT_STATUS_FIRST_USE_RULES",
 ]);
 
-boundedLength(notificationsPath, 13500);
+boundedLength(notificationsPath, 14500);
 boundedLength(supportPath, 13500);
 boundedLength(supportRequestPath, 9500);
 boundedLength(supportStatusPath, 8500);

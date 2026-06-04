@@ -41,22 +41,22 @@ export function MobileConversionDock() {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[60] px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 lg:hidden">
-      <div className="mx-auto max-w-lg rounded-full border border-cyan-300/18 bg-slate-950/88 p-2 shadow-[0_-18px_60px_rgba(2,8,23,0.45)] backdrop-blur-2xl">
+      <div className="mx-auto max-w-lg rounded-full border border-cyan-100 bg-white/92 p-2 shadow-[0_-18px_60px_rgba(15,23,42,0.12)] backdrop-blur-2xl">
         <div className="flex items-center gap-2">
           <div className="min-w-0 flex-1 px-3">
-            <div className="truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-200">
-              Free first read
+            <div className="truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">
+              Start Scan
             </div>
-            <div className="mt-0.5 truncate text-sm font-semibold text-white">
-              Find the break first
+            <div className="mt-0.5 truncate text-sm font-black text-slate-950">
+              Find the first weak signal
             </div>
           </div>
           <Link
             href="/free-check"
-            onClick={() => trackConversionEvent("mobile_dock_click", { label: "Start free scan", href: "/free-check" })}
-            className="system-button-primary inline-flex shrink-0 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.98]"
+            onClick={() => trackConversionEvent("mobile_dock_click", { label: "Start Scan", href: "/free-check" })}
+            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-5 py-3 text-sm font-black text-slate-950 shadow-sm transition active:scale-[0.98]"
           >
-            Start free
+            Start Scan
           </Link>
         </div>
       </div>

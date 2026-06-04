@@ -39,6 +39,12 @@ const BILLING_STATUS = [
   { label: "Safety", value: "No private payment details", detail: "Support can help without card numbers, private keys, bank details, passwords, or tokens." },
 ] as const;
 
+const BILLING_READ_ORDER = [
+  ["Verify state", "Check whether the account is free, paid, pending, cancelled, or waiting for activation before acting."],
+  ["Match depth", "Separate Review, Repair, and Control so payment does not imply the wrong operating layer."],
+  ["Recover safely", "Use support for access or billing blockers without sharing private payment or security details."],
+] as const;
+
 const PAID_PLAN_COMMANDS = [
   {
     planKey: "deep-review",
@@ -107,73 +113,79 @@ const BILLING_ACCESS_CHECKS = [
 
 export default function BillingPage() {
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.2),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_38%,#ffffff_100%)] text-slate-950">
       <AccountAtmosphere />
 
-      <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+      <section className="relative mx-auto grid max-w-[92rem] gap-8 px-4 pb-10 pt-8 sm:px-6 md:pt-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center" aria-label="Billing access entry">
         <div className="relative z-10">
-          <h1 className="max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-slate-950">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">AI Visibility plan depth</p>
+          <h1 className="max-w-5xl text-[clamp(3rem,7vw,6.6rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">
             Know what is active, what unlocked, and what depth comes next.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
+          <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">
             This is the AI Visibility depth control point: access, boundaries, recovery, and the next business move.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/plans/deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
-              Open Review page — {DEEP_REVIEW.price}
-            </Link>
-            <Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
-              Compare AI Visibility path
-            </Link>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <Link href="/plans/deep-review" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Open Review page — {DEEP_REVIEW.price}</Link>
+            <Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Compare AI Visibility path</Link>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/74 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:p-7">
+        <div className="relative overflow-hidden rounded-[2.35rem] border border-white/80 bg-white/78 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.09)] backdrop-blur-2xl sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Review</h2>
-          <p className="mt-5 text-base font-medium leading-8 text-slate-600">Use Deep Review when the first signal matters enough that guessing is too expensive.</p>
-          <div className="mt-7 grid gap-4 sm:grid-cols-2">
+          <h2 className="text-[clamp(2.1rem,5vw,4.2rem)] font-semibold leading-[0.95] tracking-[-0.07em] text-slate-950">Review</h2>
+          <p className="mt-5 text-base font-semibold leading-8 text-slate-600">Use Deep Review when the first signal matters enough that guessing is too expensive.</p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {BILLING_STATUS.slice(0, 2).map((item) => (
-              <article key={item.label} className="rounded-[1.6rem] border border-cyan-100 bg-cyan-50/50 p-5 shadow-sm">
-                <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-700">{item.label}</div>
-                <div className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-slate-950">{item.value}</div>
-                <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{item.detail}</p>
+              <article key={item.label} className="rounded-[1.3rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm">
+                <div className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{item.label}</div>
+                <div className="mt-3 text-2xl font-semibold tracking-[-0.045em] text-slate-950">{item.value}</div>
+                <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{item.detail}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Billing status summary">
-        <div className="grid gap-4 md:grid-cols-3">
-          {BILLING_STATUS.map((item, index) => (
-            <article key={item.label} className={index === 1 ? "rounded-[2rem] border border-cyan-200 bg-cyan-50/75 p-6 shadow-[0_20px_65px_rgba(14,165,233,0.08)] md:-mt-6 md:mb-6" : "rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur"}>
-              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-700">{item.label}</div>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.value}</h2>
-              <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.detail}</p>
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Billing status summary">
+        <div className="grid gap-3 md:grid-cols-3">
+          {BILLING_STATUS.map((item) => (
+            <article key={item.label} className="rounded-[1.6rem] border border-white/80 bg-white/82 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{item.label}</div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.value}</h2>
+              <p className="mt-3 text-xs font-semibold leading-6 text-slate-600">{item.detail}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Paid AI Visibility depth system">
-        <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
-          <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
-            <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Payment should unlock the right AI Visibility layer.</h2>
-              <p className="mt-5 text-base font-medium leading-8 text-slate-600">Review, Repair, and Control each unlock a different operating layer across AI Visibility, evidence, and customer action. They should never collapse into the same cheap account card.</p>
-              <Link href="/dashboard/support" className="mt-7 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
-                Access help →
-              </Link>
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Billing read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {BILLING_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Paid AI Visibility depth system">
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/84 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur">
+          <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="border-b border-cyan-100 p-5 sm:p-7 lg:border-b-0 lg:border-r">
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Payment should unlock the right AI Visibility layer.</h2>
+              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Review, Repair, and Control each unlock a different operating layer across AI Visibility, evidence, and customer action.</p>
+              <Link href="/dashboard/support" className="mt-6 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">Access help →</Link>
             </div>
             <div className="divide-y divide-cyan-100">
               {PAID_PLAN_COMMANDS.map((item) => (
-                <Link key={item.planKey} href={PLAN_DETAIL_PATH[item.planKey]} className="group grid gap-4 p-5 transition hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 sm:grid-cols-[11rem_1fr_auto] sm:items-center sm:p-6">
+                <Link key={item.planKey} href={PLAN_DETAIL_PATH[item.planKey]} className="group grid gap-4 p-5 transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 sm:grid-cols-[8rem_1fr_auto] sm:items-center">
                   <div>
-                    <div className="text-4xl font-semibold tracking-[-0.06em] text-slate-950">{item.command}</div>
+                    <div className="text-3xl font-semibold tracking-[-0.06em] text-slate-950">{item.command}</div>
                     <div className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">{item.title}</div>
                   </div>
-                  <p className="max-w-2xl text-sm font-medium leading-6 text-slate-600">{item.activation}</p>
+                  <p className="max-w-2xl text-sm font-semibold leading-6 text-slate-600">{item.activation}</p>
                   <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
                     <div className="text-sm font-black text-cyan-700">{item.plan.price}</div>
                     <span className="mt-1 inline-flex text-sm font-bold text-cyan-700 transition group-hover:text-slate-950">Open plan page →</span>
@@ -185,41 +197,41 @@ export default function BillingPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Account access actions">
-        <div className="grid gap-4 md:grid-cols-3">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Account access actions">
+        <div className="grid gap-3 md:grid-cols-3">
           {BILLING_ACTIONS.map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
+            <Link key={item.href} href={item.href} className="rounded-[1.55rem] border border-white/80 bg-white/82 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
               <h3 className="text-2xl font-semibold tracking-[-0.04em] text-slate-950">{item.title}</h3>
-              <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.copy}</p>
+              <p className="mt-3 text-xs font-semibold leading-6 text-slate-600">{item.copy}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Billing access consistency">
-        <div className="rounded-[2.2rem] border border-cyan-100 bg-cyan-50/55 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.055)] sm:p-6">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Billing access consistency">
+        <div className="rounded-[1.75rem] border border-cyan-100 bg-cyan-50/42 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.04)] sm:p-6">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Billing access consistency</p>
           <div className="mt-4 grid gap-3 md:grid-cols-4">
             {BILLING_ACCESS_CHECKS.map((check) => (
-              <p key={check} className="rounded-[1.2rem] border border-white/80 bg-white p-4 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>
+              <p key={check} className="rounded-[1rem] border border-white/80 bg-white p-3 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Account access safety standard">
-        <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur sm:p-8 lg:p-10">
-          <h2 className="max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-6xl">Money moments should feel calm, exact, and recoverable.</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Billing safety standard">
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/84 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
+          <h2 className="max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Money moments should feel calm, exact, and recoverable.</h2>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {BILLING_SAFETY_RULES.map((rule) => (
-              <p key={rule} className="rounded-[1.35rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-7 text-slate-600 shadow-sm">{rule}</p>
+              <p key={rule} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/45 p-3 text-xs font-semibold leading-6 text-slate-600 shadow-sm">{rule}</p>
             ))}
           </div>
         </div>
       </section>
 
       <section className="sr-only" aria-label="Account access AI Visibility standard">
-        AI Visibility plan depth. Light billing page. No black billing blocks. No dark blue billing blocks. Account access control center. Know what is active, what unlocked, and what depth comes next. AI Visibility depth control point for access, boundaries, recovery, and the next business move. Current access. Next depth. Safety. Paid AI Visibility depth. Review. Repair. Control. Payment should unlock the right AI Visibility layer. Billing actions route to plan detail pages before payment. Billing access consistency. Use billing for access, invoice, payment, plan-depth, or subscription-state blockers. Use support when the account needs safe review without sharing private payment details. Use plans when the customer is choosing the next AI Visibility depth before payment. Keep card numbers, bank details, passwords, private keys, and session tokens out of messages. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_ACCESS_CHECKS.join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        AI Visibility plan depth. Light billing page. No black billing blocks. No dark blue billing blocks. Account access control center. Know what is active, what unlocked, and what depth comes next. AI Visibility depth control point for access, boundaries, recovery, and the next business move. Current access. Next depth. Safety. Billing read order. Verify state. Match depth. Recover safely. Paid AI Visibility depth. Review. Repair. Control. Payment should unlock the right AI Visibility layer. Billing actions route to plan detail pages before payment. Billing access consistency. Use billing for access, invoice, payment, plan-depth, or subscription-state blockers. Use support when the account needs safe review without sharing private payment details. Use plans when the customer is choosing the next AI Visibility depth before payment. Keep card numbers, bank details, passwords, private keys, and session tokens out of messages. Deep Review $497. Build Fix $1,497. Ongoing Control $597/month. Includes and not included. Checkout success parity. Activation must preserve the same includes, exclusions, workflow, and post-payment next step shown in checkout success. {PLAN_VALUE_SEPARATION_RULES.join(" ")} {PAID_PLAN_COMMANDS.map((item) => `${item.planKey} ${item.command} ${item.title} ${item.plan.price} ${item.activation} ${item.exclusion} ${item.plan.afterPaymentNextStep} ${item.revenueStage.requiredCustomerContext.join(" ")}`).join(" ")} {CENDORQ_POST_PAYMENT_EMAILS.map((email) => `${email.subject} ${email.dashboardPath} ${email.customerGoal}`).join(" ")} {BILLING_SAFETY_RULES.join(" ")} {BILLING_ACCESS_CHECKS.join(" ")} {BILLING_READ_ORDER.map(([label, copy]) => `${label} ${copy}`).join(" ")} {BILLING_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );

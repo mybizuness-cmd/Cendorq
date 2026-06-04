@@ -1,49 +1,49 @@
 import Link from "next/link";
 
+const TRUST_POINTS = [
+    "First signal before paid pressure",
+    "Choice Gap before the Repair Queue",
+    "Scan, Review, Repair, and Control kept separate",
+] as const;
+
 export function HeroSection() {
     return (
         <section className="mx-auto max-w-7xl px-6 pb-20 pt-16 md:pb-28 md:pt-24">
             <div className="max-w-5xl">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-400">
-                    Market Command Intelligence
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-600">
+                    AI Search Presence Repair
                 </p>
 
-                <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white md:text-7xl">
-                    Strong businesses get skipped online for reasons they rarely see clearly.
+                <h1 className="mt-6 text-5xl font-semibold tracking-tight text-slate-950 md:text-7xl">
+                    Be easier for AI, search, and customers to find, understand, and choose.
                 </h1>
 
-                <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:text-xl">
-                    Cendorq diagnoses the trust, clarity, structure, and visibility
-                    problems that quietly make good businesses look uncertain, confusing,
-                    or easy to overlook.
+                <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 md:text-xl">
+                    Cendorq turns public presence into a clear decision path: what is already visible, where the Choice Gap appears, and whether the next move is Scan, Review, Repair, or Control.
                 </p>
 
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
                     <Link
                         href="/free-check"
-                        className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-8 py-4 text-base font-semibold text-slate-950 transition hover:bg-cyan-300"
+                        className="inline-flex items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2"
                     >
-                        Start the Free Scan
+                        Start Free Scan
                     </Link>
 
                     <Link
-                        href="/plans/deep-review"
-                        className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10"
+                        href="/sample-report"
+                        className="inline-flex items-center justify-center rounded-full border border-cyan-100 bg-white px-8 py-4 text-base font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2"
                     >
-                        See how Deep Review works
+                        See Sample Report
                     </Link>
                 </div>
 
-                <div className="mt-10 flex flex-wrap gap-3 text-sm text-slate-300">
-                    <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
-                        Clear diagnosis before expensive optimization
-                    </div>
-                    <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
-                        Built for non-technical business owners
-                    </div>
-                    <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
-                        Structured for future intelligence growth
-                    </div>
+                <div className="mt-10 flex flex-wrap gap-3 text-sm text-slate-600">
+                    {TRUST_POINTS.map((point) => (
+                        <div key={point} className="rounded-full border border-cyan-100 bg-white/84 px-4 py-2 font-semibold shadow-sm">
+                            {point}
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

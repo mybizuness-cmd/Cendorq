@@ -1,8 +1,8 @@
 import { siteConfig } from "@/lib/seo";
 import type { MetadataRoute } from "next";
 
-const APP_BACKGROUND = "#020817";
-const APP_THEME = "#020817";
+const APP_BACKGROUND = "#ffffff";
+const APP_THEME = "#ffffff";
 
 type ShortcutDefinition = Readonly<{
     name: string;
@@ -14,7 +14,6 @@ type ShortcutDefinition = Readonly<{
 const MANIFEST_CATEGORIES = [
     "business",
     "productivity",
-    "consulting",
     "marketing",
     "utilities",
 ] as const;
@@ -34,46 +33,44 @@ const ICON_DEFINITIONS = [
     },
     {
         src: "/apple-icon",
-        sizes: "180x180",
+        sizes: "512x512",
         type: "image/png",
+        purpose: "any",
     },
 ] as const;
 
 const SHORTCUTS: readonly ShortcutDefinition[] = [
     {
         name: "Start Free Scan",
-        shortName: "Scan",
-        description:
-            "Start with the safest first market signal before spending more on the wrong fix.",
-        url: "/free-check",
+        shortName: "Free Scan",
+        description: "Start the first AI Search Presence Repair signal.",
+        url: "/free-check?source=manifest-shortcut",
     },
     {
-        name: "Compare Command Path",
-        shortName: "Command Path",
-        description:
-            "Compare Scan, Diagnose, Fix, and Control.",
-        url: "/plans",
+        name: "Open Sample Report",
+        shortName: "Sample",
+        description: "See the Cendorq Presence Report, Choice Gap, and Repair Queue sample.",
+        url: "/sample-report?source=manifest-shortcut",
     },
     {
-        name: "Open Dashboard",
-        shortName: "Dashboard",
-        description:
-            "Return to protected reports, proof, notifications, and next actions.",
-        url: "/dashboard",
+        name: "Compare Plans",
+        shortName: "Plans",
+        description: "Compare Scan, Review, Repair, and Control depth.",
+        url: "/plans?source=manifest-shortcut",
     },
 ] as const;
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
         id: "/",
-        name: resolveManifestName(siteConfig.legalName, siteConfig.name),
+        name: `${resolveManifestName(siteConfig.legalName, siteConfig.name)} — AI Search Presence Repair`,
         short_name: resolveShortName(siteConfig.shortName, siteConfig.name),
         description: resolveDescription(siteConfig.description),
-        start_url: "/",
+        start_url: "/?source=app-manifest",
         scope: "/",
         display: "standalone",
         display_override: ["standalone", "minimal-ui", "browser"],
-        orientation: "portrait",
+        orientation: "portrait-primary",
         background_color: APP_BACKGROUND,
         theme_color: APP_THEME,
         lang: "en-US",
@@ -122,7 +119,7 @@ function resolveDescription(description: string) {
         return cleanedDescription;
     }
 
-    return "Cendorq helps businesses become easier for customers, search, and AI discovery to find, understand, trust, and choose before spending more.";
+    return "Cendorq helps businesses become easier for AI, search, and customers to find, understand, trust, compare, and choose before spending more.";
 }
 
 function cleanString(value: string | undefined | null) {

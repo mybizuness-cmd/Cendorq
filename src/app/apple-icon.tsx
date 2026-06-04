@@ -21,10 +21,10 @@ export default function AppleIcon() {
                     alignItems: "center",
                     justifyContent: "center",
                     overflow: "hidden",
-                    backgroundColor: "#020817",
+                    backgroundColor: "#ffffff",
                     backgroundImage:
-                        "radial-gradient(circle at 18% 18%, rgba(34,211,238,0.2), transparent 28%), radial-gradient(circle at 82% 16%, rgba(56,189,248,0.14), transparent 26%), linear-gradient(180deg, #020617 0%, #020816 42%, #030712 100%)",
-                    color: "#f8fafc",
+                        "radial-gradient(circle at 18% 18%, rgba(251,207,232,0.44), transparent 30%), radial-gradient(circle at 82% 16%, rgba(125,211,252,0.34), transparent 30%), radial-gradient(circle at 50% 92%, rgba(186,230,253,0.24), transparent 35%), linear-gradient(180deg, #ffffff 0%, #f4fbff 48%, #ffffff 100%)",
+                    color: "#0f172a",
                     fontFamily:
                         'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
                 }}
@@ -33,20 +33,21 @@ export default function AppleIcon() {
                     style={{
                         position: "absolute",
                         inset: 28,
-                        borderRadius: 124,
-                        border: "1px solid rgba(103,232,249,0.12)",
-                        boxShadow: "0 0 120px rgba(34,211,238,0.1)",
+                        borderRadius: 126,
+                        border: "1px solid rgba(14,165,233,0.17)",
+                        boxShadow: "0 34px 110px rgba(15,23,42,0.10)",
+                        backgroundColor: "rgba(255,255,255,0.38)",
                     }}
                 />
 
                 <div
                     style={{
                         position: "absolute",
-                        width: 346,
-                        height: 346,
-                        borderRadius: 94,
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        backgroundColor: "rgba(255,255,255,0.025)",
+                        width: 350,
+                        height: 350,
+                        borderRadius: 106,
+                        border: "1px solid rgba(14,165,233,0.16)",
+                        backgroundColor: "rgba(255,255,255,0.62)",
                     }}
                 />
 
@@ -55,28 +56,28 @@ export default function AppleIcon() {
                         position: "absolute",
                         width: 278,
                         height: 278,
-                        borderRadius: 86,
-                        border: "1px solid rgba(103,232,249,0.18)",
-                        backgroundColor: "rgba(8,18,34,0.95)",
+                        borderRadius: 92,
+                        border: "1px solid rgba(14,165,233,0.22)",
+                        backgroundColor: "rgba(255,255,255,0.84)",
                         backgroundImage:
-                            "radial-gradient(circle at 30% 26%, rgba(103,232,249,0.18), transparent 44%)",
+                            "radial-gradient(circle at 30% 26%, rgba(251,207,232,0.34), transparent 44%), radial-gradient(circle at 78% 74%, rgba(186,230,253,0.3), transparent 42%)",
                     }}
                 />
 
                 <div
                     style={{
                         position: "absolute",
-                        top: 64,
+                        top: 62,
                         display: "flex",
                         alignItems: "center",
                         gap: 8,
                         padding: "8px 14px",
                         borderRadius: 999,
-                        border: "1px solid rgba(103,232,249,0.18)",
-                        backgroundColor: "rgba(8,18,34,0.7)",
-                        color: "#cffafe",
+                        border: "1px solid rgba(14,165,233,0.18)",
+                        backgroundColor: "rgba(236,254,255,0.84)",
+                        color: "#0e7490",
                         fontSize: 14,
-                        fontWeight: 700,
+                        fontWeight: 800,
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
                     }}
@@ -86,7 +87,7 @@ export default function AppleIcon() {
                             width: 9,
                             height: 9,
                             borderRadius: 999,
-                            backgroundColor: "#67e8f9",
+                            backgroundColor: "#06b6d4",
                         }}
                     />
                     CQ
@@ -100,9 +101,10 @@ export default function AppleIcon() {
                         height: 212,
                         alignItems: "center",
                         justifyContent: "center",
-                        borderRadius: 66,
-                        border: "1px solid rgba(255,255,255,0.06)",
-                        backgroundColor: "rgba(255,255,255,0.02)",
+                        borderRadius: 70,
+                        border: "1px solid rgba(226,232,240,0.92)",
+                        backgroundColor: "rgba(255,255,255,0.76)",
+                        boxShadow: "0 24px 80px rgba(15,23,42,0.08)",
                     }}
                 >
                     <div
@@ -119,7 +121,7 @@ export default function AppleIcon() {
                                 width: 20,
                                 height: 70,
                                 borderRadius: 999,
-                                backgroundColor: "#a5f3fc",
+                                backgroundColor: "#06b6d4",
                             }}
                         />
                         <div
@@ -127,7 +129,7 @@ export default function AppleIcon() {
                                 width: 20,
                                 height: 106,
                                 borderRadius: 999,
-                                backgroundColor: "#ffffff",
+                                backgroundColor: "#0f172a",
                             }}
                         />
                         <div
@@ -135,7 +137,7 @@ export default function AppleIcon() {
                                 width: 20,
                                 height: 54,
                                 borderRadius: 999,
-                                backgroundColor: "#7dd3fc",
+                                backgroundColor: "#f0abfc",
                             }}
                         />
                     </div>
@@ -150,11 +152,11 @@ export default function AppleIcon() {
                         justifyContent: "center",
                         padding: "9px 16px",
                         borderRadius: 999,
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        backgroundColor: "rgba(255,255,255,0.04)",
-                        color: "#dbeafe",
+                        border: "1px solid rgba(14,165,233,0.16)",
+                        backgroundColor: "rgba(255,255,255,0.84)",
+                        color: "#0f172a",
                         fontSize: 15,
-                        fontWeight: 700,
+                        fontWeight: 800,
                         letterSpacing: "0.16em",
                         textTransform: "uppercase",
                     }}

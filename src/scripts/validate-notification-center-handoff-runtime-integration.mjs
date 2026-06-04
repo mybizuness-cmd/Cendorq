@@ -5,7 +5,7 @@ const root = process.cwd();
 const failures = [];
 
 const checks = [
-  ["src/app/dashboard/notifications/page.tsx", ["projectCustomerPlatformHandoff", "NOTIFICATION_HANDOFFS", "AI Visibility signal feed", "This feed should stay quiet until something matters", "No generic clutter. Every signal should point to proof, access, status, or safe recovery.", "Signals should create confidence, not noise.", "handoff.decision", "handoff.surfaceKey", "dashboard-to-notifications", "free-scan-to-notifications", "notifications-to-status", "customerOwned: true", "verifiedAccess: true", "safeProjectionReady: true", "Proof signal", "Access signal", "Support signal", "Security signal"]],
+  ["src/app/dashboard/notifications/page.tsx", ["projectCustomerPlatformHandoff", "NOTIFICATION_HANDOFFS", "AI Visibility signal feed", "This feed stays useful by pointing each alert to the safest next surface: proof, access, support status, or secure sign-in.", "Every signal should point to proof, access, status, or safe recovery before it sends the customer deeper.", "Signals should create confidence, not noise.", "handoff.decision", "handoff.surfaceKey", "dashboard-to-notifications", "free-scan-to-notifications", "notifications-to-status", "customerOwned: true", "verifiedAccess: true", "safeProjectionReady: true", "Proof signal", "Access signal", "Support signal", "Security signal"]],
   ["package.json", ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]],
   ["src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-notification-center-handoff-runtime-integration.mjs"]],
 ];

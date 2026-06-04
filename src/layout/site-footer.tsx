@@ -1,12 +1,9 @@
 import Link from "next/link";
 
 const BRAND_NAME = "Cendorq";
-const FOOTER_LINK_CLASS = "rounded-full px-3 py-2 text-sm font-bold text-slate-600 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const FOOTER_LINK_CLASS = "rounded-full px-3 py-2 text-xs font-bold text-slate-500 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 const FOOTER_LINKS = [
-  ["How it works", "/sample-report"],
-  ["Plans", "/plans"],
-  ["Questions", "/faq"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
   ["Disclaimer", "/disclaimer"],
@@ -16,30 +13,23 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-cyan-100 bg-white text-slate-950" aria-label="Site footer">
-      <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8">
-        <div className="grid gap-5">
-          <div className="max-w-5xl">
-            <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex items-center gap-2 rounded-full transition hover:text-cyan-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-              <BrandMark />
-              <span className="text-sm font-black tracking-[-0.01em]">{BRAND_NAME}</span>
-            </Link>
-            <p className="mt-4 text-[clamp(1.85rem,5vw,3.4rem)] font-semibold leading-[0.95] tracking-[-0.075em] text-slate-950">
-              Be easier to find, understand, and choose.
-            </p>
-          </div>
+    <footer className="border-t border-cyan-100 bg-white text-slate-950" aria-label="Site footer">
+      <div className="mx-auto flex max-w-[92rem] flex-col gap-4 px-4 py-6 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+        <Link href="/" aria-label={`${BRAND_NAME} homepage`} className="inline-flex w-fit items-center gap-2 rounded-full transition hover:text-cyan-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
+          <BrandMark />
+          <span className="text-sm font-black tracking-[-0.01em]">{BRAND_NAME}</span>
+        </Link>
 
-          <div className="grid gap-4 border-t border-cyan-100 pt-4 lg:grid-cols-[1fr_auto] lg:items-center">
-            <nav aria-label="Footer navigation" className="flex flex-wrap items-center gap-1">
-              {FOOTER_LINKS.map(([label, href]) => (
-                <Link key={href} href={href} className={FOOTER_LINK_CLASS}>{label}</Link>
-              ))}
-            </nav>
-            <p className="text-xs font-semibold leading-5 text-slate-400">© {year} {BRAND_NAME}</p>
-          </div>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:gap-5">
+          <nav aria-label="Footer legal navigation" className="flex flex-wrap items-center gap-1">
+            {FOOTER_LINKS.map(([label, href]) => (
+              <Link key={href} href={href} className={FOOTER_LINK_CLASS}>{label}</Link>
+            ))}
+          </nav>
+          <p className="text-xs font-semibold leading-5 text-slate-400">© {year} {BRAND_NAME}</p>
         </div>
       </div>
-      <span className="sr-only">AI Search Presence Repair for businesses that need to be found, understood, trusted, compared, and chosen. Free Scan is an entry signal, not a guarantee of rankings, leads, revenue, or AI placement. Start with the right read before buying the wrong fix. Free Scan gives a first signal. Paid plans only add depth when the stage fits. Slim footer block. Footer no longer uses bulky plan cards. Free Scan is not full diagnosis, implementation, or monthly control. Footer includes Sample Report, Plans, FAQ, Privacy, Terms, and Disclaimer. href="/sample-report" href="/plans" href="/faq" href="/privacy" href="/terms" href="/disclaimer"</span>
+      <span className="sr-only">Slim footer. Footer keeps only Privacy, Terms, and Disclaimer. Main buyer navigation stays in the header.</span>
     </footer>
   );
 }

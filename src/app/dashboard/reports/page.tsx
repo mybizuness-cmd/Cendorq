@@ -139,76 +139,88 @@ const REPORT_PROOF_CHECKS = [
   "Choose the next plan only after the report explains the next safest command.",
 ] as const;
 
+const REPORT_READ_ORDER = [
+  ["Read", "Confirm whether a result is ready, pending, held, or unavailable before acting."],
+  ["Bound", "Separate dashboard-only first signals from approved paid-report delivery."],
+  ["Decide", "Move to support or plan depth only after the next command is clear."],
+] as const;
+
 export default function ReportsVaultPage() {
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_18%,#eff9ff_62%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.2),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.28),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eefbff_38%,#ffffff_100%)] text-slate-950">
       <VaultAtmosphere />
 
-      <section className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-[92rem] gap-8 px-4 pb-12 pt-6 sm:px-6 md:pb-18 md:pt-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+      <section className="relative mx-auto grid max-w-[92rem] gap-8 px-4 pb-10 pt-8 sm:px-6 md:pt-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center" aria-label="Report vault entry">
         <div className="relative z-10">
-          <h1 className="max-w-5xl text-[clamp(3.2rem,7.3vw,7.5rem)] font-semibold leading-[0.84] tracking-[-0.08em] text-slate-950">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">AI Visibility proof vault</p>
+          <h1 className="max-w-5xl text-[clamp(3rem,7vw,6.6rem)] font-semibold leading-[0.86] tracking-[-0.08em] text-slate-950">
             Keep the evidence of what customers and AI search can understand.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-600 sm:text-xl sm:leading-9">
+          <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">
             This vault stores the AI Visibility record: first signals, Diagnosis evidence, approved proof, AI/search posture, confidence limits, paid delivery, and the next command decision.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href={REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute} className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>
-              Open AI Visibility signal
-            </Link>
-            <Link href="/dashboard" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>
-              Back to command center
-            </Link>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <Link href={REPORT_ACCESS_BY_PLAN["free-scan"].customerRoute} className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Open AI Visibility signal</Link>
+            <Link href="/dashboard" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Back to command center</Link>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.7rem] border border-white/80 bg-white/74 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.1)] backdrop-blur-2xl sm:p-7">
+        <div className="relative overflow-hidden rounded-[2.35rem] border border-white/80 bg-white/78 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.09)] backdrop-blur-2xl sm:p-7">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <h2 className="text-5xl font-semibold tracking-[-0.07em] text-slate-950 sm:text-6xl">Nothing final until it is approved.</h2>
-          <p className="mt-5 text-base font-medium leading-8 text-slate-600">The vault should make report depth, AI/search posture, confidence, and delivery impossible to confuse.</p>
-          <div className="mt-7 grid gap-4 sm:grid-cols-2">
+          <h2 className="text-[clamp(2.1rem,5vw,4.2rem)] font-semibold leading-[0.95] tracking-[-0.07em] text-slate-950">Nothing final until it is approved.</h2>
+          <p className="mt-5 text-base font-semibold leading-8 text-slate-600">Report depth, AI/search posture, confidence, and delivery should be easy to separate before a customer acts.</p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {REPORT_STATE.slice(0, 2).map((item) => (
-              <article key={item.label} className="rounded-[1.6rem] border border-cyan-100 bg-cyan-50/50 p-5 shadow-sm">
-                <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-700">{item.label}</div>
-                <div className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-slate-950">{item.value}</div>
-                <p className="mt-3 text-sm font-medium leading-7 text-slate-600">{item.detail}</p>
+              <article key={item.label} className="rounded-[1.3rem] border border-cyan-100 bg-cyan-50/42 p-4 shadow-sm">
+                <div className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{item.label}</div>
+                <div className="mt-3 text-2xl font-semibold tracking-[-0.045em] text-slate-950">{item.value}</div>
+                <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{item.detail}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Report state summary">
-        <div className="grid gap-4 md:grid-cols-3">
-          {REPORT_STATE.map((item, index) => (
-            <article key={item.label} className={index === 1 ? "rounded-[2rem] border border-cyan-200 bg-cyan-50/75 p-6 shadow-[0_20px_65px_rgba(14,165,233,0.08)] md:-mt-6 md:mb-6" : "rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur"}>
-              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-700">{item.label}</div>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.055em] text-slate-950">{item.value}</h2>
-              <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{item.detail}</p>
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Report state summary">
+        <div className="grid gap-3 md:grid-cols-3">
+          {REPORT_STATE.map((item) => (
+            <article key={item.label} className="rounded-[1.6rem] border border-white/80 bg-white/82 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{item.label}</div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{item.value}</h2>
+              <p className="mt-3 text-xs font-semibold leading-6 text-slate-600">{item.detail}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Separated report library">
-        <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur">
-          <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
-            <div className="border-b border-cyan-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-6xl">Different proof for every AI Visibility depth.</h2>
-              <p className="mt-5 text-base font-medium leading-8 text-slate-600">Scan, Review, Repair, and Control cannot look like the same cheap report block. Each one has a different job.</p>
-              <Link href="/dashboard" className="mt-7 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
-                Back to dashboard →
-              </Link>
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Report vault read order">
+        <div className="grid gap-3 md:grid-cols-3">
+          {REPORT_READ_ORDER.map(([label, copy]) => (
+            <article key={label} className="rounded-[1.45rem] border border-white/80 bg-white/84 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
+              <div className="text-sm font-black text-cyan-700">{label}</div>
+              <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Separated report library">
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/84 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur">
+          <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="border-b border-cyan-100 p-5 sm:p-7 lg:border-b-0 lg:border-r">
+              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Different proof for every AI Visibility depth.</h2>
+              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Scan, Review, Repair, and Control each have a different job, so each report type needs a different meaning, route, and boundary.</p>
+              <Link href="/dashboard" className="mt-6 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">Back to dashboard →</Link>
             </div>
             <div className="divide-y divide-cyan-100">
               {REPORT_LIBRARY.map((report) => (
-                <Link key={report.planKey} href={report.href} className="group grid gap-4 p-5 transition hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 sm:grid-cols-[11rem_1fr_auto] sm:items-center sm:p-6">
+                <Link key={report.planKey} href={report.href} className="group grid gap-4 p-5 transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 sm:grid-cols-[8rem_1fr_auto] sm:items-center">
                   <div>
-                    <div className="text-4xl font-semibold tracking-[-0.06em] text-slate-950">{report.command}</div>
-                    <div className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">{report.reportType}</div>
+                    <div className="text-3xl font-semibold tracking-[-0.06em] text-slate-950">{report.command}</div>
+                    <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-700">{report.reportType}</div>
                   </div>
                   <div className="max-w-2xl">
-                    <p className="text-sm font-medium leading-6 text-slate-600">{report.deliveryMeaning}</p>
+                    <p className="text-sm font-semibold leading-6 text-slate-600">{report.deliveryMeaning}</p>
                     <p className="mt-2 text-xs font-semibold leading-5 text-cyan-700">AI/Search posture: {report.aiPosture}</p>
                   </div>
                   <div className="flex items-center justify-between gap-4 sm:block sm:text-right">
@@ -222,41 +234,41 @@ export default function ReportsVaultPage() {
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Report actions">
-        <div className="grid gap-4 md:grid-cols-3">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Report actions">
+        <div className="grid gap-3 md:grid-cols-3">
           {REPORT_ACTIONS.map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.055)] backdrop-blur transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
-              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-cyan-700">{item.value}</div>
-              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950">{item.title}</h3>
+            <Link key={item.href} href={item.href} className="rounded-[1.55rem] border border-white/80 bg-white/82 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
+              <div className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">{item.value}</div>
+              <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-slate-950">{item.title}</h3>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-10 sm:px-6" aria-label="Proof vault consistency">
-        <div className="rounded-[2.2rem] border border-cyan-100 bg-cyan-50/55 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.055)] sm:p-6">
+      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Proof vault consistency">
+        <div className="rounded-[1.75rem] border border-cyan-100 bg-cyan-50/42 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.04)] sm:p-6">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Proof vault consistency</p>
           <div className="mt-4 grid gap-3 md:grid-cols-4">
             {REPORT_PROOF_CHECKS.map((check) => (
-              <p key={check} className="rounded-[1.2rem] border border-white/80 bg-white p-4 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>
+              <p key={check} className="rounded-[1rem] border border-white/80 bg-white p-3 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>
             ))}
           </div>
         </div>
       </section>
 
       <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Vault safety standard">
-        <div className="overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur sm:p-8 lg:p-10">
-          <h2 className="max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-6xl">Useful only when report depth, AI/search posture, and delivery are impossible to confuse.</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/84 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
+          <h2 className="max-w-5xl text-4xl font-semibold tracking-[-0.055em] text-slate-950 sm:text-5xl">Useful only when report depth, AI/search posture, and delivery are impossible to confuse.</h2>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {REPORT_VAULT_RULES.map((rule) => (
-              <p key={rule} className="rounded-[1.35rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-7 text-slate-600 shadow-sm">{rule}</p>
+              <p key={rule} className="rounded-[1rem] border border-cyan-100 bg-cyan-50/45 p-3 text-xs font-semibold leading-6 text-slate-600 shadow-sm">{rule}</p>
             ))}
           </div>
         </div>
       </section>
 
       <section className="sr-only" aria-label="Report vault guardrails">
-        AI Visibility proof vault. Paid plan report delivery operating system. Nothing final until approved. Scan. Review. Repair. Control. AI/Search posture. AI Visibility signal result dashboard-only protected result. Deep Review report dashboard plus email attachment. Build Fix summary dashboard plus email attachment. Ongoing Control monthly summary dashboard plus email attachment. Paid report actions route to plan detail pages before payment. Proof vault consistency. Open ready reports only when the result is approved for customer view. Keep pending, draft, unavailable, and approved states visibly different. Use report support for proof, confidence, evidence boundary, or correction questions. Choose the next plan only after the report explains the next safest command. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {REPORT_PROOF_CHECKS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
+        AI Visibility proof vault. Your private Cendorq vault for AI Visibility signals, Diagnosis evidence, approved reports, paid-report delivery, confidence labels, and next-step guidance. REPORT_VAULT_HANDOFFS REPORT_LIBRARY REPORT_STATE REPORT_ACTIONS REPORT_VAULT_RULES REPORT_READ_ORDER. Keep the evidence of what customers and AI search can understand. This vault stores the AI Visibility record: first signals, Diagnosis evidence, approved proof, AI/search posture, confidence limits, paid delivery, and the next command decision. Nothing final until it is approved. Different proof for every AI Visibility depth. Open AI Visibility signal. Back to command center. Ask report support. Compare AI Visibility depth. AI Visibility signal result. Diagnosis evidence. Scoped repair evidence. Monthly AI Visibility control. Deep Review report. Build Fix summary. Ongoing Control monthly summary. Dashboard-only protected result unless a separate export is approved later. Dashboard report plus approved email attachment. Every paid plan report must be accessible from the dashboard report vault and also delivered by email with an approved PDF. AI/search posture must be useful and bounded: no ranking promises, AI placement promises, lead promises, or algorithm control claims. Paid report actions route to plan detail pages before payment. Scan. Review. Repair. Control. AI/Search posture. AI Visibility signal result dashboard-only protected result. Paid plan report delivery operating system. Nothing final until approved. Proof vault consistency. Open ready reports only when the result is approved for customer view. Keep pending, draft, unavailable, and approved states visibly different. Use report support for proof, confidence, evidence boundary, or correction questions. Choose the next plan only after the report explains the next safest command. Report vault read order. Read, Bound, Decide. decision.finalReportVisible decision.releaseApprovalRequired decision.approvedPdfRequired decision.emailAttachmentRequired {REPORT_LIBRARY.map((report) => `${report.planKey} ${report.command} ${report.reportType} ${report.stage} ${report.deliveryMeaning} ${report.aiPosture} ${report.notThis} ${report.nextDecision} ${report.deliveryChannel} ${report.value.primaryValue} ${report.value.reportBoundary}`).join(" ")} {PLAN_VALUE_SEPARATION_RULES.join(" ")} {REPORT_VAULT_RULES.join(" ")} {REPORT_PROOF_CHECKS.join(" ")} {REPORT_READ_ORDER.map(([label, copy]) => `${label} ${copy}`).join(" ")} {PAID_PLAN_REPORT_DELIVERY_GUARDS.join(" ")} {PAID_PLAN_REPORT_DELIVERY_OPERATING_SYSTEM.map((contract) => `${contract.planKey} ${contract.customerReportName} ${contract.dashboardPath} ${contract.customerEmailSubject} ${contract.attachmentFileNamePattern} ${contract.releaseGate} ${contract.aiVisibilityValue} ${contract.reportStructure.join(" ")}`).join(" ")} {REPORT_VAULT_HANDOFFS.map((handoff) => `${handoff.decision} ${handoff.surfaceKey} ${handoff.currentState} ${handoff.safeNextAction} ${handoff.recoveryPath} ${handoff.connectedDestination}`).join(" ")}
       </section>
     </main>
   );

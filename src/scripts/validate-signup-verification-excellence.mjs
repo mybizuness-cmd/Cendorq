@@ -36,7 +36,6 @@ expect(loginPath, [
   "Customer access | Cendorq",
   "Access your Cendorq account.",
   "Use the same email you used when you submitted your Free Scan or bought a plan.",
-  "Already have an account? If you used a different email then, try that one.",
   "Email used for your Free Scan or plan",
   "autoComplete=\"email\"",
   "Send secure access link",
@@ -46,6 +45,7 @@ expect(loginPath, [
   "Start Free Scan",
   "Other access options are hidden until they are fully ready.",
   "Free Scan starts the account. Access brings customers back.",
+  "Access return paths",
   "focus:outline-none",
   "focus-visible:ring-2",
 ]);
