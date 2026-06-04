@@ -2,7 +2,7 @@
 
 ## Operating posture
 
-Cendorq is a category-control company, not a generic agency site and not a normal SaaS signup funnel. Work in controlled batches, keep user updates short, prefer bigger coherent batches when they can be validated together, and verify green deployment checks before moving to the next implementation batch.
+Cendorq is a category-control company, not a generic agency site and not a normal SaaS signup funnel. Work in controlled batches, keep owner updates short, prefer bigger coherent batches only when they form one safe layer, and verify green deployment checks before moving to the next implementation batch.
 
 Future chats must operate from repo sources, not chat memory.
 
@@ -11,37 +11,30 @@ Future chats must operate from repo sources, not chat memory.
 1. `docs/agent-handoff/current-handoff.md`
 2. `docs/cendorq-master-blueprint.md`
 3. `docs/cendorq-competitive-intelligence-source-package.md`
-4. `docs/visual-command-surface-review-register.md`
-5. `docs/visual-command-device-width-review-protocol.md`
-6. `src/lib/visual-command-device-review-targets.ts`
-7. `src/lib/dashboard-protected-suite-contracts.ts`
-8. `src/lib/presence-report-customer-source-contracts.ts`
-9. `src/lib/presence-report-evidence-record-contracts.ts`
-10. `src/lib/presence-report-retrieval-workflow-contracts.ts`
-11. `src/lib/operator-release-gate-contracts.ts`
-12. `src/lib/category-proof-standard-contracts.ts`
-13. Latest open PR and latest merged `main` commit status.
+4. `docs/owner-operating-manual.md`
+5. `docs/visual-command-surface-review-register.md`
+6. `docs/visual-command-device-width-review-protocol.md`
+7. `src/lib/visual-command-device-review-targets.ts`
+8. `src/lib/dashboard-protected-suite-contracts.ts`
+9. `src/lib/presence-report-customer-source-contracts.ts`
+10. `src/lib/presence-report-evidence-record-contracts.ts`
+11. `src/lib/presence-report-retrieval-workflow-contracts.ts`
+12. `src/lib/operator-release-gate-contracts.ts`
+13. `src/lib/category-proof-standard-contracts.ts`
+14. `src/lib/cendorq-agent-intelligence-playbooks.ts`
+15. Latest merged `main` commit status and latest open PR state.
 
 Do not ask the owner to repeat the vision if these files are available.
 
 ## Current main state
 
 - Repository: `mybizuness-cmd/Cendorq`
-- Main head at handoff: `900ae86eb7b934f953046c071ad1fed8c753511e`
-- Legacy validation marker: `next-1017`
-- Recently merged PR #1051: `Install Cendorq master blueprint`
-- Recently merged PR #1052: `Upgrade homepage product command proof layer`
-- Recently merged PR #1053: `Refresh handoff after homepage product proof merge`
-- Recently merged PR #1054: `Upgrade protected dashboard command strip`
-- Recently merged PR #1055: `Elevate customer dashboard modules`
-- Recently merged PR #1056: `Add protected dashboard suite contracts`
-- Recently merged PR #1057: `Refresh handoff after source package merge`
-- Recently merged PR #1058: `Add Presence Report customer source contracts`
-- Recently merged PR #1059: `Refresh handoff after customer source contracts merge`
-- Recently merged PR #1060: `Add Presence Report evidence record contracts`
-- Recently merged PR #1061: `Refresh handoff after evidence contracts merge`
-- Latest checked merge status at handoff: PR #1061 was green across CI, Release Control, CodeQL, and Vercel before merge.
-- Current implementation branch: `presence-report-retrieval-and-operator-gates`
+- Latest green main checkpoint before this handoff refresh: `9ec75f5be82cd8cb0a4375b968538d430b526e02`
+- Latest checked status before this handoff refresh: Vercel success.
+- Major current direction: AI Search Presence Repair with Scan, Review, Repair, and Control as the public/customer operating path.
+- Main product object: Presence Report.
+- Main customer decision weakness: Choice Gap.
+- Main improvement sequence: Repair Queue.
 
 ## Source-memory package
 
@@ -56,13 +49,13 @@ Future chats should treat that file as the durable competitive intelligence plus
 
 ## Business doctrine
 
-Free Scan creates the customer. Customer Access brings the customer back. Provider buttons verify identity. Cendorq records decide access. Known customers continue to dashboard. Unknown people go to Free Scan. No blank accounts.
+Free Scan creates the customer. Customer Access brings the customer back. Provider buttons verify identity only when provider callback runtime is real. Cendorq records decide access. Known customers continue to dashboard. Unknown people go to Free Scan. No blank accounts.
 
 The customer-facing flow:
 
 1. Start Free Scan.
 2. Submit real business details.
-3. Create account from the scan or paid action.
+3. Create customer eligibility from the scan or paid action.
 4. Open protected result, plan, billing, support, and next action in the dashboard.
 5. Paid path moves through Review, Repair, and Control.
 
@@ -77,7 +70,7 @@ Master decision:
 - Internal phrase: Make the business answer-ready.
 - Operating path: Scan, Review, Repair, Control.
 - Main product object: Presence Report.
-- Main public command: Run Free Scan.
+- Main public command: Start Free Scan / Run Free Scan depending on the surface copy.
 
 Core objects:
 
@@ -89,6 +82,32 @@ Core objects:
 - Presence Gap Index
 
 Do not drift from this doctrine without updating the blueprint, source package, validators, and this handoff.
+
+## Current command-path upgrade pass
+
+A major source-level hardening pass has been applied across public, protected, legal, metadata, generated image, icon, documentation, and playbook layers. The active language now centers:
+
+- AI Search Presence Repair
+- Presence Report
+- Choice Gap
+- Repair Queue
+- Scan / Review / Repair / Control
+
+The pass added read-order strips and decision clarity to the customer dashboard and trust surfaces:
+
+- Dashboard: Check state, Open proof, Move once.
+- Billing: Verify state, Match depth, Recover safely.
+- Notifications: Name signal, Open source, Act once.
+- Support routing: Check status, Route narrow, Submit safely.
+- Support status: Read status, Follow ask, Return lane.
+- Support request: Check gates, Choose mode, Write safe.
+- Privacy: Submit carefully, Use verified access, Ask for review.
+- Terms: Choose route, Check scope, Use safely.
+- Disclaimer: Read evidence, Check boundary, Choose depth.
+- 404 route recovery: Recover, Route, Continue.
+- Homepage: Read signal, See gap, Move once.
+
+The pass also aligned header, footer, SEO config, sitemap, robots, manifest, Open Graph image, Twitter image, app icon, Apple icon, agent playbooks, owner operating manual, and visual review register with the current Cendorq command path.
 
 ## Access doctrine
 
@@ -117,7 +136,7 @@ The product loop:
 6. Build Fix repairs public signals.
 7. Control Snapshot keeps ongoing visibility and readiness from drifting.
 
-Do not promise rankings, leads, revenue, or AI placement. Do not expose raw evidence or private scoring internals publicly.
+Do not promise rankings, leads, revenue, ROI, AI placement, algorithm control, guaranteed security, or guaranteed outcomes. Do not expose raw evidence or private scoring internals publicly.
 
 ## Presence Report customer source contracts
 
@@ -180,7 +199,7 @@ Do not expose raw intake payloads, raw scrape bodies, private scoring internals,
 
 ## Retrieval, operator, and category-proof contracts
 
-The current implementation branch adds:
+Main includes:
 
 - `src/lib/presence-report-retrieval-workflow-contracts.ts`
 - `src/lib/operator-release-gate-contracts.ts`
@@ -222,7 +241,7 @@ This layer is intentionally contract-first. It does not yet turn on risky live c
 
 ## Installed Presence Report system
 
-Main includes homepage AI Search Presence Repair positioning, Product Proof Center, Sample Presence Report, shared report components, Presence Report contracts, live Free Scan snapshot mapping, protected Free Scan report preview, Dashboard Presence Command Snapshot, Sandwork demo fixture, object index, package-source helper, customer source contracts, evidence-record contracts, and validators for the report system.
+Main includes homepage AI Search Presence Repair positioning, product motion preview, Product Proof Center, Sample Presence Report, shared report components, Presence Report contracts, live Free Scan snapshot mapping, protected Free Scan report preview, Dashboard Presence Command Snapshot, Sandwork demo fixture, object index, package-source helper, customer source contracts, evidence-record contracts, and validators for the report system.
 
 Sandwork remains the canonical demo boundary. Do not re-hardcode Sandwork or sample report objects inside presentation components. Report surfaces should use the package-source helper.
 
@@ -237,6 +256,7 @@ Main includes:
 - Connected customer lanes.
 - Protected account re-entry.
 - Reports, Billing, Notifications, and Support tied together as a protected dashboard suite.
+- Dashboard, Billing, Notifications, Support, Support Status, and Support Request read-order strips.
 
 Protected suite contracts cover:
 
@@ -245,7 +265,7 @@ Protected suite contracts cover:
 - Notifications: signal feed.
 - Support: support routing.
 
-Keep protected dashboard language separate from public homepage language. Keep public homepage `Product Proof Center`; do not use `Presence Command` publicly. Keep private payment details, raw evidence, private internals, and unsafe support leakage out of customer surfaces.
+Keep protected dashboard language separate from public homepage language. Keep public homepage product language public-safe. Keep private payment details, raw evidence, private internals, and unsafe support leakage out of customer surfaces.
 
 ## Command workforce doctrine
 
@@ -260,24 +280,28 @@ Operating loop:
 5. Validators turn non-negotiable standards into repeatable gates.
 6. Handoff memory records what changed, why it changed, what must not regress, and what to inspect next.
 
-Installed command workforce layer includes command workforce docs, visual command docs, `docs/cendorq-master-blueprint.md`, `docs/cendorq-competitive-intelligence-source-package.md`, `src/lib/command-workforce-quality-contracts.ts`, `src/lib/visual-command-device-review-targets.ts`, `src/lib/dashboard-protected-suite-contracts.ts`, `src/lib/presence-report-customer-source-contracts.ts`, `src/lib/presence-report-evidence-record-contracts.ts`, `src/lib/presence-report-retrieval-workflow-contracts.ts`, `src/lib/operator-release-gate-contracts.ts`, `src/lib/category-proof-standard-contracts.ts`, and validation scripts.
+Installed command workforce layer includes command workforce docs, visual command docs, `docs/cendorq-master-blueprint.md`, `docs/cendorq-competitive-intelligence-source-package.md`, `docs/owner-operating-manual.md`, `docs/visual-command-surface-review-register.md`, `src/lib/command-workforce-quality-contracts.ts`, `src/lib/visual-command-device-review-targets.ts`, `src/lib/dashboard-protected-suite-contracts.ts`, `src/lib/presence-report-customer-source-contracts.ts`, `src/lib/presence-report-evidence-record-contracts.ts`, `src/lib/presence-report-retrieval-workflow-contracts.ts`, `src/lib/operator-release-gate-contracts.ts`, `src/lib/category-proof-standard-contracts.ts`, `src/lib/cendorq-agent-intelligence-playbooks.ts`, and validation scripts.
 
 ## Visual command doctrine
 
-Visual quality is part of category ownership. Every important public, protected, report, dashboard, or mobile surface should make the safest next command obvious.
+Visual quality is part of category ownership. Every important public, protected, report, dashboard, legal, generated-image, icon, metadata, or mobile surface should make the safest next command obvious.
 
 Review for premium restraint, strong hierarchy, immediate scannability, clear proof sequence, one dominant next action, mobile clarity, serious business tone, report readability, dashboard command clarity, and clean visual focus.
 
 Use `docs/visual-command-device-width-review-protocol.md` and `src/lib/visual-command-device-review-targets.ts` for 390px, 430px, 768px, 1024px, and 1440px review.
 
+Source-level visual review has been updated in `docs/visual-command-surface-review-register.md`, but live rendered screenshot approval is still required before calling the device-width protocol fully complete.
+
 ## Homepage product proof state
 
-Homepage includes the Product Proof Center section with Presence Score, Choice Gap, Repair Queue, Control Snapshot, and Proof before paid pressure.
+Homepage includes AI Search Presence Repair positioning, a controlled product motion preview, Presence Report language, Choice Gap, Repair Queue, and Scan / Review / Repair / Control decision path.
 
 Public homepage guardrail:
 
-- Do not use the phrase `Presence Command` on the public homepage.
-- Use Product Proof Center publicly.
+- Keep the customer promise direct: be easier to find, understand, and choose.
+- Keep Start Free Scan as the primary command.
+- Keep Sample Report secondary.
+- Keep product motion useful, pausable, and reduced-motion aware.
 - Keep internal/dashboard language separate from public language.
 
 ## Validation commands
@@ -299,7 +323,10 @@ Release Control runs route guardrails, Presence Report validation, command workf
 
 - Keep the public category as AI Search Presence Repair.
 - Keep Presence Report as the central product object.
-- Keep the master blueprint and competitive intelligence source package discoverable in repo sources.
+- Keep Choice Gap visible as the decision weakness, not generic criticism.
+- Keep Repair Queue scoped, evidence-led, and not unlimited implementation.
+- Keep Scan, Review, Repair, and Control as the public/customer operating path.
+- Keep the master blueprint, source package, owner manual, and visual review register discoverable in repo sources.
 - Keep Free Scan first-signal only.
 - Keep Review, Repair, and Control separate from Free Scan.
 - Keep sample reports framed as examples, not promises.
@@ -314,7 +341,9 @@ Release Control runs route guardrails, Presence Report validation, command workf
 - Keep visual command as a real quality lane.
 - Keep `pnpm validate:command-workforce` in Release Control.
 - Keep protected Free Scan proof-before-paid-pressure order guarded.
-- Keep homepage Product Proof Center guarded.
+- Keep homepage product proof guarded.
+- Keep dashboard, billing, notifications, support, support status, support request, privacy, terms, disclaimer, and route recovery read-order strips coherent and not decorative.
+- Keep generated images, icons, sitemap, robots, manifest, header, footer, and SEO aligned to the current Cendorq path.
 - Use bigger batches only when the work forms one coherent layer and can be validated together.
 - Use smaller batches for live access, payment configuration, provider runtime, protected customer data, or high-risk customer-facing truth.
 - Do not create blank dashboards for unknown visitors.
@@ -327,12 +356,11 @@ Release Control runs route guardrails, Presence Report validation, command workf
 
 ## Next implementation candidates
 
-1. Complete the `presence-report-retrieval-and-operator-gates` PR and verify CI, Release Control, CodeQL, and Vercel on its exact head.
-2. Execute live screenshot/device-width review for homepage, `/plans`, `/faq`, `/sample-report`, `/dashboard/reports/free-scan`, and protected dashboard surfaces at 390px, 430px, 768px, 1024px, and 1440px; update `docs/visual-command-surface-review-register.md` with screenshot-based findings.
-3. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture using the retrieval workflow contracts.
-4. Add real scan evidence records once the report pipeline can preserve review state, sensitivity, and evidence boundaries.
-5. Add operator QA gates before any generated report is released to customers using the operator release gate contracts.
-6. Add category-specific proof standards into report scoring and repair language using the Findability, Understanding, Trust, Choice, Action, and Control contracts.
-7. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
-8. Create the Presence Gap Index authority asset.
-9. Build operator terminal foundation: Command Queue, Business Truth Profile, Evidence Console, Finding Builder, Repair Composer, Approval Gate, and Audit Log.
+1. Execute live screenshot/device-width review for homepage, `/plans`, `/faq`, `/sample-report`, `/dashboard`, `/dashboard/reports/free-scan`, `/dashboard/billing`, `/dashboard/notifications`, `/dashboard/support`, `/dashboard/support/status`, `/dashboard/support/request`, `/privacy`, `/terms`, `/disclaimer`, and route recovery at 390px, 430px, 768px, 1024px, and 1440px; update `docs/visual-command-surface-review-register.md` with screenshot-based findings.
+2. Wire real Free Scan snapshots into protected customer report retrieval beyond the Sandwork fixture using the retrieval workflow contracts.
+3. Add real scan evidence records once the report pipeline can preserve review state, sensitivity, and evidence boundaries.
+4. Add operator QA gates before any generated report is released to customers using the operator release gate contracts.
+5. Add category-specific proof standards into report scoring and repair language using the Findability, Understanding, Trust, Choice, Action, and Control contracts.
+6. Wire paid plan, report vault, billing, and support eligibility to durable server-side ownership stores.
+7. Create the Presence Gap Index authority asset.
+8. Build operator terminal foundation: Command Queue, Business Truth Profile, Evidence Console, Finding Builder, Repair Composer, Approval Gate, and Audit Log.
