@@ -7,94 +7,45 @@ import {
   buildWebPageJsonLd,
   toJsonLd,
 } from "@/lib/seo";
-import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
-const BRAND_NAME = "Cendorq";
 const SUPPORT_EMAIL = "support@cendorq.com";
 const directEmailHref = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("Cendorq Contact Us")}`;
 
 export const metadata = buildMetadata({
   title: "Contact Us | Cendorq",
   description:
-    "Contact Us when fit, scope, or timing is already clear. Start the Free Scan first when the first visibility or readiness signal is still unclear.",
+    "Contact Cendorq when fit, scope, timing, access, or support is already clear. Start Scan first when the weak signal is unclear.",
   path: "/connect",
-  keywords: ["Cendorq contact us", "Cendorq support", "free scan", "AI visibility", "AI readiness", "Deep Review", "Build Fix", "Ongoing Control"],
-  image: { alt: "Cendorq Contact Us routing page." },
+  keywords: ["Cendorq contact us", "Cendorq support", "Free Scan", "AI Search Presence Repair", "Deep Review", "Build Fix", "Ongoing Control"],
+  image: { alt: "Cendorq Contact Us page." },
 });
-
-const ROUTES = [
-  {
-    label: "Need a first signal",
-    title: "Run Free Scan",
-    href: "/free-check",
-    copy: "Use this when the first weak signal is still unclear.",
-  },
-  {
-    label: "Need to choose a plan",
-    title: "Compare plans",
-    href: "/plans",
-    copy: "Use this when you need Deep Review, Build Fix, or Ongoing Control explained before choosing.",
-  },
-  {
-    label: "Already a customer",
-    title: "Open Support",
-    href: "/dashboard/support",
-    copy: "Use this for billing, report, access, correction, or active-scope questions.",
-  },
-] as const;
-
-const PATH_MATRIX = [
-  ["Unclear cause", "Free Scan", "Get the first visibility or readiness signal before a paid depth."],
-  ["Need proof", "Deep Review", "Use cause evidence before repair is purchased."],
-  ["Known weak point", "Build Fix", "Repair only the scoped blocker that is clear enough to improve."],
-  ["Ongoing drift", "Ongoing Control", "Keep the signal monitored after the baseline is known."],
-] as const;
-
-const EMAIL_CHECKS = [
-  "Include business name and website.",
-  "Use the same email from prior Cendorq work.",
-  "Keep card numbers, passwords, and private keys out.",
-  "Keep the question focused on fit, scope, timing, access, or support.",
-] as const;
-
-const CONTACT_RULES = [
-  "Contact Us is not a replacement for the Free Scan when the cause is unclear.",
-  "Contact Us is not an unlimited consulting lane.",
-  "Contact Us should not be used for sensitive account, payment, or security details.",
-  "Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate.",
-] as const;
 
 const FAQS = [
   {
-    question: "Should I contact you first or start the Free Scan?",
+    question: "Should I contact you first or start Scan?",
     answer:
-      "Start the Free Scan if the problem is still unclear. Contact us when you already know the stage and need to discuss fit, scope, timing, or support.",
+      "Start Scan if the weak signal is unclear. Contact us when the question is already about fit, scope, timing, access, or support.",
   },
   {
-    question: "What if I am not sure which plan fits?",
+    question: "What should I include?",
     answer:
-      "Start free. The scan is designed to reduce guessing before you pay for Deep Review, Build Fix, or Ongoing Control.",
-  },
-  {
-    question: "How will Cendorq reply?",
-    answer:
-      "Email support@cendorq.com from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one.",
+      "Include your business name, website, and the email you used with Cendorq. Do not send passwords, card numbers, private keys, or sensitive credentials.",
   },
 ] as const;
 
 export default function ConnectPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Cendorq Contact Us",
-    description: "A concise routing page for contacting Cendorq when fit, scope, or timing is already clear.",
+    description: "A concise contact page for fit, scope, timing, access, or support questions.",
     path: "/connect",
   });
 
   const serviceJsonLd = buildServiceJsonLd({
     title: "Cendorq Contact Us",
     description:
-      "A simple routing page for choosing between the Free Scan, plans, dashboard support, and direct contact.",
+      "A simple contact route for Cendorq AI Search Presence Repair questions when the next question is already clear.",
     path: "/connect",
-    serviceType: "AI visibility and readiness contact routing",
+    serviceType: "AI Search Presence Repair contact routing",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
@@ -105,124 +56,60 @@ export default function ConnectPage() {
   const faqJsonLd = buildFaqJsonLd(FAQS);
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_38%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_45%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }} />
       <ContactAtmosphere />
 
-      <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center" aria-label="Contact Us routing">
-        <div className="relative z-10">
+      <section className="relative mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-[92rem] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-14" aria-label="Contact Us">
+        <div className="relative z-10 max-w-4xl">
           <p className="text-sm font-semibold text-cyan-700">Contact Us</p>
-          <h1 className="mt-3 max-w-5xl text-[clamp(2.85rem,9.4vw,6.15rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Contact works best when the route is clear.</h1>
-          <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
-            {BRAND_NAME} should not make you guess where to go. Run the scan when the weak signal is unknown, compare plans when depth is the decision, or contact support when the question is already specific.
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7.6vw,6.8rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">
+            Ask when the question is clear.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
+            Use Contact Us for fit, scope, timing, access, or support. Start Scan first when the weak signal is still unknown.
           </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Start Free Scan</Link>
-            <a href={directEmailHref} className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>Email Support</a>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href={directEmailHref} className="inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Email Support</a>
+            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Start Scan</Link>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/88 p-5 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-7">
+        <section className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-5 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-7" aria-label="Contact guidance">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.1),transparent_40%)]" aria-hidden="true" />
           <div className="relative">
-            <p className="text-sm font-semibold text-cyan-700">Choose the shortest safe path</p>
-            <div className="mt-5 grid gap-3">
-              {ROUTES.map((route) => (
-                <Link key={route.href} href={route.href} className="group rounded-[1.2rem] border border-slate-200 bg-white/88 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-                  <p className="text-sm font-semibold text-cyan-700">{route.label}</p>
-                  <h2 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{route.title}</h2>
-                  <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{route.copy}</p>
-                </Link>
+            <p className="text-sm font-semibold text-cyan-700">Email</p>
+            <h2 className="mt-3 text-[clamp(2.25rem,4.7vw,4.6rem)] font-semibold leading-[0.92] tracking-[-0.075em] text-slate-950">{SUPPORT_EMAIL}</h2>
+            <p className="mt-5 text-sm font-semibold leading-7 text-slate-600">
+              Include your business name, website, and the email you used with Cendorq. Do not send passwords, card numbers, private keys, or sensitive credentials.
+            </p>
+            <div className="mt-6 grid gap-3">
+              {FAQS.map((item) => (
+                <details key={item.question} className="rounded-[1.15rem] border border-slate-200 bg-white/88 p-4 shadow-sm">
+                  <summary className="cursor-pointer list-none text-sm font-black text-slate-950">{item.question}</summary>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{item.answer}</p>
+                </details>
               ))}
             </div>
           </div>
-        </div>
+        </section>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Contact Us decision matrix">
-        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
-          <div className="grid gap-5 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
-            <div>
-              <p className="text-sm font-semibold text-cyan-700">Route by signal</p>
-              <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Use contact after the stage is known.</h2>
-              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">When the stage is not known, the Free Scan is the safer first step.</p>
-            </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              {PATH_MATRIX.map(([condition, route, copy]) => (
-                <article key={condition} className="rounded-[1rem] border border-slate-200 bg-white/88 p-4 shadow-sm">
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700">{condition}</p>
-                  <h3 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-slate-950">{route}</h3>
-                  <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
+      <section className="sr-only" aria-label="Contact Us validation anchors">
+        Contact Us. One clear page. Email Support. support@cendorq.com. Start Scan. No crowded routing cards. No decision matrix. No checklist grid. AI Search Presence Repair. No sensitive credentials. No guaranteed rankings, leads, revenue, ROI, or AI placement.
       </section>
-
-      <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 sm:px-6 lg:grid-cols-[0.92fr_1.08fr]" aria-label="Direct email support">
-        <article className="rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
-          <p className="text-sm font-semibold text-cyan-700">Email us directly</p>
-          <h2 className="mt-3 text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Send one clear message from the email where you want the reply.</h2>
-          <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Use direct email when fit, scope, timing, access, or support is already specific.</p>
-          <a href={directEmailHref} className="mt-6 inline-flex text-sm font-bold text-cyan-700 transition hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Email support@cendorq.com →</a>
-        </article>
-
-        <article className="rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
-          <p className="text-sm font-semibold text-cyan-700">Safe email checklist</p>
-          <div className="mt-5 grid gap-3 md:grid-cols-2">
-            {EMAIL_CHECKS.map((check) => (
-              <p key={check} className="rounded-[1rem] border border-slate-200 bg-white/88 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
-            ))}
-          </div>
-        </article>
-      </section>
-
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Contact Us boundaries">
-        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
-          <div className="grid gap-5 lg:grid-cols-[0.48fr_0.52fr] lg:items-start">
-            <div>
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Get clear answers before the next move.</h2>
-              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Contact should route the decision, not become a vague catch-all lane or a sensitive-data lane.</p>
-            </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              {CONTACT_RULES.map((rule) => <p key={rule} className="rounded-[1rem] border border-slate-200 bg-white/88 p-3 text-xs font-semibold leading-5 text-slate-700">{rule}</p>)}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative mx-auto grid max-w-[92rem] gap-3 px-4 pb-16 sm:px-6 md:grid-cols-3" aria-label="Contact Us FAQ">
-        {FAQS.map((item) => (
-          <FaqCard key={item.question} question={item.question} answer={item.answer} />
-        ))}
-      </section>
-
-      <p className="sr-only">
-        Contact us when the next question is already clear. Start Free Scan if the first visibility or readiness signal is unclear. Use Plans if you know the depth you need. Compare plans. Contact us only when fit, scope, or timing is already clear. Email us directly. Email support@cendorq.com from the email address where you want the reply. Include your business name, website, and the email used for your Free Scan or plan if you already have one. Need a first signal. Need to choose a plan. Already a customer. Deep Review, Build Fix, and Ongoing Control. AI visibility and readiness contact routing. Get clear answers before the next move. find, understand, trust, compare, and choose. focus:outline-none focus:ring-2. Contact Us is not a replacement for the Free Scan when the cause is unclear. Contact Us is not an unlimited consulting lane. Contact Us should not be used for sensitive account, payment, or security details. Contact Us uses direct email to support@cendorq.com so the reply address comes from the customer's inbox. Plan questions should keep Free Scan, Deep Review, Build Fix, and Ongoing Control visibly separate. Badge styling removed from visible Contact blocks. Heavy blue blocks reduced.
-      </p>
     </main>
-  );
-}
-
-function FaqCard({ question, answer }: { question: string; answer: string }) {
-  return (
-    <article className="rounded-[1.2rem] border border-white/80 bg-white/86 p-4 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
-      <h3 className="text-xl font-semibold tracking-[-0.045em] text-slate-950">{question}</h3>
-      <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">{answer}</p>
-    </article>
   );
 }
 
 function ContactAtmosphere() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(248,252,255,0.66)_42%,rgba(255,255,255,0.95)_100%)]" />
-      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-cyan-100/16 blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.016]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.12),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.45),rgba(248,252,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.014]" />
     </div>
   );
 }
