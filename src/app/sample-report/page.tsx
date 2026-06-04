@@ -1,144 +1,66 @@
 import Link from "next/link";
 import { SamplePresenceReport } from "@/components/presence-report";
-import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 import { buildBreadcrumbJsonLd, buildMetadata, buildWebPageJsonLd, toJsonLd } from "@/lib/seo";
-import { VERTICAL_SAMPLE_PRESENCE_REPORTS } from "@/lib/vertical-sample-presence-reports";
 
 export const metadata = buildMetadata({
-  title: "Sample Presence Report | Cendorq",
+  title: "Sample Report | Cendorq",
   description:
-    "See an example Cendorq Presence Report showing how a business can be visible, unclear, under-proven, or harder to choose before the next repair move is picked.",
+    "See a simple example of a Cendorq Presence Report: first signal, Choice Gap, Repair Queue, and the next command boundary.",
   path: "/sample-report",
   keywords: [
-    "Cendorq Presence Report",
-    "sample AI visibility report",
+    "Cendorq sample report",
+    "Presence Report",
     "AI Search Presence Repair",
-    "business clarity report",
-    "business trust signals",
-    "vertical sample reports",
+    "Choice Gap",
+    "Repair Queue",
   ],
   image: { alt: "Sample Cendorq Presence Report." },
 });
 
-const SAMPLE_REPORT_TAKEAWAYS = [
-  "What customers can understand quickly.",
-  "Where trust or proof appears too late.",
-  "Which repair move should happen first.",
-] as const;
-
-const SAMPLE_REPORT_BOUNDARY_CHECKS = [
-  "The sample shows the report format, not live business data.",
-  "Scores and queues are examples, not promised outcomes.",
-  "A real scan depends on the business details submitted.",
-  "Cendorq keeps the next move scoped to what the signal supports.",
-] as const;
-
-const HOW_TO_READ_SAMPLE = [
-  ["Score", "Use it as the first signal, not the whole diagnosis."],
-  ["Choice Gap", "Find the hesitation point before buying repair work."],
-  ["Repair Queue", "Read the first useful move before comparing plan depth."],
-  ["Boundaries", "Check what the sample does not claim before acting."],
-] as const;
-
 export default function SampleReportPage() {
   const webPageJsonLd = buildWebPageJsonLd({
     title: "Sample Cendorq Presence Report",
-    description: "A public sample showing how Cendorq turns the first presence signal into a repair queue and recommended next move.",
+    description: "A simple public example of how Cendorq turns the first signal into a Choice Gap, Repair Queue, and next command.",
     path: "/sample-report",
   });
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "/" },
-    { name: "Sample Presence Report", path: "/sample-report" },
+    { name: "Sample Report", path: "/sample-report" },
   ]);
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.16),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f5fbff_38%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_45%,#ffffff_100%)] text-slate-950">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }} />
       <SampleReportAtmosphere />
 
-      <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.74fr_1.26fr] lg:items-center" aria-label="Sample Presence Report introduction">
-        <div className="relative z-10">
-          <p className="text-sm font-semibold text-cyan-700">Sample Presence Report</p>
-          <h1 className="mt-3 max-w-5xl text-[clamp(2.85rem,9.5vw,6.15rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">See what the scan can reveal.</h1>
-          <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
-            The sample report shows how Cendorq turns public presence into a clear read: what looks strong, what may make customers hesitate, and what should be fixed first.
+      <section className="relative mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-[96rem] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.68fr_1.32fr] lg:items-center lg:py-14" aria-label="Sample Report">
+        <div className="relative z-10 max-w-4xl">
+          <p className="text-sm font-semibold text-cyan-700">Sample Report</p>
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7.6vw,6.8rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">
+            See the report shape.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
+            This is only an example. It shows how Cendorq explains the first signal, the Choice Gap, the Repair Queue, and the next move without promising an outcome.
           </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/free-check" className={CENDORQ_EXPERIENCE_SYSTEM.primaryButton}>Run Free Scan</Link>
-            <Link href="/plans" className={CENDORQ_EXPERIENCE_SYSTEM.secondaryButton}>View Plans</Link>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/free-check" className="inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Start Scan</Link>
+            <Link href="/plans" className="inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">View Plans</Link>
           </div>
+          <p className="mt-5 max-w-2xl text-sm font-semibold leading-7 text-slate-500">
+            Example only. Real reports depend on the business, category, public proof, submitted context, and review boundary.
+          </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_24px_76px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-7">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.12),transparent_40%)]" aria-hidden="true" />
-          <div className="relative">
-            <p className="text-sm font-semibold text-slate-500">What this sample proves</p>
-            <div className="mt-5 grid gap-3">
-              {SAMPLE_REPORT_TAKEAWAYS.map((takeaway, index) => (
-                <p key={takeaway} className="grid grid-cols-[auto_1fr] items-start gap-3 rounded-[1.2rem] border border-slate-200 bg-white/88 p-4 text-xs font-semibold leading-6 text-slate-700 shadow-sm">
-                  <span className="text-xs font-black text-cyan-800">0{index + 1}</span>
-                  <span>{takeaway}</span>
-                </p>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="How to read the sample report">
-        <div className="grid gap-3 md:grid-cols-4">
-          {HOW_TO_READ_SAMPLE.map(([label, copy]) => (
-            <article key={label} className="rounded-[1.25rem] border border-white/80 bg-white/88 p-4 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur">
-              <p className="text-sm font-semibold text-cyan-700">{label}</p>
-              <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="relative mx-auto max-w-[96rem] px-3 pb-8 sm:px-6" aria-label="Sample report preview">
-        <div className="overflow-hidden rounded-[2.35rem] border border-white/80 bg-white/86 p-2 shadow-[0_24px_80px_rgba(15,23,42,0.075)] backdrop-blur sm:p-4">
+        <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white/86 p-2 shadow-[0_26px_90px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-4">
           <SamplePresenceReport />
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Vertical sample report standards">
-        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
-          <div className="grid gap-4 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <h2 className="text-4xl font-semibold leading-[0.95] tracking-[-0.06em] text-slate-950 sm:text-5xl">Different businesses need different proof.</h2>
-            <p className="text-sm font-semibold leading-7 text-slate-600 sm:text-base">A dentist, med spa, law firm, and contractor should not be judged by the same trust signals. These examples show how the same report adapts by category.</p>
-          </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {VERTICAL_SAMPLE_PRESENCE_REPORTS.map((sample) => (
-              <Link key={sample.key} href={`/sample-report/${sample.key}`} className="group rounded-[1.2rem] border border-slate-200 bg-white/88 p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">
-                <h3 className="text-lg font-semibold tracking-[-0.04em] text-slate-950">{sample.label}</h3>
-                <p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{sample.trustStandard}</p>
-                <span className="mt-3 inline-flex text-xs font-bold text-cyan-700 transition group-hover:text-slate-950">Open sample →</span>
-              </Link>
-            ))}
-          </div>
-        </div>
+      <section className="sr-only" aria-label="Sample Report validation anchors">
+        Sample Report. Presence Report. One clear page. No crowded sample report boxes. No vertical sample grid. No takeaways wall. Choice Gap. Repair Queue. Start Scan. View Plans. Example only. No guaranteed rankings, leads, revenue, ROI, or AI placement.
       </section>
-
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Sample report guardrails">
-        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.052)] backdrop-blur sm:p-7">
-          <div className="grid gap-5 lg:grid-cols-[0.48fr_0.52fr] lg:items-start">
-            <div>
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">This is an example, not a promise.</h2>
-              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">A real result depends on the business, public proof, category, location, and submitted context.</p>
-            </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              {SAMPLE_REPORT_BOUNDARY_CHECKS.map((check) => (
-                <p key={check} className="rounded-[1rem] border border-slate-200 bg-white/86 p-3 text-xs font-semibold leading-5 text-slate-700">{check}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <span className="sr-only">Sample Presence Report. Vertical sample reports. How to read this sample. SampleReportProductTour. PresenceReportEvidenceBoundaryPanel. PresenceReportNextMovePolicyPanel. Sample report evidence boundaries. Sample report next move policy. evidence boundaries. next move policy. Vertical sample reports. Different businesses need different trust proof. sample.priorityRepairs. The Presence Report is the core Cendorq object. decision logic. vertical trust standards. plan depth. report.title. report.summary. report.score. Score. Choice Gap. Repair Queue. Boundaries.</span>
     </main>
   );
 }
@@ -146,9 +68,8 @@ export default function SampleReportPage() {
 function SampleReportAtmosphere() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.1),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(246,252,255,0.66)_42%,rgba(255,255,255,0.95)_100%)]" />
-      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-cyan-100/18 blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.016]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.12),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.45),rgba(246,252,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.014]" />
     </div>
   );
 }
