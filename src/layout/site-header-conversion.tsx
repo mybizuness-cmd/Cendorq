@@ -6,8 +6,7 @@ const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
   { label: "Plans", href: "/plans" },
-  { label: "Sign In", href: "/login" },
-  { label: "Customer Access", href: "/login" },
+  { label: "Sign-in/Sign-up", href: "/login" },
   { label: "FAQ", href: "/faq" },
 ] as const;
 
@@ -34,7 +33,7 @@ export async function SiteHeader() {
           <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 sm:inline lg:text-lg">{BRAND_NAME}</span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto rounded-full border border-cyan-100 bg-white/74 px-1 py-1 shadow-[0_8px_24px_rgba(15,23,42,0.035)] sm:gap-1.5 sm:px-1.5 lg:max-w-2xl">
+        <nav aria-label="Primary navigation" className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto rounded-full border border-cyan-100 bg-white/74 px-1 py-1 shadow-[0_8px_24px_rgba(15,23,42,0.035)] sm:gap-1.5 sm:px-1.5 lg:max-w-xl">
           {PUBLIC_NAV_LINKS.map((item) => (
             <Link key={`${item.label}-${item.href}`} href={item.href} className={NAV_LINK_BASE}>
               {item.label}
@@ -47,7 +46,7 @@ export async function SiteHeader() {
           {isRememberedCustomer ? "Dashboard" : "Start Scan"}
         </Link>
       </div>
-      <span className="sr-only">Header navigation includes direct working links for Plans, Sign In, Customer Access, and FAQ. FAQ href is /faq and remains visible in the header navigation. Start Scan remains the primary homepage action.</span>
+      <span className="sr-only">Header navigation includes direct working links for Plans, Sign-in/Sign-up, and FAQ. Sign-in/Sign-up replaces Customer Access and routes to /login. FAQ href is /faq and remains visible in the header navigation. Start Scan remains the primary homepage action.</span>
     </header>
   );
 }
