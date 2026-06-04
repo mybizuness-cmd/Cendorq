@@ -1,16 +1,23 @@
 # Cendorq Owner Operating Manual
 
-This manual defines how Cendorq should be operated from first customer touch through report delivery, plan conversion, support, launch review, and continuous improvement.
+This manual defines how Cendorq should be operated from first customer touch through Free Scan, Review, Repair, Control, protected dashboard delivery, support, billing, launch review, and continuous improvement.
 
 ## Highest-level objective
 
 Cendorq should win by being more accurate, more useful, more trusted, more tailored, and more operationally disciplined than generic competitors from the first interaction.
 
-The standard is not to promise impossible certainty. The standard is to build the strongest practical evidence system: customer context, safe external evidence, internal records, confidence labels, contradictions, limitations, next actions, and release-captain review.
+The customer-facing path is:
+
+1. **Scan** — find the strongest first signal.
+2. **Review** — prove the cause before a bigger move.
+3. **Repair** — execute a scoped improvement after the weak point is clear.
+4. **Control** — keep the business from drifting as AI, search, buyers, competitors, and platforms change.
+
+The standard is not to promise impossible certainty. The standard is to build the strongest practical evidence system: customer context, safe external evidence, internal records, confidence labels, contradictions, limitations, Choice Gap, Repair Queue, next command, and release-captain review.
 
 ## Non-negotiable truth rule
 
-Cendorq must never claim guaranteed accuracy, guaranteed revenue, guaranteed ROI, guaranteed rankings, guaranteed security, impossible-to-hack status, liability-free status, or a guaranteed fix.
+Cendorq must never claim guaranteed accuracy, guaranteed revenue, guaranteed ROI, guaranteed rankings, guaranteed AI placement, guaranteed security, impossible-to-hack status, liability-free status, algorithm control, or a guaranteed fix.
 
 Cendorq can and should claim a stronger operating posture:
 
@@ -20,8 +27,10 @@ Cendorq can and should claim a stronger operating posture:
 - contradictions surfaced instead of hidden
 - customer context separated from verified facts
 - assumptions separated from inferences
+- Choice Gap separated from generic criticism
+- Repair Queue separated from unlimited implementation
 - plan advice tied to actual stage, blockers, evidence, and readiness
-- every customer-facing output reviewed through the truth and safety rules
+- every customer-facing output reviewed through truth, safety, and plan-boundary rules
 
 ## Competitive edge from the opening
 
@@ -29,14 +38,27 @@ The first touch must immediately feel different from a normal agency, consultant
 
 The opening experience should show:
 
-1. Cendorq diagnoses before selling.
+1. Cendorq scans before selling.
 2. Cendorq does not use fake urgency.
 3. Cendorq does not ask for private secrets or unnecessary raw data.
-4. Cendorq separates what is known, unknown, likely, and risky.
-5. Cendorq gives one safe next action instead of generic advice.
-6. Cendorq routes the customer into dashboard, notifications, report vault, billing, and support without dead ends.
+4. Cendorq separates what is known, unknown, likely, risky, and outside scope.
+5. Cendorq identifies a practical Choice Gap instead of giving generic advice.
+6. Cendorq gives one safe next command instead of a wall of options.
+7. Cendorq routes the customer into dashboard, notifications, report vault, billing, and support without dead ends.
 
 The Free Scan is the opening wedge. It should make the customer feel that Cendorq is already thinking like an operator, not a template generator.
+
+## Core product language
+
+Use these terms consistently.
+
+- **AI Search Presence Repair**: the customer-facing category for Cendorq.
+- **Presence Report**: the report object that makes the signal understandable.
+- **Choice Gap**: the point where a buyer, search engine, AI answer system, or comparison moment may fail to understand, trust, compare, choose, or act.
+- **Repair Queue**: the ordered list of scoped improvements that should happen after enough evidence supports the priority.
+- **Scan / Review / Repair / Control**: the operating path.
+
+Avoid drifting back to loose phrases like generic audit, market command, diagnose-and-fix, full scan, or a vague report-plan path when the customer-facing system should be Scan, Review, Repair, and Control.
 
 ## Verify-to-view email confirmation and report access
 
@@ -100,6 +122,7 @@ Every report should be assembled from layers of evidence.
 2. Safe external evidence
    - public website observations
    - public search visibility signals
+   - public AI/search answer-readiness signals where safe and bounded
    - public social/platform activity where safe and relevant
    - public review or reputation signals where safe and relevant
    - public competitor/category context where safe and relevant
@@ -116,12 +139,13 @@ Every report should be assembled from layers of evidence.
 4. Derived analysis
    - likely friction points
    - missing proof
+   - Choice Gap
    - conversion blockers
    - platform inconsistencies
    - trust gaps
    - plan fit
    - urgency level
-   - next action priority
+   - next command priority
 
 5. Confidence and limits
    - high confidence when multiple independent signals agree
@@ -141,8 +165,11 @@ Every substantial report should keep these sections distinct:
 - conflicts or contradictions
 - limitations
 - confidence
+- Presence Score or equivalent scoring posture when available
+- Choice Gap
+- Repair Queue
 - recommendations
-- next actions
+- next command
 
 No report should blur a customer claim into a verified fact.
 
@@ -170,24 +197,29 @@ No report should blur a customer claim into a verified fact.
    - remove impossible certainty
    - remove guaranteed outcomes
 
-5. Plan-fit pass
+5. Choice Gap pass
+   - name the comparison, trust, clarity, proof, local, offer, or action gap
+   - explain why it matters to the customer decision
+   - separate first-signal confidence from full Review confidence
+
+6. Plan-fit pass
    - match recommendation to actual stage
-   - Free Scan should diagnose and route
-   - Deep Review should deeply explain and prioritize
-   - Build Fix should fix defined blockers
+   - Free Scan should find the first signal and route
+   - Deep Review should prove the cause and prioritize
+   - Build Fix should repair defined blockers
    - Ongoing Control should monitor, improve, and adapt over time
 
-6. Conversion pass
+7. Conversion pass
    - show clear value without pressure
-   - show what is blocked, what can be improved, and why the next plan fits
+   - show what is blocked, what can be improved, and why the next command fits
    - avoid fake urgency and inflated promises
    - use proof, stage fit, and customer readiness
 
-7. Release-captain pass
+8. Release-captain pass
    - final validation before customer-facing report release
    - confirm no raw/private/internal data leaked
    - confirm confidence and limitations are visible
-   - confirm next actions are specific and safe
+   - confirm next command is specific and safe
 
 ## Tailored plan operating model
 
@@ -196,56 +228,69 @@ Plans must not be generic packages. They must behave like stage-specific operati
 ### Free Scan
 
 Purpose:
+
 - identify the first visible business friction point
+- show the first Choice Gap when evidence supports it
 - create a safe first direction
 - route into dashboard, notifications, and report vault
 
 Must not:
+
 - pretend to be a complete audit
 - claim final truth from thin input
 - create false urgency
+- imply ranking, revenue, AI placement, or complete diagnosis guarantees
 
 ### Deep Review
 
 Purpose:
-- produce a thorough diagnostic report
+
+- produce a deeper evidence-backed Review
 - gather stronger evidence
-- identify real root causes
+- identify cause-level problems
 - prioritize fixes by impact, confidence, and feasibility
 
 Must include:
+
 - evidence map
 - conflict map
 - confidence labels
 - limitations
-- next action sequence
+- Choice Gap explanation
+- next command sequence
 - plan fit explanation
 
 ### Build Fix
 
 Purpose:
-- fix defined blockers from diagnosis
+
+- repair defined blockers from approved Review, scope, or confirmed weak point
 - improve customer-facing trust, conversion, clarity, and operational flow
 
 Must include:
+
 - scoped fixes
 - evidence-backed reason for each fix
 - before/after posture
 - safety and rollback awareness
+- out-of-scope boundaries
 
 ### Ongoing Control
 
 Purpose:
+
 - monitor changes
 - adapt recommendations
 - track evidence over time
 - catch drift before it hurts the business
 
 Must include:
+
 - recurring evidence review
 - market/category context
 - progress and blocker tracking
 - safe improvement recommendations
+- monthly priority and escalation fit
 
 ## Market-learning loop
 
@@ -260,6 +305,7 @@ The learning loop should identify:
 - where competitors are weak
 - which report modules create the most useful customer action
 - which plan transitions are most natural and ethical
+- where Choice Gap and Repair Queue language improves decision clarity
 
 Rules:
 
@@ -307,11 +353,12 @@ Cendorq should convert because the customer feels understood, not pressured.
 
 The strongest conversion posture is:
 
-- diagnose before selling
+- scan before selling
 - show the real blocker
 - show why the blocker matters
+- show the Choice Gap
 - show what can be done next
-- show which plan fits that stage
+- show which command fits that stage
 - make the next step easy
 - keep support available
 - keep billing separate and safe
@@ -370,14 +417,16 @@ After public launch, owner should review:
 - billing friction
 - customer drop-off points
 - evidence conflicts
+- Choice Gap patterns
+- Repair Queue patterns
 - market trend findings
 - recurring blockers across categories
 - plan conversion patterns
 - customer objections
 
-## Customer operations architecture update
+## Customer operations architecture
 
-This update records the current customer operations architecture now built into the codebase. It should guide future work, reviews, and operator behavior.
+This section records the current customer operations architecture now built into the codebase. It should guide future work, reviews, and operator behavior.
 
 ### Customer journey and verification
 
@@ -405,9 +454,9 @@ Inbox messages must use one safe primary CTA, clear category, suppression rules,
 
 ### Report vault and protected reports
 
-The report vault is the canonical protected location for report state, released reports, limitations, confidence labels, and next actions. Pending, draft, unavailable, correction-requested, or unapproved work must not be presented as final truth.
+The report vault is the canonical protected location for report state, released reports, limitations, confidence labels, Choice Gap, Repair Queue, and next command. Pending, draft, unavailable, correction-requested, or unapproved work must not be presented as final truth.
 
-Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or Deep Review. They should separate verified facts, observations, assumptions, inferences, limitations, recommendations, next actions, and plan-fit explanation. Deep Review is the paid full diagnostic path and requires active entitlement, verified email, paid intake, research review, and release approval.
+Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or Deep Review. They should separate verified facts, observations, assumptions, inferences, limitations, recommendations, next actions, and plan-fit explanation. Deep Review is the paid Review path and requires active entitlement, verified email, paid intake, research review, and release approval.
 
 ### Plan orchestration and skipped prior-plan handling
 
@@ -423,7 +472,7 @@ Rules:
 
 ### Plan delivery boundaries
 
-Free Scan is a protected first-read report. Deep Review is the paid full diagnostic report. Build Fix is scoped implementation with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation. Ongoing Control is recurring monthly status, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.
+Free Scan is a protected first-read Presence Report. Deep Review is the paid cause-proof report. Build Fix is scoped Repair with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation. Ongoing Control is recurring monthly status, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.
 
 Ongoing Control may recommend Build Fix when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.
 
@@ -454,13 +503,15 @@ Customer-facing language should be truthful, evidence-led, premium, calm, and sp
 5. External evidence fetch pipeline with safe source tracking
 6. Evidence conflict engine
 7. Report confidence scoring runtime
-8. Market/category pattern registry
-9. Report module versioning
-10. Customer-facing report rendering and PDF parity
-11. Production auth integration
-12. Provider payment mapping and webhook entitlement verification
-13. Production smoke execution against configured production target
-14. Live audit history for support, reports, billing, launch, and operator actions
+8. Choice Gap scoring runtime
+9. Repair Queue versioning and release history
+10. Market/category pattern registry
+11. Report module versioning
+12. Customer-facing report rendering and PDF parity
+13. Production auth integration
+14. Provider payment mapping and webhook entitlement verification
+15. Production smoke execution against configured production target
+16. Live audit history for support, reports, billing, launch, and operator actions
 
 ### Next product layers
 
@@ -479,35 +530,41 @@ Customer-facing language should be truthful, evidence-led, premium, calm, and sp
 
 1. Report truth scoring
 2. Evidence conflict scoring
-3. Conversion stage scoring
-4. Market category comparison
-5. Social/platform activity interpretation
-6. Competitor weakness mapping
-7. Change forecast lanes
-8. Monthly drift detection
-9. Customer journey prediction
-10. Plan-fit recommendation audit
+3. Choice Gap scoring
+4. Conversion stage scoring
+5. Market category comparison
+6. Social/platform activity interpretation
+7. Competitor weakness mapping
+8. Change forecast lanes
+9. Monthly drift detection
+10. Customer journey prediction
+11. Plan-fit recommendation audit
 
 ## Highest-level operating cadence
 
 Daily during build:
+
 - keep branches scoped
 - keep validators wired
 - keep Vercel green before merge
 - keep command-center private
 - keep safety claims bounded
 - keep launch approval separate from evidence
+- keep Scan, Review, Repair, and Control language aligned
 
 Weekly after launch:
+
 - review customer outcomes
 - review report quality
 - review conversion blockers
 - review evidence conflicts
 - review support patterns
 - review market changes
+- review Choice Gap and Repair Queue patterns
 - update playbooks and validators
 
 Monthly after launch:
+
 - refresh market-learning summaries
 - identify new report modules
 - refine plan fit
@@ -515,9 +572,10 @@ Monthly after launch:
 - review audit readiness
 - review privacy posture
 - review support and billing friction
+- review controlled maintenance posture
 
 ## Final operating principle
 
 Cendorq should not win by promising the impossible. It should win by being more disciplined, more evidence-backed, more tailored, more useful, more honest, and more operationally complete than competitors.
 
-The customer should feel from the first screen that Cendorq is not selling a generic service. It is running a controlled business diagnostic and improvement system with proof, judgment, and safe execution.
+The customer should feel from the first screen that Cendorq is not selling a generic service. It is running a controlled AI Search Presence Repair system with proof, judgment, safe execution, and one clean next command.
