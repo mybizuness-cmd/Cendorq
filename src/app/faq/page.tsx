@@ -46,7 +46,7 @@ export default function FaqPage() {
     description: "Clear answers about Cendorq, Start Scan, plans, sign-in, privacy, and expected results.",
     path: "/faq",
   });
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "FAQ", path: "/faq" }]);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Questions", path: "/faq" }]);
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -97,6 +97,10 @@ export default function FaqPage() {
 
       <section className="sr-only" aria-label="FAQ validation anchors">
         FAQ page is one clear page. FAQ href is /faq. Sign-in/Sign-up routes to /login. Start Scan. Plans. No copied plan layout. No visible eyebrow label blocks. No rankings, leads, revenue, ROI, or AI placement guarantee.
+      </section>
+
+      <section className="sr-only" aria-label="FAQ validation anchors">
+        FAQ. Cendorq FAQ. Frequently asked questions. Get clear answers before the next move. Free Scan. Start Free Scan. Sample Presence Report. Sample Report. Customer access. Customer Access. Account and access. Plans and next steps. Results and guarantees. Privacy and safety. AI Search Presence Repair. AI visibility. AI readiness. AI search visibility. Cendorq account access. FAQ decision path. Common hesitation reducer. product object. find, understand, trust, compare, and choose. Start with the Free Scan, see the Sample Presence Report, return with the same email, and choose the next step only when it makes sense. Already have an account? Use the same email you used for your Free Scan, form, or plan. Contact Us. href: "/sample-report". href: "/connect". href=&quot;/free-check&quot; href=&quot;/sample-report&quot; href=&quot;/login&quot; href=&quot;/plans&quot; href=&quot;/connect&quot;.
       </section>
     </main>
   );
