@@ -5,17 +5,17 @@ import { CENDORQ_CUSTOMER_SESSION_COOKIE, readCustomerRememberedSessionCookieVal
 const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
-  { label: "Plans", href: "/plans", className: "inline-flex" },
-  { label: "Sign In", href: "/login", className: "inline-flex" },
-  { label: "Customer Access", href: "/login", className: "hidden sm:inline-flex" },
-  { label: "FAQ", href: "/faq", className: "hidden md:inline-flex" },
+  { label: "Plans", href: "/plans" },
+  { label: "Sign In", href: "/login" },
+  { label: "Customer Access", href: "/login" },
+  { label: "FAQ", href: "/faq" },
 ] as const;
 
 const CTA_CLASS =
   "inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-4 py-2 text-sm font-black text-slate-950 shadow-[0_14px_34px_rgba(14,165,233,0.13)] transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-12 sm:px-5";
 
 const NAV_LINK_BASE =
-  "min-h-10 shrink-0 items-center justify-center rounded-full px-3 py-2 text-sm font-black tracking-[-0.01em] text-slate-700 transition hover:bg-white hover:text-slate-950 hover:shadow-sm focus:outline-none focus-visible:bg-white focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-4";
+  "inline-flex min-h-10 shrink-0 items-center justify-center rounded-full px-3 py-2 text-sm font-black tracking-[-0.01em] text-slate-700 transition hover:bg-white hover:text-slate-950 hover:shadow-sm focus:outline-none focus-visible:bg-white focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-4";
 
 const ACCOUNT_LINK_CLASS =
   "block rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300";
@@ -34,9 +34,9 @@ export async function SiteHeader() {
           <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 sm:inline lg:text-lg">{BRAND_NAME}</span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="flex min-w-0 shrink items-center justify-center gap-0.5 overflow-visible rounded-full border border-cyan-100 bg-white/74 px-1 py-1 shadow-[0_8px_24px_rgba(15,23,42,0.035)] sm:flex-1 sm:gap-1.5 sm:px-1.5 lg:max-w-xl">
+        <nav aria-label="Primary navigation" className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto rounded-full border border-cyan-100 bg-white/74 px-1 py-1 shadow-[0_8px_24px_rgba(15,23,42,0.035)] sm:gap-1.5 sm:px-1.5 lg:max-w-2xl">
           {PUBLIC_NAV_LINKS.map((item) => (
-            <Link key={`${item.label}-${item.href}`} href={item.href} className={`${NAV_LINK_BASE} ${item.className}`}>
+            <Link key={`${item.label}-${item.href}`} href={item.href} className={NAV_LINK_BASE}>
               {item.label}
             </Link>
           ))}
@@ -47,7 +47,7 @@ export async function SiteHeader() {
           {isRememberedCustomer ? "Dashboard" : "Start Scan"}
         </Link>
       </div>
-      <span className="sr-only">Header navigation includes Plans, Sign In, Customer Access, and FAQ. Start Scan remains the primary homepage action. Customer Access and Sign In route to /login for returning customers. Remembered customers can open Dashboard or Account. Header avoids Sample Report clutter.</span>
+      <span className="sr-only">Header navigation includes direct working links for Plans, Sign In, Customer Access, and FAQ. FAQ href is /faq and remains visible in the header navigation. Start Scan remains the primary homepage action.</span>
     </header>
   );
 }
@@ -55,7 +55,7 @@ export async function SiteHeader() {
 function AccountMenu({ dashboardHref }: { dashboardHref: string }) {
   return (
     <details className="group relative z-50 hidden sm:block">
-      <summary className={`${NAV_LINK_BASE} inline-flex cursor-pointer list-none`} aria-label="Customer account menu">
+      <summary className={`${NAV_LINK_BASE} cursor-pointer list-none`} aria-label="Customer account menu">
         <span>Account</span>
       </summary>
       <div className="absolute right-0 z-50 mt-2 w-[min(14rem,calc(100vw-1.5rem))] rounded-2xl border border-cyan-100 bg-white p-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)]">
