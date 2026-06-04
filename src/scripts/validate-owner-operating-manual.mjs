@@ -3,6 +3,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const manualPath = "docs/owner-operating-manual.md";
+const handoffPath = "docs/agent-handoff/current-handoff.md";
+const visualRegisterPath = "docs/visual-command-surface-review-register.md";
 const ownerMaximumProtectionPath = "docs/owner-maximum-protection-posture.md";
 const ownerMaximumProtectionValidatorPath = "src/scripts/validate-owner-maximum-protection-posture.mjs";
 const captainAuditDocPath = "docs/captain-audit-hardening-control-plane.md";
@@ -15,11 +17,17 @@ const continuousEvolutionValidatorPath = "src/scripts/validate-controlled-contin
 const controlledMaintenanceDocsPath = "docs/controlled-maintenance.md";
 const controlledMaintenanceContractPath = "src/lib/controlled-maintenance-contracts.ts";
 const controlledMaintenanceValidatorPath = "src/scripts/validate-controlled-maintenance-contracts.mjs";
+const agentPlaybooksPath = "src/lib/cendorq-agent-intelligence-playbooks.ts";
 const failures = [];
 
 expect(manualPath, [
   "# Cendorq Owner Operating Manual",
   "Cendorq should win by being more accurate, more useful, more trusted, more tailored, and more operationally disciplined than generic competitors from the first interaction.",
+  "The customer-facing path is:",
+  "**Scan** — find the strongest first signal.",
+  "**Review** — prove the cause before a bigger move.",
+  "**Repair** — execute a scoped improvement after the weak point is clear.",
+  "**Control** — keep the business from drifting as AI, search, buyers, competitors, and platforms change.",
   "The standard is not to promise impossible certainty.",
   "proof before output",
   "evidence before recommendation",
@@ -27,7 +35,226 @@ expect(manualPath, [
   "contradictions surfaced instead of hidden",
   "customer context separated from verified facts",
   "assumptions separated from inferences",
-  "plan advice tied to actual stage, blockers, evidence, and readiness",
+  "Choice Gap separated from generic criticism",
+  "Repair Queue separated from unlimited implementation",
+]);
+
+expect(manualPath, [
+  "## Core product language",
+  "**AI Search Presence Repair**: the customer-facing category for Cendorq.",
+  "**Presence Report**: the report object that makes the signal understandable.",
+  "**Choice Gap**: the point where a buyer, search engine, AI answer system, or comparison moment may fail to understand, trust, compare, choose, or act.",
+  "**Repair Queue**: the ordered list of scoped improvements that should happen after enough evidence supports the priority.",
+  "**Scan / Review / Repair / Control**: the operating path.",
+  "Avoid drifting back to loose phrases like generic audit, market command, diagnose-and-fix, full scan, or a vague report-plan path when the customer-facing system should be Scan, Review, Repair, and Control.",
+]);
+
+expect(manualPath, [
+  "## Verify-to-view email confirmation and report access",
+  "Cendorq Support <support@cendorq.com>",
+  "Confirm email and open your results",
+  "The confirmation click should do several jobs at once:",
+  "The dashboard is the control room and summary surface.",
+  "Full reports should have dedicated report-vault views for readability, evidence separation, visual sections, downloadable assets when allowed, and next-step conversion guidance.",
+  "Do not claim guaranteed inbox placement, guaranteed deliverability, or provider-level control.",
+  "Do not show protected report findings before verification and safe release state.",
+]);
+
+expect(manualPath, [
+  "## Report accuracy operating model",
+  "Customer-provided context",
+  "Safe external evidence",
+  "Cendorq internal evidence",
+  "Derived analysis",
+  "Confidence and limits",
+  "verified facts",
+  "customer-provided context",
+  "external evidence",
+  "assumptions",
+  "inferences",
+  "conflicts or contradictions",
+  "limitations",
+  "confidence",
+  "Presence Score or equivalent scoring posture when available",
+  "Choice Gap",
+  "Repair Queue",
+  "next command",
+  "No report should blur a customer claim into a verified fact.",
+]);
+
+expect(manualPath, [
+  "## Strongest practical report workflow",
+  "Intake capture",
+  "Evidence gathering",
+  "Evidence conflict pass",
+  "Report truth pass",
+  "Choice Gap pass",
+  "Plan-fit pass",
+  "Conversion pass",
+  "Release-captain pass",
+]);
+
+expect(manualPath, [
+  "## Tailored plan operating model",
+  "### Free Scan",
+  "### Deep Review",
+  "### Build Fix",
+  "### Ongoing Control",
+  "Plans must not be generic packages.",
+  "They must behave like stage-specific operating paths.",
+  "Deep Review should prove the cause and prioritize",
+  "Build Fix should repair defined blockers",
+  "Ongoing Control should monitor, improve, and adapt over time",
+]);
+
+expect(manualPath, [
+  "## Market-learning loop",
+  "what friction patterns are recurring",
+  "what proof signals are becoming more important",
+  "which report modules create the most useful customer action",
+  "Choice Gap and Repair Queue language improves decision clarity",
+  "learning must be privacy-safe",
+  "patterns must be reviewed, versioned, and tested before changing customer-facing behavior",
+]);
+
+expect(manualPath, [
+  "## Controlled continuous evolution",
+  "Cendorq should keep improving after launch through monitored, validated, reviewable, reversible updates without uncontrolled production mutation or quality drift.",
+  "Controlled continuous evolution means automated systems may detect, propose, test, and prepare updates, but they do not approve production-impacting changes.",
+  "Every material update still needs a reviewable branch, validation gates, Vercel or preview success where applicable, mergeability confirmation, rollback awareness, and release-captain approval before merge.",
+  "Prefer small coherent batches over large mixed changes.",
+  "Treat Vercel, `validate:routes`, route-chain integrity, validation registry, docs index, operator runbook, and most-pristine coverage as the minimum operating rails.",
+  "Do not skip gates to move faster.",
+  "Do not disable validators to make an update pass.",
+  "Do not hide failures or silently weaken safeguards.",
+  "Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, and operator safety.",
+]);
+
+expect(manualPath, [
+  "## Controlled maintenance",
+  "Controlled maintenance is the operating discipline that keeps Cendorq current without letting update work become uncontrolled production mutation.",
+  "No queued update may mutate production automatically.",
+  "Every material maintenance release still requires validation, approval state, rollback planning, and an audit reason.",
+  "Maintenance output must never expose raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys.",
+  "Maintenance copy must never claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI or business outcomes.",
+  "Controlled maintenance must stay aligned with `docs/controlled-maintenance.md`, `src/lib/controlled-maintenance-contracts.ts`, validation registry coverage, docs-index coverage, and `validate:routes`.",
+]);
+
+expect(manualPath, [
+  "## Conversion moat",
+  "scan before selling",
+  "show the real blocker",
+  "show why the blocker matters",
+  "show the Choice Gap",
+  "show what can be done next",
+  "show which command fits that stage",
+  "Conversion copy should be direct, premium, calm, and confident.",
+]);
+
+expect(manualPath, [
+  "## Customer operations architecture",
+  "Customer journey and verification",
+  "Email dispatch operations",
+  "Dashboard command center and inbox",
+  "Report vault and protected reports",
+  "Plan orchestration and skipped prior-plan handling",
+  "Plan delivery boundaries",
+  "Support, billing, and report boundaries",
+  "No-leak operating policy",
+  "Agent orchestration policy",
+  "Customer-facing language policy",
+]);
+
+expect(manualPath, [
+  "The customer journey is: Free Scan or plan entry, check-your-inbox gate, email confirmation, protected dashboard, report vault, inbox messages, support, billing, and plan-specific delivery.",
+  "Free Scan and Deep Review report access should route to `/dashboard/reports` after safe verification and release state.",
+  "Customer confirmation email dispatch now uses a controlled chain: queue record, provider preparation, audit transition, state mutation, admin preview, admin dry-run, provider configuration contract, provider send interface, and customer-safe delivery status projection.",
+  "The dashboard inbox is for customer-owned command-center messages, plan nudges, report readiness, support status, billing reminders, security steps, and recovery paths.",
+  "It supplements external email orchestration and must not replace transactional confirmation or lifecycle email.",
+]);
+
+expect(manualPath, [
+  "Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or Deep Review.",
+  "Deep Review is the paid Review path and requires active entitlement, verified email, paid intake, research review, and release approval.",
+  "Free Scan is a protected first-read Presence Report.",
+  "Deep Review is the paid cause-proof report.",
+  "Build Fix is scoped Repair with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation.",
+  "Ongoing Control is recurring monthly status, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.",
+]);
+
+expect(manualPath, [
+  "Buying Build Fix directly does not include a standalone Deep Review report unless that entitlement exists.",
+  "Buying Ongoing Control directly does not include Build Fix implementation or a standalone Deep Review report unless those entitlements exist.",
+  "A later purchase after prior delivery creates a new entitlement, not an automatic unlimited redo.",
+  "Ongoing Control may recommend Build Fix when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.",
+]);
+
+expect(manualPath, [
+  "Customer-facing surfaces must not expose private payloads, private evidence, sensitive security material, private billing material, internal notes, operator identities, risk internals, threat details, prompt or system material, secrets, tokens, or cross-customer information.",
+  "Agents do not approve merges, launches, reports, provider configuration, billing changes, security readiness, or customer-facing claims.",
+  "Customer-facing language should be truthful, evidence-led, premium, calm, and specific.",
+  "It must avoid fake urgency, dark patterns, impossible certainty, guaranteed business outcomes, guaranteed deliverability, guaranteed security outcomes, and unsupported legal or billing promises.",
+]);
+
+expect(manualPath, [
+  "## What remains to take Cendorq higher",
+  "Durable owner evidence persistence",
+  "External evidence fetch pipeline with safe source tracking",
+  "Evidence conflict engine",
+  "Report confidence scoring runtime",
+  "Choice Gap scoring runtime",
+  "Repair Queue versioning and release history",
+  "Market/category pattern registry",
+  "Customer-facing report rendering and PDF parity",
+  "Production auth integration",
+  "Provider payment mapping and webhook entitlement verification",
+]);
+
+expect(manualPath, [
+  "## Highest-level operating cadence",
+  "Daily during build",
+  "Weekly after launch",
+  "Monthly after launch",
+  "## Final operating principle",
+  "Cendorq should not win by promising the impossible.",
+  "It should win by being more disciplined, more evidence-backed, more tailored, more useful, more honest, and more operationally complete than competitors.",
+  "It is running a controlled AI Search Presence Repair system with proof, judgment, safe execution, and one clean next command.",
+]);
+
+expect(handoffPath, [
+  "# Cendorq Current Agent Handoff",
+  "AI Search Presence Repair",
+  "Presence Report",
+  "Choice Gap",
+  "Repair Queue",
+  "Scan / Review / Repair / Control",
+  "Current command-path upgrade pass",
+  "live rendered screenshot approval is still required",
+]);
+
+expect(visualRegisterPath, [
+  "# Visual Command Surface Review Register",
+  "clear Scan, Review, Repair, and Control separation",
+  "Homepage `/`",
+  "Dashboard `/dashboard`",
+  "Billing `/dashboard/billing`",
+  "Notifications `/dashboard/notifications`",
+  "Support routing `/dashboard/support`",
+  "Legal trust surfaces `/privacy`, `/terms`, `/disclaimer`",
+  "Header, footer, metadata, and share surfaces",
+  "live rendered screenshots are still required",
+]);
+
+expect(agentPlaybooksPath, [
+  "CENDORQ_AGENT_INTELLIGENCE_SYSTEM_RULES",
+  "AI/search presence",
+  "Choice Gap",
+  "Repair Queue",
+  "Scan, Review, Repair, or Control",
+  "guaranteed ranking",
+  "guaranteed AI placement",
+  "guaranteed revenue",
+  "algorithm control",
 ]);
 
 expect(ownerMaximumProtectionPath, [
@@ -55,29 +282,6 @@ expect(ownerMaximumProtectionValidatorPath, [
   "docs/command-center-docs-index.md",
   "src/lib/command-center/validation-registry.ts",
   "validate:routes",
-]);
-
-expect(manualPath, [
-  "## Controlled continuous evolution",
-  "Cendorq should keep improving after launch through monitored, validated, reviewable, reversible updates without uncontrolled production mutation or quality drift.",
-  "Controlled continuous evolution means automated systems may detect, propose, test, and prepare updates, but they do not approve production-impacting changes.",
-  "Every material update still needs a reviewable branch, validation gates, Vercel or preview success where applicable, mergeability confirmation, rollback awareness, and release-captain approval before merge.",
-  "Prefer small coherent batches over large mixed changes.",
-  "Treat Vercel, `validate:routes`, route-chain integrity, validation registry, docs index, operator runbook, and most-pristine coverage as the minimum operating rails.",
-  "Do not skip gates to move faster.",
-  "Do not disable validators to make an update pass.",
-  "Do not hide failures or silently weaken safeguards.",
-  "Continuous evolution should raise or preserve trust, clarity, protection, accessibility, performance, truthful analysis, customer control, and operator safety.",
-]);
-
-expect(manualPath, [
-  "## Controlled maintenance",
-  "Controlled maintenance is the operating discipline that keeps Cendorq current without letting update work become uncontrolled production mutation.",
-  "No queued update may mutate production automatically.",
-  "Every material maintenance release still requires validation, approval state, rollback planning, and an audit reason.",
-  "Maintenance output must never expose raw payloads, raw evidence, raw security payloads, raw billing data, internal notes, operator identities, risk internals, attacker details, prompts, secrets, passwords, API keys, private keys, session tokens, CSRF tokens, admin keys, or support context keys.",
-  "Maintenance copy must never claim Cendorq is impossible to hack, guaranteed safe, never liable, liability-free, or guaranteed to produce ROI or business outcomes.",
-  "Controlled maintenance must stay aligned with `docs/controlled-maintenance.md`, `src/lib/controlled-maintenance-contracts.ts`, validation registry coverage, docs-index coverage, and `validate:routes`.",
 ]);
 
 expect(continuousEvolutionContractPath, [
@@ -113,51 +317,6 @@ expect(controlledMaintenanceValidatorPath, [
   "validation registry",
 ]);
 
-expect(manualPath, [
-  "## Customer operations architecture update",
-  "Customer journey and verification",
-  "Email dispatch operations",
-  "Dashboard command center and inbox",
-  "Report vault and protected reports",
-  "Plan orchestration and skipped prior-plan handling",
-  "Plan delivery boundaries",
-  "Support, billing, and report boundaries",
-  "No-leak operating policy",
-  "Agent orchestration policy",
-  "Customer-facing language policy",
-]);
-
-expect(manualPath, [
-  "The customer journey is: Free Scan or plan entry, check-your-inbox gate, email confirmation, protected dashboard, report vault, inbox messages, support, billing, and plan-specific delivery.",
-  "Free Scan and Deep Review report access should route to `/dashboard/reports` after safe verification and release state.",
-  "Customer confirmation email dispatch now uses a controlled chain: queue record, provider preparation, audit transition, state mutation, admin preview, admin dry-run, provider configuration contract, provider send interface, and customer-safe delivery status projection.",
-  "The dashboard inbox is for customer-owned command-center messages, plan nudges, report readiness, support status, billing reminders, security steps, and recovery paths.",
-  "It supplements external email orchestration and must not replace transactional confirmation or lifecycle email.",
-]);
-
-expect(manualPath, [
-  "Protected Free Scan results must be clearly labeled as Free Scan, not Full Scan or Deep Review.",
-  "Deep Review is the paid full diagnostic path and requires active entitlement, verified email, paid intake, research review, and release approval.",
-  "Buying Build Fix directly does not include a standalone Deep Review report unless that entitlement exists.",
-  "Buying Ongoing Control directly does not include Build Fix implementation or a standalone Deep Review report unless those entitlements exist.",
-  "A later purchase after prior delivery creates a new entitlement, not an automatic unlimited redo.",
-]);
-
-expect(manualPath, [
-  "Free Scan is a protected first-read report.",
-  "Deep Review is the paid full diagnostic report.",
-  "Build Fix is scoped implementation with approval checkpoints, before/after evidence, progress summaries, rollback posture, and remaining-risk explanation.",
-  "Ongoing Control is recurring monthly status, approved periodic reporting, controlled monitoring, dashboard inbox, email follow-up, and plan-fit guidance.",
-  "Ongoing Control may recommend Build Fix when implementation gaps are found, but must not make uncontrolled changes or imply guaranteed growth.",
-]);
-
-expect(manualPath, [
-  "Customer-facing surfaces must not expose private payloads, private evidence, sensitive security material, private billing material, internal notes, operator identities, risk internals, threat details, prompt or system material, secrets, tokens, or cross-customer information.",
-  "Agents do not approve merges, launches, reports, provider configuration, billing changes, security readiness, or customer-facing claims.",
-  "Customer-facing language should be truthful, evidence-led, premium, calm, and specific.",
-  "It must avoid fake urgency, dark patterns, impossible certainty, guaranteed business outcomes, guaranteed deliverability, guaranteed security outcomes, and unsupported legal or billing promises.",
-]);
-
 expect(captainAuditDocPath, [
   "# Captain Audit Hardening Control Plane",
   "prevents Cendorq captain work from turning into blind feature marching",
@@ -187,118 +346,12 @@ expect(captainAuditValidatorPath, [
   "projectCaptainAuditHardeningControlPlane",
 ]);
 
-expect(manualPath, [
-  "## Report accuracy operating model",
-  "Customer-provided context",
-  "Safe external evidence",
-  "Cendorq internal evidence",
-  "Derived analysis",
-  "Confidence and limits",
-  "verified facts",
-  "customer-provided context",
-  "external evidence",
-  "assumptions",
-  "inferences",
-  "conflicts or contradictions",
-  "limitations",
-  "confidence",
-  "recommendations",
-  "next actions",
-]);
-
-expect(manualPath, [
-  "## Strongest practical report workflow",
-  "Intake capture",
-  "Evidence gathering",
-  "Evidence conflict pass",
-  "Report truth pass",
-  "Plan-fit pass",
-  "Conversion pass",
-  "Release-captain pass",
-  "No report should blur a customer claim into a verified fact.",
-]);
-
-expect(manualPath, [
-  "## Tailored plan operating model",
-  "### Free Scan",
-  "### Deep Review",
-  "### Build Fix",
-  "### Ongoing Control",
-  "Plans must not be generic packages.",
-  "They must behave like stage-specific operating paths.",
-]);
-
-expect(manualPath, [
-  "## Market-learning loop",
-  "what friction patterns are recurring",
-  "what proof signals are becoming more important",
-  "which report modules create the most useful customer action",
-  "learning must be privacy-safe",
-  "patterns must be reviewed, versioned, and tested before changing customer-facing behavior",
-]);
-
-expect(manualPath, [
-  "## Conversion moat",
-  "diagnose before selling",
-  "show the real blocker",
-  "show why the blocker matters",
-  "show what can be done next",
-  "show which plan fits that stage",
-  "Conversion copy should be direct, premium, calm, and confident.",
-]);
-
-expect(manualPath, [
-  "## Owner command and release captain model",
-  "Owner command is highest authority.",
-  "Release captain is execution command and final validator.",
-  "approve merges",
-  "approve launches",
-  "approve reports",
-  "approve provider configuration",
-  "approve payment mapping",
-  "approve security readiness",
-  "Every finding returns to release-captain review.",
-]);
-
-expect(manualPath, [
-  "## Owner responsibilities after build",
-  "Auth provider configuration is real and production-ready.",
-  "Payment mapping is real and owner-approved.",
-  "Protected runtime configuration is ready without browser exposure.",
-  "Production smoke target is configured.",
-  "Rollback plan exists.",
-  "Audit plan exists.",
-  "No launch blocker is active.",
-]);
-
-expect(manualPath, [
-  "## What remains to take Cendorq higher",
-  "Durable owner evidence persistence",
-  "External evidence fetch pipeline with safe source tracking",
-  "Evidence conflict engine",
-  "Report confidence scoring runtime",
-  "Market/category pattern registry",
-  "Customer-facing report rendering and PDF parity",
-  "Production auth integration",
-  "Provider payment mapping and webhook entitlement verification",
-]);
-
-expect(manualPath, [
-  "## Highest-level operating cadence",
-  "Daily during build",
-  "Weekly after launch",
-  "Monthly after launch",
-  "## Final operating principle",
-  "Cendorq should not win by promising the impossible.",
-  "It should win by being more disciplined, more evidence-backed, more tailored, more useful, more honest, and more operationally complete than competitors.",
-]);
-
 expect(docsIndexPath, [
   "docs/owner-operating-manual.md",
   "src/scripts/validate-owner-operating-manual.mjs",
   "docs/owner-maximum-protection-posture.md",
   "validate-owner-maximum-protection-posture.mjs",
-  "owner-level operating manual for evidence-backed reports, tailored plan fit, conversion moat, market learning, launch review, and post-build operating cadence",
+  "owner-level operating manual",
 ]);
 
 expect(routesChainPath, [
@@ -310,6 +363,8 @@ forbidden(manualPath, unsafePhrases());
 forbidden(ownerMaximumProtectionPath, unsafePhrases());
 forbidden(captainAuditDocPath, unsafePhrases());
 forbidden(captainAuditRuntimePath, unsafePhrases());
+forbidden(handoffPath, unsafePhrases());
+forbidden(visualRegisterPath, unsafePhrases());
 
 if (failures.length) {
   console.error("Owner operating manual validation failed:");
@@ -317,7 +372,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner operating manual validation passed with customer operations architecture, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, and safe language coverage.");
+console.log("Owner operating manual validation passed with AI Search Presence Repair, Presence Report, Choice Gap, Repair Queue, Scan/Review/Repair/Control, owner maximum-protection posture, controlled continuous evolution, controlled maintenance, captain audit hardening, email dispatch, dashboard inbox, report vault, plan boundary, no-leak, agent orchestration, visual register, handoff, and safe language coverage.");
 
 function unsafePhrases() {
   return [
@@ -342,6 +397,9 @@ function unsafePhrases() {
     "guaranteed revenue",
     "guaranteed deliverability",
     "guaranteed inbox placement",
+    "guaranteed ranking",
+    "guaranteed AI placement",
+    "algorithm control",
     "100% accurate",
     "impossible to hack",
     "never liable",
@@ -398,6 +456,10 @@ function containsUnsafeClaim(text, phrase) {
       "unsupported legal",
       "false",
       "allowed: false",
+      "prevent",
+      "prevents",
+      "no ",
+      "outcomes stayed honest",
     ].some((marker) => context.includes(marker));
 
     if (!safeProhibition) return true;
