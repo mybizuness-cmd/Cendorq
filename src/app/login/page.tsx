@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { MailProviderLinks } from "@/components/auth/mail-provider-links";
 import { buildMetadata } from "@/lib/seo";
-import { CENDORQ_EXPERIENCE_SYSTEM } from "@/lib/cendorq-experience-system";
 
 export const metadata = buildMetadata({
-  title: "Customer access | Cendorq",
-  description: "Access Cendorq with the email used for a Free Scan, form, plan, report, billing, or support request.",
+  title: "Sign-in/Sign-up | Cendorq",
+  description: "Sign in or sign up with the email used for a Cendorq Free Scan, plan, report, billing, or support request.",
   path: "/login",
   noIndex: true,
 });
@@ -21,28 +20,8 @@ const SAFE_DASHBOARD_PATHS = [
   "/dashboard/notifications",
 ] as const;
 
-const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-200 bg-white px-6 py-3.5 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
-const BUTTON_SECONDARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
-const SMALL_LINK = "font-semibold text-slate-950 underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
-
-const ACCESS_POINTS = [
-  ["Same email", "Use the email from your Free Scan, form, plan, report, billing, or support record."],
-  ["Secure link", "Cendorq sends a login link when that email is tied to customer context."],
-  ["No blank detour", "Access returns you to existing work instead of creating an empty dashboard."],
-] as const;
-
-const ACCESS_CHECKS = [
-  "Try the email used for the Free Scan first.",
-  "Try the billing, form, or support email next.",
-  "Use the newest secure link if you requested more than one.",
-  "Start Free Scan only when no existing customer record should be returned.",
-] as const;
-
-const RETURN_PATHS = [
-  { title: "Dashboard", href: "/dashboard", copy: "Return to the command center when a customer record exists." },
-  { title: "Reports", href: "/dashboard/reports", copy: "Open approved scan, Review, Repair, and Control proof when ready." },
-  { title: "Support", href: "/dashboard/support", copy: "Recover blockers without sharing private payment or security details." },
-] as const;
+const BUTTON_PRIMARY = "inline-flex min-h-14 w-full items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-6 py-3.5 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.13)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const BUTTON_SECONDARY = "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export default async function LoginPage({ searchParams }: { searchParams?: LoginSearchParams | Promise<LoginSearchParams> }) {
   const resolvedSearchParams = await Promise.resolve(searchParams || {});
@@ -51,32 +30,31 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
   const showMailboxShortcuts = resolvedSearchParams.auth === "email-sent" || resolvedSearchParams.auth === "email-queued";
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.18),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_38%,#ffffff_100%)] text-slate-950">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_45%,#ffffff_100%)] text-slate-950">
       <AccessAtmosphere />
 
-      <section className="relative mx-auto grid max-w-[92rem] gap-5 px-4 pb-8 pt-6 sm:px-6 md:pt-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center" aria-label="Customer access">
-        <div className="relative z-10">
-          <p className="text-sm font-semibold text-cyan-700">Customer access</p>
-          <h1 className="mt-3 max-w-5xl text-[clamp(2.85rem,9.4vw,6.15rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-slate-950">Access your Cendorq account.</h1>
-          <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">Use the same email you used when you submitted your Free Scan or bought a plan.</p>
-          <p className="mt-4 max-w-2xl text-sm font-semibold leading-7 text-slate-600">Access should return an existing customer record, not create a blank account. Need Cendorq to check your first AI Visibility signal? <Link className={SMALL_LINK} href="/free-check?access=free-scan-required&method=login-hero">Start the Free Scan</Link>.</p>
-          <div className="mt-6 grid gap-3 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-            {ACCESS_POINTS.map(([title, copy]) => (
-              <article key={title} className="rounded-[1.25rem] border border-slate-200 bg-white/88 p-4 shadow-sm backdrop-blur">
-                <h2 className="text-2xl font-semibold tracking-[-0.045em] text-slate-950">{title}</h2>
-                <p className="mt-2 text-xs font-semibold leading-6 text-slate-600">{copy}</p>
-              </article>
-            ))}
+      <section className="relative mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-[92rem] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-14" aria-label="Sign-in and sign-up">
+        <div className="relative z-10 max-w-4xl">
+          <p className="text-sm font-semibold text-cyan-700">Sign-in/Sign-up</p>
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7.6vw,6.8rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">
+            Return with your email.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
+            Use the same email from your scan, plan, billing, or support request. New here? Start Scan first so your account has real business context.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/free-check?access=free-scan-required&method=login-hero" className={BUTTON_SECONDARY}>Start Scan</Link>
+            <Link href="/plans" className={BUTTON_SECONDARY}>View Plans</Link>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/88 p-2 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-3">
-          <div className="relative overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white p-5 sm:p-7">
+        <section className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-2 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-3" aria-label="Secure email sign-in">
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white p-5 sm:p-7">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.1),transparent_40%)]" aria-hidden="true" />
             <div className="relative text-center">
-              <p className="text-sm font-semibold text-cyan-700">Secure email access</p>
-              <h2 className="mt-3 text-[clamp(2.1rem,5vw,4rem)] font-semibold leading-[0.95] tracking-[-0.07em] text-slate-950">Return with your email.</h2>
-              <p className="mt-4 text-sm font-semibold leading-6 text-slate-600">We will send a secure link if this email is tied to your Free Scan, Diagnosis, report, plan, billing, or support context. No password needed. No password to remember.</p>
+              <p className="text-sm font-semibold text-cyan-700">Secure email link</p>
+              <h2 className="mt-3 text-[clamp(2.1rem,5vw,4rem)] font-semibold leading-[0.95] tracking-[-0.07em] text-slate-950">No password needed.</h2>
+              <p className="mt-4 text-sm font-semibold leading-6 text-slate-600">Enter the email tied to your Cendorq work. We send a secure link when that email has a record.</p>
             </div>
 
             {authNotice ? (
@@ -90,51 +68,18 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
             <form className="relative mt-5 grid gap-3" action="/api/auth/email" method="get">
               <input type="hidden" name="returnTo" value={returnTo} />
               <label className="grid gap-2 text-sm font-semibold text-slate-800">
-                Email used for your Free Scan or plan
+                Email
                 <input name="email" type="email" required autoComplete="email" placeholder="you@company.com" className="rounded-[1.15rem] border border-slate-200 bg-white px-4 py-4 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/70" />
               </label>
-              <button type="submit" className={BUTTON_PRIMARY}>Send secure access link</button>
-              <p className="text-center text-xs font-semibold leading-5 text-slate-500">Already have an account? Use the email you used when you submitted your Free Scan or bought a plan.</p>
+              <button type="submit" className={BUTTON_PRIMARY}>Send secure link</button>
+              <p className="text-center text-xs font-semibold leading-5 text-slate-500">Use the same email you used for your scan or plan.</p>
             </form>
-
-            <div className="relative mt-5 rounded-[1.25rem] border border-slate-200 bg-white/88 p-4 text-center shadow-sm">
-              <h3 className="text-sm font-semibold text-slate-950">First time here?</h3>
-              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">Start the Free Scan so Cendorq can check the first AI Visibility signal: how AI, search, and customers understand your business.</p>
-              <div className="mt-4"><Link href="/free-check?access=free-scan-required&method=access-page" className={BUTTON_SECONDARY}>Start Free Scan</Link></div>
-            </div>
-
-            <p className="relative mt-5 text-center text-xs font-semibold leading-5 text-slate-500">Other access options are hidden until they are fully ready. For now, use secure email access.</p>
           </div>
-        </div>
+        </section>
       </section>
 
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-8 sm:px-6" aria-label="Access return paths">
-        <div className="grid gap-3 md:grid-cols-3">
-          {RETURN_PATHS.map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-[1.35rem] border border-white/80 bg-white/88 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.045)] backdrop-blur transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2">
-              <h2 className="text-2xl font-semibold tracking-[-0.045em] text-slate-950">{item.title}</h2>
-              <p className="mt-3 text-xs font-semibold leading-6 text-slate-600">{item.copy}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="relative mx-auto max-w-[92rem] px-4 pb-16 sm:px-6" aria-label="Customer access help">
-        <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.055)] backdrop-blur sm:p-7">
-          <div className="grid gap-5 lg:grid-cols-[0.48fr_0.52fr] lg:items-start">
-            <div>
-              <h2 className="text-4xl font-semibold tracking-[-0.06em] text-slate-950 sm:text-5xl">Free Scan starts the account. Access brings customers back.</h2>
-              <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">Customer access should bring the right customer record back, not create an empty dashboard. Start with a real signal or return with the email already tied to work.</p>
-            </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              {ACCESS_CHECKS.map((check) => <p key={check} className="rounded-[1rem] border border-slate-200 bg-white/88 p-3 text-xs font-semibold leading-5 text-slate-700 shadow-sm">{check}</p>)}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="sr-only" aria-label="Customer access validation anchors">
-        Customer access | Cendorq. Access your Cendorq account. Return with your email. No password to remember. This browser is not remembered yet. email-unavailable. Use the same email or connected provider. Free Scan business context stays separate from account access. No blank account detour. Access path. Access recovery checklist. Use the same email you used when you submitted your Free Scan or bought a plan. New visitors should start the Free Scan first so Cendorq can capture the first AI Visibility signal. No empty accounts. Your dashboard opens when there is a scan, Diagnosis, report, plan, billing, or support item to show. Having trouble accessing your account? Try the email from your Free Scan or plan. Badge styling removed from visible customer access blocks. Heavy blue blocks reduced.
+      <section className="sr-only" aria-label="Sign-in validation anchors">
+        Sign-in/Sign-up. Sign-in Sign-up. Secure email link. No password needed. Start Scan. View Plans. Customer Access label removed from visible sign-in page. One clear page. No crowded boxes. No blank account detour. No guaranteed rankings, leads, revenue, ROI, or AI placement.
       </section>
     </main>
   );
@@ -143,9 +88,8 @@ export default async function LoginPage({ searchParams }: { searchParams?: Login
 function AccessAtmosphere() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.14),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.4),rgba(248,252,255,0.66)_42%,rgba(255,255,255,0.95)_100%)]" />
-      <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-cyan-100/16 blur-3xl" />
-      <div className="system-grid-wide absolute inset-0 opacity-[0.016]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.12),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.45),rgba(248,252,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.014]" />
     </div>
   );
 }
@@ -158,18 +102,18 @@ function safeReturnTo(value: string | undefined) {
 function buildAuthNotice(auth: string | undefined, provider: string | undefined): { tone: "success" | "warning"; message: string; href?: string; cta?: string } | null {
   if (auth === "signed-out") return { tone: "success", message: "You are signed out on this browser." };
   if (auth === "provider-not-ready") return { tone: "warning", message: `${provider ? `${titleCase(provider)} access` : "That access option"} is not ready yet. Use the secure email link for now.` };
-  if (auth === "provider-callback-pending") return { tone: "warning", message: `Provider access is not live yet. Use the secure email link for now.` };
+  if (auth === "provider-callback-pending") return { tone: "warning", message: "Provider access is not live yet. Use the secure email link for now." };
   if (auth === "provider-callback-invalid-state") return { tone: "warning", message: "That access attempt could not be verified. Use the secure email link below." };
   if (auth === "provider-callback-missing-code") return { tone: "warning", message: "That provider sign-in could not finish. Use the secure email link." };
-  if (auth === "provider-cancelled") return { tone: "warning", message: "Provider sign-in was cancelled. Use the secure email link or start the Free Scan." };
-  if (auth === "free-scan-required") return { tone: "warning", message: "We couldn’t find a Cendorq account for that email. Use the email from your Free Scan or plan, or start the Free Scan first.", href: "/free-check?access=free-scan-required&method=login", cta: "Start Free Scan" };
-  if (auth === "session-unavailable") return { tone: "warning", message: "This browser is not remembered yet. Use the email from your Free Scan or plan." };
-  if (auth === "session-required") return { tone: "warning", message: "Use customer access to continue." };
+  if (auth === "provider-cancelled") return { tone: "warning", message: "Provider sign-in was cancelled. Use the secure email link or start Scan." };
+  if (auth === "free-scan-required") return { tone: "warning", message: "We could not find a Cendorq account for that email. Use the email from your scan or plan, or start Scan first.", href: "/free-check?access=free-scan-required&method=login", cta: "Start Scan" };
+  if (auth === "session-unavailable") return { tone: "warning", message: "This browser is not remembered yet. Use the email from your scan or plan." };
+  if (auth === "session-required") return { tone: "warning", message: "Sign in to continue." };
   if (auth === "unknown-provider") return { tone: "warning", message: "That access option is not available. Use secure email access." };
-  if (auth === "email-required") return { tone: "warning", message: "Enter the email used for your Free Scan or plan." };
-  if (auth === "email-sent") return { tone: "success", message: "Check your inbox for the secure Cendorq access link." };
+  if (auth === "email-required") return { tone: "warning", message: "Enter the email used for your scan or plan." };
+  if (auth === "email-sent") return { tone: "success", message: "Check your inbox for the secure Cendorq link." };
   if (auth === "email-queued") return { tone: "warning", message: "Your request was received. If the email does not arrive, try again shortly." };
-  if (auth === "email-unavailable") return { tone: "warning", message: "Cendorq could not send the access email yet. Try again shortly." };
+  if (auth === "email-unavailable") return { tone: "warning", message: "Cendorq could not send the email yet. Try again shortly." };
   if (auth === "email-link-used") return { tone: "warning", message: "That secure link was already used. Request a new one below." };
   if (auth === "email-link-expired") return { tone: "warning", message: "That secure link expired. Request a new one below." };
   if (auth === "email-link-invalid") return { tone: "warning", message: "That secure link could not be verified. Request a new one below." };
