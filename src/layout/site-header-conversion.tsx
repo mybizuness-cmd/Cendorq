@@ -5,14 +5,14 @@ import { CENDORQ_CUSTOMER_SESSION_COOKIE, readCustomerRememberedSessionCookieVal
 const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
-  { label: "Sample Report", href: "/sample-report", className: "inline-flex" },
-  { label: "Plans", href: "/plans", className: "hidden sm:inline-flex" },
+  { label: "Plans", href: "/plans", className: "inline-flex" },
+  { label: "Sign In", href: "/login", className: "inline-flex" },
+  { label: "Customer Access", href: "/login", className: "hidden sm:inline-flex" },
   { label: "FAQ", href: "/faq", className: "hidden md:inline-flex" },
-  { label: "Contact Us", href: "/connect", className: "hidden lg:inline-flex" },
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-11 min-w-[8.9rem] shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-4 py-2 text-sm font-black text-slate-950 shadow-[0_16px_38px_rgba(14,165,233,0.16)] transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-12 sm:min-w-[10.25rem] sm:px-6";
+  "inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-4 py-2 text-sm font-black text-slate-950 shadow-[0_14px_34px_rgba(14,165,233,0.13)] transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-12 sm:px-5";
 
 const NAV_LINK_BASE =
   "min-h-10 shrink-0 items-center justify-center rounded-full px-3 py-2 text-sm font-black tracking-[-0.01em] text-slate-700 transition hover:bg-white hover:text-slate-950 hover:shadow-sm focus:outline-none focus-visible:bg-white focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-4";
@@ -27,28 +27,27 @@ export async function SiteHeader() {
   const logoHref = isRememberedCustomer ? session.safeReturnTo : "/";
 
   return (
-    <header className="sticky top-0 z-50 w-full overflow-visible border-b border-cyan-100/80 bg-white/90 text-slate-950 shadow-[0_14px_42px_rgba(14,165,233,0.07)] backdrop-blur-2xl">
-      <div className="mx-auto flex min-h-[4rem] w-full max-w-[92rem] items-center justify-between gap-2 px-3 sm:min-h-[4.65rem] sm:gap-4 sm:px-6">
+    <header className="sticky top-0 z-50 w-full overflow-visible border-b border-cyan-100/80 bg-white/92 text-slate-950 shadow-[0_10px_30px_rgba(14,165,233,0.055)] backdrop-blur-2xl">
+      <div className="mx-auto flex min-h-[4rem] w-full max-w-[92rem] items-center justify-between gap-2 px-3 sm:min-h-[4.5rem] sm:gap-4 sm:px-6">
         <Link href={logoHref} aria-label={isRememberedCustomer ? `${BRAND_NAME} dashboard` : `${BRAND_NAME} homepage`} className="inline-flex min-w-0 shrink-0 items-center gap-2 rounded-full py-1 transition hover:text-cyan-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:gap-3 sm:px-1.5">
           <BrandMark />
           <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 sm:inline lg:text-lg">{BRAND_NAME}</span>
-          <span className="hidden rounded-full border border-slate-200 bg-white/82 px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-slate-500 shadow-sm xl:inline-flex">Scan → Review → Repair → Control</span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="flex min-w-0 shrink items-center justify-center gap-0.5 overflow-visible rounded-full border border-cyan-100 bg-white/74 px-1 py-1 shadow-[0_10px_32px_rgba(15,23,42,0.04)] sm:flex-1 sm:gap-1.5 sm:px-1.5">
+        <nav aria-label="Primary navigation" className="flex min-w-0 shrink items-center justify-center gap-0.5 overflow-visible rounded-full border border-cyan-100 bg-white/74 px-1 py-1 shadow-[0_8px_24px_rgba(15,23,42,0.035)] sm:flex-1 sm:gap-1.5 sm:px-1.5 lg:max-w-xl">
           {PUBLIC_NAV_LINKS.map((item) => (
             <Link key={`${item.label}-${item.href}`} href={item.href} className={`${NAV_LINK_BASE} ${item.className}`}>
               {item.label}
             </Link>
           ))}
-          {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : <Link href="/login" className={`${NAV_LINK_BASE} hidden lg:inline-flex`}>Customer Access</Link>}
+          {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : null}
         </nav>
 
         <Link href={isRememberedCustomer ? session.safeReturnTo : "/free-check"} className={CTA_CLASS}>
-          {isRememberedCustomer ? "Dashboard" : "Start Free Scan"}
+          {isRememberedCustomer ? "Dashboard" : "Start Scan"}
         </Link>
       </div>
-      <span className="sr-only">Product. AI Visibility. Sample Report. Access. FAQ uses direct browser navigation to /faq. Remembered customers can tap Dashboard directly or open Account for Reports, Billing, Support, and Sign out. Account menu uses overflow-visible so the menu is not clipped. Account menu width is bounded for mobile. href: &quot;/plans&quot; href: &quot;/faq&quot;. href: "/plans". href: "/faq". href="/sample-report". href="/plans". href="/faq". href="/connect". href="/login". href="/free-check". href="/dashboard". Logo links to the dashboard for remembered customers and homepage for new visitors. Header keeps AI Visibility, Product, Plans, FAQ, Contact, Contact Us, Customer Access or Account, and Start Free Scan or Dashboard available while keeping mobile focused. Customer Access routes to /login for returning customers. Product routes to /sample-report. Start Free Scan. Run Free Scan. AccountMenu. Mobile header compression keeps Product and Start Free Scan visible first, while Plans, FAQ, Contact, and Customer Access remain available at wider breakpoints and through footer routing. Scan to Review to Repair to Control path is visible for wide screens without crowding mobile.</span>
+      <span className="sr-only">Header navigation includes Plans, Sign In, Customer Access, and FAQ. Start Scan remains the primary homepage action. Customer Access and Sign In route to /login for returning customers. Remembered customers can open Dashboard or Account. Header avoids Sample Report clutter.</span>
     </header>
   );
 }
@@ -72,7 +71,7 @@ function AccountMenu({ dashboardHref }: { dashboardHref: string }) {
 
 function BrandMark() {
   return (
-    <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-[0_12px_28px_rgba(14,165,233,0.14)] sm:h-11 sm:w-11">
+    <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-[0_12px_28px_rgba(14,165,233,0.12)] sm:h-11 sm:w-11">
       <span className="absolute inset-0 bg-[radial-gradient(circle_at_30%_15%,rgba(251,207,232,0.48),transparent_42%),radial-gradient(circle_at_75%_80%,rgba(125,211,252,0.5),transparent_45%)]" aria-hidden="true" />
       <span className="relative flex items-center gap-[3px]">
         <span className="h-4 w-1.5 rounded-full bg-cyan-500" />
