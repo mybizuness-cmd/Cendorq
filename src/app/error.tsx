@@ -8,35 +8,8 @@ type GlobalErrorProps = {
   reset: () => void;
 };
 
-const READOUTS = [
-  { label: "System state", value: "Route interruption" },
-  { label: "Best posture", value: "Retry once" },
-  { label: "Fallback rule", value: "Return to the command path" },
-] as const;
-
-const RECOVERY_LINKS = [
-  {
-    label: "Reset route",
-    title: "Return to homepage",
-    copy: "Restore the broadest clean context and re-enter Cendorq without route confusion.",
-    href: "/",
-    cta: "Go to homepage",
-  },
-  {
-    label: "Restart with first signal",
-    title: "Start Free Scan",
-    copy: "Use the first signal layer when the safest next command is still unclear.",
-    href: "/free-check",
-    cta: "Start Free Scan",
-  },
-  {
-    label: "Compare command depth",
-    title: "Review Plans",
-    copy: "Compare Scan, Diagnose, Fix, and Control without returning to legacy recovery routes.",
-    href: "/plans",
-    cta: "Review Plans",
-  },
-] as const;
+const PRIMARY_BUTTON_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const SECONDARY_LINK_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   const [retryCount, setRetryCount] = useState(0);
@@ -48,85 +21,61 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
   }
 
   return (
-    <main className="relative mx-auto max-w-7xl overflow-hidden px-4 py-12 text-white sm:px-6 md:py-16 xl:py-20">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-10 top-8 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl sm:h-96 sm:w-96" />
-        <div className="absolute -right-8 top-24 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl sm:h-80 sm:w-80" />
-        <div className="system-grid-wide absolute inset-0 opacity-[0.03]" />
-      </div>
+    <main className="relative isolate min-h-screen overflow-hidden bg-[radial-gradient(circle_at_10%_0%,rgba(251,207,232,0.16),transparent_30%),radial-gradient(circle_at_88%_0%,rgba(125,211,252,0.14),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fcff_45%,#ffffff_100%)] text-slate-950">
+      <ErrorAtmosphere />
 
-      <section className="relative z-10 grid min-h-[calc(100vh-8rem)] gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
-        <div>
-          <p className="system-chip inline-flex rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-100">
-            Cendorq / Route error
-          </p>
-
-          <h1 className="system-hero-title mt-5 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl xl:text-7xl">
-            This route hit an interruption
-            <span className="system-gradient-text block">before the page finished cleanly.</span>
+      <section className="relative mx-auto grid min-h-screen max-w-[92rem] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-14" aria-label="Route error recovery">
+        <div className="relative z-10 max-w-4xl">
+          <p className="text-sm font-semibold text-cyan-700">Route error</p>
+          <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7.6vw,6.8rem)] font-semibold leading-[0.86] tracking-[-0.09em] text-slate-950">
+            The page did not load cleanly.
           </h1>
-
-          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Retry once. If the route still fails, recover into the clean command path instead of guessing through unrelated pages.
+          <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-9">
+            Try once. If it still fails, use a known Cendorq route instead of guessing through a broken path.
           </p>
-
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <button type="button" onClick={handleRetry} className="system-button-primary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
-              Try again
-            </button>
-            <Link href="/free-check" className="system-button-secondary inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold transition">
-              Start Free Scan
-            </Link>
+            <button type="button" onClick={handleRetry} className={PRIMARY_BUTTON_CLASS}>Try again</button>
+            <Link href="/" className={SECONDARY_LINK_CLASS}>Homepage</Link>
+            <Link href="/free-check" className={SECONDARY_LINK_CLASS}>Start Scan</Link>
           </div>
         </div>
 
-        <div className="relative z-10 grid gap-4">
-          <div className="system-panel-authority rounded-[2rem] p-6 sm:p-8">
-            <p className="system-eyebrow">Recovery posture</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Restore clarity fast. Preserve the sequence.
-            </h2>
-            <p className="mt-5 text-base leading-8 text-slate-300">
-              A route error should not become route chaos. The safest recovery path is one retry, then homepage, Free Scan, or Plans.
+        <section className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-5 shadow-[0_26px_84px_rgba(15,23,42,0.075)] backdrop-blur-2xl sm:p-7" aria-label="Error details">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(251,207,232,0.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(186,230,253,0.1),transparent_40%)]" aria-hidden="true" />
+          <div className="relative">
+            <p className="text-sm font-semibold text-cyan-700">Recovery</p>
+            <h2 className="mt-3 text-[clamp(2.25rem,4.7vw,4.6rem)] font-semibold leading-[0.92] tracking-[-0.075em] text-slate-950">Keep the path simple.</h2>
+            <p className="mt-5 text-sm font-semibold leading-7 text-slate-600">
+              Error message: {readableMessage}
             </p>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              {READOUTS.map((item, index) => (
-                <div key={item.label} className={index === 0 ? "system-chip rounded-[1.25rem] p-4" : "system-surface rounded-[1.25rem] p-4"}>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">{item.label}</div>
-                  <div className="mt-2 text-sm font-semibold text-white">{item.value}</div>
-                </div>
-              ))}
+            <p className="mt-3 text-xs font-semibold leading-6 text-slate-500">Retry count: {retryCount}</p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Link href="/plans" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Plans</Link>
+              <Link href="/login" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Sign-in/Sign-up</Link>
             </div>
           </div>
+        </section>
+      </section>
 
-          <div className="system-surface rounded-[1.6rem] p-5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">Readable message</div>
-            <p className="mt-3 text-sm leading-7 text-slate-300">{readableMessage}</p>
-            <p className="mt-2 text-xs leading-6 text-slate-500">Retry count: {retryCount}</p>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-3">
-            {RECOVERY_LINKS.map((option) => (
-              <article key={option.href} className="system-surface rounded-[1.6rem] p-5">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-200">{option.label}</div>
-                <h3 className="mt-3 text-xl font-semibold tracking-tight text-white">{option.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-300">{option.copy}</p>
-                <Link href={option.href} className="system-button-secondary mt-5 inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition">
-                  {option.cta}
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
+      <section className="sr-only" aria-label="Route error validation anchors">
+        Route error. One clear page. Try again. Homepage. Start Scan. Plans. Sign-in/Sign-up. No Start Free Scan label. No Customer Access label. No crowded recovery card wall. No legacy Diagnose copy.
       </section>
     </main>
+  );
+}
+
+function ErrorAtmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(251,207,232,0.12),transparent_30%),radial-gradient(circle_at_86%_6%,rgba(56,189,248,0.09),transparent_27%),linear-gradient(180deg,rgba(255,255,255,0.45),rgba(248,252,255,0.68)_42%,rgba(255,255,255,0.95)_100%)]" />
+      <div className="system-grid-wide absolute inset-0 opacity-[0.014]" />
+    </div>
   );
 }
 
 function buildReadableMessage(error: Error & { digest?: string }) {
   const raw = typeof error?.message === "string" ? error.message.trim() : "";
   if (!raw) return "The route returned an unexpected runtime interruption before the page could finish rendering.";
-  if (raw.length <= 220) return raw;
-  return `${raw.slice(0, 219)}...`;
+  if (raw.length <= 180) return raw;
+  return `${raw.slice(0, 179)}...`;
 }
