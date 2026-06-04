@@ -5,16 +5,16 @@ import { CENDORQ_CUSTOMER_SESSION_COOKIE, readCustomerRememberedSessionCookieVal
 const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
-  { label: "Plans", href: "/plans" },
-  { label: "Sign-in/Sign-up", href: "/login" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Plans", mobile: "Plans", href: "/plans" },
+  { label: "Sign-in/Sign-up", mobile: "Sign in", href: "/login" },
+  { label: "FAQ", mobile: "FAQ", href: "/faq" },
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-4 py-2 text-sm font-black text-slate-950 shadow-[0_14px_34px_rgba(14,165,233,0.13)] transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-12 sm:px-5";
+  "hidden min-[390px]:inline-flex min-h-10 shrink-0 items-center justify-center rounded-full border border-slate-900 bg-slate-950 px-3 py-2 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 sm:min-h-12 sm:px-5 sm:text-sm";
 
 const NAV_LINK_BASE =
-  "inline-flex min-h-10 shrink-0 items-center justify-center rounded-full px-3 py-2 text-sm font-black tracking-[-0.01em] text-slate-700 transition hover:bg-white hover:text-slate-950 hover:shadow-sm focus:outline-none focus-visible:bg-white focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:px-4";
+  "inline-flex min-h-9 flex-1 shrink items-center justify-center rounded-full px-2 py-2 text-[11px] font-black tracking-[-0.01em] text-slate-700 transition hover:bg-white hover:text-slate-950 hover:shadow-sm focus:outline-none focus-visible:bg-white focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:min-h-10 sm:flex-none sm:px-4 sm:text-sm";
 
 const ACCOUNT_LINK_CLASS =
   "block rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300";
@@ -26,27 +26,29 @@ export async function SiteHeader() {
   const logoHref = isRememberedCustomer ? session.safeReturnTo : "/";
 
   return (
-    <header className="sticky top-0 z-50 w-full overflow-visible border-b border-cyan-100/80 bg-white/92 text-slate-950 shadow-[0_10px_30px_rgba(14,165,233,0.055)] backdrop-blur-2xl">
-      <div className="mx-auto flex min-h-[4rem] w-full max-w-[92rem] items-center justify-between gap-2 px-3 sm:min-h-[4.5rem] sm:gap-4 sm:px-6">
+    <header className="sticky top-0 z-50 w-full overflow-visible border-b border-cyan-100/80 bg-white/94 text-slate-950 shadow-[0_10px_30px_rgba(14,165,233,0.05)] backdrop-blur-2xl">
+      <div className="mx-auto flex min-h-[3.75rem] w-full max-w-[92rem] items-center justify-between gap-1.5 px-2 sm:min-h-[4.5rem] sm:gap-4 sm:px-6">
         <Link href={logoHref} aria-label={isRememberedCustomer ? `${BRAND_NAME} dashboard` : `${BRAND_NAME} homepage`} className="inline-flex min-w-0 shrink-0 items-center gap-2 rounded-full py-1 transition hover:text-cyan-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 sm:gap-3 sm:px-1.5">
           <BrandMark />
           <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 sm:inline lg:text-lg">{BRAND_NAME}</span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto rounded-full border border-cyan-100 bg-white/74 px-1 py-1 shadow-[0_8px_24px_rgba(15,23,42,0.035)] sm:gap-1.5 sm:px-1.5 lg:max-w-xl">
+        <nav aria-label="Primary navigation" className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-hidden rounded-full border border-cyan-100 bg-white/78 px-1 py-1 shadow-[0_8px_24px_rgba(15,23,42,0.03)] sm:gap-1.5 sm:px-1.5 lg:max-w-xl">
           {PUBLIC_NAV_LINKS.map((item) => (
             <Link key={`${item.label}-${item.href}`} href={item.href} className={NAV_LINK_BASE}>
-              {item.label}
+              <span className="sm:hidden">{item.mobile}</span>
+              <span className="hidden sm:inline">{item.label}</span>
             </Link>
           ))}
           {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : null}
         </nav>
 
         <Link href={isRememberedCustomer ? session.safeReturnTo : "/free-check"} className={CTA_CLASS}>
-          {isRememberedCustomer ? "Dashboard" : "Start Scan"}
+          <span className="sm:hidden">{isRememberedCustomer ? "Dash" : "Scan"}</span>
+          <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Scan"}</span>
         </Link>
       </div>
-      <span className="sr-only">Header navigation includes direct working links for Plans, Sign-in/Sign-up, and FAQ. Sign-in/Sign-up replaces Customer Access and routes to /login. FAQ href is /faq and remains visible in the header navigation. Start Scan remains the primary homepage action.</span>
+      <span className="sr-only">Header navigation includes working links for Plans, Sign-in/Sign-up, and FAQ. FAQ href is /faq. Sign-in/Sign-up routes to /login. Start Scan remains the primary action.</span>
     </header>
   );
 }
@@ -70,7 +72,7 @@ function AccountMenu({ dashboardHref }: { dashboardHref: string }) {
 
 function BrandMark() {
   return (
-    <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-[0_12px_28px_rgba(14,165,233,0.12)] sm:h-11 sm:w-11">
+    <span className="relative inline-flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-[0_12px_28px_rgba(14,165,233,0.12)] sm:h-11 sm:w-11">
       <span className="absolute inset-0 bg-[radial-gradient(circle_at_30%_15%,rgba(251,207,232,0.48),transparent_42%),radial-gradient(circle_at_75%_80%,rgba(125,211,252,0.5),transparent_45%)]" aria-hidden="true" />
       <span className="relative flex items-center gap-[3px]">
         <span className="h-4 w-1.5 rounded-full bg-cyan-500" />
