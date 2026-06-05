@@ -1,3 +1,4 @@
+import { CendorqProductMotionCinema } from "@/components/homepage/cendorq-product-motion-cinema";
 import { HomepageClarityReset } from "@/components/homepage/homepage-clarity-reset";
 import { buildMetadata } from "@/lib/seo";
 
@@ -33,5 +34,10 @@ export const metadata = buildMetadata({
 });
 
 export default function HomePage() {
-  return <HomepageClarityReset />;
+  return (
+    <>
+      <HomepageClarityReset />
+      <CendorqProductMotionCinema />
+    </>
+  );
 }
