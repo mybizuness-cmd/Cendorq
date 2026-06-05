@@ -19,8 +19,8 @@ const REPORT_SYSTEM_LANES = [
     label: "Workroom",
     title: "Repair work is scoped",
     copy: "Build Fix should show approved scope, before evidence, work state, after evidence, and completion report instead of vague promises.",
-    href: "/dashboard/reports/build-fix",
-    cta: "Open repair artifact",
+    href: "/dashboard/repair-workroom",
+    cta: "Open repair workroom",
   },
   {
     label: "Control",
