@@ -26,8 +26,8 @@ const REPORT_SYSTEM_LANES = [
     label: "Control",
     title: "Monthly signal drift is watched",
     copy: "Ongoing Control should show monitored signals, drift, protected strengths, next priorities, and monthly report delivery.",
-    href: "/dashboard/reports/ongoing-control",
-    cta: "Open control artifact",
+    href: "/dashboard/control-center",
+    cta: "Open control center",
   },
 ] as const;
 
