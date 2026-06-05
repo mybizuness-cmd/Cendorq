@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PaidReportArtifactShell } from "@/components/dashboard/paid-report-artifact-shell";
 import { buildMetadata } from "@/lib/seo";
 import { requirePaidPlanReportDeliveryContract } from "@/lib/paid-plan-report-delivery-operating-system";
 
@@ -19,24 +19,37 @@ const RELEASE_REQUIREMENTS = [
   "Approved customer-safe PDF generated",
 ] as const;
 
+const MODULES = [
+  { label: "Drift", value: "Signal movement", detail: "Shows what improved, weakened, or stayed stable this month." },
+  { label: "Pressure", value: "Context watch", detail: "Keeps competitor and AI/search posture from going stale." },
+  { label: "Next", value: "Monthly priorities", detail: "Routes only the most important changes to the next command." },
+] as const;
+
+const LIFECYCLE = [
+  { label: "1", value: "Monitor", detail: "Signal health is checked against the active control scope." },
+  { label: "2", value: "Snapshot", detail: "Monthly findings are summarized with limits and confidence." },
+  { label: "3", value: "Deliver", detail: "Dashboard copy and PDF/email artifact stay aligned." },
+] as const;
+
 export default function OngoingControlReportPage() {
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#fff7fb_0%,#e9fbff_24%,#ffffff_100%)] px-4 py-16 text-slate-950 sm:px-6">
-      <section className="mx-auto max-w-5xl rounded-[2.5rem] border border-white/80 bg-white/82 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.065)] backdrop-blur sm:p-10">
-        <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-700">Protected paid report</p>
-        <h1 className="mt-4 text-5xl font-semibold tracking-[-0.07em] sm:text-7xl">{REPORT.customerReportName}</h1>
-        <p className="mt-6 max-w-3xl text-base font-medium leading-8 text-slate-600">This route is the final dashboard copy location for an approved Ongoing Control monthly summary. Until release gates pass, the summary must remain held and avoid implying algorithm control or unlimited implementation.</p>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {RELEASE_REQUIREMENTS.map((item) => <p key={item} className="rounded-[1.35rem] border border-cyan-100 bg-cyan-50/45 p-4 text-sm font-semibold leading-7 text-slate-600">{item}</p>)}
-        </div>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/dashboard/reports" className="rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white">Back to report vault</Link>
-          <Link href="/dashboard/support" className="rounded-full border border-cyan-200 bg-white px-5 py-3 text-sm font-bold text-cyan-700">Ask report support</Link>
-        </div>
-      </section>
+    <>
+      <PaidReportArtifactShell
+        eyebrow="Protected paid report"
+        title={REPORT.customerReportName}
+        summary="This route is the final dashboard copy location for an approved Ongoing Control monthly summary. Until release gates pass, the summary must remain held and avoid implying algorithm control or unlimited implementation."
+        status="Held until monthly release"
+        route="/dashboard/reports/ongoing-control"
+        releaseGate={REPORT.releaseGate}
+        attachmentName={REPORT.attachmentFileNamePattern}
+        attachmentType={REPORT.attachmentContentType}
+        requirements={RELEASE_REQUIREMENTS}
+        modules={MODULES}
+        lifecycle={LIFECYCLE}
+      />
       <section className="sr-only" aria-label="Ongoing Control report guardrails">
         /dashboard/reports/ongoing-control {REPORT.releaseGate} {REPORT.attachmentFileNamePattern} {REPORT.attachmentContentType} no algorithm control claim no ad management claim no raw evidence no guaranteed ranking no guaranteed AI placement
       </section>
-    </main>
+    </>
   );
 }
