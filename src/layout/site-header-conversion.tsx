@@ -11,7 +11,7 @@ const PUBLIC_NAV_LINKS = [
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-white/78 px-5 py-2 text-sm font-black tracking-[-0.02em] text-slate-950 shadow-[0_10px_34px_rgba(14,165,233,0.12),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:min-h-12 sm:px-7 sm:text-base";
+  "inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-white px-5 py-2 text-sm font-black tracking-[-0.02em] text-slate-950 shadow-[0_10px_34px_rgba(14,165,233,0.12),inset_0_1px_0_rgba(255,255,255,0.92)] transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:min-h-12 sm:px-7 sm:text-base";
 
 const NAV_LINK_BASE =
   "inline-flex min-h-10 shrink-0 items-center justify-center rounded-full px-2.5 py-2 text-sm font-black tracking-[-0.02em] text-slate-950 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 sm:px-4 sm:text-base";
@@ -26,14 +26,14 @@ export async function SiteHeader() {
   const logoHref = isRememberedCustomer ? session.safeReturnTo : "/";
 
   return (
-    <header className="sticky top-0 z-[999] w-full overflow-visible border-b border-cyan-100/90 bg-white/88 text-slate-950 shadow-[0_12px_40px_rgba(15,23,42,0.08)] backdrop-blur-2xl supports-[backdrop-filter]:bg-white/78">
-      <div className="mx-auto flex min-h-[4.6rem] w-full max-w-[100rem] items-center justify-between gap-2 px-3 sm:min-h-[5rem] sm:gap-4 sm:px-6 lg:px-10">
+    <header data-cendorq-visible-header="true" className="sticky top-0 z-[2147483647] block w-full min-w-0 overflow-visible border-b border-cyan-100 bg-white text-slate-950 shadow-[0_12px_40px_rgba(15,23,42,0.10)]">
+      <div className="mx-auto flex min-h-[4.65rem] w-full max-w-[100rem] items-center justify-between gap-2 px-3 sm:min-h-[5rem] sm:gap-4 sm:px-6 lg:px-10">
         <Link href={logoHref} aria-label={isRememberedCustomer ? `${BRAND_NAME} dashboard` : `${BRAND_NAME} homepage`} className="group inline-flex min-w-0 shrink-0 items-center gap-2 rounded-full py-1 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:gap-3">
           <BrandMark />
           <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 sm:inline lg:text-xl">{BRAND_NAME}</span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="flex min-w-0 flex-1 items-center justify-center gap-1 overflow-x-auto overflow-y-hidden rounded-full bg-transparent px-1 py-1 header-nav-scroll sm:gap-2 lg:max-w-2xl">
+        <nav aria-label="Primary navigation" className="header-nav-scroll flex min-w-0 flex-1 items-center justify-center gap-1 overflow-x-auto overflow-y-hidden rounded-full bg-white px-1 py-1 sm:gap-2 lg:max-w-2xl">
           {PUBLIC_NAV_LINKS.map((item) => (
             <Link key={`${item.label}-${item.href}`} href={item.href} className={NAV_LINK_BASE}>
               <span className="sm:hidden">{item.mobile}</span>
@@ -55,9 +55,9 @@ export async function SiteHeader() {
 
 function AccountMenu({ dashboardHref }: { dashboardHref: string }) {
   return (
-    <details className="group relative z-[1000] hidden sm:block">
+    <details className="group relative z-[2147483647] hidden sm:block">
       <summary className={`${NAV_LINK_BASE} cursor-pointer list-none`} aria-label="Customer account menu"><span>Account</span></summary>
-      <div className="absolute right-0 z-[1000] mt-2 w-[min(14rem,calc(100vw-1.5rem))] rounded-2xl border border-cyan-100 bg-white/96 p-2 shadow-[0_18px_55px_rgba(15,23,42,0.16)] backdrop-blur-xl">
+      <div className="absolute right-0 z-[2147483647] mt-2 w-[min(14rem,calc(100vw-1.5rem))] rounded-2xl border border-cyan-100 bg-white p-2 shadow-[0_18px_55px_rgba(15,23,42,0.16)]">
         <Link href={dashboardHref} className={`${ACCOUNT_LINK_CLASS} bg-cyan-50 text-slate-950`}>Dashboard</Link>
         <Link href="/dashboard/reports" className={ACCOUNT_LINK_CLASS}>Reports</Link>
         <Link href="/dashboard/billing" className={ACCOUNT_LINK_CLASS}>Billing</Link>
