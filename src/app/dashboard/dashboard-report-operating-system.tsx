@@ -12,8 +12,8 @@ const REPORT_SYSTEM_LANES = [
     label: "PDF + email",
     title: "Approved artifacts match",
     copy: "Paid reports should use the same approved source for dashboard copy, PDF, and email delivery instead of conflicting versions.",
-    href: "/dashboard/reports",
-    cta: "View delivery state",
+    href: "/dashboard/delivery-history",
+    cta: "View delivery history",
   },
   {
     label: "Workroom",
