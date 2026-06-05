@@ -5,16 +5,16 @@ import { CENDORQ_CUSTOMER_SESSION_COOKIE, readCustomerRememberedSessionCookieVal
 const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
-  { label: "AI Readiness", mobile: "AI Readiness", href: "/#ai-readiness" },
+  { label: "AI Readiness", mobile: "Readiness", href: "/#ai-readiness" },
   { label: "Plans", mobile: "Plans", href: "/plans" },
   { label: "Sign in", mobile: "Sign in", href: "/login" },
 ] as const;
 
 const CTA_CLASS =
-  "inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-cyan-200 bg-white px-5 py-2 text-sm font-black tracking-[-0.02em] text-slate-950 shadow-[0_10px_34px_rgba(14,165,233,0.12),inset_0_1px_0_rgba(255,255,255,0.92)] transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:min-h-12 sm:px-7 sm:text-base";
+  "inline-flex min-h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-full border border-cyan-200 bg-white px-4 py-2 text-xs font-black tracking-[-0.02em] text-slate-950 shadow-[0_10px_34px_rgba(14,165,233,0.12),inset_0_1px_0_rgba(255,255,255,0.92)] transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:min-h-12 sm:px-6 sm:text-sm lg:px-7 lg:text-base";
 
 const NAV_LINK_BASE =
-  "inline-flex min-h-10 shrink-0 items-center justify-center rounded-full px-2.5 py-2 text-sm font-black tracking-[-0.02em] text-slate-950 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 sm:px-4 sm:text-base";
+  "inline-flex min-h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-full px-2 py-2 text-xs font-black tracking-[-0.02em] text-slate-950 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300 sm:px-3 sm:text-sm lg:px-4 lg:text-base";
 
 const ACCOUNT_LINK_CLASS =
   "block rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-slate-950 focus:outline-none focus-visible:bg-cyan-50 focus-visible:text-slate-950 focus-visible:ring-2 focus-visible:ring-cyan-300";
@@ -27,28 +27,29 @@ export async function SiteHeader() {
 
   return (
     <header data-cendorq-visible-header="true" className="sticky top-0 z-[2147483647] block w-full min-w-0 overflow-visible border-b border-cyan-100 bg-white text-slate-950 shadow-[0_12px_40px_rgba(15,23,42,0.10)]">
-      <div className="mx-auto flex min-h-[4.65rem] w-full max-w-[100rem] items-center justify-between gap-2 px-3 sm:min-h-[5rem] sm:gap-4 sm:px-6 lg:px-10">
+      <div className="mx-auto grid min-h-[4.65rem] w-full max-w-[100rem] grid-cols-[auto_minmax(15rem,1fr)_auto] items-center gap-2 px-3 sm:min-h-[5rem] sm:grid-cols-[auto_minmax(22rem,1fr)_auto] sm:gap-4 sm:px-6 lg:px-10">
         <Link href={logoHref} aria-label={isRememberedCustomer ? `${BRAND_NAME} dashboard` : `${BRAND_NAME} homepage`} className="group inline-flex min-w-0 shrink-0 items-center gap-2 rounded-full py-1 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:gap-3">
           <BrandMark />
-          <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 sm:inline lg:text-xl">{BRAND_NAME}</span>
+          <span className="hidden truncate text-base font-black tracking-[-0.035em] text-slate-950 xl:inline xl:text-xl">{BRAND_NAME}</span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="header-nav-scroll flex min-w-0 flex-1 items-center justify-center gap-1 overflow-x-auto overflow-y-hidden rounded-full bg-white px-1 py-1 sm:gap-2 lg:max-w-2xl">
+        <nav aria-label="Primary navigation" className="header-nav-scroll mx-auto flex w-full min-w-0 max-w-[44rem] items-center justify-center gap-1 overflow-x-auto overflow-y-hidden rounded-full bg-white px-1 py-1 sm:gap-2">
           {PUBLIC_NAV_LINKS.map((item) => (
             <Link key={`${item.label}-${item.href}`} href={item.href} className={NAV_LINK_BASE}>
-              <span className="sm:hidden">{item.mobile}</span>
-              <span className="hidden sm:inline">{item.label}</span>
+              <span className="lg:hidden">{item.mobile}</span>
+              <span className="hidden lg:inline">{item.label}</span>
             </Link>
           ))}
           {isRememberedCustomer ? <AccountMenu dashboardHref={session.safeReturnTo} /> : null}
         </nav>
 
         <Link href={isRememberedCustomer ? session.safeReturnTo : "/free-check"} className={CTA_CLASS}>
-          <span>{isRememberedCustomer ? "Dashboard" : "Scan"}</span>
+          <span className="sm:hidden">Free Scan</span>
+          <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Run Free Scan"}</span>
         </Link>
       </div>
       <style>{`.header-nav-scroll{scrollbar-width:none}.header-nav-scroll::-webkit-scrollbar{display:none}`}</style>
-      <span className="sr-only">Header navigation includes working links for AI Readiness, Plans, Sign in, and Scan.</span>
+      <span className="sr-only">Header navigation includes working links for AI Readiness, Plans, Sign in, and Run Free Scan.</span>
     </header>
   );
 }
