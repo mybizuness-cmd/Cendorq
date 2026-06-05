@@ -1,4 +1,4 @@
-import { CendorqProductMotionCinema } from "@/components/homepage/cendorq-product-motion-cinema";
+import { Cendorq3DPresenceCommand } from "@/components/homepage/cendorq-3d-presence-command";
 import { HomepageClarityReset } from "@/components/homepage/homepage-clarity-reset";
 import { buildMetadata } from "@/lib/seo";
 
@@ -37,7 +37,7 @@ export default function HomePage() {
   return (
     <>
       <HomepageClarityReset />
-      <CendorqProductMotionCinema />
+      <Cendorq3DPresenceCommand />
     </>
   );
 }
