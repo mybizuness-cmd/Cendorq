@@ -11,7 +11,7 @@ const PUBLIC_NAV_LINKS = [
 ] as const;
 
 const CTA_CLASS =
-  "hidden min-[390px]:inline-flex min-h-10 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/70 bg-slate-950/70 px-3 py-2 text-xs font-black text-white shadow-[0_0_24px_rgba(34,211,238,0.18),inset_0_1px_0_rgba(255,255,255,0.08)] transition hover:-translate-y-0.5 hover:border-fuchsia-300/80 hover:shadow-[0_0_30px_rgba(236,72,153,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020713] sm:min-h-12 sm:px-6 sm:text-sm";
+  "hidden md:inline-flex min-h-10 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/70 bg-slate-950/70 px-3 py-2 text-xs font-black text-white shadow-[0_0_24px_rgba(34,211,238,0.18),inset_0_1px_0_rgba(255,255,255,0.08)] transition hover:-translate-y-0.5 hover:border-fuchsia-300/80 hover:shadow-[0_0_30px_rgba(236,72,153,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020713] sm:min-h-12 sm:px-6 sm:text-sm";
 
 const NAV_LINK_BASE =
   "inline-flex min-h-9 flex-1 shrink items-center justify-center rounded-full px-2 py-2 text-[11px] font-black tracking-[-0.01em] text-slate-100 transition hover:bg-cyan-300/10 hover:text-cyan-100 focus:outline-none focus-visible:bg-cyan-300/10 focus-visible:text-cyan-100 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020713] sm:min-h-10 sm:flex-none sm:px-4 sm:text-sm";
@@ -44,7 +44,6 @@ export async function SiteHeader() {
         </nav>
 
         <Link href={isRememberedCustomer ? session.safeReturnTo : "/free-check"} className={CTA_CLASS}>
-          <span className="sm:hidden">{isRememberedCustomer ? "Dash" : "Scan"}</span>
           <span className="hidden sm:inline">{isRememberedCustomer ? "Dashboard" : "Start Scan"}</span>
           <span aria-hidden="true" className="ml-3 hidden text-cyan-200 sm:inline">→</span>
         </Link>
