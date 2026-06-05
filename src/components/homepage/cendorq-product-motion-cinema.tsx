@@ -12,6 +12,7 @@ const REPAIRS = [
   ["Trust", "58", "Proof is still thin for high-intent buyers.", "red"],
   ["Act", "52", "The request path creates extra hesitation.", "red"],
 ] as const;
+const STATUS = ["7 sources", "2 gaps found", "1 next repair"] as const;
 
 export function CendorqProductMotionCinema() {
   return (
@@ -44,9 +45,14 @@ export function CendorqProductMotionCinema() {
               <div className="flex items-center gap-2 rounded-full border border-emerald-300/24 bg-emerald-300/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[.18em] text-emerald-200"><span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_14px_rgba(110,231,183,.9)]" /> scanning</div>
             </div>
 
+            <div className="grid gap-2 sm:grid-cols-3">
+              {STATUS.map((item) => <div key={item} className="rounded-2xl border border-cyan-300/12 bg-white/[.035] px-4 py-3 text-[11px] font-black uppercase tracking-[.18em] text-cyan-100 shadow-[inset_0_1px_0_rgba(255,255,255,.055)]">{item}</div>)}
+            </div>
+
             <div className="grid gap-3 lg:grid-cols-[1.05fr_.95fr]">
               <div className="relative min-h-[18rem] overflow-hidden rounded-2xl border border-cyan-300/18 bg-[#020713]/62 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.06)]">
                 <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(103,232,249,.12)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,.10)_1px,transparent_1px)] [background-size:28px_28px]" />
+                <span className="motion-cursor absolute z-20 grid h-8 w-8 place-items-center rounded-full border border-white/40 bg-white text-[10px] font-black text-slate-950 shadow-[0_18px_38px_rgba(2,8,23,.22)]">AI</span>
                 <div className="absolute right-4 top-5 h-44 w-44 rounded-full border border-cyan-300/30 sm:h-52 sm:w-52">
                   <span className="absolute inset-6 rounded-full border border-cyan-300/22" />
                   <span className="absolute inset-12 rounded-full border border-cyan-300/18" />
@@ -79,7 +85,7 @@ export function CendorqProductMotionCinema() {
         </div>
       </div>
 
-      <style>{`@keyframes cinemaSweep{0%{transform:translateX(-9rem);opacity:0}20%,70%{opacity:1}100%{transform:translateX(70rem);opacity:0}}@keyframes driftOrb{0%,100%{transform:translate3d(0,0,0) scale(1);opacity:.68}50%{transform:translate3d(18px,20px,0) scale(1.06);opacity:1}}@keyframes radarSpin{to{transform:rotate(360deg)}}@keyframes nodePulse{0%,100%{opacity:.55;transform:scale(.78)}50%{opacity:1;transform:scale(1.25)}}@keyframes pillRise{0%,100%{transform:translateY(0);opacity:.72}50%{transform:translateY(-5px);opacity:1}}@keyframes stepGlow{0%,100%{border-color:rgba(255,255,255,.1);transform:translateY(0)}50%{border-color:rgba(103,232,249,.28);transform:translateY(-3px)}}@keyframes drawLine{0%{stroke-dashoffset:260}45%,100%{stroke-dashoffset:0}}.cinema-orb{animation:driftOrb 10s ease-in-out infinite}.cinema-orb-delay{animation-delay:-4s}.cinema-sweep{animation:cinemaSweep 6s ease-in-out infinite}.motion-beam{animation:radarSpin 4.8s linear infinite}.motion-node{position:absolute;height:.55rem;width:.55rem;border-radius:9999px;box-shadow:0 0 18px currentColor;animation:nodePulse 2.2s ease-in-out infinite}.signal-pill{animation:pillRise 3.2s ease-in-out infinite}.motion-card{animation:stepGlow 5s ease-in-out infinite}.motion-line{stroke-dasharray:260;animation:drawLine 3s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.cinema-orb,.cinema-sweep,.motion-beam,.motion-node,.signal-pill,.motion-card,.motion-line{animation:none}}`}</style>
+      <style>{`@keyframes cinemaSweep{0%{transform:translateX(-9rem);opacity:0}20%,70%{opacity:1}100%{transform:translateX(70rem);opacity:0}}@keyframes driftOrb{0%,100%{transform:translate3d(0,0,0) scale(1);opacity:.68}50%{transform:translate3d(18px,20px,0) scale(1.06);opacity:1}}@keyframes radarSpin{to{transform:rotate(360deg)}}@keyframes cursorMove{0%,100%{left:16%;top:58%;opacity:.86}30%{left:42%;top:42%;opacity:1}64%{left:70%;top:30%;opacity:1}}@keyframes nodePulse{0%,100%{opacity:.55;transform:scale(.78)}50%{opacity:1;transform:scale(1.25)}}@keyframes pillRise{0%,100%{transform:translateY(0);opacity:.72}50%{transform:translateY(-5px);opacity:1}}@keyframes stepGlow{0%,100%{border-color:rgba(255,255,255,.1);transform:translateY(0)}50%{border-color:rgba(103,232,249,.28);transform:translateY(-3px)}}@keyframes drawLine{0%{stroke-dashoffset:260}45%,100%{stroke-dashoffset:0}}.cinema-orb{animation:driftOrb 10s ease-in-out infinite}.cinema-orb-delay{animation-delay:-4s}.cinema-sweep{animation:cinemaSweep 6s ease-in-out infinite}.motion-beam{animation:radarSpin 4.8s linear infinite}.motion-cursor{animation:cursorMove 6.8s ease-in-out infinite}.motion-node{position:absolute;height:.55rem;width:.55rem;border-radius:9999px;box-shadow:0 0 18px currentColor;animation:nodePulse 2.2s ease-in-out infinite}.signal-pill{animation:pillRise 3.2s ease-in-out infinite}.motion-card{animation:stepGlow 5s ease-in-out infinite}.motion-line{stroke-dasharray:260;animation:drawLine 3s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.cinema-orb,.cinema-sweep,.motion-beam,.motion-cursor,.motion-node,.signal-pill,.motion-card,.motion-line{animation:none}}`}</style>
     </section>
   );
 }
