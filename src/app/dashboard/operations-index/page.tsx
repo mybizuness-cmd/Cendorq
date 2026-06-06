@@ -3,7 +3,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Operations Index | Cendorq",
-  description: "Protected Cendorq Operations Index linking intake, sources, reports, templates, delivery, PDF, email, attachments, support, plans, business truth, evidence, lineage, visuals, command queue, quality, agents, conversion, entitlements, integrations, analytics, and recovery.",
+  description: "Protected Cendorq Operations Index linking intake, sources, benchmarks, reports, templates, delivery, PDF, email, attachments, support, plans, business truth, evidence, lineage, visuals, command queue, quality, agents, conversion, entitlements, integrations, analytics, and recovery.",
   path: "/dashboard/operations-index",
   noIndex: true,
 });
@@ -11,6 +11,7 @@ export const metadata = buildMetadata({
 const OPERATING_SURFACES = [
   ["Intake command", "/dashboard/intake-command", "Govern business facts, website context, plan routing, evidence permissions, uploads, and first-run state."],
   ["Source command", "/dashboard/source-command", "Govern website pages, profiles, reviews, listings, search, AI-answer signals, freshness, conflicts, and source use."],
+  ["Benchmark command", "/dashboard/benchmark-command", "Govern category context, public proof, AI visibility pressure, comparison visuals, uncertainty, and benchmark-safe decisions."],
   ["Report vault", "/dashboard/reports", "Open Scan, Review, Repair, and Control artifacts from one protected vault."],
   ["Template command", "/dashboard/template-command", "Govern dashboard modules, PDF sections, email summaries, support packets, snapshots, and completion artifacts."],
   ["Delivery history", "/dashboard/delivery-history", "Track dashboard publish, PDF readiness, email delivery, downloads, resend, and recovery."],
@@ -39,14 +40,14 @@ const OPERATING_SURFACES = [
 
 const INDEX_RULES = [
   "Every operating surface should point back to a safe customer command or recovery path.",
-  "No protected surface should imply delivery, approval, repair, conversion, or access before its state is ready.",
-  "Intake, sources, reports, templates, delivery, PDF, email, attachments, support, plans, evidence, lineage, visuals, quality, agents, conversion, and analytics should stay connected rather than becoming separate silos.",
+  "No protected surface should imply delivery, approval, repair, conversion, comparison, or access before its state is ready.",
+  "Intake, sources, benchmarks, reports, templates, delivery, PDF, email, attachments, support, plans, evidence, lineage, visuals, quality, agents, conversion, and analytics should stay connected rather than becoming separate silos.",
   "The customer dashboard should remain clear even as the operating system grows deeper.",
 ] as const;
 
 const SYSTEM_GROUPS = [
-  ["Customer value", "Intake, sources, reports, templates, delivery, PDF, email, attachments, support, conversion, and next commands."],
-  ["Truth and proof", "Business facts, source context, evidence, lineage, visuals, quality, and release approval."],
+  ["Customer value", "Intake, sources, benchmarks, reports, templates, delivery, PDF, email, attachments, support, conversion, and next commands."],
+  ["Truth and proof", "Business facts, source context, benchmark context, evidence, lineage, visuals, quality, and release approval."],
   ["Operations", "Command queue, agents, entitlements, integrations, analytics, and recovery."],
   ["Plan depth", "Free Scan, Deep Review, Build Fix, and Ongoing Control stay separated through the Plan Matrix."],
 ] as const;
@@ -59,10 +60,10 @@ export default function OperationsIndexPage() {
         <div className="rounded-[2.25rem] border border-white/80 bg-white/84 p-6 shadow-[0_24px_80px_rgba(15,23,42,.065)] backdrop-blur sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-700">Operations Index</p>
           <h1 className="mt-4 text-[clamp(3rem,7vw,6.2rem)] font-semibold leading-[.86] tracking-[-.08em] text-slate-950">One protected map for the entire customer operating system.</h1>
-          <p className="mt-6 text-base font-semibold leading-8 text-slate-600">The Operations Index connects every protected surface added to the dashboard so intake, sources, reports, templates, delivery, PDF, email, attachments, support, plans, proof, workflows, analytics, conversion, agents, and recovery remain navigable and governed.</p>
+          <p className="mt-6 text-base font-semibold leading-8 text-slate-600">The Operations Index connects every protected surface added to the dashboard so intake, sources, benchmarks, reports, templates, delivery, PDF, email, attachments, support, plans, proof, workflows, analytics, conversion, agents, and recovery remain navigable and governed.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/dashboard" className="rounded-full bg-slate-950 px-5 py-3 text-center text-sm font-bold text-white">Back to dashboard</Link>
-            <Link href="/dashboard/source-command" className="rounded-full border border-cyan-200 bg-white px-5 py-3 text-center text-sm font-bold text-cyan-700">Open source command</Link>
+            <Link href="/dashboard/benchmark-command" className="rounded-full border border-cyan-200 bg-white px-5 py-3 text-center text-sm font-bold text-cyan-700">Open benchmark command</Link>
           </div>
         </div>
         <section className="rounded-[2.25rem] border border-slate-950 bg-slate-950 p-6 text-white shadow-[0_28px_90px_rgba(15,23,42,.25)] sm:p-8">
@@ -73,7 +74,7 @@ export default function OperationsIndexPage() {
       </section>
       <section className="mx-auto mt-6 max-w-[94rem] rounded-[2rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,.055)] backdrop-blur sm:p-6"><p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Operating surfaces</p><div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{OPERATING_SURFACES.map(([label, href, copy]) => <Link key={href} href={href} className="rounded-[1.25rem] border border-cyan-100 bg-cyan-50/45 p-4 transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2"><h3 className="text-xl font-semibold tracking-[-.04em] text-slate-950">{label}</h3><p className="mt-2 text-xs font-semibold leading-5 text-slate-600">{copy}</p></Link>)}</div></section>
       <section className="mx-auto mt-6 max-w-[94rem] rounded-[2rem] border border-white/80 bg-white/86 p-5 shadow-[0_18px_60px_rgba(15,23,42,.055)] backdrop-blur sm:p-6"><p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">Index rules</p><div className="mt-5 grid gap-3 md:grid-cols-4">{INDEX_RULES.map((rule) => <p key={rule} className="rounded-[1.15rem] border border-cyan-100 bg-cyan-50/45 p-4 text-xs font-semibold leading-6 text-slate-700">{rule}</p>)}</div></section>
-      <section className="sr-only" aria-label="Operations index guardrails">Operations Index. Intake command. Source command. Report vault. Template command. Delivery history. PDF command. Email command. Attachment command. Release gate. Quality gate. Plan matrix. Agent doctrine. Conversion command. Repair workroom. Control center. Support center. Business Truth. Evidence catalog. Report lineage. Visual registry. Command queue. Customer Command Profile. Entitlement center. Integration registry. Analytics center. Audit recovery. Protected customer operating system.</section>
+      <section className="sr-only" aria-label="Operations index guardrails">Operations Index. Intake command. Source command. Benchmark command. Report vault. Template command. Delivery history. PDF command. Email command. Attachment command. Release gate. Quality gate. Plan matrix. Agent doctrine. Conversion command. Repair workroom. Control center. Support center. Business Truth. Evidence catalog. Report lineage. Visual registry. Command queue. Customer Command Profile. Entitlement center. Integration registry. Analytics center. Audit recovery. Protected customer operating system.</section>
     </main>
   );
 }
