@@ -30,7 +30,7 @@ export function HomepageClarityReset() {
           <p className="mt-5 max-w-[40rem] text-base font-semibold leading-8 text-slate-600 sm:text-lg sm:leading-8">Cendorq scans the public signals that shape whether customers and answer engines can understand, trust, compare, and choose your business.</p>
           <p className="mt-3 max-w-[38rem] text-sm font-semibold leading-7 text-slate-500 sm:text-base sm:leading-7">Then it turns the first weak signal into a Presence Report, a Choice Gap, and a repair queue you can act on.</p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4"><Link href="/free-check" className={PRIMARY}>Run Free Scan <span aria-hidden="true" className="ml-4 text-xl leading-none">→</span></Link><Link href="/sample-report" className={SECONDARY}>See Sample Report</Link></div>
-          <div className="mt-7 grid max-w-[36rem] grid-cols-3 gap-3"><HeroProof value="5" label="choice signals" /><HeroProof value="1" label="next move" /><HeroProof value="0" label="fake guarantees" /></div>
+          <p className="mt-6 max-w-[36rem] text-xs font-black uppercase tracking-[.18em] text-slate-500">Five choice signals. One next move. No fake ranking guarantees.</p>
         </div>
 
         <section className="relative overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/78 p-2 shadow-[0_42px_120px_rgba(15,23,42,.20),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-2xl" aria-label="Cendorq live scan preview">
@@ -60,10 +60,6 @@ export function HomepageClarityReset() {
       <style>{`@keyframes scanLight{0%{transform:translateX(-7rem);opacity:0}20%,72%{opacity:1}100%{transform:translateX(54rem);opacity:0}}.scan-light{animation:scanLight 5.6s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.scan-light{animation:none;opacity:0}}`}</style>
     </main>
   );
-}
-
-function HeroProof({ value, label }: { value: string; label: string }) {
-  return <div className="rounded-2xl border border-white/80 bg-white/72 p-4 shadow-[0_14px_40px_rgba(15,23,42,.07)] backdrop-blur-xl"><p className="text-2xl font-black tracking-[-.05em] text-slate-950">{value}</p><p className="mt-1 text-[10px] font-black uppercase tracking-[.14em] text-slate-500">{label}</p></div>;
 }
 
 function SignalMeter({ label, score, copy, tone }: { label: string; score: string; copy: string; tone: string }) {
