@@ -40,7 +40,7 @@ export function HomepageClarityReset() {
 
             <div className="relative grid min-h-[38rem] gap-0 lg:grid-cols-[.30fr_.47fr_.23fr]">
               <div className="p-5 sm:p-7 lg:border-r lg:border-slate-200/70">
-                <div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[linear-gradient(135deg,#0f172a,#2563eb)] text-[10px] font-black text-cyan-100">CQ</span><div><p className="text-sm font-black text-slate-950">Presence Report in motion</p><p className="text-[10px] font-bold uppercase tracking-[.16em] text-slate-400">Live scan preview</p></div></div>
+                <div className="border-l-2 border-cyan-300 pl-4"><p className="text-sm font-black text-slate-950">Presence Report in motion</p><p className="text-[10px] font-bold uppercase tracking-[.16em] text-slate-400">Live scan preview</p></div>
                 <h2 className="mt-9 text-4xl font-black leading-[.94] tracking-[-.075em] text-slate-950 sm:text-5xl">The market answers before the buyer calls.</h2>
                 <p className="mt-5 text-sm font-semibold leading-7 text-slate-500 sm:text-base">Cendorq reads the public surface buyers see first and finds the first confidence break.</p>
                 <div className="mt-8 space-y-5">{FLOW.map(([number, title, copy]) => <StageLine key={title} number={number} title={title} copy={copy} />)}</div>
@@ -62,8 +62,8 @@ export function HomepageClarityReset() {
               </div>
 
               <div className="p-5 sm:p-7 lg:border-l lg:border-slate-200/70">
-                <p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Presence score</p>
-                <div className="mt-3 flex items-end justify-between gap-4"><p className="text-6xl font-black tracking-[-.09em] text-slate-950">42</p><p className="pb-2 text-xs font-black uppercase tracking-[.16em] text-red-500">High friction</p></div>
+                <p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Signal reading</p>
+                <div className="mt-3 flex items-end justify-between gap-4"><p className="text-6xl font-black tracking-[-.09em] text-slate-950">42</p><p className="pb-2 text-xs font-black uppercase tracking-[.16em] text-slate-500">Friction found</p></div>
                 <div className="mt-8 grid gap-5">{SIGNALS.map(([label, score, copy]) => <SignalMeter key={label} label={label} score={score} copy={copy} />)}</div>
                 <div className="mt-8 border-t border-slate-200 pt-5"><p className="text-xs font-black uppercase tracking-[.16em] text-slate-500">Next move</p><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">Repair the public proof closest to the decision.</p></div>
               </div>
