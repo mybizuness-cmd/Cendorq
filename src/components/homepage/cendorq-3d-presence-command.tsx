@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const OUTCOMES = [
   ["Presence Report", "Shows the current public signal and the first weak point."],
-  ["Choice Gap", "Explains why a competitor may feel clearer or safer."],
+  ["Decision Gap", "Explains why a competitor may feel clearer or safer."],
   ["Repair Queue", "Turns the diagnosis into the next practical change."],
   ["Control", "Keeps the repaired presence from drifting backward."],
 ] as const;
@@ -17,7 +17,7 @@ export function Cendorq3DPresenceCommand() {
             <p className="text-[11px] font-black uppercase tracking-[.24em] text-sky-700">After the scan</p>
             <h2 className="mt-4 text-[clamp(2.35rem,5vw,4.6rem)] font-black leading-[.94] tracking-[-.08em] text-slate-950">The owner sees the problem, not a wall of metrics.</h2>
             <p className="mt-5 max-w-[39rem] text-base font-semibold leading-8 text-slate-600 sm:text-lg sm:leading-8">Cendorq should feel like a short explanation: what is wrong, why it matters, what proof supports it, and what gets repaired first.</p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/free-check" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-cyan-100 bg-[linear-gradient(135deg,#67e8f9,#60a5fa_56%,#a78bfa)] px-7 py-3 text-sm font-black text-slate-950 shadow-[0_18px_54px_rgba(14,165,233,.22),inset_0_1px_0_rgba(255,255,255,.86)]">Run Free Scan</Link><Link href="/sample-report" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-cyan-100 bg-white/78 px-7 py-3 text-sm font-black text-slate-950 shadow-[0_14px_38px_rgba(15,23,42,.08),inset_0_1px_0_rgba(255,255,255,.9)]">View Sample Report</Link></div>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/free-check" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-cyan-100 bg-[linear-gradient(135deg,#67e8f9,#60a5fa_56%,#a78bfa)] px-7 py-3 text-sm font-black text-slate-950 shadow-[0_18px_54px_rgba(14,165,233,.22),inset_0_1px_0_rgba(255,255,255,.86)]">Run Free Scan</Link><Link href="/faq" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-cyan-100 bg-white/78 px-7 py-3 text-sm font-black text-slate-950 shadow-[0_14px_38px_rgba(15,23,42,.08),inset_0_1px_0_rgba(255,255,255,.9)]">Read FAQ</Link></div>
           </div>
 
           <div className="overflow-hidden rounded-[2.15rem] border border-white/80 bg-white/82 p-2 shadow-[0_34px_110px_rgba(15,23,42,.16),inset_0_1px_0_rgba(255,255,255,.96)] backdrop-blur-2xl">
