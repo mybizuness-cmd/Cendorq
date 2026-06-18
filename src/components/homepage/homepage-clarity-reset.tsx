@@ -83,5 +83,5 @@ function StageLine({ number, title, copy }: { number: string; title: string; cop
 
 function SignalMeter({ label, score, copy }: { label: string; score: string; copy: string }) {
   const isStrong = Number(score) >= 50;
-  return <div><div className="flex items-end justify-between gap-3"><div><p className="text-sm font-black text-slate-950">{label}</p><p className="mt-1 text-xs font-semibold leading-5 text-slate-500">{copy}</p></div><span className="text-2xl font-black tracking-[-.06em] text-slate-950">{score}</span></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-100"><div className={`h-full rounded-full bg-gradient-to-r ${isStrong ? "from-cyan-400 to-blue-500" : "from-rose-500 to-pink-300"}`} style={{ width: `${score}%` }} /></div></div>;
+  return <div><div className="flex items-end justify-between gap-3"><div><p className="text-sm font-black text-slate-950">{label}</p><p className="mt-1 text-xs font-semibold leading-5 text-slate-500">{copy}</p></div><span className="text-2xl font-black tracking-[-.06em] text-slate-950">{score}</span></div><div className="mt-2 h-2 overflow-hidden bg-slate-100"><div className={`h-full bg-gradient-to-r ${isStrong ? "from-cyan-400 to-blue-500" : "from-rose-500 to-pink-300"}`} style={{ width: `${score}%` }} /></div></div>;
 }
