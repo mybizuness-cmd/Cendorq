@@ -74,10 +74,10 @@ function BrandMark() {
   return (
     <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-[0_0_26px_rgba(103,232,249,0.34),0_10px_26px_rgba(15,23,42,0.08)] sm:h-11 sm:w-11">
       <span className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(34,211,238,0.24),transparent_44%),radial-gradient(circle_at_76%_82%,rgba(129,140,248,0.22),transparent_48%)]" aria-hidden="true" />
-      <span className="relative flex items-center gap-[4px]">
-        <span className="h-5 w-2 rounded-full bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.42)]" />
-        <span className="h-7 w-2 rounded-full bg-slate-900" />
-        <span className="h-5 w-2 rounded-full bg-indigo-400 shadow-[0_0_12px_rgba(129,140,248,0.38)]" />
+      <span className="relative grid grid-cols-3 items-end gap-[4px]">
+        <span className="h-5 w-2 rounded-sm bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.42)]" />
+        <span className="h-7 w-2 rounded-sm bg-slate-900" />
+        <span className="h-5 w-2 rounded-sm bg-indigo-400 shadow-[0_0_12px_rgba(129,140,248,0.38)]" />
       </span>
     </span>
   );
