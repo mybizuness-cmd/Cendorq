@@ -43,7 +43,7 @@ const QUEUE = [
 
 const AI_SIGNAL_ROWS = [
   ["Answer surface", "Business facts show up clearly enough to be understood.", "Signal only"],
-  ["Prompt view", "Common customer questions reveal clarity, proof, and decision gaps.", "Preview row"],
+  ["Prompt view", "Common customer questions reveal clarity, proof, and decision gaps.", "Report row"],
   ["Mention context", "Public pages are checked for trust and category language.", "Evidence"],
   ["Daily watch", "Control keeps drift visible after review or repair.", "Monitor"],
 ] as const;
@@ -57,7 +57,7 @@ const MONITORING_RHYTHM = [
 
 const PUBLIC_PROOF_BOUNDARY_CHECKS = [
   "First signals guide the next decision; they are not full paid reviews.",
-  "Preview scores and queues show structure, not live customer outcomes.",
+  "Scores and queues show report structure, not guaranteed customer outcomes.",
   "Plan depth stays separated: signal, cause, scoped repair, and ongoing watch.",
   "Cendorq does not guarantee rankings, leads, revenue, or AI placement.",
 ] as const;
@@ -101,7 +101,7 @@ export function ProductProofSystem() {
             <div className="rounded-[2rem] border border-cyan-100 bg-[linear-gradient(145deg,#ffffff,#f6fcff_55%,#fff7fb)] p-4 sm:p-5">
               <div className="flex flex-col gap-4 border-b border-cyan-100 pb-5 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Presence Report preview</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Presence Report</p>
                   <h3 className="mt-2 text-3xl font-semibold tracking-[-0.065em] text-slate-950">Decision view</h3>
                 </div>
                 <div className="rounded-[1.2rem] border border-cyan-100 bg-cyan-50 px-4 py-3 text-right">
@@ -129,10 +129,10 @@ export function ProductProofSystem() {
               <div className="mt-5 rounded-[1.6rem] border border-cyan-100 bg-white/86 p-5 shadow-sm">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">AI signal proof preview</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">AI signal proof</p>
                     <h4 className="mt-2 text-2xl font-semibold tracking-[-0.055em] text-slate-950">Engine-style rows without placement promises.</h4>
                   </div>
-                  <p className="rounded-xl border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-black text-cyan-800">Preview only</p>
+                  <p className="rounded-xl border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-black text-cyan-800">Report evidence</p>
                 </div>
                 <div className="mt-4 grid gap-2">
                   {AI_SIGNAL_ROWS.map(([label, copy, status]) => (
@@ -155,7 +155,7 @@ export function ProductProofSystem() {
               </div>
 
               <div className="mt-5 rounded-[1.6rem] border border-cyan-100 bg-cyan-50/45 p-5">
-                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Repair queue preview</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-cyan-700">Repair queue</p>
                 <div className="mt-4 grid gap-3">
                   {QUEUE.map(([number, title, copy]) => (
                     <div key={title} className="grid gap-3 rounded-[1.15rem] border border-white/80 bg-white/76 p-4 sm:grid-cols-[3rem_0.5fr_1fr] sm:items-center">
