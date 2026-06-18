@@ -12,9 +12,9 @@ expect(mapPath, [
   "PRESENCE_REPORT_ROUTE_BOUNDARIES",
   "[] as const",
   "/dashboard/reports/free-scan",
-  "sample report pages are no longer part of the public website",
+  "report examples are no longer part of the public website",
   "Protected report routes can show customer-specific first signal output after verified access.",
-  "sample report",
+  "retired report examples",
 ]);
 
 forbidden(mapPath, [
@@ -33,7 +33,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report route map validation passed with public sample routes retired and protected report routing preserved.");
+console.log("Presence Report route map validation passed with public report examples retired and protected report routing preserved.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
