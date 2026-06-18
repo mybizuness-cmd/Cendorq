@@ -90,7 +90,6 @@ expect("docs/visual-command-device-width-review-protocol.md", [
   "Homepage `/`",
   "Plans `/plans`",
   "FAQ `/faq`",
-  "Sample Presence Report `/sample-report`",
   "Protected Free Scan Presence Report `/dashboard/reports/free-scan`",
 ]);
 
@@ -107,7 +106,6 @@ expect("src/lib/visual-command-device-review-targets.ts", [
   "homepage",
   "plans",
   "faq",
-  "sample-report",
   "protected-free-scan-report",
   "dashboard-presence-snapshot",
   "dominantCommand",
@@ -121,12 +119,12 @@ expect("src/scripts/validate-visual-command-device-review-targets.mjs", [
   "Visual command device review target validation passed",
   "VISUAL_COMMAND_DEVICE_REVIEW_TARGETS",
   "requiredWidths: VISUAL_COMMAND_DEVICE_WIDTHS",
+  "contains forbidden phrase: Sample Report",
 ]);
 
 expect("docs/visual-command-surface-review-register.md", [
   "Visual Command Surface Review Register",
   "Homepage `/`",
-  "Sample Presence Report `/sample-report`",
   "Protected Free Scan Presence Report `/dashboard/reports/free-scan`",
   "Dashboard Presence Command Snapshot",
   "Plans `/plans`",
@@ -150,11 +148,8 @@ expect("docs/visual-command-surface-review-register.md", [
   "report readability",
   "dashboard command clarity",
   "Run Free Scan as the clearest first command",
-  "sample language educational, not promissory",
   "first signal only visible",
-  "Choice Gap, Repair Queue, and Control Snapshot distinct",
   "Keep Free Scan as the safest starting command when the buyer is unsure.",
-  "Keep Start Free Scan first in quick links.",
   "Keep one dominant next action per screen band.",
 ]);
 
@@ -279,13 +274,16 @@ expect("src/lib/command-workforce-quality-contracts.ts", [
   "What is the safest next command?",
 ]);
 
+forbidden("src/lib/visual-command-device-review-targets.ts", ["sample-report", "/sample-report", "Sample Report", "Sample Presence Report"]);
+forbidden("src/scripts/validate-visual-command-device-review-targets.mjs", ["Sample Presence Report `/sample-report`"]);
+
 if (failures.length) {
   console.error("Command workforce quality validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Command workforce quality validation passed with Cendorq master blueprint, live device-width review targets, source-level device-width review record, device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
+console.log("Command workforce quality validation passed with Cendorq master blueprint, current five-surface device-width review targets, source-level device-width review record, device-width review protocol, visual surface review register, Plans FAQ mobile review coverage, Command Center bridge, operating model, finding template, quality scorecard, visual standard, visual review template, release runbook, docs index, merge readiness, handoff addendum, package script, and typed contract coverage.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -294,4 +292,13 @@ function expect(path, phrases) {
   }
   const text = readFileSync(join(root, path), "utf8");
   for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+}
+
+function forbidden(path, phrases) {
+  if (!existsSync(join(root, path))) {
+    failures.push(`Missing dependency: ${path}`);
+    return;
+  }
+  const text = readFileSync(join(root, path), "utf8");
+  for (const phrase of phrases) if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
 }
