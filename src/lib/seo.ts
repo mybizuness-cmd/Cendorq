@@ -203,7 +203,7 @@ export function buildWebsiteJsonLd() {
         publisher: { "@id": organizationSchemaId() },
         potentialAction: {
             "@type": "ReadAction",
-            target: [absoluteUrl("/free-check"), absoluteUrl("/sample-report"), absoluteUrl("/plans")],
+            target: [absoluteUrl("/free-check"), absoluteUrl("/plans"), absoluteUrl("/faq")],
         },
     };
 }
