@@ -23,8 +23,8 @@ export const metadata = buildMetadata({
   noIndex: true,
 });
 
-const PRIMARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
-const SECONDARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const PRIMARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-2xl border border-cyan-200 bg-cyan-100 px-8 py-4 text-base font-black text-slate-950 shadow-[0_18px_48px_rgba(14,165,233,0.14)] transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
+const SECONDARY_CTA_CLASS = "inline-flex min-h-14 items-center justify-center rounded-2xl border border-slate-200 bg-white px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2";
 
 export default function ReportPage() {
   const webPageJsonLd = buildWebPageJsonLd({
@@ -77,15 +77,15 @@ export default function ReportPage() {
               Reports should stay tied to the right email, business, plan, billing, and support context. The public route stays simple instead of pretending private report state is available without verification.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Link href="/login?returnTo=%2Fdashboard%2Freports" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Sign-in/Sign-up</Link>
-              <Link href="/sample-report" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Sample Report</Link>
+              <Link href="/login?returnTo=%2Fdashboard%2Freports" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Customer Access</Link>
+              <Link href="/faq" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2">Read FAQ</Link>
             </div>
           </div>
         </section>
       </section>
 
       <section className="sr-only" aria-label="Report access validation anchors">
-        Report Access. One clear page. Open Reports. Start Scan. Sign-in/Sign-up. Sample Report. Presence Report. AI Search Presence Repair. No crowded route shell. No AI Readiness wording. No Customer Access label. No Start Free Scan label. Protected dashboard reports stay verified.
+        Report Access. One clear page. Open Reports. Start Scan. Customer Access. Read FAQ. Presence Report. AI Search Presence Repair. No crowded route shell. No AI Readiness wording. Protected dashboard reports stay verified.
       </section>
     </main>
   );
