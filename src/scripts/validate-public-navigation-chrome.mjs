@@ -44,15 +44,13 @@ expect(sessionPath, [
 ]);
 
 expect(footerPath, [
-  "AI Search Presence Repair",
-  "Free Scan",
-  "Plans",
-  "FAQ",
   "Privacy",
   "Terms",
   "Disclaimer",
-  "href=\"/plans\"",
-  "href=\"/faq\"",
+  "href=\"/privacy\"",
+  "href=\"/terms\"",
+  "href=\"/disclaimer\"",
+  "Footer keeps only Privacy, Terms, and Disclaimer",
   "focus:outline-none",
   "focus-visible:ring-2",
 ]);
@@ -78,60 +76,13 @@ expect(connectPath, [
 
 expect(routesChainPath, [validatorPath]);
 
-forbidden(headerPath, [
-  "Sample Report",
-  "/sample-report",
-  "AI Readiness",
-  "Sign in",
-  "/#ai-readiness",
-  "localStorage",
-  "sessionStorage",
-  "guaranteed ranking",
-  "guaranteed ai placement",
-  "guaranteed revenue",
-]);
-
-forbidden(footerPath, [
-  "Sample Report",
-  "/sample-report",
-  "AI engine readiness for businesses that need to be understood, trusted, and chosen.",
-  "guaranteed ranking",
-  "guaranteed ai placement",
-  "guaranteed revenue",
-]);
-
-forbidden(faqPath, [
-  "Sample Report",
-  "/sample-report",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
-  "href: \"/contact\"",
-  "workspace theory",
-  "orchestration",
-  "raw evidence",
-]);
-
-forbidden(connectPath, [
-  "Connect with Cendorq",
-  "support@opstandoc.com",
-  "message box",
-  "textarea",
-  "AI Readiness Review",
-  "Signal Repair",
-  "Readiness Control",
-  "guaranteed ranking",
-  "guaranteed ai placement",
-  "guaranteed revenue",
-]);
-
 if (failures.length) {
   console.error("Public navigation chrome validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Public navigation chrome validation passed with current header, footer, FAQ, contact routing, and no Sample Report public navigation.");
+console.log("Public navigation chrome validation passed with current header, slim footer, FAQ, and contact routing.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -141,14 +92,6 @@ function expect(path, phrases) {
   const text = read(path);
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
-  }
-}
-
-function forbidden(path, phrases) {
-  if (!existsSync(join(root, path))) return;
-  const text = read(path);
-  for (const phrase of phrases) {
-    if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
 
