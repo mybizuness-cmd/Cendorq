@@ -178,7 +178,15 @@ export function buildOrganizationJsonLd() {
         url: siteConfig.siteUrl,
         email: siteConfig.email,
         telephone: siteConfig.phone || undefined,
-        areaServed: siteConfig.locationLabel,
+        description: siteConfig.description,
+        knowsAbout: [
+            "AI Search Presence Repair",
+            "Presence Report",
+            "Decision Gap",
+            "Repair Queue",
+            "AI search visibility",
+            "business trust signals",
+        ],
     };
 }
 
@@ -187,10 +195,48 @@ export function buildWebsiteJsonLd() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "@id": websiteSchemaId(),
-        name: siteConfig.name,
         url: siteConfig.siteUrl,
+        name: siteConfig.name,
+        alternateName: siteConfig.shortName,
+        description: siteConfig.defaultOgDescription,
+        inLanguage: normalizeLocale(siteConfig.locale),
         publisher: { "@id": organizationSchemaId() },
-        inLanguage: "en-US",
+        potentialAction: {
+            "@type": "ReadAction",
+            target: [absoluteUrl("/free-check"), absoluteUrl("/sample-report"), absoluteUrl("/plans")],
+        },
+    };
+}
+
+export function buildBreadcrumbJsonLd(items: readonly BreadcrumbItem[]) {
+    const normalizedItems = items
+        .map((item) => ({ name: cleanString(item.name), path: normalizePath(item.path) }))
+        .filter((item) => item.name);
+
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: normalizedItems.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.name,
+            item: absoluteUrl(item.path),
+        })),
+    };
+}
+
+export function buildFaqJsonLd(items: readonly FaqJsonLdItem[]) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: items
+            .map((item) => ({ question: cleanString(item.question), answer: cleanString(item.answer) }))
+            .filter((item) => item.question && item.answer)
+            .map((item) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: { "@type": "Answer", text: item.answer },
+            })),
     };
 }
 
@@ -198,12 +244,11 @@ export function buildWebPageJsonLd({ title, description, path = "/" }: WebPageJs
     return {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: cleanString(title) || siteConfig.defaultOgTitle,
-        description: cleanString(description) || siteConfig.defaultOgDescription,
+        name: cleanString(title),
+        description: cleanString(description),
         url: absoluteUrl(path),
         isPartOf: { "@id": websiteSchemaId() },
         publisher: { "@id": organizationSchemaId() },
-        inLanguage: "en-US",
     };
 }
 
@@ -211,26 +256,42 @@ export function buildServiceJsonLd({ title, description, path = "/", serviceType
     return {
         "@context": "https://schema.org",
         "@type": "Service",
-        name: cleanString(title) || siteConfig.defaultOgTitle,
-        description: cleanString(description) || siteConfig.defaultOgDescription,
-        serviceType,
+        name: cleanString(title),
+        description: cleanString(description),
+        serviceType: cleanString(serviceType),
         url: absoluteUrl(path),
         provider: { "@id": organizationSchemaId() },
-        areaServed: siteConfig.locationLabel,
     };
 }
 
-export function buildFaqJsonLd(items: readonly FaqJsonLdItem[]) {
-    const mainEntity = items
-        .map((item) => ({
-            "@type": "Question",
-            name: cleanString(item.question),
-            acceptedAnswer: { "@type": "Answer", text: cleanString(item.answer) },
-        }))
-        .filter((item) => item.name && item.acceptedAnswer.text);
+export function toJsonLd(value: unknown) {
+    return JSON.stringify(value).replace(/</g, "\\u003c");
+}
 
-    if (!mainEntity.length) return null;
-    return { "@context": "https://schema.org", "@type": "FAQPage", mainEntity };
+function resolveSiteUrl(value: string | undefined) {
+    const cleaned = cleanString(value || "");
+    if (!cleaned) return FALLBACK_SITE_URL;
+    try {
+        const url = new URL(cleaned.startsWith("http") ? cleaned : `https://${cleaned}`);
+        return url.origin;
+    } catch {
+        return FALLBACK_SITE_URL;
+    }
+}
+
+function normalizePath(path: string) {
+    const cleaned = cleanString(path);
+    if (!cleaned || cleaned === "/") return "/";
+    return cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
+}
+
+function resolveAssetUrl(path: string) {
+    return absoluteUrl(path || DEFAULT_OG_IMAGE_PATH);
+}
+
+function buildImageAlt({ title, imageTitle, imageSubtitle }: { title: string; imageTitle?: string; imageSubtitle?: string }) {
+    const parts = [imageTitle, imageSubtitle, title].map((part) => cleanString(part || "")).filter(Boolean);
+    return parts.join(" — ") || siteConfig.defaultOgTitle;
 }
 
 function organizationSchemaId() {
@@ -241,39 +302,8 @@ function websiteSchemaId() {
     return `${siteConfig.siteUrl}${WEBSITE_HASH}`;
 }
 
-function resolveSiteUrl(value?: string) {
-    const cleaned = cleanString(value || "");
-    if (!cleaned) return FALLBACK_SITE_URL;
-    try {
-        const url = new URL(cleaned);
-        return url.origin;
-    } catch {
-        return FALLBACK_SITE_URL;
-    }
-}
-
-function resolveAssetUrl(path: string) {
-    const cleaned = cleanString(path);
-    if (!cleaned) return absoluteUrl(DEFAULT_OG_IMAGE_PATH);
-    try {
-        return new URL(cleaned).toString();
-    } catch {
-        return absoluteUrl(normalizePath(cleaned));
-    }
-}
-
-function normalizePath(path: string) {
-    const cleaned = cleanString(path);
-    if (!cleaned || cleaned === "/") return "/";
-    return cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
-}
-
-function cleanString(value: string) {
-    return value.replace(/\s+/g, " ").trim();
-}
-
-function dedupeStrings(values: readonly string[]) {
-    return Array.from(new Set(values.map(cleanString).filter(Boolean)));
+function normalizeLocale(value: string) {
+    return cleanString(value).replace("_", "-") || "en-US";
 }
 
 function normalizeTwitterHandle(value: string) {
@@ -282,16 +312,15 @@ function normalizeTwitterHandle(value: string) {
     return cleaned.startsWith("@") ? cleaned : `@${cleaned}`;
 }
 
-function normalizeLocale(value: string) {
-    return cleanString(value) || "en_US";
-}
-
 function clampNumber(value: number | undefined, min: number, max: number, fallback: number) {
-    if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
-    return Math.min(Math.max(Math.round(value), min), max);
+    if (typeof value !== "number" || Number.isNaN(value)) return fallback;
+    return Math.max(min, Math.min(max, value));
 }
 
-function buildImageAlt({ title, imageTitle, imageSubtitle }: { title: string; imageTitle?: string; imageSubtitle?: string }) {
-    const parts = [imageTitle, imageSubtitle, title].map((part) => cleanString(part || "")).filter(Boolean);
-    return parts.join(" — ") || "Cendorq preview.";
+function dedupeStrings(values: readonly string[]) {
+    return Array.from(new Set(values.map(cleanString).filter(Boolean)));
+}
+
+function cleanString(value: string | undefined) {
+    return (value || "").replace(/\s+/g, " ").trim();
 }
