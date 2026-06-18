@@ -46,8 +46,8 @@ export function HomepageClarityReset() {
                   <p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Buyer question</p>
                   <h3 className="mt-3 text-[clamp(2.25rem,4.7vw,4.75rem)] font-black leading-[.9] tracking-[-.085em] text-slate-950">Which business feels safest to choose?</h3>
                   <p className="mt-4 max-w-[34rem] text-sm font-semibold leading-7 text-slate-500">A capable business can still lose when public signals make a competitor easier to understand.</p>
-                  <div className="mt-8 grid gap-3 sm:grid-cols-5">{SOURCES.map((source, index) => <SourceNode key={source} label={source} index={index} />)}</div>
-                  <div className="mt-8 rounded-[1.8rem] border border-slate-200 bg-white/86 p-5 shadow-[0_20px_70px_rgba(15,23,42,.09)]"><p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Decision Gap</p><p className="mt-2 text-3xl font-black leading-[.95] tracking-[-.07em] text-slate-950">Competitor explains faster.</p><p className="mt-3 text-sm font-semibold leading-7 text-slate-500">Repair Queue: move proof into the decision point before adding more traffic.</p></div>
+                  <div className="mt-8 border-y border-slate-200/70 py-5"><p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Signals checked</p><div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">{SOURCES.map((source) => <span key={source} className="text-xs font-black uppercase tracking-[.14em] text-slate-500">{source}</span>)}</div></div>
+                  <div className="mt-8 border-t border-slate-200 pt-6"><p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Decision Gap</p><p className="mt-2 text-3xl font-black leading-[.95] tracking-[-.07em] text-slate-950">Competitor explains faster.</p><p className="mt-3 text-sm font-semibold leading-7 text-slate-500">Repair Queue: move proof into the decision point before adding more traffic.</p></div>
                 </div>
               </div>
 
@@ -55,13 +55,13 @@ export function HomepageClarityReset() {
                 <p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Presence score</p>
                 <div className="mt-3 flex items-end justify-between gap-4"><p className="text-6xl font-black tracking-[-.09em] text-slate-950">42</p><p className="pb-2 text-xs font-black uppercase tracking-[.16em] text-red-500">High friction</p></div>
                 <div className="mt-8 grid gap-5">{SIGNALS.map(([label, score, copy]) => <SignalMeter key={label} label={label} score={score} copy={copy} />)}</div>
-                <Link href="/free-check" className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-cyan-100 bg-white/78 px-5 py-2 text-sm font-black text-slate-950 shadow-[0_14px_34px_rgba(15,23,42,.08)]">Start scan</Link>
+                <div className="mt-8 border-t border-slate-200 pt-5"><p className="text-xs font-black uppercase tracking-[.16em] text-slate-500">Next move</p><p className="mt-2 text-sm font-semibold leading-6 text-slate-600">Start with the first confidence break, then repair the public proof closest to the decision.</p></div>
               </div>
             </div>
           </div>
         </section>
 
-        <style>{`@keyframes scanLight{0%{transform:translateX(-9rem);opacity:0}18%,70%{opacity:1}100%{transform:translateX(96rem);opacity:0}}@keyframes sourcePulse{0%,100%{transform:translateY(0);opacity:.74}50%{transform:translateY(-5px);opacity:1}}.scan-light{animation:scanLight 6s ease-in-out infinite}.source-node{animation:sourcePulse 4s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.scan-light,.source-node{animation:none}}`}</style>
+        <style>{`@keyframes scanLight{0%{transform:translateX(-9rem);opacity:0}18%,70%{opacity:1}100%{transform:translateX(96rem);opacity:0}}.scan-light{animation:scanLight 6s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.scan-light{animation:none}}`}</style>
       </section>
     </main>
   );
@@ -69,10 +69,6 @@ export function HomepageClarityReset() {
 
 function StageLine({ number, title, copy }: { number: string; title: string; copy: string }) {
   return <div className="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-slate-100 pt-4"><p className="text-xs font-black text-sky-700">{number}</p><div><p className="text-sm font-black text-slate-950">{title}</p><p className="mt-1 text-xs font-semibold leading-5 text-slate-500">{copy}</p></div></div>;
-}
-
-function SourceNode({ label, index }: { label: string; index: number }) {
-  return <div className="source-node rounded-2xl border border-cyan-100 bg-cyan-50/58 px-3 py-3 text-center text-[11px] font-black text-sky-800 shadow-[0_14px_34px_rgba(14,165,233,.10)]" style={{ animationDelay: `${index * 0.24}s` }}>{label}</div>;
 }
 
 function SignalMeter({ label, score, copy }: { label: string; score: string; copy: string }) {
