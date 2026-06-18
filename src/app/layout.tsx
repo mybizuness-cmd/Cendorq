@@ -21,7 +21,7 @@ const KNOWLEDGE_AREAS = [
   "AI Search Presence Repair",
   "Presence Report",
   "Repair Queue",
-  "Choice Gap",
+  "Decision Gap",
   "Business Truth Profile",
   "AI search visibility",
   "AI answer visibility",
@@ -36,8 +36,9 @@ const KNOWLEDGE_AREAS = [
 
 const CUSTOMER_SAFE_SURFACES = [
   "Free Scan intake",
-  "Sample Presence Report",
+  "Presence Report signal",
   "Plans decision path",
+  "FAQ guidance",
   "Customer access",
   "Dashboard report vault",
   "Billing depth control",
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     "AI Search Presence Repair",
     "Presence Report",
     "Repair Queue",
-    "Choice Gap",
+    "Decision Gap",
     "Business Truth Profile",
     "AI search visibility",
     "AI answer visibility",
@@ -141,7 +142,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en-US" className="h-full scroll-smooth bg-white" suppressHydrationWarning>
       <body className="min-h-screen bg-white text-slate-950 antialiased selection:bg-cyan-200/40 selection:text-slate-950 [font-synthesis-weight:none] [text-rendering:optimizeLegibility]">
         <ConversionClickTracker />
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950 focus:shadow-lg">Skip to content</a>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950 focus:shadow-lg">Skip to content</a>
         <noscript><div className="border-b border-amber-300/40 bg-amber-50 px-4 py-3 text-center text-sm text-amber-900">JavaScript is disabled. Some interactive Cendorq experiences may be limited.</div></noscript>
         {structuredData.map((entry, index) => <script key={`structured-data-${index}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(entry) }} />)}
         <div className="relative min-h-screen overflow-x-clip bg-white" data-brand="cendorq">
@@ -179,7 +180,7 @@ function buildStructuredData() {
     description: siteConfig.description,
     inLanguage: "en-US",
     publisher: { "@id": ORGANIZATION_ID },
-    potentialAction: { "@type": "ReadAction", target: [absoluteUrl("/sample-report"), absoluteUrl("/plans"), absoluteUrl("/free-check")] },
+    potentialAction: { "@type": "ReadAction", target: [absoluteUrl("/free-check"), absoluteUrl("/plans"), absoluteUrl("/faq")] },
   };
   const service = {
     "@context": "https://schema.org",
