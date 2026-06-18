@@ -6,11 +6,6 @@ type RulePath = `/${string}` | "/";
 const PUBLIC_ALLOWLIST = [
     "/",
     "/free-check",
-    "/sample-report",
-    "/sample-report/dentist",
-    "/sample-report/med-spa",
-    "/sample-report/law-firm",
-    "/sample-report/contractor",
     "/plans",
     "/plans/deep-review",
     "/plans/build-fix",
