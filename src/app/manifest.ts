@@ -47,16 +47,16 @@ const SHORTCUTS: readonly ShortcutDefinition[] = [
         url: "/free-check?source=manifest-shortcut",
     },
     {
-        name: "Open Sample Report",
-        shortName: "Sample",
-        description: "See the Cendorq Presence Report, Choice Gap, and Repair Queue sample.",
-        url: "/sample-report?source=manifest-shortcut",
-    },
-    {
         name: "Compare Plans",
         shortName: "Plans",
         description: "Compare Scan, Review, Repair, and Control depth.",
         url: "/plans?source=manifest-shortcut",
+    },
+    {
+        name: "Read FAQ",
+        shortName: "FAQ",
+        description: "Read clear answers about free scans, Decision Gap, Repair Queue, plans, privacy, and boundaries.",
+        url: "/faq?source=manifest-shortcut",
     },
 ] as const;
 
