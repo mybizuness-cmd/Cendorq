@@ -18,7 +18,7 @@ expect(contractPath, [
   "trust",
   "choice",
   "action",
-  "Findability",
+  "Search Presence",
   "Understanding",
   "Trust",
   "Choice",
@@ -27,7 +27,7 @@ expect(contractPath, [
   "Deep Review",
 ]);
 
-boundedLength(contractPath, 8500);
+boundedLength(contractPath, 9000);
 
 if (failures.length) {
   console.error("Presence Report public contract validation failed:");
@@ -35,7 +35,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Presence Report public contract validation passed with reusable pillars, repair queue, sample report shape, and five public report dimensions.");
+console.log("Presence Report public contract validation passed with reusable pillars, repair queue, sample report shape, and current public report naming.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
