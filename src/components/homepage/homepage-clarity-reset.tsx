@@ -12,9 +12,9 @@ const SIGNALS = [
 ] as const;
 
 const FLOW = [
-  ["01", "Public signals", "Website, reviews, listings, proof, and FAQs become one decision surface."],
-  ["02", "Confidence break", "Cendorq finds where another option starts feeling safer."],
-  ["03", "Repair Queue", "The first move is the safest repair, not a generic marketing checklist."],
+  ["01", "Read the public surface", "Website, reviews, listings, proof, and FAQs are checked together."],
+  ["02", "Find the confidence break", "Cendorq shows where another option starts feeling easier to trust."],
+  ["03", "Repair the closest proof", "The next move fixes the weakest decision point first."],
 ] as const;
 
 export function HomepageClarityReset() {
@@ -27,7 +27,7 @@ export function HomepageClarityReset() {
         <div className="mx-auto max-w-[70rem] text-center">
           <p className="text-[11px] font-black uppercase tracking-[.26em] text-sky-700">AI Search Presence Repair</p>
           <h1 className="mt-5 text-[clamp(2.85rem,7.2vw,6.35rem)] font-black leading-[.88] tracking-[-.09em] text-slate-950">Know why customers choose someone else.</h1>
-          <p className="mx-auto mt-5 max-w-[53rem] text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">Cendorq turns public signals into a clear explanation of where customers and answer engines lose confidence, what it costs you, and what to repair first.</p>
+          <p className="mx-auto mt-5 max-w-[53rem] text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">Cendorq scans what buyers and answer engines can see, shows where confidence breaks, and tells you what to repair first.</p>
           <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4"><Link href="/free-check" className={PRIMARY}>Run Free Scan <span aria-hidden="true" className="ml-4 text-xl leading-none">→</span></Link><Link href="/sample-report" className={SECONDARY}>See Sample Report</Link></div>
           <p className="mt-6 text-xs font-black uppercase tracking-[.18em] text-slate-500">Five decision signals. One next move. No fake ranking guarantees.</p>
         </div>
