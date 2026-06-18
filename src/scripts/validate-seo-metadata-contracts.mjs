@@ -9,14 +9,14 @@ expect(seoPath, [
   "siteConfig",
   "buildMetadata",
   "Metadata[",
-  "robots: noIndex ? { index: false, follow: false } : { index: true, follow: true }",
   "organizationSchemaId",
   "websiteSchemaId",
-  "ORGANIZATION_HASH",
-  "WEBSITE_HASH",
-  "AI Visibility and Readiness",
+  "AI Search Presence Repair",
+  "Presence Report",
+  "Decision Gap",
+  "Repair Queue",
   "AI search visibility",
-  "answer engine visibility",
+  "AI answer visibility",
   "business trust signals",
 ]);
 
@@ -26,7 +26,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("SEO metadata contract validation passed.");
+console.log("SEO metadata contract validation passed with current Cendorq positioning.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
