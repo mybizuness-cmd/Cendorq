@@ -9,7 +9,8 @@ check("src/components/homepage/homepage-clarity-reset.tsx", [
   "final-master-presence-product-film",
   "Know why customers choose someone else.",
   "Run Free Scan",
-  "See Sample Report",
+  "See How It Works",
+  "id=\"product\"",
   "Search Presence",
   "Decision Gap",
   "Repair Queue",
@@ -17,21 +18,18 @@ check("src/components/homepage/homepage-clarity-reset.tsx", [
 ]);
 check("src/layout/site-header-conversion.tsx", [
   "Product",
-  "Sample Report",
   "Plans",
   "FAQ",
   "Contact",
   "Customer Access",
   "Start Free Scan",
-  "href=\"/sample-report\"",
   "href=\"/plans\"",
   "href=\"/faq\"",
   "href=\"/connect\"",
   "href=\"/login\"",
 ]);
 check("src/app/free-check/page.tsx", ["Free Scan | Cendorq", "Low friction", "Useful context", "Safe boundary"]);
-check("src/app/sample-report/page.tsx", ["Sample Presence Report | Cendorq", "SamplePresenceReport"]);
-check("src/app/faq/page.tsx", ["Cendorq FAQ", "Get clear answers before the next move."]);
+check("src/app/faq/page.tsx", ["Cendorq FAQ", "Answers before the first repair.", "AI Search Presence Repair", "Decision Gap", "Repair Queue"]);
 check("src/app/connect/page.tsx", ["Contact Cendorq", "Start Free Scan", "Compare plans"]);
 check("package.json", ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 check("src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-public-homepage-command-surface.mjs"]);
@@ -39,6 +37,7 @@ check("src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-public-hom
 maxLength("src/app/page.tsx", 2600);
 maxLength("src/components/homepage/homepage-clarity-reset.tsx", 22000);
 maxLength("src/layout/site-header-conversion.tsx", 16000);
+maxLength("src/app/faq/page.tsx", 22000);
 
 if (failures.length) {
   console.error("Public command surface validation failed:");
@@ -46,7 +45,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with single-story homepage, Decision Gap public language, active buyer routes, and current Cendorq terminology.");
+console.log("Public command surface validation passed with current navigation, current FAQ content, active product anchor, and Decision Gap public language.");
 
 function check(path, phrases) {
   const absolute = join(root, path);
