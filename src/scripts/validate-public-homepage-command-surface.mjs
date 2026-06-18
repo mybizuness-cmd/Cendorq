@@ -5,7 +5,8 @@ const root = process.cwd();
 const failures = [];
 
 check("src/app/page.tsx", ["HomepageClarityReset", "Cendorq | AI Search Presence Repair for Businesses"]);
-check("src/components/homepage/homepage-clarity-reset.tsx", ["Be easier to find, understand, and choose.", "Start Free Scan", "See Sample Report", "PresenceReportPreview"]);
+check("src/components/homepage/homepage-clarity-reset.tsx", ["final-master-presence-command-hero", "Make your business easier to", "Run Free Scan", "See Sample Report", "Search Presence", "Choice Gap", "Repair Queue"]);
+check("src/components/homepage/cendorq-3d-presence-command.tsx", ["final-master-presence-command-center", "Presence Command Center", "One command surface for the score", "Search Readiness", "Choice Gap", "Repair Queue", "Control snapshot"]);
 check("src/layout/site-header-conversion.tsx", ["Product", "Plans", "FAQ", "Contact", "Customer Access", "Start Free Scan", "href=\"/sample-report\"", "href=\"/plans\"", "href=\"/faq\"", "href=\"/connect\"", "href=\"/login\""]);
 check("src/app/login/page.tsx", ["Customer access | Cendorq", "Access your Cendorq account.", "Return with your email."]);
 check("src/app/free-check/page.tsx", ["Free Scan | Cendorq", "Low friction", "Useful context", "Safe boundary", "Open the result in your account."]);
@@ -16,7 +17,8 @@ check("package.json", ["validate:routes", "node ./src/scripts/validate-routes-ch
 check("src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-public-homepage-command-surface.mjs"]);
 
 maxLength("src/app/page.tsx", 5200);
-maxLength("src/components/homepage/homepage-clarity-reset.tsx", 9000);
+maxLength("src/components/homepage/homepage-clarity-reset.tsx", 20000);
+maxLength("src/components/homepage/cendorq-3d-presence-command.tsx", 26000);
 maxLength("src/layout/site-header-conversion.tsx", 16000);
 
 if (failures.length) {
@@ -25,7 +27,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with simplified homepage, reorganized navigation, customer access naming, form page architecture, sample report, FAQ, and contact routes.");
+console.log("Public command surface validation passed with final master homepage hero, Presence Command Center preview, active buyer path routes, and current Cendorq terminology.");
 
 function check(path, phrases) {
   const absolute = join(root, path);
