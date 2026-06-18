@@ -12,16 +12,16 @@ const SIGNALS = [
 ] as const;
 
 const FLOW = [
-  ["01", "Public signals", "Website, reviews, listings, local proof, and FAQs are read as one decision surface."],
-  ["02", "Confidence break", "Cendorq identifies where the buyer starts trusting another option faster."],
-  ["03", "Repair Queue", "The next move is the safest repair, not a generic marketing checklist."],
+  ["01", "Public signals", "Website, reviews, listings, proof, and FAQs become one decision surface."],
+  ["02", "Confidence break", "Cendorq finds where another option starts feeling safer."],
+  ["03", "Repair Queue", "The first move is the safest repair, not a generic marketing checklist."],
 ] as const;
 
 export function HomepageClarityReset() {
   return (
     <main data-cendorq-homepage="final-master-presence-product-film" className="relative isolate min-h-screen overflow-x-hidden bg-[#eef8ff] text-slate-950">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_3%,rgba(186,230,253,.95),transparent_31%),radial-gradient(circle_at_86%_6%,rgba(219,234,254,.92),transparent_34%),linear-gradient(180deg,#ffffff_0%,#eff9ff_44%,#e8f8ff_76%,#f8fcff_100%)]" />
-      <div className="absolute inset-0 -z-10 opacity-[.16] [background-image:linear-gradient(rgba(14,165,233,.10)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,.08)_1px,transparent_1px)] [background-size:88px_88px]" />
+      <div className="absolute inset-0 -z-10 opacity-[.15] [background-image:linear-gradient(rgba(14,165,233,.10)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,.08)_1px,transparent_1px)] [background-size:92px_92px]" />
 
       <section className="mx-auto flex min-h-[calc(100svh-4.5rem)] w-full max-w-[112rem] flex-col items-center px-4 py-9 sm:px-6 lg:px-8 lg:py-12 xl:px-10" aria-label="Cendorq AI Search Presence Repair homepage">
         <div className="mx-auto max-w-[70rem] text-center">
@@ -32,15 +32,17 @@ export function HomepageClarityReset() {
           <p className="mt-6 text-xs font-black uppercase tracking-[.18em] text-slate-500">Five decision signals. One next move. No fake ranking guarantees.</p>
         </div>
 
-        <section className="mt-10 w-full overflow-hidden rounded-[2.45rem] border border-white/80 bg-white/68 p-2 shadow-[0_48px_150px_rgba(15,23,42,.18),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-2xl" aria-label="Cendorq cinematic scan preview">
-          <div className="relative min-h-[38rem] overflow-hidden rounded-[2.05rem] border border-slate-200 bg-[#f8fdff]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_20%,rgba(125,211,252,.31),transparent_34%),radial-gradient(circle_at_78%_20%,rgba(167,139,250,.16),transparent_31%),linear-gradient(180deg,rgba(255,255,255,.82),rgba(239,250,255,.70))]" />
+        <section className="mt-10 w-full overflow-hidden rounded-[2.55rem] border border-white/80 bg-white/66 p-2 shadow-[0_48px_150px_rgba(15,23,42,.17),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-2xl" aria-label="Cendorq cinematic scan preview">
+          <div className="relative min-h-[38rem] overflow-hidden rounded-[2.15rem] border border-slate-200/90 bg-[#f8fdff]">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_22%,rgba(125,211,252,.30),transparent_35%),radial-gradient(circle_at_78%_24%,rgba(167,139,250,.16),transparent_32%),linear-gradient(180deg,rgba(255,255,255,.84),rgba(239,250,255,.68))]" />
             <div className="scan-light absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-transparent via-cyan-200/38 to-transparent" />
+            <div className="flow-line absolute left-[8%] right-[8%] top-1/2 hidden h-px bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent lg:block" />
+
             <div className="relative grid min-h-[38rem] gap-0 lg:grid-cols-[.30fr_.47fr_.23fr]">
-              <div className="bg-white/68 p-5 sm:p-7 lg:border-r lg:border-slate-200/80">
+              <div className="p-5 sm:p-7 lg:border-r lg:border-slate-200/70">
                 <div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[linear-gradient(135deg,#0f172a,#2563eb)] text-[10px] font-black text-cyan-100">CQ</span><div><p className="text-sm font-black text-slate-950">Presence Report in motion</p><p className="text-[10px] font-bold uppercase tracking-[.16em] text-slate-400">Live scan preview</p></div></div>
                 <h2 className="mt-9 text-4xl font-black leading-[.94] tracking-[-.075em] text-slate-950 sm:text-5xl">The market answers before the buyer calls.</h2>
-                <p className="mt-5 text-sm font-semibold leading-7 text-slate-500 sm:text-base">Cendorq reads the surface buyers see first and identifies the first confidence break.</p>
+                <p className="mt-5 text-sm font-semibold leading-7 text-slate-500 sm:text-base">Cendorq reads the public surface buyers see first and finds the first confidence break.</p>
                 <div className="mt-8 space-y-5">{FLOW.map(([number, title, copy]) => <StageLine key={title} number={number} title={title} copy={copy} />)}</div>
               </div>
 
@@ -59,7 +61,7 @@ export function HomepageClarityReset() {
                 </div>
               </div>
 
-              <div className="bg-white/68 p-5 sm:p-7 lg:border-l lg:border-slate-200/80">
+              <div className="p-5 sm:p-7 lg:border-l lg:border-slate-200/70">
                 <p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Presence score</p>
                 <div className="mt-3 flex items-end justify-between gap-4"><p className="text-6xl font-black tracking-[-.09em] text-slate-950">42</p><p className="pb-2 text-xs font-black uppercase tracking-[.16em] text-red-500">High friction</p></div>
                 <div className="mt-8 grid gap-5">{SIGNALS.map(([label, score, copy]) => <SignalMeter key={label} label={label} score={score} copy={copy} />)}</div>
@@ -69,7 +71,7 @@ export function HomepageClarityReset() {
           </div>
         </section>
 
-        <style>{`@keyframes scanLight{0%{transform:translateX(-9rem);opacity:0}18%,70%{opacity:1}100%{transform:translateX(96rem);opacity:0}}.scan-light{animation:scanLight 6s ease-in-out infinite}@media (prefers-reduced-motion:reduce){.scan-light{animation:none}}`}</style>
+        <style>{`@keyframes scanLight{0%{transform:translateX(-9rem);opacity:0}18%,70%{opacity:1}100%{transform:translateX(96rem);opacity:0}}@keyframes flowLine{0%,100%{opacity:.2;transform:scaleX(.72)}50%{opacity:1;transform:scaleX(1)}}.scan-light{animation:scanLight 6s ease-in-out infinite}.flow-line{animation:flowLine 5.8s ease-in-out infinite;transform-origin:center}@media (prefers-reduced-motion:reduce){.scan-light,.flow-line{animation:none}}`}</style>
       </section>
     </main>
   );
