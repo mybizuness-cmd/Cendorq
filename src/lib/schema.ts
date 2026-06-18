@@ -3,7 +3,7 @@ import { absoluteUrl, siteConfig } from "./seo";
 const KNOWS_ABOUT = [
   "AI Search Presence Repair",
   "Presence Report",
-  "Choice Gap",
+  "Decision Gap",
   "Repair Queue",
   "Free Scan",
   "Deep Review",
@@ -34,7 +34,7 @@ export function websiteSchema() {
     description: siteConfig.description,
     potentialAction: {
       "@type": "ReadAction",
-      target: [absoluteUrl("/free-check"), absoluteUrl("/sample-report"), absoluteUrl("/plans")],
+      target: [absoluteUrl("/free-check"), absoluteUrl("/plans"), absoluteUrl("/faq")],
     },
   };
 }
@@ -49,7 +49,7 @@ export function serviceSchema() {
       name: siteConfig.legalName,
       url: siteConfig.siteUrl,
     },
-    serviceType: "AI Search Presence Repair, Free Scan, Presence Report, Choice Gap, Repair Queue, Deep Review, Build Fix, and Ongoing Control",
+    serviceType: "AI Search Presence Repair, Free Scan, Presence Report, Decision Gap, Repair Queue, Deep Review, Build Fix, and Ongoing Control",
     areaServed: "Worldwide",
     url: absoluteUrl("/plans"),
     description:
