@@ -6,7 +6,6 @@ export type VisualCommandReviewSurfaceKey =
   | "homepage"
   | "plans"
   | "faq"
-  | "sample-report"
   | "protected-free-scan-report"
   | "dashboard-presence-snapshot";
 
@@ -32,7 +31,7 @@ export const VISUAL_COMMAND_DEVICE_REVIEW_TARGETS: readonly VisualCommandReviewT
     requiredWidths: VISUAL_COMMAND_DEVICE_WIDTHS,
     captureBands: ["hero and first command", "primary CTA stack", "Presence Report preview", "Scan Review Repair Control path", "footer or support path"],
     dominantCommand: "Run Free Scan remains the clearest first command.",
-    proofBeforePressureCheck: "Sample Report and Plans remain secondary evidence-led paths after Free Scan.",
+    proofBeforePressureCheck: "FAQ and Plans remain secondary evidence-led paths after Free Scan.",
     nonRegressionChecks: [
       "AI Search Presence Repair remains the category frame.",
       "Presence Report preview supports the hero without crowding it.",
@@ -48,7 +47,7 @@ export const VISUAL_COMMAND_DEVICE_REVIEW_TARGETS: readonly VisualCommandReviewT
     requiredWidths: VISUAL_COMMAND_DEVICE_WIDTHS,
     captureBands: ["hero decision frame", "plan cards", "Presence Report preview", "plan separation standard", "support path"],
     dominantCommand: "Free Scan remains the safest starting command when the buyer is unsure.",
-    proofBeforePressureCheck: "Sample Presence Report remains available as an evidence-led path before paid pressure.",
+    proofBeforePressureCheck: "FAQ and Free Scan remain available before paid pressure.",
     nonRegressionChecks: [
       "Scan Review Repair Control stay visually separated.",
       "Paid plan CTAs do not all compete as equal first actions on mobile.",
@@ -62,31 +61,15 @@ export const VISUAL_COMMAND_DEVICE_REVIEW_TARGETS: readonly VisualCommandReviewT
     path: "/faq",
     source: "src/app/faq/page.tsx",
     requiredWidths: VISUAL_COMMAND_DEVICE_WIDTHS,
-    captureBands: ["hero rule", "quick links", "details accordions", "privacy guarantee access answers", "contact path"],
-    dominantCommand: "Start Free Scan remains first in quick links.",
-    proofBeforePressureCheck: "Sample Report remains available before plan pressure.",
+    captureBands: ["hero rule", "core questions", "answer cards", "privacy guarantee access answers", "contact path"],
+    dominantCommand: "Run Free Scan remains the first action after answers are clear.",
+    proofBeforePressureCheck: "FAQ explains AI Search Presence Repair, Decision Gap, Repair Queue, and boundaries before plan pressure.",
     nonRegressionChecks: [
       "Customer access and same-email recovery remain clear.",
       "Guarantees, privacy, account access, and support answers stay easy to find.",
-      "Details summaries have comfortable mobile tap targets.",
+      "Answer cards have comfortable mobile tap targets.",
     ],
-    liveReviewDecisionRequired: ["confirm quick-link wrapping", "confirm tap target spacing", "confirm high-risk answer visibility"],
-  },
-  {
-    key: "sample-report",
-    label: "Sample Presence Report",
-    path: "/sample-report",
-    source: "src/app/sample-report/page.tsx",
-    requiredWidths: VISUAL_COMMAND_DEVICE_WIDTHS,
-    captureBands: ["hero and first commands", "sample report object", "evidence boundary", "next move policy", "example not promise copy"],
-    dominantCommand: "Run Free Scan and View Plans remain secondary to understanding the sample report object.",
-    proofBeforePressureCheck: "The report object remains readable before evidence boundaries and conversion pressure.",
-    nonRegressionChecks: [
-      "Sample language remains educational, not promissory.",
-      "Score, finding, proof, limitation, next move, and repair priority stay separated.",
-      "Vertical sample cards remain helpful rather than noisy.",
-    ],
-    liveReviewDecisionRequired: ["confirm report object readability", "confirm proof section order", "confirm example-not-promise visibility"],
+    liveReviewDecisionRequired: ["confirm answer-card wrapping", "confirm tap target spacing", "confirm high-risk answer visibility"],
   },
   {
     key: "protected-free-scan-report",
@@ -110,12 +93,12 @@ export const VISUAL_COMMAND_DEVICE_REVIEW_TARGETS: readonly VisualCommandReviewT
     path: "/dashboard",
     source: "src/app/dashboard/dashboard-presence-command-snapshot.tsx",
     requiredWidths: VISUAL_COMMAND_DEVICE_WIDTHS,
-    captureBands: ["presence score", "next move", "five pillars", "Choice Gap", "Repair Queue", "Control Snapshot"],
+    captureBands: ["presence score", "next move", "five pillars", "Decision Gap", "Repair Queue", "Control Snapshot"],
     dominantCommand: "Open Free Scan result remains the clear dashboard next action.",
     proofBeforePressureCheck: "Dashboard state, next move, repair, and control remain separated before any paid pressure.",
     nonRegressionChecks: [
       "Current state is obvious.",
-      "Choice Gap, Repair Queue, and Control Snapshot remain distinct.",
+      "Decision Gap, Repair Queue, and Control Snapshot remain distinct.",
       "Tablet-width pillar cards remain readable.",
     ],
     liveReviewDecisionRequired: ["confirm tablet pillar readability", "confirm next-action visibility", "confirm repair/control separation"],
