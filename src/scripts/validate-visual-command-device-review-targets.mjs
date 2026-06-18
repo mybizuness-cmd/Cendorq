@@ -20,15 +20,15 @@ expect(targetPath, [
   "homepage",
   "plans",
   "faq",
-  "sample-report",
   "protected-free-scan-report",
   "dashboard-presence-snapshot",
   "Run Free Scan remains the clearest first command.",
   "Free Scan remains the safest starting command when the buyer is unsure.",
-  "Start Free Scan remains first in quick links.",
+  "Run Free Scan remains the first action after answers are clear.",
   "Read Free Scan report first remains the dominant mobile hero action.",
   "The protected report preview appears before the paid Review CTA and proof-before-paid-pressure section.",
   "confirm paid CTA does not overpower proof",
+  "Decision Gap, Repair Queue, and Control Snapshot remain distinct.",
 ]);
 
 expect(protocolPath, [
@@ -51,17 +51,19 @@ expect(registerPath, [
   "Do not treat this as final screenshot approval.",
 ]);
 
+forbidden(targetPath, ["sample-report", "/sample-report", "Sample Report", "Sample Presence Report"]);
+
 const text = read(targetPath);
 const pathMatches = [...text.matchAll(/path: "([^"]+)"/g)].map((match) => match[1]);
-for (const requiredPath of ["/", "/plans", "/faq", "/sample-report", "/dashboard/reports/free-scan", "/dashboard"]) {
+for (const requiredPath of ["/", "/plans", "/faq", "/dashboard/reports/free-scan", "/dashboard"]) {
   if (!pathMatches.includes(requiredPath)) failures.push(`${targetPath} missing route path: ${requiredPath}`);
 }
 
 const widthMatches = [...text.matchAll(/requiredWidths: VISUAL_COMMAND_DEVICE_WIDTHS/g)];
-if (widthMatches.length !== 6) failures.push(`${targetPath} must assign VISUAL_COMMAND_DEVICE_WIDTHS to all 6 review targets.`);
+if (widthMatches.length !== 5) failures.push(`${targetPath} must assign VISUAL_COMMAND_DEVICE_WIDTHS to all 5 review targets.`);
 
 const keyMatches = [...text.matchAll(/key: "([^"]+)"/g)].map((match) => match[1]);
-if (new Set(keyMatches).size !== 6) failures.push(`${targetPath} must contain 6 unique review target keys.`);
+if (new Set(keyMatches).size !== 5) failures.push(`${targetPath} must contain 5 unique review target keys.`);
 
 if (failures.length) {
   console.error("Visual command device review target validation failed:");
@@ -69,7 +71,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Visual command device review target validation passed with required widths, routes, capture bands, dominant commands, proof-before-pressure checks, and live review decisions.");
+console.log("Visual command device review target validation passed with required widths, current public routes, protected report route, and retired sample-report target.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
@@ -78,6 +80,12 @@ function expect(path, phrases) {
   }
   const text = read(path);
   for (const phrase of phrases) if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+}
+
+function forbidden(path, phrases) {
+  if (!existsSync(join(root, path))) return;
+  const text = read(path);
+  for (const phrase of phrases) if (text.includes(phrase)) failures.push(`${path} contains forbidden phrase: ${phrase}`);
 }
 
 function read(path) {
