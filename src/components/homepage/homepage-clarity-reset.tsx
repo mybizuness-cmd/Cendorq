@@ -28,11 +28,11 @@ export function HomepageClarityReset() {
           <p className="text-[11px] font-black uppercase tracking-[.26em] text-sky-700">AI Search Presence Repair</p>
           <h1 className="mt-5 text-[clamp(2.85rem,7.2vw,6.35rem)] font-black leading-[.88] tracking-[-.09em] text-slate-950">Know why customers choose someone else.</h1>
           <p className="mx-auto mt-5 max-w-[53rem] text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">Cendorq scans what buyers and answer engines can see, shows where confidence breaks, and tells you what to repair first.</p>
-          <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4"><Link href="/free-check" className={PRIMARY}>Run Free Scan <span aria-hidden="true" className="ml-4 text-xl leading-none">→</span></Link><Link href="/sample-report" className={SECONDARY}>See Sample Report</Link></div>
+          <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4"><Link href="/free-check" className={PRIMARY}>Run Free Scan <span aria-hidden="true" className="ml-4 text-xl leading-none">→</span></Link><Link href="#product" className={SECONDARY}>See How It Works</Link></div>
           <p className="mt-6 text-xs font-black uppercase tracking-[.18em] text-slate-500">Five decision signals. One next move. No fake ranking guarantees.</p>
         </div>
 
-        <section className="mt-10 w-full overflow-hidden rounded-[2.55rem] border border-white/80 bg-white/66 p-2 shadow-[0_48px_150px_rgba(15,23,42,.17),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-2xl" aria-label="Cendorq cinematic scan preview">
+        <section id="product" className="mt-10 scroll-mt-28 w-full overflow-hidden rounded-[2.55rem] border border-white/80 bg-white/66 p-2 shadow-[0_48px_150px_rgba(15,23,42,.17),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-2xl" aria-label="Cendorq cinematic scan preview">
           <div className="relative min-h-[38rem] overflow-hidden rounded-[2.15rem] border border-slate-200/90 bg-[#f8fdff]">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_22%,rgba(125,211,252,.30),transparent_35%),radial-gradient(circle_at_78%_24%,rgba(167,139,250,.16),transparent_32%),linear-gradient(180deg,rgba(255,255,255,.84),rgba(239,250,255,.68))]" />
             <div className="scan-light absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-transparent via-cyan-200/38 to-transparent" />
