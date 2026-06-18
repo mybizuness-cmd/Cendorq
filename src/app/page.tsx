@@ -9,7 +9,7 @@ export const metadata = buildMetadata({
   title: "Cendorq | AI Search Presence Repair for Businesses",
   description: "Cendorq checks your business presence, shows the first weak signal, and points to the next Scan, Review, Repair, or Control command.",
   path: "/",
-  keywords: ["cendorq", "AI Search Presence Repair", "Search Presence", "business clarity scan", "presence report", "Choice Gap", "Repair Queue", "business trust signals"],
+  keywords: ["cendorq", "AI Search Presence Repair", "Search Presence", "business clarity scan", "presence report", "Decision Gap", "Repair Queue", "business trust signals"],
   image: { alt: "Cendorq AI Search Presence Repair." },
 });
 
