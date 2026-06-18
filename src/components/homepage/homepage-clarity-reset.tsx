@@ -7,7 +7,7 @@ const SIGNALS = [
   ["Search Presence", "58", "located, not strong"],
   ["Understanding", "39", "slow to decode"],
   ["Trust", "44", "proof arrives late"],
-  ["Choice", "31", "competitor clearer"],
+  ["Decision", "31", "competitor clearer"],
   ["Action", "52", "path uneven"],
 ] as const;
 
@@ -25,7 +25,7 @@ export function HomepageClarityReset() {
           <h1 className="mt-5 text-[clamp(2.85rem,7.2vw,6.35rem)] font-black leading-[.88] tracking-[-.09em] text-slate-950">Know why customers choose someone else.</h1>
           <p className="mx-auto mt-5 max-w-[53rem] text-base font-semibold leading-8 text-slate-600 sm:text-xl sm:leading-9">Cendorq turns public signals into a clear explanation of where customers and answer engines lose confidence, what it costs you, and what to repair first.</p>
           <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4"><Link href="/free-check" className={PRIMARY}>Run Free Scan <span aria-hidden="true" className="ml-4 text-xl leading-none">→</span></Link><Link href="/sample-report" className={SECONDARY}>See Sample Report</Link></div>
-          <p className="mt-6 text-xs font-black uppercase tracking-[.18em] text-slate-500">Five choice signals. One next move. No fake ranking guarantees.</p>
+          <p className="mt-6 text-xs font-black uppercase tracking-[.18em] text-slate-500">Five decision signals. One next move. No fake ranking guarantees.</p>
         </div>
 
         <section className="mt-10 w-full overflow-hidden rounded-[2.45rem] border border-white/80 bg-white/70 p-2 shadow-[0_48px_150px_rgba(15,23,42,.19),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-2xl" aria-label="Cendorq cinematic scan preview">
@@ -47,7 +47,7 @@ export function HomepageClarityReset() {
                   <h3 className="mt-3 text-[clamp(2.25rem,4.7vw,4.75rem)] font-black leading-[.9] tracking-[-.085em] text-slate-950">Which business feels safest to choose?</h3>
                   <p className="mt-4 max-w-[34rem] text-sm font-semibold leading-7 text-slate-500">A capable business can still lose when public signals make a competitor easier to understand.</p>
                   <div className="mt-8 grid gap-3 sm:grid-cols-5">{SOURCES.map((source, index) => <SourceNode key={source} label={source} index={index} />)}</div>
-                  <div className="mt-8 rounded-[1.8rem] border border-slate-200 bg-white/86 p-5 shadow-[0_20px_70px_rgba(15,23,42,.09)]"><p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Choice Gap</p><p className="mt-2 text-3xl font-black leading-[.95] tracking-[-.07em] text-slate-950">Competitor explains faster.</p><p className="mt-3 text-sm font-semibold leading-7 text-slate-500">Repair Queue: move proof into the decision point before adding more traffic.</p></div>
+                  <div className="mt-8 rounded-[1.8rem] border border-slate-200 bg-white/86 p-5 shadow-[0_20px_70px_rgba(15,23,42,.09)]"><p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Decision Gap</p><p className="mt-2 text-3xl font-black leading-[.95] tracking-[-.07em] text-slate-950">Competitor explains faster.</p><p className="mt-3 text-sm font-semibold leading-7 text-slate-500">Repair Queue: move proof into the decision point before adding more traffic.</p></div>
                 </div>
               </div>
 
@@ -55,7 +55,7 @@ export function HomepageClarityReset() {
                 <p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-700">Presence score</p>
                 <div className="mt-3 flex items-end justify-between gap-4"><p className="text-6xl font-black tracking-[-.09em] text-slate-950">42</p><p className="pb-2 text-xs font-black uppercase tracking-[.16em] text-red-500">High friction</p></div>
                 <div className="mt-8 grid gap-5">{SIGNALS.map(([label, score, copy]) => <SignalMeter key={label} label={label} score={score} copy={copy} />)}</div>
-                <Link href="/free-check" className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-cyan-100 bg-slate-950 px-5 py-2 text-sm font-black text-cyan-100 shadow-[0_16px_42px_rgba(15,23,42,.2)]">Start scan</Link>
+                <Link href="/free-check" className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-cyan-100 bg-white/78 px-5 py-2 text-sm font-black text-slate-950 shadow-[0_14px_34px_rgba(15,23,42,.08)]">Start scan</Link>
               </div>
             </div>
           </div>
