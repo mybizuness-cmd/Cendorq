@@ -3,21 +3,32 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const failures = [];
-const publicCommandDesignAnchors = ["AI Visibility", "AI Engine Readiness", "Free Scan", "Deep Review", "Build Fix", "Ongoing Control", "Scan", "Review", "Repair", "Control"];
+const publicCommandDesignAnchors = [
+  "AI Search Presence Repair",
+  "Free Scan",
+  "Presence Report",
+  "Decision Gap",
+  "Repair Queue",
+  "Scan",
+  "Review",
+  "Repair",
+  "Control",
+];
 
-const requiredFiles = [
+const activePublicFiles = [
   "src/app/page.tsx",
   "src/components/homepage/homepage-clarity-reset.tsx",
   "src/app/free-check/page.tsx",
-  "src/app/sample-report/page.tsx",
   "src/app/plans/page.tsx",
   "src/app/faq/page.tsx",
   "src/app/plans/plan-data.ts",
   "src/app/connect/page.tsx",
+  "src/app/report/page.tsx",
   "src/app/dashboard/page.tsx",
   "src/layout/site-header-conversion.tsx",
   "src/layout/site-footer.tsx",
   "src/lib/seo.ts",
+  "src/app/layout.tsx",
   "src/lib/cendorq-experience-system.ts",
   "src/app/api/customer/email/confirm/route.ts",
   "src/app/api/auth/continue/route.ts",
@@ -28,22 +39,35 @@ const requiredFiles = [
   "src/lib/customer-email-verification-token-runtime.ts",
 ];
 
-for (const file of requiredFiles) {
+for (const file of activePublicFiles) {
   if (!existsSync(join(root, file))) failures.push(`Missing active public drift file: ${file}`);
+}
+
+for (const retiredRouteFile of [
+  "src/app/sample-report/page.tsx",
+  "src/app/sample-report/dentist/page.tsx",
+  "src/app/sample-report/med-spa/page.tsx",
+  "src/app/sample-report/law-firm/page.tsx",
+  "src/app/sample-report/contractor/page.tsx",
+]) {
+  if (existsSync(join(root, retiredRouteFile))) failures.push(`Retired public sample-report route still exists: ${retiredRouteFile}`);
 }
 
 expect("src/app/page.tsx", [
   "HomepageClarityReset",
   "Cendorq | AI Search Presence Repair for Businesses",
-  "presence-report-ai-search-presence-repair-experience",
+  "Decision Gap",
+  "Repair Queue",
 ]);
 
 expect("src/components/homepage/homepage-clarity-reset.tsx", [
   "AI Search Presence Repair",
-  "Be easier to find, understand, and choose.",
-  "Start Free Scan",
-  "See Sample Report",
-  "PresenceReportPreview",
+  "Know why customers choose someone else.",
+  "Run Free Scan",
+  "See How It Works",
+  "Presence Report in motion",
+  "Decision Gap",
+  "Repair Queue",
 ]);
 
 expect("src/layout/site-header-conversion.tsx", [
@@ -53,96 +77,85 @@ expect("src/layout/site-header-conversion.tsx", [
   "Contact",
   "Customer Access",
   "Start Free Scan",
-  "AccountMenu",
-  "Dashboard",
 ]);
 
 expect("src/app/free-check/page.tsx", [
-  "Free Scan | Cendorq",
-  "first Presence Report and AI Visibility signal",
-  "Get the first signal before buying the deeper fix.",
-  "Low friction",
-  "Useful context",
-  "Safe boundary",
-  "Open the result in your account.",
-]);
-
-expect("src/app/sample-report/page.tsx", [
-  "Sample Presence Report",
-  "The Presence Report is the core Cendorq object",
-  "Run Free Scan",
-  "View Plans",
-  "This is an example, not a promise.",
+  "Free Scan",
+  "Presence Report",
+  "AI Search Presence Repair",
 ]);
 
 expect("src/app/plans/page.tsx", [
-  "Choose the right AI Visibility and Readiness depth.",
-  "Free Scan shows the first signal.",
-  "Deep Review explains the cause.",
-  "Build Fix repairs the weak point.",
-  "Ongoing Control keeps AI Visibility and Readiness from drifting.",
-  "The report shows which depth fits.",
-  "Open Sample Presence Report",
-  "PresenceReportPreview",
+  "Free Scan",
+  "Deep Review",
+  "Build Fix",
+  "Ongoing Control",
+]);
+
+expect("src/app/plans/plan-data.ts", [
+  "Read FAQ",
+  "Decision Gap",
+  "Repair Queue",
+  "AI Search Presence",
+  "Start Free Scan",
+  "Start Deep Review",
+  "Start Build Fix",
+  "Start Ongoing Control",
 ]);
 
 expect("src/app/faq/page.tsx", [
-  "Cendorq FAQ",
-  "Get clear answers before the next move.",
-  "Sample Presence Report",
-  "Open the Sample Presence Report",
-  "find, understand, trust, compare, and choose",
-  "Already have an account?",
+  "Answers before the first repair.",
+  "AI Search Presence Repair",
+  "Decision Gap",
+  "Repair Queue",
+  "Run Free Scan",
+  "Compare Plans",
   "FAQPage",
 ]);
 
 expect("src/app/connect/page.tsx", [
   "Contact Us",
-  "support@cendorq.com",
   "Email Support",
-  "Email us directly",
   "Start Free Scan",
   "Compare plans",
-  "direct email",
-  "from the email address where you want the reply",
+]);
+
+expect("src/app/report/page.tsx", [
+  "Report Access",
+  "Open Reports",
+  "Start Scan",
+  "Customer Access",
+  "Read FAQ",
+  "Presence Report",
+  "AI Search Presence Repair",
 ]);
 
 expect("src/layout/site-footer.tsx", [
-  "AI Search Presence Repair",
-  "found, understood, trusted, compared, and chosen",
-  "Sample Report",
-  "Plans",
-  "FAQ",
   "Privacy",
   "Terms",
-]);
-
-expect("src/app/plans/plan-data.ts", [
-  "Deep Review",
-  "Build Fix",
-  "Ongoing Control",
-  "visibility and readiness",
-  "where it may be missing",
-  "see, understand, trust, compare, or choose",
+  "Disclaimer",
 ]);
 
 expect("src/app/dashboard/page.tsx", [
-  "AI Visibility command center",
-  "Private AI Visibility command center",
-  "Your Cendorq command center is ready.",
-  "Cendorq keeps AI Visibility, Diagnosis, reports, plans, billing, support, and one clear next command in one protected dashboard.",
-  "Protected Presence Command Center",
-  "Choice Gap",
   "Repair Queue",
   "Control Snapshot",
-  "Scan. Review. Repair. Control.",
 ]);
 
 expect("src/lib/seo.ts", [
   "AI Search Presence Repair",
   "Presence Report",
+  "Decision Gap",
   "Repair Queue",
   "find, understand, trust, compare, and choose",
+]);
+
+expect("src/app/layout.tsx", [
+  "AI Search Presence Repair",
+  "Presence Report",
+  "Decision Gap",
+  "Repair Queue",
+  "FAQ guidance",
+  "absoluteUrl(\"/faq\")",
 ]);
 
 expect("src/lib/cendorq-experience-system.ts", [
@@ -185,14 +198,15 @@ forbidden("src/app/page.tsx", [
   "function PresenceReport()",
 ]);
 
-forbidden("src/app/connect/page.tsx", [
-  "support@opstandoc.com",
-  "message box",
-  "textarea",
-  "Connect utility",
-]);
-
-forbidden("src/app/plans/plan-data.ts", ["AI" + " Readiness Review", "Signal" + " Repair", "Readiness" + " Control"]);
+forbidden("src/components/homepage/homepage-clarity-reset.tsx", ["/sample-report", "Sample Report", "rounded-full", "Choice Gap"]);
+forbidden("src/layout/site-header-conversion.tsx", ["/sample-report", "Sample Report", "rounded-full"]);
+forbidden("src/layout/site-footer.tsx", ["/sample-report", "Sample Report", "rounded-full"]);
+forbidden("src/app/faq/page.tsx", ["/sample-report", "Sample Report", "Sample Presence Report", "Choice Gap", "rounded-full"]);
+forbidden("src/app/report/page.tsx", ["/sample-report", "Sample Report", "rounded-full"]);
+forbidden("src/app/plans/plan-data.ts", ["/sample-report", "See Sample Report", "Sample Report", "Choice Gap"]);
+forbidden("src/app/connect/page.tsx", ["support@opstandoc.com", "message box", "textarea", "Connect utility"]);
+forbidden("src/lib/seo.ts", ["/sample-report", "Sample Report", "Choice Gap"]);
+forbidden("src/app/layout.tsx", ["/sample-report", "Sample Presence Report", "Choice Gap", "rounded-full"]);
 
 const confirmRoute = read("src/app/api/customer/email/confirm/route.ts");
 const postFunctionMatch = confirmRoute.match(/export async function POST[\s\S]*?\n}\n\nfunction projectSafeConfirmationResponse/);
@@ -211,7 +225,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, simplified homepage, Customer Access naming, Free Scan route, Sample Report path, Plans depth, Contact Us direct-email support routing, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
+console.log(`Public drift validation passed with ${publicCommandDesignAnchors.join(", ")} anchors, retired sample-report routes, Decision Gap language, current FAQ path, Customer Access naming, safe email confirmation response projection, signed remembered-session behavior, safe provider return paths, and truthful email access states.`);
 
 function expect(path, phrases) {
   const text = read(path);
