@@ -6,7 +6,6 @@ const BRAND_NAME = "Cendorq";
 
 const PUBLIC_NAV_LINKS = [
   { label: "Product", href: "/#product" },
-  { label: "Sample Report", href: "/sample-report" },
   { label: "Plans", href: "/plans" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/connect" },
@@ -50,7 +49,7 @@ export async function SiteHeader() {
         </Link>
       </div>
       <style>{`.header-nav-scroll{scrollbar-width:none}.header-nav-scroll::-webkit-scrollbar{display:none}`}</style>
-      <span className="sr-only">Header navigation includes working links for Product, Sample Report, Plans, FAQ, Contact, Customer Access, and Start Free Scan.</span>
+      <span className="sr-only">Header navigation includes working links for Product, Plans, FAQ, Contact, Customer Access, and Start Free Scan.</span>
     </header>
   );
 }
