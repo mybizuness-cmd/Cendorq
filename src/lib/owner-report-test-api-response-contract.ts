@@ -6,7 +6,7 @@ export type OwnerReportTestApiResponseContract = {
     "urlSafety",
     "acquisition",
     "findings",
-    "previewPackages",
+    "reportPackages",
     "exportProjection",
     "readinessScore",
     "reportExperienceScorecards",
@@ -14,8 +14,8 @@ export type OwnerReportTestApiResponseContract = {
     "executionReceipt",
     "resultReview",
     "persistence",
-    "sampleOutputs",
-    "previewBlueprints"
+    "testOutputs",
+    "blueprints"
   ];
   requiredSafetyFlags: readonly [
     "previewOnly",
@@ -38,7 +38,7 @@ export type OwnerReportTestApiResponseContract = {
 
 export const OWNER_REPORT_TEST_API_RESPONSE_CONTRACT_STANDARD = [
   "Owner report test POST response must have a stable shape for backend-terminal and Command Center review.",
-  "Required top-level response keys include safety, acquisition, findings, preview packages, export projection, readiness score, report experience scorecards, visual quality gate, execution receipt, result review, persistence, sample outputs, and preview blueprints.",
+  "Required top-level response keys include safety, acquisition, findings, report packages, export projection, readiness score, report experience scorecards, visual quality gate, execution receipt, result review, persistence, test outputs, and blueprints.",
   "Required safety flags must show preview-only, owner-test checkout bypass, no customer delivery, no report release, no billing mutation, and no entitlement mutation.",
   "The API response contract is owner-only and public-company-URL-only.",
 ] as const;
@@ -52,7 +52,7 @@ export function getOwnerReportTestApiResponseContract(): OwnerReportTestApiRespo
       "urlSafety",
       "acquisition",
       "findings",
-      "previewPackages",
+      "reportPackages",
       "exportProjection",
       "readinessScore",
       "reportExperienceScorecards",
@@ -60,8 +60,8 @@ export function getOwnerReportTestApiResponseContract(): OwnerReportTestApiRespo
       "executionReceipt",
       "resultReview",
       "persistence",
-      "sampleOutputs",
-      "previewBlueprints",
+      "testOutputs",
+      "blueprints",
     ],
     requiredSafetyFlags: [
       "previewOnly",
