@@ -43,12 +43,13 @@ expect(routePath, [
   "resultReviewContract",
   "reportExperienceScorecards",
   "visualQualityGate",
+  "operatorSignoff",
   "fixtureBatch",
   "batchManifest",
   "fixtureCommands",
-  "sampleOutputs",
-  "previewBlueprints",
-  "previewPackages",
+  "testOutputs",
+  "blueprints",
+  "reportPackages",
   "exportProjection",
   "readinessScore",
   "executionReceipt",
@@ -96,7 +97,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test mode API validation passed with GET contracts, visual quality gate, report experience scorecards, fixture discovery, batch manifest, execution receipt, readiness score, export projection, result review, API response evaluation, public URL safety, acquisition, findings, preview packages, runner state, and sample outputs.");
+console.log("Owner report test mode API validation passed with GET contracts, visual quality gate, report experience scorecards, fixture discovery, batch manifest, execution receipt, readiness score, export projection, result review, API response evaluation, public URL safety, acquisition, findings, report packages, runner state, and test outputs.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
