@@ -10,13 +10,13 @@ expect(contractPath, [
   "OwnerReportTestResultExportProjection",
   "OWNER_REPORT_TEST_RESULT_EXPORT_STANDARD",
   "buildOwnerReportTestResultExportProjection",
-  "owner-json-preview",
+  "owner-json-test",
   "owner-test-mode",
   "safety",
   "acquisition",
   "findings",
-  "previewPackages",
-  "sampleOutputs",
+  "reportPackages",
+  "testOutputs",
   "qualityGate",
   "downloadableFromCustomerDashboard: false",
   "emailedToCustomer: false",
@@ -50,7 +50,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test result export contract validation passed.");
+console.log("Owner report test result export contract validation passed with report packages and test outputs.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
