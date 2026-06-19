@@ -14,7 +14,7 @@ expect(reviewPath, [
   "urlSafety",
   "acquisition",
   "findings",
-  "previewPackages",
+  "reportPackages",
   "exportProjection",
   "readinessScore",
   "executionReceipt",
@@ -54,7 +54,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test result review contract validation passed.");
+console.log("Owner report test result review contract validation passed with report package checks.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
