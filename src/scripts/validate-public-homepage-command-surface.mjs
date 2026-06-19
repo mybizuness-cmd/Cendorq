@@ -32,7 +32,18 @@ check("src/layout/site-header-conversion.tsx", [
   "href=\"/connect\"",
   "href=\"/login\"",
 ]);
-check("src/app/free-check/page.tsx", ["Free Scan | Cendorq", "Low friction", "Useful context", "Safe boundary"]);
+check("src/app/free-check/page.tsx", ["Free Scan | Cendorq", "Low friction", "Useful context", "Safe boundary", "Start Free Scan", "Decision Gap"]);
+check("src/app/plans/page.tsx", [
+  "Choose the next repair depth.",
+  "Start with the Free Scan when the Decision Gap is unknown.",
+  "Start Free Scan",
+  "Read FAQ",
+  "Scan",
+  "Review",
+  "Repair",
+  "Control",
+  "No guaranteed rankings, leads, revenue, or AI placement.",
+]);
 check("src/app/faq/page.tsx", ["Cendorq FAQ", "Answers before the first repair.", "AI Search Presence Repair", "Decision Gap", "Repair Queue"]);
 check("src/app/connect/page.tsx", ["Contact Cendorq", "Start Free Scan", "Compare plans"]);
 check("package.json", ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
@@ -49,9 +60,30 @@ forbid("src/components/homepage/homepage-clarity-reset.tsx", [
   "preview report",
 ]);
 
+forbid("src/app/plans/page.tsx", [
+  "Start Scan",
+  "rounded-full",
+  "Choose the right next step.",
+  "See the first weak signal.",
+  "No visible eyebrow label blocks",
+  "sample report",
+  "preview report",
+]);
+
+forbid("src/app/free-check/page.tsx", [
+  "Start Scan",
+  "View Plans",
+  "rounded-full",
+  "first weak signal",
+  "sample report CTA",
+  "preview report CTA",
+]);
+
 maxLength("src/app/page.tsx", 2600);
 maxLength("src/components/homepage/homepage-clarity-reset.tsx", 16000);
 maxLength("src/layout/site-header-conversion.tsx", 18000);
+maxLength("src/app/free-check/page.tsx", 20000);
+maxLength("src/app/plans/page.tsx", 18000);
 maxLength("src/app/faq/page.tsx", 22000);
 
 if (failures.length) {
@@ -60,7 +92,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with simplified homepage, clean mobile navigation, product anchor, and Decision Gap language.");
+console.log("Public command surface validation passed with simplified homepage, polished free scan, polished plans, clean mobile navigation, and Decision Gap language.");
 
 function check(path, phrases) {
   const absolute = join(root, path);
