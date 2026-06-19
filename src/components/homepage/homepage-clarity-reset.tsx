@@ -16,6 +16,8 @@ const RAILS = [
   ["Proof", "what lowers doubt"],
 ] as const;
 
+const HALO = ["Clarity", "Trust", "Proof", "Choice"] as const;
+
 const PATH = [
   ["01", "Scan", "Read the public surface customers already judge."],
   ["02", "Decision Gap", "Find why another option feels safer, clearer, or easier to choose."],
@@ -65,9 +67,11 @@ function SignalEngine() {
       <div className="absolute inset-y-7 left-0 w-28 bg-gradient-to-r from-transparent via-cyan-200/32 to-transparent blur-sm motion-safe:animate-pulse" />
       <div className="absolute inset-x-8 top-[10%] h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent" />
       <div className="absolute inset-x-14 bottom-[13%] h-px bg-gradient-to-r from-transparent via-violet-200/35 to-transparent" />
+      <HaloLabels />
 
       <div className="presence-card relative w-full max-w-[48rem] overflow-hidden rounded-[2.8rem] border border-white/18 bg-white/[.10] p-5 shadow-[0_56px_170px_rgba(0,0,0,.46),inset_0_1px_0_rgba(255,255,255,.22)] backdrop-blur-2xl transition duration-700 hover:-translate-y-3 hover:rotate-1 sm:p-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(103,232,249,.22),transparent_30%),radial-gradient(circle_at_84%_8%,rgba(167,139,250,.2),transparent_28%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent" />
         <div className="relative grid gap-4 sm:grid-cols-4">
           {SIGNALS.map(([label, score, copy]) => <Signal key={label} label={label} score={score} copy={copy} />)}
         </div>
@@ -94,10 +98,21 @@ function SignalEngine() {
   );
 }
 
+function HaloLabels() {
+  return (
+    <div className="pointer-events-none absolute inset-0 hidden sm:block">
+      {HALO.map((item, index) => (
+        <span key={item} className={`absolute rounded-2xl border border-white/12 bg-white/[.07] px-3 py-2 text-[10px] font-black uppercase tracking-[.18em] text-cyan-100/70 shadow-[0_16px_46px_rgba(0,0,0,.22)] backdrop-blur-xl motion-safe:animate-pulse ${index === 0 ? "left-[8%] top-[24%]" : index === 1 ? "right-[9%] top-[28%]" : index === 2 ? "left-[12%] bottom-[26%]" : "right-[13%] bottom-[25%]"}`}>{item}</span>
+      ))}
+    </div>
+  );
+}
+
 function SystemCore() {
   return (
     <div className="relative min-h-72 overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[.06] p-4">
       <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(103,232,249,.18)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,.14)_1px,transparent_1px)] [background-size:34px_34px]" />
+      <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-[3rem] border border-cyan-200/16 bg-cyan-200/5 shadow-[0_0_120px_rgba(34,211,238,.22)]" />
       <div className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-[2.6rem] border border-cyan-200/28 bg-cyan-200/10 shadow-[0_0_110px_rgba(34,211,238,.32)] motion-safe:animate-pulse" />
       <div className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/20 bg-slate-950/80 shadow-[0_0_70px_rgba(125,211,252,.34)]" />
       <div className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-[.8rem] bg-cyan-200" />
