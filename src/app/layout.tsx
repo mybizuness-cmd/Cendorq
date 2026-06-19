@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 import "./tailwind.css";
 import "./globals.css";
 import "./quality-polish.css";
+import "./mobile-menu.css";
 
 const siteUrl = new URL(siteConfig.siteUrl);
 const siteOrigin = siteUrl.origin;
@@ -201,6 +202,7 @@ function buildStructuredData() {
 }
 
 function normalizeEmail(value: string | undefined) {
-  const cleaned = (value || "").trim().toLowerCase();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : "";
+  const email = (value || "").trim();
+  if (!email) return "";
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : "";
 }
