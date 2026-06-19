@@ -18,6 +18,13 @@ const RAILS = [
 
 const HALO = ["Clarity", "Trust", "Proof", "Choice"] as const;
 
+const COMMANDS = [
+  ["01", "Map", "Capture the public surface customers and answer engines already evaluate."],
+  ["02", "Expose", "Separate visibility from the Decision Gap that makes a rival easier to choose."],
+  ["03", "Route", "Turn the gap into a Repair Queue instead of another unfocused marketing task."],
+  ["04", "Control", "Keep the repaired surface from drifting as content, proof, and offers change."],
+] as const;
+
 const PATH = [
   ["01", "Scan", "Read the public surface customers already judge."],
   ["02", "Decision Gap", "Find why another option feels safer, clearer, or easier to choose."],
@@ -46,6 +53,8 @@ export function HomepageClarityReset() {
 
         <SignalEngine />
       </section>
+
+      <CommandSpine />
 
       <section id="product" className="relative mx-auto w-full max-w-[118rem] scroll-mt-28 px-4 pb-16 sm:px-6 lg:px-8 xl:px-10" aria-label="How Cendorq works">
         <div className="grid gap-4 rounded-[2.5rem] border border-white/18 bg-white/[.07] p-3 shadow-[0_38px_140px_rgba(2,6,23,.34),inset_0_1px_0_rgba(255,255,255,.16)] backdrop-blur-2xl lg:grid-cols-3">
@@ -98,6 +107,20 @@ function SignalEngine() {
   );
 }
 
+function CommandSpine() {
+  return (
+    <section className="relative mx-auto w-full max-w-[118rem] px-4 pb-8 sm:px-6 lg:px-8 xl:px-10" aria-label="Cendorq command spine">
+      <div className="relative overflow-hidden rounded-[2.6rem] border border-white/16 bg-slate-950/58 p-4 shadow-[0_36px_130px_rgba(2,6,23,.32),inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-2xl sm:p-5">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
+        <div className="absolute left-8 right-8 top-1/2 hidden h-px bg-gradient-to-r from-cyan-200/0 via-cyan-200/38 to-violet-200/0 lg:block" />
+        <div className="grid gap-3 lg:grid-cols-4">
+          {COMMANDS.map(([step, title, copy]) => <CommandCard key={title} step={step} title={title} copy={copy} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function HaloLabels() {
   return (
     <div className="pointer-events-none absolute inset-0 hidden sm:block">
@@ -139,6 +162,10 @@ function CoreNode({ title, note, className }: { title: string; note: string; cla
 
 function Rail({ title, copy }: { title: string; copy: string }) {
   return <div className="rounded-2xl border border-white/10 bg-slate-950/58 p-3 backdrop-blur-xl"><p className="text-[10px] font-black uppercase tracking-[.14em] text-cyan-100">{title}</p><p className="mt-1 text-[10px] font-semibold leading-4 text-cyan-50/46">{copy}</p></div>;
+}
+
+function CommandCard({ step, title, copy }: { step: string; title: string; copy: string }) {
+  return <article className="relative z-10 overflow-hidden rounded-[2rem] border border-white/14 bg-white/[.08] p-5 shadow-[0_22px_72px_rgba(2,6,23,.25),inset_0_1px_0_rgba(255,255,255,.14)] backdrop-blur-xl transition duration-500 hover:-translate-y-1 hover:bg-white/[.12]"><div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" /><p className="text-xs font-black text-cyan-200">{step}</p><h2 className="mt-4 text-2xl font-black tracking-[-.08em] text-white">{title}</h2><p className="mt-3 text-sm font-semibold leading-7 text-cyan-50/58">{copy}</p></article>;
 }
 
 function MiniCard({ title, copy }: { title: string; copy: string }) {
