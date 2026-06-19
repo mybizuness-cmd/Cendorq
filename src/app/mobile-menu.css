@@ -1,0 +1,11 @@
+@media (max-width: 1023px) {
+  header[data-cendorq-visible-header="true"] details[open] > div {
+    position: fixed !important;
+    left: 0.75rem !important;
+    right: 0.75rem !important;
+    top: 4.75rem !important;
+    width: auto !important;
+    max-height: calc(100svh - 5.5rem) !important;
+    overflow-y: auto !important;
+  }
+}
