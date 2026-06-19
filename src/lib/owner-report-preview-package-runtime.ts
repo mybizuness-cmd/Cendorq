@@ -43,8 +43,8 @@ export type OwnerReportPreviewPackageRuntimeResult = {
 };
 
 export const OWNER_REPORT_PREVIEW_PACKAGE_STANDARD = [
-  "Preview packages combine sample report structure, owner-test findings, quality gate status, and next command into one owner-readable object.",
-  "Preview packages remain owner-test-only and must not approve customer delivery, report release, checkout, billing mutation, entitlement mutation, raw evidence return, or private data return.",
+  "Owner-test report packages combine report structure, owner-test findings, quality gate status, and next command into one owner-readable object.",
+  "Owner-test report packages must not approve customer delivery, report release, checkout, billing mutation, entitlement mutation, raw evidence return, or private data return.",
   "Every package must preserve the watermark OWNER TEST MODE - NOT CUSTOMER DELIVERY.",
   "Every package must include a quality gate result and at least one next command.",
 ] as const;
@@ -59,7 +59,7 @@ export function buildOwnerReportPreviewPackages(input: {
   return {
     ok: packages.length > 0 && blockedReasons.length === 0,
     status: packages.length > 0 && blockedReasons.length === 0 ? "ready" : "blocked",
-    reason: packages.length > 0 ? (blockedReasons.length ? "quality-gate-blocked" : "owner-report-preview-packages-ready") : "no-preview-packages",
+    reason: packages.length > 0 ? (blockedReasons.length ? "quality-gate-blocked" : "owner-report-packages-ready") : "no-owner-report-packages",
     packages,
     customerDeliveryApproved: false,
     reportReleaseApproved: false,
@@ -73,10 +73,10 @@ export function buildOwnerReportPreviewPackages(input: {
 
 function buildPackage(sample: OwnerReportTestSampleOutput, findings: readonly OwnerReportFinding[]): OwnerReportPreviewPackage {
   const qualityGate = evaluateReportQualityReleaseGate(sample);
-  const nextCommand = findings.find((finding) => finding.findingClass === "next-command")?.nextCommand ?? "Review the preview package and keep it owner-only until real release gates approve delivery.";
+  const nextCommand = findings.find((finding) => finding.findingClass === "next-command")?.nextCommand ?? "Review the owner-test report package and keep it owner-only until real release gates approve delivery.";
 
   return {
-    packageId: `owner-preview-package-${sample.planKey}`,
+    packageId: `owner-report-package-${sample.planKey}`,
     planKey: sample.planKey,
     title: sample.title,
     watermark: sample.watermark,
