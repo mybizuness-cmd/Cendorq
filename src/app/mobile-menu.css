@@ -9,3 +9,51 @@
     overflow-y: auto !important;
   }
 }
+
+[data-cendorq-homepage] {
+  background: linear-gradient(180deg, #f8fdff 0%, #e8f8ff 45%, #fbf8ff 100%) !important;
+  color: #0f172a !important;
+}
+
+[data-cendorq-homepage] > div[class*="absolute"] {
+  opacity: 0.72;
+}
+
+[data-cendorq-homepage] [class*="bg-slate-950"],
+[data-cendorq-homepage] [class*="bg-[#040b18]"] {
+  background: rgba(255, 255, 255, 0.62) !important;
+  color: #0f172a !important;
+  border-color: rgba(125, 211, 252, 0.56) !important;
+  box-shadow: 0 24px 82px rgba(14, 165, 233, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
+}
+
+[data-cendorq-homepage] .text-white,
+[data-cendorq-homepage] [class*="text-cyan-50"] {
+  color: #0f172a !important;
+}
+
+[data-cendorq-homepage] [class*="text-cyan-100"],
+[data-cendorq-homepage] [class*="text-cyan-200"] {
+  color: #0e7490 !important;
+}
+
+[data-cendorq-homepage] [class*="border-white"] {
+  border-color: rgba(125, 211, 252, 0.52) !important;
+}
+
+[data-cendorq-homepage] .presence-card,
+[data-cendorq-homepage] [class*="bg-white/"] {
+  border-color: rgba(125, 211, 252, 0.56) !important;
+  box-shadow: 0 24px 82px rgba(14, 165, 233, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
+}
+
+@media (max-width: 767px) {
+  [data-cendorq-homepage] section:first-of-type {
+    padding-top: 2rem !important;
+  }
+
+  [data-cendorq-homepage] h1 {
+    line-height: 0.86 !important;
+    letter-spacing: -0.105em !important;
+  }
+}
