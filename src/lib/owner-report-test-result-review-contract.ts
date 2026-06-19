@@ -3,7 +3,7 @@ export type OwnerReportTestResultReviewCheck = {
     | "urlSafety"
     | "acquisition"
     | "findings"
-    | "previewPackages"
+    | "reportPackages"
     | "exportProjection"
     | "readinessScore"
     | "executionReceipt"
@@ -31,7 +31,7 @@ const CHECKS: readonly OwnerReportTestResultReviewCheck[] = [
   { key: "urlSafety", label: "URL safety result is present and safe", required: true },
   { key: "acquisition", label: "Public acquisition projection is present", required: true },
   { key: "findings", label: "Findings are present and customer-safe", required: true },
-  { key: "previewPackages", label: "Preview packages exist for requested plans", required: true },
+  { key: "reportPackages", label: "Owner-test report packages exist for requested plans", required: true },
   { key: "exportProjection", label: "Owner-only export projection is present", required: true },
   { key: "readinessScore", label: "Readiness score is present and complete", required: true },
   { key: "executionReceipt", label: "Execution receipt is present", required: true },
@@ -40,7 +40,7 @@ const CHECKS: readonly OwnerReportTestResultReviewCheck[] = [
 
 export const OWNER_REPORT_TEST_RESULT_REVIEW_STANDARD = [
   "Every owner terminal/API test result must be reviewed against the same result contract.",
-  "A passing owner test result must include URL safety, acquisition, findings, preview packages, export projection, readiness score, and execution receipt.",
+  "A passing owner test result must include URL safety, acquisition, findings, report packages, export projection, readiness score, and execution receipt.",
   "A passing owner test result must remain owner-only and must not approve customer delivery, report release, checkout, billing mutation, entitlement mutation, raw evidence, or private data.",
 ] as const;
 
