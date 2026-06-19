@@ -48,7 +48,7 @@ function evaluateCheck(key: string, result: Record<string, unknown>) {
     case "urlSafety": return isRecord(result.urlSafety) && result.urlSafety.ok === true;
     case "acquisition": return isRecord(result.acquisition) && result.acquisition.ok === true;
     case "findings": return isRecord(result.findings) && Array.isArray(result.findings.findings) && result.findings.findings.length > 0;
-    case "previewPackages": return isRecord(result.previewPackages) && Array.isArray(result.previewPackages.packages) && result.previewPackages.packages.length > 0;
+    case "reportPackages": return isRecord(result.reportPackages) && Array.isArray(result.reportPackages.packages) && result.reportPackages.packages.length > 0;
     case "exportProjection": return isRecord(result.exportProjection) && result.exportProjection.ok === true;
     case "readinessScore": return isRecord(result.readinessScore) && result.readinessScore.score === 100;
     case "executionReceipt": return isRecord(result.executionReceipt) && typeof result.executionReceipt.receiptId === "string";
