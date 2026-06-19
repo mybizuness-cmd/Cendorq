@@ -45,7 +45,18 @@ check("src/app/plans/page.tsx", [
   "No guaranteed rankings, leads, revenue, or AI placement.",
 ]);
 check("src/app/faq/page.tsx", ["Cendorq FAQ", "Answers before the first repair.", "AI Search Presence Repair", "Decision Gap", "Repair Queue"]);
-check("src/app/connect/page.tsx", ["Contact Cendorq", "Start Free Scan", "Compare plans"]);
+check("src/app/connect/page.tsx", [
+  "Contact Cendorq | AI Search Presence Repair",
+  "Contact Cendorq when the question is clear.",
+  "Start the Free Scan first when the Decision Gap is still unknown.",
+  "Email Support",
+  "Start Free Scan",
+  "Compare Plans",
+  "Fit",
+  "Scope",
+  "Support",
+  "No passwords, card numbers, private keys, or sensitive credentials.",
+]);
 check("package.json", ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 check("src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-public-homepage-command-surface.mjs"]);
 
@@ -79,11 +90,25 @@ forbid("src/app/free-check/page.tsx", [
   "preview report CTA",
 ]);
 
+forbid("src/app/connect/page.tsx", [
+  "Contact Us | Cendorq",
+  "Contact Us page",
+  "Start Scan",
+  "rounded-full",
+  "Ask when the question is clear.",
+  "weak signal",
+  "decision matrix",
+  "checklist grid",
+  "sample report",
+  "preview report",
+]);
+
 maxLength("src/app/page.tsx", 2600);
 maxLength("src/components/homepage/homepage-clarity-reset.tsx", 16000);
 maxLength("src/layout/site-header-conversion.tsx", 18000);
 maxLength("src/app/free-check/page.tsx", 20000);
 maxLength("src/app/plans/page.tsx", 18000);
+maxLength("src/app/connect/page.tsx", 20000);
 maxLength("src/app/faq/page.tsx", 22000);
 
 if (failures.length) {
@@ -92,7 +117,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with simplified homepage, polished free scan, polished plans, clean mobile navigation, and Decision Gap language.");
+console.log("Public command surface validation passed with simplified homepage, polished free scan, polished plans, polished contact, clean mobile navigation, and Decision Gap language.");
 
 function check(path, phrases) {
   const absolute = join(root, path);
