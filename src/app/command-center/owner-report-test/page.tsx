@@ -5,13 +5,13 @@ import { commandCenterPreviewHeaderName, resolveCommandCenterAccessState } from 
 import { buildOwnerPublicPageAcquisitionProjection } from "@/lib/owner-public-page-acquisition-contract";
 import { validateOwnerPublicCompanyUrl } from "@/lib/owner-public-company-url-safety";
 import { buildOwnerReportFindingEngineProjection } from "@/lib/owner-report-finding-engine-contract";
-import { buildOwnerReportPreviewPackages } from "@/lib/owner-report-preview-package-runtime";
+import { buildOwnerReportPreviewPackages as buildOwnerReportPackages } from "@/lib/owner-report-preview-package-runtime";
 import { buildOwnerReportTerminalTestCommand } from "@/lib/owner-report-terminal-test-command-contract";
 import { buildOwnerReportTestReadinessScore } from "@/lib/owner-report-test-readiness-score";
 import { buildOwnerReportTestResultExportProjection } from "@/lib/owner-report-test-result-export-contract";
 import { buildOwnerReportTestRunnerState } from "@/lib/owner-report-test-runner-contract";
-import { getOwnerReportTestPreviewBlueprint } from "@/lib/owner-report-test-preview-rendering";
-import { getOwnerReportTestSampleOutput } from "@/lib/owner-report-test-sample-output";
+import { getOwnerReportTestPreviewBlueprint as getOwnerReportTestBlueprint } from "@/lib/owner-report-test-preview-rendering";
+import { getOwnerReportTestSampleOutput as getOwnerReportTestOutput } from "@/lib/owner-report-test-sample-output";
 import { projectOwnerReportTestMode, type OwnerReportTestPlanKey } from "@/lib/owner-report-test-mode-standard";
 import { ClosedCommandCenterPanel } from "../closed-command-center-panel";
 
@@ -20,7 +20,7 @@ export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Owner report test mode | Cendorq",
-  description: "Owner-only Cendorq report preview runner for public-company test inputs across every plan without checkout or customer delivery.",
+  description: "Owner-only Cendorq report test runner for public-company test inputs across every plan without checkout or customer delivery.",
   robots: { index: false, follow: false, googleBot: { index: false, follow: false, noimageindex: true } },
 };
 
@@ -46,18 +46,18 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
   const projection = projectOwnerReportTestMode({ companyName, companyUrl, requestedPlans: runner.input.requestedPlans, ownerAccessVerified: true });
   const acquisition = buildOwnerPublicPageAcquisitionProjection(safeUrlSafety);
   const findings = buildOwnerReportFindingEngineProjection({ acquisition, companyName, companyUrl, planKeys: projection.allowedPlans });
-  const sampleOutputs = projection.allowedPlans.flatMap((planKey) => {
-    const sample = getOwnerReportTestSampleOutput(planKey);
-    return sample ? [sample] : [];
+  const testOutputs = projection.allowedPlans.flatMap((planKey) => {
+    const output = getOwnerReportTestOutput(planKey);
+    return output ? [output] : [];
   });
-  const previewPackages = buildOwnerReportPreviewPackages({ samples: sampleOutputs, findings: findings.findings });
-  const exportProjection = buildOwnerReportTestResultExportProjection({ previewPackages, companyName, companyUrl });
-  const readinessScore = buildOwnerReportTestReadinessScore({ acquisition, findings, previewPackages, exportProjection });
+  const reportPackages = buildOwnerReportPackages({ samples: testOutputs, findings: findings.findings });
+  const exportProjection = buildOwnerReportTestResultExportProjection({ reportPackages, companyName, companyUrl });
+  const readinessScore = buildOwnerReportTestReadinessScore({ acquisition, findings, reportPackages, exportProjection });
   const terminalCommand = buildOwnerReportTerminalTestCommand({ companyName, companyUrl, requestedPlans: runner.input.requestedPlans });
-  const previews = projection.allowedPlans.map((planKey) => ({
-    blueprint: getOwnerReportTestPreviewBlueprint(planKey),
-    sample: getOwnerReportTestSampleOutput(planKey),
-    previewPackage: previewPackages.packages.find((pkg) => pkg.planKey === planKey),
+  const reports = projection.allowedPlans.map((planKey) => ({
+    blueprint: getOwnerReportTestBlueprint(planKey),
+    output: getOwnerReportTestOutput(planKey),
+    reportPackage: reportPackages.packages.find((pkg) => pkg.planKey === planKey),
   }));
 
   return (
@@ -66,7 +66,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
         <a href="/command-center" className="text-xs font-black uppercase tracking-[0.2em] text-fuchsia-200 transition hover:text-white">← Command Center</a>
         <div className="mt-6 rounded-[2rem] border border-fuchsia-300/20 bg-fuchsia-950/20 p-6 shadow-2xl shadow-fuchsia-950/20 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.24em] text-fuchsia-200">Owner-only report test runner</p>
-          <h1 className="mt-4 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.07em] md:text-7xl">Preview every Cendorq report without checkout.</h1>
+          <h1 className="mt-4 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.07em] md:text-7xl">Test every Cendorq report without checkout.</h1>
           <p className="mt-5 max-w-4xl text-sm font-medium leading-7 text-fuchsia-50/75 md:text-base md:leading-8">
             Run public-company test inputs across Free Scan, Deep Review, Build Fix, and Ongoing Control. Outputs stay watermarked, owner-only, noindexed, not customer delivery, and unable to change commercial records, entitlements, outbound messages, or report release state.
           </p>
@@ -74,7 +74,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
 
         {!urlSafety.ok ? (
           <div className="mt-6 rounded-2xl border border-amber-300/25 bg-amber-300/10 p-4 text-sm font-semibold leading-6 text-amber-100">
-            Public URL safety blocked that input ({urlSafety.reason}). Showing the safe example preview instead.
+            Public URL safety blocked that input ({urlSafety.reason}). Showing the safe example test output instead.
           </div>
         ) : null}
 
@@ -87,7 +87,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
             <span className="text-[11px] font-black uppercase tracking-[0.18em] text-fuchsia-100/70">Public company URL</span>
             <input name="companyUrl" defaultValue={projection.companyUrl} className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm font-semibold text-white outline-none ring-fuchsia-300 transition focus:ring-2" />
           </label>
-          <button className="rounded-2xl bg-fuchsia-200 px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-slate-950" type="submit">Run preview</button>
+          <button className="rounded-2xl bg-fuchsia-200 px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-slate-950" type="submit">Run test</button>
           <div className="md:col-span-3 grid gap-3 sm:grid-cols-4">
             {ALL_PLANS.map((plan) => (
               <label key={plan} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-3 text-xs font-bold text-fuchsia-50/80">
@@ -112,7 +112,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
           <StateCard label="Readiness" value={`${readinessScore.score}% ${readinessScore.status}`} />
           <StateCard label="Customer delivery" value={projection.safety.noCustomerDelivery ? "blocked" : "allowed"} />
           <StateCard label="Acquisition" value={acquisition.status} />
-          <StateCard label="Preview packages" value={`${previewPackages.packages.length} ready`} />
+          <StateCard label="Report packages" value={`${reportPackages.packages.length} ready`} />
           <StateCard label="Owner export" value={exportProjection.status} />
         </div>
 
@@ -136,23 +136,23 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
         </div>
 
         <div className="mt-6 grid gap-5">
-          {previews.map(({ blueprint, sample, previewPackage }) => {
-            if (!blueprint || !sample) return null;
+          {reports.map(({ blueprint, output, reportPackage }) => {
+            if (!blueprint || !output) return null;
             return (
               <article key={blueprint.planKey} className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/20">
                 <div className="border-b border-white/10 bg-gradient-to-r from-fuchsia-950/60 to-cyan-950/30 p-6">
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="rounded-full border border-fuchsia-300/30 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-fuchsia-100">{blueprint.planKey}</span>
-                    <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-amber-100">{sample.watermark}</span>
-                    <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">quality gate: {previewPackage?.qualityGate.status ?? "blocked"}</span>
+                    <span className="rounded-2xl border border-fuchsia-300/30 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-fuchsia-100">{blueprint.planKey}</span>
+                    <span className="rounded-2xl border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-amber-100">{output.watermark}</span>
+                    <span className="rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">quality gate: {reportPackage?.qualityGate.status ?? "blocked"}</span>
                   </div>
                   <h2 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-white md:text-5xl">{blueprint.title}</h2>
-                  <p className="mt-3 max-w-4xl text-sm font-medium leading-7 text-fuchsia-50/70">{previewPackage?.summary ?? sample.reportSections[0]?.customerSafePreview}</p>
+                  <p className="mt-3 max-w-4xl text-sm font-medium leading-7 text-fuchsia-50/70">{reportPackage?.summary ?? output.reportSections[0]?.customerSafePreview}</p>
                 </div>
 
                 <div className="grid gap-4 p-5 lg:grid-cols-[1.2fr_0.8fr]">
                   <div className="grid gap-3 md:grid-cols-3">
-                    {sample.reportSections.map((section) => (
+                    {output.reportSections.map((section) => (
                       <section key={section.heading} className="rounded-2xl border border-fuchsia-300/15 bg-fuchsia-950/20 p-4">
                         <p className="text-[11px] font-black uppercase tracking-[0.18em] text-fuchsia-100/65">{section.visual}</p>
                         <h3 className="mt-3 text-xl font-semibold tracking-[-0.035em] text-white">{section.heading}</h3>
@@ -165,7 +165,7 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
                     <div className="rounded-2xl border border-cyan-300/15 bg-cyan-950/20 p-4">
                       <p className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-100/70">Agent / chief / captain trace</p>
                       <div className="mt-4 grid gap-3">
-                        {sample.operatorTrace.map((trace) => (
+                        {output.operatorTrace.map((trace) => (
                           <div key={`${trace.role}-${trace.action}`} className="rounded-xl border border-cyan-300/10 bg-white/[0.035] p-3">
                             <div className="text-xs font-black uppercase tracking-[0.16em] text-cyan-100">{trace.role}</div>
                             <p className="mt-2 text-xs font-medium leading-6 text-cyan-50/65">{trace.action}</p>
@@ -175,9 +175,9 @@ export default async function OwnerReportTestPage({ searchParams }: PageProps) {
                     </div>
 
                     <div className="rounded-2xl border border-emerald-300/15 bg-emerald-950/20 p-4">
-                      <p className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-100/70">Preview package</p>
-                      <p className="mt-3 text-xs font-medium leading-6 text-emerald-50/70">Findings linked: {previewPackage?.findingCount ?? 0}</p>
-                      <p className="mt-3 text-xs font-medium leading-6 text-emerald-50/70">Next command: {previewPackage?.nextCommand ?? "Review owner-only preview output before release."}</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-100/70">Report package</p>
+                      <p className="mt-3 text-xs font-medium leading-6 text-emerald-50/70">Findings linked: {reportPackage?.findingCount ?? 0}</p>
+                      <p className="mt-3 text-xs font-medium leading-6 text-emerald-50/70">Next command: {reportPackage?.nextCommand ?? "Review owner-only test output before release."}</p>
                     </div>
                   </div>
                 </div>
