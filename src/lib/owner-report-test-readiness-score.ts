@@ -7,7 +7,7 @@ export type OwnerReportTestReadinessScore = {
   score: number;
   status: "ready" | "blocked";
   checks: readonly {
-    key: "acquisition" | "findings" | "previewPackages" | "exportProjection" | "mutationSafety";
+    key: "acquisition" | "findings" | "reportPackages" | "exportProjection" | "mutationSafety";
     passed: boolean;
     label: string;
   }[];
@@ -20,13 +20,13 @@ export type OwnerReportTestReadinessScore = {
 export function buildOwnerReportTestReadinessScore(input: {
   acquisition: OwnerPublicPageAcquisitionProjection;
   findings: OwnerReportFindingEngineProjection;
-  previewPackages: OwnerReportPreviewPackageRuntimeResult;
+  reportPackages: OwnerReportPreviewPackageRuntimeResult;
   exportProjection: OwnerReportTestResultExportProjection;
 }): OwnerReportTestReadinessScore {
   const checks = [
     { key: "acquisition" as const, passed: input.acquisition.ok, label: "Public acquisition projection ready" },
     { key: "findings" as const, passed: input.findings.ok && input.findings.findings.length > 0, label: "Owner-safe findings generated" },
-    { key: "previewPackages" as const, passed: input.previewPackages.packages.length > 0, label: "Preview packages assembled" },
+    { key: "reportPackages" as const, passed: input.reportPackages.packages.length > 0, label: "Owner-test report packages assembled" },
     { key: "exportProjection" as const, passed: input.exportProjection.ok, label: "Owner export projection ready" },
     { key: "mutationSafety" as const, passed: mutationSafety(input), label: "No customer delivery, release, billing, or entitlement mutation" },
   ] as const;
@@ -46,15 +46,15 @@ export function buildOwnerReportTestReadinessScore(input: {
 
 function mutationSafety(input: {
   findings: OwnerReportFindingEngineProjection;
-  previewPackages: OwnerReportPreviewPackageRuntimeResult;
+  reportPackages: OwnerReportPreviewPackageRuntimeResult;
   exportProjection: OwnerReportTestResultExportProjection;
 }) {
   return !input.findings.customerDeliveryApproved
     && !input.findings.reportReleaseApproved
-    && !input.previewPackages.customerDeliveryApproved
-    && !input.previewPackages.reportReleaseApproved
-    && !input.previewPackages.billingMutationAllowed
-    && !input.previewPackages.entitlementMutationAllowed
+    && !input.reportPackages.customerDeliveryApproved
+    && !input.reportPackages.reportReleaseApproved
+    && !input.reportPackages.billingMutationAllowed
+    && !input.reportPackages.entitlementMutationAllowed
     && !input.exportProjection.exportRecord.customerDeliveryApproved
     && !input.exportProjection.exportRecord.reportReleaseApproved
     && !input.exportProjection.exportRecord.billingMutationAllowed
