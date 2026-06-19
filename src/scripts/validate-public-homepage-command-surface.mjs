@@ -7,14 +7,17 @@ const failures = [];
 check("src/app/page.tsx", ["HomepageClarityReset", "Cendorq | AI Search Presence Repair for Businesses"]);
 check("src/components/homepage/homepage-clarity-reset.tsx", [
   "final-master-presence-product-film",
+  "AI Search Presence Repair",
   "Know why customers choose someone else.",
   "Run Free Scan",
   "See How It Works",
   "id=\"product\"",
-  "Search Presence",
+  "One clear path from scan to repair.",
   "Decision Gap",
   "Repair Queue",
-  "Presence Report in motion",
+  "Control",
+  "presence-card",
+  "presence-orbit",
 ]);
 check("src/layout/site-header-conversion.tsx", [
   "Product",
@@ -23,6 +26,7 @@ check("src/layout/site-header-conversion.tsx", [
   "Contact",
   "Customer Access",
   "Start Free Scan",
+  "Menu",
   "href=\"/plans\"",
   "href=\"/faq\"",
   "href=\"/connect\"",
@@ -34,9 +38,20 @@ check("src/app/connect/page.tsx", ["Contact Cendorq", "Start Free Scan", "Compar
 check("package.json", ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 check("src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-public-homepage-command-surface.mjs"]);
 
+forbid("src/components/homepage/homepage-clarity-reset.tsx", [
+  "Presence Report in motion",
+  "Live scan preview",
+  "Five decision signals",
+  "Search Presence\", \"58\", \"found",
+  "flow-line",
+  "rounded-full",
+  "sample report",
+  "preview report",
+]);
+
 maxLength("src/app/page.tsx", 2600);
-maxLength("src/components/homepage/homepage-clarity-reset.tsx", 22000);
-maxLength("src/layout/site-header-conversion.tsx", 16000);
+maxLength("src/components/homepage/homepage-clarity-reset.tsx", 16000);
+maxLength("src/layout/site-header-conversion.tsx", 18000);
 maxLength("src/app/faq/page.tsx", 22000);
 
 if (failures.length) {
@@ -45,7 +60,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with current navigation, current FAQ content, active product anchor, and Decision Gap public language.");
+console.log("Public command surface validation passed with simplified homepage, clean mobile navigation, product anchor, and Decision Gap language.");
 
 function check(path, phrases) {
   const absolute = join(root, path);
@@ -56,6 +71,15 @@ function check(path, phrases) {
   const text = readFileSync(absolute, "utf8");
   for (const phrase of phrases) {
     if (!text.includes(phrase)) failures.push(`${path} missing phrase: ${phrase}`);
+  }
+}
+
+function forbid(path, phrases) {
+  const absolute = join(root, path);
+  if (!existsSync(absolute)) return;
+  const text = readFileSync(absolute, "utf8").toLowerCase();
+  for (const phrase of phrases) {
+    if (text.includes(phrase.toLowerCase())) failures.push(`${path} contains forbidden phrase: ${phrase}`);
   }
 }
 
