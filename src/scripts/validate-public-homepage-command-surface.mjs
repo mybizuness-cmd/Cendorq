@@ -18,9 +18,13 @@ check("src/components/homepage/homepage-clarity-reset.tsx", [
   "One clear path from scan to repair.",
   "SignalEngine",
   "SystemCore",
+  "HaloLabels",
+  "Clarity",
+  "Trust",
   "Surface",
   "Meaning",
   "Proof",
+  "Choice",
   "Decision Gap",
   "Repair Queue",
   "Control",
@@ -129,7 +133,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with cinematic homepage, hardened system core, polished public flow, clean mobile navigation, and Decision Gap language.");
+console.log("Public command surface validation passed with cinematic homepage, hardened halo system, polished public flow, clean mobile navigation, and Decision Gap language.");
 
 function check(path, phrases) {
   const absolute = join(root, path);
