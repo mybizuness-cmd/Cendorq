@@ -20,7 +20,7 @@ expect(scorecardPath, [
   "safetyBoundary",
   "category-dominating-ready",
   "overallScore: 100",
-  "previewWatermarked: true",
+  "testWatermarked: true",
   "ownerOnly: true",
   "customerDeliveryApproved: false",
   "reportReleaseApproved: false",
@@ -42,6 +42,11 @@ expect(panelPath, [
 ]);
 
 forbidden(scorecardPath, [
+  "previewWatermarked: true",
+  "sample output",
+  "preview package",
+  "report preview",
+  "owner preview",
   "ownerOnly: false",
   "customerDeliveryApproved: true",
   "reportReleaseApproved: true",
@@ -56,7 +61,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test report experience scorecard validation passed.");
+console.log("Owner report test report experience scorecard validation passed with test-watermarked report package wording.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
