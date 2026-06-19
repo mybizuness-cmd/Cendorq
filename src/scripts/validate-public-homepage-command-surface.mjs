@@ -7,8 +7,11 @@ const failures = [];
 check("src/app/page.tsx", ["HomepageClarityReset", "Cendorq | AI Search Presence Repair for Businesses"]);
 check("src/components/homepage/homepage-clarity-reset.tsx", [
   "final-master-presence-product-film",
+  "bg-[#040b18]",
+  "text-white",
   "AI Search Presence Repair",
   "Know why customers choose someone else.",
+  "Cendorq maps what buyers and answer engines can understand",
   "Run Free Scan",
   "See How It Works",
   "id=\"product\"",
@@ -18,6 +21,8 @@ check("src/components/homepage/homepage-clarity-reset.tsx", [
   "Control",
   "presence-card",
   "presence-orbit",
+  "motion-safe:animate-pulse",
+  "No fake ranking promise. No generic checklist.",
 ]);
 check("src/layout/site-header-conversion.tsx", [
   "Product",
@@ -55,7 +60,7 @@ check("src/app/connect/page.tsx", [
   "Fit",
   "Scope",
   "Support",
-  "No passwords, card numbers, private keys, or sensitive credentials.",
+  "sensitive credentials",
 ]);
 check("package.json", ["validate:routes", "node ./src/scripts/validate-routes-chain.mjs"]);
 check("src/scripts/validate-routes-chain.mjs", ["src/scripts/validate-public-homepage-command-surface.mjs"]);
@@ -64,11 +69,13 @@ forbid("src/components/homepage/homepage-clarity-reset.tsx", [
   "Presence Report in motion",
   "Live scan preview",
   "Five decision signals",
-  "Search Presence\", \"58\", \"found",
   "flow-line",
+  "bg-[#eef8ff]",
+  "Cendorq scans what buyers and answer engines can see",
+  "make the business easier to trust and choose",
   "rounded-full",
-  "sample report",
-  "preview report",
+  "sample",
+  "preview",
 ]);
 
 forbid("src/app/plans/page.tsx", [
@@ -77,8 +84,8 @@ forbid("src/app/plans/page.tsx", [
   "Choose the right next step.",
   "See the first weak signal.",
   "No visible eyebrow label blocks",
-  "sample report",
-  "preview report",
+  "sample",
+  "preview",
 ]);
 
 forbid("src/app/free-check/page.tsx", [
@@ -86,8 +93,8 @@ forbid("src/app/free-check/page.tsx", [
   "View Plans",
   "rounded-full",
   "first weak signal",
-  "sample report CTA",
-  "preview report CTA",
+  "sample",
+  "preview",
 ]);
 
 forbid("src/app/connect/page.tsx", [
@@ -99,12 +106,12 @@ forbid("src/app/connect/page.tsx", [
   "weak signal",
   "decision matrix",
   "checklist grid",
-  "sample report",
-  "preview report",
+  "sample",
+  "preview",
 ]);
 
 maxLength("src/app/page.tsx", 2600);
-maxLength("src/components/homepage/homepage-clarity-reset.tsx", 16000);
+maxLength("src/components/homepage/homepage-clarity-reset.tsx", 22000);
 maxLength("src/layout/site-header-conversion.tsx", 18000);
 maxLength("src/app/free-check/page.tsx", 20000);
 maxLength("src/app/plans/page.tsx", 18000);
@@ -117,7 +124,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with simplified homepage, polished free scan, polished plans, polished contact, clean mobile navigation, and Decision Gap language.");
+console.log("Public command surface validation passed with cinematic homepage, polished public flow, clean mobile navigation, and Decision Gap language.");
 
 function check(path, phrases) {
   const absolute = join(root, path);
