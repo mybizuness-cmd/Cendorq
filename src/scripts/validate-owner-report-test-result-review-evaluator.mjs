@@ -13,7 +13,7 @@ expect(evaluatorPath, [
   "urlSafety",
   "acquisition",
   "findings",
-  "previewPackages",
+  "reportPackages",
   "exportProjection",
   "readinessScore",
   "executionReceipt",
@@ -31,6 +31,7 @@ expect(evaluatorPath, [
 expect(apiPath, [
   "evaluateOwnerReportTestResultReview",
   "resultReview",
+  "reportPackages",
 ]);
 
 forbidden(evaluatorPath, [
@@ -50,7 +51,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test result review evaluator validation passed.");
+console.log("Owner report test result review evaluator validation passed with report package checks.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
