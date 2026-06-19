@@ -17,7 +17,7 @@ expect(contractPath, [
   "urlSafety",
   "acquisition",
   "findings",
-  "previewPackages",
+  "reportPackages",
   "exportProjection",
   "readinessScore",
   "reportExperienceScorecards",
@@ -25,8 +25,8 @@ expect(contractPath, [
   "executionReceipt",
   "resultReview",
   "persistence",
-  "sampleOutputs",
-  "previewBlueprints",
+  "testOutputs",
+  "blueprints",
   "previewOnly",
   "checkoutBypassedForOwnerTestOnly",
   "ownerOnly: true",
@@ -53,7 +53,7 @@ expect(apiPath, [
   "urlSafety",
   "acquisition",
   "findings",
-  "previewPackages",
+  "reportPackages",
   "exportProjection",
   "readinessScore",
   "reportExperienceScorecards",
@@ -61,6 +61,8 @@ expect(apiPath, [
   "executionReceipt",
   "resultReview",
   "persistence",
+  "testOutputs",
+  "blueprints",
 ]);
 
 forbidden(contractPath, [
@@ -81,7 +83,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test API response contract validation passed with report experience scorecards and visual quality gate required.");
+console.log("Owner report test API response contract validation passed with report packages, test outputs, report experience scorecards, and visual quality gate required.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
