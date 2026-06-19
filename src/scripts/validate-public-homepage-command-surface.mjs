@@ -19,6 +19,11 @@ check("src/components/homepage/homepage-clarity-reset.tsx", [
   "SignalEngine",
   "SystemCore",
   "HaloLabels",
+  "CommandSpine",
+  "CommandCard",
+  "Map",
+  "Expose",
+  "Route",
   "Clarity",
   "Trust",
   "Surface",
@@ -133,7 +138,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Public command surface validation passed with cinematic homepage, hardened halo system, polished public flow, clean mobile navigation, and Decision Gap language.");
+console.log("Public command surface validation passed with cinematic homepage, hardened command spine, polished public flow, clean mobile navigation, and Decision Gap language.");
 
 function check(path, phrases) {
   const absolute = join(root, path);
