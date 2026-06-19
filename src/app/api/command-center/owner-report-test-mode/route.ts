@@ -58,7 +58,7 @@ export async function GET() {
     batchManifest: buildOwnerReportTestBatchManifest(),
     fixtureCommands: getOwnerReportTestFixtureCommands(),
     blueprints: Array.from(allowedPlans).map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
-    sampleOutputs: Array.from(allowedPlans).map((planKey) => getOwnerReportTestSampleOutput(planKey)),
+    testOutputs: Array.from(allowedPlans).map((planKey) => getOwnerReportTestSampleOutput(planKey)),
   };
 
   return json({ ...discoveryPayload, getDiscoveryEvaluation: evaluateOwnerReportTestGetDiscovery(discoveryPayload) }, 200);
@@ -93,20 +93,20 @@ export async function POST(request: Request) {
     companyUrl: urlSafety.normalizedUrl,
     planKeys: projection.allowedPlans,
   });
-  const sampleOutputs = projection.allowedPlans.flatMap((planKey) => {
-    const sample = getOwnerReportTestSampleOutput(planKey);
-    return sample ? [sample] : [];
+  const testOutputs = projection.allowedPlans.flatMap((planKey) => {
+    const output = getOwnerReportTestSampleOutput(planKey);
+    return output ? [output] : [];
   });
-  const previewPackages = buildOwnerReportPreviewPackages({ samples: sampleOutputs, findings: findings.findings });
+  const reportPackages = buildOwnerReportPreviewPackages({ samples: testOutputs, findings: findings.findings });
   const exportProjection = buildOwnerReportTestResultExportProjection({
-    previewPackages,
+    reportPackages,
     companyName,
     companyUrl: urlSafety.normalizedUrl,
   });
   const readinessScore = buildOwnerReportTestReadinessScore({
     acquisition,
     findings,
-    previewPackages,
+    reportPackages,
     exportProjection,
   });
   const reportExperienceScorecards = buildOwnerReportTestReportExperienceScorecards();
@@ -132,7 +132,7 @@ export async function POST(request: Request) {
     urlSafety,
     acquisition,
     findings,
-    previewPackages,
+    reportPackages,
     exportProjection,
     readinessScore,
     executionReceipt,
@@ -150,7 +150,7 @@ export async function POST(request: Request) {
     urlSafety,
     acquisition,
     findings,
-    previewPackages,
+    reportPackages,
     exportProjection,
     readinessScore,
     reportExperienceScorecards,
@@ -159,8 +159,8 @@ export async function POST(request: Request) {
     executionReceipt,
     resultReview,
     persistence,
-    previewBlueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
-    sampleOutputs,
+    blueprints: projection.allowedPlans.map((planKey) => getOwnerReportTestPreviewBlueprint(planKey)),
+    testOutputs,
     acceptedInput: "public-company-url-only" as const,
     previewOnly: true,
     checkoutBypassedForOwnerTestOnly: true,
@@ -227,7 +227,7 @@ function deniedResponse() {
 }
 
 function rejectedResponse(reason: string = "public_company_test_input_required") {
-  return json({ ok: false, status: 400, cache: "no-store" as const, error: "public_company_test_input_required" as const, reason }, 400);
+  return json({ ok: false, status: 400, cache: "no-store", error: "public_company_test_input_required", reason }, 400);
 }
 
 function json(body: unknown, status: number) {
