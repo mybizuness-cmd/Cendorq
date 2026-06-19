@@ -12,7 +12,7 @@ expect(scorePath, [
   "buildOwnerReportTestReadinessScore",
   "acquisition",
   "findings",
-  "previewPackages",
+  "reportPackages",
   "exportProjection",
   "mutationSafety",
   "customerDeliveryApproved: false",
@@ -24,6 +24,7 @@ expect(scorePath, [
 expect(apiPath, [
   "buildOwnerReportTestReadinessScore",
   "readinessScore",
+  "reportPackages",
 ]);
 
 expect(runnerPath, [
@@ -49,7 +50,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Owner report test readiness score validation passed.");
+console.log("Owner report test readiness score validation passed with report package checks.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
