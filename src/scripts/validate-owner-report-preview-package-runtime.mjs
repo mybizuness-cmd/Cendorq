@@ -12,6 +12,8 @@ expect(runtimePath, [
   "buildOwnerReportPreviewPackages",
   "evaluateReportQualityReleaseGate",
   "OWNER TEST MODE - NOT CUSTOMER DELIVERY",
+  "Owner-test report packages combine report structure",
+  "Owner-test report packages must not approve customer delivery",
   "qualityGate",
   "linkedFindings",
   "findingCount",
@@ -24,7 +26,9 @@ expect(runtimePath, [
   "rawEvidenceReturned: false",
   "privateDataReturned: false",
   "quality-gate-blocked",
-  "owner-report-preview-packages-ready",
+  "owner-report-packages-ready",
+  "no-owner-report-packages",
+  "owner-report-package-",
 ]);
 
 forbidden(runtimePath, [
@@ -39,12 +43,12 @@ forbidden(runtimePath, [
 ]);
 
 if (failures.length) {
-  console.error("Owner report preview package runtime validation failed:");
+  console.error("Owner-test report package runtime validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Owner report preview package runtime validation passed.");
+console.log("Owner-test report package runtime validation passed.");
 
 function expect(path, phrases) {
   if (!existsSync(join(root, path))) {
