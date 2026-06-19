@@ -2,9 +2,9 @@ import type { OwnerReportPreviewPackageRuntimeResult } from "./owner-report-prev
 
 export type OwnerReportTestResultExport = {
   exportId: string;
-  format: "owner-json-preview";
+  format: "owner-json-test";
   generatedFor: "owner-test-mode";
-  includes: readonly ["safety", "acquisition", "findings", "previewPackages", "sampleOutputs", "qualityGate"];
+  includes: readonly ["safety", "acquisition", "findings", "reportPackages", "testOutputs", "qualityGate"];
   downloadableFromCustomerDashboard: false;
   emailedToCustomer: false;
   checkoutRequired: false;
@@ -25,21 +25,21 @@ export type OwnerReportTestResultExportProjection = {
 
 export const OWNER_REPORT_TEST_RESULT_EXPORT_STANDARD = [
   "Owner report test exports are for internal test review only.",
-  "Exports may include safety, acquisition, findings, preview packages, sample outputs, and quality gate posture.",
+  "Exports may include safety, acquisition, findings, report packages, test outputs, and quality gate posture.",
   "Exports must not be downloadable from the customer dashboard, emailed to customers, or treated as released reports.",
   "Exports must not include raw evidence or private data.",
 ] as const;
 
 export function buildOwnerReportTestResultExportProjection(input: {
-  previewPackages: OwnerReportPreviewPackageRuntimeResult;
+  reportPackages: OwnerReportPreviewPackageRuntimeResult;
   companyName: string;
   companyUrl: string;
 }): OwnerReportTestResultExportProjection {
   const exportRecord: OwnerReportTestResultExport = {
-    exportId: `owner-test-export-${hash(`${input.companyName}:${input.companyUrl}:${input.previewPackages.packages.length}`)}`,
-    format: "owner-json-preview",
+    exportId: `owner-test-export-${hash(`${input.companyName}:${input.companyUrl}:${input.reportPackages.packages.length}`)}`,
+    format: "owner-json-test",
     generatedFor: "owner-test-mode",
-    includes: ["safety", "acquisition", "findings", "previewPackages", "sampleOutputs", "qualityGate"],
+    includes: ["safety", "acquisition", "findings", "reportPackages", "testOutputs", "qualityGate"],
     downloadableFromCustomerDashboard: false,
     emailedToCustomer: false,
     checkoutRequired: false,
@@ -52,9 +52,9 @@ export function buildOwnerReportTestResultExportProjection(input: {
   };
 
   return {
-    ok: input.previewPackages.packages.length > 0,
-    status: input.previewPackages.packages.length > 0 ? "ready" : "blocked",
-    reason: input.previewPackages.packages.length > 0 ? "owner-test-export-ready" : "no-preview-packages-to-export",
+    ok: input.reportPackages.packages.length > 0,
+    status: input.reportPackages.packages.length > 0 ? "ready" : "blocked",
+    reason: input.reportPackages.packages.length > 0 ? "owner-test-export-ready" : "no-report-packages-to-export",
     exportRecord,
   };
 }
